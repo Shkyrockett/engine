@@ -178,11 +178,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public Tuple<List<Point2D>, List<Point2D>, List<Point2D>> Interactions()
+        public (List<Point2D>, List<Point2D>, List<Point2D>) Interactions()
         {
-            // ToDo: For some reason this is broken, when using a ValueTuple. 
-            // Something about communicating it between .NET Standard and .NET 
-            // Framework is broken.
             var boundary = new List<Point2D>();
             var inside = new List<Point2D>();
             var outside = new List<Point2D>();
@@ -203,7 +200,7 @@ namespace Engine
                 }
             }
             
-            return new Tuple<List<Point2D>, List<Point2D>, List<Point2D>>(boundary, inside, outside);
+            return (boundary, inside, outside);
         }
 
         #endregion

@@ -17,7 +17,7 @@ namespace Engine.Colorspace
     /// AHSI color structure.
     /// </summary>
     public struct AHSI
-        : IColor<AHSI>
+        : IColor
     {
         /// <summary>
         ///
@@ -123,14 +123,32 @@ namespace Engine.Colorspace
         public double Intensity { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(IColor other)
+        {
+            var a = ToARGBTuple();
+            var b = other.ToARGBTuple();
+            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+        }
+
+        /// <summary>
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
+        public ARGB ToColor() => new ARGB(ToARGBTuple());
+
+        /// <summary>
+        /// Converts the <see cref="AHSI"/> class to a <see cref="ARGB"/> class.
+        /// </summary>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions
         /// </acknowledgment>
-        public ARGB ToColor()
+        public (byte A, byte R, byte G, byte B) ToARGBTuple()
         {
             var R = 0d;
             var G = 0d;
@@ -161,16 +179,8 @@ namespace Engine.Colorspace
                 R = 1.0 - (G + B);
             }
 
-            return new ARGB(Alpha, (byte)R, (byte)G, (byte)B);
+            return (Alpha, (byte)R, (byte)G, (byte)B);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public bool Equals(AHSI other)
-            => throw new NotImplementedException();
 
         /// <summary>
         /// 

@@ -189,8 +189,8 @@ namespace Engine
         /// Advances to the NextToken
         /// </summary>
         /// <returns>true if next token was found, false if at end of string</returns>
-        // use the currently-set separator character.
         public bool NextToken(bool allowQuotedToken)
+            // use the currently-set separator character.
             => NextToken(allowQuotedToken, argSeparator);
 
         /// <summary>

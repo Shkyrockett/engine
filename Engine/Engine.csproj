@@ -1,12 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Platforms>AnyCPU;x64;x86</Platforms>
     <Version>0.0.0.1</Version>
-    <Copyright>Copyright © 2013 - 2017 Shkyrockett</Copyright>
     <Authors>Shkyrockett</Authors>
     <Company>Shkyrockett</Company>
+    <Product>Engine</Product>
+    <Description>General purpose engine.</Description>
+    <Copyright>Copyright © 2013 - 2017 Shkyrockett</Copyright>
     <AssemblyVersion>0.0.0.1</AssemblyVersion>
     <FileVersion>0.0.0.1</FileVersion>
   </PropertyGroup>
@@ -18,5 +20,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
 
 </Project>

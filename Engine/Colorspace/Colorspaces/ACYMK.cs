@@ -16,7 +16,7 @@ namespace Engine.Colorspace
     /// ACYMK color class.
     /// </summary>
     public struct ACYMK
-        : IColor<ACYMK>
+        : IColor
     {
         /// <summary>
         ///
@@ -119,6 +119,20 @@ namespace Engine.Colorspace
         /// </summary>
         public byte Black { get; set; }
 
+        public bool Equals(IColor other)
+        {
+            var a = ToARGBTuple();
+            var b = other.ToARGBTuple();
+            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+        }
+
+        /// <summary>
+        /// Converts the <see cref="ACYMK"/> class to a <see cref="ARGB"/> class.
+        /// </summary>
+        /// <returns></returns>
+        public ARGB ToARGB()
+            => new ARGB(ToARGBTuple());
+
         /// <summary>
         /// Converts the <see cref="ACYMK"/> class to a <see cref="ARGB"/> class.
         /// </summary>
@@ -133,7 +147,7 @@ namespace Engine.Colorspace
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
         /// </acknowledgment>
-        public ARGB ToARGB()
+        public (byte A, byte R, byte G, byte B) ToARGBTuple()
         {
             var C = Cyan / 255d;
             var M = Magenta / 255d;
@@ -148,16 +162,8 @@ namespace Engine.Colorspace
             G = (1d - G) * 255d + 0.5d;
             B = (1d - B) * 255d + 0.5d;
 
-            return new ARGB((byte)R, (byte)G, (byte)B);
+            return (Alpha, (byte)R, (byte)G, (byte)B);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public bool Equals(ACYMK other)
-            => throw new NotImplementedException();
 
         /// <summary>
         /// 

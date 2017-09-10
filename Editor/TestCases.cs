@@ -43,7 +43,7 @@ namespace Editor
             /* Experimental Previews */
             //HeartCurve(vectorMap);
             //EllipticalArcLineSegmentIntersections(vectorMap);
-            //EllipticalArcLineIntersections(vectorMap);
+            EllipticalArcLineIntersections(vectorMap);
             //ScanlineIntersections(vectorMap);
             //CommonIntersections(vectorMap);
             //CurveFitting(vectorMap);
@@ -65,7 +65,7 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
-            IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
+            //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
             //IntersectionsCubicBezierCubicBezier(vectorMap);
             //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);

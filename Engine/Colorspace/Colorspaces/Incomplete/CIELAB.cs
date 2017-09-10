@@ -16,7 +16,7 @@ namespace Engine.Colorspace
     /// Lightness and Channels A and B color spaces.
     /// </summary>
     public struct CIELAB
-        : IColor<CIELAB>
+        : IColor
     {
         ///// <summary>
         ///// Initializes a new instance of the Lightness and Channels A and B color space structure.
@@ -53,7 +53,15 @@ namespace Engine.Colorspace
         /// </summary>
         public double ChannelB { get; set; }
 
-        public bool Equals(CIELAB other) => throw new NotImplementedException();
+        public bool Equals(IColor other)
+        {
+            var a = ToARGBTuple();
+            var b = other.ToARGBTuple();
+            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+        }
+
+        public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
+
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

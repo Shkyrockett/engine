@@ -9,7 +9,6 @@
 // <remarks></remarks>
 
 using Engine;
-using Engine.Imaging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +20,7 @@ using System.Windows.Forms;
 using static System.Math;
 using static Engine.Maths;
 using System.Numerics;
+using Engine.Imaging;
 
 namespace MethodSpeedTester
 {
@@ -3072,8 +3072,8 @@ namespace MethodSpeedTester
             var c3 = ((cX - aX), (cY - aY));
             var c4 = (aX, aY);
             return (
-                (c1.Item1 * t * t * t + c2.Item1 * t * t * t + c3.Item1 * t + c4.Item1),
-                (c1.Item2 * t * t * t + c2.Item2 * t * t * t + c3.Item2 * t + c4.Item2));
+                (c1.Item1 * t * t * t + c2.Item1 * t * t * t + c3.Item1 * t + c4.aX),
+                (c1.Item2 * t * t * t + c2.Item2 * t * t * t + c3.Item2 * t + c4.aY));
         }
 
         /// <summary>
@@ -5536,7 +5536,7 @@ namespace MethodSpeedTester
             {
                 // One solution.
                 t = -B / (2 * A);
-                intersection1 = (point1.Item1 + t * dx, point1.Item2 + t * dy);
+                intersection1 = (point1.X + t * dx, point1.Y + t * dy);
                 intersection2 = (double.NaN, double.NaN);
                 return (1, intersection1, intersection2);
             }
@@ -5544,9 +5544,9 @@ namespace MethodSpeedTester
             {
                 // Two solutions.
                 t = ((-B + Sqrt(det)) / (2 * A));
-                intersection1 = (point1.Item1 + t * dx, point1.Item2 + t * dy);
+                intersection1 = (point1.X + t * dx, point1.Y + t * dy);
                 t = ((-B - Sqrt(det)) / (2 * A));
-                intersection2 = (point1.Item1 + t * dx, point1.Item2 + t * dy);
+                intersection2 = (point1.X + t * dx, point1.Y + t * dy);
                 return (2, intersection1, intersection2);
             }
         }

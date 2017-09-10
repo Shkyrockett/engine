@@ -29,7 +29,7 @@ namespace Engine
             Actors = new List<Actor>();
             ActorsDialog = new List<ActorDialog>();
             Audio = new List<IAudio>();
-            Graphics = new List<IImage>();
+            Graphics = new List<IBitmap>();
             Variables = new Dictionary<string, object>();
         }
 
@@ -66,7 +66,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public List<IImage> Graphics { get; set; }
+        public List<IBitmap> Graphics { get; set; }
 
         /// <summary>
         /// 

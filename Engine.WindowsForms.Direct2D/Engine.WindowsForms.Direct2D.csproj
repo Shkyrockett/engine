@@ -1,16 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.props" Condition="Exists('..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{950FB6D1-3C3B-452E-9B61-3077CABE40D6}</ProjectGuid>
+    <ProjectGuid>{79DE1E55-937E-40DB-9EE3-EA3D5CC2A4E8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Engine.WindowsForms.Direct2D</RootNamespace>
     <AssemblyName>Engine.WindowsForms.Direct2D</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -86,22 +84,30 @@
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Direct2DCanvas.resx">
-      <DependentUpon>Direct2DCanvas.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Engine.File\Engine.File.csproj">
-      <Project>{5821b844-a2b5-4c36-af6d-36acae4f17c5}</Project>
+      <Project>{4c4da771-9467-484f-bbb7-75860c3e7697}</Project>
       <Name>Engine.File</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Engine.Midi\Engine.Midi.csproj">
+      <Project>{928573a5-3e62-4132-8e0b-f05235bbedc7}</Project>
+      <Name>Engine.Midi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Engine.Misc\Engine.Misc.csproj">
+      <Project>{87132739-8056-447a-a25d-7acf85a8bfed}</Project>
+      <Name>Engine.Misc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{cb52dfcb-1cff-4266-8f6f-b13137f41b3c}</Project>
+      <Project>{32553305-ddb2-4fd1-b359-8ebd8587bd6f}</Project>
       <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Direct2DCanvas.resx">
+      <DependentUpon>Direct2DCanvas.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Packaging.Tools.1.0.0-preview2-25401-01\build\Microsoft.Packaging.Tools.targets" Condition="Exists('..\packages\Microsoft.Packaging.Tools.1.0.0-preview2-25401-01\build\Microsoft.Packaging.Tools.targets')" />
@@ -111,9 +117,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Packaging.Tools.1.0.0-preview2-25401-01\build\Microsoft.Packaging.Tools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Packaging.Tools.1.0.0-preview2-25401-01\build\Microsoft.Packaging.Tools.targets'))" />
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.0-preview2-25401-01\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.0-preview2-25401-01\build\netstandard2.0\NETStandard.Library.targets'))" />
-    <Error Condition="!Exists('..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.props'))" />
-    <Error Condition="!Exists('..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.targets'))" />
   </Target>
   <Import Project="..\packages\NETStandard.Library.2.0.0-preview2-25401-01\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.0-preview2-25401-01\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.targets" Condition="Exists('..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.targets')" />
 </Project>

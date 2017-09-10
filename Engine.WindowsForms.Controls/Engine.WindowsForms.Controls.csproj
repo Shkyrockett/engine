@@ -1,24 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.props" Condition="Exists('..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E4555194-CA94-4605-9354-892E8712F4A2}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EditorMidiEvents</RootNamespace>
-    <AssemblyName>EditorMidiEvents</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <ProjectGuid>{059AB8BE-2690-4104-9D5E-6F25972D89F9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Engine.WindowsForms.Controls</RootNamespace>
+    <AssemblyName>Engine.WindowsForms.Controls</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -29,7 +25,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -46,7 +41,6 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -56,7 +50,6 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -66,7 +59,6 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -76,7 +68,6 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -85,67 +76,122 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormMidiEventEditor.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Controls\CanvasPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormMidiEventEditor.Designer.cs">
-      <DependentUpon>FormMidiEventEditor.cs</DependentUpon>
+    <Compile Include="Controls\CanvasPanel.Designer.cs">
+      <DependentUpon>CanvasPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Framework\MusicFiles.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Controls\ColorTrackBarControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorTrackBarControl.Designer.cs">
+      <DependentUpon>ColorTrackBarControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PaletteControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PaletteControl.Designer.cs">
+      <DependentUpon>PaletteControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatusProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\StatusProgressBar.Designer.cs">
+      <DependentUpon>StatusProgressBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Label\PathLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Label\PathLabel.Designer.cs">
+      <DependentUpon>PathLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Label\TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Label\TransparentLabel.Designer.cs">
+      <DependentUpon>TransparentLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormMidiEventEditor.resx">
-      <DependentUpon>FormMidiEventEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
+    <Compile Include="PropertyGrid\Editors\AngleEditor.cs" />
+    <Compile Include="PropertyGrid\Geometry\AngleControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    <Compile Include="PropertyGrid\Geometry\AngleControl.Designer.cs">
+      <DependentUpon>AngleControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="PropertyGrid\Geometry\NeedleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertyGrid\Geometry\NeedleControl.Designer.cs">
+      <DependentUpon>NeedleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolStrip\PaletteToolStripItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStrip\PaletteToolStripItem.Designer.cs">
+      <DependentUpon>PaletteToolStripItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolStrip\ToolStripMonthCalendar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStrip\ToolStripMonthCalendar.Designer.cs">
+      <DependentUpon>ToolStripMonthCalendar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolStrip\ToolStripToolStripItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStrip\ToolStripToolStripItem.Designer.cs">
+      <DependentUpon>ToolStripToolStripItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolStrip\TreeViewToolStripItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ToolStrip\TreeViewToolStripItem.Designer.cs">
+      <DependentUpon>TreeViewToolStripItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TreeView\Bindings\TreeViewBinding.iMidiElement.cs" />
+    <Compile Include="WinformsReflection.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\PaletteControl.resx">
+      <DependentUpon>PaletteControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyGrid\Geometry\AngleControl.resx">
+      <DependentUpon>AngleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PropertyGrid\Geometry\NeedleControl.resx">
+      <DependentUpon>NeedleControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine.File\Engine.File.csproj">
-      <Project>{5821b844-a2b5-4c36-af6d-36acae4f17c5}</Project>
+      <Project>{4c4da771-9467-484f-bbb7-75860c3e7697}</Project>
       <Name>Engine.File</Name>
     </ProjectReference>
     <ProjectReference Include="..\Engine.Midi\Engine.Midi.csproj">
-      <Project>{54e7cc91-2832-4b29-b5a5-f9fe058521dd}</Project>
+      <Project>{928573a5-3e62-4132-8e0b-f05235bbedc7}</Project>
       <Name>Engine.Midi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Engine.Misc\Engine.Misc.csproj">
+      <Project>{87132739-8056-447a-a25d-7acf85a8bfed}</Project>
+      <Name>Engine.Misc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine.WindowsForms\Engine.WindowsForms.csproj">
-      <Project>{17de1ebb-0893-4216-ad76-47abbbc47263}</Project>
+      <Project>{3a89b55c-8d51-46a4-86ca-825c28958dfd}</Project>
       <Name>Engine.WindowsForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine.WinForms.Controls\Engine.WindowsForms.Controls.csproj">
-      <Project>{3a33b0b3-5568-4d6d-a4dd-ae8e3d6b0571}</Project>
-      <Name>Engine.WindowsForms.Controls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
-      <Project>{cb52dfcb-1cff-4266-8f6f-b13137f41b3c}</Project>
+      <Project>{32553305-ddb2-4fd1-b359-8ebd8587bd6f}</Project>
       <Name>Engine</Name>
     </ProjectReference>
   </ItemGroup>
@@ -157,16 +203,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Packaging.Tools.1.0.0-preview2-25401-01\build\Microsoft.Packaging.Tools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Packaging.Tools.1.0.0-preview2-25401-01\build\Microsoft.Packaging.Tools.targets'))" />
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.0-preview2-25401-01\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.0-preview2-25401-01\build\netstandard2.0\NETStandard.Library.targets'))" />
-    <Error Condition="!Exists('..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.props'))" />
-    <Error Condition="!Exists('..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.targets'))" />
   </Target>
   <Import Project="..\packages\NETStandard.Library.2.0.0-preview2-25401-01\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.0-preview2-25401-01\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.targets" Condition="Exists('..\packages\NETStandard.Library.NETFramework.2.0.0-preview2-25405-01\build\net462\NETStandard.Library.NETFramework.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

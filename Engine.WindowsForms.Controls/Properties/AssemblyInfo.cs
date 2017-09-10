@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Engine.WindowsForms.Controls")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Windows Forms controls for the Engine Editor")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Shkyrockett")]
 [assembly: AssemblyProduct("Engine.WindowsForms.Controls")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b4ce3784-ef21-4c2c-8c61-d3e2794ab3c8")]
+[assembly: Guid("059ab8be-2690-4104-9d5e-6f25972d89f9")]
 
 // Version information for an assembly consists of the following four values:
 //

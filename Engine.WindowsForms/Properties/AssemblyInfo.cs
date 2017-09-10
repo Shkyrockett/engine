@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Engine.WindowsForms")]
-[assembly: AssemblyDescription("Engine user controls for editors.")]
+[assembly: AssemblyDescription("Windows Interoperability library for Engine.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Shkyrockett")]
-[assembly: AssemblyProduct("Engine.Winforms")]
+[assembly: AssemblyProduct("Engine.WindowsForms")]
 [assembly: AssemblyCopyright("Copyright © 2013 - 2017 Shkyrockett")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c6593aae-28d2-494b-9765-b548aa24c8ca")]
+[assembly: Guid("3a89b55c-8d51-46a4-86ca-825c28958dfd")]
 
 // Version information for an assembly consists of the following four values:
 //

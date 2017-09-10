@@ -10,14 +10,16 @@
 
 using System;
 
-namespace Engine.Colorspace
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
     /// <typeparam name="C"></typeparam>
-    public interface IColor<C>
-        : IFormattable, //IComparable<C>, //IConvertible,
-        IEquatable<C> where C : struct, IColor<C>
-    { }
+    public interface IColor
+        : IFormattable, //IComparable<IColor>, //IConvertible,
+        IEquatable<IColor>
+    {
+        (byte A, byte R, byte G, byte B) ToARGBTuple();
+    }
 }

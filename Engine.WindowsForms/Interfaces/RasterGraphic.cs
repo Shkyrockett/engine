@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace Engine
 {
@@ -18,7 +19,7 @@ namespace Engine
     /// 
     /// </summary>
     public class RasterGraphic
-        : IImage, IDisposable
+        : IBitmap, IDisposable
     {
         /// <summary>
         /// 
@@ -56,6 +57,7 @@ namespace Engine
         /// 
         /// </summary>
         public string DisplayName { get; set; }
+        public Stream Stream { get; set; }
 
         /// <summary>
         /// 

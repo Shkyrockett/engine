@@ -596,9 +596,9 @@ namespace Engine
 
             (double X, double Y, double Z) projection = Projection(i1, j1, k1, i2, j2, k2);
             return (
-                (2 * projection.Item1 - i1) * Magnitude(i1, j1, k1),
-                (2 * projection.Item2 - j1) * Magnitude(i1, j1, k1),
-                (2 * projection.Item3 - k1) * Magnitude(i1, j1, k1)
+                (2 * projection.X - i1) * Magnitude(i1, j1, k1),
+                (2 * projection.Y - j1) * Magnitude(i1, j1, k1),
+                (2 * projection.Z - k1) * Magnitude(i1, j1, k1)
                 );
         }
 

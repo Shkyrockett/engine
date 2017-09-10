@@ -16,7 +16,7 @@ namespace Engine.Colorspace
     /// AHSL Color
     /// </summary>
     public struct AHSL
-        : IColor<AHSL>
+        : IColor
     {
         /// <summary>
         ///
@@ -146,8 +146,14 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(AHSL other)
-            => throw new NotImplementedException();
+        public bool Equals(IColor other)
+        {
+            var a = ToARGBTuple();
+            var b = other.ToARGBTuple();
+            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+        }
+
+        public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
 
         /// <summary>
         /// 

@@ -16,7 +16,7 @@ namespace Engine.Colorspace
     /// 
     /// </summary>
     public struct CIELUV
-        : IColor<CIELUV>
+        : IColor
     {
         ///// <summary>
         ///// 
@@ -53,7 +53,15 @@ namespace Engine.Colorspace
         /// </summary>
         public double V { get; set; }
 
-        public bool Equals(CIELUV other) => throw new NotImplementedException();
+        public bool Equals(IColor other)
+        {
+            var a = ToARGBTuple();
+            var b = other.ToARGBTuple();
+            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+        }
+
+        public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
+
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

@@ -10,6 +10,7 @@
 
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 
 namespace Engine
 {
@@ -17,7 +18,7 @@ namespace Engine
     /// 
     /// </summary>
     public class VectorGraphic
-        : IImage
+        : IBitmap
     {
         /// <summary>
         /// 
@@ -61,6 +62,7 @@ namespace Engine
         /// 
         /// </summary>
         public List<IRenderable> Items { get; set; }
+        public Stream Stream { get; set; }
 
         /// <summary>
         /// 

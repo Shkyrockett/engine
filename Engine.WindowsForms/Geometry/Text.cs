@@ -99,7 +99,7 @@ namespace Engine.WindowsForms
                 using (var g = Graphics.FromImage(image))
                 {
                     g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                    result = g.MeasureString(text, font, width, StringFormat.GenericDefault).ToSize2D();
+                    result = g.MeasureString(text, font, width, System.Drawing.StringFormat.GenericDefault).ToSize2D();
                 }
             }
 
@@ -124,7 +124,7 @@ namespace Engine.WindowsForms
                 using (var g = Graphics.FromImage(image))
                 {
                     g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-                    result = g.MeasureString(text, font, width, StringFormat.GenericTypographic).ToSize2D();
+                    result = g.MeasureString(text, font, width, System.Drawing.StringFormat.GenericTypographic).ToSize2D();
                 }
             }
 

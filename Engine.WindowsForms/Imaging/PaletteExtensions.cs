@@ -18,22 +18,6 @@ namespace Engine.WindowsForms
     public static class PaletteExtensions
     {
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
-        public static Color ToColor(this ARGB color)
-            => Color.FromArgb(color.Alpha, color.Red, color.Green, color.Blue);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
-        public static ARGB ToARGB(this Color color)
-            => new ARGB(color.A, color.R, color.G, color.B);
-
-        /// <summary>
         /// Draw the palette to a bitmap.
         /// </summary>
         /// <param name="bounds">The limiting bounds of the container control.</param>

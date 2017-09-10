@@ -16,7 +16,7 @@ namespace Engine.Colorspace
     /// 
     /// </summary>
     public struct CIExyY
-        : IColor<CIExyY>
+        : IColor
     {
         ///// <summary>
         ///// 
@@ -53,7 +53,15 @@ namespace Engine.Colorspace
         /// </summary>
         public double Y2 { get; set; }
 
-        public bool Equals(CIExyY other) => throw new NotImplementedException();
+        public bool Equals(IColor other)
+        {
+            var a = ToARGBTuple();
+            var b = other.ToARGBTuple();
+            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+        }
+
+        public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
+
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

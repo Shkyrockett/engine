@@ -14,50 +14,6 @@
 
         #endregion
 
-        #region Fields
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double alphaMultiplier;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double redMultiplier;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double greenMultiplier;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double blueMultiplier;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private int alphaOffset;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private int redOffset;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private int greenOffset;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private int blueOffset;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -65,14 +21,14 @@
         /// </summary>
         public ColorTransform(double alphaMultiplier, double redMultiplier, double greenMultiplier, double blueMultiplier, int alphaOffset, int redOffset, int greenOffset, int blueOffset)
         {
-            this.alphaMultiplier = alphaMultiplier;
-            this.redMultiplier = redMultiplier;
-            this.greenMultiplier = greenMultiplier;
-            this.blueMultiplier = blueMultiplier;
-            this.alphaOffset = alphaOffset;
-            this.redOffset = redOffset;
-            this.greenOffset = greenOffset;
-            this.blueOffset = blueOffset;
+            AlphaMultiplier = alphaMultiplier;
+            RedMultiplier = redMultiplier;
+            GreenMultiplier = greenMultiplier;
+            BlueMultiplier = blueMultiplier;
+            AlphaOffset = alphaOffset;
+            RedOffset = redOffset;
+            GreenOffset = greenOffset;
+            BlueOffset = blueOffset;
         }
 
         #endregion
@@ -82,42 +38,42 @@
         /// <summary>
         /// 
         /// </summary>
-        public double AlphaMultiplier { get { return alphaMultiplier; } set { alphaMultiplier = value; } }
+        public double AlphaMultiplier { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double RedMultiplier { get { return redMultiplier; } set { redMultiplier = value; } }
+        public double RedMultiplier { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double GreenMultiplier { get { return greenMultiplier; } set { greenMultiplier = value; } }
+        public double GreenMultiplier { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double BlueMultiplier { get { return blueMultiplier; } set { blueMultiplier = value; } }
+        public double BlueMultiplier { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int AlphaOffset { get { return alphaOffset; } set { alphaOffset = value; } }
+        public int AlphaOffset { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int RedOffset { get { return redOffset; } set { redOffset = value; } }
+        public int RedOffset { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int GreenOffset { get { return greenOffset; } set { greenOffset = value; } }
+        public int GreenOffset { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int BlueOffset { get { return blueOffset; } set { blueOffset = value; } }
+        public int BlueOffset { get; set; }
 
         #endregion
     }

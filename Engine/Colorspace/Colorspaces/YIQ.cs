@@ -16,17 +16,12 @@ namespace Engine.Colorspace
     ///
     /// </summary>
     public struct YIQ
-        : IColor<YIQ>
+        : IColor
     {
         /// <summary>
         ///
         /// </summary>
         public static readonly YIQ Empty = new YIQ();
-
-        /// <summary>
-        ///
-        /// </summary>
-        private byte alpha;
 
         ///// <summary>
         /////
@@ -49,7 +44,7 @@ namespace Engine.Colorspace
             double g = color.Green;
             double b = color.Blue;
 
-            alpha = color.Alpha;
+            Alpha = color.Alpha;
             Y = 0.299900 * r + 0.587000 * g + 0.114000 * b;
             I = 0.595716 * r - 0.274453 * g - 0.321264 * b;
             Q = 0.211456 * r - 0.522591 * g + 0.311350 * b;
@@ -62,7 +57,7 @@ namespace Engine.Colorspace
         /// <param name="i"></param>
         /// <param name="q"></param>
         public YIQ(double y, double i, double q)
-            : this(0, 0, 0, 0)
+            : this(0, y, i, q)
         { }
 
         /// <summary>
@@ -74,11 +69,13 @@ namespace Engine.Colorspace
         /// <param name="q"></param>
         public YIQ(byte alpha, double y, double i, double q)
         {
-            this.alpha = alpha;
+            Alpha = alpha;
             Y = y;
             I = i;
             Q = q;
         }
+
+        public byte Alpha { get; set; }
 
         /// <summary>
         ///
@@ -94,6 +91,18 @@ namespace Engine.Colorspace
         ///
         /// </summary>
         public double Q { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(IColor other)
+        {
+            var a = ToARGBTuple();
+            var b = other.ToARGBTuple();
+            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+        }
 
         /// <summary>
         ///
@@ -119,10 +128,9 @@ namespace Engine.Colorspace
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(YIQ other)
-            => throw new NotImplementedException();
+        public (byte A, byte R, byte G, byte B) ToARGBTuple()
+            => (Alpha, (byte)(Y + 0.9563 * I + 0.6210 * Q), (byte)(Y - 0.2721 * I - 0.6474 * Q), (byte)(Y - 1.1070 * I + 1.7046 * Q));
 
         /// <summary>
         /// 

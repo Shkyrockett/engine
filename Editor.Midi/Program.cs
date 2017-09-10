@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using EventEditorMidi;
 using Engine;
 
-namespace EditorMidiEvents
+namespace Editor.Midi
 {
     /// <summary>
     /// The main entry class for the application.

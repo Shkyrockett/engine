@@ -307,6 +307,27 @@ namespace Engine
             };
 
         /// <summary>
+        /// Raise a Quadratic Bezier to a Cubic Bezier.
+        /// </summary>
+        /// <param name="x0">The x-component of the starting point.</param>
+        /// <param name="aY">The y-component of the starting point.</param>
+        /// <param name="bX">The x-component of the handle.</param>
+        /// <param name="bY">The y-component of the handle.</param>
+        /// <param name="cX">The x-component of the end point.</param>
+        /// <param name="cY">The y-component of the end point.</param>
+        /// <returns>Returns Quadratic Bezier curve from a cubic curve.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) QuadraticBezierToCubicBezierTuple(
+            double aX, double aY,
+            double bX, double bY,
+            double cX, double cY)
+            => (aX, aY,
+                aX + TwoThirds * (bX - aX), aY + TwoThirds * (bY - aY),
+                cX + TwoThirds * (bX - cX), cY + TwoThirds * (bY - cY),
+                cX, cY);
+
+        /// <summary>
         /// Converts a list of points on a Catmull Rom Curve to a list of Cubic Bezier curves.
         /// </summary>
         /// <param name="points">The list of points.</param>

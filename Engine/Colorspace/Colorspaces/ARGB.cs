@@ -19,7 +19,7 @@ namespace Engine.Colorspace
     /// Alpha Red Green Blue color class.
     /// </summary>
     public struct ARGB
-        : IColor<ARGB>
+        : IColor
     {
         #region Implementations
 
@@ -32,10 +32,10 @@ namespace Engine.Colorspace
 
         #region Constants
 
-        private const int AlphaShift = 24;
-        private const int RedShift = 16;
-        private const int GreenShift = 8;
-        private const int BlueShift = 0;
+        private const int AlphaShift = 0x18;
+        private const int RedShift = 0x10;
+        private const int GreenShift = 0x8;
+        private const int BlueShift = 0x0;
 
         #endregion
 
@@ -54,21 +54,6 @@ namespace Engine.Colorspace
         #endregion
 
         #region Constructors
-
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="ARGB"/> class.
-        ///// </summary>
-        //public ARGB()
-        //    : this(0, 0, 0, 0, "")
-        //{ }
-
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="ARGB"/> class.
-        ///// </summary>
-        ///// <param name="value">A standard color.</param>
-        //public ARGB(Color value)
-        //    : this(value.A, value.R, value.G, value.B, value.Name)
-        //{ }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ARGB"/> class.
@@ -90,6 +75,15 @@ namespace Engine.Colorspace
         /// <param name="name">The name of the color.</param>
         public ARGB(byte red, byte green, byte blue, string name = "")
             : this(0, red, green, blue, name)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ARGB"/> class.
+        /// </summary>
+        /// <param name="tuple"><see cref="ValueTuple"/> representing the Alpha, Red, Green, and Blue components in an ARGB color.</param>
+        /// <param name="name">The name of the color.</param>
+        public ARGB((byte A, byte R, byte G, byte B) tuple, string name = "")
+            : this(tuple.A, tuple.R, tuple.G, tuple.B, name)
         { }
 
         /// <summary>
@@ -195,20 +189,6 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(ARGB left, ARGB right)
             => !Equals(left, right);
-
-        ///// <summary>
-        ///// Convert between a <see cref="Color"/> and a <see cref="ARGB"/> structures.
-        ///// </summary>
-        ///// <param name="argb">A fully qualified <see cref="ARGB"/> structure.</param>
-        ///// <returns>Returns a fully qualified <see cref="Color"/> structure.</returns>
-        //public static implicit operator Color(ARGB argb) => Color.FromArgb(argb.Alpha, argb.Red, argb.Green, argb.Blue);
-
-        ///// <summary>
-        ///// Convert between a <see cref="ARGB"/> and a <see cref="Color"/> structures.
-        ///// </summary>
-        ///// <param name="color">A fully qualified <see cref="Color"/> structure.</param>
-        ///// <returns>Returns a fully qualified <see cref="ARGB"/> structure.</returns>
-        //public static explicit operator ARGB(Color color) => new ARGB(color);
 
         #endregion
 
@@ -386,8 +366,15 @@ namespace Engine.Colorspace
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(ARGB value)
+        public bool Equals(IColor value)
             => Equals(this, value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public (byte A, byte R, byte G, byte B) ToARGBTuple()
+            => (Alpha, Red, Green, Blue);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="ARGB"/> struct.

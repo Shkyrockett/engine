@@ -1,4 +1,4 @@
-﻿// <copyright file="IImage.cs" company="Shkyrockett" >
+﻿// <copyright file="IBitmap.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,17 +8,15 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.IO;
+
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IImage
-        : IGameElement
+    public interface IBitmap
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        string Filename { get; set; }
+        Stream Stream { get; set; }
     }
 }

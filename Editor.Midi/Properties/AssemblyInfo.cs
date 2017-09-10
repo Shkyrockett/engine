@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EditorMidiEvents")]
-[assembly: AssemblyDescription("Midi Event Editor.")]
+[assembly: AssemblyTitle("Editor.Midi")]
+[assembly: AssemblyDescription("Midi event editor for Engine.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Shkyrockett")]
-[assembly: AssemblyProduct("EditorMidiEvents")]
+[assembly: AssemblyProduct("Editor.Midi")]
 [assembly: AssemblyCopyright("Copyright © 2016 - 2017 Shkyrockett")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("dabf46f9-3915-484b-8a5d-de6bf0a65a20")]
+[assembly: Guid("4906a81e-7fd1-4072-94e4-544e9539451a")]
 
 // Version information for an assembly consists of the following four values:
 //

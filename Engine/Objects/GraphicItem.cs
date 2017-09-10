@@ -83,6 +83,14 @@ namespace Engine
         public string Name { get; set; }
 
         /// <summary>
+        ///
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Category("Properties")]
+        [Description("The meta-data of the item.")]
+        public Metadata Metadata { get; set; } = null;
+
+        /// <summary>
         /// The item that gets displayed on screen.
         /// </summary>
         [Browsable(true)]
@@ -134,12 +142,12 @@ namespace Engine
         public IStyle Style { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets a reference to the platform specific renderer.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [Category("Properties")]
-        [Description("The meta-data of the item.")]
-        public Metadata Metadata { get; set; } = null;
+        [Category("System")]
+        [Description("A reference to the platform specific renderer.")]
+        public IRenderer Renderer { get; set; }
 
         #endregion
 

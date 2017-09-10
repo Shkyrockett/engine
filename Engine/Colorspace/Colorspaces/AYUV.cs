@@ -16,7 +16,7 @@ namespace Engine.Colorspace
     ///
     /// </summary>
     public struct AYUV
-        : IColor<AYUV>
+        : IColor
     {
         /// <summary>
         ///
@@ -88,13 +88,23 @@ namespace Engine.Colorspace
         public byte Alpha { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(IColor other)
+        {
+            var a = ToARGBTuple();
+            var b = other.ToARGBTuple();
+            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+        }
+
+        /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public ARGB ToColor() => new ARGB(Alpha,
-            (byte)(Y + 0 * U + 1.13983 * V),
-            (byte)(Y + -0.39465 * U + -0.58060 * V),
-            (byte)(Y + -0.03211 * U + 0 * V));
+        public ARGB ToColor()
+            => new ARGB(ToARGBTuple());
 
         /// <summary>
         ///
@@ -111,10 +121,12 @@ namespace Engine.Colorspace
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="other"></param>
         /// <returns></returns>
-        public bool Equals(AYUV other)
-            => throw new NotImplementedException();
+        public (byte A, byte R, byte G, byte B) ToARGBTuple()
+            => (Alpha,
+            (byte)(Y + 0 * U + 1.13983 * V),
+            (byte)(Y + -0.39465 * U + -0.58060 * V),
+            (byte)(Y + -0.03211 * U + 0 * V));
 
         /// <summary>
         /// 

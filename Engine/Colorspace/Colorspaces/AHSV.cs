@@ -17,7 +17,7 @@ namespace Engine.Colorspace
     /// Alpha Hue Saturation Value color.
     /// </summary>
     public struct AHSV
-        : IColor<AHSV>
+        : IColor
     {
         /// <summary>
         ///
@@ -134,6 +134,24 @@ namespace Engine.Colorspace
         public double Value { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(IColor other)
+        {
+            var a = ToARGBTuple();
+            var b = other.ToARGBTuple();
+            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        public ARGB ToColor() => new ARGB(ToARGBTuple());
+
+        /// <summary>
+        /// 
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -143,7 +161,7 @@ namespace Engine.Colorspace
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
-        public ARGB ToColor()
+        public (byte A, byte R, byte G, byte B) ToARGBTuple()
         {
             double r;
             double g;
@@ -159,7 +177,7 @@ namespace Engine.Colorspace
                 g = (1.0 - g) * 255.0 + 0.5;
                 b = (1.0 - b) * 255.0 + 0.5;
 
-                return new ARGB(Alpha, (byte)r, (byte)g, (byte)b);
+                return (Alpha, (byte)r, (byte)g, (byte)b);
             }
 
             Hue /= 60;            // sector 0 to 5
@@ -203,20 +221,12 @@ namespace Engine.Colorspace
                     break;
             }
 
-            r = (1.0 - r) * 255.0 + 0.5;
-            g = (1.0 - g) * 255.0 + 0.5;
-            b = (1.0 - b) * 255.0 + 0.5;
+            r = (1.0 - r) * 255.0d + 0.5d;
+            g = (1.0 - g) * 255.0d + 0.5d;
+            b = (1.0 - b) * 255.0d + 0.5d;
 
-            return new ARGB(Alpha, (byte)r, (byte)g, (byte)b);
+            return (Alpha, (byte)r, (byte)g, (byte)b);
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        public bool Equals(AHSV other)
-            => throw new NotImplementedException();
 
         /// <summary>
         /// 

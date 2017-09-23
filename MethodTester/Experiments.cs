@@ -8148,14 +8148,14 @@ namespace MethodSpeedTester
             var B = l0x - l1x;      //B=x1-x2
             var C = l0x * (l0y - l1y) + l0y * (l1x - l0x);  //C=x1*(y1-y2)+y1*(x2-x1)
 
-            var bx = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
-            var by = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
+            var xCoeff = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
+            var yCoeff = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
 
             var r = CubicRoots(
-                /* t^3 */ A * bx.A + B * by.A,
-                /* t^2 */ A * bx.B + B * by.B,
-                /* t^1 */ A * bx.C + B * by.C,
-                /* 1 */ A * bx.D + B * by.D + C
+                /* t^3 */ A * xCoeff.D + B * yCoeff.D,
+                /* t^2 */ A * xCoeff.C + B * yCoeff.C,
+                /* t^1 */ A * xCoeff.B + B * yCoeff.B,
+                /* 1 */ A * xCoeff.A + B * yCoeff.A + C
                 );
 
             /*verify the roots are in bounds of the linear segment*/
@@ -8163,8 +8163,8 @@ namespace MethodSpeedTester
             {
                 var t = r[i];
 
-                var x = bx.A * t * t * t + bx.B * t * t + bx.C * t + bx.D;
-                var y = by.A * t * t * t + by.B * t * t + by.C * t + by.D;
+                var x = xCoeff.D * t * t * t + xCoeff.C * t * t + xCoeff.B * t + xCoeff.A;
+                var y = yCoeff.D * t * t * t + yCoeff.C * t * t + yCoeff.B * t + yCoeff.A;
 
                 /*above is intersection point assuming infinitely long line segment,
                   make sure we are also in bounds of the line*/
@@ -8346,55 +8346,55 @@ namespace MethodSpeedTester
 
             var roots = new List<double>();
 
-            if (yCoeffA.A == 0)
+            if (yCoeffA.C == 0)
             {
-                var v0 = xCoeffA.A * (yCoeffA.C - yCoeffB.C);
+                var v0 = xCoeffA.C * (yCoeffA.A - yCoeffB.A);
                 var v1 = v0 - xCoeffA.B * yCoeffA.B;
                 var v2 = v0 + v1;
                 var v3 = yCoeffA.B * yCoeffA.B;
 
                 roots = QuarticRoots(
-                    /* t^4 */ xCoeffA.A * yCoeffB.A * yCoeffB.A,
-                    /* t^3 */ 2 * xCoeffA.A * yCoeffB.B * yCoeffB.A,
-                    /* t^2 */ xCoeffA.A * yCoeffB.B * yCoeffB.B - xCoeffB.A * v3 - yCoeffB.A * v0 - yCoeffB.A * v1,
+                    /* t^4 */ xCoeffA.C * yCoeffB.C * yCoeffB.C,
+                    /* t^3 */ 2 * xCoeffA.C * yCoeffB.B * yCoeffB.C,
+                    /* t^2 */ xCoeffA.C * yCoeffB.B * yCoeffB.B - xCoeffB.C * v3 - yCoeffB.C * v0 - yCoeffB.C * v1,
                     /* t^1 */ -xCoeffB.B * v3 - yCoeffB.B * v0 - yCoeffB.B * v1,
-                    /* C^0 */ (xCoeffA.C - xCoeffB.C) * v3 + (yCoeffA.C - yCoeffB.C) * v1,
+                    /* C^0 */ (xCoeffA.A - xCoeffB.A) * v3 + (yCoeffA.A - yCoeffB.A) * v1,
                     epsilon);
             }
             else
             {
-                var v0 = xCoeffA.A * yCoeffB.A - yCoeffA.A * xCoeffB.A;
-                var v1 = xCoeffA.A * yCoeffB.B - xCoeffB.B * yCoeffA.A;
-                var v2 = xCoeffA.B * yCoeffA.A - yCoeffA.B * xCoeffA.A;
-                var v3 = yCoeffA.C - yCoeffB.C;
-                var v4 = yCoeffA.A * (xCoeffA.C - xCoeffB.C) - xCoeffA.A * v3;
-                var v5 = -yCoeffA.B * v2 + yCoeffA.A * v4;
+                var v0 = xCoeffA.C * yCoeffB.C - yCoeffA.C * xCoeffB.C;
+                var v1 = xCoeffA.C * yCoeffB.B - xCoeffB.B * yCoeffA.C;
+                var v2 = xCoeffA.B * yCoeffA.C - yCoeffA.B * xCoeffA.C;
+                var v3 = yCoeffA.A - yCoeffB.A;
+                var v4 = yCoeffA.C * (xCoeffA.A - xCoeffB.A) - xCoeffA.C * v3;
+                var v5 = -yCoeffA.B * v2 + yCoeffA.C * v4;
                 var v6 = v2 * v2;
                 roots = QuarticRoots(
                     /* t^4 */ v0 * v0,
                     /* t^3 */ 2 * v0 * v1,
-                    /* t^2 */ (-yCoeffB.A * v6 + yCoeffA.A * v1 * v1 + yCoeffA.A * v0 * v4 + v0 * v5) / yCoeffA.A,
-                    /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.A * v1 * v4 + v1 * v5) / yCoeffA.A,
-                    /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.A,
+                    /* t^2 */ (-yCoeffB.C * v6 + yCoeffA.C * v1 * v1 + yCoeffA.C * v0 * v4 + v0 * v5) / yCoeffA.C,
+                    /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.C * v1 * v4 + v1 * v5) / yCoeffA.C,
+                    /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.C,
                     epsilon);
             }
 
             foreach (var s in roots)
             {
                 var point = new Point2D(
-                    xCoeffB.A * s * s + xCoeffB.B * s + xCoeffB.C,
-                    yCoeffB.A * s * s + yCoeffB.B * s + yCoeffB.C);
+                    xCoeffB.C * s * s + xCoeffB.B * s + xCoeffB.A,
+                    yCoeffB.C * s * s + yCoeffB.B * s + yCoeffB.A);
                 if (s >= 0 && s <= 1)
                 {
                     var xRoots = QuadraticRoots(
-                        /* t^2 */ -xCoeffA.A,
+                        /* t^2 */ -xCoeffA.C,
                         /* t^1 */ -xCoeffA.B,
-                        /* C^0 */ -xCoeffA.C + point.X,
+                        /* C^0 */ -xCoeffA.A + point.X,
                         epsilon);
                     var yRoots = QuadraticRoots(
-                        /* t^2 */ -yCoeffA.A,
+                        /* t^2 */ -yCoeffA.C,
                         /* t^1 */ -yCoeffA.B,
-                        /* C^0 */ -yCoeffA.C + point.Y,
+                        /* C^0 */ -yCoeffA.A + point.Y,
                         epsilon);
 
                     if (xRoots.Count > 0 && yRoots.Count > 0)
@@ -8453,19 +8453,19 @@ namespace MethodSpeedTester
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            var coeffAX = QuadraticBezierCoefficients(a1X, a2X, a3X);
-            var coeffAY = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
-            var coeffBX = QuadraticBezierCoefficients(b1X, b2X, b3X);
-            var coeffBY = QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
+            var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
+            var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
+            var xCoeffB = QuadraticBezierCoefficients(b1X, b2X, b3X);
+            var yCoeffB = QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
 
-            var a = coeffAX.A * coeffAY.B - coeffAX.B * coeffAY.A;
-            var b = coeffBX.A * coeffAY.B - coeffAX.B * coeffBY.A;
+            var a = xCoeffA.C * yCoeffA.B - xCoeffA.B * yCoeffA.C;
+            var b = xCoeffB.C * yCoeffA.B - xCoeffA.B * yCoeffB.C;
 
-            var c = coeffBX.B * coeffAY.B - coeffAX.B * coeffBY.B;
-            var d = coeffAX.B * (coeffAY.C - coeffBY.C) - coeffAY.B * (coeffBX.C - coeffAX.C);
-            var e = coeffBX.A * coeffAY.A - coeffAX.A * coeffBY.A;
-            var f = coeffBX.B * coeffAY.A - coeffAX.A * coeffBY.B;
-            var g = coeffAX.A * (coeffAY.C - coeffBY.C) - coeffAY.A * (coeffBY.C - coeffAX.C);
+            var c = xCoeffB.B * yCoeffA.B - xCoeffA.B * yCoeffB.B;
+            var d = xCoeffA.B * (yCoeffA.A - yCoeffB.A) - yCoeffA.B * (xCoeffB.A - xCoeffA.A);
+            var e = xCoeffB.C * yCoeffA.C - xCoeffA.C * yCoeffB.C;
+            var f = xCoeffB.B * yCoeffA.C - xCoeffA.C * yCoeffB.B;
+            var g = xCoeffA.C * (yCoeffA.A - yCoeffB.A) - yCoeffA.C * (yCoeffB.A - xCoeffA.A);
 
             var roots = QuarticRoots(
                     /* t^4 */ e * e,
@@ -8478,19 +8478,19 @@ namespace MethodSpeedTester
             foreach (var s in roots)
             {
                 var point = new Point2D(
-                    coeffBX.A * s * s + coeffBX.B * s + coeffBX.C,
-                    coeffBY.A * s * s + coeffBY.B * s + coeffBY.C);
+                    xCoeffB.C * s * s + xCoeffB.B * s + xCoeffB.A,
+                    yCoeffB.C * s * s + yCoeffB.B * s + yCoeffB.A);
                 if (s >= 0 && s <= 1)
                 {
                     var xRoots = QuadraticRoots(
-                        /* t^2 */ -coeffAX.A,
-                        /* t^1 */ -coeffAX.B,
-                        /* C */ -coeffAX.C + point.X,
+                        /* t^2 */ -xCoeffA.C,
+                        /* t^1 */ -xCoeffA.B,
+                        /* C */ -xCoeffA.A + point.X,
                         epsilon);
                     var yRoots = QuadraticRoots(
-                        /* t^2 */ -coeffAY.A,
-                        /* t^1 */ -coeffAY.B,
-                        /* C */ -coeffAY.C + point.Y,
+                        /* t^2 */ -yCoeffA.C,
+                        /* t^1 */ -yCoeffA.B,
+                        /* C */ -yCoeffA.A + point.Y,
                         epsilon);
 
                     if (xRoots.Count > 0 && yRoots.Count > 0)
@@ -8944,7 +8944,7 @@ namespace MethodSpeedTester
             for (var i = 0; i < roots.Count; i++)
             {
                 var s = roots[i];
-                var xRoots =QuadraticRoots(
+                var xRoots = QuadraticRoots(
                     c12.I,
                     c11.I,
                     c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,

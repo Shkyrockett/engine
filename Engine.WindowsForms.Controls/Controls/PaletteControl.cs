@@ -30,7 +30,7 @@ namespace Engine.WindowsForms
         /// <summary>
         /// The current index of the palette entry the mouse is over.
         /// </summary>
-        private int mousePaletteIndex;
+        private int mousePaletteIndex = -1;
 
         /// <summary>
         /// The last palette entry selected using the left mouse button.
@@ -129,14 +129,8 @@ namespace Engine.WindowsForms
                 // Update the current palette index.
                 mousePaletteIndex = index;
 
-                // Build the tool-tip string.
-                var text = new StringBuilder();
-                text.Append(index.ToString());
-                text.Append(" ");
-                text.Append(Palette[index].ToString());
-
                 // Set the tool-tip string.
-                paletteToolTip.SetToolTip(this, text.ToString());
+                paletteToolTip.SetToolTip(this, $"{index.ToString()} {Palette[index].ToString()}");
             }
 
             var reference = (PaletteControl)sender;

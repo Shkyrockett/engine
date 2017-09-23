@@ -141,14 +141,6 @@ namespace Engine
         [Description("The style of the item.")]
         public IStyle Style { get; set; }
 
-        /// <summary>
-        /// Gets or sets a reference to the platform specific renderer.
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [Category("System")]
-        [Description("A reference to the platform specific renderer.")]
-        public IRenderer Renderer { get; set; }
-
         #endregion
 
         #region Public methods

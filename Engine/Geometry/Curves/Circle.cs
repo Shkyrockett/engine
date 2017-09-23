@@ -179,6 +179,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [RefreshProperties(RefreshProperties.All)]
+        [NotifyParentProperty(true)]
         public double Radius
         {
             get { return radius; }
@@ -202,6 +203,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Always)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
+        [NotifyParentProperty(true)]
         public Point2D Center
         {
             get { return new Point2D(x, y); }
@@ -225,6 +227,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
+        [NotifyParentProperty(true)]
         public double X
         {
             get { return x; }
@@ -247,6 +250,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
+        [NotifyParentProperty(true)]
         public double Y
         {
             get { return y; }
@@ -284,6 +288,8 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The area of the circle.")]
+        [RefreshProperties(RefreshProperties.All)]
+        [NotifyParentProperty(true)]
         public override double Area
         {
             get { return Measurements.CircleArea(radius); }
@@ -332,6 +338,8 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
+        [RefreshProperties(RefreshProperties.All)]
+        [NotifyParentProperty(true)]
         public override Rectangle2D Bounds
         {
             get { return Measurements.CircleBounds(x, y, radius); }

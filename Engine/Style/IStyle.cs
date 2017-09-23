@@ -8,13 +8,24 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.ComponentModel;
 
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    //[TypeConverter(typeof(ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IStyle
-    { }
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        IFill Fill { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        IStroke Stroke { get; }
+    }
 }

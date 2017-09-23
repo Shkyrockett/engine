@@ -235,19 +235,21 @@ namespace Editor
             base.OnPaint(e);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
+            var renderer = e.Graphics.ToWinformsRenderer();
+
             // Only need to draw the shapes that are on screen.
             foreach (GraphicItem item in vectorMap[vectorMap.VisibleBounds])
             {
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
-                    Renderer.Render(item, e.Graphics, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
+                    Renderer.Render(item, e.Graphics, renderer, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
                 else
-                    Renderer.Render(item, e.Graphics);
+                    Renderer.Render(item, e.Graphics, renderer);
             }
 
             if (vectorMap?.RubberbandItems != null)
             {
                 foreach (GraphicItem item in vectorMap?.RubberbandItems)
-                    Renderer.Render(item, e.Graphics, new ShapeStyle(Brushes.Red, Brushes.Red));
+                    Renderer.Render(item, e.Graphics, renderer, new ShapeStyle(Brushes.Red, Brushes.Red));
             }
         }
 

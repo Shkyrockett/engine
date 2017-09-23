@@ -8,9 +8,11 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine.Colorspace;
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 //using System.Drawing;
 //using System.Xml.Serialization;
 
@@ -19,7 +21,7 @@ namespace Engine.Imaging
     /// <summary>
     /// 
     /// </summary>
-    //[TypeConverter(typeof(ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class ShapeStyle
         : IStyle, IDisposable
     {
@@ -123,7 +125,7 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         [NotifyParentProperty(true)]
-        public LineStyle LineStyle { get; set; }
+        public Stroke LineStyle { get; set; }
 
         /// <summary>
         /// 
@@ -131,6 +133,29 @@ namespace Engine.Imaging
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         [NotifyParentProperty(true)]
         public Pen ForePen { get; private set; }
+
+        public IStroke Stroke
+        {
+            get
+            {
+                switch (ForePen.Brush)
+                {
+                    case SolidBrush b:
+                        return new Stroke(new SolidFill(new ARGB(b.Color.ToArgb())));
+                    case HatchBrush h:
+                        return new Stroke(new SolidFill(new ARGB(h.ForegroundColor.ToArgb())));
+                    case LinearGradientBrush l:
+                    case PathGradientBrush p:
+                    case TextureBrush t:
+                    default:
+                        return new Stroke(new SolidFill(new ARGB(Color.Transparent.ToArgb())));
+                }
+
+            }
+        }
+
+        public IFill Fill
+            => new SolidFill(new ARGB(BackPen.Color.ToArgb()));
 
         /// <summary>
         /// 
@@ -174,10 +199,10 @@ namespace Engine.Imaging
             ForePen.Dispose();
             ForePen = new Pen(ForeBrush)
             {
-                Alignment = LineStyle.Alignment,
-                DashStyle = LineStyle.Dashstyle.DashStyle,
-                DashPattern = LineStyle.Dashstyle.DashPattern,
-                DashOffset = LineStyle.Dashstyle.DashOffset,
+                //Alignment = LineStyle.Alignment,
+                //DashStyle = LineStyle.Dashstyle.DashStyle,
+                //DashPattern = LineStyle.Dashstyle.DashPattern,
+                //DashOffset = LineStyle.Dashstyle.DashOffset,
             };
         }
 

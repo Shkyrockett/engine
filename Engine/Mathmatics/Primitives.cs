@@ -14,6 +14,8 @@ using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Engine
 {
@@ -3122,5 +3124,55 @@ namespace Engine
             => Maths.Unit(value.I, value.J, value.K, value.L);
 
         #endregion
+
+        /// <summary>
+        /// http://jwezorek.com/2017/09/basic-convex-hull-in-c/
+        /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
+        /// </summary>
+        /// <param name="O"></param>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static double CrossProduct(Point2D O, Point2D A, Point2D B)
+            => (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);
+
+        /// <summary>
+        /// http://jwezorek.com/2017/09/basic-convex-hull-in-c/
+        /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
+        /// </summary>
+        /// <param name="points"></param>
+        /// <returns></returns>
+        public static List<Point2D> GetConvexHull(this List<Point2D> points)
+        {
+            if (points == null)
+                return null;
+
+            if (points.Count <= 1)
+                return points;
+
+            int n = points.Count, k = 0;
+            var H = new List<Point2D>(new Point2D[2 * n]);
+
+            points.Sort((a, b) =>
+                 a.X == b.X ? a.Y.CompareTo(b.Y) : a.X.CompareTo(b.X));
+
+            // Build lower hull
+            for (var i = 0; i < n; ++i)
+            {
+                while (k >= 2 && CrossProduct(H[k - 2], H[k - 1], points[i]) <= 0)
+                    k--;
+                H[k++] = points[i];
+            }
+
+            // Build upper hull
+            for (int i = n - 2, t = k + 1; i >= 0; i--)
+            {
+                while (k >= t && CrossProduct(H[k - 2], H[k - 1], points[i]) <= 0)
+                    k--;
+                H[k++] = points[i];
+            }
+
+            return H.Take(k - 1).ToList();
+        }
     }
 }

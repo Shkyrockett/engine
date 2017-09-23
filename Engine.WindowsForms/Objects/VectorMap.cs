@@ -15,13 +15,15 @@ using System.Xml.Serialization;
 using Engine.Imaging;
 using Engine.Tweening;
 using System.ComponentModel;
+using System.Runtime.Serialization;
+using System;
 
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    //[DataContract, Serializable]
+    [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class VectorMap
         : ICollection<GraphicItem>
@@ -39,6 +41,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="shapes"></param>
+        /// <param name="renderer"></param>
         public VectorMap(List<GraphicItem> shapes)
         {
             Items = shapes;
@@ -54,15 +57,10 @@ namespace Engine
         /// <param name="area"></param>
         /// <returns></returns>
         public List<GraphicItem> this[Rectangle2D area]
-        {
-            get
-            {
-                return new List<GraphicItem>(
-                    from shape in Items
-                    where (shape?.Shape?.Bounds != null) && shape.VisibleTest(area)
-                    select shape);
-            }
-        }
+            => new List<GraphicItem>(
+                from shape in Items
+                where (shape?.Shape?.Bounds != null) && shape.VisibleTest(area)
+                select shape);
 
         /// <summary>
         /// 
@@ -71,9 +69,9 @@ namespace Engine
         /// <returns></returns>
         public List<GraphicItem> this[Point2D point]
             => new List<GraphicItem>(
-            from shape in Items
-            where (shape?.Shape?.Bounds != null) && shape.Shape.Bounds.Contains(point) && shape.Shape.Contains(point)
-            select shape);
+                from shape in Items
+                where (shape?.Shape?.Bounds != null) && shape.Shape.Bounds.Contains(point) && shape.Shape.Contains(point)
+                select shape);
 
         #endregion
 
@@ -82,25 +80,25 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsReadOnly { get; } = false;
 
         /// <summary>
         /// 
         /// </summary>
-        //[DataMember, XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Zoom { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[DataMember, XmlAttribute, SoapAttribute]
+        [DataMember, XmlAttribute, SoapAttribute]
         public Point2D Pan { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Rectangle2D VisibleBounds { get; set; }
 
         /// <summary>
@@ -112,28 +110,28 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        //[XmlArray]
+        [XmlArray]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<GraphicItem> Items { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<GraphicItem> SelectedItems { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<GraphicItem> RubberbandItems { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
             => Items.Count;
 
@@ -143,8 +141,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="item"></param>
-        public void Add(GraphicItem item)
-            => Items.Add(item);
+        public void Add(GraphicItem item) => Items.Add(item);
 
         /// <summary>
         /// 
@@ -164,7 +161,8 @@ namespace Engine
         /// <param name="metadata"></param>
         public VectorMap Add(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
-            Items.Add(new GraphicItem(item, style, metadata));
+            var graphicItem = new GraphicItem(item, style, metadata);
+            Items.Add(graphicItem);
             return this;
         }
 
@@ -177,7 +175,8 @@ namespace Engine
         public VectorMap Add(Shape item, ShapeStyle style = null, Metadata metadata = null)
         {
             if (style == null) style = ShapeStyle.DefaultStyle;
-            Items.Add(new GraphicItem(item, style, metadata));
+            var graphicItem = new GraphicItem(item, style, metadata);
+            Items.Add(graphicItem);
             return this;
         }
 

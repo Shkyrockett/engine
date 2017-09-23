@@ -54,12 +54,12 @@ namespace Engine
         // The following two have alternates, but these are the most common. 
 
         /// <summary>
-        /// The polynomial or curve is <see cref="Sextic"/>, having six terms.
+        /// The polynomial or curve is <see cref="Sextic"/>, or Hexic having six terms.
         /// </summary>
         Sextic = 6,
 
         /// <summary>
-        /// The polynomial or curve is <see cref="Septic"/>, having seven terms.
+        /// The polynomial or curve is <see cref="Septic"/>, or Heptic having seven terms.
         /// </summary>
         Septic = 7,
 
@@ -73,17 +73,17 @@ namespace Engine
         /// <summary>
         /// The polynomial or curve is <see cref="Nonic"/>, having nine terms.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://mathforum.org/library/drmath/view/56413.html
-        /// </remarks>
+        /// </acknowledgment>
         Nonic = 9,
 
         /// <summary>
         /// The polynomial or curve is <see cref="Decic"/>, having ten terms.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://mathforum.org/library/drmath/view/56413.html
-        /// </remarks>
+        /// </acknowledgment>
         Decic = 10,
 
         // Note: Degrees beyond here may be wrong.
@@ -91,137 +91,137 @@ namespace Engine
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Undecic = 11,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Duodecic = 12,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Tredecic = 13,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Quattuordecic = 14,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Quindecic = 15,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Sexdecic = 16,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Septendecic = 17,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Octodecic = 18,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Novendecic = 19,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Vigintic = 20,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Trigintic = 30,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Quadragintic = 40,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Quinquagintic = 50,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Sexagintic = 60,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Septuagintic = 70,
 
         /// <summary>
         /// To be documented.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// May be incorrect. See: https://en.wikipedia.org/wiki/Numeral_prefix
-        /// </remarks>
+        /// </acknowledgment>
         Octogintic = 80,
 
         /// <summary>
         /// The polynomial or curve is <see cref="Hectic"/>, having one hundred terms.
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://mathforum.org/library/drmath/view/56413.html
-        /// </remarks>
+        /// </acknowledgment>
         Hectic = 100
     }
 }

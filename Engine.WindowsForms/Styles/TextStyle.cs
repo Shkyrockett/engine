@@ -120,5 +120,8 @@ namespace Engine.Imaging
             get { return BackPen.Brush; }
             set { BackPen.Brush = value; }
         }
+
+        public IFill Fill { get; }
+        public IStroke Stroke { get; }
     }
 }

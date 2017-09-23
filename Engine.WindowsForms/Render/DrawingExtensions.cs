@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace Engine.WindowsForms
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class DrawingExtensions
     {
         /// <summary>
@@ -29,7 +32,7 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="brush"></param>
         /// <returns></returns>
-        public static Brush ToBrush(this IBrush brush)
+        public static Brush ToBrush(this IFill brush)
             => new SolidBrush(brush.Color.ToColor());
 
         /// <summary>
@@ -37,8 +40,8 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="pen"></param>
         /// <returns></returns>
-        public static Pen ToPen(this IPen pen)
-            => new Pen(pen.Brush.ToBrush());
+        public static Pen ToPen(this IStroke pen)
+            => new Pen(pen.Fill.Color.ToColor());//new Pen(pen.Brush.ToBrush());
 
         /// <summary>
         /// 
@@ -47,5 +50,13 @@ namespace Engine.WindowsForms
         /// <returns></returns>
         public static Image ToBitmap(this IBitmap image)
             => Image.FromStream(image.Stream);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="graphics"></param>
+        /// <returns></returns>
+        public static WinformsRenderer ToWinformsRenderer(this Graphics graphics)
+            => new WinformsRenderer(graphics);
     }
 }

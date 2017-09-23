@@ -1,4 +1,4 @@
-﻿// <copyright file="Colors.cs" company="Shkyrockett" >
+﻿// <copyright file="IColor.cs" company="Shkyrockett" >
 //     Copyright © 2013 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>

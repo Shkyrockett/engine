@@ -143,5 +143,7 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         public Image Image { get; set; }
+        public IFill Fill { get; }
+        public IStroke Stroke { get; }
     }
 }

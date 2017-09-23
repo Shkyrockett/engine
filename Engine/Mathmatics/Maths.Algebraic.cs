@@ -508,8 +508,8 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) LinearBezierCoefficients(double a, double b)
-            => (b - a,
-                a);
+            => (a,
+                b - a);
 
         /// <summary>
         /// Coefficients for a Quadratic Bezier curve.
@@ -526,9 +526,9 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) QuadraticBezierCoefficients(double a, double b, double c)
-            => (c - (2d * b) + a,
+            => (a,
                 2d * (b - a),
-                a);
+                c - (2d * b) + a);
 
         /// <summary>
         /// Coefficients for a Cubic Bezier curve.
@@ -547,10 +547,10 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) CubicBezierCoefficients(double a, double b, double c, double d)
-            => (d - (3d * c) + (3d * b) - a,
-                (3d * c) - (6d * b) + (3d * a),
+            => (a,
                 3d * (b - a),
-                a);
+                (3d * c) - (6d * b) + (3d * a),
+                d - (3d * c) + (3d * b) - a);
 
         /// <summary>
         /// Coefficients for a Quartic Bezier curve.
@@ -562,17 +562,17 @@ namespace Engine
         /// <param name="e"></param>
         /// <returns></returns>
         /// <acknowledgment>
-        /// Coefficient calculation found in the matrix reprisentation at:
+        /// Coefficient calculation found in the matrix representation at:
         /// http://www.dglr.de/publikationen/2016/420062.pdf
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E) QuarticBezierCoefficients(double a, double b, double c, double d, double e)
-            => (e - (4d * d) + (6d * c) - (4d * b) + a,
-                (4d * d) - (12d * c) + (12d * b) - (4d * a),
-                (6d * c) - (12d * b) + (6d * a),
+            => (a,
                 4d * (b - a),
-                a);
+                (6d * c) - (12d * b) + (6d * a),
+                (4d * d) - (12d * c) + (12d * b) - (4d * a),
+                e - (4d * d) + (6d * c) - (4d * b) + a);
 
         /// <summary>
         /// Coefficients for a Quintic Bezier curve.
@@ -585,18 +585,18 @@ namespace Engine
         /// <param name="f"></param>
         /// <returns></returns>
         /// <acknowledgment>
-        /// Bassed off of psudocode for the matrix found at:
+        /// Based off of pseudocode for the matrix found at:
         /// https://simtk.org/api_docs/opensim/api_docs/classOpenSim_1_1SegmentedQuinticBezierToolkit.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F) QuinticBezierCoefficients(double a, double b, double c, double d, double e, double f)
-            => (f - (5d * e) + (10d * d) - (10d * c) + (5d * b) - a,
-                (5d * e) - (20d * d) + (30d * c) - (20d * b) + (5 * a),
-                (10d * d) - (30d * c) + (30d * b) - (10d * a),
-                (10d * c) - (20d * b) + (10d * a),
+            => (a,
                 5d * (b - a),
-                a);
+                (10d * c) - (20d * b) + (10d * a),
+                (10d * d) - (30d * c) + (30d * b) - (10d * a),
+                (5d * e) - (20d * d) + (30d * c) - (20d * b) + (5 * a),
+                f - (5d * e) + (10d * d) - (10d * c) + (5d * b) - a);
 
         #endregion
 

@@ -126,5 +126,7 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         public Icon Icon { get; set; }
+        public IFill Fill { get; }
+        public IStroke Stroke { get; }
     }
 }

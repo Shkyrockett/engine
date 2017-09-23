@@ -103,6 +103,18 @@ namespace Engine
             isReadonly = false;
         }
 
+        public Polynomial((double a, double b) tuple)
+            : this(tuple.a, tuple.b)
+        { }
+
+        public Polynomial((double a, double b, double c) tuple)
+            : this(tuple.a, tuple.b, tuple.c)
+        { }
+
+        public Polynomial((double a, double b, double c, double d) tuple)
+            : this(tuple.a, tuple.b, tuple.c, tuple.d)
+        { }
+
         #endregion
 
         #region Indexers
@@ -204,6 +216,8 @@ namespace Engine
 
         #region Properties
 
+        public string Text => ToString();
+
         /// <summary>
         /// Gets or sets the coefficients of the polynomial from lowest degree to highest degree order.
         /// </summary>
@@ -219,14 +233,14 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public PolynomialDegree Degree
-            => (PolynomialDegree)(coefficients.Length - 1);
+            => (PolynomialDegree)(coefficients?.Length - 1 ?? 0);
 
         /// <summary>
         /// Gets the number of coefficients found in the polynomial.
         /// </summary>
         /// <returns></returns>
         public int Count
-            => coefficients.Length;
+            => coefficients?.Length ?? 0;
 
         /// <summary>
         /// Gets a value indicating whether there are real roots for the polynomial.
@@ -452,7 +466,10 @@ namespace Engine
         {
             var res = new double[factor.Count];
             for (var i = 0; i < res.Length; i++)
+            {
                 res[i] = value * factor.coefficients[i];
+            }
+
             return new Polynomial() { coefficients = res };
         }
 
@@ -472,11 +489,14 @@ namespace Engine
         {
             var res = new double[value.Count + factor.Count - 1];
             for (var i = 0; i < value.Count; i++)
+            {
                 for (var j = 0; j < factor.Count; j++)
                 {
                     var mul = value.coefficients[i] * factor.coefficients[j];
                     res[i + j] += mul;
                 }
+            }
+
             return new Polynomial() { coefficients = res };
         }
 
@@ -1532,6 +1552,7 @@ namespace Engine
             switch (Degree)
             {
                 case PolynomialDegree.Constant:
+                    if (coefficients == null) return new List<double>();
                     return new List<double>() { coefficients[0] };
                 case PolynomialDegree.Linear:
                     return LinearRoots(epsilon);
@@ -1989,7 +2010,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public override Int32 GetHashCode()
-            => coefficients.GetHashCode();
+            => coefficients?.GetHashCode() ?? 0;
 
         /// <summary>
         /// Compares two Polynomials.
@@ -2079,7 +2100,7 @@ namespace Engine
         {
             var coefs = new List<string>();
             var signs = new List<string>();
-            for (var i = coefficients.Length - 1; i >= 0; i--)
+            for (var i = (coefficients?.Length ?? 0) - 1; i >= 0; i--)
             {
                 var value = coefficients[i];
                 var valueString = value.ToString();
@@ -2098,8 +2119,9 @@ namespace Engine
                     coefs.Add(valueString);
                 }
             }
-            signs[0] = (signs[0] == " + ") ? "" : "-";
-            var result = "";
+            if (signs.Count > 0)
+                signs[0] = (signs[0] == " + ") ? "" : "-";
+            var result = string.Empty;
             for (var i = 0; i < coefs.Count; i++)
                 result += signs[i] + coefs[i];
             return result;

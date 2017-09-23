@@ -43,7 +43,7 @@ namespace Editor
             /* Experimental Previews */
             //HeartCurve(vectorMap);
             //EllipticalArcLineSegmentIntersections(vectorMap);
-            EllipticalArcLineIntersections(vectorMap);
+            //EllipticalArcLineIntersections(vectorMap);
             //ScanlineIntersections(vectorMap);
             //CommonIntersections(vectorMap);
             //CurveFitting(vectorMap);
@@ -69,7 +69,7 @@ namespace Editor
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
             //IntersectionsCubicBezierCubicBezier(vectorMap);
             //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
-            //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
+            IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
             //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
@@ -84,7 +84,7 @@ namespace Editor
             /* Interactive */
             //ResizeRefreshBounds(vectorMap, canvasPanel, out boundaryItem);
             //Tweenning(vectorMap, form);
-            //KaraokeBall(vectorMap, form);
+            KaraokeBall(vectorMap, form);
             //Tweens(vectorMap);
 
             //TrianglePointingRight(vectorMap);
@@ -3256,7 +3256,7 @@ namespace Editor
 
                 new ShapeStyle(Brushes.Violet ,new Pen(new HatchBrush(HatchStyle.ZigZag, foreColor, backColor)){DashStyle = DashStyle.Dash, Width = 3f}),
 
-                new ShapeStyle(Brushes.Black, new Pen(Brushes.Violet)) { LineStyle = new LineStyle() { Dashstyle = LineDashStyle.Dot }  },
+                new ShapeStyle(Brushes.Black, new Pen(Brushes.Violet)) { LineStyle = new Stroke(new SolidFill()) {DashStyle = LineDashStyle.Dot }  },
                 new ShapeStyle(Brushes.White, new Pen(Brushes.Violet)),
 
                 new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.Solid, Width = 3f}),

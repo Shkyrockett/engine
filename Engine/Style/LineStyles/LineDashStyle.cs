@@ -11,7 +11,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing.Drawing2D;
+//using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -33,47 +33,47 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineDashStyle Solid = new LineDashStyle(DashStyle.Solid, new float[] { 1 });
+        public static readonly LineDashStyle Solid = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 1 });
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineDashStyle Dot = new LineDashStyle(DashStyle.Solid, new float[] { 1, 1 });
+        public static readonly LineDashStyle Dot = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 1, 1 });
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineDashStyle Dash = new LineDashStyle(DashStyle.Solid, new float[] { 3, 1 });
+        public static readonly LineDashStyle Dash = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1 });
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineDashStyle DashDot = new LineDashStyle(DashStyle.Solid, new float[] { 3, 1, 1, 1 });
+        public static readonly LineDashStyle DashDot = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1, 1, 1 });
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineDashStyle DashDotDot = new LineDashStyle(DashStyle.Solid, new float[] { 3, 1, 1, 1, 1, 1 });
+        public static readonly LineDashStyle DashDotDot = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1, 1, 1, 1, 1 });
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [NonSerialized()]
-        private DashStyle dashStyle;
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //[NonSerialized()]
+        //private DashStyle dashStyle;
 
         /// <summary>
         /// 
         /// </summary>
         private float[] dashPattern;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="dashPattern"></param>
-        /// <param name="dashOffset"></param>
-        public LineDashStyle(float[] dashPattern, float dashOffset = 0)
-            : this(DashStyle.Custom, dashPattern, dashOffset)
-        { }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="dashPattern"></param>
+        ///// <param name="dashOffset"></param>
+        //public LineDashStyle(float[] dashPattern, float dashOffset = 0)
+        //    : this(/*DashStyle.Custom,*/ dashPattern, dashOffset)
+        //{ }
 
         /// <summary>
         /// 
@@ -81,39 +81,39 @@ namespace Engine
         /// <param name="dashStyle"></param>
         /// <param name="dashPattern"></param>
         /// <param name="dashOffset"></param>
-        internal LineDashStyle(DashStyle dashStyle, float[] dashPattern, float dashOffset = 0)
+        internal LineDashStyle(/*DashStyle dashStyle,*/ float[] dashPattern, float dashOffset = 0)
             : this()
         {
-            this.dashStyle = dashStyle;
+            //this.dashStyle = dashStyle;
             this.dashPattern = dashPattern;
             DashOffset = dashOffset;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        internal DashStyle DashStyle { get { return dashStyle; } set { dashStyle = value; } }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        //internal DashStyle DashStyle { get { return dashStyle; } set { dashStyle = value; } }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public float[] DashPattern
-        {
-            get { return dashPattern; }
-            set
-            {
-                dashPattern = value;
-                if (dashPattern == null) dashStyle = DashStyle.Solid;
-                else if (dashPattern == Solid.dashPattern) dashStyle = DashStyle.Solid;
-                else if (dashPattern == Dot.dashPattern) dashStyle = DashStyle.Dot;
-                else if (dashPattern == Dash.dashPattern) dashStyle = DashStyle.Dash;
-                else if (dashPattern == DashDot.dashPattern) dashStyle = DashStyle.DashDot;
-                else if (dashPattern == DashDotDot.dashPattern) dashStyle = DashStyle.DashDotDot;
-                else dashStyle = DashStyle.Custom;
-            }
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        //public float[] DashPattern
+        //{
+        //    get { return dashPattern; }
+        //    set
+        //    {
+        //        dashPattern = value;
+        //        if (dashPattern == null) dashStyle = DashStyle.Solid;
+        //        else if (dashPattern == Solid.dashPattern) dashStyle = DashStyle.Solid;
+        //        else if (dashPattern == Dot.dashPattern) dashStyle = DashStyle.Dot;
+        //        else if (dashPattern == Dash.dashPattern) dashStyle = DashStyle.Dash;
+        //        else if (dashPattern == DashDot.dashPattern) dashStyle = DashStyle.DashDot;
+        //        else if (dashPattern == DashDotDot.dashPattern) dashStyle = DashStyle.DashDotDot;
+        //        else dashStyle = DashStyle.Custom;
+        //    }
+        //}
 
         /// <summary>
         /// 

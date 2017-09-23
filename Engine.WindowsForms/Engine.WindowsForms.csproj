@@ -85,7 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawingExtensions.cs" />
+    <Compile Include="Render\DrawingExtensions.cs" />
     <Compile Include="Framework\EngineReflection.cs" />
     <Compile Include="Framework\EngineWinformsReflection.cs" />
     <Compile Include="Geometry\Converters\PointFConverter.cs" />
@@ -119,9 +119,6 @@
     <Compile Include="Render\WinformsRenderer.cs" />
     <Compile Include="Styles\IconStyle.cs" />
     <Compile Include="Styles\ImageStyle.cs" />
-    <Compile Include="Styles\LineStyles\LineCapStyle.cs" />
-    <Compile Include="Styles\LineStyles\LineDashStyle.cs" />
-    <Compile Include="Styles\LineStyles\LineStyle.cs" />
     <Compile Include="Styles\MasterStyle.cs" />
     <Compile Include="Styles\ShapeStyle.cs" />
     <Compile Include="Styles\TextStyle.cs" />

@@ -618,6 +618,38 @@ Quadratic equation is where the equation involves an exponent of 2.
 | Years (sidereal) |  |
 | Years (tropical) |  |
 
+## Converting Mathmatical Notation Into Code
+
+Numbers in computers do not act the same way as they are supposed to in mathematics. In mathematics every number is a number, and between every number is a Number, and this goes off infinitely. 
+But in computers numbers are limited to the kind of number you use. 
+
+You have number types that can only be integers, others that are only positive integers. There are some that can do the numbers between numbers, and even some that are specifically designed to mimic decimal numbers. Even crazier there are numbers that are only true or false.
+
+Unlike theoretical math, all of the number systems/types in computers have upper and lower bound limits. For instance the most common integer types generally increase in the number of numbers they can represent by powers of two.
+
+This means that you need to pay attention to your order of operations in some cases to prevent the numbers from overflowing and possibly wrapping around. Which computer numbers can indeed do.
+
+An example from the Wikipedia article in [linear interpolation](https://en.wikipedia.org/wiki/Linear_interpolation):
+
+```csharp
+// Imprecise method, which does not guarantee return = b when t = 1, due to floating-point arithmetic error.
+// This form may be used when the hardware has a native fused multiply-add instruction.
+float lerp(float a, float b, float t) {
+  return a + t * (b - a);
+}
+
+// Precise method, which guarantees return = b when t = 1.
+float lerp(float a, float b, float t) {
+  return (1 - t) * a + t * b;
+}
+```
+
+When it comes to number types that have decimals, or floating points, the precision that can be represented can decrease the larger the number is, and eventually starts skipping numbers that it can't represent. 
+Learn more in the PBS Infinite Series: Why Computers are Bad at Algebra.
+
+> [![IMAGE ALT TEXT](http://img.youtube.com/vi/pQs_wx8eoQ8/0.jpg)](https://youtu.be/pQs_wx8eoQ8)
+
+
 ## Mathematical Tricks
 
 ### Multiplication Tricks

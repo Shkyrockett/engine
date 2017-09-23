@@ -111,7 +111,7 @@ namespace Engine.WindowsForms
             var value = -1;
 
             // Exit if data is not properly formated.
-            if (palette.Colors != null || palette.Colors.Count != 0)
+            if (palette?.Colors?.Count != 0)
             {
                 var grid = new RectangleCellGrid(bounds.ToRectangle2D(), palette.Colors.Count);
 

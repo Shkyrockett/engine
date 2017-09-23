@@ -11,7 +11,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing.Drawing2D;
+//using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -29,57 +29,57 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Flat = new LineCapStyle(LineCap.Flat, new PolycurveContour());
+        public static readonly LineCapStyle Flat = new LineCapStyle(/*LineCap.Flat,*/ new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Square = new LineCapStyle(LineCap.Square, new PolycurveContour());
+        public static readonly LineCapStyle Square = new LineCapStyle(/*LineCap.Square,*/ new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Round = new LineCapStyle(LineCap.Round, new PolycurveContour());
+        public static readonly LineCapStyle Round = new LineCapStyle(/*LineCap.Round,*/ new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle Triangle = new LineCapStyle(LineCap.Triangle, new PolycurveContour());
+        public static readonly LineCapStyle Triangle = new LineCapStyle(/*LineCap.Triangle,*/ new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle NoAnchor = new LineCapStyle(LineCap.NoAnchor, new PolycurveContour());
+        public static readonly LineCapStyle NoAnchor = new LineCapStyle(/*LineCap.NoAnchor,*/ new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle SquareAnchor = new LineCapStyle(LineCap.SquareAnchor, new PolycurveContour());
+        public static readonly LineCapStyle SquareAnchor = new LineCapStyle(/*LineCap.SquareAnchor,*/ new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle RoundAnchor = new LineCapStyle(LineCap.RoundAnchor, new PolycurveContour());
+        public static readonly LineCapStyle RoundAnchor = new LineCapStyle(/*LineCap.RoundAnchor,*/ new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle DiamondAnchor = new LineCapStyle(LineCap.DiamondAnchor, new PolycurveContour());
+        public static readonly LineCapStyle DiamondAnchor = new LineCapStyle(/*LineCap.DiamondAnchor,*/ new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle ArrowAnchor = new LineCapStyle(LineCap.ArrowAnchor, new PolycurveContour());
+        public static readonly LineCapStyle ArrowAnchor = new LineCapStyle(/*LineCap.ArrowAnchor,*/ new PolycurveContour());
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly LineCapStyle AnchorMask = new LineCapStyle(LineCap.AnchorMask, new PolycurveContour());
+        public static readonly LineCapStyle AnchorMask = new LineCapStyle(/*LineCap.AnchorMask,*/ new PolycurveContour());
 
-        /// <summary>
-        /// 
-        /// </summary>
-        private LineCap lineCap;
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //private LineCap lineCap;
 
         /// <summary>
         /// 
@@ -91,17 +91,17 @@ namespace Engine
         /// </summary>
         /// <param name="lineCap"></param>
         /// <param name="path"></param>
-        public LineCapStyle(LineCap lineCap, PolycurveContour path)
+        public LineCapStyle(/*LineCap lineCap,*/ PolycurveContour path)
             : this()
         {
-            this.lineCap = lineCap;
+            //this.lineCap = lineCap;
             capPath = path;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        internal LineCap LineCap { get { return lineCap; } set { lineCap = value; } }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //internal LineCap LineCap { get { return lineCap; } set { lineCap = value; } }
 
         /// <summary>
         /// 

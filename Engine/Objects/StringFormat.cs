@@ -1,5 +1,5 @@
-﻿// <copyright file="IBitmap.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+﻿// <copyright file="StringFormat.cs" company="Shkyrockett" >
+//     Copyright © 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -8,15 +8,9 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System.IO;
-
 namespace Engine
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public interface IBitmap
+    public class StringFormat
     {
-        Stream Stream { get; set; }
     }
 }

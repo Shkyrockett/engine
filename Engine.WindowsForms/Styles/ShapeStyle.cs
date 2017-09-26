@@ -124,6 +124,9 @@ namespace Engine.Imaging
         /// <summary>
         /// 
         /// </summary>
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [NotifyParentProperty(true)]
         public Stroke LineStyle { get; set; }
 
@@ -131,9 +134,15 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [NotifyParentProperty(true)]
         public Pen ForePen { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IStroke Stroke
         {
             get
@@ -154,6 +163,9 @@ namespace Engine.Imaging
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IFill Fill
             => new SolidFill(new ARGB(BackPen.Color.ToArgb()));
 
@@ -161,6 +173,9 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [NotifyParentProperty(true)]
         public Brush ForeBrush
         {
@@ -172,6 +187,9 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [NotifyParentProperty(true)]
         public Pen BackPen { get; set; }
 
@@ -179,6 +197,9 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         [NotifyParentProperty(true)]
         public Brush BackBrush
         {

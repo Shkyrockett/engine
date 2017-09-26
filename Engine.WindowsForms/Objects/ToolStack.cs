@@ -459,6 +459,15 @@ namespace Engine.Tools
         /// 
         /// </summary>
         /// <param name="tool"></param>
+        public void RegisterMouseMove(Tool tool)
+        {
+            mouseMove += tool.MouseMoveUpdate;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tool"></param>
         public void RegisterMouseLeftButton(Tool tool)
         {
             if (!tools.ContainsKey(MouseButtons.Left))

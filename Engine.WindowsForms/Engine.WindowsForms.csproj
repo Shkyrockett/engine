@@ -122,6 +122,7 @@
     <Compile Include="Styles\MasterStyle.cs" />
     <Compile Include="Styles\ShapeStyle.cs" />
     <Compile Include="Styles\TextStyle.cs" />
+    <Compile Include="Tools\MouseMoveUpdate.cs" />
     <Compile Include="Tools\DrawShape.cs" />
     <Compile Include="Tools\Enums\Keys.cs" />
     <Compile Include="Tools\Enums\MouseButtons.cs" />

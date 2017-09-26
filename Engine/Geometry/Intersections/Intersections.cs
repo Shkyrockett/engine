@@ -455,13 +455,13 @@ namespace Engine
         /// Find the intersection of a Line segment and a Quadratic Bezier.
         /// </summary>
         /// <param name="l">The line.</param>
-        /// <param name="b">The quadratic bezier curve segmet.</param>
+        /// <param name="b">The quadratic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, QuadraticBezier b, double epsilon = Epsilon)
-            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, epsilon);
+            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Cubic Bezier.
@@ -473,7 +473,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, CubicBezier b, double epsilon = Epsilon)
-            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, epsilon);
+            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line.
@@ -578,9 +578,9 @@ namespace Engine
                         case PolynomialDegree.Linear:
                             return LineSegmentLineSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, epsilon);
                         case PolynomialDegree.Quadratic:
-                            return LineSegmentQuadraticBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, epsilon);
+                            return LineSegmentQuadraticBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0.CurveX, b0.CurveY, epsilon);
                         case PolynomialDegree.Cubic:
-                            return LineSegmentCubicBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, epsilon);
+                            return LineSegmentCubicBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0.CurveX, b0.CurveY, epsilon);
                         default:
                             return new Intersection(IntersectionState.NoIntersection);
                     }
@@ -588,11 +588,11 @@ namespace Engine
                     switch (b1.Degree)
                     {
                         case PolynomialDegree.Linear:
-                            return LineSegmentQuadraticBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, epsilon);
+                            return LineSegmentQuadraticBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0.CurveX, b0.CurveY, epsilon);
                         case PolynomialDegree.Quadratic:
-                            return QuadraticBezierSegmentQuadraticBezierSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, epsilon);
+                            return QuadraticBezierSegmentQuadraticBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
                         case PolynomialDegree.Cubic:
-                            return QuadraticBezierSegmentCubicBezierSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b1[3].X, b1[3].Y, epsilon);
+                            return QuadraticBezierSegmentCubicBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
                         default:
                             return new Intersection(IntersectionState.NoIntersection);
                     }
@@ -600,11 +600,11 @@ namespace Engine
                     switch (b1.Degree)
                     {
                         case PolynomialDegree.Linear:
-                            return LineSegmentCubicBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, epsilon);
+                            return LineSegmentCubicBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b0.CurveX, b0.CurveY, epsilon);
                         case PolynomialDegree.Quadratic:
-                            return QuadraticBezierSegmentCubicBezierSegmentIntersection(b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, epsilon);
+                            return QuadraticBezierSegmentCubicBezierSegmentIntersection(b1.CurveX, b1.CurveY, b0.CurveX, b0.CurveY, epsilon);
                         case PolynomialDegree.Cubic:
-                            return CubicBezierSegmentCubicBezierSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, b1[0].X, b1[0].Y, b1[1].X, b1[1].Y, b1[2].X, b1[2].Y, b1[3].X, b1[3].Y, epsilon);
+                            return CubicBezierSegmentCubicBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
                         default:
                             return new Intersection(IntersectionState.NoIntersection);
                     }
@@ -629,9 +629,9 @@ namespace Engine
                 case PolynomialDegree.Linear:
                     return LineSegmentLineSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b[0].X, b[0].Y, b[1].X, b[1].Y, epsilon);
                 case PolynomialDegree.Quadratic:
-                    return LineSegmentQuadraticBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, epsilon);
+                    return LineSegmentQuadraticBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.CurveX, b.CurveY, epsilon);
                 case PolynomialDegree.Cubic:
-                    return LineSegmentCubicBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, b[3].X, b[3].Y, epsilon);
+                    return LineSegmentCubicBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.CurveX, b.CurveY, epsilon);
                 default:
                     return new Intersection(IntersectionState.NoIntersection);
             }
@@ -651,11 +651,11 @@ namespace Engine
             switch (b0.Degree)
             {
                 case PolynomialDegree.Linear:
-                    return LineSegmentQuadraticBezierSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, epsilon);
+                    return LineSegmentQuadraticBezierSegmentIntersection(b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b1.CurveX, b1.CurveY, epsilon);
                 case PolynomialDegree.Quadratic:
-                    return QuadraticBezierSegmentQuadraticBezierSegmentIntersection(b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, epsilon);
+                    return QuadraticBezierSegmentQuadraticBezierSegmentIntersection(b1.CurveX, b1.CurveY, b0.CurveX, b0.CurveY, epsilon);
                 case PolynomialDegree.Cubic:
-                    return QuadraticBezierSegmentCubicBezierSegmentIntersection(b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b0[0].X, b0[0].Y, b0[1].X, b0[1].Y, b0[2].X, b0[2].Y, b0[3].X, b0[3].Y, epsilon);
+                    return QuadraticBezierSegmentCubicBezierSegmentIntersection(b1.CurveX, b1.CurveY, b0.CurveX, b0.CurveY, epsilon);
                 default:
                     return new Intersection(IntersectionState.NoIntersection);
             }
@@ -675,11 +675,11 @@ namespace Engine
             switch (b.Degree)
             {
                 case PolynomialDegree.Linear:
-                    return LineSegmentCubicBezierSegmentIntersection(c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY, b[0].X, b[0].Y, b[1].X, b[1].Y, epsilon);
+                    return LineSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, c.CurveX, c.CurveY, epsilon);
                 case PolynomialDegree.Quadratic:
-                    return QuadraticBezierSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY, epsilon);
+                    return QuadraticBezierSegmentCubicBezierSegmentIntersection(b.CurveX, b.CurveY, c.CurveX, c.CurveY, epsilon);
                 case PolynomialDegree.Cubic:
-                    return CubicBezierSegmentCubicBezierSegmentIntersection(c.AX, c.AY, c.BX, c.BY, c.CX, c.CY, c.DX, c.DY, b[0].X, b[0].Y, b[1].X, b[1].Y, b[2].X, b[2].Y, b[3].X, b[3].Y, epsilon);
+                    return CubicBezierSegmentCubicBezierSegmentIntersection(c.CurveX, c.CurveY, b.CurveX, b.CurveY, epsilon);
                 default:
                     return new Intersection(IntersectionState.NoIntersection);
             }
@@ -743,7 +743,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, QuadraticBezier b, double epsilon = Epsilon)
-            => LineSegmentQuadraticBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, epsilon);
+            => LineSegmentQuadraticBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Cubic Bezier.
@@ -755,7 +755,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, CubicBezier b, double epsilon = Epsilon)
-            => LineSegmentCubicBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, epsilon);
+            => LineSegmentCubicBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Polygon contour.
@@ -827,7 +827,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, EllipticalArc e, double epsilon = Epsilon)
-            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, e.X, s.B.X, s.B.Y, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Line segment.
@@ -839,7 +839,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Line l, double epsilon = Epsilon)
-            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, epsilon);
+            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Bezier segment.
@@ -863,7 +863,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, LineSegment l, double epsilon = Epsilon)
-            => LineSegmentQuadraticBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, epsilon);
+            => LineSegmentQuadraticBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of two Quadratic Beziers.
@@ -875,7 +875,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b0, QuadraticBezier b1, double epsilon = Epsilon)
-            => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(b0.AX, b0.AY, b0.BX, b0.BY, b0.CX, b0.CY, b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, epsilon);
+            => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Cubic Bezier.
@@ -887,7 +887,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b0, CubicBezier b1, double epsilon = Epsilon)
-            => QuadraticBezierSegmentCubicBezierSegmentIntersection(b0.AX, b0.AY, b0.BX, b0.BY, b0.CX, b0.CY, b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b1.DX, b1.DY, epsilon);
+            => QuadraticBezierSegmentCubicBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Circle.
@@ -899,7 +899,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Circle c, double epsilon = Epsilon)
-            => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, c.X, c.Y, c.Radius, c.Radius, epsilon);
+            => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and an unrotated Ellipse.
@@ -911,7 +911,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         //[DebuggerStepThrough]
         public static Intersection Intersection(this QuadraticBezier b, Ellipse e, double epsilon = Epsilon)
-            => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, e.X, e.Y, e.RX, e.RY, epsilon);
+            => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Rectangle.
@@ -923,7 +923,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Rectangle2D r, double epsilon = Epsilon)
-            => QuadraticBezierSegmentRectangleIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, r.X, r.Y, r.Right, r.Bottom, epsilon);
+            => QuadraticBezierSegmentRectangleIntersection(b.CurveX, b.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Polygon Contour.
@@ -935,7 +935,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, PolygonContour p, double epsilon = Epsilon)
-            => QuadraticBezierSegmentPolygonContourIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points, epsilon);
+            => QuadraticBezierSegmentPolygonContourIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and a Line segment.
@@ -947,7 +947,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Line l, double epsilon = Epsilon)
-            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, epsilon);
+            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and a Bezier segment.
@@ -971,7 +971,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, LineSegment l, double epsilon = Epsilon)
-            => LineSegmentCubicBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, epsilon);
+            => LineSegmentCubicBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and a Quadratic Bezier.
@@ -983,7 +983,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b1, QuadraticBezier b0, double epsilon = Epsilon)
-            => QuadraticBezierSegmentCubicBezierSegmentIntersection(b0.AX, b0.AY, b0.BX, b0.BY, b0.CX, b0.CY, b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b1.DX, b1.DY, epsilon);
+            => QuadraticBezierSegmentCubicBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of two Cubic Beziers.
@@ -995,7 +995,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b0, CubicBezier b1, double epsilon = Epsilon)
-            => CubicBezierSegmentCubicBezierSegmentIntersection(b0.AX, b0.AY, b0.BX, b0.BY, b0.CX, b0.CY, b0.DX, b0.DY, b1.AX, b1.AY, b1.BX, b1.BY, b1.CX, b1.CY, b1.DX, b1.DY, epsilon);
+            => CubicBezierSegmentCubicBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and a Circle.
@@ -1007,7 +1007,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Circle c, double epsilon = Epsilon)
-            => CubicBezierSegmentUnrotatedEllipseIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, c.X, c.Y, c.Radius, c.Radius, epsilon);
+            => CubicBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and an unrotated Ellipse.
@@ -1019,7 +1019,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Ellipse e, double epsilon = Epsilon)
-            => CubicBezierSegmentUnrotatedEllipseIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, e.X, e.Y, e.RX, e.RY, epsilon);
+            => CubicBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and a Rectangle.
@@ -1031,7 +1031,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Rectangle2D r, double epsilon = Epsilon)
-            => CubicBezierSegmentRectangleIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, r.X, r.Y, r.Right, r.Bottom, epsilon);
+            => CubicBezierSegmentRectangleIntersection(b.CurveX, b.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and a Polygon Contour.
@@ -1043,7 +1043,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, PolygonContour p, double epsilon = Epsilon)
-            => CubicBezierSegmentPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, p.Points, epsilon);
+            => CubicBezierSegmentPolygonIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line.
@@ -1079,7 +1079,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, QuadraticBezier b, double epsilon = Epsilon)
-            => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, c.X, c.Y, c.Radius, c.Radius, epsilon);
+            => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and a Cubic Bezier.
@@ -1091,7 +1091,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, CubicBezier b, double epsilon = Epsilon)
-            => CubicBezierSegmentUnrotatedEllipseIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, c.X, c.Y, c.Radius, c.Radius, epsilon);
+            => CubicBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection between two circles.
@@ -1199,7 +1199,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, QuadraticBezier b, double epsilon = Epsilon)
-             => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, e.X, e.Y, e.RX, e.RY, epsilon);
+             => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a Cubic Bezier.
@@ -1211,7 +1211,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, CubicBezier b, double epsilon = Epsilon)
-            => CubicBezierSegmentUnrotatedEllipseIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, e.X, e.Y, e.RX, e.RY, epsilon);
+            => CubicBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated Ellipse and a Circle.
@@ -1283,7 +1283,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this EllipticalArc e, LineSegment s, double epsilon = Epsilon)
-            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, e.X, s.B.X, s.B.Y, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a line.
@@ -1319,7 +1319,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, QuadraticBezier b, double epsilon = Epsilon)
-            => QuadraticBezierSegmentRectangleIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, r.X, r.Y, r.Right, r.Bottom, epsilon);
+            => QuadraticBezierSegmentRectangleIntersection(b.CurveX, b.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Cubic Bezier.
@@ -1331,7 +1331,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, CubicBezier b, double epsilon = Epsilon)
-            => CubicBezierSegmentRectangleIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, r.X, r.Y, r.Right, r.Bottom, epsilon);
+            => CubicBezierSegmentRectangleIntersection(b.CurveX, b.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Circle.
@@ -1415,7 +1415,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, QuadraticBezier b, double epsilon = Epsilon)
-             => QuadraticBezierSegmentPolygonContourIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, p.Points, epsilon);
+             => QuadraticBezierSegmentPolygonContourIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a Polygon Contour and a Cubic Bezier.
@@ -1427,7 +1427,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, CubicBezier b, double epsilon = Epsilon)
-            => CubicBezierSegmentPolygonIntersection(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, p.Points, epsilon);
+            => CubicBezierSegmentPolygonIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a polygon.
@@ -2494,7 +2494,7 @@ namespace Engine
             double x3, double y3,
             double epsilon = Epsilon)
         {
-            // Todo: Figure out ray intersection.
+            // ToDo: Figure out ray intersection.
 
             // Translate lines to origin.
             var u1 = (x1 - x0);
@@ -3128,12 +3128,36 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
+        /// <param name="b0x"></param>
+        /// <param name="b0y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection LineQuadraticBezierIntersection(
+            double x1, double y1, double x2, double y2,
+            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
+            double epsilon = Epsilon)
+            => LineQuadraticBezierIntersection(
+                x1, y1, x2, y2,
+                Polynomial.Quadratic(b0x, b1x, b2x),
+                Polynomial.Quadratic(b0y, b1y, b2y),
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between a line and a quadratic bezier.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -3142,11 +3166,11 @@ namespace Engine
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459 (https://web.archive.org/web/20111206104736/http://www.blitzbasic.com/Community/posts.php?topic=64459)
         /// </acknowledgment>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineQuadraticBezierIntersection(
             double x1, double y1, double x2, double y2,
-            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y,
+            Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
             // Initialize intersection.
@@ -3158,24 +3182,17 @@ namespace Engine
 
             var c = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            var xCoeff = QuadraticBezierCoefficients(p0x, p1x, p2x);
-            var yCoeff = QuadraticBezierCoefficients(p0y, p1y, p2y);
+            // Find the polynomial that represents the intersections.
+            var poly = a * xCurve + b * yCurve + c;
+            var roots = poly.Trim().Roots();
 
-            var roots = QuadraticRoots(
-                /* t^2 */ a * xCoeff.C + b * yCoeff.C,
-                /* t^1 */ a * xCoeff.B + b * yCoeff.B,
-                /* 1 */ a * xCoeff.A + b * yCoeff.A + c,
-                epsilon);
-
-            for (var i = 0; i < roots.Count; i++)
+            foreach (var s in roots)
             {
-                var t = roots[i];
-
                 // Add intersection point.
-                if (!(t < 0 || t > 1d))
+                if (!(s < 0 || s > 1d))
                     result.AppendPoint(new Point2D(
-                        xCoeff.C * t * t + xCoeff.B * t + xCoeff.A,
-                        yCoeff.C * t * t + yCoeff.B * t + yCoeff.A));
+                        xCurve[0] * s * s + xCurve[1] * s + xCurve[2],
+                        yCurve[0] * s * s + yCurve[1] * s + yCurve[2]));
             }
 
             // Return result.
@@ -3191,14 +3208,38 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
-        /// <param name="p3x"></param>
-        /// <param name="p3y"></param>
+        /// <param name="b0x"></param>
+        /// <param name="b0y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
+        /// <param name="b3x"></param>
+        /// <param name="b3y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection LineCubicBezierIntersection(
+            double x1, double y1, double x2, double y2,
+            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
+            double epsilon = Epsilon)
+            => LineCubicBezierIntersection(
+                x1, y1, x2, y2,
+                Polynomial.Cubic(b0x, b1x, b2x, b3x),
+                Polynomial.Cubic(b0y, b1y, b2y, b3y),
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between a line and a cubic bezier.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -3207,53 +3248,33 @@ namespace Engine
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459 (https://web.archive.org/web/20111206104736/http://www.blitzbasic.com/Community/posts.php?topic=64459)
         /// </acknowledgment>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineCubicBezierIntersection(
             double x1, double y1, double x2, double y2,
-            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y,
+            Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate the line to the origin.
-            var A = y2 - y1;
-            var B = x1 - x2;
+            var a = y2 - y1;
+            var b = x1 - x2;
 
-            var C = x1 * (y1 - y2) + y1 * (x2 - x1);
+            var c = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            var xCoeff = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
-            var yCoeff = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
+            // Find the polynomial that represents the intersections.
+            var poly = a * xCurve + b * yCurve + c;
+            var roots = poly.Trim().Roots();
 
-            List<double> roots;
-
-            // Fix for missing intersections for curves that can be reduced to lower degrees.
-            // Figure out whether the handles and ends are parallel.
-            var determinant = (x2 - x1) * (p3y - p2y + p1y - p0y) - (y2 - y1) * (p3x - p2x + p1x - p0x);
-            if (Abs(determinant) < epsilon)
-                roots = QuadraticRoots(
-                    /* t^2 */ A * xCoeff.C + B * yCoeff.C,
-                    /* t^1 */ A * xCoeff.B + B * yCoeff.B,
-                    /* C^0 */ A * xCoeff.A + B * yCoeff.A + C,
-                    epsilon);
-            else
-                roots = CubicRoots(
-                    /* t^3 */ A * xCoeff.D + B * yCoeff.D,
-                    /* t^2 */ A * xCoeff.C + B * yCoeff.C,
-                    /* t^1 */ A * xCoeff.B + B * yCoeff.B,
-                    /* C^0 */ A * xCoeff.A + B * yCoeff.A + C,
-                    epsilon);
-
-            for (var i = 0; i < roots.Count; i++)
+            foreach (var s in roots)
             {
-                var t = roots[i];
-
                 // Add intersection point.
-                if (!(t < 0 || t > 1d))
+                if (!(s < 0 || s > 1d))
                     result.AppendPoint(new Point2D(
-                        xCoeff.D * t * t * t + xCoeff.C * t * t + xCoeff.B * t + xCoeff.A,
-                        yCoeff.D * t * t * t + yCoeff.C * t * t + yCoeff.B * t + yCoeff.A));
+                    xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
+                    yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]));
             }
 
             if (result.Count > 0)
@@ -3813,7 +3834,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection RayRayIntersection(
             double a1X, double a1Y, double a2X, double a2Y,
@@ -3864,7 +3885,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentLineSegmentIntersection(
             double x1, double y1, double x2, double y2,
@@ -3910,12 +3931,36 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
+        /// <param name="b0x"></param>
+        /// <param name="b0y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection LineSegmentQuadraticBezierSegmentIntersection(
+            double x1, double y1, double x2, double y2,
+            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
+            double epsilon = Epsilon)
+            => LineSegmentQuadraticBezierSegmentIntersection(
+                x1, y1, x2, y2,
+                Polynomial.Quadratic(b0x, b1x, b2x),
+                Polynomial.Quadratic(b0y, b1y, b2y),
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between a line segment and a quadratic bezier.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -3928,35 +3973,27 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentQuadraticBezierSegmentIntersection(
             double x1, double y1, double x2, double y2,
-            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y,
+            Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate the line to the origin.
-            var A = y2 - y1;
-            var B = x1 - x2;
+            var a = y2 - y1;
+            var b = x1 - x2;
 
-            var C = x1 * (y1 - y2) + y1 * (x2 - x1);
+            var c = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            var xCoeff = QuadraticBezierCoefficients(p0x, p1x, p2x);
-            var yCoeff = QuadraticBezierCoefficients(p0y, p1y, p2y);
+            // Find the polynomial that represents the intersections.
+            var poly = a * xCurve + b * yCurve + c;
+            var roots = poly.Trim().Roots();
 
-            List<double> roots;
-            roots = QuadraticRoots(
-                /* t^2 */ A * xCoeff.C + B * yCoeff.C,
-                /* t^1 */ A * xCoeff.B + B * yCoeff.B,
-                /* C^0 */ A * xCoeff.A + B * yCoeff.A + C
-                );
-
-            for (var i = 0; i < roots.Count; i++)
+            foreach (var s in roots)
             {
-                var t = roots[i];
-
                 // Intersection point assuming it was an infinitely long line.
-                var x = xCoeff.C * t * t + xCoeff.B * t + xCoeff.A;
-                var y = yCoeff.C * t * t + yCoeff.B * t + yCoeff.A;
+                var x = xCurve[0] * s * s + xCurve[1] * s + xCurve[2];
+                var y = yCurve[0] * s * s + yCurve[1] * s + yCurve[2];
 
                 double slope;
                 // Special handling for vertical lines.
@@ -3966,7 +4003,7 @@ namespace Engine
                     slope = (y - y1) / (y2 - y1);
 
                 // Make sure we are in bounds of the line segment.
-                if (!(t < 0 || t > 1d || slope < 0 || slope > 1d))
+                if (!(s < 0 || s > 1d || slope < 0 || slope > 1d))
                 {
                     // Add intersection point.
                     result.AppendPoint(new Point2D(x, y));
@@ -3986,14 +4023,38 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
-        /// <param name="p3x"></param>
-        /// <param name="p3y"></param>
+        /// <param name="b0x"></param>
+        /// <param name="b0y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
+        /// <param name="b3x"></param>
+        /// <param name="b3y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection LineSegmentCubicBezierSegmentIntersection(
+            double x1, double y1, double x2, double y2,
+            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
+            double epsilon = Epsilon)
+            => LineSegmentCubicBezierSegmentIntersection(
+                x1, y1, x2, y2,
+                Polynomial.Cubic(b0x, b1x, b2x, b3x),
+                Polynomial.Cubic(b0y, b1y, b2y, b3y),
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between a line segment and a cubic bezier.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -4006,46 +4067,28 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentCubicBezierSegmentIntersection(
             double x1, double y1, double x2, double y2,
-            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y,
+            Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate the line to the origin.
-            var A = y2 - y1;
-            var B = x1 - x2;
+            var a = y2 - y1;
+            var b = x1 - x2;
 
-            var C = x1 * (y1 - y2) + y1 * (x2 - x1);
+            var c = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            var xCoeff = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
-            var yCoeff = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
+            // Find the polynomial that represents the intersections.
+            var poly = a * xCurve + b * yCurve + c;
+            var roots = poly.Trim().Roots();
 
-            List<double> roots;
-            // Fix for missing intersections for curves that can be reduced to lower degrees due to parallel components.
-            var determinant = (x2 - x1) * (p3y - p2y + p1y - p0y) - (y2 - y1) * (p3x - p2x + p1x - p0x);
-            if (Abs(determinant) < epsilon)
-                roots = QuadraticRoots(
-                    /* t^2 */ A * xCoeff.C + B * yCoeff.C,
-                    /* t^1 */ A * xCoeff.B + B * yCoeff.B,
-                    /* C^0 */   A * xCoeff.A + B * yCoeff.A + C
-                    );
-            else
-                roots = CubicRoots(
-                    /* t^3 */ A * xCoeff.D + B * yCoeff.D,
-                    /* t^2 */ A * xCoeff.C + B * yCoeff.C,
-                    /* t^1 */ A * xCoeff.B + B * yCoeff.B,
-                    /* C^0 */ A * xCoeff.A + B * yCoeff.A + C
-                    );
-
-            for (var i = 0; i < roots.Count; i++)
+            foreach (var s in roots)
             {
-                var t = roots[i];
-
                 // Intersection point assuming infinitely long line segment.
                 var point = new Point2D(
-                    xCoeff.D * t * t * t + xCoeff.C * t * t + xCoeff.B * t + xCoeff.A,
-                    yCoeff.D * t * t * t + yCoeff.C * t * t + yCoeff.B * t + yCoeff.A);
+                    xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
+                    yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]);
 
                 double slope;
 
@@ -4056,7 +4099,7 @@ namespace Engine
                     slope = (point.Y - y1) / (y2 - y1);
 
                 // Make sure we are in bounds of the line segment.
-                if (!(t < 0 || t > 1d || slope < 0 || slope > 1d))
+                if (!(s < 0 || s > 1d || slope < 0 || slope > 1d))
                 {
                     // Add intersection point.
                     result.AppendPoint(point);
@@ -4085,7 +4128,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentRectangleIntersection(
             double lAX, double lAY, double lBX, double lBY,
@@ -4126,7 +4169,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentPolygonContourIntersection(
             double a1X, double a1Y, double a2X, double a2Y,
@@ -4173,7 +4216,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentCircleIntersection(
             double lAX, double lAY, double lBX, double lBY,
@@ -4260,7 +4303,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentCircularArcIntersection(
             double lAX, double lAY, double lBX, double lBY,
@@ -4384,8 +4427,8 @@ namespace Engine
         /// <param name="cy"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
+        /// <param name="cosA">The cosine of the rotation angle.</param>
+        /// <param name="sinA">The sine of the rotation angle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -4503,8 +4546,8 @@ namespace Engine
         /// <param name="cy"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
-        /// <param name="sinA"></param>
-        /// <param name="cosA"></param>
+        /// <param name="cosA">The cosine of the rotation angle.</param>
+        /// <param name="sinA">The sine of the rotation angle.</param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <param name="x0"></param>
@@ -4521,7 +4564,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentEllipticalArcIntersection(
             double x0, double y0,
-            double cx, double x1, double y1, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
+            double x1, double y1,
+            double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
@@ -4653,100 +4697,87 @@ namespace Engine
         /// <param name="b3Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <acknowledgment>
-        /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
-        /// and the intersections methods at: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
             double epsilon = Epsilon)
+            => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
+                Polynomial.Quadratic(a1X, a2X, a3X),
+                Polynomial.Quadratic(a1Y, a2Y, a3Y),
+                Polynomial.Quadratic(b1X, b2X, b3X),
+                Polynomial.Quadratic(b1Y, b2Y, b3Y),
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between two quadratic beziers.
+        /// </summary>
+        /// <param name="xCurveA">The set of Polynomial Bezier Coefficients of the x coordinates of the first Bezier curve.</param>
+        /// <param name="yCurveA">The set of Polynomial Bezier Coefficients of the y coordinates of the first Bezier curve.</param>
+        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
+        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
+        /// and the intersections methods at: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
+            Polynomial xCurveA, Polynomial yCurveA,
+            Polynomial xCurveB, Polynomial yCurveB,
+            double epsilon = Epsilon)
         {
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // ToDo: Break early if the AABB of the ends and handles do not intersect.
-            // Todo: Break early if the AABB of the curve does not intersect.
+            // Cross product of first coefficient of a and b.
+            var v0 = xCurveA[0] * yCurveB[0] - yCurveA[0] * xCurveB[0];
 
-            // Parametric matrix form of the Bezier curves
-            var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
-            var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
-            var xCoeffB = QuadraticBezierCoefficients(b1X, b2X, b3X);
-            var yCoeffB = QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
+            // Cross product of first coefficient of a and second coefficient of b.
+            var v1 = xCurveA[0] * yCurveB[1] - xCurveB[1] * yCurveA[0];
 
-            List<double> roots = null;
+            // Cross product of second coefficient of a and first coefficient of b.
+            var v2 = xCurveA[1] * yCurveA[0] - yCurveA[1] * xCurveA[0];
 
-            // ToDo: Find the intersections of Bezier curves where all of the nodes are parallel.
+            // Delta of third coefficients of b and a.
+            var v3 = yCurveA[2] - yCurveB[2];
 
-            if (yCoeffA.C == 0)
-            {
-                var v0 = xCoeffA.C * (yCoeffA.A - yCoeffB.A);
-                var v1 = v0 - xCoeffA.B * yCoeffA.B;
-                var v2 = v0 + v1;
-                var v3 = yCoeffA.B * yCoeffA.B;
+            var v4 = yCurveA[0] * (xCurveA[2] - xCurveB[2]) - xCurveA[0] * v3;
 
-                roots = QuarticRoots(
-                    /* t^4 */ xCoeffA.C * yCoeffB.C * yCoeffB.C,
-                    /* t^3 */ 2 * xCoeffA.C * yCoeffB.B * yCoeffB.C,
-                    /* t^2 */ xCoeffA.C * yCoeffB.B * yCoeffB.B - xCoeffB.C * v3 - yCoeffB.C * v0 - yCoeffB.C * v1,
-                    /* t^1 */ -xCoeffB.B * v3 - yCoeffB.B * v0 - yCoeffB.B * v1,
-                    /* C^0 */ (xCoeffA.A - xCoeffB.A) * v3 + (yCoeffA.A - yCoeffB.A) * v1,
-                    epsilon);
-            }
-            else
-            {
-                var v0 = xCoeffA.C * yCoeffB.C - yCoeffA.C * xCoeffB.C;
-                var v1 = xCoeffA.C * yCoeffB.B - xCoeffB.B * yCoeffA.C;
-                var v2 = xCoeffA.B * yCoeffA.C - yCoeffA.B * xCoeffA.C;
-                var v3 = yCoeffA.A - yCoeffB.A;
-                var v4 = yCoeffA.C * (xCoeffA.A - xCoeffB.A) - xCoeffA.C * v3;
-                var v5 = -yCoeffA.B * v2 + yCoeffA.C * v4;
-                var v6 = v2 * v2;
+            var v5 = -yCurveA[1] * v2 + yCurveA[0] * v4;
 
-                roots = (v0 == 0)
-                    ? QuadraticRoots(
-                        /* t^2 */ (-yCoeffB.C * v6 + yCoeffA.C * v1 * v1 + yCoeffA.C * v0 * v4 + v0 * v5) / yCoeffA.C,
-                        /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.C * v1 * v4 + v1 * v5) / yCoeffA.C,
-                        /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.C,
-                        epsilon)
-                    : QuarticRoots(
-                        /* t^4 */ v0 * v0,
-                        /* t^3 */ 2 * v0 * v1,
-                        /* t^2 */ (-yCoeffB.C * v6 + yCoeffA.C * v1 * v1 + yCoeffA.C * v0 * v4 + v0 * v5) / yCoeffA.C,
-                        /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.C * v1 * v4 + v1 * v5) / yCoeffA.C,
-                        /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.C,
-                        epsilon);
-            }
+            // Square of the second cross product.
+            var v6 = v2 * v2;
+
+            // Find the polynomial that represents the intersections.
+            var poly = new Polynomial(
+                // Square of first cross product.
+                /* x⁴ */ v0 * v0,
+                // Two times the first cross product times the second cross product.
+                /* x³ */ 2 * v0 * v1,
+                /* x² */ (-yCurveB[0] * v6 + yCurveA[0] * v1 * v1 + yCurveA[0] * v0 * v4 + v0 * v5) / yCurveA[0],
+                /* x¹ */ (-yCurveB[1] * v6 + yCurveA[0] * v1 * v4 + v1 * v5) / yCurveA[0],
+                /* c  */ (v3 * v6 + v4 * v5) / yCurveA[0]
+            );
+
+            // Find the roots of the polynomial.
+            var roots = poly.Trim().Roots();
 
             foreach (var s in roots)
             {
+                // Interpolate the point at t of the root s on curve b.
                 var point = new Point2D(
-                    xCoeffB.C * s * s + xCoeffB.B * s + xCoeffB.A,
-                    yCoeffB.C * s * s + yCoeffB.B * s + yCoeffB.A);
+                    xCurveB[0] * s * s + xCurveB[1] * s + xCurveB[2],
+                    yCurveB[0] * s * s + yCurveB[1] * s + yCurveB[2]);
+
                 if (s >= 0 && s <= 1)
                 {
-                    var xRoots = (xCoeffA.C == 0)
-                        ? LinearRoots(
-                            /* t^1 */ -xCoeffA.B,
-                            /* C^0 */ -xCoeffA.A + point.X,
-                            epsilon)
-                        : QuadraticRoots(
-                            /* t^2 */ -xCoeffA.C,
-                            /* t^1 */ -xCoeffA.B,
-                            /* C^0 */ -xCoeffA.A + point.X,
-                            epsilon);
-                    var yRoots = (yCoeffA.C == 0)
-                        ? LinearRoots(
-                            /* t^1 */ -yCoeffA.B,
-                            /* C^0 */ -yCoeffA.A + point.Y,
-                            epsilon)
-                        : QuadraticRoots(
-                            /* t^2 */ -yCoeffA.C,
-                            /* t^1 */ -yCoeffA.B,
-                            /* C^0 */ -yCoeffA.A + point.Y,
-                            epsilon);
+                    // Look for intersections on curve a at the same location.
+                    var xRoots = (xCurveA - point.X).Trim().Roots();
+                    var yRoots = (yCurveA - point.Y).Trim().Roots();
 
                     if (xRoots.Count > 0 && yRoots.Count > 0)
                     {
@@ -4796,80 +4827,81 @@ namespace Engine
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        /// <acknowledgment>
-        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
-        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
-        {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            // ToDo: Break early if the AABB bounding box of the curve does not intersect.
+            => QuadraticBezierSegmentCubicBezierSegmentIntersection(
+                Polynomial.Quadratic(a1X, a2X, a3X),
+                Polynomial.Quadratic(a1Y, a2Y, a3Y),
+                Polynomial.Cubic(b1X, b2X, b3X, b4X),
+                Polynomial.Cubic(b1Y, b2Y, b3Y, b4Y),
+                epsilon);
 
-            // The tolerance is off by too much. Need to find the error.
+        /// <summary>
+        /// Find the intersection between a quadratic bezier and a cubic bezier.
+        /// </summary>
+        /// <param name="xCurveA">The set of Polynomial Bezier Coefficients of the x coordinates of the first Bezier curve.</param>
+        /// <param name="yCurveA">The set of Polynomial Bezier Coefficients of the y coordinates of the first Bezier curve.</param>
+        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
+        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// This is a rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(
+            Polynomial xCurveA, Polynomial yCurveA,
+            Polynomial xCurveB, Polynomial yCurveB,
+            double epsilon = Epsilon)
+        {
+            // Initialize intersection.
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            // ToDo: The tolerance is off by too much. Need to find the error.
             var tolerance = 4294967295 * epsilon; // 1e-4;
 
-            var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
-            var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
-            var xCoeffB = CubicBezierCoefficients(b1X, b2X, b3X, b4X);
-            var yCoeffB = CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y);
+            var cAAx2 = xCurveA[0] * xCurveA[0];
+            var cAAy2 = yCurveA[0] * yCurveA[0];
+            var cABx2 = xCurveA[1] * xCurveA[1];
+            var cABy2 = yCurveA[1] * yCurveA[1];
+            var cACx2 = xCurveA[2] * xCurveA[2];
+            var cACy2 = yCurveA[2] * yCurveA[2];
 
-            var cAAx2 = xCoeffA.C * xCoeffA.C;
-            var cAAy2 = yCoeffA.C * yCoeffA.C;
-            var cABx2 = xCoeffA.B * xCoeffA.B;
-            var cABy2 = yCoeffA.B * yCoeffA.B;
-            var cACx2 = xCoeffA.A * xCoeffA.A;
-            var cACy2 = yCoeffA.A * yCoeffA.A;
+            var cBAx2 = xCurveB[0] * xCurveB[0];
+            var cBAy2 = yCurveB[0] * yCurveB[0];
+            var cBBx2 = xCurveB[1] * xCurveB[1];
+            var cBBy2 = yCurveB[1] * yCurveB[1];
+            var cBCx2 = xCurveB[2] * xCurveB[2];
+            var cBCy2 = yCurveB[2] * yCurveB[2];
+            var cBDx2 = xCurveB[3] * xCurveB[3];
+            var cBDy2 = yCurveB[3] * yCurveB[3];
 
-            var cBAx2 = xCoeffB.D * xCoeffB.D;
-            var cBAy2 = yCoeffB.D * yCoeffB.D;
-            var cBBx2 = xCoeffB.C * xCoeffB.C;
-            var cBBy2 = yCoeffB.C * yCoeffB.C;
-            var cBCx2 = xCoeffB.B * xCoeffB.B;
-            var cBCy2 = yCoeffB.B * yCoeffB.B;
-            var cBDx2 = xCoeffB.A * xCoeffB.A;
-            var cBDy2 = yCoeffB.A * yCoeffB.A;
-
-            var roots = new Polynomial(
-                /* t^6 */ -2 * xCoeffA.A * yCoeffA.A * xCoeffA.C * yCoeffA.C - xCoeffA.A * xCoeffA.B * yCoeffA.B * yCoeffA.C - yCoeffA.A * xCoeffA.B * yCoeffA.B * xCoeffA.C + 2 * xCoeffA.A * xCoeffA.C * yCoeffB.A * yCoeffA.C + 2 * yCoeffA.A * xCoeffB.A * xCoeffA.C * yCoeffA.C + xCoeffA.B * xCoeffB.A * yCoeffA.B * yCoeffA.C + xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffB.A - 2 * xCoeffB.A * xCoeffA.C * yCoeffB.A * yCoeffA.C - 2 * xCoeffA.A * xCoeffB.A * cAAy2 + xCoeffA.A * cABy2 * xCoeffA.C + yCoeffA.A * cABx2 * yCoeffA.C - 2 * yCoeffA.A * cAAx2 * yCoeffB.A - xCoeffB.A * cABy2 * xCoeffA.C - cABx2 * yCoeffB.A * yCoeffA.C + cACx2 * cAAy2 + cACy2 * cAAx2 + cBDx2 * cAAy2 + cAAx2 * cBDy2,
-                /* t^5 */ 2 * xCoeffA.A * xCoeffA.C * yCoeffA.C * yCoeffB.B + 2 * yCoeffA.A * xCoeffA.C * xCoeffB.B * yCoeffA.C + xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffB.B + xCoeffA.B * yCoeffA.B * xCoeffB.B * yCoeffA.C - 2 * xCoeffB.A * xCoeffA.C * yCoeffA.C * yCoeffB.B - 2 * xCoeffA.C * yCoeffB.A * xCoeffB.B * yCoeffA.C - 2 * xCoeffA.A * xCoeffB.B * cAAy2 - 2 * yCoeffA.A * cAAx2 * yCoeffB.B + 2 * xCoeffB.A * xCoeffB.B * cAAy2 - cABy2 * xCoeffA.C * xCoeffB.B - cABx2 * yCoeffA.C * yCoeffB.B + 2 * cAAx2 * yCoeffB.A * yCoeffB.B,
-                /* t^4 */ 2 * xCoeffA.A * xCoeffA.C * yCoeffA.C * yCoeffB.C + 2 * yCoeffA.A * xCoeffA.C * yCoeffA.C * xCoeffB.C + xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffB.C + xCoeffA.B * yCoeffA.B * yCoeffA.C * xCoeffB.C - 2 * xCoeffB.A * xCoeffA.C * yCoeffA.C * yCoeffB.C - 2 * xCoeffA.C * yCoeffB.A * yCoeffA.C * xCoeffB.C - 2 * xCoeffA.C * xCoeffB.B * yCoeffA.C * yCoeffB.B - 2 * xCoeffA.A * cAAy2 * xCoeffB.C - 2 * yCoeffA.A * cAAx2 * yCoeffB.C + 2 * xCoeffB.A * cAAy2 * xCoeffB.C - cABy2 * xCoeffA.C * xCoeffB.C - cABx2 * yCoeffA.C * yCoeffB.C + cBCx2 * cAAy2 + cAAx2 * (2 * yCoeffB.A * yCoeffB.C + cBCy2),
-                /* t^3 */ 2 * xCoeffA.A * xCoeffA.C * yCoeffA.C * yCoeffB.D + 2 * yCoeffA.A * xCoeffA.C * yCoeffA.C * xCoeffB.D + xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffB.D + xCoeffA.B * yCoeffA.B * yCoeffA.C * xCoeffB.D - 2 * xCoeffB.A * xCoeffA.C * yCoeffA.C * yCoeffB.D - 2 * xCoeffA.C * yCoeffB.A * yCoeffA.C * xCoeffB.D - 2 * xCoeffA.C * xCoeffB.B * yCoeffA.C * yCoeffB.C - 2 * xCoeffA.C * yCoeffA.C * yCoeffB.B * xCoeffB.C - 2 * xCoeffA.A * cAAy2 * xCoeffB.D - 2 * yCoeffA.A * cAAx2 * yCoeffB.D + 2 * xCoeffB.A * cAAy2 * xCoeffB.D + 2 * xCoeffB.B * cAAy2 * xCoeffB.C - cABy2 * xCoeffA.C * xCoeffB.D - cABx2 * yCoeffA.C * yCoeffB.D + cAAx2 * (2 * yCoeffB.A * yCoeffB.D + 2 * yCoeffB.B * yCoeffB.C),
-                /* t^2 */ -2 * xCoeffA.C * xCoeffB.B * yCoeffA.C * yCoeffB.D - 2 * xCoeffA.C * yCoeffA.C * yCoeffB.B * xCoeffB.D - 2 * xCoeffA.C * yCoeffA.C * xCoeffB.C * yCoeffB.C + 2 * xCoeffB.B * cAAy2 * xCoeffB.D + cAAy2 * cBBx2 + cAAx2 * (2 * yCoeffB.B * yCoeffB.D + cBBy2),
-                /* t^1 */ -2 * xCoeffA.C * yCoeffA.C * xCoeffB.C * yCoeffB.D - 2 * xCoeffA.C * yCoeffA.C * yCoeffB.C * xCoeffB.D + 2 * cAAy2 * xCoeffB.C * xCoeffB.D + 2 * cAAx2 * yCoeffB.C * yCoeffB.D,
-                /* t^0 */ -2 * xCoeffA.C * yCoeffA.C * xCoeffB.D * yCoeffB.D + cAAx2 * cBAy2 + cAAy2 * cBAx2
-            ).RootsInInterval();
+            // Find the polynomial that represents the intersections.
+            var poly = new Polynomial(
+                /* x⁶ */ -2 * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0] + cAAx2 * cBAy2 + cAAy2 * cBAx2,
+                /* x⁵ */ -2 * xCurveA[0] * yCurveA[0] * xCurveB[1] * yCurveB[0] - 2 * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0] + 2 * cAAy2 * xCurveB[1] * xCurveB[0] + 2 * cAAx2 * yCurveB[1] * yCurveB[0],
+                /* x⁴ */ -2 * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[0] - 2 * xCurveA[0] * yCurveA[0] * yCurveB[2] * xCurveB[0] - 2 * xCurveA[0] * yCurveA[0] * xCurveB[1] * yCurveB[1] + 2 * xCurveB[2] * cAAy2 * xCurveB[0] + cAAy2 * cBBx2 + cAAx2 * (2 * yCurveB[2] * yCurveB[0] + cBBy2),
+                /* x³ */ 2 * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[0] + 2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * xCurveB[0] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[0] + xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[0] - 2 * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[0] - 2 * xCurveA[0] * yCurveB[3] * yCurveA[0] * xCurveB[0] - 2 * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[1] - 2 * xCurveA[0] * yCurveA[0] * yCurveB[2] * xCurveB[1] - 2 * xCurveA[2] * cAAy2 * xCurveB[0] - 2 * yCurveA[2] * cAAx2 * yCurveB[0] + 2 * xCurveB[3] * cAAy2 * xCurveB[0] + 2 * xCurveB[2] * cAAy2 * xCurveB[1] - cABy2 * xCurveA[0] * xCurveB[0] - cABx2 * yCurveA[0] * yCurveB[0] + cAAx2 * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1]),
+                /* x² */ 2 * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1] + 2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * xCurveB[1] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1] + xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[1] - 2 * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[1] - 2 * xCurveA[0] * yCurveB[3] * yCurveA[0] * xCurveB[1] - 2 * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[2] - 2 * xCurveA[2] * cAAy2 * xCurveB[1] - 2 * yCurveA[2] * cAAx2 * yCurveB[1] + 2 * xCurveB[3] * cAAy2 * xCurveB[1] - cABy2 * xCurveA[0] * xCurveB[1] - cABx2 * yCurveA[0] * yCurveB[1] + cBCx2 * cAAy2 + cAAx2 * (2 * yCurveB[3] * yCurveB[1] + cBCy2),
+                /* x¹ */ 2 * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[2] + 2 * yCurveA[2] * xCurveA[0] * xCurveB[2] * yCurveA[0] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2] + xCurveA[1] * yCurveA[1] * xCurveB[2] * yCurveA[0] - 2 * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[2] - 2 * xCurveA[0] * yCurveB[3] * xCurveB[2] * yCurveA[0] - 2 * xCurveA[2] * xCurveB[2] * cAAy2 - 2 * yCurveA[2] * cAAx2 * yCurveB[2] + 2 * xCurveB[3] * xCurveB[2] * cAAy2 - cABy2 * xCurveA[0] * xCurveB[2] - cABx2 * yCurveA[0] * yCurveB[2] + 2 * cAAx2 * yCurveB[3] * yCurveB[2],
+                /* c  */ -2 * xCurveA[2] * yCurveA[2] * xCurveA[0] * yCurveA[0] - xCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] - yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] + 2 * xCurveA[2] * xCurveA[0] * yCurveB[3] * yCurveA[0] + 2 * yCurveA[2] * xCurveB[3] * xCurveA[0] * yCurveA[0] + xCurveA[1] * xCurveB[3] * yCurveA[1] * yCurveA[0] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[3] - 2 * xCurveB[3] * xCurveA[0] * yCurveB[3] * yCurveA[0] - 2 * xCurveA[2] * xCurveB[3] * cAAy2 + xCurveA[2] * cABy2 * xCurveA[0] + yCurveA[2] * cABx2 * yCurveA[0] - 2 * yCurveA[2] * cAAx2 * yCurveB[3] - xCurveB[3] * cABy2 * xCurveA[0] - cABx2 * yCurveB[3] * yCurveA[0] + cACx2 * cAAy2 + cACy2 * cAAx2 + cBDx2 * cAAy2 + cAAx2 * cBDy2
+            );
+            var roots = poly.RootsInInterval();
 
             foreach (var s in roots)
             {
                 var point = new Point2D(
-                   xCoeffB.D * s * s * s + xCoeffB.C * s * s + xCoeffB.B * s + xCoeffB.A,
-                   yCoeffB.D * s * s * s + yCoeffB.C * s * s + yCoeffB.B * s + yCoeffB.A);
+                   xCurveB[0] * s * s * s + xCurveB[1] * s * s + xCurveB[2] * s + xCurveB[3],
+                   yCurveB[0] * s * s * s + yCurveB[1] * s * s + yCurveB[2] * s + yCurveB[3]);
 
-                var xRoots = (xCoeffA.C == 0)
-                    ? LinearRoots(
-                        /* t^1 */ xCoeffA.B,
-                        /* t^0 */ xCoeffA.A - point.X,
-                        epsilon)
-                    : QuadraticRoots(
-                        /* t^2 */ xCoeffA.C,
-                        /* t^1 */ xCoeffA.B,
-                        /* t^0 */ xCoeffA.A - point.X,
-                        epsilon);
-
-                var yRoots = (yCoeffA.C == 0)
-                    ? LinearRoots(
-                        /* t^1 */ yCoeffA.B,
-                        /* t^0 */ yCoeffA.A - point.Y,
-                        epsilon)
-                    : QuadraticRoots(
-                        /* t^2 */ yCoeffA.C,
-                        /* t^1 */ yCoeffA.B,
-                        /* t^0 */ yCoeffA.A - point.Y,
-                        epsilon);
+                var xRoots = (xCurveA - point.X).Trim().Roots(epsilon);
+                var yRoots = (yCurveA - point.Y).Trim().Roots();
 
                 if (xRoots.Count > 0 && yRoots.Count > 0)
                 {
@@ -4899,6 +4931,34 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a quadratic bezier and a polygon contour.
         /// </summary>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="points"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection QuadraticBezierSegmentPolygonContourIntersection(
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
+            List<Point2D> points,
+            double epsilon = Epsilon)
+            => QuadraticBezierSegmentPolygonContourIntersection(
+                Polynomial.Quadratic(b1X, b2X, b3X),
+                Polynomial.Quadratic(b1Y, b2Y, b3Y),
+                points,
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between a quadratic bezier and a polygon contour.
+        /// </summary>
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
         /// <param name="p2X"></param>
@@ -4915,7 +4975,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentPolygonContourIntersection(
-            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y,
+            Polynomial xCurve, Polynomial yCurve,
             List<Point2D> points,
             double epsilon = Epsilon)
         {
@@ -4929,7 +4989,7 @@ namespace Engine
             {
                 Point2D a2 = points[i];
 
-                intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(a1.X, a1.Y, a2.X, a2.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
+                intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(a1.X, a1.Y, a2.X, a2.Y, xCurve, yCurve, epsilon).Points);
 
                 a1 = a2;
             }
@@ -4965,6 +5025,37 @@ namespace Engine
             double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
+            => QuadraticBezierSegmentRectangleIntersection(
+                Polynomial.Quadratic(p1X, p2X, p3X),
+                Polynomial.Quadratic(p1Y, p2Y, p3Y),
+                r1X, r1Y, r2X, r2Y,
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between a quadratic bezier and a rectangle.
+        /// </summary>
+        /// <param name="p1X"></param>
+        /// <param name="p1Y"></param>
+        /// <param name="p2X"></param>
+        /// <param name="p2Y"></param>
+        /// <param name="p3X"></param>
+        /// <param name="p3Y"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection QuadraticBezierSegmentRectangleIntersection(
+            Polynomial xCurve, Polynomial yCurve,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
         {
             var min = MinPoint(r1X, r1Y, r2X, r2Y);
             var max = MaxPoint(r1X, r1Y, r2X, r2Y);
@@ -4973,10 +5064,10 @@ namespace Engine
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(min.X, min.Y, topRight.X, topRight.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
-            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(topRight.X, topRight.Y, max.X, max.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
-            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
-            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, p1X, p1Y, p2X, p2Y, p3X, p3Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(min.X, min.Y, topRight.X, topRight.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(topRight.X, topRight.Y, max.X, max.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, xCurve, yCurve, epsilon).Points);
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
@@ -5006,115 +5097,99 @@ namespace Engine
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        /// <acknowledgment>
-        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
-        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
             double epsilon = Epsilon)
+            => CubicBezierSegmentCubicBezierSegmentIntersection(
+                Polynomial.Cubic(a1X, a2X, a3X, a4X),
+                Polynomial.Cubic(a1Y, a2Y, a3Y, a4Y),
+                Polynomial.Cubic(b1X, b2X, b3X, b4X),
+                Polynomial.Cubic(b1Y, b2Y, b3Y, b4Y),
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between two cubic beziers.
+        /// </summary>
+        /// <param name="xCurveA">The set of Polynomial Bezier Coefficients of the x coordinates of the first Bezier curve.</param>
+        /// <param name="yCurveA">The set of Polynomial Bezier Coefficients of the y coordinates of the first Bezier curve.</param>
+        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
+        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// This is a rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(
+            Polynomial xCurveA, Polynomial yCurveA,
+            Polynomial xCurveB, Polynomial yCurveB,
+            double epsilon = Epsilon)
         {
+            // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // ToDo: Break early if the AABB bounding box of the curve does not intersect.
-
-            // The tolerance is off by too much. Need to find the error.
+            // ToDo: The tolerance is off by too much. Need to find the error.
             var tolerance = 4194303 * epsilon;
 
-            // Parametric matrix form of the Bezier curves
-            var xCoeffA = CubicBezierCoefficients(a1X, a2X, a3X, a4X);
-            var yCoeffA = CubicBezierCoefficients(a1Y, a2Y, a3Y, a4Y);
-            var xCoeffB = CubicBezierCoefficients(b1X, b2X, b3X, b4X);
-            var yCoeffB = CubicBezierCoefficients(b1Y, b2Y, b3Y, b4Y);
+            var c10x2 = xCurveA[3] * xCurveA[3];
+            var c10x3 = xCurveA[3] * xCurveA[3] * xCurveA[3];
+            var c10y2 = yCurveA[3] * yCurveA[3];
+            var c10y3 = yCurveA[3] * yCurveA[3] * yCurveA[3];
+            var c11x2 = xCurveA[2] * xCurveA[2];
+            var c11x3 = xCurveA[2] * xCurveA[2] * xCurveA[2];
+            var c11y2 = yCurveA[2] * yCurveA[2];
+            var c11y3 = yCurveA[2] * yCurveA[2] * yCurveA[2];
+            var c12x2 = xCurveA[1] * xCurveA[1];
+            var c12x3 = xCurveA[1] * xCurveA[1] * xCurveA[1];
+            var c12y2 = yCurveA[1] * yCurveA[1];
+            var c12y3 = yCurveA[1] * yCurveA[1] * yCurveA[1];
+            var c13x2 = xCurveA[0] * xCurveA[0];
+            var c13x3 = xCurveA[0] * xCurveA[0] * xCurveA[0];
+            var c13y2 = yCurveA[0] * yCurveA[0];
+            var c13y3 = yCurveA[0] * yCurveA[0] * yCurveA[0];
+            var c20x2 = xCurveB[3] * xCurveB[3];
+            var c20x3 = xCurveB[3] * xCurveB[3] * xCurveB[3];
+            var c20y2 = yCurveB[3] * yCurveB[3];
+            var c20y3 = yCurveB[3] * yCurveB[3] * yCurveB[3];
+            var c21x2 = xCurveB[2] * xCurveB[2];
+            var c21x3 = xCurveB[2] * xCurveB[2] * xCurveB[2];
+            var c21y2 = yCurveB[2] * yCurveB[2];
+            var c22x2 = xCurveB[1] * xCurveB[1];
+            var c22x3 = xCurveB[1] * xCurveB[1] * xCurveB[1];
+            var c22y2 = yCurveB[1] * yCurveB[1];
+            var c23x2 = xCurveB[0] * xCurveB[0];
+            var c23x3 = xCurveB[0] * xCurveB[0] * xCurveB[0];
+            var c23y2 = yCurveB[0] * yCurveB[0];
+            var c23y3 = yCurveB[0] * yCurveB[0] * yCurveB[0];
 
-            var c10x2 = xCoeffA.A * xCoeffA.A;
-            var c10x3 = xCoeffA.A * xCoeffA.A * xCoeffA.A;
-            var c10y2 = yCoeffA.A * yCoeffA.A;
-            var c10y3 = yCoeffA.A * yCoeffA.A * yCoeffA.A;
-            var c11x2 = xCoeffA.B * xCoeffA.B;
-            var c11x3 = xCoeffA.B * xCoeffA.B * xCoeffA.B;
-            var c11y2 = yCoeffA.B * yCoeffA.B;
-            var c11y3 = yCoeffA.B * yCoeffA.B * yCoeffA.B;
-            var c12x2 = xCoeffA.C * xCoeffA.C;
-            var c12x3 = xCoeffA.C * xCoeffA.C * xCoeffA.C;
-            var c12y2 = yCoeffA.C * yCoeffA.C;
-            var c12y3 = yCoeffA.C * yCoeffA.C * yCoeffA.C;
-            var c13x2 = xCoeffA.D * xCoeffA.D;
-            var c13x3 = xCoeffA.D * xCoeffA.D * xCoeffA.D;
-            var c13y2 = yCoeffA.D * yCoeffA.D;
-            var c13y3 = yCoeffA.D * yCoeffA.D * yCoeffA.D;
-            var c20x2 = xCoeffB.A * xCoeffB.A;
-            var c20x3 = xCoeffB.A * xCoeffB.A * xCoeffB.A;
-            var c20y2 = yCoeffB.A * yCoeffB.A;
-            var c20y3 = yCoeffB.A * yCoeffB.A * yCoeffB.A;
-            var c21x2 = xCoeffB.B * xCoeffB.B;
-            var c21x3 = xCoeffB.B * xCoeffB.B * xCoeffB.B;
-            var c21y2 = yCoeffB.B * yCoeffB.B;
-            var c22x2 = xCoeffB.C * xCoeffB.C;
-            var c22x3 = xCoeffB.C * xCoeffB.C * xCoeffB.C;
-            var c22y2 = yCoeffB.C * yCoeffB.C;
-            var c23x2 = xCoeffB.D * xCoeffB.D;
-            var c23x3 = xCoeffB.D * xCoeffB.D * xCoeffB.D;
-            var c23y2 = yCoeffB.D * yCoeffB.D;
-            var c23y3 = yCoeffB.D * yCoeffB.D * yCoeffB.D;
-
+            // Find the polynomial that represents the intersections.
             var poly = new Polynomial(
-                /* t^9 */ xCoeffA.A * yCoeffA.A * xCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D - xCoeffA.A * yCoeffA.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D + xCoeffA.A * xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffA.C * yCoeffA.D - yCoeffA.A * xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffA.C * xCoeffA.D - xCoeffA.A * xCoeffA.B * yCoeffB.A * yCoeffA.C * xCoeffA.D * yCoeffA.D + 6 * xCoeffA.A * xCoeffB.A * yCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D + xCoeffA.A * yCoeffA.B * xCoeffA.C * yCoeffB.A * xCoeffA.D * yCoeffA.D - yCoeffA.A * xCoeffA.B * xCoeffB.A * yCoeffA.C * xCoeffA.D * yCoeffA.D - 6 * yCoeffA.A * xCoeffA.B * xCoeffA.C * yCoeffB.A * xCoeffA.D * yCoeffA.D + yCoeffA.A * xCoeffB.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D - xCoeffA.B * xCoeffB.A * yCoeffA.B * xCoeffA.C * yCoeffA.C * yCoeffA.D + xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffB.A * yCoeffA.C * xCoeffA.D + xCoeffA.B * xCoeffB.A * yCoeffB.A * yCoeffA.C * xCoeffA.D * yCoeffA.D - xCoeffB.A * yCoeffA.B * xCoeffA.C * yCoeffB.A * xCoeffA.D * yCoeffA.D - 2 * xCoeffA.A * xCoeffB.A * c12y3 * xCoeffA.D + 2 * yCoeffA.A * c12x3 * yCoeffB.A * yCoeffA.D - 3 * xCoeffA.A * yCoeffA.A * xCoeffA.B * xCoeffA.C * c13y2 - 6 * xCoeffA.A * yCoeffA.A * xCoeffB.A * xCoeffA.D * c13y2 + 3 * xCoeffA.A * yCoeffA.A * yCoeffA.B * yCoeffA.C * c13x2 - 2 * xCoeffA.A * yCoeffA.A * xCoeffA.C * c12y2 * xCoeffA.D - 2 * xCoeffA.A * xCoeffA.B * xCoeffB.A * yCoeffA.C * c13y2 - xCoeffA.A * xCoeffA.B * yCoeffA.B * c12y2 * xCoeffA.D + 3 * xCoeffA.A * xCoeffA.B * xCoeffA.C * yCoeffB.A * c13y2 - 4 * xCoeffA.A * xCoeffB.A * yCoeffA.B * xCoeffA.C * c13y2 + 3 * yCoeffA.A * xCoeffA.B * xCoeffB.A * xCoeffA.C * c13y2 + 6 * xCoeffA.A * yCoeffA.A * yCoeffB.A * c13x2 * yCoeffA.D + 2 * xCoeffA.A * yCoeffA.A * c12x2 * yCoeffA.C * yCoeffA.D + 2 * xCoeffA.A * xCoeffA.B * c11y2 * xCoeffA.D * yCoeffA.D + 2 * xCoeffA.A * xCoeffB.A * xCoeffA.C * c12y2 * yCoeffA.D + 6 * xCoeffA.A * xCoeffB.A * yCoeffB.A * xCoeffA.D * c13y2 - 3 * xCoeffA.A * yCoeffA.B * yCoeffB.A * yCoeffA.C * c13x2 + 2 * xCoeffA.A * xCoeffA.C * yCoeffB.A * c12y2 * xCoeffA.D + xCoeffA.A * c11y2 * xCoeffA.C * yCoeffA.C * xCoeffA.D + yCoeffA.A * xCoeffA.B * yCoeffA.B * c12x2 * yCoeffA.D + 4 * yCoeffA.A * xCoeffA.B * yCoeffB.A * yCoeffA.C * c13x2 - 3 * yCoeffA.A * xCoeffB.A * yCoeffA.B * yCoeffA.C * c13x2 + 2 * yCoeffA.A * xCoeffB.A * xCoeffA.C * c12y2 * xCoeffA.D + 2 * yCoeffA.A * yCoeffA.B * xCoeffA.C * yCoeffB.A * c13x2 + xCoeffA.B * xCoeffB.A * yCoeffA.B * c12y2 * xCoeffA.D - 3 * xCoeffA.B * xCoeffB.A * xCoeffA.C * yCoeffB.A * c13y2 - 2 * xCoeffA.A * c12x2 * yCoeffB.A * yCoeffA.C * yCoeffA.D - 6 * yCoeffA.A * xCoeffB.A * yCoeffB.A * c13x2 * yCoeffA.D - 2 * yCoeffA.A * xCoeffB.A * c12x2 * yCoeffA.C * yCoeffA.D - 2 * yCoeffA.A * c11x2 * yCoeffA.B * xCoeffA.D * yCoeffA.D - yCoeffA.A * c11x2 * xCoeffA.C * yCoeffA.C * yCoeffA.D - 2 * yCoeffA.A * c12x2 * yCoeffB.A * yCoeffA.C * xCoeffA.D - 2 * xCoeffA.B * xCoeffB.A * c11y2 * xCoeffA.D * yCoeffA.D - xCoeffA.B * yCoeffA.B * c12x2 * yCoeffB.A * yCoeffA.D + 3 * xCoeffB.A * yCoeffA.B * yCoeffB.A * yCoeffA.C * c13x2 - 2 * xCoeffB.A * xCoeffA.C * yCoeffB.A * c12y2 * xCoeffA.D - xCoeffB.A * c11y2 * xCoeffA.C * yCoeffA.C * xCoeffA.D + 3 * c10y2 * xCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D + 3 * xCoeffA.B * xCoeffA.C * c20y2 * xCoeffA.D * yCoeffA.D + 2 * xCoeffB.A * c12x2 * yCoeffB.A * yCoeffA.C * yCoeffA.D - 3 * c10x2 * yCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D + 2 * c11x2 * yCoeffA.B * yCoeffB.A * xCoeffA.D * yCoeffA.D + c11x2 * xCoeffA.C * yCoeffB.A * yCoeffA.C * yCoeffA.D - 3 * c20x2 * yCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * xCoeffA.A * c20x2 * c13y3 - xCoeffA.A * c11y3 * c13x2 + 3 * c10x2 * xCoeffB.A * c13y3 + yCoeffA.A * c11x3 * c13y2 + 3 * yCoeffA.A * c20y2 * c13x3 + xCoeffB.A * c11y3 * c13x2 + c10x2 * c12y3 * xCoeffA.D - 3 * c10y2 * yCoeffB.A * c13x3 - c10y2 * c12x3 * yCoeffA.D + c20x2 * c12y3 * xCoeffA.D - c11x3 * yCoeffB.A * c13y2 - c12x3 * c20y2 * yCoeffA.D - xCoeffA.A * c11x2 * yCoeffA.B * c13y2 + yCoeffA.A * xCoeffA.B * c11y2 * c13x2 - 3 * xCoeffA.A * c10y2 * c13x2 * yCoeffA.D - xCoeffA.A * c11y2 * c12x2 * yCoeffA.D + yCoeffA.A * c11x2 * c12y2 * xCoeffA.D - xCoeffA.B * c11y2 * yCoeffB.A * c13x2 + 3 * c10x2 * yCoeffA.A * xCoeffA.D * c13y2 + c10x2 * xCoeffA.B * yCoeffA.C * c13y2 + 2 * c10x2 * yCoeffA.B * xCoeffA.C * c13y2 - 2 * c10y2 * xCoeffA.B * yCoeffA.C * c13x2 - c10y2 * yCoeffA.B * xCoeffA.C * c13x2 + c11x2 * xCoeffB.A * yCoeffA.B * c13y2 - 3 * xCoeffA.A * c20y2 * c13x2 * yCoeffA.D + 3 * yCoeffA.A * c20x2 * xCoeffA.D * c13y2 + xCoeffA.B * c20x2 * yCoeffA.C * c13y2 - 2 * xCoeffA.B * c20y2 * yCoeffA.C * c13x2 + xCoeffB.A * c11y2 * c12x2 * yCoeffA.D - yCoeffA.B * xCoeffA.C * c20y2 * c13x2 - c10x2 * xCoeffA.C * c12y2 * yCoeffA.D - 3 * c10x2 * yCoeffB.A * xCoeffA.D * c13y2 + 3 * c10y2 * xCoeffB.A * c13x2 * yCoeffA.D + c10y2 * c12x2 * yCoeffA.C * xCoeffA.D - c11x2 * yCoeffB.A * c12y2 * xCoeffA.D + 2 * c20x2 * yCoeffA.B * xCoeffA.C * c13y2 + 3 * xCoeffB.A * c20y2 * c13x2 * yCoeffA.D - c20x2 * xCoeffA.C * c12y2 * yCoeffA.D - 3 * c20x2 * yCoeffB.A * xCoeffA.D * c13y2 + c12x2 * c20y2 * yCoeffA.C * xCoeffA.D,
-                /* t^8 */ -xCoeffA.A * xCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffB.B * yCoeffA.D + xCoeffA.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffB.B * yCoeffA.D + 6 * xCoeffA.A * yCoeffA.B * xCoeffB.B * yCoeffA.C * xCoeffA.D * yCoeffA.D - 6 * yCoeffA.A * xCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffB.B * yCoeffA.D - yCoeffA.A * xCoeffA.B * xCoeffB.B * yCoeffA.C * xCoeffA.D * yCoeffA.D + yCoeffA.A * yCoeffA.B * xCoeffA.C * xCoeffB.B * xCoeffA.D * yCoeffA.D - xCoeffA.B * yCoeffA.B * xCoeffA.C * xCoeffB.B * yCoeffA.C * yCoeffA.D + xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffA.C * xCoeffA.D * yCoeffB.B + xCoeffA.B * xCoeffB.A * yCoeffA.C * xCoeffA.D * yCoeffB.B * yCoeffA.D + 6 * xCoeffA.B * xCoeffA.C * yCoeffB.A * xCoeffA.D * yCoeffB.B * yCoeffA.D + xCoeffA.B * yCoeffB.A * xCoeffB.B * yCoeffA.C * xCoeffA.D * yCoeffA.D - xCoeffB.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffB.B * yCoeffA.D - 6 * xCoeffB.A * yCoeffA.B * xCoeffB.B * yCoeffA.C * xCoeffA.D * yCoeffA.D - yCoeffA.B * xCoeffA.C * yCoeffB.A * xCoeffB.B * xCoeffA.D * yCoeffA.D - 6 * xCoeffA.A * xCoeffB.A * xCoeffB.B * c13y3 - 2 * xCoeffA.A * xCoeffB.B * c12y3 * xCoeffA.D + 6 * yCoeffA.A * yCoeffB.A * c13x3 * yCoeffB.B + 2 * xCoeffB.A * xCoeffB.B * c12y3 * xCoeffA.D + 2 * yCoeffA.A * c12x3 * yCoeffB.B * yCoeffA.D - 2 * c12x3 * yCoeffB.A * yCoeffB.B * yCoeffA.D - 6 * xCoeffA.A * yCoeffA.A * xCoeffB.B * xCoeffA.D * c13y2 + 3 * xCoeffA.A * xCoeffA.B * xCoeffA.C * yCoeffB.B * c13y2 - 2 * xCoeffA.A * xCoeffA.B * xCoeffB.B * yCoeffA.C * c13y2 - 4 * xCoeffA.A * yCoeffA.B * xCoeffA.C * xCoeffB.B * c13y2 + 3 * yCoeffA.A * xCoeffA.B * xCoeffA.C * xCoeffB.B * c13y2 + 6 * xCoeffA.A * yCoeffA.A * c13x2 * yCoeffB.B * yCoeffA.D + 6 * xCoeffA.A * xCoeffB.A * xCoeffA.D * yCoeffB.B * c13y2 - 3 * xCoeffA.A * yCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.B + 2 * xCoeffA.A * xCoeffA.C * xCoeffB.B * c12y2 * yCoeffA.D + 2 * xCoeffA.A * xCoeffA.C * c12y2 * xCoeffA.D * yCoeffB.B + 6 * xCoeffA.A * yCoeffB.A * xCoeffB.B * xCoeffA.D * c13y2 + 4 * yCoeffA.A * xCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.B + 6 * yCoeffA.A * xCoeffB.A * xCoeffB.B * xCoeffA.D * c13y2 + 2 * yCoeffA.A * yCoeffA.B * xCoeffA.C * c13x2 * yCoeffB.B - 3 * yCoeffA.A * yCoeffA.B * xCoeffB.B * yCoeffA.C * c13x2 + 2 * yCoeffA.A * xCoeffA.C * xCoeffB.B * c12y2 * xCoeffA.D - 3 * xCoeffA.B * xCoeffB.A * xCoeffA.C * yCoeffB.B * c13y2 + 2 * xCoeffA.B * xCoeffB.A * xCoeffB.B * yCoeffA.C * c13y2 + xCoeffA.B * yCoeffA.B * xCoeffB.B * c12y2 * xCoeffA.D - 3 * xCoeffA.B * xCoeffA.C * yCoeffB.A * xCoeffB.B * c13y2 + 4 * xCoeffB.A * yCoeffA.B * xCoeffA.C * xCoeffB.B * c13y2 - 6 * xCoeffA.A * yCoeffB.A * c13x2 * yCoeffB.B * yCoeffA.D - 2 * xCoeffA.A * c12x2 * yCoeffA.C * yCoeffB.B * yCoeffA.D - 6 * yCoeffA.A * xCoeffB.A * c13x2 * yCoeffB.B * yCoeffA.D - 6 * yCoeffA.A * yCoeffB.A * xCoeffB.B * c13x2 * yCoeffA.D - 2 * yCoeffA.A * c12x2 * xCoeffB.B * yCoeffA.C * yCoeffA.D - 2 * yCoeffA.A * c12x2 * yCoeffA.C * xCoeffA.D * yCoeffB.B - xCoeffA.B * yCoeffA.B * c12x2 * yCoeffB.B * yCoeffA.D - 4 * xCoeffA.B * yCoeffB.A * yCoeffA.C * c13x2 * yCoeffB.B - 2 * xCoeffA.B * c11y2 * xCoeffB.B * xCoeffA.D * yCoeffA.D + 3 * xCoeffB.A * yCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.B - 2 * xCoeffB.A * xCoeffA.C * xCoeffB.B * c12y2 * yCoeffA.D - 2 * xCoeffB.A * xCoeffA.C * c12y2 * xCoeffA.D * yCoeffB.B - 6 * xCoeffB.A * yCoeffB.A * xCoeffB.B * xCoeffA.D * c13y2 - 2 * yCoeffA.B * xCoeffA.C * yCoeffB.A * c13x2 * yCoeffB.B + 3 * yCoeffA.B * yCoeffB.A * xCoeffB.B * yCoeffA.C * c13x2 - 2 * xCoeffA.C * yCoeffB.A * xCoeffB.B * c12y2 * xCoeffA.D - c11y2 * xCoeffA.C * xCoeffB.B * yCoeffA.C * xCoeffA.D + 6 * xCoeffB.A * yCoeffB.A * c13x2 * yCoeffB.B * yCoeffA.D + 2 * xCoeffB.A * c12x2 * yCoeffA.C * yCoeffB.B * yCoeffA.D + 2 * c11x2 * yCoeffA.B * xCoeffA.D * yCoeffB.B * yCoeffA.D + c11x2 * xCoeffA.C * yCoeffA.C * yCoeffB.B * yCoeffA.D + 2 * c12x2 * yCoeffB.A * xCoeffB.B * yCoeffA.C * yCoeffA.D + 2 * c12x2 * yCoeffB.A * yCoeffA.C * xCoeffA.D * yCoeffB.B + 3 * c10x2 * xCoeffB.B * c13y3 - 3 * c10y2 * c13x3 * yCoeffB.B + 3 * c20x2 * xCoeffB.B * c13y3 + c11y3 * xCoeffB.B * c13x2 - c11x3 * yCoeffB.B * c13y2 - 3 * c20y2 * c13x3 * yCoeffB.B - xCoeffA.B * c11y2 * c13x2 * yCoeffB.B + c11x2 * yCoeffA.B * xCoeffB.B * c13y2 - 3 * c10x2 * xCoeffA.D * yCoeffB.B * c13y2 + 3 * c10y2 * xCoeffB.B * c13x2 * yCoeffA.D - c11x2 * c12y2 * xCoeffA.D * yCoeffB.B + c11y2 * c12x2 * xCoeffB.B * yCoeffA.D - 3 * c20x2 * xCoeffA.D * yCoeffB.B * c13y2 + 3 * c20y2 * xCoeffB.B * c13x2 * yCoeffA.D,
-                /* t^7 */ -xCoeffA.A * xCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.C + xCoeffA.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.C + 6 * xCoeffA.A * yCoeffA.B * yCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D - 6 * yCoeffA.A * xCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.C - yCoeffA.A * xCoeffA.B * yCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D + yCoeffA.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D + xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffA.C * xCoeffA.D * yCoeffB.C - xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffA.C * xCoeffB.C * yCoeffA.D + xCoeffA.B * xCoeffB.A * yCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.C + xCoeffA.B * yCoeffB.A * yCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D + xCoeffA.B * xCoeffB.B * yCoeffA.C * xCoeffA.D * yCoeffB.B * yCoeffA.D - xCoeffB.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.C - 6 * xCoeffB.A * yCoeffA.B * yCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D - yCoeffA.B * xCoeffA.C * yCoeffB.A * xCoeffA.D * xCoeffB.C * yCoeffA.D - yCoeffA.B * xCoeffA.C * xCoeffB.B * xCoeffA.D * yCoeffB.B * yCoeffA.D - 6 * xCoeffA.A * xCoeffB.A * xCoeffB.C * c13y3 - 2 * xCoeffA.A * c12y3 * xCoeffA.D * xCoeffB.C + 2 * xCoeffB.A * c12y3 * xCoeffA.D * xCoeffB.C + 2 * yCoeffA.A * c12x3 * yCoeffA.D * yCoeffB.C - 6 * xCoeffA.A * yCoeffA.A * xCoeffA.D * xCoeffB.C * c13y2 + 3 * xCoeffA.A * xCoeffA.B * xCoeffA.C * c13y2 * yCoeffB.C - 2 * xCoeffA.A * xCoeffA.B * yCoeffA.C * xCoeffB.C * c13y2 - 4 * xCoeffA.A * yCoeffA.B * xCoeffA.C * xCoeffB.C * c13y2 + 3 * yCoeffA.A * xCoeffA.B * xCoeffA.C * xCoeffB.C * c13y2 + 6 * xCoeffA.A * yCoeffA.A * c13x2 * yCoeffA.D * yCoeffB.C + 6 * xCoeffA.A * xCoeffB.A * xCoeffA.D * c13y2 * yCoeffB.C - 3 * xCoeffA.A * yCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.C + 2 * xCoeffA.A * xCoeffA.C * c12y2 * xCoeffA.D * yCoeffB.C + 2 * xCoeffA.A * xCoeffA.C * c12y2 * xCoeffB.C * yCoeffA.D + 6 * xCoeffA.A * yCoeffB.A * xCoeffA.D * xCoeffB.C * c13y2 + 6 * xCoeffA.A * xCoeffB.B * xCoeffA.D * yCoeffB.B * c13y2 + 4 * yCoeffA.A * xCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.C + 6 * yCoeffA.A * xCoeffB.A * xCoeffA.D * xCoeffB.C * c13y2 + 2 * yCoeffA.A * yCoeffA.B * xCoeffA.C * c13x2 * yCoeffB.C - 3 * yCoeffA.A * yCoeffA.B * yCoeffA.C * c13x2 * xCoeffB.C + 2 * yCoeffA.A * xCoeffA.C * c12y2 * xCoeffA.D * xCoeffB.C - 3 * xCoeffA.B * xCoeffB.A * xCoeffA.C * c13y2 * yCoeffB.C + 2 * xCoeffA.B * xCoeffB.A * yCoeffA.C * xCoeffB.C * c13y2 + xCoeffA.B * yCoeffA.B * c12y2 * xCoeffA.D * xCoeffB.C - 3 * xCoeffA.B * xCoeffA.C * yCoeffB.A * xCoeffB.C * c13y2 - 3 * xCoeffA.B * xCoeffA.C * xCoeffB.B * yCoeffB.B * c13y2 + 4 * xCoeffB.A * yCoeffA.B * xCoeffA.C * xCoeffB.C * c13y2 - 2 * xCoeffA.A * c12x2 * yCoeffA.C * yCoeffA.D * yCoeffB.C - 6 * yCoeffA.A * xCoeffB.A * c13x2 * yCoeffA.D * yCoeffB.C - 6 * yCoeffA.A * yCoeffB.A * c13x2 * xCoeffB.C * yCoeffA.D - 6 * yCoeffA.A * xCoeffB.B * c13x2 * yCoeffB.B * yCoeffA.D - 2 * yCoeffA.A * c12x2 * yCoeffA.C * xCoeffA.D * yCoeffB.C - 2 * yCoeffA.A * c12x2 * yCoeffA.C * xCoeffB.C * yCoeffA.D - xCoeffA.B * yCoeffA.B * c12x2 * yCoeffA.D * yCoeffB.C - 2 * xCoeffA.B * c11y2 * xCoeffA.D * xCoeffB.C * yCoeffA.D + 3 * xCoeffB.A * yCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.C - 2 * xCoeffB.A * xCoeffA.C * c12y2 * xCoeffA.D * yCoeffB.C - 2 * xCoeffB.A * xCoeffA.C * c12y2 * xCoeffB.C * yCoeffA.D - 6 * xCoeffB.A * yCoeffB.A * xCoeffA.D * xCoeffB.C * c13y2 - 6 * xCoeffB.A * xCoeffB.B * xCoeffA.D * yCoeffB.B * c13y2 + 3 * yCoeffA.B * yCoeffB.A * yCoeffA.C * c13x2 * xCoeffB.C + 3 * yCoeffA.B * xCoeffB.B * yCoeffA.C * c13x2 * yCoeffB.B - 2 * xCoeffA.C * yCoeffB.A * c12y2 * xCoeffA.D * xCoeffB.C - 2 * xCoeffA.C * xCoeffB.B * c12y2 * xCoeffA.D * yCoeffB.B - c11y2 * xCoeffA.C * yCoeffA.C * xCoeffA.D * xCoeffB.C + 2 * xCoeffB.A * c12x2 * yCoeffA.C * yCoeffA.D * yCoeffB.C - 3 * yCoeffA.B * c21x2 * yCoeffA.C * xCoeffA.D * yCoeffA.D + 6 * yCoeffB.A * xCoeffB.B * c13x2 * yCoeffB.B * yCoeffA.D + 2 * c11x2 * yCoeffA.B * xCoeffA.D * yCoeffA.D * yCoeffB.C + c11x2 * xCoeffA.C * yCoeffA.C * yCoeffA.D * yCoeffB.C + 2 * c12x2 * yCoeffB.A * yCoeffA.C * xCoeffB.C * yCoeffA.D + 2 * c12x2 * xCoeffB.B * yCoeffA.C * yCoeffB.B * yCoeffA.D - 3 * xCoeffA.A * c21x2 * c13y3 + 3 * xCoeffB.A * c21x2 * c13y3 + 3 * c10x2 * xCoeffB.C * c13y3 - 3 * c10y2 * c13x3 * yCoeffB.C + 3 * c20x2 * xCoeffB.C * c13y3 + c21x2 * c12y3 * xCoeffA.D + c11y3 * c13x2 * xCoeffB.C - c11x3 * c13y2 * yCoeffB.C + 3 * yCoeffA.A * c21x2 * xCoeffA.D * c13y2 - xCoeffA.B * c11y2 * c13x2 * yCoeffB.C + xCoeffA.B * c21x2 * yCoeffA.C * c13y2 + 2 * yCoeffA.B * xCoeffA.C * c21x2 * c13y2 + c11x2 * yCoeffA.B * xCoeffB.C * c13y2 - xCoeffA.C * c21x2 * c12y2 * yCoeffA.D - 3 * yCoeffB.A * c21x2 * xCoeffA.D * c13y2 - 3 * c10x2 * xCoeffA.D * c13y2 * yCoeffB.C + 3 * c10y2 * c13x2 * xCoeffB.C * yCoeffA.D - c11x2 * c12y2 * xCoeffA.D * yCoeffB.C + c11y2 * c12x2 * xCoeffB.C * yCoeffA.D - 3 * c20x2 * xCoeffA.D * c13y2 * yCoeffB.C + 3 * c20y2 * c13x2 * xCoeffB.C * yCoeffA.D + c12x2 * yCoeffA.C * xCoeffA.D * (2 * yCoeffB.A * yCoeffB.C + c21y2) + xCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * (6 * yCoeffB.A * yCoeffB.C + 3 * c21y2) + c12x3 * yCoeffA.D * (-2 * yCoeffB.A * yCoeffB.C - c21y2) + yCoeffA.A * c13x3 * (6 * yCoeffB.A * yCoeffB.C + 3 * c21y2) + yCoeffA.B * xCoeffA.C * c13x2 * (-2 * yCoeffB.A * yCoeffB.C - c21y2) + xCoeffA.B * yCoeffA.C * c13x2 * (-4 * yCoeffB.A * yCoeffB.C - 2 * c21y2) + xCoeffA.A * c13x2 * yCoeffA.D * (-6 * yCoeffB.A * yCoeffB.C - 3 * c21y2) + xCoeffB.A * c13x2 * yCoeffA.D * (6 * yCoeffB.A * yCoeffB.C + 3 * c21y2) + c13x3 * (-2 * yCoeffB.A * c21y2 - c20y2 * yCoeffB.C - yCoeffB.A * (2 * yCoeffB.A * yCoeffB.C + c21y2)),
-                /* t^6 */ -xCoeffA.A * xCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.D + xCoeffA.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.D + 6 * xCoeffA.A * yCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * xCoeffB.D - 6 * yCoeffA.A * xCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.D - yCoeffA.A * xCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * xCoeffB.D + yCoeffA.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * xCoeffB.D + xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffA.C * xCoeffA.D * yCoeffB.D - xCoeffA.B * yCoeffA.B * xCoeffA.C * yCoeffA.C * yCoeffA.D * xCoeffB.D + xCoeffA.B * xCoeffB.A * yCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.D + xCoeffA.B * yCoeffB.A * yCoeffA.C * xCoeffA.D * yCoeffA.D * xCoeffB.D + xCoeffA.B * xCoeffB.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.C + xCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffB.B * xCoeffB.C * yCoeffA.D - xCoeffB.A * yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.D - 6 * xCoeffB.A * yCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * xCoeffB.D - yCoeffA.B * xCoeffA.C * yCoeffB.A * xCoeffA.D * yCoeffA.D * xCoeffB.D - yCoeffA.B * xCoeffA.C * xCoeffB.B * xCoeffA.D * yCoeffA.D * yCoeffB.C - yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffB.B * xCoeffB.C * yCoeffA.D - 6 * yCoeffA.B * xCoeffB.B * yCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D - 6 * xCoeffA.A * xCoeffB.A * c13y3 * xCoeffB.D - 6 * xCoeffA.A * xCoeffB.B * xCoeffB.C * c13y3 - 2 * xCoeffA.A * c12y3 * xCoeffA.D * xCoeffB.D + 6 * xCoeffB.A * xCoeffB.B * xCoeffB.C * c13y3 + 2 * xCoeffB.A * c12y3 * xCoeffA.D * xCoeffB.D + 2 * xCoeffB.B * c12y3 * xCoeffA.D * xCoeffB.C + 2 * yCoeffA.A * c12x3 * yCoeffA.D * yCoeffB.D - 6 * xCoeffA.A * yCoeffA.A * xCoeffA.D * c13y2 * xCoeffB.D + 3 * xCoeffA.A * xCoeffA.B * xCoeffA.C * c13y2 * yCoeffB.D - 2 * xCoeffA.A * xCoeffA.B * yCoeffA.C * c13y2 * xCoeffB.D - 4 * xCoeffA.A * yCoeffA.B * xCoeffA.C * c13y2 * xCoeffB.D + 3 * yCoeffA.A * xCoeffA.B * xCoeffA.C * c13y2 * xCoeffB.D + 6 * xCoeffA.A * yCoeffA.A * c13x2 * yCoeffA.D * yCoeffB.D + 6 * xCoeffA.A * xCoeffB.A * xCoeffA.D * c13y2 * yCoeffB.D - 3 * xCoeffA.A * yCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.D + 2 * xCoeffA.A * xCoeffA.C * c12y2 * xCoeffA.D * yCoeffB.D + 2 * xCoeffA.A * xCoeffA.C * c12y2 * yCoeffA.D * xCoeffB.D + 6 * xCoeffA.A * yCoeffB.A * xCoeffA.D * c13y2 * xCoeffB.D + 6 * xCoeffA.A * xCoeffB.B * xCoeffA.D * c13y2 * yCoeffB.C + 6 * xCoeffA.A * xCoeffA.D * yCoeffB.B * xCoeffB.C * c13y2 + 4 * yCoeffA.A * xCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.D + 6 * yCoeffA.A * xCoeffB.A * xCoeffA.D * c13y2 * xCoeffB.D + 2 * yCoeffA.A * yCoeffA.B * xCoeffA.C * c13x2 * yCoeffB.D - 3 * yCoeffA.A * yCoeffA.B * yCoeffA.C * c13x2 * xCoeffB.D + 2 * yCoeffA.A * xCoeffA.C * c12y2 * xCoeffA.D * xCoeffB.D + 6 * yCoeffA.A * xCoeffB.B * xCoeffA.D * xCoeffB.C * c13y2 - 3 * xCoeffA.B * xCoeffB.A * xCoeffA.C * c13y2 * yCoeffB.D + 2 * xCoeffA.B * xCoeffB.A * yCoeffA.C * c13y2 * xCoeffB.D + xCoeffA.B * yCoeffA.B * c12y2 * xCoeffA.D * xCoeffB.D - 3 * xCoeffA.B * xCoeffA.C * yCoeffB.A * c13y2 * xCoeffB.D - 3 * xCoeffA.B * xCoeffA.C * xCoeffB.B * c13y2 * yCoeffB.C - 3 * xCoeffA.B * xCoeffA.C * yCoeffB.B * xCoeffB.C * c13y2 + 2 * xCoeffA.B * xCoeffB.B * yCoeffA.C * xCoeffB.C * c13y2 + 4 * xCoeffB.A * yCoeffA.B * xCoeffA.C * c13y2 * xCoeffB.D + 4 * yCoeffA.B * xCoeffA.C * xCoeffB.B * xCoeffB.C * c13y2 - 2 * xCoeffA.A * c12x2 * yCoeffA.C * yCoeffA.D * yCoeffB.D - 6 * yCoeffA.A * xCoeffB.A * c13x2 * yCoeffA.D * yCoeffB.D - 6 * yCoeffA.A * yCoeffB.A * c13x2 * yCoeffA.D * xCoeffB.D - 6 * yCoeffA.A * xCoeffB.B * c13x2 * yCoeffA.D * yCoeffB.C - 2 * yCoeffA.A * c12x2 * yCoeffA.C * xCoeffA.D * yCoeffB.D - 2 * yCoeffA.A * c12x2 * yCoeffA.C * yCoeffA.D * xCoeffB.D - 6 * yCoeffA.A * c13x2 * yCoeffB.B * xCoeffB.C * yCoeffA.D - xCoeffA.B * yCoeffA.B * c12x2 * yCoeffA.D * yCoeffB.D - 2 * xCoeffA.B * c11y2 * xCoeffA.D * yCoeffA.D * xCoeffB.D + 3 * xCoeffB.A * yCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.D - 2 * xCoeffB.A * xCoeffA.C * c12y2 * xCoeffA.D * yCoeffB.D - 2 * xCoeffB.A * xCoeffA.C * c12y2 * yCoeffA.D * xCoeffB.D - 6 * xCoeffB.A * yCoeffB.A * xCoeffA.D * c13y2 * xCoeffB.D - 6 * xCoeffB.A * xCoeffB.B * xCoeffA.D * c13y2 * yCoeffB.C - 6 * xCoeffB.A * xCoeffA.D * yCoeffB.B * xCoeffB.C * c13y2 + 3 * yCoeffA.B * yCoeffB.A * yCoeffA.C * c13x2 * xCoeffB.D + 3 * yCoeffA.B * xCoeffB.B * yCoeffA.C * c13x2 * yCoeffB.C + 3 * yCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.B * xCoeffB.C - 2 * xCoeffA.C * yCoeffB.A * c12y2 * xCoeffA.D * xCoeffB.D - 2 * xCoeffA.C * xCoeffB.B * c12y2 * xCoeffA.D * yCoeffB.C - 2 * xCoeffA.C * xCoeffB.B * c12y2 * xCoeffB.C * yCoeffA.D - 2 * xCoeffA.C * c12y2 * xCoeffA.D * yCoeffB.B * xCoeffB.C - 6 * yCoeffB.A * xCoeffB.B * xCoeffA.D * xCoeffB.C * c13y2 - c11y2 * xCoeffA.C * yCoeffA.C * xCoeffA.D * xCoeffB.D + 2 * xCoeffB.A * c12x2 * yCoeffA.C * yCoeffA.D * yCoeffB.D + 6 * yCoeffB.A * c13x2 * yCoeffB.B * xCoeffB.C * yCoeffA.D + 2 * c11x2 * yCoeffA.B * xCoeffA.D * yCoeffA.D * yCoeffB.D + c11x2 * xCoeffA.C * yCoeffA.C * yCoeffA.D * yCoeffB.D + 2 * c12x2 * yCoeffB.A * yCoeffA.C * yCoeffA.D * xCoeffB.D + 2 * c12x2 * xCoeffB.B * yCoeffA.C * yCoeffA.D * yCoeffB.C + 2 * c12x2 * yCoeffA.C * yCoeffB.B * xCoeffB.C * yCoeffA.D + c21x3 * c13y3 + 3 * c10x2 * c13y3 * xCoeffB.D - 3 * c10y2 * c13x3 * yCoeffB.D + 3 * c20x2 * c13y3 * xCoeffB.D + c11y3 * c13x2 * xCoeffB.D - c11x3 * c13y2 * yCoeffB.D - xCoeffA.B * c11y2 * c13x2 * yCoeffB.D + c11x2 * yCoeffA.B * c13y2 * xCoeffB.D - 3 * c10x2 * xCoeffA.D * c13y2 * yCoeffB.D + 3 * c10y2 * c13x2 * yCoeffA.D * xCoeffB.D - c11x2 * c12y2 * xCoeffA.D * yCoeffB.D + c11y2 * c12x2 * yCoeffA.D * xCoeffB.D - 3 * c21x2 * xCoeffA.D * yCoeffB.B * c13y2 - 3 * c20x2 * xCoeffA.D * c13y2 * yCoeffB.D + 3 * c20y2 * c13x2 * yCoeffA.D * xCoeffB.D + xCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * (6 * yCoeffB.A * yCoeffB.D + 6 * yCoeffB.B * yCoeffB.C) + c12x3 * yCoeffA.D * (-2 * yCoeffB.A * yCoeffB.D - 2 * yCoeffB.B * yCoeffB.C) + yCoeffA.A * c13x3 * (6 * yCoeffB.A * yCoeffB.D + 6 * yCoeffB.B * yCoeffB.C) + yCoeffA.B * xCoeffA.C * c13x2 * (-2 * yCoeffB.A * yCoeffB.D - 2 * yCoeffB.B * yCoeffB.C) + c12x2 * yCoeffA.C * xCoeffA.D * (2 * yCoeffB.A * yCoeffB.D + 2 * yCoeffB.B * yCoeffB.C) + xCoeffA.B * yCoeffA.C * c13x2 * (-4 * yCoeffB.A * yCoeffB.D - 4 * yCoeffB.B * yCoeffB.C) + xCoeffA.A * c13x2 * yCoeffA.D * (-6 * yCoeffB.A * yCoeffB.D - 6 * yCoeffB.B * yCoeffB.C) + xCoeffB.A * c13x2 * yCoeffA.D * (6 * yCoeffB.A * yCoeffB.D + 6 * yCoeffB.B * yCoeffB.C) + xCoeffB.B * c13x2 * yCoeffA.D * (6 * yCoeffB.A * yCoeffB.C + 3 * c21y2) + c13x3 * (-2 * yCoeffB.A * yCoeffB.B * yCoeffB.C - c20y2 * yCoeffB.D - yCoeffB.B * (2 * yCoeffB.A * yCoeffB.C + c21y2) - yCoeffB.A * (2 * yCoeffB.A * yCoeffB.D + 2 * yCoeffB.B * yCoeffB.C)),
-                /* t^5 */ xCoeffA.B * xCoeffB.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.D + xCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffB.B * yCoeffA.D * xCoeffB.D + xCoeffA.B * yCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D * yCoeffB.C - yCoeffA.B * xCoeffA.C * xCoeffB.B * xCoeffA.D * yCoeffA.D * yCoeffB.D - yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffB.B * yCoeffA.D * xCoeffB.D - yCoeffA.B * xCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D * yCoeffB.C - 6 * yCoeffA.B * xCoeffB.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * xCoeffB.D - 6 * xCoeffA.A * xCoeffB.B * c13y3 * xCoeffB.D + 6 * xCoeffB.A * xCoeffB.B * c13y3 * xCoeffB.D + 2 * xCoeffB.B * c12y3 * xCoeffA.D * xCoeffB.D + 6 * xCoeffA.A * xCoeffB.B * xCoeffA.D * c13y2 * yCoeffB.D + 6 * xCoeffA.A * xCoeffA.D * yCoeffB.B * c13y2 * xCoeffB.D + 6 * xCoeffA.A * xCoeffA.D * xCoeffB.C * c13y2 * yCoeffB.C + 6 * yCoeffA.A * xCoeffB.B * xCoeffA.D * c13y2 * xCoeffB.D - 3 * xCoeffA.B * xCoeffA.C * xCoeffB.B * c13y2 * yCoeffB.D - 3 * xCoeffA.B * xCoeffA.C * yCoeffB.B * c13y2 * xCoeffB.D - 3 * xCoeffA.B * xCoeffA.C * xCoeffB.C * c13y2 * yCoeffB.C + 2 * xCoeffA.B * xCoeffB.B * yCoeffA.C * c13y2 * xCoeffB.D + 4 * yCoeffA.B * xCoeffA.C * xCoeffB.B * c13y2 * xCoeffB.D - 6 * yCoeffA.A * xCoeffB.B * c13x2 * yCoeffA.D * yCoeffB.D - 6 * yCoeffA.A * c13x2 * yCoeffB.B * yCoeffA.D * xCoeffB.D - 6 * yCoeffA.A * c13x2 * xCoeffB.C * yCoeffA.D * yCoeffB.C - 6 * xCoeffB.A * xCoeffB.B * xCoeffA.D * c13y2 * yCoeffB.D - 6 * xCoeffB.A * xCoeffA.D * yCoeffB.B * c13y2 * xCoeffB.D - 6 * xCoeffB.A * xCoeffA.D * xCoeffB.C * c13y2 * yCoeffB.C + 3 * yCoeffA.B * xCoeffB.B * yCoeffA.C * c13x2 * yCoeffB.D - 3 * yCoeffA.B * yCoeffA.C * xCoeffA.D * c22x2 * yCoeffA.D + 3 * yCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.B * xCoeffB.D + 3 * yCoeffA.B * yCoeffA.C * c13x2 * xCoeffB.C * yCoeffB.C - 2 * xCoeffA.C * xCoeffB.B * c12y2 * xCoeffA.D * yCoeffB.D - 2 * xCoeffA.C * xCoeffB.B * c12y2 * yCoeffA.D * xCoeffB.D - 2 * xCoeffA.C * c12y2 * xCoeffA.D * yCoeffB.B * xCoeffB.D - 2 * xCoeffA.C * c12y2 * xCoeffA.D * xCoeffB.C * yCoeffB.C - 6 * yCoeffB.A * xCoeffB.B * xCoeffA.D * c13y2 * xCoeffB.D - 6 * xCoeffB.B * xCoeffA.D * yCoeffB.B * xCoeffB.C * c13y2 + 6 * yCoeffB.A * c13x2 * yCoeffB.B * yCoeffA.D * xCoeffB.D + 2 * c12x2 * xCoeffB.B * yCoeffA.C * yCoeffA.D * yCoeffB.D + 2 * c12x2 * yCoeffA.C * yCoeffB.B * yCoeffA.D * xCoeffB.D + 2 * c12x2 * yCoeffA.C * xCoeffB.C * yCoeffA.D * yCoeffB.C - 3 * xCoeffA.A * c22x2 * c13y3 + 3 * xCoeffB.A * c22x2 * c13y3 + 3 * c21x2 * xCoeffB.C * c13y3 + c12y3 * xCoeffA.D * c22x2 + 3 * yCoeffA.A * xCoeffA.D * c22x2 * c13y2 + xCoeffA.B * yCoeffA.C * c22x2 * c13y2 + 2 * yCoeffA.B * xCoeffA.C * c22x2 * c13y2 - xCoeffA.C * c12y2 * c22x2 * yCoeffA.D - 3 * yCoeffB.A * xCoeffA.D * c22x2 * c13y2 - 3 * c21x2 * xCoeffA.D * c13y2 * yCoeffB.C + c12x2 * yCoeffA.C * xCoeffA.D * (2 * yCoeffB.B * yCoeffB.D + c22y2) + xCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * (6 * yCoeffB.B * yCoeffB.D + 3 * c22y2) + xCoeffB.B * c13x2 * yCoeffA.D * (6 * yCoeffB.A * yCoeffB.D + 6 * yCoeffB.B * yCoeffB.C) + c12x3 * yCoeffA.D * (-2 * yCoeffB.B * yCoeffB.D - c22y2) + yCoeffA.A * c13x3 * (6 * yCoeffB.B * yCoeffB.D + 3 * c22y2) + yCoeffA.B * xCoeffA.C * c13x2 * (-2 * yCoeffB.B * yCoeffB.D - c22y2) + xCoeffA.B * yCoeffA.C * c13x2 * (-4 * yCoeffB.B * yCoeffB.D - 2 * c22y2) + xCoeffA.A * c13x2 * yCoeffA.D * (-6 * yCoeffB.B * yCoeffB.D - 3 * c22y2) + c13x2 * xCoeffB.C * yCoeffA.D * (6 * yCoeffB.A * yCoeffB.C + 3 * c21y2) + xCoeffB.A * c13x2 * yCoeffA.D * (6 * yCoeffB.B * yCoeffB.D + 3 * c22y2) + c13x3 * (-2 * yCoeffB.A * yCoeffB.B * yCoeffB.D - yCoeffB.C * (2 * yCoeffB.A * yCoeffB.C + c21y2) - yCoeffB.A * (2 * yCoeffB.B * yCoeffB.D + c22y2) - yCoeffB.B * (2 * yCoeffB.A * yCoeffB.D + 2 * yCoeffB.B * yCoeffB.C)),
-                /* t^4 */ 6 * xCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.C * yCoeffB.D + xCoeffA.B * yCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D * yCoeffB.D + xCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.C * xCoeffB.D - yCoeffA.B * xCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D * yCoeffB.D - yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * yCoeffB.C * xCoeffB.D - 6 * yCoeffA.B * yCoeffA.C * xCoeffA.D * xCoeffB.C * yCoeffA.D * xCoeffB.D - 6 * xCoeffA.A * xCoeffB.C * c13y3 * xCoeffB.D + 6 * xCoeffB.A * xCoeffB.C * c13y3 * xCoeffB.D + 6 * yCoeffA.A * c13x3 * yCoeffB.C * yCoeffB.D + 2 * c12y3 * xCoeffA.D * xCoeffB.C * xCoeffB.D - 2 * c12x3 * yCoeffA.D * yCoeffB.C * yCoeffB.D + 6 * xCoeffA.A * xCoeffA.D * xCoeffB.C * c13y2 * yCoeffB.D + 6 * xCoeffA.A * xCoeffA.D * c13y2 * yCoeffB.C * xCoeffB.D + 6 * yCoeffA.A * xCoeffA.D * xCoeffB.C * c13y2 * xCoeffB.D - 3 * xCoeffA.B * xCoeffA.C * xCoeffB.C * c13y2 * yCoeffB.D - 3 * xCoeffA.B * xCoeffA.C * c13y2 * yCoeffB.C * xCoeffB.D + 2 * xCoeffA.B * yCoeffA.C * xCoeffB.C * c13y2 * xCoeffB.D + 4 * yCoeffA.B * xCoeffA.C * xCoeffB.C * c13y2 * xCoeffB.D - 6 * xCoeffA.A * c13x2 * yCoeffA.D * yCoeffB.C * yCoeffB.D - 6 * yCoeffA.A * c13x2 * xCoeffB.C * yCoeffA.D * yCoeffB.D - 6 * yCoeffA.A * c13x2 * yCoeffA.D * yCoeffB.C * xCoeffB.D - 4 * xCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.C * yCoeffB.D - 6 * xCoeffB.A * xCoeffA.D * xCoeffB.C * c13y2 * yCoeffB.D - 6 * xCoeffB.A * xCoeffA.D * c13y2 * yCoeffB.C * xCoeffB.D - 2 * yCoeffA.B * xCoeffA.C * c13x2 * yCoeffB.C * yCoeffB.D + 3 * yCoeffA.B * yCoeffA.C * c13x2 * xCoeffB.C * yCoeffB.D + 3 * yCoeffA.B * yCoeffA.C * c13x2 * yCoeffB.C * xCoeffB.D - 2 * xCoeffA.C * c12y2 * xCoeffA.D * xCoeffB.C * yCoeffB.D - 2 * xCoeffA.C * c12y2 * xCoeffA.D * yCoeffB.C * xCoeffB.D - 2 * xCoeffA.C * c12y2 * xCoeffB.C * yCoeffA.D * xCoeffB.D - 6 * yCoeffB.A * xCoeffA.D * xCoeffB.C * c13y2 * xCoeffB.D - 6 * xCoeffB.B * xCoeffA.D * yCoeffB.B * c13y2 * xCoeffB.D - 6 * xCoeffB.B * xCoeffA.D * xCoeffB.C * c13y2 * yCoeffB.C + 6 * xCoeffB.A * c13x2 * yCoeffA.D * yCoeffB.C * yCoeffB.D + 2 * c12x2 * yCoeffA.C * xCoeffA.D * yCoeffB.C * yCoeffB.D + 2 * c12x2 * yCoeffA.C * xCoeffB.C * yCoeffA.D * yCoeffB.D + 2 * c12x2 * yCoeffA.C * yCoeffA.D * yCoeffB.C * xCoeffB.D + 3 * xCoeffB.B * c22x2 * c13y3 + 3 * c21x2 * c13y3 * xCoeffB.D - 3 * xCoeffA.D * yCoeffB.B * c22x2 * c13y2 - 3 * c21x2 * xCoeffA.D * c13y2 * yCoeffB.D + c13x2 * xCoeffB.C * yCoeffA.D * (6 * yCoeffB.A * yCoeffB.D + 6 * yCoeffB.B * yCoeffB.C) + c13x2 * yCoeffA.D * xCoeffB.D * (6 * yCoeffB.A * yCoeffB.C + 3 * c21y2) + xCoeffB.B * c13x2 * yCoeffA.D * (6 * yCoeffB.B * yCoeffB.D + 3 * c22y2) + c13x3 * (-2 * yCoeffB.A * yCoeffB.C * yCoeffB.D - yCoeffB.D * (2 * yCoeffB.A * yCoeffB.C + c21y2) - yCoeffB.B * (2 * yCoeffB.B * yCoeffB.D + c22y2) - yCoeffB.C * (2 * yCoeffB.A * yCoeffB.D + 2 * yCoeffB.B * yCoeffB.C)),
-                /* t^3 */ xCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * xCoeffB.D * yCoeffB.D - yCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * xCoeffB.D * yCoeffB.D + 6 * xCoeffB.B * xCoeffB.C * c13y3 * xCoeffB.D + 3 * xCoeffA.B * xCoeffA.C * xCoeffA.D * yCoeffA.D * c23y2 + 6 * xCoeffA.A * xCoeffA.D * c13y2 * xCoeffB.D * yCoeffB.D - 3 * xCoeffA.B * xCoeffA.C * c13y2 * xCoeffB.D * yCoeffB.D - 3 * yCoeffA.B * yCoeffA.C * xCoeffA.D * yCoeffA.D * c23x2 - 6 * yCoeffA.A * c13x2 * yCoeffA.D * xCoeffB.D * yCoeffB.D - 6 * xCoeffB.A * xCoeffA.D * c13y2 * xCoeffB.D * yCoeffB.D + 3 * yCoeffA.B * yCoeffA.C * c13x2 * xCoeffB.D * yCoeffB.D - 2 * xCoeffA.C * c12y2 * xCoeffA.D * xCoeffB.D * yCoeffB.D - 6 * xCoeffB.B * xCoeffA.D * xCoeffB.C * c13y2 * yCoeffB.D - 6 * xCoeffB.B * xCoeffA.D * c13y2 * yCoeffB.C * xCoeffB.D - 6 * xCoeffA.D * yCoeffB.B * xCoeffB.C * c13y2 * xCoeffB.D + 6 * xCoeffB.B * c13x2 * yCoeffA.D * yCoeffB.C * yCoeffB.D + 2 * c12x2 * yCoeffA.C * yCoeffA.D * xCoeffB.D * yCoeffB.D + c22x3 * c13y3 - 3 * xCoeffA.A * c13y3 * c23x2 + 3 * yCoeffA.A * c13x3 * c23y2 + 3 * xCoeffB.A * c13y3 * c23x2 + c12y3 * xCoeffA.D * c23x2 - c12x3 * yCoeffA.D * c23y2 - 3 * xCoeffA.A * c13x2 * yCoeffA.D * c23y2 + 3 * yCoeffA.A * xCoeffA.D * c13y2 * c23x2 - 2 * xCoeffA.B * yCoeffA.C * c13x2 * c23y2 + xCoeffA.B * yCoeffA.C * c13y2 * c23x2 - yCoeffA.B * xCoeffA.C * c13x2 * c23y2 + 2 * yCoeffA.B * xCoeffA.C * c13y2 * c23x2 + 3 * xCoeffB.A * c13x2 * yCoeffA.D * c23y2 - xCoeffA.C * c12y2 * yCoeffA.D * c23x2 - 3 * yCoeffB.A * xCoeffA.D * c13y2 * c23x2 + c12x2 * yCoeffA.C * xCoeffA.D * c23y2 - 3 * xCoeffA.D * c22x2 * c13y2 * yCoeffB.C + c13x2 * yCoeffA.D * xCoeffB.D * (6 * yCoeffB.A * yCoeffB.D + 6 * yCoeffB.B * yCoeffB.C) + c13x2 * xCoeffB.C * yCoeffA.D * (6 * yCoeffB.B * yCoeffB.D + 3 * c22y2) + c13x3 * (-2 * yCoeffB.B * yCoeffB.C * yCoeffB.D - yCoeffB.A * c23y2 - yCoeffB.C * (2 * yCoeffB.B * yCoeffB.D + c22y2) - yCoeffB.D * (2 * yCoeffB.A * yCoeffB.D + 2 * yCoeffB.B * yCoeffB.C)),
-                /* t^2 */ -6 * xCoeffB.B * xCoeffA.D * c13y2 * xCoeffB.D * yCoeffB.D - 6 * xCoeffA.D * xCoeffB.C * c13y2 * yCoeffB.C * xCoeffB.D + 6 * c13x2 * xCoeffB.C * yCoeffA.D * yCoeffB.C * yCoeffB.D + 3 * xCoeffB.B * c13y3 * c23x2 + 3 * c22x2 * c13y3 * xCoeffB.D + 3 * xCoeffB.B * c13x2 * yCoeffA.D * c23y2 - 3 * xCoeffA.D * yCoeffB.B * c13y2 * c23x2 - 3 * xCoeffA.D * c22x2 * c13y2 * yCoeffB.D + c13x2 * yCoeffA.D * xCoeffB.D * (6 * yCoeffB.B * yCoeffB.D + 3 * c22y2) + c13x3 * (-yCoeffB.B * c23y2 - 2 * c22y2 * yCoeffB.D - yCoeffB.D * (2 * yCoeffB.B * yCoeffB.D + c22y2)),
-                /* t^1 */ -6 * xCoeffA.D * xCoeffB.C * c13y2 * xCoeffB.D * yCoeffB.D + 6 * c13x2 * yCoeffA.D * yCoeffB.C * xCoeffB.D * yCoeffB.D + 3 * xCoeffB.C * c13y3 * c23x2 - 3 * c13x3 * yCoeffB.C * c23y2 - 3 * xCoeffA.D * c13y2 * yCoeffB.C * c23x2 + 3 * c13x2 * xCoeffB.C * yCoeffA.D * c23y2,
-                /* t^0 */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * xCoeffA.D * c13y2 * c23x2 * yCoeffB.D + 3 * c13x2 * yCoeffA.D * xCoeffB.D * c23y2
+                /* x⁹ */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * xCurveA[0] * c13y2 * c23x2 * yCurveB[0] + 3 * c13x2 * yCurveA[0] * xCurveB[0] * c23y2,
+                /* x⁸ */ -6 * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0] * yCurveB[0] + 6 * c13x2 * yCurveA[0] * yCurveB[1] * xCurveB[0] * yCurveB[0] + 3 * xCurveB[1] * c13y3 * c23x2 - 3 * c13x3 * yCurveB[1] * c23y2 - 3 * xCurveA[0] * c13y2 * yCurveB[1] * c23x2 + 3 * c13x2 * xCurveB[1] * yCurveA[0] * c23y2,
+                /* x⁷ */ -6 * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0] - 6 * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] * xCurveB[0] + 6 * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[1] * yCurveB[0] + 3 * xCurveB[2] * c13y3 * c23x2 + 3 * c22x2 * c13y3 * xCurveB[0] + 3 * xCurveB[2] * c13x2 * yCurveA[0] * c23y2 - 3 * xCurveA[0] * yCurveB[2] * c13y2 * c23x2 - 3 * xCurveA[0] * c22x2 * c13y2 * yCurveB[0] + c13x2 * yCurveA[0] * xCurveB[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + c13x3 * (-yCurveB[2] * c23y2 - 2 * c22y2 * yCurveB[0] - yCurveB[0] * (2 * yCurveB[2] * yCurveB[0] + c22y2)),
+                /* x⁶ */ xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0] + 6 * xCurveB[2] * xCurveB[1] * c13y3 * xCurveB[0] + 3 * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * c23y2 + 6 * xCurveA[3] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0] * yCurveB[0] - 3 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * c23x2 - 6 * yCurveA[3] * c13x2 * yCurveA[0] * xCurveB[0] * yCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[0] * yCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[0] * yCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[1] * xCurveB[0] - 6 * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2 * xCurveB[0] + 6 * xCurveB[2] * c13x2 * yCurveA[0] * yCurveB[1] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * yCurveA[0] * xCurveB[0] * yCurveB[0] + c22x3 * c13y3 - 3 * xCurveA[3] * c13y3 * c23x2 + 3 * yCurveA[3] * c13x3 * c23y2 + 3 * xCurveB[3] * c13y3 * c23x2 + c12y3 * xCurveA[0] * c23x2 - c12x3 * yCurveA[0] * c23y2 - 3 * xCurveA[3] * c13x2 * yCurveA[0] * c23y2 + 3 * yCurveA[3] * xCurveA[0] * c13y2 * c23x2 - 2 * xCurveA[2] * yCurveA[1] * c13x2 * c23y2 + xCurveA[2] * yCurveA[1] * c13y2 * c23x2 - yCurveA[2] * xCurveA[1] * c13x2 * c23y2 + 2 * yCurveA[2] * xCurveA[1] * c13y2 * c23x2 + 3 * xCurveB[3] * c13x2 * yCurveA[0] * c23y2 - xCurveA[1] * c12y2 * yCurveA[0] * c23x2 - 3 * yCurveB[3] * xCurveA[0] * c13y2 * c23x2 + c12x2 * yCurveA[1] * xCurveA[0] * c23y2 - 3 * xCurveA[0] * c22x2 * c13y2 * yCurveB[1] + c13x2 * yCurveA[0] * xCurveB[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + c13x2 * xCurveB[1] * yCurveA[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + c13x3 * (-2 * yCurveB[2] * yCurveB[1] * yCurveB[0] - yCurveB[3] * c23y2 - yCurveB[1] * (2 * yCurveB[2] * yCurveB[0] + c22y2) - yCurveB[0] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1])),
+                /* x⁵ */ 6 * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] * yCurveB[0] + xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[0] + xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0] - 6 * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * xCurveB[0] - 6 * xCurveA[3] * xCurveB[1] * c13y3 * xCurveB[0] + 6 * xCurveB[3] * xCurveB[1] * c13y3 * xCurveB[0] + 6 * yCurveA[3] * c13x3 * yCurveB[1] * yCurveB[0] + 2 * c12y3 * xCurveA[0] * xCurveB[1] * xCurveB[0] - 2 * c12x3 * yCurveA[0] * yCurveB[1] * yCurveB[0] + 6 * xCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[0] + 6 * xCurveA[3] * xCurveA[0] * c13y2 * yCurveB[1] * xCurveB[0] + 6 * yCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 * yCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[1] * xCurveB[0] + 2 * xCurveA[2] * yCurveA[1] * xCurveB[1] * c13y2 * xCurveB[0] + 4 * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 * xCurveB[0] - 6 * xCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1] * yCurveB[0] - 6 * yCurveA[3] * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[0] - 6 * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1] * xCurveB[0] - 4 * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] * yCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[1] * xCurveB[0] - 2 * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[1] * yCurveB[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1] * yCurveB[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] * xCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1] * yCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1] * xCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0] * xCurveB[0] - 6 * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2 * xCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] + 6 * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[1] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[1] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1] * xCurveB[0] + 3 * xCurveB[2] * c22x2 * c13y3 + 3 * c21x2 * c13y3 * xCurveB[0] - 3 * xCurveA[0] * yCurveB[2] * c22x2 * c13y2 - 3 * c21x2 * xCurveA[0] * c13y2 * yCurveB[0] + c13x2 * xCurveB[1] * yCurveA[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + c13x2 * yCurveA[0] * xCurveB[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + xCurveB[2] * c13x2 * yCurveA[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + c13x3 * (-2 * yCurveB[3] * yCurveB[1] * yCurveB[0] - yCurveB[0] * (2 * yCurveB[3] * yCurveB[1] + c21y2) - yCurveB[2] * (2 * yCurveB[2] * yCurveB[0] + c22y2) - yCurveB[1] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1])),
+                /* x⁴ */ xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] + xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] * xCurveB[0] + xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[1] - yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0] * yCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] * xCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[1] - 6 * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] - 6 * xCurveA[3] * xCurveB[2] * c13y3 * xCurveB[0] + 6 * xCurveB[3] * xCurveB[2] * c13y3 * xCurveB[0] + 2 * xCurveB[2] * c12y3 * xCurveA[0] * xCurveB[0] + 6 * xCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[0] + 6 * xCurveA[3] * xCurveA[0] * yCurveB[2] * c13y2 * xCurveB[0] + 6 * xCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] + 6 * yCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 * yCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[2] * c13y2 * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 * yCurveB[1] + 2 * xCurveA[2] * xCurveB[2] * yCurveA[1] * c13y2 * xCurveB[0] + 4 * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 * xCurveB[0] - 6 * yCurveA[3] * xCurveB[2] * c13x2 * yCurveA[0] * yCurveB[0] - 6 * yCurveA[3] * c13x2 * yCurveB[2] * yCurveA[0] * xCurveB[0] - 6 * yCurveA[3] * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[1] - 6 * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * yCurveB[2] * c13y2 * xCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] + 3 * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[0] - 3 * yCurveA[2] * yCurveA[1] * xCurveA[0] * c22x2 * yCurveA[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] * xCurveB[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1] * yCurveB[1] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[0] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0] * xCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] * xCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1] * yCurveB[1] - 6 * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2 + 6 * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] * xCurveB[0] + 2 * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0] * xCurveB[0] + 2 * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0] * yCurveB[1] - 3 * xCurveA[3] * c22x2 * c13y3 + 3 * xCurveB[3] * c22x2 * c13y3 + 3 * c21x2 * xCurveB[1] * c13y3 + c12y3 * xCurveA[0] * c22x2 + 3 * yCurveA[3] * xCurveA[0] * c22x2 * c13y2 + xCurveA[2] * yCurveA[1] * c22x2 * c13y2 + 2 * yCurveA[2] * xCurveA[1] * c22x2 * c13y2 - xCurveA[1] * c12y2 * c22x2 * yCurveA[0] - 3 * yCurveB[3] * xCurveA[0] * c22x2 * c13y2 - 3 * c21x2 * xCurveA[0] * c13y2 * yCurveB[1] + c12x2 * yCurveA[1] * xCurveA[0] * (2 * yCurveB[2] * yCurveB[0] + c22y2) + xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + xCurveB[2] * c13x2 * yCurveA[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + c12x3 * yCurveA[0] * (-2 * yCurveB[2] * yCurveB[0] - c22y2) + yCurveA[3] * c13x3 * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + yCurveA[2] * xCurveA[1] * c13x2 * (-2 * yCurveB[2] * yCurveB[0] - c22y2) + xCurveA[2] * yCurveA[1] * c13x2 * (-4 * yCurveB[2] * yCurveB[0] - 2 * c22y2) + xCurveA[3] * c13x2 * yCurveA[0] * (-6 * yCurveB[2] * yCurveB[0] - 3 * c22y2) + c13x2 * xCurveB[1] * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + xCurveB[3] * c13x2 * yCurveA[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + c13x3 * (-2 * yCurveB[3] * yCurveB[2] * yCurveB[0] - yCurveB[1] * (2 * yCurveB[3] * yCurveB[1] + c21y2) - yCurveB[3] * (2 * yCurveB[2] * yCurveB[0] + c22y2) - yCurveB[2] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1])),
+                /* x³ */ -xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] + xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] + 6 * xCurveA[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] - yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] + yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[0] - xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[0] + xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] + xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] + xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * xCurveB[1] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] - 6 * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] - yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] * xCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0] * yCurveB[1] - yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * xCurveB[1] * yCurveA[0] - 6 * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] - 6 * xCurveA[3] * xCurveB[3] * c13y3 * xCurveB[0] - 6 * xCurveA[3] * xCurveB[2] * xCurveB[1] * c13y3 - 2 * xCurveA[3] * c12y3 * xCurveA[0] * xCurveB[0] + 6 * xCurveB[3] * xCurveB[2] * xCurveB[1] * c13y3 + 2 * xCurveB[3] * c12y3 * xCurveA[0] * xCurveB[0] + 2 * xCurveB[2] * c12y3 * xCurveA[0] * xCurveB[1] + 2 * yCurveA[3] * c12x3 * yCurveA[0] * yCurveB[0] - 6 * xCurveA[3] * yCurveA[3] * xCurveA[0] * c13y2 * xCurveB[0] + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[0] - 2 * xCurveA[3] * xCurveA[2] * yCurveA[1] * c13y2 * xCurveB[0] - 4 * xCurveA[3] * yCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0] + 3 * yCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0] + 6 * xCurveA[3] * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[0] + 6 * xCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[0] - 3 * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[0] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[0] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * yCurveA[0] * xCurveB[0] + 6 * xCurveA[3] * yCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0] + 6 * xCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[1] + 6 * xCurveA[3] * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2 + 4 * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[0] + 6 * yCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0] + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[0] - 3 * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[0] + 2 * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[0] + 6 * yCurveA[3] * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 * yCurveB[0] + 2 * xCurveA[2] * xCurveB[3] * yCurveA[1] * c13y2 * xCurveB[0] + xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[3] * c13y2 * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 * yCurveB[1] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[2] * xCurveB[1] * c13y2 + 2 * xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveB[1] * c13y2 + 4 * xCurveB[3] * yCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0] + 4 * yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveB[1] * c13y2 - 2 * xCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[0] - 6 * yCurveA[3] * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[0] - 6 * yCurveA[3] * yCurveB[3] * c13x2 * yCurveA[0] * xCurveB[0] - 6 * yCurveA[3] * xCurveB[2] * c13x2 * yCurveA[0] * yCurveB[1] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[0] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * xCurveB[0] - 6 * yCurveA[3] * c13x2 * yCurveB[2] * xCurveB[1] * yCurveA[0] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] * yCurveB[0] - 2 * xCurveA[2] * c11y2 * xCurveA[0] * yCurveA[0] * xCurveB[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[0] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[0] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * yCurveA[0] * xCurveB[0] - 6 * xCurveB[3] * yCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0] - 6 * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[1] - 6 * xCurveB[3] * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2 + 3 * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * xCurveB[0] + 3 * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[1] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] * xCurveB[1] - 2 * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] * xCurveB[0] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[1] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * xCurveB[1] * yCurveA[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] * xCurveB[1] - 6 * yCurveB[3] * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 - c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] * xCurveB[0] + 2 * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[0] + 6 * yCurveB[3] * c13x2 * yCurveB[2] * xCurveB[1] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[0] + c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] * yCurveB[0] + 2 * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0] * xCurveB[0] + 2 * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0] * yCurveB[1] + 2 * c12x2 * yCurveA[1] * yCurveB[2] * xCurveB[1] * yCurveA[0] + c21x3 * c13y3 + 3 * c10x2 * c13y3 * xCurveB[0] - 3 * c10y2 * c13x3 * yCurveB[0] + 3 * c20x2 * c13y3 * xCurveB[0] + c11y3 * c13x2 * xCurveB[0] - c11x3 * c13y2 * yCurveB[0] - xCurveA[2] * c11y2 * c13x2 * yCurveB[0] + c11x2 * yCurveA[2] * c13y2 * xCurveB[0] - 3 * c10x2 * xCurveA[0] * c13y2 * yCurveB[0] + 3 * c10y2 * c13x2 * yCurveA[0] * xCurveB[0] - c11x2 * c12y2 * xCurveA[0] * yCurveB[0] + c11y2 * c12x2 * yCurveA[0] * xCurveB[0] - 3 * c21x2 * xCurveA[0] * yCurveB[2] * c13y2 - 3 * c20x2 * xCurveA[0] * c13y2 * yCurveB[0] + 3 * c20y2 * c13x2 * yCurveA[0] * xCurveB[0] + xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + c12x3 * yCurveA[0] * (-2 * yCurveB[3] * yCurveB[0] - 2 * yCurveB[2] * yCurveB[1]) + yCurveA[3] * c13x3 * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + yCurveA[2] * xCurveA[1] * c13x2 * (-2 * yCurveB[3] * yCurveB[0] - 2 * yCurveB[2] * yCurveB[1]) + c12x2 * yCurveA[1] * xCurveA[0] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1]) + xCurveA[2] * yCurveA[1] * c13x2 * (-4 * yCurveB[3] * yCurveB[0] - 4 * yCurveB[2] * yCurveB[1]) + xCurveA[3] * c13x2 * yCurveA[0] * (-6 * yCurveB[3] * yCurveB[0] - 6 * yCurveB[2] * yCurveB[1]) + xCurveB[3] * c13x2 * yCurveA[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + xCurveB[2] * c13x2 * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + c13x3 * (-2 * yCurveB[3] * yCurveB[2] * yCurveB[1] - c20y2 * yCurveB[0] - yCurveB[2] * (2 * yCurveB[3] * yCurveB[1] + c21y2) - yCurveB[3] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1])),
+                /* x² */ -xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + 6 * xCurveA[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] - yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] + yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1] - xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveB[1] * yCurveA[0] + xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] + xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] - 6 * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] - yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * xCurveB[1] * yCurveA[0] - yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveB[2] * yCurveA[0] - 6 * xCurveA[3] * xCurveB[3] * xCurveB[1] * c13y3 - 2 * xCurveA[3] * c12y3 * xCurveA[0] * xCurveB[1] + 2 * xCurveB[3] * c12y3 * xCurveA[0] * xCurveB[1] + 2 * yCurveA[3] * c12x3 * yCurveA[0] * yCurveB[1] - 6 * xCurveA[3] * yCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[1] - 2 * xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveB[1] * c13y2 - 4 * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 + 3 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 + 6 * xCurveA[3] * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1] + 6 * xCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[1] - 3 * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0] + 6 * xCurveA[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 + 6 * xCurveA[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2 + 4 * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] + 6 * yCurveA[3] * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[1] - 3 * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1] + 2 * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1] - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 * yCurveB[1] + 2 * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveB[1] * c13y2 + xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] * xCurveB[1] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[1] * c13y2 - 3 * xCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveB[2] * c13y2 + 4 * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 - 2 * xCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1] - 6 * yCurveA[3] * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[1] - 6 * yCurveA[3] * yCurveB[3] * c13x2 * xCurveB[1] * yCurveA[0] - 6 * yCurveA[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[1] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] * yCurveB[1] - 2 * xCurveA[2] * c11y2 * xCurveA[0] * xCurveB[1] * yCurveA[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0] - 6 * xCurveB[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 - 6 * xCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2 + 3 * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * xCurveB[1] + 3 * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[2] - 2 * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] * xCurveB[1] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[2] - c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] * xCurveB[1] + 2 * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1] - 3 * yCurveA[2] * c21x2 * yCurveA[1] * xCurveA[0] * yCurveA[0] + 6 * yCurveB[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1] + c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] * yCurveB[1] + 2 * c12x2 * yCurveB[3] * yCurveA[1] * xCurveB[1] * yCurveA[0] + 2 * c12x2 * xCurveB[2] * yCurveA[1] * yCurveB[2] * yCurveA[0] - 3 * xCurveA[3] * c21x2 * c13y3 + 3 * xCurveB[3] * c21x2 * c13y3 + 3 * c10x2 * xCurveB[1] * c13y3 - 3 * c10y2 * c13x3 * yCurveB[1] + 3 * c20x2 * xCurveB[1] * c13y3 + c21x2 * c12y3 * xCurveA[0] + c11y3 * c13x2 * xCurveB[1] - c11x3 * c13y2 * yCurveB[1] + 3 * yCurveA[3] * c21x2 * xCurveA[0] * c13y2 - xCurveA[2] * c11y2 * c13x2 * yCurveB[1] + xCurveA[2] * c21x2 * yCurveA[1] * c13y2 + 2 * yCurveA[2] * xCurveA[1] * c21x2 * c13y2 + c11x2 * yCurveA[2] * xCurveB[1] * c13y2 - xCurveA[1] * c21x2 * c12y2 * yCurveA[0] - 3 * yCurveB[3] * c21x2 * xCurveA[0] * c13y2 - 3 * c10x2 * xCurveA[0] * c13y2 * yCurveB[1] + 3 * c10y2 * c13x2 * xCurveB[1] * yCurveA[0] - c11x2 * c12y2 * xCurveA[0] * yCurveB[1] + c11y2 * c12x2 * xCurveB[1] * yCurveA[0] - 3 * c20x2 * xCurveA[0] * c13y2 * yCurveB[1] + 3 * c20y2 * c13x2 * xCurveB[1] * yCurveA[0] + c12x2 * yCurveA[1] * xCurveA[0] * (2 * yCurveB[3] * yCurveB[1] + c21y2) + xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + c12x3 * yCurveA[0] * (-2 * yCurveB[3] * yCurveB[1] - c21y2) + yCurveA[3] * c13x3 * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + yCurveA[2] * xCurveA[1] * c13x2 * (-2 * yCurveB[3] * yCurveB[1] - c21y2) + xCurveA[2] * yCurveA[1] * c13x2 * (-4 * yCurveB[3] * yCurveB[1] - 2 * c21y2) + xCurveA[3] * c13x2 * yCurveA[0] * (-6 * yCurveB[3] * yCurveB[1] - 3 * c21y2) + xCurveB[3] * c13x2 * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + c13x3 * (-2 * yCurveB[3] * c21y2 - c20y2 * yCurveB[1] - yCurveB[3] * (2 * yCurveB[3] * yCurveB[1] + c21y2)),
+                /* x¹ */ -xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] + xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] + 6 * xCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] - yCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] + yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0] - xCurveA[2] * yCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveA[1] * yCurveA[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2] + xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] + 6 * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveB[2] * yCurveA[0] + xCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] - 6 * xCurveB[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveA[0] - 6 * xCurveA[3] * xCurveB[3] * xCurveB[2] * c13y3 - 2 * xCurveA[3] * xCurveB[2] * c12y3 * xCurveA[0] + 6 * yCurveA[3] * yCurveB[3] * c13x3 * yCurveB[2] + 2 * xCurveB[3] * xCurveB[2] * c12y3 * xCurveA[0] + 2 * yCurveA[3] * c12x3 * yCurveB[2] * yCurveA[0] - 2 * c12x3 * yCurveB[3] * yCurveB[2] * yCurveA[0] - 6 * xCurveA[3] * yCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[2] * c13y2 - 2 * xCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * c13y2 - 4 * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 + 3 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 + 6 * xCurveA[3] * yCurveA[3] * c13x2 * yCurveB[2] * yCurveA[0] + 6 * xCurveA[3] * xCurveB[3] * xCurveA[0] * yCurveB[2] * c13y2 - 3 * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] + 2 * xCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] + 6 * xCurveA[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 + 4 * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] + 6 * yCurveA[3] * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[2] - 3 * yCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 + 2 * yCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[2] * c13y2 + 2 * xCurveA[2] * xCurveB[3] * xCurveB[2] * yCurveA[1] * c13y2 + xCurveA[2] * yCurveA[2] * xCurveB[2] * c12y2 * xCurveA[0] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * c13y2 + 4 * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 - 6 * xCurveA[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] - 2 * xCurveA[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0] - 6 * yCurveA[3] * xCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] - 6 * yCurveA[3] * yCurveB[3] * xCurveB[2] * c13x2 * yCurveA[0] - 2 * yCurveA[3] * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[2] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[2] * yCurveA[0] - 4 * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * yCurveB[2] - 2 * xCurveA[2] * c11y2 * xCurveB[2] * xCurveA[0] * yCurveA[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] - 2 * xCurveB[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] - 6 * xCurveB[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 - 2 * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2 * yCurveB[2] + 3 * yCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * c13x2 - 2 * xCurveA[1] * yCurveB[3] * xCurveB[2] * c12y2 * xCurveA[0] - c11y2 * xCurveA[1] * xCurveB[2] * yCurveA[1] * xCurveA[0] + 6 * xCurveB[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] + 2 * xCurveB[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * xCurveA[0] * yCurveB[2] * yCurveA[0] + c11x2 * xCurveA[1] * yCurveA[1] * yCurveB[2] * yCurveA[0] + 2 * c12x2 * yCurveB[3] * xCurveB[2] * yCurveA[1] * yCurveA[0] + 2 * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2] + 3 * c10x2 * xCurveB[2] * c13y3 - 3 * c10y2 * c13x3 * yCurveB[2] + 3 * c20x2 * xCurveB[2] * c13y3 + c11y3 * xCurveB[2] * c13x2 - c11x3 * yCurveB[2] * c13y2 - 3 * c20y2 * c13x3 * yCurveB[2] - xCurveA[2] * c11y2 * c13x2 * yCurveB[2] + c11x2 * yCurveA[2] * xCurveB[2] * c13y2 - 3 * c10x2 * xCurveA[0] * yCurveB[2] * c13y2 + 3 * c10y2 * xCurveB[2] * c13x2 * yCurveA[0] - c11x2 * c12y2 * xCurveA[0] * yCurveB[2] + c11y2 * c12x2 * xCurveB[2] * yCurveA[0] - 3 * c20x2 * xCurveA[0] * yCurveB[2] * c13y2 + 3 * c20y2 * xCurveB[2] * c13x2 * yCurveA[0],
+                /* c  */ xCurveA[3] * yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveA[3] * yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] + xCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] - yCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] - xCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] + 6 * xCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] + xCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] - yCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] + yCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveA[2] * xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveB[3] * yCurveA[1] * xCurveA[0] + xCurveA[2] * xCurveB[3] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] - 2 * xCurveA[3] * xCurveB[3] * c12y3 * xCurveA[0] + 2 * yCurveA[3] * c12x3 * yCurveB[3] * yCurveA[0] - 3 * xCurveA[3] * yCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 - 6 * xCurveA[3] * yCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 + 3 * xCurveA[3] * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 - 2 * xCurveA[3] * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] - 2 * xCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * c13y2 - xCurveA[3] * xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * c13y2 - 4 * xCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * c13y2 + 3 * yCurveA[3] * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 + 6 * xCurveA[3] * yCurveA[3] * yCurveB[3] * c13x2 * yCurveA[0] + 2 * xCurveA[3] * yCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] + 2 * xCurveA[3] * xCurveA[2] * c11y2 * xCurveA[0] * yCurveA[0] + 2 * xCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * yCurveA[0] + 6 * xCurveA[3] * xCurveB[3] * yCurveB[3] * xCurveA[0] * c13y2 - 3 * xCurveA[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 + 2 * xCurveA[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] + xCurveA[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] + yCurveA[3] * xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] + 4 * yCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 - 3 * yCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 + 2 * yCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2 + xCurveA[2] * xCurveB[3] * yCurveA[2] * c12y2 * xCurveA[0] - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[3] * c13y2 - 2 * xCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0] - 6 * yCurveA[3] * xCurveB[3] * yCurveB[3] * c13x2 * yCurveA[0] - 2 * yCurveA[3] * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] - 2 * yCurveA[3] * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] - yCurveA[3] * c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] - 2 * yCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0] - 2 * xCurveA[2] * xCurveB[3] * c11y2 * xCurveA[0] * yCurveA[0] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[3] * yCurveA[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 - 2 * xCurveB[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] - xCurveB[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] + 3 * c10y2 * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] + 3 * xCurveA[2] * xCurveA[1] * c20y2 * xCurveA[0] * yCurveA[0] + 2 * xCurveB[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0] - 3 * c10x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * yCurveB[3] * xCurveA[0] * yCurveA[0] + c11x2 * xCurveA[1] * yCurveB[3] * yCurveA[1] * yCurveA[0] - 3 * c20x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * xCurveA[3] * c20x2 * c13y3 - xCurveA[3] * c11y3 * c13x2 + 3 * c10x2 * xCurveB[3] * c13y3 + yCurveA[3] * c11x3 * c13y2 + 3 * yCurveA[3] * c20y2 * c13x3 + xCurveB[3] * c11y3 * c13x2 + c10x2 * c12y3 * xCurveA[0] - 3 * c10y2 * yCurveB[3] * c13x3 - c10y2 * c12x3 * yCurveA[0] + c20x2 * c12y3 * xCurveA[0] - c11x3 * yCurveB[3] * c13y2 - c12x3 * c20y2 * yCurveA[0] - xCurveA[3] * c11x2 * yCurveA[2] * c13y2 + yCurveA[3] * xCurveA[2] * c11y2 * c13x2 - 3 * xCurveA[3] * c10y2 * c13x2 * yCurveA[0] - xCurveA[3] * c11y2 * c12x2 * yCurveA[0] + yCurveA[3] * c11x2 * c12y2 * xCurveA[0] - xCurveA[2] * c11y2 * yCurveB[3] * c13x2 + 3 * c10x2 * yCurveA[3] * xCurveA[0] * c13y2 + c10x2 * xCurveA[2] * yCurveA[1] * c13y2 + 2 * c10x2 * yCurveA[2] * xCurveA[1] * c13y2 - 2 * c10y2 * xCurveA[2] * yCurveA[1] * c13x2 - c10y2 * yCurveA[2] * xCurveA[1] * c13x2 + c11x2 * xCurveB[3] * yCurveA[2] * c13y2 - 3 * xCurveA[3] * c20y2 * c13x2 * yCurveA[0] + 3 * yCurveA[3] * c20x2 * xCurveA[0] * c13y2 + xCurveA[2] * c20x2 * yCurveA[1] * c13y2 - 2 * xCurveA[2] * c20y2 * yCurveA[1] * c13x2 + xCurveB[3] * c11y2 * c12x2 * yCurveA[0] - yCurveA[2] * xCurveA[1] * c20y2 * c13x2 - c10x2 * xCurveA[1] * c12y2 * yCurveA[0] - 3 * c10x2 * yCurveB[3] * xCurveA[0] * c13y2 + 3 * c10y2 * xCurveB[3] * c13x2 * yCurveA[0] + c10y2 * c12x2 * yCurveA[1] * xCurveA[0] - c11x2 * yCurveB[3] * c12y2 * xCurveA[0] + 2 * c20x2 * yCurveA[2] * xCurveA[1] * c13y2 + 3 * xCurveB[3] * c20y2 * c13x2 * yCurveA[0] - c20x2 * xCurveA[1] * c12y2 * yCurveA[0] - 3 * c20x2 * yCurveB[3] * xCurveA[0] * c13y2 + c12x2 * c20y2 * yCurveA[1] * xCurveA[0]
             );
             var roots = poly.RootsInInterval();
 
             foreach (var s in roots)
             {
                 var point = new Point2D(
-                    xCoeffB.D * s * s * s + xCoeffB.C * s * s + xCoeffB.B * s + xCoeffB.A,
-                    yCoeffB.D * s * s * s + yCoeffB.C * s * s + yCoeffB.B * s + yCoeffB.A);
+                    xCurveB[0] * s * s * s + xCurveB[1] * s * s + xCurveB[2] * s + xCurveB[3],
+                    yCurveB[0] * s * s * s + yCurveB[1] * s * s + yCurveB[2] * s + yCurveB[3]);
 
-                var xRoots = (xCoeffA.D == 0)
-                    ? (xCoeffA.C == 0)
-                    ? LinearRoots(
-                        /* t^1 */ xCoeffA.B,
-                        /* t^0 */ xCoeffA.A - point.X,
-                        epsilon)
-                    : QuadraticRoots(
-                        /* t^2 */ xCoeffA.C,
-                        /* t^1 */ xCoeffA.B,
-                        /* t^0 */ xCoeffA.A - point.X,
-                        epsilon)
-                    : CubicRoots(
-                        /* t^3 */ xCoeffA.D,
-                        /* t^2 */ xCoeffA.C,
-                        /* t^1 */ xCoeffA.B,
-                        /* t^0 */ xCoeffA.A - point.X,
-                        epsilon);
-
-                var yRoots = (yCoeffA.D == 0)
-                    ? (yCoeffA.C == 0)
-                    ? LinearRoots(
-                        /* t^1 */ yCoeffA.B,
-                        /* t^0 */ yCoeffA.A - point.Y,
-                        epsilon)
-                    : QuadraticRoots(
-                        /* t^2 */ yCoeffA.C,
-                        /* t^1 */ yCoeffA.B,
-                        /* t^0 */ yCoeffA.A - point.Y,
-                        epsilon)
-                    : CubicRoots(
-                        /* t^3 */ yCoeffA.D,
-                        /* t^2 */ yCoeffA.C,
-                        /* t^1 */ yCoeffA.B,
-                        /* t^0 */ yCoeffA.A - point.Y,
-                        epsilon);
+                var xRoots = (xCurveA - point.X).Trim().Roots();
+                var yRoots = (yCurveA - point.Y).Trim().Roots();
 
                 // ToDo: Figure out why the xRoots can be larger than 1 or smaller than 0 and still work...
                 if (xRoots.Count > 0 && yRoots.Count > 0)
@@ -5122,12 +5197,12 @@ namespace Engine
                     // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
                     foreach (var xRoot in xRoots)
                     {
-                        //if (0 <= xRoot && xRoot <= 1)
+                        if (0 <= xRoot && xRoot <= 1)
                         {
                             foreach (var yRoot in yRoots)
                             {
-                                //var t = xRoot - yRoot;
-                                //if ((t >= 0 ? t : -t) < tolerance)
+                                var t = xRoot - yRoot;
+                                if ((t >= 0 ? t : -t) < tolerance)
                                 {
                                     result.Points.Add(point);
                                     goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
@@ -5147,14 +5222,14 @@ namespace Engine
         /// <summary>
         /// Finds the intersection between a cubic bezier and a polygon.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="p4X"></param>
-        /// <param name="p4Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="b4X"></param>
+        /// <param name="b4Y"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
@@ -5165,7 +5240,29 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection CubicBezierSegmentPolygonIntersection(
-            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
+            List<Point2D> points,
+            double epsilon = Epsilon)
+            => CubicBezierSegmentPolygonIntersection(
+                Polynomial.Cubic(b1X, b2X, b3X, b4X),
+                Polynomial.Cubic(b1Y, b2Y, b3Y, b4Y),
+                points,
+                epsilon);
+
+        /// <summary>
+        /// Finds the intersection between a cubic bezier and a polygon.
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection CubicBezierSegmentPolygonIntersection(
+            Polynomial xCurve, Polynomial yCurve,
             List<Point2D> points,
             double epsilon = Epsilon)
         {
@@ -5179,7 +5276,7 @@ namespace Engine
             {
                 Point2D a2 = points[i];
 
-                intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, a1.X, a1.Y, a2.X, a2.Y, epsilon).Points);
+                intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(a1.X, a1.Y, a2.X, a2.Y, xCurve, yCurve, epsilon).Points);
 
                 a1 = a2;
             }
@@ -5195,14 +5292,14 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a cubic bezier and a rectangle.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="p4X"></param>
-        /// <param name="p4Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
+        /// <param name="b4X"></param>
+        /// <param name="b4Y"></param>
         /// <param name="r1X"></param>
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
@@ -5216,7 +5313,32 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection CubicBezierSegmentRectangleIntersection(
-            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
+            => CubicBezierSegmentRectangleIntersection(
+                Polynomial.Cubic(b1X, b2X, b3X, b4X),
+                Polynomial.Cubic(b1Y, b2Y, b3Y, b4Y),
+                r1X, r1Y, r2X, r2Y,
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between a cubic bezier and a rectangle.
+        /// </summary>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection CubicBezierSegmentRectangleIntersection(
+            Polynomial xCurve, Polynomial yCurve,
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
         {
@@ -5227,10 +5349,10 @@ namespace Engine
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, min.X, min.Y, topRight.X, topRight.Y, epsilon).Points);
-            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, topRight.X, topRight.Y, max.X, max.Y, epsilon).Points);
-            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
-            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(p1X, p1Y, p2X, p2Y, p3X, p3Y, p4X, p4Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(min.X, min.Y, topRight.X, topRight.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(topRight.X, topRight.Y, max.X, max.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, xCurve, yCurve, epsilon).Points);
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the rectangle and there are no intersections.
 
@@ -5561,7 +5683,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection CircleCircleIntersection(
             double c1X, double c1Y, double r1,
@@ -5775,16 +5897,36 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a quadratic bezier and an unrotated ellipse.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
         /// <param name="ecX"></param>
         /// <param name="ecY"></param>
         /// <param name="rx"></param>
         /// <param name="ry"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection QuadraticBezierSegmentUnrotatedEllipseIntersection(
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y,
+            double ecX, double ecY, double rx, double ry,
+            double epsilon = Epsilon)
+            => QuadraticBezierSegmentUnrotatedEllipseIntersection(
+                Polynomial.Quadratic(b1X, b2X, b3X),
+                Polynomial.Quadratic(b1Y, b2Y, b3Y),
+                ecX, ecY, rx, ry,
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between a quadratic bezier and an unrotated ellipse.
+        /// </summary>
+        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -5794,35 +5936,33 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentUnrotatedEllipseIntersection(
-            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y,
+            Polynomial xCurve, Polynomial yCurve,
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
         {
-            var a = new Vector2D(p2X, p2Y) * -2;
-            var c2 = new Vector2D(p1X, p1Y) + a + new Vector2D(p3X, p3Y);
-            a = new Vector2D(p1X, p1Y) * -2;
-            var b = new Vector2D(p2X, p2Y) * 2;
-            var c1 = a + b;
-            var c0 = new Vector2D(p1X, p1Y);
+            // Initialize intersection.
+            var result = new Intersection(IntersectionState.NoIntersection);
 
             var rxrx = rx * rx;
             var ryry = ry * ry;
 
-            var roots = QuarticRoots(
-                ryry * c2.I * c2.I + rxrx * c2.J * c2.J,
-                2 * (ryry * c2.I * c1.I + rxrx * c2.J * c1.J),
-                ryry * (2 * c2.I * c0.I + c1.I * c1.I) + rxrx * (2 * c2.J * c0.J + c1.J * c1.J) - 2 * (ryry * ecX * c2.I + rxrx * ecY * c2.J),
-                2 * (ryry * c1.I * (c0.I - ecX) + rxrx * c1.J * (c0.J - ecY)),
-                ryry * (c0.I * c0.I + ecY * ecY) + rxrx * (c0.J * c0.J + ecY * ecY) - 2 * (ryry * ecX * c0.I + rxrx * ecY * c0.J) - rxrx * ryry,
-                epsilon);
+            // Find the polynomial that represents the intersections.
+            var roots = new Polynomial(
+                /* x⁴ */ ryry * xCurve[0] * xCurve[0] + rxrx * yCurve[0] * yCurve[0],
+                /* x³ */ 2 * (ryry * xCurve[0] * xCurve[1] + rxrx * yCurve[0] * yCurve[1]),
+                /* x² */ ryry * (2 * xCurve[0] * xCurve[2] + xCurve[1] * xCurve[1]) + rxrx * (2 * yCurve[0] * yCurve[2] + yCurve[1] * yCurve[1]) - 2 * (ryry * ecX * xCurve[0] + rxrx * ecY * yCurve[0]),
+                /* x¹ */ 2 * (ryry * xCurve[1] * (xCurve[2] - ecX) + rxrx * yCurve[1] * (yCurve[2] - ecY)),
+                /* c  */ ryry * (xCurve[2] * xCurve[2] + ecY * ecY) + rxrx * (yCurve[2] * yCurve[2] + ecY * ecY) - 2 * (ryry * ecX * xCurve[2] + rxrx * ecY * yCurve[2]) - rxrx * ryry
+                ).Trim().Roots();
 
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            for (var i = 0; i < roots.Count; i++)
+            foreach (var s in roots)
             {
-                var t = roots[i];
-                if (0 <= t && t <= 1)
-                    result.Points.Add((Point2D)c2 * t * t + (c1 * t + c0));
+                var point = new Point2D(
+                    xCurve[0] * s * s + xCurve[1] * s + xCurve[2],
+                    yCurve[0] * s * s + yCurve[1] * s + yCurve[2]);
+
+                if (0 <= s && s <= 1)
+                    result.Points.Add(point);
             }
 
             if (result.Points.Count > 0)
@@ -5839,8 +5979,8 @@ namespace Engine
         /// <param name="p2Y"></param>
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
-        /// <param name="p4X"></param>
-        /// <param name="p4Y"></param>
+        /// <param name="b4X"></param>
+        /// <param name="b4Y"></param>
         /// <param name="ecX"></param>
         /// <param name="ecY"></param>
         /// <param name="rx"></param>
@@ -5854,44 +5994,57 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection CubicBezierSegmentUnrotatedEllipseIntersection(
-            double p1X, double p1Y, double p2X, double p2Y, double p3X, double p3Y, double p4X, double p4Y,
+            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y,
+            double ecX, double ecY, double rx, double ry,
+            double epsilon = Epsilon)
+            => CubicBezierSegmentUnrotatedEllipseIntersection(
+                Polynomial.Cubic(b1X, b2X, b3X, b4X),
+                Polynomial.Cubic(b1Y, b2Y, b3Y, b4Y),
+                ecX, ecY, rx, ry,
+                epsilon);
+
+        /// <summary>
+        /// Find the intersection between a cubic bezier and an unrotated ellipse.
+        /// </summary>
+        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection CubicBezierSegmentUnrotatedEllipseIntersection(
+            Polynomial xCurve, Polynomial yCurve,
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
         {
-            var a = new Vector2D(p1X, p1Y) * -1;
-            var b = new Vector2D(p2X, p2Y) * 3;
-            var c = new Vector2D(p3X, p3Y) * -3;
-            var d = a + b + c + new Vector2D(p4X, p4Y);
-            var c3 = new Vector2D(d.I, d.J);
-            a = new Vector2D(p1X, p1Y) * 3;
-            b = new Vector2D(p2X, p2Y) * -6;
-            c = new Vector2D(p3X, p3Y) * 3;
-            d = a + b + c;
-            var c2 = new Vector2D(d.I, d.J);
-            a = new Vector2D(p1X, p1Y) * -3;
-            b = new Vector2D(p2X, p2Y) * 3;
-            c = a + b;
-            var c1 = new Vector2D(c.I, c.J);
-            var c0 = new Vector2D(p1X, p1Y);
+            // Initialize intersection.
+            var result = new Intersection(IntersectionState.NoIntersection);
 
             var rxrx = rx * rx;
             var ryry = ry * ry;
 
+            // Find the polynomial that represents the intersections.
             var roots = new Polynomial(
-                c0.I * c0.I * ryry - 2 * c0.J * ecY * rxrx - 2 * c0.I * ecX * ryry + c0.J * c0.J * rxrx + ecX * ecX * ryry + ecY * ecY * rxrx - rxrx * ryry,
-                2 * c1.I * ryry * (c0.I - ecX) + 2 * c1.J * rxrx * (c0.J - ecY),
-                2 * c2.I * ryry * (c0.I - ecX) + 2 * c2.J * rxrx * (c0.J - ecY) + c1.I * c1.I * ryry + c1.J * c1.J * rxrx,
-                2 * c3.I * ryry * (c0.I - ecX) + 2 * c3.J * rxrx * (c0.J - ecY) + 2 * (c2.I * c1.I * ryry + c2.J * c1.J * rxrx),
-                2 * (c3.I * c1.I * ryry + c3.J * c1.J * rxrx) + c2.I * c2.I * ryry + c2.J * c2.J * rxrx,
-                2 * (c3.I * c2.I * ryry + c3.J * c2.J * rxrx),
-                c3.I * c3.I * ryry + c3.J * c3.J * rxrx).Simplify().RootsInInterval();
+                /* x⁶ */ xCurve[0] * xCurve[0] * ryry + yCurve[0] * yCurve[0] * rxrx,
+                /* x⁵ */ 2 * (xCurve[0] * xCurve[1] * ryry + yCurve[0] * yCurve[1] * rxrx),
+                /* x⁴ */ 2 * (xCurve[0] * xCurve[2] * ryry + yCurve[0] * yCurve[2] * rxrx) + xCurve[1] * xCurve[1] * ryry + yCurve[1] * yCurve[1] * rxrx,
+                /* x³ */ 2 * xCurve[0] * ryry * (xCurve[3] - ecX) + 2 * yCurve[0] * rxrx * (yCurve[3] - ecY) + 2 * (xCurve[1] * xCurve[2] * ryry + yCurve[1] * yCurve[2] * rxrx),
+                /* x² */ 2 * xCurve[1] * ryry * (xCurve[3] - ecX) + 2 * yCurve[1] * rxrx * (yCurve[3] - ecY) + xCurve[2] * xCurve[2] * ryry + yCurve[2] * yCurve[2] * rxrx,
+                /* x¹ */ 2 * xCurve[2] * ryry * (xCurve[3] - ecX) + 2 * yCurve[2] * rxrx * (yCurve[3] - ecY),
+                /* c  */ xCurve[3] * xCurve[3] * ryry - 2 * yCurve[3] * ecY * rxrx - 2 * xCurve[3] * ecX * ryry + yCurve[3] * yCurve[3] * rxrx + ecX * ecX * ryry + ecY * ecY * rxrx - rxrx * ryry
+                ).RootsInInterval();
 
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            for (var i = 0; i < roots.Count; i++)
+            foreach (var s in roots)
             {
-                var t = roots[i];
-                result.Points.Add((Point2D)c3 * t * t * t + (c2 * t * t + (c1 * t + c0)));
+                var point = new Point2D(
+                    xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
+                    yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]);
+
+                result.Points.Add(point);
             }
 
             if (result.Points.Count > 0)
@@ -5923,6 +6076,8 @@ namespace Engine
             double c2X, double c2Y, double rx2, double ry2,
             double epsilon = Epsilon)
         {
+            var result = new Intersection(IntersectionState.NoIntersection);
+
             double[] a = new double[] { ry1 * ry1, 0, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2 * rx1 * rx1 * c1Y, ry1 * ry1 * c1X * c1X + rx1 * rx1 * c1Y * c1Y - rx1 * rx1 * ry1 * ry1 };
             double[] b = new double[] { ry2 * ry2, 0, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2 * rx2 * rx2 * c2Y, ry2 * ry2 * c2X * c2X + rx2 * rx2 * c2Y * c2Y - rx2 * rx2 * ry2 * ry2 };
 
@@ -5931,8 +6086,6 @@ namespace Engine
 
             var norm0 = (a[0] * a[0] + 2 * a[1] * a[1] + a[2] * a[2]) * epsilon;
             var norm1 = (b[0] * b[0] + 2 * b[1] * b[1] + b[2] * b[2]) * epsilon;
-
-            var result = new Intersection(IntersectionState.NoIntersection);
 
             for (var y = 0; y < yRoots.Count; y++)
             {
@@ -6082,6 +6235,33 @@ namespace Engine
         /// <param name="scanlist"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
+        /// <param name="b0x"></param>
+        /// <param name="b0y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ScanbeamQuadraticBezierSegment(
+            ref List<double> scanlist,
+            double x, double y,
+            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
+            double epsilon = Epsilon)
+            => ScanbeamQuadraticBezierSegment(
+                ref scanlist,
+                x, y,
+                Polynomial.Quadratic(b0x, b1x, b2x),
+                Polynomial.Quadratic(b0y, b1y, b2y),
+                epsilon);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scanlist"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         /// <param name="p0x"></param>
         /// <param name="p0y"></param>
         /// <param name="p1x"></param>
@@ -6091,26 +6271,50 @@ namespace Engine
         /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamQuadraticBezierSegment(ref List<double> scanlist, double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
+        public static void ScanbeamQuadraticBezierSegment(
+            ref List<double> scanlist,
+            double x, double y,
+            Polynomial xCurve, Polynomial yCurve,
+            double epsilon = Epsilon)
         {
-            var C = x * (y - (y + 0)) + y * (x + 1 - x);
-
-            var xCoeff = QuadraticBezierCoefficients(p0x, p1x, p2x);
-            var yCoeff = QuadraticBezierCoefficients(p0y, p1y, p2y);
-
-            List<double> roots = QuadraticRoots(
-                -yCoeff.C,    // t^2
-                -yCoeff.B,    // t^1
-                -yCoeff.A + C // 1
-                );
-
-            foreach (var t in roots)
+            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var roots = (yCurve - c).Trim().Roots();
+            foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(t < 0 || t > 1d))
-                    scanlist.Add(xCoeff.C * t * t + xCoeff.B * t + xCoeff.A);
+                if (!(s < 0 || s > 1d))
+                    scanlist.Add(xCurve[0] * s * s + xCurve[1] * s + xCurve[2]);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="scanlist"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="b0x"></param>
+        /// <param name="b0y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
+        /// <param name="b3x"></param>
+        /// <param name="b3y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ScanbeamCubicBezierSegment(
+            ref List<double> scanlist,
+            double x, double y,
+            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
+            double epsilon = Epsilon)
+            => ScanbeamCubicBezierSegment(
+                ref scanlist,
+                x, y,
+                Polynomial.Cubic(b0x, b1x, b2x, b3x),
+                Polynomial.Cubic(b0y, b1y, b2y, b3y),
+                epsilon);
 
         /// <summary>
         /// 
@@ -6129,34 +6333,20 @@ namespace Engine
         /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ScanbeamCubicBezierSegment(ref List<double> scanlist, double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
+        public static void ScanbeamCubicBezierSegment(
+            ref List<double> scanlist,
+            double x, double y,
+            Polynomial xCurve, Polynomial yCurve,
+            double epsilon = Epsilon)
         {
             // Translate the line to the origin.
-            var C = x * (y - (y + 0)) + y * (x + 1 - x);
-
-            var xCoeff = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
-            var yCoeff = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
-
-            // Fix for missing intersections for curves that can be reduced to lower degrees.
-            var determinant = (x + 1 - x) * (p3y - p2y + p1y - p0y) - (y + 0 - y) * (p3x - p2x + p1x - p0x);
-            List<double> roots = (Abs(determinant) < epsilon) ?
-                QuadraticRoots(
-                    -yCoeff.C,    // t^2
-                    -yCoeff.B,    // t^1
-                    -yCoeff.A + C // 1
-                    ) :
-                CubicRoots(
-                    -yCoeff.D,    // t^3
-                    -yCoeff.C,    // t^2
-                    -yCoeff.B,    // t^1
-                    -yCoeff.A + C // 1
-                    );
-
-            foreach (var t in roots)
+            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var roots = (yCurve - c).Trim().Roots();
+            foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(t < 0 || t > 1d))
-                    scanlist.Add(xCoeff.D * t * t * t + xCoeff.C * t * t + xCoeff.B * t + xCoeff.A);
+                if (!(s < 0 || s > 1d))
+                    scanlist.Add(xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3]);
             }
         }
 
@@ -6708,29 +6898,75 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftQuadraticBezierSegment(double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftQuadraticBezierSegment(
+            double x, double y,
+            double p0x, double p0y, double p1x, double p1y, double p2x, double p2y,
+            double epsilon = Epsilon)
+            => ScanbeamPointsToLeftQuadraticBezierSegment(
+                x, y,
+                Polynomial.Quadratic(p0x, p1x, p2x),
+                Polynomial.Quadratic(p0y, p1y, p2y),
+                epsilon);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="p0x"></param>
+        /// <param name="p0y"></param>
+        /// <param name="p1x"></param>
+        /// <param name="p1y"></param>
+        /// <param name="p2x"></param>
+        /// <param name="p2y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int ScanbeamPointsToLeftQuadraticBezierSegment(
+            double x, double y,
+            Polynomial xCurve, Polynomial yCurve,
+            double epsilon = Epsilon)
         {
-            var C = x * (y - (y + 0)) + y * (x + 1 - x);
-
-            var xCoeff = QuadraticBezierCoefficients(p0x, p1x, p2x);
-            var yCoeff = QuadraticBezierCoefficients(p0y, p1y, p2y);
-
-            List<double> roots = QuadraticRoots(
-                -yCoeff.C,    // t^2
-                -yCoeff.B,    // t^1
-                -yCoeff.A + C // 1
-                );
-
+            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var roots = (yCurve - c).Trim().Roots();
             var result = 0;
-            foreach (var t in roots)
+            foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(t < 0 || t > 1d) && (xCoeff.C * t * t + xCoeff.B * t + xCoeff.A <= x))
+                if (!(s < 0 || s > 1d) && (xCurve[0] * s * s + xCurve[1] * s + xCurve[2] <= x))
                     result++;
             }
 
             return result;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="b0x"></param>
+        /// <param name="b0y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
+        /// <param name="b3x"></param>
+        /// <param name="b3y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int ScanbeamPointsToLeftCubicBezierSegment(
+            double x, double y,
+            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
+            double epsilon = Epsilon)
+            => ScanbeamPointsToLeftCubicBezierSegment(
+                x, y,
+                Polynomial.Cubic(b0x, b1x, b2x, b3x),
+                Polynomial.Cubic(b0y, b1y, b2y, b3y),
+                epsilon);
 
         /// <summary>
         /// 
@@ -6749,34 +6985,19 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftCubicBezierSegment(double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftCubicBezierSegment(
+            double x, double y,
+            Polynomial xCurve, Polynomial yCurve,
+            double epsilon = Epsilon)
         {
             // Translate the line to the origin.
-            var C = x * (y - (y + 0)) + y * (x + 1 - x);
-
-            var xCoeff = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
-            var yCoeff = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
-
-            // Fix for missing intersections for curves that can be reduced to lower degrees.
-            var determinant = (x + 1 - x) * (p3y - p2y + p1y - p0y) - (y + 0 - y) * (p3x - p2x + p1x - p0x);
-            List<double> roots = (Abs(determinant) < epsilon) ?
-                QuadraticRoots(
-                    -yCoeff.C,    // t^2
-                    -yCoeff.B,    // t^1
-                    -yCoeff.A + C // 1
-                    ) :
-                CubicRoots(
-                    -yCoeff.D,    // t^3
-                    -yCoeff.C,    // t^2
-                    -yCoeff.B,    // t^1
-                    -yCoeff.A + C // 1
-                    );
-
+            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var roots = (yCurve - c).Trim().Roots();
             var results = 0;
-            foreach (var t in roots)
+            foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(t < 0 || t > 1d) && (xCoeff.D * t * t * t + xCoeff.C * t * t + xCoeff.B * t + xCoeff.A) <= x)
+                if (!(s < 0 || s > 1d) && (xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3]) <= x)
                     results++;
             }
 
@@ -7355,34 +7576,47 @@ namespace Engine
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
+        /// <param name="b0x"></param>
+        /// <param name="b0y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightQuadraticBezierSegment(double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightQuadraticBezierSegment(
+            double x, double y,
+            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y,
+            double epsilon = Epsilon)
+            => ScanbeamPointsToRightQuadraticBezierSegment(
+                x, y,
+                Polynomial.Quadratic(b0x, b1x, b2x),
+                Polynomial.Quadratic(b0y, b1y, b2y),
+                epsilon);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int ScanbeamPointsToRightQuadraticBezierSegment(
+            double x, double y,
+            Polynomial xCurve, Polynomial yCurve,
+            double epsilon = Epsilon)
         {
-            var C = x * (y - (y + 0)) + y * (x + 1 - x);
-
-            var xCoeff = QuadraticBezierCoefficients(p0x, p1x, p2x);
-            var yCoeff = QuadraticBezierCoefficients(p0y, p1y, p2y);
-
-            List<double> roots = QuadraticRoots(
-                -yCoeff.C,    // t^2
-                -yCoeff.B,    // t^1
-                -yCoeff.A + C // 1
-                );
-
+            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var roots = (yCurve - c).Trim().Roots();
             var result = 0;
-            foreach (var t in roots)
+            foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(t < 0 || t > 1d) && ((xCoeff.C * t * t + xCoeff.B * t + xCoeff.A) >= x))
+                if (!(s < 0 || s > 1d) && ((xCurve[0] * s * s + xCurve[1] * s + xCurve[2]) >= x))
                     result++;
             }
 
@@ -7394,46 +7628,50 @@ namespace Engine
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
-        /// <param name="p3x"></param>
-        /// <param name="p3y"></param>
+        /// <param name="b0x"></param>
+        /// <param name="b0y"></param>
+        /// <param name="b1x"></param>
+        /// <param name="b1y"></param>
+        /// <param name="b2x"></param>
+        /// <param name="b2y"></param>
+        /// <param name="b3x"></param>
+        /// <param name="b3y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightCubicBezierSegment(double x, double y, double p0x, double p0y, double p1x, double p1y, double p2x, double p2y, double p3x, double p3y, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightCubicBezierSegment(
+            double x, double y,
+            double b0x, double b0y, double b1x, double b1y, double b2x, double b2y, double b3x, double b3y,
+            double epsilon = Epsilon)
+            => ScanbeamPointsToRightCubicBezierSegment(
+                x, y,
+                Polynomial.Cubic(b0x, b1x, b2x, b3x),
+                Polynomial.Cubic(b0y, b1y, b2y, b3y),
+                epsilon);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int ScanbeamPointsToRightCubicBezierSegment(
+            double x, double y,
+            Polynomial xCurve, Polynomial yCurve,
+            double epsilon = Epsilon)
         {
             // Translate the line to the origin.
-            var C = x * (y - (y + 0)) + y * (x + 1 - x);
-
-            var xCoeff = CubicBezierCoefficients(p0x, p1x, p2x, p3x);
-            var yCoeff = CubicBezierCoefficients(p0y, p1y, p2y, p3y);
-
-            // Fix for missing intersections for curves that can be reduced to lower degrees.
-            var determinant = (x + 1 - x) * (p3y - p2y + p1y - p0y) - (y + 0 - y) * (p3x - p2x + p1x - p0x);
-            List<double> roots = (Abs(determinant) < epsilon) ?
-                QuadraticRoots(
-                    -yCoeff.C,    // t^2
-                    -yCoeff.B,    // t^1
-                    -yCoeff.A + C // 1
-                    ) :
-                CubicRoots(
-                    -yCoeff.D,    // t^3
-                    -yCoeff.C,    // t^2
-                    -yCoeff.B,    // t^1
-                    -yCoeff.A + C // 1
-                    );
-
+            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var roots = (yCurve - c).Trim().Roots();
             var results = 0;
-            foreach (var t in roots)
+            foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(t < 0 || t > 1d) && (xCoeff.D * t * t * t + xCoeff.C * t * t + xCoeff.B * t + xCoeff.A) >= x)
+                if (!(s < 0 || s > 1d) && (xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3]) >= x)
                     results++;
             }
 
@@ -7919,12 +8157,13 @@ namespace Engine
             var DF = e1[3] * e2[5] - e2[3] * e1[5];
             var BFpDE = BF + DE;
             var BEmCD = BE - CD;
+
             return new Polynomial(
-                AB * BC - AC * AC,
-                AB * BEmCD + AD * BC - 2 * AC * AE,
-                AB * BFpDE + AD * BEmCD - AE * AE - 2 * AC * AF,
-                AB * DF + AD * BFpDE - 2 * AE * AF,
-                AD * DF - AF * AF);
+                /* x⁴ */ AB * BC - AC * AC,
+                /* x³ */ AB * BEmCD + AD * BC - 2 * AC * AE,
+                /* x² */ AB * BFpDE + AD * BEmCD - AE * AE - 2 * AC * AF,
+                /* x¹ */ AB * DF + AD * BFpDE - 2 * AE * AF,
+                /* c  */ AD * DF - AF * AF);
         }
 
         #endregion

@@ -434,7 +434,7 @@ namespace Editor
         /// 
         /// </summary>
         public void BuildMap()
-            => TestCases.Tests(this, vectorMap, CanvasPanel, out boundaryItem);
+            => TestCases.Tests(this, vectorMap, toolStack, CanvasPanel, out boundaryItem);
 
         /// <summary>
         /// 

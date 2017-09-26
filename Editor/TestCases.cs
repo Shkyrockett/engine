@@ -10,6 +10,7 @@
 
 using Engine;
 using Engine.Imaging;
+using Engine.Tools;
 using Engine.Tweening;
 using Engine.WindowsForms;
 using System;
@@ -34,16 +35,15 @@ namespace Editor
         /// <param name="vectorMap">The vector map to add the graphical items to.</param>
         /// <param name="canvasPanel">The canvas panel to draw to.</param>
         /// <param name="boundaryItem">A reference to the boundary item graphics object for one of the tests.</param>
-        public static void Tests(EditorForm form, VectorMap vectorMap, CanvasPanel canvasPanel, out GraphicItem boundaryItem)
+        public static void Tests(EditorForm form, VectorMap vectorMap, ToolStack tools, CanvasPanel canvasPanel, out GraphicItem boundaryItem)
         {
             var foreColor = form.ForeColor;
             var backColor = form.BackColor;
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
+            //NearestParameter(vectorMap, tools);
             //HeartCurve(vectorMap);
-            //EllipticalArcLineSegmentIntersections(vectorMap);
-            //EllipticalArcLineIntersections(vectorMap);
             //ScanlineIntersections(vectorMap);
             //CommonIntersections(vectorMap);
             //CurveFitting(vectorMap);
@@ -65,13 +65,18 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
+            //IntersectingsEllipseEllipse(vectorMap);
+            //IntersectingsEllipseQuadraticSegment(vectorMap);
+            //IntersectingsEllipseCubicSegment(vectorMap);
+            //EllipticalArcLineSegmentIntersections(vectorMap);
+            //EllipticalArcLineIntersections(vectorMap);
             //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
+            //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
+            //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
+            //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
             //IntersectionsCubicBezierCubicBezier(vectorMap);
-            //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
-            IntersectionsCubicBezierCubicBezierKLD(vectorMap);
-            //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
-            //BezierLineIntersections(vectorMap);
+            BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
             //CubicBezierHorizontalLineIntersection(vectorMap);
@@ -84,7 +89,7 @@ namespace Editor
             /* Interactive */
             //ResizeRefreshBounds(vectorMap, canvasPanel, out boundaryItem);
             //Tweenning(vectorMap, form);
-            KaraokeBall(vectorMap, form);
+            //KaraokeBall(vectorMap, form);
             //Tweens(vectorMap);
 
             //TrianglePointingRight(vectorMap);
@@ -458,6 +463,141 @@ namespace Editor
         /// 
         /// </summary>
         /// <param name="vectorMap"></param>
+        public static void IntersectingsEllipseEllipse(VectorMap vectorMap)
+        {
+            var location = new Point2D(100, 100);
+            var scale = new Size2D(75, 50);
+            var axis = new Point2D(200, 100);
+            var angle = 0; //45d.ToRadians();
+
+            var ellipse1 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle);//.ScaleDistort(scale).RotateDistort(axis, angle);
+            var ellipse1Item = new GraphicItem(ellipse1, intersectionBlue)
+            {
+                Name = "Ellipse 1"
+            };
+            var ellipse1BoundsItem = new GraphicItem(ellipse1.Bounds, selectionStyle)
+            {
+                Name = "Ellipse 1 Bounds"
+            };
+
+            location = (Point2D)(location + new Point2D(50, 50));
+
+            var ellipse2 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle);//.ScaleDistort(scale).RotateDistort(axis, angle);
+            var ellipse2Item = new GraphicItem(ellipse2, intersectionRed)
+            {
+                Name = "Ellipse 2"
+            };
+            var ellipse2BoundsItem = new GraphicItem(ellipse2.Bounds, selectionStyle)
+            {
+                Name = "Ellipse 2 Bounds"
+            };
+
+            var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipse1, ellipse2).Points, 5d), handleStyle)
+            {
+                Name = "Intersection Points"
+            };
+
+            vectorMap.Add(ellipse1BoundsItem);
+            vectorMap.Add(ellipse2BoundsItem);
+            vectorMap.Add(ellipse1Item);
+            vectorMap.Add(ellipse2Item);
+            vectorMap.Add(intersectionNodeItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void IntersectingsEllipseQuadraticSegment(VectorMap vectorMap)
+        {
+            var location = new Point2D(100, 100);
+            var scale = new Size2D(75, 50);
+            var axis = new Point2D(200, 100);
+            var angle = 0; //45d.ToRadians();
+
+            var ellipse1 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle);//.ScaleDistort(scale).RotateDistort(axis, angle);
+            var ellipse1Item = new GraphicItem(ellipse1, intersectionBlue)
+            {
+                Name = "Ellipse 1"
+            };
+            var ellipse1BoundsItem = new GraphicItem(ellipse1.Bounds, selectionStyle)
+            {
+                Name = "Ellipse 1 Bounds"
+            };
+
+            //location = (Point2D)(location + new Point2D(50, 50));
+
+            var quadratic1 = new QuadraticBezier(location.X - 50, location.Y + 60, location.X, location.Y, location.X + 50, location.Y + 60);
+            var quadratic1Item = new GraphicItem(quadratic1, intersectionRed)
+            {
+                Name = "Quadratic Bezier 1"
+            };
+            var quadratic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 1 Bounds"
+            };
+
+            var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipse1, quadratic1).Points, 5d), handleStyle)
+            {
+                Name = "Intersection Points"
+            };
+
+            vectorMap.Add(ellipse1BoundsItem);
+            vectorMap.Add(quadratic1BoundsItem);
+            vectorMap.Add(ellipse1Item);
+            vectorMap.Add(quadratic1Item);
+            vectorMap.Add(intersectionNodeItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void IntersectingsEllipseCubicSegment(VectorMap vectorMap)
+        {
+            var location = new Point2D(100, 100);
+            var scale = new Size2D(75, 50);
+            var axis = new Point2D(200, 100);
+            var angle = 0; //45d.ToRadians();
+
+            var ellipse1 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle);//.ScaleDistort(scale).RotateDistort(axis, angle);
+            var ellipse1Item = new GraphicItem(ellipse1, intersectionBlue)
+            {
+                Name = "Ellipse 1"
+            };
+            var ellipse1BoundsItem = new GraphicItem(ellipse1.Bounds, selectionStyle)
+            {
+                Name = "Ellipse 1 Bounds"
+            };
+
+            //location = (Point2D)(location + new Point2D(50, 50));
+
+            var cubic1 = new CubicBezier(location.X - 50, location.Y + 60, location.X - 50, location.Y, location.X + 50, location.Y, location.X + 50, location.Y + 60);
+            var cubic1Item = new GraphicItem(cubic1, intersectionRed)
+            {
+                Name = "Cubic Bezier 1"
+            };
+            var cubic1BoundsItem = new GraphicItem(cubic1.Bounds, selectionStyle)
+            {
+                Name = "Cubic Bezier 1 Bounds"
+            };
+
+            var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipse1, cubic1).Points, 5d), handleStyle)
+            {
+                Name = "Intersection Points"
+            };
+
+            vectorMap.Add(ellipse1BoundsItem);
+            vectorMap.Add(cubic1BoundsItem);
+            vectorMap.Add(ellipse1Item);
+            vectorMap.Add(cubic1Item);
+            vectorMap.Add(intersectionNodeItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
         public static void IntersectionsQuadraticBezierQuadraticBezier(VectorMap vectorMap)
         {
             var top = 10;
@@ -496,7 +636,10 @@ namespace Editor
                 Name = "Quadratic Bezier 2 Handles"
             };
 
-            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic1, quadratic2).Points, 5d), handleStyle);
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic1, quadratic2).Points, 5d), handleStyle)
+            {
+                Name = "Intersection 1 Points"
+            };
 
             top += 20;
             left += 0;
@@ -531,7 +674,10 @@ namespace Editor
                 Name = "Quadratic Bezier 4 Handles"
             };
 
-            var intersectionNode2Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic3, quadratic4).Points, 5d), handleStyle);
+            var intersectionNode2Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic3, quadratic4).Points, 5d), handleStyle)
+            {
+                Name = "Intersection 2 Points"
+            };
 
             vectorMap.Add(quardatic1BoundsItem);
             vectorMap.Add(quardatic2BoundsItem);
@@ -741,7 +887,7 @@ namespace Editor
         /// <param name="vectorMap"></param>
         public static void IntersectionsQuadraticBezierQuadraticBezierKLD(VectorMap vectorMap)
         {
-            var top = 0;
+            var top = 150;
             var left = 0;
             var scale = new Size2D(1, 1);
 
@@ -1825,6 +1971,51 @@ namespace Editor
         #endregion
 
         #region Experimental
+
+        public static void NearestParameter(VectorMap vectorMap, ToolStack tools)
+        {
+            var top = 10;
+            var left = 10;
+            var scale = new Size2D(10, 10);
+            var axis = new Point2D(200, 100);
+            var angle = 0; //45d.ToRadians();
+
+            var quadratic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ScaleDistort(scale).RotateDistort(axis, angle);
+            var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
+            {
+                Name = "Quadratic Bezier 1"
+            };
+            var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 1 Bounds"
+            };
+            var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
+            {
+                Name = "Quadratic Bezier 1 Handles"
+            };
+
+            var point1 = new Point2D(100, 200);
+            var point1Handle = new GraphicItem(new NodeRevealer(point1, 5d), handleStyle2)
+            {
+                Name = "Point 1 Handle"
+            };
+
+            var point2 = quadratic1.Interpolate(1 - Measurements.ClosestParameter(quadratic1.CurveX, quadratic1.CurveY, point1));
+            var point2Handle = new GraphicItem(new NodeRevealer(point2, 5d), handleStyle2)
+            {
+                Name = "Point 2 Handle"
+            };
+
+            var tool = new MouseMoveUpdateTool((p) => ((NodeRevealer)point1Handle.Shape).Points[0] = p);
+
+            tools.RegisterMouseScroll(tool);
+
+            vectorMap.Add(quardatic1BoundsItem);
+            vectorMap.Add(quadratic1Item);
+            vectorMap.Add(quadratic1Handles);
+            vectorMap.Add(point1Handle);
+            vectorMap.Add(point2Handle);
+        }
 
         /// <summary>
         /// 

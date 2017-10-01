@@ -249,7 +249,7 @@ namespace Engine
         /// </summary>
         /// <param name="rect"></param>
         /// <param name="shape"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         public static bool Intersects(Rectangle2D rect, Shape shape, double epsilon = Epsilon)
         {
@@ -2366,7 +2366,7 @@ namespace Engine
         /// <param name="top"></param>
         /// <param name="right"></param>
         /// <param name="bottom"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2720,7 +2720,7 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="right"></param>
         /// <param name="bottom"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2747,7 +2747,7 @@ namespace Engine
         /// <param name="rTop"></param>
         /// <param name="rRight"></param>
         /// <param name="rBottom"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2785,7 +2785,7 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="right"></param>
         /// <param name="bottom"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2815,7 +2815,7 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="right"></param>
         /// <param name="bottom"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -4779,7 +4779,7 @@ namespace Engine
                     var xRoots = (xCurveA - point.X).Trim().Roots();
                     var yRoots = (yCurveA - point.Y).Trim().Roots();
 
-                    if (xRoots.Count > 0 && yRoots.Count > 0)
+                    if (xRoots.Length > 0 && yRoots.Length > 0)
                     {
                         // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
                         foreach (var xRoot in xRoots)
@@ -4903,7 +4903,7 @@ namespace Engine
                 var xRoots = (xCurveA - point.X).Trim().Roots(epsilon);
                 var yRoots = (yCurveA - point.Y).Trim().Roots();
 
-                if (xRoots.Count > 0 && yRoots.Count > 0)
+                if (xRoots.Length > 0 && yRoots.Length > 0)
                 {
                     foreach (var xRoot in xRoots)
                     {
@@ -5182,6 +5182,8 @@ namespace Engine
             );
             var roots = poly.RootsInInterval();
 
+            //var p = ((xCurveA * yCurveB) - (yCurveA * xCurveB)) * ((yCurveA * xCurveB) - (xCurveA * yCurveB));
+
             foreach (var s in roots)
             {
                 var point = new Point2D(
@@ -5192,7 +5194,7 @@ namespace Engine
                 var yRoots = (yCurveA - point.Y).Trim().Roots();
 
                 // ToDo: Figure out why the xRoots can be larger than 1 or smaller than 0 and still work...
-                if (xRoots.Count > 0 && yRoots.Count > 0)
+                if (xRoots.Length > 0 && yRoots.Length > 0)
                 {
                     // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
                     foreach (var xRoot in xRoots)
@@ -6082,12 +6084,12 @@ namespace Engine
             double[] b = new double[] { ry2 * ry2, 0, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2 * rx2 * rx2 * c2Y, ry2 * ry2 * c2X * c2X + rx2 * rx2 * c2Y * c2Y - rx2 * rx2 * ry2 * ry2 };
 
             var yPoly = Bezout(a, b);
-            var yRoots = yPoly.Simplify().Roots();
+            var yRoots = yPoly.Trim().Roots();
 
             var norm0 = (a[0] * a[0] + 2 * a[1] * a[1] + a[2] * a[2]) * epsilon;
             var norm1 = (b[0] * b[0] + 2 * b[1] * b[1] + b[2] * b[2]) * epsilon;
 
-            for (var y = 0; y < yRoots.Count; y++)
+            for (var y = 0; y < yRoots.Length; y++)
             {
                 var xRoots = QuadraticRoots(
                     a[0],

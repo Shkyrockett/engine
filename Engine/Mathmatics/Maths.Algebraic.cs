@@ -98,7 +98,7 @@ namespace Engine
         /// <param name="b">t^2</param>
         /// <param name="c">t</param>
         /// <param name="d">1</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -269,12 +269,12 @@ namespace Engine
         /// <param name="d"></param>
         /// <param name="e"></param>
         /// <param name="f"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// This is a Copy and paste port of the method found at:
-        /// http://abecedarical.com/javascript/script_quintic.html
+        /// https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
         /// There has been little attempt to fix it up and get it working correctly.
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -299,9 +299,9 @@ namespace Engine
             var j = 0;
             var k = 0;
 
-            var n = 5;       // order
-            var n1 = 6;
-            var n2 = 7;
+            var n = 4;// 5;       // order
+            var n1 = 5;// 6;
+            var n2 = 6;// 7;
 
             var a_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var b_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
@@ -315,7 +315,7 @@ namespace Engine
                 return new List<double>();
 
             for (i = 0; i <= n; i++)      //  copy into working array
-                a_[n1 - i] = coeff[i];
+                a_[(a_.Count - 1) - i] = coeff[i];
 
             var count = 0;             // initialize root counter
 
@@ -341,7 +341,7 @@ namespace Engine
                     j = 1;
                     k = 0;
 
-                    for (i = 2; i <= n1; i++)
+                    for (i = 2; i < a_.Count; i++)
                     {
                         b_[i] = a_[i] - alfa1 * b_[j] - beta1 * b_[k];
                         d_[i] = b_[i] - alfa1 * d_[j] - beta1 * d_[k];

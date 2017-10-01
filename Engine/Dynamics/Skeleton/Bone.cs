@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Collections.Generic;
 
 namespace Engine
 {

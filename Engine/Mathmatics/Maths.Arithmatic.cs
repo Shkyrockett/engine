@@ -1976,7 +1976,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// </acknowledgment>
@@ -2008,7 +2008,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// </acknowledgment>
@@ -2213,7 +2213,7 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// </acknowledgment>
@@ -2227,7 +2227,7 @@ namespace Engine
         /// but this is faster.
         /// </summary>
         /// <param name="value"> The double to compare to 0. </param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
@@ -2243,7 +2243,7 @@ namespace Engine
         /// but this is faster.
         /// </summary>
         /// <param name="value"> The double to compare to 0. </param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
@@ -2259,7 +2259,7 @@ namespace Engine
         /// but this is faster.
         /// </summary>
         /// <param name="value"> The double to compare to 1. </param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
@@ -2275,7 +2275,7 @@ namespace Engine
         /// but this is faster.
         /// </summary>
         /// <param name="value"> The double to compare to 1. </param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>

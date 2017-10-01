@@ -65,7 +65,7 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
-            //IntersectingsEllipseEllipse(vectorMap);
+            IntersectingsEllipseEllipse(vectorMap);
             //IntersectingsEllipseQuadraticSegment(vectorMap);
             //IntersectingsEllipseCubicSegment(vectorMap);
             //EllipticalArcLineSegmentIntersections(vectorMap);
@@ -76,7 +76,7 @@ namespace Editor
             //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
             //IntersectionsCubicBezierCubicBezier(vectorMap);
-            BezierLineIntersections(vectorMap);
+            //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
             //CubicBezierHorizontalLineIntersection(vectorMap);
@@ -797,8 +797,13 @@ namespace Editor
             var top = 10;
             var left = 10;
             var scale = new Size2D(10, 10);
+            var axis = new Point2D(150, 150);
+            var angle = 0d.ToRadians();
 
-            var cubic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ToCubicBezier().ScaleDistort(scale);
+            var cubic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top)
+                .ToCubicBezier()
+                .ScaleDistort(scale)
+                .RotateDistort(axis, angle);
             var cubic1Item = new GraphicItem(cubic1, intersectionBlue)
             {
                 Name = "Cubic Bezier 1"
@@ -814,7 +819,10 @@ namespace Editor
 
             top -= 5;
 
-            var cubc2 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10).ToCubicBezier().ScaleDistort(scale);
+            var cubc2 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10)
+                .ToCubicBezier()
+                .ScaleDistort(scale)
+                .RotateDistort(axis, angle);
             var cubic2Item = new GraphicItem(cubc2, intersectionRed)
             {
                 Name = "Cubic Bezier 2"
@@ -832,8 +840,13 @@ namespace Editor
 
             top += 20;
             left += 0;
+            axis = new Point2D(150, 170);
+            angle = 0d.ToRadians();
 
-            var cubic3 = new QuadraticBezier(left + 5, top, left + 10, top + 10, left + 20, top).ToCubicBezier().ScaleDistort(scale);
+            var cubic3 = new QuadraticBezier(left + 5, top, left + 10, top + 10, left + 20, top)
+                .ToCubicBezier()
+                .ScaleDistort(scale)
+                .RotateDistort(axis, angle);
             var cubic3Item = new GraphicItem(cubic3, intersectionBlue)
             {
                 Name = "Cubic Bezier 3"
@@ -849,7 +862,10 @@ namespace Editor
 
             top -= 5;
 
-            var cubic4 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10).ToCubicBezier().ScaleDistort(scale);
+            var cubic4 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10)
+                .ToCubicBezier()
+                .ScaleDistort(scale)
+                .RotateDistort(axis, angle);
             var cubic4Item = new GraphicItem(cubic4, intersectionRed)
             {
                 Name = "Cubic Bezier 4"

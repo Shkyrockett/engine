@@ -9,7 +9,6 @@
 // <remarks></remarks>
 
 using System.Drawing;
-using Engine.Colorspace;
 using Engine.File.Palettes;
 using Engine.Imaging;
 

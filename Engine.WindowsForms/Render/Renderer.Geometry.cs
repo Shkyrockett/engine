@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using Engine.WindowsForms;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;

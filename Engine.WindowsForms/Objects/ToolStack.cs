@@ -459,10 +459,7 @@ namespace Engine.Tools
         /// 
         /// </summary>
         /// <param name="tool"></param>
-        public void RegisterMouseMove(Tool tool)
-        {
-            mouseMove += tool.MouseMoveUpdate;
-        }
+        public void RegisterMouseMove(Tool tool) => mouseMove += tool.MouseMoveUpdate;
 
         /// <summary>
         /// 

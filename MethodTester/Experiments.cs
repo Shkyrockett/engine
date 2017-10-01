@@ -5420,7 +5420,7 @@ namespace MethodSpeedTester
         /// <param name="lAY"></param>
         /// <param name="lBX"></param>
         /// <param name="lBY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -5561,7 +5561,7 @@ namespace MethodSpeedTester
         /// <param name="lAY"></param>
         /// <param name="lBX"></param>
         /// <param name="lBY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
@@ -6684,7 +6684,7 @@ namespace MethodSpeedTester
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
@@ -6837,7 +6837,7 @@ namespace MethodSpeedTester
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
@@ -7635,7 +7635,7 @@ namespace MethodSpeedTester
         /// <param name="cY"></param>
         /// <param name="dX"></param>
         /// <param name="dY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks>
         /// https://www.gamedev.net/topic/488904-lineline-segment-intersection-in-2d/
@@ -8322,7 +8322,7 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
@@ -8440,7 +8440,7 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
@@ -8536,7 +8536,7 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -8668,7 +8668,7 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -8766,7 +8766,7 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -8880,7 +8880,7 @@ namespace MethodSpeedTester
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -8941,7 +8941,7 @@ namespace MethodSpeedTester
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            for (var i = 0; i < roots.Count; i++)
+            for (var i = 0; i < roots.Length; i++)
             {
                 var s = roots[i];
                 var xRoots = QuadraticRoots(
@@ -8997,7 +8997,7 @@ namespace MethodSpeedTester
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -9120,7 +9120,7 @@ namespace MethodSpeedTester
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -9209,7 +9209,7 @@ namespace MethodSpeedTester
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            for (var i = 0; i < roots.Count; i++)
+            for (var i = 0; i < roots.Length; i++)
             {
                 var s = roots[i];
                 var xRoots = CubicRoots(
@@ -9268,7 +9268,7 @@ namespace MethodSpeedTester
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -10244,7 +10244,7 @@ namespace MethodSpeedTester
         ///
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool NearZero0(double value, double epsilon = NearZeroEpsilon)
@@ -10254,7 +10254,7 @@ namespace MethodSpeedTester
         ///
         /// </summary>
         /// <param name="value"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool NearZero1(double value, double epsilon = NearZeroEpsilon)
@@ -12387,7 +12387,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="points">The points that form the corners of the polygon.</param>
         /// <param name="p">The coordinate of the test point.</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>
         /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
         /// </returns>
@@ -12782,7 +12782,7 @@ namespace MethodSpeedTester
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         public static bool AreClose(double x1, double y1, double x2, double y2, double epsilon = DoubleEpsilon)
@@ -12795,7 +12795,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='point1'>The first point to compare</param>
         /// <param name='point2'>The second point to compare</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Whether or not the two points are equal</returns>
         public static bool AreClose(Point2D point1, Point2D point2, double epsilon = DoubleEpsilon)
             => Maths.AreClose(point1.X, point2.X, epsilon)
@@ -12808,7 +12808,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='size1'>The first size to compare</param>
         /// <param name='size2'>The second size to compare</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Whether or not the two Size instances are equal</returns>
         public static bool AreClose(Size2D size1, Size2D size2, double epsilon = DoubleEpsilon)
             => Maths.AreClose(size1.Width, size2.Width, epsilon)
@@ -12821,7 +12821,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='vector1'>The first Vector to compare</param>
         /// <param name='vector2'>The second Vector to compare</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Whether or not the two Vector instances are equal</returns>
         public static bool AreClose(Vector2D vector1, Vector2D vector2, double epsilon = DoubleEpsilon)
             => Maths.AreClose(vector1.I, vector2.I, epsilon)
@@ -13290,7 +13290,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='rect1'>The first rectangle to compare</param>
         /// <param name='rect2'>The second rectangle to compare</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Whether or not the two rectangles are equal</returns>
         public static bool AreClose(Rectangle2D rect1, Rectangle2D rect2, double epsilon = DoubleEpsilon)
         {
@@ -13610,7 +13610,7 @@ namespace MethodSpeedTester
                 A * C - 4d * D,
                 -B,
                 1
-                ).CubicRoots();
+                ).Roots();
             var y = resolveRoots[0];
             var discriminant = A * A * OneQuarter - B + y;
             if (Abs(discriminant) <= epsilon)
@@ -14953,6 +14953,100 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Trim Leading Zeros from Polynomials
+
+        ///// <summary>
+        ///// Simplify a polynomial, removing near zero terms.
+        ///// </summary>
+        ///// <param name="epsilon">The minimal difference for comparison.</param>
+        ///// <returns>Returns a new instance of the <see cref="Polynomial"/> struct with the near zero terms removed.</returns>
+        ///// <remarks>
+        ///// This is intended to be used in situations where the polynomial should be reduced. For instance in intersection calculations.
+        ///// Simplifying a polynomial before GetMinMax will fail to appropriately get the min, max.
+        ///// </remarks>
+        ///// <acknowledgment>
+        ///// http://www.kevlindev.com/
+        ///// </acknowledgment>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public Polynomial Trim(double epsilon = Epsilon)
+        //{
+        //    var coefficients = new double[Count];
+        //    var degree = (int)Degree;
+        //    Array.Copy(this.coefficients, coefficients, degree);
+        //    for (var i = degree; i >= 0; i--)
+        //    {
+        //        if (Abs(coefficients[i]) <= epsilon)
+        //            coefficients = coefficients.RemoveAt(i);
+        //        else
+        //            break;
+        //    }
+
+        //    return new Polynomial() { coefficients = coefficients, isReadonly = this.isReadonly };
+        //}
+
+        ///// <summary>
+        ///// Trim off any leading zero term coefficients from the Polynomial.
+        ///// </summary>
+        ///// <param name="epsilon">The minimal value to represent a change.</param>
+        ///// <returns>Returns a <see cref="Polynomial"/> with any leading zero term coefficients removed.</returns>
+        ///// <acknowledgment>
+        ///// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
+        ///// and Trim from: https://github.com/superlloyd/Poly
+        ///// </acknowledgment>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public Polynomial Trim(double[] coefficients, double epsilon = Epsilon)
+        //{
+        //    var pos = 0;
+        //    for (var i = Count - 1; i >= 0; i--)
+        //    {
+        //        if (Abs(this.coefficients[i]) <= epsilon)
+        //            pos++;
+        //        else
+        //            break;
+        //    }
+
+        //    var ret = new double[Count - pos];
+        //    Array.Copy(this.coefficients, 0, ret, 0, Count - pos);
+        //    return new Polynomial() { coefficients = ret, isReadonly = this.isReadonly };
+        //}
+
+        ///// <summary>
+        ///// Trim off empty coefficients.
+        ///// </summary>
+        ///// <param name="epsilon">The minimal value to represent a change.</param>
+        ///// <returns></returns>
+        ///// <acknowledgment>
+        ///// https://github.com/superlloyd/Poly
+        ///// </acknowledgment>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public Polynomial Trim(double epsilon = Epsilon)
+        //{
+        //    var order = 0;
+        //    for (var i = 0; i < coefficients.Length; i++)
+        //    {
+        //        if (Abs(coefficients[i]) > epsilon)
+        //        {
+        //            order = i;
+        //        }
+        //    }
+
+        //    var res = new double[order + 1];
+        //    for (var i = 0; i < res.Length; i++)
+        //    {
+        //        if (Abs(coefficients[i]) > epsilon)
+        //        {
+        //            res[i] = coefficients[i];
+        //        }
+        //    }
+
+        //    return new Polynomial() { coefficients = res, isReadonly = this.isReadonly };
+        //}
+
+        #endregion
+
         #region Values are Close
 
         /// <summary>
@@ -14981,7 +15075,7 @@ namespace MethodSpeedTester
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <remarks></remarks>
         public static bool AreClose(double value1, double value2, double epsilon = DoubleEpsilon)
         {

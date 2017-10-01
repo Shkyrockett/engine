@@ -54,7 +54,7 @@ namespace Engine
         /// <param name="bY"></param>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         public static Locus LineSegmentPoint(
             double aX, double aY,
@@ -74,7 +74,7 @@ namespace Engine
         /// <param name="bY"></param>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks> http://stackoverflow.com/a/19633299 </remarks>
         public static Locus LinePoint(

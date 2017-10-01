@@ -92,6 +92,91 @@ namespace Engine
 
         #endregion
 
+        #region Curve Interpolation
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vCurve"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Curve(Polynomial vCurve, double t)
+        {
+            var v = 0d;
+            for (int s = vCurve.Count - 1, d = 0; s >= 0; s--, d++)
+            {
+                var r = 0d;
+                for (var i = 0; i < d; i++)
+                {
+                    r *= t;
+                }
+
+                v += vCurve[s] * r;
+            }
+
+            return v;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y) Curve(Polynomial xCurve, Polynomial yCurve, double t)
+        {
+            var (x, y) = (0d, 0d);
+            for (int s = xCurve.Count - 1, d = 0; s >= 0; s--, d++)
+            {
+                var r = 0d;
+                for (var i = 0; i < d; i++)
+                {
+                    r *= t;
+                }
+
+                x += xCurve[s] * r;
+                y += yCurve[s] * r;
+            }
+
+            return (x, y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
+        /// <param name="zCurve"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y, double z) Curve(Polynomial xCurve, Polynomial yCurve, Polynomial zCurve, double t)
+        {
+            var (x, y, z) = (0d, 0d, 0d);
+            for (int s = xCurve.Count - 1, d = 0; s >= 0; s--, d++)
+            {
+                var r = 0d;
+                for (var i = 0; i < d; i++)
+                {
+                    r *= t;
+                }
+
+                x += xCurve[s] * r;
+                y += yCurve[s] * r;
+                z += zCurve[s] * r;
+            }
+
+            return (x, y, z);
+        }
+
+        #endregion
+
         #region Ellipse Interpolation
 
         /// <summary>

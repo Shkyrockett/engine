@@ -1058,7 +1058,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks>
         /// https://github.com/superlloyd/Poly

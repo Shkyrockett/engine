@@ -11,7 +11,6 @@
 // ToDo: Implement shape drawing tool.
 
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Engine.Tools
@@ -22,6 +21,9 @@ namespace Engine.Tools
     public class MouseMoveUpdateTool
         : Tool, ITool
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private Action<Point2D> action;
 
         /// <summary>
@@ -47,28 +49,19 @@ namespace Engine.Tools
         /// Update tool on mouse down.
         /// </summary>
         /// <param name="tools"></param>
-        public override void MouseDownUpdate(ToolStack tools)
-        {
-            MouseDown = true;
-        }
+        public override void MouseDownUpdate(ToolStack tools) => MouseDown = true;
 
         /// <summary>
         /// Update Tool on Mouse Move.
         /// </summary>
         /// <param name="tools">The Mouse Move event arguments.</param>
-        public override void MouseMoveUpdate(ToolStack tools)
-        {
-            Point = tools.MouseLocation;
-        }
+        public override void MouseMoveUpdate(ToolStack tools) => Point = tools.MouseLocation;
 
         /// <summary>
         /// Update Tool on Mouse UP.
         /// </summary>
         /// <param name="tools"></param>
-        public override void MouseUpUpdate(ToolStack tools)
-        {
-            MouseDown = false;
-        }
+        public override void MouseUpUpdate(ToolStack tools) => MouseDown = false;
 
         /// <summary>
         /// Reset the command if canceled mid command.

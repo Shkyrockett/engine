@@ -343,7 +343,7 @@ namespace Engine
         /// </summary>
         /// <param name="source">Source list of points.</param>
         /// <param name="distance">Distance between points on the new path.</param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>List of equally-spaced points on the path.</returns>
         /// <acknowledgment>
         /// </acknowledgment>

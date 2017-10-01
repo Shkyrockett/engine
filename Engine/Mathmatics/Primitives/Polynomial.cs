@@ -95,8 +95,8 @@ namespace Engine
         [DebuggerStepThrough]
         public Polynomial(params double[] coefficients)
         {
-            // If the coefficients array is empty, this is an Empty polynomial, otherwise copy the coefficients over.
-            // Reverse the coefficients so they are in order of degree.
+            // If the coefficients array is empty this is an Empty polynomial, otherwise copy the coefficients over.
+            // Reverse the coefficients so they are in order of degree smallest to largest.
             this.coefficients = (coefficients == null || coefficients.Length == 0)
                 ? this.coefficients = new double[] { 0 }
                 : coefficients.Reverse().ToArray();
@@ -207,24 +207,6 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// Gets or sets the coefficients of the polynomial from highest degree to lowest degree order.
-        /// </summary>
-        /// <remarks>
-        /// This property presents the <see cref="Coefficients"/> in the reverse order than they are internally stored.
-        /// </remarks>
-        [TypeConverter(typeof(ArrayConverter))]
-        public double[] Coefficients
-        {
-            get { return coefficients.Reverse().ToArray(); }
-            set
-            {
-                if (IsReadonly)
-                    throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
-                coefficients = value.Reverse().ToArray();
-            }
-        }
-
-        /// <summary>
         /// Gets the degree of the polynomial.
         /// </summary>
         /// <returns></returns>
@@ -270,6 +252,24 @@ namespace Engine
         }
 
 #if DEBUG
+
+        /// <summary>
+        /// Gets or sets the coefficients of the polynomial from highest degree to lowest degree order.
+        /// </summary>
+        /// <remarks>
+        /// This property presents the <see cref="Coefficients"/> in the reverse order than they are internally stored.
+        /// </remarks>
+        [TypeConverter(typeof(ArrayConverter))]
+        public double[] Coefficients
+        {
+            get { return coefficients.Reverse().ToArray(); }
+            set
+            {
+                if (IsReadonly)
+                    throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
+                coefficients = value.Reverse().ToArray();
+            }
+        }
 
         /// <summary>
         /// Gets a debug string that represents the text version of the <see cref="Polynomial"/>.
@@ -660,75 +660,33 @@ namespace Engine
         #region Operations
 
         /// <summary>
-        /// A Debug method to create a polynomial where the coefficients are the reverse degree of the polynomial.
+        /// Trim off any leading zero coefficient terms from the Polynomial.
         /// </summary>
-        /// <returns></returns>
-        public Polynomial Reverse()
-            => new Polynomial(coefficients);
-
-        /// <summary>
-        /// Simplify a polynomial, removing near zero terms.
-        /// </summary>
-        /// <param name="epsilon">The minimal difference for comparison.</param>
-        /// <returns>Returns a new instance of the <see cref="Polynomial"/> struct with the near zero terms removed.</returns>
-        /// <remarks>
-        /// This is intended to be used in situations where the polynomial should be reduced. For instance in intersection calculations.
-        /// Simplifying a polynomial before GetMinMax will fail to appropriately get the min, max.
-        /// </remarks>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns a <see cref="Polynomial"/> with any leading zero coefficient terms removed.</returns>
         /// <acknowledgment>
-        /// http://www.kevlindev.com/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Polynomial Simplify(double epsilon = Epsilon)
-        {
-            var coefficients = new double[Count];
-            var degree = (int)Degree;
-            Array.Copy(this.coefficients, coefficients, degree);
-            for (var i = 0; i < degree; i++)
-            {
-                if (Abs(coefficients[i]) <= epsilon)
-                    coefficients = coefficients.RemoveAt(i);
-                else break;
-            }
-
-            return new Polynomial() { coefficients = coefficients, isReadonly = this.isReadonly };
-        }
-
-        /// <summary>
-        /// Trim off empty coefficients.
-        /// </summary>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// ToDo: Test to see if <see cref="Trim(double)"/> is the same as <see cref="Simplify(double)"/>
-        /// </remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
+        /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
+        /// and Trim from: https://github.com/superlloyd/Poly
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Trim(double epsilon = Epsilon)
         {
-            var order = 0;
-            for (var i = 0; i < coefficients.Length; i++)
+            var pos = 0;
+
+            // Count the number of leading zeros. Because the coefficients array is reversed, start at the end.
+            for (var i = Count - 1; i >= 0; i--)
             {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    order = i;
-                }
+                if (Abs(this.coefficients[i]) <= epsilon)
+                    pos++;
+                else
+                    break;
             }
 
-            var res = new double[order + 1];
-            for (var i = 0; i < res.Length; i++)
-            {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    res[i] = coefficients[i];
-                }
-            }
-
-            return new Polynomial() { coefficients = res, isReadonly = this.isReadonly };
+            // Copy the remaining coefficients to a new array and return it.
+            var coefficients = new double[Count - pos];
+            Array.Copy(this.coefficients, 0, coefficients, 0, Count - pos);
+            return new Polynomial() { coefficients = coefficients, isReadonly = this.isReadonly };
         }
 
         /// <summary>
@@ -847,6 +805,8 @@ namespace Engine
             return new Polynomial() { coefficients = res, isReadonly = this.isReadonly };
         }
 
+        // ToDo: Figure out if Evaluate and Compute are the same.
+
         /// <summary>
         /// 
         /// </summary>
@@ -864,7 +824,9 @@ namespace Engine
 
             var result = 0d;
             for (var i = (int)Degree; i >= 0; i--)
+            {
                 result = result * x + coefficients[i];
+            }
 
             return result;
         }
@@ -1321,7 +1283,7 @@ namespace Engine
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -1365,75 +1327,6 @@ namespace Engine
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// interpolate
-        /// </summary>
-        /// <param name="xs"></param>
-        /// <param name="ys"></param>
-        /// <param name="n"></param>
-        /// <param name="offset"></param>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/thelonious/kld-polynomial
-        /// Based on trapzd in "Numerical Recipes in C", page 139
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (double y, double dy) Interpolate(List<double> xs, List<double> ys, int n, int offset, double x)
-        {
-            if (double.IsNaN(n) || double.IsNaN(offset) || double.IsNaN(x))
-                throw new Exception($"{nameof(Interpolate)}: {nameof(n)}, {nameof(offset)}, and {nameof(x)} must be numbers");
-
-            var y = 0d;
-            var dy = 0d;
-            var c = new List<double>(n);
-            var d = new List<double>(n);
-            var ns = 0;
-            var result = (y: y, dy: dy);
-
-            var diff = Abs(x - xs[offset]);
-            for (var i = 0; i < n; i++)
-            {
-                var dift = Abs(x - xs[offset + i]);
-
-                if (dift < diff)
-                {
-                    ns = i;
-                    diff = dift;
-                }
-                c[i] = d[i] = ys[offset + i];
-            }
-            y = ys[offset + ns];
-            ns--;
-
-            for (var m = 1; m < n; m++)
-            {
-                for (var i = 0; i < n - m; i++)
-                {
-                    var ho = xs[offset + i] - x;
-                    var hp = xs[offset + i + m] - x;
-                    var w = c[i + 1] - d[i];
-                    var den = ho - hp;
-
-                    if (den == 0.0)
-                    {
-                        result = (y: 0, dy: 0);
-                        break;
-                    }
-
-                    den = w / den;
-                    d[i] = hp * den;
-                    c[i] = ho * den;
-                }
-                dy = (2 * (ns + 1) < (n - m)) ? c[ns + 1] : d[ns--];
-                y += dy;
-            }
-
-            return (y: y, dy: dy);
         }
 
         /// <summary>
@@ -1524,7 +1417,7 @@ namespace Engine
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -1532,7 +1425,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<double> RootsInInterval(double min = 0, double max = 1, double epsilon = Epsilon)
+        public double[] RootsInInterval(double min = 0, double max = 1, double epsilon = Epsilon)
         {
             var roots = new List<double>();
             double? root;
@@ -1546,18 +1439,18 @@ namespace Engine
                 // get roots of derivative
                 var deriv = Derivate();
                 var droots = deriv.RootsInInterval(min, max, epsilon);
-                if (droots.Count > 0)
+                if (droots.Length > 0)
                 {
                     root = Bisection(min, droots[0], epsilon);
                     if (root != null) roots.Add(root.Value);
                     // Find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
-                    for (var i = 0; i <= droots.Count - 2; i++)
+                    for (var i = 0; i <= droots.Length - 2; i++)
                     {
                         root = Bisection(droots[i], droots[i + 1], epsilon);
                         if (root != null) roots.Add(root.Value);
                     }
                     // Find root on [droots[count-1],xmax]
-                    root = Bisection(droots[droots.Count - 1], max, epsilon);
+                    root = Bisection(droots[droots.Length - 1], max, epsilon);
                     if (root != null) roots.Add(root.Value);
                 }
                 else
@@ -1568,13 +1461,13 @@ namespace Engine
                 }
             }
 
-            return roots;
+            return roots.ToArray();
         }
 
         /// <summary>
         /// Find the Roots of up to Quintic degree <see cref="Polynomial"/>s.
         /// </summary>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -1582,24 +1475,24 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<double> Roots(double epsilon = Epsilon)
+        public double[] Roots(double epsilon = Epsilon)
         {
             switch (Degree)
             {
                 case PolynomialDegree.Constant:
                     if (coefficients == null)
-                        return new List<double>();
-                    return new List<double>() { coefficients[0] };
+                        return new double[] { };
+                    return new double[] { coefficients[0] };
                 case PolynomialDegree.Linear:
-                    return LinearRoots(coefficients[1], coefficients[0], epsilon);
+                    return LinearRoots(coefficients[1], coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Quadratic:
-                    return QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon);
+                    return QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Cubic:
-                    return CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
+                    return CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Quartic:
-                    return QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
+                    return QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Quintic:
-                    return QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
+                    return QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon).ToArray();
                 case PolynomialDegree.Sextic:
                 // ToDo: Uncomment when Sextic roots are implemented.
                 //return poly.SexticRoots(epsilon);
@@ -1611,7 +1504,7 @@ namespace Engine
                 //return poly.OcticRoots(epsilon);
                 default:
                     // ToDo: If a general root finding algorithm can be found, call it here instead of returning an empty list.
-                    return new List<double>();
+                    return new double[] { };
             }
             // should try Newton's method and/or bisection
         }
@@ -1643,6 +1536,75 @@ namespace Engine
         }
 
 #if Quazistax
+
+        /// <summary>
+        /// interpolate
+        /// </summary>
+        /// <param name="xs"></param>
+        /// <param name="ys"></param>
+        /// <param name="n"></param>
+        /// <param name="offset"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/thelonious/kld-polynomial
+        /// Based on trapzd in "Numerical Recipes in C", page 139
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public (double y, double dy) Interpolate(List<double> xs, List<double> ys, int n, int offset, double x)
+        {
+            if (double.IsNaN(n) || double.IsNaN(offset) || double.IsNaN(x))
+                throw new Exception($"{nameof(Interpolate)}: {nameof(n)}, {nameof(offset)}, and {nameof(x)} must be numbers");
+
+            var y = 0d;
+            var dy = 0d;
+            var c = new List<double>(n);
+            var d = new List<double>(n);
+            var ns = 0;
+            var result = (y: y, dy: dy);
+
+            var diff = Abs(x - xs[offset]);
+            for (var i = 0; i < n; i++)
+            {
+                var dift = Abs(x - xs[offset + i]);
+
+                if (dift < diff)
+                {
+                    ns = i;
+                    diff = dift;
+                }
+                c[i] = d[i] = ys[offset + i];
+            }
+            y = ys[offset + ns];
+            ns--;
+
+            for (var m = 1; m < n; m++)
+            {
+                for (var i = 0; i < n - m; i++)
+                {
+                    var ho = xs[offset + i] - x;
+                    var hp = xs[offset + i + m] - x;
+                    var w = c[i + 1] - d[i];
+                    var den = ho - hp;
+
+                    if (den == 0.0)
+                    {
+                        result = (y: 0, dy: 0);
+                        break;
+                    }
+
+                    den = w / den;
+                    d[i] = hp * den;
+                    c[i] = ho * den;
+                }
+                dy = (2 * (ns + 1) < (n - m)) ? c[ns + 1] : d[ns--];
+                y += dy;
+            }
+
+            return (y: y, dy: dy);
+        }
 
         /// <summary>
         /// Estimate what is the maximum polynomial evaluation error value under which polynomial evaluation could be in fact 0.
@@ -1795,7 +1757,7 @@ namespace Engine
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <param name="n"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -1845,7 +1807,7 @@ namespace Engine
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -1899,7 +1861,7 @@ namespace Engine
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        /// <param name="epsilon"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>

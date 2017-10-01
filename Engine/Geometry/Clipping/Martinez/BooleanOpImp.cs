@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using static System.Math;
+﻿using System.Collections.Generic;
 using static Engine.SegmentComparators;
-using System.Linq;
 
 namespace Engine
 {

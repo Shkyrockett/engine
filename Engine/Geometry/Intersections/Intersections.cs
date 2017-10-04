@@ -411,153 +411,16 @@ namespace Engine
             => PointLineSegmentIntersection(p.X, p.Y, s.AX, s.AY, s.BX, s.BY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a line and a point.
+        /// Find the intersection of a Point and a Line segment.
         /// </summary>
-        /// <param name="l">The Line.</param>
-        /// <param name="p">The Point.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Point2D p, double epsilon = Epsilon)
-            => PointLineIntersection(p.X, p.Y, l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, epsilon);
-
-        /// <summary>
-        /// Find the intersection of to Lines.
-        /// </summary>
-        /// <param name="a">The first line.</param>
-        /// <param name="b">The second line.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line a, Line b, double epsilon = Epsilon)
-            => LineLineIntersection(
-                a.Location.X, a.Location.Y,
-                a.Location.X + a.Direction.I, a.Location.Y + a.Direction.J,
-                b.Location.X, b.Location.Y,
-                b.Location.X + b.Direction.I, b.Location.Y + b.Direction.J, epsilon
-                );
-
-        /// <summary>
-        /// Find the intersection of a Line and a Line segment.
-        /// </summary>
-        /// <param name="l">The line.</param>
+        /// <param name="p">The point.</param>
         /// <param name="s">The line segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, LineSegment s, double epsilon = Epsilon)
-            => LineLineSegmentIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
-
-        /// <summary>
-        /// Find the intersection of a Line segment and a Quadratic Bezier.
-        /// </summary>
-        /// <param name="l">The line.</param>
-        /// <param name="b">The quadratic bezier curve segment.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, QuadraticBezier b, double epsilon = Epsilon)
-            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.CurveX, b.CurveY, epsilon);
-
-        /// <summary>
-        /// Find the intersection of a Line segment and a Cubic Bezier.
-        /// </summary>
-        /// <param name="l">The line.</param>
-        /// <param name="b">The cubic bezier curve segment.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, CubicBezier b, double epsilon = Epsilon)
-            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.CurveX, b.CurveY, epsilon);
-
-        /// <summary>
-        /// Find the intersection of a circle and a line.
-        /// </summary>
-        /// <param name="l">The line.</param>
-        /// <param name="c">The circle.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Circle c, double epsilon = Epsilon)
-            => LineCircleIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, c.X, c.Y, c.Radius, epsilon);
-
-        /// <summary>
-        /// Find the intersection of a circle and a line.
-        /// </summary>
-        /// <param name="l">The line.</param>
-        /// <param name="c">The circular arc.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, CircularArc c, double epsilon = Epsilon)
-            => LineCircularArcIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
-
-        /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
-        /// </summary>
-        /// <param name="s">The line segment.</param>
-        /// <param name="e">The ellipse.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line s, Ellipse e, double epsilon = Epsilon)
-            => LineEllipseIntersection(s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
-
-        /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
-        /// </summary>
-        /// <param name="s">The line segment.</param>
-        /// <param name="e">The elliptical arc.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line s, EllipticalArc e, double epsilon = Epsilon)
-            => LineEllipticalArcIntersection(s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
-
-        /// <summary>
-        /// Find the intersection of a Line and a Rectangle.
-        /// </summary>
-        /// <param name="l">The line.</param>
-        /// <param name="r">The rectangle.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, Rectangle2D r, double epsilon = Epsilon)
-            => LineRectangleIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, r.X, r.Y, r.Right, r.Bottom, epsilon);
-
-        /// <summary>
-        /// Find the intersection of a Line and a Polygon contour.
-        /// </summary>
-        /// <param name="l">The line.</param>
-        /// <param name="p">The polygon contour.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Line l, PolygonContour p, double epsilon = Epsilon)
-            => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, p.Points, epsilon);
-
-        /// <summary>
-        /// Find the intersection of two Rays.
-        /// </summary>
-        /// <param name="r0">The first ray.</param>
-        /// <param name="r1">The second ray.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ray r0, Ray r1, double epsilon = Epsilon)
-            => RayRayIntersection(r0.Location.X, r0.Location.Y, r0.Direction.I, r0.Direction.J, r1.Location.X, r1.Location.Y, r1.Direction.I, r1.Direction.J, epsilon);
+        public static Intersection Intersection(this Point2D p, Ray r, double epsilon = Epsilon)
+            => PointRayIntersection(p.X, p.Y, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
 
         /// <summary>
         /// Find the intersection of two Bezier segments.
@@ -707,7 +570,19 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Line l, double epsilon = Epsilon)
-            => LineLineSegmentIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
+            => LineLineSegmentIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Line segment and a Ray.
+        /// </summary>
+        /// <param name="s">The line segment.</param>
+        /// <param name="r">The ray.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this LineSegment s, Ray r, double epsilon = Epsilon)
+            => RayLineSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
 
         /// <summary>
         /// Find the intersection of a line segment and a Bezier segment.
@@ -758,16 +633,16 @@ namespace Engine
             => LineSegmentCubicBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Line segment and a Polygon contour.
+        /// Find the intersection of a Line segment and a triangle.
         /// </summary>
         /// <param name="s">The line segment.</param>
-        /// <param name="p">The polygon contour.</param>
+        /// <param name="r">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this LineSegment s, PolygonContour p, double epsilon = Epsilon)
-            => LineSegmentPolygonContourIntersection(s.AX, s.AY, s.BX, s.BY, p.Points, epsilon);
+        public static Intersection Intersection(this LineSegment s, Triangle r, double epsilon = Epsilon)
+            => LineSegmentTriangleIntersection(s.AX, s.AY, s.BX, s.BY, r.A.X, r.A.Y, r.B.X, r.B.Y, r.C.X, r.C.Y, epsilon);
 
         /// <summary>
         /// Find the intersection of a Line segment and a Rectangle.
@@ -780,6 +655,18 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Rectangle2D r, double epsilon = Epsilon)
             => LineSegmentRectangleIntersection(s.AX, s.AY, s.BX, s.BY, r.X, r.Y, r.Right, r.Bottom, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Line segment and a Polygon contour.
+        /// </summary>
+        /// <param name="s">The line segment.</param>
+        /// <param name="p">The polygon contour.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this LineSegment s, PolygonContour p, double epsilon = Epsilon)
+            => LineSegmentPolygonContourIntersection(s.AX, s.AY, s.BX, s.BY, p.Points, epsilon);
 
         /// <summary>
         /// Find the intersection of a circle and a line segment.
@@ -830,16 +717,237 @@ namespace Engine
             => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a Line segment.
+        /// Find the intersection of a <see cref="Ray"/> and a <see cref="LineSegment"/>.
         /// </summary>
-        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="r">The ray.</param>
+        /// <param name="l">The line segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Ray r, LineSegment l, double epsilon = Epsilon)
+            => RayLineIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, l.AX, l.AY, l.BX, l.BY, epsilon);
+
+        /// <summary>
+        /// Find the intersection of two Rays.
+        /// </summary>
+        /// <param name="r0">The first ray.</param>
+        /// <param name="r1">The second ray.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Ray r0, Ray r1, double epsilon = Epsilon)
+            => RayRayIntersection(r0.Location.X, r0.Location.Y, r0.Direction.I, r0.Direction.J, r1.Location.X, r1.Location.Y, r1.Direction.I, r1.Direction.J, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a <see cref="Ray"/> and a <see cref="Line"/>.
+        /// </summary>
+        /// <param name="r">The ray.</param>
         /// <param name="l">The line.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this QuadraticBezier b, Line l, double epsilon = Epsilon)
-            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.CurveX, b.CurveY, epsilon);
+        public static Intersection Intersection(this Ray r, Line l, double epsilon = Epsilon)
+            => RayLineIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Ray and a triangle.
+        /// </summary>
+        /// <param name="s">The line segment.</param>
+        /// <param name="r">The rectangle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Ray s, Triangle r, double epsilon = Epsilon)
+            => LineSegmentTriangleIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, r.A.X, r.A.Y, r.B.X, r.B.Y, r.C.X, r.C.Y, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a <see cref="Ray"/> and a <see cref="Rectangle2D"/>.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="r">The rectangle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Ray l, Rectangle2D r, double epsilon = Epsilon)
+            => RayRectangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, r.X, r.Y, r.Right, r.Bottom, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Ray and a Polygon contour.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="p">The polygon contour.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Ray l, PolygonContour p, double epsilon = Epsilon)
+            => RayPolygonContourIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, p.Points, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a line and a point.
+        /// </summary>
+        /// <param name="l">The Line.</param>
+        /// <param name="p">The Point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, Point2D p, double epsilon = Epsilon)
+            => PointLineIntersection(p.X, p.Y, l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Line and a Line segment.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="s">The line segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, LineSegment s, double epsilon = Epsilon)
+            => LineLineSegmentIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a line and a ray.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="r">The ray.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, Ray r, double epsilon = Epsilon)
+            => RayLineIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, epsilon);
+
+        /// <summary>
+        /// Find the intersection of to Lines.
+        /// </summary>
+        /// <param name="a">The first line.</param>
+        /// <param name="b">The second line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line a, Line b, double epsilon = Epsilon)
+            => LineLineIntersection(
+                a.Location.X, a.Location.Y,
+                a.Direction.I, a.Direction.J,
+                b.Location.X, b.Location.Y,
+                b.Direction.I, b.Direction.J, epsilon
+                );
+
+        /// <summary>
+        /// Find the intersection of a Line and a triangle.
+        /// </summary>
+        /// <param name="s">The line segment.</param>
+        /// <param name="r">The rectangle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line s, Triangle r, double epsilon = Epsilon)
+            => LineSegmentTriangleIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, r.A.X, r.A.Y, r.B.X, r.B.Y, r.C.X, r.C.Y, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Line and a Rectangle.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="r">The rectangle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, Rectangle2D r, double epsilon = Epsilon)
+            => LineRectangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, r.X, r.Y, r.Right, r.Bottom, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Line and a Polygon contour.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="p">The polygon contour.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, PolygonContour p, double epsilon = Epsilon)
+            => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, p.Points, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Line segment and a Quadratic Bezier.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, QuadraticBezier b, double epsilon = Epsilon)
+            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, b.CurveX, b.CurveY, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Line segment and a Cubic Bezier.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="b">The cubic bezier curve segment.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, CubicBezier b, double epsilon = Epsilon)
+            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, b.CurveX, b.CurveY, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a circle and a line.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="c">The circle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, Circle c, double epsilon = Epsilon)
+            => LineCircleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a circle and a line.
+        /// </summary>
+        /// <param name="l">The line.</param>
+        /// <param name="c">The circular arc.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line l, CircularArc c, double epsilon = Epsilon)
+            => LineCircularArcIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
+
+        /// <summary>
+        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="s">The line segment.</param>
+        /// <param name="e">The ellipse.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line s, Ellipse e, double epsilon = Epsilon)
+            => LineEllipseIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
+
+        /// <summary>
+        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="s">The line segment.</param>
+        /// <param name="e">The elliptical arc.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Line s, EllipticalArc e, double epsilon = Epsilon)
+            => LineEllipticalArcIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of a Quadratic Bezier and a Bezier segment.
@@ -864,6 +972,18 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, LineSegment l, double epsilon = Epsilon)
             => LineSegmentQuadraticBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.CurveX, b.CurveY, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Quadratic Bezier and a Line segment.
+        /// </summary>
+        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="l">The line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this QuadraticBezier b, Line l, double epsilon = Epsilon)
+            => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of two Quadratic Beziers.
@@ -938,18 +1058,6 @@ namespace Engine
             => QuadraticBezierSegmentPolygonContourIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Line segment.
-        /// </summary>
-        /// <param name="b"></param>
-        /// <param name="l"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this CubicBezier b, Line l, double epsilon = Epsilon)
-            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, b.CurveX, b.CurveY, epsilon);
-
-        /// <summary>
         /// Find the intersection of a Cubic Bezier and a Bezier segment.
         /// </summary>
         /// <param name="b0"></param>
@@ -972,6 +1080,18 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, LineSegment l, double epsilon = Epsilon)
             => LineSegmentCubicBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.CurveX, b.CurveY, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Cubic Bezier and a Line segment.
+        /// </summary>
+        /// <param name="b"></param>
+        /// <param name="l"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this CubicBezier b, Line l, double epsilon = Epsilon)
+            => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
         /// Find the intersection of a Cubic Bezier and a Quadratic Bezier.
@@ -1046,18 +1166,6 @@ namespace Engine
             => CubicBezierSegmentPolygonIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
 
         /// <summary>
-        /// Find the intersection of a circle and a line.
-        /// </summary>
-        /// <param name="c"></param>
-        /// <param name="l"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Circle c, Line l, double epsilon = Epsilon)
-            => LineCircleIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, c.X, c.Y, c.Radius, epsilon);
-
-        /// <summary>
         /// Find the intersection of a circle and a line segment.
         /// </summary>
         /// <param name="c"></param>
@@ -1068,6 +1176,18 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, LineSegment s, double epsilon = Epsilon)
             => LineSegmentCircleIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, c.X, c.Y, c.Radius, 0, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a circle and a line.
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="l"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Circle c, Line l, double epsilon = Epsilon)
+            => LineCircleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, epsilon);
 
         /// <summary>
         /// Find the intersection of a Circle and a Quadratic Bezier.
@@ -1163,19 +1283,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CircularArc c, Line s, double epsilon = Epsilon)
-            => LineCircularArcIntersection(s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
-
-        /// <summary>
-        /// Find the intersection of an unrotated ellipse and a line segment.
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="s"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Ellipse e, Line s, double epsilon = Epsilon)
-            => LineEllipseIntersection(s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
+            => LineCircularArcIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, c.X, c.Y, c.Radius, 0, c.StartAngle, c.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
@@ -1188,6 +1296,18 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, LineSegment s, double epsilon = Epsilon)
             => LineSegmentEllipseIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
+
+        /// <summary>
+        /// Find the intersection of an unrotated ellipse and a line segment.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="s"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Ellipse e, Line s, double epsilon = Epsilon)
+            => LineEllipseIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated Ellipse and a Quadratic Bezier.
@@ -1270,8 +1390,8 @@ namespace Engine
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc e, Line s, double epsilon = Epsilon)
-            => LineEllipticalArcIntersection(s.Location.X, s.Location.Y, s.Location.X + s.Direction.I, s.Location.Y + s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this EllipticalArc e, LineSegment s, double epsilon = Epsilon)
+            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
         /// Find the intersection of an unrotated ellipse and a line segment.
@@ -1282,20 +1402,56 @@ namespace Engine
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this EllipticalArc e, LineSegment s, double epsilon = Epsilon)
-            => LineSegmentEllipticalArcIntersection(s.A.X, s.A.Y, s.B.X, s.B.Y, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
+        public static Intersection Intersection(this EllipticalArc e, Line s, double epsilon = Epsilon)
+            => LineEllipticalArcIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Rectangle and a line.
+        /// Find the intersection of a triangle and a Line segment.
         /// </summary>
-        /// <param name="l"></param>
+        /// <param name="s">The line segment.</param>
+        /// <param name="r">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <param name="r"></param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this Rectangle2D r, Line l, double epsilon = Epsilon)
-            => LineRectangleIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, r.X, r.Y, r.Right, r.Bottom, epsilon);
+        public static Intersection Intersection(this Triangle r, LineSegment s, double epsilon = Epsilon)
+            => LineSegmentTriangleIntersection(s.AX, s.AY, s.BX, s.BY, r.A.X, r.A.Y, r.B.X, r.B.Y, r.C.X, r.C.Y, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a triangle and a Ray.
+        /// </summary>
+        /// <param name="s">The line segment.</param>
+        /// <param name="r">The rectangle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Triangle r, Ray s, double epsilon = Epsilon)
+            => LineSegmentTriangleIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, r.A.X, r.A.Y, r.B.X, r.B.Y, r.C.X, r.C.Y, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a triangle and a Line.
+        /// </summary>
+        /// <param name="s">The line segment.</param>
+        /// <param name="r">The rectangle.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Triangle r, Line s, double epsilon = Epsilon)
+            => LineSegmentTriangleIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, r.A.X, r.A.Y, r.B.X, r.B.Y, r.C.X, r.C.Y, epsilon);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t0"></param>
+        /// <param name="t1"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Triangle t0, Triangle t1, double epsilon = Epsilon)
+            => TriangleTriangleIntersection(t0.A.X, t0.A.Y, t0.B.X, t0.B.Y, t0.C.X, t0.C.Y, t1.A.X, t1.A.Y, t1.B.X, t1.B.Y, t1.C.X, t1.C.Y);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Line segment.
@@ -1308,6 +1464,18 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, LineSegment l, double epsilon = Epsilon)
             => LineSegmentRectangleIntersection(l.AX, l.AY, l.BX, l.BY, r.X, r.Y, r.Right, r.Bottom, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Rectangle and a line.
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="r"></param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this Rectangle2D r, Line l, double epsilon = Epsilon)
+            => LineRectangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
         /// Find the intersection of a Rectangle and a Quadratic Bezier.
@@ -1382,18 +1550,6 @@ namespace Engine
             => PolygonContourRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Polygon contour and a Line.
-        /// </summary>
-        /// <param name="l"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <param name="p"></param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection Intersection(this PolygonContour p, Line l, double epsilon = Epsilon)
-            => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, p.Points, epsilon);
-
-        /// <summary>
         /// Find the intersection of a Polygon contour and a Line segment.
         /// </summary>
         /// <param name="p"></param>
@@ -1406,13 +1562,37 @@ namespace Engine
             => LineSegmentPolygonContourIntersection(l.AX, l.AY, l.BX, l.BY, p.Points, epsilon);
 
         /// <summary>
+        /// Find the intersection of a Polygon contour and a Ray.
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="p"></param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this PolygonContour p, Ray l, double epsilon = Epsilon)
+            => RayPolygonContourIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, p.Points, epsilon);
+
+        /// <summary>
+        /// Find the intersection of a Polygon contour and a Line.
+        /// </summary>
+        /// <param name="l"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="p"></param>
+        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection Intersection(this PolygonContour p, Line l, double epsilon = Epsilon)
+            => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, p.Points, epsilon);
+
+        /// <summary>
         /// Find the intersection of a Polygon contour and a Quadratic Bezier.
         /// </summary>
         /// <param name="p"></param>
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, QuadraticBezier b, double epsilon = Epsilon)
              => QuadraticBezierSegmentPolygonContourIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
@@ -1424,7 +1604,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, CubicBezier b, double epsilon = Epsilon)
             => CubicBezierSegmentPolygonIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
@@ -1436,7 +1616,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, Circle e, double epsilon = Epsilon)
             => CirclePolygonContourIntersection(e.X, e.Y, e.Radius, 0, p.Points, epsilon);
@@ -1448,7 +1628,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, Ellipse e, double epsilon = Epsilon)
             => EllipsePolygonContourIntersection(e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, p.Points, epsilon);
@@ -1460,7 +1640,7 @@ namespace Engine
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, Rectangle2D l, double epsilon = Epsilon)
             => PolygonContourRectangleIntersection(p.Points, l.X, l.Y, l.Right, l.Bottom, epsilon);
@@ -1472,7 +1652,7 @@ namespace Engine
         /// <param name="p1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p0, PolygonContour p1, double epsilon = Epsilon)
              => PolygonContourPolygonContourIntersection(p0.Points, p1.Points, epsilon);
@@ -2358,6 +2538,58 @@ namespace Engine
                 && ((pointX - segmentAX) * (segmentBY - segmentAY) == (pointY - segmentAY) * (segmentBX - segmentAX)));
 
         /// <summary>
+        /// Check whether a point is coincident to a line segment.
+        /// </summary>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <param name="lX"></param>
+        /// <param name="lY"></param>
+        /// <param name="lI"></param>
+        /// <param name="lJ"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.angusj.com/delphi/clipper.php
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointRayIntersects(
+            double pX, double pY,
+            double lX, double lY,
+            double lI, double lJ,
+            double epsilon = Epsilon)
+            => ((pX == lX) && (pY == lY)) || ((pX == lI) && (pY == lJ))
+                || (
+                    ((pX - lX > 0) == (pX - lI < 0)) && ((pY - lY > 0) == (pY - lJ < 0))
+                    && ((pX - lX) * (lJ - lY) == (pY - lY) * (lI - lX))
+                );
+
+        /// <summary>
+        /// Check whether a point is coincident to a line segment.
+        /// </summary>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <param name="lX"></param>
+        /// <param name="lY"></param>
+        /// <param name="lI"></param>
+        /// <param name="lJ"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.angusj.com/delphi/clipper.php
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool PointLineIntersects(
+            double pX, double pY,
+            double lX, double lY,
+            double lI, double lJ,
+            double epsilon = Epsilon)
+            => ((pX == lX) && (pY == lY))
+                || ((pX == lI) && (pY == lJ))
+                && ((pX - lX) * (lJ - lY) == (pY - lY) * (lI - lX));
+
+        /// <summary>
         /// Check whether a point is within a rectangle.
         /// </summary>
         /// <param name="pX"></param>
@@ -2974,6 +3206,27 @@ namespace Engine
         }
 
         /// <summary>
+        /// Find the intersection of a point and a ray.
+        /// </summary>
+        /// <param name="pX"></param>
+        /// <param name="pY"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection PointRayIntersection(
+            double pX, double pY,
+            double lX, double lY, double i, double j,
+            double epsilon = Epsilon)
+            => (PointRayIntersects(pX, pY, lX, lY, i, j, epsilon))
+            ? new Intersection(IntersectionState.Intersection, new Point2D(pX, pY))
+            : new Intersection(IntersectionState.NoIntersection);
+
+        /// <summary>
         /// Find the intersection between a point and a line segment.
         /// </summary>
         /// <param name="pX"></param>
@@ -2990,21 +3243,21 @@ namespace Engine
             double pX, double pY,
             double lAX, double lAY, double lBX, double lBY,
             double epsilon = Epsilon)
-            => (PointLineSegmentIntersects(pX, pY, lAX, lAY, lBX, lBY))
+            => (PointLineSegmentIntersects(pX, pY, lAX, lAY, lBX, lBY, epsilon))
             ? new Intersection(IntersectionState.Intersection, new Point2D(pX, pY))
             : new Intersection(IntersectionState.NoIntersection);
 
         /// <summary>
         /// Find the intersection point between two lines.
         /// </summary>
-        /// <param name="x0">The x component of the first point of the first line.</param>
-        /// <param name="y0">The y component of the first point of the first line.</param>
-        /// <param name="x1">The x component of the second point of the first line.</param>
-        /// <param name="y1">The y component of the second point of the first line.</param>
-        /// <param name="x2">The x component of the first point of the second line.</param>
-        /// <param name="y2">The y component of the first point of the second line.</param>
-        /// <param name="x3">The x component of the second point of the second line.</param>
-        /// <param name="y3">The y component of the second point of the second line.</param>
+        /// <param name="lx0">The x component of the first point of the first line.</param>
+        /// <param name="ly0">The y component of the first point of the first line.</param>
+        /// <param name="li0">The x component of the second point of the first line.</param>
+        /// <param name="lj0">The y component of the second point of the first line.</param>
+        /// <param name="lx1">The x component of the first point of the second line.</param>
+        /// <param name="ly1">The y component of the first point of the second line.</param>
+        /// <param name="li1">The x component of the second point of the second line.</param>
+        /// <param name="lj1">The y component of the second point of the second line.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns the point of intersection.</returns>
         /// <remarks></remarks>
@@ -3014,18 +3267,18 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineLineIntersection(
-            double x0, double y0, double x1, double y1,
-            double x2, double y2, double x3, double y3,
+            double lx0, double ly0, double li0, double lj0,
+            double lx1, double ly1, double li1, double lj1,
             double epsilon = Epsilon)
         {
             // Initialize the intersection results.
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate lines to origin.
-            var u1 = (x1 - x0);
-            var v1 = (y1 - y0);
-            var u2 = (x3 - x2);
-            var v2 = (y3 - y2);
+            var u1 = li0;
+            var v1 = lj0;
+            var u2 = li1;
+            var v2 = lj1;
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (v2 * u1) - (u2 * v1);
@@ -3037,10 +3290,10 @@ namespace Engine
                 return result;
 
             // Find the index where the intersection point lies on the line.
-            var t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
+            var t = ((lx1 - lx0) * v2 + (ly0 - ly1) * u2) / determinant;
 
             // Return the intersection point.
-            result.AppendPoint(new Point2D(x0 + t * u1, y0 + t * v1));
+            result.AppendPoint(new Point2D(lx0 + t * u1, ly0 + t * v1));
             result.State |= IntersectionState.Intersection;
             return result;
         }
@@ -3048,10 +3301,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection point between two line segments.
         /// </summary>
-        /// <param name="l0X"></param>
-        /// <param name="l0Y"></param>
-        /// <param name="l1X"></param>
-        /// <param name="l1Y"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
         /// <param name="s0X"></param>
         /// <param name="s0Y"></param>
         /// <param name="s1X"></param>
@@ -3065,7 +3318,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineLineSegmentIntersection(
-            double l0X, double l0Y, double l1X, double l1Y,
+            double lx, double ly, double li, double lj,
             double s0X, double s0Y, double s1X, double s1Y,
             double epsilon = Epsilon)
         {
@@ -3073,13 +3326,13 @@ namespace Engine
             var result = new Intersection(IntersectionState.Intersection);
 
             // Translate lines to origin.
-            var u1 = l1X - l0X;
-            var v1 = l1Y - l0Y;
+            var u1 = li;
+            var v1 = lj;
             var u2 = s1X - s0X;
             var v2 = s1Y - s0Y;
 
-            var ua = u2 * (l0Y - s0Y) - v2 * (l0X - s0X);
-            var ub = u1 * (l0Y - s0Y) - v1 * (l0X - s0X);
+            var ua = u2 * (ly - s0Y) - v2 * (lx - s0X);
+            var ub = u1 * (ly - s0Y) - v1 * (lx - s0X);
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (v2 * u1) - (u2 * v1);
@@ -3108,7 +3361,7 @@ namespace Engine
                 if (tb >= 0 && tb <= 1)
                 {
                     // One intersection.
-                    result.AppendPoint(new Point2D(l0X + ta * u1, l0Y + ta * v1));
+                    result.AppendPoint(new Point2D(lx + ta * u1, ly + ta * v1));
                     result.State |= IntersectionState.Intersection;
                 }
                 else
@@ -3152,10 +3405,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a line and a quadratic bezier.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
@@ -3169,7 +3422,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineQuadraticBezierIntersection(
-            double x1, double y1, double x2, double y2,
+            double lx, double ly, double li, double lj,
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
@@ -3177,10 +3430,10 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate the line to the origin.
-            var a = y2 - y1;
-            var b = x1 - x2;
+            var a = lj;
+            var b = -li;
 
-            var c = x1 * (y1 - y2) + y1 * (x2 - x1);
+            var c = lx * (ly - lj) + ly * (li - lx);
 
             // Find the polynomial that represents the intersections.
             var poly = a * xCurve + b * yCurve + c;
@@ -3234,10 +3487,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a line and a cubic bezier.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
@@ -3251,7 +3504,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineCubicBezierIntersection(
-            double x1, double y1, double x2, double y2,
+            double lx, double ly, double li, double lj,
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
@@ -3259,10 +3512,10 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Translate the line to the origin.
-            var a = y2 - y1;
-            var b = x1 - x2;
+            var a = lj;
+            var b = -li;
 
-            var c = x1 * (y1 - y2) + y1 * (x2 - x1);
+            var c = lx * (ly - lj) + ly * (li - lx);
 
             // Find the polynomial that represents the intersections.
             var poly = a * xCurve + b * yCurve + c;
@@ -3283,44 +3536,41 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a line and a polygon contour.
+        /// Find the intersection between a Line and a triangle.
         /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="points"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="tx0"></param>
+        /// <param name="ty0"></param>
+        /// <param name="tx1"></param>
+        /// <param name="ty1"></param>
+        /// <param name="tx2"></param>
+        /// <param name="ty2"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// http://www.kevlindev.com/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection LinePolygonContourIntersection(
-            double a1X, double a1Y, double a2X, double a2Y,
-            List<Point2D> points,
+        public static Intersection LineTriangleIntersection(
+            double lx, double ly, double li, double lj,
+            double tx0, double ty0, double tx1, double ty1, double tx2, double ty2,
             double epsilon = Epsilon)
         {
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            var length = points.Count;
 
-            // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[length - 1];
-            for (var i = 0; i < length; ++i)
-            {
-                Point2D b2 = points[i];
+            intersections.UnionWith(LineLineSegmentIntersection(lx, ly, li, lj, tx0, ty0, tx1, ty1, epsilon).Points);
+            intersections.UnionWith(LineLineSegmentIntersection(lx, ly, li, lj, tx1, ty1, tx2, ty2, epsilon).Points);
+            intersections.UnionWith(LineLineSegmentIntersection(lx, ly, li, lj, tx0, ty0, tx2, ty2, epsilon).Points);
 
-                intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, b1.X, b1.Y, b2.X, b2.Y, epsilon).Points);
-
-                b1 = b2;
-            }
+            // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
-            if (result.Count > 0)
-                result.State |= IntersectionState.Intersection;
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -3367,12 +3617,54 @@ namespace Engine
         }
 
         /// <summary>
+        /// Find the intersection between a line and a polygon contour.
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="points"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection LinePolygonContourIntersection(
+            double a1X, double a1Y, double a2X, double a2Y,
+            List<Point2D> points,
+            double epsilon = Epsilon)
+        {
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+            var length = points.Count;
+
+            // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
+            Point2D b1 = points[length - 1];
+            for (var i = 0; i < length; ++i)
+            {
+                Point2D b2 = points[i];
+
+                intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, b1.X, b1.Y, b2.X, b2.Y, epsilon).Points);
+
+                b1 = b2;
+            }
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Count > 0)
+                result.State |= IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
         /// Find the intersection between a line and a circle.
         /// </summary>
-        /// <param name="lAX"></param>
-        /// <param name="lAY"></param>
-        /// <param name="lBX"></param>
-        /// <param name="lBY"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
         /// <param name="cX"></param>
         /// <param name="cY"></param>
         /// <param name="r"></param>
@@ -3385,7 +3677,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineCircleIntersection(
-            double lAX, double lAY, double lBX, double lBY,
+            double lx, double ly, double li, double lj,
             double cX, double cY, double r,
             double epsilon = Epsilon)
         {
@@ -3393,17 +3685,17 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
-            if ((r == 0d) || ((lAX == lBX) && (lAY == lBY)))
+            if ((r == 0d) || ((lx == li) && (ly == lj)))
                 return result;
 
             // Translate the line to the origin. 
-            var dx = lBX - lAX;
-            var dy = lBY - lAY;
+            var dx = li;
+            var dy = lj;
 
             // Calculate the quadratic parameters.
             var a = dx * dx + dy * dy;
-            var b = 2 * (dx * (lAX - cX) + dy * (lAY - cY));
-            var c = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - r * r;
+            var b = 2 * (dx * (lx - cX) + dy * (ly - cY));
+            var c = (lx - cX) * (lx - cX) + (ly - cY) * (ly - cY) - r * r;
 
             // Calculate the discriminant.
             var discriminant = b * b - 4 * a * c;
@@ -3421,7 +3713,7 @@ namespace Engine
 
                 // Add the points.
                 result = new Intersection(IntersectionState.Intersection);
-                result.AppendPoint(new Point2D(lAX + t * dx, lAY + t * dy));
+                result.AppendPoint(new Point2D(lx + t * dx, ly + t * dy));
             }
             else if (discriminant > 0)
             {
@@ -3431,8 +3723,8 @@ namespace Engine
 
                 // Add the points.
                 result = new Intersection(IntersectionState.Intersection);
-                result.AppendPoint(new Point2D(lAX + t1 * dx, lAY + t1 * dy));
-                result.AppendPoint(new Point2D(lAX + t2 * dx, lAY + t2 * dy));
+                result.AppendPoint(new Point2D(lx + t1 * dx, ly + t1 * dy));
+                result.AppendPoint(new Point2D(lx + t2 * dx, ly + t2 * dy));
             }
 
             // Return result.
@@ -3442,10 +3734,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a line and a circular arc.
         /// </summary>
-        /// <param name="lAX"></param>
-        /// <param name="lAY"></param>
-        /// <param name="lBX"></param>
-        /// <param name="lBY"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
         /// <param name="cX"></param>
         /// <param name="cY"></param>
         /// <param name="r"></param>
@@ -3461,7 +3753,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineCircularArcIntersection(
-            double lAX, double lAY, double lBX, double lBY,
+            double lx, double ly, double li, double lj,
             double cX, double cY, double r, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
         {
@@ -3469,17 +3761,17 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
-            if ((r == 0d) || ((lAX == lBX) && (lAY == lBY)))
+            if ((r == 0d) || ((lx == li) && (ly == lj)))
                 return result;
 
             // Translate the line to the origin. 
-            var dx = lBX - lAX;
-            var dy = lBY - lAY;
+            var dx = li;
+            var dy = lj;
 
             // Calculate the quadratic parameters.
             var a = dx * dx + dy * dy;
-            var b = 2 * (dx * (lAX - cX) + dy * (lAY - cY));
-            var c = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - r * r;
+            var b = 2 * (dx * (lx - cX) + dy * (ly - cY));
+            var c = (lx - cX) * (lx - cX) + (ly - cY) * (ly - cY) - r * r;
 
             // Find the points of the chord.
             var startPoint = new Point2D(cX + (Cos(angle + startAngle) * r), cY + (Sin(angle + startAngle) * r));
@@ -3501,8 +3793,8 @@ namespace Engine
                 var t = -b / (2 * a);
 
                 // Find the point.
-                var pX = lAX + t * dx;
-                var pY = lAY + t * dy;
+                var pX = lx + t * dx;
+                var pY = ly + t * dy;
 
                 // Find the determinant of the chord and point.
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
@@ -3521,8 +3813,8 @@ namespace Engine
                 var t2 = ((-b - Sqrt(discriminant)) / (2 * a));
 
                 // Find the point.
-                var pX = lAX + t1 * dx;
-                var pY = lAY + t1 * dy;
+                var pX = lx + t1 * dx;
+                var pY = ly + t1 * dy;
 
                 // Find the determinant of the chord and point.
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
@@ -3535,8 +3827,8 @@ namespace Engine
                 }
 
                 // Find the point.
-                pX = lAX + t2 * dx;
-                pY = lAY + t2 * dy;
+                pX = lx + t2 * dx;
+                pY = ly + t2 * dy;
 
                 // Find the determinant of the chord and point.
                 determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
@@ -3558,10 +3850,10 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a line and an ellipse.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
         /// <param name="cx"></param>
         /// <param name="cy"></param>
         /// <param name="rx"></param>
@@ -3572,18 +3864,18 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineEllipseIntersection(
-            double x0, double y0, double x1, double y1,
+            double lx, double ly, double li, double lj,
             double cx, double cy, double rx, double ry, double angle,
             double epsilon = Epsilon)
-            => LineEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
+            => LineEllipseIntersection(lx, ly, li, lj, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
 
         /// <summary>
         /// Find the intersection between a line and an ellipse.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
         /// <param name="cx"></param>
         /// <param name="cy"></param>
         /// <param name="rx"></param>
@@ -3599,7 +3891,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineEllipseIntersection(
-            double x0, double y0, double x1, double y1,
+            double lx, double ly, double li, double lj,
             double cx, double cy, double rx, double ry, double cosA, double sinA,
             double epsilon = Epsilon)
         {
@@ -3608,14 +3900,14 @@ namespace Engine
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
-                ((x0 == x1) && (y0 == y1)))
+                ((lx == li) && (ly == lj)))
                 return result;
 
             // Translate the line to put the ellipse centered at the origin.
-            var u1 = x0 - cx;
-            var v1 = y0 - cy;
-            var u2 = x1 - cx;
-            var v2 = y1 - cy;
+            var u1 = lx - cx;
+            var v1 = ly - cy;
+            var u2 = lx + li - cx;
+            var v2 = ly + lj - cy;
 
             // Apply Rotation Transform to line at the origin.
             var u1A = u1 * cosA - v1 * -sinA;
@@ -3700,10 +3992,10 @@ namespace Engine
         /// <param name="cosA"></param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -3713,7 +4005,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineEllipticalArcIntersection(
-            double x0, double y0, double x1, double y1,
+            double lx, double ly, double li, double lj,
             double cx, double cy, double rx, double ry, double cosA, double sinA, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
         {
@@ -3722,14 +4014,14 @@ namespace Engine
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
-                ((x0 == x1) && (y0 == y1)))
+                ((li == 0) && (lj == 0)))
                 return result;
 
             // Translate the line to put it at the ellipse centered at the origin.
-            var u0 = x0 - cx;
-            var v0 = y0 - cy;
-            var u1 = x1 - cx;
-            var v1 = y1 - cy;
+            var u0 = lx - cx;
+            var v0 = ly - cy;
+            var u1 = lx + li - cx;
+            var v1 = ly + lj - cy;
 
             // Apply the rotation transformation to line at the origin.
             var u0A = u0 * cosA - v0 * -sinA;
@@ -3820,14 +4112,89 @@ namespace Engine
         /// <summary>
         /// Find the intersection between two rays.
         /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="ri"></param>
+        /// <param name="rj"></param>
+        /// <param name="s1X"></param>
+        /// <param name="s1Y"></param>
+        /// <param name="s2X"></param>
+        /// <param name="s2Y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection RayLineSegmentIntersection(
+            double rx, double ry, double ri, double rj,
+            double s1X, double s1Y, double s2X, double s2Y,
+            double epsilon = Epsilon)
+        {
+            // Initialize the intersection result.
+            var result = new Intersection(IntersectionState.Intersection);
+
+            // Translate line segment to origin.
+            var u = s2X - s1X;
+            var v = s2Y - s1Y;
+
+            // Intersection cross product.
+            var ua = u * (ry - s1Y) - v * (rx - s1X);
+            var ub = ri * (ry - s1Y) - rj * (rx - s1X);
+
+            // Calculate the determinant of the coefficient matrix.
+            var determinant = (v * ri) - (u * rj);
+
+            // Check if the lines are parallel.
+            if (Abs(determinant) < epsilon)
+            {
+                if (ua == 0 || ub == 0)
+                {
+                    //// Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
+                    //result.AppendPoints(new List<Point2D> { new Point2D(s1X, s1Y), new Point2D(s2X, s2Y) });
+                    result.State |= IntersectionState.Coincident | IntersectionState.Parallel | IntersectionState.Intersection;
+                }
+                else
+                {
+                    // The Line and line segment are parallel. There are no intersections.
+                    result.State |= IntersectionState.Parallel | IntersectionState.NoIntersection;
+                }
+            }
+            else
+            {
+                // Find the index where the intersection point lies on the line.
+                var ta = ua / determinant;
+                var tb = ub / determinant;
+
+                if (ta >= 0 /*&& ta <= 1*/ && tb >= 0 && tb <= 1)
+                {
+                    // One intersection.
+                    result.AppendPoint(new Point2D(rx + ta * ri, ry + ta * rj));
+                    result.State |= IntersectionState.Intersection;
+                }
+                else
+                {
+                    // The intersection is outside of the bounds of the Line segment. We can break early.
+                    return result;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between two rays.
+        /// </summary>
+        /// <param name="r0x"></param>
+        /// <param name="r0y"></param>
+        /// <param name="r0i"></param>
+        /// <param name="r0j"></param>
+        /// <param name="r1x"></param>
+        /// <param name="r1y"></param>
+        /// <param name="r1i"></param>
+        /// <param name="r1j"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -3837,25 +4204,23 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection RayRayIntersection(
-            double a1X, double a1Y, double a2X, double a2Y,
-            double b1X, double b1Y, double b2X, double b2Y,
+            double r0x, double r0y, double r0i, double r0j,
+            double r1x, double r1y, double r1i, double r1j,
             double epsilon = Epsilon)
         {
-            var ua_t = (b2X - b1X) * (a1Y - b1Y) - (b2Y - b1Y) * (a1X - b1X);
-            var ub_t = (a2X - a1X) * (a1Y - b1Y) - (a2Y - a1Y) * (a1X - b1X);
-            var u_b = (b2Y - b1Y) * (a2X - a1X) - (b2X - b1X) * (a2Y - a1Y);
-
+            // Initialize the intersection result.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            if (u_b != 0)
+            // Intersection cross product.
+            var ua = (r1i) * (r0y - r1y) - (r1j) * (r0x - r1x);
+            var ub = (r0i) * (r0y - r1y) - (r0j) * (r0x - r1x);
+
+            // Calculate the determinant of the coefficient matrix.
+            var determinant = (r1j) * (r0i) - (r1i) * (r0j);
+
+            if (Abs(determinant) < epsilon)
             {
-                var ua = ua_t / u_b;
-                result.State = IntersectionState.Intersection;
-                result.AppendPoint(new Point2D(a1X + ua * (a2X - a1X), a1Y + ua * (a2Y - a1Y)));
-            }
-            else
-            {
-                if (ua_t == 0 || ub_t == 0)
+                if (ua == 0 || ub == 0)
                 {
                     result.State |= IntersectionState.Coincident;
                 }
@@ -3864,7 +4229,220 @@ namespace Engine
                     result.State |= IntersectionState.Parallel;
                 }
             }
+            else
+            {
+                var ta = ua / determinant;
+                var tb = ub / determinant;
 
+                if (ta >= 0 /*&& ta <= 1*/ && tb >= 0 /*&& tb <= 1*/)
+                {
+                    // One intersection.
+                    result.State = IntersectionState.Intersection;
+                    result.AppendPoint(new Point2D(r0x + ta * r0i, r0y + ta * r0j));
+                }
+                else
+                {
+                    // The intersection is outside of the bounds of the Line segment. We can break early.
+                    return result;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection point between two lines.
+        /// </summary>
+        /// <param name="rx">The x component of the first point of the first line.</param>
+        /// <param name="ry">The y component of the first point of the first line.</param>
+        /// <param name="ri">The x component of the second point of the first line.</param>
+        /// <param name="rj">The y component of the second point of the first line.</param>
+        /// <param name="lx">The x component of the first point of the second line.</param>
+        /// <param name="ly">The y component of the first point of the second line.</param>
+        /// <param name="li">The x component of the second point of the second line.</param>
+        /// <param name="lj">The y component of the second point of the second line.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>Returns the point of intersection.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.vb-helper.com/howto_segments_intersect.html
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection RayLineIntersection(
+            double rx, double ry, double ri, double rj,
+            double lx, double ly, double li, double lj,
+            double epsilon = Epsilon)
+        {
+            // Initialize the intersection result.
+            var result = new Intersection(IntersectionState.Intersection);
+
+            // Intersection cross product.
+            var ua = (li * (ry - ly)) - (lj * (rx - lx));
+            var ub = (ri * (ry - ly)) - (rj * (rx - lx));
+
+            // Calculate the determinant of the coefficient matrix.
+            var determinant = (lj * ri) - (li * rj);
+
+            // Check if the lines are parallel.
+            if (Abs(determinant) < epsilon)
+            {
+                if (ua == 0 || ub == 0)
+                {
+                    //// Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
+                    //result.AppendPoints(new List<Point2D> { new Point2D(x2, y2), new Point2D(x3, y3) });
+                    result.State |= IntersectionState.Coincident | IntersectionState.Parallel | IntersectionState.Intersection;
+                }
+                else
+                {
+                    // The Line and line segment are parallel. There are no intersections.
+                    result.State |= IntersectionState.Parallel | IntersectionState.NoIntersection;
+                }
+            }
+            else
+            {
+                // Find the index where the intersection point lies on the line.
+                var ta = ua / determinant;
+                //var tb = ub / determinant;
+
+                if (ta >= 0 /*&& ta <= 1 && tb >= 0 && tb <= 1*/)
+                {
+                    // One intersection.
+                    result.AppendPoint(new Point2D(rx + ta * ri, ry + ta * rj));
+                    result.State |= IntersectionState.Intersection;
+                }
+                else
+                {
+                    // The intersection is outside of the bounds of the Line segment. We can break early.
+                    return result;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between a ray and a triangle.
+        /// </summary>
+        /// <param name="lx0"></param>
+        /// <param name="ly0"></param>
+        /// <param name="lx1"></param>
+        /// <param name="ly1"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="tx0"></param>
+        /// <param name="ty0"></param>
+        /// <param name="tx1"></param>
+        /// <param name="ty1"></param>
+        /// <param name="tx2"></param>
+        /// <param name="ty2"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection RayTriangleIntersection(
+            double lx0, double ly0, double lx1, double ly1,
+            double tx0, double ty0, double tx1, double ty1, double tx2, double ty2,
+            double epsilon = Epsilon)
+        {
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+
+            intersections.UnionWith(RayLineSegmentIntersection(lx0, ly0, lx1, ly1, tx0, ty0, tx1, ty1, epsilon).Points);
+            intersections.UnionWith(RayLineSegmentIntersection(lx0, ly0, lx1, ly1, tx1, ty1, tx2, ty2, epsilon).Points);
+            intersections.UnionWith(RayLineSegmentIntersection(lx0, ly0, lx1, ly1, tx0, ty0, tx2, ty2, epsilon).Points);
+
+            // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between a line and a rectangle.
+        /// </summary>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
+        /// <param name="ri"></param>
+        /// <param name="rj"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection RayRectangleIntersection(
+            double rx, double ry, double ri, double rj,
+            double r1X, double r1Y, double r2X, double r2Y,
+            double epsilon = Epsilon)
+        {
+            var min = MinPoint(r1X, r1Y, r2X, r2Y);
+            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(max.X, min.Y);
+            var bottomLeft = new Point2D(min.X, max.Y);
+
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, min.X, min.Y, topRight.X, topRight.Y, epsilon).Points);
+            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, topRight.X, topRight.Y, max.X, max.Y, epsilon).Points);
+            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
+            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between a ray and a polygon contour.
+        /// </summary>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
+        /// <param name="points"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection RayPolygonContourIntersection(
+            double a1X, double a1Y, double a2X, double a2Y,
+            List<Point2D> points,
+            double epsilon = Epsilon)
+        {
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+            var length = points.Count;
+
+            // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
+            Point2D b1 = points[length - 1];
+            for (var i = 0; i < length; ++i)
+            {
+                Point2D b2 = points[i];
+
+                intersections.UnionWith(RayLineSegmentIntersection(b1.X, b1.Y, b2.X, b2.Y, a1X, a1Y, a2X, a2Y, epsilon).Points);
+
+                b1 = b2;
+            }
+
+            // ToDo: Return IntersectionState.Inside if both end points are inside the polygon, and there are no intersections.
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Count > 0)
+                result.State |= IntersectionState.Intersection;
             return result;
         }
 
@@ -3893,32 +4471,36 @@ namespace Engine
             double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
-            var ua_t = (b2X - b1X) * (y1 - b1Y) - (b2Y - b1Y) * (x1 - b1X);
-            var ub_t = (x2 - x1) * (y1 - b1Y) - (y2 - y1) * (x1 - b1X);
-            var u_b = (b2Y - b1Y) * (x2 - x1) - (b2X - b1X) * (y2 - y1);
-            if (u_b != 0)
+
+            var ua = (b2X - b1X) * (y1 - b1Y) - (b2Y - b1Y) * (x1 - b1X);
+            var ub = (x2 - x1) * (y1 - b1Y) - (y2 - y1) * (x1 - b1X);
+
+            var determinant = (b2Y - b1Y) * (x2 - x1) - (b2X - b1X) * (y2 - y1);
+
+            if (determinant == 0)
             {
-                var ua = ua_t / u_b;
-                var ub = ub_t / u_b;
-                if (0 <= ua && ua <= 1 && 0 <= ub && ub <= 1)
-                {
-                    result.State = IntersectionState.Intersection;
-                    result.AppendPoint(new Point2D(x1 + ua * (x2 - x1), y1 + ua * (y2 - y1)));
-                }
-                else
-                {
-                    result.State = IntersectionState.NoIntersection;
-                }
-            }
-            else
-            {
-                if (ua_t == 0 || ub_t == 0)
+                if (ua == 0 || ub == 0)
                 {
                     result.State = IntersectionState.Coincident;
                 }
                 else
                 {
                     result.State = IntersectionState.Parallel;
+                }
+            }
+            else
+            {
+                var ta = ua / determinant;
+                var tb = ub / determinant;
+
+                if (0 <= ta && ta <= 1 && 0 <= tb && tb <= 1)
+                {
+                    result.State = IntersectionState.Intersection;
+                    result.AppendPoint(new Point2D(x1 + ta * (x2 - x1), y1 + ta * (y2 - y1)));
+                }
+                else
+                {
+                    result.State = IntersectionState.NoIntersection;
                 }
             }
             return result;
@@ -3940,7 +4522,7 @@ namespace Engine
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentQuadraticBezierSegmentIntersection(
             double x1, double y1, double x2, double y2,
@@ -3969,7 +4551,7 @@ namespace Engine
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentQuadraticBezierSegmentIntersection(
             double x1, double y1, double x2, double y2,
@@ -4034,7 +4616,7 @@ namespace Engine
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentCubicBezierSegmentIntersection(
             double x1, double y1, double x2, double y2,
@@ -4063,7 +4645,7 @@ namespace Engine
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
         /// Which was based off of code found at: http://www.blitzbasic.com/Community/posts.php?topic=64459
         /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentCubicBezierSegmentIntersection(
             double x1, double y1, double x2, double y2,
@@ -4108,6 +4690,45 @@ namespace Engine
 
             if (result.Count > 0)
                 result.State |= IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between a line segment and a triangle.
+        /// </summary>
+        /// <param name="lx0"></param>
+        /// <param name="ly0"></param>
+        /// <param name="lx1"></param>
+        /// <param name="ly1"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="tx0"></param>
+        /// <param name="ty0"></param>
+        /// <param name="tx1"></param>
+        /// <param name="ty1"></param>
+        /// <param name="tx2"></param>
+        /// <param name="ty2"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection LineSegmentTriangleIntersection(
+            double lx0, double ly0, double lx1, double ly1,
+            double tx0, double ty0, double tx1, double ty1, double tx2, double ty2,
+            double epsilon = Epsilon)
+        {
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(lx0, ly0, lx1, ly1, tx0, ty0, tx1, ty1, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(lx0, ly0, lx1, ly1, tx1, ty1, tx2, ty2, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(lx0, ly0, lx1, ly1, tx0, ty0, tx2, ty2, epsilon).Points);
+
+            // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
             return result;
         }
 
@@ -5182,8 +5803,6 @@ namespace Engine
             );
             var roots = poly.RootsInInterval();
 
-            //var p = ((xCurveA * yCurveB) - (yCurveA * xCurveB)) * ((yCurveA * xCurveB) - (xCurveA * yCurveB));
-
             foreach (var s in roots)
             {
                 var point = new Point2D(
@@ -5357,6 +5976,53 @@ namespace Engine
             intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, xCurve, yCurve, epsilon).Points);
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the rectangle and there are no intersections.
+
+            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            if (result.Points.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
+        /// Find the intersection between two triangles.
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="x4"></param>
+        /// <param name="y4"></param>
+        /// <param name="x5"></param>
+        /// <param name="y5"></param>
+        /// <param name="x6"></param>
+        /// <param name="y6"></param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection TriangleTriangleIntersection(
+            double x1, double y1, double x2, double y2, double x3, double y3,
+            double x4, double y4, double x5, double y5, double x6, double y6,
+            double epsilon = Epsilon)
+        {
+            // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
+            var intersections = new HashSet<Point2D>();
+
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(x1, y1, x2, y2, x4, y4, x5, y5, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(x1, y1, x2, y2, x5, y5, x6, y6, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(x1, y1, x2, y2, x4, y4, x6, y6, epsilon).Points);
+
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(x2, y2, x3, y3, x4, y4, x5, y5, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(x2, y2, x3, y3, x5, y5, x6, y6, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(x2, y2, x3, y3, x4, y4, x6, y6, epsilon).Points);
+
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(x1, y1, x3, y3, x4, y4, x5, y5, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(x1, y1, x3, y3, x5, y5, x6, y6, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(x1, y1, x3, y3, x4, y4, x6, y6, epsilon).Points);
+
+            // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)

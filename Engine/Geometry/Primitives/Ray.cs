@@ -54,9 +54,20 @@ namespace Engine
         public Ray(Point2D location, Vector2D direction)
             : base()
         {
-            Location = location;
-            Direction = direction;
+            this.location = location;
+            this.direction = direction;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        public Ray(double x, double y, double i, double j)
+            : this(new Point2D(x, y), new Vector2D(i, j))
+        { }
 
         #endregion
 
@@ -112,6 +123,13 @@ namespace Engine
                 update?.Invoke();
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember, XmlElement, SoapElement]
+        public override Rectangle2D Bounds
+            => new Rectangle2D(location, location + direction);
 
         #endregion
 

@@ -183,6 +183,7 @@ namespace Editor
             }
 
             propertyGrid1.SelectedObject = vectorMap.SelectedItems.ToArray();
+            CanvasPanel.Invalidate();
         }
 
         /// <summary>

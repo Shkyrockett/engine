@@ -42,10 +42,11 @@ namespace Editor
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
+            RayWork(vectorMap);
             //NearestParameter(vectorMap, tools);
             //HeartCurve(vectorMap);
             //ScanlineIntersections(vectorMap);
-            //CommonIntersections(vectorMap);
+            CommonIntersections(vectorMap);
             //CurveFitting(vectorMap);
             //EllipseToBeziers(vectorMap);
             //WarpGeometry(vectorMap);
@@ -65,7 +66,7 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
-            IntersectingsEllipseEllipse(vectorMap);
+            //IntersectingsEllipseEllipse(vectorMap);
             //IntersectingsEllipseQuadraticSegment(vectorMap);
             //IntersectingsEllipseCubicSegment(vectorMap);
             //EllipticalArcLineSegmentIntersections(vectorMap);
@@ -76,7 +77,7 @@ namespace Editor
             //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
             //IntersectionsCubicBezierCubicBezier(vectorMap);
-            //BezierLineIntersections(vectorMap);
+            BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
             //CubicBezierHorizontalLineIntersection(vectorMap);
@@ -1987,6 +1988,37 @@ namespace Editor
         #endregion
 
         #region Experimental
+
+        public static void RayWork(VectorMap vectorMap)
+        {
+            var left = 100;
+            var top = 150;
+
+            var ray = new Ray(left + 20, top + 70, 1, 1);
+            var rayItem = new GraphicItem(ray, solidLightGreenStyle)
+            {
+                Name = "Ray"
+            };
+
+            left += 25;
+            top += 25;
+
+            var line = new Line(left + 20, top + 70, 1, -2);
+            var lineItem = new GraphicItem(line, solidLightGreenStyle)
+            {
+                Name = "Line"
+            };
+
+            var rayLineIntersections = Intersections.Intersection(ray, line);
+            var rayLineIntersectionsNodesItem = new GraphicItem(new NodeRevealer(rayLineIntersections.Points, 5d), handleStyle)
+            {
+                Name = "Ray Line Intersection"
+            };
+
+            vectorMap.Add(lineItem);
+            vectorMap.Add(rayItem);
+            vectorMap.Add(rayLineIntersectionsNodesItem);
+        }
 
         public static void NearestParameter(VectorMap vectorMap, ToolStack tools)
         {

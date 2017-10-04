@@ -88,8 +88,16 @@ namespace Engine.Imaging
         {
             ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
 
-            var intersection = Intersections.Intersection(shape.ToLine(), bounds);
-            if (intersection.Count >= 1)
+            var p1 = shape.Location;
+            var p2 = shape.Location + shape.Direction;
+            var intersection = Intersections.Intersection(shape, bounds);
+
+            if(intersection.Count == 1)
+            {
+                //g.DrawLine(itemStyle.ForePen, p1.ToPointF(), intersection.Points[0].ToPointF());
+                renderer.DrawLine(itemStyle.Stroke, p1.X, p1.Y, intersection.Points[0].X, intersection.Points[0].Y);
+            }
+            if (intersection.Count == 2)
             {
                 //g.DrawLine(itemStyle.ForePen, intersection.Points[0].ToPointF(), intersection.Points[1].ToPointF());
                 renderer.DrawLine(itemStyle.Stroke, intersection.Points[0].X, intersection.Points[0].Y, intersection.Points[1].X, intersection.Points[1].Y);

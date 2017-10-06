@@ -43,12 +43,12 @@ The following 2D shapes should be renderable.
     </g>
   </g>
 </svg>
-- [ ] **Line** <svg width="25" height="25">
+- [x] **Line** <svg width="25" height="25">
   <g style="fill:transparent;stroke-width:1;">
     <line x1="5" y1="0" x2="20" y2="25" style="stroke:blue" />
   </g>
 </svg>
-- [ ] **Ray** <svg width="25" height="25">
+- [x] **Ray** <svg width="25" height="25">
   <g style="fill:transparent;stroke-width:1;">
     <line x1="5" y1="10" x2="25" y2="15" style="stroke:blue" />
   </g>
@@ -73,14 +73,14 @@ The following 2D shapes should be renderable.
     <rect x="1" y="1" width="17" height="17" style="stroke:blue" />
   </g>
 </svg> _Need to think through location issues._
-- [x] **Polyline Contour**
-- [ ] **Polyline Set** _Needs testing._
+- [x] **Polyline ~~Contour~~**
+- [ ] ~~**Polyline Set** _Needs testing._~~
 - [x] **Polygon Contour**
-- [ ] **Polygon Set** _Needs testing._
+- [ ] **Polygon ~~Set~~** _Needs testing._
 - [x] **Polycurve Contour** _Needs work._
-- [ ] **Polycurve Set** _Needs work._
-- [ ] **PolyBezier** A Polyline like structure that is constructed out of Bezier curves of various degrees. Generally a start point, Bezier line segments, Quadratic curves, and Cubic curves.
-- [ ] **PolyBezier Set**
+- [ ] **Polycurve ~~Set~~** _Needs work._
+- [ ] **PolyBezier Contour** A Polyline like structure that is constructed out of Bezier curves of various degrees. Generally a start point, Bezier line segments, Quadratic curves, and Cubic curves.
+- [ ] **PolyBezier ~~Set~~**
 - [x] **Circle** <svg width="25" height="25">
   <g style="fill:transparent;stroke-width:1;">
     <circle cx="15" cy="15" r="9" stroke="green" style="stroke:blue" />
@@ -93,7 +93,7 @@ The following 2D shapes should be renderable.
 </svg>
 - [x] **Circular Arc**
 - [x] **Elliptical Arc**
-- [ ] **Oval** _May be implemented through Polycurve._
+- [ ] ~~**Oval** _May be implemented through Polycurve._~~
 - [x] **Quadratic Bezier**
 - [x] **Cubic Bezier**
 - [x] **Bezier Segment**

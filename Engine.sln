@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26823.1
+VisualStudioVersion = 15.0.26929.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor\Editor.csproj", "{B263858B-B22F-4F1E-A326-7F79ACE09156}"
 EndProject
@@ -43,6 +43,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{B8050EC6-6A4A-491D-BFB6-DBD152D993F9}"
 	ProjectSection(SolutionItems) = preProject
 		Documents\Geometry.xlsx = Documents\Geometry.xlsx
+		Documents\InteractionMethods.md = Documents\InteractionMethods.md
 		Documents\Interactivity.svg = Documents\Interactivity.svg
 		Documents\OrderOfExpense.md = Documents\OrderOfExpense.md
 		Documents\Primer.md = Documents\Primer.md

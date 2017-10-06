@@ -141,7 +141,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="item"></param>
-        public void Add(GraphicItem item) => Items.Add(item);
+        public void Add(GraphicItem item)
+            => Items.Add(item);
 
         /// <summary>
         /// 

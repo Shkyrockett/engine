@@ -274,5 +274,37 @@ namespace Engine.Imaging
         /// <returns></returns>
         public static List<Rectangle2D> ToRectangle2DList(this List<RectangleF> list)
             => list?.ConvertAll(new Converter<RectangleF, Rectangle2D>(ToRectangle2D));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="font"></param>
+        /// <returns></returns>
+        public static Font ToFont(this RenderFont font)
+            => new Font(font.Name, (float)font.Size, (FontStyle)font.Style);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="font"></param>
+        /// <returns></returns>
+        public static RenderFont ToRenderFont(this Font font)
+            => new RenderFont(font.Name, font.Size, (Engine.TextStyle)font.Style);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stringFormat"></param>
+        /// <returns></returns>
+        public static StringFormat ToStringFormat(this TextFormat stringFormat)
+            => new StringFormat((StringFormatFlags)stringFormat.Format, stringFormat.Language);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stringFormat"></param>
+        /// <returns></returns>
+        public static TextFormat ToTextFormat(this StringFormat stringFormat)
+            => new TextFormat((TextBoxFormatFlags)stringFormat.FormatFlags, stringFormat.DigitSubstitutionLanguage);
     }
 }

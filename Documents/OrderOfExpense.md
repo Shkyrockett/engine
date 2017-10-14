@@ -1,6 +1,6 @@
 # Order of Expense
 
-This is an attempt to calculate an order for which calculations are more or less expensive, to give an idea of what sorts of operations can be substituted with alternitive forms to improve performance.
+This is an attempt to calculate an order for which calculations are more or less expensive, to give an idea of what sorts of operations can be substituted with alternative forms to improve performance.
 
 | Operation | Example | Time | Notes |
 |---|---|---|---|

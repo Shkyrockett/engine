@@ -8,6 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 using static System.Math;
 
@@ -19,6 +20,15 @@ namespace Engine
     public partial class Maths
     {
         #region Epsilons, Minimums, Maximums
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Might be useful with Atan2
+        /// http://www.charlespetzold.com/blog/2008/09/180741.html
+        /// </remarks>
+        public const double NegativeZero = -0d;//1 / double.NegativeInfinity;
 
         /// <summary>
         /// 

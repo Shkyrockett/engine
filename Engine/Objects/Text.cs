@@ -9,10 +9,8 @@
 // <remarks></remarks>
 
 using System;
-using System.Drawing;
-using System.Windows.Forms;
 
-namespace Engine.Direct2D
+namespace Engine.WindowsForms
 {
     /// <summary>
     /// 
@@ -24,19 +22,10 @@ namespace Engine.Direct2D
         /// 
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="location"></param>
-        public Text2D(string text, Point2D location)
-            : this(text, Control.DefaultFont, location, new Size2D(int.MaxValue, int.MaxValue))
-        { }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="text"></param>
         /// <param name="font"></param>
         /// <param name="location"></param>
-        public Text2D(string text, Font font, Point2D location)
-            : this(text, font, location, new Size2D(int.MaxValue, int.MaxValue))
+        public Text2D(string text, RenderFont font, Point2D location, IPlatformTextMetrics metrics)
+            : this(text, font, location, new Size2D(int.MaxValue, int.MaxValue), metrics)
         { }
 
         /// <summary>
@@ -46,12 +35,13 @@ namespace Engine.Direct2D
         /// <param name="font"></param>
         /// <param name="location"></param>
         /// <param name="limits"></param>
-        public Text2D(string text, Font font, Point2D location, Size2D limits)
+        public Text2D(string text, RenderFont font, Point2D location, Size2D limits, IPlatformTextMetrics metrics)
         {
             Text = text;
             Font = font;
             Location = location;
             Limits = limits;
+            Metrics = metrics;
         }
 
         /// <summary>
@@ -62,7 +52,7 @@ namespace Engine.Direct2D
         /// <summary>
         /// 
         /// </summary>
-        public Font Font { get; set; }
+        public RenderFont Font { get; set; }
 
         /// <summary>
         /// 
@@ -78,57 +68,12 @@ namespace Engine.Direct2D
         /// 
         /// </summary>
         public override Rectangle2D Bounds
-            => new Rectangle2D(Location, MeasureString(Text, Font, (int)Limits.Width));
+            => new Rectangle2D(Location, Metrics.MeasureString(Text, Font, (int)Limits.Width));
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/1003370/measure-a-string-without-using-a-graphics-object
-        /// </remarks>
-        public static Size2D MeasureString(string text, Font font, int width = int.MaxValue)
-        {
-            var result = new Size2D();
-            //using (var image = new Bitmap(1, 1))
-            //{
-            //    using (var g = Graphics.FromImage(image))
-            //    {
-            //        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            //        result = g.MeasureString(text, font, width, StringFormat.GenericDefault).ToSize2D();
-            //    }
-            //}
-
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/1003370/measure-a-string-without-using-a-graphics-object
-        /// </remarks>
-        public static Size2D MeasureStringClose(string text, Font font, int width = int.MaxValue)
-        {
-            var result = new Size2D();
-            //using (var image = new Bitmap(1, 1))
-            //{
-            //    using (var g = Graphics.FromImage(image))
-            //    {
-            //        g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
-            //        result = g.MeasureString(text, font, width, StringFormat.GenericTypographic).ToSize2D();
-            //    }
-            //}
-
-            return result;
-        }
+        public IPlatformTextMetrics Metrics { get; set; }
 
         /// <summary>
         ///
@@ -169,7 +114,7 @@ namespace Engine.Direct2D
         {
             if (this == null)
                 return nameof(Text2D);
-            var sep = Engine.Tokenizer.GetNumericListSeparator(provider);
+            //var sep = ',';// Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Text2D)}{{{nameof(Text)}=\"{Text}\",{nameof(Font)}={Font},{nameof(Location)}={Location},{nameof(Limits)}={Limits}}}";
             return formatable.ToString(format, provider);
         }

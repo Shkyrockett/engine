@@ -1,4 +1,4 @@
-﻿// <copyright file="IFont.cs" company="Shkyrockett" >
+﻿// <copyright file="RenderFont.cs" company="Shkyrockett" >
 //     Copyright © 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,8 +8,33 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
-    public interface IFont
-    { }
+    public class RenderFont
+    {
+        public RenderFont(string name, double size, TextStyle textStyle)
+        {
+            Name = name;
+            Size = size;
+            Style = textStyle;
+        }
+
+        public string Name { get; set; }
+
+        public double Size { get; set; }
+
+        public TextStyle Style { get; set; }
+    }
+
+    [Flags]
+    public enum TextStyle
+    {
+        Regular = 0,
+        Bold = 1,
+        Italic = 2,
+        Underline = 4,
+        Strikeout = 8,
+    }
 }

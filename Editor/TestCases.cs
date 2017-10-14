@@ -35,18 +35,18 @@ namespace Editor
         /// <param name="vectorMap">The vector map to add the graphical items to.</param>
         /// <param name="canvasPanel">The canvas panel to draw to.</param>
         /// <param name="boundaryItem">A reference to the boundary item graphics object for one of the tests.</param>
-        public static void Tests(EditorForm form, VectorMap vectorMap, ToolStack tools, CanvasPanel canvasPanel, out GraphicItem boundaryItem)
+        public static void Tests(EditorForm form, VectorMap vectorMap, ToolStack tools, CanvasPanel canvasPanel, IPlatformTextMetrics metrics, out GraphicItem boundaryItem)
         {
             var foreColor = form.ForeColor;
             var backColor = form.BackColor;
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
-            RayWork(vectorMap);
+            //RayWork(vectorMap);
             //NearestParameter(vectorMap, tools);
             //HeartCurve(vectorMap);
             //ScanlineIntersections(vectorMap);
-            CommonIntersections(vectorMap);
+            //CommonIntersections(vectorMap);
             //CurveFitting(vectorMap);
             //EllipseToBeziers(vectorMap);
             //WarpGeometry(vectorMap);
@@ -58,7 +58,7 @@ namespace Editor
             //WindingOrder(vectorMap);
             //Pathfinding(vectorMap);
             //PolylineClicking(vectorMap);
-            //TextRendering(vectorMap, form);
+            TextRendering(vectorMap, form, metrics);
             //ParametricEllipseBounds(vectorMap);
             //ParametricEllipseArc(vectorMap);
             //ParametricTesting(vectorMap);
@@ -77,11 +77,11 @@ namespace Editor
             //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
             //IntersectionsCubicBezierCubicBezier(vectorMap);
-            BezierLineIntersections(vectorMap);
+            //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
             //CubicBezierHorizontalLineIntersection(vectorMap);
-            //SegmentIntersections(vectorMap, form);
+            SegmentIntersections(vectorMap, form, metrics);
             //IntersectionsTests(vectorMap);
             //CircularArcBounds(vectorMap);
             //EllipseBound(vectorMap);
@@ -1543,7 +1543,7 @@ namespace Editor
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         /// <param name="form"></param>
-        public static void SegmentIntersections(VectorMap vectorMap, EditorForm form)
+        public static void SegmentIntersections(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
             var segment0 = new LineSegment(new Point2D(20, 150), new Point2D(180, 200));
             var segment0Item = new GraphicItem(segment0, solidGreenStyle);
@@ -1573,7 +1573,12 @@ namespace Editor
             var dist2 = Measurements.DistanceLineSegmentPoint(segment1.AX, segment1.AY, segment1.BX, segment1.BY, point.Point.X, point.Point.Y);
             var dist3 = Measurements.ConstrainedDistanceLineSegmentPoint(segment1.AX, segment1.AY, segment1.BX, segment1.BY, point.Point.X, point.Point.Y);
 
-            var text = new Text2D($"{point.ToString()},{Environment.NewLine}Distance to Line: {dist1.ToString()},{Environment.NewLine}Distance to Segment: {dist2.ToString()},{Environment.NewLine}Distance in Range: {dist3?.ToString()}", form.Font, point.Point);
+            var text = new Text2D(
+                $"{point.ToString()},{Environment.NewLine}Distance to Line: {dist1.ToString()},{Environment.NewLine}Distance to Segment: {dist2.ToString()},{Environment.NewLine}Distance in Range: {dist3?.ToString()}",
+                form.Font.ToRenderFont(),
+                point.Point,
+                metrics
+                );
             var textItem = new GraphicItem(text, handleStyle)
             {
                 Name = "Point Text."
@@ -3163,9 +3168,13 @@ namespace Editor
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         /// <param name="form"></param>
-        public static void TextRendering(VectorMap vectorMap, EditorForm form)
+        public static void TextRendering(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            var text = new Text2D("Test Text.", form.Font, new Point2D(100, 100));
+            var text = new Text2D(
+                "Test Text.",
+                form.Font.ToRenderFont(),
+                new Point2D(100, 100),
+                metrics);
             var textItem = new GraphicItem(text, solidGreenStyle)
             {
                 Name = "Text Test"

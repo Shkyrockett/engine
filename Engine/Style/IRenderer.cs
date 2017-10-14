@@ -73,10 +73,10 @@ namespace Engine
 
         void FillRectangles(IFill brush, IEnumerable<Rectangle2D> rectangles);
 
-        void DrawString(string text, IFont font, IFill brush, double x, double y, double width, double height, StringFormat stringFormat);
+        void DrawString(string text, RenderFont font, IFill brush, double x, double y, double width, double height, TextFormat stringFormat);
 
-        Size2D MeasureString(string text, IFont font, Size2D layoutArea, StringFormat stringFormat);
+        Size2D MeasureString(string text, RenderFont font, Size2D layoutArea, TextFormat stringFormat);
 
-        Size2D MeasureCharacterRanges(string text, IFont font, Size2D layoutArea, StringFormat stringFormat);
+        Size2D MeasureCharacterRanges(string text, RenderFont font, Size2D layoutArea, TextFormat stringFormat);
     }
 }

@@ -23,4 +23,10 @@
     <ProjectReference Include="..\Engine\Engine.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="NETStandard.Library">
+      <Version>2.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
 </Project>

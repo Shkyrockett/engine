@@ -72,6 +72,11 @@ namespace Editor
         /// </summary>
         private bool updatinglist = false;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private WinFormsTextMeasurer TextMeasurer = new WinFormsTextMeasurer();
+
         #endregion
 
         #region Constructors
@@ -434,7 +439,7 @@ namespace Editor
         /// 
         /// </summary>
         public void BuildMap()
-            => TestCases.Tests(this, vectorMap, toolStack, CanvasPanel, out boundaryItem);
+            => TestCases.Tests(this, vectorMap, toolStack, CanvasPanel, TextMeasurer, out boundaryItem);
 
         /// <summary>
         /// 

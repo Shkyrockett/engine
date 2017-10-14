@@ -139,10 +139,10 @@ namespace Engine.WindowsForms
 
         public void FillPolygon(IFill pen, IEnumerable<Point2D> points) => throw new NotImplementedException();
 
-        public void DrawString(string text, IFont font, IFill brush, double x, double y, double width, double height, StringFormat stringFormat) => throw new NotImplementedException();
+        public void DrawString(string text, RenderFont font, IFill brush, double x, double y, double width, double height, TextFormat stringFormat) => throw new NotImplementedException();
 
-        public Size2D MeasureString(string text, IFont font, Size2D layoutArea, StringFormat stringFormat) => throw new NotImplementedException();
+        public Size2D MeasureString(string text, RenderFont font, Size2D layoutArea, TextFormat stringFormat) => throw new NotImplementedException();
 
-        public Size2D MeasureCharacterRanges(string text, IFont font, Size2D layoutArea, StringFormat stringFormat) => throw new NotImplementedException();
+        public Size2D MeasureCharacterRanges(string text, RenderFont font, Size2D layoutArea, TextFormat stringFormat) => throw new NotImplementedException();
     }
 }

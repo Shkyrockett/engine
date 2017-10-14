@@ -173,9 +173,9 @@ namespace Engine
         /// <param name="item"></param>
         /// <param name="style"></param>
         /// <param name="metadata"></param>
-        public VectorMap Add(Shape item, ShapeStyle style = null, Metadata metadata = null)
+        public VectorMap Add(Shape item, IStyle style = null, Metadata metadata = null)
         {
-            if (style == null) style = ShapeStyle.DefaultStyle;
+            //if (style == null) style = IStyle.DefaultStyle;
             var graphicItem = new GraphicItem(item, style, metadata);
             Items.Add(graphicItem);
             return this;

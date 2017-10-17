@@ -1152,15 +1152,14 @@ namespace Engine
             // More recursions means more accurate result
             for (var i = 0; i < 3; i++)
             {
-                // sample arc a=<b0,b1> with step da
+                // Sample arc a=<b0,b1> with step da
                 for (e = 1, a = b0; e != 0; a += da)
                 {
                     if (a >= b1) { a = b1; e = 0; }
 
-                    // elliptic arc sampled point
+                    // Elliptic arc sampled point
                     x = cX + rX * Cos(a);
-                    y = cY - rY * Sin(a);               // mine y axis is in reverse order therefore -
-                                                        // distance^2 to x_in,y_in
+                    y = cY - rY * Sin(a); // The y axis is in reverse order therefore - distance^2 to x_in,y_in
                     x -= pX;
                     x *= x;
                     y -= pY;
@@ -1864,7 +1863,7 @@ namespace Engine
         /// <param name="CurveX">The x-component polynomial of the curve.</param>
         /// <param name="CurveY">The y-component polynomial of the curve.</param>
         /// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the polynomial curve.</returns>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D BezierBounds(Polynomial CurveX, Polynomial CurveY)
         {

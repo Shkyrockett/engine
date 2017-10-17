@@ -347,24 +347,24 @@ namespace Engine
                 var p = new List<(double x, double y)>();
                 if (0 == i)
                 {
-                    p.Add((x: points[i].X, y: points[i].Y));
-                    p.Add((x: points[i].X, y: points[i].Y));
-                    p.Add((x: points[i + 1].X, y: points[i + 1].Y));
-                    p.Add((x: points[i + 2].X, y: points[i + 2].Y));
+                    p.Add((points[i].X, points[i].Y));
+                    p.Add((points[i].X, points[i].Y));
+                    p.Add((points[i + 1].X, points[i + 1].Y));
+                    p.Add((points[i + 2].X, points[i + 2].Y));
                 }
                 else if (iLen - 4 == i)
                 {
-                    p.Add((x: points[i - 1].X, y: points[i - 1].Y));
-                    p.Add((x: points[i].X, y: points[i].Y));
-                    p.Add((x: points[i + 1].X, y: points[i + 1].Y));
-                    p.Add((x: points[i + 2].X, y: points[i + 2].Y));
+                    p.Add((points[i - 1].X, points[i - 1].Y));
+                    p.Add((points[i].X, points[i].Y));
+                    p.Add((points[i + 1].X, points[i + 1].Y));
+                    p.Add((points[i + 2].X, points[i + 2].Y));
                 }
                 else
                 {
-                    p.Add((x: points[i - 1].X, y: points[i - 1].Y));
-                    p.Add((x: points[i].X, y: points[i].Y));
-                    p.Add((x: points[i + 1].X, y: points[i + 1].Y));
-                    p.Add((x: points[i + 2].X, y: points[i + 2].Y));
+                    p.Add((points[i - 1].X, points[i - 1].Y));
+                    p.Add((points[i].X, points[i].Y));
+                    p.Add((points[i + 1].X, points[i + 1].Y));
+                    p.Add((points[i + 2].X, points[i + 2].Y));
                 }
 
                 // Catmull-Rom to Cubic Bezier conversion matrix 
@@ -374,10 +374,10 @@ namespace Engine
                 //    0       0       1       0
                 var bp = new List<(double x, double y)>
                 {
-                    (x: p[1].x, y: p[1].y),
-                    (x: ((-p[0].x + 6 * p[1].x + p[2].x) / 6), y: ((-p[0].y + 6 * p[1].y + p[2].y) / 6)),
-                    (x: ((p[1].x + 6 * p[2].x - p[3].x) / 6), y: ((p[1].y + 6 * p[2].y - p[3].y) / 6)),
-                    (x: p[2].x, y: p[2].y)
+                    (p[1].x,  p[1].y),
+                    (((-p[0].x + 6 * p[1].x + p[2].x) / 6),  ((-p[0].y + 6 * p[1].y + p[2].y) / 6)),
+                    (((p[1].x + 6 * p[2].x - p[3].x) / 6),  ((p[1].y + 6 * p[2].y - p[3].y) / 6)),
+                    (p[2].x,  p[2].y)
                 };
                 d.Add(new CubicBezier(bp[1].x, bp[1].y, bp[2].x, bp[2].y, bp[3].x, bp[3].y));
             }

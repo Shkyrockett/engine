@@ -220,8 +220,8 @@ namespace Engine
             u.Clear();
             totalLength = 0;
             first = 0;
-            tanL = default(Vector2D);
-            prev = default(Vector2D);
+            tanL = default;
+            prev = default;
         }
 
         #endregion

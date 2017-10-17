@@ -28,8 +28,8 @@ namespace Engine
         /// <remarks></remarks>
         public static List<Point2D> Offset(this Point2D point, Point2D value, double distance)
         {
-            var offset = OffsetSegment(point.X, point.Y, value.X, value.Y, distance);
-            return new List<Point2D> { new Point2D(offset.x1, offset.y1), new Point2D(offset.x2, offset.y2) };
+            var (x1, y1, x2, y2) = OffsetSegment(point.X, point.Y, value.X, value.Y, distance);
+            return new List<Point2D> { new Point2D(x1, y1), new Point2D(x2, y2) };
         }
 
         /// <summary>

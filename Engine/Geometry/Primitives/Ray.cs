@@ -179,6 +179,9 @@ namespace Engine
 
         #region Methods
 
+        public override Point2D Interpolate(double t)
+            => Interpolators.Linear(location, location + direction, t);
+
         /// <summary>
         /// 
         /// </summary>

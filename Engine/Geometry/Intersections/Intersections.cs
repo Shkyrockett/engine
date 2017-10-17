@@ -2920,14 +2920,14 @@ namespace Engine
             double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-            if (PointLineSegmentIntersects(pX, pY, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
-            if (PointLineSegmentIntersects(pX, pY, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
-            if (PointLineSegmentIntersects(pX, pY, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (PointLineSegmentIntersects(pX, pY, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
+            if (PointLineSegmentIntersects(pX, pY, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
+            if (PointLineSegmentIntersects(pX, pY, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
+            if (PointLineSegmentIntersects(pX, pY, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (PointLineSegmentIntersects(pX, pY, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
             return false;
         }
 
@@ -3001,14 +3001,14 @@ namespace Engine
             double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
-            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
-            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
+            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
+            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
+            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
             return false;
         }
 
@@ -3083,14 +3083,14 @@ namespace Engine
             double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
-            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
-            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
             return false;
         }
 
@@ -3240,14 +3240,14 @@ namespace Engine
             double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
-            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
-            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
+            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
+            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
+            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
             return false;
         }
 
@@ -3303,14 +3303,14 @@ namespace Engine
             double rRight, double rBottom,
             double epsilon)
         {
-            var min = MinPoint(rLeft, rTop, rRight, rBottom);
-            var max = MaxPoint(rLeft, rTop, rRight, rBottom);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
-            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
-            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            var (minX, minY) = MinPoint(rLeft, rTop, rRight, rBottom);
+            var (maxX, maxY) = MaxPoint(rLeft, rTop, rRight, rBottom);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
             return false;
         }
 
@@ -3372,14 +3372,14 @@ namespace Engine
             double r2X, double r2Y,
             double epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
-            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, min.X, min.Y, topRight.X, topRight.Y, epsilon)) return true;
-            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, topRight.X, topRight.Y, max.X, max.Y, epsilon)) return true;
-            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon)) return true;
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
             return false;
         }
 
@@ -3910,17 +3910,17 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, min.X, min.Y, topRight.X, topRight.Y, epsilon).Points);
-            intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, max.X, max.Y, epsilon).Points);
-            intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
-            intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
+            intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon).Points);
+            intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon).Points);
+            intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon).Points);
+            intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon).Points);
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
@@ -4825,17 +4825,17 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, min.X, min.Y, topRight.X, topRight.Y, epsilon).Points);
-            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, topRight.X, topRight.Y, max.X, max.Y, epsilon).Points);
-            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
-            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
+            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, minX, minY, topRight.X, topRight.Y, epsilon).Points);
+            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, topRight.X, topRight.Y, maxX, maxY, epsilon).Points);
+            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon).Points);
+            intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon).Points);
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
@@ -5631,19 +5631,19 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var topLeft = MinPoint(r1X, r1Y, r2X, r2Y);
-            var bottomRight = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(bottomRight.X, topLeft.Y);
-            var bottomLeft = new Point2D(topLeft.X, bottomRight.Y);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the rectangle.
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentLineSegmentIntersection(topLeft.X, topLeft.Y, topRight.X, topRight.Y, lAX, lAY, lBX, lBY, epsilon).Points);
-            intersections.UnionWith(LineSegmentLineSegmentIntersection(topRight.X, topRight.Y, bottomRight.X, bottomRight.Y, lAX, lAY, lBX, lBY, epsilon).Points);
-            intersections.UnionWith(LineSegmentLineSegmentIntersection(bottomRight.X, bottomRight.Y, bottomLeft.X, bottomLeft.Y, lAX, lAY, lBX, lBY, epsilon).Points);
-            intersections.UnionWith(LineSegmentLineSegmentIntersection(bottomLeft.X, bottomLeft.Y, topLeft.X, topLeft.Y, lAX, lAY, lBX, lBY, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(minX, minY, topRight.X, topRight.Y, lAX, lAY, lBX, lBY, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(topRight.X, topRight.Y, maxX, maxY, lAX, lAY, lBX, lBY, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(maxX, maxY, bottomLeft.X, bottomLeft.Y, lAX, lAY, lBX, lBY, epsilon).Points);
+            intersections.UnionWith(LineSegmentLineSegmentIntersection(bottomLeft.X, bottomLeft.Y, minX, minY, lAX, lAY, lBX, lBY, epsilon).Points);
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
@@ -6592,17 +6592,17 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(min.X, min.Y, topRight.X, topRight.Y, xCurve, yCurve, epsilon).Points);
-            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(topRight.X, topRight.Y, max.X, max.Y, xCurve, yCurve, epsilon).Points);
-            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, xCurve, yCurve, epsilon).Points);
-            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(minX, minY, topRight.X, topRight.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(topRight.X, topRight.Y, maxX, maxY, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(maxX, maxY, bottomLeft.X, bottomLeft.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(bottomLeft.X, bottomLeft.Y, minX, minY, xCurve, yCurve, epsilon).Points);
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
@@ -6912,17 +6912,17 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(min.X, min.Y, topRight.X, topRight.Y, xCurve, yCurve, epsilon).Points);
-            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(topRight.X, topRight.Y, max.X, max.Y, xCurve, yCurve, epsilon).Points);
-            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, xCurve, yCurve, epsilon).Points);
-            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(minX, minY, topRight.X, topRight.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(topRight.X, topRight.Y, maxX, maxY, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(maxX, maxY, bottomLeft.X, bottomLeft.Y, xCurve, yCurve, epsilon).Points);
+            intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(bottomLeft.X, bottomLeft.Y, minX, minY, xCurve, yCurve, epsilon).Points);
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the rectangle and there are no intersections.
 
@@ -7137,7 +7137,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection TriangleEllipseIntersection(
-            double r1X, double r1Y, double r2X, double r2Y,double r3X, double r3Y,
+            double r1X, double r1Y, double r2X, double r2Y, double r3X, double r3Y,
             double cX, double cY, double rx, double ry, double cosA, double sinA,
             double epsilon = Epsilon)
         {
@@ -7176,17 +7176,17 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(a1X, a1Y, a2X, a2Y);
-            var max = MaxPoint(a1X, a1Y, a2X, a2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
+            var (minX, minY) = MinPoint(a1X, a1Y, a2X, a2Y);
+            var (maxX, maxY) = MaxPoint(a1X, a1Y, a2X, a2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentRectangleIntersection(min.X, min.Y, topRight.X, topRight.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
-            intersections.UnionWith(LineSegmentRectangleIntersection(topRight.X, topRight.Y, max.X, max.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
-            intersections.UnionWith(LineSegmentRectangleIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
-            intersections.UnionWith(LineSegmentRectangleIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentRectangleIntersection(minX, minY, topRight.X, topRight.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentRectangleIntersection(topRight.X, topRight.Y, maxX, maxY, b1X, b1Y, b2X, b2Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentRectangleIntersection(maxX, maxY, bottomLeft.X, bottomLeft.Y, b1X, b1Y, b2X, b2Y, epsilon).Points);
+            intersections.UnionWith(LineSegmentRectangleIntersection(bottomLeft.X, bottomLeft.Y, minX, minY, b1X, b1Y, b2X, b2Y, epsilon).Points);
 
             // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
@@ -7257,17 +7257,17 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentPolygonContourIntersection(min.X, min.Y, topRight.X, topRight.Y, points, epsilon).Points);
-            intersections.UnionWith(LineSegmentPolygonContourIntersection(topRight.X, topRight.Y, max.X, max.Y, points, epsilon).Points);
-            intersections.UnionWith(LineSegmentPolygonContourIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, points, epsilon).Points);
-            intersections.UnionWith(LineSegmentPolygonContourIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, points, epsilon).Points);
+            intersections.UnionWith(LineSegmentPolygonContourIntersection(minX, minY, topRight.X, topRight.Y, points, epsilon).Points);
+            intersections.UnionWith(LineSegmentPolygonContourIntersection(topRight.X, topRight.Y, maxX, maxY, points, epsilon).Points);
+            intersections.UnionWith(LineSegmentPolygonContourIntersection(maxX, maxY, bottomLeft.X, bottomLeft.Y, points, epsilon).Points);
+            intersections.UnionWith(LineSegmentPolygonContourIntersection(bottomLeft.X, bottomLeft.Y, minX, minY, points, epsilon).Points);
 
             // ToDo: Return IntersectionState.Inside if all of the end points are contained inside the rectangle, or the points of the rectangle are inside the polygon, and there are no intersections.
 
@@ -7301,24 +7301,24 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MinPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
 
             // ToDo: Need to determine if duplicates are acceptable, or if this attempt at performance boost is going to waste.
             var intersections = new HashSet<Point2D>();
-            intersections.UnionWith(LineSegmentCircleIntersection(min.X, min.Y, topRight.X, topRight.Y, cX, cY, r, angle, epsilon).Points);
-            intersections.UnionWith(LineSegmentCircleIntersection(topRight.X, topRight.Y, max.X, max.Y, cX, cY, r, angle, epsilon).Points);
-            intersections.UnionWith(LineSegmentCircleIntersection(max.X, max.Y, bottomLeft.X, bottomLeft.Y, cX, cY, r, angle, epsilon).Points);
-            intersections.UnionWith(LineSegmentCircleIntersection(bottomLeft.X, bottomLeft.Y, min.X, min.Y, cX, cY, r, angle, epsilon).Points);
+            intersections.UnionWith(LineSegmentCircleIntersection(minX, minY, topRight.X, topRight.Y, cX, cY, r, angle, epsilon).Points);
+            intersections.UnionWith(LineSegmentCircleIntersection(topRight.X, topRight.Y, maxX, maxY, cX, cY, r, angle, epsilon).Points);
+            intersections.UnionWith(LineSegmentCircleIntersection(maxX, maxY, bottomLeft.X, bottomLeft.Y, cX, cY, r, angle, epsilon).Points);
+            intersections.UnionWith(LineSegmentCircleIntersection(bottomLeft.X, bottomLeft.Y, minX, minY, cX, cY, r, angle, epsilon).Points);
 
             // ToDo: Return IntersectionState.Inside if all of the points of the rectangle are contained within the circle.
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
-            else result.State = LineSegmentCircleIntersection(min.X, min.Y, topRight.X, topRight.Y, cX, cY, r, angle, epsilon).State;
+            else result.State = LineSegmentCircleIntersection(minX, minY, topRight.X, topRight.Y, cX, cY, r, angle, epsilon).State;
             return result;
         }
 
@@ -7544,10 +7544,10 @@ namespace Engine
                 result = new Intersection(IntersectionState.Intersection);
                 var a = (r1 * r1 - r2 * r2 + c_dist * c_dist) / (2 * c_dist);
                 var h = Sqrt(r1 * r1 - a * a);
-                var p = Lerp(c1X, c1Y, c2X, c2Y, a / c_dist);
+                var (x, y) = Lerp(c1X, c1Y, c2X, c2Y, a / c_dist);
                 var b = h / c_dist;
-                result.AppendPoint(new Point2D(p.X - b * (c2Y - c1Y), p.Y + b * (c2X - c1X)));
-                result.AppendPoint(new Point2D(p.X + b * (c2Y - c1Y), p.Y - b * (c2X - c1X)));
+                result.AppendPoint(new Point2D(x - b * (c2Y - c1Y), y + b * (c2X - c1X)));
+                result.AppendPoint(new Point2D(x + b * (c2Y - c1Y), y - b * (c2X - c1X)));
             }
 
             return result;
@@ -7668,16 +7668,16 @@ namespace Engine
             double r1X, double r1Y, double r2X, double r2Y,
             double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            var topRight = new Point2D(max.X, min.Y);
-            var bottomLeft = new Point2D(min.X, max.Y);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            var topRight = new Point2D(maxX, minY);
+            var bottomLeft = new Point2D(minX, maxY);
 
             var result = new Intersection(IntersectionState.NoIntersection);
-            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, min.X, min.Y, topRight.X, topRight.Y, epsilon).Points);
-            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, topRight.X, topRight.Y, max.X, max.Y, epsilon).Points);
-            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, max.X, max.Y, bottomLeft.X, bottomLeft.Y, epsilon).Points);
-            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, bottomLeft.X, bottomLeft.Y, min.X, min.Y, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, minX, minY, topRight.X, topRight.Y, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, topRight.X, topRight.Y, maxX, maxY, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon).Points);
+            result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon).Points);
 
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection;
@@ -7900,6 +7900,25 @@ namespace Engine
 
             if (result.Points.Count > 0)
                 result.State = IntersectionState.Intersection; return result;
+        }
+
+        #endregion
+
+        #region Parametrized Intersection Index t Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p0x"></param>
+        /// <param name="p0y"></param>
+        /// <param name="p1x"></param>
+        /// <param name="p1y"></param>
+        /// <returns></returns>
+        public static (double? a, double? b) PointPointIntersectionT(double p0x, double p0y, double p1x, double p1y)
+        {
+            if (p0x == p1x && p0y == p1y)
+                return (1, 1);
+            return (null, null);
         }
 
         #endregion
@@ -8484,10 +8503,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamRectangle(ref List<double> scanlist, double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
         {
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            ScanbeamLineSegment(ref scanlist, x, y, max.X, min.Y, max.X, max.Y, epsilon);
-            ScanbeamLineSegment(ref scanlist, x, y, min.X, max.Y, min.X, min.Y, epsilon);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            ScanbeamLineSegment(ref scanlist, x, y, maxX, minY, maxX, maxY, epsilon);
+            ScanbeamLineSegment(ref scanlist, x, y, minX, maxY, minX, minY, epsilon);
         }
 
         /// <summary>
@@ -9165,10 +9184,10 @@ namespace Engine
         public static int ScanbeamPointsToLeftRectangle(double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
         {
             var results = 0;
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            results += ScanbeamPointsToLeftLineSegment(x, y, max.X, min.Y, max.X, max.Y, epsilon);
-            results += ScanbeamPointsToLeftLineSegment(x, y, min.X, max.Y, min.X, min.Y, epsilon);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            results += ScanbeamPointsToLeftLineSegment(x, y, maxX, minY, maxX, maxY, epsilon);
+            results += ScanbeamPointsToLeftLineSegment(x, y, minX, maxY, minX, minY, epsilon);
             return results;
         }
 
@@ -9839,10 +9858,10 @@ namespace Engine
         public static int ScanbeamPointsToRightRectangle(double x, double y, double r1X, double r1Y, double r2X, double r2Y, double epsilon = Epsilon)
         {
             var results = 0;
-            var min = MinPoint(r1X, r1Y, r2X, r2Y);
-            var max = MaxPoint(r1X, r1Y, r2X, r2Y);
-            results += ScanbeamPointsToRightLineSegment(x, y, max.X, min.Y, max.X, max.Y, epsilon);
-            results += ScanbeamPointsToRightLineSegment(x, y, min.X, max.Y, min.X, min.Y, epsilon);
+            var (minX, minY) = MinPoint(r1X, r1Y, r2X, r2Y);
+            var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
+            results += ScanbeamPointsToRightLineSegment(x, y, maxX, minY, maxX, maxY, epsilon);
+            results += ScanbeamPointsToRightLineSegment(x, y, minX, maxY, minX, minY, epsilon);
             return results;
         }
 

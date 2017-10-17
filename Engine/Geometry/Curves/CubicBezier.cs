@@ -485,7 +485,7 @@ namespace Engine
             => (double)CachingProperty(() => Measurements.CubicBezierArcLength(ax, ay, bx, by, cx, cy, dx, dy));
 
         /// <summary>
-        /// Gets the perimiter length of the <see cref="CubicBezier"/> curve.
+        /// Gets the perimeter length of the <see cref="CubicBezier"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Perimeter

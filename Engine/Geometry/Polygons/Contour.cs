@@ -320,12 +320,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
         {
-            if (t == 0 || t == 1) return points[0];
+            if (t == 0 || t == 1)
+            {
+                return points[0];
+            }
 
             var weights = new(double length, double accumulated)[points.Count + 1];
             weights[0] = (0, 0);
-            Point2D cursor = points[0];
-            double accumulatedLength = 0;
+            var cursor = points[0];
+            var accumulatedLength = 0d;
 
             // Build up the weights map.
             for (var i = 1; i < points.Count + 1; i++)

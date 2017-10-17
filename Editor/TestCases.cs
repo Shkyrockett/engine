@@ -42,6 +42,11 @@ namespace Editor
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
+            //SplitLines(vectorMap);
+            //SplitRays(vectorMap);
+            //SplitLineSegments(vectorMap);
+            //SplitQuadraticBezier(vectorMap);
+            //SplitCubicBezier(vectorMap);
             //RayWork(vectorMap);
             //NearestParameter(vectorMap, tools);
             //HeartCurve(vectorMap);
@@ -58,7 +63,7 @@ namespace Editor
             //WindingOrder(vectorMap);
             //Pathfinding(vectorMap);
             //PolylineClicking(vectorMap);
-            TextRendering(vectorMap, form, metrics);
+            //TextRendering(vectorMap, form, metrics);
             //ParametricEllipseBounds(vectorMap);
             //ParametricEllipseArc(vectorMap);
             //ParametricTesting(vectorMap);
@@ -71,17 +76,17 @@ namespace Editor
             //IntersectingsEllipseCubicSegment(vectorMap);
             //EllipticalArcLineSegmentIntersections(vectorMap);
             //EllipticalArcLineIntersections(vectorMap);
-            //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
-            //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
-            //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
-            //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
-            //IntersectionsCubicBezierQuadraticBezier(vectorMap);
-            //IntersectionsCubicBezierCubicBezier(vectorMap);
-            //BezierLineIntersections(vectorMap);
-            //BezierLineSegmentIntersections(vectorMap);
-            //QuadraticBezierHorizontalLineIntersection(vectorMap);
-            //CubicBezierHorizontalLineIntersection(vectorMap);
-            SegmentIntersections(vectorMap, form, metrics);
+            IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
+            IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
+            IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
+            IntersectionsCubicBezierCubicBezierKLD(vectorMap);
+            IntersectionsCubicBezierQuadraticBezier(vectorMap);
+            IntersectionsCubicBezierCubicBezier(vectorMap);
+            BezierLineIntersections(vectorMap);
+            BezierLineSegmentIntersections(vectorMap);
+            QuadraticBezierHorizontalLineIntersection(vectorMap);
+            CubicBezierHorizontalLineIntersection(vectorMap);
+            //SegmentIntersections(vectorMap, form, metrics);
             //IntersectionsTests(vectorMap);
             //CircularArcBounds(vectorMap);
             //EllipseBound(vectorMap);
@@ -1994,10 +1999,186 @@ namespace Editor
 
         #region Experimental
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void SplitLines(VectorMap vectorMap)
+        {
+            (double left, double top) = (0, 0);
+
+            var line = new Line(left + 200, top + 200, 10, -20);
+            var lineItem = new GraphicItem(line, solidLightGreenStyle)
+            {
+                Name = "Line"
+            };
+
+            var results = Splitings.Split(line, 0.5, 1);
+
+            foreach (var shape in results)
+            {
+                var item = new GraphicItem(shape, solidLightGreenStyle)
+                {
+                    Name = $"{shape.ToString()}"
+                };
+
+                vectorMap.Add(item);
+            }
+
+            //vectorMap.Add(lineItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void SplitRays(VectorMap vectorMap)
+        {
+            (double left, double top) = (0, 0);
+
+            var ray = new Ray(left + 200, top + 200, 10, -20);
+            var rayItem = new GraphicItem(ray, solidLightGreenStyle)
+            {
+                Name = "ray"
+            };
+
+            var results = Splitings.Split(ray, 0.75, 0.25);
+
+            foreach (var shape in results)
+            {
+                var item = new GraphicItem(shape, solidLightGreenStyle)
+                {
+                    Name = $"{shape.ToString()}"
+                };
+
+                vectorMap.Add(item);
+            }
+
+            //vectorMap.Add(rayItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void SplitLineSegments(VectorMap vectorMap)
+        {
+            (double left, double top) = (0, 0);
+
+            var segment = new LineSegment(left + 100, top + 100, left + 200, top + 200);
+            var segmentItem = new GraphicItem(segment, solidLightGreenStyle)
+            {
+                Name = "Line Segment"
+            };
+
+            var results = Splitings.Split(segment, 0.75, 0.25);
+
+            foreach (var shape in results)
+            {
+                var item = new GraphicItem(shape, solidLightGreenStyle)
+                {
+                    Name = $"{shape.ToString()}"
+                };
+
+                vectorMap.Add(item);
+            }
+
+            //vectorMap.Add(segmentItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void SplitQuadraticBezier(VectorMap vectorMap)
+        {
+            var top = 10;
+            var left = 10;
+            var scale = new Size2D(10, 10);
+            var axis = new Point2D(200, 100);
+            var angle = 0; //45d.ToRadians();
+
+            var quadratic = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ScaleDistort(scale).RotateDistort(axis, angle);
+            var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
+            {
+                Name = "Quadratic Bezier 1"
+            };
+            var quardaticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 1 Bounds"
+            };
+            var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
+            {
+                Name = "Quadratic Bezier 1 Handles"
+            };
+
+            var results = Splitings.Split(quadratic, 0.25, 0.75);
+
+            foreach (var shape in results)
+            {
+                var item = new GraphicItem(shape, intersectionBlue)
+                {
+                    Name = $"{shape.ToString()}"
+                };
+
+                vectorMap.Add(item);
+            }
+
+            vectorMap.Add(quardaticBoundsItem);
+            //vectorMap.Add(quadraticItem);
+            vectorMap.Add(quadraticHandles);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void SplitCubicBezier(VectorMap vectorMap)
+        {
+            var top = 10;
+            var left = 10;
+            var scale = new Size2D(10, 10);
+            var axis = new Point2D(200, 100);
+            var angle = 0; //45d.ToRadians();
+
+            var cubic = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ToCubicBezier().ScaleDistort(scale).RotateDistort(axis, angle);
+            var cubicItem = new GraphicItem(cubic, intersectionBlue)
+            {
+                Name = "Cubic Bezier 1"
+            };
+            var cubicBoundsItem = new GraphicItem(cubic.Bounds, selectionStyle)
+            {
+                Name = "Cubic Bezier 1 Bounds"
+            };
+            var cubicHandles = new GraphicItem(new NodeRevealer(cubic.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic Bezier 1 Handles"
+            };
+
+            var results = Splitings.Split(cubic, 0.25, 0.75);
+
+            foreach (var shape in results)
+            {
+                var item = new GraphicItem(shape, intersectionBlue)
+                {
+                    Name = $"{shape.ToString()}"
+                };
+
+                vectorMap.Add(item);
+            }
+
+            vectorMap.Add(cubicBoundsItem);
+            //vectorMap.Add(cubicItem);
+            vectorMap.Add(cubicHandles);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
         public static void RayWork(VectorMap vectorMap)
         {
-            var left = 100;
-            var top = 150;
+            (double left, double top) = (100, 150);
 
             var ray = new Ray(left + 20, top + 70, 1, 1);
             var rayItem = new GraphicItem(ray, solidLightGreenStyle)
@@ -2025,6 +2206,11 @@ namespace Editor
             vectorMap.Add(rayLineIntersectionsNodesItem);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        /// <param name="tools"></param>
         public static void NearestParameter(VectorMap vectorMap, ToolStack tools)
         {
             var top = 10;

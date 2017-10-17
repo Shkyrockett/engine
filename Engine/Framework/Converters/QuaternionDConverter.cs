@@ -71,9 +71,7 @@ namespace Engine
             if (value == null)
                 throw GetConvertFromException(value);
 
-            var source = value as string;
-
-            if (source != null)
+            if (value is string source)
                 return QuaternionD.Parse(source);
 
             return base.ConvertFrom(context, culture, value);

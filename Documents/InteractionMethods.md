@@ -1,4 +1,6 @@
-﻿# Uniform Interaction Methods Specification
+﻿# Interaction Methods Specification
+
+There are various methods of interacting with shapes and the types of information you would want to get back from the shape, and for what purpose.
 
 ## Primitive Structures
 
@@ -382,3 +384,15 @@ Intersection methods in the Intersections class should be marked as public stati
 - [x] **Circular Arc** _Needs testing._
 - [x] **Elliptical Arc** _Needs testing._
 - [ ] **Parametric Delegate Curve**
+
+
+
+| Method | Return Type | Description |
+|---|---|---|
+| Contains | Inclusion | Provides information regarding whether one shape contains the other. Because of this, only closed shapes can contain another shape. |
+| Intersects | Boolean | Provides information regarding whether two shapes intersect. |
+| Intersection | (Point[], State) | Provides information as to the location and nature of the intersection, provided two shapes intersect. |
+| Parametrized Intersection | (double[], double[]) | Provides the Parametrized t for iteration of each shape where the shapes intersect. The intended purpose is to help with splitting shapes. |
+| Scan-beam Intersection | double[] | Provides a list of t, where the intersections occur on a horizontal scan-beam line. |
+| Scan-beam To Left Intersection | int | Provides a count of the number of intersections to the left of a point on a scan-beam cross section of a shape. |
+| Scan-beam To Right Intersection | int | Provides a count of the number of intersections to the right of a point on a scan-beam cross section of a shape. |

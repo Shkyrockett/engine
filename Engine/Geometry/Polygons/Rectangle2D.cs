@@ -616,7 +616,8 @@ namespace Engine
         /// <param name="right"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Rectangle2D left, Rectangle2D right) => !Equals(left, right);
+        public static bool operator !=(Rectangle2D left, Rectangle2D right)
+            => !Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="RotatedRectangle2D"/>.
@@ -626,7 +627,8 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Rectangle2D left, Rectangle2D right) => Equals(left, right);
+        public static bool Compare(Rectangle2D left, Rectangle2D right)
+            => Equals(left, right);
 
         /// <summary>
         /// Tests whether <paramref name="left"/> is a <see cref="RotatedRectangle2D"/> with the same location and size of <paramref name="right"/>.
@@ -635,14 +637,16 @@ namespace Engine
         /// <param name="right"></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Rectangle2D left, Rectangle2D right) => (left?.X == right?.X && left?.Y == right?.Y && left?.Width == right?.Width && left?.Height == right?.Height);
+        public static bool Equals(Rectangle2D left, Rectangle2D right)
+            => (left?.X == right?.X && left?.Y == right?.Y && left?.Width == right?.Width && left?.Height == right?.Height);
 
         /// <summary>
         /// Tests whether <paramref name="obj"/> is a <see cref="Rectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public override bool Equals(object obj) => obj is Rectangle2D && Equals(this, obj as Rectangle2D);
+        public override bool Equals(object obj)
+            => obj is Rectangle2D && Equals(this, obj as Rectangle2D);
 
         #endregion
 
@@ -957,7 +961,10 @@ namespace Engine
         public void Offset(double x, double y)
         {
             if (IsEmpty)
+            {
                 throw new InvalidOperationException("Cannot call method.");
+            }
+
             this.x += x;
             this.y += y;
             OnPropertyChanged(nameof(Offset));
@@ -1023,6 +1030,11 @@ namespace Engine
         public bool IntersectsWith(Rectangle2D rect)
             => Intersections.Intersects(this, rect);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="shape"></param>
+        /// <returns></returns>
         public bool Intersects(Shape shape)
             => Intersections.Intersects(this, shape);
 
@@ -1070,11 +1082,12 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)
+            {
                 return nameof(Rectangle2D);
-            //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Rectangle2D)}{{{nameof(X)}={x},{nameof(Y)}={y},{nameof(Width)}={width},{nameof(Height)}={height}}}";
-            return formatable.ToString(format, provider);
+            return $"{nameof(Rectangle2D)}{{{nameof(X)}={x.ToString(format, provider)},{nameof(Y)}={y.ToString(format, provider)},{nameof(Width)}={width.ToString(format, provider)},{nameof(Height)}={height.ToString(format, provider)}}}";
         }
 
         #endregion

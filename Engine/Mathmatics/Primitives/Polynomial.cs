@@ -915,7 +915,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (double minY, double maxY) MinMax(double minX = 0, double maxX = 1)
         {
-            var roots = Derivate().Roots()
+            var roots = Derivate().Trim().Roots()
                 .Where(t => t > minX && t < maxX)
                 .Concat(Identity).ToArray();
 
@@ -1371,7 +1371,7 @@ namespace Engine
             }
 
             var R1 = new Complex[p.coefficients.Length - 1];
-            Func<int, Complex> divider = i =>
+            Complex divider(int i)
             {
                 Complex div = 1;
                 for (var j = 0; j < R0.Length; j++)
@@ -1380,15 +1380,15 @@ namespace Engine
                     div *= R0[i] - R0[j];
                 }
                 return div;
-            };
-            Action step = () =>
+            }
+            void step()
             {
                 for (var i = 0; i < R0.Length; i++)
                 {
                     R1[i] = R0[i] - p.Compute(R0[i]) / divider(i);
                 }
-            };
-            Func<bool> closeEnough = () =>
+            }
+            bool closeEnough()
             {
                 for (var i = 0; i < R0.Length; i++)
                 {
@@ -1396,7 +1396,7 @@ namespace Engine
                     if (Abs(c.Real) > epsilon || Abs(c.Imaginary) > epsilon) return false;
                 }
                 return true;
-            };
+            }
             var close = false;
             do
             {

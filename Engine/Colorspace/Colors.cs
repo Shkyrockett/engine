@@ -260,7 +260,7 @@ namespace Engine.Colorspace
         public static readonly ARGB CornflowerBlue = new ARGB(unchecked((int)0xFF6495ED), nameof(CornflowerBlue));
 
         /// <summary>
-        /// Cornsilk
+        /// Corn-silk
         /// </summary>
         public static readonly ARGB Cornsilk = new ARGB(unchecked((int)0xFFFFF8DC), nameof(Cornsilk));
 

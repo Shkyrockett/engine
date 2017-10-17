@@ -1445,9 +1445,9 @@ namespace MethodSpeedTester
             double PointBX, double PointBY,
             double PointCX, double PointCY)
         {
-            (double X, double Y) Center = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
-            var Radius = Distance2D_0(Center.X, Center.Y, PointAX, PointAY);
-            return Rectangle2D.FromLTRB((Center.X - Radius), (Center.Y - Radius), (Center.X + Radius), (Center.Y + Radius));
+            (double X, double Y) = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
+            var Radius = Distance2D_0(X, Y, PointAX, PointAY);
+            return Rectangle2D.FromLTRB((X - Radius), (Y - Radius), (X + Radius), (Y + Radius));
         }
 
         /// <summary>
@@ -1786,9 +1786,9 @@ namespace MethodSpeedTester
             double PointBX, double PointBY,
             double PointCX, double PointCY)
         {
-            (double X, double Y) center = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
-            var radius = Distance2D_0(center.X, center.Y, PointAX, PointAY);
-            return new Circle(new Point2D(center.X, center.Y), radius);
+            (double X, double Y) = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
+            var radius = Distance2D_0(X, Y, PointAX, PointAY);
+            return new Circle(new Point2D(X, Y), radius);
         }
 
         /// <summary>
@@ -2932,17 +2932,17 @@ namespace MethodSpeedTester
             double t)
         {
             // point between a and b
-            (double X, double Y) ab = LinearInterpolate2D_0(x0, y0, x1, y1, t);
+            (double abX, double abY) = LinearInterpolate2D_0(x0, y0, x1, y1, t);
             // point between b and c
-            (double X, double Y) bc = LinearInterpolate2D_0(x1, y1, x2, y2, t);
+            (double bcX, double bcY) = LinearInterpolate2D_0(x1, y1, x2, y2, t);
             // point between c and d
-            (double X, double Y) cd = LinearInterpolate2D_0(x2, y2, x3, y3, t);
+            (double cdX, double cdY) = LinearInterpolate2D_0(x2, y2, x3, y3, t);
             // point between ab and bc
-            (double X, double Y) abbc = LinearInterpolate2D_0(ab.X, ab.Y, bc.X, bc.Y, t);
+            (double abbcX, double abbcY) = LinearInterpolate2D_0(abX, abY, bcX, bcY, t);
             // point between bc and cd
-            (double X, double Y) bccd = LinearInterpolate2D_0(bc.X, bc.Y, cd.X, cd.Y, t);
+            (double bccdX, double bccdY) = LinearInterpolate2D_0(bcX, bcY, cdX, cdY, t);
             // point on the bezier-curve
-            return LinearInterpolate2D_0(abbc.X, abbc.Y, bccd.X, bccd.Y, t);
+            return LinearInterpolate2D_0(abbcX, abbcY, bccdX, bccdY, t);
         }
 
         /// <summary>

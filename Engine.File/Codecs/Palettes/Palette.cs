@@ -684,7 +684,7 @@ namespace Engine.File.Palettes
                             && key.Green == testColor.Green && key.Blue == testColor.Blue
                         select key)
                         .FirstOrDefault();
-            if (known != default(ARGB))
+            if (known != default)
                 return known;
             return testColor;
         }

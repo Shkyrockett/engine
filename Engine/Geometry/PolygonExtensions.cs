@@ -51,18 +51,20 @@ namespace Engine
 
             //  If there is a straight-line solution, return with it immediately.
             if (polygons.PolygonSetContainsPoints(start, end) == Inclusion.Inside)
+            {
                 return new Polyline(new List<Point2D> { start, end });
+            }
 
             // (larger than total solution dist could ever be)
             var maxLength = double.MaxValue;
 
             var pointList = new List<(double X, double Y, double TotalDistance, int Previous)>
             {
-
                 // Build a point list that refers to the corners of the
                 // polygons, as well as to the start point and endpoint.
                 (start.X, start.Y, 0d, 0)
             };
+
             foreach (PolygonContour poly in polygons.Contours)
             {
                 foreach (Point2D point in poly.Points)
@@ -75,8 +77,8 @@ namespace Engine
             var treeCount = 1;
             var bestI = 0;
             var bestJ = 0;
-            double bestDist;
-            double newDist;
+            var bestDist = 0d;
+            var newDist = 0d;
 
             // Iteratively grow the shortest-path tree until it reaches the endpoint
             // or until it becomes unable to grow, in which case exit with failure.
@@ -154,9 +156,9 @@ namespace Engine
             pts[num_points] = polygon.Points[0];
 
             // Find the centroid.
-            double X = 0;
-            double Y = 0;
-            double second_factor;
+            var X = 0d;
+            var Y = 0d;
+            var second_factor = 0d;
             for (var i = 0; i < num_points; i++)
             {
                 second_factor =
@@ -214,11 +216,10 @@ namespace Engine
             var got_negative = false;
             var got_positive = false;
             var num_points = polygon.Points.Count;
-            int B, C;
             for (var A = 0; A < num_points; A++)
             {
-                B = (A + 1) % num_points;
-                C = (B + 1) % num_points;
+                var B = (A + 1) % num_points;
+                var C = (B + 1) % num_points;
 
                 var cross_product =
                     CrossProductVector(
@@ -325,13 +326,13 @@ namespace Engine
         private static void RemoveEar(this PolygonContour polygon, List<Triangle> triangles)
         {
             // Find an ear.
-            (int A, int B, int C) ear = FindEar(polygon);
+            (int a, int b, int c) = FindEar(polygon);
 
             // Create a new triangle for the ear.
-            triangles.Add(new Triangle(polygon.Points[ear.A], polygon.Points[ear.B], polygon.Points[ear.C]));
+            triangles.Add(new Triangle(polygon.Points[a], polygon.Points[b], polygon.Points[c]));
 
             // Remove the ear from the polygon.
-            RemovePoint2DFromArray(polygon, ear.B);
+            RemovePoint2DFromArray(polygon, b);
         }
 
         /// <summary>
@@ -735,25 +736,23 @@ namespace Engine
         {
             if (IsClockwise(polygon))
             {
-                #region Already clockwise
-
+                // Already clockwise
                 for (var cntr = 0; cntr < polygon.Count - 1; cntr++)
+                {
                     yield return new LineSegment(polygon[cntr], polygon[cntr + 1]);
+                }
 
                 yield return new LineSegment(polygon[polygon.Count - 1], polygon[0]);
-
-                #endregion
             }
             else
             {
-                #region Reverse
-
+                // Reverse
                 for (var cntr = polygon.Count - 1; cntr > 0; cntr--)
+                {
                     yield return new LineSegment(polygon[cntr], polygon[cntr - 1]);
+                }
 
                 yield return new LineSegment(polygon[0], polygon[polygon.Count - 1]);
-
-                #endregion
             }
         }
 
@@ -769,7 +768,7 @@ namespace Engine
             bool? isLeft = IsLeftOf(edge, test);
             if (isLeft == null)
             {
-                //	Collinear points should be considered inside
+                // Collinear points should be considered inside
                 return true;
             }
 
@@ -787,8 +786,11 @@ namespace Engine
             for (var cntr = 2; cntr < polygon.Count; cntr++)
             {
                 bool? isLeft = IsLeftOf(new LineSegment(polygon[0], polygon[1]), polygon[cntr]);
-                if (isLeft != null)     //	some of the points may be collinear.  That's ok as long as the overall is a polygon
+                if (isLeft != null)
+                {
+                    // some of the points may be collinear.  That's ok as long as the overall is a polygon
                     return !isLeft.Value;
+                }
             }
 
             throw new ArgumentException("All the points in the polygon are collinear");
@@ -800,19 +802,25 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool? IsLeftOf(LineSegment edge, Point2D test)
         {
-            Vector2D tmp1 = edge.B - edge.A;
-            Vector2D tmp2 = test - edge.B;
+            var tmp1 = edge.B - edge.A;
+            var tmp2 = test - edge.B;
 
-            var x = (tmp1.I * tmp2.J) - (tmp1.J * tmp2.I);
             // dot product of perpendicular?
+            var x = (tmp1.I * tmp2.J) - (tmp1.J * tmp2.I);
 
             if (x < 0)
+            {
                 return false;
+            }
             else if (x > 0)
+            {
                 return true;
-            // Collinear points;
+            }
             else
+            {
+                // Collinear points;
                 return null;
+            }
         }
 
         #endregion

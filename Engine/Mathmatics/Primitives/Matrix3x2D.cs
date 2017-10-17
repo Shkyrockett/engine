@@ -943,22 +943,18 @@ namespace Engine
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         public void Rotate(double angle)
-        {
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this *= CreateRotationRadians((angle * (PI / 180.0)));
-            this *= CreateRotationRadians(Maths.WrapAngle(angle));
-        }
+            => this *= CreateRotationRadians(Maths.WrapAngle(angle));
 
         /// <summary>
         /// Prepends a rotation about the origin to "this"
         /// </summary>
         /// <param name='angle'>The angle to rotate specified in degrees</param>
         public void RotatePrepend(double angle)
-        {
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this = CreateRotationRadians((angle * (PI / 180.0))) * this;
-            this = CreateRotationRadians(Maths.WrapAngle(angle)) * this;
-        }
+            => this = CreateRotationRadians(Maths.WrapAngle(angle)) * this;
 
         /// <summary>
         /// Rotates this matrix about the given point
@@ -967,11 +963,9 @@ namespace Engine
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
         public void RotateAt(double angle, double centerX, double centerY)
-        {
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this *= CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY);
-            this *= CreateRotationRadians(Maths.WrapAngle(angle), centerX, centerY);
-        }
+            => this *= CreateRotationRadians(Maths.WrapAngle(angle), centerX, centerY);
 
         /// <summary>
         /// Prepends a rotation about the given point to "this"
@@ -980,11 +974,9 @@ namespace Engine
         /// <param name='centerX'>The centerX of rotation</param>
         /// <param name='centerY'>The centerY of rotation</param>
         public void RotateAtPrepend(double angle, double centerX, double centerY)
-        {
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this = CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY) * this;
-            this = CreateRotationRadians(Maths.WrapAngle(angle), centerX, centerY) * this;
-        }
+            => this = CreateRotationRadians(Maths.WrapAngle(angle), centerX, centerY) * this;
 
         /// <summary>
         /// Scales this matrix around the origin
@@ -1028,13 +1020,11 @@ namespace Engine
         /// <param name='skewX'>The skew angle in the x dimension in radians</param>
         /// <param name='skewY'>The skew angle in the y dimension in radians</param>
         public void Skew(double skewX, double skewY)
-        {
             //skewX %= 360;
             //skewY %= 360;
             //this *= CreateSkewRadians((skewX * (PI / 180.0)),
             //                         (skewY * (PI / 180.0)));
-            this *= CreateSkewRadians(Maths.WrapAngle(skewX), Maths.WrapAngle(skewY));
-        }
+            => this *= CreateSkewRadians(Maths.WrapAngle(skewX), Maths.WrapAngle(skewY));
 
         /// <summary>
         /// Prepends a skew to this matrix
@@ -1042,13 +1032,11 @@ namespace Engine
         /// <param name='skewX'>The skew angle in the x dimension in radians</param>
         /// <param name='skewY'>The skew angle in the y dimension in radians</param>
         public void SkewPrepend(double skewX, double skewY)
-        {
             //skewX %= 360;
             //skewY %= 360;
             //this = CreateSkewRadians((skewX * (PI / 180.0)),
             //                         (skewY * (PI / 180.0))) * this;
-            this = CreateSkewRadians(Maths.WrapAngle(skewX), Maths.WrapAngle(skewY)) * this;
-        }
+            => this = CreateSkewRadians(Maths.WrapAngle(skewX), Maths.WrapAngle(skewY)) * this;
 
         /// <summary>
         /// Translates this matrix

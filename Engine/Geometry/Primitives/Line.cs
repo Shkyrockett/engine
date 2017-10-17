@@ -186,6 +186,9 @@ namespace Engine
 
         #region Methods
 
+        public override Point2D Interpolate(double t)
+            => Interpolators.Linear(location, location + direction, t);
+
         /// <summary>
         /// Creates a string representation of this <see cref="Line"/> struct based on the format string
         /// and IFormatProvider passed in.

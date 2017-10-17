@@ -54,7 +54,7 @@ namespace Engine
         /// </summary>
         /// <param name="polylines"></param>
         public PolylineSet(params IEnumerable<Point2D>[] polylines)
-            :this(new List<List<Point2D>>(polylines as List<Point2D>[]))
+            : this(new List<List<Point2D>>(polylines as List<Point2D>[]))
         { }
 
         /// <summary>
@@ -189,7 +189,8 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="polyline"></param>
-        public void Add(Polyline polyline) => polylines.Add(polyline);
+        public void Add(Polyline polyline)
+            => polylines.Add(polyline);
 
         #endregion
 

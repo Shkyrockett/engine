@@ -28,7 +28,7 @@ namespace Engine
         /// <summary>
         /// No changes were made.
         /// </summary>
-        public static readonly AddPointResult NO_CHANGE = default(AddPointResult);
+        public static readonly AddPointResult NO_CHANGE = default;
 
         #endregion
 

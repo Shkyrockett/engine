@@ -343,7 +343,7 @@ namespace Engine
             => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(ax, ay, bx, by, cx, cy));
 
         /// <summary>
-        /// Gets the perimiter length of the <see cref="QuadraticBezier"/> curve.
+        /// Gets the perimeter length of the <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Perimeter

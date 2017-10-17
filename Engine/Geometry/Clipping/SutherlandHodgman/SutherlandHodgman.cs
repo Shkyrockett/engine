@@ -56,7 +56,7 @@ namespace Engine
                 if (inputList.Count == 0)
                     break;
 
-                Point2D S = inputList[inputList.Count - 1];
+                var S = inputList[inputList.Count - 1];
 
                 foreach (Point2D e in inputList)
                 {

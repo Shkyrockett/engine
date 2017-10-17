@@ -379,9 +379,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Reflect(double x1, double y1, double x2, double y2, double axisX, double axisY)
         {
-            var vectorDelta = Delta(x1, y1, x2, y2);
-            var magnatude = 0.5d * DotProduct(vectorDelta.I, vectorDelta.J, vectorDelta.I, vectorDelta.J);
-            var reflection = CrossProduct(vectorDelta.I, vectorDelta.J, CrossProduct(x2, y2, x1, y1), DotProduct(axisX, axisY, vectorDelta.I, vectorDelta.J));
+            var (i, j) = Delta(x1, y1, x2, y2);
+            var magnatude = 0.5d * DotProduct(i, j, i, j);
+            var reflection = CrossProduct(i, j, CrossProduct(x2, y2, x1, y1), DotProduct(axisX, axisY, i, j));
             return ((magnatude * reflection - axisX),
                     (magnatude * reflection - axisY));
         }

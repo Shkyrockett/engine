@@ -255,12 +255,19 @@ namespace Engine
         /// <returns></returns>
         public override Point2D Interpolate(double t)
         {
-            if (t == 0) return points[0];
-            if (t == 1) return points[points.Count - 1];
+            switch (t)
+            {
+                case 0:
+                    return points[0];
+                case 1:
+                    return points[points.Count - 1];
+                default:
+                    break;
+            }
 
             var weights = new(double length, double accumulated)[points.Count];
             weights[0] = (0, 0);
-            Point2D cursor = points[0];
+            var cursor = points[0];
             double accumulatedLength = 0;
 
             // Build up the weights map.
@@ -307,7 +314,10 @@ namespace Engine
         {
             var outPath = new List<Point2D>(path.points.Count);
             for (var i = 0; i < path.points.Count; i++)
+            {
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
+            }
+
             return new Polyline(outPath);
         }
 
@@ -362,7 +372,10 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)
+            {
                 return nameof(Polyline);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Polyline)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);

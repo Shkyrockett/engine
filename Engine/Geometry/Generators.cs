@@ -37,14 +37,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour RegularConvexPolygon(double x, double y, double radius, int count, double angle = -Right)
         {
-            Point2D[] points = new Point2D[count];
+            var points = new Point2D[count];
             var theta = angle;
-            var dtheta = Tau / count;
+            var difference = Tau / count;
             for (var i = 0; i < count; i++)
             {
-                points[i].X = x + (radius * Cos(theta));
-                points[i].Y = y + (radius * Sin(theta));
-                theta += dtheta;
+                points[i] = new Point2D(x + (radius * Cos(theta)), y + (radius * Sin(theta)));
+                theta += difference;
             }
 
             return new PolygonContour(points);

@@ -843,11 +843,12 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null)
+            {
                 return nameof(RotatedRectangle2D);
-            //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(RotatedRectangle2D)}{{{nameof(X)}={x},{nameof(Y)}={y},{nameof(Width)}={width},{nameof(Height)}={height},{nameof(Angle)}={angle}}}";
-            return formatable.ToString(format, provider);
+            return $"{nameof(RotatedRectangle2D)}{{{nameof(X)}={x.ToString(format, provider)},{nameof(Y)}={y.ToString(format, provider)},{nameof(Width)}={width.ToString(format, provider)},{nameof(Height)}={height.ToString(format, provider)},{nameof(Angle)}={angle.ToString(format, provider)}}}";
         }
 
         #endregion

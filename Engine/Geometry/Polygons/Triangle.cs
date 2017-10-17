@@ -51,8 +51,15 @@ namespace Engine
         public Triangle(PolygonContour polygon)
             : base(polygon.Points)
         {
-            if (polygon.Points.Count > 3) throw new IndexOutOfRangeException();
-            if (polygon.Points.Count < 3) throw new IndexOutOfRangeException();
+            if (polygon.Points.Count > 3)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            if (polygon.Points.Count < 3)
+            {
+                throw new IndexOutOfRangeException();
+            }
         }
 
         /// <summary>
@@ -62,8 +69,15 @@ namespace Engine
         public Triangle(Polyline polyline)
             : base(polyline.Points)
         {
-            if (polyline.Points.Count > 3) throw new IndexOutOfRangeException();
-            if (polyline.Points.Count < 3) throw new IndexOutOfRangeException();
+            if (polyline.Points.Count > 3)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            if (polyline.Points.Count < 3)
+            {
+                throw new IndexOutOfRangeException();
+            }
         }
 
         /// <summary>
@@ -73,8 +87,15 @@ namespace Engine
         public Triangle(params Point2D[] points)
             : this(new List<Point2D>(points))
         {
-            if (points.Length > 3) throw new IndexOutOfRangeException();
-            if (points.Length < 3) throw new IndexOutOfRangeException();
+            if (points.Length > 3)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            if (points.Length < 3)
+            {
+                throw new IndexOutOfRangeException();
+            }
         }
 
         /// <summary>
@@ -84,8 +105,15 @@ namespace Engine
         public Triangle(IEnumerable<Point2D> points)
             : base(points)
         {
-            if ((points as List<Point2D>).Count > 3) throw new IndexOutOfRangeException();
-            if ((points as List<Point2D>).Count < 3) throw new IndexOutOfRangeException();
+            if ((points as List<Point2D>).Count > 3)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            if ((points as List<Point2D>).Count < 3)
+            {
+                throw new IndexOutOfRangeException();
+            }
         }
 
         #endregion
@@ -210,7 +238,11 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Triangle);
+            if (this == null)
+            {
+                return nameof(Triangle);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Triangle)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);

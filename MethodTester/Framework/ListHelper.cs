@@ -63,6 +63,6 @@ namespace MethodSpeedTester
         /// http://blogs.windward.net/davidt/2012/01/12/c-dictionary-getvalueordefault/
         /// </remarks>
         public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key)
-            => dic.TryGetValue(key, out var result) ? result : default(TValue);
+            => dic.TryGetValue(key, out var result) ? result : default;
     }
 }

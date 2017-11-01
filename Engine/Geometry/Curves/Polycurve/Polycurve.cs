@@ -65,6 +65,17 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="items"></param>
+        public void Deconstruct(out List<PolycurveContour> items)
+            => items = contours;
+
+        #endregion
+
         #region Indexers
 
         /// <summary>

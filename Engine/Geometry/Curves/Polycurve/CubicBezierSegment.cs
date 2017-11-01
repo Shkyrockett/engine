@@ -79,6 +79,33 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// Deconstruct this <see cref="CubicBezierSegment"/> to a Tuple.
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
+        public void Deconstruct(out double ax, out double ay, out double bx, out double by, out double cx, out double cy, out double dx, out double dy)
+        {
+            ax = this.Start.Value.X;
+            ay = this.Start.Value.Y;
+            bx = this.Handle1.X;
+            by = this.Handle1.Y;
+            cx = this.Handle2.Value.X;
+            cy = this.Handle2.Value.Y;
+            dx = this.End.Value.X;
+            dy = this.End.Value.Y;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

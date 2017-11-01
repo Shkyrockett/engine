@@ -106,6 +106,31 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// Deconstruct this <see cref="EllipticalArc"/> to a Tuple.
+        /// </summary>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <param name="angle"></param>
+        /// <param name="largeArc"></param>
+        /// <param name="sweep"></param>
+        /// <param name="endX"></param>
+        /// <param name="endY"></param>
+        public void Deconstruct(out double rX, out double rY, out double angle, out bool largeArc, out bool sweep, out double endX, out double endY)
+        {
+            rX = this.rX;
+            rY = this.rY;
+            endX = this.end.X;
+            endY = this.end.Y;
+            angle = this.angle;
+            largeArc = this.largeArc;
+            sweep = this.sweep;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

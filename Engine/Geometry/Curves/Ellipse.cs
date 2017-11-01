@@ -129,6 +129,27 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// Deconstruct this <see cref="Ellipse"/> to a Tuple.
+        /// </summary>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        /// <param name="rX"></param>
+        /// <param name="rY"></param>
+        /// <param name="angle"></param>
+        public void Deconstruct(out double cx, out double cy, out double rX, out double rY, out double angle)
+        {
+            cx = this.x;
+            cy = this.x;
+            rX = this.rX;
+            rY = this.rY;
+            angle = this.angle;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

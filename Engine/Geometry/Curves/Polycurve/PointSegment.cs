@@ -72,6 +72,21 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void Deconstruct(out double x, out double y)
+        {
+            x = Start.Value.X;
+            y = Start.Value.Y;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

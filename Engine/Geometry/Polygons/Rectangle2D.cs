@@ -161,6 +161,25 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="top"></param>
+        /// <param name="height"></param>
+        /// <param name="width"></param>
+        public void Deconstruct(out double left, out double top, out double width, out double height)
+        {
+            left = this.x;
+            top = this.y;
+            width = this.width;
+            height = this.height;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

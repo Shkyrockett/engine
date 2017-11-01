@@ -76,6 +76,29 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// Deconstruct this <see cref="QuadraticBezier"/> to a Tuple.
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        public void Deconstruct(out double ax, out double ay, out double bx, out double by, out double cx, out double cy)
+        {
+            ax = this.Start.Value.X;
+            ay = this.Start.Value.Y;
+            bx = this.Handle.Value.X;
+            by = this.Handle.Value.Y;
+            cx = this.End.Value.X;
+            cy = this.End.Value.Y;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

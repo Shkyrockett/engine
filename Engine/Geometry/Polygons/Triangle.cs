@@ -118,6 +118,29 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aX"></param>
+        /// <param name="aY"></param>
+        /// <param name="bY"></param>
+        /// <param name="bX"></param>
+        /// <param name="cY"></param>
+        /// <param name="cX"></param>
+        public void Deconstruct(out double aX, out double aY, out double bX, out double bY, out double cX, out double cY)
+        {
+            aX = this.A.X;
+            aY = this.A.Y;
+            bX = this.B.X;
+            bY = this.B.Y;
+            cX = this.C.X;
+            cY = this.C.Y;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

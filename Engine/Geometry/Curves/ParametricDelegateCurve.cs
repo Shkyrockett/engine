@@ -84,6 +84,27 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// Deconstruct this <see cref="ParametricDelegateCurve"/> to a Tuple.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="h"></param>
+        /// <param name="v"></param>
+        /// <param name="r"></param>
+        public void Deconstruct(out double x, out double y, out double h, out double v, out double r)
+        {
+            x = this.x;
+            y = this.y;
+            h = this.h;
+            v = this.v;
+            r = this.r;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

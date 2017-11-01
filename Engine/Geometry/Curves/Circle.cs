@@ -177,6 +177,23 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// Deconstruct this <see cref="Circle"/> to a Tuple.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="radius"></param>
+        public void Deconstruct(out double x, out double y, out double radius)
+        {
+            x = this.x;
+            y = this.y;
+            radius = this.radius;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

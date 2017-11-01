@@ -137,6 +137,27 @@ namespace Engine
 
         #endregion
 
+        #region Deconstructors
+
+        /// <summary>
+        /// Deconstruct this <see cref="CircularSegment"/> to a Tuple.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="radius"></param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        public void Deconstruct(out double x, out double y, out double radius, out double startAngle, out double endAngle)
+        {
+            x = this.x;
+            y = this.y;
+            radius = this.radius;
+            startAngle = this.startAngle;
+            endAngle = this.endAngle;
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

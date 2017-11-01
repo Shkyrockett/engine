@@ -600,9 +600,11 @@ namespace Engine
                 case PolynomialDegree.Linear:
                     return LineSegmentBounds(bezier[0].X, bezier[0].Y, bezier[1].X, bezier[1].Y);
                 case PolynomialDegree.Quadratic:
-                    return QuadraticBezierBounds(bezier[0].X, bezier[0].Y, bezier[1].X, bezier[1].Y, bezier[2].X, bezier[2].Y);
+                    //return QuadraticBezierBounds(bezier[0].X, bezier[0].Y, bezier[1].X, bezier[1].Y, bezier[2].X, bezier[2].Y);
+                    return BezierBounds(bezier.CurveX, bezier.CurveY);
                 case PolynomialDegree.Cubic:
-                    return CubicBezierBounds(bezier[0].X, bezier[0].Y, bezier[1].X, bezier[1].Y, bezier[2].X, bezier[2].Y, bezier[3].X, bezier[3].Y);
+                    //return CubicBezierBounds(bezier[0].X, bezier[0].Y, bezier[1].X, bezier[1].Y, bezier[2].X, bezier[2].Y, bezier[3].X, bezier[3].Y);
+                    return BezierBounds(bezier.CurveX, bezier.CurveY);
                 default:
                     return Rectangle2D.Empty;
             }
@@ -616,7 +618,8 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this QuadraticBezier bezier)
-            => QuadraticBezierBounds(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY);
+            //=> QuadraticBezierBounds(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY);
+            => BezierBounds(bezier.CurveX, bezier.CurveY);
 
         /// <summary>
         /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Cubic Bezier curve.
@@ -626,7 +629,8 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this CubicBezier bezier)
-            => CubicBezierBounds(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY, bezier.DX, bezier.DY);
+            //=> CubicBezierBounds(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY, bezier.DX, bezier.DY);
+            => BezierBounds(bezier.CurveX, bezier.CurveY);
 
         /// <summary>
         /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Polycurve contour path.
@@ -790,43 +794,45 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double? ConstrainedDistanceLineSegmentPoint(
-            double aX, double aY,
-            double bX, double bY,
+            double aX, double aY, double bX, double bY,
             double pX, double pY)
         {
-            var ul = bX - aX;
-            var vl = bY - aY;
+            // Vector of line segment a->b
+            (var ui, var uj) = (bX - aX, bY - aY);
 
-            var up = aX - pX;
-            var vp = aY - pY;
+            // Vector a->p
+            (var vi, var vj) = (aX - pX, aY - pY);
+
+            // Get the determinant or squared length of the line segment.
+            var d = ui * ui + uj * uj;
 
             // Get the length of the line segment.
-            var length = Sqrt(ul * ul + vl * vl);
+            var length = Sqrt(d);
 
             // Check whether the line is a line or a point.
             if (length == 0) return null;
 
             // Find the interpolation value.
-            var t = -(up * ul + vp * vl) / (length * length);
+            var t = -(vi * ui + vj * uj) / d;
 
             // Check whether the closest point falls on the line segment.
             if (t < 0d || t > 1d) return null;
 
             // Return the length to the nearest point on the line segment.
             return (length == 0)
-                ? Sqrt(up * up + vp * vp)
-                : Abs(ul * vp - up * vl) / length;
+                ? Sqrt(vi * vi + vj * vj)
+                : Abs(ui * vj - vi * uj) / length;
         }
 
         /// <summary>
         /// Calculates the distance between a point and a line.
         /// </summary>
-        /// <param name="aX">The x-component of the first point on the line.</param>
-        /// <param name="aY">The y-component of the first point on the line.</param>
-        /// <param name="bX">The x-component of the second point on the line.</param>
-        /// <param name="bY">The y-component of the second point on the line.</param>
-        /// <param name="pX">The x-component of the point.</param>
-        /// <param name="pY">The y-component of the point.</param>
+        /// <param name="aX">The x-component of the location point of the line.</param>
+        /// <param name="aY">The y-component of the location point of the line.</param>
+        /// <param name="ai">The i-component of the vector of the line.</param>
+        /// <param name="aj">The j-component of the vector of the line.</param>
+        /// <param name="pX">The x-component of the test point.</param>
+        /// <param name="pY">The y-component of the test point.</param>
         /// <returns>Returns the shortest distance to the line from the point.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -836,23 +842,19 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DistanceLinePoint(
-            double aX, double aY,
-            double bX, double bY,
+            double aX, double aY, double ai, double aj,
             double pX, double pY)
         {
-            var ul = bX - aX;
-            var vl = bY - aY;
-
-            var up = aX - pX;
-            var vp = aY - pY;
+            // Vector a->p
+            (var vi, var vj) = (aX - pX, aY - pY);
 
             // Get the length of the line segment.
-            var length = Sqrt(ul * ul + vl * vl);
+            var length = Sqrt(ai * ai + aj * aj);
 
             // Return the length to the nearest point on the line.
             return (length == 0)
-                ? Sqrt(up * up + vp * vp)
-                : Abs(ul * vp - up * vl) / length;
+                ? Sqrt(vi * vi + vj * vj)
+                : Abs(ai * vj - vi * aj) / length;
         }
 
         /// <summary>
@@ -868,35 +870,35 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DistanceLineSegmentPoint(
-            double aX, double aY,
-            double bX, double bY,
+            double aX, double aY, double bX, double bY,
             double pX, double pY)
         {
-            var ul = bX - aX;
-            var vl = bY - aY;
+            // Vector of line segment a->b
+            (var ui, var uj) = (bX - aX, bY - aY);
 
-            var up0 = aX - pX;
-            var vp0 = aY - pY;
+            // Vector a->p
+            (var vi, var vj) = (aX - pX, aY - pY);
 
-            var up1 = aX - pX;
-            var vp1 = aY - pY;
+            // Vector b->p
+            (var wi, var wj) = (bX - pX, bY - pY);
+
+            // Get the determinant or squared length of the line segment.
+            var d = ui * ui + uj * uj;
 
             // Get the length of the line segment.
-            var length = Sqrt(ul * ul + vl * vl);
+            var length = Sqrt(d);
 
             // Find the interpolation value.
-            var t = -(up0 * ul + vp0 * vl) / (length * length);
+            var t = -(vi * ui + vj * uj) / d;
 
-            // Check whether the closest point falls on the line segment.
-            if (t < 0d)
-                return Sqrt(up0 * up0 + vp0 * vp0);
-            else if (t > 1d)
-                return Sqrt(up1 * up1 + vp1 * vp1);
-
-            // Return the length to the nearest point on the line segment.
-            return (length == 0)
-                ? Sqrt(up0 * up0 + vp0 * vp0)
-                : Abs(ul * vp0 - up0 * vl) / length;
+            // Return the distance to the nearest point on the line segment.
+            return (t < 0d) /* Check whether the closest point falls between the ends of line segment. */
+                ? Sqrt(vi * vi + vj * vj)
+                : (t > 1d)
+                ? Sqrt(wi * wi + wj * wj)
+                : (length == 0)
+                ? Sqrt(vi * vi + vj * vj)
+                : Abs(ui * vj - vi * uj) / length;
         }
 
         #endregion
@@ -1006,24 +1008,65 @@ namespace Engine
         /// <summary>
         /// Calculates the square of the distance of a point from a line.
         /// </summary>
-        /// <param name="lx2">The x component of the first point on the line.</param>
-        /// <param name="ly2">The y component of the first point on the line.</param>
-        /// <param name="lx3">The x component of the second point on the line.</param>
-        /// <param name="ly3">The y component of the second point on the line.</param>
-        /// <param name="x1">The x component of the Point.</param>
-        /// <param name="y1">The y component of the Point.</param>
+        /// <param name="ax">The x component of the first point on the line.</param>
+        /// <param name="ay">The y component of the first point on the line.</param>
+        /// <param name="bx">The x component of the second point on the line.</param>
+        /// <param name="by">The y component of the second point on the line.</param>
+        /// <param name="px">The x component of the Point.</param>
+        /// <param name="py">The y component of the Point.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double SquareDistanceLineSegmentPoint(
+            double ax, double ay, double bx, double by,
+            double px, double py)
+        {
+            // Vector of line segment a->b
+            (var ui, var uj) = (bx - ax, by - ay);
+
+            // Vector a->p
+            (var vi, var vj) = (ax - px, ay - py);
+
+            // Vector b->p
+            (var wi, var wj) = (bx - px, by - py);
+
+            var c = ui * vj - vi * uj;
+
+            // Get the determinant or squared length of the line segment.
+            var d = ui * ui + uj * uj;
+
+            // Find the interpolation value.
+            var t = -(vi * ui + vj * uj) / d;
+
+            // Return the distance to the nearest point on the line segment.
+            return (t < 0d) /* Check whether the closest point falls between the ends of line segment. */
+                ? (vi * vi + vj * vj)
+                : (t > 1d)
+                ? (wi * wi + wj * wj)
+                : (d == 0)
+                ? (vi * vi + vj * vj)
+                : (c * c) / d;
+        }
+
+        /// <summary>
+        /// Calculates the square of the distance of a point from a line.
+        /// </summary>
+        /// <param name="lx">The x component of the first point on the line.</param>
+        /// <param name="ly">The y component of the first point on the line.</param>
+        /// <param name="li">The x component of the second point on the line.</param>
+        /// <param name="lj">The y component of the second point on the line.</param>
+        /// <param name="px">The x component of the Point.</param>
+        /// <param name="py">The y component of the Point.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double SquareDistanceToLine(
-            double lx2, double ly2,
-            double lx3, double ly3,
-            double x1, double y1)
+        public static double SquareDistanceLinePoint(
+            double lx, double ly, double li, double lj,
+            double px, double py)
         {
-            var a = ly2 - ly3;
-            var b = lx3 - lx2;
-            var c = (a * x1 + b * y1) - (a * lx2 + b * ly2);
-            return (c * c) / (a * a + b * b);
+            var c = (lj * px + li * py) - (lj * lx + li * ly);
+            var d = lj * lj + li * li;
+            return (c * c) / d;
         }
 
         #endregion
@@ -1040,73 +1083,36 @@ namespace Engine
         /// <param name="pX">The x component of the point.</param>
         /// <param name="pY">The y component of the point.</param>
         /// <returns>Returns the nearest point on a line segment to a point.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) NearestPointOnLineSegment2(
-            double aX, double aY,
-            double bX, double bY,
-            double pX, double pY)
-        {
-            var ul = bX - aX;
-            var vl = bY - aY;
-
-            var up = aX - pX;
-            var vp = aY - pY;
-
-            // Get the length of the line segment.
-            var length = Sqrt(ul * ul + vl * vl);
-
-            // Find the interpolation value.
-            var t = -(up * ul + vp * vl) / (length * length);
-
-            // Return the nearest point on the line segment.
-            return (t < 0d)
-                ? (aX, aY)
-                : (t > 1d)
-                ? (bX, bY)
-                : (aX + t * ul, aY + t * vl);
-        }
-
-        /// <summary>
-        /// Finds the nearest point on a line segment to a point.
-        /// </summary>
-        /// <param name="aX">The x component of the first point on the line segment.</param>
-        /// <param name="aY">The y component of the first point on the line segment.</param>
-        /// <param name="bX">The x component of the second point on the line segment.</param>
-        /// <param name="bY">The y component of the second point on the line segment.</param>
-        /// <param name="pX">The x component of the point.</param>
-        /// <param name="pY">The y component of the point.</param>
-        /// <returns>Returns the nearest point on a line segment to a point.</returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double X, double Y) NearestPointOnLineSegment(
-            double aX, double aY,
-            double bX, double bY,
+        public static (double X, double Y) NearestPointOnLineSegment(
+            double aX, double aY, double bX, double bY,
             double pX, double pY)
         {
-            // Vector A->P
-            var diffAP = new Point2D(pX - aX, pY - aY);
+            // Vector of line segment a->b
+            (var ui, var uj) = (bX - aX, bY - aY);
 
-            // Vector A->B
-            var diffAB = new Point2D(bX - aX, bY - aY);
-            var dotAB = diffAB.X * diffAB.X + diffAB.Y * diffAB.Y;
+            // Vector a->p
+            (var vi, var vj) = (pX - aX, pY - aY);
 
-            // The dot product of diffAP and diffAB
-            var dotABAP = diffAP.X * diffAB.X + diffAP.Y * diffAB.Y;
+            // Get the determinant or squared length of the line segment.
+            var d = ui * ui + uj * uj;
 
-            //  # The normalized "distance" from a to the closest point
-            var dist = dotABAP / dotAB;
+            // The dot product of the u and v vectors.
+            var a = vi * ui + vj * uj;
 
-            if (dist < 0)
-                return (aX, aY);
-            else if (dist > dotABAP)
-                return (bX, bY);
-            else
-                return (aX + diffAB.X * dist, aY + diffAB.Y * dist);
+            // Find the interpolation value, the normalized "distance" from a to the closest point
+            var t = d == 0 ? a : a / d;
+
+            // Return the nearest point on the line segment.
+            return (t < 0d) /* Check whether the closest point falls between the ends of line segment. */
+                ? (aX, aY)
+                : (t > 1d)
+                ? (bX, bY)
+                : (aX + ui * t, aY + uj * t);
         }
 
         /// <summary>
@@ -1716,6 +1722,9 @@ namespace Engine
             double angle,
             double startAngle, double sweepAngle)
         {
+            if (r1 == 0 && r2 == 0)
+                return new Rectangle2D(cX, cX, 0, 0);
+
             // Get the ellipse rotation transform.
             var cosT = Cos(angle);
             var sinT = Sin(angle);
@@ -1787,6 +1796,21 @@ namespace Engine
         public static Rectangle2D RotatedRectangleBounds(
             double width, double height,
             Point2D fulcrum, double angle)
+            => RotatedRectangleBounds(width, height, fulcrum.X, fulcrum.Y, angle);
+
+        /// <summary>
+        /// Calculate the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated rectangle.
+        /// </summary>
+        /// <param name="height">The height of the rectangle to rotate.</param>
+        /// <param name="width">The width of the rectangle to rotate.</param>
+        /// <param name="fulcrum">The point at which to rotate the rectangle.</param>
+        /// <param name="angle">The angle in radians to rotate the rectangle/</param>
+        /// <returns>Returns an Axis Aligned Bounding Box (AABB) Rectangle with the location and height, width bounding the rotated rectangle.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Rectangle2D RotatedRectangleBounds(
+            double width, double height,
+            double fulcrumX, double fulcrumY, double angle)
         {
             var cosAngle = Abs(Cos(angle));
             var sinAngle = Abs(Sin(angle));
@@ -1797,8 +1821,8 @@ namespace Engine
                 );
 
             var loc = new Point2D(
-                fulcrum.X + ((-width * 0.5d) * cosAngle + (-height * 0.5d) * sinAngle),
-                fulcrum.Y + ((-width * 0.5d) * sinAngle + (-height * 0.5d) * cosAngle)
+                fulcrumX + ((-width * 0.5d) * cosAngle + (-height * 0.5d) * sinAngle),
+                fulcrumY + ((-width * 0.5d) * sinAngle + (-height * 0.5d) * cosAngle)
                 );
 
             return new Rectangle2D(loc, size);
@@ -1872,129 +1896,129 @@ namespace Engine
             return new Rectangle2D(left, top, right - left, bottom - top);
         }
 
-        /// <summary>
-        /// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Quadratic Bezier curve.
-        /// </summary>
-        /// <param name="ax">The x-component of the starting point.</param>
-        /// <param name="ay">The y-component of the starting point.</param>
-        /// <param name="bx">The x-component of the handle point.</param>
-        /// <param name="by">The y-component of the handle point.</param>
-        /// <param name="cx">The x-component of the end point.</param>
-        /// <param name="cy">The y-component of the end point.</param>
-        /// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Quadratic Bezier curve.</returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
-        /// http://jsfiddle.net/SalixAlba/QQnvm/4/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D QuadraticBezierBounds(
-            double ax, double ay,
-            double bx, double by,
-            double cx, double cy)
-        {
-            var cubic = Conversions.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
-            return CubicBezierBounds(cubic[0].X, cubic[0].Y, cubic[1].X, cubic[1].Y, cubic[2].X, cubic[2].Y, cubic[3].X, cubic[3].Y);
-        }
+        ///// <summary>
+        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Quadratic Bezier curve.
+        ///// </summary>
+        ///// <param name="ax">The x-component of the starting point.</param>
+        ///// <param name="ay">The y-component of the starting point.</param>
+        ///// <param name="bx">The x-component of the handle point.</param>
+        ///// <param name="by">The y-component of the handle point.</param>
+        ///// <param name="cx">The x-component of the end point.</param>
+        ///// <param name="cy">The y-component of the end point.</param>
+        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Quadratic Bezier curve.</returns>
+        ///// <remarks></remarks>
+        ///// <acknowledgment>
+        ///// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
+        ///// http://jsfiddle.net/SalixAlba/QQnvm/4/
+        ///// </acknowledgment>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static Rectangle2D QuadraticBezierBounds(
+        //    double ax, double ay,
+        //    double bx, double by,
+        //    double cx, double cy)
+        //{
+        //    var cubic = Conversions.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
+        //    return CubicBezierBounds(cubic[0].X, cubic[0].Y, cubic[1].X, cubic[1].Y, cubic[2].X, cubic[2].Y, cubic[3].X, cubic[3].Y);
+        //}
 
-        /// <summary>
-        /// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Cubic Bezier curve.
-        /// </summary>
-        /// <param name="ax">The x-component of the starting point.</param>
-        /// <param name="ay">The y-component of the starting point.</param>
-        /// <param name="bx">The x-component of the first handle point.</param>
-        /// <param name="by">The y-component of the first handle point.</param>
-        /// <param name="cx">The x-component of the second handle point.</param>
-        /// <param name="cy">The y-component of the second handle point.</param>
-        /// <param name="dx">The x-component of the end point.</param>
-        /// <param name="dy">The y-component of the end point.</param>
-        /// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Cubic Bezier curve.</returns>
-        /// <remarks>
-        /// This method has an error where if the end nodes are horizontal to each other, while the handles are also horizontal to each other the bounds are not correctly calculated.
-        /// </remarks>
-        /// <acknowledgment>
-        /// Method created using the following resources.
-        /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
-        /// http://nishiohirokazu.blogspot.com/2009/06/how-to-calculate-bezier-curves-bounding.html
-        /// http://jsfiddle.net/SalixAlba/QQnvm/4/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D CubicBezierBounds(
-            double ax, double ay,
-            double bx, double by,
-            double cx, double cy,
-            double dx, double dy)
-        {
-            // Calculate the polynomial of the cubic.
-            var a = -3 * ax + 9 * bx - 9 * cx + 3 * dx;
-            var b = 6 * ax - 12 * bx + 6 * cx;
-            var c = -3 * ax + 3 * bx;
+        ///// <summary>
+        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Cubic Bezier curve.
+        ///// </summary>
+        ///// <param name="ax">The x-component of the starting point.</param>
+        ///// <param name="ay">The y-component of the starting point.</param>
+        ///// <param name="bx">The x-component of the first handle point.</param>
+        ///// <param name="by">The y-component of the first handle point.</param>
+        ///// <param name="cx">The x-component of the second handle point.</param>
+        ///// <param name="cy">The y-component of the second handle point.</param>
+        ///// <param name="dx">The x-component of the end point.</param>
+        ///// <param name="dy">The y-component of the end point.</param>
+        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Cubic Bezier curve.</returns>
+        ///// <remarks>
+        ///// This method has an error where if the end nodes are horizontal to each other, while the handles are also horizontal to each other the bounds are not correctly calculated.
+        ///// </remarks>
+        ///// <acknowledgment>
+        ///// Method created using the following resources.
+        ///// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
+        ///// http://nishiohirokazu.blogspot.com/2009/06/how-to-calculate-bezier-curves-bounding.html
+        ///// http://jsfiddle.net/SalixAlba/QQnvm/4/
+        ///// </acknowledgment>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static Rectangle2D CubicBezierBounds(
+        //    double ax, double ay,
+        //    double bx, double by,
+        //    double cx, double cy,
+        //    double dx, double dy)
+        //{
+        //    // Calculate the polynomial of the cubic.
+        //    var a = -3 * ax + 9 * bx - 9 * cx + 3 * dx;
+        //    var b = 6 * ax - 12 * bx + 6 * cx;
+        //    var c = -3 * ax + 3 * bx;
 
-            // Calculate the discriminant of the polynomial.
-            var discriminant = b * b - 4 * a * c;
+        //    // Calculate the discriminant of the polynomial.
+        //    var discriminant = b * b - 4 * a * c;
 
-            // Find the high and low x ends.
-            var xlow = (dx < ax) ? dx : ax;
-            var xhigh = (dx > ax) ? dx : ax;
+        //    // Find the high and low x ends.
+        //    var xlow = (dx < ax) ? dx : ax;
+        //    var xhigh = (dx > ax) ? dx : ax;
 
-            if (discriminant >= 0)
-            {
-                // Find the positive solution using the quadratic formula.
-                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
+        //    if (discriminant >= 0)
+        //    {
+        //        // Find the positive solution using the quadratic formula.
+        //        var t1 = (-b + Sqrt(discriminant)) / (2 * a);
 
-                if (t1 > 0 && t1 < 1)
-                {
-                    var x1 = Interpolators.Cubic(ax, bx, cx, dx, t1);
-                    if (x1 < xlow) xlow = x1;
-                    if (x1 > xhigh) xhigh = x1;
-                }
+        //        if (t1 > 0 && t1 < 1)
+        //        {
+        //            var x1 = Interpolators.Cubic(ax, bx, cx, dx, t1);
+        //            if (x1 < xlow) xlow = x1;
+        //            if (x1 > xhigh) xhigh = x1;
+        //        }
 
-                // Find the negative solution using the quadratic formula.
-                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
+        //        // Find the negative solution using the quadratic formula.
+        //        var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
-                if (t2 > 0 && t2 < 1)
-                {
-                    var x2 = Interpolators.Cubic(ax, bx, cx, dx, t2);
-                    if (x2 < xlow) xlow = x2;
-                    if (x2 > xhigh) xhigh = x2;
-                }
-            }
+        //        if (t2 > 0 && t2 < 1)
+        //        {
+        //            var x2 = Interpolators.Cubic(ax, bx, cx, dx, t2);
+        //            if (x2 < xlow) xlow = x2;
+        //            if (x2 > xhigh) xhigh = x2;
+        //        }
+        //    }
 
-            a = -3 * ay + 9 * by - 9 * cy + 3 * dy;
-            b = 6 * ay - 12 * by + 6 * cy;
-            c = -3 * ay + 3 * by;
+        //    a = -3 * ay + 9 * by - 9 * cy + 3 * dy;
+        //    b = 6 * ay - 12 * by + 6 * cy;
+        //    c = -3 * ay + 3 * by;
 
-            discriminant = b * b - 4 * a * c;
+        //    discriminant = b * b - 4 * a * c;
 
-            var yl = ay;
-            var yh = ay;
-            if (dy < yl) yl = dy;
-            if (dy > yh) yh = dy;
-            if (discriminant >= 0)
-            {
-                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
+        //    var yl = ay;
+        //    var yh = ay;
+        //    if (dy < yl) yl = dy;
+        //    if (dy > yh) yh = dy;
+        //    if (discriminant >= 0)
+        //    {
+        //        var t1 = (-b + Sqrt(discriminant)) / (2 * a);
 
-                if (t1 > 0 && t1 < 1)
-                {
-                    var y1 = Interpolators.Cubic(ay, by, cy, dy, t1);
-                    if (y1 < yl) yl = y1;
-                    if (y1 > yh) yh = y1;
-                }
+        //        if (t1 > 0 && t1 < 1)
+        //        {
+        //            var y1 = Interpolators.Cubic(ay, by, cy, dy, t1);
+        //            if (y1 < yl) yl = y1;
+        //            if (y1 > yh) yh = y1;
+        //        }
 
-                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
+        //        var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
-                if (t2 > 0 && t2 < 1)
-                {
-                    var y2 = Interpolators.Cubic(ay, by, cy, dy, t2);
-                    if (y2 < yl) yl = y2;
-                    if (y2 > yh) yh = y2;
-                }
-            }
+        //        if (t2 > 0 && t2 < 1)
+        //        {
+        //            var y2 = Interpolators.Cubic(ay, by, cy, dy, t2);
+        //            if (y2 < yl) yl = y2;
+        //            if (y2 > yh) yh = y2;
+        //        }
+        //    }
 
-            return new Rectangle2D(xlow, xhigh, yl, yh);
-        }
+        //    return new Rectangle2D(xlow, xhigh, yl, yh);
+        //}
 
         /// <summary>
         /// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a polycurve contour.

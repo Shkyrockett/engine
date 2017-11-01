@@ -127,7 +127,36 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Measurements.CubicBezierBounds(Start.Value.X, Start.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, End.Value.X, End.Value.Y);
+            //=> Measurements.CubicBezierBounds(Start.Value.X, Start.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, End.Value.X, End.Value.Y);
+            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
+
+        /// <summary>
+        /// Gets the <see cref="CubicBezier"/> curve's polynomial representation along the x-axis.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial CurveX
+        {
+            get
+            {
+                var curveX = (Polynomial)CachingProperty(() => Polynomial.Cubic(Start.Value.X, Handle1.X, Handle2.Value.X, End.Value.X));
+                curveX.IsReadonly = true;
+                return curveX;
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="CubicBezier"/> curve's polynomial representation along the y-axis.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial CurveY
+        {
+            get
+            {
+                var curveY = (Polynomial)CachingProperty(() => Polynomial.Cubic(Start.Value.Y, Handle1.Y, Handle2.Value.X, End.Value.Y));
+                curveY.IsReadonly = true;
+                return curveY;
+            }
+        }
 
         /// <summary>
         /// 

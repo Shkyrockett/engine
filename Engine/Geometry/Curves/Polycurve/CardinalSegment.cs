@@ -111,7 +111,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Measurements.PolygonBounds(Nodes);
+            => (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(Nodes));
 
         /// <summary>
         /// ToDo: Add length calculation for Cardinal curves.

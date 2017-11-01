@@ -41,7 +41,7 @@ namespace Engine
 
         #endregion
 
-        #region Private Fields
+        #region Fields
 
         /// <summary>
         /// 
@@ -116,15 +116,6 @@ namespace Engine
         {
             A = a;
             B = b;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="points"></param>
-        public LineSegment(List<Point2D> points)
-        {
-            Points = points;
         }
 
         #endregion
@@ -370,8 +361,8 @@ namespace Engine
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double ComplexProduct
-            => (double)CachingProperty(() => Maths.ComplexProduct(aX, aY, bX, bY));
+        public (double x, double y) ComplexProduct
+            => ((double x, double y))CachingProperty(() => Maths.ComplexProduct(aX, aY, bX, bY));
 
         /// <summary>
         /// 

@@ -948,18 +948,18 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="dim"></param>
+        /// <param name="degree"></param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial[] GetStandardBase(int dim)
+        public static Polynomial[] GetStandardBase(int degree)
         {
-            if (dim < 1)
-                throw new ArgumentException("Dimension expected to be greater than zero.");
+            if (degree < 1)
+                throw new ArgumentException($"{nameof(degree)} expected to be greater than zero.");
 
-            Polynomial[] buf = new Polynomial[dim];
+            Polynomial[] buf = new Polynomial[degree];
 
-            for (var i = 0; i < dim; i++)
+            for (var i = 0; i < degree; i++)
             {
                 buf[i] = Monomial((PolynomialDegree)i);
             }
@@ -1001,7 +1001,7 @@ namespace Engine
         public static Polynomial Interpolate(params double[] ys)
         {
             if (ys == null || ys.Length < 2)
-                throw new ArgumentNullException("At least 2 different points must be given");
+                throw new ArgumentNullException($"{nameof(ys)}: At least 2 different points must be given");
 
             var res = new Polynomial();
             for (var i = 0; i < ys.Length; i++)

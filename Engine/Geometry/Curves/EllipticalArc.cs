@@ -143,6 +143,21 @@ namespace Engine
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <remarks></remarks>
+        public EllipticalArc((double X, double Y, double RX, double RY, double Angle, double StartAngle, double SweepAngle) tuple)
+            : this(tuple.X, tuple.Y, tuple.RX, tuple.RY, tuple.Angle, tuple.StartAngle, tuple.SweepAngle)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
+        /// </summary>
+        /// <param name="x">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
+        /// <param name="y">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
+        /// <param name="rX">Major radius of <see cref="EllipticalArc"/>.</param>
+        /// <param name="rY">Minor radius of <see cref="EllipticalArc"/>.</param>
+        /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <remarks></remarks>
         public EllipticalArc(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle)
         {
             cx = x;
@@ -813,6 +828,18 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D DrawingBounds
             => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(cx, cy, rX, rY));
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"></param>
+        public static implicit operator EllipticalArc((double X, double Y, double RX, double RY, double Angle, double StartAngle, double SweepAngle) tuple)
+            => new EllipticalArc(tuple);
 
         #endregion
 

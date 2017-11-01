@@ -107,7 +107,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Measurements.LineSegmentBounds(Start.Value, End.Value);
+            => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Start.Value, End.Value));
 
         /// <summary>
         /// 

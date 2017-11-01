@@ -42,6 +42,7 @@ namespace Editor
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
+            //NearestPoint(vectorMap, form, metrics);
             //SplitLines(vectorMap);
             //SplitRays(vectorMap);
             //SplitLineSegments(vectorMap);
@@ -82,10 +83,10 @@ namespace Editor
             IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             IntersectionsCubicBezierQuadraticBezier(vectorMap);
             IntersectionsCubicBezierCubicBezier(vectorMap);
-            BezierLineIntersections(vectorMap);
-            BezierLineSegmentIntersections(vectorMap);
-            QuadraticBezierHorizontalLineIntersection(vectorMap);
-            CubicBezierHorizontalLineIntersection(vectorMap);
+            //BezierLineIntersections(vectorMap);
+            //BezierLineSegmentIntersections(vectorMap);
+            //QuadraticBezierHorizontalLineIntersection(vectorMap);
+            //CubicBezierHorizontalLineIntersection(vectorMap);
             //SegmentIntersections(vectorMap, form, metrics);
             //IntersectionsTests(vectorMap);
             //CircularArcBounds(vectorMap);
@@ -157,8 +158,7 @@ namespace Editor
                 56d, 30d, 10d.ToRadians());
             var ellipseTweenItem = new GraphicItem(ellipseTween, solidLightBlueStyle);
 
-            double duration = 300;
-            double delay = 20;
+            (var duration, var delay) = (300d, 20d);
 
             vectorMap.Tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
 
@@ -183,11 +183,9 @@ namespace Editor
         /// <param name="form"></param>
         public static void KaraokeBall(VectorMap vectorMap, EditorForm form)
         {
-            var left = 100;
-            var top = 200;
+            (var left, var top) = (100d, 200d);
+            (var duration, var delay) = (75d, 0d);
             var radius = 10;
-            var duration = 75d;
-            var delay = 0d;
 
             var circle = new Circle(left + radius, top + radius, radius);
             var circleItem = new GraphicItem(circle, solidLightBlueStyle);
@@ -204,10 +202,8 @@ namespace Editor
         /// <param name="vectorMap"></param>
         public static void Tweens(VectorMap vectorMap)
         {
-            var left = 0;
-            var top = 0;
-            var width = 50;
-            var height = 50;
+            (var left, var top) = (0d, 0d);
+            (var width, var height) = (50, 50);
             var padding = 25;
 
             var style = azureTransparent;
@@ -1998,6 +1994,50 @@ namespace Editor
         #endregion
 
         #region Experimental
+
+        public static void NearestPoint(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
+        {
+            (double left, double top) = (0, 0);
+
+            var segment = new LineSegment(left + 100, top + 100, left + 300, top + 200);
+            var segmentItem = new GraphicItem(segment, intersectionBlue)
+            {
+                Name = "Line Segment"
+            };
+
+            var point = new ScreenPoint(left + 250, top + 150);
+            var pointItem = new GraphicItem(point, intersectionBlue)
+            {
+                Name = "Point"
+            };
+
+            var location = Measurements.NearestPointOnLineSegment(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
+            var point0 = new ScreenPoint(location);
+            var point0Item = new GraphicItem(point0, intersectionRed)
+            {
+                Name = "Point 0"
+            };
+
+            var dist0 = Measurements.DistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
+            var dist1 = Measurements.Distance(point.X, point.Y, location.X, location.Y);
+            var dist2 = Measurements.SquareDistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
+            var dist3 = Measurements.SquareDistance(point.X, point.Y, location.X, location.Y);
+
+            var text = new Text2D(
+                $"{location}\r\n{dist0}\r\n{dist1}\r\n{dist2}\r\n{dist3}",
+                form.Font.ToRenderFont(),
+                point.Point,
+                metrics);
+            var textItem = new GraphicItem(text, whiteishStyle)
+            {
+                Name = "Text"
+            };
+
+            vectorMap.Add(segmentItem);
+            vectorMap.Add(pointItem);
+            vectorMap.Add(point0Item);
+            vectorMap.Add(textItem);
+        }
 
         /// <summary>
         /// 

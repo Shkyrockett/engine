@@ -3509,11 +3509,19 @@ namespace Engine
         {
             var result = new Intersection(IntersectionState.NoIntersection);
             if (i == 0 && pX == lx)
+            {
                 result.AppendPoint(new Point2D(pX, pY));
-            else if ((pY - ly) / (pX - lx) == (j) / (i))
+            }
+            else if ((pY - ly) / (pX - lx) == j / i)
+            {
                 result.AppendPoint(new Point2D(pX, pY));
+            }
+
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -3597,9 +3605,11 @@ namespace Engine
 
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
+            {
                 // Lines are parallel. There are an infinite number of intersections.
                 // ToDo: Figure out how to return a line as an intersection.
                 return result;
+            }
 
             // Find the index where the intersection point lies on the line.
             var t = ((lx1 - lx0) * v2 + (ly0 - ly1) * u2) / determinant;
@@ -3755,14 +3765,19 @@ namespace Engine
             {
                 // Add intersection point.
                 if (!(s < 0 || s > 1d))
+                {
                     result.AppendPoint(new Point2D(
                         xCurve[0] * s * s + xCurve[1] * s + xCurve[2],
                         yCurve[0] * s * s + yCurve[1] * s + yCurve[2]));
+                }
             }
 
             // Return result.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -3837,13 +3852,18 @@ namespace Engine
             {
                 // Add intersection point.
                 if (!(s < 0 || s > 1d))
+                {
                     result.AppendPoint(new Point2D(
                     xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
                     yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]));
+                }
             }
 
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -3882,7 +3902,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -3924,7 +3947,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -3966,7 +3992,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -3998,7 +4027,9 @@ namespace Engine
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lx == li) && (ly == lj)))
+            {
                 return result;
+            }
 
             // Translate the line to the origin. 
             var dx = li;
@@ -4074,7 +4105,9 @@ namespace Engine
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lx == li) && (ly == lj)))
+            {
                 return result;
+            }
 
             // Translate the line to the origin. 
             var dx = li;
@@ -4155,7 +4188,10 @@ namespace Engine
 
             // Return the result.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -4213,7 +4249,9 @@ namespace Engine
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
                 ((lx == li) && (ly == lj)))
+            {
                 return result;
+            }
 
             // Translate the line to put the ellipse centered at the origin.
             var u1 = lx - cx;
@@ -4265,7 +4303,10 @@ namespace Engine
 
             // Return the intersections.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -4327,7 +4368,9 @@ namespace Engine
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
                 ((li == 0) && (lj == 0)))
+            {
                 return result;
+            }
 
             // Translate the line to put it at the ellipse centered at the origin.
             var u0 = lx - cx;
@@ -4386,7 +4429,9 @@ namespace Engine
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                {
                     result.AppendPoint(p);
+                }
             }
             else if (discriminant > 0)
             {
@@ -4403,7 +4448,10 @@ namespace Engine
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                {
                     result.AppendPoint(p);
+                }
+
                 // Find the point.
                 p = new Point2D(u0 + (u1 - u0) * t2 + cx, v0 + (v1 - v0) * t2 + cy);
 
@@ -4412,12 +4460,17 @@ namespace Engine
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                {
                     result.AppendPoint(p);
+                }
             }
 
             // Return the intersections.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -4679,9 +4732,13 @@ namespace Engine
                 double slope;
                 // Special handling for vertical lines.
                 if (i1 != 0)
+                {
                     slope = (x - x1) / i1;
+                }
                 else
+                {
                     slope = (y - y1) / j1;
+                }
 
                 // Make sure we are in bounds of the line segment.
                 if (!(s < 0 /*|| s > 1d*/ || slope < 0 || slope > 1d))
@@ -4693,7 +4750,10 @@ namespace Engine
 
             // Return the result.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -4745,9 +4805,13 @@ namespace Engine
 
                 // Special handling for vertical lines.
                 if (i1 != 0)
+                {
                     slope = (point.X - x1) / i1;
+                }
                 else
+                {
                     slope = (point.Y - y1) / j1;
+                }
 
                 // Make sure we are in bounds of the line segment.
                 if (!(s < 0 /*|| s > 1d*/ || slope < 0 || slope > 1d))
@@ -4758,7 +4822,10 @@ namespace Engine
             }
 
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -4797,7 +4864,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -4839,7 +4909,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -4883,7 +4956,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -4941,7 +5017,9 @@ namespace Engine
                 {
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
+                    {
                         result.Points.Add(Lerp(lAX, lAY, lBi, lBj, u1));
+                    }
                 }
             }
             else
@@ -4964,11 +5042,17 @@ namespace Engine
                 {
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1/* && u1 <= 1*/)
+                    {
                         result.Points.Add(Lerp(lAX, lAY, lBi, lBj, u1));
+                    }
+
                     if (0 <= u2/* && u2 <= 1*/)
+                    {
                         result.Points.Add(Lerp(lAX, lAY, lBi, lBj, u2));
+                    }
                 }
             }
+
             return result;
         }
 
@@ -7914,11 +7998,27 @@ namespace Engine
         /// <param name="p1x"></param>
         /// <param name="p1y"></param>
         /// <returns></returns>
-        public static (double? a, double? b) PointPointIntersectionT(double p0x, double p0y, double p1x, double p1y)
+        public static (double[] a, double[] b) PointPointIntersectionIndexes(
+            double p0x, double p0y,
+            double p1x, double p1y,
+            double epsilon = Epsilon)
         {
             if (p0x == p1x && p0y == p1y)
-                return (1, 1);
+            {
+                return (new double[]{ 1d }, new double[]{ 1d });
+            }
+
             return (null, null);
+        }
+
+        public static (double[] a, double[] b) PointLineIntersectionIndexes(
+            double px,double py,
+            double lx, double ly, double li, double lj,
+            double epsilon = Epsilon)
+        {
+            (double[] a, double[] b) ret = (new double[]{ }, new double[] { });
+            
+            return ret;
         }
 
         #endregion

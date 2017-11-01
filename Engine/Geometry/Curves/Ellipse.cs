@@ -77,6 +77,19 @@ namespace Engine
         /// <param name="rY">Minor radius of <see cref="Ellipse"/>.</param>
         /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
         /// <remarks></remarks>
+        public Ellipse((double X, double Y, double RX, double RY, double Angle) tuple)
+            : this(tuple.X, tuple.Y, tuple.RX, tuple.RY, tuple.Angle)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Ellipse"/> class.
+        /// </summary>
+        /// <param name="x">Center Point x coordinate of <see cref="Ellipse"/>.</param>
+        /// <param name="y">Center Point x coordinate of <see cref="Ellipse"/>.</param>
+        /// <param name="rX">Major radius of <see cref="Ellipse"/>.</param>
+        /// <param name="rY">Minor radius of <see cref="Ellipse"/>.</param>
+        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
+        /// <remarks></remarks>
         public Ellipse(double x, double y, double rX, double rY, double angle = 0)
         {
             this.x = x;
@@ -490,6 +503,18 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D UnrotatedBounds
             => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(x, y, rX, rY));
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"></param>
+        public static implicit operator Ellipse((double X, double Y, double RX, double RY, double Angle) tuple)
+            => new Ellipse(tuple);
 
         #endregion
 

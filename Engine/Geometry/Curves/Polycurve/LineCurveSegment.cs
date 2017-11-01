@@ -96,14 +96,14 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Measurements.LineSegmentBounds(Start.Value.X, Start.Value.Y, End.Value.X, End.Value.Y);
+            => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Start.Value.X, Start.Value.Y, End.Value.X, End.Value.Y));
 
         /// <summary>
         /// 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
-            => ToLineSegment().Length;
+            => (double)CachingProperty(() => ToLineSegment().Length);
 
         #endregion
 

@@ -113,6 +113,19 @@ namespace Engine
         /// <param name="by"></param>
         /// <param name="cx"></param>
         /// <param name="cy"></param>
+        public CubicBezier((double aX, double aY, double bX, double bY, double cX, double cY) tuple)
+            : this(tuple.aX, tuple.aY, tuple.bX, tuple.bY, tuple.cX, tuple.cY)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CubicBezier"/> class from a <see cref="QuadraticBezier"/>.
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
         public CubicBezier(double ax, double ay, double bx, double by, double cx, double cy)
         {
             var nodes = Conversions.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
@@ -159,6 +172,19 @@ namespace Engine
             this.dx = dx;
             this.dy = dy;
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CubicBezier"/> class.
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="cx"></param>
+        /// <param name="cy"></param>
+        public CubicBezier((double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) tuple)
+            : this(tuple.aX, tuple.aY, tuple.bX, tuple.bY, tuple.cX, tuple.cY, tuple.dX, tuple.dY)
+        { }
 
         #endregion
 
@@ -562,6 +588,26 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(CubicBezier left, CubicBezier right)
             => !left.Equals(right);
+
+        /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"></param>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator CubicBezier((double aX, double aY, double bX, double bY, double cX, double cY) tuple)
+            => new CubicBezier(tuple);
+
+        /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"></param>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator CubicBezier((double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) tuple)
+            => new CubicBezier(tuple);
 
         #endregion
 

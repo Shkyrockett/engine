@@ -101,6 +101,16 @@ namespace Engine
         /// <param name="x">The center x coordinate point of the circle.</param>
         /// <param name="y">The center y coordinate point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
+        public Circle((double X, double Y, double Radius) tuple)
+            : this(tuple.X, tuple.Y, tuple.Radius)
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Circle"/> class.
+        /// </summary>
+        /// <param name="x">The center x coordinate point of the circle.</param>
+        /// <param name="y">The center y coordinate point of the circle.</param>
+        /// <param name="radius">The radius of the circle.</param>
         public Circle(double x, double y, double radius)
             : base()
         {
@@ -352,6 +362,18 @@ namespace Engine
                 update?.Invoke();
             }
         }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"></param>
+        public static implicit operator Circle((double X, double Y, double Radius) tuple)
+            => new Circle(tuple);
 
         #endregion
 

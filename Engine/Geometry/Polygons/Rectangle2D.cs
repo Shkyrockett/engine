@@ -648,6 +648,14 @@ namespace Engine
         public override bool Equals(object obj)
             => obj is Rectangle2D && Equals(this, obj as Rectangle2D);
 
+        /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"></param>
+        public static implicit operator Rectangle2D((double Left, double Top, double Width, double Height) tuple)
+            => new Rectangle2D(tuple);
+
         #endregion
 
         #region Factories

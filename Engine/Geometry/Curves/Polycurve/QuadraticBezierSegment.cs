@@ -118,7 +118,36 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Rectangle2DConverter))]
         public override Rectangle2D Bounds
-            => Measurements.QuadraticBezierBounds(Start.Value.X, Start.Value.Y, Handle.Value.X, Handle.Value.Y, End.Value.X, End.Value.Y);
+            //=> Measurements.QuadraticBezierBounds(Start.Value.X, Start.Value.Y, Handle.Value.X, Handle.Value.Y, End.Value.X, End.Value.Y);
+            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
+
+        /// <summary>
+        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the x-axis.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial CurveX
+        {
+            get
+            {
+                var curveX = (Polynomial)CachingProperty(() => Polynomial.Quadratic(Start.Value.X, Handle.Value.X, End.Value.X));
+                curveX.IsReadonly = true;
+                return curveX;
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the y-axis.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public Polynomial CurveY
+        {
+            get
+            {
+                var curveY = (Polynomial)CachingProperty(() => Polynomial.Quadratic(Start.Value.Y, Handle.Value.Y, End.Value.Y));
+                curveY.IsReadonly = true;
+                return curveY;
+            }
+        }
 
         /// <summary>
         /// 

@@ -9,10 +9,12 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static System.Math;
 
 namespace Engine
 {
@@ -28,6 +30,16 @@ namespace Engine
     public class Line
         : Shape
     {
+        #region Implementations
+
+        /// <summary>
+        /// Represents a Engine.Geometry.Segment that is null.
+        /// </summary>
+        /// <remarks></remarks>
+        public static readonly Line Empty = new Line();
+
+        #endregion
+
         #region Fields
 
         /// <summary>
@@ -53,6 +65,37 @@ namespace Engine
         { }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Line"/> class.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <remarks></remarks>
+        public Line((double x, double y, double i, double j) tuple)
+            : this(tuple.x, tuple.y, tuple.i, tuple.j)
+        { }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        public Line(double x, double y, double i, double j)
+            : this(new Point2D(x, y), new Vector2D(i, j))
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LineSegment"/> class.
+        /// </summary>
+        /// <param name="Point">Starting Point</param>
+        /// <param name="RadAngle">Ending Angle</param>
+        /// <param name="Radius">Ending Line Segment Length</param>
+        /// <remarks></remarks>
+        public Line(Point2D Point, double RadAngle)
+            : this(Point.X, Point.Y, Cos(RadAngle), Sin(RadAngle))
+        { }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="location"></param>
@@ -66,14 +109,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        public Line(double x, double y, double i, double j)
-            : this(new Point2D(x, y), new Vector2D(i, j))
+        /// <param name="a">Starting Point</param>
+        /// <param name="b">Ending Point</param>
+        /// <remarks></remarks>
+        public Line(Point2D a, Point2D b)
+            : this(a.X, a.Y, b.X - a.X, b.Y - a.Y)
         { }
 
         #endregion

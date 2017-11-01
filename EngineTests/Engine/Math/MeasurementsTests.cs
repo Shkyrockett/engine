@@ -135,6 +135,247 @@ namespace EngineTests
 
         #endregion
 
+        #region Distance
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
+        public void Distance2DTest()
+        {
+            var cases = new Dictionary<(Point2D a, Point2D b), double>
+            {
+                { ((0d, 0d), (0d, 0d)), 0d },
+                { ((0d, 0d), (1d, 0d)), 1d },
+                { ((0d, 0d), (1d, 1d)), 1.4142135623731d },
+                { ((1d, 1d), (0d, 0d)), 1.4142135623731d },
+                { ((1d, 1d), (3d, 3d)), 2.82842712474619d },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var distance = Measurements.Distance(k.a.X, k.a.Y, k.b.X, k.b.Y);
+                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Point A: {k.a.ToString()}, Point B: {k.b.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
+        public void DistanceLineSegmentPointTest()
+        {
+            var cases = new Dictionary<(LineSegment s, Point2D p), double>
+            {
+                { ((0d, 0d, 0d, 0d), (0d, 0d)), 0d },
+                { ((0d, 0d, 2d, 2d), (1d, 1d)), 0d },
+                { ((0d, 0d, 2d, 0d), (1d, 1d)), 1d },
+                { ((0d, 0d, 2d, 2d), (1d, 0d)), 0.707106781186547d },
+                { ((1d, 1d, 2d, 2d), (0d, 0d)), 1.4142135623731d },
+                { ((1d, 1d, 2d, 2d), (3d, 3d)), 1.4142135623731d },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var distance = Measurements.DistanceLineSegmentPoint(k.s.AX, k.s.AY, k.s.BX, k.s.BY, k.p.X, k.p.Y);
+                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
+        public void ConstrainedDistanceLineSegmentPointTest()
+        {
+            var cases = new Dictionary<(LineSegment s, Point2D p), double?>
+            {
+                { ((0d, 0d, 0d, 0d), (0d, 0d)), null },
+                { ((0d, 0d, 2d, 2d), (1d, 1d)), 0d },
+                { ((0d, 0d, 2d, 0d), (1d, 1d)), 1d },
+                { ((0d, 0d, 2d, 2d), (1d, 0d)), 0.707106781186547d },
+                { ((1d, 1d, 2d, 2d), (0d, 0d)), null },
+                { ((1d, 1d, 2d, 2d), (3d, 3d)), null },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var distance = Measurements.ConstrainedDistanceLineSegmentPoint(k.s.AX, k.s.AY, k.s.BX, k.s.BY, k.p.X, k.p.Y);
+                Assert.AreEqual(cases[(k)] ?? double.PositiveInfinity, distance ?? double.PositiveInfinity, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
+        public void SquareDistanceLineSegmentPointTest()
+        {
+            var cases = new Dictionary<(LineSegment s, Point2D p), double>
+            {
+                { ((0d, 0d, 0d, 0d), (0d, 0d)), 0d },
+                { ((0d, 0d, 2d, 2d), (1d, 1d)), 0d },
+                { ((0d, 0d, 2d, 0d), (1d, 1d)), 1d },
+                { ((0d, 0d, 2d, 2d), (1d, 0d)), 0.5d },
+                { ((1d, 1d, 2d, 2d), (0d, 0d)), 2d },
+                { ((1d, 1d, 2d, 2d), (3d, 3d)), 2d },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var distance = Measurements.SquareDistanceLineSegmentPoint(k.s.AX, k.s.AY, k.s.BX, k.s.BY, k.p.X, k.p.Y);
+                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+            }
+        }
+
+        #endregion
+
+        #region Length
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
+        public void VectorMagnitudeTest()
+        {
+            var cases = new Dictionary<Vector2D, double>
+            {
+                { (0d, 0d), 0d },
+                { (1d, 0d), 1d },
+                { (1d, 1d), 1.4142135623731d },
+                { (0d, 1d), 1d },
+                { (3d, 3d), 4.24264068711928d },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var distance = Measurements.VectorMagnitude(k.I, k.J);
+                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Vector: {k.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
+        [DeploymentItem("Engine.dll")]
+        public void VectorMagnitudeSquaredTest()
+        {
+            var cases = new Dictionary<Vector2D, double>
+            {
+                { (0d, 0d), 0d },
+                { (1d, 0d), 1d },
+                { (1d, 1d), 2d },
+                { (0d, 1d), 1d },
+                { (3d, 3d), 18d },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var distance = Measurements.VectorMagnitudeSquared(k.I, k.J);
+                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Vector: {k.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void ArcLengthTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void CircleCircumferenceTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void CubicBezierArcLengthTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void EllipsePerimeterTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void QuadraticBezierArcLengthByIntegralTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [DeploymentItem("Engine.dll")]
+        [Ignore]
+        public void PolygonPerimeterTest()
+        {
+            Assert.Inconclusive("ToDo: Implement code to verify target.");
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region Area
+
         /// <summary>
         /// 
         /// </summary>
@@ -381,136 +622,297 @@ namespace EngineTests
             }
         }
 
+        #endregion
+
+        #region Bounds
+
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void CircularArcTest()
+        public void LineSegmentBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<LineSegment, Rectangle2D>
+            {
+                { (0d, 0d, 0d, 0d), (0, 0, 0, 0) },
+                { (0d, 0d, 2d, 2d), (0, 0, 2, 2) },
+                { (0d, 0d, 2d, 0d), (0, 0, 2, 0) },
+                { (1d, 1d, 2d, 2d), (1, 1, 1, 1) },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.LineSegmentBounds(k.AX, k.AY, k.BX, k.BY);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void EllipseTest1()
+        public void CircleBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<Circle, Rectangle2D>
+            {
+                { (0d, 0d, 0d), (0d, 0d, 0d, 0d) },
+                { (0d, 0d, 2d), (-2d, -2d, 4d, 4d) },
+                { (1d, 1d, 2d), (-1d, -1d, 4d, 4d) },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.CircleBounds(k.X, k.Y, k.Radius);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void EllipticalArcTest()
+        public void CircularArcBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<CircularArc, Rectangle2D>
+            {
+                { (0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
+                { (0d, 0d, 2d, 0d, 0d), (-2d, -2d, 4d, 4d) },
+                { (0d, 0d, 2d, 0d, 180d.ToRadians()), (-2d, 0d, 4d, 2d) },
+                { (0d, 0d, 2d, 0d, -180d.ToRadians()), (-2d, -2d, 4d, 2d) },
+                { (1d, 1d, 2d, 0d, 0d), (-1d, -1d, 4d, 4d) },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.CircularArcBounds(k.X, k.Y, k.Radius, 0, k.StartAngle, k.SweepAngle);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void RotatedRectangleTest()
+        public void EllipseBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<Ellipse, Rectangle2D>
+            {
+                { (0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
+                { (0d, 0d, 2d, 2d, 0d), (-2d, -2d, 4d, 4d) },
+                { (1d, 1d, 2d, 2d, 0d), (-1d, -1d, 4d, 4d) },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.EllipseBounds(k.X, k.Y, k.RX, k.RY);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void BoundsTest()
+        public void EllipticalArcBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<EllipticalArc, Rectangle2D>
+            {
+                { (0d, 0d, 0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
+                { (0d, 0d, 2d, 2d, 0d, 0d, 270d.ToRadians()), (-2d, -2d, 4d, 4d) },
+                { (1d, 1d, 2d, 2d, 0d, 0d, 270d.ToRadians()), (-1d, -1d, 4d, 4d) },
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.EllipticalArcBounds(k.X, k.Y, k.RX, k.RY, k.Angle, k.StartAngle, k.SweepAngle);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void ArcLengthTest()
+        public void RotatedRectangleBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<(double X, double Y, double Width, double Height, double Angle), Rectangle2D>
+            {
+                { (0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
+                { (0d, 0d, 2d, 2d, 0d), (-1d, -1d, 2d, 2d) },
+                { (1d, 1d, 2d, 2d, 0d), (0d, 0d, 2d, 2d) },
+                // ToDo: Add more relevant test cases.
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.RotatedRectangleBounds(k.Width, k.Height, k.X, k.Y, k.Angle);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void CircleCircumferenceTest()
+        public void PolygonBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<List<Point2D>, Rectangle2D>
+            {
+                { new List<Point2D> { new Point2D(0d, 0d), new Point2D(0d, 0d), new Point2D(0d, 0d) }, (0d, 0d, 0d, 0d) },
+                { new List<Point2D> { new Point2D(0d, 0d), new Point2D(2d, 2d), new Point2D(3d, 0d) }, (0d, 0d, 3d, 2d) },
+                { new List<Point2D> { new Point2D(1d, 1d), new Point2D(2d, 0d), new Point2D(0d, 2d) }, (0d, 0d, 2d, 2d) },
+                // ToDo: Add more relevant test cases.
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.PolygonBounds(k);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void CubicBezierArcLengthTest()
+        public void PolylineBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<List<Point2D>, Rectangle2D>
+            {
+                { new List<Point2D> { new Point2D(0d, 0d), new Point2D(0d, 0d), new Point2D(0d, 0d) }, (0d, 0d, 0d, 0d) },
+                { new List<Point2D> { new Point2D(0d, 0d), new Point2D(2d, 2d), new Point2D(3d, 0d) }, (0d, 0d, 3d, 2d) },
+                { new List<Point2D> { new Point2D(1d, 1d), new Point2D(2d, 0d), new Point2D(0d, 2d) }, (0d, 0d, 2d, 2d) },
+                // ToDo: Add more relevant test cases.
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.PolylineBounds(k);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void EllipsePerimeterTest()
+        public void QuadraticBezierBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<QuadraticBezier, Rectangle2D>
+            {
+                { (0d, 0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
+                { (0d, 0d, 10d, 10d, 20d, 0d), (0d, 0d, 20d, 5d) },
+                { (0d, 10d, 10d, 0d, 20d, 10d), (0d, 5d, 20d, 5d) },
+                { (5d, 0d, 10d, 10d, 20d, 0d), (5d, 0d, 15d, 5d) },
+                { (83d, 214d, 335d, 173d, 91d, 137d), (83d, 137d, 128.0322580645161d, 77d) }, // KLD Quadratic test
+                { (92d, 233d, 152d, 30d, 198d, 227d), (92d, 129.9775d, 106d, 103.0225d) }, // KLD Quadratic test
+                { (123d, 47d, 146d, 255d, 188d, 47d), (123d, 47d, 65d, 104d) }, // KLD Quadratic test
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.BezierBounds(k.CurveX, k.CurveY);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
         /// <summary>
         /// 
         /// </summary>
         [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "MeasurementsTests")]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void QuadraticBezierArcLengthByIntegralTest()
+        public void CubicBezierBoundsTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<CubicBezier, Rectangle2D>
+            {
+                { (0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d), (0d, 0d, 0d, 0d) },
+                { new QuadraticBezier(0d, 10d, 10d, 0d, 20d, 10d).ToCubicBezier(), (0d, 5d, 20d, 5d) },
+                { new QuadraticBezier(0d, 0d, 10d, 10d, 20d, 0d).ToCubicBezier(), (0d, 0d, 20d, 5d) },
+                { new QuadraticBezier(5d, 0d, 10d, 10d, 20d, 0d).ToCubicBezier(), (5d, 0d, 15d, 5d) },
+                { new QuadraticBezier(83d, 214d, 335d, 173d, 91d, 137d).ToCubicBezier(), (83d, 137d, 128.0322580645161d, 77d) }, // KLD Quadratic test
+                { new QuadraticBezier(92d, 233d, 152d, 30d, 198d, 227d).ToCubicBezier(), (92d, 129.9775d, 106d, 103.0225d) }, // KLD Quadratic test
+                { new QuadraticBezier(123d, 47d, 146d, 255d, 188d, 47d).ToCubicBezier(), (123d, 47d, 65d, 104d) }, // KLD Quadratic test
+                { (203d, 140d, 206d, 359d, 245d, 6d, 248d, 212d), (203d, 140d, 45d, 74.7074310714899d) }, // KLD Cubic test
+                { (177d, 204d, 441d, 204d, 8d, 149d, 265d, 154d), (177d, 153.67863894139887d, 88.9946642212202d, 50.321361058601127d) }, // KLD Cubic test
+                { (171d, 143d, 22d, 132d, 330d, 64d, 107d, 65d), (107d, 64.9890820086819d, 84.1459246542469d, 78.0109179913181d) }, // KLD Cubic test
+            };
+
+            foreach (var k in cases.Keys)
+            {
+                var bounds = Measurements.BezierBounds(k.CurveX, k.CurveY);
+                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+            }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void PolygonPerimeterTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

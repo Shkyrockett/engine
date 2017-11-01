@@ -450,11 +450,11 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void RealOrComplexRootsTest()
         {
-            var value = new Polynomial(1, 2, 3, 4, 5, 6, 7, 8, 9);
-            var expected = new double[] { 0, 0, 0, 0, 0, 0, 0, 8, 1 };
+            var value = new Polynomial(12, 9, 6, 3, 0);
+            var expected = new double[] { -8.3266726846886741E-17, -0.605829586188268 };
             var result = value.RealOrComplexRoots().ToArray();
 
-            Assert.AreEqual(expected.Length, result.Length, TestEpsilon);
+            Assert.AreEqual(expected.Length, result.Length);
 
             for (var i = 0; i < expected.Length; i++)
             {
@@ -476,12 +476,20 @@ namespace EngineTests
             var expected = new Complex[] { new Complex(-313.995047760172, -277.124450638795), new Complex(-1.2106854781489, 1.79296866987468), new Complex(18.9284340792415, -5.02664569182785), new Complex(double.NaN, double.NaN), new Complex(6.63750764045928, 16.1927372642297), };
             var result = value.ComplexRoots();
 
-            Assert.AreEqual(expected.Length, result.Length, TestEpsilon);
+            Assert.AreEqual(expected.Length, result.Length);
 
             for (var i = 0; i < expected.Length; i++)
             {
-                Assert.AreEqual(expected[i].Real, result[i].Real, TestEpsilon);
-                Assert.AreEqual(expected[i].Imaginary, result[i].Imaginary, TestEpsilon);
+                if (double.IsNaN(expected[i].Real))
+                {
+                    Assert.AreEqual(double.IsNaN(expected[i].Real), double.IsNaN(result[i].Real));
+                    Assert.AreEqual(double.IsNaN(expected[i].Imaginary), double.IsNaN(result[i].Imaginary));
+                }
+                else
+                {
+                    Assert.AreEqual(expected[i].Real, result[i].Real, 100 * TestEpsilon);
+                    Assert.AreEqual(expected[i].Imaginary, result[i].Imaginary, 100 * TestEpsilon);
+                }
             }
         }
 
@@ -495,11 +503,11 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void RootsInIntervalTest()
         {
-            var value = new Polynomial(1, 2, 3, 4, 5, 6);
-            var expected = new double[] { -0.6723782435877943, -0.046799431780810474, -0.046799431780810474, 0, 0 };
+            var value = new Polynomial(12, 9, 6, 3, 0);
+            var expected = new double[] { -0.605829820992767, -5.4831934903631918E-07, };
             var result = value.RootsInInterval(-1, 1);
 
-            Assert.AreEqual(expected.Length, result.Length, TestEpsilon);
+            Assert.AreEqual(expected.Length, result.Length);
 
             for (var i = 0; i < expected.Length; i++)
             {

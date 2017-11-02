@@ -3468,6 +3468,81 @@ namespace Engine
 
         #endregion
 
+        #region Experimental
+
+        /// <summary>
+        /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <returns>returns null if the curve is self-intersecting, or the point of intersection if it is.</returns>
+        public static Point2D? IsSelfIntersecting(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+        {
+            var r = new double[4];
+            r[0] = x0;
+            r[1] = 3 * (x1 - x0);
+            r[2] = 3 * (x2 + x0 - 2 * x1);
+            r[3] = x3 - 3 * x2 + 3 * x1 - x0;
+            if (r[3] == 0.0)
+                return null;
+            var A = r[2] / r[3];
+            var B = r[1] / r[3];
+            r[0] = y0;
+            r[1] = 3 * (y1 - y0);
+            r[2] = 3 * (y2 + y0 - 2 * y1);
+            r[3] = y3 - 3 * y2 + 3 * y1 - y0;
+            if (r[3] == 0.0)
+                return null;
+            var P = r[2] / r[3];
+            var Q = r[1] / r[3];
+            if (A == P || Q == B)
+                return null;
+            var k = (Q - B) / (A - P);
+            r[0] = -k * k * k - A * k * k - B * k;
+            r[1] = 3 * k * k + 2 * k * A + 2 * B;
+            r[2] = -3 * k;
+            r[3] = 2;
+            var poly = new Polynomial(r);
+            r = poly.Roots();
+            if (r.Length != 3)
+                return null;
+            // sort r
+            double t;
+            if (r[1] < r[0])
+            {
+                t = r[0]; r[0] = r[1]; r[1] = t;
+            }
+            if (r[2] < r[0])
+            {
+                t = r[0]; r[0] = r[2]; r[2] = t;
+            }
+            if (r[2] < r[1])
+            {
+                t = r[1]; r[1] = r[2]; r[2] = t;
+            }
+
+            if (r[0] >= 0.0 && r[0] <= 1.0 && r[2] >= 0.0 && r[2] <= 1.0)
+                return (EvaluateCubic(x0, y0, x1, y1, x2, y2, x3, y3, r[0]));
+            return null;
+        }
+
+        public static Point2D EvaluateCubic(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)
+        {
+            var x = -(t * t * t) * (x0 - 3 * x1 + 3 * x2 - x3)
+                + 3 * t * t * (x0 - 2 * x1 + x2) + 3 * t * (x1 - x0) + x0;
+            var y = -(t * t * t) * (y0 - 3 * y1 + 3 * y2 - y3)
+                + 3 * t * t * (y0 - 2 * y1 + y2) + 3 * t * (y1 - y0) + y0;
+            return (new Point2D(x, y));
+        }
+
+        #endregion
+
         #region Intersection Methods
 
         /// <summary>
@@ -7998,6 +8073,8 @@ namespace Engine
         /// <param name="p1x"></param>
         /// <param name="p1y"></param>
         /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double[] a, double[] b) PointPointIntersectionIndexes(
             double p0x, double p0y,
             double p1x, double p1y,
@@ -8005,20 +8082,246 @@ namespace Engine
         {
             if (p0x == p1x && p0y == p1y)
             {
-                return (new double[]{ 1d }, new double[]{ 1d });
+                return (new double[] { 1d }, new double[] { 1d });
             }
 
             return (null, null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="lx"></param>
+        /// <param name="ly"></param>
+        /// <param name="li"></param>
+        /// <param name="lj"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double[] a, double[] b) PointLineIntersectionIndexes(
-            double px,double py,
+            double px, double py,
             double lx, double ly, double li, double lj,
             double epsilon = Epsilon)
         {
-            (double[] a, double[] b) ret = (new double[]{ }, new double[] { });
-            
-            return ret;
+            // Vector a -> p
+            (var vi, var vj) = (lx - px, ly - py);
+
+            // Get the determinant or squared length of the line segment.
+            var d = li * li + lj * lj;
+
+            // Get the length of the line segment.
+            var length = Sqrt(d);
+
+            // Find the interpolation value.
+            var t = -(vi * li + vj * lj) / d;
+
+            // Check whether the closest point falls between the ends of line segment.
+            // Return the t values if the distance to the nearest point on the line segment is within epsilon.
+            return (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }))
+                : ((Abs(li * vj - vi * lj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double[] a, double[] b) PointRayIntersectionIndexes(
+            double px, double py,
+            double ax, double ay, double bx, double by,
+            double epsilon = Epsilon)
+        {
+            // Vector of line segment a -> b
+            (var ui, var uj) = (bx - ax, by - ay);
+
+            // Vector a -> p
+            (var vi, var vj) = (ax - px, ay - py);
+
+            // Get the determinant or squared length of the line segment.
+            var d = ui * ui + uj * uj;
+
+            // Get the length of the line segment.
+            var length = Sqrt(d);
+
+            // Find the interpolation value.
+            var t = -(vi * ui + vj * uj) / d;
+
+            // Check whether the closest point falls between the ends of line segment.
+            // Return the t values if the distance to the nearest point on the line segment is within epsilon.
+            return (t < 0d) ? (new double[] { }, new double[] { })
+                : (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }))
+                : ((Abs(ui * vj - vi * uj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="px"></param>
+        /// <param name="py"></param>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double[] a, double[] b) PointLineSegmentIntersectionIndexes(
+            double px, double py,
+            double ax, double ay, double bx, double by,
+            double epsilon = Epsilon)
+        {
+            // Vector of line segment a -> b
+            (var ui, var uj) = (bx - ax, by - ay);
+
+            // Vector a -> p
+            (var vi, var vj) = (ax - px, ay - py);
+
+            // Get the determinant or squared length of the line segment.
+            var d = ui * ui + uj * uj;
+
+            // Get the length of the line segment.
+            var length = Sqrt(d);
+
+            // Find the interpolation value.
+            var t = -(vi * ui + vj * uj) / d;
+
+            // Check whether the closest point falls between the ends of line segment.
+            // Return the t values if the distance to the nearest point on the line segment is within epsilon.
+            return (t < 0d || t > 1d) ? (new double[] { }, new double[] { })
+                : (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }))
+                : ((Abs(ui * vj - vi * uj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="ai"></param>
+        /// <param name="aj"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="bi"></param>
+        /// <param name="bj"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double[] a, double[] b) LineLineIntersectionIndexes(
+            double ax, double ay, double ai, double aj,
+            double bx, double by, double bi, double bj,
+            double epsilon = Epsilon)
+        {
+            var result = (a: new double[] { }, b: new double[] { });
+
+            var ua = bi * (ay - by) - bj * (ax - bx);
+            var ub = ai * (ay - by) - aj * (ax - bx);
+
+            var determinant = bj * ai - bi * aj;
+
+            if (determinant != 0)
+            {
+                var ta = ua / determinant;
+                var tb = ub / determinant;
+
+                result = (a: new double[] { ta }, b: new double[] { tb });
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aax"></param>
+        /// <param name="aay"></param>
+        /// <param name="abx"></param>
+        /// <param name="aby"></param>
+        /// <param name="bax"></param>
+        /// <param name="bay"></param>
+        /// <param name="bbx"></param>
+        /// <param name="bby"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double[] a, double[] b) RayRayIntersectionIndexes(
+            double ax, double ay, double ai, double aj,
+            double bx, double by, double bi, double bj,
+            double epsilon = Epsilon)
+        {
+            var result = (a: new double[] { }, b: new double[] { });
+
+            var ua = bi * (ay - by) - bj * (ax - bx);
+            var ub = ai * (ay - by) - aj * (ax - bx);
+
+            var determinant = bj * ai - bi * aj;
+
+            if (determinant != 0)
+            {
+                var ta = ua / determinant;
+                var tb = ub / determinant;
+
+                if (ta >= 0 /*&& ta <= 1*/ && tb >= 0 /*&& tb <= 1*/)
+                {
+                    result = (a: new double[] { ta }, b: new double[] { tb });
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="aax"></param>
+        /// <param name="aay"></param>
+        /// <param name="abx"></param>
+        /// <param name="aby"></param>
+        /// <param name="bax"></param>
+        /// <param name="bay"></param>
+        /// <param name="bbx"></param>
+        /// <param name="bby"></param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double[] a, double[] b) LineSegmentLineSegmentIntersectionIndexes(
+            double aax, double aay, double abx, double aby,
+            double bax, double bay, double bbx, double bby,
+            double epsilon = Epsilon)
+        {
+            var result = (a: new double[] { }, b: new double[] { });
+
+            var ua = (bbx - bax) * (aay - bay) - (bby - bay) * (aax - bax);
+            var ub = (abx - aax) * (aay - bay) - (aby - aay) * (aax - bax);
+
+            var determinant = (bby - bay) * (abx - aax) - (bbx - bax) * (aby - aay);
+
+            if (determinant != 0)
+            {
+                var ta = ua / determinant;
+                var tb = ub / determinant;
+
+                if (0 <= ta && ta <= 1 && 0 <= tb && tb <= 1)
+                {
+                    result = (a: new double[] { ta }, b: new double[] { tb });
+                }
+            }
+
+            return result;
         }
 
         #endregion

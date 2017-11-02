@@ -42,6 +42,7 @@ namespace Editor
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
+            LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
             //NearestPoint(vectorMap, form, metrics);
             //SplitLines(vectorMap);
             //SplitRays(vectorMap);
@@ -77,12 +78,12 @@ namespace Editor
             //IntersectingsEllipseCubicSegment(vectorMap);
             //EllipticalArcLineSegmentIntersections(vectorMap);
             //EllipticalArcLineIntersections(vectorMap);
-            IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
-            IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
-            IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
-            IntersectionsCubicBezierCubicBezierKLD(vectorMap);
-            IntersectionsCubicBezierQuadraticBezier(vectorMap);
-            IntersectionsCubicBezierCubicBezier(vectorMap);
+            //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
+            //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
+            //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
+            //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
+            //IntersectionsCubicBezierQuadraticBezier(vectorMap);
+            //IntersectionsCubicBezierCubicBezier(vectorMap);
             //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
@@ -1995,6 +1996,59 @@ namespace Editor
 
         #region Experimental
 
+        public static void LineSegmentLineSegmentIntersectionT(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
+        {
+            (double left, double top) = (0, 0);
+
+            var segmentA = new LineSegment(left + 100, top + 100, left + 250, top + 150);
+            var segmentAItem = new GraphicItem(segmentA, intersectionBlue)
+            {
+                Name = "Line Segment a"
+            };
+
+            var segmentB = new LineSegment(left + 300, top + 100, left + 100, top + 200);
+            var segmentBItem = new GraphicItem(segmentB, intersectionBlue)
+            {
+                Name = "Line Segment b"
+            };
+
+            var (a, b) = Intersections.LineSegmentLineSegmentIntersectionIndexes(segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY, segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
+
+            var pointA = (Point2D)Interpolators.Linear(segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY, a[0]);
+            var intersectionNodeAItem = new GraphicItem(new NodeRevealer(pointA, 5d), handleStyle)
+            {
+                Name = "Intersection Point a"
+            };
+
+            var pointB = (Point2D)Interpolators.Linear(segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY, b[0]);
+            var intersectionNodeBItem = new GraphicItem(new NodeRevealer(pointB, 5d), handleStyle)
+            {
+                Name = "Intersection Point b"
+            };
+
+            var text = new Text2D(
+                $"a: {a[0].ToString()}, b: {b[0].ToString()}",
+                form.Font.ToRenderFont(),
+                new Point2D(left + 200, top + 100),
+                metrics);
+            var textItem = new GraphicItem(text, whiteishStyle)
+            {
+                Name = "Text"
+            };
+
+            vectorMap.Add(segmentAItem);
+            vectorMap.Add(segmentBItem);
+            vectorMap.Add(intersectionNodeAItem);
+            vectorMap.Add(intersectionNodeBItem);
+            vectorMap.Add(textItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        /// <param name="form"></param>
+        /// <param name="metrics"></param>
         public static void NearestPoint(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
             (double left, double top) = (0, 0);

@@ -2846,6 +2846,8 @@ namespace MethodSpeedTester
                 $"{nameof(Experiments.CubicBezierInterpolate2D_4)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
                 new SpeedTester(() => CubicBezierInterpolate2D_5(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
                 $"{nameof(Experiments.CubicBezierInterpolate2D_5)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
+                new SpeedTester(() => InterpolateCubic(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
+                $"{nameof(Experiments.InterpolateCubic)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
                 new SpeedTester(() => CubicBezierInterpolate2D_6(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
                 $"{nameof(Experiments.CubicBezierInterpolate2D_6)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)")
             };
@@ -3077,6 +3079,28 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
+        /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Point2D InterpolateCubic(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)
+        {
+            var x = -(t * t * t) * (x0 - 3 * x1 + 3 * x2 - x3)
+                + 3 * t * t * (x0 - 2 * x1 + x2) + 3 * t * (x1 - x0) + x0;
+            var y = -(t * t * t) * (y0 - 3 * y1 + 3 * y2 - y3)
+                + 3 * t * t * (y0 - 2 * y1 + y2) + 3 * t * (y1 - y0) + y0;
+            return (new Point2D(x, y));
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="p0"></param>
@@ -3099,6 +3123,105 @@ namespace MethodSpeedTester
         #endregion
 
         #region Cubic Bezier and Line Intersections
+
+        #endregion
+
+        #region Cubic Bezier Self Intersection
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <returns>returns null if the curve is self-intersecting, or the point of intersection if it is.</returns>
+        public static Point2D? CubicBezierSelfIntersectionX(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+            => CubicBezierSelfIntersection(
+                Polynomial.Cubic(x0, x1, x2, x3),
+                Polynomial.Cubic(y0, y1, y2, y3));
+
+        /// <summary>
+        /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
+        /// </summary>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
+        /// <returns></returns>
+        public static Point2D? CubicBezierSelfIntersection(Polynomial xCurve, Polynomial yCurve)
+        {
+            (var a, var b) = (xCurve[0] == 0d) ? (xCurve[1], xCurve[2]) : (xCurve[1] / xCurve[0], xCurve[2] / xCurve[0]);
+            (var p, var q) = (yCurve[0] == 0d) ? (yCurve[1], yCurve[2]) : (yCurve[1] / yCurve[0], yCurve[2] / yCurve[0]);
+
+            if (a == p || q == b)
+                return null;
+            var k = (q - b) / (a - p);
+
+            var poly = new Polynomial(
+                2,
+                -3 * k,
+                3 * k * k + 2 * k * a + 2 * b,
+                -k * k * k - a * k * k - b * k);
+
+            var r = poly.Roots().OrderByDescending(c => c).ToArray();
+            if (r.Length != 3)
+                return null;
+
+            if (r[0] >= 0.0 && r[0] <= 1.0 && r[2] >= 0.0 && r[2] <= 1.0)
+            {
+                var s = r[0];
+                return new Point2D(
+                    xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
+                    yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]);
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
+        /// </summary>
+        /// <param name="x0"></param>
+        /// <param name="y0"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <returns>returns null if the curve is self-intersecting, or the point of intersection if it is.</returns>
+        public static Point2D? CubicBezierSelfIntersection(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
+        {
+            var xCurve = CubicBezierCoefficients(x0, x1, x2, x3);
+            (var a, var b) = (xCurve.D == 0d) ? (xCurve.C, xCurve.B) : (xCurve.C / xCurve.D, xCurve.B / xCurve.D);
+            var yCurve = CubicBezierCoefficients(y0, y1, y2, y3);
+            (var p, var q) = (yCurve.D == 0d) ? (yCurve.C, yCurve.B) : (yCurve.C / yCurve.D, yCurve.B / yCurve.D);
+
+            if (a == p || q == b)
+                return null;
+            var k = (q - b) / (a - p);
+
+            var poly = new double[]
+            {
+                -k * k * k - a * k * k - b * k,
+                3 * k * k + 2 * k * a + 2 * b,
+                -3 * k,
+                2
+            };
+
+            var roots = CubicRoots(poly[3], poly[2], poly[1], poly[0])
+                .OrderByDescending(c => c).ToArray();
+            if (roots.Length != 3)
+                return null;
+
+            if (roots[0] >= 0d && roots[0] <= 1d && roots[2] >= 0d && roots[2] <= 1d)
+                return Interpolators.CubicBezier(x0, y0, x1, y1, x2, y2, x3, y3, roots[0]);
+
+            return null;
+        }
 
         #endregion
 
@@ -3592,7 +3715,7 @@ namespace MethodSpeedTester
             var dy21 = q1.Y - q0.Y;
             var dx10 = q0.X - p.X;
             var dy10 = q0.Y - p.Y;
-            var segLength = Math.Sqrt(dx21 * dx21 + dy21 * dy21);
+            var segLength = Sqrt(dx21 * dx21 + dy21 * dy21);
             if (segLength < Epsilon)
                 throw new Exception("Expected line segment, not point.");
             var num = Abs(dx21 * dy10 - dx10 * dy21);
@@ -13586,6 +13709,44 @@ namespace MethodSpeedTester
                 results.Add(-tmp - offset);
             }
             return results;
+        }
+
+        /// <summary>
+        /// Solve ax^3+bx^2+cx+d=0 for x.
+        /// Calculation of the 3 roots of a cubic equation according to
+        /// http://en.wikipedia.org/wiki/Cubic_function#General_formula_for_roots
+        /// Using the complex struct from System.Numerics
+        /// Visual Studio 2010, .NET version 4.0
+        /// https://www.daniweb.com/programming/software-development/code/454493/solving-the-cubic-equation-using-the-complex-struct
+        /// </summary>
+        /// <param name="a">real coefficient of x to the 3th power</param>
+        /// <param name="b">real coefficient of x to the 2nd power</param>
+        /// <param name="c">real coefficient of x to the 1th power</param>
+        /// <param name="d">real coefficient of x to the zeroth power</param>
+        /// <returns>A list of 3 complex numbers</returns>
+        public static List<Complex> SolveCubic(double a, double b, double c, double d, double epsilon = Epsilon)
+        {
+            const int NRoots = 3;
+
+            var SquareRootof3 = Sqrt(3);
+            // the 3 cubic roots of 1
+            var CubicUnity = new List<Complex>(NRoots)
+                        { new Complex(1, 0), new Complex(-0.5, -SquareRootof3 / 2.0), new Complex(-0.5, SquareRootof3 / 2.0) };
+            // intermediate calculations
+            var DELTA = 18 * a * b * c * d - 4 * b * b * b * d + b * b * c * c - 4 * a * c * c * c - 27 * a * a * d * d;
+            var DELTA0 = b * b - 3 * a * c;
+            var DELTA1 = 2 * b * b * b - 9 * a * b * c + 27 * a * a * d;
+            Complex DELTA2 = -27 * a * a * DELTA;
+            var C = Complex.Pow((DELTA1 + Complex.Pow(DELTA2, 0.5)) / 2, 1 / 3.0); //Phew...
+
+            var R = new List<Complex>(NRoots);
+            for (var i = 0; i < NRoots; i++)
+            {
+                Complex M = CubicUnity[i] * C;
+                Complex Root = -1.0 / (3 * a) * (b + M + DELTA0 / M);
+                R.Add(Root);
+            }
+            return R;
         }
 
         #endregion

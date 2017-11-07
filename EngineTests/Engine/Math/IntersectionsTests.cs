@@ -147,6 +147,8 @@ namespace Engine.Tests
 
         #endregion
 
+        #region Intersection Tests
+
         /// <summary>
         /// 
         /// </summary>
@@ -328,6 +330,38 @@ namespace Engine.Tests
         }
 
         /// <summary>
+        /// Test for correct self intersections of Cubic Bezier curves.
+        /// </summary>
+        [TestMethod()]
+        [Priority(0)]
+        [Owner("Shkyrockett")]
+        [TestProperty("Engine", "IntersectionsTests")]
+        [DeploymentItem("Engine.dll")]
+        [DeploymentItem("System.ValueTuple.dll")]
+        public void CubicBezierSegmentSelfIntersectionTest()
+        {
+            var testCases = new Dictionary<(double AX, double AY, double BX, double BY, double CX, double CY, double DX, double DY), Intersection>
+            {
+                { (0, 0, 0, 0, 0, 0, 0, 0), new Intersection(IntersectionState.NoIntersection, new Point2D[]{ }) },
+                { (150, 300, 300, 100, 100, 100, 250, 300), new Intersection(IntersectionState.Intersection, new Point2D[]{ (199.893126357613, 214.564969294897) }) }
+            };
+
+            foreach (var test in testCases)
+            {
+                var result = Intersections.CubicBezierSegmentSelfIntersection(test.Key.AX, test.Key.AY, test.Key.BX, test.Key.BY, test.Key.CX, test.Key.CY, test.Key.DX, test.Key.DY, Maths.Epsilon);
+
+                Assert.AreEqual(test.Value.State, result.State, $"Test case: {test}, Expected: {test.Value}, Actual {result}; Intersection state differs.");
+                Assert.AreEqual(test.Value.Points.Count, result.Count, $"Test case: {test}, Expected: {test.Value}, Actual {result}; Intersection point count differs.");
+
+                for (var i = 0; i < result.Count; i++)
+                {
+                    Assert.AreEqual(test.Value.Points[i].X, result.Points[i].X, TestEpsilon, $"Test case: {test}, Expected: {test.Value}, Actual: {result}; Intersection {i} x coordinate differs.");
+                    Assert.AreEqual(test.Value.Points[i].Y, result.Points[i].Y, TestEpsilon, $"Test case: {test}, Expected: {test.Value}, Actual: {result}; Intersection {i} y coordinate differs.");
+                }
+            }
+        }
+
+        /// <summary>
         /// Test for correct intersections between two Cubic Bezier curves.
         /// </summary>
         [TestMethod()]
@@ -336,7 +370,7 @@ namespace Engine.Tests
         [TestProperty("Engine", "IntersectionsTests")]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("System.ValueTuple.dll")]
-        public void CubicSegmentCubicBezierSegmentIntersectionTest()
+        public void CubicBezierSegmentCubicBezierSegmentIntersectionTest()
         {
             // List of test-cases for intersections between two Quadratic Bezier curves.
             var testCases = new Dictionary<((double AX, double AY, double BX, double BY, double CX, double CY, double DX, double DY) a, (double AX, double AY, double BX, double BY, double CX, double CY, double DX, double DY) b), Intersection>
@@ -379,113 +413,6 @@ namespace Engine.Tests
                 }
 
             }
-        }
-
-        #region Ignored
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void CircularArcSectorPointTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void EllipticSectorPointTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void RectanglePointTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void PolygonPointTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void PolygonSetPointTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void RectangleRectangleTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void PolygonPolygonTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
         }
 
         #endregion

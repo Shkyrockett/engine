@@ -42,7 +42,8 @@ namespace Editor
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
-            LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
+            SelfIntersectingCubicBezier(vectorMap);
+            //LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
             //NearestPoint(vectorMap, form, metrics);
             //SplitLines(vectorMap);
             //SplitRays(vectorMap);
@@ -105,8 +106,8 @@ namespace Editor
             //PlainCircle(vectorMap);
             //PlainSquare(vectorMap);
             //CircleBounds(vectorMap);
-            //QuadraticLength(vectorMap);
-            //CubicBezierLength(vectorMap);
+            //QuadraticLength(vectorMap, form, metrics);
+            //CubicBezierLength(vectorMap, form, metrics);
         }
 
         #region Styles
@@ -135,11 +136,11 @@ namespace Editor
         #region Interactive
 
         /// <summary>
-        /// 
+        /// Development test cases for testing canvas panel refresh bounds on resize testing.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
-        /// <param name="CanvasPanel"></param>
-        /// <param name="boundaryItem"></param>
+        /// <param name="CanvasPanel">The canvas panel to reference.</param>
+        /// <param name="boundaryItem">The boundary item to update.</param>
         public static void ResizeRefreshBounds(VectorMap vectorMap, CanvasPanel CanvasPanel, out GraphicItem boundaryItem)
         {
             vectorMap.VisibleBounds = CanvasPanel.ClientRectangle.ToRectangle2D();
@@ -148,10 +149,10 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for tweening shapes.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
-        /// <param name="form"></param>
+        /// <param name="form">The form to reference.</param>
         public static void Tweenning(VectorMap vectorMap, EditorForm form)
         {
             var ellipseTween = new Ellipse(
@@ -178,10 +179,10 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development experiment to try to make a nice looking Karaoke ball bounce.
         /// </summary>
-        /// <param name="vectorMap"></param>
-        /// <param name="form"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
+        /// <param name="form">The form to reference.</param>
         public static void KaraokeBall(VectorMap vectorMap, EditorForm form)
         {
             (var left, var top) = (100d, 200d);
@@ -198,9 +199,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for creating tweening lerp methods.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void Tweens(VectorMap vectorMap)
         {
             (var left, var top) = (0d, 0d);
@@ -463,9 +464,109 @@ namespace Editor
         #region Regression Tests
 
         /// <summary>
-        /// 
+        /// Development test cases for working on self intersection of Cubic Bezier methods.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
+        public static void SelfIntersectingCubicBezier(VectorMap vectorMap)
+        {
+            (var top, var left, var angle) = (0d, 0d, 90d.ToRadians());
+            var scale = new Size2D(2, 2);
+            var shift = new Vector2D(-100, -100) * scale;
+
+            var cubic1 = new CubicBezier(
+                left + 150, top + 300,
+                left + 300, top + 100,
+                left + 100, top + 100,
+                left + 250, top + 300).ScaleDistort(scale).TranslateDistort(shift);
+            var cubic1Item = new GraphicItem(cubic1, intersectionBlue)
+            {
+                Name = "Cubic Bezier 1"
+            };
+            var cubic1BoundsItem = new GraphicItem(cubic1.Bounds, selectionStyle)
+            {
+                Name = "Cubic Bezier 1 Bounds"
+            };
+            var cubic1Handles = new GraphicItem(new NodeRevealer(cubic1.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic Bezier 1 Handles"
+            };
+            var cubic1Self = Intersections.CubicBezierSegmentSelfIntersection(cubic1.CurveX, cubic1.CurveY);
+            var cubic1SelfHandles = new GraphicItem(new NodeRevealer(cubic1Self.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic 1 Bezier self intersection Handles"
+            };
+
+            var cubic2 = new CubicBezier(
+                left + 150, top + 100,
+                left + 300, top + 300,
+                left + 100, top + 300,
+                left + 250, top + 100
+                ).ScaleDistort(scale).TranslateDistort(shift).RotateDistort(new Point2D(left + 200, top + 200), angle);
+            var cubic2Item = new GraphicItem(cubic2, intersectionBlue)
+            {
+                Name = "Cubic Bezier 2"
+            };
+            var cubic2BoundsItem = new GraphicItem(cubic2.Bounds, selectionStyle)
+            {
+                Name = "Cubic Bezier 2 Bounds"
+            };
+            var cubic2Handles = new GraphicItem(new NodeRevealer(cubic2.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic Bezier 2 Handles"
+            };
+            var cubic2Self = Intersections.CubicBezierSegmentSelfIntersection(cubic2.CurveX, cubic2.CurveY);
+            var cubic2SelfHandles = new GraphicItem(new NodeRevealer(cubic2Self.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic 2 Bezier self intersection Handles"
+            };
+
+            top -= 175;
+
+            var cubic3 = new CubicBezier(
+                left + 250, top + 300,
+                left + 225, top + 301,
+                left + 320, top + 300,
+                left + 150, top + 300
+                ).ScaleDistort(scale).TranslateDistort(shift);
+            var cubic3Item = new GraphicItem(cubic3, intersectionBlue)
+            {
+                Name = "Cubic Bezier 3"
+            };
+            var cubic3BoundsItem = new GraphicItem(cubic3.Bounds, selectionStyle)
+            {
+                Name = "Cubic Bezier 3 Bounds"
+            };
+            var cubic3Handles = new GraphicItem(new NodeRevealer(cubic3.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic Bezier 3 Handles"
+            };
+            var cubic3Self = Intersections.CubicBezierSegmentSelfIntersection(cubic3.CurveX, cubic3.CurveY);
+            var cubic3SelfHandles = new GraphicItem(new NodeRevealer(cubic3Self.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic 3 Bezier self intersection Handles"
+            };
+
+            vectorMap.Add(cubic1BoundsItem);
+            vectorMap.Add(cubic2BoundsItem);
+            vectorMap.Add(cubic3BoundsItem);
+
+            vectorMap.Add(cubic1Item);
+            vectorMap.Add(cubic2Item);
+            vectorMap.Add(cubic3Item);
+
+            vectorMap.Add(cubic1Handles);
+            vectorMap.Add(cubic2Handles);
+            vectorMap.Add(cubic3Handles);
+
+            vectorMap.Add(cubic1SelfHandles);
+            vectorMap.Add(cubic2SelfHandles);
+            vectorMap.Add(cubic3SelfHandles);
+        }
+
+        /// <summary>
+        /// Development test cases for testing intersection methods between ellipses.
+        /// </summary>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectingsEllipseEllipse(VectorMap vectorMap)
         {
             var location = new Point2D(100, 100);
@@ -508,9 +609,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for testing intersections between ellipses and quadratic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectingsEllipseQuadraticSegment(VectorMap vectorMap)
         {
             var location = new Point2D(100, 100);
@@ -553,9 +654,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for testing intersections between ellipses and cubic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectingsEllipseCubicSegment(VectorMap vectorMap)
         {
             var location = new Point2D(100, 100);
@@ -598,9 +699,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for testing intersections methods between two quadratic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsQuadraticBezierQuadraticBezier(VectorMap vectorMap)
         {
             var top = 10;
@@ -699,9 +800,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for testing intersection methods between cubic and quadratic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsCubicBezierQuadraticBezier(VectorMap vectorMap)
         {
             var top = 10;
@@ -792,9 +893,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for testing intersections methods between two cubic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsCubicBezierCubicBezier(VectorMap vectorMap)
         {
             var top = 10;
@@ -901,9 +1002,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for testing intersections methods between two quadratic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsQuadraticBezierQuadraticBezierKLD(VectorMap vectorMap)
         {
             var top = 150;
@@ -953,9 +1054,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for testing intersections methods between two cubic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsCubicBezierCubicBezierKLD(VectorMap vectorMap)
         {
             var top = 0;
@@ -1006,9 +1107,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for testing intersection methods between cubic and quadratic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsQuadraticBezierCubicBezierKLD(VectorMap vectorMap)
         {
             var top = 0;
@@ -1058,9 +1159,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development regression test case to test for intersections between elliptical arcs and line segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void EllipticalArcLineSegmentIntersections(VectorMap vectorMap)
         {
             var left = 50;
@@ -1108,9 +1209,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development regression test case to test for intersections between elliptical arcs and lines.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void EllipticalArcLineIntersections(VectorMap vectorMap)
         {
             var left = 50;
@@ -1158,9 +1259,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development regressing test cases for testing for intersections between various lines.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void BezierLineIntersections(VectorMap vectorMap)
         {
             var left = 0;
@@ -1298,9 +1399,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development regression test cases for testing for intersections between various bezier curve and line segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void BezierLineSegmentIntersections(VectorMap vectorMap)
         {
             var left = 0;
@@ -1541,10 +1642,11 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development regression test cases for testing various line segment intersection methods.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
-        /// <param name="form"></param>
+        /// <param name="form">The form to reference.</param>
+        /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void SegmentIntersections(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
             var segment0 = new LineSegment(new Point2D(20, 150), new Point2D(180, 200));
@@ -1592,7 +1694,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases testing various intersection methods.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void IntersectionsTests(VectorMap vectorMap)
@@ -1649,7 +1751,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development regression test cases for testing methods for capturing the bounds of circular arcs.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void CircularArcBounds(VectorMap vectorMap)
@@ -1969,7 +2071,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for capturing ellipse axis aligned bounding boxes.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void EllipseBound(VectorMap vectorMap)
@@ -1981,7 +2083,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for capturing elliptical arc axis aligned bounding boxes.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void EllipticalArcBounds(VectorMap vectorMap)
@@ -1996,6 +2098,12 @@ namespace Editor
 
         #region Experimental
 
+        /// <summary>
+        /// Development method for testing for line segment intersection t values.
+        /// </summary>
+        /// <param name="vectorMap">The vector map to write to.</param>
+        /// <param name="form">The form to reference.</param>
+        /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void LineSegmentLineSegmentIntersectionT(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
             (double left, double top) = (0, 0);
@@ -2044,11 +2152,11 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for locating the nearest point on a line segment methods.
         /// </summary>
-        /// <param name="vectorMap"></param>
-        /// <param name="form"></param>
-        /// <param name="metrics"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
+        /// <param name="form">The form to reference.</param>
+        /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void NearestPoint(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
             (double left, double top) = (0, 0);
@@ -2094,9 +2202,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for spiting lines.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void SplitLines(VectorMap vectorMap)
         {
             (double left, double top) = (0, 0);
@@ -2123,9 +2231,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for spiting Rays.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void SplitRays(VectorMap vectorMap)
         {
             (double left, double top) = (0, 0);
@@ -2152,9 +2260,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for spiting line segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void SplitLineSegments(VectorMap vectorMap)
         {
             (double left, double top) = (0, 0);
@@ -2181,9 +2289,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for spiting quadratic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void SplitQuadraticBezier(VectorMap vectorMap)
         {
             var top = 10;
@@ -2224,9 +2332,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for spiting cubic bezier curve segments.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void SplitCubicBezier(VectorMap vectorMap)
         {
             var top = 10;
@@ -2267,9 +2375,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method to work out how to render rays.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void RayWork(VectorMap vectorMap)
         {
             (double left, double top) = (100, 150);
@@ -2301,10 +2409,10 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for trying to work out nearest parameter to point on bezier curve.
         /// </summary>
-        /// <param name="vectorMap"></param>
-        /// <param name="tools"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
+        /// <param name="tools">Reference to the Tools stack.</param>
         public static void NearestParameter(VectorMap vectorMap, ToolStack tools)
         {
             var top = 10;
@@ -2351,9 +2459,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Method to experiment with generating a heart curve.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void HeartCurve(VectorMap vectorMap)
         {
             var left = 200;
@@ -2366,9 +2474,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing ideas about scan line intersections.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void ScanlineIntersections(VectorMap vectorMap)
         {
             var left = 100;
@@ -2466,9 +2574,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method testing various common intersections between shapes.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void CommonIntersections(VectorMap vectorMap)
         {
             double left = 300;
@@ -2627,7 +2735,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing the mapping from ellipses to bezier curve segments.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void EllipseToBeziers(VectorMap vectorMap)
@@ -2667,7 +2775,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing out how to do curve fitting.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void CurveFitting(VectorMap vectorMap)
@@ -2681,7 +2789,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing warping geometry using curve fitting.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void WarpGeometry(VectorMap vectorMap)
@@ -2754,7 +2862,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing the accuracy of various clipping methods with complex geometry.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void ComplexPolygonClipping(VectorMap vectorMap)
@@ -2801,7 +2909,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing the accuracy of various clipping methods with complex geometry.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void PolyClipping(VectorMap vectorMap)
@@ -2826,9 +2934,9 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing the accuracy of various clipping methods with complex geometry.
         /// </summary>
-        /// <param name="vectorMap"></param>
+        /// <param name="vectorMap">The vector map to write to.</param>
         public static void FMartinezSamplesForClipping(VectorMap vectorMap)
         {
             var factors = new Size2D(100, 100);
@@ -3305,7 +3413,30 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing the Sutherland Hodgman clipping method.
+        /// </summary>
+        /// <param name="vectorMap">The Map to draw on.</param>
+        public static void SutherlandHodgman(VectorMap vectorMap)
+        {
+            var triangleI = new Triangle(
+                new Point2D(75, 125),
+                new Point2D(225, 125),
+                new Point2D(150, 250));
+            var triangleIItem = new GraphicItem(triangleI, solidPinkStyle);
+            vectorMap.Add(triangleIItem);
+            var rectangle = new Rectangle2D(new Point2D(100, 100), new Size2D(100, 100)).ToPolygon();
+            var rectangleItem = new GraphicItem(rectangle, solidLightBlueStyle)
+            {
+                Name = "Square Polygon."
+            };
+            vectorMap.Add(rectangleItem);
+            var intersection = new PolygonContour(Engine.SutherlandHodgman.PolygonPolygon(triangleI.Points, rectangle.Points));
+            var intersectionItem = new GraphicItem(intersection, paperLikeStyle);
+            vectorMap.Add(intersectionItem);
+        }
+
+        /// <summary>
+        /// Parametric testing method for developing path contours.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void PathContourWArcLine(VectorMap vectorMap)
@@ -3376,7 +3507,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for finding a path between various flattened geometry.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void Pathfinding(VectorMap vectorMap)
@@ -3430,7 +3561,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development testing method involving polylines.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void PolylineClicking(VectorMap vectorMap)
@@ -3444,10 +3575,11 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing out tendering text.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
-        /// <param name="form"></param>
+        /// <param name="form">The form to reference.</param>
+        /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void TextRendering(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
             var text = new Text2D(
@@ -3463,7 +3595,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for trying to work out rotated rectangles.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void RotatedRectangle(VectorMap vectorMap)
@@ -3500,30 +3632,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="vectorMap">The Map to draw on.</param>
-        public static void SutherlandHodgman(VectorMap vectorMap)
-        {
-            var triangleI = new Triangle(
-                new Point2D(75, 125),
-                new Point2D(225, 125),
-                new Point2D(150, 250));
-            var triangleIItem = new GraphicItem(triangleI, solidPinkStyle);
-            vectorMap.Add(triangleIItem);
-            var rectangle = new Rectangle2D(new Point2D(100, 100), new Size2D(100, 100)).ToPolygon();
-            var rectangleItem = new GraphicItem(rectangle, solidLightBlueStyle)
-            {
-                Name = "Square Polygon."
-            };
-            vectorMap.Add(rectangleItem);
-            var intersection = new PolygonContour(Engine.SutherlandHodgman.PolygonPolygon(triangleI.Points, rectangle.Points));
-            var intersectionItem = new GraphicItem(intersection, paperLikeStyle);
-            vectorMap.Add(intersectionItem);
-        }
-
-        /// <summary>
-        /// 
+        /// Development method for parametrically finding the bounding box of an ellipse.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void ParametricEllipseBounds(VectorMap vectorMap)
@@ -3541,7 +3650,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for parametrically finding the bounding box of an elliptical arc.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void ParametricEllipseArc(VectorMap vectorMap)
@@ -3566,7 +3675,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for parametrically point hit testing geometry.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void ParametricTesting(VectorMap vectorMap)
@@ -3644,7 +3753,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for developing the parametric curve class.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void ParametricTesting2(VectorMap vectorMap)
@@ -3715,11 +3824,11 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development method for testing out drawing grids to the screen.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
-        /// <param name="foreColor"></param>
-        /// <param name="backColor"></param>
+        /// <param name="foreColor">The form fore color,</param>
+        /// <param name="backColor">The form back color.</param>
         public static void GridTests(VectorMap vectorMap, Color foreColor, Color backColor)
         {
             var mapStyles = new List<ShapeStyle>
@@ -3816,7 +3925,7 @@ namespace Editor
         #region Regular stuff
 
         /// <summary>
-        /// 
+        /// Rendering test case for developing the triangle class.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void TrianglePointingRight(VectorMap vectorMap)
@@ -3830,7 +3939,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Rendering test case for developing the polygon contour class.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void PaperPlaneTriangles(VectorMap vectorMap)
@@ -3844,7 +3953,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Rendering test case for developing the circle class.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void PlainCircle(VectorMap vectorMap)
@@ -3858,7 +3967,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Development test case for capturing circle bounds.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void CircleBounds(VectorMap vectorMap)
@@ -3871,7 +3980,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Rendering test case for developing squares.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void PlainSquare(VectorMap vectorMap)
@@ -3885,7 +3994,7 @@ namespace Editor
         }
 
         ///// <summary>
-        ///// 
+        ///// Rendering test case for developing ovals.
         ///// </summary>
         ///// <param name="vectorMap">The Map to draw on.</param>
         //public static void PlainOval(VectorMap vectorMap)
@@ -3899,37 +4008,59 @@ namespace Editor
         //}
 
         /// <summary>
-        /// 
+        /// Development test cases for trying to find the best length method for quadratic bezier curves.
         /// </summary>
-        /// <param name="vectorMap"></param>
-        public static void QuadraticLength(VectorMap vectorMap)
+        /// <param name="vectorMap">The vector map to write to.</param>
+        /// <param name="form">The form to reference.</param>
+        /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
+        public static void QuadraticLength(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
             var quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
             var quadBezierItem = new GraphicItem(quadBezier, solidLightGreenStyle);
             var quadBezierBoundsIthem = new GraphicItem(quadBezier.Bounds, selectionStyle);
+
+            var text = new Text2D(
+                $"Quadratic Bezier arc length by segments: \t{quadBezier.Length}\r\n" /* +
+                $"Bezier arc length by integral: \t{quadBezier.Length}\r\n" +
+                $"Bezier arc length by Gauss-Legendre \t{quadBezier.Length}" */,
+                form.Font.ToRenderFont(),
+                new Point2D(100, 150),
+                metrics);
+            var textItem = new GraphicItem(text, whiteishStyle)
+            {
+                Name = "Text"
+            };
+
             vectorMap.Add(quadBezierBoundsIthem);
             vectorMap.Add(quadBezierItem);
-            var quadBezierLengths = new StringBuilder();
-            quadBezierLengths.AppendLine("Bezier arc length by segments: \t" + quadBezier.Length);
-            quadBezierLengths.AppendLine("Bezier arc length by integral: \t" + quadBezier.Length);
-            quadBezierLengths.AppendLine("Bezier arc length by Gauss-Legendre: \t" + quadBezier.Length);
-            MessageBox.Show(quadBezierLengths.ToString());
+            vectorMap.Add(textItem);
         }
 
         /// <summary>
-        /// 
+        /// Development test cases for trying to find the best length method for cubic bezier curves.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
-        public static void CubicBezierLength(VectorMap vectorMap)
+        /// <param name="form">The form to reference.</param>
+        /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
+        public static void CubicBezierLength(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
             var cubeBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
             var cubeBezierItem = new GraphicItem(cubeBezier, whiteishStyle);
             var cubeBezierBoundsItem = new GraphicItem(cubeBezier.Bounds, selectionStyle);
+
+            var text = new Text2D(
+                $"Cubic Bezier arc length: \t{cubeBezier.Length}",
+                form.Font.ToRenderFont(),
+                new Point2D(100, 200),
+                metrics);
+            var textItem = new GraphicItem(text, whiteishStyle)
+            {
+                Name = "Text"
+            };
+
             vectorMap.Add(cubeBezierBoundsItem);
             vectorMap.Add(cubeBezierItem);
-            var cubeBezierLengths = new StringBuilder();
-            cubeBezierLengths.AppendLine("Bezier arc length: \t" + cubeBezier.Length);
-            MessageBox.Show(cubeBezierLengths.ToString());
+            vectorMap.Add(textItem);
         }
 
         #endregion

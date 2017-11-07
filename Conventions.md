@@ -2,7 +2,7 @@
 
 This document is not intended to state the law. Rather, it is intended as a guideline for code consistency to make the entire project feel like it is a unified platform.
 
-For the most part, follow the standards for .NET libraries in [C# Coding Conventions (C# Programming Guide)](https://msdn.microsoft.com/en-us/library/ff926074.aspx). Visual Studio defaults fit these standards. The Ctrl + k + CTRL + d shortcut key combination are your best friend for beautifying code.
+For the most part, follow the standards for .NET libraries in [C# Coding Conventions (C# Programming Guide)](https://msdn.microsoft.com/en-us/library/ff926074.aspx). Visual Studio defaults fit these standards. The `Ctrl` + `k` + `CTRL` + `d` shortcut key combination are your best friend for beautifying code.
 
 This project is being written in C# 7.0. Which brings some interesting constructs into the language to do things that were previously impossible.
 
@@ -66,7 +66,7 @@ namespace Engine
 
 Code files should start with an XML copyright header like the following, to indicate copyright and license.
 
-```c#
+```csharp
 // <copyright file="Filenme.cs" >
 //     Copyright © Year Copyright holder. All rights reserved.
 // </copyright>
@@ -81,7 +81,7 @@ Code files should start with an XML copyright header like the following, to indi
 
 Methods found online should be attributed to their original source in an acknowledgment section of the method's xml header. This permits going back to the source while troubleshooting; to compare results with the original code, or to apply updates as needed. As well as to provide credit for the original author. 
 
-```c#
+```csharp
         /// <summary>
         /// 
         /// </summary>
@@ -121,7 +121,7 @@ Use Pascal casing for public Namespace, class, structure, enumeration, event, pr
 
 Use Camel casing for parameters, private member variables, and local variables. 
 
-```c#
+```csharp
 namespace Engine
 {
     public enum MyEnum
@@ -159,13 +159,13 @@ namespace Engine
 
 ### Indentation
 
-Use the Visual Studio default of 4 spaces, tabs interpreted as spaces. With the default Visual Studio install; Ctrl + k + d should auto correct indentation in most cases.
+Use the Visual Studio default of 4 spaces, tabs interpreted as spaces. With the default Visual Studio install; `Ctrl` + `k` + `Ctrl` + `d` should auto correct indentation in most cases.
 
 ### Bracing 
 
 In general, use Allman style spacing with curly braces on their own lines.
 
-```c#
+```csharp
 private bool test()
 {
     return true;
@@ -174,7 +174,7 @@ private bool test()
 
 Property setters and getters that only have one line should be placed on one line
 
-```c#
+```csharp
 public int Number
 {
     get { return number; }
@@ -182,13 +182,13 @@ public int Number
 }
 ``` 
 
-```c#
+```csharp
 public double X { get; set; }
 ```
 
 For methods _such as default constructors with pass through_ which are intended to be empty, placing opening and closing curly braces on the same line is recommended. The only intent is to signal that the method is indeed intended to be empty and not a placeholder for a future method.
 
-```c#
+```csharp
 private Cleaner()
 {}
 ```
@@ -197,7 +197,7 @@ private Cleaner()
 
 For classes that inherit from another class, use interfaces, or methods that pass through to other methods, such as constructors, place the colon and the inherit/interface/this on it's own line to make it easier to see differences in code review.
 
-```c#
+```csharp
 public Point()
     : this(0, 0)
 {}
@@ -212,7 +212,7 @@ Method parameters should generally be on the same line, unless the number of par
 For methods and read-only properties where they make sense, please feel free to use the expression body syntax. A little profiling indicates there may be some speed improvements with them.
 I am placing the 
 
-```c#
+```csharp
 public int Count
    => Array.Length;
 
@@ -224,7 +224,7 @@ public ToString()
 
 Use var where appropriate. Declaring a field in a method as var, you can let the compiler determine what the return type is. This can make long List or array declarations easier to read. 
 
-```c#
+```csharp
 var list = new List<double> {3, 1, 4, 1, 5, 9,  2, 6};
 ```
 
@@ -234,11 +234,11 @@ var list = new List<double> {3, 1, 4, 1, 5, 9,  2, 6};
 
 Feel free to use the new Tuple syntax where ever it makes sense. Tuples work great where you need a single use struct that will only be used within a single method, or for generalizing the return struct for several structs that could potentially use the same method with different type returns.
 
-```c#
+```csharp
 (double X, double Y) tempPoint = (x, y);
 ```
 
-```c#
+```csharp
 (double X, double Y) = (x, y);
 ```
 
@@ -246,7 +246,7 @@ Feel free to use the new Tuple syntax where ever it makes sense. Tuples work gre
 
 Use interpolated strings in place of `String.Format(...)` or wherever you need a simple string concatenation. Interpolated strings tend to be more readable, unless the concatenation is for splaying out a line of text across multiple lines.
 
-```c#
+```csharp
 public string ConvertToString()
     => $"Point:{x},{y}"
 ```
@@ -261,7 +261,7 @@ In order to help keep classes organized as they become unwieldy long, I'm using 
 
 Here is the general format I am using.
 
-```c#
+```csharp
     public struct RegionObject
     {
         #region Implementors
@@ -304,7 +304,7 @@ To standardize these specific methods throughout the Engine to work the same, pl
 
 If a struct/class can be generalized by a numeric tuple; please use a tuple constructor and explicit operator so you can take advantage of any existing methods with the same signature.
 
-```c#
+```csharp
     public struct NumaricObject
     {
         #region Constructors
@@ -378,7 +378,7 @@ If a struct/class can be generalized by a numeric tuple; please use a tuple cons
 
 To reduce the chance of errors in equality comparisons across various comparison operators, please use the following as a template for modeling Structs/Classes that need equality comparisons.
 
-```c#
+```csharp
     public struct ComparableObject
 	    : IEquatable<ComparableObject>
     {
@@ -513,7 +513,7 @@ To reduce the chance of errors in equality comparisons across various comparison
 
 Please use the following as a template for IFormatable Structs/Classes, or objects that need to provide a string representation of the self.
 
-```c#
+```csharp
     public struct FormatableObject
          : IFormattable
     {
@@ -642,7 +642,7 @@ In this situation, it would be faster to run the calculation once and store it i
 
 This can be solved with property caching. The memory expense is a single dictionary that expands or shrinks as needed.
 
-```c#
+```csharp
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
@@ -652,7 +652,7 @@ This can be solved with property caching. The memory expense is a single diction
 
 To support it, you need a method that you pass a property to, and it checks whether the property's value is in the cache, keyed to the property's name, if it is; it returns the value, if not; it runs the calculation, caches the value, and returns the cached value.
 
-```c#
+```csharp
         /// <summary>
         /// Private method for caching computationally and memory intensive properties of child objects
         /// so that the intensive properties only get recalculated and stored when necessary.
@@ -675,7 +675,7 @@ To support it, you need a method that you pass a property to, and it checks whet
 
 In the property, the calculations get moved out to a separate method, and a call to the cachingProperty method gets called instead, with a lambda reference to the method that does the calculation.
 
-```c#
+```csharp
         /// <summary>
         /// Gets the axis aligned bounding box of the Shape.
         /// </summary>
@@ -687,7 +687,7 @@ Hereafter, it is important that whenever a referenced property changes, the prop
 
 Unfortunately this means that under the current syntax rules, if you use property caching you cannot use auto properties for any value that can affect a cached property, and you have to fall back to using properties with fields and a clearProperty() call in the setter.
 
-```c#
+```csharp
         /// <summary>
         /// The center x coordinate point of the Shape.
         /// </summary>
@@ -725,3 +725,33 @@ Unfortunately, this does leave these properties open to problems with race condi
 In general, property caching should be used when the calculation time of a read only property exceeds the amount of time it would take to lookup the value in a dictionary. 
 
 Right now, the shapes classes inherit property caching from their parent class, and have to have properties modified to use it.
+
+## Meta Optimizations
+
+There are various meta tag attributes that can be attached to a method for compiler based improvements.
+
+### DebuggerStepThrough
+
+The DebuggerStepThrough attribute is attached to a method that you wish to always step over while debugging. As an API set most methods should be marked so people debugging their own code don't have to wade through the API code. 
+
+Methods that have been thoroughly tested and deemed to work properly are good candidates to be tagged with the DebuggerStepThrough attribute. When debugging a method that would normally be marked DebuggerStepThrough, be sure to comment out it out.
+
+```csharp
+[DebuggerStepThrough]
+public static method()
+{}
+```
+
+### MethodImplOptions AggressiveInlining
+
+The compiler is designed to optimize code compilation for general solutions. But sometimes you really want your code to run as fast as possible. This can often be done by in-lining methods rather than making calls to the methods, but at the expense of building larger binaries.
+
+The c# compiler has been given an attribute flag that can provide a hint to the compiler to optimize compilation with aggressive in-lining.
+
+For right now AggressiveInlining is being used on most of the library methods. Though it would be good to test to see if it actually does help, and in which cases.
+
+```csharp
+[MethodImpl(MethodImplOptions.AggressiveInlining)]
+public static method()
+{}
+```

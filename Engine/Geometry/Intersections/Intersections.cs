@@ -45,6 +45,7 @@ using static Engine.Maths;
 using static System.Math;
 using static Engine.Measurements;
 using System;
+using System.Linq;
 
 namespace Engine
 {
@@ -3468,81 +3469,6 @@ namespace Engine
 
         #endregion
 
-        #region Experimental
-
-        /// <summary>
-        /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <returns>returns null if the curve is self-intersecting, or the point of intersection if it is.</returns>
-        public static Point2D? IsSelfIntersecting(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
-        {
-            var r = new double[4];
-            r[0] = x0;
-            r[1] = 3 * (x1 - x0);
-            r[2] = 3 * (x2 + x0 - 2 * x1);
-            r[3] = x3 - 3 * x2 + 3 * x1 - x0;
-            if (r[3] == 0.0)
-                return null;
-            var A = r[2] / r[3];
-            var B = r[1] / r[3];
-            r[0] = y0;
-            r[1] = 3 * (y1 - y0);
-            r[2] = 3 * (y2 + y0 - 2 * y1);
-            r[3] = y3 - 3 * y2 + 3 * y1 - y0;
-            if (r[3] == 0.0)
-                return null;
-            var P = r[2] / r[3];
-            var Q = r[1] / r[3];
-            if (A == P || Q == B)
-                return null;
-            var k = (Q - B) / (A - P);
-            r[0] = -k * k * k - A * k * k - B * k;
-            r[1] = 3 * k * k + 2 * k * A + 2 * B;
-            r[2] = -3 * k;
-            r[3] = 2;
-            var poly = new Polynomial(r);
-            r = poly.Roots();
-            if (r.Length != 3)
-                return null;
-            // sort r
-            double t;
-            if (r[1] < r[0])
-            {
-                t = r[0]; r[0] = r[1]; r[1] = t;
-            }
-            if (r[2] < r[0])
-            {
-                t = r[0]; r[0] = r[2]; r[2] = t;
-            }
-            if (r[2] < r[1])
-            {
-                t = r[1]; r[1] = r[2]; r[2] = t;
-            }
-
-            if (r[0] >= 0.0 && r[0] <= 1.0 && r[2] >= 0.0 && r[2] <= 1.0)
-                return (EvaluateCubic(x0, y0, x1, y1, x2, y2, x3, y3, r[0]));
-            return null;
-        }
-
-        public static Point2D EvaluateCubic(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)
-        {
-            var x = -(t * t * t) * (x0 - 3 * x1 + 3 * x2 - x3)
-                + 3 * t * t * (x0 - 2 * x1 + x2) + 3 * t * (x1 - x0) + x0;
-            var y = -(t * t * t) * (y0 - 3 * y1 + 3 * y2 - y3)
-                + 3 * t * t * (y0 - 2 * y1 + y2) + 3 * t * (y1 - y0) + y0;
-            return (new Point2D(x, y));
-        }
-
-        #endregion
-
         #region Intersection Methods
 
         /// <summary>
@@ -6770,6 +6696,100 @@ namespace Engine
         }
 
         /// <summary>
+        /// Find the point of self intersection of a cubic bezier curve, if the cubic bezier curve has self intersection.
+        /// </summary>
+        /// <param name="x0">The x-component of the starting point.</param>
+        /// <param name="y0">The y-component of the starting point.</param>
+        /// <param name="x1">The x-component of the first tangent handle.</param>
+        /// <param name="y1">The y-component of the first tangent handle.</param>
+        /// <param name="x2">The x-component of the second tangent handle.</param>
+        /// <param name="y2">The y-component of the second tangent handle.</param>
+        /// <param name="x3">The x-component of the ending point.</param>
+        /// <param name="y3">The y-component of the ending point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection CubicBezierSegmentSelfIntersection(
+            double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3,
+            double epsilon = Epsilon)
+            => CubicBezierSegmentSelfIntersection(
+                Polynomial.Cubic(x0, x1, x2, x3),
+                Polynomial.Cubic(y0, y1, y2, y3));
+
+        /// <summary>
+        /// Find the point of self intersection of a cubic bezier curve, if the cubic bezier curve has self intersection.
+        /// </summary>
+        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
+        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Intersection CubicBezierSegmentSelfIntersection(Polynomial xCurve, Polynomial yCurve,
+            double epsilon = Epsilon)
+        {
+            var result = new Intersection(IntersectionState.NoIntersection);
+
+            // Not sure why the difference between the two supposedly same points at different values of t can be so high. So far it only seems to happen at orthogonal cases.
+            var tolerence = 98838707421d * epsilon; // 0.56183300455876406
+
+            (var a, var b) = (xCurve[0] == 0d) ? (xCurve[1], xCurve[2]) : (xCurve[1] / xCurve[0], xCurve[2] / xCurve[0]);
+            (var p, var q) = (yCurve[0] == 0d) ? (yCurve[1], yCurve[2]) : (yCurve[1] / yCurve[0], yCurve[2] / yCurve[0]);
+
+            if (a == p || q == b)
+                return result;
+            var k = (q - b) / (a - p);
+
+            var poly = new Polynomial(
+                2,
+                -3 * k,
+                3 * k * k + 2 * k * a + 2 * b,
+                -k * k * k - a * k * k - b * k);
+
+            var roots = poly.Roots();//.OrderByDescending(c => c).ToArray();
+
+            // ToDo: Figure out edge case. When all nodes are linear, even if there should be a flat loop, there is only one root. The locus of points overlap three times for a little ways, and possibly twice past an edge.
+
+            if (roots.Length != 3)
+                return result;
+
+            if (roots[0] >= 0.0 && roots[0] <= 1.0 && roots[2] >= 0.0 && roots[2] <= 1.0)
+            {
+                // Locate the points that overlap.
+                var points = new List<Point2D>();
+
+                // This loop is for the general case. For cubic curves, one should just be able to grab the point at root[0] or root[2], or lerp halfway between them.
+                foreach (var s in roots)
+                {
+                    var point = new Point2D(
+                        xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
+                        yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]);
+
+                    for (var i = 0; i < points.Count; i++)
+                    {
+                        var r = points[i];
+                        if (Abs(point.X - r.X) < tolerence && Abs(point.Y - r.Y) < tolerence) 
+                        {
+                            // ToDo: Should the real resulting point be a lerp halfway between the two points to counteract floating point rounding?
+                            result.Points.Add(point);
+                            break;
+                        }
+                    }
+
+                    points.Add(point);
+                }
+            }
+
+            if (result.Count > 0)
+                result.State = IntersectionState.Intersection;
+            return result;
+        }
+
+        /// <summary>
         /// Find the intersection between two cubic beziers.
         /// </summary>
         /// <param name="a1X"></param>
@@ -7678,7 +7698,7 @@ namespace Engine
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection CircleCircleIntersection(
             double c1X, double c1Y, double r1,
@@ -8322,6 +8342,48 @@ namespace Engine
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
+        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double[] CubicBezierSelfIntersectionIndexes(
+            Polynomial xCurve, Polynomial yCurve,
+            double epsilon = Epsilon)
+        {
+            (var a, var b) = (xCurve[0] == 0d) ? (xCurve[1], xCurve[2]) : (xCurve[1] / xCurve[0], xCurve[2] / xCurve[0]);
+            (var p, var q) = (yCurve[0] == 0d) ? (yCurve[1], yCurve[2]) : (yCurve[1] / yCurve[0], yCurve[2] / yCurve[0]);
+
+            if (a == p || q == b)
+                return new double[0];
+
+            var k = (q - b) / (a - p);
+
+            var poly = new Polynomial(
+                2,
+                -3 * k,
+                3 * k * k + 2 * k * a + 2 * b,
+                -k * k * k - a * k * k - b * k);
+
+            var roots = poly.Roots().OrderByDescending(c => c).ToArray();
+            if (roots.Length != 3)
+                return null;
+
+            if (roots[0] >= 0.0 && roots[0] <= 1.0 && roots[2] >= 0.0 && roots[2] <= 1.0)
+            {
+                // ToDo: Work out whether to go the more complex route and compare the points at the t values. 
+                return new double[] { roots[0], roots[2] };
+            }
+
+            return new double[0];
         }
 
         #endregion

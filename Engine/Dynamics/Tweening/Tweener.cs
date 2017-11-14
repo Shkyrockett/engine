@@ -53,6 +53,8 @@ namespace Engine.Tweening
             // Add Numeric Lerpers.
             RegisteredLerpers = new Dictionary<Type, ConstructorInfo>();
             var numericTypes = new Type[] {
+                    typeof(byte),
+                    typeof(sbyte),
                     typeof(short),
                     typeof(int),
                     typeof(long),

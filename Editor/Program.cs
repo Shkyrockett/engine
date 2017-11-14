@@ -12,6 +12,9 @@ using Engine.WindowsForms;
 using System;
 using System.Windows.Forms;
 
+/// <summary>
+/// The Editor Name-space.
+/// </summary>
 namespace Editor
 {
     /// <summary>

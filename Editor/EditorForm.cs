@@ -119,6 +119,12 @@ namespace Editor
 
         #endregion
 
+        #region Properties
+
+        public Action ResetAction { get; set; }
+
+        #endregion
+
         #region Events
 
         /// <summary>
@@ -154,6 +160,7 @@ namespace Editor
         /// <param name="e"></param>
         private void Button1_Click(object sender, EventArgs e)
         {
+            ResetAction?.Invoke();
             timer1.Enabled = true;
             timer1.Interval = 1;
             timer1.Start();

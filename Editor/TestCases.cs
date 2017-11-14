@@ -23,6 +23,15 @@ using static Engine.Maths;
 
 namespace Editor
 {
+    public class Scrubber
+    {
+        public Scrubber(double t)
+        {
+            T = t;
+        }
+        public double T { get; set; }
+    }
+
     /// <summary>
     /// Test cases for rendering graphical objects.
     /// </summary>
@@ -42,7 +51,7 @@ namespace Editor
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
-            SelfIntersectingCubicBezier(vectorMap);
+            //SelfIntersectingCubicBezier(vectorMap);
             //LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
             //NearestPoint(vectorMap, form, metrics);
             //SplitLines(vectorMap);
@@ -64,7 +73,6 @@ namespace Editor
             //SutherlandHodgman(vectorMap);
             //PathContourWArcLine(vectorMap);
             //WindingOrder(vectorMap);
-            //Pathfinding(vectorMap);
             //PolylineClicking(vectorMap);
             //TextRendering(vectorMap, form, metrics);
             //ParametricEllipseBounds(vectorMap);
@@ -96,6 +104,8 @@ namespace Editor
             //EllipticalArcBounds(vectorMap);
 
             /* Interactive */
+            //PathFollow(vectorMap, form);
+            Pathfinding(vectorMap, form);
             //ResizeRefreshBounds(vectorMap, canvasPanel, out boundaryItem);
             //Tweenning(vectorMap, form);
             //KaraokeBall(vectorMap, form);
@@ -134,6 +144,135 @@ namespace Editor
         #endregion
 
         #region Interactive
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        /// <param name="form"></param>
+        public static void PathFollow(VectorMap vectorMap, EditorForm form)
+        {
+            (var left, var top) = (25d, 25d);
+            (var duration, var delay) = (75d, 0d);
+            var scale = new Size2D(1, 1);
+            var shift = new Vector2D(-100, -100) * scale;
+            var axis = new Point2D(200, 100);
+            var angle = 45d.ToRadians();
+            var radius = 10;
+
+            var cubic = new CubicBezier(
+                left + 200, top + 300,
+                left + 400, top + 300,
+                left + 100, top + 300,
+                left + 300, top + 300
+                )
+                .ScaleDistort(scale)
+                .TranslateDistort(shift)
+                .RotateDistort(axis, angle);
+            var cubicItem = new GraphicItem(cubic, intersectionBlue)
+            {
+                Name = "Cubic Bezier"
+            };
+            var cubicBoundsItem = new GraphicItem(cubic.Bounds, selectionStyle)
+            {
+                Name = "Cubic Bezier Bounds"
+            };
+            var cubicHandles = new GraphicItem(new NodeRevealer(cubic.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic Bezier Handles"
+            };
+
+            var circle = new Circle(cubic.Interpolate(0), radius);
+            var circleItem = new GraphicItem(circle, solidLightBlueStyle);
+
+            form.ResetAction = new Action(() => reset());
+            void reset()
+            {
+                var t = new Scrubber(0);
+                circle.Center = cubic.Interpolate(t.T);
+                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease((a) => Ease.Linear(a))
+                    .OnUpdate(() => circle.Center = cubic.Interpolate(t.T))
+                    .OnUpdate(form.UpdateCallback);
+            }
+
+            vectorMap.Add(cubicBoundsItem);
+            vectorMap.Add(cubicItem);
+            vectorMap.Add(cubicHandles);
+            vectorMap.Add(circleItem);
+        }
+
+        /// <summary>
+        /// Development method for finding a path between various flattened geometry.
+        /// </summary>
+        /// <param name="vectorMap">The Map to draw on.</param>
+        public static void Pathfinding(VectorMap vectorMap, EditorForm form)
+        {
+            (var left, var top) = (25d, 25d);
+            (var duration, var delay) = (150d, 0d);
+            var scale = new Size2D(1, 1);
+            var shift = new Vector2D(left, top) * scale;
+
+            var lineItem = new GraphicItem(Examples.Line.TranslateDistort(shift), solidCyanStyle)
+            {
+                Name = "Single Line segment."
+            };
+            vectorMap.Add(lineItem);
+
+            var polyset = Examples.PolySet.TranslateDistort(shift);
+
+            var setItem = new GraphicItem(polyset, whiteishStyle)
+            {
+                Name = "Polygon"
+            };
+            vectorMap.Add(setItem);
+
+            var innerPolygonItem = new GraphicItem(Examples.InnerPolygon.TranslateDistort(shift), azureTransparent)
+            {
+                Name = "Inner Triangle Contour"
+            };
+            vectorMap.Add(innerPolygonItem);
+
+            var pathPolyline = (polyset as Polygon).ShortestPath(new Point2D(left + 20, top + 20), new Point2D(left + 200, top + 200));
+            var polylineSet = new PolylineSet(new List<Polyline> { pathPolyline?.Offset(10), pathPolyline?.Offset(-10) });
+            var pathPolyline2 = pathPolyline?.Offset(-10);
+            pathPolyline2?.Reverse();
+            var polygonLine = new PolygonContour(new PolygonContour(new List<Polyline>() { pathPolyline?.Offset(10), pathPolyline2 }));
+            var polygonLineItem = new GraphicItem(polygonLine, azureTransparent)
+            {
+                Name = "Polygon Contour Line"
+            };
+            var polylineSetItem = new GraphicItem(polylineSet, selectionStyle)
+            {
+                Name = "Polyline Set"
+            };
+            var pathPolylineItem = new GraphicItem(pathPolyline, selectionStyle)
+            {
+                Name = "Path Polyline"
+            };
+
+            vectorMap.Add(polygonLineItem);
+            vectorMap.Add(polylineSetItem);
+            vectorMap.Add(pathPolylineItem);
+
+            var ego = new Circle(pathPolyline.Interpolate(0d), 10);
+            var egoItem = new GraphicItem(ego, solidCyanStyle)
+            {
+                Name = "Ego Circle"
+            };
+
+            form.ResetAction = new Action(() => reset());
+            void reset()
+            {
+                var t = new Scrubber(0);
+                duration = pathPolyline.Perimeter * 0.5d;
+                ego.Center = pathPolyline.Interpolate(t.T);
+                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease((a) => Ease.Linear(a))
+                    .OnUpdate(() => ego.Center = pathPolyline.Interpolate(t.T))
+                    .OnUpdate(form.UpdateCallback);
+            }
+
+            vectorMap.Add(egoItem);
+        }
 
         /// <summary>
         /// Development test cases for testing canvas panel refresh bounds on resize testing.
@@ -191,9 +330,15 @@ namespace Editor
 
             var circle = new Circle(left + radius, top + radius, radius);
             var circleItem = new GraphicItem(circle, solidLightBlueStyle);
-            vectorMap.Tweener.Tween(circle, new { Y = top - 100 }, duration, delay).Ease((a) => Ease.Parabolic(a));
-            vectorMap.Tweener.Tween(circle, new { X = left + 50 }, duration, delay).Ease((a) => Ease.Linear(a))
-                .OnUpdate(form.UpdateCallback);
+
+            form.ResetAction = new Action(() => reset());
+            void reset()
+            {
+                circle.Center = (left + radius, top + radius);
+                vectorMap.Tweener.Tween(circle, new { Y = top - 100 }, duration, delay).Ease((a) => Ease.Parabolic(a));
+                vectorMap.Tweener.Tween(circle, new { X = left + 50 }, duration, delay).Ease((a) => Ease.Linear(a))
+                    .OnUpdate(form.UpdateCallback);
+            }
 
             vectorMap.Add(circleItem);
         }
@@ -546,6 +691,8 @@ namespace Editor
                 Name = "Cubic 3 Bezier self intersection Handles"
             };
 
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(cubic1, cubic2).Points, 5d), handleStyle);
+
             vectorMap.Add(cubic1BoundsItem);
             vectorMap.Add(cubic2BoundsItem);
             vectorMap.Add(cubic3BoundsItem);
@@ -561,6 +708,8 @@ namespace Editor
             vectorMap.Add(cubic1SelfHandles);
             vectorMap.Add(cubic2SelfHandles);
             vectorMap.Add(cubic3SelfHandles);
+
+            vectorMap.Add(intersectionNode1Item);
         }
 
         /// <summary>
@@ -3504,60 +3653,6 @@ namespace Editor
 
             vectorMap.Add(polyItem);
             vectorMap.Add(parametricPointTesterItem);
-        }
-
-        /// <summary>
-        /// Development method for finding a path between various flattened geometry.
-        /// </summary>
-        /// <param name="vectorMap">The Map to draw on.</param>
-        public static void Pathfinding(VectorMap vectorMap)
-        {
-            var lineItem = new GraphicItem(Examples.Line, solidCyanStyle)
-            {
-                Name = "Single Line segment."
-            };
-            vectorMap.Add(lineItem);
-
-            var setItem = new GraphicItem(Examples.PolySet, whiteishStyle)
-            {
-                Name = "Polygon"
-            };
-            vectorMap.Add(setItem);
-
-            var innerPolygonItem = new GraphicItem(Examples.InnerPolygon, azureTransparent)
-            {
-                Name = "Inner Triangle Contour"
-            };
-            vectorMap.Add(innerPolygonItem);
-
-            var pathPolyline = (Examples.PolySet as Polygon).ShortestPath(new Point2D(20, 20), new Point2D(200, 200));
-            var polylineSet = new PolylineSet(new List<Polyline> { pathPolyline.Offset(10), pathPolyline.Offset(-10) });
-            var pathPolyline2 = pathPolyline.Offset(-10);
-            pathPolyline2.Reverse();
-            var polygonLine = new PolygonContour(new PolygonContour(new List<Polyline>() { pathPolyline.Offset(10), pathPolyline2 }));
-            var polygonLineItem = new GraphicItem(polygonLine, azureTransparent)
-            {
-                Name = "Polygon Contour Line"
-            };
-            var polylineSetItem = new GraphicItem(polylineSet, selectionStyle)
-            {
-                Name = "Polyline Set"
-            };
-            var pathPolylineItem = new GraphicItem(pathPolyline, selectionStyle)
-            {
-                Name = "Path Polyline"
-            };
-
-            vectorMap.Add(polygonLineItem);
-            vectorMap.Add(polylineSetItem);
-            vectorMap.Add(pathPolylineItem);
-
-            Shape ego = new Circle(pathPolyline.Interpolate(.1), 10);
-            var egoItem = new GraphicItem(ego, solidCyanStyle)
-            {
-                Name = "Ego Circle"
-            };
-            vectorMap.Add(egoItem);
         }
 
         /// <summary>

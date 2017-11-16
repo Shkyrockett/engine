@@ -285,7 +285,7 @@ namespace Engine
         /// <summary>
         /// Raise a Quadratic Bezier to a Cubic Bezier.
         /// </summary>
-        /// <param name="x0">The x-component of the starting point.</param>
+        /// <param name="aX">The x-component of the starting point.</param>
         /// <param name="aY">The y-component of the starting point.</param>
         /// <param name="bX">The x-component of the handle.</param>
         /// <param name="bY">The y-component of the handle.</param>
@@ -309,7 +309,7 @@ namespace Engine
         /// <summary>
         /// Raise a Quadratic Bezier to a Cubic Bezier.
         /// </summary>
-        /// <param name="x0">The x-component of the starting point.</param>
+        /// <param name="aX">The x-component of the starting point.</param>
         /// <param name="aY">The y-component of the starting point.</param>
         /// <param name="bX">The x-component of the handle.</param>
         /// <param name="bY">The y-component of the handle.</param>

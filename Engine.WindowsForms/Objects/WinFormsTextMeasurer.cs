@@ -11,10 +11,24 @@ namespace Engine
     public class WinFormsTextMeasurer
         : IPlatformTextMetrics, IDisposable
     {
+        /// <summary>
+        /// 
+        /// </summary>
         private Image bitmap;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private Graphics graphics;
+
+        /// <summary>
+        /// 
+        /// </summary>
         private bool disposedValue = false; // To detect redundant dispose calls
 
+        /// <summary>
+        /// 
+        /// </summary>
         public WinFormsTextMeasurer()
         {
             bitmap = new Bitmap(1, 1);
@@ -22,6 +36,14 @@ namespace Engine
             graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="font"></param>
+        /// <param name="format"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
         public Size2D MeasureString(string text, RenderFont font, TextFormat format, int width = int.MaxValue)
             => graphics.MeasureString(text, font.ToFont(), width, format.ToStringFormat()).ToSize2D();
 
@@ -53,6 +75,10 @@ namespace Engine
 
         #region IDisposable Support
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="disposing"></param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -71,6 +97,9 @@ namespace Engine
         }
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        /// <summary>
+        /// 
+        /// </summary>
         ~WinFormsTextMeasurer()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
@@ -78,6 +107,9 @@ namespace Engine
         }
 
         // This code added to correctly implement the disposable pattern.
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.

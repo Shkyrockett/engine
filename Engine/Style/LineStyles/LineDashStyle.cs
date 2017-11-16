@@ -78,7 +78,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="dashStyle"></param>
         /// <param name="dashPattern"></param>
         /// <param name="dashOffset"></param>
         internal LineDashStyle(/*DashStyle dashStyle,*/ float[] dashPattern, float dashOffset = 0)

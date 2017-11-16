@@ -119,7 +119,15 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         public Image Image { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IFill Fill { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IStroke Stroke { get; }
     }
 }

@@ -629,7 +629,7 @@ namespace Engine
              => Equals(left, right);
 
         /// <summary>
-        /// Tests whether two <see cref="RectangleF"/> objects differ in location or size.
+        /// Tests whether two <see cref="Rectangle2D"/> objects differ in location or size.
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
@@ -691,11 +691,11 @@ namespace Engine
             => new Rectangle2D(left, top, right - left, bottom - top);
 
         /// <summary>
-        /// Creates a <see cref="Rectangle"/> from a center point and it's size.
+        /// Creates a <see cref="Rectangle2D"/> from a center point and it's size.
         /// </summary>
-        /// <param name="center">The center point to create the <see cref="Rectangle"/> as a <see cref="Point"/>.</param>
-        /// <param name="size">The height and width of the new <see cref="Rectangle"/> as a <see cref="Size"/>.</param>
-        /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
+        /// <param name="center">The center point to create the <see cref="Rectangle2D"/> as a <see cref="Point2D"/>.</param>
+        /// <param name="size">The height and width of the new <see cref="Rectangle2D"/> as a <see cref="Size"/>.</param>
+        /// <returns>Returns a <see cref="Rectangle2D"/> based around a center point and it's size.</returns>
         public static Rectangle2D RectangleFromCenter(Point2D center, Size2D size)
             => new Rectangle2D(center - size.Inflate(0.5d), size);
 

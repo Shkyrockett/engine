@@ -80,6 +80,7 @@ namespace Engine.Imaging
         ///
         /// </summary>
         /// <param name="g"></param>
+        /// <param name="renderer"></param>
         /// <param name="item"></param>
         /// <param name="bounds"></param>
         /// <param name="shape"></param>
@@ -108,6 +109,7 @@ namespace Engine.Imaging
         ///
         /// </summary>
         /// <param name="g"></param>
+        /// <param name="renderer"></param>
         /// <param name="item"></param>
         /// <param name="bounds"></param>
         /// <param name="shape"></param>
@@ -131,6 +133,7 @@ namespace Engine.Imaging
         ///
         /// </summary>
         /// <param name="g"></param>
+        /// <param name="renderer"></param>
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
@@ -324,6 +327,7 @@ namespace Engine.Imaging
         ///
         /// </summary>
         /// <param name="g"></param>
+        /// <param name="renderer"></param>
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
@@ -341,6 +345,7 @@ namespace Engine.Imaging
         ///
         /// </summary>
         /// <param name="g"></param>
+        /// <param name="renderer"></param>
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
@@ -373,6 +378,7 @@ namespace Engine.Imaging
         ///
         /// </summary>
         /// <param name="g"></param>
+        /// <param name="renderer"></param>
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
@@ -473,6 +479,7 @@ namespace Engine.Imaging
         ///
         /// </summary>
         /// <param name="g"></param>
+        /// <param name="renderer"></param>
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>
@@ -491,6 +498,7 @@ namespace Engine.Imaging
         ///
         /// </summary>
         /// <param name="g"></param>
+        /// <param name="renderer"></param>
         /// <param name="item"></param>
         /// <param name="shape"></param>
         /// <param name="style"></param>

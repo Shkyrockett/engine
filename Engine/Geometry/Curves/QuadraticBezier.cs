@@ -106,12 +106,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="QuadraticBezier"/> class from a <see cref="QuadraticBezier"/>.
         /// </summary>
-        /// <param name="ax"></param>
-        /// <param name="ay"></param>
-        /// <param name="bx"></param>
-        /// <param name="by"></param>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
+        /// <param name="tuple"></param>
         public QuadraticBezier((double aX, double aY, double bX, double bY, double cX, double cY) tuple)
             : this(tuple.aX, tuple.aY, tuple.bX, tuple.bY, tuple.cX, tuple.cY)
         { }

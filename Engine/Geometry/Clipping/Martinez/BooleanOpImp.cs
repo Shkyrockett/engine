@@ -68,6 +68,9 @@ namespace Engine
             operation = op;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Run()
         {
             //// for optimizations 1 and 2
@@ -145,6 +148,12 @@ namespace Engine
             //ConnectEdges();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="subjectBB"></param>
+        /// <param name="clippingBB"></param>
+        /// <returns></returns>
         public bool TrivialOperation(Rectangle2D subjectBB, Rectangle2D clippingBB)
         {
             //// Test 1 for trivial result case
@@ -173,9 +182,14 @@ namespace Engine
             return false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="pt"></param>
         public void ProcessSegment(LineSegment s, PolygonRelations pt)
         {
-            ///*	if (s.degenerate ()) // if the two edge endpoints are equal the segment is dicarded
+            //*	if (s.degenerate ()) // if the two edge endpoints are equal the segment is dicarded
             //    return;          // This can be done as preprocessing to avoid "polygons" with less than 3 edges */
             //SweepEvent e1 = storeSweepEvent(SweepEvent(true, s.source(), 0, pt));
             //SweepEvent e2 = storeSweepEvent(SweepEvent(true, s.target(), e1, pt));
@@ -193,13 +207,23 @@ namespace Engine
             //eq.Push(e2);
         }
 
-        /** @brief Store the SweepEvent e into the event holder, returning the address of e */
+        /* @brief Store the SweepEvent e into the event holder, returning the address of e */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         SweepEvent StoreSweepEvent(SweepEvent e)
         {
             eventHolder.AddLast(e);
             return eventHolder.First.Value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="le"></param>
+        /// <param name="prev"></param>
         public void ComputeFields(SweepEvent le, SortedSet<SweepEvent> prev)
         {
             //// compute inOut and otherInOut fields
@@ -225,6 +249,11 @@ namespace Engine
             //le.InResult = InResult(le);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="le"></param>
+        /// <returns></returns>
         public bool InResult(SweepEvent le)
         {
             switch (le.Contribution)
@@ -252,6 +281,12 @@ namespace Engine
             return false; // just to avoid the compiler warning
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="le1"></param>
+        /// <param name="le2"></param>
+        /// <returns></returns>
         public int PossibleIntersection(SweepEvent le1, SweepEvent le2)
         {
             ////	if (e1.pol == e2.pol) // you can uncomment these two lines if self-intersecting polygons are not allowed
@@ -339,6 +374,11 @@ namespace Engine
             return 3;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="le"></param>
+        /// <param name="p"></param>
         public void DivideSegment(SweepEvent le, Point2D p)
         {
             //	std::cout << "YES. INTERSECTION" << std::endl;
@@ -364,6 +404,9 @@ namespace Engine
             eq.Push(r);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void ConnectEdges()
         {
             //// copy the events in the result polygon to resultEvents array
@@ -453,6 +496,13 @@ namespace Engine
             //}
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="resultEvents"></param>
+        /// <param name="processed"></param>
+        /// <returns></returns>
         public int NextPos(int pos, List<SweepEvent> resultEvents, List<bool> processed)
         {
             var newPos = pos + 1;
@@ -469,6 +519,13 @@ namespace Engine
             return newPos;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="subj"></param>
+        /// <param name="clip"></param>
+        /// <param name="result"></param>
+        /// <param name="op"></param>
         public static void Compute(Polygon subj, Polygon clip, Polygon result, ClipingOperations op)
         {
             var boi = new BooleanOpImp(subj, clip, result, op);

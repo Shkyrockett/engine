@@ -89,7 +89,6 @@ namespace Engine
         /// </summary>
         /// <param name="Point">Starting Point</param>
         /// <param name="RadAngle">Ending Angle</param>
-        /// <param name="Radius">Ending Line Segment Length</param>
         /// <remarks></remarks>
         public Line(Point2D Point, double RadAngle)
             : this(Point.X, Point.Y, Cos(RadAngle), Sin(RadAngle))
@@ -228,6 +227,11 @@ namespace Engine
 
         #region Methods
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
         public override Point2D Interpolate(double t)
             => Interpolators.Linear(location, location + direction, t);
 

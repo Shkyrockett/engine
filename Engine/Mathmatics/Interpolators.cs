@@ -1360,7 +1360,8 @@ namespace Engine
         /// <param name="width">The width of the rectangle.</param>
         /// <param name="fulcrumX">The x-component of the rotation fulcrum point.</param>
         /// <param name="fulcrumY">The x-component of the rotation fulcrum point.</param>
-        /// <param name="angle">The angle to rotate the points.</param>
+        /// <param name="cosAngle"></param>
+        /// <param name="sinAngle"></param>
         /// <returns>Returns a list of points from the rectangle, rotated about the fulcrum.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

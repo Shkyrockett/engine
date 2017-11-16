@@ -17,21 +17,10 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Text;
-using System.Windows.Forms;
 using static Engine.Maths;
 
 namespace Editor
 {
-    public class Scrubber
-    {
-        public Scrubber(double t)
-        {
-            T = t;
-        }
-        public double T { get; set; }
-    }
-
     /// <summary>
     /// Test cases for rendering graphical objects.
     /// </summary>
@@ -42,7 +31,9 @@ namespace Editor
         /// </summary>
         /// <param name="form">The form running the tests.</param>
         /// <param name="vectorMap">The vector map to add the graphical items to.</param>
+        /// <param name="tools"></param>
         /// <param name="canvasPanel">The canvas panel to draw to.</param>
+        /// <param name="metrics"></param>
         /// <param name="boundaryItem">A reference to the boundary item graphics object for one of the tests.</param>
         public static void Tests(EditorForm form, VectorMap vectorMap, ToolStack tools, CanvasPanel canvasPanel, IPlatformTextMetrics metrics, out GraphicItem boundaryItem)
         {
@@ -205,6 +196,7 @@ namespace Editor
         /// Development method for finding a path between various flattened geometry.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
+        /// <param name="form"></param>
         public static void Pathfinding(VectorMap vectorMap, EditorForm form)
         {
             (var left, var top) = (25d, 25d);

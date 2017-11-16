@@ -124,7 +124,7 @@ namespace Engine
         /// </summary>
         /// <param name="a">First Point to test.</param>
         /// <param name="b">Second Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Point2D a, Point2D b)
@@ -135,7 +135,7 @@ namespace Engine
         /// </summary>
         /// <param name="seg">Line segment to test.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this LineSegment seg, Point2D point)
@@ -146,7 +146,7 @@ namespace Engine
         /// </summary>
         /// <param name="rectangle"><see cref="Rectangle2D"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Rectangle2D rectangle, Point2D point)
@@ -157,7 +157,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygon"><see cref="PolygonContour"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this PolygonContour polygon, Point2D point)
@@ -168,7 +168,7 @@ namespace Engine
         /// </summary>
         /// <param name="figure"><see cref="PolyBezierContour"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this PolycurveContour figure, Point2D point)
@@ -179,7 +179,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygons">List of <see cref="PolygonContour"/> classes.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -191,7 +191,7 @@ namespace Engine
         /// </summary>
         /// <param name="circle"><see cref="Circle"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Circle circle, Point2D point)
@@ -202,7 +202,7 @@ namespace Engine
         /// </summary>
         /// <param name="ellipse"><see cref="Ellipse"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Ellipse ellipse, Point2D point)
@@ -213,7 +213,7 @@ namespace Engine
         /// </summary>
         /// <param name="arc"><see cref="Circle"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this CircularArc arc, Point2D point)
@@ -224,7 +224,7 @@ namespace Engine
         /// </summary>
         /// <param name="ellipseArc"><see cref="Ellipse"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this EllipticalArc ellipseArc, Point2D point)
@@ -235,7 +235,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"><see cref="Rectangle2D"/> class.</param>
         /// <param name="b"><see cref="Rectangle2D"/> to test.</param>
-        /// <returns>Returns an <see cref="Intersection"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(this Rectangle2D a, Rectangle2D b)
@@ -381,7 +381,7 @@ namespace Engine
         /// <param name="p0">The first point.</param>
         /// <param name="p1">The second point.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Point2D p0, Point2D p1, double epsilon = Epsilon)
@@ -393,7 +393,7 @@ namespace Engine
         /// <param name="p">The point.</param>
         /// <param name="l">The line.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Point2D p, Line l, double epsilon = Epsilon)
@@ -405,7 +405,7 @@ namespace Engine
         /// <param name="p">The point.</param>
         /// <param name="s">The line segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Point2D p, LineSegment s, double epsilon = Epsilon)
@@ -415,9 +415,9 @@ namespace Engine
         /// Find the intersection of a Point and a Line segment.
         /// </summary>
         /// <param name="p">The point.</param>
-        /// <param name="s">The line segment.</param>
+        /// <param name="r"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Point2D p, Ray r, double epsilon = Epsilon)
@@ -429,7 +429,7 @@ namespace Engine
         /// <param name="b0">The first Bezier segment.</param>
         /// <param name="b1">The second Bezier segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b0, BezierSegmentX b1, double epsilon = Epsilon)
@@ -483,7 +483,7 @@ namespace Engine
         /// <param name="b">The bezier segment.</param>
         /// <param name="l">The line segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b, LineSegment l, double epsilon = Epsilon)
@@ -507,7 +507,7 @@ namespace Engine
         /// <param name="b0">The Bezier segment.</param>
         /// <param name="b1">The quadratic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b0, QuadraticBezier b1, double epsilon = Epsilon)
@@ -531,7 +531,7 @@ namespace Engine
         /// <param name="b">The Bezier segment.</param>
         /// <param name="c">The cubic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this BezierSegmentX b, CubicBezier c, double epsilon = Epsilon)
@@ -555,7 +555,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="p">The point.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Point2D p, double epsilon = Epsilon)
@@ -567,7 +567,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="l">The line.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Line l, double epsilon = Epsilon)
@@ -579,7 +579,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="r">The ray.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Ray r, double epsilon = Epsilon)
@@ -591,7 +591,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="b">The bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, BezierSegmentX b, double epsilon = Epsilon)
@@ -603,7 +603,7 @@ namespace Engine
         /// <param name="s1">The line segment.</param>
         /// <param name="s2">The line segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s1, LineSegment s2, double epsilon = Epsilon)
@@ -615,7 +615,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="b">The quadratic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, QuadraticBezier b, double epsilon = Epsilon)
@@ -627,7 +627,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="b">The cubic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, CubicBezier b, double epsilon = Epsilon)
@@ -639,7 +639,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="r">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Triangle r, double epsilon = Epsilon)
@@ -651,7 +651,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="r">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Rectangle2D r, double epsilon = Epsilon)
@@ -663,7 +663,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="p">The polygon contour.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, PolygonContour p, double epsilon = Epsilon)
@@ -675,7 +675,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="c">The circle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Circle c, double epsilon = Epsilon)
@@ -687,7 +687,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="c">The circular arc.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, CircularArc c, double epsilon = Epsilon)
@@ -699,7 +699,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="e">The ellipse.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, Ellipse e, double epsilon = Epsilon)
@@ -711,7 +711,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="e">The elliptical arc.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this LineSegment s, EllipticalArc e, double epsilon = Epsilon)
@@ -723,7 +723,7 @@ namespace Engine
         /// <param name="r">The ray.</param>
         /// <param name="p">The point.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray r, Point2D p, double epsilon = Epsilon)
@@ -735,7 +735,7 @@ namespace Engine
         /// <param name="r">The ray.</param>
         /// <param name="l">The line segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray r, LineSegment l, double epsilon = Epsilon)
@@ -747,7 +747,7 @@ namespace Engine
         /// <param name="r0">The first ray.</param>
         /// <param name="r1">The second ray.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray r0, Ray r1, double epsilon = Epsilon)
@@ -759,7 +759,7 @@ namespace Engine
         /// <param name="r">The ray.</param>
         /// <param name="l">The line.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray r, Line l, double epsilon = Epsilon)
@@ -771,7 +771,7 @@ namespace Engine
         /// <param name="s">The ray.</param>
         /// <param name="b">The quadratic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray s, QuadraticBezier b, double epsilon = Epsilon)
@@ -783,7 +783,7 @@ namespace Engine
         /// <param name="s">The ray.</param>
         /// <param name="b">The cubic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray s, CubicBezier b, double epsilon = Epsilon)
@@ -795,7 +795,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="r">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray s, Triangle r, double epsilon = Epsilon)
@@ -807,7 +807,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="r">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray l, Rectangle2D r, double epsilon = Epsilon)
@@ -819,7 +819,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="p">The polygon contour.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray l, PolygonContour p, double epsilon = Epsilon)
@@ -831,7 +831,7 @@ namespace Engine
         /// <param name="s">The ray.</param>
         /// <param name="c">The circle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray s, Circle c, double epsilon = Epsilon)
@@ -843,7 +843,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="c">The circular arc.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray l, CircularArc c, double epsilon = Epsilon)
@@ -855,7 +855,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="e">The ellipse.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray s, Ellipse e, double epsilon = Epsilon)
@@ -867,7 +867,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="e">The elliptical arc.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ray s, EllipticalArc e, double epsilon = Epsilon)
@@ -879,7 +879,7 @@ namespace Engine
         /// <param name="l">The Line.</param>
         /// <param name="p">The Point.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, Point2D p, double epsilon = Epsilon)
@@ -891,7 +891,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="s">The line segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, LineSegment s, double epsilon = Epsilon)
@@ -903,7 +903,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="r">The ray.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, Ray r, double epsilon = Epsilon)
@@ -915,7 +915,7 @@ namespace Engine
         /// <param name="a">The first line.</param>
         /// <param name="b">The second line.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line a, Line b, double epsilon = Epsilon)
@@ -932,7 +932,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="b">The quadratic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, QuadraticBezier b, double epsilon = Epsilon)
@@ -944,7 +944,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="b">The cubic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, CubicBezier b, double epsilon = Epsilon)
@@ -956,7 +956,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="r">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line s, Triangle r, double epsilon = Epsilon)
@@ -968,7 +968,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="r">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, Rectangle2D r, double epsilon = Epsilon)
@@ -980,7 +980,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="p">The polygon contour.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, PolygonContour p, double epsilon = Epsilon)
@@ -992,7 +992,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="c">The circle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, Circle c, double epsilon = Epsilon)
@@ -1004,7 +1004,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="c">The circular arc.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line l, CircularArc c, double epsilon = Epsilon)
@@ -1016,7 +1016,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="e">The ellipse.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line s, Ellipse e, double epsilon = Epsilon)
@@ -1028,7 +1028,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="e">The elliptical arc.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Line s, EllipticalArc e, double epsilon = Epsilon)
@@ -1040,7 +1040,7 @@ namespace Engine
         /// <param name="q">The quadratic bezier curve segment.</param>
         /// <param name="b">The bezier segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier q, BezierSegmentX b, double epsilon = Epsilon)
@@ -1052,7 +1052,7 @@ namespace Engine
         /// <param name="b">The quadratic bezier curve segment.</param>
         /// <param name="l">The line segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, LineSegment l, double epsilon = Epsilon)
@@ -1064,7 +1064,7 @@ namespace Engine
         /// <param name="s">The ray.</param>
         /// <param name="b">The quadratic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Ray s, double epsilon = Epsilon)
@@ -1076,7 +1076,7 @@ namespace Engine
         /// <param name="b">The quadratic bezier curve segment.</param>
         /// <param name="l">The line.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Line l, double epsilon = Epsilon)
@@ -1088,7 +1088,7 @@ namespace Engine
         /// <param name="b0"></param>
         /// <param name="b1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b0, QuadraticBezier b1, double epsilon = Epsilon)
@@ -1100,7 +1100,7 @@ namespace Engine
         /// <param name="b0"></param>
         /// <param name="b1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b0, CubicBezier b1, double epsilon = Epsilon)
@@ -1112,7 +1112,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="t"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Triangle t, double epsilon = Epsilon)
@@ -1124,7 +1124,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="r"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Rectangle2D r, double epsilon = Epsilon)
@@ -1136,7 +1136,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="p"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, PolygonContour p, double epsilon = Epsilon)
@@ -1148,7 +1148,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this QuadraticBezier b, Circle c, double epsilon = Epsilon)
@@ -1160,7 +1160,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         //[DebuggerStepThrough]
         public static Intersection Intersection(this QuadraticBezier b, Ellipse e, double epsilon = Epsilon)
@@ -1172,7 +1172,7 @@ namespace Engine
         /// <param name="b0"></param>
         /// <param name="b1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b0, BezierSegmentX b1, double epsilon = Epsilon)
@@ -1184,7 +1184,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, LineSegment l, double epsilon = Epsilon)
@@ -1196,7 +1196,7 @@ namespace Engine
         /// <param name="s">The ray.</param>
         /// <param name="b">The cubic bezier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Ray s, double epsilon = Epsilon)
@@ -1208,7 +1208,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Line l, double epsilon = Epsilon)
@@ -1220,7 +1220,7 @@ namespace Engine
         /// <param name="b1"></param>
         /// <param name="b0"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b1, QuadraticBezier b0, double epsilon = Epsilon)
@@ -1232,7 +1232,7 @@ namespace Engine
         /// <param name="b0"></param>
         /// <param name="b1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b0, CubicBezier b1, double epsilon = Epsilon)
@@ -1244,7 +1244,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="t"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Triangle t, double epsilon = Epsilon)
@@ -1256,7 +1256,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="r"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Rectangle2D r, double epsilon = Epsilon)
@@ -1268,7 +1268,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="p"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, PolygonContour p, double epsilon = Epsilon)
@@ -1280,7 +1280,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Circle c, double epsilon = Epsilon)
@@ -1292,7 +1292,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CubicBezier b, Ellipse e, double epsilon = Epsilon)
@@ -1304,7 +1304,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="t">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle t, LineSegment s, double epsilon = Epsilon)
@@ -1316,7 +1316,7 @@ namespace Engine
         /// <param name="r">The line segment.</param>
         /// <param name="t">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle t, Ray r, double epsilon = Epsilon)
@@ -1328,7 +1328,7 @@ namespace Engine
         /// <param name="l">The line segment.</param>
         /// <param name="t">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle t, Line l, double epsilon = Epsilon)
@@ -1340,7 +1340,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="t"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle t, QuadraticBezier b, double epsilon = Epsilon)
@@ -1352,7 +1352,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="t"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle t, CubicBezier b, double epsilon = Epsilon)
@@ -1364,7 +1364,7 @@ namespace Engine
         /// <param name="t0"></param>
         /// <param name="t1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle t0, Triangle t1, double epsilon = Epsilon)
@@ -1376,7 +1376,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="r"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle t, Rectangle2D r, double epsilon = Epsilon)
@@ -1388,7 +1388,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <param name="t"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle t, PolygonContour p, double epsilon = Epsilon)
@@ -1400,7 +1400,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="c"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle t, Circle c, double epsilon = Epsilon)
@@ -1412,7 +1412,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Triangle r, Ellipse e, double epsilon = Epsilon)
@@ -1424,7 +1424,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, LineSegment l, double epsilon = Epsilon)
@@ -1436,7 +1436,7 @@ namespace Engine
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <param name="r"></param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, Line l, double epsilon = Epsilon)
@@ -1448,7 +1448,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="r">The rectangle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, Ray l, double epsilon = Epsilon)
@@ -1460,7 +1460,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, QuadraticBezier b, double epsilon = Epsilon)
@@ -1472,7 +1472,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, CubicBezier b, double epsilon = Epsilon)
@@ -1484,7 +1484,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="r"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, Triangle t, double epsilon = Epsilon)
@@ -1496,7 +1496,7 @@ namespace Engine
         /// <param name="r0"></param>
         /// <param name="r1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r0, Rectangle2D r1, double epsilon = Epsilon)
@@ -1508,7 +1508,7 @@ namespace Engine
         /// <param name="l"></param>
         /// <param name="p"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D l, PolygonContour p, double epsilon = Epsilon)
@@ -1520,7 +1520,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="c"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, Circle c, double epsilon = Epsilon)
@@ -1532,7 +1532,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Rectangle2D r, Ellipse e, double epsilon = Epsilon)
@@ -1544,7 +1544,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, LineSegment l, double epsilon = Epsilon)
@@ -1556,7 +1556,7 @@ namespace Engine
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <param name="p"></param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, Ray l, double epsilon = Epsilon)
@@ -1568,7 +1568,7 @@ namespace Engine
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <param name="p"></param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, Line l, double epsilon = Epsilon)
@@ -1580,7 +1580,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, QuadraticBezier b, double epsilon = Epsilon)
@@ -1592,7 +1592,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, CubicBezier b, double epsilon = Epsilon)
@@ -1604,7 +1604,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <param name="t"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, Triangle t, double epsilon = Epsilon)
@@ -1616,7 +1616,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, Rectangle2D l, double epsilon = Epsilon)
@@ -1628,7 +1628,7 @@ namespace Engine
         /// <param name="p0"></param>
         /// <param name="p1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p0, PolygonContour p1, double epsilon = Epsilon)
@@ -1640,7 +1640,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, Circle e, double epsilon = Epsilon)
@@ -1652,7 +1652,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this PolygonContour p, Ellipse e, double epsilon = Epsilon)
@@ -1664,7 +1664,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="s"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, LineSegment s, double epsilon = Epsilon)
@@ -1676,7 +1676,7 @@ namespace Engine
         /// <param name="s">The ray.</param>
         /// <param name="c">The circle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, Ray s, double epsilon = Epsilon)
@@ -1688,7 +1688,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="l"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, Line l, double epsilon = Epsilon)
@@ -1700,7 +1700,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, QuadraticBezier b, double epsilon = Epsilon)
@@ -1712,7 +1712,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, CubicBezier b, double epsilon = Epsilon)
@@ -1724,7 +1724,7 @@ namespace Engine
         /// <param name="t"></param>
         /// <param name="c"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, Triangle t, double epsilon = Epsilon)
@@ -1736,7 +1736,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="r"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, Rectangle2D r, double epsilon = Epsilon)
@@ -1748,7 +1748,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="r"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, PolygonContour r, double epsilon = Epsilon)
@@ -1760,7 +1760,7 @@ namespace Engine
         /// <param name="c0"></param>
         /// <param name="c1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c0, Circle c1, double epsilon = Epsilon)
@@ -1772,7 +1772,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Circle c, Ellipse e, double epsilon = Epsilon)
@@ -1784,7 +1784,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <param name="s"></param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CircularArc c, LineSegment s, double epsilon = Epsilon)
@@ -1796,7 +1796,7 @@ namespace Engine
         /// <param name="l">The line.</param>
         /// <param name="c">The circular arc.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CircularArc c, Ray l, double epsilon = Epsilon)
@@ -1808,7 +1808,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="s"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this CircularArc c, Line s, double epsilon = Epsilon)
@@ -1820,7 +1820,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="s"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, LineSegment s, double epsilon = Epsilon)
@@ -1832,7 +1832,7 @@ namespace Engine
         /// <param name="s">The line segment.</param>
         /// <param name="e">The ellipse.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, Ray s, double epsilon = Epsilon)
@@ -1844,7 +1844,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="s"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, Line s, double epsilon = Epsilon)
@@ -1856,7 +1856,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, QuadraticBezier b, double epsilon = Epsilon)
@@ -1868,7 +1868,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="b"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, CubicBezier b, double epsilon = Epsilon)
@@ -1880,7 +1880,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="e"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, Triangle r, double epsilon = Epsilon)
@@ -1892,7 +1892,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="r"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, Rectangle2D r, double epsilon = Epsilon)
@@ -1904,7 +1904,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="p"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, PolygonContour p, double epsilon = Epsilon)
@@ -1916,7 +1916,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <param name="e"></param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e, Circle c, double epsilon = Epsilon)
@@ -1928,7 +1928,7 @@ namespace Engine
         /// <param name="e0"></param>
         /// <param name="e1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this Ellipse e0, Ellipse e1, double epsilon = Epsilon)
@@ -1940,7 +1940,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="s"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this EllipticalArc e, LineSegment s, double epsilon = Epsilon)
@@ -1952,7 +1952,7 @@ namespace Engine
         /// <param name="s">The ray.</param>
         /// <param name="e">The elliptical arc.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this EllipticalArc e, Ray s, double epsilon = Epsilon)
@@ -1964,7 +1964,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="s"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this EllipticalArc e, Line s, double epsilon = Epsilon)
@@ -2007,6 +2007,7 @@ namespace Engine
         /// <param name="s"></param>
         /// <param name="o"></param>
         /// <param name="p"></param>
+        /// <param name="epsilon"></param>
         /// <returns>Returns a Boolean value indicating whether the shape contains the point.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2027,6 +2028,7 @@ namespace Engine
         /// <param name="cY"></param>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2050,6 +2052,7 @@ namespace Engine
         /// <param name="bottom">The bottom location of the <see cref="Rectangle2D"/>.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2832,6 +2835,7 @@ namespace Engine
         /// <param name="segmentAY"></param>
         /// <param name="segmentBX"></param>
         /// <param name="segmentBY"></param>
+        /// <param name="epsilon"></param>
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         /// <acknowledgment>
         /// http://www.angusj.com/delphi/clipper.php
@@ -2858,6 +2862,7 @@ namespace Engine
         /// <param name="lY"></param>
         /// <param name="lI"></param>
         /// <param name="lJ"></param>
+        /// <param name="epsilon"></param>
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         /// <acknowledgment>
         /// http://www.angusj.com/delphi/clipper.php
@@ -2884,6 +2889,7 @@ namespace Engine
         /// <param name="lY"></param>
         /// <param name="lI"></param>
         /// <param name="lJ"></param>
+        /// <param name="epsilon"></param>
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         /// <acknowledgment>
         /// http://www.angusj.com/delphi/clipper.php
@@ -2904,10 +2910,10 @@ namespace Engine
         /// </summary>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
-        /// <param name="left"></param>
-        /// <param name="top"></param>
-        /// <param name="right"></param>
-        /// <param name="bottom"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
@@ -3320,10 +3326,10 @@ namespace Engine
         /// <param name="cY"></param>
         /// <param name="dX"></param>
         /// <param name="dY"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="right"></param>
-        /// <param name="bottom"></param>
+        /// <param name="a1X"></param>
+        /// <param name="a1Y"></param>
+        /// <param name="a2X"></param>
+        /// <param name="a2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
@@ -3350,10 +3356,10 @@ namespace Engine
         /// <param name="cY"></param>
         /// <param name="dX"></param>
         /// <param name="dY"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="right"></param>
-        /// <param name="bottom"></param>
+        /// <param name="r1X"></param>
+        /// <param name="r1Y"></param>
+        /// <param name="r2X"></param>
+        /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
@@ -3388,6 +3394,7 @@ namespace Engine
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="height1"></param>
+        /// <param name="epsilon"></param>
         /// <param name="width1"></param>
         /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
         //[DebuggerStepThrough]
@@ -3472,7 +3479,7 @@ namespace Engine
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection PointPointIntersection(
@@ -3493,7 +3500,7 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection PointLineIntersection(
@@ -3524,12 +3531,12 @@ namespace Engine
         /// </summary>
         /// <param name="pX"></param>
         /// <param name="pY"></param>
-        /// <param name="lx"></param>
-        /// <param name="ly"></param>
+        /// <param name="lX"></param>
+        /// <param name="lY"></param>
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection PointRayIntersection(
@@ -3550,7 +3557,7 @@ namespace Engine
         /// <param name="lBX"></param>
         /// <param name="lBY"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection PointLineSegmentIntersection(
@@ -3573,7 +3580,7 @@ namespace Engine
         /// <param name="li1">The x component of the second point of the second line.</param>
         /// <param name="lj1">The y component of the second point of the second line.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.vb-helper.com/howto_segments_intersect.html
         /// </acknowledgment>
@@ -3625,7 +3632,7 @@ namespace Engine
         /// <param name="ri">The x component of the second point of the ray.</param>
         /// <param name="rj">The y component of the second point of the ray.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.vb-helper.com/howto_segments_intersect.html
         /// </acknowledgment>
@@ -3695,7 +3702,7 @@ namespace Engine
         /// <param name="s1X"></param>
         /// <param name="s1Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -3772,7 +3779,7 @@ namespace Engine
         /// <param name="b2x"></param>
         /// <param name="b2y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineQuadraticBezierIntersection(
@@ -3795,7 +3802,7 @@ namespace Engine
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
@@ -3857,7 +3864,7 @@ namespace Engine
         /// <param name="b3x"></param>
         /// <param name="b3y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineCubicBezierIntersection(
@@ -3880,7 +3887,7 @@ namespace Engine
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
@@ -3932,8 +3939,6 @@ namespace Engine
         /// <param name="ly"></param>
         /// <param name="li"></param>
         /// <param name="lj"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
         /// <param name="tx0"></param>
         /// <param name="ty0"></param>
         /// <param name="tx1"></param>
@@ -3941,7 +3946,7 @@ namespace Engine
         /// <param name="tx2"></param>
         /// <param name="ty2"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineTriangleIntersection(
@@ -3979,7 +3984,7 @@ namespace Engine
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -4020,7 +4025,7 @@ namespace Engine
         /// <param name="a2Y"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -4066,7 +4071,7 @@ namespace Engine
         /// <param name="cY"></param>
         /// <param name="r"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
         /// </acknowledgment>
@@ -4143,7 +4148,7 @@ namespace Engine
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
         /// </acknowledgment>
@@ -4262,7 +4267,7 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="angle"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineEllipseIntersection(
@@ -4285,7 +4290,7 @@ namespace Engine
         /// <param name="cosA"></param>
         /// <param name="sinA"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
         /// </acknowledgment>
@@ -4378,7 +4383,7 @@ namespace Engine
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineEllipticalArcIntersection(
@@ -4403,7 +4408,7 @@ namespace Engine
         /// <param name="li"></param>
         /// <param name="lj"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
         /// </acknowledgment>
@@ -4538,7 +4543,7 @@ namespace Engine
         /// <param name="s2X"></param>
         /// <param name="s2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -4612,7 +4617,7 @@ namespace Engine
         /// <param name="r1i"></param>
         /// <param name="r1j"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -4675,7 +4680,7 @@ namespace Engine
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
@@ -4745,7 +4750,7 @@ namespace Engine
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
@@ -4813,8 +4818,6 @@ namespace Engine
         /// <param name="ly0"></param>
         /// <param name="lx1"></param>
         /// <param name="ly1"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
         /// <param name="tx0"></param>
         /// <param name="ty0"></param>
         /// <param name="tx1"></param>
@@ -4822,7 +4825,7 @@ namespace Engine
         /// <param name="tx2"></param>
         /// <param name="ty2"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection RayTriangleIntersection(
@@ -4860,7 +4863,7 @@ namespace Engine
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -4901,7 +4904,7 @@ namespace Engine
         /// <param name="a2Y"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -4950,7 +4953,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="angle"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -5044,7 +5047,7 @@ namespace Engine
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
         /// </acknowledgment>
@@ -5153,7 +5156,7 @@ namespace Engine
         /// <param name="cosA">The cosine of the rotation angle.</param>
         /// <param name="sinA">The sine of the rotation angle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
         /// </acknowledgment>
@@ -5253,7 +5256,7 @@ namespace Engine
         /// <param name="i0"></param>
         /// <param name="j0"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
         /// </acknowledgment>
@@ -5388,7 +5391,7 @@ namespace Engine
         /// <param name="b2X"></param>
         /// <param name="b2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -5449,7 +5452,7 @@ namespace Engine
         /// <param name="b2x"></param>
         /// <param name="b2y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentQuadraticBezierSegmentIntersection(
@@ -5472,7 +5475,7 @@ namespace Engine
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
@@ -5541,7 +5544,7 @@ namespace Engine
         /// <param name="b3x"></param>
         /// <param name="b3y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentCubicBezierSegmentIntersection(
@@ -5564,7 +5567,7 @@ namespace Engine
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// Adapted from code found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Which was based off of code found at: http://stackoverflow.com/questions/14005096/mathematical-solution-for-bezier-curve-and-line-intersection-in-coffeescript-or
@@ -5625,8 +5628,6 @@ namespace Engine
         /// <param name="ly0"></param>
         /// <param name="lx1"></param>
         /// <param name="ly1"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
         /// <param name="tx0"></param>
         /// <param name="ty0"></param>
         /// <param name="tx1"></param>
@@ -5634,7 +5635,7 @@ namespace Engine
         /// <param name="tx2"></param>
         /// <param name="ty2"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentTriangleIntersection(
@@ -5669,7 +5670,7 @@ namespace Engine
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -5709,7 +5710,7 @@ namespace Engine
         /// <param name="a2Y"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -5755,7 +5756,7 @@ namespace Engine
         /// <param name="r"></param>
         /// <param name="angle"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -5841,7 +5842,7 @@ namespace Engine
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
         /// </acknowledgment>
@@ -5949,7 +5950,7 @@ namespace Engine
         /// <param name="ry"></param>
         /// <param name="angle"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentEllipseIntersection(
@@ -5972,7 +5973,7 @@ namespace Engine
         /// <param name="cosA">The cosine of the rotation angle.</param>
         /// <param name="sinA">The sine of the rotation angle.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
         /// </acknowledgment>
@@ -6071,7 +6072,7 @@ namespace Engine
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection LineSegmentEllipticalArcIntersection(
@@ -6096,7 +6097,7 @@ namespace Engine
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
         /// </acknowledgment>
@@ -6236,7 +6237,7 @@ namespace Engine
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(
@@ -6258,7 +6259,7 @@ namespace Engine
         /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
         /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// and the intersections methods at: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
@@ -6365,7 +6366,7 @@ namespace Engine
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(
@@ -6387,7 +6388,7 @@ namespace Engine
         /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
         /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// This is a rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
@@ -6477,7 +6478,7 @@ namespace Engine
         /// <param name="b3Y"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -6496,15 +6497,11 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a quadratic bezier and a polygon contour.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -6539,18 +6536,16 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a quadratic bezier and a triangle.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="t1X"></param>
         /// <param name="t1Y"></param>
         /// <param name="t2X"></param>
         /// <param name="t2Y"></param>
+        /// <param name="t3X"></param>
+        /// <param name="t3Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -6588,7 +6583,7 @@ namespace Engine
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -6607,18 +6602,14 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a quadratic bezier and a rectangle.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="r1X"></param>
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -6659,7 +6650,7 @@ namespace Engine
         /// <param name="x3">The x-component of the ending point.</param>
         /// <param name="y3">The y-component of the ending point.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection CubicBezierSegmentSelfIntersection(
@@ -6672,10 +6663,10 @@ namespace Engine
         /// <summary>
         /// Find the point of self intersection of a cubic bezier curve, if the cubic bezier curve has self intersection.
         /// </summary>
-        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
-        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
         /// </acknowledgment>
@@ -6761,7 +6752,7 @@ namespace Engine
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(
@@ -6783,7 +6774,7 @@ namespace Engine
         /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
         /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// This is a rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
@@ -6896,7 +6887,7 @@ namespace Engine
         /// <param name="b4Y"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -6915,9 +6906,11 @@ namespace Engine
         /// <summary>
         /// Finds the intersection between a cubic bezier and a polygon.
         /// </summary>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -6954,12 +6947,16 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a cubic bezier and a rectangle.
         /// </summary>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="t1X"></param>
         /// <param name="t1Y"></param>
         /// <param name="t2X"></param>
         /// <param name="t2Y"></param>
+        /// <param name="t3X"></param>
+        /// <param name="t3Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7001,7 +6998,7 @@ namespace Engine
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7020,12 +7017,14 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a cubic bezier and a rectangle.
         /// </summary>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="r1X"></param>
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7072,7 +7071,7 @@ namespace Engine
         /// <param name="x6"></param>
         /// <param name="y6"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection TriangleTriangleIntersection(
@@ -7115,11 +7114,9 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="top"></param>
         /// <param name="right"></param>
-        /// <param name="y5"></param>
-        /// <param name="x6"></param>
-        /// <param name="y6"></param>
+        /// <param name="bottom"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection TriangleRectangleIntersection(
@@ -7160,9 +7157,11 @@ namespace Engine
         /// <param name="a1Y"></param>
         /// <param name="a2X"></param>
         /// <param name="a2Y"></param>
+        /// <param name="a3X"></param>
+        /// <param name="a3Y"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7205,16 +7204,14 @@ namespace Engine
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
+        /// <param name="cX"></param>
+        /// <param name="cY"></param>
+        /// <param name="r"></param>
+        /// <param name="angle"></param>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection TriangleCircleIntersection(
@@ -7251,8 +7248,10 @@ namespace Engine
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
+        /// <param name="r3X"></param>
+        /// <param name="r3Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7286,7 +7285,7 @@ namespace Engine
         /// <param name="b2X"></param>
         /// <param name="b2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7323,7 +7322,7 @@ namespace Engine
         /// <param name="points1"></param>
         /// <param name="points2"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7365,7 +7364,7 @@ namespace Engine
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7408,7 +7407,7 @@ namespace Engine
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7449,7 +7448,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7494,7 +7493,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7540,7 +7539,7 @@ namespace Engine
         /// <param name="cy1"></param>
         /// <param name="radius1"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/
         /// </acknowledgment>
@@ -7629,7 +7628,7 @@ namespace Engine
         /// <param name="c2Y"></param>
         /// <param name="r2"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7677,7 +7676,7 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection EllipsePolygonContourIntersection(
@@ -7697,7 +7696,7 @@ namespace Engine
         /// <param name="sinA"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7746,7 +7745,7 @@ namespace Engine
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection EllipseRectangleIntersection(
@@ -7769,7 +7768,7 @@ namespace Engine
         /// <param name="r2X"></param>
         /// <param name="r2Y"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7810,7 +7809,7 @@ namespace Engine
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection QuadraticBezierSegmentUnrotatedEllipseIntersection(
@@ -7828,8 +7827,12 @@ namespace Engine
         /// </summary>
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="ecX"></param>
+        /// <param name="ecY"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7873,12 +7876,12 @@ namespace Engine
         /// <summary>
         /// Find the intersection between a cubic bezier and an unrotated ellipse.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
+        /// <param name="b1X"></param>
+        /// <param name="b1Y"></param>
+        /// <param name="b2X"></param>
+        /// <param name="b2Y"></param>
+        /// <param name="b3X"></param>
+        /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
         /// <param name="ecX"></param>
@@ -7886,7 +7889,7 @@ namespace Engine
         /// <param name="rx"></param>
         /// <param name="ry"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7907,8 +7910,12 @@ namespace Engine
         /// </summary>
         /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
         /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="ecX"></param>
+        /// <param name="ecY"></param>
+        /// <param name="rx"></param>
+        /// <param name="ry"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -7962,7 +7969,7 @@ namespace Engine
         /// <param name="rx2"></param>
         /// <param name="ry2"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns>Returns an <see cref="Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
+        /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -8020,6 +8027,7 @@ namespace Engine
         /// <param name="p0y"></param>
         /// <param name="p1x"></param>
         /// <param name="p1y"></param>
+        /// <param name="epsilon"></param>
         /// <returns>Returns a pair of arrays of t indexes on the shapes where intersections occur.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -8308,14 +8316,14 @@ namespace Engine
         /// <summary>
         /// Find the intersection parameters of the intersection between two rays.
         /// </summary>
-        /// <param name="aax"></param>
-        /// <param name="aay"></param>
-        /// <param name="abx"></param>
-        /// <param name="aby"></param>
-        /// <param name="bax"></param>
-        /// <param name="bay"></param>
-        /// <param name="bbx"></param>
-        /// <param name="bby"></param>
+        /// <param name="ax"></param>
+        /// <param name="ay"></param>
+        /// <param name="ai"></param>
+        /// <param name="aj"></param>
+        /// <param name="bx"></param>
+        /// <param name="by"></param>
+        /// <param name="bi"></param>
+        /// <param name="bj"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns a pair of arrays of t indexes on the shapes where intersections occur.</returns>
         //[DebuggerStepThrough]
@@ -8450,8 +8458,9 @@ namespace Engine
         /// <summary>
         /// Find the intersection parameters of the self intersection of a cubic bezier curve.
         /// </summary>
-        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
-        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
+        /// <param name="epsilon"></param>
         /// <returns>Returns an array of t values for locating the self intersection indexes on the curve.</returns>
         /// <acknowledgment>
         /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
@@ -8639,12 +8648,8 @@ namespace Engine
         /// <param name="scanlist"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -9283,12 +9288,8 @@ namespace Engine
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]
@@ -9343,14 +9344,8 @@ namespace Engine
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
-        /// <param name="p3x"></param>
-        /// <param name="p3y"></param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]
@@ -9971,6 +9966,8 @@ namespace Engine
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]
@@ -10025,6 +10022,8 @@ namespace Engine
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
+        /// <param name="xCurve"></param>
+        /// <param name="yCurve"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]

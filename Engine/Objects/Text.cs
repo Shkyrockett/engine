@@ -24,6 +24,7 @@ namespace Engine.WindowsForms
         /// <param name="text"></param>
         /// <param name="font"></param>
         /// <param name="location"></param>
+        /// <param name="metrics"></param>
         public Text2D(string text, RenderFont font, Point2D location, IPlatformTextMetrics metrics)
             : this(text, font, location, new Size2D(int.MaxValue, int.MaxValue), metrics)
         { }
@@ -35,6 +36,7 @@ namespace Engine.WindowsForms
         /// <param name="font"></param>
         /// <param name="location"></param>
         /// <param name="limits"></param>
+        /// <param name="metrics"></param>
         public Text2D(string text, RenderFont font, Point2D location, Size2D limits, IPlatformTextMetrics metrics)
         {
             Text = text;

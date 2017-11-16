@@ -121,6 +121,9 @@ namespace Editor
 
         #region Properties
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Action ResetAction { get; set; }
 
         #endregion

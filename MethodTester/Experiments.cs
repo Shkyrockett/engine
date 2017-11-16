@@ -7911,6 +7911,7 @@ namespace MethodSpeedTester
         /// <param name="p2Y"></param>
         /// <param name="p3X"></param>
         /// <param name="p3Y"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -7985,6 +7986,7 @@ namespace MethodSpeedTester
         /// <param name="p3Y"></param>
         /// <param name="p4X"></param>
         /// <param name="p4Y"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -8169,6 +8171,7 @@ namespace MethodSpeedTester
         /// <param name="a1Y"></param>
         /// <param name="a2X"></param>
         /// <param name="a2Y"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -8328,6 +8331,7 @@ namespace MethodSpeedTester
         /// <param name="a1Y"></param>
         /// <param name="a2X"></param>
         /// <param name="a2Y"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -13552,6 +13556,7 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="c"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>
         /// http://pomax.github.io/bezierinfo
@@ -13587,6 +13592,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <param name="d"></param>
+        /// <param name="epsilon"></param>
         /// <returns></returns>
         /// <remarks>
         /// based on http://abecedarical.com/javascript/script_exact_cubic.html
@@ -13723,6 +13729,7 @@ namespace MethodSpeedTester
         /// <param name="b">real coefficient of x to the 2nd power</param>
         /// <param name="c">real coefficient of x to the 1th power</param>
         /// <param name="d">real coefficient of x to the zeroth power</param>
+        /// <param name="epsilon"></param>
         /// <returns>A list of 3 complex numbers</returns>
         public static List<Complex> SolveCubic(double a, double b, double c, double d, double epsilon = Epsilon)
         {

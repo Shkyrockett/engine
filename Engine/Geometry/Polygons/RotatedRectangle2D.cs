@@ -479,12 +479,12 @@ namespace Engine
             => new RotatedRectangle2D(left, top, right - left, bottom - top, angle);
 
         /// <summary>
-        /// Creates a <see cref="Rectangle"/> from a center point and it's size.
+        /// Creates a <see cref="Rectangle2D"/> from a center point and it's size.
         /// </summary>
-        /// <param name="center">The center point to create the <see cref="Rectangle"/> as a <see cref="Point"/>.</param>
-        /// <param name="size">The height and width of the new <see cref="Rectangle"/> as a <see cref="Size"/>.</param>
+        /// <param name="center">The center point to create the <see cref="Rectangle2D"/> as a <see cref="Point2D"/>.</param>
+        /// <param name="size">The height and width of the new <see cref="Rectangle2D"/> as a <see cref="Size"/>.</param>
         /// <param name="angle"></param>
-        /// <returns>Returns a <see cref="Rectangle"/> based around a center point and it's size.</returns>
+        /// <returns>Returns a <see cref="Rectangle2D"/> based around a center point and it's size.</returns>
         public static RotatedRectangle2D RectangleFromCenter(Point2D center, Size2D size, double angle)
             => new RotatedRectangle2D(center - size.Inflate(0.5d), size, angle);
 

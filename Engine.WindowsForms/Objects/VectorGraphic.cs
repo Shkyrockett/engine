@@ -62,6 +62,10 @@ namespace Engine
         /// 
         /// </summary>
         public List<IRenderable> Items { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Stream Stream { get; set; }
 
         /// <summary>

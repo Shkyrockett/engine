@@ -229,7 +229,6 @@ namespace Engine.File
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="reader"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

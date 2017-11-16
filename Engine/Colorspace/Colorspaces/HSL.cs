@@ -120,6 +120,10 @@ namespace Engine.Colorspace
         public static HSL FromRGB(ARGB c)
             => new HSL(c);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple()
             => throw new NotImplementedException();
 
@@ -130,9 +134,9 @@ namespace Engine.Colorspace
         /// <returns></returns>
         public bool Equals(IColor other)
         {
-            var a = ToARGBTuple();
-            var b = other.ToARGBTuple();
-            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+            var (A0, R0, G0, B0) = ToARGBTuple();
+            var (A1, R1, G1, B1) = other.ToARGBTuple();
+            return A0 == A1 && R0 == R1 && G0 == G1 && B0 == B1;
         }
 
         /// <summary>

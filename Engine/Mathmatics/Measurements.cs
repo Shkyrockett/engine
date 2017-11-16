@@ -87,7 +87,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The line segment.</param>
         /// <param name="point">The point.</param>
-        /// <returns>Returns the length of the shortest distance from the point to the line segment, or <see cref="null"/> if the point is not within the area of perpendicularity to the line segment.</returns>
+        /// <returns>Returns the length of the shortest distance from the point to the line segment, or null if the point is not within the area of perpendicularity to the line segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double? ConstrainedDistance(this LineSegment segment, Point2D point)
@@ -98,7 +98,7 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="segment">The line segment.</param>
-        /// <returns>Returns the length of the shortest distance from the point to the line segment, or <see cref="null"/> if the point is not within the area of perpendicularity to the line segment.</returns>
+        /// <returns>Returns the length of the shortest distance from the point to the line segment, or null if the point is not within the area of perpendicularity to the line segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double? ConstrainedDistance(this Point2D point, LineSegment segment)
@@ -1802,8 +1802,9 @@ namespace Engine
         /// Calculate the Axis Aligned Bounding Box (AABB) external bounding rectangle of a rotated rectangle.
         /// </summary>
         /// <param name="height">The height of the rectangle to rotate.</param>
+        /// <param name="fulcrumX"></param>
+        /// <param name="fulcrumY"></param>
         /// <param name="width">The width of the rectangle to rotate.</param>
-        /// <param name="fulcrum">The point at which to rotate the rectangle.</param>
         /// <param name="angle">The angle in radians to rotate the rectangle/</param>
         /// <returns>Returns an Axis Aligned Bounding Box (AABB) Rectangle with the location and height, width bounding the rotated rectangle.</returns>
         [DebuggerStepThrough]
@@ -1831,7 +1832,7 @@ namespace Engine
         /// <summary>
         /// Calculates the external Axis Aligned Bounding Box (AABB) rectangle of a Polygon.
         /// </summary>
-        /// <param name="points">The points of the polygon.</param>
+        /// <param name="polygonPoints"></param>
         /// <returns>Returns anAxis Aligned Bounding Box (AABB) containing the polygon.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

@@ -24,8 +24,8 @@ namespace Engine.Imaging
         ///
         /// </summary>
         /// <param name="g"></param>
+        /// <param name="renderer"></param>
         /// <param name="item"></param>
-        /// <param name="bounds"></param>
         /// <param name="style"></param>
         public static void Render(GraphicItem item, Graphics g, IRenderer renderer, IStyle style = null)
         {

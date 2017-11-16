@@ -146,7 +146,7 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="radius"></param>
         /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
+        /// <param name="endAngle"></param>
         public void Deconstruct(out double x, out double y, out double radius, out double startAngle, out double endAngle)
         {
             x = this.x;

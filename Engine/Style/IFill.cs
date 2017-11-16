@@ -20,6 +20,9 @@ namespace Engine
         /// </summary>
         IColor Color { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         FillMode FillMode { get; set; }
     }
 }

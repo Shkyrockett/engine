@@ -18,21 +18,39 @@ namespace Engine
     public interface IStroke
         : INotifyPropertyChanging, INotifyPropertyChanged
     {
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         double Width { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         double MiterLimit { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         LineCapStyle StartCap { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         LineCapStyle DashCap { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         LineCapStyle EndCap { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         LineDashStyle DashStyle { get; set; }
 

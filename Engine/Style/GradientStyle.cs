@@ -11,9 +11,19 @@
 
 namespace Engine.Imaging
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public enum GradientStyle
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Linear,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Radial
     }
 }

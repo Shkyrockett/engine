@@ -19,8 +19,19 @@ namespace Engine.WindowsForms
     public static class NativeMethods
     {
         // define the key code
+        /// <summary>
+        /// 
+        /// </summary>
         public const int MouseEventF_Wheel = 0x0800;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int MouseEventF_HWheel = 0x1000;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int MEMBERID_NIL = (-1),
             MAX_PATH = 260,
             MA_ACTIVATE = 0x0001,
@@ -101,6 +112,9 @@ namespace Engine.WindowsForms
             MCS_NOTODAY = 0x0010,
             MSAA_MENU_SIG = (unchecked((int)0xAA0DF00D));
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int NIM_ADD = 0x00000000,
             NIM_MODIFY = 0x00000001,
             NIM_DELETE = 0x00000002,
@@ -127,6 +141,9 @@ namespace Engine.WindowsForms
             NM_RELEASEDCAPTURE = ((0 - 0) - 16),
             NONANTIALIASED_QUALITY = 3;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int OFN_READONLY = 0x00000001,
             OFN_OVERWRITEPROMPT = 0x00000002,
             OFN_HIDEREADONLY = 0x00000004,
@@ -183,6 +200,9 @@ namespace Engine.WindowsForms
             OLECLOSE_SAVEIFDIRTY = 0,
             OLECLOSE_PROMPTSAVE = 2;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int PDERR_SETUPFAILURE = 0x1001,
             PDERR_PARSEFAILURE = 0x1002,
             PDERR_RETDEFFAILURE = 0x1003,
@@ -258,9 +278,15 @@ namespace Engine.WindowsForms
             PATCOPY = 0x00F00021,
             PATINVERT = 0x005A0049;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int PBS_SMOOTH = 0x01,
             PBS_MARQUEE = 0x08;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int QS_KEY = 0x0001,
             QS_MOUSEMOVE = 0x0002,
             QS_MOUSEBUTTON = 0x0004,
@@ -275,14 +301,39 @@ namespace Engine.WindowsForms
             QS_ALLEVENTS = QS_INPUT | QS_POSTMESSAGE | QS_TIMER | QS_PAINT | QS_HOTKEY,
             QS_ALLINPUT = QS_INPUT | QS_POSTMESSAGE | QS_TIMER | QS_PAINT | QS_HOTKEY | QS_SENDMESSAGE;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int MWMO_INPUTAVAILABLE = 0x0004;  // don't use MWMO_WAITALL, see ddb#176342
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int RECO_PASTE = 0x00000000;   // paste from clipboard
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int RECO_DROP = 0x00000001;    // drop
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int RECO_COPY = 0x00000002;    // copy to the clipboard
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int RECO_CUT = 0x00000003;     // cut to the clipboard
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int RECO_DRAG = 0x00000004;    // drag
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int RPC_E_CHANGED_MODE = unchecked((int)0x80010106),
             RPC_E_CANTCALLOUT_ININPUTSYNCCALL = unchecked((int)0x8001010D),
             RGN_AND = 1,
@@ -297,6 +348,9 @@ namespace Engine.WindowsForms
             RB_INSERTBANDA = (0x0400 + 1),
             RB_INSERTBANDW = (0x0400 + 10);
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int stc4 = 0x0443,
             SHGFP_TYPE_CURRENT = 0,
             STGM_READ = 0x00000000,
@@ -426,11 +480,17 @@ namespace Engine.WindowsForms
             SM_SAMEDISPLAYFORMAT = 81,
             SM_REMOTESESSION = 0x1000;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int HLP_FILE = 1,
             HLP_KEYWORD = 2,
             HLP_NAVIGATOR = 3,
             HLP_OBJECT = 4;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int SW_SCROLLCHILDREN = 0x0001,
             SW_INVALIDATE = 0x0002,
             SW_ERASE = 0x0004,
@@ -535,9 +595,19 @@ namespace Engine.WindowsForms
             STREAM_SEEK_CUR = 0x1,
             STREAM_SEEK_END = 0x2;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int S_OK = 0x00000000;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int S_FALSE = 0x00000001;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int TRANSPARENT = 1,
             OPAQUE = 2,
             TME_HOVER = 0x00000001,
@@ -823,6 +893,9 @@ namespace Engine.WindowsForms
             TVM_SORTCHILDRENCB = (TV_FIRST + 21),
             TMPF_FIXED_PITCH = 0x01;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int TVHT_NOWHERE = 0x0001,
             TVHT_ONITEMICON = 0x0002,
             TVHT_ONITEMLABEL = 0x0004,
@@ -836,6 +909,9 @@ namespace Engine.WindowsForms
             TVHT_TORIGHT = 0x0400,
             TVHT_TOLEFT = 0x0800;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int UIS_SET = 1,
             UIS_CLEAR = 2,
             UIS_INITIALIZE = 3,
@@ -846,6 +922,9 @@ namespace Engine.WindowsForms
             USERCLASSTYPE_APPNAME = 3,
             UOI_FLAGS = 1;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int VIEW_E_DRAW = unchecked((int)0x80040140),
             VK_PRIOR = 0x21,
             VK_NEXT = 0x22,
@@ -867,6 +946,9 @@ namespace Engine.WindowsForms
             VK_INSERT = 0x002D,
             VK_DELETE = 0x002E;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int WH_JOURNALPLAYBACK = 1,
             WH_GETMESSAGE = 3,
             WH_MOUSE = 7,
@@ -1020,6 +1102,9 @@ namespace Engine.WindowsForms
             WM_MOUSELAST = 0x020A,
             WM_MOUSEHWHEEL = 0x020E;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int WHEEL_DELTA = 120,
             WM_PARENTNOTIFY = 0x0210,
             WM_ENTERMENULOOP = 0x0211,
@@ -1125,6 +1210,10 @@ namespace Engine.WindowsForms
             WM_CHOOSEFONT_GETLOGFONT = (0x0400 + 1);
 
         // wParam of report message WM_IME_NOTIFY (public\sdk\imm.h)
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int
             IMN_CLOSESTATUSWINDOW = 0x0001,
             IMN_OPENSTATUSWINDOW = 0x0002,
@@ -1141,42 +1230,128 @@ namespace Engine.WindowsForms
             IMN_GUIDELINE = 0x000D,
             IMN_PRIVATE = 0x000E;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int PD_RESULT_CANCEL = 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int PD_RESULT_PRINT = 1;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int PD_RESULT_APPLY = 2;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public const int XBUTTON1 = 0x0001;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int XBUTTON2 = 0x0002;
 
         // Ctrl key.
+        /// <summary>
+        /// 
+        /// </summary>
         public const int KEYEVENTF_EXTENDEDKEY = 0x0001;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public const int KEYEVENTF_KEYUP = 0x0002;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dwFlags"></param>
+        /// <param name="dx"></param>
+        /// <param name="dy"></param>
+        /// <param name="dwData"></param>
+        /// <param name="dwExtraInfo"></param>
         [DllImport("user32.dll", EntryPoint = "mouse_event", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         internal static extern void Mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vk"></param>
+        /// <param name="scan"></param>
+        /// <param name="flags"></param>
+        /// <param name="extrainfo"></param>
         [DllImport("user32.dll", EntryPoint = "keybd_event", CharSet = CharSet.Auto, ExactSpelling = true)]
         internal static extern void Keybd_event(byte vk, byte scan, int flags, IntPtr extrainfo);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hWnd"></param>
+        /// <param name="msg"></param>
+        /// <param name="wParam"></param>
+        /// <param name="lParam"></param>
+        /// <returns></returns>
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         //use dll method for vertical scroll and works fine
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="steps"></param>
         internal static void VScrollWheel(int steps) => Mouse_event(MouseEventF_Wheel, 0, 0, (uint)steps, UIntPtr.Zero);
 
         //use dll method for horizontal scroll and no response
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="steps"></param>
         internal static void HScrollWheel(int steps) => Mouse_event(MouseEventF_HWheel, 0, 0, (uint)steps, UIntPtr.Zero);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         public static int SignedHIWORD(this int n) => (short)((n >> 0x10) & 0xffff);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         public static int SignedHIWORD(this IntPtr n) => SignedHIWORD((int)((long)n));
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         public static int SignedLOWORD(this int n) => (short)(n & 0xffff);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         public static int SignedLOWORD(this IntPtr n) => SignedLOWORD((int)((long)n));
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hr"></param>
+        /// <returns></returns>
         public static bool Succeeded(int hr) => (hr >= 0);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hr"></param>
+        /// <returns></returns>
         public static bool Failed(int hr) => (hr < 0);
     }
 }

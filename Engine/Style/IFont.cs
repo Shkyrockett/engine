@@ -12,8 +12,17 @@ using System;
 
 namespace Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RenderFont
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="size"></param>
+        /// <param name="textStyle"></param>
         public RenderFont(string name, double size, TextStyle textStyle)
         {
             Name = name;
@@ -21,20 +30,51 @@ namespace Engine
             Style = textStyle;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public double Size { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public TextStyle Style { get; set; }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [Flags]
     public enum TextStyle
     {
+        /// <summary>
+        /// 
+        /// </summary>
         Regular = 0,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Bold = 1,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Italic = 2,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Underline = 4,
+
+        /// <summary>
+        /// 
+        /// </summary>
         Strikeout = 8,
     }
 }

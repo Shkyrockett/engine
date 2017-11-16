@@ -15,11 +15,14 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    /// <typeparam name="C"></typeparam>
     public interface IColor
         : IFormattable, //IComparable<IColor>, //IConvertible,
         IEquatable<IColor>
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         (byte A, byte R, byte G, byte B) ToARGBTuple();
     }
 }

@@ -53,15 +53,30 @@ namespace Engine.Colorspace
         /// </summary>
         public double V { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public bool Equals(IColor other)
         {
-            var a = ToARGBTuple();
-            var b = other.ToARGBTuple();
-            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+            var (A0, R0, G0, B0) = ToARGBTuple();
+            var (A1, R1, G1, B1) = other.ToARGBTuple();
+            return A0 == A1 && R0 == R1 && G0 == G1 && B0 == B1;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="formatProvider"></param>
+        /// <returns></returns>
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

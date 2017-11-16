@@ -135,13 +135,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
         /// </summary>
-        /// <param name="x">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
-        /// <param name="y">Center Point x coordinate of <see cref="EllipticalArc"/>.</param>
-        /// <param name="rX">Major radius of <see cref="EllipticalArc"/>.</param>
-        /// <param name="rY">Minor radius of <see cref="EllipticalArc"/>.</param>
-        /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
+        /// <param name="tuple"></param>
         /// <remarks></remarks>
         public EllipticalArc((double X, double Y, double RX, double RY, double Angle, double StartAngle, double SweepAngle) tuple)
             : this(tuple.X, tuple.Y, tuple.RX, tuple.RY, tuple.Angle, tuple.StartAngle, tuple.SweepAngle)

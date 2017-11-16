@@ -14,11 +14,15 @@ using Engine.Imaging;
 
 namespace Engine.WindowsForms
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class PaletteExtensions
     {
         /// <summary>
         /// Draw the palette to a bitmap.
         /// </summary>
+        /// <param name="palette"></param>
         /// <param name="bounds">The limiting bounds of the container control.</param>
         /// <param name="selection1">The index of the first palette entry that should be selected.</param>
         /// <param name="selection2">The index of the second palette entry that should be selected.</param>
@@ -102,6 +106,7 @@ namespace Engine.WindowsForms
         /// <summary>
         /// Looks up the palette entry index for the specified point in the palette grid.
         /// </summary>
+        /// <param name="palette"></param>
         /// <param name="location">The location to look in the palette grid.</param>
         /// <param name="bounds">The limiting bounds of the container control.</param>
         /// <returns>The index of the palette entry at the specified coordinates of the grid.</returns>

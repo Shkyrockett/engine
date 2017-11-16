@@ -135,10 +135,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the <see cref="RectangleF"/> representing the bounding box of the cell at a given index of the grid. 
+        /// Gets the <see cref="Rectangle2D"/> representing the bounding box of the cell at a given index of the grid. 
         /// </summary>
         /// <param name="index">The index of a cell in the grid.</param>
-        /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
+        /// <returns>A <see cref="Point2D"/> representing the top left corner of the cell at the given index.</returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Rectangle2D this[int index]
         {

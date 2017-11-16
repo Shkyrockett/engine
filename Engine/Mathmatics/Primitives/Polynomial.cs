@@ -411,7 +411,6 @@ namespace Engine
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
-        /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial operator -(double value, Polynomial subend)
@@ -550,7 +549,7 @@ namespace Engine
 
         /// <summary>
         /// Compares two <see cref="Polynomial"/> objects.
-        /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/>
+        /// The result specifies whether the values of the x and x
         /// values of the two <see cref="Polynomial"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>
@@ -563,7 +562,7 @@ namespace Engine
 
         /// <summary>
         /// Compares two <see cref="Polynomial"/> objects.
-        /// The result specifies whether the values of the <see cref="X"/> or <see cref="Y"/>
+        /// The result specifies whether the values of the x or y
         /// values of the two <see cref="Polynomial"/> objects are unequal.
         /// </summary>
         /// <param name="left"></param>

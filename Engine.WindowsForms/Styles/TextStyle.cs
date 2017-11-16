@@ -121,7 +121,14 @@ namespace Engine.Imaging
             set { BackPen.Brush = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IFill Fill { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public IStroke Stroke { get; }
     }
 }

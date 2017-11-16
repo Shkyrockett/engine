@@ -57,6 +57,10 @@ namespace Engine
         /// 
         /// </summary>
         public string DisplayName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Stream Stream { get; set; }
 
         /// <summary>

@@ -60,7 +60,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Degrees"/> struct from a <see cref="Engine.Physics.Radians"/>.
+        /// Initializes a new instance of the <see cref="Degrees"/> struct from a <see cref="Radians"/>.
         /// </summary>
         /// <param name="radians"></param>
         public Degrees(Radians radians)

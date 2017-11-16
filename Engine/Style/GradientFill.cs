@@ -18,6 +18,12 @@ namespace Engine.Imaging
     public struct GradientFill
         : IFill
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="colorStops"></param>
+        /// <param name="fillMode"></param>
         public GradientFill(IColor color, Dictionary<double, IColor> colorStops, FillMode fillMode = FillMode.Alternate)
         {
             Color = color;
@@ -25,9 +31,19 @@ namespace Engine.Imaging
             FillMode = fillMode;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public IColor Color { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Dictionary<double, IColor> ColorStops { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public FillMode FillMode { get; set; }
     }
 }

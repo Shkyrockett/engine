@@ -41,7 +41,6 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="shapes"></param>
-        /// <param name="renderer"></param>
         public VectorMap(List<GraphicItem> shapes)
         {
             Items = shapes;

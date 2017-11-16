@@ -1,4 +1,4 @@
-﻿// <copyright file="SolidFill.cs" company="Shkyrockett" >
+﻿// <copyright file="TestCases.cs" company="Shkyrockett" >
 //     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,33 +8,26 @@
 // <summary></summary>
 // <remarks></remarks>
 
-namespace Engine.Imaging
+
+namespace Editor
 {
     /// <summary>
     /// 
     /// </summary>
-    public struct SolidFill
-        : IFill
+    public class Scrubber
     {
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="color"></param>
-        /// <param name="fillMode"></param>
-        public SolidFill(IColor color, FillMode fillMode = FillMode.Alternate)
+        /// <param name="t"></param>
+        public Scrubber(double t)
         {
-            Color = color;
-            FillMode = fillMode;
+            T = t;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public IColor Color { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public FillMode FillMode { get; set; }
+        public double T { get; set; }
     }
 }

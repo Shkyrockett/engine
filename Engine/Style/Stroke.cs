@@ -87,15 +87,27 @@ namespace Engine
             //LineJoin = LineJoin.Miter;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         public double Width { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         public double MiterLimit { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         public LineCapStyle StartCap { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         public LineCapStyle DashCap { get; set; }
 
@@ -114,9 +126,15 @@ namespace Engine
         //    }
         //}
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         public LineCapStyle EndCap { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         public LineDashStyle DashStyle { get; set; }
 
@@ -150,6 +168,9 @@ namespace Engine
         //    }
         //}
 
+        /// <summary>
+        /// 
+        /// </summary>
         [NotifyParentProperty(true)]
         public IFill Fill { get; set; }
 

@@ -137,10 +137,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the <see cref="Rectangle"/> representing the bounding box of the cell at a given index of the grid. 
+        /// Gets the <see cref="Rectangle2D"/> representing the bounding box of the cell at a given index of the grid. 
         /// </summary>
         /// <param name="index">The index of a cell in the grid.</param>
-        /// <returns>A <see cref="Point"/> representing the top left corner of the cell at the given index.</returns>
+        /// <returns>A <see cref="Point2D"/> representing the top left corner of the cell at the given index.</returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Rectangle2D this[int index]
         {
@@ -244,14 +244,14 @@ namespace Engine
             => (int)CachingProperty(() => Min(h / Columns, v / Rows));
 
         /// <summary>
-        /// Gets the calculated optimum <see cref="Size"/> height and width of any cell in the grid.
+        /// Gets the calculated optimum <see cref="Size2D"/> height and width of any cell in the grid.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Size2D CellSize
             => (Size2D)CachingProperty(() => new Size2D(CellScale, CellScale));
 
         /// <summary>
-        /// Gets the inner-bounding <see cref="Rectangle"/> of the grid. 
+        /// Gets the inner-bounding <see cref="Rectangle2D"/> of the grid. 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Rectangle2D InnerBounds
@@ -272,7 +272,7 @@ namespace Engine
             => (int)CachingProperty(() => (int)Ceiling((double)count / Columns));
 
         /// <summary>
-        /// Gets or sets the exterior bounding <see cref="Rectangle"/> to contain the grid. 
+        /// Gets or sets the exterior bounding <see cref="Rectangle2D"/> to contain the grid. 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public new Rectangle2D Bounds

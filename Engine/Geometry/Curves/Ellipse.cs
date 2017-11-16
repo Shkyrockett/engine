@@ -71,11 +71,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Ellipse"/> class.
         /// </summary>
-        /// <param name="x">Center Point x coordinate of <see cref="Ellipse"/>.</param>
-        /// <param name="y">Center Point x coordinate of <see cref="Ellipse"/>.</param>
-        /// <param name="rX">Major radius of <see cref="Ellipse"/>.</param>
-        /// <param name="rY">Minor radius of <see cref="Ellipse"/>.</param>
-        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
+        /// <param name="tuple"></param>
         /// <remarks></remarks>
         public Ellipse((double X, double Y, double RX, double RY, double Angle) tuple)
             : this(tuple.X, tuple.Y, tuple.RX, tuple.RY, tuple.Angle)

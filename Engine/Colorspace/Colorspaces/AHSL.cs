@@ -153,6 +153,10 @@ namespace Engine.Colorspace
             return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
 
         /// <summary>

@@ -420,7 +420,8 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="augend"></param>
+        /// <param name="addend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -629,7 +630,7 @@ namespace Engine
         /// Extension method to find the center point of a rectangle.
         /// </summary>
         /// <param name="rectangle">The <see cref="Rectangle2D"/> of which you want the center.</param>
-        /// <returns>A <see cref="Point2D"/> representing the center point of the <see cref="RectangleF"/>.</returns>
+        /// <returns>A <see cref="Point2D"/> representing the center point of the <see cref="Rectangle2D"/>.</returns>
         /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1341,11 +1342,11 @@ namespace Engine
         #region Inflate
 
         /// <summary>
-        /// Inflates a <see cref="Point"/> by a given factor.
+        /// Inflates a <see cref="Point2D"/> by a given factor.
         /// </summary>
-        /// <param name="point">The <see cref="Point"/> to inflate.</param>
-        /// <param name="factors">The factor to inflate the <see cref="Point"/>.</param>
-        /// <returns>Returns a <see cref="Point"/> structure inflated by the factor provided.</returns>
+        /// <param name="point">The <see cref="Point2D"/> to inflate.</param>
+        /// <param name="factors">The factor to inflate the <see cref="Point2D"/>.</param>
+        /// <returns>Returns a <see cref="Point2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Inflate(this Point2D point, Vector2D factors)
@@ -1363,18 +1364,18 @@ namespace Engine
             => new Size2D(size.Width * factor, size.Height * factor);
 
         /// <summary>
-        /// Inflates a <see cref="SizeF"/> by a given factor.
+        /// Inflates a <see cref="Size2D"/> by a given factor.
         /// </summary>
-        /// <param name="size">The <see cref="SizeF"/> to inflate.</param>
-        /// <param name="factor">The size factors to inflate the <see cref="SizeF"/>.</param>
-        /// <returns>Returns a <see cref="SizeF"/> structure inflated by the factor provided.</returns>
+        /// <param name="size">The <see cref="Size2D"/> to inflate.</param>
+        /// <param name="factor">The size factors to inflate the <see cref="Size2D"/>.</param>
+        /// <returns>Returns a <see cref="Size2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Inflate(this Size2D size, Size2D factor)
             => new Size2D(size.Width * factor.Width, size.Height * factor.Height);
 
         /// <summary>
-        /// Inflates a <see cref="Size"/> by a given factor.
+        /// Inflates a <see cref="Size2D"/> by a given factor.
         /// </summary>
         /// <param name="size">The <see cref="Size2D"/> to inflate.</param>
         /// <param name="factor">The size factors to inflate the <see cref="Vector2D"/>.</param>
@@ -1388,7 +1389,7 @@ namespace Engine
         /// Inflates a <see cref="Vector2D"/> by a given factor.
         /// </summary>
         /// <param name="point">The <see cref="Vector2D"/> to inflate.</param>
-        /// <param name="factor">The factor to inflate the <see cref="Point"/>.</param>
+        /// <param name="factor">The factor to inflate the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Vector2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1399,7 +1400,7 @@ namespace Engine
         /// Inflates a <see cref="Vector2D"/> by a given factor.
         /// </summary>
         /// <param name="point">The <see cref="Vector2D"/> to inflate.</param>
-        /// <param name="factor">The factor to inflate the <see cref="Point"/>.</param>
+        /// <param name="factor">The factor to inflate the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Vector2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1410,7 +1411,7 @@ namespace Engine
         /// Inflates a <see cref="Vector2D"/> by a given factor.
         /// </summary>
         /// <param name="point">The <see cref="Vector2D"/> to inflate.</param>
-        /// <param name="factor">The factor to inflate the <see cref="Point"/>.</param>
+        /// <param name="factor">The factor to inflate the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Vector2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1465,7 +1466,7 @@ namespace Engine
         /// Inflates a <see cref="Vector2D"/> by a given factor.
         /// </summary>
         /// <param name="point">The <see cref="Vector2D"/> to inflate.</param>
-        /// <param name="factors">The factor to inflate the <see cref="Point"/>.</param>
+        /// <param name="factors">The factor to inflate the <see cref="Point2D"/>.</param>
         /// <returns>Returns a <see cref="Vector2D"/> structure inflated by the factor provided.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3016,6 +3017,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="minuend"></param>
         /// <param name="subtrahend"></param>
         /// <returns></returns>
         [DebuggerStepThrough]

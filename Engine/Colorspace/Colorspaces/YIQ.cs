@@ -75,6 +75,9 @@ namespace Engine.Colorspace
             Q = q;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public byte Alpha { get; set; }
 
         /// <summary>
@@ -99,9 +102,9 @@ namespace Engine.Colorspace
         /// <returns></returns>
         public bool Equals(IColor other)
         {
-            var a = ToARGBTuple();
-            var b = other.ToARGBTuple();
-            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+            var (A0, R0, G0, B0) = ToARGBTuple();
+            var (A1, R1, G1, B1) = other.ToARGBTuple();
+            return A0 == A1 && R0 == R1 && G0 == G1 && B0 == B1;
         }
 
         /// <summary>

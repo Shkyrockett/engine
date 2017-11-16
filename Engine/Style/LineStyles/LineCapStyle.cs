@@ -89,7 +89,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="lineCap"></param>
         /// <param name="path"></param>
         public LineCapStyle(/*LineCap lineCap,*/ PolycurveContour path)
             : this()

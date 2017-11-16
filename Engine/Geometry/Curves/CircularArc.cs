@@ -82,11 +82,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="CircularArc"/> class.
         /// </summary>
-        /// <param name="x">The center x coordinate point of the circle.</param>
-        /// <param name="y">The center y coordinate point of the circle.</param>
-        /// <param name="radius">The radius of the circle.</param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
+        /// <param name="tuple"></param>
         public CircularArc((double X, double Y, double Radius, double StartAngle, double SweepAngle) tuple)
             : this(tuple.X, tuple.Y, tuple.Radius, tuple.StartAngle, tuple.SweepAngle)
         { }

@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <DocumentationFile>bin\Any CPU\Debug\netstandard2.0\Engine.Misc.xml</DocumentationFile>
     <OutputPath>bin\Any CPU\Debug\netstandard2.0\</OutputPath>
   </PropertyGroup>
@@ -35,6 +35,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DocumentationFile>bin\x64\Release\netstandard2.0\Engine.Misc.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.4.0-preview2-25405-01" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.csproj" />

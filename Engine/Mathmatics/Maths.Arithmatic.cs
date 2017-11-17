@@ -27,6 +27,9 @@ namespace Engine
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// http://www.angusj.com
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Round(this float val)
@@ -37,6 +40,9 @@ namespace Engine
         /// </summary>
         /// <param name="val"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// http://www.angusj.com
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Round(this double val)
@@ -1346,6 +1352,19 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsValid(this double value)
             => !double.IsNaN(value) && !double.IsInfinity(value);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="val"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://www.angusj.com
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsOdd(int val)
+            => (val % 2 != 0);
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.

@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>latest</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <OutputPath>bin\Any CPU\Debug\netstandard2.0\</OutputPath>
     <DocumentationFile>bin\Any CPU\Debug\netstandard2.0\Engine.Midi.xml</DocumentationFile>
   </PropertyGroup>
@@ -38,6 +38,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <DocumentationFile>bin\x86\Release\netstandard2.0\Engine.Midi.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.4.0-preview2-25405-01" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Engine.File\Engine.File.csproj" />

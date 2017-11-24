@@ -10,8 +10,8 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Engine;
-using System.Collections.Generic;
 using System.Numerics;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace EngineTests
@@ -92,10 +92,23 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void TrimTest()
         {
-            var value = new Polynomial(0, 5, 25, 0, 4, 0);
-            var expected = new Polynomial(5, 25, 0, 4, 0);
-            var result = value.Trim();
-            Assert.AreEqual(expected, result);
+            var cases = new Dictionary<Polynomial, Polynomial>
+            {
+                {new Polynomial(0d), new Polynomial(0d)},
+                {new Polynomial(2d, 0d, 25d, 0d, 4d, 0d), new Polynomial(2d, 0d, 25d, 0d, 4d, 0d)},
+                {new Polynomial(0d, 5d, 25d, 0d, 4d, 0d), new Polynomial(5d, 25d, 0d, 4d, 0d)},
+                {new Polynomial(0d, 0d, 25d, 0d, 4d, 0d), new Polynomial(25d, 0d, 4d, 0d)},
+                {new Polynomial(0d, 0d, 0d, 8d, 4d, 0d), new Polynomial(8d, 4d, 0d)},
+                {new Polynomial(0d, 0d, 0d, 0d, 4d, 0d), new Polynomial(4d, 0d)},
+                {new Polynomial(0d, 0d, 0d, 0d, 0d, 1d), new Polynomial(1d)},
+                {new Polynomial(1d, 0d, 0d, 0d, 0d, 0d), new Polynomial(1d, 0d, 0d, 0d, 0d, 0d)},
+            };
+
+            foreach (var test in cases)
+            {
+                Assert.AreEqual(test.Value.Count, (test.Key.Trim()).Count);
+                Assert.AreEqual(test.Value, test.Key.Trim());
+            }
         }
 
         /// <summary>
@@ -548,7 +561,7 @@ namespace EngineTests
         public void RealOrderTest()
         {
             var value = new Polynomial(1, 2, 3, 4, 5, 6);
-            var expected = 5;
+            var expected = PolynomialDegree.Quintic;
             var result = value.RealOrder();
             Assert.AreEqual(expected, result);
         }

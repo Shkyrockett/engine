@@ -111,7 +111,6 @@ namespace EngineTests
         [TestProperty("Null", "Null")]
         [DeploymentItem("Engine.dll")]
         [ExpectedException(typeof(DivideByZeroException))]
-        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         [Ignore]
         public void DivideMethodTest()
         {
@@ -129,7 +128,7 @@ namespace EngineTests
         [TestProperty("Null", "Null")]
         [DeploymentItem("Engine.dll")]
         [Ignore]
-        public void TestMethod1()
+        public void TestMethodExample()
         {
             //
             // TODO: Add test logic here

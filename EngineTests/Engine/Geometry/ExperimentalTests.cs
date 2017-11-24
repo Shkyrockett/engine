@@ -1005,16 +1005,16 @@ namespace Engine.Tests
         //    Assert.AreEqual(400.ToString(), value.ToString());
         //}
 
-            /// <summary>
-            /// 
-            /// </summary>
-        [TestMethod]
-        public void DistanceModulusTest()
-        {
-            for (var i = 0; i < 1000000; i++)
-            {
-                //Experimental.DistanceModulus(2, 2, 2, 2);
-            }
-        }
+            ///// <summary>
+            ///// 
+            ///// </summary>
+        //[TestMethod]
+        //public void DistanceModulusTest()
+        //{
+        //    for (var i = 0; i < 1000000; i++)
+        //    {
+        //        //Experimental.DistanceModulus(2, 2, 2, 2);
+        //    }
+        //}
     }
 }

@@ -77,13 +77,14 @@ namespace Editor
             //IntersectingsEllipseQuadraticSegment(vectorMap);
             //IntersectingsEllipseCubicSegment(vectorMap);
             //EllipticalArcLineSegmentIntersections(vectorMap);
+            //EllipticalArcRayIntersections(vectorMap);
             //EllipticalArcLineIntersections(vectorMap);
             //IntersectionsQuadraticBezierQuadraticBezier(vectorMap);
             //IntersectionsQuadraticBezierQuadraticBezierKLD(vectorMap);
             //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
-            //IntersectionsCubicBezierCubicBezier(vectorMap);
+            IntersectionsCubicBezierCubicBezier(vectorMap);
             //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
@@ -96,7 +97,7 @@ namespace Editor
 
             /* Interactive */
             //PathFollow(vectorMap, form);
-            Pathfinding(vectorMap, form);
+            //Pathfinding(vectorMap, form);
             //ResizeRefreshBounds(vectorMap, canvasPanel, out boundaryItem);
             //Tweenning(vectorMap, form);
             //KaraokeBall(vectorMap, form);
@@ -1331,14 +1332,64 @@ namespace Editor
 
             for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
             {
-                var lineSegment = (LineSegment)Filters.RotateDistort(new LineSegment(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Point2D(ellipse.X + ellipse.MajorRadius + whiskerLength, ellipse.Y + skew)), ellipse.Center, angle);
+                var lineSegment = Filters.RotateDistort(new LineSegment(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Point2D(ellipse.X + ellipse.MajorRadius + whiskerLength, ellipse.Y + skew)), ellipse.Center, angle);
                 var lineSegmentItem = new GraphicItem(lineSegment, solidGreenStyle)
                 {
-                    Name = "Line Segment."
+                    Name = "Line Segment"
                 };
                 var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipticalArc, lineSegment).Points, 5d), handleStyle);
 
                 vectorMap.Add(lineSegmentItem);
+                vectorMap.Add(intersectionNodeItem);
+            }
+
+            var parametricPointTesterFigure = new ParametricPointTester(
+                (px, py) => Intersections.EllipticalArcContainsPoint(ellipticalArc.X, ellipticalArc.Y, ellipticalArc.RX, ellipticalArc.RY, ellipticalArc.Angle, ellipticalArc.StartAngle, ellipticalArc.SweepAngle, px, py),
+                ellipse.Bounds.X, ellipse.Bounds.Y, ellipse.Bounds.Right + 5, ellipse.Bounds.Bottom + 5, 5, 5);
+
+            vectorMap.Add(parametricPointTesterFigure);
+        }
+
+        /// <summary>
+        /// Development regression test case to test for intersections between elliptical arcs and rays.
+        /// </summary>
+        /// <param name="vectorMap">The vector map to write to.</param>
+        public static void EllipticalArcRayIntersections(VectorMap vectorMap)
+        {
+            var left = 50;
+            var top = 0;
+
+            var lineStepAngle = 15d.ToRadians();
+            var lineMinAngle = 0d.ToRadians();
+            var lineSweepAngle = 360d.ToRadians();
+            var whiskerLength = 20;
+            var skew = 0;
+
+            var xRadius = 100;
+            var yRadius = 50;
+            var ellipseAngle = -15d.ToRadians();
+            var startAngle = 90d.ToRadians();
+            var sweepAngle = -180d.ToRadians();
+
+            var ellipse = new Ellipse(left + Max(xRadius, yRadius), top + Max(xRadius, yRadius), xRadius, yRadius, ellipseAngle);
+            var ellipticalArc = new EllipticalArc(ellipse, startAngle, sweepAngle);
+            var ellipseItem = new GraphicItem(ellipticalArc, solidGreenStyle)
+            {
+                Name = "Ellipse"
+            };
+
+            vectorMap.Add(ellipseItem);
+
+            for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
+            {
+                var line = Filters.RotateDistort(new Ray(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)), ellipse.Center, angle);
+                var lineItem = new GraphicItem(line, solidGreenStyle)
+                {
+                    Name = "Ray"
+                };
+                var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipticalArc, line).Points, 5d), handleStyle);
+
+                vectorMap.Add(lineItem);
                 vectorMap.Add(intersectionNodeItem);
             }
 
@@ -1381,10 +1432,10 @@ namespace Editor
 
             for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
             {
-                var line = (Line)Filters.RotateDistort(new Line(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)), ellipse.Center, angle);
+                var line = Filters.RotateDistort(new Line(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)), ellipse.Center, angle);
                 var lineItem = new GraphicItem(line, solidGreenStyle)
                 {
-                    Name = "Line Segment."
+                    Name = "Line"
                 };
                 var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipticalArc, line).Points, 5d), handleStyle);
 
@@ -2232,7 +2283,7 @@ namespace Editor
             var ellpticArcItem = new GraphicItem(Examples.EllpticArc, paperLikeStyle);
             var ellpticArcBoundsItem = new GraphicItem(Examples.EllpticArc.Bounds, selectionStyle);
             vectorMap.Add(ellpticArcBoundsItem);
-            vectorMap.Add(Examples.EllpticArc);
+            vectorMap.Add(ellpticArcItem);
         }
 
         #endregion

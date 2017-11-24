@@ -555,6 +555,78 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Array Trim
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public int RealOrderSuperLloyd(double[] coefficients, double epsilon = Epsilon)
+        {
+            if (coefficients == null)
+            {
+                return 0;
+            }
+
+            var order = 0;
+            for (var i = 0; i < coefficients.Length; i++)
+            {
+                if (Abs(coefficients[i]) > Epsilon)
+                {
+                    order = i;
+                }
+            }
+
+            return order;
+        }
+
+        /// <summary>
+        /// Calculates the real order or degree of the polynomial.
+        /// Or rather, locates where to trim off any leading zero coefficients.
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
+        /// and Trim and RealOrder from: https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public PolynomialDegree RealOrder(double[] coefficients, double epsilon = Epsilon)
+        {
+            var pos = 1;
+            var count = coefficients.Length;
+
+            // Monomial can be a zero constant, skip them and check the rest.
+            if (count > 1)
+            {
+                // Count the number of leading zeros. Because the coefficients array is reversed, start at the end.
+                for (var i = count - 1; i >= 1 /* Monomials can be 0. */; i--)
+                {
+                    // Check if coefficient is a leading zero.
+                    if (Abs(coefficients[i]) <= epsilon)
+                    {
+                        pos++;
+                    }
+                    else
+                    {
+                        // Break early if a non zero value was found. This indicates the end of any leading zeros.
+                        break;
+                    }
+                }
+            }
+
+            return (PolynomialDegree)(coefficients?.Length - pos ?? 0);
+        }
+
+        #endregion
+
         #region Barycentric
 
         /// <summary>

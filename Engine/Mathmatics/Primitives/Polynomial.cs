@@ -76,6 +76,11 @@ namespace Engine
         private double[] coefficients;
 
         /// <summary>
+        /// 
+        /// </summary>
+        private PolynomialDegree? degree;
+
+        /// <summary>
         /// Semaphore indicating whether the polynomial can be edited.
         /// </summary>
         bool isReadonly;
@@ -100,9 +105,9 @@ namespace Engine
             this.coefficients = (coefficients == null || coefficients.Length == 0)
                 ? this.coefficients = new double[] { 0 }
                 : coefficients.Reverse().ToArray();
-
             // Not initially read only.
             isReadonly = false;
+            degree = null;
         }
 
         #endregion
@@ -125,18 +130,31 @@ namespace Engine
             get
             {
                 if (index < 0)
+                {
                     throw new ArgumentOutOfRangeException();
-                if (index > coefficients.Length)
+                }
+
+                if (index >= coefficients.Length)
+                {
                     return 0;
+                }
+
                 return coefficients[(coefficients.Length - 1) - index];
             }
             set
             {
                 if (IsReadonly)
+                {
                     throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
+                }
+
                 if (index < 0 || index > coefficients.Length)
+                {
                     throw new ArgumentOutOfRangeException();
+                }
+
                 coefficients[(coefficients.Length - 1) - index] = value;
+                degree = null;
             }
         }
 
@@ -156,18 +174,31 @@ namespace Engine
             get
             {
                 if (index < 0)
+                {
                     throw new ArgumentOutOfRangeException();
+                }
+
                 if ((int)index >= coefficients.Length)
+                {
                     return 0;
+                }
+
                 return coefficients[(coefficients.Length - 1) - (int)index];
             }
             set
             {
                 if (IsReadonly)
+                {
                     throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
+                }
+
                 if (index < 0 || (int)index > coefficients.Length)
+                {
                     throw new ArgumentOutOfRangeException();
+                }
+
                 coefficients[(coefficients.Length - 1) - (int)index] = value;
+                degree = null;
             }
         }
 
@@ -187,18 +218,31 @@ namespace Engine
             get
             {
                 if (index < 0)
+                {
                     throw new ArgumentOutOfRangeException();
+                }
+
                 if ((int)index >= coefficients.Length)
+                {
                     return 0;
+                }
+
                 return coefficients[(int)index];
             }
             set
             {
                 if (IsReadonly)
+                {
                     throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
+                }
+
                 if (index < 0 || (int)index > coefficients.Length)
+                {
                     throw new ArgumentOutOfRangeException();
+                }
+
                 coefficients[(int)index] = value;
+                degree = null;
             }
         }
 
@@ -211,17 +255,17 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public PolynomialDegree Degree
-            => (PolynomialDegree)(coefficients?.Length - 1 ?? 0);
+            => (degree = degree ?? RealOrder(Epsilon)).Value;
 
         /// <summary>
-        /// Gets the number of coefficients found in the polynomial.
+        /// Gets the raw number of coefficients found in the polynomial, including any leading zero coefficients.
         /// </summary>
         /// <returns></returns>
         public int Count
             => coefficients?.Length ?? 0;
 
         /// <summary>
-        /// Gets a value indicating whether there are real roots for the polynomial.
+        /// Gets a value indicating whether the real roots for the polynomial can be solved with availible methods.
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -229,7 +273,7 @@ namespace Engine
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
         public bool CanSolveRealRoots
-            => (RealOrder() <= 4);
+            => (RealOrder() <= PolynomialDegree.Quintic);
 
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="Polynomial"/> struct is read only.
@@ -245,9 +289,14 @@ namespace Engine
             set
             {
                 if (IsReadonly)
+                {
                     return;
+                }
+
                 if (value)
+                {
                     isReadonly = true;
+                }
             }
         }
 
@@ -266,7 +315,10 @@ namespace Engine
             set
             {
                 if (IsReadonly)
+                {
                     throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
+                }
+
                 coefficients = value.Reverse().ToArray();
             }
         }
@@ -328,7 +380,7 @@ namespace Engine
             var res = new double[addend.Count];
             Array.Copy(addend.coefficients, res, addend.Count);
             res[0] += value;
-            return new Polynomial() { coefficients = res, isReadonly = addend.isReadonly };
+            return (new Polynomial() { coefficients = res, isReadonly = addend.isReadonly });
         }
 
         /// <summary>
@@ -361,7 +413,7 @@ namespace Engine
 
                 res[i] = p;
             }
-            return new Polynomial() { coefficients = res, isReadonly = value.isReadonly | addend.isReadonly };
+            return (new Polynomial() { coefficients = res, isReadonly = value.isReadonly | addend.isReadonly });
         }
 
         /// <summary>
@@ -383,7 +435,7 @@ namespace Engine
                 res[i] = -value.coefficients[i];
             }
 
-            return new Polynomial() { coefficients = res, isReadonly = value.isReadonly };
+            return (new Polynomial() { coefficients = res, isReadonly = value.isReadonly });
         }
 
         /// <summary>
@@ -422,7 +474,7 @@ namespace Engine
             }
 
             res[0] += value;
-            return new Polynomial() { coefficients = res, isReadonly = subend.isReadonly };
+            return (new Polynomial() { coefficients = res, isReadonly = subend.isReadonly });
         }
 
         /// <summary>
@@ -456,7 +508,7 @@ namespace Engine
                 res[i] = p;
             }
 
-            return new Polynomial() { coefficients = res, isReadonly = value.isReadonly | subend.isReadonly };
+            return (new Polynomial() { coefficients = res, isReadonly = value.isReadonly | subend.isReadonly });
         }
 
         /// <summary>
@@ -469,7 +521,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial operator *(Polynomial value, double factor)
             => factor * value;
@@ -484,7 +536,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial operator *(double value, Polynomial factor)
         {
@@ -494,7 +546,7 @@ namespace Engine
                 res[i] = value * factor.coefficients[i];
             }
 
-            return new Polynomial() { coefficients = res, isReadonly = factor.isReadonly };
+            return (new Polynomial() { coefficients = res, isReadonly = factor.isReadonly });
         }
 
         /// <summary>
@@ -507,7 +559,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial operator *(Polynomial value, Polynomial factor)
         {
@@ -521,7 +573,7 @@ namespace Engine
                 }
             }
 
-            return new Polynomial() { coefficients = res, isReadonly = value.isReadonly | factor.isReadonly };
+            return (new Polynomial() { coefficients = res, isReadonly = value.isReadonly | factor.isReadonly });
         }
 
         /// <summary>
@@ -544,7 +596,7 @@ namespace Engine
                 res[i] = divisor.coefficients[i] / dividend;
             }
 
-            return new Polynomial() { coefficients = res, isReadonly = divisor.isReadonly };
+            return (new Polynomial() { coefficients = res, isReadonly = divisor.isReadonly });
         }
 
         /// <summary>
@@ -667,24 +719,22 @@ namespace Engine
         /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
         /// and Trim from: https://github.com/superlloyd/Poly
         /// </acknowledgment>
-        [DebuggerStepThrough]
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Trim(double epsilon = Epsilon)
         {
-            var pos = 0;
-
-            // Count the number of leading zeros. Because the coefficients array is reversed, start at the end.
-            for (var i = Count - 1; i >= 0; i--)
+            // If there are no coefficients then this is a Monomial of 0.
+            if (this.coefficients == null || this.coefficients.Length < 1)
             {
-                if (Abs(this.coefficients[i]) <= epsilon)
-                    pos++;
-                else
-                    break;
+                return new Polynomial(0) { isReadonly = this.isReadonly };
             }
 
+            // Get the real degree to skip any leading zero coefficients.
+            var order = (int)Degree + 1;
+
             // Copy the remaining coefficients to a new array and return it.
-            var coefficients = new double[Count - pos];
-            Array.Copy(this.coefficients, 0, coefficients, 0, Count - pos);
+            var coefficients = new double[order];
+            Array.Copy(this.coefficients, 0, coefficients, 0, order);
             return new Polynomial() { coefficients = coefficients, isReadonly = this.isReadonly };
         }
 
@@ -699,9 +749,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Derivate()
         {
-            var res = new double[Max(1, Count - 1)];
-
-            for (var i = 1; i < Count; i++)
+            var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
+            var res = new double[Max(1, order)];
+            for (var i = 1; i < order + 1; i++)
             {
                 res[i - 1] = i * coefficients[i];
             }
@@ -720,17 +770,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Normalize(double epsilon = Epsilon)
         {
-            var order = 0;
-            double high = 1;
-            for (var i = 0; i < Count; i++)
-            {
-                if (Abs(coefficients[i]) > epsilon)
-                {
-                    order = i;
-                    high = coefficients[i];
-                }
-            }
-
+            var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
+            var high = coefficients[order];
             var res = new double[order + 1];
             for (var i = 0; i < res.Length; i++)
             {
@@ -755,9 +796,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Integrate(double term0 = 0)
         {
-            var res = new double[Count + 1];
+            //ToDo: Figure out if the real order should be used or if the leading zero coefficients are needed.
+
+            //var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
+            var order = Count;
+            var res = new double[order + 1];
             res[0] = term0;
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < order; i++)
             {
                 res[i + 1] = coefficients[i] / (i + 1);
             }
@@ -778,10 +823,17 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Power(int n)
         {
-            if (n < 0) throw new ArgumentOutOfRangeException($"{nameof(n)} cannot be negative.");
-            if (Double.IsNaN(n)) throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(n)} must be a number");
+            if (n < 0)
+            {
+                throw new ArgumentOutOfRangeException($"{nameof(n)} cannot be negative.");
+            }
 
-            var order = (int)Degree;
+            if (Double.IsNaN(n))
+            {
+                throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(n)} must be a number");
+            }
+
+            var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
             var res = new double[order * n + 1];
             var tmp = new double[order * n + 1];
             res[0] = 1;
@@ -789,11 +841,14 @@ namespace Engine
             {
                 var porder = pow * order;
                 for (var i = 0; i <= order; i++)
+                {
                     for (var j = 0; j <= porder; j++)
                     {
                         var mul = coefficients[i] * res[j];
                         tmp[i + j] += mul;
                     }
+                }
+
                 for (var i = 0; i <= porder + order; i++)
                 {
                     res[i] = tmp[i];
@@ -819,7 +874,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Evaluate(double x)
         {
-            if (Double.IsNaN(x)) throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(x)} must be a number");
+            if (Double.IsNaN(x))
+            {
+                throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(x)} must be a number");
+            }
 
             var result = 0d;
             for (var i = (int)Degree; i >= 0; i--)
@@ -843,11 +901,14 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Compute(double x)
         {
-            if (Double.IsNaN(x)) throw new ArithmeticException($"{nameof(Compute)}: parameter {nameof(x)} must be a number");
+            if (Double.IsNaN(x))
+            {
+                throw new ArithmeticException($"{nameof(Compute)}: parameter {nameof(x)} must be a number");
+            }
 
             var result = 0d;
             var ncoef = 1d;
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < (int)Degree + 1; i++)
             {
                 result += coefficients[i] * ncoef;
                 ncoef *= x;
@@ -871,7 +932,7 @@ namespace Engine
         {
             Complex result = Complex.Zero;
             Complex ncoef = Complex.One;
-            for (var i = Count - 1; i >= 0; i--)
+            for (var i = (int)Degree; i >= 0; i--)
             {
                 result += coefficients[i] * ncoef;
                 ncoef *= x;
@@ -893,7 +954,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Differentiate(double x)
         {
-            if (Double.IsNaN(x)) throw new ArithmeticException($"{nameof(Differentiate)}: parameter {nameof(x)} must be a number");
+            if (Double.IsNaN(x))
+            {
+                throw new ArithmeticException($"{nameof(Differentiate)}: parameter {nameof(x)} must be a number");
+            }
 
             return Derivate().Evaluate(x);
         }
@@ -932,8 +996,15 @@ namespace Engine
                 }
                 else
                 {
-                    if (y < minY) minY = y;
-                    if (y > maxY) maxY = y;
+                    if (y < minY)
+                    {
+                        minY = y;
+                    }
+
+                    if (y > maxY)
+                    {
+                        maxY = y;
+                    }
                 }
             }
 
@@ -954,7 +1025,9 @@ namespace Engine
         public static Polynomial[] GetStandardBase(int degree)
         {
             if (degree < 1)
+            {
                 throw new ArgumentException($"{nameof(degree)} expected to be greater than zero.");
+            }
 
             Polynomial[] buf = new Polynomial[degree];
 
@@ -981,7 +1054,10 @@ namespace Engine
         public static Polynomial Term(PolynomialDegree degree, double coefficient = 1)
         {
             if (degree < 0)
+            {
                 throw new ArgumentOutOfRangeException($"{nameof(degree)} cannot be negative.");
+            }
+
             var d = (int)degree;
             var res = new double[d + 1];
             res[d] = coefficient;
@@ -1000,7 +1076,9 @@ namespace Engine
         public static Polynomial Interpolate(params double[] ys)
         {
             if (ys == null || ys.Length < 2)
+            {
                 throw new ArgumentNullException($"{nameof(ys)}: At least 2 different points must be given");
+            }
 
             var res = new Polynomial();
             for (var i = 0; i < ys.Length; i++)
@@ -1009,7 +1087,10 @@ namespace Engine
                 for (var j = 0; j < ys.Length; j++)
                 {
                     if (j == i)
+                    {
                         continue;
+                    }
+
                     e *= new Polynomial(1, -j) / (i - j); // Don't know if 1,-j should be swapped.
                 }
                 res += ys[i] * e;
@@ -1030,7 +1111,9 @@ namespace Engine
         public static Polynomial Monomial(PolynomialDegree degree)
         {
             if (degree == 0)
+            {
                 return new Polynomial(1);
+            }
 
             var d = (int)degree;
             double[] coeffs = new double[d + 1];
@@ -1058,7 +1141,9 @@ namespace Engine
         public static Polynomial Bezier(params double[] values)
         {
             if (values == null || values.Length < 1)
+            {
                 throw new ArgumentNullException("At least 2 different points must be given");
+            }
 
             return Bezier(0, values.Length - 1, values);
         }
@@ -1127,7 +1212,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Cubic(double a, double b, double c, double d)
-            => OneMinusT * Quadratic(a, b, c) + T * Quadratic(b, c, d);
+            => (OneMinusT * Quadratic(a, b, c) + T * Quadratic(b, c, d));
 
         /// <summary>
         /// Interpolate the polynomial of a Quartic Bezier curve.
@@ -1145,7 +1230,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Quartic(double a, double b, double c, double d, double e)
-            => OneMinusT * Cubic(a, b, c, d) + T * Cubic(b, c, d, e);
+            => (OneMinusT * Cubic(a, b, c, d) + T * Cubic(b, c, d, e));
 
         /// <summary>
         /// Interpolate the polynomial of a Quintic Bezier curve.
@@ -1164,7 +1249,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Quintic(double a, double b, double c, double d, double e, double f)
-            => OneMinusT * Quartic(a, b, c, d, e) + T * Quartic(b, c, d, e, f);
+            => (OneMinusT * Quartic(a, b, c, d, e) + T * Quartic(b, c, d, e, f));
 
         /// <summary>
         /// Interpolate the polynomial of a Sextic Bezier curve.
@@ -1184,7 +1269,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Sextic(double a, double b, double c, double d, double e, double f, double g)
-            => OneMinusT * Quintic(a, b, c, d, e, f) + T * Quintic(b, c, d, e, f, g);
+            => (OneMinusT * Quintic(a, b, c, d, e, f) + T * Quintic(b, c, d, e, f, g));
 
         /// <summary>
         /// Interpolate the polynomial of a Septic Bezier curve.
@@ -1205,7 +1290,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Septic(double a, double b, double c, double d, double e, double f, double g, double h)
-            => OneMinusT * Sextic(a, b, c, d, e, f, g) + T * Sextic(b, c, d, e, f, g, h);
+            => (OneMinusT * Sextic(a, b, c, d, e, f, g) + T * Sextic(b, c, d, e, f, g, h));
 
         /// <summary>
         /// Interpolate the polynomial of a Octic Bezier curve.
@@ -1227,7 +1312,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
-            => OneMinusT * Septic(a, b, c, d, e, f, g, h) + T * Septic(b, c, d, e, f, g, h, i);
+            => (OneMinusT * Septic(a, b, c, d, e, f, g, h) + T * Septic(b, c, d, e, f, g, h, i));
 
         #endregion
 
@@ -1296,9 +1381,13 @@ namespace Engine
             var maxValue = Evaluate(max);
             double? result = null;
             if (Abs(minValue) <= epsilon)
+            {
                 result = min;
+            }
             else if (Abs(maxValue) <= epsilon)
+            {
                 result = max;
+            }
             else if (minValue * maxValue <= 0)
             {
                 var tmp1 = Log(max - min);
@@ -1339,7 +1428,10 @@ namespace Engine
         public IEnumerable<double> RealOrComplexRoots(double epsilon = Epsilon)
         {
             if (CanSolveRealRoots)
+            {
                 return Roots();
+            }
+
             return ComplexRoots()
                 .Where(c => Abs(c.Imaginary) < epsilon)
                 .Select(c => c.Real);
@@ -1358,7 +1450,10 @@ namespace Engine
         public Complex[] ComplexRoots(double epsilon = Epsilon)
         {
             var p = Normalize();
-            if (p.coefficients.Length == 1) return new Complex[0];
+            if (p.coefficients.Length == 1)
+            {
+                return new Complex[0];
+            }
 
             Complex x0 = 1;
             Complex xMul = 0.4 + 0.9 * Complex.ImaginaryOne;
@@ -1375,7 +1470,11 @@ namespace Engine
                 Complex div = 1;
                 for (var j = 0; j < R0.Length; j++)
                 {
-                    if (j == i) continue;
+                    if (j == i)
+                    {
+                        continue;
+                    }
+
                     div *= R0[i] - R0[j];
                 }
                 return div;
@@ -1392,7 +1491,10 @@ namespace Engine
                 for (var i = 0; i < R0.Length; i++)
                 {
                     var c = R0[i] - R1[i];
-                    if (Abs(c.Real) > epsilon || Abs(c.Imaginary) > epsilon) return false;
+                    if (Abs(c.Real) > epsilon || Abs(c.Imaginary) > epsilon)
+                    {
+                        return false;
+                    }
                 }
                 return true;
             }
@@ -1431,7 +1533,10 @@ namespace Engine
             if (Degree == PolynomialDegree.Linear)
             {
                 root = Bisection(min, max, epsilon);
-                if (root != null) roots.Add(root.Value);
+                if (root != null)
+                {
+                    roots.Add(root.Value);
+                }
             }
             else
             {
@@ -1441,22 +1546,34 @@ namespace Engine
                 if (droots.Length > 0)
                 {
                     root = Bisection(min, droots[0], epsilon);
-                    if (root != null) roots.Add(root.Value);
+                    if (root != null)
+                    {
+                        roots.Add(root.Value);
+                    }
                     // Find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
                     for (var i = 0; i <= droots.Length - 2; i++)
                     {
                         root = Bisection(droots[i], droots[i + 1], epsilon);
-                        if (root != null) roots.Add(root.Value);
+                        if (root != null)
+                        {
+                            roots.Add(root.Value);
+                        }
                     }
                     // Find root on [droots[count-1],xmax]
                     root = Bisection(droots[droots.Length - 1], max, epsilon);
-                    if (root != null) roots.Add(root.Value);
+                    if (root != null)
+                    {
+                        roots.Add(root.Value);
+                    }
                 }
                 else
                 {
                     // Polynomial is monotone on [min,max], has at most one root
                     root = Bisection(min, max, epsilon);
-                    if (root != null) roots.Add(root.Value);
+                    if (root != null)
+                    {
+                        roots.Add(root.Value);
+                    }
                 }
             }
 
@@ -1480,7 +1597,10 @@ namespace Engine
             {
                 case PolynomialDegree.Constant:
                     if (coefficients == null)
+                    {
                         return new double[] { };
+                    }
+
                     return new double[] { coefficients[0] };
                 case PolynomialDegree.Linear:
                     return LinearRoots(coefficients[1], coefficients[0], epsilon).ToArray();
@@ -1509,29 +1629,41 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Calculates the real order or degree of the polynomial.
+        /// Or rather, locates where to trim off any leading zero coefficients.
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
+        /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
+        /// and Trim and RealOrder from: https://github.com/superlloyd/Poly
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int RealOrder()
+        public PolynomialDegree RealOrder(double epsilon = Epsilon)
         {
-            if (coefficients == null)
-                return 0;
-            var order = 0;
-            for (var i = 0; i < coefficients.Length; i++)
+            var pos = 1;
+
+            // Monomial can be a zero constant, skip them and check the rest.
+            if (Count > 1)
             {
-                if (Abs(coefficients[i]) > Epsilon)
+                // Count the number of leading zeros. Because the coefficients array is reversed, start at the end.
+                for (var i = Count - 1; i >= 1 /* Monomials can be 0. */; i--)
                 {
-                    order = i;
+                    // Check if coefficient is a leading zero.
+                    if (Abs(coefficients[i]) <= epsilon)
+                    {
+                        pos++;
+                    }
+                    else
+                    {
+                        // Break early if a non zero value was found. This indicates the end of any leading zeros.
+                        break;
+                    }
                 }
             }
 
-            return order;
+            return (PolynomialDegree)(coefficients?.Length - pos ?? 0);
         }
 
 #if Quazistax
@@ -1932,10 +2064,26 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Polynomial a, Polynomial b)
         {
-            if (b == null) return false;
-            if (a.Count != b.Count) return false;
-            for (var i = 0; i < a.Count; i++)
-                if (Abs(a.coefficients[i] - b.coefficients[i]) > Epsilon) return false;
+            var t1 = a.Trim();
+            var t2 = b.Trim();
+            if (t2 == null)
+            {
+                return false;
+            }
+
+            if (t1.Count != t2.Count)
+            {
+                return false;
+            }
+
+            for (var i = 0; i < t1.Count; i++)
+            {
+                if (Abs(t1.coefficients[i] - t2.coefficients[i]) > Epsilon)
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -2032,20 +2180,37 @@ namespace Engine
                     value = Abs(value);
                     valueString = value.ToString();
                     if (i > 0)
+                    {
                         if (value == 1)
+                        {
                             valueString = "x";
-                        else valueString += "x";
+                        }
+                        else
+                        {
+                            valueString += "x";
+                        }
+                    }
+
                     if (i > 1)
+                    {
                         valueString += powStr;
+                    }
+
                     signs.Add(sign);
                     coefs.Add(valueString);
                 }
             }
             if (signs.Count > 0)
+            {
                 signs[0] = (signs[0] == " + ") ? "" : "-";
+            }
+
             var result = string.Empty;
             for (var i = 0; i < coefs.Count; i++)
+            {
                 result += signs[i] + coefs[i];
+            }
+
             return result;
         }
 

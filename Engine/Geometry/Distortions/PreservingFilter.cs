@@ -72,6 +72,8 @@ namespace Engine
                     return new ScreenPoint(Process(t.Point)) as T;
                 case Line t:
                     return Process(t) as T;
+                case Ray t:
+                    return Process(t) as T;
                 case LineSegment t:
                     return Process(t) as T;
                 case QuadraticBezier t:
@@ -79,6 +81,8 @@ namespace Engine
                 case CubicBezier t:
                     return Process(t) as T;
                 case PointSet t:
+                    return Process(t) as T;
+                case Triangle t:
                     return Process(t) as T;
                 case Polygon t:
                     return Process(t) as T;
@@ -109,6 +113,18 @@ namespace Engine
         {
             var location = Process(line.Location);
             var result = new Line(location, Process(line.Location + line.Direction) - location);
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns></returns>
+        public Ray Process(Ray line)
+        {
+            var location = Process(line.Location);
+            var result = new Ray(location, Process(line.Location + line.Direction) - location);
             return result;
         }
 
@@ -159,6 +175,22 @@ namespace Engine
             }
             return results;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        public Triangle Process(Triangle rect)
+            => new Triangle(Process(rect.A), Process(rect.B), Process(rect.C));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        public PolygonContour Process(Rectangle2D rect)
+            => new PolygonContour() { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
 
         /// <summary>
         /// 
@@ -256,13 +288,5 @@ namespace Engine
 
             return result;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="rect"></param>
-        /// <returns></returns>
-        public PolygonContour Process(Rectangle2D rect)
-            => new PolygonContour() { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
     }
 }

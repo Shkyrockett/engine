@@ -89,7 +89,9 @@ namespace Engine
         {
             // If the sweep angle is greater than 360 degrees it is overlapping, so any angle would intersect the sweep angle.
             if (sweepAngle > Tau)
+            {
                 return true;
+            }
 
             // Wrap the angles to values between 2PI and -2PI.
             var s = Maths.WrapAngle(startAngle);
@@ -206,7 +208,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Ellipse ellipse, Point2D point)
-            => EllipseContainsPoint(ellipse.Center.X, ellipse.Center.Y, ellipse.RX, ellipse.RY, ellipse.Angle, point.X, point.Y);
+            => EllipseContainsPoint(ellipse.Center.X, ellipse.Center.Y, ellipse.RX, ellipse.RY, ellipse.SinAngle, ellipse.CosAngle, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
@@ -2038,7 +2040,11 @@ namespace Engine
             var b = new Point2D(bX, bY);
             var c = new Point2D(cX, cY);
             var p = new Point2D(pX, pY);
-            if (Intersects(p, a, b) || Intersects(p, b, c) || Intersects(p, c, a)) return Inclusion.Boundary;
+            if (Intersects(p, a, b) || Intersects(p, b, c) || Intersects(p, c, a))
+            {
+                return Inclusion.Boundary;
+            }
+
             var clockwise = ((((b - a).CrossProduct(p - b))) >= 0);
             return !(((((c - b).CrossProduct(p - c)) >= 0) ^ clockwise) && ((((a - c).CrossProduct(p - a)) >= 0) ^ clockwise)) ? Inclusion.Inside : Inclusion.Outside;
         }
@@ -2086,19 +2092,27 @@ namespace Engine
 
             // Special cases for points and line segments.
             if (points.Count < 3)
+            {
                 if (points.Count == 1)
+                {
                     // If the polygon has 1 point, it is a point and has no interior, but a point can intersect a point.
                     return (pX == points[0].X && pY == points[0].Y) ? Inclusion.Boundary : Inclusion.Outside;
+                }
                 else if (points.Count == 2)
+                {
                     // If the polygon has 2 points, it is a line and has no interior, but a point can intersect a line.
                     return ((pX == points[0].X) && (pY == points[0].Y))
                         || ((pX == points[1].X) && (pY == points[1].Y))
                         || (((pX > points[0].X) == (pX < points[1].X))
                         && ((pY > points[0].Y) == (pY < points[1].Y))
                         && ((pX - points[0].X) * (points[1].Y - points[0].Y) == (pY - points[0].Y) * (points[1].X - points[0].X))) ? Inclusion.Boundary : Inclusion.Outside;
+                }
                 else
+                {
                     // Empty geometry.
                     return Inclusion.Outside;
+                }
+            }
 
             // Loop through each line segment.
             Point2D curPoint = points[0];
@@ -2129,18 +2143,27 @@ namespace Engine
                         {
                             var determinant = (nextPoint.X - pX) * (curPoint.Y - pY) - (curPoint.X - pX) * (nextPoint.Y - pY);
                             if (Abs(determinant) < epsilon)
+                            {
                                 return Inclusion.Boundary;
+                            }
                             else if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
+                            {
                                 result = 1 - result;
+                            }
                         }
                     }
                     else if (curPoint.X > pX)
                     {
                         var determinant = (nextPoint.X - pX) * (curPoint.Y - pY) - (curPoint.X - pX) * (nextPoint.Y - pY);
                         if (Abs(determinant) < epsilon)
+                        {
                             return Inclusion.Boundary;
+                        }
+
                         if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
+                        {
                             result = 1 - result;
+                        }
                     }
                 }
 
@@ -2215,7 +2238,10 @@ namespace Engine
             Inclusion boundary = Inclusion.Outside;
 
             if (path.Count < 2)
+            {
                 return Contains(path[0].Start.Value, point);
+            }
+
             foreach (var item in path)
             {
                 switch (item)
@@ -2223,7 +2249,10 @@ namespace Engine
                     case PointSegment p:
                         {
                             if (path[0].Start.Value == point)
+                            {
                                 return Inclusion.Boundary;
+                            }
+
                             break;
                         }
                     case LineCurveSegment l:
@@ -2250,18 +2279,27 @@ namespace Engine
                                     {
                                         var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
                                         if (Abs(determinant) < epsilon)
+                                        {
                                             return Inclusion.Boundary;
+                                        }
                                         else if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                        {
                                             result = 1 - result;
+                                        }
                                     }
                                 }
                                 else if (l.End.Value.X > point.X)
                                 {
                                     var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
                                     if (Abs(determinant) < epsilon)
+                                    {
                                         return Inclusion.Boundary;
+                                    }
+
                                     if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                    {
                                         result = 1 - result;
+                                    }
                                 }
                             }
                             break;
@@ -2308,10 +2346,14 @@ namespace Engine
                                     + ((b * b) / (t.RY * t.RY));
 
                                 if (Abs(normalizedRadius - 1d) < Epsilon)
+                                {
                                     return Inclusion.Boundary;
+                                }
 
                                 if (normalizedRadius < 1d)
+                                {
                                     result = 1 - result;
+                                }
                             }
 
 
@@ -2330,14 +2372,18 @@ namespace Engine
                                     {
                                         var determinant2 = (t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y) - (t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y);
                                         if ((determinant2 > 0) == (t.End.Value.Y > t.Start.Value.Y))
+                                        {
                                             result = 1 - result;
+                                        }
                                     }
                                 }
                                 else if (t.End.Value.X > point.X)
                                 {
                                     var determinant2 = (t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y) - (t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y);
                                     if ((determinant2 > 0) == (t.End.Value.Y > t.Start.Value.Y))
+                                    {
                                         result = 1 - result;
+                                    }
                                 }
                             }
 
@@ -2418,7 +2464,9 @@ namespace Engine
 
                 // Any point on any boundary is on a boundary.
                 if (returnValue == Inclusion.Boundary)
+                {
                     return Inclusion.Boundary;
+                }
             }
 
             return returnValue;
@@ -2475,13 +2523,32 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipseContainsPoint(double cX, double cY, double r1, double r2, double angle, double pX, double pY)
+            => EllipseContainsPoint(cX, cY, r1, r2, Sin(angle), Cos(angle), pX, pY);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipseContainsPoint(double cX, double cY, double r1, double r2, double sinT, double cosT, double pX, double pY)
         {
             if (r1 <= 0d || r2 <= 0d)
+            {
                 return Inclusion.Outside;
-
-            // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(angle);
+            }
 
             // Translate point to origin.
             var u = pX - cX;
@@ -2491,8 +2558,7 @@ namespace Engine
             var a = (u * cosT + v * sinT);
             var b = (u * sinT - v * cosT);
 
-            var normalizedRadius = ((a * a) / (r1 * r1))
-                                    + ((b * b) / (r2 * r2));
+            var normalizedRadius = ((a * a) / (r1 * r1)) + ((b * b) / (r2 * r2));
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < Epsilon)
@@ -2519,7 +2585,9 @@ namespace Engine
         public static Inclusion CircularArcSectorContainsPoint(double x, double y, double r, double startAngle, double sweepAngle, double pX, double pY)
         {
             if (r <= 0d)
+            {
                 return Inclusion.Outside;
+            }
 
             // Check if it is within the bounding rectangle.
             if (pX >= x - r && pX <= x + r
@@ -2534,10 +2602,14 @@ namespace Engine
 
                 // Check if the point is on the chord.
                 if (Abs(determinant) < Epsilon)
+                {
                     return Inclusion.Boundary;
+                }
                 // Check whether the point is on the same side of the chord as the center.
                 else if (Sign(determinant) == Sign(sweepAngle))
+                {
                     return Inclusion.Outside;
+                }
 
                 var dx = x - pX;
                 var dy = y - pY;
@@ -2572,18 +2644,40 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipticalArcContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
+            => EllipticalArcContainsPoint(cX, cY, r1, r2, Sin(angle), Cos(angle), startAngle, sweepAngle, pX, pY, epsilon);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcContainsPoint(double cX, double cY, double r1, double r2, double sinT, double cosT, double startAngle, double sweepAngle, double pX, double pY, double epsilon = Epsilon)
         {
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
+            {
                 return Inclusion.Outside;
+            }
 
             // Find the start and end angles.
             var sa = EllipticalPolarAngle(startAngle, r1, r2);
             var ea = EllipticalPolarAngle(startAngle + sweepAngle, r1, r2);
-
-            // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(angle);
 
             // Ellipse equation for an ellipse at origin for the chord end points.
             var u1 = r1 * Cos(sa);
@@ -2602,7 +2696,9 @@ namespace Engine
 
             // Check whether the point is on the side of the chord as the center.
             if (Sign(determinant) == Sign(sweepAngle))
+            {
                 return Inclusion.Outside;
+            }
 
             // Translate point to origin.
             var u0 = pX - cX;
@@ -2642,18 +2738,39 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double angle, double startAngle, double sweepAngle, double pX, double pY)
+            => EllipticalArcSectorContainsPoint(cX, cY, r1, r2, Sin(angle), Cos(angle), startAngle, sweepAngle, pX, pY);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcSectorContainsPoint(double cX, double cY, double r1, double r2, double sinT, double cosT, double startAngle, double sweepAngle, double pX, double pY)
         {
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
+            {
                 return Inclusion.Outside;
+            }
 
             // Find the start and end angles.
             var sa = EllipticalPolarAngle(startAngle, r1, r2);
             var ea = EllipticalPolarAngle(startAngle + sweepAngle, r1, r2);
-
-            // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(angle);
 
             // Ellipse equation for an ellipse at origin for the chord end points.
             var u1 = r1 * Cos(sa);
@@ -2680,7 +2797,9 @@ namespace Engine
 
             // Check whether the point is on the side of the chord as the center.
             if (Sign(determinant) == Sign(sweepAngle))
+            {
                 return Inclusion.Outside;
+            }
 
             // Translate points to origin.
             var u0 = pX - cX;
@@ -2743,7 +2862,9 @@ namespace Engine
                 {
                     j = i + 1;
                     if (j == poly.Points.Count)
+                    {
                         j = 0;
+                    }
 
                     sX = poly.Points[i].X - start.X;
                     sY = poly.Points[i].Y - start.Y;
@@ -2769,7 +2890,9 @@ namespace Engine
                     {
                         crossX = rotSX + (rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY);
                         if (crossX >= 0.0 && crossX <= dist)
+                        {
                             return Inclusion.Outside;
+                        }
                     }
 
                     if (Abs(rotSY) < Epsilon
@@ -2928,10 +3051,26 @@ namespace Engine
             var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
             var topRight = new Point2D(maxX, minY);
             var bottomLeft = new Point2D(minX, maxY);
-            if (PointLineSegmentIntersects(pX, pY, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
-            if (PointLineSegmentIntersects(pX, pY, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
-            if (PointLineSegmentIntersects(pX, pY, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (PointLineSegmentIntersects(pX, pY, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
+            if (PointLineSegmentIntersects(pX, pY, minX, minY, topRight.X, topRight.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (PointLineSegmentIntersects(pX, pY, topRight.X, topRight.Y, maxX, maxY, epsilon))
+            {
+                return true;
+            }
+
+            if (PointLineSegmentIntersects(pX, pY, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (PointLineSegmentIntersects(pX, pY, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -2972,8 +3111,10 @@ namespace Engine
 
             // Check if the line segments are parallel.
             if (Abs(determinant) < epsilon)
+            {
                 // Return whether line segments are coincidental.
                 return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+            }
 
             // Find the index where the intersection point lies on the line.
             var s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
@@ -3009,10 +3150,26 @@ namespace Engine
             var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
             var topRight = new Point2D(maxX, minY);
             var bottomLeft = new Point2D(minX, maxY);
-            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
-            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
-            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
+            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon))
+            {
+                return true;
+            }
+
+            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (LineSegmentLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -3055,8 +3212,10 @@ namespace Engine
 
             // Check if the line segments are parallel.
             if (Abs(determinant) < epsilon)
+            {
                 // Return whether line segments are coincidental.
                 return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+            }
 
             // Find the index where the intersection point lies on the line.
             var t = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
@@ -3091,10 +3250,26 @@ namespace Engine
             var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
             var topRight = new Point2D(maxX, minY);
             var bottomLeft = new Point2D(minX, maxY);
-            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
-            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
-            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon))
+            {
+                return true;
+            }
+
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (RayLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -3134,8 +3309,10 @@ namespace Engine
 
             // Check if the line segments are parallel.
             if (Abs(determinant) < epsilon)
+            {
                 // Return whether line segments are coincidental.
                 return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+            }
 
             // Find the index where the intersection point lies on the line.
             var t = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
@@ -3182,8 +3359,10 @@ namespace Engine
 
             // Check if the line segments are parallel.
             if (Abs(determinant) < epsilon)
+            {
                 // Return whether line segments are coincidental.
                 return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+            }
 
             // Find the index where the intersection point lies on the line.
             var t = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
@@ -3245,10 +3424,26 @@ namespace Engine
             var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
             var topRight = new Point2D(maxX, minY);
             var bottomLeft = new Point2D(minX, maxY);
-            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
-            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
-            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
+            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, minX, minY, topRight.X, topRight.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, topRight.X, topRight.Y, maxX, maxY, epsilon))
+            {
+                return true;
+            }
+
+            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (LineLineSegmentIntersects(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -3308,10 +3503,26 @@ namespace Engine
             var (maxX, maxY) = MaxPoint(rLeft, rTop, rRight, rBottom);
             var topRight = new Point2D(maxX, minY);
             var bottomLeft = new Point2D(minX, maxY);
-            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
-            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
-            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, minX, minY, topRight.X, topRight.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, topRight.X, topRight.Y, maxX, maxY, epsilon))
+            {
+                return true;
+            }
+
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (QuadraticBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -3377,10 +3588,26 @@ namespace Engine
             var (maxX, maxY) = MaxPoint(r1X, r1Y, r2X, r2Y);
             var topRight = new Point2D(maxX, minY);
             var bottomLeft = new Point2D(minX, maxY);
-            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, minX, minY, topRight.X, topRight.Y, epsilon)) return true;
-            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, topRight.X, topRight.Y, maxX, maxY, epsilon)) return true;
-            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon)) return true;
-            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon)) return true;
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, minX, minY, topRight.X, topRight.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, topRight.X, topRight.Y, maxX, maxY, epsilon))
+            {
+                return true;
+            }
+
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon))
+            {
+                return true;
+            }
+
+            if (CubicBezierSegmentLineSegmentIntersects(aX, aY, bX, bY, cX, cY, dX, dY, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon))
+            {
+                return true;
+            }
+
             return false;
         }
 
@@ -3437,7 +3664,9 @@ namespace Engine
         {
             // If either of the circles are empty, return no intersections.
             if ((radius0 == 0d) || (radius1 == 0d))
+            {
                 return false;
+            }
 
             // Find the distance between the centers.
             var dx = cx0 - cx1;
@@ -3594,14 +3823,8 @@ namespace Engine
             // Initialize the intersection results.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // Translate lines to origin.
-            var u1 = li0;
-            var v1 = lj0;
-            var u2 = li1;
-            var v2 = lj1;
-
             // Calculate the determinant of the coefficient matrix.
-            var determinant = (v2 * u1) - (u2 * v1);
+            var determinant = (lj1 * li0) - (li1 * lj0);
 
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
@@ -3612,10 +3835,10 @@ namespace Engine
             }
 
             // Find the index where the intersection point lies on the line.
-            var t = ((lx1 - lx0) * v2 + (ly0 - ly1) * u2) / determinant;
+            var t = ((lx1 - lx0) * lj1 + (ly0 - ly1) * li1) / determinant;
 
             // Return the intersection point.
-            result.AppendPoint(new Point2D(lx0 + t * u1, ly0 + t * v1));
+            result.AppendPoint(new Point2D(lx0 + t * li0, ly0 + t * lj0));
             result.State |= IntersectionState.Intersection;
             return result;
         }
@@ -3717,16 +3940,13 @@ namespace Engine
             var result = new Intersection(IntersectionState.Intersection);
 
             // Translate lines to origin.
-            var u1 = li;
-            var v1 = lj;
-            var u2 = s1X - s0X;
-            var v2 = s1Y - s0Y;
+            (var vi, var vj) = (s1X - s0X, s1Y - s0Y);
 
-            var ua = u2 * (ly - s0Y) - v2 * (lx - s0X);
-            var ub = u1 * (ly - s0Y) - v1 * (lx - s0X);
+            var ua = vi * (ly - s0Y) - vj * (lx - s0X);
+            var ub = li * (ly - s0Y) - lj * (lx - s0X);
 
             // Calculate the determinant of the coefficient matrix.
-            var determinant = (v2 * u1) - (u2 * v1);
+            var determinant = (vj * li) - (vi * lj);
 
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
@@ -3752,7 +3972,7 @@ namespace Engine
                 if (tb >= 0 && tb <= 1)
                 {
                     // One intersection.
-                    result.AppendPoint(new Point2D(lx + ta * u1, ly + ta * v1));
+                    result.AppendPoint(new Point2D(lx + ta * li, ly + ta * lj));
                     result.State |= IntersectionState.Intersection;
                 }
                 else
@@ -3818,15 +4038,10 @@ namespace Engine
             // Initialize intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // Translate the line to the origin.
-            var a = lj;
-            var b = -li;
-
             var c = lx * (ly - lj) + ly * (li - lx);
 
             // Find the polynomial that represents the intersections.
-            var poly = a * xCurve + b * yCurve + c;
-            var roots = poly.Trim().Roots();
+            var roots = (lj * xCurve - li * yCurve + c).Trim().Roots();
 
             foreach (var s in roots)
             {
@@ -3903,15 +4118,10 @@ namespace Engine
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // Translate the line to the origin.
-            var a = lj;
-            var b = -li;
-
             var c = lx * (ly - lj) + ly * (li - lx);
 
             // Find the polynomial that represents the intersections.
-            var poly = a * xCurve + b * yCurve + c;
-            var roots = poly.Trim().Roots();
+            var roots = (lj * xCurve - li * yCurve + c).Trim().Roots();
 
             foreach (var s in roots)
             {
@@ -4091,13 +4301,9 @@ namespace Engine
                 return result;
             }
 
-            // Translate the line to the origin. 
-            var dx = li;
-            var dy = lj;
-
             // Calculate the quadratic parameters.
-            var a = dx * dx + dy * dy;
-            var b = 2 * (dx * (lx - cX) + dy * (ly - cY));
+            var a = li * li + lj * lj;
+            var b = 2 * (li * (lx - cX) + lj * (ly - cY));
             var c = (lx - cX) * (lx - cX) + (ly - cY) * (ly - cY) - r * r;
 
             // Calculate the discriminant.
@@ -4116,7 +4322,7 @@ namespace Engine
 
                 // Add the points.
                 result = new Intersection(IntersectionState.Intersection);
-                result.AppendPoint(new Point2D(lx + t * dx, ly + t * dy));
+                result.AppendPoint(new Point2D(lx + t * li, ly + t * lj));
             }
             else if (discriminant > 0)
             {
@@ -4126,8 +4332,8 @@ namespace Engine
 
                 // Add the points.
                 result = new Intersection(IntersectionState.Intersection);
-                result.AppendPoint(new Point2D(lx + t1 * dx, ly + t1 * dy));
-                result.AppendPoint(new Point2D(lx + t2 * dx, ly + t2 * dy));
+                result.AppendPoint(new Point2D(lx + t1 * li, ly + t1 * lj));
+                result.AppendPoint(new Point2D(lx + t2 * li, ly + t2 * lj));
             }
 
             // Return result.
@@ -4168,13 +4374,9 @@ namespace Engine
                 return result;
             }
 
-            // Translate the line to the origin. 
-            var dx = li;
-            var dy = lj;
-
             // Calculate the quadratic parameters.
-            var a = dx * dx + dy * dy;
-            var b = 2 * (dx * (lx - cX) + dy * (ly - cY));
+            var a = li * li + lj * lj;
+            var b = 2 * (li * (lx - cX) + lj * (ly - cY));
             var c = (lx - cX) * (lx - cX) + (ly - cY) * (ly - cY) - r * r;
 
             // Find the points of the chord.
@@ -4197,8 +4399,8 @@ namespace Engine
                 var t = -b / (2 * a);
 
                 // Find the point.
-                var pX = lx + t * dx;
-                var pY = ly + t * dy;
+                var pX = lx + t * li;
+                var pY = ly + t * lj;
 
                 // Find the determinant of the chord and point.
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
@@ -4217,8 +4419,8 @@ namespace Engine
                 var t2 = ((-b - Sqrt(discriminant)) / (2 * a));
 
                 // Find the point.
-                var pX = lx + t1 * dx;
-                var pY = ly + t1 * dy;
+                var pX = lx + t1 * li;
+                var pY = ly + t1 * lj;
 
                 // Find the determinant of the chord and point.
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
@@ -4231,8 +4433,8 @@ namespace Engine
                 }
 
                 // Find the point.
-                pX = lx + t2 * dx;
-                pY = ly + t2 * dy;
+                pX = lx + t2 * li;
+                pY = ly + t2 * lj;
 
                 // Find the determinant of the chord and point.
                 determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
@@ -4696,15 +4898,10 @@ namespace Engine
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // Translate the line to the origin.
-            var a = j1;
-            var b = -i1;
-
             var c = x1 * j1 + y1 * i1;
 
             // Find the polynomial that represents the intersections.
-            var poly = a * xCurve + b * yCurve + c;
-            var roots = poly.Trim().Roots();
+            var roots = (j1 * xCurve - i1 * yCurve + c).Trim().Roots();
 
             foreach (var s in roots)
             {
@@ -4766,15 +4963,10 @@ namespace Engine
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // Translate the line to the origin.
-            var a = j1;
-            var b = -i1;
-
             var c = x1 * -j1 + y1 * i1;
 
             // Find the polynomial that represents the intersections.
-            var poly = a * xCurve + b * yCurve + c;
-            var roots = poly.Trim().Roots();
+            var roots = (j1 * xCurve + -i1 * yCurve + c).Trim().Roots();
 
             foreach (var s in roots)
             {
@@ -5062,14 +5254,13 @@ namespace Engine
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((0d == lBI) && (0d == lBJ)))
+            {
                 return result;
-
-            var dx = lBI;
-            var dy = lBJ;
+            }
 
             // Calculate the quadratic parameters.
-            var a = dx * dx + dy * dy;
-            var b = 2 * (dx * (lAX - cX) + dy * (lAY - cY));
+            var a = lBI * lBI + lBJ * lBJ;
+            var b = 2 * (lBI * (lAX - cX) + lBJ * (lAY - cY));
             var c = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - r * r;
 
             // Find the points of the chord.
@@ -5089,8 +5280,8 @@ namespace Engine
                 var t = -b / (2 * a);
 
                 // Find the point.
-                var pX = lAX + t * dx;
-                var pY = lAY + t * dy;
+                var pX = lAX + t * lBI;
+                var pY = lAY + t * lBJ;
 
                 // Find the determinant of the chord and point.
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
@@ -5109,8 +5300,8 @@ namespace Engine
                 var t2 = ((-b - Sqrt(discriminant)) / (2 * a));
 
                 // Find the point.
-                var pX = lAX + t1 * dx;
-                var pY = lAY + t1 * dy;
+                var pX = lAX + t1 * lBI;
+                var pY = lAY + t1 * lBJ;
 
                 // Find the determinant of the chord and point.
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
@@ -5123,8 +5314,8 @@ namespace Engine
                 }
 
                 // Find the point.
-                pX = lAX + t2 * dx;
-                pY = lAY + t2 * dy;
+                pX = lAX + t2 * lBI;
+                pY = lAY + t2 * lBJ;
 
                 // Find the determinant of the chord and point.
                 determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
@@ -5138,7 +5329,10 @@ namespace Engine
             }
 
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -5173,7 +5367,9 @@ namespace Engine
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
                 ((0 == i0) && (0 == j0)))
+            {
                 return result;
+            }
 
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x0 - cx;
@@ -5236,7 +5432,10 @@ namespace Engine
 
             // Return the intersections.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -5273,7 +5472,9 @@ namespace Engine
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
                 ((0 == i0) && (0 == j0)))
+            {
                 return result;
+            }
 
             // Translate the line to move it to the ellipse centered at the origin.
             var u0 = x0 - cx;
@@ -5335,7 +5536,9 @@ namespace Engine
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                    {
                         result.AppendPoint(p);
+                    }
                 }
             }
             else if (discriminant > 0)
@@ -5356,7 +5559,9 @@ namespace Engine
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                    {
                         result.AppendPoint(p);
+                    }
                 }
 
                 if ((t2 >= 0d) /*&& (t2 <= 1d)*/)
@@ -5369,13 +5574,18 @@ namespace Engine
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                    {
                         result.AppendPoint(p);
+                    }
                 }
             }
 
             // Return the intersections.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -5497,9 +5707,8 @@ namespace Engine
 
             var c = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            // Find the polynomial that represents the intersections.
-            var poly = a * xCurve + b * yCurve + c;
-            var roots = poly.Trim().Roots();
+            // Find the roots of the polynomial that represents the intersections.
+            var roots = (a * xCurve + b * yCurve + c).Trim().Roots();
 
             foreach (var s in roots)
             {
@@ -5508,11 +5717,16 @@ namespace Engine
                 var y = yCurve[0] * s * s + yCurve[1] * s + yCurve[2];
 
                 double slope;
+
                 // Special handling for vertical lines.
                 if ((x2 - x1) != 0)
+                {
                     slope = (x - x1) / (x2 - x1);
+                }
                 else
+                {
                     slope = (y - y1) / (y2 - y1);
+                }
 
                 // Make sure we are in bounds of the line segment.
                 if (!(s < 0 || s > 1d || slope < 0 || slope > 1d))
@@ -5524,7 +5738,10 @@ namespace Engine
 
             // Return the result.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -5589,9 +5806,8 @@ namespace Engine
 
             var c = x1 * (y1 - y2) + y1 * (x2 - x1);
 
-            // Find the polynomial that represents the intersections.
-            var poly = a * xCurve + b * yCurve + c;
-            var roots = poly.Trim().Roots();
+            // Find the roots of the polynomial that represents the intersections.
+            var roots = (a * xCurve + b * yCurve + c).Trim().Roots();
 
             foreach (var s in roots)
             {
@@ -5604,9 +5820,13 @@ namespace Engine
 
                 // Special handling for vertical lines.
                 if ((x2 - x1) != 0)
+                {
                     slope = (point.X - x1) / (x2 - x1);
+                }
                 else
+                {
                     slope = (point.Y - y1) / (y2 - y1);
+                }
 
                 // Make sure we are in bounds of the line segment.
                 if (!(s < 0 || s > 1d || slope < 0 || slope > 1d))
@@ -5617,7 +5837,10 @@ namespace Engine
             }
 
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -5654,7 +5877,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -5697,7 +5923,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -5740,7 +5969,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -5797,7 +6029,9 @@ namespace Engine
                 {
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
+                    {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u1));
+                    }
                 }
             }
             else
@@ -5820,9 +6054,14 @@ namespace Engine
                 {
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
+                    {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u1));
+                    }
+
                     if (0 <= u2 && u2 <= 1)
+                    {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u2));
+                    }
                 }
             }
             return result;
@@ -5857,7 +6096,9 @@ namespace Engine
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lAX == lBX) && (lAY == lBY)))
+            {
                 return result;
+            }
 
             var dx = lBX - lAX;
             var dy = lBY - lAY;
@@ -5933,7 +6174,10 @@ namespace Engine
             }
 
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -5990,7 +6234,9 @@ namespace Engine
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
                 ((x0 == x1) && (y0 == y1)))
+            {
                 return result;
+            }
 
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x0 - cx;
@@ -6053,7 +6299,10 @@ namespace Engine
 
             // Return the intersections.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6115,7 +6364,9 @@ namespace Engine
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
                 ((x0 == x1) && (y0 == y1)))
+            {
                 return result;
+            }
 
             // Translate the line to move it to the ellipse centered at the origin.
             var u0 = x0 - cx;
@@ -6177,7 +6428,9 @@ namespace Engine
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                    {
                         result.AppendPoint(p);
+                    }
                 }
             }
             else if (discriminant > 0)
@@ -6198,7 +6451,9 @@ namespace Engine
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                    {
                         result.AppendPoint(p);
+                    }
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
@@ -6211,13 +6466,18 @@ namespace Engine
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                    {
                         result.AppendPoint(p);
+                    }
                 }
             }
 
             // Return the intersections.
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6283,9 +6543,10 @@ namespace Engine
             // Cross product of second coefficient of a and first coefficient of b.
             var v2 = xCurveA[1] * yCurveA[0] - yCurveA[1] * xCurveA[0];
 
-            // Delta of third coefficients of b and a.
+            // Delta of third coefficients of curves b and a.
             var v3 = yCurveA[2] - yCurveB[2];
 
+            // The difference of the first coefficients x and y of a times the deltas of the third coefficients of the x and y of curves a and b.
             var v4 = yCurveA[0] * (xCurveA[2] - xCurveB[2]) - xCurveA[0] * v3;
 
             var v5 = -yCurveA[1] * v2 + yCurveA[0] * v4;
@@ -6293,8 +6554,8 @@ namespace Engine
             // Square of the second cross product.
             var v6 = v2 * v2;
 
-            // Find the polynomial that represents the intersections.
-            var poly = new Polynomial(
+            // Find the roots of the polynomial that represents the intersections.
+            var roots = new Polynomial(
                 // Square of first cross product.
                 /* x⁴ */ v0 * v0,
                 // Two times the first cross product times the second cross product.
@@ -6302,10 +6563,7 @@ namespace Engine
                 /* x² */ (-yCurveB[0] * v6 + yCurveA[0] * v1 * v1 + yCurveA[0] * v0 * v4 + v0 * v5) / yCurveA[0],
                 /* x¹ */ (-yCurveB[1] * v6 + yCurveA[0] * v1 * v4 + v1 * v5) / yCurveA[0],
                 /* c  */ (v3 * v6 + v4 * v5) / yCurveA[0]
-            );
-
-            // Find the roots of the polynomial.
-            var roots = poly.Trim().Roots();
+            ).Trim().Roots();
 
             foreach (var s in roots)
             {
@@ -6344,7 +6602,10 @@ namespace Engine
             }
 
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6407,22 +6668,27 @@ namespace Engine
 
             var cAAx2 = xCurveA[0] * xCurveA[0];
             var cAAy2 = yCurveA[0] * yCurveA[0];
+
             var cABx2 = xCurveA[1] * xCurveA[1];
             var cABy2 = yCurveA[1] * yCurveA[1];
+
             var cACx2 = xCurveA[2] * xCurveA[2];
             var cACy2 = yCurveA[2] * yCurveA[2];
 
             var cBAx2 = xCurveB[0] * xCurveB[0];
             var cBAy2 = yCurveB[0] * yCurveB[0];
+
             var cBBx2 = xCurveB[1] * xCurveB[1];
             var cBBy2 = yCurveB[1] * yCurveB[1];
+
             var cBCx2 = xCurveB[2] * xCurveB[2];
             var cBCy2 = yCurveB[2] * yCurveB[2];
+
             var cBDx2 = xCurveB[3] * xCurveB[3];
             var cBDy2 = yCurveB[3] * yCurveB[3];
 
-            // Find the polynomial that represents the intersections.
-            var poly = new Polynomial(
+            // Find the roots of the polynomial that represents the intersections.
+            var roots = new Polynomial(
                 /* x⁶ */ -2 * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0] + cAAx2 * cBAy2 + cAAy2 * cBAx2,
                 /* x⁵ */ -2 * xCurveA[0] * yCurveA[0] * xCurveB[1] * yCurveB[0] - 2 * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0] + 2 * cAAy2 * xCurveB[1] * xCurveB[0] + 2 * cAAx2 * yCurveB[1] * yCurveB[0],
                 /* x⁴ */ -2 * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[0] - 2 * xCurveA[0] * yCurveA[0] * yCurveB[2] * xCurveB[0] - 2 * xCurveA[0] * yCurveA[0] * xCurveB[1] * yCurveB[1] + 2 * xCurveB[2] * cAAy2 * xCurveB[0] + cAAy2 * cBBx2 + cAAx2 * (2 * yCurveB[2] * yCurveB[0] + cBBy2),
@@ -6430,8 +6696,7 @@ namespace Engine
                 /* x² */ 2 * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1] + 2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * xCurveB[1] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1] + xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[1] - 2 * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[1] - 2 * xCurveA[0] * yCurveB[3] * yCurveA[0] * xCurveB[1] - 2 * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[2] - 2 * xCurveA[2] * cAAy2 * xCurveB[1] - 2 * yCurveA[2] * cAAx2 * yCurveB[1] + 2 * xCurveB[3] * cAAy2 * xCurveB[1] - cABy2 * xCurveA[0] * xCurveB[1] - cABx2 * yCurveA[0] * yCurveB[1] + cBCx2 * cAAy2 + cAAx2 * (2 * yCurveB[3] * yCurveB[1] + cBCy2),
                 /* x¹ */ 2 * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[2] + 2 * yCurveA[2] * xCurveA[0] * xCurveB[2] * yCurveA[0] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2] + xCurveA[1] * yCurveA[1] * xCurveB[2] * yCurveA[0] - 2 * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[2] - 2 * xCurveA[0] * yCurveB[3] * xCurveB[2] * yCurveA[0] - 2 * xCurveA[2] * xCurveB[2] * cAAy2 - 2 * yCurveA[2] * cAAx2 * yCurveB[2] + 2 * xCurveB[3] * xCurveB[2] * cAAy2 - cABy2 * xCurveA[0] * xCurveB[2] - cABx2 * yCurveA[0] * yCurveB[2] + 2 * cAAx2 * yCurveB[3] * yCurveB[2],
                 /* c  */ -2 * xCurveA[2] * yCurveA[2] * xCurveA[0] * yCurveA[0] - xCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] - yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] + 2 * xCurveA[2] * xCurveA[0] * yCurveB[3] * yCurveA[0] + 2 * yCurveA[2] * xCurveB[3] * xCurveA[0] * yCurveA[0] + xCurveA[1] * xCurveB[3] * yCurveA[1] * yCurveA[0] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[3] - 2 * xCurveB[3] * xCurveA[0] * yCurveB[3] * yCurveA[0] - 2 * xCurveA[2] * xCurveB[3] * cAAy2 + xCurveA[2] * cABy2 * xCurveA[0] + yCurveA[2] * cABx2 * yCurveA[0] - 2 * yCurveA[2] * cAAx2 * yCurveB[3] - xCurveB[3] * cABy2 * xCurveA[0] - cABx2 * yCurveB[3] * yCurveA[0] + cACx2 * cAAy2 + cACy2 * cAAx2 + cBDx2 * cAAy2 + cAAx2 * cBDy2
-            );
-            var roots = poly.RootsInInterval();
+            ).Trim().RootsInInterval();
 
             foreach (var s in roots)
             {
@@ -6463,7 +6728,10 @@ namespace Engine
             }
 
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6529,7 +6797,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6565,7 +6836,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6634,7 +6908,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6672,33 +6949,38 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection CubicBezierSegmentSelfIntersection(Polynomial xCurve, Polynomial yCurve,
+        public static Intersection CubicBezierSegmentSelfIntersection(
+            Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            // Not sure why the difference between the two supposedly same points at different values of t can be so high. So far it only seems to happen at orthogonal cases.
+            // Not sure why the difference between the two supposedly same points at different values of t can be so high. It seems to be a lot for floating point rounding. So far it only seems to happen at orthogonal cases.
             var tolerence = 98838707421d * epsilon; // 0.56183300455876406
 
             (var a, var b) = (xCurve[0] == 0d) ? (xCurve[1], xCurve[2]) : (xCurve[1] / xCurve[0], xCurve[2] / xCurve[0]);
             (var p, var q) = (yCurve[0] == 0d) ? (yCurve[1], yCurve[2]) : (yCurve[1] / yCurve[0], yCurve[2] / yCurve[0]);
 
             if (a == p || q == b)
+            {
                 return result;
+            }
+
             var k = (q - b) / (a - p);
 
-            var poly = new Polynomial(
+
+            var roots = new Polynomial(
                 2,
                 -3 * k,
                 3 * k * k + 2 * k * a + 2 * b,
-                -k * k * k - a * k * k - b * k);
-
-            var roots = poly.Roots();//.OrderByDescending(c => c).ToArray();
+                -k * k * k - a * k * k - b * k
+                ).Trim().Roots();
 
             // ToDo: Figure out edge case. When all nodes are linear, even if there should be a flat loop, there is only one root. The locus of points overlap three times for a little ways, and possibly twice past an edge.
-
             if (roots.Length != 3)
+            {
                 return result;
+            }
 
             if (roots[0] >= 0.0 && roots[0] <= 1.0 && roots[2] >= 0.0 && roots[2] <= 1.0)
             {
@@ -6728,7 +7010,10 @@ namespace Engine
             }
 
             if (result.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6795,35 +7080,42 @@ namespace Engine
             var c10x3 = xCurveA[3] * xCurveA[3] * xCurveA[3];
             var c10y2 = yCurveA[3] * yCurveA[3];
             var c10y3 = yCurveA[3] * yCurveA[3] * yCurveA[3];
+
             var c11x2 = xCurveA[2] * xCurveA[2];
             var c11x3 = xCurveA[2] * xCurveA[2] * xCurveA[2];
             var c11y2 = yCurveA[2] * yCurveA[2];
             var c11y3 = yCurveA[2] * yCurveA[2] * yCurveA[2];
+
             var c12x2 = xCurveA[1] * xCurveA[1];
             var c12x3 = xCurveA[1] * xCurveA[1] * xCurveA[1];
             var c12y2 = yCurveA[1] * yCurveA[1];
             var c12y3 = yCurveA[1] * yCurveA[1] * yCurveA[1];
+
             var c13x2 = xCurveA[0] * xCurveA[0];
             var c13x3 = xCurveA[0] * xCurveA[0] * xCurveA[0];
             var c13y2 = yCurveA[0] * yCurveA[0];
             var c13y3 = yCurveA[0] * yCurveA[0] * yCurveA[0];
+
             var c20x2 = xCurveB[3] * xCurveB[3];
             var c20x3 = xCurveB[3] * xCurveB[3] * xCurveB[3];
             var c20y2 = yCurveB[3] * yCurveB[3];
             var c20y3 = yCurveB[3] * yCurveB[3] * yCurveB[3];
+
             var c21x2 = xCurveB[2] * xCurveB[2];
             var c21x3 = xCurveB[2] * xCurveB[2] * xCurveB[2];
             var c21y2 = yCurveB[2] * yCurveB[2];
+
             var c22x2 = xCurveB[1] * xCurveB[1];
             var c22x3 = xCurveB[1] * xCurveB[1] * xCurveB[1];
             var c22y2 = yCurveB[1] * yCurveB[1];
+
             var c23x2 = xCurveB[0] * xCurveB[0];
             var c23x3 = xCurveB[0] * xCurveB[0] * xCurveB[0];
             var c23y2 = yCurveB[0] * yCurveB[0];
             var c23y3 = yCurveB[0] * yCurveB[0] * yCurveB[0];
 
-            // Find the polynomial that represents the intersections.
-            var poly = new Polynomial(
+            // Find the roots of the polynomial that represents the intersections.
+            var roots = new Polynomial(
                 /* x⁹ */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * xCurveA[0] * c13y2 * c23x2 * yCurveB[0] + 3 * c13x2 * yCurveA[0] * xCurveB[0] * c23y2,
                 /* x⁸ */ -6 * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0] * yCurveB[0] + 6 * c13x2 * yCurveA[0] * yCurveB[1] * xCurveB[0] * yCurveB[0] + 3 * xCurveB[1] * c13y3 * c23x2 - 3 * c13x3 * yCurveB[1] * c23y2 - 3 * xCurveA[0] * c13y2 * yCurveB[1] * c23x2 + 3 * c13x2 * xCurveB[1] * yCurveA[0] * c23y2,
                 /* x⁷ */ -6 * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0] - 6 * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] * xCurveB[0] + 6 * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[1] * yCurveB[0] + 3 * xCurveB[2] * c13y3 * c23x2 + 3 * c22x2 * c13y3 * xCurveB[0] + 3 * xCurveB[2] * c13x2 * yCurveA[0] * c23y2 - 3 * xCurveA[0] * yCurveB[2] * c13y2 * c23x2 - 3 * xCurveA[0] * c22x2 * c13y2 * yCurveB[0] + c13x2 * yCurveA[0] * xCurveB[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + c13x3 * (-yCurveB[2] * c23y2 - 2 * c22y2 * yCurveB[0] - yCurveB[0] * (2 * yCurveB[2] * yCurveB[0] + c22y2)),
@@ -6834,8 +7126,7 @@ namespace Engine
                 /* x² */ -xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + 6 * xCurveA[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] - yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] + yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1] - xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveB[1] * yCurveA[0] + xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] + xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] - 6 * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] - yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * xCurveB[1] * yCurveA[0] - yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveB[2] * yCurveA[0] - 6 * xCurveA[3] * xCurveB[3] * xCurveB[1] * c13y3 - 2 * xCurveA[3] * c12y3 * xCurveA[0] * xCurveB[1] + 2 * xCurveB[3] * c12y3 * xCurveA[0] * xCurveB[1] + 2 * yCurveA[3] * c12x3 * yCurveA[0] * yCurveB[1] - 6 * xCurveA[3] * yCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[1] - 2 * xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveB[1] * c13y2 - 4 * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 + 3 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 + 6 * xCurveA[3] * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1] + 6 * xCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[1] - 3 * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0] + 6 * xCurveA[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 + 6 * xCurveA[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2 + 4 * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] + 6 * yCurveA[3] * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[1] - 3 * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1] + 2 * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1] - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 * yCurveB[1] + 2 * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveB[1] * c13y2 + xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] * xCurveB[1] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[1] * c13y2 - 3 * xCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveB[2] * c13y2 + 4 * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 - 2 * xCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1] - 6 * yCurveA[3] * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[1] - 6 * yCurveA[3] * yCurveB[3] * c13x2 * xCurveB[1] * yCurveA[0] - 6 * yCurveA[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[1] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] * yCurveB[1] - 2 * xCurveA[2] * c11y2 * xCurveA[0] * xCurveB[1] * yCurveA[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0] - 6 * xCurveB[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 - 6 * xCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2 + 3 * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * xCurveB[1] + 3 * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[2] - 2 * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] * xCurveB[1] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[2] - c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] * xCurveB[1] + 2 * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1] - 3 * yCurveA[2] * c21x2 * yCurveA[1] * xCurveA[0] * yCurveA[0] + 6 * yCurveB[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1] + c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] * yCurveB[1] + 2 * c12x2 * yCurveB[3] * yCurveA[1] * xCurveB[1] * yCurveA[0] + 2 * c12x2 * xCurveB[2] * yCurveA[1] * yCurveB[2] * yCurveA[0] - 3 * xCurveA[3] * c21x2 * c13y3 + 3 * xCurveB[3] * c21x2 * c13y3 + 3 * c10x2 * xCurveB[1] * c13y3 - 3 * c10y2 * c13x3 * yCurveB[1] + 3 * c20x2 * xCurveB[1] * c13y3 + c21x2 * c12y3 * xCurveA[0] + c11y3 * c13x2 * xCurveB[1] - c11x3 * c13y2 * yCurveB[1] + 3 * yCurveA[3] * c21x2 * xCurveA[0] * c13y2 - xCurveA[2] * c11y2 * c13x2 * yCurveB[1] + xCurveA[2] * c21x2 * yCurveA[1] * c13y2 + 2 * yCurveA[2] * xCurveA[1] * c21x2 * c13y2 + c11x2 * yCurveA[2] * xCurveB[1] * c13y2 - xCurveA[1] * c21x2 * c12y2 * yCurveA[0] - 3 * yCurveB[3] * c21x2 * xCurveA[0] * c13y2 - 3 * c10x2 * xCurveA[0] * c13y2 * yCurveB[1] + 3 * c10y2 * c13x2 * xCurveB[1] * yCurveA[0] - c11x2 * c12y2 * xCurveA[0] * yCurveB[1] + c11y2 * c12x2 * xCurveB[1] * yCurveA[0] - 3 * c20x2 * xCurveA[0] * c13y2 * yCurveB[1] + 3 * c20y2 * c13x2 * xCurveB[1] * yCurveA[0] + c12x2 * yCurveA[1] * xCurveA[0] * (2 * yCurveB[3] * yCurveB[1] + c21y2) + xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + c12x3 * yCurveA[0] * (-2 * yCurveB[3] * yCurveB[1] - c21y2) + yCurveA[3] * c13x3 * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + yCurveA[2] * xCurveA[1] * c13x2 * (-2 * yCurveB[3] * yCurveB[1] - c21y2) + xCurveA[2] * yCurveA[1] * c13x2 * (-4 * yCurveB[3] * yCurveB[1] - 2 * c21y2) + xCurveA[3] * c13x2 * yCurveA[0] * (-6 * yCurveB[3] * yCurveB[1] - 3 * c21y2) + xCurveB[3] * c13x2 * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + c13x3 * (-2 * yCurveB[3] * c21y2 - c20y2 * yCurveB[1] - yCurveB[3] * (2 * yCurveB[3] * yCurveB[1] + c21y2)),
                 /* x¹ */ -xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] + xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] + 6 * xCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] - yCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] + yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0] - xCurveA[2] * yCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveA[1] * yCurveA[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2] + xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] + 6 * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveB[2] * yCurveA[0] + xCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] - 6 * xCurveB[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveA[0] - 6 * xCurveA[3] * xCurveB[3] * xCurveB[2] * c13y3 - 2 * xCurveA[3] * xCurveB[2] * c12y3 * xCurveA[0] + 6 * yCurveA[3] * yCurveB[3] * c13x3 * yCurveB[2] + 2 * xCurveB[3] * xCurveB[2] * c12y3 * xCurveA[0] + 2 * yCurveA[3] * c12x3 * yCurveB[2] * yCurveA[0] - 2 * c12x3 * yCurveB[3] * yCurveB[2] * yCurveA[0] - 6 * xCurveA[3] * yCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[2] * c13y2 - 2 * xCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * c13y2 - 4 * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 + 3 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 + 6 * xCurveA[3] * yCurveA[3] * c13x2 * yCurveB[2] * yCurveA[0] + 6 * xCurveA[3] * xCurveB[3] * xCurveA[0] * yCurveB[2] * c13y2 - 3 * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] + 2 * xCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] + 6 * xCurveA[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 + 4 * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] + 6 * yCurveA[3] * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[2] - 3 * yCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 + 2 * yCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[2] * c13y2 + 2 * xCurveA[2] * xCurveB[3] * xCurveB[2] * yCurveA[1] * c13y2 + xCurveA[2] * yCurveA[2] * xCurveB[2] * c12y2 * xCurveA[0] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * c13y2 + 4 * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 - 6 * xCurveA[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] - 2 * xCurveA[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0] - 6 * yCurveA[3] * xCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] - 6 * yCurveA[3] * yCurveB[3] * xCurveB[2] * c13x2 * yCurveA[0] - 2 * yCurveA[3] * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[2] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[2] * yCurveA[0] - 4 * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * yCurveB[2] - 2 * xCurveA[2] * c11y2 * xCurveB[2] * xCurveA[0] * yCurveA[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] - 2 * xCurveB[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] - 6 * xCurveB[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 - 2 * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2 * yCurveB[2] + 3 * yCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * c13x2 - 2 * xCurveA[1] * yCurveB[3] * xCurveB[2] * c12y2 * xCurveA[0] - c11y2 * xCurveA[1] * xCurveB[2] * yCurveA[1] * xCurveA[0] + 6 * xCurveB[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] + 2 * xCurveB[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * xCurveA[0] * yCurveB[2] * yCurveA[0] + c11x2 * xCurveA[1] * yCurveA[1] * yCurveB[2] * yCurveA[0] + 2 * c12x2 * yCurveB[3] * xCurveB[2] * yCurveA[1] * yCurveA[0] + 2 * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2] + 3 * c10x2 * xCurveB[2] * c13y3 - 3 * c10y2 * c13x3 * yCurveB[2] + 3 * c20x2 * xCurveB[2] * c13y3 + c11y3 * xCurveB[2] * c13x2 - c11x3 * yCurveB[2] * c13y2 - 3 * c20y2 * c13x3 * yCurveB[2] - xCurveA[2] * c11y2 * c13x2 * yCurveB[2] + c11x2 * yCurveA[2] * xCurveB[2] * c13y2 - 3 * c10x2 * xCurveA[0] * yCurveB[2] * c13y2 + 3 * c10y2 * xCurveB[2] * c13x2 * yCurveA[0] - c11x2 * c12y2 * xCurveA[0] * yCurveB[2] + c11y2 * c12x2 * xCurveB[2] * yCurveA[0] - 3 * c20x2 * xCurveA[0] * yCurveB[2] * c13y2 + 3 * c20y2 * xCurveB[2] * c13x2 * yCurveA[0],
                 /* c  */ xCurveA[3] * yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveA[3] * yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] + xCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] - yCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] - xCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] + 6 * xCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] + xCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] - yCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] + yCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveA[2] * xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveB[3] * yCurveA[1] * xCurveA[0] + xCurveA[2] * xCurveB[3] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] - 2 * xCurveA[3] * xCurveB[3] * c12y3 * xCurveA[0] + 2 * yCurveA[3] * c12x3 * yCurveB[3] * yCurveA[0] - 3 * xCurveA[3] * yCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 - 6 * xCurveA[3] * yCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 + 3 * xCurveA[3] * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 - 2 * xCurveA[3] * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] - 2 * xCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * c13y2 - xCurveA[3] * xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * c13y2 - 4 * xCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * c13y2 + 3 * yCurveA[3] * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 + 6 * xCurveA[3] * yCurveA[3] * yCurveB[3] * c13x2 * yCurveA[0] + 2 * xCurveA[3] * yCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] + 2 * xCurveA[3] * xCurveA[2] * c11y2 * xCurveA[0] * yCurveA[0] + 2 * xCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * yCurveA[0] + 6 * xCurveA[3] * xCurveB[3] * yCurveB[3] * xCurveA[0] * c13y2 - 3 * xCurveA[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 + 2 * xCurveA[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] + xCurveA[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] + yCurveA[3] * xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] + 4 * yCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 - 3 * yCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 + 2 * yCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2 + xCurveA[2] * xCurveB[3] * yCurveA[2] * c12y2 * xCurveA[0] - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[3] * c13y2 - 2 * xCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0] - 6 * yCurveA[3] * xCurveB[3] * yCurveB[3] * c13x2 * yCurveA[0] - 2 * yCurveA[3] * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] - 2 * yCurveA[3] * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] - yCurveA[3] * c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] - 2 * yCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0] - 2 * xCurveA[2] * xCurveB[3] * c11y2 * xCurveA[0] * yCurveA[0] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[3] * yCurveA[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 - 2 * xCurveB[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] - xCurveB[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] + 3 * c10y2 * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] + 3 * xCurveA[2] * xCurveA[1] * c20y2 * xCurveA[0] * yCurveA[0] + 2 * xCurveB[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0] - 3 * c10x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * yCurveB[3] * xCurveA[0] * yCurveA[0] + c11x2 * xCurveA[1] * yCurveB[3] * yCurveA[1] * yCurveA[0] - 3 * c20x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * xCurveA[3] * c20x2 * c13y3 - xCurveA[3] * c11y3 * c13x2 + 3 * c10x2 * xCurveB[3] * c13y3 + yCurveA[3] * c11x3 * c13y2 + 3 * yCurveA[3] * c20y2 * c13x3 + xCurveB[3] * c11y3 * c13x2 + c10x2 * c12y3 * xCurveA[0] - 3 * c10y2 * yCurveB[3] * c13x3 - c10y2 * c12x3 * yCurveA[0] + c20x2 * c12y3 * xCurveA[0] - c11x3 * yCurveB[3] * c13y2 - c12x3 * c20y2 * yCurveA[0] - xCurveA[3] * c11x2 * yCurveA[2] * c13y2 + yCurveA[3] * xCurveA[2] * c11y2 * c13x2 - 3 * xCurveA[3] * c10y2 * c13x2 * yCurveA[0] - xCurveA[3] * c11y2 * c12x2 * yCurveA[0] + yCurveA[3] * c11x2 * c12y2 * xCurveA[0] - xCurveA[2] * c11y2 * yCurveB[3] * c13x2 + 3 * c10x2 * yCurveA[3] * xCurveA[0] * c13y2 + c10x2 * xCurveA[2] * yCurveA[1] * c13y2 + 2 * c10x2 * yCurveA[2] * xCurveA[1] * c13y2 - 2 * c10y2 * xCurveA[2] * yCurveA[1] * c13x2 - c10y2 * yCurveA[2] * xCurveA[1] * c13x2 + c11x2 * xCurveB[3] * yCurveA[2] * c13y2 - 3 * xCurveA[3] * c20y2 * c13x2 * yCurveA[0] + 3 * yCurveA[3] * c20x2 * xCurveA[0] * c13y2 + xCurveA[2] * c20x2 * yCurveA[1] * c13y2 - 2 * xCurveA[2] * c20y2 * yCurveA[1] * c13x2 + xCurveB[3] * c11y2 * c12x2 * yCurveA[0] - yCurveA[2] * xCurveA[1] * c20y2 * c13x2 - c10x2 * xCurveA[1] * c12y2 * yCurveA[0] - 3 * c10x2 * yCurveB[3] * xCurveA[0] * c13y2 + 3 * c10y2 * xCurveB[3] * c13x2 * yCurveA[0] + c10y2 * c12x2 * yCurveA[1] * xCurveA[0] - c11x2 * yCurveB[3] * c12y2 * xCurveA[0] + 2 * c20x2 * yCurveA[2] * xCurveA[1] * c13y2 + 3 * xCurveB[3] * c20y2 * c13x2 * yCurveA[0] - c20x2 * xCurveA[1] * c12y2 * yCurveA[0] - 3 * c20x2 * yCurveB[3] * xCurveA[0] * c13y2 + c12x2 * c20y2 * yCurveA[1] * xCurveA[0]
-            );
-            var roots = poly.RootsInInterval();
+            ).Trim().RootsInInterval();
 
             foreach (var s in roots)
             {
@@ -6870,7 +7161,10 @@ namespace Engine
             }
 
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6940,7 +7234,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -6978,7 +7275,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7051,7 +7351,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7098,7 +7401,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7146,7 +7452,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7193,7 +7502,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7230,10 +7542,12 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
-
 
         /// <summary>
         /// Find the intersection between an ellipse and a triangle.
@@ -7269,7 +7583,10 @@ namespace Engine
             result.AppendPoints(LineSegmentEllipseIntersection(cX, cY, rx, ry, cosA, sinA, r3X, r3Y, r1X, r1Y, epsilon).Points);
 
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7312,7 +7629,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7351,7 +7671,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7391,7 +7714,10 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7434,8 +7760,14 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
-            else result.State = LineSegmentCircleIntersection(minX, minY, topRight.X, topRight.Y, cX, cY, r, angle, epsilon).State;
+            }
+            else
+            {
+                result.State = LineSegmentCircleIntersection(minX, minY, topRight.X, topRight.Y, cX, cY, r, angle, epsilon).State;
+            }
+
             return result;
         }
 
@@ -7478,9 +7810,14 @@ namespace Engine
             // ToDo: Return IntersectionState.Inside if all of the points of the polygon are inside the circle.
 
             if (result.Points.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
             else
+            {
                 result.State = inter.State;
+            }
+
             return result;
         }
 
@@ -7523,9 +7860,14 @@ namespace Engine
             // ToDo: Return IntersectionState.Inside if all of the points of th polygon are contained inside the circle, or the circle and there are no intersections.
 
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
             else
+            {
                 result.State = inter.State;
+            }
+
             return result;
         }
 
@@ -7554,7 +7896,9 @@ namespace Engine
 
             // If either of the circles are empty, return no intersections.
             if ((radius0 == 0d) || (radius1 == 0d))
+            {
                 return result;
+            }
 
             // Find the distance between the centers.
             var dx = cx0 - cx1;
@@ -7726,9 +8070,14 @@ namespace Engine
             // ToDo: Return IntersectionState.Inside if all of the points of the polygon are contained inside the ellipse, and there are no intersections.
 
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
             else
+            {
                 result.State = inter.State;
+            }
+
             return result;
         }
 
@@ -7791,7 +8140,10 @@ namespace Engine
             result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon).Points);
 
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7865,11 +8217,16 @@ namespace Engine
                     yCurve[0] * s * s + yCurve[1] * s + yCurve[2]);
 
                 if (0 <= s && s <= 1)
+                {
                     result.Points.Add(point);
+                }
             }
 
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7941,7 +8298,7 @@ namespace Engine
                 /* x² */ 2 * xCurve[1] * ryry * (xCurve[3] - ecX) + 2 * yCurve[1] * rxrx * (yCurve[3] - ecY) + xCurve[2] * xCurve[2] * ryry + yCurve[2] * yCurve[2] * rxrx,
                 /* x¹ */ 2 * xCurve[2] * ryry * (xCurve[3] - ecX) + 2 * yCurve[2] * rxrx * (yCurve[3] - ecY),
                 /* c  */ xCurve[3] * xCurve[3] * ryry - 2 * yCurve[3] * ecY * rxrx - 2 * xCurve[3] * ecX * ryry + yCurve[3] * yCurve[3] * rxrx + ecX * ecX * ryry + ecY * ecY * rxrx - rxrx * ryry
-                ).RootsInInterval();
+                ).Trim().RootsInInterval();
 
             foreach (var s in roots)
             {
@@ -7953,7 +8310,10 @@ namespace Engine
             }
 
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -7985,20 +8345,19 @@ namespace Engine
             double[] a = new double[] { ry1 * ry1, 0, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2 * rx1 * rx1 * c1Y, ry1 * ry1 * c1X * c1X + rx1 * rx1 * c1Y * c1Y - rx1 * rx1 * ry1 * ry1 };
             double[] b = new double[] { ry2 * ry2, 0, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2 * rx2 * rx2 * c2Y, ry2 * ry2 * c2X * c2X + rx2 * rx2 * c2Y * c2Y - rx2 * rx2 * ry2 * ry2 };
 
-            var yPoly = Bezout(a, b);
-            var yRoots = yPoly.Trim().Roots();
+            var yRoots = Bezout(a, b).Trim().Roots();
 
             var norm0 = (a[0] * a[0] + 2 * a[1] * a[1] + a[2] * a[2]) * epsilon;
             var norm1 = (b[0] * b[0] + 2 * b[1] * b[1] + b[2] * b[2]) * epsilon;
 
             for (var y = 0; y < yRoots.Length; y++)
             {
-                var xRoots = QuadraticRoots(
+                var xRoots = new Polynomial(
                     a[0],
                     a[3] + yRoots[y] * a[1],
                     a[5] + yRoots[y] * (a[4] + yRoots[y] * a[2]),
-                    epsilon);
-                for (var x = 0; x < xRoots.Count; x++)
+                    epsilon).Trim().Roots();
+                for (var x = 0; x < xRoots.Length; x++)
                 {
                     var test = (a[0] * xRoots[x] + a[1] * yRoots[y] + a[3]) * xRoots[x] + (a[2] * yRoots[y] + a[4]) * yRoots[y] + a[5];
                     if (Abs(test) < norm0)
@@ -8013,7 +8372,11 @@ namespace Engine
             }
 
             if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection; return result;
+            {
+                result.State = IntersectionState.Intersection;
+            }
+
+            return result;
         }
 
         #endregion
@@ -8277,16 +8640,14 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Translate lines to origin.
-            var u1 = li;
-            var v1 = lj;
-            var u2 = s1X - s0X;
-            var v2 = s1Y - s0Y;
+            var vi = s1X - s0X;
+            var vj = s1Y - s0Y;
 
-            var ua = u2 * (ly - s0Y) - v2 * (lx - s0X);
-            var ub = u1 * (ly - s0Y) - v1 * (lx - s0X);
+            var ua = vi * (ly - s0Y) - vj * (lx - s0X);
+            var ub = li * (ly - s0Y) - lj * (lx - s0X);
 
             // Calculate the determinant of the coefficient matrix.
-            var determinant = (v2 * u1) - (u2 * v1);
+            var determinant = (vj * li) - (vi * lj);
 
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
@@ -8475,19 +8836,23 @@ namespace Engine
             (var p, var q) = (yCurve[0] == 0d) ? (yCurve[1], yCurve[2]) : (yCurve[1] / yCurve[0], yCurve[2] / yCurve[0]);
 
             if (a == p || q == b)
+            {
                 return new double[0];
+            }
 
             var k = (q - b) / (a - p);
 
-            var poly = new Polynomial(
+            var roots = new Polynomial(
                 2,
                 -3 * k,
                 3 * k * k + 2 * k * a + 2 * b,
-                -k * k * k - a * k * k - b * k);
+                -k * k * k - a * k * k - b * k
+                ).Roots().OrderByDescending(c => c).ToArray();
 
-            var roots = poly.Roots().OrderByDescending(c => c).ToArray();
             if (roots.Length != 3)
+            {
                 return null;
+            }
 
             if (roots[0] >= 0.0 && roots[0] <= 1.0 && roots[2] >= 0.0 && roots[2] <= 1.0)
             {
@@ -8517,7 +8882,9 @@ namespace Engine
         public static void ScanbeamPoint(ref List<double> scanlist, double x, double y, double px, double py, double epsilon = Epsilon)
         {
             if ((y - py) / (x - px) == 1)
+            {
                 scanlist.Add(x);
+            }
         }
 
         /// <summary>
@@ -8665,7 +9032,9 @@ namespace Engine
             {
                 // Add intersection point.
                 if (!(s < 0 || s > 1d))
+                {
                     scanlist.Add(xCurve[0] * s * s + xCurve[1] * s + xCurve[2]);
+                }
             }
         }
 
@@ -8722,7 +9091,9 @@ namespace Engine
             {
                 // Add intersection point.
                 if (!(s < 0 || s > 1d))
+                {
                     scanlist.Add(xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3]);
+                }
             }
         }
 
@@ -8742,7 +9113,9 @@ namespace Engine
         {
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((x == x + 1) && (y == x + 0)))
+            {
                 return;
+            }
 
             // Calculate the quadratic parameters.
             var b = 2 * (x - cX);
@@ -8796,7 +9169,9 @@ namespace Engine
         {
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
+            {
                 return;
+            }
 
             // Calculate the quadratic parameters.
             var b = 2 * (x - cX);
@@ -8890,7 +9265,9 @@ namespace Engine
         {
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
+            {
                 return;
+            }
 
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x - cx;
@@ -8960,7 +9337,9 @@ namespace Engine
         {
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d))
+            {
                 return;
+            }
 
             // Translate the line to put it at the ellipse centered at the origin.
             var u0 = x - cx;
@@ -9040,7 +9419,9 @@ namespace Engine
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                {
                     scanlist.Add(px);
+                }
 
                 // Find the point.
                 px = u0 + (u1 - u0) * t2 + cx;
@@ -9051,7 +9432,9 @@ namespace Engine
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
+                {
                     scanlist.Add(px);
+                }
             }
         }
 
@@ -9196,7 +9579,9 @@ namespace Engine
 
                 // One intersection.
                 if (x0 + ta * u1 <= x)
+                {
                     return 1;
+                }
             }
 
             return 0;
@@ -9236,9 +9621,14 @@ namespace Engine
                 {
                     // Line segment is coincident to the scan-beam. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
                     if (x0 <= x)
+                    {
                         result++;
+                    }
+
                     if (x1 <= x)
+                    {
                         result++;
+                    }
                 }
             }
             else
@@ -9251,7 +9641,9 @@ namespace Engine
                 {
                     // One intersection.
                     if (x0 + ta <= x)
+                    {
                         result++;
+                    }
                 }
             }
 
@@ -9306,7 +9698,9 @@ namespace Engine
             {
                 // Add intersection point.
                 if (!(s < 0 || s > 1d) && (xCurve[0] * s * s + xCurve[1] * s + xCurve[2] <= x))
+                {
                     result++;
+                }
             }
 
             return result;
@@ -9363,7 +9757,9 @@ namespace Engine
             {
                 // Add intersection point.
                 if (!(s < 0 || s > 1d) && (xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3]) <= x)
+                {
                     results++;
+                }
             }
 
             return results;
@@ -9388,7 +9784,9 @@ namespace Engine
         {
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((x == x + 1) && (y == x + 0)))
+            {
                 return 0;
+            }
 
             // Calculate the quadratic parameters.
             var b = 2 * (x - cX);
@@ -9423,9 +9821,14 @@ namespace Engine
 
                 // Add the points.
                 if (x + t1 * 1 <= x)
+                {
                     result++;
+                }
+
                 if (x + t2 * 1 <= x)
+                {
                     result++;
+                }
             }
 
             return result;
@@ -9450,7 +9853,9 @@ namespace Engine
         {
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
+            {
                 return 0;
+            }
 
             // Calculate the quadratic parameters.
             var b = 2 * (x - cX);
@@ -9548,7 +9953,9 @@ namespace Engine
         {
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
+            {
                 return 0;
+            }
 
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x - cx;
@@ -9585,9 +9992,14 @@ namespace Engine
 
                 // Add two points for either the top or bottom.
                 if ((u1 + (u2 - u1) * t + cx) <= x)
+                {
                     results++;
+                }
+
                 if ((u1 + (u2 - u1) * t + cx) <= x)
+                {
                     results++;
+                }
             }
             else if (discriminant > 0)
             {
@@ -9597,9 +10009,14 @@ namespace Engine
 
                 // Add the points.
                 if (u1 + (u2 - u1) * t1 + cx <= x)
+                {
                     results++;
+                }
+
                 if (u1 + (u2 - u1) * t2 + cx <= x)
+                {
                     results++;
+                }
             }
 
             return results;
@@ -9626,7 +10043,9 @@ namespace Engine
         {
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d))
+            {
                 return 0;
+            }
 
             // Translate the line to put it at the ellipse centered at the origin.
             var u0 = x - cx;
@@ -9707,7 +10126,9 @@ namespace Engine
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px <= x)
+                {
                     results++;
+                }
 
                 // Find the point.
                 px = u0 + (u1 - u0) * t2 + cx;
@@ -9718,7 +10139,9 @@ namespace Engine
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px <= x)
+                {
                     results++;
+                }
             }
 
             return results;
@@ -9874,7 +10297,9 @@ namespace Engine
 
                 // One intersection.
                 if (x0 + ta * u1 >= x)
+                {
                     return 1;
+                }
             }
 
             return 0;
@@ -9929,7 +10354,9 @@ namespace Engine
                 {
                     // One intersection.
                     if (x0 + ta >= x)
+                    {
                         result++;
+                    }
                 }
             }
 
@@ -9984,7 +10411,9 @@ namespace Engine
             {
                 // Add intersection point.
                 if (!(s < 0 || s > 1d) && ((xCurve[0] * s * s + xCurve[1] * s + xCurve[2]) >= x))
+                {
                     result++;
+                }
             }
 
             return result;
@@ -10041,7 +10470,9 @@ namespace Engine
             {
                 // Add intersection point.
                 if (!(s < 0 || s > 1d) && (xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3]) >= x)
+                {
                     results++;
+                }
             }
 
             return results;
@@ -10066,7 +10497,9 @@ namespace Engine
         {
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((x == x + 1) && (y == x + 0)))
+            {
                 return 0;
+            }
 
             // Calculate the quadratic parameters.
             var b = 2 * (x - cX);
@@ -10101,9 +10534,14 @@ namespace Engine
 
                 // Add the points.
                 if (x + t1 * 1 >= x)
+                {
                     result++;
+                }
+
                 if (x + t2 * 1 >= x)
+                {
                     result++;
+                }
             }
 
             return result;
@@ -10128,7 +10566,9 @@ namespace Engine
         {
             // If the circle or line segment are empty, return no intersections.
             if (r == 0d)
+            {
                 return 0;
+            }
 
             // Calculate the quadratic parameters.
             var b = 2 * (x - cX);
@@ -10226,7 +10666,9 @@ namespace Engine
         {
             // If the ellipse is empty, return no intersections.
             if ((rx == 0d) || (ry == 0d))
+            {
                 return 0;
+            }
 
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x - cx;
@@ -10263,20 +10705,29 @@ namespace Engine
 
                 // Add two points for either the top or bottom.
                 if ((u1 + (u2 - u1) * t + cx) >= x)
+                {
                     results++;
+                }
+
                 if ((u1 + (u2 - u1) * t + cx) >= x)
+                {
                     results++;
+                }
             }
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
                 var t1 = (OneHalf * (-b + Sqrt(discriminant)) / a);
                 if (u1 + (u2 - u1) * t1 + cx >= x)
+                {
                     results++;
+                }
 
                 var t2 = (OneHalf * (-b - Sqrt(discriminant)) / a);
                 if (u1 + (u2 - u1) * t2 + cx >= x)
+                {
                     results++;
+                }
             }
 
             return results;
@@ -10303,7 +10754,9 @@ namespace Engine
         {
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d))
+            {
                 return 0;
+            }
 
             // Translate the line to put it at the ellipse centered at the origin.
             var u0 = x - cx;
@@ -10385,7 +10838,9 @@ namespace Engine
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px >= x)
+                {
                     results++;
+                }
 
                 // Find the point.
                 px = u0 + (u1 - u0) * t2 + cx;
@@ -10396,7 +10851,9 @@ namespace Engine
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px >= x)
+                {
                     results++;
+                }
             }
 
             return results;
@@ -10514,26 +10971,30 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Bezout(double[] e1, double[] e2)
         {
-            var AB = e1[0] * e2[1] - e2[0] * e1[1];
-            var AC = e1[0] * e2[2] - e2[0] * e1[2];
-            var AD = e1[0] * e2[3] - e2[0] * e1[3];
-            var AE = e1[0] * e2[4] - e2[0] * e1[4];
-            var AF = e1[0] * e2[5] - e2[0] * e1[5];
-            var BC = e1[1] * e2[2] - e2[1] * e1[2];
-            var BE = e1[1] * e2[4] - e2[1] * e1[4];
-            var BF = e1[1] * e2[5] - e2[1] * e1[5];
-            var CD = e1[2] * e2[3] - e2[2] * e1[3];
-            var DE = e1[3] * e2[4] - e2[3] * e1[4];
-            var DF = e1[3] * e2[5] - e2[3] * e1[5];
-            var BFpDE = BF + DE;
-            var BEmCD = BE - CD;
+            var ab = e1[0] * e2[1] - e2[0] * e1[1];
+            var ac = e1[0] * e2[2] - e2[0] * e1[2];
+            var ad = e1[0] * e2[3] - e2[0] * e1[3];
+            var ae = e1[0] * e2[4] - e2[0] * e1[4];
+            var af = e1[0] * e2[5] - e2[0] * e1[5];
+
+            var bc = e1[1] * e2[2] - e2[1] * e1[2];
+            var be = e1[1] * e2[4] - e2[1] * e1[4];
+            var bf = e1[1] * e2[5] - e2[1] * e1[5];
+
+            var cd = e1[2] * e2[3] - e2[2] * e1[3];
+
+            var de = e1[3] * e2[4] - e2[3] * e1[4];
+            var df = e1[3] * e2[5] - e2[3] * e1[5];
+
+            var bfPde = bf + de;
+            var beMcd = be - cd;
 
             return new Polynomial(
-                /* x⁴ */ AB * BC - AC * AC,
-                /* x³ */ AB * BEmCD + AD * BC - 2 * AC * AE,
-                /* x² */ AB * BFpDE + AD * BEmCD - AE * AE - 2 * AC * AF,
-                /* x¹ */ AB * DF + AD * BFpDE - 2 * AE * AF,
-                /* c  */ AD * DF - AF * AF);
+                /* x⁴ */ ab * bc - ac * ac,
+                /* x³ */ ab * beMcd + ad * bc - 2 * ac * ae,
+                /* x² */ ab * bfPde + ad * beMcd - ae * ae - 2 * ac * af,
+                /* x¹ */ ab * df + ad * bfPde - 2 * ae * af,
+                /* c  */ ad * df - af * af);
         }
 
         #endregion

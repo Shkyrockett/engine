@@ -192,22 +192,6 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="Polynomial.Compute(double)"/> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
-        [DeploymentItem("Engine.dll")]
-        public void ComputeTest()
-        {
-            var value = new Polynomial(0, 5, 25, 0, 4, 0);
-            var expected = 288d;
-            var result = value.Compute(2);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
         /// Test the <see cref="Polynomial.Differentiate(double)"/> method.
         /// </summary>
         [TestMethod]

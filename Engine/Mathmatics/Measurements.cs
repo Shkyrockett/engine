@@ -2307,11 +2307,11 @@ namespace Engine
         {
             var dsquare = ParameterizedSquareDistance(curveX, curveY, point);
             var deriv = dsquare.Derivate().Normalize();
-            var derivRoots = deriv.RealOrComplexRoots();
-            return derivRoots
+            var derivRoots = deriv.Roots();
+            return 1 - derivRoots
                 .Where(t => t > 0 && t < 1)
                 .Concat(Polynomial.Identity)
-                .OrderBy(x => dsquare.Compute(x))
+                .OrderBy(x => dsquare.Evaluate(x))
                 .First();
         }
 
@@ -2346,11 +2346,11 @@ namespace Engine
         {
             var dsquare = ParameterizedSquareDistance(curveX, curveY, point);
             var deriv = dsquare.Derivate().Normalize();
-            var derivRoots = deriv.RealOrComplexRoots();
+            var derivRoots = deriv.Roots();
             return derivRoots
                 .Where(t => t > 0 && t < 1)
                 .Concat(Polynomial.Identity)
-                .Select(x => Sqrt(dsquare.Compute(x)))
+                .Select(x => Sqrt(dsquare.Evaluate(1 - x)))
                 .OrderBy(x => x)
                 .First();
         }
@@ -2378,10 +2378,10 @@ namespace Engine
         /// <param name="t">The t index.</param>
         /// <returns>Returns a point at t for the curve.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Compute(Polynomial curveX, Polynomial curveY, double t)
+        public static (double X, double Y) Evaluate(Polynomial curveX, Polynomial curveY, double t)
         {
-            var x = curveX.Compute(t);
-            var y = curveY.Compute(t);
+            var x = curveX.Evaluate(t);
+            var y = curveY.Evaluate(t);
             return (x, y);
         }
 

@@ -4624,6 +4624,166 @@ namespace MethodSpeedTester
 
         #endregion
 
+        #region Evaluate a Polynomial
+
+        /// <summary>
+        /// Set of tests to run testing methods that evaluates a polynomial.
+        /// </summary>
+        /// <returns></returns>
+        [System.ComponentModel.DisplayName(nameof(EvaluatePolynomialTests))]
+        public static List<SpeedTester> EvaluatePolynomialTests() => new List<SpeedTester> {
+                new SpeedTester(() => Evaluate(new double[] { 100d, 200d, -200d }, 0.5),
+                $"{nameof(Experiments.Evaluate)}(( 100d, 200d, -200d ), 0.5)"),
+                new SpeedTester(() => Horner(new double[] { 100d, 200d, -200d }, 0.5),
+                $"{nameof(Experiments.Horner)}(( 100d, 200d, -200d ), 0.5)"),
+                new SpeedTester(() => Compute(new double[] { 100d, 200d, -200d }, 0.5),
+                $"{nameof(Experiments.Compute)}(( 100d, 200d, -200d ), 0.5)"),
+                new SpeedTester(() => ComputeC(new double[] { 100d, 200d, -200d }, new Complex(0.5, 0)),
+                $"{nameof(Experiments.Compute)}(( 100d, 200d, -200d ), new Complex(0.5, 0))"),
+                new SpeedTester(() => ComputeC2(new double[] { 100d, 200d, -200d }, new Complex(0.5, 0)),
+                $"{nameof(Experiments.ComputeC2)}(( 100d, 200d, -200d ), new Complex(0.5, 0))"),
+           };
+
+        /// <summary>
+        /// An implementation of Horner's Evaluate method.
+        /// </summary>
+        /// <param name="coefficients"></param>
+        /// <param name="x">The value to evaluate.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://en.wikipedia.org/wiki/Horner%27s_method
+        /// https://github.com/thelonious/kld-polynomial
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Evaluate(double[] coefficients, double x)
+        {
+            if (Double.IsNaN(x))
+            {
+                throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(x)} must be a number");
+            }
+
+            var degree = coefficients.Length - 1;
+            var result = 0d;
+
+            for (var i = degree; i >= 0; i--)
+            {
+                result = result * x + coefficients[i];
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coefficients"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://rosettacode.org/wiki/Horner%27s_rule_for_polynomial_evaluation
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Horner(double[] coefficients, double x)
+        {
+            if (Double.IsNaN(x))
+            {
+                throw new ArithmeticException($"{nameof(Horner)}: parameter {nameof(x)} must be a number");
+            }
+
+            return coefficients.Reverse().Aggregate(
+                    (accumulator, coefficient) => accumulator * x + coefficient);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coefficients"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Compute(double[] coefficients, double x)
+        {
+            if (Double.IsNaN(x))
+            {
+                throw new ArithmeticException($"{nameof(Compute)}: parameter {nameof(x)} must be a number");
+            }
+
+            var degree = coefficients.Length - 1;
+            var result = 0d;
+            var ncoef = 1d;
+            for (var i = 0; i <= degree; i++)
+            {
+                result += coefficients[i] * ncoef;
+                ncoef *= x;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coefficients"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Complex ComputeC(double[] coefficients, Complex x)
+        {
+            var degree = coefficients.Length - 1;
+            Complex result = Complex.Zero;
+            Complex ncoef = Complex.One;
+
+            for (var i = 0; i <= degree; i++)
+            {
+                result += coefficients[i] * ncoef;
+                ncoef *= x;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coefficients"></param>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://en.wikipedia.org/wiki/Horner%27s_method
+        /// https://github.com/superlloyd/Poly
+        /// https://github.com/thelonious/kld-polynomial
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Complex ComputeC2(double[] coefficients, Complex x)
+        {
+            var degree = coefficients.Length - 1;
+            Complex result = Complex.Zero;
+
+            for (var i = degree; i >= 0; i--)
+            {
+                result = result * x + coefficients[i];
+            }
+
+            return result;
+        }
+
+        #endregion
+
         #region Find Center of a Circle From Three points
 
         /// <summary>

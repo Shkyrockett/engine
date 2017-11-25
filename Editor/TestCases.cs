@@ -51,7 +51,8 @@ namespace Editor
             //SplitQuadraticBezier(vectorMap);
             //SplitCubicBezier(vectorMap);
             //RayWork(vectorMap);
-            //NearestParameter(vectorMap, tools);
+            //NearestParameterQuadraticBezier(vectorMap, tools);
+            NearestParameterCubicBezier(vectorMap, tools);
             //HeartCurve(vectorMap);
             //ScanlineIntersections(vectorMap);
             //CommonIntersections(vectorMap);
@@ -84,7 +85,7 @@ namespace Editor
             //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
-            IntersectionsCubicBezierCubicBezier(vectorMap);
+            //IntersectionsCubicBezierCubicBezier(vectorMap);
             //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
@@ -96,6 +97,8 @@ namespace Editor
             //EllipticalArcBounds(vectorMap);
 
             /* Interactive */
+            //QuadraticBezierPathFollow(vectorMap, form);
+            //CubicBezierPathFollow(vectorMap, form);
             //PathFollow(vectorMap, form);
             //Pathfinding(vectorMap, form);
             //ResizeRefreshBounds(vectorMap, canvasPanel, out boundaryItem);
@@ -136,6 +139,116 @@ namespace Editor
         #endregion
 
         #region Interactive
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        /// <param name="form"></param>
+        public static void QuadraticBezierPathFollow(VectorMap vectorMap, EditorForm form)
+        {
+            (var left, var top) = (0d, 0d);
+            (var duration, var delay) = (75d, 0d);
+            var scale = new Size2D(10, 10);
+            var shift = new Vector2D(10, 10) * scale;
+            var axis = new Point2D(200, 100);
+            var angle = 0d.ToRadians();
+            var radius = 10;
+
+            var quadratic = new QuadraticBezier(
+                left, top,
+                left + 10, top + 10,
+                left + 20, top
+                )/*.ToCubicBezier()*/
+                .ScaleDistort(scale)
+                .TranslateDistort(shift)
+                .RotateDistort(axis, angle);
+            var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
+            {
+                Name = "Quadratic Bezier"
+            };
+            var quadraticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier Bounds"
+            };
+            var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
+            {
+                Name = "Quadratic Bezier Handles"
+            };
+
+            var circle = new Circle(quadratic.Interpolate(0), radius);
+            var circleItem = new GraphicItem(circle, solidLightBlueStyle);
+
+            form.ResetAction = new Action(() => reset());
+            void reset()
+            {
+                var t = new Scrubber(0);
+                circle.Center = quadratic.Interpolate(t.T);
+                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease((a) => Ease.Linear(a))
+                    .OnUpdate(() => circle.Center = quadratic.Interpolate(t.T))
+                    .OnUpdate(form.UpdateCallback);
+            }
+
+            vectorMap.Add(quadraticBoundsItem);
+            vectorMap.Add(quadraticItem);
+            vectorMap.Add(quadraticHandles);
+            vectorMap.Add(circleItem);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        /// <param name="form"></param>
+        public static void CubicBezierPathFollow(VectorMap vectorMap, EditorForm form)
+        {
+            (var left, var top) = (0d, 0d);
+            (var duration, var delay) = (75d, 0d);
+            var scale = new Size2D(10, 10);
+            var shift = new Vector2D(10, 10) * scale;
+            var axis = new Point2D(200, 100);
+            var angle = 0d.ToRadians();
+            var radius = 10;
+
+            var quadratic = new QuadraticBezier(
+                left, top,
+                left + 10, top + 10,
+                left + 20, top
+                ).ToCubicBezier()
+                .ScaleDistort(scale)
+                .TranslateDistort(shift)
+                .RotateDistort(axis, angle);
+            var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
+            {
+                Name = "Quadratic Bezier"
+            };
+            var quadraticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier Bounds"
+            };
+            var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
+            {
+                Name = "Quadratic Bezier Handles"
+            };
+
+            var circle = new Circle(quadratic.Interpolate(0), radius);
+            var circleItem = new GraphicItem(circle, solidLightBlueStyle);
+
+            form.ResetAction = new Action(() => reset());
+            void reset()
+            {
+                var t = new Scrubber(0);
+                circle.Center = quadratic.Interpolate(t.T);
+                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease((a) => Ease.Linear(a))
+                    .OnUpdate(() => circle.Center = quadratic.Interpolate(t.T))
+                    .OnUpdate(form.UpdateCallback);
+            }
+
+            vectorMap.Add(quadraticBoundsItem);
+            vectorMap.Add(quadraticItem);
+            vectorMap.Add(quadraticHandles);
+            vectorMap.Add(circleItem);
+        }
 
         /// <summary>
         /// 
@@ -2605,7 +2718,7 @@ namespace Editor
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         /// <param name="tools">Reference to the Tools stack.</param>
-        public static void NearestParameter(VectorMap vectorMap, ToolStack tools)
+        public static void NearestParameterQuadraticBezier(VectorMap vectorMap, ToolStack tools)
         {
             var top = 10;
             var left = 10;
@@ -2633,7 +2746,63 @@ namespace Editor
                 Name = "Point 1 Handle"
             };
 
-            var point2 = quadratic1.Interpolate(1 - Measurements.ClosestParameter(quadratic1.CurveX, quadratic1.CurveY, point1));
+            var point2 = quadratic1.Interpolate(Measurements.ClosestParameter(quadratic1.CurveX, quadratic1.CurveY, point1));
+            var point2Handle = new GraphicItem(new NodeRevealer(point2, 5d), handleStyle2)
+            {
+                Name = "Point 2 Handle"
+            };
+
+            var tool = new MouseMoveUpdateTool((p) => ((NodeRevealer)point1Handle.Shape).Points[0] = p);
+
+            tools.RegisterMouseScroll(tool);
+
+            vectorMap.Add(quardatic1BoundsItem);
+            vectorMap.Add(quadratic1Item);
+            vectorMap.Add(quadratic1Handles);
+            vectorMap.Add(point1Handle);
+            vectorMap.Add(point2Handle);
+        }
+
+        /// <summary>
+        /// Development method for trying to work out nearest parameter to point on bezier curve.
+        /// </summary>
+        /// <param name="vectorMap">The vector map to write to.</param>
+        /// <param name="tools">Reference to the Tools stack.</param>
+        public static void NearestParameterCubicBezier(VectorMap vectorMap, ToolStack tools)
+        {
+            var top = 10;
+            var left = 10;
+            var scale = new Size2D(10, 10);
+            var axis = new Point2D(200, 100);
+            var angle = 0; //45d.ToRadians();
+
+            var quadratic1 = new QuadraticBezier(
+                left, top,
+                left + 10, top + 10,
+                left + 20, top
+                ).ToCubicBezier()
+                .ScaleDistort(scale)
+                .RotateDistort(axis, angle);
+            var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
+            {
+                Name = "Quadratic Bezier 1"
+            };
+            var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
+            {
+                Name = "Quadratic Bezier 1 Bounds"
+            };
+            var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
+            {
+                Name = "Quadratic Bezier 1 Handles"
+            };
+
+            var point1 = new Point2D(100, 200);
+            var point1Handle = new GraphicItem(new NodeRevealer(point1, 5d), handleStyle2)
+            {
+                Name = "Point 1 Handle"
+            };
+
+            var point2 = quadratic1.Interpolate(Measurements.ClosestParameter(quadratic1.CurveX, quadratic1.CurveY, point1));
             var point2Handle = new GraphicItem(new NodeRevealer(point2, 5d), handleStyle2)
             {
                 Name = "Point 2 Handle"

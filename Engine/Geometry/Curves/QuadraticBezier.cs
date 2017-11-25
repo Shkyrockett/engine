@@ -529,7 +529,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
-            => new Point2D(Interpolators.QuadraticBezier(ax, ay, ax, by, cx, cy, t));
+            => new Point2D(Interpolators.QuadraticBezier(ax, ay, bx, by, cx, cy, t));
 
         /// <summary>
         /// Gets the tangent (normalized derivative) of the curve at a given T value.

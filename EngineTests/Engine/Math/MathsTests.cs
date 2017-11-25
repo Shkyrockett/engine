@@ -285,7 +285,7 @@ namespace Engine.Tests
                 { (short.MaxValue, 0), true },
                 { (short.MinValue, short.MaxValue), true },
                 { (short.MaxValue, short.MinValue), true },
-                { ((short.MinValue / 2), (short.MaxValue / 2)), true },
+                { ((short.MinValue /2), (short.MaxValue / 2)), true },
                 { ((short.MinValue / 2), (short.MinValue / 2)), true },
                 { ((short.MaxValue / 2), (short.MaxValue / 2)), true },
                 { (short.MaxValue, short.MaxValue), false },
@@ -477,9 +477,9 @@ namespace Engine.Tests
                 { (float.MaxValue, 0), true },
                 { (float.MinValue, float.MaxValue), true },
                 { (float.MaxValue, float.MinValue), true },
-                { ((float.MinValue / 2f), (float.MaxValue / 2f)), true },
-                { ((float.MinValue / 2f), (float.MinValue / 2f)), true },
-                { ((float.MaxValue / 2f), (float.MaxValue / 2f)), true },
+                { ((float.MinValue * 0.5f), (float.MaxValue * 0.5f)), true },
+                { ((float.MinValue * 0.5f), (float.MinValue * 0.5f)), true },
+                { ((float.MaxValue * 0.5f), (float.MaxValue * 0.5f)), true },
                 { (float.MaxValue, float.MaxValue), false },
             };
 
@@ -545,10 +545,10 @@ namespace Engine.Tests
                 { (decimal.MaxValue, decimal.Zero), true },
                 { (decimal.MinValue, decimal.MaxValue), true },
                 { (decimal.MaxValue, decimal.MinValue), true },
-                { ((decimal.MinValue / 2m), (decimal.MaxValue / 2m)), true },
+                { ((decimal.MinValue * 0.5m), (decimal.MaxValue * 0.5m)), true },
                 // Need to figure out why the following two test cases fail only for decimals.
-                //{ ((decimal.MinValue / 2m), (decimal.MinValue / 2m)), true },
-                //{ ((decimal.MaxValue / 2m), (decimal.MaxValue / 2m)), true },
+                //{ ((decimal.MinValue * 0.5m), (decimal.MinValue * 0.5m)), true },
+                //{ ((decimal.MaxValue * 0.5m), (decimal.MaxValue * 0.5m)), true },
                 { (decimal.MaxValue, decimal.MaxValue), false },
             };
 

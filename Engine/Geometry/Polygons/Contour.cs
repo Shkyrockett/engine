@@ -276,6 +276,13 @@ namespace Engine
         }
 
         /// <summary>
+        /// Clears the points of the contour.
+        /// </summary>
+        public void Clear()
+            // Clear the elements of the array so that the garbage colector can reclaim the references.
+            => points.Clear();
+
+        /// <summary>
         /// 
         /// </summary>
         public PolygonContour Reverse()

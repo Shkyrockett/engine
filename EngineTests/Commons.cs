@@ -9,6 +9,121 @@ namespace EngineTests
     public static class Commons
     {
         /// <summary>
+        /// 
+        /// </summary>
+        public static class QuadraticBeziers
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            public static (double, double, double, double, double, double) test1 = 
+                (0d, 0d, 0d, 0d, 0d, 0d);
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public static (double, double, double, double, double, double) test2 = 
+                (0d, 0d, 10d, 10d, 20d, 0d);
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public static (double, double, double, double, double, double) test3 = 
+                (0d, 10d, 10d, 0d, 20d, 10d);
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public static (double, double, double, double, double, double) test4 = 
+                (5d, 0d, 10d, 10d, 20d, 0d);
+
+            /// <summary>
+            /// KLD Quadratic test
+            /// </summary>
+            public static (double, double, double, double, double, double) test5 = 
+                (83d, 214d, 335d, 173d, 91d, 137d);
+
+            /// <summary>
+            /// KLD Quadratic test
+            /// </summary>
+            public static (double, double, double, double, double, double) test6 = 
+                (92d, 233d, 152d, 30d, 198d, 227d);
+
+            /// <summary>
+            /// KLD Quadratic test
+            /// </summary>
+            public static (double, double, double, double, double, double) test7 = 
+                (123d, 47d, 146d, 255d, 188d, 47d);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static class CubicBeziers
+        {
+            /// <summary>
+            /// 
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test1 = 
+                (0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d);
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test2 = 
+                (0d, 10d, 6.66666666666667d, 3.33333333333333d, 13.3333333333333d, 3.33333333333333d, 20d, 10d);
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test3 = 
+                (0d, 0d, 6.66666666666667d, 6.66666666666667d, 13.3333333333333d, 6.66666666666667d, 20d, 0d);
+
+            /// <summary>
+            /// 
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test4 = 
+                (5d, 0d, 8.33333333333333d, 6.66666666666667d, 13.3333333333333d, 6.66666666666667d, 20d, 0d);
+
+            /// <summary>
+            /// KLD Quadratic test
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test5 = 
+                (83d, 214d, 251d, 186.666666666667d, 253.666666666667d, 161d, 91d, 137d);
+
+            /// <summary>
+            /// KLD Quadratic test
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test6 = 
+                (92d, 233d, 132d, 97.6666666666667d, 167.333333333333d, 95.6666666666667d, 198d, 227d);
+
+            /// <summary>
+            /// KLD Quadratic test
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test7 = 
+                (123d, 47d, 138.333333333333d, 185.666666666667d, 160d, 185.666666666667d, 188d, 47d);
+
+            /// <summary>
+            /// KLD Cubic test
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test8 = 
+                (203d, 140d, 206d, 359d, 245d, 6d, 248d, 212d);
+
+            /// <summary>
+            /// KLD Cubic test
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test9 = 
+                (177d, 204d, 441d, 204d, 8d, 149d, 265d, 154d);
+
+            /// <summary>
+            /// KLD Cubic test
+            /// </summary>
+            public static (double, double, double, double, double, double, double, double) test10 = 
+                (171d, 143d, 22d, 132d, 330d, 64d, 107d, 65d);
+
+        }
+
+        /// <summary>
         /// A Listing of primitive polygons that can exhibit odd behavior.
         /// </summary>
         public static class Polygons

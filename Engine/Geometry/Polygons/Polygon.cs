@@ -368,6 +368,24 @@ namespace Engine
         }
 
         /// <summary>
+        /// Clears the contours of the polygon.
+        /// </summary>
+        public void Clear()
+        {
+            var size = contours.Count;
+            if (size > 0)
+            {
+                // Clear the elements of the array so that the garbage colector can reclaim the references.
+                foreach (var contour in contours)
+                {
+                    contour.Clear();
+                }
+            }
+
+            contours.Clear();
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         public void Reverse()

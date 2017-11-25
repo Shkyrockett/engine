@@ -305,11 +305,22 @@ namespace EngineTests
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
         public void ArcLengthTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<(double r, double sweepAngle), double>
+            {
+                { (0d, 90d.ToRadians()), 0d },
+                { (1d, 90d.ToRadians()), -9.869604401089358d },
+                { (2d, 90d.ToRadians()), -19.739208802178716d },
+                { (3d, 90d.ToRadians()), -29.608813203268074d },
+                { (4d, 90d.ToRadians()), -39.478417604357432d },
+            };
+
+            foreach (var test in cases)
+            {
+                var distance = Measurements.ArcLength(test.Key.r, test.Key.sweepAngle);
+                Assert.AreEqual(test.Value, distance, TestEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+            }
         }
 
         /// <summary>
@@ -317,11 +328,22 @@ namespace EngineTests
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
         public void CircleCircumferenceTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<double, double>
+            {
+                { 0d, 0d },
+                { 1d, 6.2831853071795862d },
+                { 2d, 12.566370614359173d },
+                { 3d, 18.849555921538759d },
+                { 4d, 25.132741228718345d },
+            };
+
+            foreach (var test in cases)
+            {
+                var distance = Measurements.CircleCircumference(test.Key);
+                Assert.AreEqual(test.Value, distance, TestEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+            }
         }
 
         /// <summary>
@@ -329,23 +351,22 @@ namespace EngineTests
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void CubicBezierArcLengthTest()
-        {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [TestMethod()]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
         public void EllipsePerimeterTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<(double a, double b), double>
+            {
+                { (0d, 1d), 4d },
+                { (1d, 1d), 6.2831853071795862d },
+                { (2d, 1d), 9.710913742906115d },
+                { (3d, 1d), 13.424777960769379d },
+                { (4d, 1d), 17.253096491487337d },
+            };
+
+            foreach (var test in cases)
+            {
+                var distance = Measurements.EllipsePerimeter(test.Key.a, test.Key.b);
+                Assert.AreEqual(test.Value, distance, TestEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+            }
         }
 
         /// <summary>
@@ -353,11 +374,24 @@ namespace EngineTests
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
         public void QuadraticBezierArcLengthByIntegralTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<(double ax, double ay, double bx, double by, double cx, double cy), double>
+            {
+                //{ (0d, 0d, 0d, 0d, 0d, 0d), 0d },
+                { (0d, 0d, 10d, 10d, 20d, 0d), 22.955871493926381d },
+                { (0d, 10d, 10d, 0d, 20d, 10d), 22.955871493926381d },
+                { (5d, 0d, 10d, 10d, 20d, 0d), 18.773182061585533d },
+                { (83d, 214d, 335d, 173d, 91d, 137d), 266.33762321669229d }, // KLD Quadratic test
+                { (92d, 233d, 152d, 30d, 198d, 227d), 235.60570888481504d }, // KLD Quadratic test
+                { (123d, 47d, 146d, 255d, 188d, 47d), 223.69024423969862d }, // KLD Quadratic test
+            };
+
+            foreach (var test in cases)
+            {
+                var distance = Measurements.QuadraticBezierArcLengthByIntegral(test.Key.ax, test.Key.ay, test.Key.bx, test.Key.by, test.Key.cx, test.Key.cy);
+                Assert.AreEqual(test.Value, distance, TestEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+            }
         }
 
         /// <summary>
@@ -365,11 +399,57 @@ namespace EngineTests
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
-        [Ignore]
+        public void CubicBezierArcLengthTest()
+        {
+            var cases = new Dictionary<(double ax, double ay, double bx, double by, double cx, double cy, double dx, double dy), double>
+            {
+                { (0d, 0d, 0d, 0d, 0d, 0d, 0d, 0d), 0d },
+                { (0d, 10d, 6.66666666666667d, 3.33333333333333d, 13.3333333333333d, 3.33333333333333d, 20d, 10d), 28.772285755369104d },
+                { (0d, 0d, 6.66666666666667d, 6.66666666666667d, 13.3333333333333d, 6.66666666666667d, 20d, 0d), 28.853157091613134d },
+                { (5d, 0d, 8.33333333333333d, 6.66666666666667d, 13.3333333333333d, 6.66666666666667d, 20d, 0d), 22.972804939583188d },
+                { (83d, 214d, 251d, 186.666666666667d, 253.666666666667d, 161d, 91d, 137d), 202.43303990653033d }, // KLD Quadratic test
+                { (92d, 233d, 132d, 97.6666666666667d, 167.333333333333d, 95.6666666666667d, 198d, 227d), 52.117557445746179d }, // KLD Quadratic test
+                { (123d, 47d, 138.333333333333d, 185.666666666667d, 160d, 185.666666666667d, 188d, 47d), 109.34854245841467d }, // KLD Quadratic test
+                { (203d, 140d, 206d, 359d, 245d, 6d, 248d, 212d), 389.0464480832751d }, // KLD Cubic test
+                { (177d, 204d, 441d, 204d, 8d, 149d, 265d, 154d), 560.24650162127568d }, // KLD Cubic test
+                { (171d, 143d, 22d, 132d, 330d, 64d, 107d, 65d), 331.17868818300917d }, // KLD Cubic test
+            };
+
+            foreach (var test in cases)
+            {
+                var distance = Measurements.CubicBezierArcLength(test.Key.ax, test.Key.ay, test.Key.bx, test.Key.by, test.Key.cx, test.Key.cy, test.Key.dx, test.Key.dy);
+                Assert.AreEqual(test.Value, distance, TestEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [TestMethod()]
+        [DeploymentItem("Engine.dll")]
         public void PolygonPerimeterTest()
         {
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
+            var cases = new Dictionary<List<Point2D>, double>
+            {
+                {Commons.Polygons.SquareClockwise, 300d },
+                {Commons.Polygons.SquareCounterClockwise, 300d },
+                {Commons.Polygons.RightTriangleTopLeftClockwise, 256.06601717798213d },
+                {Commons.Polygons.RightTriangleTopLeftCounterClockwise, 256.06601717798213d },
+                {Commons.Polygons.RightTriangleBottomRightClockwise, 256.06601717798213d },
+                {Commons.Polygons.RightTriangleBottomRightCounterClockwise, 256.06601717798213d },
+                {Commons.Polygons.BowTieRightReversed, 362.13203435596427d },
+                {Commons.Polygons.BowTieLeftReversed, 362.13203435596427d },
+                {Commons.Polygons.CShape, 400d },
+                {Commons.Polygons.NShape, 400d },
+                {Commons.Polygons.CBowTieHoleShape, 411.80339887498951d },
+                {Commons.Polygons.NBowTieHoleShape, 411.80339887498951d },
+            };
+
+            foreach (var test in cases)
+            {
+                var distance = Measurements.PolygonContourPerimeter(test.Key);
+                Assert.AreEqual(test.Value, distance, TestEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
+            }
         }
 
         #endregion

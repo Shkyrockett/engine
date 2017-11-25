@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
@@ -76,7 +77,7 @@ namespace Engine
         private double[] coefficients;
 
         /// <summary>
-        /// 
+        /// Cache for the real order degree value.
         /// </summary>
         private PolynomialDegree? degree;
 
@@ -100,6 +101,11 @@ namespace Engine
         [DebuggerStepThrough]
         public Polynomial(params double[] coefficients)
         {
+            if (coefficients == null)
+            {
+                throw new ArgumentNullException(nameof(coefficients));
+            }
+
             // If the coefficients array is empty this is an Empty polynomial, otherwise copy the coefficients over.
             // Reverse the coefficients so they are in order of degree smallest to largest.
             this.coefficients = (coefficients == null || coefficients.Length == 0)
@@ -115,15 +121,15 @@ namespace Engine
         #region Indexers
 
         /// <summary>
-        /// 
+        /// Gets or sets the coeficient at the given index.
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">The index of the coefficient to retrieve.</param>
         /// <returns></returns>
         /// <remarks>
         /// The indexer is in highest degree to lowest format.
         /// </remarks>
         /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
+        /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
         /// </acknowledgment>
         public double this[int index]
         {
@@ -159,15 +165,15 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the coefficient at the given term index.
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">The term index of the coefficient to retrieve.</param>
         /// <returns></returns>
         /// <remarks>
         /// The <see cref="PolynomialTerm"/> indexer is in highest degree to lowest format.
         /// </remarks>
         /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
+        /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
         /// </acknowledgment>
         public double this[PolynomialTerm index]
         {
@@ -203,15 +209,15 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the coefficient of the given degree index.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The degree of the coefficient to retrieve.</param>
+        /// <returns>The value of the coefficient of the requested degree.</returns>
         /// <remarks>
         /// The <see cref="PolynomialDegree"/> indexer is in lowest degree to highest format.
         /// </remarks>
         /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
+        /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
         /// </acknowledgment>
         public double this[PolynomialDegree index]
         {
@@ -255,6 +261,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public PolynomialDegree Degree
+            // If degree uninitialized look up the real order then cache it and return.
             => (degree = degree ?? RealOrder(Epsilon)).Value;
 
         /// <summary>
@@ -262,6 +269,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public int Count
+            // Get the length of the coefficients array, but let's just say that an uninitialized coefficients array is just a zero constant.
             => coefficients?.Length ?? 0;
 
         /// <summary>
@@ -273,13 +281,14 @@ namespace Engine
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
         public bool CanSolveRealRoots
-            => (RealOrder() <= PolynomialDegree.Quintic);
+            // Set this to the highest degree currently solvable using the Roots() method.
+            => (Degree <= PolynomialDegree.Quintic);
 
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="Polynomial"/> struct is read only.
         /// Useful for class that want to expose internal value that must not change.
         /// </summary>
-        /// <remarks></remarks>
+        /// <remarks>Once set, this cannot become writable again.</remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -300,18 +309,16 @@ namespace Engine
             }
         }
 
-#if DEBUG
-
         /// <summary>
         /// Gets or sets the coefficients of the polynomial from highest degree to lowest degree order.
         /// </summary>
-        /// <remarks>
-        /// This property presents the <see cref="Coefficients"/> in the reverse order than they are internally stored.
-        /// </remarks>
+        ///// <remarks>
+        ///// This property presents the <see cref="Coefficients"/> in the reverse order than they are internally stored.
+        ///// </remarks>
         [TypeConverter(typeof(ArrayConverter))]
-        public double[] Coefficients
+        internal double[] Coefficients
         {
-            get { return coefficients.Reverse().ToArray(); }
+            get { return coefficients/*.Reverse().ToArray()*/; }
             set
             {
                 if (IsReadonly)
@@ -319,9 +326,11 @@ namespace Engine
                     throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
                 }
 
-                coefficients = value.Reverse().ToArray();
+                coefficients = value/*.Reverse().ToArray()*/;
             }
         }
+
+#if DEBUG
 
         /// <summary>
         /// Gets a debug string that represents the text version of the <see cref="Polynomial"/>.
@@ -723,6 +732,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Trim(double epsilon = Epsilon)
         {
+            Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.EndContractBlock();
+
             // If there are no coefficients then this is a Monomial of 0.
             if (this.coefficients == null || this.coefficients.Length < 1)
             {
@@ -749,6 +761,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Derivate()
         {
+            Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.EndContractBlock();
+
             var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
             var res = new double[Max(1, order)];
             for (var i = 1; i < order + 1; i++)
@@ -770,6 +785,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Normalize(double epsilon = Epsilon)
         {
+            Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.EndContractBlock();
+
             var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
             var high = coefficients[order];
             var res = new double[order + 1];
@@ -796,6 +814,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Integrate(double term0 = 0)
         {
+            Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.EndContractBlock();
+
             //ToDo: Figure out if the real order should be used or if the leading zero coefficients are needed.
 
             //var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
@@ -832,6 +853,9 @@ namespace Engine
             {
                 throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(n)} must be a number");
             }
+
+            Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.EndContractBlock();
 
             var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
             var res = new double[order * n + 1];
@@ -878,6 +902,9 @@ namespace Engine
             {
                 throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(x)} must be a number");
             }
+
+            Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.EndContractBlock();
 
             var result = 0d;
             for (var i = (int)Degree; i >= 0; i--)
@@ -1009,6 +1036,44 @@ namespace Engine
             }
 
             return (minY, maxY);
+        }
+
+        /// <summary>
+        /// Calculates the real order or degree of the polynomial.
+        /// </summary>
+        /// <returns>Returns a value representing the order of degree of the polynomial.</returns>
+        /// <remarks>Primaraly used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
+        /// <acknowledgment>
+        /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
+        /// as well as Trim and RealOrder from: https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public PolynomialDegree RealOrder(double epsilon = Epsilon)
+        {
+            var pos = 1;
+
+            // Monomial can be a zero constant, skip them and check the rest.
+            if (Count > 1)
+            {
+                // Count the number of leading zeros. Because the coefficients array is reversed, start at the end because there should generally be fewer leading zeros than other coefficients.
+                for (var i = Count - 1; i >= 1 /* Monomials can be 0. */; i--)
+                {
+                    // Check if coefficient is a leading zero.
+                    if (Abs(coefficients[i]) <= epsilon)
+                    {
+                        pos++;
+                    }
+                    else
+                    {
+                        // Break early if a non zero value was found. This indicates the end of any leading zeros.
+                        break;
+                    }
+                }
+            }
+
+            // If coefficients is empty return constant, otherwise return the calculated order of degree of the polynomial.
+            return (PolynomialDegree)(coefficients?.Length - pos ?? 0);
         }
 
         #endregion
@@ -1628,44 +1693,6 @@ namespace Engine
             // should try Newton's method and/or bisection
         }
 
-        /// <summary>
-        /// Calculates the real order or degree of the polynomial.
-        /// Or rather, locates where to trim off any leading zero coefficients.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
-        /// and Trim and RealOrder from: https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolynomialDegree RealOrder(double epsilon = Epsilon)
-        {
-            var pos = 1;
-
-            // Monomial can be a zero constant, skip them and check the rest.
-            if (Count > 1)
-            {
-                // Count the number of leading zeros. Because the coefficients array is reversed, start at the end.
-                for (var i = Count - 1; i >= 1 /* Monomials can be 0. */; i--)
-                {
-                    // Check if coefficient is a leading zero.
-                    if (Abs(coefficients[i]) <= epsilon)
-                    {
-                        pos++;
-                    }
-                    else
-                    {
-                        // Break early if a non zero value was found. This indicates the end of any leading zeros.
-                        break;
-                    }
-                }
-            }
-
-            return (PolynomialDegree)(coefficients?.Length - pos ?? 0);
-        }
-
 #if Quazistax
 
         /// <summary>
@@ -2036,7 +2063,23 @@ namespace Engine
         #region Standard Methods
 
         /// <summary>
-        /// 
+        /// Clears the coefficients of the polinomial.
+        /// </summary>
+        public void Clear()
+        {
+            var size = coefficients.Length;
+            if (size > 0)
+            {
+                // Clear the elements of the array so that the garbage colector can reclaim the references.
+                Array.Clear(coefficients, 0, size);
+                size = 0;
+            }
+
+            degree = null;
+        }
+
+        /// <summary>
+        /// Serves as the default hash function. 
         /// </summary>
         /// <returns></returns>
         public override Int32 GetHashCode()
@@ -2055,10 +2098,10 @@ namespace Engine
             => Equals(a, b);
 
         /// <summary>
-        ///
+        /// Compares two <see cref="Polynomial"/> objects to determine equality.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">Polynomial a.</param>
+        /// <param name="b">Polynomial b.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2088,9 +2131,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Compares an object this <see cref="Polynomial"/> to determine equality.
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">The object to compare.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2098,9 +2141,9 @@ namespace Engine
             => obj is Polynomial && Equals(this, (Polynomial)obj);
 
         /// <summary>
-        ///
+        /// Compares two <see cref="Polynomial"/> objects to determine equality.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The <see cref="Polynomial"/> object to campare.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

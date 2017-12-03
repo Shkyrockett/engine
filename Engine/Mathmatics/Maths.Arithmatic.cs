@@ -1596,7 +1596,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(int a, int b)
         {
-            if (a == 0) return true;
+            if (a == 0 || b== 0) return true;
             // a * b would overflow
             return (b > int.MaxValue / a);
         }
@@ -1615,7 +1615,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(uint a, uint b)
         {
-            if (a == 0) return true;
+            if (a == 0 || b == 0) return true;
             // a * b would overflow
             return (b > uint.MaxValue / a);
         }
@@ -1634,7 +1634,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(long a, long b)
         {
-            if (a == 0) return true;
+            if (a == 0 || b == 0) return true;
             // a * b would overflow
             return (b > long.MaxValue / a);
         }
@@ -1653,9 +1653,66 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsMultiplicationSafe(ulong a, ulong b)
         {
-            if (a == 0) return true;
+            if (a == 0 || b == 0) return true;
             // a * b would overflow
             return (b > ulong.MaxValue / a);
+        }
+
+        /// <summary>
+        /// Test whether a multiplication operation is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsMultiplicationSafe(float a, float b)
+        {
+            if (a == 0 || b == 0) return true;
+            // a * b would overflow
+            return (b > float.MaxValue / a);
+        }
+
+        /// <summary>
+        /// Test whether a multiplication operation is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsMultiplicationSafe(double a, double b)
+        {
+            if (a == 0 || b == 0) return true;
+            // a * b would overflow
+            return (b > double.MaxValue / a);
+        }
+
+        /// <summary>
+        /// Test whether a multiplication operation is likely to overflow.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsMultiplicationSafe(decimal a, decimal b)
+        {
+            if (a == 0 || b == 0) return true;
+            // a * b would overflow
+            return (b > decimal.MaxValue / a);
         }
 
         /// <summary>

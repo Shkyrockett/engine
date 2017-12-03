@@ -581,6 +581,13 @@ namespace Engine
         /// Gets the Cosine of the angle of rotation.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The Cosine of the angle of rotation.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
         public double CosAngle
             => (double)CachingProperty(() => Cos(angle));
 
@@ -588,6 +595,13 @@ namespace Engine
         /// Gets the Sine of the angle of rotation.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The Sine of the angle of rotation.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
         public double SinAngle
             => (double)CachingProperty(() => Sin(angle));
 
@@ -646,6 +660,34 @@ namespace Engine
             => (double)CachingProperty(() => EllipticalPolarAngle(startAngle, rX, rY));
 
         /// <summary>
+        /// Gets or sets the Cosine of the start angle of the elliptical arc.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The Cosine of the start angle of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double StartAngleCos
+            => (double)CachingProperty(() => Cos(startAngle));
+
+        /// <summary>
+        /// Gets or sets the Sine of the start angle of the elliptical arc.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The Sine of the start angle of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double StartAngleSin
+            => (double)CachingProperty(() => Sin(startAngle));
+
+        /// <summary>
         /// Gets or sets the sweep angle of the elliptical arc.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
@@ -690,6 +732,34 @@ namespace Engine
                 update?.Invoke();
             }
         }
+
+        /// <summary>
+        /// Gets or sets the Cosine of the sweep angle of the elliptical arc.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The Cosine of the sweep angle of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double SweepAngleCos
+            => (double)CachingProperty(() => Cos(sweepAngle));
+
+        /// <summary>
+        /// Gets or sets the Sine of the sweep angle of the elliptical arc.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The Sine of the sweep angle of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double SweepAngleSin
+            => (double)CachingProperty(() => Sin(sweepAngle));
 
         /// <summary>
         /// Gets or sets the end angle of the elliptical arc.
@@ -738,6 +808,34 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets or sets the Cosine of the end angle of the elliptical arc.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The Cosine of the end angle of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double EndAngleCos
+            => (double)CachingProperty(() => Cos(EndAngle));
+
+        /// <summary>
+        /// Gets or sets the Sine of the end angle of the elliptical arc.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [Browsable(true)]
+        [GeometryAngleRadians]
+        [Category("Clipping")]
+        [Description("The Sine of the end angle of the elliptical arc.")]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Always)]
+        [RefreshProperties(RefreshProperties.All)]
+        public double EndAngleSin
+            => (double)CachingProperty(() => Sin(EndAngle));
+
+        /// <summary>
         /// Gets the Polar corrected end angle of the <see cref="Ellipse"/>.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
@@ -773,7 +871,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The arc length of the elliptical arc.")]
         public double ArcLength
-            => (double)CachingProperty(() => Measurements.Length(this));
+            => (double)CachingProperty(() => this.Length());
 
         /// <summary>
         /// Gets the <see cref="Perimeter"/> of the elliptical arc.

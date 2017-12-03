@@ -302,126 +302,6 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// Test the <see cref="Polynomial.Linear(double, double)"/> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
-        [DeploymentItem("Engine.dll")]
-        public void LinearTest()
-        {
-            var expected = new Polynomial(1, 1);
-            var result = Polynomial.Linear(1, 2);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="Polynomial.Quadratic(double, double, double)"/> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
-        [DeploymentItem("Engine.dll")]
-        public void QuadraticTest()
-        {
-            var expected = new Polynomial(0, 2, 1);
-            var result = Polynomial.Quadratic(1, 2, 3);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="Polynomial.Cubic(double, double, double, double)"/> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
-        [DeploymentItem("Engine.dll")]
-        public void CubicTest()
-        {
-            var expected = new Polynomial(0, 0, 3, 1);
-            var result = Polynomial.Cubic(1, 2, 3, 4);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="Polynomial.Quartic(double, double, double, double, double)"/> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
-        [DeploymentItem("Engine.dll")]
-        public void QuarticTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 4, 1);
-            var result = Polynomial.Quartic(1, 2, 3, 4, 5);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="Polynomial.Quintic(double, double, double, double, double, double)"/> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
-        [DeploymentItem("Engine.dll")]
-        public void QuinticTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 5, 1);
-            var result = Polynomial.Quintic(1, 2, 3, 4, 5, 6);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="Polynomial.Sextic(double, double, double, double, double, double, double)"/> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
-        [DeploymentItem("Engine.dll")]
-        public void SexticTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 0, 6, 1);
-            var result = Polynomial.Sextic(1, 2, 3, 4, 5, 6, 7);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="Polynomial.Septic(double, double, double, double, double, double, double, double)"/> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
-        [DeploymentItem("Engine.dll")]
-        public void SepticTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 0, 0, 7, 1);
-            var result = Polynomial.Septic(1, 2, 3, 4, 5, 6, 7, 8);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
-        /// Test the <see cref="Polynomial.Octic(double, double, double, double, double, double, double, double, double)"/> method.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
-        [DeploymentItem("Engine.dll")]
-        public void OcticTest()
-        {
-            var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 8, 1);
-            var result = Polynomial.Octic(1, 2, 3, 4, 5, 6, 7, 8, 9);
-            Assert.AreEqual(expected, result);
-        }
-
-        /// <summary>
         /// Test the <see cref="Polynomial.Bisection(double, double, double)"/> method.
         /// </summary>
         [TestMethod]
@@ -470,7 +350,7 @@ namespace EngineTests
         public void ComplexRootsTest()
         {
             var value = new Polynomial(1, 2, 3, 4, 5, 6);
-            var expected = new Complex[] { new Complex(-313.995047760172, -277.124450638795), new Complex(-1.2106854781489, 1.79296866987468), new Complex(18.9284340792415, -5.02664569182785), new Complex(double.NaN, double.NaN), new Complex(6.63750764045928, 16.1927372642297), };
+            var expected = new Complex[] { new Complex(-0.805786469389031, -1.22290471337441), new Complex(0.551685463458982, -1.25334886027721), new Complex(0.551685463458982, 1.25334886027721), new Complex(-0.805786469389031, 1.22290471337441), new Complex(-1.4917979881399, -1.42626051663959E-26) };
             var result = value.ComplexRoots();
 
             Assert.AreEqual(expected.Length, result.Length);

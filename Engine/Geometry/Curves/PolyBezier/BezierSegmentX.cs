@@ -97,7 +97,6 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="points"></param>
         public BezierSegmentX(BezierSegmentX previous, params Point2D[] points)
-            : base()
         {
             handles = points ?? throw new ArgumentNullException(nameof(points));
             Previous = previous;
@@ -238,7 +237,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length
-            => (double)CachingProperty(() => Measurements.Length(this));
+            => (double)CachingProperty(() => this.Length());
 
         /// <summary>
         /// 

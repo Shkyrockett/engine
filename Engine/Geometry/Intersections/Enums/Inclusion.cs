@@ -8,11 +8,14 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
     /// <summary>
     /// Enumeration of the inclusion of a point within a shape.
     /// </summary>
+    [Flags]
     public enum Inclusion
         : sbyte
     {

@@ -52,7 +52,7 @@ namespace Editor
             //SplitCubicBezier(vectorMap);
             //RayWork(vectorMap);
             //NearestParameterQuadraticBezier(vectorMap, tools);
-            NearestParameterCubicBezier(vectorMap, tools);
+            //NearestParameterCubicBezier(vectorMap, tools);
             //HeartCurve(vectorMap);
             //ScanlineIntersections(vectorMap);
             //CommonIntersections(vectorMap);
@@ -71,6 +71,7 @@ namespace Editor
             //ParametricEllipseArc(vectorMap);
             //ParametricTesting(vectorMap);
             //ParametricTesting2(vectorMap);
+            ParametricTesting3(vectorMap);
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
@@ -117,24 +118,80 @@ namespace Editor
 
         #region Styles
 
-        private static ShapeStyle selectionStyle = new ShapeStyle(new HatchBrush(HatchStyle.SmallCheckerBoard, Color.Pink, Color.Transparent), new Pen(Brushes.Transparent));
-        private static ShapeStyle handleStyle = new ShapeStyle(Brushes.Maroon, new Pen(Brushes.MediumPurple));
-        private static ShapeStyle handleStyle2 = new ShapeStyle(Brushes.Gold, new Pen(Brushes.LightYellow));
+        /// <summary>
+        /// The selection style (readonly). Value: new ShapeStyle(new HatchBrush(HatchStyle.SmallCheckerBoard, Color.Pink, Color.Transparent), new Pen(Brushes.Transparent)).
+        /// </summary>
+        private static readonly ShapeStyle selectionStyle = new ShapeStyle(new HatchBrush(HatchStyle.SmallCheckerBoard, Color.Pink, Color.Transparent), new Pen(Brushes.Transparent));
 
-        private static ShapeStyle azureTransparent = new ShapeStyle(Brushes.Azure, new Pen(Brushes.Transparent));
+        /// <summary>
+        /// The handle style.
+        /// </summary>
+        private static readonly ShapeStyle handleStyle = new ShapeStyle(Brushes.Maroon, new Pen(Brushes.MediumPurple));
 
-        private static ShapeStyle paperLikeStyle = new ShapeStyle(Brushes.Bisque, new Pen(Brushes.Beige));
-        private static ShapeStyle whiteishStyle = new ShapeStyle(Brushes.AntiqueWhite, new Pen(Brushes.CadetBlue));
-        private static ShapeStyle solidPinkStyle = new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum));
-        private static ShapeStyle solidCyanStyle = new ShapeStyle(Brushes.DarkCyan, new Pen(Brushes.Cyan));
-        private static ShapeStyle solidGreenStyle = new ShapeStyle(Brushes.DarkGreen, new Pen(Brushes.ForestGreen));
-        private static ShapeStyle solidPurpleStyle = new ShapeStyle(Brushes.Maroon, new Pen(Brushes.MediumPurple));
-        private static ShapeStyle solidLightBlueStyle = new ShapeStyle(Brushes.BlueViolet, new Pen(Brushes.AliceBlue));
-        private static ShapeStyle solidLightGreenStyle = new ShapeStyle(Brushes.DarkGoldenrod, new Pen(Brushes.Honeydew));
+        /// <summary>
+        /// The handle style2.
+        /// </summary>
+        private static readonly ShapeStyle handleStyle2 = new ShapeStyle(Brushes.Gold, new Pen(Brushes.LightYellow));
 
-        private static ShapeStyle intersectionBlue = new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Blue)), new SolidBrush(Color.FromArgb(128, Color.Blue)));
-        private static ShapeStyle intersectionGreen = new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Green)), new SolidBrush(Color.FromArgb(128, Color.Green)));
-        private static ShapeStyle intersectionRed = new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Red)), new SolidBrush(Color.FromArgb(128, Color.Red)));
+        /// <summary>
+        /// The azure transparent.
+        /// </summary>
+        private static readonly ShapeStyle azureTransparent = new ShapeStyle(Brushes.Azure, new Pen(Brushes.Transparent));
+
+        /// <summary>
+        /// The paper like style.
+        /// </summary>
+        private static readonly ShapeStyle paperLikeStyle = new ShapeStyle(Brushes.Bisque, new Pen(Brushes.Beige));
+
+        /// <summary>
+        /// The whiteish style (readonly). Value: new ShapeStyle(Brushes.AntiqueWhite, new Pen(Brushes.CadetBlue)).
+        /// </summary>
+        private static readonly ShapeStyle whiteishStyle = new ShapeStyle(Brushes.AntiqueWhite, new Pen(Brushes.CadetBlue));
+
+        /// <summary>
+        /// The solid pink style.
+        /// </summary>
+        private static readonly ShapeStyle solidPinkStyle = new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum));
+
+        /// <summary>
+        /// The solid cyan style.
+        /// </summary>
+        private static readonly ShapeStyle solidCyanStyle = new ShapeStyle(Brushes.DarkCyan, new Pen(Brushes.Cyan));
+
+        /// <summary>
+        /// The solid green style.
+        /// </summary>
+        private static readonly ShapeStyle solidGreenStyle = new ShapeStyle(Brushes.DarkGreen, new Pen(Brushes.ForestGreen));
+
+        /// <summary>
+        /// The solid purple style.
+        /// </summary>
+        private static readonly ShapeStyle solidPurpleStyle = new ShapeStyle(Brushes.Maroon, new Pen(Brushes.MediumPurple));
+
+        /// <summary>
+        /// The solid light blue style.
+        /// </summary>
+        private static readonly ShapeStyle solidLightBlueStyle = new ShapeStyle(Brushes.BlueViolet, new Pen(Brushes.AliceBlue));
+
+        /// <summary>
+        /// The solid light green style.
+        /// </summary>
+        private static readonly ShapeStyle solidLightGreenStyle = new ShapeStyle(Brushes.DarkGoldenrod, new Pen(Brushes.Honeydew));
+
+        /// <summary>
+        /// The intersection blue.
+        /// </summary>
+        private static readonly ShapeStyle intersectionBlue = new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Blue)), new SolidBrush(Color.FromArgb(128, Color.Blue)));
+
+        /// <summary>
+        /// The intersection green.
+        /// </summary>
+        private static readonly ShapeStyle intersectionGreen = new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Green)), new SolidBrush(Color.FromArgb(128, Color.Green)));
+
+        /// <summary>
+        /// The intersection red.
+        /// </summary>
+        private static readonly ShapeStyle intersectionRed = new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Red)), new SolidBrush(Color.FromArgb(128, Color.Red)));
 
         #endregion
 
@@ -179,12 +236,12 @@ namespace Editor
             var circle = new Circle(quadratic.Interpolate(0), radius);
             var circleItem = new GraphicItem(circle, solidLightBlueStyle);
 
-            form.ResetAction = new Action(() => reset());
+            form.ResetAction = new Action(reset);
             void reset()
             {
                 var t = new Scrubber(0);
                 circle.Center = quadratic.Interpolate(t.T);
-                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease((a) => Ease.Linear(a))
+                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
                     .OnUpdate(() => circle.Center = quadratic.Interpolate(t.T))
                     .OnUpdate(form.UpdateCallback);
             }
@@ -234,12 +291,12 @@ namespace Editor
             var circle = new Circle(quadratic.Interpolate(0), radius);
             var circleItem = new GraphicItem(circle, solidLightBlueStyle);
 
-            form.ResetAction = new Action(() => reset());
+            form.ResetAction = new Action(reset);
             void reset()
             {
                 var t = new Scrubber(0);
                 circle.Center = quadratic.Interpolate(t.T);
-                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease((a) => Ease.Linear(a))
+                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
                     .OnUpdate(() => circle.Center = quadratic.Interpolate(t.T))
                     .OnUpdate(form.UpdateCallback);
             }
@@ -290,12 +347,12 @@ namespace Editor
             var circle = new Circle(cubic.Interpolate(0), radius);
             var circleItem = new GraphicItem(circle, solidLightBlueStyle);
 
-            form.ResetAction = new Action(() => reset());
+            form.ResetAction = new Action(reset);
             void reset()
             {
                 var t = new Scrubber(0);
                 circle.Center = cubic.Interpolate(t.T);
-                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease((a) => Ease.Linear(a))
+                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
                     .OnUpdate(() => circle.Center = cubic.Interpolate(t.T))
                     .OnUpdate(form.UpdateCallback);
             }
@@ -366,13 +423,13 @@ namespace Editor
                 Name = "Ego Circle"
             };
 
-            form.ResetAction = new Action(() => reset());
+            form.ResetAction = new Action(reset);
             void reset()
             {
                 var t = new Scrubber(0);
                 duration = pathPolyline.Perimeter * 0.5d;
                 ego.Center = pathPolyline.Interpolate(t.T);
-                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease((a) => Ease.Linear(a))
+                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
                     .OnUpdate(() => ego.Center = pathPolyline.Interpolate(t.T))
                     .OnUpdate(form.UpdateCallback);
             }
@@ -437,12 +494,12 @@ namespace Editor
             var circle = new Circle(left + radius, top + radius, radius);
             var circleItem = new GraphicItem(circle, solidLightBlueStyle);
 
-            form.ResetAction = new Action(() => reset());
+            form.ResetAction = new Action(reset);
             void reset()
             {
                 circle.Center = (left + radius, top + radius);
-                vectorMap.Tweener.Tween(circle, new { Y = top - 100 }, duration, delay).Ease((a) => Ease.Parabolic(a));
-                vectorMap.Tweener.Tween(circle, new { X = left + 50 }, duration, delay).Ease((a) => Ease.Linear(a))
+                vectorMap.Tweener.Tween(circle, new { Y = top - 100 }, duration, delay).Ease(Ease.Parabolic);
+                vectorMap.Tweener.Tween(circle, new { X = left + 50 }, duration, delay).Ease(Ease.Linear)
                     .OnUpdate(form.UpdateCallback);
             }
 
@@ -797,7 +854,7 @@ namespace Editor
                 Name = "Cubic 3 Bezier self intersection Handles"
             };
 
-            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(cubic1, cubic2).Points, 5d), handleStyle);
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(cubic2).Points, 5d), handleStyle);
 
             vectorMap.Add(cubic1BoundsItem);
             vectorMap.Add(cubic2BoundsItem);
@@ -851,7 +908,7 @@ namespace Editor
                 Name = "Ellipse 2 Bounds"
             };
 
-            var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipse1, ellipse2).Points, 5d), handleStyle)
+            var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipse1.Intersection(ellipse2).Points, 5d), handleStyle)
             {
                 Name = "Intersection Points"
             };
@@ -896,7 +953,7 @@ namespace Editor
                 Name = "Quadratic Bezier 1 Bounds"
             };
 
-            var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipse1, quadratic1).Points, 5d), handleStyle)
+            var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipse1.Intersection(quadratic1).Points, 5d), handleStyle)
             {
                 Name = "Intersection Points"
             };
@@ -941,7 +998,7 @@ namespace Editor
                 Name = "Cubic Bezier 1 Bounds"
             };
 
-            var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipse1, cubic1).Points, 5d), handleStyle)
+            var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipse1.Intersection(cubic1).Points, 5d), handleStyle)
             {
                 Name = "Intersection Points"
             };
@@ -995,7 +1052,7 @@ namespace Editor
                 Name = "Quadratic Bezier 2 Handles"
             };
 
-            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic1, quadratic2).Points, 5d), handleStyle)
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(quadratic1.Intersection(quadratic2).Points, 5d), handleStyle)
             {
                 Name = "Intersection 1 Points"
             };
@@ -1033,7 +1090,7 @@ namespace Editor
                 Name = "Quadratic Bezier 4 Handles"
             };
 
-            var intersectionNode2Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic3, quadratic4).Points, 5d), handleStyle)
+            var intersectionNode2Item = new GraphicItem(new NodeRevealer(quadratic3.Intersection(quadratic4).Points, 5d), handleStyle)
             {
                 Name = "Intersection 2 Points"
             };
@@ -1094,7 +1151,7 @@ namespace Editor
                 Name = "Quadratic Bezier 2 Handles"
             };
 
-            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(cubic1, quadratic2).Points, 5d), handleStyle);
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(quadratic2).Points, 5d), handleStyle);
 
             top += 20;
             left += 0;
@@ -1129,7 +1186,7 @@ namespace Editor
                 Name = "Quadratic Bezier 4 Handles"
             };
 
-            var intersectionNode2Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(cubic3, quadratic4).Points, 5d), handleStyle);
+            var intersectionNode2Item = new GraphicItem(new NodeRevealer(cubic3.Intersection(quadratic4).Points, 5d), handleStyle);
 
             vectorMap.Add(cubic1BoundsItem);
             vectorMap.Add(quardatic2BoundsItem);
@@ -1195,7 +1252,7 @@ namespace Editor
                 Name = "Cubic Bezier 2 Handles"
             };
 
-            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(cubic1, cubc2).Points, 5d), handleStyle);
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(cubc2).Points, 5d), handleStyle);
 
             top += 20;
             left += 0;
@@ -1238,7 +1295,7 @@ namespace Editor
                 Name = "Cubic Bezier 4 Handles"
             };
 
-            var intersectionNode2Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(cubic3, cubic4).Points, 5d), handleStyle);
+            var intersectionNode2Item = new GraphicItem(new NodeRevealer(cubic3.Intersection(cubic4).Points, 5d), handleStyle);
 
             vectorMap.Add(cubic1BoundsItem);
             vectorMap.Add(cubic2BoundsItem);
@@ -1294,7 +1351,7 @@ namespace Editor
                 Name = "Quadratic Bezier 2 Handles"
             };
 
-            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic1, quadratic2).Points, 5d), handleStyle)
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(quadratic1.Intersection(quadratic2).Points, 5d), handleStyle)
             {
                 Name = "Quadratic Bezier Intersections"
             };
@@ -1347,7 +1404,7 @@ namespace Editor
                 Name = "Cubic Bezier 2 Handles"
             };
 
-            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(cubic1, cubic2).Points, 5d), handleStyle)
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(cubic2).Points, 5d), handleStyle)
             {
                 Name = "Cubic Bezier Intersections"
             };
@@ -1399,7 +1456,7 @@ namespace Editor
                 Name = "Cubic Bezier 2 Handles"
             };
 
-            var intersectionNode1Item = new GraphicItem(new NodeRevealer(Intersections.Intersection(quadratic1, cubic2).Points, 5d), handleStyle)
+            var intersectionNode1Item = new GraphicItem(new NodeRevealer(quadratic1.Intersection(cubic2).Points, 5d), handleStyle)
             {
                 Name = "Quadratic Cubic Bezier Intersections"
             };
@@ -1445,12 +1502,12 @@ namespace Editor
 
             for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
             {
-                var lineSegment = Filters.RotateDistort(new LineSegment(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Point2D(ellipse.X + ellipse.MajorRadius + whiskerLength, ellipse.Y + skew)), ellipse.Center, angle);
+                var lineSegment = new LineSegment(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Point2D(ellipse.X + ellipse.MajorRadius + whiskerLength, ellipse.Y + skew)).RotateDistort(ellipse.Center, angle);
                 var lineSegmentItem = new GraphicItem(lineSegment, solidGreenStyle)
                 {
                     Name = "Line Segment"
                 };
-                var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipticalArc, lineSegment).Points, 5d), handleStyle);
+                var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipticalArc.Intersection(lineSegment).Points, 5d), handleStyle);
 
                 vectorMap.Add(lineSegmentItem);
                 vectorMap.Add(intersectionNodeItem);
@@ -1495,12 +1552,12 @@ namespace Editor
 
             for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
             {
-                var line = Filters.RotateDistort(new Ray(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)), ellipse.Center, angle);
+                var line = new Ray(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)).RotateDistort(ellipse.Center, angle);
                 var lineItem = new GraphicItem(line, solidGreenStyle)
                 {
                     Name = "Ray"
                 };
-                var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipticalArc, line).Points, 5d), handleStyle);
+                var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipticalArc.Intersection(line).Points, 5d), handleStyle);
 
                 vectorMap.Add(lineItem);
                 vectorMap.Add(intersectionNodeItem);
@@ -1545,12 +1602,12 @@ namespace Editor
 
             for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
             {
-                var line = Filters.RotateDistort(new Line(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)), ellipse.Center, angle);
+                var line = new Line(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)).RotateDistort(ellipse.Center, angle);
                 var lineItem = new GraphicItem(line, solidGreenStyle)
                 {
                     Name = "Line"
                 };
-                var intersectionNodeItem = new GraphicItem(new NodeRevealer(Intersections.Intersection(ellipticalArc, line).Points, 5d), handleStyle);
+                var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipticalArc.Intersection(line).Points, 5d), handleStyle);
 
                 vectorMap.Add(lineItem);
                 vectorMap.Add(intersectionNodeItem);
@@ -1575,14 +1632,14 @@ namespace Editor
             var curveAngle = (60d).ToRadians();
 
             // Horizontal line.
-            var cubicLine1 = Filters.RotateDistort(new Line(left + 20, top + 70, 1, 0), new Point2D(left + 100, top + 72.5), lineAngle);
+            var cubicLine1 = new Line(left + 20, top + 70, 1, 0).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
             var cubicLine1Item = new GraphicItem(cubicLine1, solidGreenStyle)
             {
                 Name = "Cubic Bézier curve Intersecting Line Segment."
             };
 
             // Cubic Bezier where end points are horizontal and the handles between share another y-axis.
-            var cubicBezier1 = Filters.RotateDistort(new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 100, left + 150, top + 50), new Point2D(left + 100, top + 72.5), curveAngle);
+            var cubicBezier1 = new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 100, left + 150, top + 50).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var cubicBezier1Item = new GraphicItem(cubicBezier1, solidGreenStyle)
             {
                 Name = "Cubic Bézier curve."
@@ -1599,14 +1656,14 @@ namespace Editor
             top += 100;
 
             // Horizontal line.
-            var cubicLine2 = Filters.RotateDistort(new Line(left + 20, top + 70, 1, 0), new Point2D(left + 100, top + 72.5), lineAngle);
+            var cubicLine2 = new Line(left + 20, top + 70, 1, 0).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
             var cubicLine2Item = new GraphicItem(cubicLine2, solidGreenStyle)
             {
                 Name = "Cubic Bézier curve Intersecting Line Segment."
             };
 
             // Cubic Bezier where end points are horizontal and the handles between share another y-axis.
-            var cubicBezier2 = Filters.RotateDistort(new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 50, left + 150, top + 100), new Point2D(left + 100, top + 72.5), curveAngle);
+            var cubicBezier2 = new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 50, left + 150, top + 100).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var cubicBezier2Item = new GraphicItem(cubicBezier2, solidGreenStyle)
             {
                 Name = "Cubic Bézier curve."
@@ -1624,14 +1681,14 @@ namespace Editor
             top -= 100;
 
             // Horizontal line.
-            var quadraticLine1 = Filters.RotateDistort(new Line(left + 20, top + 70, 1, 0), new Point2D(left + 100, top + 72.5), lineAngle);
+            var quadraticLine1 = new Line(left + 20, top + 70, 1, 0).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
             var quadraticLine1Item = new GraphicItem(quadraticLine1, solidGreenStyle)
             {
                 Name = "Quadratic Bézier curve Intersecting Line."
             };
 
             // Quadratic Bezier where end points are horizontal.
-            var quadraticBezier1 = Filters.RotateDistort(new QuadraticBezier(left + 50, top + 50, left + 100, top + 150, left + 150, top + 50), new Point2D(left + 100, top + 72.5), curveAngle);
+            var quadraticBezier1 = new QuadraticBezier(left + 50, top + 50, left + 100, top + 150, left + 150, top + 50).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var quadraticBezier1Item = new GraphicItem(quadraticBezier1, solidGreenStyle)
             {
                 Name = "Quadratic Bézier curve."
@@ -1648,14 +1705,14 @@ namespace Editor
             top += 100;
 
             // Horizontal line.
-            var quadraticLine2 = Filters.RotateDistort(new Line(left + 20, top + 70, 1, 0), new Point2D(left + 100, top + 72.5), lineAngle);
+            var quadraticLine2 = new Line(left + 20, top + 70, 1, 0).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
             var quadraticLine2Item = new GraphicItem(quadraticLine2, solidGreenStyle)
             {
                 Name = "Quadratic Bézier curve Intersecting Line Segment."
             };
 
             // Quadratic Bezier where end points are horizontal.
-            var quadraticBezier2 = Filters.RotateDistort(new QuadraticBezier(left + 50, top + 50, left + 100, top + 50, left + 150, top + 100), new Point2D(left + 100, top + 72.5), curveAngle);
+            var quadraticBezier2 = new QuadraticBezier(left + 50, top + 50, left + 100, top + 50, left + 150, top + 100).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var quadraticBezier2Item = new GraphicItem(quadraticBezier2, solidGreenStyle)
             {
                 Name = "Quadratic Bézier curve."
@@ -1669,13 +1726,13 @@ namespace Editor
                 Name = "Quadratic Bézier curve Bounds."
             };
 
-            var cubicIntersections1 = Intersections.Intersection(cubicBezier1, cubicLine1);
+            var cubicIntersections1 = cubicBezier1.Intersection(cubicLine1);
             var cubicIntersections1NodesItem = new GraphicItem(new NodeRevealer(cubicIntersections1.Points, 5d), handleStyle);
-            var cubicIntersections2 = Intersections.Intersection(cubicBezier2, cubicLine2);
+            var cubicIntersections2 = cubicBezier2.Intersection(cubicLine2);
             var cubicIntersections2NodesItem = new GraphicItem(new NodeRevealer(cubicIntersections2.Points, 5d), handleStyle);
-            var quadraticIntersections1 = Intersections.Intersection(quadraticBezier1, quadraticLine1);
+            var quadraticIntersections1 = quadraticBezier1.Intersection(quadraticLine1);
             var quadraticIntersections1NodesItem = new GraphicItem(new NodeRevealer(quadraticIntersections1.Points, 5d), handleStyle);
-            var quadraticIntersections2 = Intersections.Intersection(quadraticBezier2, quadraticLine2);
+            var quadraticIntersections2 = quadraticBezier2.Intersection(quadraticLine2);
             var quadraticIntersections2NodesItem = new GraphicItem(new NodeRevealer(quadraticIntersections2.Points, 5d), handleStyle);
 
             vectorMap.Add(cubicBezier1BoundsItem);
@@ -1715,7 +1772,7 @@ namespace Editor
             var curveAngle = (45d).ToRadians();
 
             // Horizontal line segment.
-            var cubicSegment1 = Filters.RotateDistort(new LineSegment(left + 20, top + 70, left + 175, top + 70), new Point2D(left + 100, top + 72.5), lineAngle);
+            var cubicSegment1 = new LineSegment(left + 20, top + 70, left + 175, top + 70).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
             var cubicSegment1Item = new GraphicItem(cubicSegment1, solidGreenStyle)
             {
                 Name = "Cubic Bézier curve Intersecting Line Segment."
@@ -1726,7 +1783,7 @@ namespace Editor
             };
 
             // Cubic Bezier where end points are horizontal and the handles between share another y-axis.
-            var cubicBezier1 = Filters.RotateDistort(new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 100, left + 150, top + 50), new Point2D(left + 100, top + 72.5), curveAngle);
+            var cubicBezier1 = new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 100, left + 150, top + 50).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var cubicBezier1Item = new GraphicItem(cubicBezier1, solidGreenStyle)
             {
                 Name = "Cubic Bézier curve."
@@ -1743,7 +1800,7 @@ namespace Editor
             top += 100;
 
             // Horizontal line segment.
-            var cubicSegment2 = Filters.RotateDistort(new LineSegment(left + 20, top + 70, left + 175, top + 70), new Point2D(left + 100, top + 72.5), lineAngle);
+            var cubicSegment2 = new LineSegment(left + 20, top + 70, left + 175, top + 70).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
             var cubicSegment2Item = new GraphicItem(cubicSegment2, solidGreenStyle)
             {
                 Name = "Cubic Bézier curve Intersecting Line Segment."
@@ -1754,7 +1811,7 @@ namespace Editor
             };
 
             // Cubic Bezier where end points are horizontal and the handles between share another y-axis.
-            var cubicBezier2 = Filters.RotateDistort(new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 50, left + 150, top + 100), new Point2D(left + 100, top + 72.5), curveAngle);
+            var cubicBezier2 = new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 50, left + 150, top + 100).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var cubicBezier2Item = new GraphicItem(cubicBezier2, solidGreenStyle)
             {
                 Name = "Cubic Bézier curve."
@@ -1772,7 +1829,7 @@ namespace Editor
             top -= 100;
 
             // Horizontal line segment.
-            var quadraticSegment1 = Filters.RotateDistort(new LineSegment(left + 20, top + 70, left + 175, top + 70), new Point2D(left + 100, top + 72.5), lineAngle);
+            var quadraticSegment1 = new LineSegment(left + 20, top + 70, left + 175, top + 70).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
             var quadraticSegment1Item = new GraphicItem(quadraticSegment1, solidGreenStyle)
             {
                 Name = "Quadratic Bézier curve Intersecting Line Segment."
@@ -1783,7 +1840,7 @@ namespace Editor
             };
 
             // Quadratic Bezier where end points are horizontal.
-            var quadraticBezier1 = Filters.RotateDistort(new QuadraticBezier(left + 50, top + 50, left + 100, top + 150, left + 150, top + 50), new Point2D(left + 100, top + 72.5), curveAngle);
+            var quadraticBezier1 = new QuadraticBezier(left + 50, top + 50, left + 100, top + 150, left + 150, top + 50).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var quadraticBezier1Item = new GraphicItem(quadraticBezier1, solidGreenStyle)
             {
                 Name = "Quadratic Bézier curve."
@@ -1800,7 +1857,7 @@ namespace Editor
             top += 100;
 
             // Horizontal line segment.
-            var quadraticSegment2 = Filters.RotateDistort(new LineSegment(left + 20, top + 70, left + 175, top + 70), new Point2D(left + 100, top + 72.5), lineAngle);
+            var quadraticSegment2 = new LineSegment(left + 20, top + 70, left + 175, top + 70).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
             var quadraticSegment2Item = new GraphicItem(quadraticSegment2, solidGreenStyle)
             {
                 Name = "Quadratic Bézier curve Intersecting Line Segment."
@@ -1811,7 +1868,7 @@ namespace Editor
             };
 
             // Quadratic Bezier where end points are horizontal.
-            var quadraticBezier2 = Filters.RotateDistort(new QuadraticBezier(left + 50, top + 50, left + 100, top + 50, left + 150, top + 100), new Point2D(left + 100, top + 72.5), curveAngle);
+            var quadraticBezier2 = new QuadraticBezier(left + 50, top + 50, left + 100, top + 50, left + 150, top + 100).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var quadraticBezier2Item = new GraphicItem(quadraticBezier2, solidGreenStyle)
             {
                 Name = "Quadratic Bézier curve."
@@ -1825,13 +1882,13 @@ namespace Editor
                 Name = "Quadratic Bézier curve Bounds."
             };
 
-            var cubicIntersections1 = Intersections.Intersection(cubicBezier1, cubicSegment1);
+            var cubicIntersections1 = cubicBezier1.Intersection(cubicSegment1);
             var cubicIntersections1NodesItem = new GraphicItem(new NodeRevealer(cubicIntersections1.Points, 5d), handleStyle);
-            var cubicIntersections2 = Intersections.Intersection(cubicBezier2, cubicSegment2);
+            var cubicIntersections2 = cubicBezier2.Intersection(cubicSegment2);
             var cubicIntersections2NodesItem = new GraphicItem(new NodeRevealer(cubicIntersections2.Points, 5d), handleStyle);
-            var quadraticIntersections1 = Intersections.Intersection(quadraticBezier1, quadraticSegment1);
+            var quadraticIntersections1 = quadraticBezier1.Intersection(quadraticSegment1);
             var quadraticIntersections1NodesItem = new GraphicItem(new NodeRevealer(quadraticIntersections1.Points, 5d), handleStyle);
-            var quadraticIntersections2 = Intersections.Intersection(quadraticBezier2, quadraticSegment2);
+            var quadraticIntersections2 = quadraticBezier2.Intersection(quadraticSegment2);
             var quadraticIntersections2NodesItem = new GraphicItem(new NodeRevealer(quadraticIntersections2.Points, 5d), handleStyle);
 
             vectorMap.Add(cubicBezier1BoundsItem);
@@ -1892,7 +1949,7 @@ namespace Editor
 
             var quadraticBezierNodeItem = new GraphicItem(new NodeRevealer(quadraticBezier.Points, 5d), handleStyle);
 
-            var quadraticIntersections = Intersections.Intersection(quadraticBezier, quadraticSegment);
+            var quadraticIntersections = quadraticBezier.Intersection(quadraticSegment);
             var quadraticIntersectionNodesItem = new GraphicItem(new NodeRevealer(quadraticIntersections.Points, 5d), handleStyle);
 
             vectorMap.Add(quadraticBezierBoundsItem);
@@ -1935,7 +1992,7 @@ namespace Editor
                 Name = "Cubic Bézier Bounds."
             };
 
-            var cubicIntersections = Intersections.Intersection(cubicBezier, cubicSegment);
+            var cubicIntersections = cubicBezier.Intersection(cubicSegment);
             var cubicIntersectionNodesItem = new GraphicItem(new NodeRevealer(cubicIntersections.Points, 5d), handleStyle);
 
             vectorMap.Add(cubicBezierBoundsItem);
@@ -1962,7 +2019,7 @@ namespace Editor
             var segment1Item = new GraphicItem(segment1, solidGreenStyle);
             var segment1NodeItem = new GraphicItem(new NodeRevealer(segment1.Points, 5d), handleStyle);
 
-            var segmentIntersection = Intersections.Intersection(segment0, segment1);
+            var segmentIntersection = segment0.Intersection(segment1);
             var segmentIntersectionNodes = new NodeRevealer(segmentIntersection.Points, 5d);
             var segmentIntersectionNodesItem = new GraphicItem(segmentIntersectionNodes, handleStyle);
 
@@ -2033,15 +2090,15 @@ namespace Editor
                 segment.Bounds.X - 5, segment.Bounds.Y - 5, segment.Bounds.Right + 10, segment.Bounds.Bottom + 10, 5, 5);
             var parametricPointTesterSegmentItem = new GraphicItem(parametricPointTesterSegment, paperLikeStyle);
 
-            var ellipseLineIntersections = Intersections.Intersection(ellipseTween, segment);
+            var ellipseLineIntersections = ellipseTween.Intersection(segment);
             var ellipseLineIntersectionNodes = new NodeRevealer(ellipseLineIntersections.Points, 5d);
             var ellipseLineIntersectionNodesItem = new GraphicItem(ellipseLineIntersectionNodes, solidPurpleStyle);
 
-            var intersection3s = Intersections.Intersection(quadraticBezier, cubicBezier);
+            var intersection3s = quadraticBezier.Intersection(cubicBezier);
             var intersectio3nNodes = new NodeRevealer(intersection3s.Points, 5d);
             var intersection3NodesItem = new GraphicItem(intersectio3nNodes, solidPurpleStyle);
 
-            var intersections2 = Intersections.Intersection(cubicBezier, cubicBezier2);
+            var intersections2 = cubicBezier.Intersection(cubicBezier2);
             var intersection2Nodes = new NodeRevealer(intersections2.Points, 5d);
             var intersection2NodesItem = new GraphicItem(intersection2Nodes, solidPurpleStyle);
 
@@ -2520,7 +2577,7 @@ namespace Editor
                 Name = "Line"
             };
 
-            var results = Splitings.Split(line, 0.5, 1);
+            var results = line.Split(0.5, 1);
 
             foreach (var shape in results)
             {
@@ -2549,7 +2606,7 @@ namespace Editor
                 Name = "ray"
             };
 
-            var results = Splitings.Split(ray, 0.75, 0.25);
+            var results = ray.Split(0.75, 0.25);
 
             foreach (var shape in results)
             {
@@ -2578,7 +2635,7 @@ namespace Editor
                 Name = "Line Segment"
             };
 
-            var results = Splitings.Split(segment, 0.75, 0.25);
+            var results = segment.Split(0.75, 0.25);
 
             foreach (var shape in results)
             {
@@ -2619,7 +2676,7 @@ namespace Editor
                 Name = "Quadratic Bezier 1 Handles"
             };
 
-            var results = Splitings.Split(quadratic, 0.25, 0.75);
+            var results = quadratic.Split(0.25, 0.75);
 
             foreach (var shape in results)
             {
@@ -2662,7 +2719,7 @@ namespace Editor
                 Name = "Cubic Bezier 1 Handles"
             };
 
-            var results = Splitings.Split(cubic, 0.25, 0.75);
+            var results = cubic.Split(0.25, 0.75);
 
             foreach (var shape in results)
             {
@@ -2702,7 +2759,7 @@ namespace Editor
                 Name = "Line"
             };
 
-            var rayLineIntersections = Intersections.Intersection(ray, line);
+            var rayLineIntersections = ray.Intersection(line);
             var rayLineIntersectionsNodesItem = new GraphicItem(new NodeRevealer(rayLineIntersections.Points, 5d), handleStyle)
             {
                 Name = "Ray Line Intersection"
@@ -2908,7 +2965,7 @@ namespace Editor
             {
                 Name = "Bezier"
             };
-            var bezier1Intersect = new GraphicItem(new NodeRevealer(Intersections.Intersection(bezier1, line).Points, 5d), handleStyle)
+            var bezier1Intersect = new GraphicItem(new NodeRevealer(bezier1.Intersection(line).Points, 5d), handleStyle)
             {
                 Name = "Bezier Intersection"
             };
@@ -2918,7 +2975,7 @@ namespace Editor
             {
                 Name = "Bezier"
             };
-            var bezier2Intersect = new GraphicItem(new NodeRevealer(Intersections.Intersection(bezier2, line).Points, 5d), handleStyle)
+            var bezier2Intersect = new GraphicItem(new NodeRevealer(bezier2.Intersection(line).Points, 5d), handleStyle)
             {
                 Name = "Bezier Intersection"
             };
@@ -2954,7 +3011,7 @@ namespace Editor
                 Name = "Line"
             };
 
-            var intersectionLineCircle = Intersections.Intersection(circle, line1);
+            var intersectionLineCircle = circle.Intersection(line1);
             var intersectionLineCircleNodeItem = new GraphicItem(new NodeRevealer(intersectionLineCircle.Points, 5d), handleStyle)
             {
                 Name = "Intersection Nodes"
@@ -2972,13 +3029,13 @@ namespace Editor
                 Name = "Line Segment at Circle Center"
             };
 
-            var intersectionLineSegmentCircleTangent = Intersections.Intersection(circle, lineSegmentCircleTangent);
+            var intersectionLineSegmentCircleTangent = circle.Intersection(lineSegmentCircleTangent);
             var intersectionLineSegmentCircleTangentNodeItem = new GraphicItem(new NodeRevealer(intersectionLineSegmentCircleTangent.Points, 5d), handleStyle)
             {
                 Name = "Intersection Nodes 0"
             };
 
-            var intersectionlineSegmentCircleCenter = Intersections.Intersection(circle, lineSegmentCircleCenter);
+            var intersectionlineSegmentCircleCenter = circle.Intersection(lineSegmentCircleCenter);
             var intersectionlineSegmentCircleCenterItem = new GraphicItem(new NodeRevealer(intersectionlineSegmentCircleCenter.Points, 5d), handleStyle)
             {
                 Name = "Intersection Nodes"
@@ -3004,13 +3061,13 @@ namespace Editor
                 Name = "Line Segment 2"
             };
 
-            var intersection1 = Intersections.Intersection(lineSegmentRectangle, rectangle);
+            var intersection1 = lineSegmentRectangle.Intersection(rectangle);
             var intersection1NodeItem = new GraphicItem(new NodeRevealer(intersection1.Points, 5d), handleStyle)
             {
                 Name = "Intersection Nodes"
             };
 
-            var intersection2 = Intersections.Intersection(lineSegmentRectangle, lineSegmentLineSegment);
+            var intersection2 = lineSegmentRectangle.Intersection(lineSegmentLineSegment);
             var intersection2NodeItem = new GraphicItem(new NodeRevealer(intersection2.Points, 5d), handleStyle)
             {
                 Name = "Intersection Nodes"
@@ -3031,7 +3088,7 @@ namespace Editor
                 Name = "Rectangle"
             };
 
-            var intersection3 = Intersections.Intersection(line2, rectangle2);
+            var intersection3 = line2.Intersection(rectangle2);
             var intersection3NodeItem = new GraphicItem(new NodeRevealer(intersection3.Points, 5d), handleStyle)
             {
                 Name = "Intersection Nodes"
@@ -3051,7 +3108,7 @@ namespace Editor
                 Name = "Line"
             };
 
-            var intersection5 = Intersections.Intersection(lineTriangle, triangle);
+            var intersection5 = lineTriangle.Intersection(triangle);
             var intersection5NodeItem = new GraphicItem(new NodeRevealer(intersection5.Points, 5d), handleStyle)
             {
                 Name = "Intersection Nodes"
@@ -3063,7 +3120,7 @@ namespace Editor
                 Name = "Line Segment 3"
             };
 
-            var intersection4 = Intersections.Intersection(lineSegmentTriangle, triangle);
+            var intersection4 = lineSegmentTriangle.Intersection(triangle);
             var intersection4NodeItem = new GraphicItem(new NodeRevealer(intersection4.Points, 5d), handleStyle)
             {
                 Name = "Intersection Nodes"
@@ -3113,7 +3170,7 @@ namespace Editor
                 Name = "Elliptical Arc"
             };
 
-            var beziers = Conversions.ToCubicBeziers(ellipticalArc);
+            var beziers = ellipticalArc.ToCubicBeziers();
             var contour = new PolycurveContour(beziers[0].A);
 
             foreach (var bezier in beziers)
@@ -3207,7 +3264,7 @@ namespace Editor
             };
             var curvedTriangleNodeItem = new GraphicItem(new NodeRevealer(curvedTriangle.Grips, 5d), handleStyle);
 
-            var warpGrid = new ParametricWarpGrid((a) => sphereDistort.Process(a), rect1, rect1.Bounds.X, rect1.Bounds.Y, rect1.Bounds.Right, rect1.Bounds.Bottom, 5, 5);
+            var warpGrid = new ParametricWarpGrid(sphereDistort.Process, rect1, rect1.Bounds.X, rect1.Bounds.Y, rect1.Bounds.Right, rect1.Bounds.Bottom, 5, 5);
             var warpGridItem = new GraphicItem(warpGrid, handleStyle)
             {
                 Name = "Warp"
@@ -3946,7 +4003,7 @@ namespace Editor
         {
             var parametricEllipse = new ParametricDelegateCurve(
                 (x, y, w, h, a, t) => Interpolators.UnitPolarEllipse(x, y, w, h, a, t),
-                (x, y, w, h, a, px, py) => Intersections.EllipseContainsPoint(x, y, w, h, a, px, py),
+                Intersections.EllipseContainsPoint,
                 new Point2D(200d, 100d), new Size2D(25d, 50d), 0, 0);
             var parametricEllipseItem = new GraphicItem(parametricEllipse, paperLikeStyle);
             vectorMap.Add(parametricEllipseItem);
@@ -3998,26 +4055,26 @@ namespace Editor
 
             var parametricEllipse = new ParametricDelegateCurve(
                 (x, y, w, h, a, t) => Interpolators.UnitPolarEllipse(x, y, w, h, a, t),
-                (x, y, w, h, a, px, py) => Intersections.EllipseContainsPoint(x, y, w, h, a, px, py),
+                Intersections.EllipseContainsPoint,
                 new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
             var parametricEllipseItem = new GraphicItem(parametricEllipse, paperLikeStyle);
             vectorMap.Add(parametricEllipseItem);
 
             var parametricPointTesterEllipticArc = new ParametricPointTester(
                 (px, py) => Intersections.EllipticalArcContainsPoint(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, px, py),
-                centerX - (radius1 < radius2 ? radius2 : radius2),
-                centerY - (radius1 < radius2 ? radius2 : radius2),
-                centerX + (radius1 < radius2 ? radius2 : radius2),
-                centerY + (radius1 < radius2 ? radius2 : radius2),
+                centerX - (radius1 < radius2 ? radius2 : radius1),
+                centerY - (radius1 < radius2 ? radius2 : radius1),
+                centerX + (radius1 < radius2 ? radius2 : radius1),
+                centerY + (radius1 < radius2 ? radius2 : radius1),
                 5, 5);
             var parametricPointTesterEllipticArcItem = new GraphicItem(parametricPointTesterEllipticArc, paperLikeStyle);
 
             var parametricPointTesterEllipse = new ParametricPointTester(
                 (px, py) => Intersections.EllipseContainsPoint(centerX, centerY, radius1, radius2, angle, px, py),
-                centerX - (radius1 < radius2 ? radius2 : radius2),
-                centerY - (radius1 < radius2 ? radius2 : radius2),
-                centerX + (radius1 < radius2 ? radius2 : radius2),
-                centerY + (radius1 < radius2 ? radius2 : radius2),
+                centerX - (radius1 < radius2 ? radius2 : radius1),
+                centerY - (radius1 < radius2 ? radius2 : radius1),
+                centerX + (radius1 < radius2 ? radius2 : radius1),
+                centerY + (radius1 < radius2 ? radius2 : radius1),
                 5, 5);
             var parametricPointTesterEllipseItem = new GraphicItem(parametricPointTesterEllipse, paperLikeStyle);
 
@@ -4122,12 +4179,71 @@ namespace Editor
                 Name = "Ellipse Intersecting One."
             };
 
-            var ellipseIntersections = Intersections.Intersection(ellipseOne, ellipseTwo);
+            var ellipseIntersections = ellipseOne.Intersection(ellipseTwo);
             var ellipseIntersectionNodesItem = new GraphicItem(new NodeRevealer(ellipseIntersections.Points, 5d), solidPurpleStyle);
 
             vectorMap.Add(ellipseOneItem);
             vectorMap.Add(ellipseTwoItem);
             vectorMap.Add(ellipseIntersectionNodesItem);
+        }
+
+        /// <summary>
+        /// Development method for parametrically point hit testing geometry.
+        /// </summary>
+        /// <param name="vectorMap">The Map to draw on.</param>
+        public static void ParametricTesting3(VectorMap vectorMap)
+        {
+            var centerX = 200d;
+            var centerY = 200d;
+            var radius1 = 100d;
+            var radius2 = 200d;
+
+            var angle = 45d.ToRadians();
+            var startAngle = 0d.ToRadians();
+            var sweepAngle = 135d.ToRadians();
+
+            var parametricPointTesterEllipticArc = new ParametricPointTester(
+                (px, py) => Intersections.EllipticalArcContainsPoint(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, px, py),
+                centerX - (radius1 < radius2 ? radius2 : radius1),
+                centerY - (radius1 < radius2 ? radius2 : radius1),
+                centerX + (radius1 < radius2 ? radius2 : radius1),
+                centerY + (radius1 < radius2 ? radius2 : radius1),
+                5, 5);
+            var parametricPointTesterEllipticArcItem = new GraphicItem(parametricPointTesterEllipticArc, paperLikeStyle);
+
+            var point = new ScreenPoint(100d, 100d);
+            var pointItem = new GraphicItem(point, paperLikeStyle);
+            var intersection = Intersections.EllipticalArcContainsPoint(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, point.X, point.Y);
+
+            //var ellipse = new Ellipse(centerX, centerY, radius1, radius2, angle);
+            //var ellipseItem = new GraphicItem(ellipse, paperLikeStyle);
+
+            var ellipticArc = new EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            var ellipticArcItem = new GraphicItem(ellipticArc, paperLikeStyle);
+
+            //Rectangle2D ellpticArcBounds = Measurements.EllipticalArcBounds(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
+            //var ellpticArcBoundsItem = new GraphicItem(ellpticArcBounds, selectionStyle);
+
+            //var circularArc = new CircularArc(centerX, centerY, radius1, startAngle + angle, sweepAngle);
+            //var circularArcItem = new GraphicItem(circularArc, paperLikeStyle);
+
+            //Rectangle2D circularArcBounds = Measurements.CircularArcBounds(centerX, centerY, radius1, 0, startAngle + angle, sweepAngle);
+            //var circularArcBoundsItem = new GraphicItem(circularArcBounds, selectionStyle);
+
+            var testAngle = ellipticArc.ExtremeAngles;
+            testAngle.Sort();
+
+            var angleVisualizer = new AngleVisualizerTester(centerX, centerY, (radius1 < radius2 ? radius2 : radius1), testAngle, startAngle + angle, sweepAngle);
+            var angleVisualizerItem = new GraphicItem(angleVisualizer, paperLikeStyle);
+
+            //vectorMap.Add(ellpticArcBoundsItem);
+            //vectorMap.Add(circularArcBoundsItem);
+            //vectorMap.Add(ellipseItem);
+            vectorMap.Add(ellipticArcItem);
+            //vectorMap.Add(circularArcItem);
+            vectorMap.Add(angleVisualizerItem);
+            vectorMap.Add(parametricPointTesterEllipticArcItem);
+            vectorMap.Add(pointItem);
         }
 
         /// <summary>

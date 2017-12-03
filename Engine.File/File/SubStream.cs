@@ -96,13 +96,8 @@ namespace Engine.File
         /// Gets a value indicating whether the current stream supports writing - always returns <c>false</c>
         /// </summary>
         public override bool CanWrite
-        {
-            get
-            {
                 //CheckDisposed();
-                return false;
-            }
-        }
+                => false;
 
         /// <summary>
         /// Gets the count in bytes of the <see cref="SubStream"/>

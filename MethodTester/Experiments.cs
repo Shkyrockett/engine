@@ -646,17 +646,77 @@ namespace MethodSpeedTester
         #region Bezier Coefficients
 
         /// <summary>
-        /// 
+        /// Set of tests to run testing methods that calculate the Polynomial Bezier Coefficients.
+        /// </summary>
+        /// <returns></returns>
+        [System.ComponentModel.DisplayName(nameof(PolynomialBezierCoefficients))]
+        public static List<SpeedTester> PolynomialBezierCoefficients() => new List<SpeedTester> {
+                new SpeedTester(() => BezierCoefficientsRecursive(1, 2, 3, 4),
+                $"{nameof(Experiments.BezierCoefficientsRecursive)}(1, 2, 3, 4)"),
+                new SpeedTester(() => (Polynomial)BezierCoefficients0(1, 2, 3, 4),
+                $"{nameof(Experiments.BezierCoefficients0)}(1, 2, 3, 4)"),
+                new SpeedTester(() => (Polynomial)BezierCoefficients1(1, 2, 3, 4),
+                $"{nameof(Experiments.BezierCoefficients1)}(1, 2, 3, 4)"),
+                new SpeedTester(() => Cubic(1, 2, 3, 4),
+                $"{nameof(Experiments.Cubic)}(1, 2, 3, 4)"),
+          };
+
+        /// <summary>
+        /// Recursive method for calculating the Bezier Polynomial.
+        /// </summary>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial BezierCoefficientsRecursive(params double[] values)
+        {
+            if (values == null || values.Length < 1)
+            {
+                throw new ArgumentNullException(nameof(values), "At least 2 different points must be given");
+            }
+
+            return BezierCoefficientsRecursive(0, values.Length - 1, values);
+        }
+
+        /// <summary>
+        /// Internal Recursive method for calculating the Bezier Polynomial.
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="to"></param>
+        /// <param name="values"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static Polynomial BezierCoefficientsRecursive(int from, int to, double[] values)
+            => (from == to)
+            ? new Polynomial(values[from])
+            : Polynomial.OneMinusT * BezierCoefficientsRecursive(from, to - 1, values) + Polynomial.T * BezierCoefficientsRecursive(from + 1, to, values);
+
+        /// <summary>
+        /// Coefficients for a Cubic Bezier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
-        /// </remarks>
-        private static (double A, double B, double C, double D) BezierCoefficients0(double a, double b, double c, double d)
+        /// http://fontforge.github.io/bezier.html
+        /// http://idav.ucdavis.edu/education/CAGDNotes/Matrix-Cubic-Bezier-Curve/Matrix-Cubic-Bezier-Curve.html
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D) BezierCoefficients0(double a, double b, double c, double d)
             => (d - (3d * c) + (3d * b) - a,
                 (3d * c) - (6d * b) + (3d * a),
                 3d * (b - a),
@@ -673,11 +733,162 @@ namespace MethodSpeedTester
         /// <remarks>
         /// https://www.particleincell.com/2013/cubic-line-intersection/
         /// </remarks>
-        private static (double A, double B, double C, double D) BezierCoefficients1(double a, double b, double c, double d)
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D) BezierCoefficients1(double a, double b, double c, double d)
             => (-a + 3d * b + -3d * c + d,
                 3d * a - 6d * b + 3d * c,
                 -3d * a + 3d * b,
                 a);
+
+        /// <summary>
+        /// Interpolate the polynomial of a Linear Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Linear(double a, double b)
+            => Polynomial.OneMinusT * a + Polynomial.T * b;
+
+        /// <summary>
+        /// Interpolate the polynomial of a Quadratic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Quadratic(double a, double b, double c)
+            => Polynomial.OneMinusT * Linear(a, b) + Polynomial.T * Linear(b, c);
+
+        /// <summary>
+        /// Interpolate the polynomial of a Cubic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Cubic(double a, double b, double c, double d)
+            => (Polynomial.OneMinusT * Quadratic(a, b, c) + Polynomial.T * Quadratic(b, c, d));
+
+        /// <summary>
+        /// Interpolate the polynomial of a Quartic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Quartic(double a, double b, double c, double d, double e)
+            => (Polynomial.OneMinusT * Cubic(a, b, c, d) + Polynomial.T * Cubic(b, c, d, e));
+
+        /// <summary>
+        /// Interpolate the polynomial of a Quintic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Quintic(double a, double b, double c, double d, double e, double f)
+            => (Polynomial.OneMinusT * Quartic(a, b, c, d, e) + Polynomial.T * Quartic(b, c, d, e, f));
+
+        /// <summary>
+        /// Interpolate the polynomial of a Sextic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Sextic(double a, double b, double c, double d, double e, double f, double g)
+            => (Polynomial.OneMinusT * Quintic(a, b, c, d, e, f) + Polynomial.T * Quintic(b, c, d, e, f, g));
+
+        /// <summary>
+        /// Interpolate the polynomial of a Septic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Septic(double a, double b, double c, double d, double e, double f, double g, double h)
+            => (Polynomial.OneMinusT * Sextic(a, b, c, d, e, f, g) + Polynomial.T * Sextic(b, c, d, e, f, g, h));
+
+        /// <summary>
+        /// Interpolate the polynomial of a Octic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
+            => (Polynomial.OneMinusT * Septic(a, b, c, d, e, f, g, h) + Polynomial.T * Septic(b, c, d, e, f, g, h, i));
+
 
         #endregion
 
@@ -3214,8 +3425,8 @@ namespace MethodSpeedTester
         /// <returns>returns null if the curve is self-intersecting, or the point of intersection if it is.</returns>
         public static Point2D? CubicBezierSelfIntersectionX(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
             => CubicBezierSelfIntersection(
-                Polynomial.Cubic(x0, x1, x2, x3),
-                Polynomial.Cubic(y0, y1, y2, y3));
+                Maths.CubicBezierCoefficients(x0, x1, x2, x3),
+                Maths.CubicBezierCoefficients(y0, y1, y2, y3));
 
         /// <summary>
         /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
@@ -3267,10 +3478,10 @@ namespace MethodSpeedTester
         /// <returns>returns null if the curve is self-intersecting, or the point of intersection if it is.</returns>
         public static Point2D? CubicBezierSelfIntersection(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            var xCurve = CubicBezierCoefficients(x0, x1, x2, x3);
-            (var a, var b) = (xCurve.D == 0d) ? (xCurve.C, xCurve.B) : (xCurve.C / xCurve.D, xCurve.B / xCurve.D);
-            var yCurve = CubicBezierCoefficients(y0, y1, y2, y3);
-            (var p, var q) = (yCurve.D == 0d) ? (yCurve.C, yCurve.B) : (yCurve.C / yCurve.D, yCurve.B / yCurve.D);
+            var (xCurveA, xCurveB, xCurveC, xCurveD) = CubicBezierCoefficients(x0, x1, x2, x3);
+            (var a, var b) = (xCurveD == 0d) ? (xCurveC, xCurveB) : (xCurveC / xCurveD, xCurveB / xCurveD);
+            var (yCurveA, yCurveB, yCurveC, yCurveD) = CubicBezierCoefficients(y0, y1, y2, y3);
+            (var p, var q) = (yCurveD == 0d) ? (yCurveC, yCurveB) : (yCurveC / yCurveD, yCurveB / yCurveD);
 
             if (a == p || q == b)
                 return null;
@@ -11678,6 +11889,497 @@ namespace MethodSpeedTester
 
             return (a / d1Squared)
                  + (b / d2Squared) <= 1d;
+        }
+
+        #endregion
+
+        #region Point in Elliptical Arc Sector
+
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcSectorContainsPoint(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double startAngle,
+            double sweepAngle,
+            double pX, double pY,
+            double epsilon = Epsilon)
+            => EllipticalArcSectorContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(sweepAngle), Sin(sweepAngle), pX, pY, epsilon);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startCosT"></param>
+        /// <param name="startSinT"></param>
+        /// <param name="sweepCosT"></param>
+        /// <param name="sweepSinT"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcSectorContainsPoint(
+            double cX, double cY,
+            double r1, double r2,
+            double cosT, double sinT,
+            double startCosT, double startSinT,
+            double sweepCosT, double sweepSinT,
+            double pX, double pY,
+            double epsilon = Epsilon)
+        {
+            // If the ellipse is empty it can't contain anything.
+            if (r1 <= 0d || r2 <= 0d)
+            {
+                return Inclusion.Outside;
+            }
+
+            var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
+            var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
+
+            // Find the start and end angles.
+            var sa = EllipticalPolarVector(startCosT, startSinT, r1, r2);
+            var ea = EllipticalPolarVector(endCosT, endSinT, r1, r2);
+
+            // Ellipse equation for an ellipse at origin for the chord end points.
+            var u1 = r1 * sa.cosT;
+            var v1 = -(r2 * sa.sinT);
+            var u2 = r1 * ea.cosT;
+            var v2 = -(r2 * ea.sinT);
+
+            // Find the points of the chord.
+            var sX = cX + (u1 * cosT + v1 * sinT);
+            var sY = cY + (u1 * sinT - v1 * cosT);
+            var eX = cX + (u2 * cosT + v2 * sinT);
+            var eY = cY + (u2 * sinT - v2 * cosT);
+
+            // Find the determinant of the chord.
+            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+
+            // Check if the point is on the chord.
+            if (Abs(determinant) <= Epsilon)
+            {
+                return (sX < eX) ?
+                (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
+                (eX <= pX && pX <= sX) ? Inclusion.Boundary : Inclusion.Outside;
+            }
+
+            // Check whether the point is on the side of the chord as the center.
+            if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
+            {
+                return Inclusion.Outside;
+            }
+
+            // Translate points to origin.
+            var u0 = pX - cX;
+            var v0 = pY - cY;
+
+            // Apply the rotation transformation.
+            var a = u0 * cosT + v0 * sinT;
+            var b = u0 * sinT - v0 * cosT;
+
+            // Normalize the radius.
+            var normalizedRadius
+                = ((a * a) / (r1 * r1))
+                + ((b * b) / (r2 * r2));
+
+            return (normalizedRadius <= 1d)
+                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcSectorContainsPoint0(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double startAngle,
+            double sweepAngle,
+            double pX, double pY,
+            double epsilon = Epsilon)
+            => EllipticalArcSectorContainsPoint0(cX, cY, r1, r2, Cos(angle), Sin(angle), startAngle, sweepAngle, pX, pY, epsilon);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcSectorContainsPoint0(
+            double cX, double cY,
+            double r1, double r2,
+            double cosT, double sinT,
+            double startAngle, double sweepAngle,
+            double pX, double pY,
+            double epsilon = Epsilon)
+        {
+            // If the ellipse is empty it can't contain anything.
+            if (r1 <= 0d || r2 <= 0d)
+            {
+                return Inclusion.Outside;
+            }
+
+            var endAngle = startAngle + sweepAngle;
+
+            // Find the start and end angles.
+            var sa = EllipticalPolarAngle(startAngle, r1, r2);
+            var ea = EllipticalPolarAngle(endAngle, r1, r2);
+
+            // Ellipse equation for an ellipse at origin for the chord end points.
+            var u1 = r1 * Cos(sa);
+            var v1 = -(r2 * Sin(sa));
+            var u2 = r1 * Cos(ea);
+            var v2 = -(r2 * Sin(ea));
+
+            // Find the points of the chord.
+            var sX = cX + (u1 * cosT + v1 * sinT);
+            var sY = cY + (u1 * sinT - v1 * cosT);
+            var eX = cX + (u2 * cosT + v2 * sinT);
+            var eY = cY + (u2 * sinT - v2 * cosT);
+
+            // Find the determinant of the chord.
+            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+
+            // Check if the point is on the chord.
+            if (Abs(determinant) <= Epsilon)
+            {
+                return (sX < eX) ?
+                (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
+                (eX <= pX && pX <= sX) ? Inclusion.Boundary : Inclusion.Outside;
+            }
+
+            // Check whether the point is on the side of the chord as the center.
+            if (Sign(determinant) == Sign(sweepAngle))
+            {
+                return Inclusion.Outside;
+            }
+
+            // Translate points to origin.
+            var u0 = pX - cX;
+            var v0 = pY - cY;
+
+            // Apply the rotation transformation.
+            var a = u0 * cosT + v0 * sinT;
+            var b = u0 * sinT - v0 * cosT;
+
+            // Normalize the radius.
+            var normalizedRadius
+                = ((a * a) / (r1 * r1))
+                + ((b * b) / (r2 * r2));
+
+            return (normalizedRadius <= 1d)
+                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcContainsPoint1(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double startAngle,
+            double sweepAngle,
+            double pX, double pY,
+            double epsilon = Epsilon)
+            => EllipticalArcContainsPoint1(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(sweepAngle), Sin(sweepAngle), pX, pY, epsilon);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startCosT"></param>
+        /// <param name="startSinT"></param>
+        /// <param name="sweepCosT"></param>
+        /// <param name="sweepSinT"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// https://math.stackexchange.com/a/1760296
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcContainsPoint1(
+            double cX, double cY,
+            double r1, double r2,
+            double cosT, double sinT,
+            double startCosT, double startSinT,
+            double sweepCosT, double sweepSinT,
+            double pX, double pY,
+            double epsilon = Epsilon)
+        {
+            // If the ellipse is empty it can't contain anything.
+            if (r1 <= 0d || r2 <= 0d)
+            {
+                return Inclusion.Outside;
+            }
+
+            // If the Sweep angle is Tau, the EllipticalArc must be an Ellipse.
+            if (Abs(sweepCosT - 1d) < epsilon && Abs(sweepSinT) < epsilon)
+            {
+                return Intersections.EllipseContainsPoint(cX, cY, r1, r2, sinT, cosT, pX, pY);
+            }
+
+            var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
+            var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
+
+            // Find the start and end angles.
+            var sa = EllipticalPolarVector(startCosT, startSinT, r1, r2);
+            var ea = EllipticalPolarVector(endCosT, endSinT, r1, r2);
+
+            // Ellipse equation for an ellipse at origin for the chord end points.
+            var u1 = r1 * sa.cosT;
+            var v1 = -(r2 * sa.sinT);
+            var u2 = r1 * ea.cosT;
+            var v2 = -(r2 * ea.sinT);
+
+            // Find the points of the chord.
+            var sX = cX + (u1 * cosT + v1 * sinT);
+            var sY = cY + (u1 * sinT - v1 * cosT);
+            var eX = cX + (u2 * cosT + v2 * sinT);
+            var eY = cY + (u2 * sinT - v2 * cosT);
+
+            // Find the determinant of the chord.
+            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+
+            // Check whether the point is on the same side of the chord as the center.
+            if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
+            {
+                return Inclusion.Outside;
+            }
+
+            // Translate point to origin.
+            var u0 = pX - cX;
+            var v0 = pY - cY;
+
+            // Apply the rotation transformation to the point at the origin.
+            var a = u0 * cosT + v0 * sinT;
+            var b = u0 * sinT - v0 * cosT;
+
+            // Normalize the radius.
+            var normalizedRadius
+                = ((a * a) / (r1 * r1))
+                + ((b * b) / (r2 * r2));
+
+            return (normalizedRadius <= 1d)
+                ? ((Abs(normalizedRadius - 1d) < epsilon)
+                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+        }
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startAngle"></param>
+        /// <param name="sweepAngle"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcContainsPoint2(
+            double cX, double cY,
+            double r1, double r2,
+            double angle,
+            double startAngle,
+            double sweepAngle,
+            double pX, double pY,
+            double epsilon = Epsilon)
+            => EllipticalArcContainsPoint2(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(sweepAngle), Sin(sweepAngle), pX, pY, epsilon);
+
+        /// <summary>
+        /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
+        /// </summary>
+        /// <param name="cX">Center x-coordinate.</param>
+        /// <param name="cY">Center y-coordinate.</param>
+        /// <param name="r1">The first radius of the Ellipse.</param>
+        /// <param name="r2">The second radius of the Ellipse.</param>
+        /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="startCosT"></param>
+        /// <param name="startSinT"></param>
+        /// <param name="sweepCosT"></param>
+        /// <param name="sweepSinT"></param>
+        /// <param name="pX">The x-coordinate of the test point.</param>
+        /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
+        /// https://math.stackexchange.com/a/1760296
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Inclusion EllipticalArcContainsPoint2(
+            double cX, double cY,
+            double r1, double r2,
+            double cosT, double sinT,
+            double startCosT, double startSinT,
+            double sweepCosT, double sweepSinT,
+            double pX, double pY,
+            double epsilon = Epsilon)
+        {
+            // If the ellipse is empty it can't contain anything.
+            if (r1 <= 0d || r2 <= 0d)
+            {
+                return Inclusion.Outside;
+            }
+
+            // If the Sweep angle is Tau, the EllipticalArc must be an Ellipse.
+            if (Abs(sweepCosT - 1d) < epsilon && Abs(sweepSinT) < epsilon)
+            {
+                return Intersections.EllipseContainsPoint(cX, cY, r1, r2, sinT, cosT, pX, pY);
+            }
+
+            var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
+            var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
+
+            // ToDo: Simplify out Atan2
+            var startAngle = Atan2(startSinT, startCosT);
+            var endAngle = Atan2(endSinT, endCosT);
+
+            // Find the start and end angles.
+            var sa = EllipticalPolarAngle(startAngle, r1, r2);
+            var ea = EllipticalPolarAngle(endAngle, r1, r2);
+
+            // Ellipse equation for an ellipse at origin for the chord end points.
+            var u1 = r1 * Cos(sa);
+            var v1 = -(r2 * Sin(sa));
+            var u2 = r1 * Cos(ea);
+            var v2 = -(r2 * Sin(ea));
+
+            // Find the points of the chord.
+            var sX = cX + (u1 * cosT + v1 * sinT);
+            var sY = cY + (u1 * sinT - v1 * cosT);
+            var eX = cX + (u2 * cosT + v2 * sinT);
+            var eY = cY + (u2 * sinT - v2 * cosT);
+
+            // Find the determinant of the chord.
+            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+
+            // Check whether the point is on the same side of the chord as the center.
+            if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
+            {
+                return Inclusion.Outside;
+            }
+
+            // Translate point to origin.
+            var u0 = pX - cX;
+            var v0 = pY - cY;
+
+            // Apply the rotation transformation to the point at the origin.
+            var a = u0 * cosT + v0 * sinT;
+            var b = u0 * sinT - v0 * cosT;
+
+            // Normalize the radius.
+            var normalizedRadius
+                = ((a * a) / (r1 * r1))
+                + ((b * b) / (r2 * r2));
+
+            return (normalizedRadius <= 1d)
+                ? ((Abs(normalizedRadius - 1d) < epsilon)
+                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
         #endregion

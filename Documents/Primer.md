@@ -34,7 +34,7 @@ A **Polynomial** is a general term for the sets of expressions set up with terms
 | Monomial | ![][monomial] | A Monomial is a polynomial that consists of only a single term. |
 | Binomial | ![][binomial] | A Binomial is a polynomial that consists of two terms. |
 | Trinomial | ![][trinomial] | A Trinomial is a polynomial that consists of three sets of terms. |
-| Multinomial | ![][polynomial] | A Multinomial is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considdered a Multinomial. |
+| Multinomial | ![][polynomial] | A Multinomial is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considered a Multinomial. |
 | Quadrinomial | ![][quadrinomial] | A Quadrinomial is a polynomial that consists of four sets of terms. |
 | Quintinomial | ![][quintinomial] | A Quintinomial is a polynomial that consists of five sets of terms. |
 | Sextomial | ![][sextomial] | A Sextomial is a polynomial that consists of six sets of terms. |

@@ -1315,34 +1315,6 @@ namespace Engine.WindowsForms
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static int SignedHIWORD(this int n) => (short)((n >> 0x10) & 0xffff);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static int SignedHIWORD(this IntPtr n) => SignedHIWORD((int)((long)n));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static int SignedLOWORD(this int n) => (short)(n & 0xffff);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        public static int SignedLOWORD(this IntPtr n) => SignedLOWORD((int)((long)n));
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="hr"></param>
         /// <returns></returns>
         public static bool Succeeded(int hr) => (hr >= 0);

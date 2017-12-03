@@ -152,7 +152,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => Polynomial.Quadratic(Start.Value.X, Handle.Value.X, End.Value.X));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)Maths.QuadraticBezierCoefficients(Start.Value.X, Handle.Value.X, End.Value.X));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -166,7 +166,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => Polynomial.Quadratic(Start.Value.Y, Handle.Value.Y, End.Value.Y));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)Maths.QuadraticBezierCoefficients(Start.Value.Y, Handle.Value.Y, End.Value.Y));
                 curveY.IsReadonly = true;
                 return curveY;
             }

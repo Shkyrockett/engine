@@ -526,7 +526,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => Polynomial.Cubic(dx, cx, bx, ax));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)Maths.CubicBezierCoefficients(dx, cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -540,7 +540,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => Polynomial.Cubic(dy, cy, by, ay));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)Maths.CubicBezierCoefficients(dy, cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -702,7 +702,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Tangent(double t)
-            => Primitives.Normalize(Derivative(t));
+            => Derivative(t).Normalize();
 
         #region Methods
 

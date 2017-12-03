@@ -503,13 +503,44 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial LinearBezierCoefficientsStack(double a, double b)
+            => Polynomial.OneMinusT * a + Polynomial.T * b;
+
+        /// <summary>
+        /// Coefficients for a Linear Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
         /// http://fontforge.github.io/bezier.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) LinearBezierCoefficients(double a, double b)
-            => (a,
-                b - a);
+            => (b - a,
+                a);
+
+        /// <summary>
+        /// Coefficients for a Quadratic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial QuadraticBezierCoefficientsStack(double a, double b, double c)
+            => Polynomial.OneMinusT * LinearBezierCoefficientsStack(a, b) + Polynomial.T * LinearBezierCoefficientsStack(b, c);
 
         /// <summary>
         /// Coefficients for a Quadratic Bezier curve.
@@ -526,9 +557,26 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C) QuadraticBezierCoefficients(double a, double b, double c)
-            => (a,
+            => (c - (2d * b) + a,
                 2d * (b - a),
-                c - (2d * b) + a);
+                a);
+
+        /// <summary>
+        /// Coefficients for a Cubic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial CubicBezierCoefficientsStack(double a, double b, double c, double d)
+            => (Polynomial.OneMinusT * QuadraticBezierCoefficientsStack(a, b, c) + Polynomial.T * QuadraticBezierCoefficientsStack(b, c, d));
 
         /// <summary>
         /// Coefficients for a Cubic Bezier curve.
@@ -547,10 +595,28 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) CubicBezierCoefficients(double a, double b, double c, double d)
-            => (a,
-                3d * (b - a),
+            => (d - (3d * c) + (3d * b) - a,
                 (3d * c) - (6d * b) + (3d * a),
-                d - (3d * c) + (3d * b) - a);
+                3d * (b - a),
+                a);
+
+        /// <summary>
+        /// Coefficients for a Quartic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial QuarticBezierCoefficientsStack(double a, double b, double c, double d, double e)
+            => (Polynomial.OneMinusT * CubicBezierCoefficientsStack(a, b, c, d) + Polynomial.T * CubicBezierCoefficientsStack(b, c, d, e));
 
         /// <summary>
         /// Coefficients for a Quartic Bezier curve.
@@ -568,11 +634,30 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E) QuarticBezierCoefficients(double a, double b, double c, double d, double e)
-            => (a,
-                4d * (b - a),
-                (6d * c) - (12d * b) + (6d * a),
+            => (e - (4d * d) + (6d * c) - (4d * b) + a,
                 (4d * d) - (12d * c) + (12d * b) - (4d * a),
-                e - (4d * d) + (6d * c) - (4d * b) + a);
+                (6d * c) - (12d * b) + (6d * a),
+                4d * (b - a),
+                a);
+
+        /// <summary>
+        /// Coefficients for a Quintic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial QuinticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f)
+            => (Polynomial.OneMinusT * QuarticBezierCoefficientsStack(a, b, c, d, e) + Polynomial.T * QuarticBezierCoefficientsStack(b, c, d, e, f));
 
         /// <summary>
         /// Coefficients for a Quintic Bezier curve.
@@ -591,12 +676,122 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F) QuinticBezierCoefficients(double a, double b, double c, double d, double e, double f)
-            => (a,
-                5d * (b - a),
-                (10d * c) - (20d * b) + (10d * a),
-                (10d * d) - (30d * c) + (30d * b) - (10d * a),
+            => (f - (5d * e) + (10d * d) - (10d * c) + (5d * b) - a,
                 (5d * e) - (20d * d) + (30d * c) - (20d * b) + (5 * a),
-                f - (5d * e) + (10d * d) - (10d * c) + (5d * b) - a);
+                (10d * d) - (30d * c) + (30d * b) - (10d * a),
+                (10d * c) - (20d * b) + (10d * a),
+                5d * (b - a),
+                a);
+
+        /// <summary>
+        /// Coefficients for a Sextic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial SexticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g)
+            => (Polynomial.OneMinusT * QuinticBezierCoefficientsStack(a, b, c, d, e, f) + Polynomial.T * QuinticBezierCoefficientsStack(b, c, d, e, f, g));
+
+        /// <summary>
+        /// Coefficients for a Septic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial SepticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h)
+            => (Polynomial.OneMinusT * SexticBezierCoefficientsStack(a, b, c, d, e, f, g) + Polynomial.T * SexticBezierCoefficientsStack(b, c, d, e, f, g, h));
+
+        /// <summary>
+        /// Coefficients for a Octic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial OcticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i)
+            => (Polynomial.OneMinusT * SepticBezierCoefficientsStack(a, b, c, d, e, f, g, h) + Polynomial.T * SepticBezierCoefficientsStack(b, c, d, e, f, g, h, i));
+
+        /// <summary>
+        /// Coefficients for a Nonic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial NonicBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
+            => (Polynomial.OneMinusT * OcticBezierCoefficientsStack(a, b, c, d, e, f, g, h, i) + Polynomial.T * OcticBezierCoefficientsStack(b, c, d, e, f, g, h, i, j));
+
+        /// <summary>
+        /// Coefficients for a Decic Bezier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial DecicBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
+            => (Polynomial.OneMinusT * NonicBezierCoefficientsStack(a, b, c, d, e, f, g, h, i, j) + Polynomial.T * NonicBezierCoefficientsStack(b, c, d, e, f, g, h, i, j, k));
 
         #endregion
 

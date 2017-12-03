@@ -173,6 +173,48 @@ namespace Engine
         #endregion
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int HiWord(this int n) => (ushort)((n >> 0x10) & 0xffff);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int SignedHiWord(this int n) => (short)((n >> 0x10) & 0xffff);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int SignedHiWord(this IntPtr n) => SignedHiWord((int)((long)n));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int LoWord(this int n) => (ushort)(n & 0xffff);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int SignedLoWord(this int n) => (short)(n & 0xffff);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public static int SignedLoWord(this IntPtr n) => SignedLoWord((int)((long)n));
+
+        /// <summary>
         /// Swap left and right values so the left object has the value of the right object and visa-versa.
         /// </summary>
         /// <param name="a">The left value.</param>

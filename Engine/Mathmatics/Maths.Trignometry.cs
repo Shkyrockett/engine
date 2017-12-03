@@ -312,7 +312,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
-        /// Based on the answer by flup at: http://stackoverflow.com/questions/17762077/how-to-find-the-point-on-ellipse-given-the-angle
+        /// Based on the answer by flup at: https://stackoverflow.com/a/17762156/7004229
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -324,12 +324,86 @@ namespace Engine
             // Find the elliptical t that matches the circular angle.
             if (Math.Abs(theta) == Right || Math.Abs(theta) == Pau)
                 return angle;
-            else if (theta > Right && theta < Pau)
+            if (theta > Right && theta < Pau)
                 return Atan(rx * Tan(theta) / ry) + PI;
-            else if (theta < -Right && theta > -Pau)
+            if (theta < -Right && theta > -Pau)
                 return Atan(rx * Tan(theta) / ry) - PI;
-            else
-                return Atan(rx * Tan(theta) / ry);
+            return Atan(rx * Tan(theta) / ry);
+        }
+
+        /// <summary>
+        /// Find the elliptical (cos(t), sin(t)) that matches the coordinates of a circular angle.
+        /// </summary>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
+        /// <param name="rx">The first radius of the ellipse.</param>
+        /// <param name="ry">The second radius of the ellipse.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Vectorized version of the answer by flup at: https://stackoverflow.com/a/17762156/7004229
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double cosT, double sinT) EllipticalPolarVector(double cosA, double sinA, double rx, double ry)
+        {
+            // Find the elliptical t that matches the circular angle.
+            if (Math.Abs(cosA) == 1d || cosA == 0)
+            {
+                return (cosA, sinA);
+            }
+            if (cosA < 0 || cosA > 0)
+            {
+                return (-(1 / Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA))),
+                    -((rx * sinA) / (ry * cosA * Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA)))));
+            }
+            {
+                return (1 / Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA)),
+                    (rx * sinA) / (ry * cosA * Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA))));
+            }
+        }
+
+        /// <summary>
+        /// Find the elliptical (cos(t), sin(t)) that matches the coordinates of a circular angle.
+        /// </summary>
+        /// <param name="cosA"></param>
+        /// <param name="sinA"></param>
+        /// <param name="rx">The first radius of the ellipse.</param>
+        /// <param name="ry">The second radius of the ellipse.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based on the answer by flup at: https://stackoverflow.com/a/17762156/7004229
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double cosT, double sinT) EllipticalPolarAngleVector0(double cosA, double sinA, double rx, double ry)
+        {
+            // Get angle.
+            var angle = Atan2(sinA, cosA);
+
+            // Wrap the angle between -2PI and 2PI.
+            var theta = angle % Tau;
+
+            // Find the elliptical t that matches the circular angle.
+            if (cosA == 1d)
+            {
+                return (cosA, sinA);
+            }
+            if (cosA < 0)
+            {
+                var t = Atan(rx * Tan(theta) / ry) + PI;
+                return (Cos(t), Sin(t));
+            }
+            if (cosA > 0)
+            {
+                var t = Atan(rx * Tan(theta) / ry) - PI;
+                return (Cos(t), Sin(t));
+            }
+            {
+                var t = Atan(rx * Tan(theta) / ry);
+                return (Cos(t), Sin(t));
+            }
         }
 
         /// <summary>

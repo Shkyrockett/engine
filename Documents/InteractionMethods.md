@@ -323,20 +323,20 @@ Intersection methods in the Intersections class should be marked as public stati
 
 | **Intersection** | **Point** | **Line** | **Ray** | **Line Segment** | **Quadratic Bezier** | **Cubic Bezier** | **Triangle** | **Rectangle** | **Polyline** | **Polygon Contour** | **Polycurve Contour** | **Circle** | **Circular Arc** | **Ellipse** | **Elliptical Arc** |
 |:----------------------|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Point**             | [x] | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Line**              | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [x] | [x] | [x] |
-| **Ray**               | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [x] | [x] | [x] |
-| **Line Segment**      | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [x] | [x] | [x] |
-| **Quadratic Bezier**  | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
-| **Cubic Bezier**      | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
-| **Triangle**          | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
-| **Rectangle**         | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
-| **Polyline**          | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Polygon Contour**   | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
+| **Point**             | [x] | [x] | [x] | [x] | [ ] | [ ] | [x] | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] |
+| **Line**              | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [x] | [x] | [x] |
+| **Ray**               | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [x] | [x] | [x] |
+| **Line Segment**      | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [x] | [x] | [x] |
+| **Quadratic Bezier**  | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
+| **Cubic Bezier**      | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
+| **Triangle**          | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
+| **Rectangle**         | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
+| **Polyline**          | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
+| **Polygon Contour**   | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
 | **Polycurve Contour** | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Circle**            | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
+| **Circle**            | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
 | **Circular Arc**      | [ ] | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
-| **Ellipse**           | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
+| **Ellipse**           | [ ] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [x] | [ ] | [x] | [ ] | [x] | [ ] |
 | **Elliptical Arc**    | [ ] | [x] | [x] | [x] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |
 
 ## Split(t)

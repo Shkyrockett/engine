@@ -41,7 +41,7 @@ namespace Engine
         /// <summary>
         /// The array form of the Identity <see cref="Polynomial"/>.
         /// </summary>
-        public static readonly double[] Identity = new double[] { 1, 0 };
+        public static readonly double[] Identity = { 1, 0 };
 
         /// <summary>
         /// The Bisection accuracy.
@@ -302,10 +302,7 @@ namespace Engine
                     return;
                 }
 
-                if (value)
-                {
-                    isReadonly = true;
-                }
+                isReadonly |= value;
             }
         }
 
@@ -389,7 +386,7 @@ namespace Engine
             var res = new double[addend.Count];
             Array.Copy(addend.coefficients, res, addend.Count);
             res[0] += value;
-            return (new Polynomial() { coefficients = res, isReadonly = addend.isReadonly });
+            return (new Polynomial { coefficients = res, isReadonly = addend.isReadonly });
         }
 
         /// <summary>
@@ -422,7 +419,7 @@ namespace Engine
 
                 res[i] = p;
             }
-            return (new Polynomial() { coefficients = res, isReadonly = value.isReadonly | addend.isReadonly });
+            return (new Polynomial { coefficients = res, isReadonly = value.isReadonly | addend.isReadonly });
         }
 
         /// <summary>
@@ -444,7 +441,7 @@ namespace Engine
                 res[i] = -value.coefficients[i];
             }
 
-            return (new Polynomial() { coefficients = res, isReadonly = value.isReadonly });
+            return (new Polynomial { coefficients = res, isReadonly = value.isReadonly });
         }
 
         /// <summary>
@@ -483,7 +480,7 @@ namespace Engine
             }
 
             res[0] += value;
-            return (new Polynomial() { coefficients = res, isReadonly = subend.isReadonly });
+            return (new Polynomial { coefficients = res, isReadonly = subend.isReadonly });
         }
 
         /// <summary>
@@ -517,7 +514,7 @@ namespace Engine
                 res[i] = p;
             }
 
-            return (new Polynomial() { coefficients = res, isReadonly = value.isReadonly | subend.isReadonly });
+            return (new Polynomial { coefficients = res, isReadonly = value.isReadonly | subend.isReadonly });
         }
 
         /// <summary>
@@ -555,7 +552,7 @@ namespace Engine
                 res[i] = value * factor.coefficients[i];
             }
 
-            return (new Polynomial() { coefficients = res, isReadonly = factor.isReadonly });
+            return (new Polynomial { coefficients = res, isReadonly = factor.isReadonly });
         }
 
         /// <summary>
@@ -582,7 +579,7 @@ namespace Engine
                 }
             }
 
-            return (new Polynomial() { coefficients = res, isReadonly = value.isReadonly | factor.isReadonly });
+            return (new Polynomial { coefficients = res, isReadonly = value.isReadonly | factor.isReadonly });
         }
 
         /// <summary>
@@ -605,7 +602,7 @@ namespace Engine
                 res[i] = divisor.coefficients[i] / dividend;
             }
 
-            return (new Polynomial() { coefficients = res, isReadonly = divisor.isReadonly });
+            return (new Polynomial { coefficients = res, isReadonly = divisor.isReadonly });
         }
 
         /// <summary>
@@ -732,22 +729,22 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Trim(double epsilon = Epsilon)
         {
-            //Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.Ensures(Contract.Result<Polynomial>() != null);
             //Contract.EndContractBlock();
 
             // If there are no coefficients then this is a Monomial of 0.
-            if (this.coefficients == null || this.coefficients.Length < 1)
+            if (coefficients == null || coefficients.Length < 1)
             {
-                return new Polynomial(0) { isReadonly = this.isReadonly };
+                return new Polynomial(0) { isReadonly = isReadonly };
             }
 
             // Get the real degree to skip any leading zero coefficients.
-            var order = (int)Degree + 1;
+            var order = (int)(degree = degree ?? RealOrder(epsilon)).Value + 1; /*Warning! Side effect!*/
 
             // Copy the remaining coefficients to a new array and return it.
-            var coefficients = new double[order];
-            Array.Copy(this.coefficients, 0, coefficients, 0, order);
-            return new Polynomial() { coefficients = coefficients, isReadonly = this.isReadonly };
+            var coeffs = new double[order];
+            Array.Copy(coefficients, 0, coeffs, 0, order);
+            return new Polynomial { coefficients = coeffs, isReadonly = isReadonly };
         }
 
         /// <summary>
@@ -761,7 +758,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Derivate()
         {
-            //Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.Ensures(Contract.Result<Polynomial>() != null);
             //Contract.EndContractBlock();
 
             var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
@@ -771,7 +768,7 @@ namespace Engine
                 res[i - 1] = i * coefficients[i];
             }
 
-            return new Polynomial() { coefficients = res, isReadonly = this.isReadonly };
+            return new Polynomial { coefficients = res, isReadonly = isReadonly };
         }
 
         /// <summary>
@@ -799,7 +796,7 @@ namespace Engine
                 }
             }
 
-            return new Polynomial() { coefficients = res, isReadonly = this.isReadonly };
+            return new Polynomial { coefficients = res, isReadonly = isReadonly };
         }
 
         /// <summary>
@@ -814,7 +811,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomial Integrate(double term0 = 0)
         {
-            //Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.Ensures(Contract.Result<Polynomial>() != null);
             //Contract.EndContractBlock();
 
             //ToDo: Figure out if the real order should be used or if the leading zero coefficients are needed.
@@ -828,7 +825,7 @@ namespace Engine
                 res[i + 1] = coefficients[i] / (i + 1);
             }
 
-            return new Polynomial() { coefficients = res, isReadonly = this.isReadonly };
+            return new Polynomial { coefficients = res, isReadonly = isReadonly };
         }
 
         /// <summary>
@@ -854,7 +851,7 @@ namespace Engine
                 throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(n)} must be a number");
             }
 
-            //Contract.Ensures(Contract.Result<Polynomial>().Coefficients != null);
+            Contract.Ensures(Contract.Result<Polynomial>() != null);
             //Contract.EndContractBlock();
 
             var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
@@ -880,7 +877,7 @@ namespace Engine
                 }
             }
 
-            return new Polynomial() { coefficients = res, isReadonly = this.isReadonly };
+            return new Polynomial { coefficients = res, isReadonly = isReadonly };
         }
 
         /// <summary>
@@ -902,10 +899,10 @@ namespace Engine
                 throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(x)} must be a number");
             }
 
-            var degree = (int)Degree;
+            var order = (int)Degree;
             var result = 0d;
 
-            for (var i = degree; i >= 0; i--)
+            for (var i = order; i >= 0; i--)
             {
                 result = result * x + coefficients[i];
             }
@@ -927,6 +924,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Complex Evaluate(Complex x)
         {
+            Contract.Ensures(Contract.Result<Complex>() != null);
+
             Complex result = Complex.Zero;
 
             for (var i = (int)Degree; i >= 0; i--)
@@ -1013,6 +1012,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolynomialDegree RealOrder(double epsilon = Epsilon)
         {
+            Contract.Ensures(Contract.Result<PolynomialDegree>() != null);
+
             var pos = 1;
 
             // Monomial can be a zero constant, skip them and check the rest.
@@ -1082,13 +1083,13 @@ namespace Engine
         {
             if (degree < 0)
             {
-                throw new ArgumentOutOfRangeException($"{nameof(degree)} cannot be negative.");
+                throw new ArgumentOutOfRangeException(nameof(degree), $"{nameof(degree)} cannot be negative.");
             }
 
             var d = (int)degree;
             var res = new double[d + 1];
             res[d] = coefficient;
-            return new Polynomial() { coefficients = res };
+            return new Polynomial { coefficients = res };
         }
 
         /// <summary>
@@ -1137,6 +1138,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Monomial(PolynomialDegree degree)
         {
+            Contract.Ensures(Contract.Result<Polynomial>() != null);
+
             if (degree == 0)
             {
                 return new Polynomial(1);
@@ -1151,32 +1154,58 @@ namespace Engine
             }
 
             coeffs[d] = 1d;
-            return new Polynomial() { coefficients = coeffs };
+            return new Polynomial { coefficients = coeffs };
         }
 
         /// <summary>
-        /// 
+        /// Creates a Matrix transformed Bezier Polynomial from the Bezier parameters.
         /// </summary>
-        /// <param name="values"></param>
+        /// <param name="values">The Bezier node parameters.</param>
         /// <returns></returns>
         /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Bezier(params double[] values)
         {
-            if (values == null || values.Length < 1)
-            {
-                throw new ArgumentNullException("At least 2 different points must be given");
-            }
+            Contract.Ensures(Contract.Result<Polynomial>() != null);
 
-            return Bezier(0, values.Length - 1, values);
+            switch (values?.Length - 1)
+            {
+                case var n when n < 1:
+                    throw new ArgumentNullException(nameof(values), "At least 2 different points must be given");
+                case 1:
+                    return LinearBezierCoefficients(values[0], values[1]);
+                case 2:
+                    return QuadraticBezierCoefficients(values[0], values[1], values[2]);
+                case 3:
+                    return CubicBezierCoefficients(values[0], values[1], values[2], values[3]);
+                case 4:
+                    return QuarticBezierCoefficients(values[0], values[1], values[2], values[3], values[4]);
+                case 5:
+                    return QuinticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5]);
+                case 6:
+                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                    return SexticBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
+                case 7:
+                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                    return SepticBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
+                case 8:
+                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                    return OcticBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
+                case 9:
+                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                    return NonicBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
+                case 10:
+                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
+                    return DecicBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+                default:
+                    // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
+                    return Bezier(0, values.Length - 1, values);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Internal Recursive method for calculating the Bezier Polynomial.
         /// </summary>
         /// <param name="from"></param>
         /// <param name="to"></param>
@@ -1188,158 +1217,10 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Bezier(int from, int to, double[] values)
+        private static Polynomial Bezier(int from, int to, double[] values)
             => (from == to)
             ? new Polynomial(values[from])
             : OneMinusT * Bezier(from, to - 1, values) + T * Bezier(from + 1, to, values);
-
-        /// <summary>
-        /// Interpolate the polynomial of a Linear Bezier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Linear(double a, double b)
-            => OneMinusT * a + T * b;
-
-        /// <summary>
-        /// Interpolate the polynomial of a Quadratic Bezier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Quadratic(double a, double b, double c)
-            => OneMinusT * Linear(a, b) + T * Linear(b, c);
-
-        /// <summary>
-        /// Interpolate the polynomial of a Cubic Bezier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Cubic(double a, double b, double c, double d)
-            => (OneMinusT * Quadratic(a, b, c) + T * Quadratic(b, c, d));
-
-        /// <summary>
-        /// Interpolate the polynomial of a Quartic Bezier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Quartic(double a, double b, double c, double d, double e)
-            => (OneMinusT * Cubic(a, b, c, d) + T * Cubic(b, c, d, e));
-
-        /// <summary>
-        /// Interpolate the polynomial of a Quintic Bezier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Quintic(double a, double b, double c, double d, double e, double f)
-            => (OneMinusT * Quartic(a, b, c, d, e) + T * Quartic(b, c, d, e, f));
-
-        /// <summary>
-        /// Interpolate the polynomial of a Sextic Bezier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Sextic(double a, double b, double c, double d, double e, double f, double g)
-            => (OneMinusT * Quintic(a, b, c, d, e, f) + T * Quintic(b, c, d, e, f, g));
-
-        /// <summary>
-        /// Interpolate the polynomial of a Septic Bezier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Septic(double a, double b, double c, double d, double e, double f, double g, double h)
-            => (OneMinusT * Sextic(a, b, c, d, e, f, g) + T * Sextic(b, c, d, e, f, g, h));
-
-        /// <summary>
-        /// Interpolate the polynomial of a Octic Bezier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
-            => (OneMinusT * Septic(a, b, c, d, e, f, g, h) + T * Septic(b, c, d, e, f, g, h, i));
 
         #endregion
 

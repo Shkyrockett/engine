@@ -4198,9 +4198,9 @@ namespace Editor
             var radius1 = 100d;
             var radius2 = 200d;
 
-            var angle = 45d.ToRadians();
-            var startAngle = 0d.ToRadians();
-            var sweepAngle = 135d.ToRadians();
+            var angle = 60d.ToRadians();
+            var startAngle = 30d.ToRadians();
+            var sweepAngle = -90d.ToRadians();
 
             var parametricPointTesterEllipticArc = new ParametricPointTester(
                 (px, py) => Intersections.EllipticalArcContainsPoint(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, px, py),

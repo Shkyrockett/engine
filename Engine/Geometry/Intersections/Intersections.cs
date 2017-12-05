@@ -230,7 +230,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this EllipticalArc ellipseArc, Point2D point)
-            => EllipticalArcContainsPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RX, ellipseArc.RY, ellipseArc.CosAngle, ellipseArc.SinAngle, ellipseArc.StartAngleCos, ellipseArc.StartAngleSin, ellipseArc.SweepAngleCos, ellipseArc.SweepAngleSin, point.X, point.Y, Epsilon);
+            => EllipticalArcContainsPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RX, ellipseArc.RY, ellipseArc.CosAngle, ellipseArc.SinAngle, ellipseArc.StartAngleCos, ellipseArc.StartAngleSin, ellipseArc.EndAngleCos, ellipseArc.EndAngleSin, ellipseArc.SweepAngle, point.X, point.Y, Epsilon);
 
         /// <summary>
         /// Determines whether the specified <see cref="Rectangle2D"/> is contained withing the region defined by this <see cref="Rectangle2D"/>.
@@ -2639,8 +2639,8 @@ namespace Engine
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
+        /// <param name="startAngle">The polar angle of where to start the arc.</param>
+        /// <param name="sweepAngle">The polar angle of how far the arc should go about the ellipse.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
@@ -2659,7 +2659,7 @@ namespace Engine
             double sweepAngle,
             double pX, double pY,
             double epsilon = Epsilon)
-            => EllipticalArcContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(sweepAngle), Sin(sweepAngle), pX, pY, epsilon);
+            => EllipticalArcContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
@@ -2670,10 +2670,11 @@ namespace Engine
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
         /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startCosT"></param>
-        /// <param name="startSinT"></param>
-        /// <param name="sweepCosT"></param>
-        /// <param name="sweepSinT"></param>
+        /// <param name="startCosT">The cosine of the start angle.</param>
+        /// <param name="startSinT">The sine of the start angle.</param>
+        /// <param name="endCosT">The cosine of the end angle.</param>
+        /// <param name="endSinT">The sine of the end angle.</param>
+        /// <param name="sweepAngle">The sweep angle, to check the direction of rotation.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
@@ -2690,7 +2691,8 @@ namespace Engine
             double r1, double r2,
             double cosT, double sinT,
             double startCosT, double startSinT,
-            double sweepCosT, double sweepSinT,
+            double endCosT, double endSinT,
+            double sweepAngle,
             double pX, double pY,
             double epsilon = Epsilon)
         {
@@ -2701,13 +2703,14 @@ namespace Engine
             }
 
             // If the Sweep angle is Tau, the EllipticalArc must be an Ellipse.
-            if (Abs(sweepCosT - 1d) < epsilon && Abs(sweepSinT) < epsilon)
+            //if (Abs(sweepCosT - 1d) < epsilon && Abs(sweepSinT) < epsilon)
+            if (Abs(sweepAngle) >= Tau)
             {
                 return EllipseContainsPoint(cX, cY, r1, r2, sinT, cosT, pX, pY);
             }
 
-            var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
-            var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
+            //var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
+            //var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
 
             // Find the start and end angles.
             var sa = EllipticalPolarVector(startCosT, startSinT, r1, r2);
@@ -2729,7 +2732,7 @@ namespace Engine
             var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
 
             // Check whether the point is on the same side of the chord as the center.
-            if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
+            if (Sign(determinant) == Sign(sweepAngle))
             {
                 return Inclusion.Outside;
             }
@@ -2760,8 +2763,8 @@ namespace Engine
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
+        /// <param name="startAngle">The polar angle of where to start the arc.</param>
+        /// <param name="sweepAngle">The polar angle of how far the arc should go about the ellipse.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
@@ -2780,7 +2783,7 @@ namespace Engine
             double sweepAngle,
             double pX, double pY,
             double epsilon = Epsilon)
-            => EllipticalArcSectorContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(sweepAngle), Sin(sweepAngle), pX, pY, epsilon);
+            => EllipticalArcSectorContainsPoint(cX, cY, r1, r2, Cos(angle), Sin(angle), Cos(startAngle), Sin(startAngle), Cos(startAngle + sweepAngle), Sin(startAngle + sweepAngle), sweepAngle, pX, pY, epsilon);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
@@ -2791,10 +2794,11 @@ namespace Engine
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
         /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startCosT"></param>
-        /// <param name="startSinT"></param>
-        /// <param name="sweepCosT"></param>
-        /// <param name="sweepSinT"></param>
+        /// <param name="startCosT">The cosine of the start angle.</param>
+        /// <param name="startSinT">The sine of the start angle.</param>
+        /// <param name="endCosT">The cosine of the end angle.</param>
+        /// <param name="endSinT">The sine of the end angle.</param>
+        /// <param name="sweepAngle">The sweep angle, to check the direction of rotation.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
@@ -2810,7 +2814,8 @@ namespace Engine
             double r1, double r2,
             double cosT, double sinT,
             double startCosT, double startSinT,
-            double sweepCosT, double sweepSinT,
+            double endCosT, double endSinT,
+            double sweepAngle,
             double pX, double pY,
             double epsilon = Epsilon)
         {
@@ -2820,8 +2825,14 @@ namespace Engine
                 return Inclusion.Outside;
             }
 
-            var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
-            var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
+            // If the Sweep angle is Tau, the EllipticalArc must be an Ellipse.
+            if (Abs(sweepAngle) >= Tau)
+            {
+                return EllipseContainsPoint(cX, cY, r1, r2, sinT, cosT, pX, pY);
+            }
+
+            //var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
+            //var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
 
             // Find the start and end angles.
             var sa = EllipticalPolarVector(startCosT, startSinT, r1, r2);
@@ -2851,7 +2862,7 @@ namespace Engine
             }
 
             // Check whether the point is on the side of the chord as the center.
-            if (Sign(-determinant) == Sign(sweepSinT * sweepCosT))
+            if (Sign(determinant) == Sign(sweepAngle))
             {
                 return Inclusion.Outside;
             }
@@ -3905,7 +3916,6 @@ namespace Engine
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
-        /// <param name="a2Y"></param>
         /// <param name="r1X"></param>
         /// <param name="r1Y"></param>
         /// <param name="r2X"></param>
@@ -3948,7 +3958,6 @@ namespace Engine
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
-        /// <param name="a2Y"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
@@ -3990,7 +3999,6 @@ namespace Engine
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
-        /// <param name="a2Y"></param>
         /// <param name="points"></param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>

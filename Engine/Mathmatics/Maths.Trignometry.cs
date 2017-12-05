@@ -348,19 +348,14 @@ namespace Engine
         public static (double cosT, double sinT) EllipticalPolarVector(double cosA, double sinA, double rx, double ry)
         {
             // Find the elliptical t that matches the circular angle.
-            if (Math.Abs(cosA) == 1d || cosA == 0)
+            if (cosA > -1 && cosA < 0 || cosA > 0 && cosA < 1)
             {
-                return (cosA, sinA);
+                var d = Sign(cosA);
+                return (d / Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA)),
+                        d * ((rx * sinA) / (ry * cosA * Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA)))));
             }
-            if (cosA < 0 || cosA > 0)
-            {
-                return (-(1 / Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA))),
-                    -((rx * sinA) / (ry * cosA * Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA)))));
-            }
-            {
-                return (1 / Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA)),
-                    (rx * sinA) / (ry * cosA * Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA))));
-            }
+
+            return (cosA, sinA);
         }
 
         /// <summary>

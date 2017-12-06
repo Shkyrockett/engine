@@ -31,6 +31,68 @@ namespace Engine
     /// </summary>
     public static partial class Maths
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double InverseSqrt(double number)
+            => 1 / Sqrt(number);
+
+        /// <summary>
+        /// Returns the specified root a specified number.
+        /// </summary>
+        /// <param name="x">A double-precision floating-point number to find the specified root of.</param>
+        /// <param name="y">A double-precision floating-point number that specifies a root.</param>
+        /// <returns>The y root of the number x.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Root(double x, double y)
+            => (x < 0 && Math.Abs(y % 2 - 1) < Epsilon) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
+
+        /// <summary>
+        /// Cube root equivalent of the sqrt function. (note that there are actually
+        /// three roots: one real, two complex, and we don't care about the latter):
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Crt(double value)
+            => value < 0
+            ? -Pow(-value, OneThird)
+            : Pow(value, OneThird);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double InverseCrt(double number)
+            => 1 / Crt(number);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double S) QuadraticEquation(double a, double b, double c)
+            => (
+            (-b + Sqrt(b * b - (4 * a * c))) / (2 * a),
+            (-b - Sqrt(b * b - (4 * a * c))) / (2 * a));
+
         #region Root Finding
 
         /// <summary>

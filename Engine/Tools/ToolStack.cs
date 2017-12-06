@@ -142,18 +142,18 @@ namespace Engine.Tools
         /// <summary>
         /// Gets or sets the press state of the keyboard keys.
         /// </summary>
-        //[Category("Buttons")]
-        //[Description("The press state of the keyboard keys.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Buttons")]
+        [Description("The press state of the keyboard keys.")]
+        [RefreshProperties(RefreshProperties.All)]
         public Keys KeyboardKeyStates { get; set; }
 
         /// <summary>
         /// Gets or sets the location of the mouse cursor.
         /// </summary>
-        //[Category("Location")]
-        //[Description("The location of the mouse cursor.")]
+        [Category("Location")]
+        [Description("The location of the mouse cursor.")]
         [TypeConverter(typeof(Point2DConverter))]
-        //[RefreshProperties(RefreshProperties.All)]
+        [RefreshProperties(RefreshProperties.All)]
         public Point2D MouseLocation
         {
             get { return mouseLocation; }
@@ -167,25 +167,25 @@ namespace Engine.Tools
         /// <summary>
         /// Gets or sets the number of times a mouse button has been clicked.
         /// </summary>
-        //[Category("Buttons")]
-        //[Description("The number of times a mouse button has been clicked.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Buttons")]
+        [Description("The number of times a mouse button has been clicked.")]
+        [RefreshProperties(RefreshProperties.All)]
         public int Clicks { get; set; }
 
         /// <summary>
         /// Gets or sets the click state of the mouse buttons.
         /// </summary>
-        //[Category("Buttons")]
-        //[Description("The click state of the mouse buttons.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Buttons")]
+        [Description("The click state of the mouse buttons.")]
+        [RefreshProperties(RefreshProperties.All)]
         public MouseButtons MouseButtonStates { get; set; }
 
         /// <summary>
         /// Gets or sets the click state of the <see cref="MouseButtons.Left"/> mouse button.
         /// </summary>
-        //[Category("Buttons")]
-        //[Description("The click state of the " + nameof(MouseButtons.Left) + " mouse button.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Left) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
         public Verticality MouseLeftButtonStatus
         {
             get { return ((MouseButtonStates & MouseButtons.Left) != 0) ? Verticality.Down : Verticality.Up; }
@@ -211,9 +211,9 @@ namespace Engine.Tools
         /// <summary>
         /// Gets or sets the click state of the <see cref="MouseButtons.Middle"/> mouse button.
         /// </summary>
-        //[Category("Buttons")]
-        //[Description("The click state of the " + nameof(MouseButtons.Middle) + " mouse button.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Middle) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
         public Verticality MouseMiddleButtonStatus
         {
             get { return ((MouseButtonStates & MouseButtons.Middle) != 0) ? Verticality.Down : Verticality.Up; }
@@ -237,9 +237,9 @@ namespace Engine.Tools
         /// <summary>
         /// Gets or sets the click state of the <see cref="MouseButtons.Right"/> mouse button.
         /// </summary>
-        //[Category("Buttons")]
-        //[Description("The click state of the " + nameof(MouseButtons.Right) + " mouse button.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Right) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
         public Verticality MouseRightButtonStatus
         {
             get { return ((MouseButtonStates & MouseButtons.Right) != 0) ? Verticality.Down : Verticality.Up; }
@@ -263,9 +263,9 @@ namespace Engine.Tools
         /// <summary>
         /// Gets or sets the  click state of the <see cref="MouseButtons.Back"/> mouse button.
         /// </summary>
-        //[Category("Buttons")]
-        //[Description("The click state of the " + nameof(MouseButtons.Back) + " mouse button.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Back) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
         public Verticality MouseBackButtonStatus
         {
             get { return ((MouseButtonStates & MouseButtons.Back) != 0) ? Verticality.Down : Verticality.Up; }
@@ -289,9 +289,9 @@ namespace Engine.Tools
         /// <summary>
         /// Gets or sets the click state of the <see cref="MouseButtons.Forward"/> mouse button.
         /// </summary>
-        //[Category("Buttons")]
-        //[Description("The click state of the " + nameof(MouseButtons.Forward) + " mouse button.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Buttons")]
+        [Description("The click state of the " + nameof(MouseButtons.Forward) + " mouse button.")]
+        [RefreshProperties(RefreshProperties.All)]
         public Verticality MouseForwardButtonStatus
         {
             get { return ((MouseButtonStates & MouseButtons.Forward) != 0) ? Verticality.Down : Verticality.Up; }
@@ -315,9 +315,9 @@ namespace Engine.Tools
         /// <summary>
         /// Gets or sets the last scroll delta of the mouse scroll wheel.
         /// </summary>
-        //[Category("Scrolling")]
-        //[Description("The last scroll delta of the mouse scroll wheel.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Scrolling")]
+        [Description("The last scroll delta of the mouse scroll wheel.")]
+        [RefreshProperties(RefreshProperties.All)]
         public double MouseScrollDelta
         {
             get { return mouseVerticalScrollDelta; }
@@ -331,9 +331,9 @@ namespace Engine.Tools
         /// <summary>
         /// Gets or sets the last tilt delta of the mouse scroll wheel.
         /// </summary>
-        //[Category("Scrolling")]
-        //[Description("The last tilt delta of the mouse scroll wheel.")]
-        //[RefreshProperties(RefreshProperties.All)]
+        [Category("Scrolling")]
+        [Description("The last tilt delta of the mouse scroll wheel.")]
+        [RefreshProperties(RefreshProperties.All)]
         public double MouseScrollTiltDelta
         {
             get { return mouseScrollTiltDelta; }

@@ -2238,6 +2238,9 @@ namespace Engine
         /// </summary>
         /// <param name="contour">The points of the polygon contour.</param>
         /// <returns>Returns the signed area of a polygon contour.</returns>
+        /// <acknowledgment>
+        /// http://www.angusj.com
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedPolygonArea(List<Point2D> contour)

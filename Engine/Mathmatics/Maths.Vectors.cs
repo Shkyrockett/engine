@@ -175,6 +175,27 @@ namespace Engine
             => ((x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2));
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="x3"></param>
+        /// <param name="y3"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://www.angusj.com
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double CrossProductVector0(
+            double x1, double y1,
+            double x2, double y2,
+            double x3, double y3)
+            => ((x2 - x1) * (y1 - y3) - (x1 - x3) * (y2 - y1));
+
+        /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
         /// </summary>
         /// <param name="x1">First Point X component.</param>
@@ -332,6 +353,30 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j, double k)
             => Magnitude(i, j, k);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pt1X"></param>
+        /// <param name="pt1Y"></param>
+        /// <param name="pt2X"></param>
+        /// <param name="pt2Y"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://www.angusj.com
+        /// </acknowledgment>
+        public static (double, double) GetUnitNormal(double pt1X, double pt1Y, double pt2X, double pt2Y)
+        {
+            var dx = (pt2X - pt1X);
+            var dy = (pt2Y - pt1Y);
+            if ((dx == 0d) && (dy == 0d)) return (0d, 0d);
+
+            var f = 1d / Sqrt(dx * dx + dy * dy);
+            dx *= f;
+            dy *= f;
+
+            return (dy, -dx);
+        }
 
         /// <summary>
         /// Unitize a Vector.

@@ -114,7 +114,6 @@
     <Compile Include="Examples.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scrubber.cs" />
     <Compile Include="TestCases.cs" />
     <EmbeddedResource Include="EditorForm.resx">
       <DependentUpon>EditorForm.cs</DependentUpon>
@@ -144,6 +143,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Engine.Experimental\Engine.Experimental.csproj">
+      <Project>{10c8ef71-cc3d-4e11-b4ec-01e43cb47936}</Project>
+      <Name>Engine.Experimental</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Engine.File\Engine.File.csproj">
       <Project>{4c4da771-9467-484f-bbb7-75860c3e7697}</Project>
       <Name>Engine.File</Name>

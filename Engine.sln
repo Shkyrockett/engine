@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27102.0
+VisualStudioVersion = 15.0.27128.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor\Editor.csproj", "{B263858B-B22F-4F1E-A326-7F79ACE09156}"
 EndProject
@@ -63,6 +63,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reports", "Reports", "{5438
 		Documents\Reports\Template.md = Documents\Reports\Template.md
 		Documents\Reports\WrapAngle.md = Documents\Reports\WrapAngle.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Experimental", "Engine.Experimental\Engine.Experimental.csproj", "{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -206,6 +208,18 @@ Global
 		{41EDC6F4-1DBD-4890-8389-7C51FFF887EF}.Release|x64.Build.0 = Release|x64
 		{41EDC6F4-1DBD-4890-8389-7C51FFF887EF}.Release|x86.ActiveCfg = Release|x86
 		{41EDC6F4-1DBD-4890-8389-7C51FFF887EF}.Release|x86.Build.0 = Release|x86
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Debug|x64.ActiveCfg = Debug|x64
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Debug|x64.Build.0 = Debug|x64
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Debug|x86.ActiveCfg = Debug|x86
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Debug|x86.Build.0 = Debug|x86
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Release|x64.ActiveCfg = Release|x64
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Release|x64.Build.0 = Release|x64
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Release|x86.ActiveCfg = Release|x86
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -224,6 +238,7 @@ Global
 		{41EDC6F4-1DBD-4890-8389-7C51FFF887EF} = {D49C6D22-94F7-4BDB-BE81-6E40CA01FBEE}
 		{B8050EC6-6A4A-491D-BFB6-DBD152D993F9} = {D6E00A6B-7C10-44A7-8A1C-C23D8CEE0916}
 		{5438FC85-B9D6-43E8-991C-5769A7218730} = {B8050EC6-6A4A-491D-BFB6-DBD152D993F9}
+		{10C8EF71-CC3D-4E11-B4EC-01E43CB47936} = {56F8CF9F-E0B7-428F-BCE3-2D747C5BA920}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E15A533C-659E-4173-979C-09B7802DE077}

@@ -2054,7 +2054,7 @@ namespace Engine.Tests
         {
             var test = unchecked((int)0xFFFFFFFF);
             var expected = 0xFFFF;
-            var result = test.HiWord();
+            var result = test.HighWord();
             Assert.AreEqual(expected, result);
         }
 
@@ -2070,7 +2070,7 @@ namespace Engine.Tests
         {
             var test = unchecked((int)0xFFFFFFFF);
             var expected = -1;
-            var result = test.SignedHiWord();
+            var result = test.SignedHighWord();
             Assert.AreEqual(expected, result);
         }
 
@@ -2086,7 +2086,7 @@ namespace Engine.Tests
         {
             var test = unchecked((int)0xFFFFFFFF);
             var expected = 0xFFFF;
-            var result = test.LoWord();
+            var result = test.LowWord();
             Assert.AreEqual(expected, result);
         }
 
@@ -2102,7 +2102,7 @@ namespace Engine.Tests
         {
             var test = unchecked((int)0xFFFFFFFF);
             var expected = -1;
-            var result = test.SignedLoWord();
+            var result = test.SignedLowWord();
             Assert.AreEqual(expected, result);
         }
 

@@ -88,6 +88,6 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        public static Polyline PolyTriangle = new Polyline(new List<Point2D>() { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) });
+        public static Polyline PolyTriangle = new Polyline(new List<Point2D> { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) });
     }
 }

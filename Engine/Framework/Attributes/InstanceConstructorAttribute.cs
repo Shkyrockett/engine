@@ -60,7 +60,7 @@ namespace Engine
         {
             foreach (ConstructorInfo method in t.GetConstructors())
             {
-                object[] atts = method.GetCustomAttributes(typeof(InstanceConstructorAttribute), true);
+                var atts = method.GetCustomAttributes(typeof(InstanceConstructorAttribute), true);
 
                 if (atts.Length > 0)
                 {

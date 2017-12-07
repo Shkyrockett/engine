@@ -68,7 +68,7 @@ namespace Engine
         /// <returns>True if the spline was modified.</returns>
         public bool Add(Point2D p)
         {
-            AddPointResult res = builder.AddPoint(p);
+            var res = builder.AddPoint(p);
             if (!res.WasChanged)
                 return false;
 
@@ -126,7 +126,7 @@ namespace Engine
         /// <returns>The position on the spline.</returns>
         public Vector2D Tangent(double u)
         {
-            SamplePosition pos = spline.GetSamplePosition(u);
+            var pos = spline.GetSamplePosition(u);
             return spline.Curves[pos.Index].Tangent(pos.Time);
         }
     }

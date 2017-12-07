@@ -190,7 +190,7 @@ namespace Engine
         /// <param name="rect"></param>
         /// <returns></returns>
         public PolygonContour Process(Rectangle2D rect)
-            => new PolygonContour() { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
+            => new PolygonContour { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
 
         /// <summary>
         /// 

@@ -383,7 +383,7 @@ namespace Engine.File
         public void WriteUTF8String(string chars)
         {
             Encoding encoding = new UTF8Encoding();
-            byte[] buffer = encoding.GetBytes(chars);
+            var buffer = encoding.GetBytes(chars);
             Write7BitEncodedInt(buffer.Length);
             Write(buffer);
         }
@@ -402,7 +402,7 @@ namespace Engine.File
         public void WriteASCIIString(string chars)
         {
             Encoding encoding = new ASCIIEncoding();
-            byte[] buffer = encoding.GetBytes(chars);
+            var buffer = encoding.GetBytes(chars);
             Write7BitEncodedInt(buffer.Length);
             Write(buffer);
         }

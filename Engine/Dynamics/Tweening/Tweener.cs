@@ -133,7 +133,7 @@ namespace Engine.Tweening
                 throw new ArgumentNullException(nameof(target));
 
             // Prevent tweening on structs if you cheat by casting target as Object
-            Type targetType = target.GetType();
+            var targetType = target.GetType();
             if (targetType.IsValueType) throw new Exception("Target of tween cannot be a struct!");
 
             var tween = new Tween(target, duration, delay, this);
@@ -142,7 +142,7 @@ namespace Engine.Tweening
             // valid in case of manual timer
             if (dests == null) return tween;
 
-            PropertyInfo[] props = dests.GetType().GetProperties();
+            var props = dests.GetType().GetProperties();
             for (var i = 0; i < props.Length; ++i)
             {
                 if (overwrite && tweens.TryGetValue(target, out var library))
@@ -154,7 +154,7 @@ namespace Engine.Tweening
                 PropertyInfo property = props[i];
                 var info = new GlideInfo(target, property.Name);
                 var to = new GlideInfo(dests, property.Name, false);
-                Lerper lerper = CreateLerper(info.MemberType);
+                var lerper = CreateLerper(info.MemberType);
 
                 tween.AddLerp(lerper, info, info.Value, to.Value);
             }

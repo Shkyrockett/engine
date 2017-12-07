@@ -546,7 +546,7 @@ namespace Engine
         public static QuaternionD Parse(string source, IFormatProvider provider)
         {
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            string[] vals = source.Replace("Quaternion", string.Empty).Trim(' ', '{', '(', '[', '<', '}', ')', ']', '>').Split(sep);
+            var vals = source.Replace("Quaternion", string.Empty).Trim(' ', '{', '(', '[', '<', '}', ')', ']', '>').Split(sep);
 
             if (vals.Length != 4)
             {

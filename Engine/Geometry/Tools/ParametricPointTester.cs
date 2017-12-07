@@ -185,7 +185,7 @@ namespace Engine
             var outside = new List<Point2D>();
             foreach (Point2D point in Grid())
             {
-                Inclusion value = Intersecter.Invoke(point.X, point.Y);
+                var value = Intersecter.Invoke(point.X, point.Y);
                 switch (value)
                 {
                     case Inclusion.Outside:

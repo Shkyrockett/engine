@@ -57,13 +57,13 @@ namespace Engine
                 instanceCtor = InstanceConstructorAttribute.GetConstructor(t, out instanceCtorParamNames);
                 if (instanceCtor != null)
                 {
-                    ParameterInfo[] paraminfos = instanceCtor.GetParameters();
+                    var paraminfos = instanceCtor.GetParameters();
                     if (paraminfos.Length == instanceCtorParamNames.Length)
                     {
                         for (var index = 0; index < instanceCtorParamNames.Length; ++index)
                         {
                             var name = instanceCtorParamNames[index];
-                            PropertyDescriptor descriptor = descriptions.Find(name, false);
+                            var descriptor = descriptions.Find(name, false);
                             if (descriptor == null || descriptor.PropertyType != paraminfos[index].ParameterType)
                             {
                                 instanceCtor = null;
@@ -224,7 +224,7 @@ namespace Engine
             object[] rv = new object[instanceCtorParamNames.Length];
             for (var index = 0; index < instanceCtorParamNames.Length; ++index)
             {
-                PropertyDescriptor descriptor = descriptions.Find(instanceCtorParamNames[index], false);
+                var descriptor = descriptions.Find(instanceCtorParamNames[index], false);
                 rv[index] = descriptor.GetValue(value);
             }
             return rv;

@@ -14,7 +14,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static System.Math;
 
 namespace Engine
 {

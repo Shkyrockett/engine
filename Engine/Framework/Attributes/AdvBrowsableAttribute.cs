@@ -66,7 +66,7 @@ namespace Engine
         /// <returns></returns>
         public static PropertyDescriptorCollection GetDispMembers(Type t)
         {
-            string[] order = AdvBrowsableOrderAttribute.GetOrder(t);
+            var order = AdvBrowsableOrderAttribute.GetOrder(t);
             var rv = new List<PropertyDescriptor>();
             object[] atts;
             foreach (PropertyInfo info in t.GetProperties())

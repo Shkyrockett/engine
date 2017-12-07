@@ -173,6 +173,14 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
+        public int Capacity { get { return points.Capacity; } set { points.Capacity = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Perimeter
             => (double)CachingProperty(() => Measurements.PolygonContourPerimeter(points));
 

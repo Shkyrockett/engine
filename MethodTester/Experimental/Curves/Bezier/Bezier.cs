@@ -274,7 +274,7 @@ namespace Engine
         {
             // shortcuts, although they're really dumb
             if (t == 0) return new Bezier(p2, p2, p3); if (t == 1) return new Bezier(p1, p2, p2);             // real fitting.
-            (Point3D, Point3D, Point3D) abc = GetABC(2, p1, p2, p3, t);
+            var abc = GetABC(2, p1, p2, p3, t);
             return new Bezier(p1, abc.Item1, p3);
         }
 
@@ -289,7 +289,7 @@ namespace Engine
         /// <returns></returns>
         public static Bezier CubicFromPoints(Point3D S, Point3D B, Point3D E, double t = 0.5d, double d1 = 0d)
         {
-            (Point3D, Point3D, Point3D) abc = GetABC(3, S, B, E, t);
+            var abc = GetABC(3, S, B, E, t);
             if (d1 == 0) d1 = Measurements.Distance(B, abc.Item3); var d2 = d1 * (1 - t) / t;
 
             var selen = Measurements.Distance(S, E);
@@ -404,7 +404,7 @@ namespace Engine
         public double On(Point3D point, double error)
         {
             //error = error || 5;
-            List<Point3D> lut = GetLUT(1000);
+            var lut = GetLUT(1000);
             var hits = new List<Point3D>();
             Point3D c;
             double t = 0;
@@ -429,16 +429,16 @@ namespace Engine
         public Point3D Project(Point3D point)
         {
             // step 1: coarse check
-            List<Point3D> LUT = GetLUT(1000);
+            var LUT = GetLUT(1000);
             var l = LUT.Count - 1;
 
-            (double X, double Y) closest = Utilities.Closest(LUT, point);
+            var closest = Utilities.Closest(LUT, point);
             var mdist = closest.X;
             var mpos = closest.Y;
             if (mpos == 0 || mpos == l)
             {
                 var t0 = mpos / l;
-                Point3D pt = Compute(t0);
+                var pt = Compute(t0);
                 //pt.t = t0;
                 //pt.d = mdist;
                 return pt;
@@ -637,7 +637,7 @@ namespace Engine
         /// <returns></returns>
         public Point3D Normal2(double t)
         {
-            Point3D d = Derivative(t);
+            var d = Derivative(t);
             var q = Sqrt(d.X * d.X + d.Y * d.Y);
             return new Point3D(
                 x: -d.Y / q,
@@ -654,8 +654,8 @@ namespace Engine
         public Point3D Normal3(double t)
         {
             // see http://stackoverflow.com/questions/25453159
-            Point3D r1 = Derivative(t);
-            Point3D r2 = Derivative(t + 0.01);
+            var r1 = Derivative(t);
+            var r2 = Derivative(t + 0.01);
             var q1 = Sqrt(r1.X * r1.X + r1.Y * r1.Y + r1.Z * r1.Z);
             var q2 = Sqrt(r2.X * r2.X + r2.Y * r2.Y + r2.Z * r2.Z);
             r1.X /= q1; r1.Y /= q1; r1.Z /= q1;
@@ -725,7 +725,7 @@ namespace Engine
             // shortcuts
             if (t1 == 0 && t2 != 0) return Split(t2).Left; if (t2 == 1) return Split(t1).Right;
             // no shortcut: use "de Casteljau" iteration.
-            List<Point3D> q = Hull(t1);
+            var q = Hull(t1);
             var result = new Pair(
                 left: Order == 2 ? new Bezier(new List<Point3D> { q[0], q[3], q[5] }) : new Bezier(new List<Point3D> { q[0], q[4], q[7], q[9] }),
                 right: Order == 2 ? new Bezier(new List<Point3D> { q[5], q[4], q[2] }) : new Bezier(new List<Point3D> { q[9], q[8], q[6], q[3] }),
@@ -742,7 +742,7 @@ namespace Engine
             if (t2 != 0) return result.Left;
             // if we have a t2, split again:
             t2 = Map(t2, t1, 1, 0, 1);
-            Pair subsplit = result.Right.Split(t2);
+            var subsplit = result.Right.Split(t2);
             return subsplit.Left;
         }
 
@@ -793,7 +793,7 @@ namespace Engine
         /// <returns></returns>
         public BBox Bbox()
         {
-            List<double> extrema = Extrema();
+            var extrema = Extrema();
             return new BBox(
                 GetMinMax(this, 0, extrema),
                 GetMinMax(this, 1, extrema),
@@ -827,8 +827,8 @@ namespace Engine
         /// <returns></returns>
         public (Point3D, Point3D, Point3D) Offset(double t, double d)
         {
-            Point3D c = Get(t);
-            Point3D n = Normal(t);
+            var c = Get(t);
+            var n = Normal(t);
             return (
                 c,//c:
                 n,//n:
@@ -848,7 +848,7 @@ namespace Engine
         {
             if (Linear)
             {
-                Point3D nv = Normal(0);
+                var nv = Normal(0);
 
                 var coords = new List<Point3D>();
                 foreach (Point3D p in Points)
@@ -863,7 +863,7 @@ namespace Engine
 
                 return new List<Bezier> { new Bezier(coords) };
             }
-            List<Bezier> reduced = Reduce();
+            var reduced = Reduce();
 
             return new List<Bezier>(
                 from s in reduced
@@ -883,8 +883,8 @@ namespace Engine
                 var a2 = Utilities.Angle(Points[0], Points[3], Points[2]);
                 if (a1 > 0 && a2 < 0 || a1 < 0 && a2 > 0) return false;
             }
-            Point3D n1 = Normal(0);
-            Point3D n2 = Normal(1);
+            var n1 = Normal(0);
+            var n2 = Normal(1);
             var s = n1.X * n2.X + n1.Y * n2.Y + n1.Z * n2.Z;
             var angle = Abs(Acos(s));
             return angle < PI / 3;
@@ -903,7 +903,7 @@ namespace Engine
             var pass1 = new List<Bezier>();
             var pass2 = new List<Bezier>();
             // first pass: split on extrema
-            List<double> extrema = Extrema();
+            var extrema = Extrema();
             if (extrema.IndexOf(0) == -1) extrema.Insert(0, 0); if (extrema.IndexOf(1) == -1) extrema.Add(1); for (t1 = extrema[0], i = 1; i < extrema.Count; i++)
             {
                 t2 = extrema[i];
@@ -971,7 +971,7 @@ namespace Engine
             var r1 = distanceFn(0);
             var r2 = distanceFn(1);
             var v = new List<(Point3D, Point3D, Point3D)> { Offset(0, 10), Offset(1, 10) };
-            Point3D o = Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
+            var o = Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
             // move all points by distance 'd' wrt the origin 'o'
             List<Point3D> points = Points;
@@ -1027,7 +1027,7 @@ namespace Engine
             var r1 = d;
             var r2 = d;
             var v = new List<(Point3D, Point3D, Point3D)> { Offset(0, 10), Offset(1, 10) };
-            Point3D o = Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
+            var o = Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
             // move all points by distance 'd' wrt the origin 'o'
             List<Point3D> points = Points;
@@ -1047,7 +1047,7 @@ namespace Engine
             {
                 if (Order == 2) break;
                 Point3D p = np[t * order];
-                Point3D d2 = Derivative(t);
+                var d2 = Derivative(t);
                 var p2 = new Point3D(x: p.X + d2.X, y: p.Y + d2.Y, z: p.Z + d2.Z);
                 np[t + 1] = Lli4(p, p2, o, points[t + 1]);
             }
@@ -1110,7 +1110,7 @@ namespace Engine
         /// <returns></returns>
         public PolyBezier2 Outline(double d1, double d2, double d3, double d4, bool graduated = false)
         {
-            List<Bezier> reduced = Reduce();
+            var reduced = Reduce();
             var len = reduced.Count;
             var fcurves = new List<Bezier>();
             var bcurves = new List<Bezier>();
@@ -1157,8 +1157,8 @@ namespace Engine
             Point3D fe = fcurves[len - 1].Points[fcurves[len - 1].Points.Count - 1];
             Point3D bs = bcurves[len - 1].Points[bcurves[len - 1].Points.Count - 1];
             Point3D be = bcurves[0].Points[0];
-            Bezier ls = MakeLine(bs, fs);
-            Bezier le = MakeLine(fe, be);
+            var ls = MakeLine(bs, fs);
+            var le = MakeLine(fe, be);
             segments.Add(ls);
             segments.AddRange(fcurves);
             segments.Add(le);
@@ -1184,7 +1184,7 @@ namespace Engine
             var shapes = new List<Shape1>();
             for (int i = 1, len = outline.Count; i < len / 2; i++)
             {
-                Shape1 shape = MakeShape(outline[i], outline[len - i]);
+                var shape = MakeShape(outline[i], outline[len - i]);
                 shape.Startcap.Virtual = (i > 1);
                 shape.Endcap.Virtual = (i < len / 2 - 1);
                 shapes.Add(shape);
@@ -1247,7 +1247,7 @@ namespace Engine
         /// <returns></returns>
         public List<Pair> Selfintersects()
         {
-            List<Bezier> reduced = Reduce();
+            var reduced = Reduce();
             // "simple" curves cannot intersect with their direct
             // neighbor, so for each segment X we check whether
             // it intersects [0:x-2][x+2:last].
@@ -1288,7 +1288,7 @@ namespace Engine
             var intersections = new List<Pair>();
             foreach (Pair pair in pairs)
             {
-                List<Pair> result = Pairiteration(pair.Left, pair.Right);
+                var result = Pairiteration(pair.Left, pair.Right);
                 if (result.Count > 0)
                     intersections.AddRange(result);
             }
@@ -1321,8 +1321,8 @@ namespace Engine
         public double Error(Arc1 pc, Point3D np1, double s, double e)
         {
             var q = (e - s) / 4;
-            Point3D c1 = Get(s + q);
-            Point3D c2 = Get(e - q);
+            var c1 = Get(s + q);
+            var c2 = Get(e - q);
             var reff = Measurements.Distance(pc.Center, np1);
             var d1 = Measurements.Distance(pc.Center, c1);
             var d2 = Measurements.Distance(pc.Center, c2);
@@ -1444,7 +1444,7 @@ namespace Engine
             // align curve with the intersecting line, translating/rotating
             // so that the first point becomes (0,0), and the last point
             // ends up lying on the line we're trying to use as root-intersect.
-            List<Point3D> aligned = Align(new List<Point3D> { p1, p2, p3, p4 }, line);
+            var aligned = Align(new List<Point3D> { p1, p2, p3, p4 }, line);
             // rewrite from [a(1-t)^3 + 3bt(1-t)^2 + 3c(1-t)t^2 + dt^3] form...
             var pa = aligned[0].Y;
             var pb = aligned[1].Y;

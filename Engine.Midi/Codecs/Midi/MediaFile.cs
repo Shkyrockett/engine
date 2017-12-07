@@ -75,7 +75,7 @@ namespace Engine.File
                     return null;
             }
 
-            return new MediaFile()
+            return new MediaFile
             {
                 Media = media,
                 FileName = filename

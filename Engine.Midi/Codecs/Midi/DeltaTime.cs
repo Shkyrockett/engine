@@ -35,7 +35,7 @@ namespace Engine.File
         /// <param name="reader"></param>
         /// <returns></returns>
         internal static DeltaTime Read(BinaryReaderExtended reader)
-            => new DeltaTime()
+            => new DeltaTime
             {
                 Value = reader.ReadNetworkInt16()
             };

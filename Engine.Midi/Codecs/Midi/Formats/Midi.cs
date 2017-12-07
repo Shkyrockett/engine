@@ -90,7 +90,7 @@ namespace Engine.File
                     reader.Position = trackEnd;
             }
 
-            midi = new Midi()
+            midi = new Midi
             {
                 Header = header,
                 Tracks = tracks

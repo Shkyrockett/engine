@@ -368,7 +368,7 @@ namespace Engine
         /// <remarks></remarks>
         public static PointF Reflect(this PointF point, PointF value, PointF axis)
         {
-            Vector2D SegmentVectorDelta = point.Delta(value);
+            var SegmentVectorDelta = point.Delta(value);
             var QC12 = new Vector2D(
                 value.CrossProduct(point),
                 axis.DotProduct(SegmentVectorDelta)
@@ -389,7 +389,7 @@ namespace Engine
         /// <remarks></remarks>
         public static PointF Reflect(this LineSegment segment, PointF axis)
         {
-            Vector2D SegmentVectorDelta = segment.A.Delta(segment.B);
+            var SegmentVectorDelta = segment.A.Delta(segment.B);
             var QC12 = new Vector2D(
                 segment.B.CrossProduct(segment.A),
                 axis.DotProduct(SegmentVectorDelta)

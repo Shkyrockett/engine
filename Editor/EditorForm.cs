@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Reflection;
 using System.Windows.Forms;
 
 namespace Editor
@@ -90,25 +89,25 @@ namespace Editor
 
             SetDoubleBuffered(CanvasPanel);
 
-            List<Type> tools = EngineReflection.ListTools();
+            var tools = EngineReflection.ListTools();
             toolStripComboBoxTools.ComboBox.DataSource = tools;
             toolStripComboBoxTools.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxTools.ComboBox.Items.Count > 0)
                 toolStripComboBoxTools.ComboBox.SelectedItem = typeof(SelectTop);
 
-            List<Type> fileTypes = EngineReflection.ListFileObjects();
+            var fileTypes = EngineReflection.ListFileObjects();
             toolStripComboBoxFiles.ComboBox.DataSource = fileTypes;
             toolStripComboBoxFiles.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxFiles.ComboBox.Items.Count > 0)
                 toolStripComboBoxFiles.ComboBox.SelectedItem = toolStripComboBoxFiles.ComboBox.Items[0];
 
-            List<Type> graphicsTypes = EngineReflection.ListGraphicsObjects();
+            var graphicsTypes = EngineReflection.ListGraphicsObjects();
             toolStripComboBoxObjects.ComboBox.DataSource = graphicsTypes;
             toolStripComboBoxObjects.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxObjects.ComboBox.Items.Count > 0)
                 toolStripComboBoxObjects.ComboBox.SelectedItem = toolStripComboBoxObjects.ComboBox.Items[0];
 
-            List<Type> brushTypes = EngineReflection.ListBrushes();
+            var brushTypes = EngineReflection.ListBrushes();
             comboBox1.DataSource = brushTypes;
             comboBox1.ValueMember = "Name";
             if (comboBox1.Items.Count > 0)
@@ -230,7 +229,7 @@ namespace Editor
         private void ToolStripComboBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             var box = sender as ToolStripComboBox;
-            List<MethodInfo> constructors = EngineReflection.ListStaticFactoryConstructors((Type)box.SelectedItem);
+            var constructors = EngineReflection.ListStaticFactoryConstructors((Type)box.SelectedItem);
             toolStripComboBoxFactories.ComboBox.DataSource = constructors;
             toolStripComboBoxFactories.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxFactories.ComboBox.Items.Count > 0)

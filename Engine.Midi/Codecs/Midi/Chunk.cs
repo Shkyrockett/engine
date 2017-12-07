@@ -24,7 +24,7 @@ namespace Engine.File
         /// <summary>
         /// List of supported Chunk types.
         /// </summary>
-        public static List<string> ChunkIds = new List<string>()
+        public static List<string> ChunkIds = new List<string>
         {
             "RIFF",
             "MThd",
@@ -63,7 +63,7 @@ namespace Engine.File
         /// <returns></returns>
         internal static Chunk Read(BinaryReaderExtended reader)
         {
-            var chunk = new Chunk()
+            var chunk = new Chunk
             {
                 Id = reader.ReadASCIIBytes(4),
                 Length = reader.ReadNetworkInt32()

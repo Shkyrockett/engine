@@ -119,7 +119,7 @@ namespace Engine.WindowsForms
         /// </remarks>
         private void WmMouseWheel(ref Message m)
         {
-            Point p = PointToClient(new Point(m.LParam.SignedLowWord(), m.LParam.SignedHighWord()));
+            var p = PointToClient(new Point(m.LParam.SignedLowWord(), m.LParam.SignedHighWord()));
             var e = new HandledMouseEventArgs(MouseButtons.None, 0, p.X, p.Y, m.WParam.SignedHighWord());
             OnMouseWheel(e);
             m.Result = (IntPtr)(e.Handled ? 0 : 1);
@@ -136,7 +136,7 @@ namespace Engine.WindowsForms
         /// </remarks>
         private void WmMouseWheelTilt(ref Message m)
         {
-            Point p = PointToClient(new Point(m.LParam.SignedLowWord(), m.LParam.SignedHighWord()));
+            var p = PointToClient(new Point(m.LParam.SignedLowWord(), m.LParam.SignedHighWord()));
             var e = new HandledMouseEventArgs(MouseButtons.None, 0, p.X, p.Y, m.WParam.SignedHighWord());
             OnMouseWheelTilt(e);
             m.Result = (IntPtr)(e.Handled ? 0 : 1);

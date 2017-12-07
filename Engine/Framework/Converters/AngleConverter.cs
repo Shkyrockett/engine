@@ -11,7 +11,6 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Reflection;
 
 namespace Engine
 {
@@ -63,9 +62,9 @@ namespace Engine
                 culture = CultureInfo.CurrentCulture;
 
             var ch = culture.TextInfo.ListSeparator[0];
-            string[] strArray = str2.Split(new char[] { ch });
+            var strArray = str2.Split(new char[] { ch });
             var numArray = new double[strArray.Length];
-            TypeConverter converter = TypeDescriptor.GetConverter(typeof(double));
+            var converter = TypeDescriptor.GetConverter(typeof(double));
             for (var i = 0; i < numArray.Length; i++)
                 numArray[i] = (double)converter.ConvertFromString(context, culture, strArray[i]);
 
@@ -92,7 +91,7 @@ namespace Engine
                         culture = CultureInfo.CurrentCulture;
 
                     var separator = culture.TextInfo.ListSeparator + " ";
-                    TypeConverter converter = TypeDescriptor.GetConverter(typeof(double));
+                    var converter = TypeDescriptor.GetConverter(typeof(double));
                     var strArray = new string[2];
                     var num = 0;
                     strArray[num++] = converter.ConvertToString(context, culture, angle);
@@ -101,7 +100,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var angle2 = (double)value;
-                    ConstructorInfo constructor = typeof(Point2D).GetConstructor(new Type[] { typeof(double), typeof(double) });
+                    var constructor = typeof(Point2D).GetConstructor(new Type[] { typeof(double), typeof(double) });
                     if (constructor != null)
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { angle2 });
                 }

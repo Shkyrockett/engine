@@ -143,7 +143,7 @@ namespace MethodSpeedTester
             Func<List<PointF>, PointF, Inclusion> method,
             string text)
         {
-            PointF[] poly = polygon.ToArray();
+            var poly = polygon.ToArray();
             g.DrawString(text, font, Brushes.Black, new Point());
             g.FillPolygon(Brushes.White, poly);
             g.DrawPolygon(Pens.Black, poly);

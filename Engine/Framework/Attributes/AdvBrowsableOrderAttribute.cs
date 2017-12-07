@@ -65,7 +65,7 @@ namespace Engine
         /// <returns></returns>
         public static string[] GetOrder(Type t)
         {
-            object[] arr = t.GetCustomAttributes(typeof(AdvBrowsableOrderAttribute), false);
+            var arr = t.GetCustomAttributes(typeof(AdvBrowsableOrderAttribute), false);
             if (arr.Length > 0)
             {
                 return ((AdvBrowsableOrderAttribute)arr[0]).Order;

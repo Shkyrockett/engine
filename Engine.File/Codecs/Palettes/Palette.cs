@@ -86,7 +86,7 @@ namespace Engine.File.Palettes
         public void Load(string fileName)
         {
             FileName = fileName;
-            PaletteFileExtensions format = CheckExtensionSupport(FileName);
+            var format = CheckExtensionSupport(FileName);
             if (format != PaletteFileExtensions.unknown)
             {
                 using (Stream paletteStream = new FileStream(FileName, FileMode.Open))
@@ -504,7 +504,7 @@ namespace Engine.File.Palettes
                 var length = (double.Parse(len) - 1);
                 for (var Index = 0; (Index <= length); Index++)
                 {
-                    string[] ReadStr = StrReader.ReadLine().Split(new char[] { ' ' });
+                    var ReadStr = StrReader.ReadLine().Split(new char[] { ' ' });
                     if (ReadStr.Length == 3)
                         Colors.Add(new ARGB(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2])));
                     else if (ReadStr.Length == 4)

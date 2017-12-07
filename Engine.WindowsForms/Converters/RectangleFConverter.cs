@@ -13,7 +13,6 @@ using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Drawing;
 using System.Globalization;
-using System.Reflection;
 
 namespace Engine
 {
@@ -64,9 +63,9 @@ namespace Engine
             var str2 = str.Trim();
             if (str2.Length == 0) return null;
             if (culture == null) culture = CultureInfo.CurrentCulture;
-            string[] strArray = str2.Split(new char[] { culture.TextInfo.ListSeparator[0] });
+            var strArray = str2.Split(new char[] { culture.TextInfo.ListSeparator[0] });
             var numArray = new float[strArray.Length];
-            TypeConverter converter = TypeDescriptor.GetConverter(typeof(float));
+            var converter = TypeDescriptor.GetConverter(typeof(float));
             for (var i = 0; i < numArray.Length; i++)
                 numArray[i] = (float)converter.ConvertFromString(context, culture, strArray[i].Trim());
 
@@ -97,7 +96,7 @@ namespace Engine
                         culture = CultureInfo.CurrentCulture;
 
                     var separator = culture.TextInfo.ListSeparator + " ";
-                    TypeConverter converter = TypeDescriptor.GetConverter(typeof(float));
+                    var converter = TypeDescriptor.GetConverter(typeof(float));
                     var strArray = new string[4];
                     var num = 0;
                     strArray[num++] = converter.ConvertToString(context, culture, rectangleF.X);
@@ -109,7 +108,7 @@ namespace Engine
                 if (destinationType == typeof(InstanceDescriptor))
                 {
                     var rectangle2 = (RectangleF)value;
-                    ConstructorInfo constructor = typeof(RectangleF).GetConstructor(new Type[] { typeof(float), typeof(float), typeof(float), typeof(float) });
+                    var constructor = typeof(RectangleF).GetConstructor(new Type[] { typeof(float), typeof(float), typeof(float), typeof(float) });
                     if (constructor != null)
                         return new InstanceDescriptor(constructor, new object[] { rectangle2.X, rectangle2.Y, rectangle2.Width, rectangle2.Height });
                 }

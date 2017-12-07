@@ -28,7 +28,7 @@ namespace EventEditorMidi
         {
             InitializeComponent();
 
-            List<Type> fileFormats = MusicFiles.ListFileFormats();
+            var fileFormats = MusicFiles.ListFileFormats();
             toolStripComboBoxFileFormat.ComboBox.DataSource = fileFormats;
             toolStripComboBoxFileFormat.ComboBox.ValueMember = "Name";
             toolStripComboBoxFileFormat.SelectedItem = toolStripComboBoxFileFormat.Items[0];
@@ -43,14 +43,14 @@ namespace EventEditorMidi
         {
             musicFiles.Midi = new List<Engine.File.MediaFile> {
                 new MediaFile(
-                new Midi()
+                new Midi
                 {
                     //Name = "midi",
                     //DisplayName = "midi",
                     Header = new MidiHeader(),
-                    Tracks = new List<MidiTrack>()
+                    Tracks = new List<MidiTrack>
                     {
-                        new MidiTrack()
+                        new MidiTrack
                         {
                             //Name = "Track 1",
                         }
@@ -177,7 +177,7 @@ namespace EventEditorMidi
             var type = (Type)toolStripComboBoxFileFormat.SelectedItem;
             var item = (IMediaContainer)Activator.CreateInstance(type);
             if (item is Riff)
-                ((Riff)item).Contents = new List<IMediaContainer>() { new Midi() };
+                ((Riff)item).Contents = new List<IMediaContainer> { new Midi() };
             var musicFile = new MediaFile(item);
             musicFiles.Midi.Add(musicFile);
             AddNode(treeView.TopNode, musicFile);

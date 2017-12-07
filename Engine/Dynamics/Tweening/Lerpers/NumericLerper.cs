@@ -91,7 +91,7 @@ namespace Engine.Tweening
 
             if (behavior.HasFlag(LerpBehavior.Round)) value = Round(value);
 
-            Type type = currentValue.GetType();
+            var type = currentValue.GetType();
             return Convert.ChangeType(value, type);
         }
     }

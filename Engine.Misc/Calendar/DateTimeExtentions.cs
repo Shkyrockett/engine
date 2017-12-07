@@ -133,7 +133,7 @@ namespace Engine.Chrono
         /// <returns></returns>
         public static DateTime FirstWeekdayOfMonth(this DateTime date, DayOfWeek weekday)
         {
-            DateTime firstDayOfMonth = date.FirstDayOfMonth02();
+            var firstDayOfMonth = date.FirstDayOfMonth02();
             return (firstDayOfMonth.DayOfWeek == weekday ? firstDayOfMonth :
                     firstDayOfMonth.NextDayOfWeek(weekday)).AtMidnight();
         }
@@ -180,7 +180,7 @@ namespace Engine.Chrono
         /// <returns />
         public static DateTime LastWeekdayOfMonth(this DateTime date, DayOfWeek weekday)
         {
-            DateTime lastDayOfMonth = date.LastDayOfMonth();
+            var lastDayOfMonth = date.LastDayOfMonth();
             return lastDayOfMonth.AddDays(lastDayOfMonth.DayOfWeek < weekday ?
                     weekday - lastDayOfMonth.DayOfWeek - 7 :
                     weekday - lastDayOfMonth.DayOfWeek);
@@ -199,7 +199,7 @@ namespace Engine.Chrono
                 throw new ArgumentException("Instance count must be greater than zero", nameof(instance));
 
             DateTime returnDate;
-            DateTime firstDay = FirstInstanceWeekdayOfMonth(date, weekday);
+            var firstDay = FirstInstanceWeekdayOfMonth(date, weekday);
             var instancesInMonth = WeekdayCountInMonth(date, weekday);
             if (instance <= instancesInMonth)
             {
@@ -244,7 +244,7 @@ namespace Engine.Chrono
         /// </example>
         public static DateTime FirstInstanceWeekdayOfMonth02(this DateTime date, int instance, DayOfWeek weekday)
         {
-            DateTime test = FirstDayOfMonth(date);
+            var test = FirstDayOfMonth(date);
             test = test.NextDayOfWeek02(weekday);
             test = test.AddDays(7 * (instance - 1));
             return test;
@@ -275,7 +275,7 @@ namespace Engine.Chrono
         /// <returns></returns>
         public static DateTime LastInstanceWeekdayOfMonth(this DateTime date, DayOfWeek weekday)
         {
-            DateTime dtLastDay = new DateTime(date.Year, date.Month, 1).AddMonths(1).AddDays(-1);
+            var dtLastDay = new DateTime(date.Year, date.Month, 1).AddMonths(1).AddDays(-1);
             if (weekday > dtLastDay.DayOfWeek)
                 dtLastDay = dtLastDay.AddDays(weekday - dtLastDay.DayOfWeek - 7);
             else

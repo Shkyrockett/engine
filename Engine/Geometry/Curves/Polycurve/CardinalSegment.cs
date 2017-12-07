@@ -69,7 +69,7 @@ namespace Engine
         {
             get
             {
-                var nodes = new List<Point2D>() { Start.Value };
+                var nodes = new List<Point2D> { Start.Value };
                 nodes.AddRange(CentralPoints);
                 return nodes;
             }

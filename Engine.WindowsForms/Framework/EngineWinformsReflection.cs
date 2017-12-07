@@ -63,12 +63,12 @@ namespace Engine
         /// </remarks>
         public static void ReplacePropertyAttribute(Type type, Attribute searchAttribute, params Attribute[] uiEditorAttributes)
         {
-            PropertyDescriptorCollection props = TypeDescriptor.GetProperties(type, new Attribute[] { searchAttribute });
+            var props = TypeDescriptor.GetProperties(type, new Attribute[] { searchAttribute });
             foreach (PropertyDescriptor prop in props)
             {
                 // AttributeArray-property is not accessible
                 // => use reflection to get and set it.
-                PropertyInfo attributeArrayPropInfo = prop.GetType().GetProperty("AttributeArray", BindingFlags.Instance | BindingFlags.NonPublic);
+                var attributeArrayPropInfo = prop.GetType().GetProperty("AttributeArray", BindingFlags.Instance | BindingFlags.NonPublic);
                 var attributeArray = (attributeArrayPropInfo.GetValue(prop, null) as Attribute[]).ToList();
                 attributeArray.AddRange(uiEditorAttributes);
                 attributeArrayPropInfo.SetValue(prop, attributeArray.ToArray(), null);
@@ -81,7 +81,7 @@ namespace Engine
         /// <returns>The attribute to look for.</returns>
         public static List<Type> ListTypesTaggedWithPropertyAttribute(Attribute attribute)
         {
-            Type objectType = attribute.GetType();
+            var objectType = attribute.GetType();
             var assembly = Assembly.GetAssembly(objectType);
             return GetAssemblyTypesTaggedWithPropertyAttribute(assembly, attribute);
         }

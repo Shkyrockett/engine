@@ -301,7 +301,7 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween From(object values)
         {
-            System.Reflection.PropertyInfo[] props = values.GetType().GetProperties();
+            var props = values.GetType().GetProperties();
             for (var i = 0; i < props.Length; ++i)
             {
                 System.Reflection.PropertyInfo property = props[i];

@@ -298,7 +298,7 @@ namespace Engine
             double aX, double aY,
             double bX, double bY,
             double cX, double cY)
-            => new List<(double X, double Y)>()
+            => new List<(double X, double Y)>
             {
                 (aX, aY),
                 (aX + TwoThirds * (bX - aX), aY + TwoThirds * (bY - aY)),

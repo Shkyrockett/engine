@@ -12,7 +12,6 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Globalization;
-using System.Reflection;
 
 namespace Engine
 {
@@ -64,9 +63,9 @@ namespace Engine
                 culture = CultureInfo.CurrentCulture;
 
             var ch = culture.TextInfo.ListSeparator[0];
-            string[] strArray = str2.Split(new char[] { ch });
+            var strArray = str2.Split(new char[] { ch });
             var numArray = new float[strArray.Length];
-            TypeConverter converter = TypeDescriptor.GetConverter(typeof(float));
+            var converter = TypeDescriptor.GetConverter(typeof(float));
             for (var i = 0; i < numArray.Length; i++)
                 numArray[i] = (float)converter.ConvertFromString(context, culture, strArray[i]);
 
@@ -93,7 +92,7 @@ namespace Engine
                         culture = CultureInfo.CurrentCulture;
 
                     var separator = culture.TextInfo.ListSeparator + " ";
-                    TypeConverter converter = TypeDescriptor.GetConverter(typeof(float));
+                    var converter = TypeDescriptor.GetConverter(typeof(float));
                     var strArray = new string[2];
                     var num = 0;
                     strArray[num++] = converter.ConvertToString(context, culture, point.X);
@@ -103,7 +102,7 @@ namespace Engine
                 if (destinationType == typeof(System.ComponentModel.Design.Serialization.InstanceDescriptor))
                 {
                     var point2 = (PointF)value;
-                    ConstructorInfo constructor = typeof(PointF).GetConstructor(new Type[] { typeof(float), typeof(float) });
+                    var constructor = typeof(PointF).GetConstructor(new Type[] { typeof(float), typeof(float) });
                     if (constructor != null)
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point2.X, point2.Y });
                 }

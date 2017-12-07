@@ -119,7 +119,7 @@ namespace Engine
                     do
                     {
                         var np = prev + dir * md;
-                        AddPointResult res = AddInternal((Point2D)np);
+                        var res = AddInternal((Point2D)np);
                         first = Math.Min(first, res.FirstChangedIndex);
                         add |= res.WasAdded;
                         prev = np;

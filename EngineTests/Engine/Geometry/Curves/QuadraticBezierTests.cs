@@ -143,7 +143,7 @@ namespace Engine.Tests
         public void QuadraticBezierInterpolateTest()
         {
             var bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            Point2D value = bezier.Interpolate(0.5);
+            var value = bezier.Interpolate(0.5);
             Assert.AreEqual(new Point2D(53, 225), value);
         }
 

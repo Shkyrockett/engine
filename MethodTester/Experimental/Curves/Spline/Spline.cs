@@ -168,7 +168,7 @@ namespace Engine
         /// <returns>The position on the spline.</returns>
         public Point2D Sample(double u)
         {
-            SamplePosition pos = GetSamplePosition(u);
+            var pos = GetSamplePosition(u);
             return curves[pos.Index].Sample(pos.Time);
         }
 
@@ -249,7 +249,7 @@ namespace Engine
             {
                 var idx = (iCurve * nSamples) + iPoint;
                 var t = (iPoint + 1) / (double)nSamples;
-                Point2D np = curve.Sample(t);
+                var np = curve.Sample(t);
                 var d = Measurements.Distance(np, pp);
                 clen += d;
                 arclen[idx] = clen;

@@ -383,9 +383,9 @@ namespace Engine
         {
             //	std::cout << "YES. INTERSECTION" << std::endl;
             // "Right event" of the "left line segment" resulting from dividing le.segment ()
-            SweepEvent r = StoreSweepEvent(new SweepEvent(false, p, le, le.BelongsTo /*, le.type*/));
+            var r = StoreSweepEvent(new SweepEvent(false, p, le, le.BelongsTo /*, le.type*/));
             // "Left event" of the "right line segment" resulting from dividing le.segment ()
-            SweepEvent l = StoreSweepEvent(new SweepEvent(true, p, le.OtherEvent, le.BelongsTo /*, le.other.type*/));
+            var l = StoreSweepEvent(new SweepEvent(true, p, le.OtherEvent, le.BelongsTo /*, le.other.type*/));
             if (SweepEventComp(l, le.OtherEvent) != 0)
             {
                 // avoid a rounding error. The left event would be processed after the right event

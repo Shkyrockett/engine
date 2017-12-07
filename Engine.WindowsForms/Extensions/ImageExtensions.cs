@@ -11,7 +11,6 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Windows.Forms;
 
 namespace Engine.Imaging
@@ -55,7 +54,7 @@ namespace Engine.Imaging
         public static Image CropImage(this Image canvas, Rectangle cropArea)
         {
             var bmpImage = new Bitmap(canvas);
-            Bitmap bmpCrop = bmpImage.Clone(cropArea,
+            var bmpCrop = bmpImage.Clone(cropArea,
             bmpImage.PixelFormat);
             return bmpCrop;
         }
@@ -190,7 +189,7 @@ namespace Engine.Imaging
             //  Get the namespace 
             var strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
             //  Get the resource into a stream 
-            Stream ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream((strNameSpace + ("." + ResourceName)));
+            var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream((strNameSpace + ("." + ResourceName)));
             if (ResourceStream == null)
             {
                 // TODO: #If Then ... Warning!!! not translated

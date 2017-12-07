@@ -213,7 +213,7 @@ namespace Engine.Winforms.Direct2D
                 RenderTargetUsage.None,
                 FeatureLevel.Level_10);
 
-            var windowProperties = new HwndRenderTargetProperties()
+            var windowProperties = new HwndRenderTargetProperties
             {
                 Hwnd = Handle,
                 PixelSize = new Size2(width, height),

@@ -58,7 +58,7 @@ namespace MethodSpeedTester
             {
                 using (Graphics grfx = e.Graphics)
                 {
-                    var format = new StringFormat()
+                    var format = new StringFormat
                     {
                         Alignment = StringAlignment.Center,
                         LineAlignment = StringAlignment.Center,

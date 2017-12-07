@@ -2055,7 +2055,7 @@ namespace Engine
             double count = 100d)
         {
             // Get the list of points from the parametric method.
-            List<Point2D> points = func(count);
+            var points = func(count);
             if (points?.Count < 1)
                 return null;
 

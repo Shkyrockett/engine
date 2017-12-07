@@ -208,7 +208,7 @@ namespace Engine.File
                 ps = status.Status;
             }
 
-            return new MidiTrack()
+            return new MidiTrack
             {
                 TrackHeaderLength = chunk.Length,
                 events = events

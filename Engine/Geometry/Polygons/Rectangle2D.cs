@@ -956,7 +956,7 @@ namespace Engine
         /// <param name="rect"></param>
         public void Intersect(Rectangle2D rect)
         {
-            Rectangle2D result = Intersect(rect, this);
+            var result = Intersect(rect, this);
 
             x = result.X;
             y = result.Y;

@@ -16,23 +16,23 @@ namespace Engine
     public enum WindingRules
     {
         /// <summary>
-        /// 
+        /// Non Zero Winding.
         /// </summary>
         NonZero = 0,
 
         /// <summary>
-        /// 
+        /// Even Odd Winding.
         /// </summary>
         EvenOdd = 1,
 
         /// <summary>
-        /// 
+        /// Positive Winding.
         /// </summary>
         Positive = 2,
 
         /// <summary>
-        /// 
+        /// Negative Winding.
         /// </summary>
-        Negitive = 3
+        Negative = 3
     }
 }

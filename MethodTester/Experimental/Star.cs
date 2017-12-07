@@ -28,7 +28,7 @@ namespace Engine
         private void DrawStar(Graphics gr, Pen the_pen, Brush the_brush, int num_points, int skip, Rectangle rect)
         {
             // Get the star's points.
-            PointF[] star_points = MakeStarPoints(-PI / 2, num_points, skip, rect);
+            var star_points = MakeStarPoints(-PI / 2, num_points, skip, rect);
 
             // Draw the star.
             gr.FillPolygon(the_brush, star_points);

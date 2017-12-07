@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
 using System.Collections.Generic;
 using static System.Math;
 
@@ -19,8 +18,13 @@ namespace Engine
     /// </summary>
     public partial class Maths
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        public const double horizontal = double.NegativeInfinity;
+
         #region Epsilons, Minimums, Maximums
-        
+
         /// <summary>
         /// 
         /// </summary>

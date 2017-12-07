@@ -634,10 +634,10 @@ namespace Engine
             if (matrixType == MatrixTypes.Unknown)
             {
                 // Al Bunny implementation.
-                Point2D point0 = matrix.Transform(rect.TopLeft);
-                Point2D point1 = matrix.Transform(rect.TopRight);
-                Point2D point2 = matrix.Transform(rect.BottomRight);
-                Point2D point3 = matrix.Transform(rect.BottomLeft);
+                var point0 = matrix.Transform(rect.TopLeft);
+                var point1 = matrix.Transform(rect.TopRight);
+                var point2 = matrix.Transform(rect.BottomRight);
+                var point3 = matrix.Transform(rect.BottomLeft);
 
                 // Width and height is always positive here.
                 rect.X = Min(Min(point0.X, point1.X), Min(point2.X, point3.X));

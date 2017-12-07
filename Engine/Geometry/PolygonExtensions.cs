@@ -765,7 +765,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsInside(LineSegment edge, Point2D test)
         {
-            bool? isLeft = IsLeftOf(edge, test);
+            var isLeft = IsLeftOf(edge, test);
             if (isLeft == null)
             {
                 // Collinear points should be considered inside
@@ -785,7 +785,7 @@ namespace Engine
         {
             for (var cntr = 2; cntr < polygon.Count; cntr++)
             {
-                bool? isLeft = IsLeftOf(new LineSegment(polygon[0], polygon[1]), polygon[cntr]);
+                var isLeft = IsLeftOf(new LineSegment(polygon[0], polygon[1]), polygon[cntr]);
                 if (isLeft != null)
                 {
                     // some of the points may be collinear.  That's ok as long as the overall is a polygon

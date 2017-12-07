@@ -115,7 +115,7 @@ namespace Engine
         /// <returns></returns>
         public static double Arcfn(double t, DerivitiveMethod2D derivativeFn)
         {
-            Point2D d = derivativeFn(t);
+            var d = derivativeFn(t);
             var l = d.X * d.X + d.Y * d.Y;
             return Sqrt(l);
         }
@@ -128,7 +128,7 @@ namespace Engine
         /// <returns></returns>
         public static double Arcfn(double t, DerivitiveMethod3D derivativeFn)
         {
-            Point3D d = derivativeFn(t);
+            var d = derivativeFn(t);
             var l = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
             return Sqrt(l);
         }
@@ -342,7 +342,7 @@ namespace Engine
             var MY = MX;
             foreach (Bezier s in sections)
             {
-                BBox bbox = s.Bbox();
+                var bbox = s.Bbox();
                 if (mx > bbox.X.Min)
                     mx = bbox.X.Min;
                 if (my > bbox.Y.Min)
@@ -382,7 +382,7 @@ namespace Engine
                 {
                     if (l2.Virtual)
                         return new List<Pair>();
-                    List<Pair> iss = l1.Intersects(l2);
+                    var iss = l1.Intersects(l2);
                     foreach (Pair i in iss)
                     {
                         if (i.Length > 0)
@@ -409,8 +409,8 @@ namespace Engine
         {
             var bpl = back.Points.Count;
             var fpl = forward.Points.Count;
-            Bezier start = MakeLine(back.Points[bpl - 1], forward.Points[0]);
-            Bezier end = MakeLine(forward.Points[fpl - 1], back.Points[0]);
+            var start = MakeLine(back.Points[bpl - 1], forward.Points[0]);
+            var end = MakeLine(forward.Points[fpl - 1], back.Points[0]);
             var shape = new Shape1(
                 startcap: start,
                 forward: forward,
@@ -506,7 +506,7 @@ namespace Engine
         {
             //line = line || new Line(p1: new Point2D(x: 0, y: 0), p2: new Point2D(x: 1, y: 0));
             var order = points.Count - 1;
-            List<Point3D> pts = Align(points, line);
+            var pts = Align(points, line);
 
             double a = 0;
             double b = 0;
@@ -655,7 +655,7 @@ namespace Engine
         /// <returns></returns>
         public static List<double> Inflections(List<Point3D> points)
         {
-            List<Point3D> p = Align(points, new Line1(p1: points[0], p2: points[3]));
+            var p = Align(points, new Line1(p1: points[0], p2: points[3]));
             var a = p[2].X * p[1].Y;
             var b = p[3].X * p[1].Y;
             var c = p[1].X * p[2].Y;
@@ -741,8 +741,8 @@ namespace Engine
         /// <param name="c2"></param>
         public static List<Pair> Pairiteration(Bezier c1, Bezier c2)
         {
-            BBox c1b = c1.Bbox();
-            BBox c2b = c2.Bbox();
+            var c1b = c1.Bbox();
+            var c2b = c2.Bbox();
             //double r = 100000;
             var threshold = 0.5;
             if (c1b.X.Size + c1b.Y.Size < threshold && c2b.X.Size + c2b.Y.Size < threshold)
@@ -801,7 +801,7 @@ namespace Engine
             var mx2n = mx2 + dx2p;
             var my2n = my2 + dy2p;
             // intersection of these lines:
-            Point3D? arcCenter = Lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
+            var arcCenter = Lli8(mx1, my1, mx1n, my1n, mx2, my2, mx2n, my2n);
             var r = Measurements.Distance(arcCenter.Value, p1);
             // arc start/end values, over mid point:
             var s = Atan2(p1.Y - arcCenter.Value.Y, p1.X - arcCenter.Value.X);
@@ -830,7 +830,7 @@ namespace Engine
                 { e += Tau; }
             }
             // assign and done.
-            var arc = new Arc1()
+            var arc = new Arc1
             {
                 Center = arcCenter.Value,
                 S = s,

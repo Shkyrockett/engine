@@ -38,7 +38,7 @@ namespace Engine
         {
             //base.OnPaint(e);
 
-            GraphicsPath path = Create(new Point2D(5, 5), new Size2D(20, 20));
+            var path = Create(new Point2D(5, 5), new Size2D(20, 20));
             e.Graphics.DrawPath(Pens.Black, path);
 
             path = Create(new Point2D(30, 5), new Size2D(40, 40), 5);

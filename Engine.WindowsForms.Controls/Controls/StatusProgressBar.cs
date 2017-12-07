@@ -48,7 +48,7 @@ namespace Engine.WindowsForms
                 case WmPaint:
                     using (var graphics = Graphics.FromHwnd(Handle))
                     {
-                        SizeF textSize = graphics.MeasureString(Text, Font);
+                        var textSize = graphics.MeasureString(Text, Font);
 
                         using (var textBrush = new SolidBrush(ForeColor))
                             graphics.DrawString(Text, Font, textBrush, (Width / 2) - (textSize.Width / 2), (Height / 2) - (textSize.Height / 2));
@@ -79,7 +79,7 @@ namespace Engine.WindowsForms
 
             using (var f = new Font(FontFamily.GenericMonospace, 10))
             {
-                SizeF strLen = g.MeasureString(text, f);
+                var strLen = g.MeasureString(text, f);
                 var location = new Point((int)((rect.Width / 2) - (strLen.Width / 2)), (int)((rect.Height / 2) - (strLen.Height / 2)));
                 g.DrawString(text, f, Brushes.Black, location);
             }

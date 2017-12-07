@@ -17,22 +17,22 @@ namespace Engine
         : byte
     {
         /// <summary>
-        /// 
+        /// Use a Miter joint at the corners.
         /// </summary>
         Miter = 0,
 
         /// <summary>
-        /// 
+        /// Use a Bevel joint at the corners.
         /// </summary>
         Bevel = 1,
 
         /// <summary>
-        /// 
+        /// Use a Round joint at the corners.
         /// </summary>
         Round = 2,
 
         /// <summary>
-        /// 
+        /// Use a Square joint at the corners.
         /// </summary>
         Square = 3
     }

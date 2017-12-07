@@ -203,8 +203,8 @@ namespace Engine
         {
             foreach (var listItem in bindingSource.List)
             {
-                iMidiElement dataItem = getDataItemFunc(listItem);
-                TreeNode treeNode = addTreeNodeFunc(dataItem);
+                var dataItem = getDataItemFunc(listItem);
+                var treeNode = addTreeNodeFunc(dataItem);
                 if (treeNode == null) continue;
                 updateTreeNodeAction(dataItem, treeNode);
                 treeNodeCollection.Add(treeNode);
@@ -217,10 +217,10 @@ namespace Engine
         /// <param name="newIndex"></param>
         private void AddItem(int newIndex)
         {
-            iMidiElement dataItem = getDataItemFunc(bindingSource.Current);
+            var dataItem = getDataItemFunc(bindingSource.Current);
             if (currentAddItem == null)
             {
-                TreeNode treeNode = addTreeNodeFunc(dataItem);
+                var treeNode = addTreeNodeFunc(dataItem);
                 if (treeNode == null) return;
                 treeNodeCollection.Insert(newIndex, treeNode);
                 currentAddItem = treeNode;
@@ -237,7 +237,7 @@ namespace Engine
         {
             if (bindingSource.Current == null)
                 return;
-            iMidiElement dataItem = getDataItemFunc(bindingSource.Current);
+            var dataItem = getDataItemFunc(bindingSource.Current);
             var treeNode = treeNodeCollection[bindingSource.Position];
             updateTreeNodeAction(dataItem, treeNode);
         }

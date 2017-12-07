@@ -904,7 +904,7 @@ namespace MethodSpeedTester
             int i = 0, cnt = paths.Count;
             while (i < cnt && paths[i].Count == 0) i++;
             if (i == cnt) return new Rectangle2D(0, 0, 0, 0);
-            var result = new Rectangle2D()
+            var result = new Rectangle2D
             {
                 Left = paths[i][0].X
             };
@@ -933,9 +933,9 @@ namespace MethodSpeedTester
         [System.ComponentModel.DisplayName(nameof(BoundsOfPolygon))]
         public static List<SpeedTester> BoundsOfPolygon()
             => new List<SpeedTester> {
-                new SpeedTester(() => PolygonBounds0(new List<Point2D>(){(10, 10), (25,5), (5,30)}),
+                new SpeedTester(() => PolygonBounds0(new List<Point2D>{(10, 10), (25,5), (5,30)}),
                 $"{nameof(Experiments.PolygonBounds0)}(new List<Point2D>(){{(10, 10), (25,5), (5,30)}})"),
-                 new SpeedTester(() => PolygonBounds1(new List<Point2D>(){(10, 10), (25,5), (5,30)}),
+                 new SpeedTester(() => PolygonBounds1(new List<Point2D>{(10, 10), (25,5), (5,30)}),
                 $"{nameof(Experiments.PolygonBounds1)}(new List<Point2D>(){{(10, 10), (25,5), (5,30)}})")
            };
 
@@ -977,7 +977,7 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D PolygonBounds1(List<Point2D> path)
         {
-            var result = new Rectangle2D()
+            var result = new Rectangle2D
             {
                 Left = path[0].X,
                 Top = path[0].Y,
@@ -5596,9 +5596,9 @@ namespace MethodSpeedTester
             //return (a0 * y1 + a1 * m0 + a2 * m1 + a3 * y2);
             var mu2 = index * index;
             var mu3 = mu2 * index;
-            Vector2D m0 = aTan.Subtract(a).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
+            var m0 = aTan.Subtract(a).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
             m0 = m0.Add(b.Subtract(aTan).Scale(1 - bias).Scale(1 - tension).Scale(0.5));
-            Vector2D m1 = b.Subtract(aTan).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
+            var m1 = b.Subtract(aTan).Scale(1 + bias).Scale(1 - tension).Scale(0.5);
             m1 = m1.Add(bTan.Subtract(b).Scale(1 - bias).Scale(1 - tension).Scale(0.5));
             var a0 = 2 * mu3 - 3 * mu2 + 1;
             var a1 = mu3 - 2 * mu2 + index;
@@ -6298,7 +6298,7 @@ namespace MethodSpeedTester
             {
                 foreach (var sign2 in signs)
                 {
-                    List<Point2D> points = FindRootsUsingNewtonsMethod(
+                    var points = FindRootsUsingNewtonsMethod(
                         xmin, xmax,
                         eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, sign1,
                         eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, sign2);
@@ -6349,7 +6349,7 @@ namespace MethodSpeedTester
             {
                 foreach (var sign2 in signs)
                 {
-                    List<Point2D> points = FindRootsUsingBinaryDivision(
+                    var points = FindRootsUsingBinaryDivision(
                         xmin, xmax,
                         eis.A1, eis.B1, eis.C1, eis.D1, eis.E1, eis.F1, sign1,
                         eis.A2, eis.B2, eis.C2, eis.D2, eis.E2, eis.F2, sign2);
@@ -10324,7 +10324,7 @@ namespace MethodSpeedTester
         public static Point2D OffsetInterpolate(Point2D Value1, Point2D Value2, double Offset, double Weight)
         {
             var UnitVectorAB = new Vector2D(Value1, Value2);
-            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
+            var PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
             return Interpolators.Linear(Value1, Value2, Weight).Inflate(PerpendicularAB);
         }
 
@@ -11073,17 +11073,17 @@ namespace MethodSpeedTester
         public static Point2D[] CenteredOffsetLinePoints(Point2D pointA, Point2D pointB, Point2D pointC, Point2D pointD, double offsetDistance)
         {
             // To get the vectors of the angles at each corner B and C, Normalize the Unit Delta Vectors along AB, BC, and CD.
-            Vector2D UnitVectorAB = pointB.Subtract(pointA).Unit();
-            Vector2D UnitVectorBC = pointC.Subtract(pointB).Unit();
-            Vector2D UnitVectorCD = pointD.Subtract(pointC).Unit();
+            var UnitVectorAB = pointB.Subtract(pointA).Unit();
+            var UnitVectorBC = pointC.Subtract(pointB).Unit();
+            var UnitVectorCD = pointD.Subtract(pointC).Unit();
 
             //  Find the Perpendicular of the outside vectors
-            Vector2D PerpendicularAB = UnitVectorAB.Perpendicular();
-            Vector2D PerpendicularCD = UnitVectorCD.Perpendicular();
+            var PerpendicularAB = UnitVectorAB.Perpendicular();
+            var PerpendicularCD = UnitVectorCD.Perpendicular();
 
             //  Normalized Vectors pointing out from B and C.
-            Vector2D OutUnitVectorB = (UnitVectorAB - UnitVectorBC).Unit();
-            Vector2D OutUnitVectorC = (UnitVectorCD - UnitVectorBC).Unit();
+            var OutUnitVectorB = (UnitVectorAB - UnitVectorBC).Unit();
+            var OutUnitVectorC = (UnitVectorCD - UnitVectorBC).Unit();
 
             //  The distance out from B is the radius / Cos(theta) where theta is the angle
             //  from the perpendicular of BC of the UnitVector. The cosine can also be
@@ -14083,9 +14083,9 @@ namespace MethodSpeedTester
             double t)
         {
             // point between a and b
-            (double X, double Y) ab = LinearInterpolate2D_0(x0, y0, x1, y1, t);
+            var ab = LinearInterpolate2D_0(x0, y0, x1, y1, t);
             // point between b and c
-            (double X, double Y) bc = LinearInterpolate2D_0(x1, y1, x2, y2, t);
+            var bc = LinearInterpolate2D_0(x1, y1, x2, y2, t);
             // point on the bezier-curve
             return LinearInterpolate2D_0(ab.X, ab.Y, bc.X, bc.Y, t);
         }
@@ -14158,9 +14158,9 @@ namespace MethodSpeedTester
             double t)
         {
             // point between a and b
-            (double X, double Y, double Z) ab = LinearInterpolate3D_0(x0, y0, z0, x1, y1, z1, t);
+            var ab = LinearInterpolate3D_0(x0, y0, z0, x1, y1, z1, t);
             // point between b and c
-            (double X, double Y, double Z) bc = LinearInterpolate3D_0(x1, y1, z1, x2, y2, z2, t);
+            var bc = LinearInterpolate3D_0(x1, y1, z1, x2, y2, z2, t);
             // point on the bezier-curve
             return LinearInterpolate3D_0(ab.X, ab.Y, ab.Z, bc.X, bc.Y, bc.Z, t);
         }
@@ -14434,7 +14434,7 @@ namespace MethodSpeedTester
             //  Get the namespace
             var strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
             //  Get the resource into a stream
-            System.IO.Stream ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream((strNameSpace + ("." + ResourceName)));
+            var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream((strNameSpace + ("." + ResourceName)));
             if (ResourceStream == null)
             {
                 // TODO: #If Then ... Warning!!! not translated

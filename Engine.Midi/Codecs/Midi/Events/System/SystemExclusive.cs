@@ -60,7 +60,7 @@ namespace Engine.File
         /// <returns></returns>
         internal static SystemExclusive Read(BinaryReaderExtended reader, EventStatus status, ref bool sysExContinue, ref byte[] sysExData)
         {
-            byte[] buffer = reader.ReadVariableLengthBytes();
+            var buffer = reader.ReadVariableLengthBytes();
             if (sysExData == null) sysExData = new byte[0];
             if (buffer.Length == 0)
             {

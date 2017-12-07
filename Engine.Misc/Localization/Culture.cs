@@ -43,7 +43,7 @@ namespace Engine.Localization
         /// <param name="code">A string representing a language-country culture code.</param>
         public Culture(string code)
         {
-            string[] tokens = code.Split('-');
+            var tokens = code.Split('-');
             Enum.TryParse(tokens[0], out Languages language);
             Enum.TryParse(tokens[1], out Countries country);
             Language = language;

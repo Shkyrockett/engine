@@ -85,7 +85,7 @@ namespace Engine
         /// <param name="contours"></param>
         public Polygon(params IEnumerable<Point2D>[] contours)
         {
-            this.contours = new List<PolygonContour>() ?? throw new ArgumentNullException(nameof(contours),"Argument must not be null.");
+            this.contours = new List<PolygonContour>() ?? throw new ArgumentNullException(nameof(contours), "Argument must not be null.");
 
             foreach (var list in contours)
             {
@@ -177,6 +177,12 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
             => contours.Count;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public int Capacity { get { return contours.Capacity; } set { contours.Capacity = value; } }
 
         /// <summary>
         /// 

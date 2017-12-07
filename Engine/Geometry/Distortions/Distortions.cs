@@ -374,7 +374,7 @@ namespace Engine
                     while (rd > distance)
                     {
                         rd -= distance;
-                        Point2D np = Primitives.Lerp(p0, p1, (td - rd) / td);
+                        var np = Primitives.Lerp(p0, p1, (td - rd) / td);
                         if (!Primitives.EqualsOrClose(np, pp))
                         {
                             dest.Add(np);

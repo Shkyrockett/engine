@@ -571,7 +571,7 @@ namespace Engine
         /// <returns></returns>
         public static Matrix3x3D FromRotationAxis(double radianAngle, Vector3D axis)
         {
-            Matrix3x3D first = FromLookAt(Vector3D.Empty, axis, new Vector3D(axis.K, axis.I, axis.J));
+            var first = FromLookAt(Vector3D.Empty, axis, new Vector3D(axis.K, axis.I, axis.J));
             return first.Inverted * FromRotationZ(radianAngle) * first;
         }
 

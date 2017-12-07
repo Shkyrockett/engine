@@ -140,7 +140,7 @@ namespace Engine
         /// <param name="e"></param>
         private void NeedleControl_MouseMove(object sender, MouseEventArgs e)
         {
-            PointF center = Center(Bounds.Size);
+            var center = Center(Bounds.Size);
 
             if (selecting)
             {
@@ -156,7 +156,7 @@ namespace Engine
         /// <param name="e"></param>
         private void NeedleControl_MouseUp(object sender, MouseEventArgs e)
         {
-            PointF center = Center(Bounds.Size);
+            var center = Center(Bounds.Size);
 
             if (selecting)
             {
@@ -174,7 +174,7 @@ namespace Engine
         /// <param name="e"></param>
         private void NeedleControl_Resize(object sender, EventArgs e)
         {
-            RectangleF sqr = ToSquare(new Rectangle(Point.Empty, Bounds.Size));
+            var sqr = ToSquare(new Rectangle(Point.Empty, Bounds.Size));
             var g = new GraphicsPath();
             g.AddEllipse(sqr);
             Region = new Region(g);
@@ -188,7 +188,7 @@ namespace Engine
         {
             if (!IsTransparent) base.OnPaintBackground(e);
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-            RectangleF sqr = ToSquare(ClientRectangle);
+            var sqr = ToSquare(ClientRectangle);
             FillBack(e.Graphics, sqr);
         }
 
@@ -200,7 +200,7 @@ namespace Engine
         {
             base.OnPaint(e);
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-            RectangleF sqr = ToSquare(ClientRectangle);
+            var sqr = ToSquare(ClientRectangle);
             FillBack(e.Graphics, sqr);
             sqr.Inflate(new SizeF(-1f, -1f));
             DrawBorder(e.Graphics, sqr);
@@ -255,7 +255,7 @@ namespace Engine
                 Alignment = PenAlignment.Center,
                 Width = 1
             };
-            PointF center = Center(rect);
+            var center = Center(rect);
             var radiusOutside = rect.Width / 2;
             var radiusInside = 0.9f * radiusOutside;
 
@@ -284,7 +284,7 @@ namespace Engine
                 Alignment = PenAlignment.Center,
                 Width = 2
             };
-            PointF center = Center(rect);
+            var center = Center(rect);
             var radius = rect.Width / 2;
             var point = new PointF(
                 (float)(center.X + (radius * Cos(angle))),

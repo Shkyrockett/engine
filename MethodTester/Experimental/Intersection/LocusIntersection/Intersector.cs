@@ -67,7 +67,7 @@ namespace Engine
                 : ((b1.Y - a1.Y) / denomY, (b2.Y - a1.Y) / denomY);
 
             var ret = new List<Point2D>();
-            double[] interval = OverlapIntervals(ub.Item1, ub.Item2);
+            var interval = OverlapIntervals(ub.Item1, ub.Item2);
             foreach (var f in interval)
             {
                 var x = a2.X * f + a1.X * (1d - f);

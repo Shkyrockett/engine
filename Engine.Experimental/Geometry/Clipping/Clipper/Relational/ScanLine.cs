@@ -8,7 +8,6 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
-
 namespace Engine.Experimental
 {
     /// <summary>
@@ -19,11 +18,11 @@ namespace Engine.Experimental
         /// <summary>
         /// The y intercept.
         /// </summary>
-        public double Y;
+        public double Y { get; set; }
 
         /// <summary>
         /// The next.
         /// </summary>
-        public ScanLine NextScanLine;
+        public ScanLine NextScanLine { get; set; }
     };
 }

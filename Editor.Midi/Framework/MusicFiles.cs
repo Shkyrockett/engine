@@ -25,7 +25,7 @@ namespace EventEditorMidi
         /// <returns></returns>
         public static List<Type> ListFileFormats()
         {
-            Type shapeType = typeof(IMediaContainer);
+            var shapeType = typeof(IMediaContainer);
             var assembly = Assembly.GetAssembly(shapeType);
             return GetAssemblyInterfaces(assembly, shapeType);
         }
@@ -36,7 +36,7 @@ namespace EventEditorMidi
         /// <returns></returns>
         public static List<Type> ListEventFormats()
         {
-            Type shapeType = typeof(IMidiEvent);
+            var shapeType = typeof(IMidiEvent);
             var assembly = Assembly.GetAssembly(shapeType);
             return GetAssemblyInterfaces(assembly, shapeType);
         }

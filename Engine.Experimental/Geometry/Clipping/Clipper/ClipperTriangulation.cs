@@ -8,13 +8,11 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
+using System.Runtime.CompilerServices;
 using static Engine.Maths;
 
 namespace Engine.Experimental
 {
-    //using PolygonContour = List<Point2D>;
-    //using Polygon = List<List<Point2D>>;
-
     /// <summary>
     /// ClipperTri 
     /// </summary>
@@ -26,122 +24,16 @@ namespace Engine.Experimental
         /// <summary>
         /// 
         /// </summary>
-        OutPoint LastOp;
+        private LinkedPoint LastOp;
 
         /// <summary>
-        /// 
+        /// The resulting triangles polygon.
         /// </summary>
-        Polygon triangles = new Polygon();
+        private Polygon triangles = new Polygon();
 
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pt"></param>
-        /// <param name="afterOutPt"></param>
-        /// <returns></returns>
-        private OutPointTri InsertPt(Point2D pt, OutPoint afterOutPt)
-        {
-            var result = (OutPointTri)CreateOutPt();
-            result.Pt = pt;
-            result.Prev = afterOutPt;
-            result.Next = afterOutPt.Next;
-            result.outrec = (afterOutPt as OutPointTri).outrec;
-            result.rightOutrec = null;
-            afterOutPt.Next.Prev = result;
-            afterOutPt.Next = result;
-            return result;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pt1"></param>
-        /// <param name="pt2"></param>
-        /// <param name="pt3"></param>
-        private void AddPolygon(Point2D pt1, Point2D pt2, Point2D pt3)
-        {
-            var p = new PolygonContour
-            {
-                Capacity = 3
-            };
-            p.Add(pt3);
-            p.Add(pt2);
-            p.Add(pt1);
-            triangles.Add(p);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="outrec"></param>
-        private void Triangulate(OutRec outrec)
-        {
-            OutPoint op = outrec.Pts;
-            if (op.Next == op.Prev)
-            {
-                return;
-            }
-
-            OutPoint end_op = op.Next;
-            OutPointTri opt;
-            for (; ; )
-            {
-                OutPoint op2 = op;
-                var cpval = 0d;
-                while (op.Prev != end_op)
-                {
-                    cpval = CrossProductVector(op.Pt.X, op.Pt.Y, op.Prev.Pt.X, op.Prev.Pt.Y, op.Prev.Prev.Pt.X, op.Prev.Prev.Pt.Y);
-                    if (cpval >= 0)
-                    {
-                        break;
-                    }
-
-                    if (op2 != op)
-                    {
-                        //Due to rounding, the clipping algorithm can occasionally produce
-                        //tiny self-intersections and these need removing ...
-                        cpval = CrossProductVector(op2.Pt.X, op2.Pt.Y, op.Pt.X, op.Pt.Y, op.Prev.Prev.Pt.X, op.Prev.Prev.Pt.Y);
-                        if (cpval > 0)
-                        {
-                            opt = (OutPointTri)op;
-                            if (opt.outrec != null)
-                            {
-                                opt.outrec.UpdateHelper(op2);
-                            }
-
-                            OutPoint.DisposeOutPt(op);
-                            op = op2;
-                            continue;
-                        }
-                    }
-                    op = op.Prev;
-                }
-
-                if (op.Prev == end_op)
-                {
-                    break;
-                }
-
-                if (cpval != 0)
-                {
-                    AddPolygon(op.Pt, op.Prev.Pt, op.Prev.Prev.Pt);
-                }
-
-                opt = (OutPointTri)op.Prev;
-                if (opt.outrec != null)
-                {
-                    opt.outrec.UpdateHelper(op);
-                }
-
-                OutPoint.DisposeOutPt(op.Prev);
-                if (op != outrec.Pts)
-                {
-                    op = op.Next;
-                }
-            }
-        }
+        #region Overrides
 
         /// <summary>
         /// 
@@ -153,9 +45,9 @@ namespace Engine.Experimental
         {
             base.AddLocalMinPoly(e1, e2, pt);
 
-            OutRec locMinOr = e1.OutRec;
-            (locMinOr.Pts as OutPointTri).outrec = locMinOr;
-            locMinOr.UpdateHelper(locMinOr.Pts);
+            var locMinOr = e1.OutRec;
+            (locMinOr.Points as LinkedPointTriangle).Outrec = locMinOr;
+            locMinOr.UpdateHelper(locMinOr.Points);
             if (locMinOr.Flag == OutrecFlag.Outer)
             {
                 return;
@@ -173,7 +65,7 @@ namespace Engine.Experimental
                 e = e1.GetLeftAdjacentHotEdge();
             }
 
-            OutPoint botLft = (e.OutRec as OutRecTri).leftOutpt;
+            LinkedPoint botLft = (e.OutRec as OutRecTri).LeftOutpt;
             var botRt = e.GetOutPt();
 
             if (botLft == null || botRt.Pt.Y < botLft.Pt.Y)
@@ -181,20 +73,20 @@ namespace Engine.Experimental
                 botLft = botRt;
             }
 
-            botRt = InsertPt(botLft.Pt, botLft.Prev);
-            var botOr = (botLft as OutPointTri).outrec;
-            if (botOr.Pts == null)
+            botRt = InsertPoint(botLft.Pt, botLft.Prev);
+            var botOr = (botLft as LinkedPointTriangle).Outrec;
+            if (botOr.Points == null)
             {
                 botOr = botOr.Owner;
             }
 
-            var startOp = botOr.Pts;
+            var startOp = botOr.Points;
             var endOp = startOp.Next;
 
             locMinOr.Flag = OutrecFlag.Outer;
             locMinOr.Owner = null;
-            var locMinLft = locMinOr.Pts;
-            var locMinRt = InsertPt(locMinLft.Pt, locMinLft);
+            var locMinLft = locMinOr.Points;
+            var locMinRt = InsertPoint(locMinLft.Pt, locMinLft);
 
             //locMinOr will contain the polygon to the right of the join (ascending),
             //and botOr will contain the polygon to the left of the join (descending).
@@ -204,27 +96,27 @@ namespace Engine.Experimental
             endOp.Prev = locMinRt;
             botRt.Next = locMinRt;
             locMinRt.Prev = botRt;
-            locMinOr.Pts = locMinRt;
+            locMinOr.Points = locMinRt;
 
             //locMinLft . botLft . head : locMinLft joins behind botLft (left)
             startOp.Next = locMinLft;
             locMinLft.Prev = startOp;
             botLft.Prev = locMinLft;
             locMinLft.Next = botLft;
-            (locMinLft as OutPointTri).outrec = botOr; //ie abbreviated update()
+            (locMinLft as LinkedPointTriangle).Outrec = botOr; //ie abbreviated update()
 
             locMinRt.Update(locMinOr); //updates the outrec for each op
 
             // exchange endE's ...
-            e = botOr.EndE;
-            botOr.EndE = locMinOr.EndE;
-            locMinOr.EndE = e;
-            botOr.EndE.OutRec = botOr;
-            locMinOr.EndE.OutRec = locMinOr;
+            e = botOr.EndEdge;
+            botOr.EndEdge = locMinOr.EndEdge;
+            locMinOr.EndEdge = e;
+            botOr.EndEdge.OutRec = botOr;
+            locMinOr.EndEdge.OutRec = locMinOr;
 
             // update helper info  ...
             locMinOr.UpdateHelper(locMinRt);
-            botOr.UpdateHelper(botOr.Pts);
+            botOr.UpdateHelper(botOr.Points);
             Triangulate(locMinOr);
             Triangulate(botOr);
         }
@@ -237,13 +129,13 @@ namespace Engine.Experimental
         /// <param name="Pt"></param>
         protected override void AddLocalMaxPoly(Edge e1, Edge e2, Point2D Pt)
         {
-            OutRec outrec = e1.OutRec;
+            var outrec = e1.OutRec;
             //very occasionally IsStartSide(e1) is wrong so ...
             var is_outer = e1.IsStartSide() || (e1.OutRec == e2.OutRec);
             if (is_outer)
             {
                 var ort = (OutRecTri)(e1.OutRec);
-                if (ort.leftOutpt != null)
+                if (ort.LeftOutpt != null)
                 {
                     outrec.UpdateHelper(null);
                 }
@@ -253,22 +145,22 @@ namespace Engine.Experimental
 
             base.AddLocalMaxPoly(e1, e2, Pt);
 
-            if (outrec.Pts == null)
+            if (outrec.Points == null)
             {
                 outrec = outrec.Owner;
             }
 
             if (is_outer)
             {
-                var ort = (OutPointTri)outrec.Pts;
-                var ort2 = (OutPointTri)outrec.Pts.Next;
-                if (ort.rightOutrec != null)
+                var ort = (LinkedPointTriangle)outrec.Points;
+                var ort2 = (LinkedPointTriangle)outrec.Points.Next;
+                if (ort.RightOutrec != null)
                 {
-                    ort.rightOutrec.UpdateHelper(null);
+                    ort.RightOutrec.UpdateHelper(null);
                 }
-                else if (ort2.rightOutrec != null)
+                else if (ort2.RightOutrec != null)
                 {
-                    ort2.rightOutrec.UpdateHelper(null);
+                    ort2.RightOutrec.UpdateHelper(null);
                 }
             }
             else
@@ -279,7 +171,7 @@ namespace Engine.Experimental
                     e.OutRec.UpdateHelper(LastOp);
                 }
 
-                outrec.Pts.Update(outrec);
+                outrec.Points.Update(outrec);
             }
             Triangulate(outrec);
         }
@@ -288,10 +180,10 @@ namespace Engine.Experimental
         /// 
         /// </summary>
         /// <returns></returns>
-        protected override OutPoint CreateOutPt() =>
+        protected override LinkedPoint CreateOutPoint() =>
           //this is a virtual method as descendant classes may need
           //to produce descendant classes of OutPt ...
-          new OutPointTri();
+          new LinkedPointTriangle();
 
         /// <summary>
         /// 
@@ -308,15 +200,15 @@ namespace Engine.Experimental
         /// <param name="e"></param>
         /// <param name="pt"></param>
         /// <returns></returns>
-        protected override OutPoint AddOutPt(Edge e, Point2D pt)
+        protected override LinkedPoint AddOutPoint(Edge e, Point2D pt)
         {
-            var result = base.AddOutPt(e, pt);
-            var opt = (OutPointTri)result;
-            opt.outrec = e.OutRec;
+            var result = base.AddOutPoint(e, pt);
+            var opt = (LinkedPointTriangle)result;
+            opt.Outrec = e.OutRec;
             LastOp = result;
             Triangulate(e.OutRec);
             //Triangulate() above may assign Result.OutRecRt so ...
-            if (e.IsStartSide() && opt.rightOutrec == null)
+            if (e.IsStartSide() && opt.RightOutrec == null)
             {
                 var e2 = e.GetRightAdjacentHotEdge();
                 if (e2 != null)
@@ -333,7 +225,7 @@ namespace Engine.Experimental
         /// <param name="clipType"></param>
         /// <param name="ft"></param>
         /// <returns></returns>
-        public override Polygon Execute(ClipingOperations clipType, WindingRules ft = WindingRules.EvenOdd)
+        public override Polygon Execute(ClippingOperations clipType, WindingRules ft = WindingRules.EvenOdd)
         {
             var tris = new Polygon();
             try
@@ -361,7 +253,8 @@ namespace Engine.Experimental
         /// <param name="Open"></param>
         /// <param name="ft"></param>
         /// <returns></returns>
-        public override Polygon Execute(ClipingOperations clipType, Polygon Open, WindingRules ft = WindingRules.EvenOdd) => null; //unsupported
+        public override Polygon Execute(ClippingOperations clipType, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
+            => null; //unsupported
 
         /// <summary>
         /// 
@@ -371,6 +264,120 @@ namespace Engine.Experimental
         /// <param name="Open"></param>
         /// <param name="ft"></param>
         /// <returns></returns>
-        public override bool Execute(ClipingOperations clipType, PolyTree polytree, Polygon Open, WindingRules ft = WindingRules.EvenOdd) => false; //unsupported
+        public override bool Execute(ClippingOperations clipType, PolyTree polytree, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
+            => false; //unsupported
+
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="afterOutPoint"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private LinkedPointTriangle InsertPoint(Point2D point, LinkedPoint afterOutPoint)
+        {
+            var result = (LinkedPointTriangle)CreateOutPoint();
+            result.Pt = point;
+            result.Prev = afterOutPoint;
+            result.Next = afterOutPoint.Next;
+            result.Outrec = (afterOutPoint as LinkedPointTriangle).Outrec;
+            result.RightOutrec = null;
+            afterOutPoint.Next.Prev = result;
+            afterOutPoint.Next = result;
+            return result;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pt1"></param>
+        /// <param name="pt2"></param>
+        /// <param name="pt3"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void AddPolygon(Point2D pt1, Point2D pt2, Point2D pt3)
+        {
+            var p = new PolygonContour
+            {
+                Capacity = 3
+            };
+            p.Add(pt3);
+            p.Add(pt2);
+            p.Add(pt1);
+            triangles.Add(p);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="outrec"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void Triangulate(OutRec outrec)
+        {
+            var op = outrec.Points;
+            if (op.Next == op.Prev)
+            {
+                return;
+            }
+
+            var end_op = op.Next;
+            LinkedPointTriangle opt;
+            for (; ; )
+            {
+                var op2 = op;
+                var cpval = 0d;
+                while (op.Prev != end_op)
+                {
+                    cpval = CrossProductVector(op.Pt.X, op.Pt.Y, op.Prev.Pt.X, op.Prev.Pt.Y, op.Prev.Prev.Pt.X, op.Prev.Prev.Pt.Y);
+                    if (cpval >= 0)
+                    {
+                        break;
+                    }
+
+                    if (op2 != op)
+                    {
+                        //Due to rounding, the clipping algorithm can occasionally produce
+                        //tiny self-intersections and these need removing ...
+                        cpval = CrossProductVector(op2.Pt.X, op2.Pt.Y, op.Pt.X, op.Pt.Y, op.Prev.Prev.Pt.X, op.Prev.Prev.Pt.Y);
+                        if (cpval > 0)
+                        {
+                            opt = (LinkedPointTriangle)op;
+                            if (opt.Outrec != null)
+                            {
+                                opt.Outrec.UpdateHelper(op2);
+                            }
+
+                            LinkedPoint.DisposeOutPt(op);
+                            op = op2;
+                            continue;
+                        }
+                    }
+                    op = op.Prev;
+                }
+
+                if (op.Prev == end_op)
+                {
+                    break;
+                }
+
+                if (cpval != 0)
+                {
+                    AddPolygon(op.Pt, op.Prev.Pt, op.Prev.Prev.Pt);
+                }
+
+                opt = (LinkedPointTriangle)op.Prev;
+                if (opt.Outrec != null)
+                {
+                    opt.Outrec.UpdateHelper(op);
+                }
+
+                LinkedPoint.DisposeOutPt(op.Prev);
+                if (op != outrec.Points)
+                {
+                    op = op.Next;
+                }
+            }
+        }
     }
 }

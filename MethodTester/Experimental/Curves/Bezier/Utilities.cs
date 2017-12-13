@@ -295,10 +295,14 @@ namespace Engine
         /// <returns></returns>
         public static Point3D? Lli4(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
         {
-            double x1 = p1.X, y1 = p1.Y;
-            double x2 = p2.X, y2 = p2.Y;
-            double x3 = p3.X, y3 = p3.Y;
-            double x4 = p4.X, y4 = p4.Y;
+            var x1 = p1.X;
+            var y1 = p1.Y;
+            var x2 = p2.X;
+            var y2 = p2.Y;
+            var x3 = p3.X;
+            var y3 = p3.Y;
+            var x4 = p4.X;
+            var y4 = p4.Y;
             return Lli8(x1, y1, x2, y2, x3, y3, x4, y4);
         }
 
@@ -547,10 +551,10 @@ namespace Engine
             }
 
             // see http://www.trans4mind.com/personal_development/mathematics/polynomials/cubicAlgebra.htm
-            double pa = pts[0].Y,
-                pb = pts[1].Y,
-                pc = pts[2].Y,
-                pd = pts[3].Y;
+            var pa = pts[0].Y;
+            var pb = pts[1].Y;
+            var pc = pts[2].Y;
+            var pd = pts[3].Y;
             d = (-pa + 3 * pb - 3 * pc + pd);
             a = (3 * pa - 6 * pb + 3 * pc) / d;
             b = (-3 * pa + 3 * pb) / d;
@@ -563,14 +567,14 @@ namespace Engine
             double u1, v1, x1, x2, x3;
             if (discriminant < 0)
             {
-                double mp3 = -p_ / 3,
-                    mp33 = mp3 * mp3 * mp3,
-                    r = Sqrt(mp33),
-                    t = -q / (2 * r),
-                    cosphi = t < -1 ? -1 : t > 1 ? 1 : t,
-                    phi = Acos(cosphi),
-                    crtr = Crt(r),
-                    t1 = 2 * crtr;
+                var mp3 = -p_ / 3;
+                var mp33 = mp3 * mp3 * mp3;
+                var r = Sqrt(mp33);
+                var t = -q / (2 * r);
+                var cosphi = t < -1 ? -1 : t > 1 ? 1 : t;
+                var phi = Acos(cosphi);
+                var crtr = Crt(r);
+                var t1 = 2 * crtr;
                 x1 = t1 * Cos(phi / 3) - a / 3;
                 x2 = t1 * Cos((phi + Tau) / 3) - a / 3;
                 x3 = t1 * Cos((phi + 2 * Tau) / 3) - a / 3;
@@ -617,16 +621,16 @@ namespace Engine
             // quadratic roots are easy
             if (p.Count == 3)
             {
-                double a = p[0],
-                    b = p[1],
-                    c = p[2],
-                    d = a - 2 * b + c;
+                var a = p[0];
+                var b = p[1];
+                var c = p[2];
+                var d = a - 2 * b + c;
                 if (d != 0)
                 {
-                    double m1 = -Sqrt(b * b - a * c),
-                        m2 = -a + b,
-                        v1 = -(m1 + m2) / d,
-                        v2 = -(-m1 + m2) / d;
+                    var m1 = -Sqrt(b * b - a * c);
+                    var m2 = -a + b;
+                    var v1 = -(m1 + m2) / d;
+                    var v2 = -(-m1 + m2) / d;
                     return new List<double> { v1, v2 };
                 }
                 else if (b != c && d == 0)
@@ -639,7 +643,8 @@ namespace Engine
             // linear roots are even easier
             if (p.Count == 2)
             {
-                double a = p[0], b = p[1];
+                var a = p[0];
+                var b = p[1];
                 if (a != b)
                     return new List<double> { a / (a - b) };
                 return new List<double>();
@@ -749,8 +754,8 @@ namespace Engine
             {
                 //return new List<Pair>() { ((r * (c1._t1 + c1._t2) / 2) | 0d) / r + "/" + ((r * (c2._t1 + c2._t2) / 2) | 0) / r };
             }
-            Pair cc1 = c1.Split(0.5),
-                cc2 = c2.Split(0.5);
+            var cc1 = c1.Split(0.5);
+            var cc2 = c2.Split(0.5);
 
             var pairs = new List<Pair>(
                 from pair in new List<Pair> {

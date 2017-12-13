@@ -30,11 +30,11 @@ namespace Engine
         public static Random RandomNumberGenerator = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
 
         /// <summary>
-        ///
+        /// The random.
         /// </summary>
-        /// <param name="Lower"></param>
-        /// <param name="Upper"></param>
-        /// <returns></returns>
+        /// <param name="Lower">The Lower.</param>
+        /// <param name="Upper">The Upper.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Random(this double Lower, double Upper)
             => ((RandomNumberGenerator.Next() * ((Upper - Lower) + 1)) + Lower);
@@ -44,71 +44,70 @@ namespace Engine
         #region Array Math
 
         /// <summary>
-        /// 
+        /// The min.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(params double[] values)
-            => Enumerable.Min(values);
+            => values.Min();
 
         /// <summary>
-        /// 
+        /// The min.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(List<double> values)
-            => Enumerable.Min(values);
+            => values.Min();
 
         /// <summary>
-        /// 
+        /// The min.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(IEnumerable<double> values)
-            => Enumerable.Min(values);
+            => values.Min();
 
         /// <summary>
-        /// 
+        /// The max.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(params double[] values)
-            => Enumerable.Max(values);
+            => values.Max();
 
         /// <summary>
-        /// 
+        /// The max.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(List<double> values)
-            => Enumerable.Max(values);
+            => values.Max();
 
         /// <summary>
-        /// 
+        /// The max.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(IEnumerable<double> values)
-            => Enumerable.Max(values);
+            => values.Max();
 
         /// <summary>
-        /// Find the sum of an array of Numbers
+        /// The sum.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(params double[] values)
@@ -117,9 +116,8 @@ namespace Engine
         /// <summary>
         /// Find the sum of an array of Numbers
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(List<double> values)
@@ -128,9 +126,8 @@ namespace Engine
         /// <summary>
         /// Find the sum of an array of Numbers
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Sum(IEnumerable<double> values)
@@ -139,8 +136,8 @@ namespace Engine
         /// <summary>
         /// Returns the average value of a numeric array.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -150,8 +147,8 @@ namespace Engine
         /// <summary>
         /// Returns the average value of a numeric array.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -161,8 +158,8 @@ namespace Engine
         /// <summary>
         /// Returns the average value of a numeric array.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>Note: Uses Following Sum Function as well.</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -174,42 +171,42 @@ namespace Engine
         #region Parsing.
 
         /// <summary>
-        ///
+        /// Parse the float.
         /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <returns>The <see cref="float"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ParseFloat(this string text)
             => float.Parse(text, CultureInfo.InvariantCulture);
 
         /// <summary>
-        ///
+        /// Parse the float.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="float"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float ParseFloat(this string text, IFormatProvider provider)
             => float.Parse(text, provider);
 
         /// <summary>
-        ///
+        /// Parse the double.
         /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ParseDouble(this string text)
             => double.Parse(text, CultureInfo.InvariantCulture);
 
         /// <summary>
-        ///
+        /// Parse the double.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ParseDouble(this string text, IFormatProvider provider)

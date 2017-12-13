@@ -772,7 +772,7 @@ namespace Engine
         /// <returns></returns>
         public static Rectangle2D Inflate(Rectangle2D rect, float x, float y)
         {
-            Rectangle2D r = rect;
+            var r = rect;
             r.Inflate(x, y);
             return r;
         }

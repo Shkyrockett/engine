@@ -21,7 +21,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The measurements class.
     /// </summary>
     public static class Measurements
     {

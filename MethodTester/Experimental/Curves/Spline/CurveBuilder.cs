@@ -153,7 +153,7 @@ namespace Engine
             {
                 // This is the second point
                 Debug.Assert(result.Count == 0);
-                Point2D p0 = points[0];
+                var p0 = points[0];
                 var tanL = (np - p0).Normalize();
                 var tanR = -tanL;
                 this.tanL = tanL;

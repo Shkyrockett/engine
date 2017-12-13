@@ -73,7 +73,7 @@ namespace Engine
                 return false;
 
             // update spline
-            ReadOnlyCollection<CubicBezier> curves = builder.Curves;
+            var curves = builder.Curves;
             if (res.WasAdded && curves.Count == 1)
             {
                 // first curve

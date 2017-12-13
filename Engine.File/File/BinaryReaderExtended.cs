@@ -296,7 +296,7 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ReadUTF8Bytes(int length)
         {
-            Encoding encoding = Encoding.UTF8;
+            var encoding = Encoding.UTF8;
             var buffer = new byte[length];
             Read(buffer, 0, length);
             return encoding.GetString(buffer, 0, length);

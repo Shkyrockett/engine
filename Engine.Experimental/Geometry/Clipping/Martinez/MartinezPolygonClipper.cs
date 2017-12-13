@@ -57,11 +57,11 @@ namespace Engine
 
         /// <summary>
         /// Computes the polygon operation given by operation.
-        /// See <see cref="ClipingOperations"/> for the operation codes.
+        /// See <see cref="ClippingOperations"/> for the operation codes.
         /// </summary>
         /// <param name="operation">A value specifying which boolean operation to compute.</param>
         /// <returns>The resulting polygon from the specified clipping operation.</returns>
-        public Polygon Compute(ClipingOperations operation)
+        public Polygon Compute(ClippingOperations operation)
         {
             var result = new Polygon();
 
@@ -71,11 +71,11 @@ namespace Engine
                 // At least one of the polygons is empty
                 switch (operation)
                 {
-                    case ClipingOperations.Difference:
+                    case ClippingOperations.Difference:
                         result = subject;
                         break;
-                    case ClipingOperations.Union:
-                    case ClipingOperations.Xor:
+                    case ClippingOperations.Union:
+                    case ClippingOperations.Xor:
                         result = (subject.Contours.Count == 0) ? clipping : subject;
                         break;
                     default:
@@ -85,8 +85,8 @@ namespace Engine
                 return result;
             }
 
-            Rectangle2D subjectBB = subject.Bounds;
-            Rectangle2D clippingBB = clipping.Bounds;
+            var subjectBB = subject.Bounds;
+            var clippingBB = clipping.Bounds;
 
             // Test 2 for trivial result case
             if (!subjectBB.IntersectsWith(clippingBB))
@@ -94,11 +94,11 @@ namespace Engine
                 // the bounding boxes do not overlap
                 switch (operation)
                 {
-                    case ClipingOperations.Difference:
+                    case ClippingOperations.Difference:
                         result = subject;
                         break;
-                    case ClipingOperations.Union:
-                    case ClipingOperations.Xor:
+                    case ClippingOperations.Union:
+                    case ClippingOperations.Xor:
                         result = subject;
                         foreach (var c in clipping.Contours)
                         {
@@ -118,7 +118,7 @@ namespace Engine
             {
                 for (var pParse1 = 0; pParse1 < sCont.Points.Count; pParse1++)
                 {
-                    ProcessSegment(sCont.Segment(pParse1), PolygonRelations.Subject);
+                    ProcessSegment(sCont.Segment(pParse1), ClippingRelations.Subject);
                 }
             }
 
@@ -126,7 +126,7 @@ namespace Engine
             {
                 for (var pParse2 = 0; pParse2 < cCont.Points.Count; pParse2++)
                 {
-                    ProcessSegment(cCont.Segment(pParse2), PolygonRelations.Clipping);
+                    ProcessSegment(cCont.Segment(pParse2), ClippingRelations.Clipping);
                 }
             }
 
@@ -146,10 +146,10 @@ namespace Engine
                 e = eventQueue.Dequeue();
 
                 // Optimization 2
-                if ((operation == ClipingOperations.Intersection && (e.Point.X > minMaxX)) || (operation == ClipingOperations.Difference && e.Point.X > subjectBB.Right))
+                if ((operation == ClippingOperations.Intersection && (e.Point.X > minMaxX)) || (operation == ClippingOperations.Difference && e.Point.X > subjectBB.Right))
                     return connector.ToPolygon();
 
-                if (operation == ClipingOperations.Union && (e.Point.X > minMaxX))
+                if (operation == ClippingOperations.Union && (e.Point.X > minMaxX))
                 {
                     if (!e.IsLeft)
                         connector.Add(e.Segment());
@@ -234,26 +234,26 @@ namespace Engine
                         case EdgeContributions.Normal:
                             switch (operation)
                             {
-                                case (ClipingOperations.Intersection):
+                                case (ClippingOperations.Intersection):
                                     if (e.OtherEvent.OtherInOut)
                                         connector.Add(e.Segment());
                                     break;
-                                case (ClipingOperations.Union):
+                                case (ClippingOperations.Union):
                                     if (!e.OtherEvent.OtherInOut)
                                         connector.Add(e.Segment());
                                     break;
-                                case (ClipingOperations.Difference):
-                                    if (((e.BelongsTo == PolygonRelations.Subject) && (!e.OtherEvent.OtherInOut)) || (e.BelongsTo == PolygonRelations.Clipping && e.OtherEvent.OtherInOut))
+                                case (ClippingOperations.Difference):
+                                    if (((e.BelongsTo == ClippingRelations.Subject) && (!e.OtherEvent.OtherInOut)) || (e.BelongsTo == ClippingRelations.Clipping && e.OtherEvent.OtherInOut))
                                         connector.Add(e.Segment());
                                     break;
                             }
                             break;
                         case (EdgeContributions.SameTransition):
-                            if (operation == ClipingOperations.Intersection || operation == ClipingOperations.Union)
+                            if (operation == ClippingOperations.Intersection || operation == ClippingOperations.Union)
                                 connector.Add(e.Segment());
                             break;
                         case (EdgeContributions.DifferentTransition):
-                            if (operation == ClipingOperations.Difference)
+                            if (operation == ClippingOperations.Difference)
                                 connector.Add(e.Segment());
                             break;
                     }
@@ -399,8 +399,8 @@ namespace Engine
             //    return false;
 
             (int numIntersections, Point2D[] ip) = FindIntersection(e1.Segment(), e2.Segment());
-            Point2D ip1 = ip[0];
-            Point2D ip2 = ip[1];
+            var ip1 = ip[0];
+            var ip2 = ip[1];
 
             if (numIntersections == 0)
                 return;
@@ -517,7 +517,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment"></param>
         /// <param name="polyType"></param>
-        private void ProcessSegment(LineSegment segment, PolygonRelations polyType)
+        private void ProcessSegment(LineSegment segment, ClippingRelations polyType)
         {
             if (segment.A.Equals(segment.B)) // Possible degenerate condition.
                 return;

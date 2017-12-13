@@ -42,7 +42,7 @@ namespace Engine
         /// <summary>
         /// Polygon to which the associated segment belongs to
         /// </summary>
-        private PolygonRelations belongsTo;
+        private ClippingRelations belongsTo;
 
         /// <summary>
         /// 
@@ -109,7 +109,7 @@ namespace Engine
         /// <param name="other"></param>
         /// <param name="pt"></param>
         /// <param name="et"></param>
-        public SweepEvent(bool b, Point2D p, SweepEvent other, PolygonRelations pt, EdgeContributions et = EdgeContributions.Normal)
+        public SweepEvent(bool b, Point2D p, SweepEvent other, ClippingRelations pt, EdgeContributions et = EdgeContributions.Normal)
         {
             IsLeft = b;
             Point = p;
@@ -144,7 +144,7 @@ namespace Engine
         /// <summary>
         /// Polygon to which the associated segment belongs to
         /// </summary>
-        public PolygonRelations BelongsTo { get { return belongsTo; } set { belongsTo = value; } }
+        public ClippingRelations BelongsTo { get { return belongsTo; } set { belongsTo = value; } }
 
         /// <summary>
         /// Event associated to the other endpoint of the edge.

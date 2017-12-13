@@ -1226,7 +1226,7 @@ namespace Engine.Chrono
             var day = 0;
             var g = year % 19;
             var c = year / 100;
-            int h = h = (c - c / 4 - (8 * c + 13) / 25
+            var h = (c - c / 4 - (8 * c + 13) / 25
                                                 + 19 * g + 15) % 30;
             var i = h - h / 28 * (1 - h / 28
                         * (29 / (h + 1)) * ((21 - g) / 11));

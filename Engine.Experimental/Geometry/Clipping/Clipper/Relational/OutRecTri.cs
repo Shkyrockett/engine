@@ -17,8 +17,8 @@ namespace Engine.Experimental
         : OutRec
     {
         /// <summary>
-        /// The left outpt.
+        /// 
         /// </summary>
-        internal OutPointTri leftOutpt;
+        public LinkedPointTriangle LeftOutpt { get; set; }
     };
 }

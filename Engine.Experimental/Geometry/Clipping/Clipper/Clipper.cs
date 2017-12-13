@@ -10,13 +10,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
 
 namespace Engine.Experimental
 {
     /// <summary>
-    /// Clipper 
+    /// Clipper
     /// </summary>
     public class Clipper
     {
@@ -25,94 +26,79 @@ namespace Engine.Experimental
         /// <summary>
         /// 
         /// </summary>
-        internal ScanLine Scanline;
+        private Edge ActiveEdgeLink;
 
         /// <summary>
         /// 
         /// </summary>
-        internal bool HasOpenPaths;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        internal int CurrentLocMinIdx;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        internal bool LocMinListSorted;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        internal List<List<Vertex>> VertexList = new List<List<Vertex>>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        internal List<OutRec> OutRecList = new List<OutRec>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        internal Edge Actives;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Edge SEL;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<LocalMinima> LocMinimaList = new List<LocalMinima>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        IComparer<LocalMinima> LocalMinimaComparer = new MyLocalMinSort();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<IntersectNode> IntersectList = new List<IntersectNode>();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        IComparer<IntersectNode> IntersectNodeComparer = new MyIntersectNodeSort();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private ClipingOperations ClipType;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private WindingRules FillType;
+        private Edge SelectedEdgeLink;
 
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Clear()
-        {
-            LocMinimaList.Clear();
-            CurrentLocMinIdx = 0;
-            VertexList.Clear();
-            HasOpenPaths = false;
-        }
+        #region Properties
 
         /// <summary>
         /// 
         /// </summary>
-        virtual public void CleanUp()
+        private ClippingOperations ClipType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private WindingRules FillType { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool HasOpenPaths { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private ScanLine Scanline { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private int CurrentLocMinIdx { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool LocMinListSorted { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<List<Vertex>> VertexList { get; set; } = new List<List<Vertex>>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<OutRec> OutRecList { get; set; } = new List<OutRec>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<LocalMinima> LocMinimaList { get; set; } = new List<LocalMinima>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private List<IntersectNode> IntersectList { get; set; } = new List<IntersectNode>();
+
+        #endregion
+
+        #region Virtual Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        protected virtual void CleanUp()
         {
-            while (Actives != null)
+            while (ActiveEdgeLink != null)
             {
-                DeleteFromAEL(Actives);
+                DeleteFromAEL(ActiveEdgeLink);
             }
 
             DisposeScanLineList();
@@ -122,11 +108,270 @@ namespace Engine.Experimental
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="e1"></param>
+        /// <param name="e2"></param>
+        /// <param name="pt"></param>
+        protected virtual void AddLocalMinPoly(Edge e1, Edge e2, Point2D pt)
+        {
+            var outRec = CreateOutRec();
+            outRec.IDx = OutRecList.Count;
+            OutRecList.Add(outRec);
+            outRec.Owner = e1.GetOwner();
+            outRec.PolyPath = null;
+
+            if (e1.IsOpen())
+            {
+                outRec.Owner = null;
+                outRec.Flag = OutrecFlag.Open;
+            }
+            else if (outRec.Owner == null || (outRec.Owner.Flag == OutrecFlag.Inner))
+            {
+                outRec.Flag = OutrecFlag.Outer;
+            }
+            else
+            {
+                outRec.Flag = OutrecFlag.Inner;
+            }
+
+            //now set orientation ...
+            var swapSideNeeded = false;    //todo: recheck this with open paths
+            if (e1.IsHorizontal())
+            {
+                swapSideNeeded |= e1.Top.X > e1.Bot.X;
+            }
+            else if (e2.IsHorizontal())
+            {
+                swapSideNeeded |= e2.Top.X < e2.Bot.X;
+            }
+            else
+            {
+                swapSideNeeded |= e1.Dx < e2.Dx;
+            }
+
+            if ((outRec.Flag == OutrecFlag.Inner) == swapSideNeeded)
+            {
+                outRec.SetOrientation(e1, e2);
+            }
+            else
+            {
+                outRec.SetOrientation(e2, e1);
+            }
+
+            var op = CreateOutPoint();
+            op.Pt = pt;
+            op.Next = op;
+            op.Prev = op;
+            outRec.Points = op;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e1"></param>
+        /// <param name="e2"></param>
+        /// <param name="Pt"></param>
+        protected virtual void AddLocalMaxPoly(Edge e1, Edge e2, Point2D Pt)
+        {
+            if (!e2.IsHotEdge())
+            {
+                throw new EngineException("Error in AddLocalMaxPoly().");
+            }
+
+            AddOutPoint(e1, Pt);
+            if (e1.OutRec == e2.OutRec)
+            {
+                e1.OutRec.EndOutRec();
+            }
+            //and to preserve the winding orientation of Outrec ...
+            else if (e1.OutRec.IDx < e2.OutRec.IDx)
+            {
+                Edge.JoinOutrecPaths(e1, e2);
+            }
+            else
+            {
+                Edge.JoinOutrecPaths(e2, e1);
+            }
+        }
+
+        /// <summary>
+        /// This is a virtual method as descendant classes may need to produce descendant classes of OutPt ...
+        /// </summary>
+        /// <returns></returns>
+        protected virtual LinkedPoint CreateOutPoint()
+            => new LinkedPoint();
+
+        /// <summary>
+        /// This is a virtual method as descendant classes may need to produce descendant classes of OutRec ...
+        /// </summary>
+        /// <returns></returns>
+        protected virtual OutRec CreateOutRec()
+            => new OutRec();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="pt"></param>
+        /// <returns></returns>
+        protected virtual LinkedPoint AddOutPoint(Edge e, Point2D pt)
+        {
+            //Outrec.Pts: a circular double-linked-list of POutPt.
+            var toStart = e.IsStartSide();
+            var opStart = e.OutRec.Points;
+            var opEnd = opStart.Next;
+            if (toStart)
+            {
+                if (pt == opStart.Pt)
+                {
+                    return opStart;
+                }
+            }
+            else if (pt == opEnd.Pt)
+            {
+                return opEnd;
+            }
+
+            var opNew = CreateOutPoint();
+            opNew.Pt = pt;
+            opEnd.Prev = opNew;
+            opNew.Prev = opStart;
+            opNew.Next = opEnd;
+            opStart.Next = opNew;
+            if (toStart)
+            {
+                e.OutRec.Points = opNew;
+            }
+
+            return opNew;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ct"></param>
+        /// <param name="ft"></param>
+        /// <returns></returns>
+        protected virtual bool ExecuteInternal(ClippingOperations ct, WindingRules ft)
+        {
+            if (ct == ClippingOperations.None)
+            {
+                return true;
+            }
+
+            FillType = ft;
+            ClipType = ct;
+            Reset();
+            double? y = null;
+            if ((y = PopScanline()) == null)
+            {
+                return false;
+            }
+
+            while (true)
+            {
+                InsertLocalMinimaIntoAEL(y.Value);
+                Edge e = null;
+                while ((e = PopHorz()) != null)
+                {
+                    ProcessHorizontal(e);
+                }
+
+                if ((y = PopScanline()) == null)
+                {
+                    break;   // Y is now at the top of the scan-beam
+                }
+
+                ProcessIntersections(y.Value);
+                SelectedEdgeLink = null;                       // SEL reused to flag horizontals
+                DoTopOfScanbeam(y.Value);
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clipType"></param>
+        /// <param name="ft"></param>
+        /// <returns></returns>
+        public virtual Polygon Execute(ClippingOperations clipType, WindingRules ft = WindingRules.EvenOdd)
+        {
+            try
+            {
+                if (!ExecuteInternal(clipType, ft))
+                {
+                    return null;
+                }
+                return BuildResult(null);
+            }
+            finally { CleanUp(); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clipType"></param>
+        /// <param name="Open"></param>
+        /// <param name="ft"></param>
+        /// <returns></returns>
+        public virtual Polygon Execute(ClippingOperations clipType, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
+        {
+            try
+            {
+                if (!ExecuteInternal(clipType, ft))
+                {
+                    return null;
+                }
+
+                return BuildResult(Open);
+            }
+            finally { CleanUp(); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="clipType"></param>
+        /// <param name="polytree"></param>
+        /// <param name="Open"></param>
+        /// <param name="ft"></param>
+        /// <returns></returns>
+        public virtual bool Execute(ClippingOperations clipType, PolyTree polytree, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
+        {
+            try
+            {
+                if (polytree == null)
+                {
+                    return false;
+                }
+
+                polytree.Clear();
+                if (Open != null)
+                {
+                    Open.Clear();
+                }
+
+                if (!ExecuteInternal(clipType, ft))
+                {
+                    return false;
+                }
+
+                BuildResult(polytree, Open);
+                return true;
+            }
+            finally { CleanUp(); }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Reset.
+        /// </summary>
         private void Reset()
         {
             if (!LocMinListSorted)
             {
-                LocMinimaList.Sort(LocalMinimaComparer);
+                LocMinimaList.Sort();
                 LocMinListSorted = true;
             }
             foreach (LocalMinima locMin in LocMinimaList)
@@ -135,30 +380,30 @@ namespace Engine.Experimental
             }
 
             CurrentLocMinIdx = 0;
-            Actives = null;
-            SEL = null;
+            ActiveEdgeLink = null;
+            SelectedEdgeLink = null;
         }
 
         /// <summary>
-        /// 
+        /// Insert the scanline.
         /// </summary>
-        /// <param name="Y"></param>
-        private void InsertScanline(double Y)
+        /// <param name="y">The y.</param>
+        private void InsertScanline(double y)
         {
-            //single-linked list: sorted descending, ignoring dups.
+            // single-linked list: sorted descending, ignoring dupes.
             if (Scanline == null)
             {
                 Scanline = new ScanLine
                 {
                     NextScanLine = null,
-                    Y = Y
+                    Y = y
                 };
             }
-            else if (Y > Scanline.Y)
+            else if (y > Scanline.Y)
             {
                 var newSb = new ScanLine
                 {
-                    Y = Y,
+                    Y = y,
                     NextScanLine = Scanline
                 };
                 Scanline = newSb;
@@ -166,19 +411,19 @@ namespace Engine.Experimental
             else
             {
                 var sb2 = Scanline;
-                while (sb2.NextScanLine != null && (Y <= sb2.NextScanLine.Y))
+                while (sb2.NextScanLine != null && (y <= sb2.NextScanLine.Y))
                 {
                     sb2 = sb2.NextScanLine;
                 }
 
-                if (Y == sb2.Y)
+                if (y == sb2.Y)
                 {
-                    return; //ie ignores duplicates
+                    return; // IE ignores duplicates
                 }
 
                 var newSb = new ScanLine
                 {
-                    Y = Y,
+                    Y = y,
                     NextScanLine = sb2.NextScanLine
                 };
                 sb2.NextScanLine = newSb;
@@ -186,26 +431,24 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The pop scanline.
         /// </summary>
-        /// <param name="Y"></param>
-        /// <returns></returns>
-        internal bool PopScanline(out double Y)
+        /// <returns>The <see cref="double"/>.</returns>
+        private double? PopScanline()
         {
             if (Scanline == null)
             {
-                Y = 0;
-                return false;
+                return null;
             }
-            Y = Scanline.Y;
+            var y = Scanline.Y;
             var tmp = Scanline.NextScanLine;
             Scanline = null;
             Scanline = tmp;
-            return true;
+            return y;
         }
 
         /// <summary>
-        /// 
+        /// Dispose the scan line list.
         /// </summary>
         private void DisposeScanLineList()
         {
@@ -218,35 +461,33 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The pop local minima.
         /// </summary>
-        /// <param name="Y"></param>
-        /// <param name="locMin"></param>
-        /// <returns></returns>
-        private bool PopLocalMinima(double Y, out LocalMinima locMin)
+        /// <param name="y">The y.</param>
+        /// <returns>The <see cref="LocalMinima"/>.</returns>
+        private LocalMinima? PopLocalMinima(double y)
         {
-            locMin = null;
             if (CurrentLocMinIdx == LocMinimaList.Count)
             {
-                return false;
+                return null;
             }
 
-            locMin = LocMinimaList[CurrentLocMinIdx];
-            if (locMin.Vertex.Point.Y == Y)
+            var locMin = LocMinimaList[CurrentLocMinIdx];
+            if (locMin.Vertex.Point.Y == y)
             {
                 CurrentLocMinIdx++;
-                return true;
+                return locMin;
             }
-            return false;
+            return null;
         }
 
         /// <summary>
-        /// 
+        /// Add the loc min.
         /// </summary>
-        /// <param name="vert"></param>
-        /// <param name="pt"></param>
-        /// <param name="isOpen"></param>
-        private void AddLocMin(Vertex vert, PolygonRelations pt, bool isOpen)
+        /// <param name="vert">The vert.</param>
+        /// <param name="relation">The relation.</param>
+        /// <param name="isOpen">The isOpen.</param>
+        private void AddLocMin(Vertex vert, ClippingRelations relation, bool isOpen)
         {
             //make sure the vertex is added only once ...
             if ((VertexFlags.LocMin & vert.Flags) != 0)
@@ -258,22 +499,22 @@ namespace Engine.Experimental
             var lm = new LocalMinima
             {
                 Vertex = vert,
-                PathType = pt,
+                ClippingRelation = relation,
                 IsOpen = isOpen
             };
             LocMinimaList.Add(lm);
         }
 
         /// <summary>
-        /// 
+        /// Add the path to vertex list.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="pt"></param>
-        /// <param name="isOpen"></param>
-        private void AddPathToVertexList(PolygonContour p, PolygonRelations pt, bool isOpen)
+        /// <param name="path">The path.</param>
+        /// <param name="relation">The relation.</param>
+        /// <param name="isOpen">The isOpen.</param>
+        private void AddPathToVertexList(PolygonContour path, ClippingRelations relation, bool isOpen)
         {
-            var pathLen = p.Count;
-            while (pathLen > 1 && p[pathLen - 1] == p[0])
+            var pathLen = path.Count;
+            while (pathLen > 1 && path[pathLen - 1] == path[0])
             {
                 pathLen--;
             }
@@ -287,53 +528,53 @@ namespace Engine.Experimental
             var P0IsMaxima = false;
             var goingUp = false;
             var i = 1;
-            //find the first non-horizontal segment in the path ...
-            while (i < pathLen && p[i].Y == p[0].Y)
+            // find the first non-horizontal segment in the path ...
+            while (i < pathLen && path[i].Y == path[0].Y)
             {
                 i++;
             }
 
-            if (i == pathLen) //it's a totally flat path
+            if (i == pathLen) // it's a totally flat path
             {
                 if (!isOpen)
                 {
-                    return;       //Ignore closed paths that have ZERO area.
+                    return;       // Ignore closed paths that have ZERO area.
                 }
             }
             else
             {
-                goingUp = p[i].Y < p[0].Y; //because I'm using an inverted Y-axis display
+                goingUp = path[i].Y < path[0].Y; // because I'm using an inverted Y-axis display
                 if (goingUp)
                 {
                     i = pathLen - 1;
-                    while (p[i].Y == p[0].Y)
+                    while (path[i].Y == path[0].Y)
                     {
                         i--;
                     }
 
-                    P0IsMinima = p[i].Y < p[0].Y; //p[0].Y == a minima
+                    P0IsMinima = path[i].Y < path[0].Y; // p[0].Y == a minima
                 }
                 else
                 {
                     i = pathLen - 1;
-                    while (p[i].Y == p[0].Y)
+                    while (path[i].Y == path[0].Y)
                     {
                         i--;
                     }
 
-                    P0IsMaxima = p[i].Y > p[0].Y; //p[0].Y == a maxima
+                    P0IsMaxima = path[i].Y > path[0].Y; // p[0].Y == a maxima
                 }
             }
 
             var va = new List<Vertex>(pathLen);
             VertexList.Add(va);
-            var v = new Vertex(p[0]);
+            var v = new Vertex(path[0]);
             if (isOpen)
             {
                 v.Flags = VertexFlags.OpenStart;
                 if (goingUp)
                 {
-                    AddLocMin(v, pt, isOpen);
+                    AddLocMin(v, relation, isOpen);
                 }
                 else
                 {
@@ -344,12 +585,12 @@ namespace Engine.Experimental
             //nb: polygon orientation is determined later (see InsertLocalMinimaIntoAEL).
             for (var j = 1; j < pathLen; j++)
             {
-                if (p[j] == v.Point)
+                if (path[j] == v.Point)
                 {
                     continue; //ie skips duplicates
                 }
 
-                var v2 = new Vertex(p[j]);
+                var v2 = new Vertex(path[j]);
                 v.NextVertex = v2;
                 v2.PreviousVertex = v;
                 if (v2.Point.Y > v.Point.Y && goingUp)
@@ -360,7 +601,7 @@ namespace Engine.Experimental
                 else if (v2.Point.Y < v.Point.Y && !goingUp)
                 {
                     goingUp = true;
-                    AddLocMin(v, pt, isOpen);
+                    AddLocMin(v, relation, isOpen);
                 }
                 va.Add(v2);
                 v = v2;
@@ -378,7 +619,7 @@ namespace Engine.Experimental
                 }
                 else
                 {
-                    AddLocMin(v, pt, isOpen);
+                    AddLocMin(v, relation, isOpen);
                 }
             }
             else if (goingUp)
@@ -392,7 +633,7 @@ namespace Engine.Experimental
                 v.Flags |= VertexFlags.LocMax;
                 if (P0IsMinima)
                 {
-                    AddLocMin(va[0], pt, isOpen); //ie just turned to going up
+                    AddLocMin(va[0], relation, isOpen); //ie just turned to going up
                 }
             }
             else
@@ -403,7 +644,7 @@ namespace Engine.Experimental
                     v = v.NextVertex;
                 }
 
-                AddLocMin(v, pt, isOpen);
+                AddLocMin(v, relation, isOpen);
                 if (P0IsMaxima)
                 {
                     va[0].Flags |= VertexFlags.LocMax;
@@ -412,33 +653,34 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Add the path.
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="pt"></param>
-        /// <param name="isOpen"></param>
-        public void AddPath(PolygonContour path, PolygonRelations pt, bool isOpen = false)
+        /// <param name="path">The path.</param>
+        /// <param name="relation">The relation.</param>
+        /// <param name="isOpen">The isOpen.</param>
+        /// <exception cref="EngineException"></exception>
+        public void AddPath(PolygonContour path, ClippingRelations relation, bool isOpen = false)
         {
             if (isOpen)
             {
-                if (pt == PolygonRelations.Clipping)
+                if (relation == ClippingRelations.Clipping)
                 {
-                    throw new EngineException("AddPath: Only PathType.Subject paths can be open.");
+                    throw new EngineException($"{nameof(AddPath)}: Only {nameof(ClippingRelations.Subject)} paths can be open.");
                 }
 
                 HasOpenPaths = true;
             }
-            AddPathToVertexList(path, pt, isOpen);
+            AddPathToVertexList(path, relation, isOpen);
             LocMinListSorted = false;
         }
 
         /// <summary>
-        /// 
+        /// Add the paths.
         /// </summary>
-        /// <param name="paths"></param>
-        /// <param name="pt"></param>
-        /// <param name="isOpen"></param>
-        public void AddPaths(Polygon paths, PolygonRelations pt, bool isOpen = false)
+        /// <param name="paths">The paths.</param>
+        /// <param name="pt">The pt.</param>
+        /// <param name="isOpen">The isOpen.</param>
+        public void AddPaths(Polygon paths, ClippingRelations pt, bool isOpen = false)
         {
             foreach (PolygonContour path in paths)
             {
@@ -447,13 +689,16 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The is contributing closed.
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private bool IsContributingClosed(Edge e)
+        /// <param name="fillType">The fillType.</param>
+        /// <param name="clipType">The clipType.</param>
+        /// <param name="e">The e.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool IsContributingClosed(WindingRules fillType, ClippingOperations clipType, Edge e)
         {
-            switch (FillType)
+            switch (fillType)
             {
                 case WindingRules.NonZero:
                     if (Abs(e.WindCnt) != 1)
@@ -478,10 +723,10 @@ namespace Engine.Experimental
                     break;
             }
 
-            switch (ClipType)
+            switch (clipType)
             {
-                case ClipingOperations.Intersection:
-                    switch (FillType)
+                case ClippingOperations.Intersection:
+                    switch (fillType)
                     {
                         case WindingRules.EvenOdd:
                         case WindingRules.NonZero:
@@ -492,8 +737,8 @@ namespace Engine.Experimental
                             return (e.WindCnt2 < 0);
                     }
                     break;
-                case ClipingOperations.Union:
-                    switch (FillType)
+                case ClippingOperations.Union:
+                    switch (fillType)
                     {
                         case WindingRules.EvenOdd:
                         case WindingRules.NonZero:
@@ -504,10 +749,10 @@ namespace Engine.Experimental
                             return (e.WindCnt2 >= 0);
                     }
                     break;
-                case ClipingOperations.Difference:
-                    if (e.GetPathType() == PolygonRelations.Subject)
+                case ClippingOperations.Difference:
+                    if (e.GetPathType() == ClippingRelations.Subject)
                     {
-                        switch (FillType)
+                        switch (fillType)
                         {
                             case WindingRules.EvenOdd:
                             case WindingRules.NonZero:
@@ -520,7 +765,7 @@ namespace Engine.Experimental
                     }
                     else
                     {
-                        switch (FillType)
+                        switch (fillType)
                         {
                             case WindingRules.EvenOdd:
                             case WindingRules.NonZero:
@@ -531,48 +776,52 @@ namespace Engine.Experimental
                                 return (e.WindCnt2 < 0);
                         }
                     }; break;
-                case ClipingOperations.Xor:
+                case ClippingOperations.Xor:
                     return true; //XOr is always contributing unless open
             }
             return false; //we never get here but this stops a compiler issue.
         }
 
         /// <summary>
-        /// 
+        /// The is contributing open.
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private bool IsContributingOpen(Edge e)
+        /// <param name="clipType">The clipType.</param>
+        /// <param name="e">The e.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static bool IsContributingOpen(ClippingOperations clipType, Edge e)
         {
-            switch (ClipType)
+            switch (clipType)
             {
-                case ClipingOperations.Intersection:
+                case ClippingOperations.Intersection:
                     return (e.WindCnt2 != 0);
-                case ClipingOperations.Union:
+                case ClippingOperations.Union:
                     return (e.WindCnt == 0 && e.WindCnt2 == 0);
-                case ClipingOperations.Difference:
+                case ClippingOperations.Difference:
                     return (e.WindCnt2 == 0);
-                case ClipingOperations.Xor:
+                case ClippingOperations.Xor:
                     return (e.WindCnt != 0) != (e.WindCnt2 != 0);
-                case ClipingOperations.None:
+                case ClippingOperations.None:
                 default:
                     return false;
             }
         }
 
         /// <summary>
-        /// 
+        /// Set the winding left edge open.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">The e.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SetWindingLeftEdgeOpen(Edge e)
         {
-            var e2 = Actives;
+            var e2 = ActiveEdgeLink;
             if (FillType == WindingRules.EvenOdd)
             {
-                int cnt1 = 0, cnt2 = 0;
+                var cnt1 = 0;
+                var cnt2 = 0;
                 while (e2 != e)
                 {
-                    if (e2.GetPathType() == PolygonRelations.Clipping)
+                    if (e2.GetPathType() == ClippingRelations.Clipping)
                     {
                         cnt2++;
                     }
@@ -591,7 +840,7 @@ namespace Engine.Experimental
                 //if FClipType in [ctUnion, ctDifference] then e.WindCnt := e.WindDx;
                 while (e2 != e)
                 {
-                    if (e2.GetPathType() == PolygonRelations.Clipping)
+                    if (e2.GetPathType() == ClippingRelations.Clipping)
                     {
                         e.WindCnt2 += e2.WindDx;
                     }
@@ -606,9 +855,10 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Set the winding left edge closed.
         /// </summary>
-        /// <param name="leftE"></param>
+        /// <param name="leftE">The leftE.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SetWindingLeftEdgeClosed(Edge leftE)
         {
             //Wind counts generally refer to polygon regions not edges, so here an edge's
@@ -627,7 +877,7 @@ namespace Engine.Experimental
             if (e == null)
             {
                 leftE.WindCnt = leftE.WindDx;
-                e = Actives;
+                e = ActiveEdgeLink;
             }
             else if (FillType == WindingRules.EvenOdd)
             {
@@ -710,30 +960,31 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Insert the edge into AEL.
         /// </summary>
-        /// <param name="edge"></param>
-        /// <param name="startEdge"></param>
+        /// <param name="edge">The edge.</param>
+        /// <param name="startEdge">The startEdge.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void InsertEdgeIntoAEL(Edge edge, Edge startEdge)
         {
-            if (Actives == null)
+            if (ActiveEdgeLink == null)
             {
                 edge.PrevInAEL = null;
                 edge.NextInAEL = null;
-                Actives = edge;
+                ActiveEdgeLink = edge;
             }
-            else if (startEdge == null && Edge.E2InsertsBeforeE1(Actives, edge))
+            else if (startEdge == null && Edge.E2InsertsBeforeE1(ActiveEdgeLink, edge))
             {
                 edge.PrevInAEL = null;
-                edge.NextInAEL = Actives;
-                Actives.PrevInAEL = edge;
-                Actives = edge;
+                edge.NextInAEL = ActiveEdgeLink;
+                ActiveEdgeLink.PrevInAEL = edge;
+                ActiveEdgeLink = edge;
             }
             else
             {
                 if (startEdge == null)
                 {
-                    startEdge = Actives;
+                    startEdge = ActiveEdgeLink;
                 }
 
                 while (startEdge.NextInAEL != null &&
@@ -754,16 +1005,19 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Insert the local minima into AEL.
         /// </summary>
-        /// <param name="BotY"></param>
+        /// <param name="BotY">The BotY.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void InsertLocalMinimaIntoAEL(double BotY)
         {
-            Edge leftB, rightB;
-            //Add any local minima at BotY ...
-            while (PopLocalMinima(BotY, out LocalMinima locMin))
+            Edge leftB;
+            Edge rightB;
+            LocalMinima? locMin = null;
+            // Add any local minima at BotY ...
+            while ((locMin = PopLocalMinima(BotY)) != null)
             {
-                if ((locMin.Vertex.Flags & VertexFlags.OpenStart) > 0)
+                if ((locMin?.Vertex.Flags & VertexFlags.OpenStart) > 0)
                 {
                     leftB = null;
                 }
@@ -771,17 +1025,17 @@ namespace Engine.Experimental
                 {
                     leftB = new Edge
                     {
-                        Bot = locMin.Vertex.Point
+                        Bot = locMin.Value.Vertex.Point
                     };
                     leftB.Curr = leftB.Bot;
-                    leftB.VertTop = locMin.Vertex.PreviousVertex; //ie descending
+                    leftB.VertTop = locMin?.Vertex.PreviousVertex; //ie descending
                     leftB.Top = leftB.VertTop.Point;
                     leftB.WindDx = -1;
-                    leftB.LocalMin = locMin;
+                    leftB.LocalMin = locMin.Value;
                     leftB.SetDx();
                 }
 
-                if ((locMin.Vertex.Flags & VertexFlags.OpenEnd) > 0)
+                if ((locMin.Value.Vertex.Flags & VertexFlags.OpenEnd) > 0)
                 {
                     rightB = null;
                 }
@@ -789,18 +1043,18 @@ namespace Engine.Experimental
                 {
                     rightB = new Edge
                     {
-                        Bot = locMin.Vertex.Point
+                        Bot = locMin.Value.Vertex.Point
                     };
                     rightB.Curr = rightB.Bot;
-                    rightB.VertTop = locMin.Vertex.NextVertex; //ie ascending
+                    rightB.VertTop = locMin.Value.Vertex.NextVertex; //ie ascending
                     rightB.Top = rightB.VertTop.Point;
                     rightB.WindDx = 1;
-                    rightB.LocalMin = locMin;
+                    rightB.LocalMin = locMin.Value;
                     rightB.SetDx();
                 }
 
-                //Currently LeftB is just the descending bound and RightB is the ascending.
-                //Now if the LeftB isn't on the left of RightB then we need swap them.
+                // Currently LeftB is just the descending bound and RightB is the ascending.
+                // Now if the LeftB isn't on the left of RightB then we need swap them.
                 if (leftB != null && rightB != null)
                 {
                     if (leftB.IsHorizontal())
@@ -829,23 +1083,23 @@ namespace Engine.Experimental
                 }
 
                 bool contributing;
-                InsertEdgeIntoAEL(leftB, null);      //insert left edge
+                InsertEdgeIntoAEL(leftB, null);      // Insert left edge
                 if (leftB.IsOpen())
                 {
                     SetWindingLeftEdgeOpen(leftB);
-                    contributing = IsContributingOpen(leftB);
+                    contributing = IsContributingOpen(ClipType, leftB);
                 }
                 else
                 {
                     SetWindingLeftEdgeClosed(leftB);
-                    contributing = IsContributingClosed(leftB);
+                    contributing = IsContributingClosed(FillType, ClipType, leftB);
                 }
 
                 if (rightB != null)
                 {
                     rightB.WindCnt = leftB.WindCnt;
                     rightB.WindCnt2 = leftB.WindCnt2;
-                    InsertEdgeIntoAEL(rightB, leftB); //insert right edge
+                    InsertEdgeIntoAEL(rightB, leftB); // Insert right edge
                     if (contributing)
                     {
                         AddLocalMinPoly(leftB, rightB, leftB.Bot);
@@ -876,140 +1130,54 @@ namespace Engine.Experimental
 
                 if (rightB != null && leftB.NextInAEL != rightB)
                 {
-                    //intersect edges that are between left and right bounds ...
-                    Edge e = rightB.NextInAEL;
+                    // intersect edges that are between left and right bounds ...
+                    var e = rightB.NextInAEL;
                     rightB.MoveEdgeToFollowLeftInAEL(leftB);
                     while (rightB.NextInAEL != e)
                     {
-                        //nb: For calculating winding counts etc, IntersectEdges() assumes
-                        //that rightB will be to the right of e ABOVE the intersection ...
+                        // nb: For calculating winding counts etc, IntersectEdges() assumes
+                        // that rightB will be to the right of e ABOVE the intersection ...
                         IntersectEdges(rightB, rightB.NextInAEL, rightB.Bot);
-                        SwapPositionsInAEL(rightB, rightB.NextInAEL);
+                        SwapPositionsInAEL(ref ActiveEdgeLink, rightB, rightB.NextInAEL);
                     }
                 }
             }
         }
 
         /// <summary>
-        /// 
+        /// Push the horz.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <param name="pt"></param>
-        virtual protected void AddLocalMinPoly(Edge e1, Edge e2, Point2D pt)
-        {
-            var outRec = CreateOutRec();
-            outRec.IDx = OutRecList.Count;
-            OutRecList.Add(outRec);
-            outRec.Owner = e1.GetOwner();
-            outRec.PolyPath = null;
-
-            if (e1.IsOpen())
-            {
-                outRec.Owner = null;
-                outRec.Flag = OutrecFlag.Open;
-            }
-            else if (outRec.Owner == null || (outRec.Owner.Flag == OutrecFlag.Inner))
-            {
-                outRec.Flag = OutrecFlag.Outer;
-            }
-            else
-            {
-                outRec.Flag = OutrecFlag.Inner;
-            }
-
-            //now set orientation ...
-            var swapSideNeeded = false;    //todo: recheck this with open paths
-            if (e1.IsHorizontal())
-            {
-                swapSideNeeded |= e1.Top.X > e1.Bot.X;
-            }
-            else if (e2.IsHorizontal())
-            {
-                swapSideNeeded |= e2.Top.X < e2.Bot.X;
-            }
-            else
-            {
-                swapSideNeeded |= e1.Dx < e2.Dx;
-            }
-
-            if ((outRec.Flag == OutrecFlag.Inner) == swapSideNeeded)
-            {
-                outRec.SetOrientation(e1, e2);
-            }
-            else
-            {
-                outRec.SetOrientation(e2, e1);
-            }
-
-            var op = CreateOutPt();
-            op.Pt = pt;
-            op.Next = op;
-            op.Prev = op;
-            outRec.Pts = op;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <param name="Pt"></param>
-        virtual protected void AddLocalMaxPoly(Edge e1, Edge e2, Point2D Pt)
-        {
-            if (!e2.IsHotEdge())
-            {
-                throw new EngineException("Error in AddLocalMaxPoly().");
-            }
-
-            AddOutPt(e1, Pt);
-            if (e1.OutRec == e2.OutRec)
-            {
-                e1.OutRec.EndOutRec();
-            }
-            //and to preserve the winding orientation of Outrec ...
-            else if (e1.OutRec.IDx < e2.OutRec.IDx)
-            {
-                Edge.JoinOutrecPaths(e1, e2);
-            }
-            else
-            {
-                Edge.JoinOutrecPaths(e2, e1);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">The e.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void PushHorz(Edge e)
         {
-            e.NextInSEL = (SEL ?? null);
-            SEL = e;
+            e.NextInSEL = (SelectedEdgeLink ?? null);
+            SelectedEdgeLink = e;
         }
 
         /// <summary>
-        /// 
+        /// The pop horz.
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        private bool PopHorz(out Edge e)
+        /// <returns>The <see cref="Edge"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private Edge PopHorz()
         {
-            e = SEL;
+            var e = SelectedEdgeLink;
             if (e == null)
             {
-                return false;
+                return null;
             }
 
-            SEL = SEL.NextInSEL;
-            return true;
+            SelectedEdgeLink = SelectedEdgeLink.NextInSEL;
+            return e;
         }
 
         /// <summary>
-        /// 
+        /// Start the open path.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="pt"></param>
+        /// <param name="e">The e.</param>
+        /// <param name="pt">The pt.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void StartOpenPath(Edge e, Point2D pt)
         {
             var outRec = CreateOutRec();
@@ -1018,92 +1186,20 @@ namespace Engine.Experimental
             outRec.Flag = OutrecFlag.Open;
             e.OutRec = outRec;
 
-            var op = CreateOutPt();
+            var op = CreateOutPoint();
             op.Pt = pt;
             op.Next = op;
             op.Prev = op;
-            outRec.Pts = op;
+            outRec.Points = op;
         }
 
         /// <summary>
-        /// 
+        /// The intersect edges.
         /// </summary>
-        /// <returns></returns>
-        virtual protected OutPoint CreateOutPt() =>
-          //this is a virtual method as descendant classes may need
-          //to produce descendant classes of OutPt ...
-          new OutPoint();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        virtual protected OutRec CreateOutRec() =>
-          //this is a virtual method as descendant classes may need
-          //to produce descendant classes of OutRec ...
-          new OutRec();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="pt"></param>
-        /// <returns></returns>
-        virtual protected OutPoint AddOutPt(Edge e, Point2D pt)
-        {
-            //Outrec.Pts: a circular double-linked-list of POutPt.
-            var toStart = e.IsStartSide();
-            var opStart = e.OutRec.Pts;
-            var opEnd = opStart.Next;
-            if (toStart)
-            {
-                if (pt == opStart.Pt)
-                {
-                    return opStart;
-                }
-            }
-            else if (pt == opEnd.Pt)
-            {
-                return opEnd;
-            }
-
-            var opNew = CreateOutPt();
-            opNew.Pt = pt;
-            opEnd.Prev = opNew;
-            opNew.Prev = opStart;
-            opNew.Next = opEnd;
-            opStart.Next = opNew;
-            if (toStart)
-            {
-                e.OutRec.Pts = opNew;
-            }
-
-            return opNew;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        private void UpdateEdgeIntoAEL(ref Edge e)
-        {
-            e.Bot = e.Top;
-            e.VertTop = e.NextVertex();
-            e.Top = e.VertTop.Point;
-            e.Curr = e.Bot;
-            e.SetDx();
-            if (!e.IsHorizontal())
-            {
-                InsertScanline(e.Top.Y);
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <param name="pt"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="pt">The pt.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void IntersectEdges(Edge e1, Edge e2, Point2D pt)
         {
 
@@ -1125,15 +1221,15 @@ namespace Engine.Experimental
 
                 switch (ClipType)
                 {
-                    case ClipingOperations.Intersection:
-                    case ClipingOperations.Difference:
+                    case ClippingOperations.Intersection:
+                    case ClippingOperations.Difference:
                         if (e1.IsSamePathType(e2) || (Abs(e2.WindCnt) != 1))
                         {
                             return;
                         }
 
                         break;
-                    case ClipingOperations.Union:
+                    case ClippingOperations.Union:
                         if (e1.IsHotEdge() != ((Abs(e2.WindCnt) != 1) ||
                           (e1.IsHotEdge() != (e2.WindCnt2 != 0))))
                         {
@@ -1141,20 +1237,20 @@ namespace Engine.Experimental
                         }
 
                         break;
-                    case ClipingOperations.Xor:
+                    case ClippingOperations.Xor:
                         if (Abs(e2.WindCnt) != 1)
                         {
                             return;
                         }
 
                         break;
-                    case ClipingOperations.None:
+                    case ClippingOperations.None:
                         break;
                 }
                 //toggle contribution ...
                 if (e1.IsHotEdge())
                 {
-                    AddOutPt(e1, pt);
+                    AddOutPoint(e1, pt);
                     e1.TerminateHotOpen();
                 }
                 else
@@ -1168,7 +1264,7 @@ namespace Engine.Experimental
             //update winding counts...
             //assumes that e1 will be to the right of e2 ABOVE the intersection
             int oldE1WindCnt, oldE2WindCnt;
-            if (e1.LocalMin.PathType == e2.LocalMin.PathType)
+            if (e1.LocalMin.ClippingRelation == e2.LocalMin.ClippingRelation)
             {
                 if (FillType == WindingRules.EvenOdd)
                 {
@@ -1239,7 +1335,7 @@ namespace Engine.Experimental
             if (e1.IsHotEdge() && e2.IsHotEdge())
             {
                 if ((oldE1WindCnt != 0 && oldE1WindCnt != 1) || (oldE2WindCnt != 0 && oldE2WindCnt != 1) ||
-                  (e1.LocalMin.PathType != e2.LocalMin.PathType && ClipType != ClipingOperations.Xor))
+                  (e1.LocalMin.ClippingRelation != e2.LocalMin.ClippingRelation && ClipType != ClippingOperations.Xor))
                 {
                     AddLocalMaxPoly(e1, e2, pt);
                 }
@@ -1250,8 +1346,8 @@ namespace Engine.Experimental
                 }
                 else
                 {
-                    AddOutPt(e1, pt);
-                    AddOutPt(e2, pt);
+                    AddOutPoint(e1, pt);
+                    AddOutPoint(e2, pt);
                     Edge.SwapOutrecs(e1, e2);
                 }
             }
@@ -1259,7 +1355,7 @@ namespace Engine.Experimental
             {
                 if (oldE2WindCnt == 0 || oldE2WindCnt == 1)
                 {
-                    AddOutPt(e1, pt);
+                    AddOutPoint(e1, pt);
                     Edge.SwapOutrecs(e1, e2);
                 }
             }
@@ -1267,7 +1363,7 @@ namespace Engine.Experimental
             {
                 if (oldE1WindCnt == 0 || oldE1WindCnt == 1)
                 {
-                    AddOutPt(e2, pt);
+                    AddOutPoint(e2, pt);
                     Edge.SwapOutrecs(e1, e2);
                 }
             }
@@ -1294,7 +1390,7 @@ namespace Engine.Experimental
                         break;
                 }
 
-                if (e1.LocalMin.PathType != e2.LocalMin.PathType)
+                if (e1.LocalMin.ClippingRelation != e2.LocalMin.ClippingRelation)
                 {
                     AddLocalMinPoly(e1, e2, pt);
                 }
@@ -1302,32 +1398,32 @@ namespace Engine.Experimental
                 {
                     switch (ClipType)
                     {
-                        case ClipingOperations.Intersection:
+                        case ClippingOperations.Intersection:
                             if (e1Wc2 > 0 && e2Wc2 > 0)
                             {
                                 AddLocalMinPoly(e1, e2, pt);
                             }
 
                             break;
-                        case ClipingOperations.Union:
+                        case ClippingOperations.Union:
                             if (e1Wc2 <= 0 && e2Wc2 <= 0)
                             {
                                 AddLocalMinPoly(e1, e2, pt);
                             }
 
                             break;
-                        case ClipingOperations.Difference:
-                            if (((e1.GetPathType() == PolygonRelations.Clipping) && (e1Wc2 > 0) && (e2Wc2 > 0)) ||
-                                ((e1.GetPathType() == PolygonRelations.Subject) && (e1Wc2 <= 0) && (e2Wc2 <= 0)))
+                        case ClippingOperations.Difference:
+                            if (((e1.GetPathType() == ClippingRelations.Clipping) && (e1Wc2 > 0) && (e2Wc2 > 0)) ||
+                                ((e1.GetPathType() == ClippingRelations.Subject) && (e1Wc2 <= 0) && (e2Wc2 <= 0)))
                             {
                                 AddLocalMinPoly(e1, e2, pt);
                             }
 
                             break;
-                        case ClipingOperations.Xor:
+                        case ClippingOperations.Xor:
                             AddLocalMinPoly(e1, e2, pt);
                             break;
-                        case ClipingOperations.None:
+                        case ClippingOperations.None:
                             break;
                     }
                 }
@@ -1335,14 +1431,15 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Delete the from AEL.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">The e.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DeleteFromAEL(Edge e)
         {
             var AelPrev = e.PrevInAEL;
             var AelNext = e.NextInAEL;
-            if (AelPrev == null && AelNext == null && (e != Actives))
+            if (AelPrev == null && AelNext == null && (e != ActiveEdgeLink))
             {
                 return; //already deleted
             }
@@ -1353,7 +1450,7 @@ namespace Engine.Experimental
             }
             else
             {
-                Actives = AelNext;
+                ActiveEdgeLink = AelNext;
             }
 
             if (AelNext != null)
@@ -1366,12 +1463,13 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Copy the AEL to SEL.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CopyAELToSEL()
         {
-            Edge e = Actives;
-            SEL = e;
+            var e = ActiveEdgeLink;
+            SelectedEdgeLink = e;
             while (e != null)
             {
                 e.PrevInSEL = e.PrevInAEL;
@@ -1381,13 +1479,160 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Update the edge into AEL.
         /// </summary>
-        /// <param name="topY"></param>
+        /// <param name="e">The e.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void UpdateEdgeIntoAEL(ref Edge e)
+        {
+            e.Bot = e.Top;
+            e.VertTop = e.NextVertex();
+            e.Top = e.VertTop.Point;
+            e.Curr = e.Bot;
+            e.SetDx();
+            if (!e.IsHorizontal())
+            {
+                InsertScanline(e.Top.Y);
+            }
+        }
+
+        /// <summary>
+        /// The swap positions in AEL.
+        /// </summary>
+        /// <param name="reference">The reference.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <exception cref="EngineException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void SwapPositionsInAEL(ref Edge reference, Edge e1, Edge e2)
+        {
+            Edge next;
+            Edge prev;
+            if (e1.NextInAEL == e2)
+            {
+                next = e2.NextInAEL;
+                if (next != null)
+                {
+                    next.PrevInAEL = e1;
+                }
+
+                prev = e1.PrevInAEL;
+                if (prev != null)
+                {
+                    prev.NextInAEL = e2;
+                }
+
+                e2.PrevInAEL = prev;
+                e2.NextInAEL = e1;
+                e1.PrevInAEL = e2;
+                e1.NextInAEL = next;
+                if (e2.PrevInAEL == null)
+                {
+                    reference = e2;
+                }
+            }
+            else if (e2.NextInAEL == e1)
+            {
+                next = e1.NextInAEL;
+                if (next != null)
+                {
+                    next.PrevInAEL = e2;
+                }
+
+                prev = e2.PrevInAEL;
+                if (prev != null)
+                {
+                    prev.NextInAEL = e1;
+                }
+
+                e1.PrevInAEL = prev;
+                e1.NextInAEL = e2;
+                e2.PrevInAEL = e1;
+                e2.NextInAEL = next;
+                if (e1.PrevInAEL == null)
+                {
+                    reference = e1;
+                }
+            }
+            else
+            {
+                throw new EngineException($"Clipping error in {nameof(SwapPositionsInAEL)}.");
+            }
+        }
+
+        /// <summary>
+        /// The swap positions in SEL.
+        /// </summary>
+        /// <param name="reference">The reference.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <exception cref="EngineException"></exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static void SwapPositionsInSEL(ref Edge reference, Edge e1, Edge e2)
+        {
+            Edge next;
+            Edge prev;
+            if (e1.NextInSEL == e2)
+            {
+                next = e2.NextInSEL;
+                if (next != null)
+                {
+                    next.PrevInSEL = e1;
+                }
+
+                prev = e1.PrevInSEL;
+                if (prev != null)
+                {
+                    prev.NextInSEL = e2;
+                }
+
+                e2.PrevInSEL = prev;
+                e2.NextInSEL = e1;
+                e1.PrevInSEL = e2;
+                e1.NextInSEL = next;
+                if (e2.PrevInSEL == null)
+                {
+                    reference = e2;
+                }
+            }
+            else if (e2.NextInSEL == e1)
+            {
+                next = e1.NextInSEL;
+                if (next != null)
+                {
+                    next.PrevInSEL = e2;
+                }
+
+                prev = e2.PrevInSEL;
+                if (prev != null)
+                {
+                    prev.NextInSEL = e1;
+                }
+
+                e1.PrevInSEL = prev;
+                e1.NextInSEL = e2;
+                e2.PrevInSEL = e1;
+                e2.NextInSEL = next;
+                if (e1.PrevInSEL == null)
+                {
+                    reference = e1;
+                }
+            }
+            else
+            {
+                throw new EngineException($"Clipping error in {nameof(SwapPositionsInSEL)}.");
+            }
+        }
+
+        /// <summary>
+        /// Copy the actives to SEL adjust curr x.
+        /// </summary>
+        /// <param name="topY">The topY.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CopyActivesToSELAdjustCurrX(double topY)
         {
-            var e = Actives;
-            SEL = e;
+            var e = ActiveEdgeLink;
+            SelectedEdgeLink = e;
             while (e != null)
             {
                 e.PrevInSEL = e.PrevInAEL;
@@ -1398,125 +1643,10 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Process the intersections.
         /// </summary>
-        /// <param name="ct"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
-        virtual protected bool ExecuteInternal(ClipingOperations ct, WindingRules ft)
-        {
-            if (ct == ClipingOperations.None)
-            {
-                return true;
-            }
-
-            FillType = ft;
-            ClipType = ct;
-            Reset();
-            if (!PopScanline(out var Y))
-            {
-                return false;
-            }
-
-            while (true)
-            {
-                InsertLocalMinimaIntoAEL(Y);
-                while (PopHorz(out Edge e))
-                {
-                    ProcessHorizontal(e);
-                }
-
-                if (!PopScanline(out Y))
-                {
-                    break;   //Y is now at the top of the scan-beam
-                }
-
-                ProcessIntersections(Y);
-                SEL = null;                       //SEL reused to flag horizontals
-                DoTopOfScanbeam(Y);
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
-        virtual public Polygon Execute(ClipingOperations clipType, WindingRules ft = WindingRules.EvenOdd)
-        {
-            try
-            {
-                if (!ExecuteInternal(clipType, ft))
-                {
-                    return null;
-                }
-                return BuildResult(null);
-            }
-            finally { CleanUp(); }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="Closed"></param>
-        /// <param name="Open"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
-        virtual public Polygon Execute(ClipingOperations clipType, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
-        {
-            try
-            {
-                if (!ExecuteInternal(clipType, ft))
-                {
-                    return null;
-                }
-
-                return BuildResult(Open);
-            }
-            finally { CleanUp(); }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="polytree"></param>
-        /// <param name="Open"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
-        virtual public bool Execute(ClipingOperations clipType, PolyTree polytree, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
-        {
-            try
-            {
-                if (polytree == null)
-                {
-                    return false;
-                }
-
-                polytree.Clear();
-                if (Open != null)
-                {
-                    Open.Clear();
-                }
-
-                if (!ExecuteInternal(clipType, ft))
-                {
-                    return false;
-                }
-
-                BuildResult2(polytree, Open);
-                return true;
-            }
-            finally { CleanUp(); }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="topY"></param>
+        /// <param name="topY">The topY.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ProcessIntersections(double topY)
         {
             BuildIntersectList(topY);
@@ -1537,11 +1667,12 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Insert the new intersect node.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <param name="topY"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="topY">The topY.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void InsertNewIntersectNode(Edge e1, Edge e2, double topY)
         {
             var pt = Edge.GetIntersectPoint(e1, e2);
@@ -1593,12 +1724,13 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Build the intersect list.
         /// </summary>
-        /// <param name="TopY"></param>
+        /// <param name="TopY">The TopY.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void BuildIntersectList(double TopY)
         {
-            if (Actives == null || Actives.NextInAEL == null)
+            if (ActiveEdgeLink == null || ActiveEdgeLink.NextInAEL == null)
             {
                 return;
             }
@@ -1611,7 +1743,7 @@ namespace Engine.Experimental
             var mul = 1;
             while (true)
             {
-                Edge first = SEL, second = null, baseE, prevBase = null, tmp;
+                Edge first = SelectedEdgeLink, second = null, baseE, prevBase = null, tmp;
 
                 // sort successive larger 'mul' count of nodes ...
                 while (first != null)
@@ -1639,7 +1771,8 @@ namespace Engine.Experimental
 
                     // now sort first and second groups ...
                     baseE = first;
-                    int lCnt = mul, rCnt = mul;
+                    var lCnt = mul;
+                    var rCnt = mul;
                     while (lCnt > 0 && rCnt > 0)
                     {
                         if (second.Curr.X < first.Curr.X)
@@ -1664,7 +1797,7 @@ namespace Engine.Experimental
                                 baseE.MergeJump = first.MergeJump;
                                 if (first.PrevInSEL == null)
                                 {
-                                    SEL = second;
+                                    SelectedEdgeLink = second;
                                 }
                             }
                             tmp = second.NextInSEL;
@@ -1687,7 +1820,7 @@ namespace Engine.Experimental
                     first = baseE.MergeJump;
                     prevBase = baseE;
                 }
-                if (SEL.MergeJump == null)
+                if (SelectedEdgeLink.MergeJump == null)
                 {
                     break;
                 }
@@ -1696,21 +1829,23 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Process the intersect list.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ProcessIntersectList()
         {
             foreach (IntersectNode iNode in IntersectList)
             {
                 IntersectEdges(iNode.EdgeA, iNode.EdgeB, iNode.Point);
-                SwapPositionsInAEL(iNode.EdgeA, iNode.EdgeB);
+                SwapPositionsInAEL(ref ActiveEdgeLink, iNode.EdgeA, iNode.EdgeB);
             }
             IntersectList.Clear();
         }
 
         /// <summary>
-        /// 
+        /// The fixup intersection order.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void FixupIntersectionOrder()
         {
             var cnt = IntersectList.Count;
@@ -1722,7 +1857,7 @@ namespace Engine.Experimental
             // but it's also crucial that intersections only occur between adjacent edges.
             // The first sort here (a quicksort), arranges intersections relative to their
             // vertical positions within the scan-beam ...
-            IntersectList.Sort(IntersectNodeComparer);
+            IntersectList.Sort();
 
             // Now we simulate processing these intersections, and as we do, we make sure
             // that the intersecting edges remain adjacent. If they aren't, this simulated
@@ -1742,144 +1877,25 @@ namespace Engine.Experimental
                     IntersectList[i] = IntersectList[j];
                     IntersectList[j] = tmp;
                 }
-                SwapPositionsInSEL(IntersectList[i].EdgeA, IntersectList[i].EdgeB);
+                SwapPositionsInSEL(ref SelectedEdgeLink, IntersectList[i].EdgeA, IntersectList[i].EdgeB);
             }
         }
 
         /// <summary>
-        /// 
+        /// Process the horizontal.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        internal void SwapPositionsInAEL(Edge e1, Edge e2)
-        {
-            Edge next, prev;
-            if (e1.NextInAEL == e2)
-            {
-                next = e2.NextInAEL;
-                if (next != null)
-                {
-                    next.PrevInAEL = e1;
-                }
-
-                prev = e1.PrevInAEL;
-                if (prev != null)
-                {
-                    prev.NextInAEL = e2;
-                }
-
-                e2.PrevInAEL = prev;
-                e2.NextInAEL = e1;
-                e1.PrevInAEL = e2;
-                e1.NextInAEL = next;
-                if (e2.PrevInAEL == null)
-                {
-                    Actives = e2;
-                }
-            }
-            else if (e2.NextInAEL == e1)
-            {
-                next = e1.NextInAEL;
-                if (next != null)
-                {
-                    next.PrevInAEL = e2;
-                }
-
-                prev = e2.PrevInAEL;
-                if (prev != null)
-                {
-                    prev.NextInAEL = e1;
-                }
-
-                e1.PrevInAEL = prev;
-                e1.NextInAEL = e2;
-                e2.PrevInAEL = e1;
-                e2.NextInAEL = next;
-                if (e1.PrevInAEL == null)
-                {
-                    Actives = e1;
-                }
-            }
-            else
-            {
-                throw new EngineException("Clipping error in SwapPositionsInAEL");
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        private void SwapPositionsInSEL(Edge e1, Edge e2)
-        {
-            Edge next, prev;
-            if (e1.NextInSEL == e2)
-            {
-                next = e2.NextInSEL;
-                if (next != null)
-                {
-                    next.PrevInSEL = e1;
-                }
-
-                prev = e1.PrevInSEL;
-                if (prev != null)
-                {
-                    prev.NextInSEL = e2;
-                }
-
-                e2.PrevInSEL = prev;
-                e2.NextInSEL = e1;
-                e1.PrevInSEL = e2;
-                e1.NextInSEL = next;
-                if (e2.PrevInSEL == null)
-                {
-                    SEL = e2;
-                }
-            }
-            else if (e2.NextInSEL == e1)
-            {
-                next = e1.NextInSEL;
-                if (next != null)
-                {
-                    next.PrevInSEL = e2;
-                }
-
-                prev = e2.PrevInSEL;
-                if (prev != null)
-                {
-                    prev.NextInSEL = e1;
-                }
-
-                e1.PrevInSEL = prev;
-                e1.NextInSEL = e2;
-                e2.PrevInSEL = e1;
-                e2.NextInSEL = next;
-                if (e1.PrevInSEL == null)
-                {
-                    SEL = e1;
-                }
-            }
-            else
-            {
-                throw new EngineException("Clipping error in SwapPositionsInSEL");
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="horz"></param>
+        /// <param name="horz">The horz.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ProcessHorizontal(Edge horz)
         /*******************************************************************************
-        * Notes: Horizontal edges (HEs) at scan-line intersections (ie at the top or    *
-        * bottom of a scan-beam) are processed as if layered.The order in which HEs     *
+        * Notes: Horizontal edges (HEs) at scan-line intersections (ie at the top or   *
+        * bottom of a scan-beam) are processed as if layered.The order in which HEs    *
         * are processed doesn't matter. HEs intersect with the bottom vertices of      *
         * other HEs[#] and with non-horizontal edges [*]. Once these intersections     *
         * are completed, intermediate HEs are 'promoted' to the next edge in their     *
         * bounds, and they in turn may be intersected[%] by other HEs.                 *
         *                                                                              *
-        * eg: 3 horizontals at a scan-line:    /   |                     /           /  *
+        * E.G.: 3 horizontals at a scan-line: /   |                     /           /  *
         *              |                     /    |     (HE3)o ========%========== o   *
         *              o ======= o(HE2)     /     |         /         /                *
         *          o ============#=========*======*========#=========o (HE1)           *
@@ -1909,7 +1925,7 @@ namespace Engine.Experimental
             (var isLeftToRight, var horzLeft, var horzRight) = horz.ResetHorzDirection(maxPair);
             if (horz.IsHotEdge())
             {
-                AddOutPt(horz, horz.Curr);
+                AddOutPoint(horz, horz.Curr);
             }
 
             while (true) // loops through consec. horizontal edges (if open)
@@ -1974,7 +1990,7 @@ namespace Engine.Experimental
                         eNext = e.PrevInAEL;
                     }
 
-                    SwapPositionsInAEL(horz, e);
+                    SwapPositionsInAEL(ref ActiveEdgeLink, horz, e);
                     e = eNext;
                 }
 
@@ -1997,14 +2013,14 @@ namespace Engine.Experimental
 
                     if (horz.IsHotEdge())
                     {
-                        AddOutPt(horz, horz.Bot);
+                        AddOutPoint(horz, horz.Bot);
                     }
                 }
             }
 
             if (horz.IsHotEdge())
             {
-                AddOutPt(horz, horz.Top);
+                AddOutPoint(horz, horz.Top);
             }
 
             if (!horz.IsOpen())
@@ -2028,12 +2044,13 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Do the top of scanbeam.
         /// </summary>
-        /// <param name="Y"></param>
+        /// <param name="Y">The Y.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DoTopOfScanbeam(double Y)
         {
-            var e = Actives;
+            var e = ActiveEdgeLink;
             while (e != null)
             {
                 //nb: E will never be horizontal at this point
@@ -2051,7 +2068,7 @@ namespace Engine.Experimental
                         UpdateEdgeIntoAEL(ref e);
                         if (e.IsHotEdge())
                         {
-                            AddOutPt(e, e.Bot);
+                            AddOutPoint(e, e.Bot);
                         }
 
                         if (e.IsHorizontal())
@@ -2070,10 +2087,11 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Do the maxima.
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
+        /// <param name="e">The e.</param>
+        /// <returns>The <see cref="Edge"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Edge DoMaxima(Edge e)
         {
             Edge eMaxPair;
@@ -2083,7 +2101,7 @@ namespace Engine.Experimental
             {
                 if (e.IsHotEdge())
                 {
-                    AddOutPt(e, e.Top);
+                    AddOutPoint(e, e.Top);
                 }
 
                 if (!e.IsHorizontal())
@@ -2111,7 +2129,7 @@ namespace Engine.Experimental
             while (eNext != eMaxPair)
             {
                 IntersectEdges(e, eNext, e.Top);
-                SwapPositionsInAEL(e, eNext);
+                SwapPositionsInAEL(ref ActiveEdgeLink, e, eNext);
                 eNext = e.NextInAEL;
             }
 
@@ -2125,7 +2143,7 @@ namespace Engine.Experimental
                     }
                     else
                     {
-                        AddOutPt(e, e.Top);
+                        AddOutPoint(e, e.Top);
                     }
                 }
                 if (eMaxPair != null)
@@ -2134,7 +2152,7 @@ namespace Engine.Experimental
                 }
 
                 DeleteFromAEL(e);
-                return (ePrev != null ? ePrev.NextInAEL : Actives);
+                return (ePrev != null ? ePrev.NextInAEL : ActiveEdgeLink);
             }
             //here E.NextInAEL == ENext == EMaxPair ...
             if (e.IsHotEdge())
@@ -2144,18 +2162,22 @@ namespace Engine.Experimental
 
             DeleteFromAEL(e);
             DeleteFromAEL(eMaxPair);
-            return (ePrev != null ? ePrev.NextInAEL : Actives);
+            return (ePrev != null ? ePrev.NextInAEL : ActiveEdgeLink);
         }
 
         /// <summary>
-        /// 
+        /// Build the result.
         /// </summary>
-        /// <param name="openPaths"></param>
+        /// <param name="openPaths">The openPaths.</param>
+        /// <returns>The <see cref="Polygon"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Polygon BuildResult(Polygon openPaths)
         {
-            var closedPaths = new Polygon();
-            //closedPaths.Clear();
-            closedPaths.Capacity = OutRecList.Count;
+            var closedPaths = new Polygon
+            {
+                //closedPaths.Clear();
+                Capacity = OutRecList.Count
+            };
             if (openPaths != null)
             {
                 openPaths.Clear();
@@ -2164,12 +2186,12 @@ namespace Engine.Experimental
 
             foreach (OutRec outrec in OutRecList)
             {
-                if (outrec.Pts != null)
+                if (outrec.Points != null)
                 {
-                    var op = outrec.Pts.Next;
+                    var op = outrec.Points.Next;
                     var cnt = op.PointCount();
                     //fixup for duplicate start and } points ...
-                    if (op.Pt == outrec.Pts.Pt)
+                    if (op.Pt == outrec.Points.Pt)
                     {
                         cnt--;
                     }
@@ -2209,11 +2231,12 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Build the result.
         /// </summary>
-        /// <param name="pt"></param>
-        /// <param name="openPaths"></param>
-        private void BuildResult2(PolyTree pt, Polygon openPaths)
+        /// <param name="pt">The pt.</param>
+        /// <param name="openPaths">The openPaths.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void BuildResult(PolyTree pt, Polygon openPaths)
         {
             if (pt == null)
             {
@@ -2228,12 +2251,12 @@ namespace Engine.Experimental
 
             foreach (OutRec outrec in OutRecList)
             {
-                if (outrec.Pts != null)
+                if (outrec.Points != null)
                 {
-                    var op = outrec.Pts.Next;
+                    var op = outrec.Points.Next;
                     var cnt = op.PointCount();
-                    //fixup for duplicate start and end points ...
-                    if (op.Pt == outrec.Pts.Pt)
+                    // fix-up for duplicate start and end points ...
+                    if (op.Pt == outrec.Points.Pt)
                     {
                         cnt--;
                     }

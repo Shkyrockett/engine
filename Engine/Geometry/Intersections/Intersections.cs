@@ -2096,7 +2096,7 @@ namespace Engine
         public static Inclusion PolygonContourContainsPoint(List<Point2D> points, double pX, double pY, double epsilon = Epsilon)
         {
             // Default value is no inclusion.
-            Inclusion result = Inclusion.Outside;
+            var result = Inclusion.Outside;
 
             // Special cases for points and line segments.
             if (points.Count < 3)
@@ -2123,10 +2123,10 @@ namespace Engine
             }
 
             // Loop through each line segment.
-            Point2D curPoint = points[0];
+            var curPoint = points[0];
             for (var i = 1; i <= points.Count; ++i)
             {
-                Point2D nextPoint = (i == points.Count ? points[0] : points[i]);
+                var nextPoint = (i == points.Count ? points[0] : points[i]);
 
                 // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
                 if (((curPoint.Y == pY)) && (((curPoint.X == pX)) || ((nextPoint.Y == pY) && ((curPoint.X > pX) == (nextPoint.X < pX)))))
@@ -2242,8 +2242,8 @@ namespace Engine
             Point2D point,
             double epsilon = Epsilon)
         {
-            Inclusion result = Inclusion.Outside;
-            Inclusion boundary = Inclusion.Outside;
+            var result = Inclusion.Outside;
+            var boundary = Inclusion.Outside;
 
             if (path.Count < 2)
             {
@@ -2462,7 +2462,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PolygonContainsPoint(List<PolygonContour> polygons, double pX, double pY)
         {
-            Inclusion returnValue = Inclusion.Outside;
+            var returnValue = Inclusion.Outside;
 
             foreach (PolygonContour poly in polygons)
             {
@@ -3975,10 +3975,10 @@ namespace Engine
             var intersections = new HashSet<Point2D>();
             var length = points.Count;
 
-            Point2D p = points[0];
+            var p = points[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(PointLineSegmentIntersection(a1X, a1Y, p.X, p.Y, b2.X, b2.Y, epsilon).Points);
 
@@ -4017,10 +4017,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[length - 1];
+            var b1 = points[length - 1];
             for (var i = 0; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(PointLineSegmentIntersection(a1X, a1Y, b1.X, b1.Y, b2.X, b2.Y, epsilon).Points);
 
@@ -4489,10 +4489,10 @@ namespace Engine
             var intersections = new HashSet<Point2D>();
             var length = points.Count;
 
-            Point2D p = points[0];
+            var p = points[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, p.X, p.Y, b2.X, b2.Y, epsilon).Points);
 
@@ -4533,10 +4533,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[length - 1];
+            var b1 = points[length - 1];
             for (var i = 0; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, b1.X, b1.Y, b2.X, b2.Y, epsilon).Points);
 
@@ -5394,10 +5394,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[0];
+            var b1 = points[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(RayLineSegmentIntersection(b1.X, b1.Y, b2.X, b2.Y, a1X, a1Y, a2X, a2Y, epsilon).Points);
 
@@ -5440,10 +5440,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[length - 1];
+            var b1 = points[length - 1];
             for (var i = 0; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(RayLineSegmentIntersection(b1.X, b1.Y, b2.X, b2.Y, a1X, a1Y, a2X, a2Y, epsilon).Points);
 
@@ -6283,10 +6283,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[0];
+            var b1 = points[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(LineSegmentLineSegmentIntersection(b1.X, b1.Y, b2.X, b2.Y, a1X, a1Y, a2X, a2Y, epsilon).Points);
 
@@ -6329,10 +6329,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[length - 1];
+            var b1 = points[length - 1];
             for (var i = 0; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(LineSegmentLineSegmentIntersection(b1.X, b1.Y, b2.X, b2.Y, a1X, a1Y, a2X, a2Y, epsilon).Points);
 
@@ -7162,10 +7162,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D a1 = points[0];
+            var a1 = points[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D a2 = points[i];
+                var a2 = points[i];
 
                 intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(a1.X, a1.Y, a2.X, a2.Y, xCurve, yCurve, epsilon).Points);
 
@@ -7231,10 +7231,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D a1 = points[length - 1];
+            var a1 = points[length - 1];
             for (var i = 0; i < length; ++i)
             {
-                Point2D a2 = points[i];
+                var a2 = points[i];
 
                 intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(a1.X, a1.Y, a2.X, a2.Y, xCurve, yCurve, epsilon).Points);
 
@@ -7701,10 +7701,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D a1 = points[0];
+            var a1 = points[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D a2 = points[i];
+                var a2 = points[i];
 
                 intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(a1.X, a1.Y, a2.X, a2.Y, xCurve, yCurve, epsilon).Points);
 
@@ -7774,10 +7774,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D a1 = points[length - 1];
+            var a1 = points[length - 1];
             for (var i = 0; i < length; ++i)
             {
-                Point2D a2 = points[i];
+                var a2 = points[i];
 
                 intersections.UnionWith(LineSegmentCubicBezierSegmentIntersection(a1.X, a1.Y, a2.X, a2.Y, xCurve, yCurve, epsilon).Points);
 
@@ -8074,10 +8074,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[0];
+            var b1 = points[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(LineSegmentLineSegmentIntersection(b1.X, b1.Y, b2.X, b2.Y, a1X, a1Y, a2X, a2Y, epsilon).Points);
                 intersections.UnionWith(LineSegmentLineSegmentIntersection(b1.X, b1.Y, b2.X, b2.Y, a2X, a2Y, a3X, a3Y, epsilon).Points);
@@ -8124,10 +8124,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[length - 1];
+            var b1 = points[length - 1];
             for (var i = 0; i < length; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 intersections.UnionWith(LineSegmentLineSegmentIntersection(b1.X, b1.Y, b2.X, b2.Y, a1X, a1Y, a2X, a2Y, epsilon).Points);
                 intersections.UnionWith(LineSegmentLineSegmentIntersection(b1.X, b1.Y, b2.X, b2.Y, a2X, a2Y, a3X, a3Y, epsilon).Points);
@@ -8295,10 +8295,10 @@ namespace Engine
             var length = points1.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a slight performance boost.
-            Point2D a1 = points1[0];
+            var a1 = points1[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D a2 = points1[i];
+                var a2 = points1[i];
 
                 intersections.UnionWith(LineSegmentPolylineIntersection(a1.X, a1.Y, a2.X, a2.Y, points2, epsilon).Points);
 
@@ -8337,10 +8337,10 @@ namespace Engine
             var length = points1.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a slight performance boost.
-            Point2D a1 = points1[0];
+            var a1 = points1[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D a2 = points1[i];
+                var a2 = points1[i];
 
                 intersections.UnionWith(LineSegmentPolygonContourIntersection(a1.X, a1.Y, a2.X, a2.Y, points2, epsilon).Points);
 
@@ -8422,10 +8422,10 @@ namespace Engine
             var length = points1.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a slight performance boost.
-            Point2D a1 = points1[length - 1];
+            var a1 = points1[length - 1];
             for (var i = 0; i < length; ++i)
             {
-                Point2D a2 = points1[i];
+                var a2 = points1[i];
 
                 intersections.UnionWith(LineSegmentPolygonContourIntersection(a1.X, a1.Y, a2.X, a2.Y, points2, epsilon).Points);
 
@@ -8561,10 +8561,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D a1 = points[0];
+            var a1 = points[0];
             for (var i = 1; i < length; ++i)
             {
-                Point2D a2 = points[i];
+                var a2 = points[i];
 
                 inter = LineSegmentCircleIntersection(a1.X, a1.Y, a2.X, a2.Y, cX, cY, r, angle, epsilon);
                 result.AppendPoints(inter.Points);
@@ -8611,10 +8611,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[length - 1];
+            var b1 = points[length - 1];
             for (var i = 0; i < points.Count; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 inter = LineSegmentCircleIntersection(b1.X, b1.Y, b2.X, b2.Y, cX, cY, radius, angle, epsilon);
                 result.AppendPoints(inter.Points);
@@ -8821,10 +8821,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[0];
+            var b1 = points[0];
             for (var i = 1; i < points.Count; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 inter = LineSegmentEllipseIntersection(b1.X, b1.Y, b2.X, b2.Y, cX, cY, rx, ry, cosA, sinA, epsilon);
                 result.AppendPoints(inter.Points);
@@ -8892,10 +8892,10 @@ namespace Engine
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[length - 1];
+            var b1 = points[length - 1];
             for (var i = 0; i < points.Count; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 inter = LineSegmentEllipseIntersection(b1.X, b1.Y, b2.X, b2.Y, cX, cY, rx, ry, cosA, sinA, epsilon);
                 result.AppendPoints(inter.Points);
@@ -10308,10 +10308,10 @@ namespace Engine
         public static void ScanbeamPolygonContour(ref List<double> scanlist, double x, double y, List<Point2D> points, double epsilon = Epsilon)
         {
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[points.Count - 1];
+            var b1 = points[points.Count - 1];
             for (var i = 0; i < points.Count; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 ScanbeamLineSegment(ref scanlist, x, y, b1.X, b1.Y, b2.X, b2.Y, epsilon);
 
@@ -11021,10 +11021,10 @@ namespace Engine
             var result = 0;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[points.Count - 1];
+            var b1 = points[points.Count - 1];
             for (var i = 0; i < points.Count; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 result += ScanbeamPointsToLeftLineSegment(x, y, b1.X, b1.Y, b2.X, b2.Y, epsilon);
 
@@ -11733,10 +11733,10 @@ namespace Engine
             var result = 0;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
-            Point2D b1 = points[points.Count - 1];
+            var b1 = points[points.Count - 1];
             for (var i = 0; i < points.Count; ++i)
             {
-                Point2D b2 = points[i];
+                var b2 = points[i];
 
                 result += ScanbeamPointsToRightLineSegment(x, y, b1.X, b1.Y, b2.X, b2.Y, epsilon);
 

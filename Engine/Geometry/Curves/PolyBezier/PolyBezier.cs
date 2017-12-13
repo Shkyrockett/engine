@@ -228,7 +228,7 @@ namespace Engine
 
                 Rectangle2D bounds(List<PolyBezierContour> contours)
                 {
-                    Rectangle2D box = contours[0].Bounds;
+                    var box = contours[0].Bounds;
                     foreach (PolyBezierContour contour in contours)
                         box = box.Union(contour.Bounds);
                     return box;

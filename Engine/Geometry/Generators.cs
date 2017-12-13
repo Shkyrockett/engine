@@ -24,16 +24,14 @@ namespace Engine
         #region Regular Polygons
 
         /// <summary>
-        /// 
+        /// The regular convex polygon.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="radius"></param>
-        /// <param name="count"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="count">The count.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour RegularConvexPolygon(double x, double y, double radius, int count, double angle = -Right)
         {
@@ -69,16 +67,14 @@ namespace Engine
         const double tmax = 3d * PI * 0.5d;
 
         /// <summary>
-        /// 
+        /// The heart curve.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="radius"></param>
-        /// <param name="alpha"></param>
-        /// <param name="beta"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="alpha">The alpha.</param>
+        /// <param name="beta">The beta.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> HeartCurve(double x, double y, double radius, double alpha, double beta)
         {
             // its increment [radian] of a Cardioid before the conversion plotting interval of the phase angle "t" before conversion
@@ -123,14 +119,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The heart curve.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="radius"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="radius">The radius.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public static PolycurveContour HeartCurve(double x, double y, double radius)
         {
             // ToDo: Optimize algorithm to calculate minimum points for minimum curves.

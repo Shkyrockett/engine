@@ -590,7 +590,7 @@ namespace Engine
             if (rect.IsEmpty)
                 return;
 
-            MatrixTypes matrixType = matrix.type;
+            var matrixType = matrix.type;
 
             // If the matrix is identity, don't worry.
             if (matrixType == MatrixTypes.Identity)
@@ -657,8 +657,8 @@ namespace Engine
         /// </summary>
         internal static void MultiplyMatrix(ref Matrix3x2D matrix1, ref Matrix3x2D matrix2)
         {
-            MatrixTypes type1 = matrix1.type;
-            MatrixTypes type2 = matrix2.type;
+            var type1 = matrix1.type;
+            var type2 = matrix2.type;
 
             // Check for identities
 
@@ -778,8 +778,8 @@ namespace Engine
         /// </summary>
         internal static Matrix3x2D MultiplyMatrix(Matrix3x2D matrix1, Matrix3x2D matrix2)
         {
-            MatrixTypes type1 = matrix1.type;
-            MatrixTypes type2 = matrix2.type;
+            var type1 = matrix1.type;
+            var type2 = matrix2.type;
 
             // Check for identities
 
@@ -1346,7 +1346,7 @@ namespace Engine
         /// <param name="point"> The Point to transform </param>
         public Point2D Transform(Point2D point)
         {
-            Point2D newPoint = point;
+            var newPoint = point;
             MultiplyPoint(ref newPoint);
             return newPoint;
         }
@@ -1360,7 +1360,7 @@ namespace Engine
         /// <param name="vector"> The Vector to transform </param>
         public Vector2D Transform(Vector2D vector)
         {
-            Vector2D newVector = vector;
+            var newVector = vector;
             MultiplyVector(ref newVector);
             return newVector;
         }

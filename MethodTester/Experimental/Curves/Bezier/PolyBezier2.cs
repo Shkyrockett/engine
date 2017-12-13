@@ -66,7 +66,7 @@ namespace Engine
         /// <returns></returns>
         public BBox Bbox()
         {
-            List<Bezier> c = Curves;
+            var c = Curves;
             var bbox = c[0].Bbox();
             for (var i = 1; i < c.Count; i++)
                 Expandbox(bbox, c[i].Bbox());

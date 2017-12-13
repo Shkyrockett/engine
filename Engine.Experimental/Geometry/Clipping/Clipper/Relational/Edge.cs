@@ -118,7 +118,7 @@ namespace Engine.Experimental
                 {
                     return null;
                 }
-                if ((e.OutRec.Flag == OutrecFlag.Outer) == (e.OutRec.StartE == e))
+                if ((e.OutRec.Flag == OutrecFlag.Outer) == (e.OutRec.StartEdge == e))
                 {
                     return e.OutRec.Owner;
                 }
@@ -134,7 +134,7 @@ namespace Engine.Experimental
             {
                 return null;
             }
-            if ((e.OutRec.Flag == OutrecFlag.Outer) == (e.OutRec.EndE == e))
+            if ((e.OutRec.Flag == OutrecFlag.Outer) == (e.OutRec.EndEdge == e))
             {
                 return e.OutRec.Owner;
             }
@@ -145,8 +145,8 @@ namespace Engine.Experimental
         /// 
         /// </summary>
         /// <returns></returns>
-        public OutPoint GetOutPt()
-            => (IsStartSide()) ? OutRec.Pts : OutRec.Pts.Next;
+        public LinkedPoint GetOutPt()
+            => (IsStartSide()) ? OutRec.Points : OutRec.Points.Next;
 
         /// <summary>
         /// 
@@ -154,7 +154,7 @@ namespace Engine.Experimental
         /// <returns></returns>
         public Edge GetLeftAdjacentHotEdge()
         {
-            Edge result = PrevInAEL;
+            var result = PrevInAEL;
             while (result != null && !result.IsHotEdge())
             {
                 result = result.PrevInAEL;
@@ -169,7 +169,7 @@ namespace Engine.Experimental
         /// <returns></returns>
         public Edge GetRightAdjacentHotEdge()
         {
-            Edge result = NextInAEL;
+            var result = NextInAEL;
             while (result != null && !result.IsHotEdge())
             {
                 result = result.NextInAEL;
@@ -229,8 +229,8 @@ namespace Engine.Experimental
         /// 
         /// </summary>
         /// <returns></returns>
-        public PolygonRelations GetPathType()
-            => LocalMin.PathType;
+        public ClippingRelations GetPathType()
+            => LocalMin.ClippingRelation;
 
         /// <summary>
         /// 
@@ -253,7 +253,7 @@ namespace Engine.Experimental
                 //the horizontal edge is going nowhere ...
                 horzLeft = Curr.X;
                 horzRight = Curr.X;
-                Edge e = NextInAEL;
+                var e = NextInAEL;
                 while (e != null && e != maxPair)
                 {
                     e = e.NextInAEL;
@@ -296,7 +296,7 @@ namespace Engine.Experimental
         public bool FixOrientation()
         {
             var result = true;
-            Edge e2 = this;
+            var e2 = this;
             while (e2.PrevInAEL != null)
             {
                 e2 = e2.PrevInAEL;
@@ -330,13 +330,13 @@ namespace Engine.Experimental
         /// </summary>
         public void TerminateHotOpen()
         {
-            if (OutRec.StartE == this)
+            if (OutRec.StartEdge == this)
             {
-                OutRec.StartE = null;
+                OutRec.StartEdge = null;
             }
             else
             {
-                OutRec.EndE = null;
+                OutRec.EndEdge = null;
             }
 
             OutRec = null;
@@ -387,7 +387,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <returns></returns>
         public bool IsStartSide()
-            => (this == OutRec.StartE);
+            => (this == OutRec.StartEdge);
 
         /// <summary>
         /// 
@@ -409,7 +409,7 @@ namespace Engine.Experimental
         /// <param name="e2"></param>
         /// <returns></returns>
         public bool IsSamePathType(Edge e2)
-            => (LocalMin.PathType == e2.LocalMin.PathType);
+            => (LocalMin.ClippingRelation == e2.LocalMin.ClippingRelation);
 
         #endregion
 
@@ -455,21 +455,21 @@ namespace Engine.Experimental
 
             //join E2 outrec path onto E1 outrec path and then delete E2 outrec path
             //pointers. (nb: Only very rarely do the joining ends share the same coords.)
-            OutPoint P1_st = e1.OutRec.Pts;
-            OutPoint P2_st = e2.OutRec.Pts;
-            OutPoint P1_end = P1_st.Next;
-            OutPoint P2_end = P2_st.Next;
+            var P1_st = e1.OutRec.Points;
+            var P2_st = e2.OutRec.Points;
+            var P1_end = P1_st.Next;
+            var P2_end = P2_st.Next;
             if (e1.IsStartSide())
             {
                 P2_end.Prev = P1_st;
                 P1_st.Next = P2_end;
                 P2_st.Next = P1_end;
                 P1_end.Prev = P2_st;
-                e1.OutRec.Pts = P2_st;
-                e1.OutRec.StartE = e2.OutRec.StartE;
-                if (e1.OutRec.StartE != null) //ie closed path
+                e1.OutRec.Points = P2_st;
+                e1.OutRec.StartEdge = e2.OutRec.StartEdge;
+                if (e1.OutRec.StartEdge != null) //ie closed path
                 {
-                    e1.OutRec.StartE.OutRec = e1.OutRec;
+                    e1.OutRec.StartEdge.OutRec = e1.OutRec;
                 }
             }
             else
@@ -478,16 +478,16 @@ namespace Engine.Experimental
                 P2_st.Next = P1_end;
                 P1_st.Next = P2_end;
                 P2_end.Prev = P1_st;
-                e1.OutRec.EndE = e2.OutRec.EndE;
-                if (e1.OutRec.EndE != null) //ie closed path
+                e1.OutRec.EndEdge = e2.OutRec.EndEdge;
+                if (e1.OutRec.EndEdge != null) //ie closed path
                 {
-                    e1.OutRec.EndE.OutRec = e1.OutRec;
+                    e1.OutRec.EndEdge.OutRec = e1.OutRec;
                 }
             }
 
-            e2.OutRec.StartE = null;
-            e2.OutRec.EndE = null;
-            e2.OutRec.Pts = null;
+            e2.OutRec.StartEdge = null;
+            e2.OutRec.EndEdge = null;
+            e2.OutRec.Points = null;
             e2.OutRec.Owner = e1.OutRec; //this may be redundant
 
             e1.OutRec = null;
@@ -501,35 +501,35 @@ namespace Engine.Experimental
         /// <param name="e2"></param>
         public static void SwapOutrecs(Edge e1, Edge e2)
         {
-            OutRec or1 = e1.OutRec;
-            OutRec or2 = e2.OutRec;
+            var or1 = e1.OutRec;
+            var or2 = e2.OutRec;
             if (or1 == or2)
             {
-                Edge e = or1.StartE;
-                or1.StartE = or1.EndE;
-                or1.EndE = e;
+                var e = or1.StartEdge;
+                or1.StartEdge = or1.EndEdge;
+                or1.EndEdge = e;
                 return;
             }
             if (or1 != null)
             {
-                if (e1 == or1.StartE)
+                if (e1 == or1.StartEdge)
                 {
-                    or1.StartE = e2;
+                    or1.StartEdge = e2;
                 }
                 else
                 {
-                    or1.EndE = e2;
+                    or1.EndEdge = e2;
                 }
             }
             if (or2 != null)
             {
-                if (e2 == or2.StartE)
+                if (e2 == or2.StartEdge)
                 {
-                    or2.StartE = e1;
+                    or2.StartEdge = e1;
                 }
                 else
                 {
-                    or2.EndE = e1;
+                    or2.EndEdge = e1;
                 }
             }
             e1.OutRec = or2;
@@ -544,8 +544,8 @@ namespace Engine.Experimental
         public static void Insert2Before1InSel(Edge first, Edge second)
         {
             //remove second from list ...
-            Edge prev = second.PrevInSEL;
-            Edge next = second.NextInSEL;
+            var prev = second.PrevInSEL;
+            var next = second.NextInSEL;
             prev.NextInSEL = next; //always a prev since we're moving from right to left
             if (next != null)
             {
@@ -659,7 +659,7 @@ namespace Engine.Experimental
         /// <param name="e2"></param>
         public static void SwapActives(ref Edge e1, ref Edge e2)
         {
-            Edge e = e1;
+            var e = e1;
             e1 = e2; e2 = e;
         }
     }

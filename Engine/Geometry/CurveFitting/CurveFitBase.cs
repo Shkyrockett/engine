@@ -163,7 +163,7 @@ namespace Engine
                 total += v * weight;
                 weightTotal += weight;
             }
-            Vector2D tanR = total.Length > Epsilon && weightTotal > Epsilon ?
+            var tanR = total.Length > Epsilon && weightTotal > Epsilon ?
                 (total / weightTotal).Normalize() :
                 (pSplit - points[split + 1]).Normalize();
 
@@ -256,7 +256,7 @@ namespace Engine
             var pp = points[0];
             for (var i = 1; i < count; i++)
             {
-                Point2D np = points[i];
+                var np = points[i];
                 clen += Measurements.Distance(pp, np);
                 arclen.Add(clen);
                 pp = np;

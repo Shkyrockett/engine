@@ -83,6 +83,9 @@ namespace Engine
                 GameElement = gameElement;
             }
 
+            /// <summary>
+            /// Gets the game element.
+            /// </summary>
             public IGameElement GameElement { get; }
 
             public override object GetValue(object component) => GameElement.Name;

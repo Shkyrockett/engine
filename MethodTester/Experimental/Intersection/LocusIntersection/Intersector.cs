@@ -62,7 +62,7 @@ namespace Engine
 
             // double ua1 = 0d; // by definition
             // double ua2 = 1d; // by definition
-            (double, double) ub = (Math.Abs(denomX) > Math.Abs(denomY))
+            var ub = (Math.Abs(denomX) > Math.Abs(denomY))
                 ? ((b1.X - a1.X) / denomX, (b2.X - a1.X) / denomX)
                 : ((b1.Y - a1.Y) / denomY, (b2.Y - a1.Y) / denomY);
 

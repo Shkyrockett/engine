@@ -49,7 +49,7 @@ namespace Engine
         /// </summary>
         public StructConverter()
         {
-            Type t = typeof(TType);
+            var t = typeof(TType);
             parse = ParseMethodAttribute.GetParseMethod(t);
             descriptions = AdvBrowsableAttribute.GetDispMembers(t);
             if (descriptions != null)
@@ -206,7 +206,7 @@ namespace Engine
         /// <returns></returns>
         private object[] GetInstanceDescriptorObjects(IDictionary propertyValues)
         {
-            object[] rv = new object[instanceCtorParamNames.Length];
+            var rv = new object[instanceCtorParamNames.Length];
             for (var index = 0; index < instanceCtorParamNames.Length; ++index)
             {
                 rv[index] = propertyValues[instanceCtorParamNames[index]];
@@ -221,7 +221,7 @@ namespace Engine
         /// <returns></returns>
         private object[] GetInstanceDescriptorObjects(object value)
         {
-            object[] rv = new object[instanceCtorParamNames.Length];
+            var rv = new object[instanceCtorParamNames.Length];
             for (var index = 0; index < instanceCtorParamNames.Length; ++index)
             {
                 var descriptor = descriptions.Find(instanceCtorParamNames[index], false);

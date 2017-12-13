@@ -75,7 +75,7 @@ namespace Engine.File
             var sysExContinue = false;
             byte[] sysExData = null;
 
-            MidiStatusMessages ps = MidiStatusMessages.Unknown;
+            var ps = MidiStatusMessages.Unknown;
 
             while (reader.BaseStream.Position < reader.Length)
             {

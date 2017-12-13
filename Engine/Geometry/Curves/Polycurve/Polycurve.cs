@@ -182,7 +182,7 @@ namespace Engine
 
                 Rectangle2D bounds(List<PolycurveContour> contours)
                 {
-                    Rectangle2D bb = contours[0].Bounds;
+                    var bb = contours[0].Bounds;
 
                     foreach (var c in contours)
                         bb = bb.Union(c.Bounds);

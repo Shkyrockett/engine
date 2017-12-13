@@ -14,19 +14,19 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The maths class.
     /// </summary>
     public partial class Maths
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public const double horizontal = double.NegativeInfinity;
-
         #region Epsilons, Minimums, Maximums
 
         /// <summary>
-        /// 
+        /// The horizontal (const). Value: double.NegativeInfinity.
+        /// </summary>
+        public const double horizontal = double.NegativeInfinity;
+
+        /// <summary>
+        /// Negative zero.
         /// </summary>
         /// <remarks>
         /// Might be useful with Atan2
@@ -35,12 +35,12 @@ namespace Engine
         public const double NegativeZero = -0d;//1 / double.NegativeInfinity;
 
         /// <summary>
-        /// 
+        /// The tolerance (const). Value: 1e-6d.
         /// </summary>
         public const double Tolerance = 1e-6d;
 
         /// <summary>
-        /// 
+        /// The accuracy (const). Value: 15d.
         /// </summary>
         public const double Accuracy = 15d;
 
@@ -65,7 +65,7 @@ namespace Engine
         //const double FloatEpsilon = 0.000001d;
 
         /// <summary>
-        ///
+        /// The near zero epsilon (const). Value: 1E-20.
         /// </summary>
         public const double NearZeroEpsilon = 1E-20;
 
@@ -83,32 +83,32 @@ namespace Engine
         //public const double SlopeMax = double.PositiveInfinity;
 
         /// <summary>
-        ///
+        /// The double round limit.
         /// </summary>
         public static double DoubleRoundLimit = 1E+16;
 
         /// <summary>
-        /// 
+        /// The default arc tolerance (const). Value: 0.25.
         /// </summary>
         public const double DefaultArcTolerance = 0.25;
 
         /// <summary>
-        /// 
+        /// The lo range32 (const). Value: 0x7FFF.
         /// </summary>
         public const int LoRange32 = 0x7FFF;
 
         /// <summary>
-        /// 
+        /// The hi range32 (const). Value: 0x7FFF.
         /// </summary>
         public const int HiRange32 = 0x7FFF;
 
         /// <summary>
-        /// 
+        /// The lo range64 (const). Value: 0x3FFFFFFF.
         /// </summary>
         public const long LoRange64 = 0x3FFFFFFF;
 
         /// <summary>
-        /// 
+        /// The hi range64 (const). Value: 0x3FFFFFFFFFFFFFFFL.
         /// </summary>
         public const long HiRange64 = 0x3FFFFFFFFFFFFFFFL;
 
@@ -242,342 +242,342 @@ namespace Engine
         #region Fractions
 
         /// <summary>
-        /// 
+        /// The zero (const). Value: 0.
         /// </summary>
         public const double Zero = 0;
 
         /// <summary>
-        /// 
+        /// The one sixtyfourth (const). Value: 1d / 64d.
         /// </summary>
         public const double OneSixtyfourth = 1d / 64d;
 
         /// <summary>
-        /// 
+        /// The one thirtysecond (const). Value: 1d / 32d.
         /// </summary>
         public const double OneThirtysecond = 1d / 32d;
 
         /// <summary>
-        /// 
+        /// The three sixtyfourth (const). Value: 3d / 64d.
         /// </summary>
         public const double ThreeSixtyfourth = 3d / 64d;
 
         /// <summary>
-        /// 
+        /// The one sixteenth (const). Value: 1d / 16d.
         /// </summary>
         public const double OneSixteenth = 1d / 16d;
 
         /// <summary>
-        /// 
+        /// The five sixtyfourth (const). Value: 5d / 64d.
         /// </summary>
         public const double FiveSixtyfourth = 5d / 64d;
 
         /// <summary>
-        /// 
+        /// The three thirtysecond (const). Value: 3d / 32d.
         /// </summary>
         public const double ThreeThirtysecond = 3d / 32d;
 
         /// <summary>
-        /// 
+        /// The seven sixtyfourth (const). Value: 7d / 64d.
         /// </summary>
         public const double SevenSixtyfourth = 7d / 64d;
 
         /// <summary>
-        /// 
+        /// The one eighth (const). Value: 1d / 8d.
         /// </summary>
         public const double OneEighth = 1d / 8d;
 
         /// <summary>
-        /// 
+        /// The nine sixtyfourth (const). Value: 9d / 64d.
         /// </summary>
         public const double NineSixtyfourth = 9d / 64d;
 
         /// <summary>
-        /// 
+        /// The five thirtysecond (const). Value: 5d / 32d.
         /// </summary>
         public const double FiveThirtysecond = 5d / 32d;
 
         /// <summary>
-        /// 
+        /// The eleven sixtyfourth (const). Value: 11d / 64d.
         /// </summary>
         public const double ElevenSixtyfourth = 11d / 64d;
 
         /// <summary>
-        /// 
+        /// The three sixteenth (const). Value: 3d / 16d.
         /// </summary>
         public const double ThreeSixteenth = 3d / 16d;
 
         /// <summary>
-        /// 
+        /// The thirteen sixtyfourth (const). Value: 13d / 64d.
         /// </summary>
         public const double ThirteenSixtyfourth = 13d / 64d;
 
         /// <summary>
-        /// 
+        /// The seven thirtysecond (const). Value: 7d / 32d.
         /// </summary>
         public const double SevenThirtysecond = 7d / 32d;
 
         /// <summary>
-        /// 
+        /// The fifteen sixtyfourth (const). Value: 15d / 64d.
         /// </summary>
         public const double FifteenSixtyfourth = 15d / 64d;
 
         /// <summary>
-        /// 
+        /// The one quarter (const). Value: 1d / 4d.
         /// </summary>
         public const double OneQuarter = 1d / 4d;
 
         /// <summary>
-        /// 
+        /// The seventeen sixtyfourth (const). Value: 17d / 64d.
         /// </summary>
         public const double SeventeenSixtyfourth = 17d / 64d;
 
         /// <summary>
-        /// 
+        /// The nine thirtysecond (const). Value: 9d / 32d.
         /// </summary>
         public const double NineThirtysecond = 9d / 32d;
 
         /// <summary>
-        /// 
+        /// The nineteen sixtyfourth (const). Value: 19d / 64d.
         /// </summary>
         public const double NineteenSixtyfourth = 19d / 64d;
 
         /// <summary>
-        /// 
+        /// The five sixteenth (const). Value: 5d / 16d.
         /// </summary>
         public const double FiveSixteenth = 5d / 16d;
 
         /// <summary>
-        /// 
+        /// The twentyone sixtyfourth (const). Value: 21d / 64d.
         /// </summary>
         public const double TwentyoneSixtyfourth = 21d / 64d;
 
         /// <summary>
-        /// 
+        /// The one third (const). Value: 1d / 3d.
         /// </summary>
         public const double OneThird = 1d / 3d;
 
         /// <summary>
-        /// 
+        /// The eleven thirtysecond (const). Value: 11d / 32d.
         /// </summary>
         public const double ElevenThirtysecond = 11d / 32d;
 
         /// <summary>
-        /// 
+        /// The twentythree sixtyfourth (const). Value: 23d / 64d.
         /// </summary>
         public const double TwentythreeSixtyfourth = 23d / 64d;
 
         /// <summary>
-        /// 
+        /// The three eighths (const). Value: 3d / 8d.
         /// </summary>
         public const double ThreeEighths = 3d / 8d;
 
         /// <summary>
-        /// 
+        /// The twentyfive sixtyfourth (const). Value: 25d / 64d.
         /// </summary>
         public const double TwentyfiveSixtyfourth = 25d / 64d;
 
         /// <summary>
-        /// 
+        /// The thirteen thirtysecond (const). Value: 13d / 32d.
         /// </summary>
         public const double ThirteenThirtysecond = 13d / 32d;
 
         /// <summary>
-        /// 
+        /// The twentyseven sixtyfourth (const). Value: 27d / 64d.
         /// </summary>
         public const double TwentysevenSixtyfourth = 27d / 64d;
 
         /// <summary>
-        /// 
+        /// The seven sixteenth (const). Value: 7d / 16d.
         /// </summary>
         public const double SevenSixteenth = 7d / 16d;
 
         /// <summary>
-        /// 
+        /// The twentynine sixtyfourth (const). Value: 29d / 64d.
         /// </summary>
         public const double TwentynineSixtyfourth = 29d / 64d;
 
         /// <summary>
-        /// 
+        /// The fifteen thirtysecond (const). Value: 15d / 32d.
         /// </summary>
         public const double FifteenThirtysecond = 15d / 32d;
 
         /// <summary>
-        /// 
+        /// The thirtyone sixtyfourth (const). Value: 31d / 64d.
         /// </summary>
         public const double ThirtyoneSixtyfourth = 31d / 64d;
 
         /// <summary>
-        /// 
+        /// The one half (const). Value: 1d * 0.5d.
         /// </summary>
         public const double OneHalf = 1d * 0.5d;
 
         /// <summary>
-        /// 
+        /// The thirtythree sixtyfourth (const). Value: 33d / 64d.
         /// </summary>
         public const double ThirtythreeSixtyfourth = 33d / 64d;
 
         /// <summary>
-        /// 
+        /// The seventeen thirtysecond (const). Value: 17d / 32d.
         /// </summary>
         public const double SeventeenThirtysecond = 17d / 32d;
 
         /// <summary>
-        /// 
+        /// The thirtyfive sixtyfourth (const). Value: 35d / 64d.
         /// </summary>
         public const double ThirtyfiveSixtyfourth = 35d / 64d;
 
         /// <summary>
-        /// 
+        /// The nine sixteenth (const). Value: 9d / 16d.
         /// </summary>
         public const double NineSixteenth = 9d / 16d;
 
         /// <summary>
-        /// 
+        /// The thirtyseven sixtyfourth (const). Value: 37d / 64d.
         /// </summary>
         public const double ThirtysevenSixtyfourth = 37d / 64d;
 
         /// <summary>
-        /// 
+        /// The nineteen thirtysecond (const). Value: 19d / 32d.
         /// </summary>
         public const double NineteenThirtysecond = 19d / 32d;
 
         /// <summary>
-        /// 
+        /// The thirtynine sixtyfourth (const). Value: 39d / 64d.
         /// </summary>
         public const double ThirtynineSixtyfourth = 39d / 64d;
 
         /// <summary>
-        /// 
+        /// The five eighths (const). Value: 5d / 8d.
         /// </summary>
         public const double FiveEighths = 5d / 8d;
 
         /// <summary>
-        /// 
+        /// The fourtyone sixtyfourth (const). Value: 41d / 64d.
         /// </summary>
         public const double FourtyoneSixtyfourth = 41d / 64d;
 
         /// <summary>
-        /// 
+        /// The twentyone thirtysecond (const). Value: 21d / 32d.
         /// </summary>
         public const double TwentyoneThirtysecond = 21d / 32d;
 
         /// <summary>
-        /// 
+        /// The two thirds (const). Value: 2d / 3d.
         /// </summary>
         public const double TwoThirds = 2d / 3d;
 
         /// <summary>
-        /// 
+        /// The fourtythree sixtyfourth (const). Value: 43d / 64d.
         /// </summary>
         public const double FourtythreeSixtyfourth = 43d / 64d;
 
         /// <summary>
-        /// 
+        /// The eleven sixteenth (const). Value: 11d / 16d.
         /// </summary>
         public const double ElevenSixteenth = 11d / 16d;
 
         /// <summary>
-        /// 
+        /// The fourtyfive sixtyfourth (const). Value: 45d / 64d.
         /// </summary>
         public const double FourtyfiveSixtyfourth = 45d / 64d;
 
         /// <summary>
-        /// 
+        /// The twentythree thirtysecond (const). Value: 23d / 32d.
         /// </summary>
         public const double TwentythreeThirtysecond = 23d / 32d;
 
         /// <summary>
-        /// 
+        /// The fourtyseven sixtyfourth (const). Value: 47d / 64d.
         /// </summary>
         public const double FourtysevenSixtyfourth = 47d / 64d;
 
         /// <summary>
-        /// 
+        /// The three quarters (const). Value: 3d / 4d.
         /// </summary>
         public const double ThreeQuarters = 3d / 4d;
 
         /// <summary>
-        /// 
+        /// The fourtynine sixtyfourth (const). Value: 49d / 64d.
         /// </summary>
         public const double FourtynineSixtyfourth = 49d / 64d;
 
         /// <summary>
-        /// 
+        /// The twentyfive thirtysecond (const). Value: 25d / 32d.
         /// </summary>
         public const double TwentyfiveThirtysecond = 25d / 32d;
 
         /// <summary>
-        /// 
+        /// The fiftyone sixtyfourth (const). Value: 51d / 64d.
         /// </summary>
         public const double FiftyoneSixtyfourth = 51d / 64d;
 
         /// <summary>
-        /// 
+        /// The thirteen sixteenth (const). Value: 13d / 16d.
         /// </summary>
         public const double ThirteenSixteenth = 13d / 16d;
 
         /// <summary>
-        /// 
+        /// The fiftythree sixtyfourth (const). Value: 53d / 64d.
         /// </summary>
         public const double FiftythreeSixtyfourth = 53d / 64d;
 
         /// <summary>
-        /// 
+        /// The twentyseven thirtysecond (const). Value: 27d / 32d.
         /// </summary>
         public const double TwentysevenThirtysecond = 27d / 32d;
 
         /// <summary>
-        /// 
+        /// The fiftyfive sixtyfourth (const). Value: 55d / 64d.
         /// </summary>
         public const double FiftyfiveSixtyfourth = 55d / 64d;
 
         /// <summary>
-        /// 
+        /// The seven eighths (const). Value: 7d / 8d.
         /// </summary>
         public const double SevenEighths = 7d / 8d;
 
         /// <summary>
-        /// 
+        /// The fiftyseven sixtyfourth (const). Value: 57d / 64d.
         /// </summary>
         public const double FiftysevenSixtyfourth = 57d / 64d;
 
         /// <summary>
-        /// 
+        /// The twentynine thirtysecond (const). Value: 29d / 32d.
         /// </summary>
         public const double TwentynineThirtysecond = 29d / 32d;
 
         /// <summary>
-        /// 
+        /// The fiftynine sixtyfourth (const). Value: 59d / 64d.
         /// </summary>
         public const double FiftynineSixtyfourth = 59d / 64d;
 
         /// <summary>
-        /// 
+        /// The fifteen sixteenth (const). Value: 15d / 16d.
         /// </summary>
         public const double FifteenSixteenth = 15d / 16d;
 
         /// <summary>
-        /// 
+        /// The sixtyone sixtyfourth (const). Value: 61d / 64d.
         /// </summary>
         public const double SixtyoneSixtyfourth = 61d / 64d;
 
         /// <summary>
-        /// 
+        /// The thirtyone thirtysecond (const). Value: 31d / 32d.
         /// </summary>
         public const double ThirtyoneThirtysecond = 31d / 32d;
 
         /// <summary>
-        /// 
+        /// The sixtythree sixtyfourth (const). Value: 63d / 64d.
         /// </summary>
         public const double SixtythreeSixtyfourth = 63d / 64d;
 
         /// <summary>
-        /// 
+        /// The one (const). Value: 1d.
         /// </summary>
         public const double One = 1d;
 
         /// <summary>
-        /// 
+        /// The one twenty seventh (const). Value: 1 / 27.
         /// </summary>
         public const double OneTwentySeventh = 1 / 27;
 

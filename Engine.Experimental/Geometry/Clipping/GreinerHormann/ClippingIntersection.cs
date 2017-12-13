@@ -18,16 +18,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        internal double ToSource= 0;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        internal double ToClip = 0;
-
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="s1"></param>
         /// <param name="s2"></param>
         /// <param name="c1"></param>
@@ -51,12 +41,22 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public double X { get; set; } = 0;
+        internal double ToSource { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public double Y { get; set; } = 0;
+        internal double ToClip { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double X { get; private set; } = 0;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public double Y { get; private set; } = 0;
 
         /// <summary>
         /// 

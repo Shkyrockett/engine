@@ -142,7 +142,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Text2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             g.DrawString(shape.Text, shape.Font.ToFont(), itemStyle.ForeBrush, shape.Bounds.ToRectangleF());
         }
     }

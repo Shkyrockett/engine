@@ -584,7 +584,7 @@ namespace Engine
         /// <returns></returns>
         internal static Matrix3x3D FromLookAt(Vector3D origin, Vector3D positiveZAxis, Vector3D onPositiveY)
         {
-            Matrix3x3D rv = Identity;
+            var rv = Identity;
             rv.Rz = Primitives.Normalize(positiveZAxis - origin);
             var translated = onPositiveY - origin;
             rv.Rx = Primitives.Normalize(CrossProduct(translated.I, translated.J, translated.K, rv.Rz.I, rv.Rz.J, rv.Rz.K));

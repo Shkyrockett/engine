@@ -8,70 +8,62 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
+using System;
+using System.Runtime.CompilerServices;
+
 namespace Engine.Experimental
 {
     /// <summary>
     /// The intersect node struct.
     /// </summary>
     public struct IntersectNode
+        : IComparable<IntersectNode>
     {
-        #region Fields
-
-        /// <summary>
-        /// The edge1.
-        /// </summary>
-        private Edge edgeA;
-
-        /// <summary>
-        /// The edge2.
-        /// </summary>
-        private Edge edgeB;
-
-        /// <summary>
-        /// The point.
-        /// </summary>
-        private Point2D point;
-
-        #endregion
-
         #region Properties
 
         /// <summary>
-        /// The edge1.
+        /// Gets or sets the point of intersection.
         /// </summary>
-        public Edge EdgeA { get { return edgeA; } set { edgeA = value; } }
+        public Point2D Point { get; set; }
 
         /// <summary>
-        /// The edge2.
+        /// Gets or sets the first edge.
         /// </summary>
-        public Edge EdgeB { get { return edgeB; } set { edgeB = value; } }
+        public Edge EdgeA { get; set; }
 
         /// <summary>
-        /// The point.
+        /// Gets or sets the second edge.
         /// </summary>
-        public Point2D Point { get { return point; } set { point = value; } }
+        public Edge EdgeB { get; set; }
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        /// 
+        /// The edges adjacent in SEL.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool EdgesAdjacentInSEL()
-            => (edgeA.NextInSEL == edgeB) || (edgeA.PrevInSEL == edgeB);
+            => (EdgeA.NextInSEL == EdgeB) || (EdgeA.PrevInSEL == EdgeB);
 
         /// <summary>
-        /// 
+        /// The compare to.
         /// </summary>
-        /// <param name="node1"></param>
-        /// <param name="node2"></param>
-        /// <returns></returns>
-        public static int IntersectNodeSort(IntersectNode node1, IntersectNode node2)
-          // The following typecast should be safe because the differences in Pt.Y will
-          //be limited to the height of the Scan-line ...
-          => (int)(node2.Point.Y - node1.Point.Y);
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        public int CompareTo(IntersectNode other)
+            => Compare(this, other);
+
+        /// <summary>
+        /// The compare.
+        /// </summary>
+        /// <param name="node1">The node1.</param>
+        /// <param name="node2">The node2.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int Compare(IntersectNode node1, IntersectNode node2)
+            => node2.Point.Y.CompareTo(node1.Point.Y); // Soft descending sort.
 
         #endregion
     }

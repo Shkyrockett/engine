@@ -142,7 +142,7 @@ namespace MethodSpeedTester
                 //GC.TryStartNoGCRegion(268435456);
 
                 // Putting into low latency mode to try to prevent garbage collection in the middle of tests.
-                GCLatencyMode oldMode = GCSettings.LatencyMode;
+                var oldMode = GCSettings.LatencyMode;
                 RuntimeHelpers.PrepareConstrainedRegions();
                 GCSettings.LatencyMode = GCLatencyMode.LowLatency;
 
@@ -157,10 +157,10 @@ namespace MethodSpeedTester
             dataGridView1.DataSource = tests;
 
             // Find the best performer. 
-            DataGridViewCell minCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value) < Convert.ToInt32(j.Cells[1].Value) ? i : j).Cells[1];
+            var minCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value) < Convert.ToInt32(j.Cells[1].Value) ? i : j).Cells[1];
 
             // Find the worst performer.
-            DataGridViewCell maxCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value) > Convert.ToInt32(j.Cells[1].Value) ? i : j).Cells[1];
+            var maxCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value) > Convert.ToInt32(j.Cells[1].Value) ? i : j).Cells[1];
 
             maxCell.Style.BackColor = Color.PeachPuff;
             maxCell.Style.ForeColor = Color.DarkRed;

@@ -13,7 +13,7 @@ namespace Engine
     /// <summary>
     /// An enumeration indicating whether a clipping polygon is the subject or clipping polygon.
     /// </summary>
-    public enum PolygonRelations
+    public enum ClippingRelations
         : byte
     {
         /// <summary>

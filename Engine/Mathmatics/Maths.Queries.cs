@@ -56,10 +56,10 @@ namespace Engine
             => !double.IsNaN(value) && !double.IsInfinity(value);
 
         /// <summary>
-        /// 
+        /// The is odd.
         /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
+        /// <param name="val">The val.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://www.angusj.com
         /// </acknowledgment>
@@ -598,16 +598,15 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The is back face.
         /// </summary>
-        /// <param name="normalI1"></param>
-        /// <param name="normalJ1"></param>
-        /// <param name="normalK1"></param>
-        /// <param name="lineOfSightI2"></param>
-        /// <param name="lineOfSightJ2"></param>
-        /// <param name="lineOfSightK2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="normalI1">The normalI1.</param>
+        /// <param name="normalJ1">The normalJ1.</param>
+        /// <param name="normalK1">The normalK1.</param>
+        /// <param name="lineOfSightI2">The lineOfSightI2.</param>
+        /// <param name="lineOfSightJ2">The lineOfSightJ2.</param>
+        /// <param name="lineOfSightK2">The lineOfSightK2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>

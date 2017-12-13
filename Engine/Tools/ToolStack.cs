@@ -477,7 +477,7 @@ namespace Engine.Tools
             }
             else
             {
-                Tool t = tools[MouseButtons.Left];
+                var t = tools[MouseButtons.Left];
                 mouseMove -= t.MouseMoveUpdate;
                 mouseLeftButtonDown -= t.MouseDownUpdate;
                 mouseLeftButtonUp -= t.MouseUpUpdate;
@@ -506,7 +506,7 @@ namespace Engine.Tools
             }
             else
             {
-                Tool t = tools[MouseButtons.Middle];
+                var t = tools[MouseButtons.Middle];
                 tools.Add(MouseButtons.Middle, tool);
                 mouseMove += t.MouseMoveUpdate;
                 mouseMiddleButtonDown += t.MouseDownUpdate;
@@ -536,7 +536,7 @@ namespace Engine.Tools
             }
             else
             {
-                Tool t = tools[MouseButtons.Right];
+                var t = tools[MouseButtons.Right];
                 mouseMove += t.MouseMoveUpdate;
                 mouseRightButtonDown += t.MouseDownUpdate;
                 mouseRightButtonUp += t.MouseUpUpdate;
@@ -565,7 +565,7 @@ namespace Engine.Tools
             }
             else
             {
-                Tool t = tools[MouseButtons.Back];
+                var t = tools[MouseButtons.Back];
                 mouseMove += t.MouseMoveUpdate;
                 mouseBackButtonDown += t.MouseDownUpdate;
                 mouseBackButtonUp += t.MouseUpUpdate;
@@ -594,7 +594,7 @@ namespace Engine.Tools
             }
             else
             {
-                Tool t = tools[MouseButtons.Forward];
+                var t = tools[MouseButtons.Forward];
                 mouseMove += t.MouseMoveUpdate;
                 mouseForwardButtonDown += t.MouseDownUpdate;
                 mouseForwardButtonUp += t.MouseUpUpdate;

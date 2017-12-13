@@ -358,13 +358,13 @@ namespace Engine
             if (source.Count < 1)
                 return dest;
 
-            Point2D pp = source[0];
+            var pp = source[0];
             dest.Add(pp);
             double cd = 0;
             for (var ip = 1; ip < source.Count; ip++)
             {
-                Point2D p0 = source[ip - 1];
-                Point2D p1 = source[ip];
+                var p0 = source[ip - 1];
+                var p1 = source[ip];
                 var td = Measurements.Distance(p0, p1);
                 if (cd + td > distance)
                 {
@@ -390,7 +390,7 @@ namespace Engine
             }
 
             // last point
-            Point2D lp = source[source.Count - 1];
+            var lp = source[source.Count - 1];
             if (!Primitives.EqualsOrClose(pp, lp))
                 dest.Add(lp);
 
@@ -451,7 +451,7 @@ namespace Engine
             var split = 0;
             for (var i = first + 1; i < last - 1; i++)
             {
-                Point2D p = pts[i];
+                var p = pts[i];
                 var pDist = Measurements.PerpendicularDistance(segment, p);
                 if (!double.IsNaN(pDist) && pDist > maxDist)
                 {
@@ -484,12 +484,12 @@ namespace Engine
                 return points;
 
             // Common case -- no duplicates, so just return the source list
-            Point2D prev = points[0];
+            var prev = points[0];
             var len = points.Count;
             var nDup = 0;
             for (var i = 1; i < len; i++)
             {
-                Point2D cur = points[i];
+                var cur = points[i];
                 if (Primitives.EqualsOrClose(prev, cur))
                     nDup++;
                 else
@@ -506,7 +506,7 @@ namespace Engine
                 dst.Add(prev);
                 for (var i = 1; i < len; i++)
                 {
-                    Point2D cur = points[i];
+                    var cur = points[i];
                     if (!Primitives.EqualsOrClose(prev, cur))
                     {
                         dst.Add(cur);

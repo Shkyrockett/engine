@@ -1226,7 +1226,7 @@ namespace Engine
             var sin = Sin(angle);
 
             // start off With a Zero quat
-            QuaternionD returnvalue = QuaternionD.Empty;
+            var returnvalue = QuaternionD.Empty;
 
             returnvalue.W = Cos(angle);
 
@@ -1790,7 +1790,7 @@ namespace Engine
             // sin(A)*(X*i+Y*j+Z*k) since sin(A)/A has limit 1.
 
             // start off With a Zero quat
-            QuaternionD returnvalue = QuaternionD.Empty;
+            var returnvalue = QuaternionD.Empty;
 
             if (Abs(source.W) < 1d)
             {
@@ -3152,7 +3152,8 @@ namespace Engine
             if (points.Count <= 1)
                 return points;
 
-            int n = points.Count, k = 0;
+            var n = points.Count;
+            var k = 0;
             var H = new List<Point2D>(new Point2D[2 * n]);
 
             points.Sort((a, b) =>

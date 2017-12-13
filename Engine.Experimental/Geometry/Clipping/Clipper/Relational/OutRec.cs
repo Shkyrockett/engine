@@ -1,7 +1,7 @@
 ﻿/*******************************************************************************
 * Author    :  Angus Johnson                                                   *
 * Version   :  10.0 (beta)                                                     *
-* Date      :  12 November 2017                                                 *
+* Date      :  12 November 2017                                                *
 * Website   :  http://www.angusj.com                                           *
 * Copyright :  Angus Johnson 2010-2017                                         *
 * Purpose   :  Base clipping module                                            *
@@ -16,42 +16,42 @@ namespace Engine.Experimental
     /// </summary>
     public class OutRec
     {
-        #region Fields
+        #region Properties
 
         /// <summary>
-        /// The I dx.
+        /// Gets or sets the Idx.
         /// </summary>
-        internal int IDx;
+        public int IDx { get; set; }
 
         /// <summary>
-        /// The owner.
+        /// Gets or sets the owner.
         /// </summary>
-        internal OutRec Owner;
+        public OutRec Owner { get; set; }
 
         /// <summary>
-        /// The start e.
+        /// Gets or sets the start edge.
         /// </summary>
-        internal Edge StartE;
+        public Edge StartEdge { get; set; }
 
         /// <summary>
-        /// The end e.
+        /// Gets or sets the end edge.
         /// </summary>
-        internal Edge EndE;
+        public Edge EndEdge { get; set; }
 
         /// <summary>
-        /// The pts.
+        /// Gets or sets the points.
         /// </summary>
-        internal OutPoint Pts;
+        public LinkedPoint Points { get; set; }
 
         /// <summary>
-        /// The poly path.
+        /// Gets or sets the poly path.
         /// </summary>
-        internal PolyPath PolyPath;
+        public PolyPath PolyPath { get; set; }
 
         /// <summary>
-        /// The flag.
+        /// Gets or sets the flag.
         /// </summary>
-        internal OutrecFlag Flag;
+        public OutrecFlag Flag { get; set; }
 
         #endregion
 
@@ -62,8 +62,8 @@ namespace Engine.Experimental
         /// <param name="e2"></param>
         public void SetOrientation(Edge e1, Edge e2)
         {
-            StartE = e1;
-            EndE = e2;
+            StartEdge = e1;
+            EndEdge = e2;
             e1.OutRec = this;
             e2.OutRec = this;
         }
@@ -73,10 +73,10 @@ namespace Engine.Experimental
         /// </summary>
         public void SwapSides()
         {
-            Edge e2 = StartE;
-            StartE = EndE;
-            EndE = e2;
-            Pts = Pts.Next;
+            var e2 = StartEdge;
+            StartEdge = EndEdge;
+            EndEdge = e2;
+            Points = Points.Next;
         }
 
         /// <summary>
@@ -84,38 +84,38 @@ namespace Engine.Experimental
         /// </summary>
         public void EndOutRec()
         {
-            StartE.OutRec = null;
-            if (EndE != null)
+            StartEdge.OutRec = null;
+            if (EndEdge != null)
             {
-                EndE.OutRec = null;
+                EndEdge.OutRec = null;
             }
 
-            StartE = null;
-            EndE = null;
+            StartEdge = null;
+            EndEdge = null;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="leftOutpt"></param>
-        public void UpdateHelper(OutPoint leftOutpt)
+        public void UpdateHelper(LinkedPoint leftOutpt)
         {
-            var leftOpt = (OutPointTri)leftOutpt;
+            var leftOpt = (LinkedPointTriangle)leftOutpt;
             var rightOrt = (OutRecTri)this;
-            if (leftOpt != null && leftOpt.rightOutrec != null)
+            if (leftOpt != null && leftOpt.RightOutrec != null)
             {
-                leftOpt.rightOutrec.leftOutpt = null;
+                leftOpt.RightOutrec.LeftOutpt = null;
             }
 
-            if (rightOrt.leftOutpt != null)
+            if (rightOrt.LeftOutpt != null)
             {
-                rightOrt.leftOutpt.rightOutrec = null;
+                rightOrt.LeftOutpt.RightOutrec = null;
             }
 
-            rightOrt.leftOutpt = leftOpt;
+            rightOrt.LeftOutpt = leftOpt;
             if (leftOpt != null)
             {
-                leftOpt.rightOutrec = rightOrt;
+                leftOpt.RightOutrec = rightOrt;
             }
         }
     }

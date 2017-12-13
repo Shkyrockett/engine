@@ -72,7 +72,7 @@ namespace Engine
         /// <returns>A list of types that are derived from the <see cref="Shape"/> class.</returns>
         public static List<Type> ListShapes()
         {
-            Type shapeType = typeof(Shape);
+            var shapeType = typeof(Shape);
             var assembly = Assembly.GetAssembly(shapeType);
             return GetAssemblyTypes(assembly, shapeType);
         }
@@ -83,7 +83,7 @@ namespace Engine
         /// <returns>A list of all types that are derived from the <see cref="Tool"/> Class.</returns>
         public static List<Type> ListTools()
         {
-            Type toolType = typeof(Tool);
+            var toolType = typeof(Tool);
             var assembly = Assembly.GetAssembly(toolType);
             return GetAssemblyTypes(assembly, toolType);
         }
@@ -94,7 +94,7 @@ namespace Engine
         /// <returns>A list of all types that are derived from the <see cref="Brush"/> Class.</returns>
         public static List<Type> ListBrushes()
         {
-            Type brushType = typeof(Brush);
+            var brushType = typeof(Brush);
             var assembly = Assembly.GetAssembly(brushType);
             return GetAssemblyTypes(assembly, brushType);
         }
@@ -105,7 +105,7 @@ namespace Engine
         /// <returns>A list of all types that are derived from the <see cref="Pen"/> Class.</returns>
         public static List<Type> ListPens()
         {
-            Type penType = typeof(Pen);
+            var penType = typeof(Pen);
             var assembly = Assembly.GetAssembly(penType);
             return GetAssemblyTypes(assembly, penType);
         }
@@ -116,7 +116,7 @@ namespace Engine
         /// <returns>A list of all types that are derived from the <see cref="Tool"/> Class.</returns>
         public static List<Type> ListFileObjects()
         {
-            Type objectType = typeof(FileObjectAttribute);
+            var objectType = typeof(FileObjectAttribute);
             var assembly = Assembly.GetAssembly(objectType);
             return GetAssemblyTypeAttributes(assembly, objectType);
         }
@@ -127,7 +127,7 @@ namespace Engine
         /// <returns>A list of all types that are derived from the <see cref="Tool"/> Class.</returns>
         public static List<Type> ListGraphicsObjects()
         {
-            Type objectType = typeof(GraphicsObjectAttribute);
+            var objectType = typeof(GraphicsObjectAttribute);
             var assembly = Assembly.GetAssembly(objectType);
             return GetAssemblyTypeAttributes(assembly, objectType);
         }

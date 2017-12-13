@@ -21,26 +21,26 @@ namespace Engine
     public partial class Maths
     {
         /// <summary>
-        /// 
+        /// The lerp.
         /// </summary>
-        /// <param name="u0"></param>
-        /// <param name="u1"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="u0">The u0.</param>
+        /// <param name="u1">The u1.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Lerp(double u0, double u1, double t)
             => u0 + (u1 - u0) * t;
 
         /// <summary>
-        /// 
+        /// The lerp.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="(double X, double Y)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Lerp(
@@ -50,16 +50,16 @@ namespace Engine
             => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t);
 
         /// <summary>
-        /// 
+        /// The lerp.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="z0">The z0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Lerp(
@@ -69,18 +69,18 @@ namespace Engine
             => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, z0 + (z1 - z0) * t);
 
         /// <summary>
-        /// 
+        /// The lerp.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="w0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="w1"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="z0">The z0.</param>
+        /// <param name="w0">The w0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="w1">The w1.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z, double W)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z, double W) Lerp(
@@ -90,14 +90,13 @@ namespace Engine
             => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, z0 + (z1 - z0) * t, w0 + (w1 - w0) * t);
 
         /// <summary>
-        ///
+        /// The complex product.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <returns>The <see cref="(double X, double Y)"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/1476497/multiply-two-point-objects
         /// </acknowledgment>
@@ -125,15 +124,15 @@ namespace Engine
             => (x1 * y2) - (y1 * x2);
 
         /// <summary>
-        ///
+        /// The cross product.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <returns>The <see cref="(double, double, double)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double, double, double) CrossProduct(
@@ -146,6 +145,7 @@ namespace Engine
                 );
 
         /// <summary>
+        /// The cross product vector.
         /// The cross product is a vector perpendicular to AB
         /// and BC having length |AB| * |BC| * Sin(theta) and
         /// with direction given by the right-hand rule.
@@ -153,16 +153,13 @@ namespace Engine
         /// vector with X and Y components 0 so the Z component
         /// gives the vector's length and direction.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <returns>
-        /// Return the cross product AB x BC.
-        /// </returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <returns>Return the cross product AB x BC. The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </acknowledgment>
@@ -175,15 +172,15 @@ namespace Engine
             => ((x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2));
 
         /// <summary>
-        /// 
+        /// The cross product vector0.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://www.angusj.com
         /// </acknowledgment>
@@ -260,17 +257,15 @@ namespace Engine
                 );
 
         /// <summary>
-        /// Dot Product of the vector of three points
+        /// The Dot Product of the vector of three points
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <returns>
-        /// Return the dot product AB · BC.
-        /// </returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <returns>Return the dot product AB · BC.</returns>
         /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
@@ -284,18 +279,18 @@ namespace Engine
             => (((x1 - x2) * (x3 - x2)) + ((y1 - y2) * (y3 - y2)));
 
         /// <summary>
-        ///
+        /// The mixed product.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="z3">The z3.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MixedProduct(
@@ -305,63 +300,59 @@ namespace Engine
             => DotProduct(CrossProduct(x1, y1, z1, x2, y2, z2), x3, y3, z3);
 
         /// <summary>
-        /// Magnitude of a two dimensional Vector.
+        /// The Magnitude of a two dimensional Vector.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="i">The i component of the vector.</param>
+        /// <param name="j">The j component of the vector.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j)
             => Sqrt((i * i) + (j * j));
 
         /// <summary>
-        /// Magnitude of a three dimensional Vector.
+        /// The Magnitude of a three dimensional Vector.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Magnitude(double i, double j, double k)
             => Sqrt((i * i) + (j * j) + (k * k));
 
         /// <summary>
-        /// Modulus of a Vector.
+        /// The Modulus of a Vector.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j)
             => Magnitude(i, j);
 
         /// <summary>
-        /// Modulus of a Vector.
+        /// The Modulus of a Vector.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(double i, double j, double k)
             => Magnitude(i, j, k);
 
         /// <summary>
-        /// 
+        /// Get the unit normal.
         /// </summary>
-        /// <param name="pt1X"></param>
-        /// <param name="pt1Y"></param>
-        /// <param name="pt2X"></param>
-        /// <param name="pt2Y"></param>
-        /// <returns></returns>
+        /// <param name="pt1X">The pt1X.</param>
+        /// <param name="pt1Y">The pt1Y.</param>
+        /// <param name="pt2X">The pt2X.</param>
+        /// <param name="pt2Y">The pt2Y.</param>
+        /// <returns>The <see cref="(double, double)"/>.</returns>
         /// <acknowledgment>
         /// http://www.angusj.com
         /// </acknowledgment>
@@ -379,12 +370,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// Unitize a Vector.
+        /// The Unitize a Vector.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <returns>The <see cref="(double X, double Y)"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Unitize(double i, double j)
@@ -393,11 +383,10 @@ namespace Engine
         /// <summary>
         /// Unitize a Vector.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Unitize(double i, double j, double k)
@@ -566,16 +555,15 @@ namespace Engine
             => (j, -i);
 
         /// <summary>
-        ///
+        /// The projection.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -591,16 +579,15 @@ namespace Engine
                 );
 
         /// <summary>
-        ///
+        /// The rejection.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -616,16 +603,15 @@ namespace Engine
                 );
 
         /// <summary>
-        ///
+        /// The reflection.
         /// </summary>
-        /// <param name="i1"></param>
-        /// <param name="j1"></param>
-        /// <param name="k1"></param>
-        /// <param name="i2"></param>
-        /// <param name="j2"></param>
-        /// <param name="k2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="i1">The i1.</param>
+        /// <param name="j1">The j1.</param>
+        /// <param name="k1">The k1.</param>
+        /// <param name="i2">The i2.</param>
+        /// <param name="j2">The j2.</param>
+        /// <param name="k2">The k2.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -648,14 +634,13 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The rotate x.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="rad"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="rad">The rad.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -669,14 +654,13 @@ namespace Engine
                 );
 
         /// <summary>
-        ///
+        /// The pitch.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="rad"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="rad">The rad.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -686,14 +670,13 @@ namespace Engine
             => RotateX(x1, y1, z1, rad);
 
         /// <summary>
-        ///
+        /// The rotate y.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="rad"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="rad">The rad.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -707,14 +690,13 @@ namespace Engine
                 );
 
         /// <summary>
-        ///
+        /// The yaw.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="rad"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="rad">The rad.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -724,14 +706,13 @@ namespace Engine
             => RotateY(x1, y1, z1, rad);
 
         /// <summary>
-        ///
+        /// The rotate z.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="rad"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="rad">The rad.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -745,14 +726,13 @@ namespace Engine
                 );
 
         /// <summary>
-        ///
+        /// The roll.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="rad"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="rad">The rad.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -762,16 +742,15 @@ namespace Engine
             => RotateZ(x1, y1, z1, rad);
 
         /// <summary>
-        ///
+        /// The rotate x.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="yOff"></param>
-        /// <param name="zOff"></param>
-        /// <param name="rad"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="yOff">The yOff.</param>
+        /// <param name="zOff">The zOff.</param>
+        /// <param name="rad">The rad.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -785,16 +764,15 @@ namespace Engine
                 );
 
         /// <summary>
-        ///
+        /// The rotate y.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="xOff"></param>
-        /// <param name="zOff"></param>
-        /// <param name="rad"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="xOff">The xOff.</param>
+        /// <param name="zOff">The zOff.</param>
+        /// <param name="rad">The rad.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -808,16 +786,15 @@ namespace Engine
                 );
 
         /// <summary>
-        ///
+        /// The rotate z.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="xOff"></param>
-        /// <param name="yOff"></param>
-        /// <param name="rad"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="xOff">The xOff.</param>
+        /// <param name="yOff">The yOff.</param>
+        /// <param name="rad">The rad.</param>
+        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -831,12 +808,11 @@ namespace Engine
                 );
 
         /// <summary>
-        ///
+        /// The is unit vector.
         /// </summary>
-        /// <param name="i1"></param>
-        /// <param name="j1"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="i1">The i1.</param>
+        /// <param name="j1">The j1.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -846,13 +822,12 @@ namespace Engine
             => Math.Abs(Magnitude(i1, j1) - 1) < Epsilon;
 
         /// <summary>
-        ///
+        /// The is unit vector.
         /// </summary>
-        /// <param name="i1"></param>
-        /// <param name="j1"></param>
-        /// <param name="k1"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="i1">The i1.</param>
+        /// <param name="j1">The j1.</param>
+        /// <param name="k1">The k1.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>

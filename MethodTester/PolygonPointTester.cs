@@ -160,7 +160,7 @@ namespace MethodSpeedTester
         public static void DrawHitPoint(Graphics g, PointF point, Inclusion hit)
         {
             float pointRadius = 1;
-            Pen pointpen = Pens.Red;
+            var pointpen = Pens.Red;
             switch (hit)
             {
                 case Inclusion.Inside:

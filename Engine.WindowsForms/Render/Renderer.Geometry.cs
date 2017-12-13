@@ -72,7 +72,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this ScreenPoint shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillRectangle(itemStyle.ForeBrush, (float)shape.X, (float)shape.Y, 1, 1);
         }
 
@@ -87,7 +87,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Ray shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
 
             var p1 = shape.Location;
             var p2 = shape.Location + shape.Direction;
@@ -116,7 +116,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Line shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
 
             var p1 = shape.Location;
             var p2 = shape.Location + shape.Direction;
@@ -139,7 +139,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this LineSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             //g.DrawLine(itemStyle.ForePen, shape.A.ToPointF(), shape.B.ToPointF());
             renderer.DrawLine(itemStyle.Stroke, shape.AX, shape.AY, shape.BX, shape.BY);
         }
@@ -153,7 +153,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this PolygonContour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
             g.DrawPolygon((itemStyle).ForePen, shape.Points.ToPointFArray());
         }
@@ -167,7 +167,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Polyline shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
             g.DrawLines((itemStyle).ForePen, shape.Points.ToPointFArray());
         }
@@ -181,7 +181,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this PolylineSet set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             foreach (Polyline shape in set.Polylines)
             {
                 g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
@@ -198,7 +198,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Polygon set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
             var path = new GraphicsPath();
             foreach (PolygonContour shape in set.Contours)
@@ -217,7 +217,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this PolycurveContour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
             var path = new GraphicsPath();
             foreach (var figureItem in shape.Items)
@@ -273,7 +273,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Polycurve set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
             var path = new GraphicsPath();
             foreach (PolycurveContour shape in set.Contours)
@@ -333,7 +333,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Rectangle2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             //g.FillRectangles((itemStyle).BackBrush, new RectangleF[] { shape.Bounds.ToRectangleF() });
             //g.DrawRectangles((itemStyle).ForePen, new RectangleF[] { shape.Bounds.ToRectangleF() });
 
@@ -351,7 +351,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Circle shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             //g.FillEllipse((itemStyle).BackBrush, shape.Bounds.ToRectangleF());
             //g.DrawEllipse((itemStyle).ForePen, shape.Bounds.ToRectangleF());
             renderer.FillEllipse(itemStyle.Fill, shape.Bounds.X, shape.Bounds.Y, shape.Bounds.Width, shape.Bounds.Height);
@@ -367,7 +367,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this CircularArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             var path = new GraphicsPath();
             path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
             g.FillPath((itemStyle).BackBrush, path);
@@ -384,7 +384,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this Ellipse shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             var mat = new Matrix();
             mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
             g.Transform = mat;
@@ -402,7 +402,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this EllipticalArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             var path = new GraphicsPath();
             path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
             var mat = new Matrix();
@@ -452,7 +452,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this BezierSegment shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             var path = new GraphicsPath();
 
             switch (shape.Points.Length)
@@ -485,7 +485,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this CubicBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             //var path = new GraphicsPath();
             //path.AddBezier(shape.A.ToPointF(), shape.B.ToPointF(), shape.C.ToPointF(), shape.D.ToPointF());
             //g.FillPath((itemStyle).BackBrush, path);
@@ -504,7 +504,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this QuadraticBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
-            ShapeStyle itemStyle = style ?? (ShapeStyle)item.Style;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             //var path = new GraphicsPath();
             //var cubic = Conversions.QuadraticBezierToCubicBezier(shape.A, shape.B, shape.C);
             //path.AddBezier(cubic.A.ToPointF(), cubic.B.ToPointF(), cubic.C.ToPointF(), cubic.D.ToPointF());

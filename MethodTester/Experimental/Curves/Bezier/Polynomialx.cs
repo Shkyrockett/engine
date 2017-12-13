@@ -923,7 +923,7 @@ namespace Engine
             if (p.Coefficients.Count == 1) return new Complex[0];
 
             Complex x0 = 1;
-            Complex xMul = 0.4 + 0.9 * Complex.ImaginaryOne;
+            var xMul = 0.4 + 0.9 * Complex.ImaginaryOne;
             var R0 = new Complex[p.Coefficients.Count - 1];
             for (var i = 0; i < R0.Length; i++)
             {

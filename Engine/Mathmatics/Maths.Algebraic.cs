@@ -32,10 +32,10 @@ namespace Engine
     public static partial class Maths
     {
         /// <summary>
-        /// 
+        /// The inverse sqrt.
         /// </summary>
-        /// <param name="number"></param>
-        /// <returns></returns>
+        /// <param name="number">The number.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSqrt(double number)
@@ -70,22 +70,22 @@ namespace Engine
             : Pow(value, OneThird);
 
         /// <summary>
-        /// 
+        /// The inverse cube root.
         /// </summary>
-        /// <param name="number"></param>
-        /// <returns></returns>
+        /// <param name="number">The number.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCrt(double number)
             => 1 / Crt(number);
 
         /// <summary>
-        ///
+        /// The quadratic equation.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>The <see cref="(double A, double S)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double S) QuadraticEquation(double a, double b, double c)

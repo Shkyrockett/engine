@@ -53,9 +53,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double Roll, double Pitch, double Yaw) QuaternionToEulerAngles(double x, double y, double z, double w)
         {
-            var halfPi = PI / 2;
+            const double halfPi = PI / 2;
             var test = x * y + z * w;
-            (double Roll, double Pitch, double Yaw) quat = (0, 0, 0);
+            var quat = (Yaw: 0d, Roll: 0d, Pitch: 0d);
             if (test > 0.499d)
             { // singularitY at north pole
                 quat.Yaw = 2d * Atan2(x, w);

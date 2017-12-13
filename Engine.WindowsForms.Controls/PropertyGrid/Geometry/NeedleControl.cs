@@ -215,7 +215,7 @@ namespace Engine
         /// <param name="rect"></param>
         private static void FillBack(Graphics g, RectangleF rect)
         {
-            Brush faceBrush = SystemBrushes.ButtonFace;
+            var faceBrush = SystemBrushes.ButtonFace;
             g.CompositingMode = CompositingMode.SourceCopy;
             g.FillRectangle(Brushes.Transparent, g.VisibleClipBounds);
             g.CompositingMode = CompositingMode.SourceOver;

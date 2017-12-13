@@ -304,7 +304,7 @@ namespace Engine.Tweening
             var props = values.GetType().GetProperties();
             for (var i = 0; i < props.Length; ++i)
             {
-                System.Reflection.PropertyInfo property = props[i];
+                var property = props[i];
                 var propValue = property.GetValue(values, null);
 
                 var index = -1;

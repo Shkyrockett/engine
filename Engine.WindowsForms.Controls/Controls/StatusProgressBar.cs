@@ -63,8 +63,8 @@ namespace Engine.WindowsForms
         /// <param name="e"></param>
         protected override void OnPaint(PaintEventArgs e)
         {
-            Rectangle rect = ClientRectangle;
-            Graphics g = e.Graphics;
+            var rect = ClientRectangle;
+            var g = e.Graphics;
 
             ProgressBarRenderer.DrawHorizontalBar(g, rect);
             rect.Inflate(-3, -3);

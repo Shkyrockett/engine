@@ -13,7 +13,7 @@ namespace Engine
     /// <summary>
     /// An enumeration of Boolean Clipping Operations that can be performed on geometry.
     /// </summary>
-    public enum ClipingOperations
+    public enum ClippingOperations
         : byte
     {
         /// <summary>

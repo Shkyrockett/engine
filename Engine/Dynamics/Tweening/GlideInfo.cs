@@ -93,7 +93,7 @@ namespace Engine.Tweening
             this.target = target;
             MemberName = property;
 
-            Type targetType = target as Type ?? target.GetType();
+            var targetType = target as Type ?? target.GetType();
 
             if ((member = targetType.GetField(property, flags)) != null)
             {

@@ -12,58 +12,33 @@ using System.Collections.Generic;
 
 namespace Engine.Experimental
 {
-    //using PolygonContour = List<Point2D>;
-    //using Polygon = List<List<Point2D>>;
-
     /// <summary>
     /// PolyTree and PolyNode classes
     /// </summary>
     public class PolyPath
     {
-        #region Fields
-
-        /// <summary>
-        /// The parent.
-        /// </summary>
-        private PolyPath parent;
-
-        /// <summary>
-        /// The children.
-        /// </summary>
-        private List<PolyPath> children = new List<PolyPath>();
-
-        /// <summary>
-        /// The path.
-        /// </summary>
-        private PolygonContour path = new PolygonContour();
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         /// Gets the parent.
         /// </summary>
-        public PolyPath Parent
-            => parent;
+        public PolyPath Parent { get; private set; }
 
         /// <summary>
         /// Gets the children.
         /// </summary>
-        public List<PolyPath> Children
-            => children;
+        public List<PolyPath> Children { get; private set; }
+
+        /// <summary>
+        /// Gets the path.
+        /// </summary>
+        public PolygonContour Path { get; private set; }
 
         /// <summary>
         /// Gets the child count.
         /// </summary>
         public int ChildCount
-            => children.Count;
-
-        /// <summary>
-        /// Gets the path.
-        /// </summary>
-        public PolygonContour Path
-            => path;
+            => Children.Count;
 
         #endregion
 
@@ -76,8 +51,8 @@ namespace Engine.Experimental
         {
             var child = new PolyPath
             {
-                parent = this,
-                path = p
+                Parent = this,
+                Path = p
             };
             Children.Add(child);
             return child;
@@ -96,11 +71,11 @@ namespace Engine.Experimental
         private bool IsHoleNode()
         {
             var result = true;
-            PolyPath node = parent;
+            var node = Parent;
             while (node != null)
             {
                 result = !result;
-                node = node.parent;
+                node = node.Parent;
             }
             return result;
         }
@@ -114,21 +89,21 @@ namespace Engine.Experimental
         /// <param name="paths">The paths.</param>
         private static void AddPolyNodeToPaths(PolyPath pp, Polygon paths)
         {
-            var cnt = pp.path.Count;
+            var cnt = pp.Path.Count;
             if (cnt > 0)
             {
                 var p = new PolygonContour
                 {
                     Capacity = cnt
                 };
-                foreach (var ip in pp.path)
+                foreach (var ip in pp.Path)
                 {
                     p.Add(ip);
                 }
 
                 paths.Add(p);
             }
-            foreach (var polyp in pp.children)
+            foreach (var polyp in pp.Children)
             {
                 AddPolyNodeToPaths(polyp, paths);
             }

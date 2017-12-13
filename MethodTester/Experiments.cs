@@ -901,7 +901,8 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static Rectangle2D GetBounds(List<List<Point2D>> paths)
         {
-            int i = 0, cnt = paths.Count;
+            var i = 0;
+            var cnt = paths.Count;
             while (i < cnt && paths[i].Count == 0) i++;
             if (i == cnt) return new Rectangle2D(0, 0, 0, 0);
             var result = new Rectangle2D
@@ -2680,9 +2681,9 @@ namespace MethodSpeedTester
         private static double CubicBezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
         {
             var k1 = (Point2D)(-p1 + 3 * (p2 - p3) + p4);
-            Point2D k2 = 3 * (p1 + p3) - 6 * p2;
+            var k2 = 3 * (p1 + p3) - 6 * p2;
             var k3 = (Point2D)(3 * (p2 - p1));
-            Point2D k4 = p1;
+            var k4 = p1;
 
             var q1 = 9.0 * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
             var q2 = 12.0 * (k1.X * k2.X + k1.Y * k2.Y);
@@ -4954,8 +4955,8 @@ namespace MethodSpeedTester
         public static Complex ComputeC(double[] coefficients, Complex x)
         {
             var degree = coefficients.Length - 1;
-            Complex result = Complex.Zero;
-            Complex ncoef = Complex.One;
+            var result = Complex.Zero;
+            var ncoef = Complex.One;
 
             for (var i = 0; i <= degree; i++)
             {
@@ -4983,7 +4984,7 @@ namespace MethodSpeedTester
         public static Complex ComputeC2(double[] coefficients, Complex x)
         {
             var degree = coefficients.Length - 1;
-            Complex result = Complex.Zero;
+            var result = Complex.Zero;
 
             for (var i = degree; i >= 0; i--)
             {
@@ -5887,10 +5888,10 @@ namespace MethodSpeedTester
                 }
                 else
                 {
-                    (double X, double Y) e1 = ((B.X - A.X) / d, (B.Y - A.Y) / d);
-                    (double X, double Y) e2 = (-e1.X, e1.Y);
-                    (double X, double Y) P1 = (A.X + x * e1.X + y * e2.Y, A.Y + x * e1.Y + y * e2.X);
-                    (double X, double Y) P2 = (A.X + x * e1.X - y * e2.Y, A.Y + x * e1.Y - y * e2.X);
+                    var e1 = ((B.X - A.X) / d, (B.Y - A.Y) / d);
+                    var e2 = (-e1.X, e1.Y);
+                    var P1 = (A.X + x * e1.X + y * e2.Y, A.Y + x * e1.Y + y * e2.X);
+                    var P2 = (A.X + x * e1.X - y * e2.Y, A.Y + x * e1.Y - y * e2.X);
                     return (2, P1, P2);
                 }
             }
@@ -11436,7 +11437,7 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static double Perimeter0(List<(double X, double Y)> points)
         {
-            (double X, double Y) last = points[0];
+            var last = points[0];
             double dist = 0;
             foreach (var cur in points.Skip(1))
             {
@@ -12876,7 +12877,7 @@ namespace MethodSpeedTester
             double maxY = polygon[0].Y;
             for (var i = 1; i < polygon.Count; i++)
             {
-                PointF q = polygon[i];
+                var q = polygon[i];
                 minX = Min(q.X, minX);
                 maxX = Max(q.X, maxX);
                 minY = Min(q.Y, minY);
@@ -13108,11 +13109,11 @@ namespace MethodSpeedTester
             if (polygon.Count < 3)
                 return inside;
 
-            PointF oldPoint = polygon[polygon.Count - 1];
+            var oldPoint = polygon[polygon.Count - 1];
 
             for (var i = 0; i < polygon.Count; i++)
             {
-                PointF newPoint = polygon[i];
+                var newPoint = polygon[i];
 
                 if (newPoint.X > oldPoint.X)
                 {
@@ -13202,15 +13203,15 @@ namespace MethodSpeedTester
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            Inclusion result = Inclusion.Outside;
+            var result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior.
             if (polygon.Count < 3)
                 return Inclusion.Outside;
-            PointF curPoint = polygon[0];
+            var curPoint = polygon[0];
             for (var i = 1; i <= polygon.Count; ++i)
             {
-                PointF nextPoint = (i == polygon.Count ? polygon[0] : polygon[i]);
+                var nextPoint = (i == polygon.Count ? polygon[0] : polygon[i]);
                 if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
                 {
                     if ((Abs(nextPoint.X - point.X) < DoubleEpsilon) || (Abs(curPoint.Y - point.Y) < DoubleEpsilon && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
@@ -13265,15 +13266,15 @@ namespace MethodSpeedTester
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            Inclusion result = Inclusion.Outside;
+            var result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior.
             if (polygon.Count < 3)
                 return Inclusion.Outside;
-            PointF curPoint = polygon[0];
+            var curPoint = polygon[0];
             for (var i = 1; i <= polygon.Count; ++i)
             {
-                PointF nextPoint = (i == polygon.Count ? polygon[0] : polygon[i]);
+                var nextPoint = (i == polygon.Count ? polygon[0] : polygon[i]);
                 // Horizontal line special case.
                 // Is end point horizontal to test point?
                 if ((Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
@@ -13332,13 +13333,13 @@ namespace MethodSpeedTester
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            Inclusion result = Inclusion.Outside;
+            var result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior.
             if (polygon.Count < 3)
                 return Inclusion.Outside;
-            PointF curPoint = polygon[0];
-            PointF nextPoint = polygon[1];
+            var curPoint = polygon[0];
+            var nextPoint = polygon[1];
             for (var i = 1; i <= polygon.Count; ++i)
             {
                 nextPoint = (i == polygon.Count ? polygon[0] : polygon[i]);
@@ -13387,15 +13388,15 @@ namespace MethodSpeedTester
             // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
             // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
             // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            Inclusion result = Inclusion.Outside;
+            var result = Inclusion.Outside;
 
             // If the polygon has 2 or fewer points, it is a line or point and has no interior.
             if (polygon.Count < 3)
                 return Inclusion.Outside;
-            PointF curPoint = polygon[0];
+            var curPoint = polygon[0];
             for (var i = 1; i <= polygon.Count; ++i)
             {
-                PointF nextPoint = (i == polygon.Count ? polygon[0] : polygon[i]);
+                var nextPoint = (i == polygon.Count ? polygon[0] : polygon[i]);
                 if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
                 {
                     if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
@@ -13464,7 +13465,7 @@ namespace MethodSpeedTester
             double epsilon = Epsilon)
         {
             // Default value is no inclusion.
-            Inclusion result = Inclusion.Outside;
+            var result = Inclusion.Outside;
 
             // Special cases for points and line segments.
             if (points.Count < 3)
@@ -13583,7 +13584,7 @@ namespace MethodSpeedTester
         /// <remarks></remarks>
         public static Inclusion PointInPolygonSetShkyrockett(List<List<PointF>> polygons, PointF point)
         {
-            Inclusion returnValue = Inclusion.Outside;
+            var returnValue = Inclusion.Outside;
 
             foreach (List<PointF> poly in polygons)
             {
@@ -14683,8 +14684,8 @@ namespace MethodSpeedTester
             var R = new List<Complex>(NRoots);
             for (var i = 0; i < NRoots; i++)
             {
-                Complex M = CubicUnity[i] * C;
-                Complex Root = -1.0 / (3 * a) * (b + M + DELTA0 / M);
+                var M = CubicUnity[i] * C;
+                var Root = -1.0 / (3 * a) * (b + M + DELTA0 / M);
                 R.Add(Root);
             }
             return R;
@@ -15692,7 +15693,7 @@ namespace MethodSpeedTester
                 pointList[bestJ].TotalDistance = bestDist;
 
                 // Swap
-                AccumulatorPoint2D temp = pointList[bestJ];
+                var temp = pointList[bestJ];
                 pointList[bestJ] = pointList[treeCount];
                 pointList[treeCount] = temp;
 
@@ -15817,7 +15818,7 @@ namespace MethodSpeedTester
                 pointList[bestJ].TotalDistance = bestDist;
 
                 // Swap
-                AccumulatorPoint2D temp = pointList[bestJ];
+                var temp = pointList[bestJ];
                 pointList[bestJ] = pointList[treeCount];
                 pointList[treeCount] = temp;
 
@@ -15993,7 +15994,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         public static bool Swap<T>(ref T a, ref T b)
         {
-            T swap = a;
+            var swap = a;
             a = b;
             b = swap;
             return true;
@@ -16429,7 +16430,7 @@ namespace MethodSpeedTester
                 ((1 - (Tan((PI * -1)) * 2)) * (2 * Sin((PI * -1)))) * Multiplyer.Height
                 );
 
-            Point2D LastPoint = NewPoint;
+            var LastPoint = NewPoint;
 
             for (var Index = (PI * -1); (Index <= PI); Index += Precision)
             {
@@ -16461,7 +16462,7 @@ namespace MethodSpeedTester
                 (Sin(U) * (Exp(Cos(U)) - ((2 * Cos((4 * U))) - Pow(Sin((U / 12)), 5)))) * Multiplyer.Height
                 );
 
-            Point2D LastPoint = NewPoint;
+            var LastPoint = NewPoint;
 
             for (double Index = 1; (Index <= N); Index = (Index + Precision))
             {

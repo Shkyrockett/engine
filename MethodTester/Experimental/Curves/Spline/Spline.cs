@@ -240,10 +240,10 @@ namespace Engine
         /// </summary>
         private void UpdateArcLengths(int iCurve)
         {
-            CubicBezier curve = curves[iCurve];
+            var curve = curves[iCurve];
             var nSamples = samplesPerCurve;
             var clen = iCurve > 0 ? arclen[iCurve * nSamples - 1] : 0;
-            Point2D pp = curve.A;
+            var pp = curve.A;
             Debug.Assert(arclen.Count >= ((iCurve + 1) * nSamples));
             for (var iPoint = 0; iPoint < nSamples; iPoint++)
             {

@@ -485,11 +485,11 @@ namespace Engine
             get { return Measurements.EllipseBounds(x, y, rX, rY, angle); }
             set
             {
-                Rectangle2D bounds1 = Bounds;
+                var bounds1 = Bounds;
                 var aspect = Aspect;
-                Rectangle2D bounds2 = value;
-                Vector2D locDif = bounds2.Location - bounds1.Location;
-                Size2D scaleDif = bounds2.Size - bounds1.Size;
+                var bounds2 = value;
+                var locDif = bounds2.Location - bounds1.Location;
+                var scaleDif = bounds2.Size - bounds1.Size;
                 Center += locDif;
                 if (aspect > 1)
                 {

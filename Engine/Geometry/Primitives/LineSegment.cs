@@ -514,7 +514,7 @@ namespace Engine
         /// </summary>
         public void Reverse()
         {
-            Point2D temp = A;
+            var temp = A;
             A = B;
             B = temp;
             ClearCache();

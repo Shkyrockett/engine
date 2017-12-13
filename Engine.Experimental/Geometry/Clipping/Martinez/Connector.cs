@@ -53,7 +53,7 @@ namespace Engine
             // j iterates through the openPolygon chains.
             for (var j = 0; j < openPolygons.Count; j++)
             {
-                PointChain chain = openPolygons[j];
+                var chain = openPolygons[j];
                 if (chain.LinkSegment(s))
                 {
                     if (chain.Closed)

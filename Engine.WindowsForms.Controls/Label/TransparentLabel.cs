@@ -56,7 +56,7 @@ namespace Engine.WindowsForms
         {
             get
             {
-                CreateParams cp = base.CreateParams;
+                var cp = base.CreateParams;
                 cp.ExStyle |= WS_EX_TRANSPARENT;
                 return cp;
             }

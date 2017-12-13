@@ -926,7 +926,7 @@ namespace Engine
         {
             Contract.Ensures(Contract.Result<Complex>() != null);
 
-            Complex result = Complex.Zero;
+            var result = Complex.Zero;
 
             for (var i = (int)Degree; i >= 0; i--)
             {
@@ -1057,7 +1057,7 @@ namespace Engine
                 throw new ArgumentException($"{nameof(degree)} expected to be greater than zero.");
             }
 
-            Polynomial[] buf = new Polynomial[degree];
+            var buf = new Polynomial[degree];
 
             for (var i = 0; i < degree; i++)
             {
@@ -1146,7 +1146,7 @@ namespace Engine
             }
 
             var d = (int)degree;
-            double[] coeffs = new double[d + 1];
+            var coeffs = new double[d + 1];
 
             for (var i = 0; i < d; i++)
             {
@@ -1366,7 +1366,7 @@ namespace Engine
 
             var order = (int)poly.Degree;
             Complex x0 = 1;
-            Complex xMul = 0.4d + 0.9d * Complex.ImaginaryOne;
+            var xMul = 0.4d + 0.9d * Complex.ImaginaryOne;
             var R0 = new Complex[order];
             for (var i = 0; i < R0.Length; i++)
             {

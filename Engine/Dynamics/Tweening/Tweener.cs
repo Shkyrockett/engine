@@ -151,7 +151,7 @@ namespace Engine.Tweening
                         library[j].Cancel(props[i].Name);
                 }
 
-                PropertyInfo property = props[i];
+                var property = props[i];
                 var info = new GlideInfo(target, property.Name);
                 var to = new GlideInfo(dests, property.Name, false);
                 var lerper = CreateLerper(info.MemberType);

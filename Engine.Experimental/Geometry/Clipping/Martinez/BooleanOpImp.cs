@@ -26,7 +26,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        ClipingOperations operation;
+        ClippingOperations operation;
 
         /// <summary>
         /// event queue (sorted events to be processed)
@@ -60,7 +60,7 @@ namespace Engine
         /// <param name="clip"></param>
         /// <param name="result"></param>
         /// <param name="op"></param>
-        public BooleanOpImp(Polygon subj, Polygon clip, Polygon result, ClipingOperations op)
+        public BooleanOpImp(Polygon subj, Polygon clip, Polygon result, ClippingOperations op)
         {
             subject = subj;
             clipping = clip;
@@ -187,7 +187,7 @@ namespace Engine
         /// </summary>
         /// <param name="s"></param>
         /// <param name="pt"></param>
-        public void ProcessSegment(LineSegment s, PolygonRelations pt)
+        public void ProcessSegment(LineSegment s, ClippingRelations pt)
         {
             //*	if (s.degenerate ()) // if the two edge endpoints are equal the segment is dicarded
             //    return;          // This can be done as preprocessing to avoid "polygons" with less than 3 edges */
@@ -261,20 +261,20 @@ namespace Engine
                 case EdgeContributions.Normal:
                     switch (operation)
                     {
-                        case ClipingOperations.Intersection:
+                        case ClippingOperations.Intersection:
                             return !le.OtherInOut;
-                        case ClipingOperations.Union:
+                        case ClippingOperations.Union:
                             return le.OtherInOut;
-                        case ClipingOperations.Difference:
-                            return (le.BelongsTo == PolygonRelations.Subject && le.OtherInOut) || (le.BelongsTo == PolygonRelations.Clipping && !le.OtherInOut);
-                        case ClipingOperations.Xor:
+                        case ClippingOperations.Difference:
+                            return (le.BelongsTo == ClippingRelations.Subject && le.OtherInOut) || (le.BelongsTo == ClippingRelations.Clipping && !le.OtherInOut);
+                        case ClippingOperations.Xor:
                             return true;
                     }
                     break;
                 case EdgeContributions.SameTransition:
-                    return operation == ClipingOperations.Intersection || operation == ClipingOperations.Union;
+                    return operation == ClippingOperations.Intersection || operation == ClippingOperations.Union;
                 case EdgeContributions.DifferentTransition:
-                    return operation == ClipingOperations.Difference;
+                    return operation == ClippingOperations.Difference;
                 case EdgeContributions.NonContributing:
                     return false;
             }
@@ -526,7 +526,7 @@ namespace Engine
         /// <param name="clip"></param>
         /// <param name="result"></param>
         /// <param name="op"></param>
-        public static void Compute(Polygon subj, Polygon clip, Polygon result, ClipingOperations op)
+        public static void Compute(Polygon subj, Polygon clip, Polygon result, ClippingOperations op)
         {
             var boi = new BooleanOpImp(subj, clip, result, op);
             boi.Run();

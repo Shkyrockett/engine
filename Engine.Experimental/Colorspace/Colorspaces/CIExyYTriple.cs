@@ -13,24 +13,17 @@ using System;
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// 
+    /// The CI exy y triple struct.
     /// </summary>
     public struct CIExyYTriple
         : IColor
     {
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public CIExyYTriple()
-        //    : this(new CIExyY(), new CIExyY(), new CIExyY())
-        //{ }
-
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CIExyYTriple"/> class.
         /// </summary>
-        /// <param name="red"></param>
-        /// <param name="green"></param>
-        /// <param name="blue"></param>
+        /// <param name="red">The red.</param>
+        /// <param name="green">The green.</param>
+        /// <param name="blue">The blue.</param>
         public CIExyYTriple(CIExyY red, CIExyY green, CIExyY blue)
         {
             Red = red;
@@ -39,25 +32,25 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the red.
         /// </summary>
         public CIExyY Red { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the green.
         /// </summary>
         public CIExyY Green { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the blue.
         /// </summary>
         public CIExyY Blue { get; set; }
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
             var (A0, R0, G0, B0) = ToARGBTuple();
@@ -66,17 +59,17 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// The to ARGB tuple.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

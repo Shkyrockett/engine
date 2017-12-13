@@ -13,7 +13,7 @@ using System.Runtime.CompilerServices;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The maths class.
     /// </summary>
     public partial class Maths
     {

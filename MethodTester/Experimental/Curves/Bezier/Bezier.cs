@@ -313,7 +313,7 @@ namespace Engine
                 y: B.Y + by2,
                 z: B.Z + bz2
                 );
-            Point3D A = abc.Item1;
+            var A = abc.Item1;
             var v1 = new Point3D(
                 x: A.X + (e1.X - A.X) / (1 - t),
                 y: A.Y + (e1.Y - A.Y) / (1 - t),
@@ -345,7 +345,7 @@ namespace Engine
         {
             // one-time compute derivative coordinates
             Dpoints = new List<Point3D>();
-            List<Point3D> p = Points;
+            var p = Points;
             for (int d = p.Count, c = d - 1; d > 1; d--, c--)
             {
                 var list = new List<Point3D>();
@@ -369,7 +369,7 @@ namespace Engine
         /// </summary>
         public void Computedirection()
         {
-            List<Point3D> points = Points;
+            var points = Points;
             var angle = Utilities.Angle(points[0], points[Order], points[1]);
             Clockwise = angle > 0;
         }
@@ -449,9 +449,9 @@ namespace Engine
             double t;
             Point3D p;
             double d;
-            double t1 = (mpos - 1) / l,
-                t2 = (mpos + 1) / l,
-                step = 0.1 / l;
+            var t1 = (mpos - 1) / l;
+            var t2 = (mpos + 1) / l;
+            var step = 0.1 / l;
             mdist += 1;
 
             for (t = t1, ft = t; t < t2 + step; t += step)
@@ -495,7 +495,7 @@ namespace Engine
         {
             // shortcuts
             if (t == 0) return Points[0]; if (t == 1) return Points[Order];
-            List<Point3D> p = Points;
+            var p = Points;
             var mt = 1 - t;
 
             // linear?
@@ -542,7 +542,7 @@ namespace Engine
             }
 
             // higher order curves: use de Casteljau's computation
-            List<Point3D> dCpts = Points;
+            var dCpts = Points;
             while (dCpts.Count > 1)
             {
                 for (var i = 0; i < dCpts.Count - 1; i++)
@@ -564,7 +564,7 @@ namespace Engine
         /// <returns></returns>
         public Bezier Raise()
         {
-            List<Point3D> p = Points;
+            var p = Points;
             var np = new List<Point3D>(Points.Count) { p[0] };
             var k = p.Count;
             Point3D pi;
@@ -689,13 +689,13 @@ namespace Engine
         /// <returns></returns>
         public List<Point3D> Hull(double t)
         {
-            List<Point3D> p = Points;
+            var p = Points;
             var _p = new List<Point3D>();
             Point3D pt;
             var q = new List<Point3D>();
-            int idx = 0,
-               i = 0,
-               l = 0;
+            var idx = 0;
+            var i = 0;
+            var l = 0;
             q[idx++] = p[0];
             q[idx++] = p[1];
             q[idx++] = p[2];
@@ -763,7 +763,7 @@ namespace Engine
         /// <returns></returns>
         public List<double> Extrema()
         {
-            List<char> dims = this.dims;
+            var dims = this.dims;
             var result = new List<double>();
             var roots = new List<double>();
             //Point3D p;
@@ -811,8 +811,8 @@ namespace Engine
         /// <returns></returns>
         public bool Overlaps(Bezier curve)
         {
-            BBox lbbox = Bbox(),
-                tbbox = curve.Bbox();
+            var lbbox = Bbox();
+            var tbbox = curve.Bbox();
             return Bboxoverlap(lbbox, tbbox);
         }
 
@@ -974,13 +974,13 @@ namespace Engine
             var o = Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
             // move all points by distance 'd' wrt the origin 'o'
-            List<Point3D> points = Points;
+            var points = Points;
             var np = new List<Point3D>();
 
             // move end points by fixed distance along normal.
             foreach (var t in new List<int> { 0, 1 })
             {
-                Point3D p = np[t * order] = Copy(points[t * order]);
+                var p = np[t * order] = Copy(points[t * order]);
                 p.X += (t == 0 ? r2 : r1) * v[t].Item2.X;
                 p.Y += (t == 0 ? r2 : r1) * v[t].Item2.Y;
             }
@@ -990,7 +990,7 @@ namespace Engine
             foreach (var t in new List<int> { 0, 1 })
             {
                 if (Order == 2) break;
-                Point3D p = points[t + 1];
+                var p = points[t + 1];
                 var ov = new Point3D(
                         x: p.X - o.X,
                         y: p.Y - o.Y,
@@ -1030,13 +1030,13 @@ namespace Engine
             var o = Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o == null) throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
             // move all points by distance 'd' wrt the origin 'o'
-            List<Point3D> points = Points;
+            var points = Points;
             var np = new List<Point3D>();
 
             // move end points by fixed distance along normal.
             foreach (var t in new List<int> { 0, 1 })
             {
-                Point3D p = np[t * order] = Copy(points[t * order]);
+                var p = np[t * order] = Copy(points[t * order]);
                 p.X += (t == 0 ? r2 : r1) * v[t].Item2.X;
                 p.Y += (t == 0 ? r2 : r1) * v[t].Item2.Y;
             }
@@ -1046,7 +1046,7 @@ namespace Engine
             foreach (var t in new List<int> { 0, 1 })
             {
                 if (Order == 2) break;
-                Point3D p = np[t * order];
+                var p = np[t * order];
                 var d2 = Derivative(t);
                 var p2 = new Point3D(x: p.X + d2.X, y: p.Y + d2.Y, z: p.Z + d2.Z);
                 np[t + 1] = Lli4(p, p2, o, points[t + 1]);
@@ -1153,10 +1153,10 @@ namespace Engine
 
             var segments = new List<Bezier>();
             // form the endcaps as lines
-            Point3D fs = fcurves[0].Points[0];
-            Point3D fe = fcurves[len - 1].Points[fcurves[len - 1].Points.Count - 1];
-            Point3D bs = bcurves[len - 1].Points[bcurves[len - 1].Points.Count - 1];
-            Point3D be = bcurves[0].Points[0];
+            var fs = fcurves[0].Points[0];
+            var fe = fcurves[len - 1].Points[fcurves[len - 1].Points.Count - 1];
+            var bs = bcurves[len - 1].Points[bcurves[len - 1].Points.Count - 1];
+            var be = bcurves[0].Points[0];
             var ls = MakeLine(bs, fs);
             var le = MakeLine(fe, be);
             segments.Add(ls);
@@ -1180,7 +1180,7 @@ namespace Engine
         public List<Shape1> Outlineshapes(double d1, double d2)
         {
             //d2 = d2 || d1;
-            List<Bezier> outline = Outline(d1, d2).Curves;
+            var outline = Outline(d1, d2).Curves;
             var shapes = new List<Shape1>();
             for (int i = 1, len = outline.Count; i < len / 2; i++)
             {
@@ -1469,15 +1469,17 @@ namespace Engine
             // to get around square roots of negative numbers
             if (discriminant < 0)
             {
-                double mp3 = -p / 3,
-                    mp33 = mp3 * mp3 * mp3,
-                    r = Sqrt(mp33),
-                    t = -q / (2 * r),
-                    // deal with IEEE rounding yielding <-1 or >1
-                    cosphi = t < -1 ? -1 : t > 1 ? 1 : t,
-                    phi = Acos(cosphi),
-                    crtr = Maths.Crt(r),
-                    t1 = 2 * crtr;
+                var mp3 = -p / 3;
+                var mp33 = mp3 * mp3 * mp3;
+                var r = Sqrt(mp33);
+                var t = -q / (2 * r);
+                var
+
+// deal with IEEE rounding yielding <-1 or >1
+cosphi = t < -1 ? -1 : t > 1 ? 1 : t;
+                var phi = Acos(cosphi);
+                var crtr = Maths.Crt(r);
+                var t1 = 2 * crtr;
                 x1 = t1 * Cos(phi / 3) - a / 3;
                 x2 = t1 * Cos((phi + Tau) / 3) - a / 3;
                 x3 = t1 * Cos((phi + 2 * Tau) / 3) - a / 3;

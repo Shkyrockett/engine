@@ -230,16 +230,16 @@ namespace Editor
             };
 
             var clip = new Clipper();
-            clip.AddPaths(poly1, PolygonRelations.Subject);
-            clip.AddPaths(poly2, PolygonRelations.Clipping);
-            var poly3 = clip.Execute(ClipingOperations.Intersection);
+            clip.AddPaths(poly1, ClippingRelations.Subject);
+            clip.AddPaths(poly2, ClippingRelations.Clipping);
+            var poly3 = clip.Execute(ClippingOperations.Intersection);
             var poly3Item = new GraphicItem(poly3, intersectionRed)
             {
                 Name = "Polygon Solution"
             };
 
             var offset = new ClipperOffset();
-            offset.AddPaths(poly3, LineJoins.Miter, LineEndType.ClosedPolygon);
+            offset.AddPaths(poly3, LineJoins.Round, LineEndType.ClosedPolygon);
             var poly4 = offset.Execute(delta2);
             var poly4Item = new GraphicItem(poly4, intersectionRed)
             {
@@ -247,9 +247,9 @@ namespace Editor
             };
 
             var triangles = new ClipperTriangulation();
-            triangles.AddPaths(poly1, PolygonRelations.Subject);
-            triangles.AddPaths(poly2, PolygonRelations.Clipping);
-            var poly5 = triangles.Execute(ClipingOperations.Intersection);
+            triangles.AddPaths(poly1, ClippingRelations.Subject);
+            triangles.AddPaths(poly2, ClippingRelations.Clipping);
+            var poly5 = triangles.Execute(ClippingOperations.Intersection);
             var poly5Item = new GraphicItem(poly5, solidGreenStyle)
             {
                 Name = "Polygon Triangle"
@@ -1110,7 +1110,7 @@ namespace Editor
             };
 
             var clip = new MartinezPolygonClipper(poly1, poly2);
-            var poly3 = clip.Compute(ClipingOperations.Intersection);
+            var poly3 = clip.Compute(ClippingOperations.Intersection);
             var poly3Item = new GraphicItem(poly3, intersectionRed)
             {
                 Name = "Polygon 3"
@@ -1145,7 +1145,7 @@ namespace Editor
 
             var clip = new MartinezPolygonClipper(polyOne, polyTwo);
 
-            var clips = clip.Compute(ClipingOperations.Intersection);
+            var clips = clip.Compute(ClippingOperations.Intersection);
             var clipsItem = new GraphicItem(clips, solidPurpleStyle);
 
             vectorMap.Add(polyOneItem);
@@ -1206,7 +1206,7 @@ namespace Editor
             vectorMap.Add(rectangle1Item);
 
             var clip = new MartinezPolygonClipper(cross, rectangle1);
-            var poly3 = clip.Compute(ClipingOperations.Intersection);
+            var poly3 = clip.Compute(ClippingOperations.Intersection);
             var poly3Item = new GraphicItem(poly3, intersectionRed)
             {
                 Name = "Polygon 3"

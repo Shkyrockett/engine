@@ -288,7 +288,7 @@ namespace Engine
         {
             get
             {
-                List<Point2D> points = (InterpolatePoints(100));
+                var points = (InterpolatePoints(100));
                 if (points?.Count < 1)
                     return null;
 

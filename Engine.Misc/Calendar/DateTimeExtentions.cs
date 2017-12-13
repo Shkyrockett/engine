@@ -225,7 +225,7 @@ namespace Engine.Chrono
         public static DateTime FirstInstanceWeekdayOfMonth01(this DateTime date, int instance, DayOfWeek weekday)
         {
             var firstDay = new DateTime(date.Year, date.Month, 1);
-            DateTime fOc = firstDay.DayOfWeek == weekday ? firstDay : firstDay.AddDays(weekday - firstDay.DayOfWeek);
+            var fOc = firstDay.DayOfWeek == weekday ? firstDay : firstDay.AddDays(weekday - firstDay.DayOfWeek);
             // CurDate = 2011.10.1 Occurrence = 1, Day = Friday >> 2011.09.30 FIX. 
             if (fOc.Month < date.Month) instance += 1;
             return fOc.AddDays(7 * (instance - 1));

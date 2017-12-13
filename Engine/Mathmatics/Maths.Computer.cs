@@ -28,34 +28,38 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Swap<T>(ref T a, ref T b)
         {
-            T swap = a;
+            var swap = a;
             a = b;
             b = swap;
         }
 
         /// <summary>
-        /// 
+        /// The high nibble.
         /// </summary>
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="byte"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte HighNibble(this byte n)
             => (byte)(n >> 0x4);
 
         /// <summary>
-        /// 
+        /// The low nibble.
         /// </summary>
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="byte"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte LowNibble(this byte n)
             => (byte)(n & 0x0F);
 
         /// <summary>
-        /// 
+        /// The join nibbles.
         /// </summary>
-        /// <param name="h"></param>
-        /// <param name="l"></param>
-        /// <returns></returns>
-        //[DebuggerStepThrough]
+        /// <param name="h">The h.</param>
+        /// <param name="l">The l.</param>
+        /// <returns>The <see cref="byte"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte JoinNibbles(byte h, byte l)
         {
@@ -66,61 +70,61 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The high word.
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        //[DebuggerStepThrough]
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int HighWord(this int n)
             => (n >> 0x10) & 0xffff;
 
         /// <summary>
-        /// 
+        /// The signed high word.
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        //[DebuggerStepThrough]
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedHighWord(this int n)
             => (short)((n >> 0x10) & 0xffff);
 
         /// <summary>
-        /// 
+        /// The signed high word.
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        //[DebuggerStepThrough]
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedHighWord(this IntPtr n)
             => SignedHighWord((int)((long)n));
 
         /// <summary>
-        /// 
+        /// The low word.
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        //[DebuggerStepThrough]
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int LowWord(this int n)
             => n & 0xffff;
 
         /// <summary>
-        /// 
+        /// The signed low word.
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        //[DebuggerStepThrough]
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedLowWord(this int n)
             => (short)(n & 0xffff);
 
         /// <summary>
-        /// 
+        /// The signed low word.
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        //[DebuggerStepThrough]
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedLowWord(this IntPtr n)
             => SignedLowWord((int)((long)n));

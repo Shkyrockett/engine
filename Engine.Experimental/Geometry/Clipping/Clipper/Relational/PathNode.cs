@@ -8,35 +8,38 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
-
 namespace Engine.Experimental
 {
-    //using PolygonContour = List<Point2D>;
-
     /// <summary>
-    /// The path node class.
+    /// The path node struct.
     /// </summary>
-    internal class PathNode
+    internal struct PathNode
     {
-        /// <summary>
-        /// The path.
-        /// </summary>
-        internal PolygonContour path;
+        #region Properties
 
         /// <summary>
-        /// The join type.
+        /// Gets or sets the path.
         /// </summary>
-        internal LineJoins joinType;
+        public PolygonContour Path { get; set; }
 
         /// <summary>
-        /// The end type.
+        /// Gets or sets the join type.
         /// </summary>
-        internal LineEndType endType;
+        public LineJoins JoinType { get; set; }
 
         /// <summary>
-        /// The lowest idx.
+        /// Gets or sets the end type.
         /// </summary>
-        internal int lowestIdx;
+        public LineEndType EndType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the lowest index.
+        /// </summary>
+        public int LowestIndex { get; set; }
+
+        #endregion
+
+        #region Constructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PathNode"/> class.
@@ -46,8 +49,8 @@ namespace Engine.Experimental
         /// <param name="et">The et.</param>
         public PathNode(PolygonContour p, LineJoins jt, LineEndType et)
         {
-            joinType = jt;
-            endType = et;
+            JoinType = jt;
+            EndType = et;
 
             var lenP = p.Count;
             if (et == LineEndType.ClosedPolygon || et == LineEndType.OpenJoined)
@@ -64,6 +67,8 @@ namespace Engine.Experimental
 
             if (lenP == 0)
             {
+                Path = null;
+                LowestIndex = 0;
                 return;
             }
 
@@ -71,22 +76,22 @@ namespace Engine.Experimental
             {
                 if (jt == LineJoins.Round)
                 {
-                    endType = LineEndType.OpenRound;
+                    EndType = LineEndType.OpenRound;
                 }
                 else
                 {
-                    endType = LineEndType.OpenSquare;
+                    EndType = LineEndType.OpenSquare;
                 }
             }
 
-            path = new PolygonContour()
+            Path = new PolygonContour()
             {
                 p[0]
             };
-            path.Capacity = lenP;
+            Path.Capacity = lenP;
 
-            Point2D lastIp = p[0];
-            lowestIdx = 0;
+            var lastIp = p[0];
+            LowestIndex = 0;
             for (var i = 1; i < lenP; i++)
             {
                 if (lastIp == p[i])
@@ -94,23 +99,25 @@ namespace Engine.Experimental
                     continue;
                 }
 
-                path.Add(p[i]);
+                Path.Add(p[i]);
                 lastIp = p[i];
                 if (et != LineEndType.ClosedPolygon)
                 {
                     continue;
                 }
 
-                if (p[i].Y >= path[lowestIdx].Y &&
-                  (p[i].Y > path[lowestIdx].Y || p[i].X < path[lowestIdx].X))
+                if (p[i].Y >= Path[LowestIndex].Y &&
+                  (p[i].Y > Path[LowestIndex].Y || p[i].X < Path[LowestIndex].X))
                 {
-                    lowestIdx = i;
+                    LowestIndex = i;
                 }
             }
-            if (endType == LineEndType.ClosedPolygon && path.Count < 3)
+            if (EndType == LineEndType.ClosedPolygon && Path.Count < 3)
             {
-                path = null;
+                Path = null;
             }
         }
+
+        #endregion
     }
 }

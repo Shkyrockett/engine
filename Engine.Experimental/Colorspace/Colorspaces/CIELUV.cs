@@ -13,24 +13,17 @@ using System;
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// 
+    /// The CIELUV struct.
     /// </summary>
     public struct CIELUV
         : IColor
     {
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public CIELUV()
-        //    : this(0, 0, 0)
-        //{ }
-
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CIELUV"/> class.
         /// </summary>
-        /// <param name="luminance"></param>
-        /// <param name="u">red to green</param>
-        /// <param name="v">blue to yellow</param>
+        /// <param name="luminance">The luminance.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
         public CIELUV(double luminance, double u, double v)
         {
             Luminance = luminance;
@@ -39,25 +32,25 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the luminance.
         /// </summary>
         public double Luminance { get; set; }
 
         /// <summary>
-        /// red to green
+        /// Gets or sets the u.
         /// </summary>
         public double U { get; set; }
 
         /// <summary>
-        /// blue to yellow
+        /// Gets or sets the v or blue to yellow value.
         /// </summary>
         public double V { get; set; }
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
             var (A0, R0, G0, B0) = ToARGBTuple();
@@ -66,17 +59,17 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// The to ARGB tuple.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

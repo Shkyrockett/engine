@@ -80,7 +80,7 @@ namespace Engine
         /// <returns></returns>
         public static T Pop<T>(this List<T> list)
         {
-            T r = list[list.Count - 1];
+            var r = list[list.Count - 1];
             list.RemoveAt(list.Count - 1);
             return r;
         }
@@ -93,7 +93,7 @@ namespace Engine
         /// <returns></returns>
         public static T Shift<T>(this List<T> list)
         {
-            T r = list[0];
+            var r = list[0];
             list.RemoveAt(0);
             return r;
         }
@@ -131,7 +131,7 @@ namespace Engine
             var len = end - start;
 
             // Return new array.
-            T[] res = new T[len];
+            var res = new T[len];
             for (var i = 0; i < len; i++)
             {
                 res[i] = source[i + start];
@@ -150,7 +150,7 @@ namespace Engine
         public static T[] Slice<T>(this T[] source)
         {
             // Return new array.
-            T[] res = new T[source.Length];
+            var res = new T[source.Length];
             for (var i = 0; i < source.Length; i++)
             {
                 res[i] = source[i];

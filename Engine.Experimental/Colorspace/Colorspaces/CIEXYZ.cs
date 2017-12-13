@@ -18,19 +18,12 @@ namespace Engine.Colorspace
     public struct CIEXYZ
         : IColor
     {
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //public CIEXYZ()
-        //    : this(0, 0, 0)
-        //{ }
-
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CIEXYZ"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
         public CIEXYZ(double x, double y, double z)
         {
             X = x;
@@ -39,25 +32,25 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the x.
         /// </summary>
         public double X { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the y.
         /// </summary>
         public double Y { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the z.
         /// </summary>
         public double Z { get; set; }
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
             var (A0, R0, G0, B0) = ToARGBTuple();
@@ -66,17 +59,17 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// The to ARGB tuple.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

@@ -547,7 +547,7 @@ namespace Engine
         /// <returns></returns>
         public Matrix3x3D ToMatrix3x3D()
         {
-            Matrix3x3D result = Matrix3x3D.Identity;
+            var result = Matrix3x3D.Identity;
             result.M0x0 = m0x0; result.M0x1 = m0x1;
             result.M1x0 = m1x0; result.M1x1 = m1x1;
             return result;

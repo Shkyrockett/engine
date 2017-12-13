@@ -13,17 +13,17 @@ namespace Engine.Experimental
     /// <summary>
     /// The out point tri class.
     /// </summary>
-    public class OutPointTri
-        : OutPoint
+    public class LinkedPointTriangle
+        : LinkedPoint
     {
         /// <summary>
         /// The outrec.
         /// </summary>
-        internal OutRec outrec;
+        public OutRec Outrec { get; set; }
 
         /// <summary>
-        /// The right outrec.
+        /// 
         /// </summary>
-        internal OutRecTri rightOutrec;
+        public OutRecTri RightOutrec { get; set; }
     };
 }

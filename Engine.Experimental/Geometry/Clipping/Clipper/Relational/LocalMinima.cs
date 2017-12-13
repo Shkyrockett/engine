@@ -8,26 +8,56 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
+using System;
+using System.Runtime.CompilerServices;
+
 namespace Engine.Experimental
 {
     /// <summary>
     /// The local minima class.
     /// </summary>
-    public class LocalMinima
+    public struct LocalMinima
+        : IComparable<LocalMinima>
     {
-        /// <summary>
-        /// The vertex.
-        /// </summary>
-        internal Vertex Vertex;
+        #region Properties
 
         /// <summary>
-        /// The path type.
+        /// Gets or sets the vertex of the local minima.
         /// </summary>
-        internal PolygonRelations PathType;
+        public Vertex Vertex { get; set; }
 
         /// <summary>
-        /// The is open.
+        /// Gets or sets the polygon's clipping relation.
         /// </summary>
-        internal bool IsOpen;
-    };
+        public ClippingRelations ClippingRelation { get; set; }
+
+        /// <summary>
+        /// Gets or sets a flag that determines whether the polygon is an open polyline, or a closed polygon.
+        /// </summary>
+        public bool IsOpen { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public int CompareTo(LocalMinima other)
+            => Compare(this, other);
+
+        /// <summary>
+        /// The compare.
+        /// </summary>
+        /// <param name="lm1">The lm1.</param>
+        /// <param name="lm2">The lm2.</param>
+        /// <returns>The <see cref="int"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int Compare(LocalMinima lm1, LocalMinima lm2)
+            => lm2.Vertex.Point.Y.CompareTo(lm1.Vertex.Point.Y); // Soft descending sort
+
+        #endregion
+    }
 }

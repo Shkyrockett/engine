@@ -166,7 +166,7 @@ namespace Engine
 
                 Rectangle2D bounds(PolyBezierContour contour)
                 {
-                    Rectangle2D box = contour.items[0].Bounds;
+                    var box = contour.items[0].Bounds;
                     foreach (var item in contour.items)
                         box = box.Union(item.Bounds);
                     return box;
@@ -240,7 +240,7 @@ namespace Engine
             if (t == 1) return Items[Items.Count - 1].End.Value;
 
             var weights = new(double length, double accumulated)[Items.Count];
-            Point2D cursor = Items[0].End.Value;
+            var cursor = Items[0].End.Value;
             double accumulatedLength = 0;
 
             // Build up the weights map.

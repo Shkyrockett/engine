@@ -288,7 +288,7 @@ namespace Engine
             if (t == 1) return Items[Items.Count - 1].End.Value;
 
             var weights = new(double length, double accumulated)[Items.Count];
-            Point2D cursor = Items[0].End.Value;
+            var cursor = Items[0].End.Value;
             double accumulatedLength = 0;
 
             // Build up the weights map.

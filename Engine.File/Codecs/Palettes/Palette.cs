@@ -651,7 +651,7 @@ namespace Engine.File.Palettes
         /// <returns></returns>
         private static PaletteFileExtensions CheckExtensionSupport(string filepath)
         {
-            PaletteFileExtensions format = PaletteFileExtensions.unknown;
+            var format = PaletteFileExtensions.unknown;
             var extension = Path.GetExtension(filepath).Substring(1);
             Enum.TryParse(extension, true, out format);
             return format;

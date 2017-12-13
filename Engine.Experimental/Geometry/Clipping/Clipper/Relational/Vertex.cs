@@ -15,30 +15,6 @@ namespace Engine.Experimental
     /// </summary>
     public class Vertex
     {
-        #region Fields
-
-        /// <summary>
-        /// The point.
-        /// </summary>
-        private Point2D point;
-
-        /// <summary>
-        /// The next vertex.
-        /// </summary>
-        private Vertex nextVertex;
-
-        /// <summary>
-        /// The previous vertex.
-        /// </summary>
-        private Vertex previousVertex;
-
-        /// <summary>
-        /// The flags.
-        /// </summary>
-        private VertexFlags flags;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -47,7 +23,7 @@ namespace Engine.Experimental
         /// <param name="point">The vertex point.</param>
         public Vertex(Point2D point)
         {
-            this.point = point;
+            Point = point;
         }
 
         #endregion
@@ -55,24 +31,24 @@ namespace Engine.Experimental
         #region Properties
 
         /// <summary>
-        /// The point.
+        /// Gets or sets the point.
         /// </summary>
-        public Point2D Point { get { return point; } set { point = value; } }
+        public Point2D Point { get; set; }
 
         /// <summary>
-        /// The next vertex.
+        /// Gets or sets the next vertex.
         /// </summary>
-        public Vertex NextVertex { get { return nextVertex; } set { nextVertex = value; } }
+        public Vertex NextVertex { get; set; }
 
         /// <summary>
-        /// The previous vertex.
+        /// Gets or sets the previous vertex.
         /// </summary>
-        public Vertex PreviousVertex { get { return previousVertex; } set { previousVertex = value; } }
+        public Vertex PreviousVertex { get; set; }
 
         /// <summary>
-        /// The vertex flags.
+        /// Gets or sets the vertex flags.
         /// </summary>
-        public VertexFlags Flags { get { return flags; } set { flags = value; } }
+        public VertexFlags Flags { get; set; }
 
         #endregion
     }

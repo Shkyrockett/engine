@@ -11,7 +11,7 @@
 namespace Engine.Experimental
 {
     /// <summary>
-    /// The poly tree class.
+    /// The polytree class.
     /// </summary>
     public class PolyTree
         : PolyPath

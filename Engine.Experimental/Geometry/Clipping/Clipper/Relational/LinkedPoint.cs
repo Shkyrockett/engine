@@ -11,26 +11,26 @@
 namespace Engine.Experimental
 {
     /// <summary>
-    /// The out pt class.
+    /// A doubly Linked point list.
     /// </summary>
-    public class OutPoint
+    public class LinkedPoint
     {
-        #region Fields
+        #region Properties
 
         /// <summary>
         /// The pt.
         /// </summary>
-        internal Point2D Pt;
+        public Point2D Pt { get; set; }
 
         /// <summary>
         /// The next.
         /// </summary>
-        internal OutPoint Next;
+        public LinkedPoint Next { get; set; }
 
         /// <summary>
         /// The previous.
         /// </summary>
-        internal OutPoint Prev;
+        public LinkedPoint Prev { get; set; }
 
         #endregion
 
@@ -45,7 +45,7 @@ namespace Engine.Experimental
                 return 0;
             }
 
-            OutPoint p = this;
+            var p = this;
             var cnt = 0;
             do
             {
@@ -61,16 +61,16 @@ namespace Engine.Experimental
         /// <param name="outrec"></param>
         public void Update(OutRec outrec)
         {
-            OutPoint op2 = this;
+            var op2 = this;
             do
             {
-                var opt = (OutPointTri)op2;
-                if (opt.rightOutrec != null)
+                var opt = (LinkedPointTriangle)op2;
+                if (opt.RightOutrec != null)
                 {
-                    opt.rightOutrec.UpdateHelper(null);
+                    opt.RightOutrec.UpdateHelper(null);
                 }
 
-                opt.outrec = outrec;
+                opt.Outrec = outrec;
                 op2 = op2.Next;
             } while (op2 != this);
         }
@@ -79,7 +79,7 @@ namespace Engine.Experimental
         /// 
         /// </summary>
         /// <param name="op"></param>
-        public static void DisposeOutPt(OutPoint op)
+        public static void DisposeOutPt(LinkedPoint op)
         {
             if (op.Prev != null)
             {
@@ -91,10 +91,10 @@ namespace Engine.Experimental
                 op.Next.Prev = op.Prev;
             }
 
-            var opt = (OutPointTri)op;
-            if (opt.rightOutrec != null)
+            var opt = (LinkedPointTriangle)op;
+            if (opt.RightOutrec != null)
             {
-                opt.rightOutrec.leftOutpt = null;
+                opt.RightOutrec.LeftOutpt = null;
             }
         }
     }

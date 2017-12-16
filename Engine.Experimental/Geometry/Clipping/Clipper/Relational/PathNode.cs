@@ -74,14 +74,7 @@ namespace Engine.Experimental
 
             if (lenP < 3 && (et == LineEndType.ClosedPolygon || et == LineEndType.OpenJoined))
             {
-                if (jt == LineJoins.Round)
-                {
-                    EndType = LineEndType.OpenRound;
-                }
-                else
-                {
-                    EndType = LineEndType.OpenSquare;
-                }
+                EndType = jt == LineJoins.Round ? LineEndType.OpenRound : LineEndType.OpenSquare;
             }
 
             Path = new PolygonContour()

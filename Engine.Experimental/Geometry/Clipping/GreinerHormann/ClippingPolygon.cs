@@ -13,15 +13,16 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The clipping polygon class.
     /// </summary>
     public class ClippingPolygon
     {
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ClippingPolygon"/> class.
         /// </summary>
+        /// <param name="p">The p.</param>
         public ClippingPolygon(List<Point2D> p)
         {
             for (int i = 0, len = p.Count; i < len; i++)
@@ -35,22 +36,22 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the first.
         /// </summary>
         public ClippingVertex First { get; set; } = null;
 
         /// <summary>
-        /// 
+        /// Gets or sets the vertices.
         /// </summary>
         public int Vertices { get; set; } = 0;
 
         /// <summary>
-        /// 
+        /// Gets or sets the last unprocessed.
         /// </summary>
         private ClippingVertex LastUnprocessed { get; set; } = null;
 
         /// <summary>
-        /// 
+        /// Gets or sets the first intersect.
         /// </summary>
         private ClippingVertex FirstIntersect { get; set; } = null;
 

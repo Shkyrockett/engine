@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The reverse sweep event comp class.
     /// </summary>
     public class ReverseSweepEventComp
         : Comparer<SweepEvent>

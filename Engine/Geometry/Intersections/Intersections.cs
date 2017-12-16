@@ -7,7 +7,7 @@
 // </license>
 
 // <copyright company="kevlindev" >
-//     Many of the Intersections methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/. 
+//     Many of the Intersections methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/.
 //     Copyright © 2000 - 2003 Kevin Lindsey. All rights reserved.
 // </copyright>
 // <author id="thelonious">Kevin Lindsey</author>
@@ -386,7 +386,7 @@ namespace Engine
         #region Intersection Extension Method Overloads
 
         /// <summary>
-        /// Find the intersection of two Points. 
+        /// Find the intersection of two Points.
         /// </summary>
         /// <param name="p0">The first point.</param>
         /// <param name="p1">The second point.</param>
@@ -2028,7 +2028,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -2184,7 +2184,7 @@ namespace Engine
 #if !PolycurveTest
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="path"></param>
         /// <param name="point"></param>
@@ -2231,7 +2231,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="path"></param>
         /// <param name="point"></param>
@@ -2243,7 +2243,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             var result = Inclusion.Outside;
-            var boundary = Inclusion.Outside;
+            const Engine.Inclusion boundary = Inclusion.Outside;
 
             if (path.Count < 2)
             {
@@ -2416,39 +2416,7 @@ namespace Engine
             return result;
         }
 
-#else 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="figure"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolycurveContourContainsPoint(PolycurveContour figure, Point2D point)
-        {
-            Inclusion included = PolygonContourContainsPoint(figure.Nodes, point.X, point.Y);
-            foreach (var item in figure?.Items)
-            {
-                switch (item)
-                {
-                    case ArcSegment t:
-                        // This produces false negatives at the Polygon boundaries. But that is better than false positives.
-                        var arc = t.Contains(point);
-                        if (included == Inclusion.Boundary & arc == Inclusion.Inside) included = Inclusion.Inside;
-                        //var line = Intersectings.LineSegmentPoint(t.Start.X, t.Start.Y, t.End.X, t.End.Y, point.X, point.Y);
-                        included = included ^ arc;
-                        if (arc == Inclusion.Boundary) included = Inclusion.Boundary;
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            return included;
-        }
-
+#else
 #endif
 
         /// <summary>
@@ -5193,14 +5161,7 @@ namespace Engine
 
                 double slope;
                 // Special handling for vertical lines.
-                if (i1 != 0)
-                {
-                    slope = (x - x1) / i1;
-                }
-                else
-                {
-                    slope = (y - y1) / j1;
-                }
+                slope = i1 != 0 ? (x - x1) / i1 : (y - y1) / j1;
 
                 // Make sure we are in bounds of the line segment.
                 if (!(s < 0 /*|| s > 1d*/ || slope < 0 || slope > 1d))
@@ -5260,14 +5221,7 @@ namespace Engine
                 double slope;
 
                 // Special handling for vertical lines.
-                if (i1 != 0)
-                {
-                    slope = (point.X - x1) / i1;
-                }
-                else
-                {
-                    slope = (point.Y - y1) / j1;
-                }
+                slope = i1 != 0 ? (point.X - x1) / i1 : (point.Y - y1) / j1;
 
                 // Make sure we are in bounds of the line segment.
                 if (!(s < 0 /*|| s > 1d*/ || slope < 0 || slope > 1d))
@@ -5501,14 +5455,7 @@ namespace Engine
                 var u1 = (-b) / (2 * a);
                 if (u1 < 0 || u1 > 1)
                 {
-                    if ((u1 < 0) || (u1 > 1))
-                    {
-                        result = new Intersection(IntersectionState.Outside);
-                    }
-                    else
-                    {
-                        result = new Intersection(IntersectionState.Inside);
-                    }
+                    result = (u1 < 0) || (u1 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
                 }
                 else
                 {
@@ -5526,14 +5473,7 @@ namespace Engine
                 var u2 = (-b - e) / (2 * a);
                 if ((u1 < 0 /*|| u1 > 1*/) && (u2 < 0 || u2 > 1))
                 {
-                    if ((u1 < 0 && u2 < 0) || (u1 > 1 && u2 > 1))
-                    {
-                        result = new Intersection(IntersectionState.Outside);
-                    }
-                    else
-                    {
-                        result = new Intersection(IntersectionState.Inside);
-                    }
+                    result = (u1 < 0 && u2 < 0) || (u1 > 1 && u2 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
                 }
                 else
                 {
@@ -6047,14 +5987,7 @@ namespace Engine
                 double slope;
 
                 // Special handling for vertical lines.
-                if ((x2 - x1) != 0)
-                {
-                    slope = (x - x1) / (x2 - x1);
-                }
-                else
-                {
-                    slope = (y - y1) / (y2 - y1);
-                }
+                slope = (x2 - x1) != 0 ? (x - x1) / (x2 - x1) : (y - y1) / (y2 - y1);
 
                 // Make sure we are in bounds of the line segment.
                 if (!(s < 0 || s > 1d || slope < 0 || slope > 1d))
@@ -6147,14 +6080,7 @@ namespace Engine
                 double slope;
 
                 // Special handling for vertical lines.
-                if ((x2 - x1) != 0)
-                {
-                    slope = (point.X - x1) / (x2 - x1);
-                }
-                else
-                {
-                    slope = (point.Y - y1) / (y2 - y1);
-                }
+                slope = (x2 - x1) != 0 ? (point.X - x1) / (x2 - x1) : (point.Y - y1) / (y2 - y1);
 
                 // Make sure we are in bounds of the line segment.
                 if (!(s < 0 || s > 1d || slope < 0 || slope > 1d))
@@ -6390,14 +6316,7 @@ namespace Engine
                 var u1 = (-b) / (2 * a);
                 if (u1 < 0 || u1 > 1)
                 {
-                    if ((u1 < 0) || (u1 > 1))
-                    {
-                        result = new Intersection(IntersectionState.Outside);
-                    }
-                    else
-                    {
-                        result = new Intersection(IntersectionState.Inside);
-                    }
+                    result = (u1 < 0) || (u1 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
                 }
                 else
                 {
@@ -6415,14 +6334,7 @@ namespace Engine
                 var u2 = (-b - e) / (2 * a);
                 if ((u1 < 0 || u1 > 1) && (u2 < 0 || u2 > 1))
                 {
-                    if ((u1 < 0 && u2 < 0) || (u1 > 1 && u2 > 1))
-                    {
-                        result = new Intersection(IntersectionState.Outside);
-                    }
-                    else
-                    {
-                        result = new Intersection(IntersectionState.Inside);
-                    }
+                    result = (u1 < 0 && u2 < 0) || (u1 > 1 && u2 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
                 }
                 else
                 {
@@ -9692,7 +9604,7 @@ namespace Engine
 
             if (roots[0] >= 0.0 && roots[0] <= 1.0 && roots[2] >= 0.0 && roots[2] <= 1.0)
             {
-                // ToDo: Work out whether to go the more complex route and compare the points at the t values. 
+                // ToDo: Work out whether to go the more complex route and compare the points at the t values.
                 return new double[] { roots[0], roots[2] };
             }
 

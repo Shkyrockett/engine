@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
@@ -58,82 +58,82 @@ namespace Engine
         #region Private Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m0x0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m0x1;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m0x2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m0x3;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m1x0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m1x1;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m1x2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m1x3;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m2x0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m2x1;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m2x2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m2x3;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m3x0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m3x1;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m3x2;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m3x3;
 
@@ -142,7 +142,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tuple"></param>
         public Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple)
@@ -215,87 +215,87 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M0x0 { get { return m0x0; } set { m0x0 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M0x1 { get { return m0x1; } set { m0x1 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M0x2 { get { return m0x2; } set { m0x2 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M0x3 { get { return m0x3; } set { m0x3 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M1x0 { get { return m1x0; } set { m1x0 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M1x1 { get { return m1x1; } set { m1x1 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M1x2 { get { return m1x2; } set { m1x2 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M1x3 { get { return m1x3; } set { m1x3 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M2x0 { get { return m2x0; } set { m2x0 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M2x1 { get { return m2x1; } set { m2x1 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M2x2 { get { return m2x2; } set { m2x2 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M2x3 { get { return m2x3; } set { m2x3 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M3x0 { get { return m3x0; } set { m3x0 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M3x1 { get { return m3x1; } set { m3x1 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M3x2 { get { return m3x2; } set { m3x2 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public double M3x3 { get { return m3x3; } set { m3x3 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector4D Cx
@@ -311,7 +311,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector4D Cy
@@ -327,7 +327,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector4D Cz
@@ -343,7 +343,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector4D Cw
@@ -427,7 +427,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Determinant
@@ -442,21 +442,21 @@ namespace Engine
             => Primitives.Transpose(this);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix4x4D Adjoint
             => Primitives.Adjoint(this);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix4x4D Cofactor
             => Primitives.Cofactor(this);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix4x4D Inverted
@@ -618,7 +618,7 @@ namespace Engine
             => !Equals(matrix1, matrix2);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="source"></param>
         [DebuggerStepThrough]
@@ -630,7 +630,7 @@ namespace Engine
                 0, 0, 0, 1);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="source"></param>
         public static explicit operator Matrix4x4D(Matrix2x2D source)
@@ -757,13 +757,7 @@ namespace Engine
             var firstToken = tokenizer.NextTokenRequired();
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
-            if (firstToken == "Identity")
-            {
-                value = Identity;
-            }
-            else
-            {
-                value = new Matrix4x4D(
+            value = firstToken == "Identity" ? Identity : new Matrix4x4D(
                     firstToken.ParseFloat(provider),
                     tokenizer.NextTokenRequired().ParseFloat(provider),
                     tokenizer.NextTokenRequired().ParseFloat(provider),
@@ -780,7 +774,6 @@ namespace Engine
                     tokenizer.NextTokenRequired().ParseFloat(provider),
                     tokenizer.NextTokenRequired().ParseFloat(provider),
                     tokenizer.NextTokenRequired().ParseFloat(provider));
-            }
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();
             return value;
@@ -791,7 +784,7 @@ namespace Engine
         //#region Serialization
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerializing()]
@@ -801,7 +794,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerialized()]
@@ -811,7 +804,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserializing()]
@@ -821,7 +814,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserialized()]
@@ -980,7 +973,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
@@ -993,7 +986,7 @@ namespace Engine
             }.GetEnumerator();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()

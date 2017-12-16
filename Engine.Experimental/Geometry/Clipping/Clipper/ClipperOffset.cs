@@ -192,14 +192,7 @@ namespace Engine.Experimental
             // now clean up 'corners' ...
             var clpr = new Clipper();
             clpr.AddPaths(solution, ClippingRelations.Subject);
-            if (negate)
-            {
-                return clpr.Execute(ClippingOperations.Union, sol, WindingRules.Negative);
-            }
-            else
-            {
-                return clpr.Execute(ClippingOperations.Union, sol, WindingRules.Positive);
-            }
+            return negate ? clpr.Execute(ClippingOperations.Union, sol, WindingRules.Negative) : clpr.Execute(ClippingOperations.Union, sol, WindingRules.Positive);
         }
 
         /// <summary>
@@ -455,24 +448,10 @@ namespace Engine.Experimental
             }
 
             // MiterLimit: see offset_triginometry3.svg in the documentation folder ...
-            if (MiterLimit > 2)
-            {
-                miterLim = 2 / (MiterLimit * MiterLimit);
-            }
-            else
-            {
-                miterLim = 0.5;
-            }
+            miterLim = MiterLimit > 2 ? 2 / (MiterLimit * MiterLimit) : 0.5;
 
             double arcTol;
-            if (ArcTolerance < DefaultArcFrac)
-            {
-                arcTol = absDelta * DefaultArcFrac;
-            }
-            else
-            {
-                arcTol = ArcTolerance;
-            }
+            arcTol = ArcTolerance < DefaultArcFrac ? absDelta * DefaultArcFrac : ArcTolerance;
 
             // see offset_triginometry2.svg in the documentation folder ...
             var steps = PI / Acos(1 - arcTol / absDelta);  // steps per 360 degrees

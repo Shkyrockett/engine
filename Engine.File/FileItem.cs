@@ -11,17 +11,17 @@
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The file item class.
     /// </summary>
     public class FileItem
     {
         /// <summary>
-        /// 
+        /// Gets or sets the file name.
         /// </summary>
         public string FileName { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the data.
         /// </summary>
         public object Data { get; set; }
     }

@@ -34,7 +34,7 @@ namespace EngineTests
         #region Housekeeping
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         [ClassInitialize]
@@ -44,7 +44,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -53,7 +53,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestCleanup]
         public void Cleanup()
@@ -62,7 +62,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()
@@ -73,7 +73,7 @@ namespace EngineTests
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -107,7 +107,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -141,7 +141,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -174,7 +174,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -207,7 +207,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -240,7 +240,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -273,7 +273,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -307,7 +307,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -341,7 +341,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -375,7 +375,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -409,7 +409,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -442,7 +442,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -452,7 +452,7 @@ namespace EngineTests
         [DeploymentItem("Engine.File.dll")]
         public void ReadUTF8StringTest()
         {
-            var fox = "The quick brown fox jumps over the lazy dog.";
+            const string fox = "The quick brown fox jumps over the lazy dog.";
             using (var stream = new MemoryStream())
             {
                 var writer = new BinaryWriterExtended(stream);
@@ -466,7 +466,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -476,7 +476,7 @@ namespace EngineTests
         [DeploymentItem("Engine.File.dll")]
         public void ReadASCIIStringTest()
         {
-            var fox = "The quick brown fox jumps over the lazy dog.";
+            const string fox = "The quick brown fox jumps over the lazy dog.";
             using (var stream = new MemoryStream())
             {
                 var writer = new BinaryWriterExtended(stream);

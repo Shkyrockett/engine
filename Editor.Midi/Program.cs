@@ -31,7 +31,10 @@ namespace Editor.Midi
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMidiEventEditor());
+            using (var formMidiEventEditor = new FormMidiEventEditor())
+            {
+                Application.Run(formMidiEventEditor);
+            }
         }
     }
 }

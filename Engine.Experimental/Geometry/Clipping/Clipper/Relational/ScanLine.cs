@@ -24,5 +24,5 @@ namespace Engine.Experimental
         /// The next.
         /// </summary>
         public ScanLine NextScanLine { get; set; }
-    };
+    }
 }

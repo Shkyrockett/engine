@@ -22,7 +22,7 @@ namespace Engine.Experimental
         public OutRec Outrec { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the right outrec.
         /// </summary>
         public OutRecTri RightOutrec { get; set; }
     };

@@ -21,7 +21,7 @@ namespace Engine.Tools
         : Tool, ITool
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private bool mouseDown;
 
@@ -33,7 +33,7 @@ namespace Engine.Tools
             // Setup the tool properties.
             Index = 0;
 
-            // Setup the storage properties. 
+            // Setup the storage properties.
             Line = LineSegment.Empty;
 
             // Setup the calculation properties.
@@ -157,13 +157,13 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override string ToString() => nameof(Straightener);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public string Output()

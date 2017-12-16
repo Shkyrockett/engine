@@ -126,7 +126,7 @@ namespace Engine
         #region Indexers
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -145,7 +145,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
@@ -162,7 +162,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Browsable(false)]
         [XmlAttribute("d"), SoapAttribute("d")]
@@ -182,14 +182,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
             => contours.Count;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
@@ -205,7 +205,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -214,7 +214,7 @@ namespace Engine
             => contours.Sum(p => p.Perimeter);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -241,7 +241,7 @@ namespace Engine
         //#region Serialization
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerializing()]
@@ -251,7 +251,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerialized()]
@@ -261,7 +261,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserializing()]
@@ -271,7 +271,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserialized()]
@@ -285,7 +285,7 @@ namespace Engine
         #region Mutators
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="contour"></param>
         public void Add(PolyBezierContour contour)
@@ -296,7 +296,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="contour"></param>
         public void Add(List<BezierSegmentX> contour)
@@ -307,7 +307,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Reverse()
         {
@@ -322,7 +322,7 @@ namespace Engine
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <returns></returns>
@@ -330,7 +330,7 @@ namespace Engine
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <param name="provider"></param>
@@ -338,7 +338,7 @@ namespace Engine
         public static List<PolyBezierContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // These letters are valid PolyBezier commands. Split the tokens at these.
-            var separators = @"(?=[MZLCQ])";
+            const string separators = @"(?=[MZLCQ])";
 
             // Discard whitespace and comma but keep the - minus sign.
             var argSeparators = $@"[\s{Tokenizer.GetNumericListSeparator(provider)}]|(?=-)";
@@ -399,14 +399,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         private String ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="provider"></param>
@@ -426,7 +426,7 @@ namespace Engine
         #region Methods
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="point"></param>
         ///// <returns></returns>
@@ -436,7 +436,7 @@ namespace Engine
         //    => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
@@ -445,21 +445,21 @@ namespace Engine
             => new PolyBezier(Contours.ToArray() as IEnumerable<PolyBezierContour>);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public IEnumerator<PolyBezierContour> GetEnumerator()
             => contours.GetEnumerator();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
             => contours.GetEnumerator();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="provider"></param>

@@ -4,27 +4,27 @@ using static Engine.SegmentComparators;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The boolean op imp class.
     /// </summary>
     public class BooleanOpImp
     {
         /// <summary>
-        /// 
+        /// The subject.
         /// </summary>
         Polygon subject;
 
         /// <summary>
-        /// 
+        /// The clipping.
         /// </summary>
         Polygon clipping;
 
         /// <summary>
-        /// 
+        /// The result.
         /// </summary>
         Polygon result;
 
         /// <summary>
-        /// 
+        /// The operation.
         /// </summary>
         ClippingOperations operation;
 
@@ -49,17 +49,17 @@ namespace Engine
         SweepEventComp sec = new SweepEventComp();
 
         /// <summary>
-        /// 
+        /// The sorted events (readonly). Value: new LinkedList&lt;SweepEvent&gt;().
         /// </summary>
-        LinkedList<SweepEvent> sortedEvents = new LinkedList<SweepEvent>();
+        readonly LinkedList<SweepEvent> sortedEvents = new LinkedList<SweepEvent>();
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="BooleanOpImp"/> class.
         /// </summary>
-        /// <param name="subj"></param>
-        /// <param name="clip"></param>
-        /// <param name="result"></param>
-        /// <param name="op"></param>
+        /// <param name="subj">The subj.</param>
+        /// <param name="clip">The clip.</param>
+        /// <param name="result">The result.</param>
+        /// <param name="op">The op.</param>
         public BooleanOpImp(Polygon subj, Polygon clip, Polygon result, ClippingOperations op)
         {
             subject = subj;
@@ -69,7 +69,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The run.
         /// </summary>
         public void Run()
         {
@@ -149,11 +149,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The trivial operation.
         /// </summary>
-        /// <param name="subjectBB"></param>
-        /// <param name="clippingBB"></param>
-        /// <returns></returns>
+        /// <param name="subjectBB">The subjectBB.</param>
+        /// <param name="clippingBB">The clippingBB.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool TrivialOperation(Rectangle2D subjectBB, Rectangle2D clippingBB)
         {
             //// Test 1 for trivial result case
@@ -183,10 +183,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process the segment.
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="pt"></param>
+        /// <param name="s">The s.</param>
+        /// <param name="pt">The pt.</param>
         public void ProcessSegment(LineSegment s, ClippingRelations pt)
         {
             //*	if (s.degenerate ()) // if the two edge endpoints are equal the segment is dicarded
@@ -208,11 +208,6 @@ namespace Engine
         }
 
         /* @brief Store the SweepEvent e into the event holder, returning the address of e */
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
         SweepEvent StoreSweepEvent(SweepEvent e)
         {
             eventHolder.AddLast(e);
@@ -220,10 +215,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The compute fields.
         /// </summary>
-        /// <param name="le"></param>
-        /// <param name="prev"></param>
+        /// <param name="le">The le.</param>
+        /// <param name="prev">The prev.</param>
         public void ComputeFields(SweepEvent le, SortedSet<SweepEvent> prev)
         {
             //// compute inOut and otherInOut fields
@@ -250,10 +245,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The in result.
         /// </summary>
-        /// <param name="le"></param>
-        /// <returns></returns>
+        /// <param name="le">The le.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool InResult(SweepEvent le)
         {
             switch (le.Contribution)
@@ -282,11 +277,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The possible intersection.
         /// </summary>
-        /// <param name="le1"></param>
-        /// <param name="le2"></param>
-        /// <returns></returns>
+        /// <param name="le1">The le1.</param>
+        /// <param name="le2">The le2.</param>
+        /// <returns>The <see cref="int"/>.</returns>
         public int PossibleIntersection(SweepEvent le1, SweepEvent le2)
         {
             ////	if (e1.pol == e2.pol) // you can uncomment these two lines if self-intersecting polygons are not allowed
@@ -375,10 +370,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The divide segment.
         /// </summary>
-        /// <param name="le"></param>
-        /// <param name="p"></param>
+        /// <param name="le">The le.</param>
+        /// <param name="p">The p.</param>
         public void DivideSegment(SweepEvent le, Point2D p)
         {
             //	std::cout << "YES. INTERSECTION" << std::endl;
@@ -405,7 +400,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The connect edges.
         /// </summary>
         public void ConnectEdges()
         {
@@ -497,12 +492,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The next pos.
         /// </summary>
-        /// <param name="pos"></param>
-        /// <param name="resultEvents"></param>
-        /// <param name="processed"></param>
-        /// <returns></returns>
+        /// <param name="pos">The pos.</param>
+        /// <param name="resultEvents">The resultEvents.</param>
+        /// <param name="processed">The processed.</param>
+        /// <returns>The <see cref="int"/>.</returns>
         public int NextPos(int pos, List<SweepEvent> resultEvents, List<bool> processed)
         {
             var newPos = pos + 1;
@@ -520,12 +515,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The compute.
         /// </summary>
-        /// <param name="subj"></param>
-        /// <param name="clip"></param>
-        /// <param name="result"></param>
-        /// <param name="op"></param>
+        /// <param name="subj">The subj.</param>
+        /// <param name="clip">The clip.</param>
+        /// <param name="result">The result.</param>
+        /// <param name="op">The op.</param>
         public static void Compute(Polygon subj, Polygon clip, Polygon result, ClippingOperations op)
         {
             var boi = new BooleanOpImp(subj, clip, result, op);

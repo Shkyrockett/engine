@@ -11,34 +11,34 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The clipping vertex class.
     /// </summary>
     public class ClippingVertex
     {
         #region Fields
 
         /// <summary>
-        /// 
+        /// The corresponding.
         /// </summary>
         internal ClippingVertex corresponding;
 
         /// <summary>
-        /// 
+        /// The distance.
         /// </summary>
         internal double distance;
 
         /// <summary>
-        /// 
+        /// The is entry.
         /// </summary>
         internal bool isEntry;
 
         /// <summary>
-        /// 
+        /// The is intersection.
         /// </summary>
         internal bool isIntersection;
 
         /// <summary>
-        /// 
+        /// The visited.
         /// </summary>
         internal bool visited;
 
@@ -47,18 +47,18 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ClippingVertex"/> class.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The point.</param>
         public ClippingVertex(Point2D point)
             : this(point.X, point.Y)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ClippingVertex"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         public ClippingVertex(double x, double y)
         {
             X = x;
@@ -70,22 +70,22 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the x.
         /// </summary>
         public double X { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the y.
         /// </summary>
         public double Y { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the next.
         /// </summary>
         public ClippingVertex Next { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the previous.
         /// </summary>
         public ClippingVertex Previous { get; set; }
 
@@ -122,10 +122,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="v"></param>
-        /// <returns></returns>
+        /// <param name="v">The v.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(ClippingVertex v)
             => X == v.X && Y == v.Y;
 

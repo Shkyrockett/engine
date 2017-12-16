@@ -8,17 +8,17 @@ namespace Engine
     public class Polygon2D
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public List<PolygonContour> contours = new List<PolygonContour>();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Rectangle2D bounds;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Polygon2D()
         {
@@ -26,7 +26,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public int VerticesCount
@@ -42,7 +42,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Rectangle2D Bounds
@@ -56,10 +56,7 @@ namespace Engine
                 foreach (var c in contours)
                 {
                     var cBB = c.Bounds;
-                    if (bb == null)
-                        bb = cBB;
-                    else
-                        bb = bb.Union(cBB);
+                    bb = bb == null ? cBB : bb.Union(cBB);
                 }
 
                 bounds = bb;
@@ -68,14 +65,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="c"></param>
         public void Add(PolygonContour c)
             => contours.Add(c);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Polygon Clone()

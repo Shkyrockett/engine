@@ -10,6 +10,9 @@
 
 namespace Engine.Experemental
 {
+    /// <summary>
+    /// The key frame animation class.
+    /// </summary>
     internal class KeyFrameAnimation
     { }
 }

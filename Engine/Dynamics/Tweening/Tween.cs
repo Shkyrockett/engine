@@ -16,29 +16,29 @@ using static Engine.Maths;
 namespace Engine.Tweening
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Tween
     {
         #region Callbacks
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Func<double, double> ease;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Action begin;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Action update;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Action complete;
 
@@ -47,27 +47,27 @@ namespace Engine.Tweening
         #region Timing
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool Paused { get; private set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double delay;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double repeatDelay;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double duration;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double time;
 
@@ -76,57 +76,57 @@ namespace Engine.Tweening
         #region Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private bool firstUpdate;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private int repeatCount;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private int timesRepeated;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private LerpBehavior behavior;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<GlideInfo> vars;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<Lerper> lerpers;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<object> end;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<object> start;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Dictionary<string, int> varHash;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Tweener Parent;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Tweener Remover;
 
@@ -135,7 +135,7 @@ namespace Engine.Tweening
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="target"></param>
         /// <param name="duration"></param>
@@ -195,7 +195,7 @@ namespace Engine.Tweening
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="lerper"></param>
         /// <param name="info"></param>
@@ -213,7 +213,7 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="elapsed"></param>
         internal void Update(double elapsed)

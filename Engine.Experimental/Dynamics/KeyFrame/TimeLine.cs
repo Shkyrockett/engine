@@ -14,31 +14,31 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The time line class.
     /// </summary>
     public class TimeLine
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TimeLine"/> class.
         /// </summary>
         public TimeLine()
             : this(new Dictionary<double, List<(Delegate, List<object>)>>())
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TimeLine"/> class.
         /// </summary>
-        /// <param name="actions"></param>
+        /// <param name="actions">The actions.</param>
         public TimeLine(Dictionary<double, List<(Delegate, List<object>)>> actions)
         {
             Actions = actions;
         }
 
         /// <summary>
-        /// 
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type List<(Delegate, List<object>)>.</returns>
         public List<(Delegate, List<object>)> this[double index]
         {
             get { return Actions[index]; }
@@ -52,29 +52,29 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the time.
         /// </summary>
         public double Time { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the tick.
         /// </summary>
         public double Tick { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the range.
         /// </summary>
         public (double X, double Y) Range { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the actions.
         /// </summary>
         public Dictionary<double, List<(Delegate, List<object>)>> Actions { get; set; }
 
         /// <summary>
-        /// 
+        /// Update.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="TimeLine"/>.</returns>
         public TimeLine Update()
         {
             Time += Tick;
@@ -82,10 +82,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Update.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="TimeLine"/>.</returns>
         public TimeLine Update(double value)
         {
             Time += value;

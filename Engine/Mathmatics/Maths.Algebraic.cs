@@ -9,7 +9,7 @@
 // <remarks></remarks>
 
 // <copyright company="kevlindev" >
-//     Many of the Roots methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/. 
+//     Many of the Roots methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/.
 //     Copyright © 2000 - 2003 Kevin Lindsey. All rights reserved.
 // </copyright>
 // <author id="thelonious">Kevin Lindsey</author>
@@ -96,7 +96,7 @@ namespace Engine
         #region Root Finding
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -114,7 +114,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -154,7 +154,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Cubic Roots
         /// </summary>
         /// <param name="a">t^3</param>
         /// <param name="b">t^2</param>
@@ -233,8 +233,8 @@ namespace Engine
         /// <remarks>
         /// ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/:
         /// This method computes complex and real roots for any quintic polynomial.
-        /// It applies the Lin-Bairstow algorithm which iteratively solves for the 
-        /// roots starting from random guesses for a solution. 
+        /// It applies the Lin-Bairstow algorithm which iteratively solves for the
+        /// roots starting from random guesses for a solution.
         /// The calculator is designed to solve for the roots of a quintic polynomial
         /// with the form: x⁵ + ax⁴ + bx³ + cx² + dx + e = 0
         /// ⁰¹²³⁴⁵⁶⁷⁸⁹
@@ -247,7 +247,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
         {
-            // ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html 
+            // ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html
             // and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
 
             var A = b / a;
@@ -323,7 +323,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -351,7 +351,6 @@ namespace Engine
 
             var coeff = new List<double> { a, b, c, d, e, f };
 
-            //var LIMIT = 50d;
             var beta2 = 0d;
             var delta1 = 0d;
             var delta2 = 0d;
@@ -886,7 +885,7 @@ namespace Engine
             var y_atmin = 0d;
             var y_atmax = 0d;
             var x = x0;
-            var ACCURACY = 14;
+            const int ACCURACY = 14;
             var min_correction_factor = Pow(10, -ACCURACY);
             var isBounded = (min != null && max != null);
             if (isBounded)
@@ -965,26 +964,12 @@ namespace Engine
                             break;
                         }
 
-                        var RATIO_LIMIT = 50;
-                        var AIMED_BISECT_OFFSET = 0.25; // [0, 0.5)
+                        const int RATIO_LIMIT = 50;
+                        const double AIMED_BISECT_OFFSET = 0.25; // [0, 0.5)
                         var dy = y_atmax - y_atmin;
                         var dx = max - min;
 
-                        if (dy == 0)
-                        {
-                            //stepMethod = 'bisect';
-                            x_correction = x - (min.Value + dx.Value * 0.5);
-                        }
-                        else if (Math.Abs(dy / Min(y_atmin, y_atmax)) > RATIO_LIMIT)
-                        {
-                            //stepMethod = 'aimed bisect';
-                            x_correction = x - (min.Value + dx.Value * (0.5 + (Math.Abs(y_atmin) < Math.Abs(y_atmax) ? -AIMED_BISECT_OFFSET : AIMED_BISECT_OFFSET)));
-                        }
-                        else
-                        {
-                            //stepMethod = 'secant'; 
-                            x_correction = x - (min.Value - y_atmin / dy * dx.Value);
-                        }
+                        x_correction = dy == 0 ? x - (min.Value + dx.Value * 0.5) : Math.Abs(dy / Min(y_atmin, y_atmax)) > RATIO_LIMIT ? x - (min.Value + dx.Value * (0.5 + (Math.Abs(y_atmin) < Math.Abs(y_atmax) ? -AIMED_BISECT_OFFSET : AIMED_BISECT_OFFSET))) : x - (min.Value - y_atmin / dy * dx.Value);
                         x_new = x - x_correction;
 
                         if (isEnoughCorrection())

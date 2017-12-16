@@ -88,8 +88,18 @@ namespace Engine
             /// </summary>
             public IGameElement GameElement { get; }
 
+            /// <summary>
+            /// Get the value.
+            /// </summary>
+            /// <param name="component">The component.</param>
+            /// <returns>The <see cref="object"/>.</returns>
             public override object GetValue(object component) => GameElement.Name;
 
+            /// <summary>
+            /// Set the value.
+            /// </summary>
+            /// <param name="component">The component.</param>
+            /// <param name="value">The value.</param>
             public override void SetValue(object component, object value) => GameElement.Name = (string)value;
         }
     }

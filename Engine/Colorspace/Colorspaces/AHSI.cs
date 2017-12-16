@@ -123,7 +123,7 @@ namespace Engine.Colorspace
         public double Intensity { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
@@ -156,7 +156,7 @@ namespace Engine.Colorspace
             var h = Hue;
             var s = Saturation;
             var i = Intensity;
-            var HUE_UPPER_LIMIT = 360.0;
+            const double HUE_UPPER_LIMIT = 360.0;
 
             if (h >= 0.0 && h <= (HUE_UPPER_LIMIT / 3.0))
             {
@@ -183,7 +183,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="formatProvider"></param>

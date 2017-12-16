@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The priority queue class.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <remarks> http://stackoverflow.com/a/33888482 </remarks>
@@ -13,12 +13,12 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The comparer.
         /// </summary>
         IComparer<T> comparer;
 
         /// <summary>
-        /// 
+        /// The heap.
         /// </summary>
         T[] heap;
 
@@ -27,33 +27,33 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PriorityQueue"/> class.
         /// </summary>
         public PriorityQueue()
             : this(null)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PriorityQueue"/> class.
         /// </summary>
-        /// <param name="capacity"></param>
+        /// <param name="capacity">The capacity.</param>
         public PriorityQueue(int capacity)
             : this(capacity, null)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PriorityQueue"/> class.
         /// </summary>
-        /// <param name="comparer"></param>
+        /// <param name="comparer">The comparer.</param>
         public PriorityQueue(IComparer<T> comparer)
             : this(16, comparer)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PriorityQueue"/> class.
         /// </summary>
-        /// <param name="capacity"></param>
-        /// <param name="comparer"></param>
+        /// <param name="capacity">The capacity.</param>
+        /// <param name="comparer">The comparer.</param>
         public PriorityQueue(int capacity, IComparer<T> comparer)
         {
             this.comparer = comparer ?? Comparer<T>.Default;
@@ -65,24 +65,23 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets the count.
         /// </summary>
         public int Count
             => heap.Length;
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
-        /// <returns></returns>
         internal bool IsEmpty
             => heap.Length == 0;
 
         #endregion
 
         /// <summary>
-        /// 
+        /// Push.
         /// </summary>
-        /// <param name="v"></param>
+        /// <param name="v">The v.</param>
         public void Push(T v)
         {
             if (Count >= heap.Length) Array.Resize(ref heap, Count * 2);
@@ -92,9 +91,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The pop.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T"/>.</returns>
         public T Pop()
         {
             var v = Top();
@@ -105,9 +104,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The top.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T"/>.</returns>
+        /// <exception cref="InvalidOperationException">The priority queue is empty.</exception>
         public T Top()
         {
             if (Count > 0) return heap[0];
@@ -115,9 +115,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The sift up.
         /// </summary>
-        /// <param name="n"></param>
+        /// <param name="n">The n.</param>
         void SiftUp(int n)
         {
             var v = heap[n];
@@ -127,9 +127,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The sift down.
         /// </summary>
-        /// <param name="n"></param>
+        /// <param name="n">The n.</param>
         void SiftDown(int n)
         {
             var v = heap[n];

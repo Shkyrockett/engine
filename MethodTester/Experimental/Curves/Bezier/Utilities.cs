@@ -16,28 +16,28 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
     public delegate double DerivitiveMethodDouble(double x);
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
     public delegate Point2D DerivitiveMethod2D(double x);
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="x"></param>
     /// <returns></returns>
     public delegate Point3D DerivitiveMethod3D(double x);
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     internal class Utilities
     {
@@ -108,7 +108,7 @@ namespace Engine
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <param name="derivativeFn"></param>
@@ -121,7 +121,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <param name="derivativeFn"></param>
@@ -134,7 +134,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="derivativeFn"></param>
         /// <returns></returns>
@@ -151,7 +151,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="v"></param>
         /// <param name="ds"></param>
@@ -169,7 +169,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -177,7 +177,7 @@ namespace Engine
             => new Point3D(obj);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="o"></param>
         /// <param name="v1"></param>
@@ -201,7 +201,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="lookUpTable"></param>
         /// <param name="point"></param>
@@ -224,7 +224,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <param name="n"></param>
@@ -244,7 +244,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <param name="n"></param>
@@ -264,7 +264,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -286,7 +286,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
@@ -307,7 +307,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="v1"></param>
         /// <param name="v2"></param>
@@ -317,7 +317,7 @@ namespace Engine
             => Lli4(v1, v1, v2, v2);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
@@ -334,7 +334,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sections"></param>
         /// <returns></returns>
@@ -364,7 +364,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="s1"></param>
         /// <param name="bbox1"></param>
@@ -404,7 +404,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="forward"></param>
         /// <param name="back"></param>
@@ -430,7 +430,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="curve"></param>
         /// <param name="d"></param>
@@ -480,7 +480,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="points"></param>
         /// <param name="line"></param>
@@ -501,7 +501,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="points"></param>
         /// <param name="line"></param>
@@ -612,7 +612,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
@@ -654,7 +654,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
@@ -687,7 +687,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="b1"></param>
         /// <param name="b2"></param>
@@ -711,7 +711,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="bbox"></param>
         /// <param name="_bbox"></param>
@@ -740,7 +740,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="c1"></param>
         /// <param name="c2"></param>
@@ -749,7 +749,7 @@ namespace Engine
             var c1b = c1.Bbox();
             var c2b = c2.Bbox();
             //double r = 100000;
-            var threshold = 0.5;
+            const double threshold = 0.5;
             if (c1b.X.Size + c1b.Y.Size < threshold && c2b.X.Size + c2b.Y.Size < threshold)
             {
                 //return new List<Pair>() { ((r * (c1._t1 + c1._t2) / 2) | 0d) / r + "/" + ((r * (c2._t1 + c2._t2) / 2) | 0) / r };
@@ -779,7 +779,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>

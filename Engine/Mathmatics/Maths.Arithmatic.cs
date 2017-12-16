@@ -467,84 +467,84 @@ namespace Engine
             => Subtract4D(i2, j2, k2, l2, i1, j1, k1, l1);
 
         /// <summary>
-        /// 
+        /// The subtract2d.
         /// </summary>
-        /// <param name="minuendI"></param>
-        /// <param name="minuendJ"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
+        /// <param name="minuendI">The minuendI.</param>
+        /// <param name="minuendJ">The minuendJ.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="(double I, double J)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Subtract2D(double minuendI, double minuendJ, double subtrahend)
             => (minuendI - subtrahend, minuendJ - subtrahend);
 
         /// <summary>
-        /// 
+        /// The subtract3d.
         /// </summary>
-        /// <param name="minuendI"></param>
-        /// <param name="minuendJ"></param>
-        /// <param name="minuendK"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
+        /// <param name="minuendI">The minuendI.</param>
+        /// <param name="minuendJ">The minuendJ.</param>
+        /// <param name="minuendK">The minuendK.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="(double I, double J, double K)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Subtract3D(double minuendI, double minuendJ, double minuendK, double subtrahend)
             => (minuendI - subtrahend, minuendJ - subtrahend, minuendK - subtrahend);
 
         /// <summary>
-        /// 
+        /// The subtract4d.
         /// </summary>
-        /// <param name="minuendI"></param>
-        /// <param name="minuendJ"></param>
-        /// <param name="minuendK"></param>
-        /// <param name="minuendL"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
+        /// <param name="minuendI">The minuendI.</param>
+        /// <param name="minuendJ">The minuendJ.</param>
+        /// <param name="minuendK">The minuendK.</param>
+        /// <param name="minuendL">The minuendL.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="(double I, double J, double K, double L)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Subtract4D(double minuendI, double minuendJ, double minuendK, double minuendL, double subtrahend)
             => (minuendI - subtrahend, minuendJ - subtrahend, minuendK - subtrahend, minuendL - subtrahend);
 
         /// <summary>
-        /// 
+        /// The subtract2d.
         /// </summary>
-        /// <param name="minuendI"></param>
-        /// <param name="minuendJ"></param>
-        /// <param name="subtrahendI"></param>
-        /// <param name="subtrahendJ"></param>
-        /// <returns></returns>
+        /// <param name="minuendI">The minuendI.</param>
+        /// <param name="minuendJ">The minuendJ.</param>
+        /// <param name="subtrahendI">The subtrahendI.</param>
+        /// <param name="subtrahendJ">The subtrahendJ.</param>
+        /// <returns>The <see cref="(double I, double J)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Subtract2D(double minuendI, double minuendJ, double subtrahendI, double subtrahendJ)
             => (minuendI - subtrahendI, minuendJ - subtrahendJ);
 
         /// <summary>
-        /// 
+        /// The subtract3d.
         /// </summary>
-        /// <param name="minuendI"></param>
-        /// <param name="minuendJ"></param>
-        /// <param name="minuendK"></param>
-        /// <param name="subtrahendI"></param>
-        /// <param name="subtrahendJ"></param>
-        /// <param name="subtrahendK"></param>
-        /// <returns></returns>
+        /// <param name="minuendI">The minuendI.</param>
+        /// <param name="minuendJ">The minuendJ.</param>
+        /// <param name="minuendK">The minuendK.</param>
+        /// <param name="subtrahendI">The subtrahendI.</param>
+        /// <param name="subtrahendJ">The subtrahendJ.</param>
+        /// <param name="subtrahendK">The subtrahendK.</param>
+        /// <returns>The <see cref="(double I, double J, double K)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Subtract3D(double minuendI, double minuendJ, double minuendK, double subtrahendI, double subtrahendJ, double subtrahendK)
             => (minuendI - subtrahendI, minuendJ - subtrahendJ, minuendK - subtrahendK);
 
         /// <summary>
-        /// 
+        /// The subtract4d.
         /// </summary>
-        /// <param name="minuendI"></param>
-        /// <param name="minuendJ"></param>
-        /// <param name="minuendK"></param>
-        /// <param name="minuendL"></param>
-        /// <param name="subtrahendI"></param>
-        /// <param name="subtrahendJ"></param>
-        /// <param name="subtrahendK"></param>
-        /// <param name="subtrahendL"></param>
-        /// <returns></returns>
+        /// <param name="minuendI">The minuendI.</param>
+        /// <param name="minuendJ">The minuendJ.</param>
+        /// <param name="minuendK">The minuendK.</param>
+        /// <param name="minuendL">The minuendL.</param>
+        /// <param name="subtrahendI">The subtrahendI.</param>
+        /// <param name="subtrahendJ">The subtrahendJ.</param>
+        /// <param name="subtrahendK">The subtrahendK.</param>
+        /// <param name="subtrahendL">The subtrahendL.</param>
+        /// <returns>The <see cref="(double I, double J, double K, double L)"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Subtract4D(double minuendI, double minuendJ, double minuendK, double minuendL, double subtrahendI, double subtrahendJ, double subtrahendK, double subtrahendL)

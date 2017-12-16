@@ -15,7 +15,7 @@ using static System.Math;
 namespace Engine.Chrono
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public partial class Occasion
     {
@@ -991,7 +991,7 @@ namespace Engine.Chrono
             new DateTime(year, (int)Months.July, 24),
             "The Twenty Fourth of July.");
 
-        // - Season Dates - 
+        // - Season Dates -
 
         /// <summary>
         /// Vernal Equinox Northern Hemisphere
@@ -1056,7 +1056,7 @@ namespace Engine.Chrono
         // - Season Helpers -
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="year"></param>
         /// <param name="season"></param>
@@ -1139,7 +1139,7 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="date"></param>
         /// <param name="ofSouthernHemisphere"></param>

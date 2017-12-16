@@ -74,10 +74,7 @@ namespace Engine.Colorspace
 
             if (red == max)
                 h = (green - blue) / delta;       // between yellow & magenta
-            else if (green == max)
-                h = 2 + (blue - red) / delta;   // between cyan & yellow
-            else
-                h = 4 + (red - green) / delta;   // between magenta & cyan
+            else h = green == max ? 2 + (blue - red) / delta : 4 + (red - green) / delta;   // between magenta & cyan
             h *= 60;               // degrees
             if (h < 0)
                 h += 360;
@@ -134,7 +131,7 @@ namespace Engine.Colorspace
         public double Value { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="other"></param>
         /// <returns></returns>
@@ -151,7 +148,7 @@ namespace Engine.Colorspace
         public ARGB ToColor() => new ARGB(ToARGBTuple());
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -229,7 +226,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="formatProvider"></param>

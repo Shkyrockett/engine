@@ -42,7 +42,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PolyBezierContour()
             : base()
@@ -51,7 +51,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PolyBezierContour(Point2D start)
             : base()
@@ -60,7 +60,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PolyBezierContour(List<BezierSegmentX> items)
             : base()
@@ -73,7 +73,7 @@ namespace Engine
         #region Deconstructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="items"></param>
         public void Deconstruct(out List<BezierSegmentX> items)
@@ -84,7 +84,7 @@ namespace Engine
         #region Indexers
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -97,7 +97,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
@@ -116,7 +116,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Browsable(false)]
         [XmlAttribute("d"), SoapAttribute("d")]
@@ -144,7 +144,7 @@ namespace Engine
             => Items.Select(item => item.End.Value).ToList();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
@@ -155,7 +155,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
@@ -175,7 +175,7 @@ namespace Engine
         }
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         //[DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         //[EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -188,7 +188,7 @@ namespace Engine
         //#region Serialization
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerializing()]
@@ -198,7 +198,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerialized()]
@@ -208,7 +208,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserializing()]
@@ -218,7 +218,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserialized()]
@@ -230,7 +230,7 @@ namespace Engine
         //#endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -269,7 +269,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Reverse()
         {
@@ -279,7 +279,7 @@ namespace Engine
         #region Methods
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="point"></param>
         ///// <returns></returns>
@@ -289,7 +289,7 @@ namespace Engine
         //    => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="end"></param>
         /// <returns></returns>
@@ -301,7 +301,7 @@ namespace Engine
         }
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="r1"></param>
         ///// <param name="r2"></param>
@@ -318,7 +318,7 @@ namespace Engine
         //}
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="handle"></param>
         /// <param name="end"></param>
@@ -331,7 +331,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="handle1"></param>
         /// <param name="handle2"></param>
@@ -345,7 +345,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <returns></returns>
@@ -353,7 +353,7 @@ namespace Engine
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <param name="provider"></param>
@@ -361,7 +361,7 @@ namespace Engine
         public static List<BezierSegmentX> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // These letters are valid PolyBezier commands. Split the tokens at these.
-            var separators = @"(?=[MZLCQ])";
+            const string separators = @"(?=[MZLCQ])";
 
             // Discard whitespace and comma but keep the - minus sign.
             var argSeparators = $@"[\s{Tokenizer.GetNumericListSeparator(provider)}]|(?=-)";
@@ -413,14 +413,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         private String ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="provider"></param>
@@ -459,7 +459,7 @@ namespace Engine
             output.Append($"Z ");
 
             // Minus signs are valid separators in SVG path definitions which can be
-            // used in place of commas to shrink the length of the string. 
+            // used in place of commas to shrink the length of the string.
             output.Replace(",-", "-");
             return output.ToString().TrimEnd();
         }

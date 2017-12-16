@@ -41,7 +41,7 @@ namespace EngineTests
         #region Assembly Housekeeping
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         [AssemblyInitialize]
@@ -51,7 +51,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [AssemblyCleanup]
         public static void AssemblyCleanup()
@@ -64,7 +64,7 @@ namespace EngineTests
         #region Class housekeeping
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         [ClassInitialize]
@@ -74,7 +74,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -83,7 +83,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestCleanup]
         public void Cleanup()
@@ -92,7 +92,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()
@@ -114,7 +114,7 @@ namespace EngineTests
         [Ignore]
         public void DivideMethodTest()
         {
-            var x = 0;
+            const int x = 0;
             var value = 1 / x;
             Assert.Fail("No exception was thrown.");
         }

@@ -188,7 +188,7 @@ namespace Engine
             for (var i = 2; i < polyline.Points.Count; i++)
             {
                 var newOffsetLine = OffsetSegment(polyline.Points[i - 1], polyline.Points[i], offset).ToLine();
-                polygon.Add(Intersections.Intersection(offsetLine, newOffsetLine)[0]);
+                polygon.Add(offsetLine.Intersection(newOffsetLine)[0]);
                 offsetLine = newOffsetLine;
             }
 
@@ -216,11 +216,11 @@ namespace Engine
             for (var i = 1; i < polygon.Points.Count; i++)
             {
                 var newOffsetLine = OffsetSegment(points[i - 1], points[i], offset).ToLine();
-                polyline.Add(Intersections.Intersection(offsetLine, newOffsetLine)[0]);
+                polyline.Add(offsetLine.Intersection(newOffsetLine)[0]);
                 offsetLine = newOffsetLine;
             }
 
-            polyline.Add(Intersections.Intersection(offsetLine, startLine)[0]);
+            polyline.Add(offsetLine.Intersection(startLine)[0]);
 
             return polyline;
         }

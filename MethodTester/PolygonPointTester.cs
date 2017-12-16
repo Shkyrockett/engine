@@ -18,33 +18,33 @@ using System.Windows.Forms;
 namespace MethodSpeedTester
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public partial class PolygonPointTester
         : Form
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<PointF> points;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<PointF> polygon;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<(string description, List<PointF> points)> polygons = new List<(string, List<PointF>)>();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private (List<double>, List<double>) ? PatrickMullenValues;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PolygonPointTester()
         {
@@ -52,7 +52,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -129,7 +129,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="font"></param>
@@ -152,14 +152,14 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="point"></param>
         /// <param name="hit"></param>
         public static void DrawHitPoint(Graphics g, PointF point, Inclusion hit)
         {
-            float pointRadius = 1;
+            const float pointRadius = 1;
             var pointpen = Pens.Red;
             switch (hit)
             {
@@ -176,7 +176,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="minX"></param>
         /// <param name="minY"></param>
@@ -196,7 +196,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -208,7 +208,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -217,7 +217,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourAlienRyderFlex));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -226,7 +226,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourDarelRexFinley));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -235,7 +235,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourGilKr));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -244,7 +244,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourKeith));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -253,7 +253,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourLaschaLagidse));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -262,7 +262,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourLaschaLagidse2));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -271,7 +271,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourMeowNET));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -280,7 +280,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourMKatzWRandolphFranklin));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -289,7 +289,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourNathanMercer));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -298,7 +298,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourPatrickMullen));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -307,7 +307,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourRodStephens));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -316,7 +316,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourSaeedAmiri));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -325,7 +325,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourJerryKnauss));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -334,7 +334,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourJerryKnauss2));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -343,7 +343,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourPaulBourke));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -352,7 +352,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourWRandolphFranklin));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -361,7 +361,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourPhilippeReverdy));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -370,7 +370,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourBobStein));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -379,7 +379,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInPolygonContourHormannAgathosExpanded));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

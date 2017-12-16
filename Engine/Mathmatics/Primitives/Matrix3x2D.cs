@@ -24,7 +24,7 @@ using System.Collections;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <remarks>http://referencesource.microsoft.com</remarks>
     [DataContract, Serializable]
@@ -50,44 +50,44 @@ namespace Engine
         #region Private Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private MatrixTypes type;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m0x0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m0x1;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m1x0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m1x1;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double offsetX;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double offsetY;
 
 #pragma warning disable CS0414
         /// <summary>
         /// This field is only used by unmanaged code which isn't detected by the compiler.
-        /// Matrix in blt'd to unmanaged code, so this is padding 
+        /// Matrix in blt'd to unmanaged code, so this is padding
         /// to align structure.
         /// </summary>
         private int padding;
@@ -513,20 +513,13 @@ namespace Engine
             var firstToken = tokenizer.NextTokenRequired();
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
-            if (firstToken == "Identity")
-            {
-                value = Identity;
-            }
-            else
-            {
-                value = new Matrix3x2D(
+            value = firstToken == "Identity" ? Identity : new Matrix3x2D(
                     firstToken.ParseFloat(formatProvider),
                     tokenizer.NextTokenRequired().ParseFloat(formatProvider),
                     tokenizer.NextTokenRequired().ParseFloat(formatProvider),
                     tokenizer.NextTokenRequired().ParseFloat(formatProvider),
                     tokenizer.NextTokenRequired().ParseFloat(formatProvider),
                     tokenizer.NextTokenRequired().ParseFloat(formatProvider));
-            }
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();
             return value;
@@ -537,7 +530,7 @@ namespace Engine
         //#region Serialization
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerializing()]
@@ -547,7 +540,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerialized()]
@@ -557,7 +550,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserializing()]
@@ -567,7 +560,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserialized()]
@@ -904,7 +897,7 @@ namespace Engine
             }
             else
             {
-                // 
+                //
                 //  / 1   0   0 \       / m11   m12   0 \
                 //  | 0   1   0 |   *   | m21   m22   0 |
                 //  \ tx  ty  1 /       \  ox    oy   1 /
@@ -1543,7 +1536,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
@@ -1554,7 +1547,7 @@ namespace Engine
             }.GetEnumerator();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()

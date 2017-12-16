@@ -43,12 +43,13 @@ namespace Engine
             => radiens * Degree;
 
         /// <summary>
-        /// 
+        /// The quaternion to euler angles.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <param name="w"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="w">The w.</param>
+        /// <returns>The <see cref="(double Roll, double Pitch, double Yaw)"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double Roll, double Pitch, double Yaw) QuaternionToEulerAngles(double x, double y, double z, double w)
@@ -108,10 +109,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The normalize radian.
         /// </summary>
-        /// <param name="angle"></param>
-        /// <returns></returns>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double NormalizeRadian(double angle)

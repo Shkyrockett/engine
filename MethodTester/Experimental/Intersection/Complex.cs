@@ -14,7 +14,7 @@ using System.Security;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Complex
         : IFormattable
@@ -41,12 +41,12 @@ namespace Engine.Geometry
         #region Private Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         double real;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         double imaginary;
 
@@ -103,13 +103,13 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool IsReal
             => (Imaginary == 0);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public bool IsImaginary
             => (Real == 0);
@@ -119,7 +119,7 @@ namespace Engine.Geometry
         #region Operators
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -128,7 +128,7 @@ namespace Engine.Geometry
             => new Complex(a.Real + b.Real, a.Imaginary + b.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -137,7 +137,7 @@ namespace Engine.Geometry
             => new Complex(a.Real + b, a.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -146,7 +146,7 @@ namespace Engine.Geometry
             => new Complex(a + b.Real, b.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -155,7 +155,7 @@ namespace Engine.Geometry
             => new Complex(a.Real - b.Real, a.Imaginary - b.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -164,7 +164,7 @@ namespace Engine.Geometry
             => new Complex(a.Real - b, a.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -173,7 +173,7 @@ namespace Engine.Geometry
             => new Complex(a - b.Real, -b.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <returns></returns>
@@ -181,7 +181,7 @@ namespace Engine.Geometry
             => new Complex(-a.Real, -a.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -191,7 +191,7 @@ namespace Engine.Geometry
                 a.Imaginary * b.Real + a.Real * b.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="d"></param>
@@ -200,7 +200,7 @@ namespace Engine.Geometry
             => new Complex(d * a.Real, d * a.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d"></param>
         /// <param name="a"></param>
@@ -209,7 +209,7 @@ namespace Engine.Geometry
             => new Complex(d * a.Real, d * a.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -218,7 +218,7 @@ namespace Engine.Geometry
             => a * Conj(b) * (1 / (Abs(b) * Abs(b)));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -227,7 +227,7 @@ namespace Engine.Geometry
             => a * (1 / b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -236,7 +236,7 @@ namespace Engine.Geometry
             => a * Conj(b) * (1 / (Abs(b) * Abs(b)));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -245,7 +245,7 @@ namespace Engine.Geometry
             => (a.Real == b.Real && a.Imaginary == b.Imaginary);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -254,7 +254,7 @@ namespace Engine.Geometry
             => a == new Complex(b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -263,7 +263,7 @@ namespace Engine.Geometry
             => new Complex(a) == b;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -272,7 +272,7 @@ namespace Engine.Geometry
             => !(a == b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -281,7 +281,7 @@ namespace Engine.Geometry
             => !(a == b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -290,21 +290,21 @@ namespace Engine.Geometry
             => !(a == b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d"></param>
         public static implicit operator Complex(int d)
             => new Complex(d);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d"></param>
         public static implicit operator Complex(float d)
             => new Complex(d);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="d"></param>
         public static implicit operator Complex(double d)
@@ -415,7 +415,7 @@ namespace Engine.Geometry
         /// Complex square root.
         /// </summary>
         /// <param name="a"></param>
-        /// <returns></returns>   
+        /// <returns></returns>
         public static Complex Sqrt(Complex a)
             => Pow(a, .5);
 
@@ -474,7 +474,7 @@ namespace Engine.Geometry
             => (Exp(I * a) - Exp(-I * a)) / (2 * I);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -483,7 +483,7 @@ namespace Engine.Geometry
             => Exp(b * Log(a));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -492,7 +492,7 @@ namespace Engine.Geometry
             => Exp(b * Math.Log(a));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -505,7 +505,7 @@ namespace Engine.Geometry
         #region Overrides
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -513,7 +513,7 @@ namespace Engine.Geometry
             => obj.ToString() == ToString();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [SecuritySafeCritical]
@@ -521,14 +521,14 @@ namespace Engine.Geometry
             => real.GetHashCode() ^ imaginary.GetHashCode();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override string ToString()
             => ConvertToString(String.Empty, CultureInfo.In­variantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <returns></returns>
@@ -536,7 +536,7 @@ namespace Engine.Geometry
             => ConvertToString(format, CultureInfo.In­variantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="formatProvider"></param>
@@ -545,7 +545,7 @@ namespace Engine.Geometry
             => ConvertToString(format, formatProvider);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="formatProvider"></param>
@@ -560,20 +560,14 @@ namespace Engine.Geometry
 
             if (Imaginary < 0)
             {
-                if (Real == 0)
-                    sign = "-";
-                else
-                    sign = " - ";
+                sign = Real == 0 ? "-" : " - ";
             }
-            else if (Imaginary > 0 && Real != 0) sign = " + ";
-            else sign = "";
+            else sign = Imaginary > 0 && Real != 0 ? " + " : "";
 
-            if (Real == 0) re = "";
-            else re = Real.ToString(format, formatProvider);
+            re = Real == 0 ? "" : Real.ToString(format, formatProvider);
 
             if (Imaginary == 0) im = "";
-            else if (Imaginary == -1 || Imaginary == 1) im = "i";
-            else im = Math.Abs(Imaginary).ToString(format, formatProvider) + "i";
+            else im = Imaginary == -1 || Imaginary == 1 ? "i" : Math.Abs(Imaginary).ToString(format, formatProvider) + "i";
 
             return re + sign + im;
         }

@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace Engine.Tests
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestClass()]
     public class MathsTests
@@ -42,7 +42,7 @@ namespace Engine.Tests
         #region Housekeeping
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         [ClassInitialize]
@@ -52,7 +52,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -61,7 +61,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestCleanup]
         public void Cleanup()
@@ -70,7 +70,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()
@@ -83,7 +83,7 @@ namespace Engine.Tests
         #region Queries
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -99,7 +99,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -115,7 +115,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -131,7 +131,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -147,7 +147,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -163,7 +163,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -179,7 +179,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -202,7 +202,7 @@ namespace Engine.Tests
         #region Arithmetic Safety Tests
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -230,7 +230,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in sbyteTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -260,7 +260,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in byteTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -294,7 +294,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in shortTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -324,7 +324,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in ushortTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -358,7 +358,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in intTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -388,7 +388,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in uintTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -422,7 +422,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in longTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -452,7 +452,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in ulongTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -486,7 +486,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in floatTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -520,7 +520,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in doubleTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -555,7 +555,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in decimalTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -575,7 +575,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -604,7 +604,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in sbyteTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -634,7 +634,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in byteTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -669,7 +669,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in shortTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -699,7 +699,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in ushortTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -734,7 +734,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in intTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -764,7 +764,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in uintTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -798,7 +798,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in longTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -828,7 +828,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in ulongTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -862,7 +862,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in floatTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -896,7 +896,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in doubleTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -930,7 +930,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in decimalTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -948,7 +948,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -976,7 +976,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in sbyteTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1006,7 +1006,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in byteTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1041,7 +1041,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in shortTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1071,7 +1071,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in ushortTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1106,7 +1106,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in intTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1136,7 +1136,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in uintTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1170,7 +1170,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in longTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1200,7 +1200,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in ulongTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1234,7 +1234,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in floatTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1268,7 +1268,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in doubleTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1302,7 +1302,7 @@ namespace Engine.Tests
             // Run tests for each height and width.
             foreach (var value in decimalTestCases.Keys)
             {
-                // Retrieve the result of the operation. 
+                // Retrieve the result of the operation.
                 var result = Maths.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
@@ -1324,7 +1324,7 @@ namespace Engine.Tests
         #region Derived Equivalent Math Functions Tests
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1339,7 +1339,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1354,7 +1354,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1369,7 +1369,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1384,7 +1384,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1399,7 +1399,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1414,7 +1414,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1429,7 +1429,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1444,7 +1444,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1459,7 +1459,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1474,7 +1474,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1489,7 +1489,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1504,7 +1504,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1519,7 +1519,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1534,7 +1534,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1549,7 +1549,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1564,7 +1564,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1579,7 +1579,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1594,7 +1594,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1609,7 +1609,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1624,7 +1624,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1639,7 +1639,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2043,7 +2043,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2052,14 +2052,14 @@ namespace Engine.Tests
         [DeploymentItem("Engine.dll")]
         public void HiWordTest()
         {
-            var test = unchecked((int)0xFFFFFFFF);
-            var expected = 0xFFFF;
+            const int test = unchecked((int)0xFFFFFFFF);
+            const int expected = 0xFFFF;
             var result = test.HighWord();
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2068,14 +2068,14 @@ namespace Engine.Tests
         [DeploymentItem("Engine.dll")]
         public void SignedHiWordTest()
         {
-            var test = unchecked((int)0xFFFFFFFF);
-            var expected = -1;
+            const int test = unchecked((int)0xFFFFFFFF);
+            const int expected = -1;
             var result = test.SignedHighWord();
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2084,14 +2084,14 @@ namespace Engine.Tests
         [DeploymentItem("Engine.dll")]
         public void LoWordTest()
         {
-            var test = unchecked((int)0xFFFFFFFF);
-            var expected = 0xFFFF;
+            const int test = unchecked((int)0xFFFFFFFF);
+            const int expected = 0xFFFF;
             var result = test.LowWord();
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2100,14 +2100,14 @@ namespace Engine.Tests
         [DeploymentItem("Engine.dll")]
         public void SignedLoWordTest()
         {
-            var test = unchecked((int)0xFFFFFFFF);
-            var expected = -1;
+            const int test = unchecked((int)0xFFFFFFFF);
+            const int expected = -1;
             var result = test.SignedLowWord();
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2122,7 +2122,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2137,7 +2137,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2152,7 +2152,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestMethod]
         [Priority(0)]

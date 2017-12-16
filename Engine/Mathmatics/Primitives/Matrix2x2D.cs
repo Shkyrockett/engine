@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
@@ -50,22 +50,22 @@ namespace Engine
         #region Private Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m0x0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m0x1;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m1x0;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double m1x1;
 
@@ -74,7 +74,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tuple"></param>
         public Matrix2x2D((double M1x1, double M1x2, double M2x1, double M2x2) tuple)
@@ -130,7 +130,7 @@ namespace Engine
         public double M1x1 { get { return m1x1; } set { m1x1 = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector2D Cx
@@ -144,7 +144,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector2D Cy
@@ -188,7 +188,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Determinant
@@ -203,21 +203,21 @@ namespace Engine
             => Primitives.Transpose(this);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Adjoint
             => Primitives.Adjoint(this);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Cofactor
             => Primitives.Cofactor(this);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Inverted
@@ -341,7 +341,7 @@ namespace Engine
         #region Factories
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="radianAngle"></param>
         /// <returns></returns>
@@ -404,18 +404,11 @@ namespace Engine
             var firstToken = tokenizer.NextTokenRequired();
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
-            if (firstToken == "Identity")
-            {
-                value = Identity;
-            }
-            else
-            {
-                value = new Matrix2x2D(
+            value = firstToken == "Identity" ? Identity : new Matrix2x2D(
                     firstToken.ParseFloat(provider),
                     tokenizer.NextTokenRequired().ParseFloat(provider),
                     tokenizer.NextTokenRequired().ParseFloat(provider),
                     tokenizer.NextTokenRequired().ParseFloat(provider));
-            }
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();
             return value;
@@ -426,7 +419,7 @@ namespace Engine
         //#region Serialization
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerializing()]
@@ -436,7 +429,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerialized()]
@@ -446,7 +439,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserializing()]
@@ -456,7 +449,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserialized()]
@@ -542,7 +535,7 @@ namespace Engine
             => Equals(this, value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Matrix3x3D ToMatrix3x3D()
@@ -603,7 +596,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
@@ -614,7 +607,7 @@ namespace Engine
             }.GetEnumerator();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()

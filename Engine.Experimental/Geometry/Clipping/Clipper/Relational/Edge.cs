@@ -14,7 +14,7 @@ using static Engine.Maths;
 namespace Engine.Experimental
 {
     /// <summary>
-    /// 
+    /// The edge class.
     /// </summary>
     public class Edge
     {
@@ -100,9 +100,9 @@ namespace Engine.Experimental
         #region Getters
 
         /// <summary>
-        /// 
+        /// Get the owner.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="OutRec"/>.</returns>
         public OutRec GetOwner()
         {
             var e = this;
@@ -142,16 +142,16 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Get the out pt.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="LinkedPoint"/>.</returns>
         public LinkedPoint GetOutPt()
             => (IsStartSide()) ? OutRec.Points : OutRec.Points.Next;
 
         /// <summary>
-        /// 
+        /// Get the left adjacent hot edge.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Edge"/>.</returns>
         public Edge GetLeftAdjacentHotEdge()
         {
             var result = PrevInAEL;
@@ -164,9 +164,9 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Get the right adjacent hot edge.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Edge"/>.</returns>
         public Edge GetRightAdjacentHotEdge()
         {
             var result = NextInAEL;
@@ -179,9 +179,9 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Get the maxima pair.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Edge"/>.</returns>
         public Edge GetMaximaPair()
         {
             Edge e2;
@@ -226,24 +226,24 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Get the path type.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="ClippingRelations"/>.</returns>
         public ClippingRelations GetPathType()
             => LocalMin.ClippingRelation;
 
         /// <summary>
-        /// 
+        /// The next vertex.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Vertex"/>.</returns>
         public Vertex NextVertex()
             => (WindDx > 0 ? VertTop.NextVertex : VertTop.PreviousVertex);
 
         /// <summary>
-        /// 
+        /// Reset the horz direction.
         /// </summary>
-        /// <param name="maxPair"></param>
-        /// <returns></returns>
+        /// <param name="maxPair">The maxPair.</param>
+        /// <returns>The <see cref="(bool, double horzLeft, double horzRight)"/>.</returns>
         public (bool, double horzLeft, double horzRight) ResetHorzDirection(Edge maxPair)
         {
             double horzLeft;
@@ -277,7 +277,7 @@ namespace Engine.Experimental
         #region Setters
 
         /// <summary>
-        /// 
+        /// Set the dx.
         /// </summary>
         public void SetDx()
         {
@@ -290,9 +290,9 @@ namespace Engine.Experimental
         #region Mutators
 
         /// <summary>
-        /// 
+        /// The fix orientation.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool FixOrientation()
         {
             var result = true;
@@ -326,7 +326,7 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The terminate hot open.
         /// </summary>
         public void TerminateHotOpen()
         {
@@ -343,9 +343,9 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Move the edge to follow left in AEL.
         /// </summary>
-        /// <param name="eLeft"></param>
+        /// <param name="eLeft">The eLeft.</param>
         public void MoveEdgeToFollowLeftInAEL(Edge eLeft)
         {
             Edge aelPrev, aelNext;
@@ -369,55 +369,55 @@ namespace Engine.Experimental
         #region Queries
 
         /// <summary>
-        /// 
+        /// The is maxima.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool IsMaxima()
             => (VertexFlags.LocMax & VertTop.Flags) != 0;
 
         /// <summary>
-        /// 
+        /// The is hot edge.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool IsHotEdge()
             => OutRec != null;
 
         /// <summary>
-        /// 
+        /// The is start side.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool IsStartSide()
             => (this == OutRec.StartEdge);
 
         /// <summary>
-        /// 
+        /// The is horizontal.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool IsHorizontal()
             => Dx == horizontal;
 
         /// <summary>
-        /// 
+        /// The is open.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool IsOpen()
             => LocalMin.IsOpen;
 
         /// <summary>
-        /// 
+        /// The is same path type.
         /// </summary>
-        /// <param name="e2"></param>
-        /// <returns></returns>
+        /// <param name="e2">The e2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool IsSamePathType(Edge e2)
             => (LocalMin.ClippingRelation == e2.LocalMin.ClippingRelation);
 
         #endregion
 
         /// <summary>
-        /// 
+        /// The top x.
         /// </summary>
-        /// <param name="currentY"></param>
-        /// <returns></returns>
+        /// <param name="currentY">The currentY.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public double TopX(double currentY)
         {
             if (currentY == Top.Y)
@@ -429,10 +429,11 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The join outrec paths.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <exception cref="EngineException">Error in JoinOutrecPaths</exception>
         public static void JoinOutrecPaths(Edge e1, Edge e2)
         {
             if (e1.IsStartSide() == e2.IsStartSide())
@@ -495,10 +496,10 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The swap outrecs.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
         public static void SwapOutrecs(Edge e1, Edge e2)
         {
             var or1 = e1.OutRec;
@@ -537,10 +538,10 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The insert2before1in sel.
         /// </summary>
-        /// <param name="first"></param>
-        /// <param name="second"></param>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
         public static void Insert2Before1InSel(Edge first, Edge second)
         {
             //remove second from list ...
@@ -564,11 +565,11 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Get the top delta x.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <returns></returns>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public static double GetTopDeltaX(Edge e1, Edge e2)
         {
             if (e1.Top.Y > e2.Top.Y)
@@ -579,16 +580,16 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Get the intersect point.
         /// </summary>
-        /// <param name="edge1"></param>
-        /// <param name="edge2"></param>
-        /// <returns></returns>
+        /// <param name="edge1">The edge1.</param>
+        /// <param name="edge2">The edge2.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public static Point2D GetIntersectPoint(Edge edge1, Edge edge2)
         {
             var ip = new Point2D();
             double b1, b2;
-            //nb: with very large coordinate values, it's possible for SlopesEqual() to 
+            //nb: with very large coordinate values, it's possible for SlopesEqual() to
             //return false but for the edge.Dx value be equal due to double precision rounding.
             if (edge1.Dx == edge2.Dx)
             {
@@ -642,21 +643,21 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The e2inserts before e1.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <returns></returns>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool E2InsertsBeforeE1(Edge e1, Edge e2)
             => (e2.Curr.X == e1.Curr.X) ?
             GetTopDeltaX(e1, e2) < 0 :
             e2.Curr.X < e1.Curr.X;
 
         /// <summary>
-        /// 
+        /// The swap actives.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
         public static void SwapActives(ref Edge e1, ref Edge e2)
         {
             var e = e1;

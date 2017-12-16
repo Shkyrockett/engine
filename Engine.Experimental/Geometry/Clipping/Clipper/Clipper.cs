@@ -24,12 +24,12 @@ namespace Engine.Experimental
         #region Fields
 
         /// <summary>
-        /// 
+        /// The active edge link.
         /// </summary>
         private Edge ActiveEdgeLink;
 
         /// <summary>
-        /// 
+        /// The selected edge link.
         /// </summary>
         private Edge SelectedEdgeLink;
 
@@ -38,52 +38,52 @@ namespace Engine.Experimental
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the clip type.
         /// </summary>
         private ClippingOperations ClipType { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the fill type.
         /// </summary>
         private WindingRules FillType { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether
         /// </summary>
         private bool HasOpenPaths { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the scanline.
         /// </summary>
         private ScanLine Scanline { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the current loc min idx.
         /// </summary>
         private int CurrentLocMinIdx { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether
         /// </summary>
         private bool LocMinListSorted { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the vertex list.
         /// </summary>
         private List<List<Vertex>> VertexList { get; set; } = new List<List<Vertex>>();
 
         /// <summary>
-        /// 
+        /// Gets or sets the out rec list.
         /// </summary>
         private List<OutRec> OutRecList { get; set; } = new List<OutRec>();
 
         /// <summary>
-        /// 
+        /// Gets or sets the loc minima list.
         /// </summary>
         private List<LocalMinima> LocMinimaList { get; set; } = new List<LocalMinima>();
 
         /// <summary>
-        /// 
+        /// Gets or sets the intersect list.
         /// </summary>
         private List<IntersectNode> IntersectList { get; set; } = new List<IntersectNode>();
 
@@ -92,7 +92,7 @@ namespace Engine.Experimental
         #region Virtual Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         protected virtual void CleanUp()
         {
@@ -106,7 +106,7 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="e1"></param>
         /// <param name="e2"></param>
@@ -165,7 +165,7 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="e1"></param>
         /// <param name="e2"></param>
@@ -208,7 +208,7 @@ namespace Engine.Experimental
             => new OutRec();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="e"></param>
         /// <param name="pt"></param>
@@ -246,7 +246,7 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="ct"></param>
         /// <param name="ft"></param>
@@ -289,7 +289,7 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="clipType"></param>
         /// <param name="ft"></param>
@@ -308,7 +308,7 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="clipType"></param>
         /// <param name="Open"></param>
@@ -329,7 +329,7 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="clipType"></param>
         /// <param name="polytree"></param>
@@ -1932,14 +1932,7 @@ namespace Engine.Experimental
             {
                 Edge e;
                 var isMax = horz.IsMaxima();
-                if (isLeftToRight)
-                {
-                    e = horz.NextInAEL;
-                }
-                else
-                {
-                    e = horz.PrevInAEL;
-                }
+                e = isLeftToRight ? horz.NextInAEL : horz.PrevInAEL;
 
                 while (e != null)
                 {
@@ -1981,14 +1974,7 @@ namespace Engine.Experimental
                         IntersectEdges(e, horz, pt);
                     }
                     Edge eNext;
-                    if (isLeftToRight)
-                    {
-                        eNext = e.NextInAEL;
-                    }
-                    else
-                    {
-                        eNext = e.PrevInAEL;
-                    }
+                    eNext = isLeftToRight ? e.NextInAEL : e.PrevInAEL;
 
                     SwapPositionsInAEL(ref ActiveEdgeLink, horz, e);
                     e = eNext;
@@ -2025,7 +2011,7 @@ namespace Engine.Experimental
 
             if (!horz.IsOpen())
             {
-                UpdateEdgeIntoAEL(ref horz); //this is the } of an intermediate horiz.      
+                UpdateEdgeIntoAEL(ref horz); //this is the } of an intermediate horiz.
             }
             else if (!horz.IsMaxima())
             {

@@ -15,7 +15,7 @@ using static Engine.Measurements;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The segment comparators class.
     /// </summary>
     public static class SegmentComparators
     {

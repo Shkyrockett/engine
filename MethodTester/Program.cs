@@ -27,10 +27,22 @@ namespace MethodTester
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new RectanglePointTester());
-            //Application.Run(new CirclePointTester());
-            //Application.Run(new PolygonPointTester());
-            Application.Run(new FormSpeedTester());
+            //using (var rectanglePointTester = new RectanglePointTester())
+            //{
+            //    Application.Run(rectanglePointTester);
+            //}
+            //using (var circlePointTester = new CirclePointTester())
+            //{
+            //    Application.Run(circlePointTester);
+            //}
+            //using (var polygonPointTester = new PolygonPointTester())
+            //{
+            //    Application.Run(polygonPointTester);
+            //}
+            using (var formSpeedTester = new FormSpeedTester())
+            {
+                Application.Run(formSpeedTester);
+            }
         }
     }
 }

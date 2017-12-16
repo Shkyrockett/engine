@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The segment comp class.
     /// </summary>
     public class SegmentComp
         : Comparer<SweepEvent>

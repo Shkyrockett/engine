@@ -112,7 +112,7 @@ namespace Engine
         #region Indexers
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -135,7 +135,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
@@ -152,7 +152,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Browsable(false)]
         [XmlAttribute("d"), SoapAttribute("d")]
@@ -172,20 +172,20 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
             => contours.Count;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Capacity { get { return contours.Capacity; } set { contours.Capacity = value; } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
@@ -202,7 +202,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -211,7 +211,7 @@ namespace Engine
             => contours.Sum(p => p.Perimeter);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -282,7 +282,7 @@ namespace Engine
         //#endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <returns></returns>
@@ -290,7 +290,7 @@ namespace Engine
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <param name="provider"></param>
@@ -298,7 +298,7 @@ namespace Engine
         public static List<PolygonContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // These letters are valid PolyBezier commands. Split the tokens at these.
-            var separators = @"(?=[M])";
+            const string separators = @"(?=[M])";
             //string separators = @"(?=[MZ])";
 
             var contours = new List<PolygonContour>();
@@ -327,14 +327,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         private String ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="provider"></param>
@@ -354,7 +354,7 @@ namespace Engine
         #region Mutators
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="contour"></param>
         public void Add(PolygonContour contour)
@@ -364,7 +364,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="contour"></param>
         public void Add(List<Point2D> contour)
@@ -392,7 +392,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void Reverse()
         {
@@ -407,7 +407,7 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
@@ -417,7 +417,7 @@ namespace Engine
             => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
@@ -426,21 +426,21 @@ namespace Engine
             => new Polygon(Contours.ToArray() as IEnumerable<PolygonContour>);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public IEnumerator<PolygonContour> GetEnumerator()
             => contours.GetEnumerator();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
             => contours.GetEnumerator();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="provider"></param>

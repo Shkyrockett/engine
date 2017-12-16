@@ -9,7 +9,6 @@
 // <remarks></remarks>
 
 using System.Diagnostics;
-//using System.Drawing;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
@@ -20,7 +19,7 @@ using System.Linq;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The primitives class.
     /// </summary>
     public static class Primitives
     {
@@ -34,7 +33,7 @@ namespace Engine
         /// <returns>True if the vectors are almost equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EqualsOrClose(Point2D p0, Point2D p1)
-            => Measurements.SquareDistance(p0, p1) < Epsilon;
+            => p0.SquareDistance(p1) < Epsilon;
 
         /// <summary>
         /// Checks if two vectors are equal within a small bounded error.
@@ -44,7 +43,7 @@ namespace Engine
         /// <returns>True if the vectors are almost equal.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EqualsOrClose(Vector2D v0, Vector2D v1)
-            => Measurements.SquareDistance(v0, v1) < Epsilon;
+            => v0.SquareDistance(v1) < Epsilon;
 
         #region Absolute Angle
 
@@ -295,60 +294,55 @@ namespace Engine
             => Add3D(augend.I, augend.J, augend.K, addend.I, addend.J, addend.K);
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>The <see cref="Vector4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Add(this Vector4D augend, double addend)
             => Add4D(augend.I, augend.J, augend.K, augend.L, addend);
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>The <see cref="Vector4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Add(this Vector4D augend, Vector4D addend)
             => Add4D(augend.I, augend.J, augend.K, augend.L, addend.I, addend.J, addend.K, addend.L);
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Add(this QuaternionD augend, double addend)
             => Add4D(augend.X, augend.Y, augend.Z, augend.W, addend);
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Add(this QuaternionD augend, QuaternionD addend)
             => Add4D(augend.X, augend.Y, augend.Z, augend.W, addend.X, addend.Y, addend.Z, addend.W);
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>The <see cref="LineSegment"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment Add(this LineSegment augend, double addend)
@@ -406,23 +400,22 @@ namespace Engine
                 addend.M3x0, addend.M3x1, addend.M3x2, addend.M3x3);
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>The <see cref="LineSegment"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment Add(this LineSegment augend, LineSegment addend)
             => Add4D(augend.AX, augend.AY, augend.BX, augend.BY, addend.AX, addend.AY, addend.BX, addend.BY);
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="augend"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <param name="augend">The augend.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>The <see cref="Transform2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Transform2D Add(this Transform2D augend, Transform2D addend)
@@ -433,10 +426,10 @@ namespace Engine
         #region Adjoint
 
         /// <summary>
-        /// 
+        /// The adjoint.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="Matrix2x2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D Adjoint(this Matrix2x2D source)
@@ -447,9 +440,10 @@ namespace Engine
                 source.M0x0);
 
         /// <summary>
-        /// 
+        /// The adjoint.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Adjoint(this Matrix3x3D source)
@@ -467,6 +461,7 @@ namespace Engine
         /// <summary>
         /// Used to generate the adjoint of this matrix.
         /// </summary>
+        /// <param name="source">todo: describe source parameter on Adjoint</param>
         /// <returns>The adjoint matrix of the current instance.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -546,10 +541,11 @@ namespace Engine
         #region Append
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="t"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="T:int[]"/>.</returns>
         public static int[] Add(this int[] array, int t)
         {
             ArrayUtilities.Add(ref array, t);
@@ -557,10 +553,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="t"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="T:float[]"/>.</returns>
         public static float[] Add(this float[] array, float t)
         {
             ArrayUtilities.Add(ref array, t);
@@ -568,10 +565,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="t"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="T:double[]"/>.</returns>
         public static double[] Add(this double[] array, double t)
         {
             ArrayUtilities.Add(ref array, t);
@@ -579,10 +577,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="t"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
         public static Point2D[] Add(this Point2D[] array, Point2D t)
         {
             ArrayUtilities.Add(ref array, t);
@@ -590,10 +589,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="t"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="T:Point3D[]"/>.</returns>
         public static Point3D[] Add(this Point3D[] array, Point3D t)
         {
             ArrayUtilities.Add(ref array, t);
@@ -601,10 +601,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="t"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="T:Vector2D[]"/>.</returns>
         public static Vector2D[] Add(this Vector2D[] array, Vector2D t)
         {
             ArrayUtilities.Add(ref array, t);
@@ -612,10 +613,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="t"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="T:Vector3D[]"/>.</returns>
         public static Vector3D[] Add(this Vector3D[] array, Vector3D t)
         {
             ArrayUtilities.Add(ref array, t);
@@ -642,10 +644,10 @@ namespace Engine
         #region Cofactor
 
         /// <summary>
-        /// 
+        /// The cofactor.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="Matrix2x2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D Cofactor(this Matrix2x2D source)
@@ -656,9 +658,10 @@ namespace Engine
                 -source.M0x0);
 
         /// <summary>
-        /// 
+        /// The cofactor.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Cofactor(this Matrix3x3D source)
@@ -674,9 +677,10 @@ namespace Engine
                 (-(source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0)));
 
         /// <summary>
-        /// 
+        /// The cofactor.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="Matrix4x4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Cofactor(this Matrix4x4D source)
@@ -729,11 +733,11 @@ namespace Engine
         #region Concatenate
 
         /// <summary>
-        /// 
+        /// The concatenate.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Concatenate(this QuaternionD a, QuaternionD b)
@@ -748,10 +752,10 @@ namespace Engine
         #region Conjugate
 
         /// <summary>
-        /// 
+        /// The conjugate.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Conjugate(this QuaternionD value)
@@ -764,6 +768,7 @@ namespace Engine
         /// <summary>
         /// Gets a 3x3 rotation matrix from this Quaternion.
         /// </summary>
+        /// <param name="quaternion">todo: describe quaternion parameter on ToRotationMatrix</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -809,9 +814,10 @@ namespace Engine
                 0d);
 
         /// <summary>
-        /// 
+        /// The to axis.
         /// </summary>
-        /// <param name="quaternion"></param>
+        /// <param name="quaternion">The quaternion.</param>
+        /// <returns>The <see cref="(Vector3D XAxis, Vector3D YAxis, Vector3D ZAxis)"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (Vector3D XAxis, Vector3D YAxis, Vector3D ZAxis) ToAxis(this QuaternionD quaternion)
@@ -824,6 +830,7 @@ namespace Engine
         /// The quaternion representing the rotation is
         /// q = cos(A/2)+sin(A/2)*(X*i+Y*j+Z*k)
         /// </summary>
+        /// <param name="quaternion">todo: describe quaternion parameter on ToAngleAxis</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -836,9 +843,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The to euler angles.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="quaternion">The quaternion.</param>
+        /// <returns>The <see cref="Orientation"/>.</returns>
         public static Orientation ToEulerAngles(this QuaternionD quaternion)
             => QuaternionToEulerAngles(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
 
@@ -971,10 +979,10 @@ namespace Engine
         #region Determinant
 
         /// <summary>
-        /// 
+        /// The determinant.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(this Matrix2x2D source)
@@ -983,10 +991,10 @@ namespace Engine
                 source.M1x0, source.M1x1);
 
         /// <summary>
-        /// 
+        /// The determinant.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(this Matrix3x3D source)
@@ -996,10 +1004,10 @@ namespace Engine
                 source.M2x0, source.M2x1, source.M2x2);
 
         /// <summary>
-        /// 
+        /// The determinant.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Determinant(this Matrix4x4D source)
@@ -1014,66 +1022,66 @@ namespace Engine
         #region Divide
 
         /// <summary>
-        /// 
+        /// The divide.
         /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="divedend"></param>
-        /// <returns></returns>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="divedend">The divedend.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Divide(this Point2D divisor, double divedend)
             => Divide2D1D(divisor.X, divisor.Y, divedend);
 
         /// <summary>
-        /// 
+        /// The divide.
         /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="divedend"></param>
-        /// <returns></returns>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="divedend">The divedend.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Divide(this Size2D divisor, double divedend)
             => Divide2D1D(divisor.Width, divisor.Height, divedend);
 
         /// <summary>
-        /// 
+        /// The divide.
         /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="divedend"></param>
-        /// <returns></returns>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="divedend">The divedend.</param>
+        /// <returns>The <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Divide(this Vector2D divisor, double divedend)
             => Divide2D1D(divisor.I, divisor.J, divedend);
 
         /// <summary>
-        /// 
+        /// The divide.
         /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="divedend"></param>
-        /// <returns></returns>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="divedend">The divedend.</param>
+        /// <returns>The <see cref="Vector3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Divide(this Vector3D divisor, double divedend)
             => Divide3D1D(divisor.I, divisor.J, divisor.K, divedend);
 
         /// <summary>
-        /// 
+        /// The divide.
         /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="divedend"></param>
-        /// <returns></returns>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="divedend">The divedend.</param>
+        /// <returns>The <see cref="Vector4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Divide(this Vector4D divisor, double divedend)
             => Divide4D1D(divisor.I, divisor.J, divisor.K, divisor.L, divedend);
 
         /// <summary>
-        /// 
+        /// The divide.
         /// </summary>
-        /// <param name="quaternion1"></param>
-        /// <param name="quaternion2"></param>
-        /// <returns></returns>
+        /// <param name="quaternion1">The quaternion1.</param>
+        /// <param name="quaternion2">The quaternion2.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Divide(this QuaternionD quaternion1, QuaternionD quaternion2)
@@ -1104,7 +1112,7 @@ namespace Engine
         #region Dot Product
 
         /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// Calculates the dot Aka. scalar or inner product of a vector.
         /// </summary>
         /// <param name="value">Starting Point</param>
         /// <returns>Dot Product</returns>
@@ -1115,7 +1123,7 @@ namespace Engine
             => Maths.DotProduct(value.X, value.Y, value.X, value.Y);
 
         /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector. 
+        /// Calculates the dot Aka. scalar or inner product of a vector.
         /// </summary>
         /// <param name="value">Starting Point</param>
         /// <returns>Dot Product</returns>
@@ -1196,11 +1204,11 @@ namespace Engine
             => Maths.DotProduct(vector.I, vector.J, value.I, value.J);
 
         /// <summary>
-        /// 
+        /// The dot product.
         /// </summary>
-        /// <param name="quaternion1"></param>
-        /// <param name="quaternion2"></param>
-        /// <returns></returns>
+        /// <param name="quaternion1">The quaternion1.</param>
+        /// <param name="quaternion2">The quaternion2.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this QuaternionD quaternion1, QuaternionD quaternion2)
@@ -1213,6 +1221,7 @@ namespace Engine
         /// <summary>
         /// Calculates the Exponent of a Quaternion.
         /// </summary>
+        /// <param name="source">todo: describe source parameter on Exponent</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1253,22 +1262,22 @@ namespace Engine
         #region Equals
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(this Point2D point1, Point2D point2)
             => (point1.X == point2.X && point1.Y == point2.Y);
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(this Vector2D point1, Vector2D point2)
@@ -1279,22 +1288,22 @@ namespace Engine
         #region Greater Than
 
         /// <summary>
-        /// 
+        /// The greater than.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this Point2D point1, Point2D point2)
             => (point1.X > point2.X && point1.Y > point2.Y);
 
         /// <summary>
-        /// 
+        /// The greater than.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this Vector2D point1, Vector2D point2)
@@ -1305,33 +1314,33 @@ namespace Engine
         #region Greater Than or Equal to
 
         /// <summary>
-        /// 
+        /// The greater than or equal.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrEqual(this (double X, double Y) point1, (double X, double Y) point2)
             => (point1.X >= point2.X && point1.Y >= point2.Y);
 
         /// <summary>
-        /// 
+        /// The greater than or equal.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrEqual(this Point2D point1, Point2D point2)
             => (point1.X >= point2.X && point1.Y >= point2.Y);
 
         /// <summary>
-        /// 
+        /// The greater than o equal.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOEqual(this Vector2D point1, Vector2D point2)
@@ -1510,6 +1519,7 @@ namespace Engine
         /// <summary>
         /// Inverts a Vector
         /// </summary>
+        /// <param name="value">todo: describe value parameter on Invert</param>
         /// <returns></returns>
         /// <remarks></remarks>
         [DebuggerStepThrough]
@@ -1518,10 +1528,10 @@ namespace Engine
             => Invert(value.I, value.J);
 
         /// <summary>
-        /// 
+        /// The invert.
         /// </summary>
-        /// <param name="quaternion"></param>
-        /// <returns></returns>
+        /// <param name="quaternion">The quaternion.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Invert(QuaternionD quaternion)
@@ -1537,10 +1547,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The invert.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="Matrix2x2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D Invert(this Matrix2x2D source)
@@ -1555,9 +1565,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The invert.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Invert(this Matrix3x3D source)
@@ -1579,9 +1590,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The invert.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="Matrix4x4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Invert(this Matrix4x4D source)
@@ -1641,22 +1653,22 @@ namespace Engine
         #region Less Than
 
         /// <summary>
-        /// 
+        /// The less than.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this Point2D point1, Point2D point2)
             => (point1.X < point2.X && point1.Y < point2.Y);
 
         /// <summary>
-        /// 
+        /// The less than.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this Vector2D point1, Vector2D point2)
@@ -1667,33 +1679,33 @@ namespace Engine
         #region Less Than or Equal to
 
         /// <summary>
-        /// 
+        /// The less than or equal.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this (double X, double Y) point1, (double X, double Y) point2)
             => (point1.X <= point2.X && point1.Y <= point2.Y);
 
         /// <summary>
-        /// 
+        /// The less than or equal.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this Point2D point1, Point2D point2)
             => (point1.X <= point2.X && point1.Y <= point2.Y);
 
         /// <summary>
-        /// 
+        /// The less than or equal.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this Vector2D point1, Vector2D point2)
@@ -1704,42 +1716,48 @@ namespace Engine
         #region Linear Interpolation
 
         /// <summary>
-        /// 
+        /// The lerp.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Lerp(this Point2D point1, Point2D point2, double t)
             => new Point2D(point1.X + (point2.X - point1.X) * t, point1.Y + (point2.Y - point1.Y) * t);
 
         /// <summary>
-        /// 
+        /// The lerp.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Vector2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Lerp(this Vector2D point1, Vector2D point2, double t)
             => new Vector2D(point1.I + (point2.I - point1.I) * t, point1.J + (point2.J - point1.J) * t);
 
         /// <summary>
-        /// 
+        /// The lerp.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Lerp(this Size2D point1, Size2D point2, double t)
             => new Size2D(point1.Width + (point2.Width - point1.Width) * t, point1.Height + (point2.Height - point1.Height) * t);
 
         /// <summary>
-        /// 
+        /// The lerp.
         /// </summary>
-        /// <param name="quaternion1"></param>
-        /// <param name="quaternion2"></param>
-        /// <param name="amount"></param>
-        /// <returns></returns>
+        /// <param name="quaternion1">The quaternion1.</param>
+        /// <param name="quaternion2">The quaternion2.</param>
+        /// <param name="amount">The amount.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Lerp(this QuaternionD quaternion1, QuaternionD quaternion2, double amount)
@@ -2059,11 +2077,11 @@ namespace Engine
                 right.M3x0, right.M3x1, right.M3x2, right.M3x3);
 
         /// <summary>
-        /// 
+        /// The multiply.
         /// </summary>
-        /// <param name="quaternion1"></param>
-        /// <param name="quaternion2"></param>
-        /// <returns></returns>
+        /// <param name="quaternion1">The quaternion1.</param>
+        /// <param name="quaternion2">The quaternion2.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Multiply(this QuaternionD quaternion1, QuaternionD quaternion2)
@@ -2131,10 +2149,10 @@ namespace Engine
                 source.M3x0, source.M3x1, source.M3x2, source.M3x3);
 
         /// <summary>
-        /// 
+        /// The negate.
         /// </summary>
-        /// <param name="quaternion"></param>
-        /// <returns></returns>
+        /// <param name="quaternion">The quaternion.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Negate(QuaternionD quaternion)
@@ -2194,10 +2212,10 @@ namespace Engine
             => Normalize4D(source.I, source.J, source.K, source.L);
 
         /// <summary>
-        /// 
+        /// The normalize.
         /// </summary>
-        /// <param name="quaternion"></param>
-        /// <returns></returns>
+        /// <param name="quaternion">The quaternion.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Normalize(this QuaternionD quaternion)
@@ -2308,10 +2326,11 @@ namespace Engine
         #region Remove At
 
         /// <summary>
-        /// 
+        /// Remove the at.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="index"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="T:double[]"/>.</returns>
         public static double[] RemoveAt(this double[] array, int index)
         {
             ArrayUtilities.RemoveAt(ref array, index);
@@ -2319,10 +2338,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Remove the at.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="index"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
         public static Point2D[] RemoveAt(this Point2D[] array, int index)
         {
             ArrayUtilities.RemoveAt(ref array, index);
@@ -2330,10 +2350,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Remove the at.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="index"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="T:Point3D[]"/>.</returns>
         public static Point3D[] RemoveAt(this Point3D[] array, int index)
         {
             ArrayUtilities.RemoveAt(ref array, index);
@@ -2341,10 +2362,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Remove the at.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="index"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="T:Vector2D[]"/>.</returns>
         public static Vector2D[] RemoveAt(this Vector2D[] array, int index)
         {
             ArrayUtilities.RemoveAt(ref array, index);
@@ -2352,10 +2374,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Remove the at.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="index"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="T:Vector3D[]"/>.</returns>
         public static Vector3D[] RemoveAt(this Vector3D[] array, int index)
         {
             ArrayUtilities.RemoveAt(ref array, index);
@@ -2366,11 +2389,11 @@ namespace Engine
 
         #region Reverse
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks></remarks>
         //[DebuggerStepThrough]
+        /// <summary>
+        /// The reverse.
+        /// </summary>
+        /// <param name="segment">The segment.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Reverse(this LineSegment segment)
             => segment.Points.Reverse();
@@ -2380,7 +2403,7 @@ namespace Engine
         #region Rotate Around Point
 
         /// <summary>
-        /// Creates a matrix to rotate an object around a particular point.  
+        /// Creates a matrix to rotate an object around a particular point.
         /// </summary>
         /// <param name="angle">The angle to rotate in radians.</param>
         /// <param name="center">The point around which to rotate.</param>
@@ -2532,11 +2555,11 @@ namespace Engine
             => Scale4D(value.I, value.J, value.K, value.L, factor);
 
         /// <summary>
-        /// 
+        /// The scale.
         /// </summary>
-        /// <param name="quaternion1"></param>
-        /// <param name="scalar"></param>
-        /// <returns></returns>
+        /// <param name="quaternion1">The quaternion1.</param>
+        /// <param name="scalar">The scalar.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         public static QuaternionD Scale(this QuaternionD quaternion1, double scalar)
             => new QuaternionD(
                 quaternion1.X * scalar,
@@ -2599,14 +2622,14 @@ namespace Engine
 
         #region Slerp
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="quaternion1"></param>
-        /// <param name="quaternion2"></param>
-        /// <param name="amount"></param>
-        /// <returns></returns>
         //[DebuggerStepThrough]
+        /// <summary>
+        /// The slerp.
+        /// </summary>
+        /// <param name="quaternion1">The quaternion1.</param>
+        /// <param name="quaternion2">The quaternion2.</param>
+        /// <param name="amount">The amount.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Slerp(this QuaternionD quaternion1, QuaternionD quaternion2, double amount)
         {
@@ -2892,48 +2915,44 @@ namespace Engine
             => Subtract3D(minuend.I, minuend.J, minuend.K, subtrahend.I, subtrahend.J, subtrahend.K);
 
         /// <summary>
-        /// 
+        /// The subtract.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="Vector4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Subtract(this Vector4D minuend, double subtrahend)
             => Subtract4D(minuend.I, minuend.J, minuend.K, minuend.L, subtrahend);
 
         /// <summary>
-        /// 
+        /// The subtract.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="Vector4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Subtract(this Vector4D minuend, Vector4D subtrahend)
             => Subtract4D(minuend.I, minuend.J, minuend.K, minuend.L, subtrahend.I, subtrahend.J, subtrahend.K, subtrahend.L);
 
         /// <summary>
-        /// 
+        /// The subtract.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Subtract(this QuaternionD minuend, double subtrahend)
             => Subtract4D(minuend.X, minuend.Y, minuend.Z, minuend.W, subtrahend);
 
         /// <summary>
-        /// 
+        /// The subtract.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Subtract(this QuaternionD minuend, QuaternionD subtrahend)
@@ -2991,35 +3010,33 @@ namespace Engine
                 subtrahend.M3x0, subtrahend.M3x1, subtrahend.M3x2, subtrahend.M3x3);
 
         /// <summary>
-        /// 
+        /// The subtract.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="LineSegment"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment Subtract(this LineSegment minuend, double subtrahend)
             => Subtract4D(minuend.AX, minuend.AY, minuend.BX, minuend.BY, subtrahend);
 
         /// <summary>
-        /// 
+        /// The subtract.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="LineSegment"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment Subtract(this LineSegment minuend, LineSegment subtrahend)
             => Subtract4D(minuend.AX, minuend.AY, minuend.BX, minuend.BY, subtrahend.AX, subtrahend.AY, subtrahend.BX, subtrahend.BY);
 
         /// <summary>
-        /// 
+        /// The subtract.
         /// </summary>
-        /// <param name="minuend"></param>
-        /// <param name="subtrahend"></param>
-        /// <returns></returns>
+        /// <param name="minuend">The minuend.</param>
+        /// <param name="subtrahend">The subtrahend.</param>
+        /// <returns>The <see cref="Transform2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Transform2D Subtract(this Transform2D minuend, Transform2D subtrahend)

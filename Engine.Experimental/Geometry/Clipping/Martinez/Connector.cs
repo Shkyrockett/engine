@@ -13,19 +13,19 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The connector class.
     /// </summary>
     public class Connector
     {
         #region Fields
 
         /// <summary>
-        /// 
+        /// The open polygons.
         /// </summary>
         private List<PointChain> openPolygons;
 
         /// <summary>
-        /// 
+        /// The closed polygons.
         /// </summary>
         private List<PointChain> closedPolygons;
 
@@ -34,7 +34,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Connector"/> class.
         /// </summary>
         public Connector()
         {
@@ -45,9 +45,9 @@ namespace Engine
         #endregion
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="s">The s.</param>
         public void Add(LineSegment s)
         {
             // j iterates through the openPolygon chains.
@@ -94,9 +94,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The to polygon.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Polygon"/>.</returns>
         public Polygon ToPolygon()
         {
             var polygon = new Polygon();

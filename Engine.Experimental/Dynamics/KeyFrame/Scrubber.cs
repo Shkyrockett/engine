@@ -8,25 +8,24 @@
 // <summary></summary>
 // <remarks></remarks>
 
-
 namespace Editor
 {
     /// <summary>
-    /// 
+    /// The scrubber class.
     /// </summary>
     public class Scrubber
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Scrubber"/> class.
         /// </summary>
-        /// <param name="t"></param>
+        /// <param name="t">The t.</param>
         public Scrubber(double t)
         {
             T = t;
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the t.
         /// </summary>
         public double T { get; set; }
     }

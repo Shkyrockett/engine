@@ -121,7 +121,7 @@ namespace Engine
         #region Curve Interpolation
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="vCurve"></param>
         /// <param name="t"></param>
@@ -146,7 +146,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -173,7 +173,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -681,7 +681,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="positionA"></param>
         /// <param name="tangentA"></param>

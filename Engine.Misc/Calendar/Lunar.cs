@@ -13,7 +13,7 @@ using static System.Math;
 namespace Engine.Chrono
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     internal class Lunar
     {
@@ -63,12 +63,9 @@ namespace Engine.Chrono
             //Calculate the approximate phase of the moon
             ip = (j + 4.867) / 29.53059;
             ip -= Floor(ip);
-            //After several trials I've seen to add the following lines, 
-            //which gave the result was not bad 
-            if (ip < 0.5)
-                ag = ip * 29.53059 + 29.53059 / 2;
-            else
-                ag = ip * 29.53059 - 29.53059 / 2;
+            //After several trials I've seen to add the following lines,
+            //which gave the result was not bad
+            ag = ip < 0.5 ? ip * 29.53059 + 29.53059 / 2 : ip * 29.53059 - 29.53059 / 2;
             // Moon's age in days
             ag = Floor(ag) + 1;
             return ag;

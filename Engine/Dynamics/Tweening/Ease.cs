@@ -25,32 +25,32 @@ namespace Engine.Tweening
         #region Constants
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private const double BounceKey1 = 1d / 2.75d;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private const double BounceKey2 = 2d / 2.75d;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private const double BounceKey3 = 1.5d / 2.75d;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private const double BounceKey4 = 2.5d / 2.75d;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private const double BounceKey5 = 2.25d / 2.75d;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private const double BounceKey6 = 2.625d / 2.75d;
 
@@ -127,7 +127,7 @@ namespace Engine.Tweening
         #region Quadratic Easing Methods
 
         /// <summary>
-        /// Easing equation function for a quadratic (t^2) easing in: 
+        /// Easing equation function for a quadratic (t^2) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -154,7 +154,7 @@ namespace Engine.Tweening
             => t * t;
 
         /// <summary>
-        /// Easing equation function for a quadratic (t^2) easing out: 
+        /// Easing equation function for a quadratic (t^2) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -181,7 +181,7 @@ namespace Engine.Tweening
             => -t * (t - 2d);
 
         /// <summary>
-        /// Easing equation function for a quadratic (t^2) easing in/out: 
+        /// Easing equation function for a quadratic (t^2) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -208,7 +208,7 @@ namespace Engine.Tweening
             => t <= 0.5d ? t * t * 2d : 1d - (--t) * t * 2d;
 
         /// <summary>
-        /// Easing equation function for a quadratic (t^2) easing out/in: 
+        /// Easing equation function for a quadratic (t^2) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -225,7 +225,7 @@ namespace Engine.Tweening
             => (t < d / 2) ? QuadOut(t * 2, b, c / 2, d) : QuadIn((t * 2) - d, b + c / 2, c / 2, d);
 
         /// <summary>
-        /// Easing equation function for a quadratic (t^2) easing out/in: 
+        /// Easing equation function for a quadratic (t^2) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -243,7 +243,7 @@ namespace Engine.Tweening
         #region Cubic Easing Methods
 
         /// <summary>
-        /// Easing equation function for a cubic (t^3) easing in: 
+        /// Easing equation function for a cubic (t^3) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -270,7 +270,7 @@ namespace Engine.Tweening
             => t * t * t;
 
         /// <summary>
-        /// Easing equation function for a cubic (t^3) easing out: 
+        /// Easing equation function for a cubic (t^3) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -297,7 +297,7 @@ namespace Engine.Tweening
             => 1d + (--t) * t * t;
 
         /// <summary>
-        /// Easing equation function for a cubic (t^3) easing in/out: 
+        /// Easing equation function for a cubic (t^3) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -324,7 +324,7 @@ namespace Engine.Tweening
             => t <= 0.5d ? t * t * t * 4d : 1d + (--t) * t * t * 4d;
 
         /// <summary>
-        /// Easing equation function for a cubic (t^3) easing out/in: 
+        /// Easing equation function for a cubic (t^3) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -341,7 +341,7 @@ namespace Engine.Tweening
             => (t < d / 2) ? CubicOut(t * 2, b, c / 2, d) : CubicIn((t * 2) - d, b + c / 2, c / 2, d);
 
         /// <summary>
-        /// Easing equation function for a cubic (t^3) easing out/in: 
+        /// Easing equation function for a cubic (t^3) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -359,7 +359,7 @@ namespace Engine.Tweening
         #region Quartic Easing Methods
 
         /// <summary>
-        /// Easing equation function for a quartic (t^4) easing in: 
+        /// Easing equation function for a quartic (t^4) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -386,7 +386,7 @@ namespace Engine.Tweening
             => t * t * t * t;
 
         /// <summary>
-        /// Easing equation function for a quartic (t^4) easing out: 
+        /// Easing equation function for a quartic (t^4) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -413,7 +413,7 @@ namespace Engine.Tweening
             => 1d - (--t) * t * t * t;
 
         /// <summary>
-        /// Easing equation function for a quartic (t^4) easing in/out: 
+        /// Easing equation function for a quartic (t^4) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -440,7 +440,7 @@ namespace Engine.Tweening
             => t <= 0.5d ? t * t * t * t * 8d : (1d - (t = t * 2d - 2d) * t * t * t) * 0.5d + 0.5d;
 
         /// <summary>
-        /// Easing equation function for a quartic (t^4) easing out/in: 
+        /// Easing equation function for a quartic (t^4) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -457,7 +457,7 @@ namespace Engine.Tweening
             => (t < d / 2) ? QuartOut(t * 2, b, c / 2, d) : QuartIn((t * 2) - d, b + c / 2, c / 2, d);
 
         /// <summary>
-        /// Easing equation function for a quartic (t^4) easing out/in: 
+        /// Easing equation function for a quartic (t^4) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -475,7 +475,7 @@ namespace Engine.Tweening
         #region Quintic Easing Methods
 
         /// <summary>
-        /// Easing equation function for a quintic (t^5) easing in: 
+        /// Easing equation function for a quintic (t^5) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -502,7 +502,7 @@ namespace Engine.Tweening
             => t * t * t * t * t;
 
         /// <summary>
-        /// Easing equation function for a quintic (t^5) easing out: 
+        /// Easing equation function for a quintic (t^5) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -529,7 +529,7 @@ namespace Engine.Tweening
             => (t -= 1d) * t * t * t * t + 1d;
 
         /// <summary>
-        /// Easing equation function for a quintic (t^5) easing in/out: 
+        /// Easing equation function for a quintic (t^5) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -556,7 +556,7 @@ namespace Engine.Tweening
             => ((t *= 2d) < 1d) ? (t * t * t * t * t) * 0.5d : ((t -= 2d) * t * t * t * t + 2d) * 0.5d;
 
         /// <summary>
-        /// Easing equation function for a quintic (t^5) easing in/out: 
+        /// Easing equation function for a quintic (t^5) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -573,7 +573,7 @@ namespace Engine.Tweening
             => (t < d / 2) ? QuintOut(t * 2, b, c / 2, d) : QuintIn((t * 2) - d, b + c / 2, c / 2, d);
 
         /// <summary>
-        /// Easing equation function for a quintic (t^5) easing in/out: 
+        /// Easing equation function for a quintic (t^5) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -591,7 +591,7 @@ namespace Engine.Tweening
         #region Exponential Easing Methods
 
         /// <summary>
-        /// Easing equation function for an exponential (2^t) easing in: 
+        /// Easing equation function for an exponential (2^t) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -618,7 +618,7 @@ namespace Engine.Tweening
             => (Pow(2d, 10d * (t - 1d)));
 
         /// <summary>
-        /// Easing equation function for an exponential (2^t) easing out: 
+        /// Easing equation function for an exponential (2^t) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -645,7 +645,7 @@ namespace Engine.Tweening
             => (Abs(t - 1d) < Epsilon) ? 1d : -Pow(2d, -10d * t) + 1d;
 
         /// <summary>
-        /// Easing equation function for an exponential (2^t) easing in/out: 
+        /// Easing equation function for an exponential (2^t) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -684,7 +684,7 @@ namespace Engine.Tweening
             ? 1d : (t < 0.5d ? Pow(2d, 10d * (t * 2d - 1d)) * 0.5d : (-Pow(2d, -10d * (t * 2d - 1d)) + 2d) * 0.5d);
 
         /// <summary>
-        /// Easing equation function for an exponential (2^t) easing out/in: 
+        /// Easing equation function for an exponential (2^t) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -701,7 +701,7 @@ namespace Engine.Tweening
             => (t < d / 2) ? ExpoOut(t * 2, b, c / 2, d) : ExpoIn((t * 2) - d, b + c / 2, c / 2, d);
 
         /// <summary>
-        /// Easing equation function for an exponential (2^t) easing out/in: 
+        /// Easing equation function for an exponential (2^t) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -719,7 +719,7 @@ namespace Engine.Tweening
         #region Sine Easing Methods
 
         /// <summary>
-        /// Easing equation function for a sinusoidal (sin(t)) easing in: 
+        /// Easing equation function for a sinusoidal (sin(t)) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -748,7 +748,7 @@ namespace Engine.Tweening
             : (-Cos(Right * t) + 1d);
 
         /// <summary>
-        /// Easing equation function for a sinusoidal (sin(t)) easing out: 
+        /// Easing equation function for a sinusoidal (sin(t)) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -775,7 +775,7 @@ namespace Engine.Tweening
             => (Sin(Right * t));
 
         /// <summary>
-        /// Easing equation function for a sinusoidal (sin(t)) easing in/out: 
+        /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -804,7 +804,7 @@ namespace Engine.Tweening
             => (-Cos(PI * t) * 0.5d + 0.5d);
 
         /// <summary>
-        /// Easing equation function for a sinusoidal (sin(t)) easing in/out: 
+        /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -823,7 +823,7 @@ namespace Engine.Tweening
             : SineIn((t * 2) - d, b + c * 0.5d, c * 0.5d, d);
 
         /// <summary>
-        /// Easing equation function for a sinusoidal (sin(t)) easing in/out: 
+        /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -843,7 +843,7 @@ namespace Engine.Tweening
         #region Circular Easing Methods
 
         /// <summary>
-        /// Easing equation function for a circular (sqrt(1-t^2)) easing in: 
+        /// Easing equation function for a circular (sqrt(1-t^2)) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -870,7 +870,7 @@ namespace Engine.Tweening
             => (-(Sqrt(1d - t * t) - 1d));
 
         /// <summary>
-        /// Easing equation function for a circular (sqrt(1-t^2)) easing out: 
+        /// Easing equation function for a circular (sqrt(1-t^2)) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -897,7 +897,7 @@ namespace Engine.Tweening
             => (Sqrt(1d - (t - 1d) * (t - 1d)));
 
         /// <summary>
-        /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out: 
+        /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -924,7 +924,7 @@ namespace Engine.Tweening
             => (t <= 0.5d ? (Sqrt(1 - t * t * 4d) - 1d) * -0.5d : (Sqrt(1d - (t * 2d - 2d) * (t * 2d - 2d)) + 1d) * 0.5d);
 
         /// <summary>
-        /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out: 
+        /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -941,7 +941,7 @@ namespace Engine.Tweening
             => (t < d / 2) ? CircOut(t * 2, b, c / 2, d) : CircIn((t * 2) - d, b + c / 2, c / 2, d);
 
         /// <summary>
-        /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out: 
+        /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -959,7 +959,7 @@ namespace Engine.Tweening
         #region Elastic Easing Methods
 
         /// <summary>
-        /// Easing equation function for an elastic (exponentially decaying sine wave) easing in: 
+        /// Easing equation function for an elastic (exponentially decaying sine wave) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -994,7 +994,7 @@ namespace Engine.Tweening
             => (Sin(13d * Right * t) * Pow(2d, 10d * (t - 1d)));
 
         /// <summary>
-        /// Easing equation function for an elastic (exponentially decaying sine wave) easing out: 
+        /// Easing equation function for an elastic (exponentially decaying sine wave) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1029,7 +1029,7 @@ namespace Engine.Tweening
             => (Abs(t - 1d) < Epsilon) ? 1d : (Sin(-13d * Right * (t + 1d)) * Pow(2d, -10d * t) + 1d);
 
         /// <summary>
-        /// Easing equation function for an elastic (exponentially decaying sine wave) easing in/out: 
+        /// Easing equation function for an elastic (exponentially decaying sine wave) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1068,7 +1068,7 @@ namespace Engine.Tweening
                 (0.5d * (Sin(-13d * Right * ((2d * t - 1) + 1d)) * Pow(2d, -10d * (2d * t - 1d)) + 2d));
 
         /// <summary>
-        /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in: 
+        /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1085,7 +1085,7 @@ namespace Engine.Tweening
             => (t < d / 2) ? ElasticOut(t * 2, b, c / 2, d) : ElasticIn((t * 2) - d, b + c / 2, c / 2, d);
 
         /// <summary>
-        /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in: 
+        /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1103,7 +1103,7 @@ namespace Engine.Tweening
         #region Bounce Easing Methods
 
         /// <summary>
-        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in: 
+        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1139,7 +1139,7 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out: 
+        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1183,7 +1183,7 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in/out: 
+        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1236,7 +1236,7 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in: 
+        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1253,7 +1253,7 @@ namespace Engine.Tweening
             => (t < d / 2) ? BounceOut(t * 2, b, c / 2, d) : BounceIn((t * 2) - d, b + c / 2, c / 2, d);
 
         /// <summary>
-        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in: 
+        /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1271,7 +1271,7 @@ namespace Engine.Tweening
         #region Back Easing Methods
 
         /// <summary>
-        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in: 
+        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in:
         /// accelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1298,7 +1298,7 @@ namespace Engine.Tweening
             => (t * t * (2.70158d * t - 1.70158d));
 
         /// <summary>
-        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out: 
+        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out:
         /// decelerating from zero velocity.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1325,7 +1325,7 @@ namespace Engine.Tweening
             => (1d - (--t) * (t) * (-2.70158d * t - 1.70158d));
 
         /// <summary>
-        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in/out: 
+        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1361,7 +1361,7 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out/in: 
+        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1378,7 +1378,7 @@ namespace Engine.Tweening
             => (t < d / 2) ? BackOut(t * 2, b, c / 2, d) : BackIn((t * 2) - d, b + c / 2, c / 2, d);
 
         /// <summary>
-        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out/in: 
+        /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
         /// <param name="t">Current time in seconds.</param>
@@ -1394,7 +1394,7 @@ namespace Engine.Tweening
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="objA"></param>
         /// <param name="objB"></param>

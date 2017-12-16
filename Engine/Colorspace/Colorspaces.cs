@@ -335,10 +335,7 @@ namespace Engine.Colorspace
             var blue2 = (vertex - blue) / vertexMin;
             if (red == vertex)
                 hue = green == min ? 5.0 + blue2 : 1.0 - green2;
-            else if (green == vertex)
-                hue = blue == min ? 1.0 + red2 : 3.0 - blue2;
-            else
-                hue = red == min ? 3.0 + green2 : 5.0 - red2;
+            else hue = green == vertex ? blue == min ? 1.0 + red2 : 3.0 - blue2 : red == min ? 3.0 + green2 : 5.0 - red2;
 
             hue /= 6.0;
         }
@@ -368,10 +365,7 @@ namespace Engine.Colorspace
             B = 1.0 - (B / 255.0);
 
             double C, M, Y, K;
-            if (R < G)
-                K = R;
-            else
-                K = G;
+            K = R < G ? R : G;
             if (B < K)
                 K = B;
 
@@ -415,10 +409,7 @@ namespace Engine.Colorspace
             B = 1.0 - (B / 255.0);
 
             double C, M, Y, K;
-            if (R < G)
-                K = R;
-            else
-                K = G;
+            K = R < G ? R : G;
             if (B < K)
                 K = B;
 
@@ -478,7 +469,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="color"></param>
         /// <param name="hue"></param>
@@ -498,7 +489,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="hue"></param>
         /// <param name="saturation"></param>
@@ -568,10 +559,7 @@ namespace Engine.Colorspace
 
             if (red == max)
                 h = (green - blue) / delta;       // between yellow & magenta
-            else if (green == max)
-                h = 2 + (blue - red) / delta;   // between cyan & yellow
-            else
-                h = 4 + (red - green) / delta;   // between magenta & cyan
+            else h = green == max ? 2 + (blue - red) / delta : 4 + (red - green) / delta;   // between magenta & cyan
             h *= 60;               // degrees
             if (h < 0)
                 h += 360;
@@ -707,7 +695,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="r"></param>
@@ -765,7 +753,7 @@ namespace Engine.Colorspace
             var h = color.Hue;
             var s = color.Saturation;
             var i = color.Intensity;
-            var HUE_UPPER_LIMIT = 360.0;
+            const double HUE_UPPER_LIMIT = 360.0;
 
             if (h >= 0.0 && h <= (HUE_UPPER_LIMIT / 3.0))
             {

@@ -11,32 +11,32 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The end caps enum.
     /// </summary>
     public enum EndCaps
     {
         /// <summary>
-        /// 
+        /// The ClosedPolygon.
         /// </summary>
         ClosedPolygon,
 
         /// <summary>
-        /// 
+        /// The ClosedLine.
         /// </summary>
         ClosedLine,
 
         /// <summary>
-        /// 
+        /// The OpenButt.
         /// </summary>
         OpenButt,
 
         /// <summary>
-        /// 
+        /// The OpenSquare.
         /// </summary>
         OpenSquare,
 
         /// <summary>
-        /// 
+        /// The OpenRound.
         /// </summary>
         OpenRound
     }

@@ -14,7 +14,7 @@ using static Engine.Maths;
 namespace Engine.Experimental
 {
     /// <summary>
-    /// ClipperTri 
+    /// ClipperTri
     /// </summary>
     public class ClipperTriangulation
         : Clipper
@@ -22,25 +22,25 @@ namespace Engine.Experimental
         #region Fields
 
         /// <summary>
-        /// 
+        /// The last op.
         /// </summary>
         private LinkedPoint LastOp;
 
         /// <summary>
-        /// The resulting triangles polygon.
+        /// The triangles.
         /// </summary>
-        private Polygon triangles = new Polygon();
+        private readonly Polygon triangles = new Polygon();
 
         #endregion
 
         #region Overrides
 
         /// <summary>
-        /// 
+        /// Add the local min poly.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <param name="pt"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="pt">The pt.</param>
         protected override void AddLocalMinPoly(Edge e1, Edge e2, Point2D pt)
         {
             base.AddLocalMinPoly(e1, e2, pt);
@@ -122,11 +122,11 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Add the local max poly.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <param name="Pt"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="Pt">The Pt.</param>
         protected override void AddLocalMaxPoly(Edge e1, Edge e2, Point2D Pt)
         {
             var outrec = e1.OutRec;
@@ -177,29 +177,29 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Create the out point.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="LinkedPoint"/>.</returns>
         protected override LinkedPoint CreateOutPoint() =>
           //this is a virtual method as descendant classes may need
           //to produce descendant classes of OutPt ...
           new LinkedPointTriangle();
 
         /// <summary>
-        /// 
+        /// Create the out rec.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="OutRec"/>.</returns>
         protected override OutRec CreateOutRec() =>
           //this is a virtual method as descendant classes may need
           //to produce descendant classes of OutRec ...
           new OutRecTri();
 
         /// <summary>
-        /// 
+        /// Add the out point.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="pt"></param>
-        /// <returns></returns>
+        /// <param name="e">The e.</param>
+        /// <param name="pt">The pt.</param>
+        /// <returns>The <see cref="LinkedPoint"/>.</returns>
         protected override LinkedPoint AddOutPoint(Edge e, Point2D pt)
         {
             var result = base.AddOutPoint(e, pt);
@@ -220,11 +220,11 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The execute.
         /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
+        /// <param name="clipType">The clipType.</param>
+        /// <param name="ft">The ft.</param>
+        /// <returns>The <see cref="Polygon"/>.</returns>
         public override Polygon Execute(ClippingOperations clipType, WindingRules ft = WindingRules.EvenOdd)
         {
             var tris = new Polygon();
@@ -247,34 +247,28 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The execute.
         /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="Open"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
+        /// <param name="clipType">The clipType.</param>
+        /// <param name="Open">The Open.</param>
+        /// <param name="ft">The ft.</param>
+        /// <returns>The <see cref="Polygon"/>.</returns>
         public override Polygon Execute(ClippingOperations clipType, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
             => null; //unsupported
 
         /// <summary>
-        /// 
+        /// The execute.
         /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="polytree"></param>
-        /// <param name="Open"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
+        /// <param name="clipType">The clipType.</param>
+        /// <param name="polytree">The polytree.</param>
+        /// <param name="Open">The Open.</param>
+        /// <param name="ft">The ft.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Execute(ClippingOperations clipType, PolyTree polytree, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
             => false; //unsupported
 
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="afterOutPoint"></param>
-        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private LinkedPointTriangle InsertPoint(Point2D point, LinkedPoint afterOutPoint)
         {
@@ -289,12 +283,6 @@ namespace Engine.Experimental
             return result;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pt1"></param>
-        /// <param name="pt2"></param>
-        /// <param name="pt3"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void AddPolygon(Point2D pt1, Point2D pt2, Point2D pt3)
         {
@@ -308,10 +296,6 @@ namespace Engine.Experimental
             triangles.Add(p);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="outrec"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void Triangulate(OutRec outrec)
         {

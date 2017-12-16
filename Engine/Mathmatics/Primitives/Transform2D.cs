@@ -21,7 +21,7 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct Transform2D
@@ -31,7 +31,7 @@ namespace Engine
         #region Implementations
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static Transform2D Identity = new Transform2D(0, 0, 0, 0, 1, 1);
 
@@ -40,32 +40,32 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double x;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double y;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double skewX;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double skewY;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double scaleX;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double scaleY;
 
@@ -74,7 +74,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tuple"></param>
         public Transform2D((double x, double y, double skewX, double skewY, double scaleX, double scaleY) tuple)
@@ -83,7 +83,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -106,7 +106,7 @@ namespace Engine
         #region Deconstructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -368,14 +368,14 @@ namespace Engine
         #region Factories
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="matrix"></param>
         /// <returns></returns>
         public static Transform2D FromMatrix(Matrix3x2D matrix)
         {
-            var backupScaleX = 0;//scaleX;
-            var backupScaleY = 0;// scaleY;
+            const int backupScaleX = 0;//scaleX;
+            const int backupScaleY = 0;// scaleY;
 
             var skewX = Atan(-matrix.M21 / matrix.M22);
             var skewY = Atan(matrix.M12 / matrix.M11);
@@ -401,7 +401,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Matrix3x2D ToMatrix()
@@ -412,7 +412,7 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
@@ -435,7 +435,7 @@ namespace Engine
             => Equals(a, b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -445,7 +445,7 @@ namespace Engine
             => a.X == b.X & a.Y == b.Y & a.skewX == b.skewX & a.SkewY == b.SkewY & a.scaleX == b.scaleX & a.scaleY == b.scaleY;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -454,7 +454,7 @@ namespace Engine
             => obj is Transform2D && Equals(this, (Transform2D)obj);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

@@ -16,7 +16,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
@@ -88,7 +88,7 @@ namespace Engine
 
             // Calculate angles to key points.
             var dtheta = 2 * PI / num_points;
-            var theta00 = -PI / 2;
+            const double theta00 = -PI / 2;
             var theta01 = theta00 + dtheta * skip;
             var theta10 = theta00 + dtheta;
             var theta11 = theta10 - dtheta * skip;
@@ -174,7 +174,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override string ToString()

@@ -14,7 +14,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <remarks>
     /// From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
@@ -26,7 +26,7 @@ namespace Engine
     public class Intersector
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="ub1"></param>
         /// <param name="ub2"></param>
@@ -44,7 +44,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a1"></param>
         /// <param name="a2"></param>
@@ -80,7 +80,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a1"></param>
         /// <param name="a2"></param>

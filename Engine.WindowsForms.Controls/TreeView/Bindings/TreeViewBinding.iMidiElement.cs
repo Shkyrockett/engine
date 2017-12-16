@@ -22,7 +22,7 @@ using System.Windows.Forms;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <typeparam name="iMidiElement"></typeparam>
     /// <remarks>
@@ -36,42 +36,42 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private TreeView treeView;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private TreeNodeCollection treeNodeCollection;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private BindingSource bindingSource;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Func<object, iMidiElement> getDataItemFunc;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Func<iMidiElement, TreeNode> addTreeNodeFunc;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Action<iMidiElement, TreeNode> updateTreeNodeAction;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private TreeNode currentAddItem;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private TreeNode parentTreeNode;
 
@@ -80,7 +80,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="treeView"></param>
         /// <param name="bindingSource"></param>
@@ -97,7 +97,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="parentTreeNode"></param>
         /// <param name="bindingSource"></param>
@@ -114,7 +114,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="treeView"></param>
         /// <param name="treeNodeCollection"></param>
@@ -184,7 +184,7 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -197,7 +197,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private void AddExistingItems()
         {
@@ -212,7 +212,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="newIndex"></param>
         private void AddItem(int newIndex)
@@ -231,7 +231,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public void UpdateItem()
         {
@@ -243,7 +243,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="index"></param>
         private void DeleteItem(int index)
@@ -253,7 +253,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="oldIndex"></param>
         /// <param name="newIndex"></param>
@@ -265,7 +265,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private void SelectItem()
         {

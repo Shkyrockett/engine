@@ -46,7 +46,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PolycurveContour()
             : base()
@@ -55,7 +55,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PolycurveContour(Point2D start)
             : base()
@@ -67,7 +67,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="polygon"></param>
         public PolycurveContour(PolygonContour polygon)
@@ -83,7 +83,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PolycurveContour(List<CurveSegment> items)
             : base()
@@ -92,7 +92,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="curves"></param>
         public PolycurveContour(CubicBezier[] curves)
@@ -109,7 +109,7 @@ namespace Engine
         #region Deconstructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="items"></param>
         public void Deconstruct(out List<CurveSegment> items)
@@ -120,7 +120,7 @@ namespace Engine
         #region Indexers
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -133,7 +133,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
@@ -152,7 +152,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Browsable(false)]
         [XmlAttribute("d"), SoapAttribute("d")]
@@ -198,7 +198,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
@@ -209,14 +209,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.PolycurveContourBounds(this));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -225,7 +225,7 @@ namespace Engine
             => (double)CachingProperty(() => Items.Sum(p => p.Length));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
@@ -278,7 +278,7 @@ namespace Engine
         //#endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -319,7 +319,7 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
@@ -329,21 +329,21 @@ namespace Engine
             => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public IEnumerator<CurveSegment> GetEnumerator()
             => items.GetEnumerator();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="o"></param>
         public void Add(object o)
@@ -388,7 +388,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="end"></param>
         /// <returns></returns>
@@ -400,7 +400,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="r1"></param>
         /// <param name="r2"></param>
@@ -417,7 +417,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="handle"></param>
         /// <param name="end"></param>
@@ -430,7 +430,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="curves"></param>
         /// <returns></returns>
@@ -444,7 +444,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="handle1"></param>
         /// <param name="handle2"></param>
@@ -458,7 +458,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="curves"></param>
         /// <returns></returns>
@@ -472,7 +472,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="nodes"></param>
         /// <returns></returns>
@@ -484,7 +484,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public PolycurveContour Close()
@@ -499,7 +499,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <returns></returns>
@@ -510,7 +510,7 @@ namespace Engine
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="pathDefinition"></param>
         /// <param name="provider"></param>
@@ -528,7 +528,7 @@ namespace Engine
             CurveSegment item = null;
 
             // These letters are valid SVG commands. Split the tokens at these.
-            var separators = @"(?=[MZLHVCSQTAmzlhvcsqta])";
+            const string separators = @"(?=[MZLHVCSQTAmzlhvcsqta])";
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
 
@@ -647,14 +647,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         private String ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="format"></param>
         /// <param name="provider"></param>
@@ -703,7 +703,7 @@ namespace Engine
                         output.Append(t.Relitive ? $"q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"Q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
                         break;
                     case ArcSegment t:
-                        // Arc definition. 
+                        // Arc definition.
                         var largearc = t.LargeArc ? 1 : 0;
                         var sweep = t.Sweep ? 1 : 0;
                         output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
@@ -714,7 +714,7 @@ namespace Engine
             }
 
             // Minus signs are valid separators in SVG path definitions which can be
-            // used in place of commas to shrink the length of the string. 
+            // used in place of commas to shrink the length of the string.
             output.Replace(",-", "-");
             return output.ToString().TrimEnd();
         }

@@ -898,7 +898,7 @@ namespace Engine
         {
             int i;
             double t1 = 0, t2 = 0;
-            var step = 0.01;
+            const double step = 0.01;
             Bezier segment;
             var pass1 = new List<Bezier>();
             var pass2 = new List<Bezier>();
@@ -1065,7 +1065,7 @@ namespace Engine
         /// <returns></returns>
         public double LinearDistanceFunction(double s, double e, double tlen, double alen, double slen)
         {
-            double v = 0;
+            const double v = 0;
             var f1 = alen / tlen;
             var f2 = (alen + slen) / tlen;
             var d = e - s;

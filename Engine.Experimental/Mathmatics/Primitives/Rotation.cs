@@ -3,28 +3,25 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The rotation struct.
     /// </summary>
     public struct Rotation
     {
         /// <summary>
-        /// 
+        /// The radiens.
         /// </summary>
         private double radiens;
 
         /// <summary>
-        /// 
+        /// The cos.
         /// </summary>
         private double? cos;
 
         /// <summary>
-        /// 
+        /// The sin.
         /// </summary>
         private double? sin;
 
-        /// <summary>
-        /// 
-        /// </summary>
         public Rotation(double radiens)
         {
             this.radiens = radiens;
@@ -33,7 +30,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the radiens.
         /// </summary>
         public double Radiens
         {
@@ -47,7 +44,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the degrees.
         /// </summary>
         public double Degrees
         {
@@ -61,13 +58,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the cosine.
         /// </summary>
         public double Cosine
             => (cos = cos ?? Math.Sin(radiens)).Value;
 
         /// <summary>
-        /// 
+        /// Gets the sine.
         /// </summary>
         public double Sine
             => (sin = sin ?? Math.Sin(radiens)).Value;

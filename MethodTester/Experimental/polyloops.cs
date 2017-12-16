@@ -7,17 +7,17 @@ using System.Drawing;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class PolyLoops
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static void Test()
         {
             var watch = new Stopwatch();
-            var trials = 10000;
+            const int trials = 10000;
 
             int TotalRunningTime;
             double AverageRunningTime;
@@ -129,10 +129,7 @@ namespace Engine
             for (var z = 0; z < trials; z++)
                 for (var i = 0; i < points.Length; i++)
                 {
-                    if (i < points.Length - 1)
-                        result = ProcessSegment(points[i], points[i + 1]);
-                    else
-                        result = ProcessSegment(points[i], points[(i + 1) % points.Length]);
+                    result = i < points.Length - 1 ? ProcessSegment(points[i], points[i + 1]) : ProcessSegment(points[i], points[(i + 1) % points.Length]);
                 }
 
             watch.Stop();
@@ -213,7 +210,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -222,5 +219,5 @@ namespace Engine
         {
             return a.X * b.X - a.Y * b.Y;
         }
-    } 
+    }
 }

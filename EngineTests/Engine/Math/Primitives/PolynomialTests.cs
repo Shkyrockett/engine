@@ -44,7 +44,7 @@ namespace EngineTests
         #region Class housekeeping
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         [ClassInitialize]
@@ -54,7 +54,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -63,7 +63,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [TestCleanup]
         public void Cleanup()
@@ -72,7 +72,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()
@@ -186,7 +186,7 @@ namespace EngineTests
         public void EvaluateTest()
         {
             var value = new Polynomial(0, 5, 25, 0, 4, 0);
-            var expected = 288d;
+            const double expected = 288d;
             var result = value.Evaluate(2);
             Assert.AreEqual(expected, result);
         }
@@ -202,7 +202,7 @@ namespace EngineTests
         public void DifferentiateTest()
         {
             var value = new Polynomial(0, 5, 25, 0, 4, 0);
-            var expected = 464d;
+            const double expected = 464d;
             var result = value.Differentiate(2);
             Assert.AreEqual(expected, result);
         }
@@ -425,7 +425,7 @@ namespace EngineTests
         public void RealOrderTest()
         {
             var value = new Polynomial(1, 2, 3, 4, 5, 6);
-            var expected = PolynomialDegree.Quintic;
+            const Engine.PolynomialDegree expected = PolynomialDegree.Quintic;
             var result = value.RealOrder();
             Assert.AreEqual(expected, result);
         }

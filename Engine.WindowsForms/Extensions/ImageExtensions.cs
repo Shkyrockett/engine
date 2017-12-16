@@ -45,7 +45,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="canvas"></param>
         /// <param name="cropArea"></param>
@@ -60,7 +60,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="canvas"></param>
         /// <param name="size"></param>
@@ -78,10 +78,7 @@ namespace Engine.Imaging
             nPercentW = size.Width / (float)sourceWidth;
             nPercentH = size.Height / (float)sourceHeight;
 
-            if (nPercentH < nPercentW)
-                nPercent = nPercentH;
-            else
-                nPercent = nPercentW;
+            nPercent = nPercentH < nPercentW ? nPercentH : nPercentW;
 
             var destWidth = (int)(sourceWidth * nPercent);
             var destHeight = (int)(sourceHeight * nPercent);
@@ -97,7 +94,7 @@ namespace Engine.Imaging
         }
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="canvas"></param>
         ///// <param name="radienAngle"></param>
@@ -186,9 +183,9 @@ namespace Engine.Imaging
         /// <remarks>BE SURE (embedded).cur HAS BUILD ACTION IN PROPERTIES SET TO EMBEDDED RESOURCE!!</remarks>
         public static Cursor RetriveCursorResource(string ResourceName)
         {
-            //  Get the namespace 
+            //  Get the namespace
             var strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
-            //  Get the resource into a stream 
+            //  Get the resource into a stream
             var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream((strNameSpace + ("." + ResourceName)));
             if (ResourceStream == null)
             {
@@ -200,8 +197,8 @@ namespace Engine.Imaging
             }
             else
             {
-                //  ToDo: Report the Error message in a nicer fashion since this in game. 
-                //  Perhaps on Exit provide a message errors were encountered and 
+                //  ToDo: Report the Error message in a nicer fashion since this in game.
+                //  Perhaps on Exit provide a message errors were encountered and
                 //  ignored would you like to send an error report?
                 // TODO: #End If ... Warning!!! not translated
                 return Cursors.Default;

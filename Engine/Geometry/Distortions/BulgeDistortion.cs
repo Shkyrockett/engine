@@ -14,7 +14,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class BulgeDistortion
         : DistortionBase, IDistortion
@@ -22,42 +22,42 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public PolycurveContour distortionPath;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Rectangle2D distortionBounds;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Rectangle2D sourceBounds;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Point2D upperLeft;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Point2D upperRight;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Point2D lowerLeft;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Point2D lowerRight;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private readonly Dictionary<double, Point2D[]> boundCache = new Dictionary<double, Point2D[]>();
 
@@ -66,7 +66,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public BulgeDistortion()
             : base()
@@ -75,7 +75,7 @@ namespace Engine
         #endregion
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="source"></param>
         /// <param name="point"></param>
@@ -96,7 +96,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="upperBoundPoint"></param>
         /// <param name="lowerBoundPoint"></param>
@@ -153,7 +153,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="source"></param>
         private void BuildDistortion(PolycurveContour source)
@@ -189,7 +189,7 @@ namespace Engine
 
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="graphics"></param>
         ///// <param name="width"></param>
@@ -218,7 +218,7 @@ namespace Engine
         //}
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="path"></param>
         /// <param name="width"></param>
@@ -228,7 +228,7 @@ namespace Engine
         internal static PolygonContour Deform(PolygonContour path, int width, int height)
         {
             var rng = new Random();
-            var WarpFactor = 4;
+            const int WarpFactor = 4;
             var xAmp = WarpFactor * width / 300d;
             var yAmp = WarpFactor * height / 50d;
             var xFreq = Maths.Tau / width;

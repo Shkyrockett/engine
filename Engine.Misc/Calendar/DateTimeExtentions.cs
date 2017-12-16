@@ -139,7 +139,7 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
@@ -161,7 +161,7 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="date"></param>
         /// <param name="weekday"></param>
@@ -187,7 +187,7 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="date"></param>
         /// <param name="instance"></param>
@@ -226,7 +226,7 @@ namespace Engine.Chrono
         {
             var firstDay = new DateTime(date.Year, date.Month, 1);
             var fOc = firstDay.DayOfWeek == weekday ? firstDay : firstDay.AddDays(weekday - firstDay.DayOfWeek);
-            // CurDate = 2011.10.1 Occurrence = 1, Day = Friday >> 2011.09.30 FIX. 
+            // CurDate = 2011.10.1 Occurrence = 1, Day = Friday >> 2011.09.30 FIX.
             if (fOc.Month < date.Month) instance += 1;
             return fOc.AddDays(7 * (instance - 1));
         }
@@ -251,7 +251,7 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="date"></param>
         /// <param name="weekday"></param>
@@ -259,16 +259,13 @@ namespace Engine.Chrono
         public static DateTime FirstInstanceWeekdayOfMonth(this DateTime date, DayOfWeek weekday)
         {
             var dtFirstDay = new DateTime(date.Year, date.Month, 1);
-            if (weekday < dtFirstDay.DayOfWeek)
-                dtFirstDay = dtFirstDay.AddDays(weekday - dtFirstDay.DayOfWeek + 7);
-            else
-                dtFirstDay = dtFirstDay.AddDays(weekday - dtFirstDay.DayOfWeek);
+            dtFirstDay = weekday < dtFirstDay.DayOfWeek ? dtFirstDay.AddDays(weekday - dtFirstDay.DayOfWeek + 7) : dtFirstDay.AddDays(weekday - dtFirstDay.DayOfWeek);
 
             return dtFirstDay;
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="date"></param>
         /// <param name="weekday"></param>
@@ -276,10 +273,7 @@ namespace Engine.Chrono
         public static DateTime LastInstanceWeekdayOfMonth(this DateTime date, DayOfWeek weekday)
         {
             var dtLastDay = new DateTime(date.Year, date.Month, 1).AddMonths(1).AddDays(-1);
-            if (weekday > dtLastDay.DayOfWeek)
-                dtLastDay = dtLastDay.AddDays(weekday - dtLastDay.DayOfWeek - 7);
-            else
-                dtLastDay = dtLastDay.AddDays(weekday - dtLastDay.DayOfWeek);
+            dtLastDay = weekday > dtLastDay.DayOfWeek ? dtLastDay.AddDays(weekday - dtLastDay.DayOfWeek - 7) : dtLastDay.AddDays(weekday - dtLastDay.DayOfWeek);
 
             return dtLastDay;
         }

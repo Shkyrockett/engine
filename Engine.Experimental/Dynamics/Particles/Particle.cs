@@ -11,74 +11,54 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The particle class.
     /// </summary>
     public class Particle
     {
         /// <summary>
-        /// 
-        /// </summary>
-        private Point2D location;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Vector2D velocity;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private Vector2D acceleration;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double lifespan;
-
-        /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Particle"/> class.
         /// </summary>
         public Particle()
         {
-            location = Point2D.Empty;
-            velocity = Vector2D.Empty;
-            acceleration = Vector2D.Empty;
-            lifespan = 0;
+            Location = Point2D.Empty;
+            Velocity = Vector2D.Empty;
+            Acceleration = Vector2D.Empty;
+            Lifespan = 0;
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the location.
         /// </summary>
-        public Point2D Location { get { return location; } set { location = value; } }
+        public Point2D Location { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the velocity.
         /// </summary>
-        public Vector2D Velocity { get { return velocity; } set { velocity = value; } }
+        public Vector2D Velocity { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the acceleration.
         /// </summary>
-        public Vector2D Acceleration { get { return acceleration; } set { acceleration = value; } }
+        public Vector2D Acceleration { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the lifespan.
         /// </summary>
-        public double Lifespan { get { return lifespan; } set { lifespan = value; } }
+        public double Lifespan { get; set; }
 
         /// <summary>
-        /// 
+        /// The apply force.
         /// </summary>
-        /// <param name="force"></param>
-        void ApplyForce(Vector2D force) => acceleration += force;
+        /// <param name="force">The force.</param>
+        void ApplyForce(Vector2D force) => Acceleration += force;
 
         /// <summary>
-        /// 
+        /// Update.
         /// </summary>
         void Update()
         {
-            velocity += acceleration;
-            location += velocity;
+            Velocity += Acceleration;
+            Location += Velocity;
         }
     }
 }

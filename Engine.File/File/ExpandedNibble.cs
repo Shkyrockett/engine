@@ -17,7 +17,7 @@ using System.Globalization;
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The expanded nibble struct.
     /// </summary>
     /// <!-- This class is based on several solutions found at: http://stackoverflow.com/questions/11607848/working-with-nibbles-in-c-sharp -->
     public struct ExpandedNibble
@@ -35,51 +35,51 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the high nibble.
         /// </summary>
         public byte HighNibble { get; set; }// = 0;
 
         /// <summary>
-        /// 
+        /// Gets or sets the low nibble.
         /// </summary>
         public byte LowNibble { get; set; }// = 0;
 
         /// <summary>
-        /// 
+        /// Gets or sets the packed value.
         /// </summary>
         private byte PackedValue
         {
             get { return (byte)((HighNibble & 0xF0 << 4) | (LowNibble & 0x0F)); }
             set
             {
-                HighNibble = (byte)(PackedValue >> 4);
-                LowNibble = (byte)(PackedValue & 0x0F);
+                HighNibble = (byte)(value >> 4);
+                LowNibble = (byte)(value & 0x0F);
             }
         }
 
         /// <summary>
-        /// 
+        /// The operator ==.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator ==(ExpandedNibble a, ExpandedNibble b)
             => a.PackedValue == b.PackedValue;
 
         /// <summary>
-        /// 
+        /// The operator !=.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator !=(ExpandedNibble a, ExpandedNibble b)
             => a.PackedValue != b.PackedValue;
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Equals(object obj)
         {
             if (obj is ExpandedNibble)
@@ -89,24 +89,24 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(ExpandedNibble other)
             => PackedValue == other.PackedValue;
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"HighNibble: {HighNibble.ToString(CultureInfo.InvariantCulture)} LowNibble: {LowNibble.ToString(CultureInfo.InvariantCulture)}";
 
         /// <summary>
-        /// 
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode()
             => PackedValue;
     }

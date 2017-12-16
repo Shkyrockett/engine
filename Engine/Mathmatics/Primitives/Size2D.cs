@@ -22,7 +22,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
@@ -120,7 +120,7 @@ namespace Engine
         #region Operators
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -158,7 +158,7 @@ namespace Engine
             => value.Add(addend);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -206,8 +206,8 @@ namespace Engine
             => new Size2D(dividend.Width / divisor, dividend.Height / divisor);
 
         /// <summary>
-        /// Compares two <see cref="Size2D"/> objects. 
-        /// The result specifies whether the values of the <see cref="Width"/> and <see cref="Height"/> 
+        /// Compares two <see cref="Size2D"/> objects.
+        /// The result specifies whether the values of the <see cref="Width"/> and <see cref="Height"/>
         /// values of the two <see cref="Size2D"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>
@@ -217,8 +217,8 @@ namespace Engine
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Size2D"/> objects. 
-        /// The result specifies whether the values of the <see cref="Width"/> or <see cref="Height"/> 
+        /// Compares two <see cref="Size2D"/> objects.
+        /// The result specifies whether the values of the <see cref="Width"/> or <see cref="Height"/>
         /// values of the two <see cref="Size2D"/> objects are unequal.
         /// </summary>
         /// <param name="left"></param>
@@ -239,7 +239,7 @@ namespace Engine
             => Equals(a, b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -259,7 +259,7 @@ namespace Engine
             => obj is Size2D && Equals(this, (Size2D)obj);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
@@ -334,16 +334,9 @@ namespace Engine
 
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
-            if (firstToken == "Empty")
-            {
-                value = Empty;
-            }
-            else
-            {
-                value = new Size2D(
+            value = firstToken == "Empty" ? Empty : new Size2D(
                     Convert.ToDouble(firstToken, provider),
                     Convert.ToDouble(tokenizer.NextTokenRequired(), provider));
-            }
 
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();
@@ -355,7 +348,7 @@ namespace Engine
         //#region Serialization
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerializing()]
@@ -365,7 +358,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnSerialized()]
@@ -375,7 +368,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserializing()]
@@ -385,7 +378,7 @@ namespace Engine
         //}
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="context"></param>
         //[OnDeserialized()]
@@ -399,20 +392,20 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode() => Width.GetHashCode()
     ^ Height.GetHashCode();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Point2D ToPoint2D() => (Point2D)this;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Size2D Truncate() => new Size2D((int)Width, (int)Height);

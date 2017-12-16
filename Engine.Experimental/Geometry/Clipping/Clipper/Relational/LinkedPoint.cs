@@ -35,9 +35,9 @@ namespace Engine.Experimental
         #endregion
 
         /// <summary>
-        /// 
+        /// The point count.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         public int PointCount()
         {
             if (this == null)
@@ -56,9 +56,9 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Update.
         /// </summary>
-        /// <param name="outrec"></param>
+        /// <param name="outrec">The outrec.</param>
         public void Update(OutRec outrec)
         {
             var op2 = this;
@@ -76,9 +76,9 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Dispose the out pt.
         /// </summary>
-        /// <param name="op"></param>
+        /// <param name="op">The op.</param>
         public static void DisposeOutPt(LinkedPoint op)
         {
             if (op.Prev != null)

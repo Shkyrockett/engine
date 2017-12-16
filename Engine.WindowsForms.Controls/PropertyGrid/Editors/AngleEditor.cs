@@ -16,13 +16,13 @@ using System.Windows.Forms.Design;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class AngleEditor
         : UITypeEditor, IDisposable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private AngleControl uiDisplay;
 
@@ -32,7 +32,7 @@ namespace Engine
         private bool disposedValue = false;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
@@ -40,7 +40,7 @@ namespace Engine
             => UITypeEditorEditStyle.DropDown;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         /// <param name="provider"></param>
@@ -67,7 +67,7 @@ namespace Engine
         #region IDisposable Support
 
         /// <summary>
-        /// Releases the unmanaged resources used by the <see cref="AngleEditor"/> 
+        /// Releases the unmanaged resources used by the <see cref="AngleEditor"/>
         /// and optionally releases the managed resources.
         /// </summary>
         /// <param name="disposing">
@@ -100,7 +100,7 @@ namespace Engine
         /// <remarks>This code added to correctly implement the disposable pattern.</remarks>
         public void Dispose()
         {
-            var v = true;
+            const bool v = true;
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(v);
             // TODO: uncomment the following line if the finalizer is overridden above.

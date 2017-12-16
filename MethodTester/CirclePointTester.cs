@@ -19,28 +19,28 @@ using System.Windows.Forms;
 namespace MethodSpeedTester
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public partial class CirclePointTester
         : Form
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<PointF> points;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private Circle circle;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private List<(string, Circle)> circles = new List<(string, Circle)>();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public CirclePointTester()
         {
@@ -48,7 +48,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -68,7 +68,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="font"></param>
@@ -90,14 +90,14 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="g"></param>
         /// <param name="point"></param>
         /// <param name="hit"></param>
         public static void DrawHitPoint(Graphics g, PointF point, Inclusion hit)
         {
-            float pointRadius = 1;
+            const float pointRadius = 1;
             var pointpen = Pens.Red;
             switch (hit)
             {
@@ -114,7 +114,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="minX"></param>
         /// <param name="minY"></param>
@@ -134,7 +134,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -145,7 +145,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -155,7 +155,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircle));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -165,7 +165,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircleInline));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -175,7 +175,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCirclePhilcolbourn));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -185,7 +185,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircleNPhilcolbourn));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -195,7 +195,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircleWilliamMorrison));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -205,7 +205,7 @@ namespace MethodSpeedTester
                 nameof(Experiments.PointInCircleX));
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -213,7 +213,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -221,7 +221,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -229,7 +229,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -237,7 +237,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -245,7 +245,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -253,7 +253,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -261,7 +261,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -269,7 +269,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -277,7 +277,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -285,7 +285,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -293,7 +293,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -301,7 +301,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -309,7 +309,7 @@ namespace MethodSpeedTester
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

@@ -12,12 +12,12 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The heap.
         /// </summary>
         private List<SweepEvent> heap;
 
         /// <summary>
-        /// 
+        /// The sorted.
         /// </summary>
         private bool sorted = false;
 
@@ -26,7 +26,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="EventQueue"/> class.
         /// </summary>
         public EventQueue()
         {
@@ -39,15 +39,14 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets the count.
         /// </summary>
         public int Count
             => heap.Count;
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
-        /// <returns></returns>
         public bool IsEmpty
             => heap.Count == 0;
 
@@ -56,9 +55,9 @@ namespace Engine
         // If already sorted use insertionSort on the inserted item.
 
         /// <summary>
-        /// 
+        /// The enqueue.
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">The obj.</param>
         public void Enqueue(SweepEvent obj)
         {
             if (sorted)
@@ -84,9 +83,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The dequeue.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="SweepEvent"/>.</returns>
         public SweepEvent Dequeue()
         {
             if (!sorted)
@@ -100,9 +99,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The top.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="SweepEvent"/>.</returns>
+        /// <exception cref="InvalidOperationException">The priority queue is empty.</exception>
         public SweepEvent Top()
         {
             if (Count > 0) return heap[0];

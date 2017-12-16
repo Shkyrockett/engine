@@ -13,12 +13,12 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The armature class.
     /// </summary>
     public class Armature
     {
         /// <summary>
-        /// 
+        /// Gets or sets the bones.
         /// </summary>
         public List<Bone> Bones { get; set; }
     }

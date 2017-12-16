@@ -18,13 +18,6 @@ namespace Engine.Colorspace
     public struct CIELAB
         : IColor
     {
-        ///// <summary>
-        ///// Initializes a new instance of the Lightness and Channels A and B color space structure.
-        ///// </summary>
-        //public CIELAB()
-        //    : this(0, 0, 0)
-        //{ }
-
         /// <summary>
         /// Initializes a new instance of the Lightness and Channels A and B color space structure.
         /// </summary>

@@ -4,22 +4,22 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Contour2D
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public List<Point2D> points;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Rectangle2D bounds;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public Contour2D()
         {
@@ -27,7 +27,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p"></param>
         public void Add(Point2D p)
@@ -36,7 +36,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public Rectangle2D Bounds
@@ -68,7 +68,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>

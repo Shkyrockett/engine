@@ -33,7 +33,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         /// <param name="destinationType"></param>
@@ -112,14 +112,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
         public override bool GetCreateInstanceSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="context"></param>
         /// <param name="propertyValues"></param>

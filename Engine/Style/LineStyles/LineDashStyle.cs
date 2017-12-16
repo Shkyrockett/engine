@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -31,43 +31,43 @@ namespace Engine
         : IFormattable
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static readonly LineDashStyle Solid = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 1 });
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static readonly LineDashStyle Dot = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 1, 1 });
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static readonly LineDashStyle Dash = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1 });
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static readonly LineDashStyle DashDot = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1, 1, 1 });
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public static readonly LineDashStyle DashDotDot = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1, 1, 1, 1, 1 });
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         //[NonSerialized()]
         //private DashStyle dashStyle;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private float[] dashPattern;
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         ///// <param name="dashPattern"></param>
         ///// <param name="dashOffset"></param>
@@ -76,7 +76,7 @@ namespace Engine
         //{ }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="dashPattern"></param>
         /// <param name="dashOffset"></param>
@@ -89,13 +89,13 @@ namespace Engine
         }
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         //internal DashStyle DashStyle { get { return dashStyle; } set { dashStyle = value; } }
 
         ///// <summary>
-        ///// 
+        /////
         ///// </summary>
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         //public float[] DashPattern
@@ -115,7 +115,7 @@ namespace Engine
         //}
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Browsable(false)]
         [XmlAttribute("d")]
@@ -125,7 +125,7 @@ namespace Engine
         public string DashPatternText { get { return ToString(); } set { Parse(value); } }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public float DashOffset { get; set; }
 
@@ -192,13 +192,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
         private float[] Parse(string text)
         {
-            var argSeparators = @"[\s,]|(?=-)";
+            const string argSeparators = @"[\s,]|(?=-)";
             return Regex.Split(text, argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => float.Parse(arg)).ToArray();
         }
     }

@@ -11,18 +11,18 @@ using Engine.File;
 namespace EventEditorMidi
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public partial class FormMidiEventEditor
         : Form
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private MusicFiles musicFiles = new MusicFiles();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public FormMidiEventEditor()
         {
@@ -35,7 +35,7 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -63,7 +63,7 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -71,7 +71,7 @@ namespace EventEditorMidi
             => propertyGrid.SelectedObject = treeView.SelectedNode.Tag;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tree"></param>
         /// <param name="items"></param>
@@ -87,7 +87,7 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tree"></param>
         /// <param name="item"></param>
@@ -105,7 +105,7 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="tree"></param>
         /// <param name="item"></param>
@@ -114,10 +114,7 @@ namespace EventEditorMidi
             if (item == null) return;
             string nodeName = null;
             var attributeDisplayName = (Engine.DisplayNameAttribute)Attribute.GetCustomAttribute(item?.GetType(), typeof(Engine.DisplayNameAttribute));
-            if (attributeDisplayName != null)
-                nodeName = attributeDisplayName.DisplayName;
-            else
-                nodeName = item?.ToString();
+            nodeName = attributeDisplayName != null ? attributeDisplayName.DisplayName : item?.ToString();
 
             var node = new TreeNode(nodeName)
             {
@@ -168,7 +165,7 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -184,7 +181,7 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -214,7 +211,7 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="fileName"></param>
         private void OpenFile(string fileName)
@@ -235,7 +232,7 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -243,7 +240,7 @@ namespace EventEditorMidi
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

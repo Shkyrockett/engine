@@ -14,17 +14,17 @@ using static Engine.SegmentComparators;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The sweep event set class.
     /// </summary>
     public class SweepEventSet
     {
         /// <summary>
-        /// 
+        /// The event set.
         /// </summary>
         public List<SweepEvent> eventSet;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SweepEventSet"/> class.
         /// </summary>
         public SweepEventSet()
         {
@@ -32,9 +32,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Remove.
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="key">The key.</param>
         public void Remove(SweepEvent key)
         {
             var keyIndex = eventSet.IndexOf(key);
@@ -45,10 +45,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Insert.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">The item.</param>
+        /// <returns>The <see cref="int"/>.</returns>
         public int Insert(SweepEvent item)
         {
             var length = eventSet.Count;

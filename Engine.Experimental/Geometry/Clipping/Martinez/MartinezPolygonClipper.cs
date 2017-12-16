@@ -23,17 +23,17 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The subject.
         /// </summary>
         private Polygon subject;
 
         /// <summary>
-        /// 
+        /// The clipping.
         /// </summary>
         private Polygon clipping;
 
         /// <summary>
-        /// 
+        /// The event queue.
         /// </summary>
         private EventQueue eventQueue;
 
@@ -42,10 +42,10 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MartinezPolygonClipper"/> class.
         /// </summary>
-        /// <param name="subject"></param>
-        /// <param name="clipping"></param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="clipping">The clipping.</param>
         public MartinezPolygonClipper(Polygon subject, Polygon clipping)
         {
             this.subject = subject;
@@ -269,11 +269,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection.
         /// </summary>
-        /// <param name="seg0"></param>
-        /// <param name="seg1"></param>
-        /// <returns></returns>
+        /// <param name="seg0">The seg0.</param>
+        /// <param name="seg1">The seg1.</param>
+        /// <returns>The <see cref="(int, Point2D[])"/>.</returns>
         private (int, Point2D[]) FindIntersection(LineSegment seg0, LineSegment seg1)
         {
             var pi0 = new Point2D();
@@ -283,7 +283,7 @@ namespace Engine
             var d0 = new Vector2D(seg0.B.X - p0.X, seg0.B.Y - p0.Y);
             var p1 = seg1.A;
             var d1 = new Vector2D(seg1.B.X - p1.X, seg1.B.Y - p1.Y);
-            var sqrEpsilon = 0.0000001d; // Antes 0.001
+            const double sqrEpsilon = 0.0000001d; // Antes 0.001
             var E = new Vector2D(p1.X - p0.X, p1.Y - p0.Y);
             var cross = d0.I * d1.J - d0.J * d1.I;
             var sqrCross = cross * cross;
@@ -353,13 +353,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Find the intersection.
         /// </summary>
-        /// <param name="u0"></param>
-        /// <param name="u1"></param>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <returns></returns>
+        /// <param name="u0">The u0.</param>
+        /// <param name="u1">The u1.</param>
+        /// <param name="v0">The v0.</param>
+        /// <param name="v1">The v1.</param>
+        /// <returns>The <see cref="(int, double[] w)"/>.</returns>
         private static (int, double[] w) FindIntersection(double u0, double u1, double v0, double v1)
         {
             var w = new double[2];
@@ -389,10 +389,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The possible intersection.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
         private void PossibleIntersection(SweepEvent e1, SweepEvent e2)
         {
             //if ((e1.pl == e2.pl)) // Uncomment these two lines if self-intersecting polygons are not allowed
@@ -490,10 +490,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The divide segment.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="p"></param>
+        /// <param name="e">The e.</param>
+        /// <param name="p">The p.</param>
         private void DivideSegment(SweepEvent e, Point2D p)
         {
             var left = new SweepEvent(true, p, e.OtherEvent, e.BelongsTo, e.OtherEvent.Contribution);
@@ -513,10 +513,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process the segment.
         /// </summary>
-        /// <param name="segment"></param>
-        /// <param name="polyType"></param>
+        /// <param name="segment">The segment.</param>
+        /// <param name="polyType">The polyType.</param>
         private void ProcessSegment(LineSegment segment, ClippingRelations polyType)
         {
             if (segment.A.Equals(segment.B)) // Possible degenerate condition.
@@ -549,7 +549,5 @@ namespace Engine
             eventQueue.Enqueue(e1);
             eventQueue.Enqueue(e2);
         }
-
-
     }
 }

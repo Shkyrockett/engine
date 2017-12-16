@@ -98,10 +98,10 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Write the string.
         /// </summary>
-        /// <param name="bw"></param>
-        /// <param name="value"></param>
+        /// <param name="bw">The bw.</param>
+        /// <param name="value">The value.</param>
         public static void WriteString(this BinaryWriter bw, string value)
             => bw.Write(Encoding.ASCII.GetBytes(value));
     }

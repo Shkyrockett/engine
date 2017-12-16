@@ -14,7 +14,7 @@ using System.Drawing;
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static partial class Renderer
     {
@@ -27,7 +27,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this ParametricPointTester shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            var pointRadius = 1f;
+            const float pointRadius = 1f;
 
             var results = shape.Interactions();
 
@@ -62,7 +62,7 @@ namespace Engine.Imaging
         /// <param name="style"></param>
         public static void Render(this ParametricWarpGrid shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
-            var pointRadius = 1f;
+            const float pointRadius = 1f;
 
             var results = shape.Warp();
 
@@ -96,10 +96,7 @@ namespace Engine.Imaging
             var tickBrush = Pens.Red;
             foreach (var angle in shape.TestAngles)
             {
-                if (shape.InSweep(angle))
-                    tickBrush = Pens.Lime;
-                else
-                    tickBrush = Pens.Red;
+                tickBrush = shape.InSweep(angle) ? Pens.Lime : Pens.Red;
                 g.DrawLine(tickBrush, shape.Location.ToPointF(), shape.TestPoint(angle).ToPointF());
                 g.DrawString("a" + num, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), Brushes.Black, shape.TestPoint(angle).ToPointF());
                 num++;
@@ -107,7 +104,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="shape"></param>
         /// <param name="g"></param>

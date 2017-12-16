@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The line joins enum.
     /// </summary>
     public enum LineJoins
         : byte

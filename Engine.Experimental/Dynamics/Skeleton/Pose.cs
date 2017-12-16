@@ -11,12 +11,12 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The pose class.
     /// </summary>
     public class Pose
     {
         /// <summary>
-        /// 
+        /// Gets or sets the bones.
         /// </summary>
         Bone[] Bones { get; set; }
     }

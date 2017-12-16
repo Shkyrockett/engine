@@ -6,7 +6,7 @@
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary>
-//   Methods for calculating measurements of geometric entities. 
+//   Methods for calculating measurements of geometric entities.
 // </summary>
 // <remarks></remarks>
 
@@ -1424,11 +1424,11 @@ namespace Engine
             var q4 = 4d * (k2.X * k3.X + k2.Y * k3.Y);
             var q5 = Sqrt(Abs(k3.X)) + Sqrt(Abs(k3.Y));
 
-            // Approximation algorithm based on Simpson. 
-            var a = 0d;
-            var b = 1d;
-            var n_limit = 1024;
-            var TOLERANCE = 0.001d;
+            // Approximation algorithm based on Simpson.
+            const double a = 0d;
+            const double b = 1d;
+            const int n_limit = 1024;
+            const double TOLERANCE = 0.001d;
 
             var n = 1;
 
@@ -1604,8 +1604,8 @@ namespace Engine
             double angle,
             double startAngle, double sweepAngle)
         {
-            var start = Maths.WrapAngle(angle + startAngle);
-            var end = Maths.WrapAngle(start + sweepAngle);
+            var start = (angle + startAngle).WrapAngle();
+            var end = (start + sweepAngle).WrapAngle();
 
             var bounds = new Rectangle2D(
                 new Point2D(cX + r * Cos(startAngle), cY + r * Sin(startAngle)),
@@ -1896,130 +1896,6 @@ namespace Engine
             (double top, double bottom) = CurveY.MinMax(0, 1);
             return new Rectangle2D(left, top, right - left, bottom - top);
         }
-
-        ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Quadratic Bezier curve.
-        ///// </summary>
-        ///// <param name="ax">The x-component of the starting point.</param>
-        ///// <param name="ay">The y-component of the starting point.</param>
-        ///// <param name="bx">The x-component of the handle point.</param>
-        ///// <param name="by">The y-component of the handle point.</param>
-        ///// <param name="cx">The x-component of the end point.</param>
-        ///// <param name="cy">The y-component of the end point.</param>
-        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Quadratic Bezier curve.</returns>
-        ///// <remarks></remarks>
-        ///// <acknowledgment>
-        ///// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
-        ///// http://jsfiddle.net/SalixAlba/QQnvm/4/
-        ///// </acknowledgment>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D QuadraticBezierBounds(
-        //    double ax, double ay,
-        //    double bx, double by,
-        //    double cx, double cy)
-        //{
-        //    var cubic = Conversions.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
-        //    return CubicBezierBounds(cubic[0].X, cubic[0].Y, cubic[1].X, cubic[1].Y, cubic[2].X, cubic[2].Y, cubic[3].X, cubic[3].Y);
-        //}
-
-        ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Cubic Bezier curve.
-        ///// </summary>
-        ///// <param name="ax">The x-component of the starting point.</param>
-        ///// <param name="ay">The y-component of the starting point.</param>
-        ///// <param name="bx">The x-component of the first handle point.</param>
-        ///// <param name="by">The y-component of the first handle point.</param>
-        ///// <param name="cx">The x-component of the second handle point.</param>
-        ///// <param name="cy">The y-component of the second handle point.</param>
-        ///// <param name="dx">The x-component of the end point.</param>
-        ///// <param name="dy">The y-component of the end point.</param>
-        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Cubic Bezier curve.</returns>
-        ///// <remarks>
-        ///// This method has an error where if the end nodes are horizontal to each other, while the handles are also horizontal to each other the bounds are not correctly calculated.
-        ///// </remarks>
-        ///// <acknowledgment>
-        ///// Method created using the following resources.
-        ///// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
-        ///// http://nishiohirokazu.blogspot.com/2009/06/how-to-calculate-bezier-curves-bounding.html
-        ///// http://jsfiddle.net/SalixAlba/QQnvm/4/
-        ///// </acknowledgment>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public static Rectangle2D CubicBezierBounds(
-        //    double ax, double ay,
-        //    double bx, double by,
-        //    double cx, double cy,
-        //    double dx, double dy)
-        //{
-        //    // Calculate the polynomial of the cubic.
-        //    var a = -3 * ax + 9 * bx - 9 * cx + 3 * dx;
-        //    var b = 6 * ax - 12 * bx + 6 * cx;
-        //    var c = -3 * ax + 3 * bx;
-
-        //    // Calculate the discriminant of the polynomial.
-        //    var discriminant = b * b - 4 * a * c;
-
-        //    // Find the high and low x ends.
-        //    var xlow = (dx < ax) ? dx : ax;
-        //    var xhigh = (dx > ax) ? dx : ax;
-
-        //    if (discriminant >= 0)
-        //    {
-        //        // Find the positive solution using the quadratic formula.
-        //        var t1 = (-b + Sqrt(discriminant)) / (2 * a);
-
-        //        if (t1 > 0 && t1 < 1)
-        //        {
-        //            var x1 = Interpolators.Cubic(ax, bx, cx, dx, t1);
-        //            if (x1 < xlow) xlow = x1;
-        //            if (x1 > xhigh) xhigh = x1;
-        //        }
-
-        //        // Find the negative solution using the quadratic formula.
-        //        var t2 = (-b - Sqrt(discriminant)) / (2 * a);
-
-        //        if (t2 > 0 && t2 < 1)
-        //        {
-        //            var x2 = Interpolators.Cubic(ax, bx, cx, dx, t2);
-        //            if (x2 < xlow) xlow = x2;
-        //            if (x2 > xhigh) xhigh = x2;
-        //        }
-        //    }
-
-        //    a = -3 * ay + 9 * by - 9 * cy + 3 * dy;
-        //    b = 6 * ay - 12 * by + 6 * cy;
-        //    c = -3 * ay + 3 * by;
-
-        //    discriminant = b * b - 4 * a * c;
-
-        //    var yl = ay;
-        //    var yh = ay;
-        //    if (dy < yl) yl = dy;
-        //    if (dy > yh) yh = dy;
-        //    if (discriminant >= 0)
-        //    {
-        //        var t1 = (-b + Sqrt(discriminant)) / (2 * a);
-
-        //        if (t1 > 0 && t1 < 1)
-        //        {
-        //            var y1 = Interpolators.Cubic(ay, by, cy, dy, t1);
-        //            if (y1 < yl) yl = y1;
-        //            if (y1 > yh) yh = y1;
-        //        }
-
-        //        var t2 = (-b - Sqrt(discriminant)) / (2 * a);
-
-        //        if (t2 > 0 && t2 < 1)
-        //        {
-        //            var y2 = Interpolators.Cubic(ay, by, cy, dy, t2);
-        //            if (y2 < yl) yl = y2;
-        //            if (y2 > yh) yh = y2;
-        //        }
-        //    }
-
-        //    return new Rectangle2D(xlow, xhigh, yl, yh);
-        //}
 
         /// <summary>
         /// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a polycurve contour.
@@ -2314,7 +2190,7 @@ namespace Engine
             return 1 - derivRoots
                 .Where(t => t > 0 && t < 1)
                 .Concat(Polynomial.Identity)
-                .OrderBy(x => dsquare.Evaluate(x))
+                .OrderBy(dsquare.Evaluate)
                 .First();
         }
 

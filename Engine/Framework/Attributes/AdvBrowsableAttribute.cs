@@ -26,26 +26,26 @@ using System.Reflection;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public sealed class AdvBrowsableAttribute
         : Attribute
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         string name;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public AdvBrowsableAttribute()
             : this(null)
         { }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="name"></param>
         public AdvBrowsableAttribute(string name)
@@ -54,13 +54,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public string Name
             => name;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
@@ -76,14 +76,7 @@ namespace Engine
                 {
                     var att = (AdvBrowsableAttribute)atts[0];
                     AdvPropertyDescriptor descriptor;
-                    if (att.Name != null)
-                    {
-                        descriptor = new AdvPropertyDescriptor(att.Name, info);
-                    }
-                    else
-                    {
-                        descriptor = new AdvPropertyDescriptor(info);
-                    }
+                    descriptor = att.Name != null ? new AdvPropertyDescriptor(att.Name, info) : new AdvPropertyDescriptor(info);
                     atts = info.GetCustomAttributes(typeof(DescriptionAttribute), true);
                     if (atts.Length > 0)
                     {
@@ -100,14 +93,7 @@ namespace Engine
                 {
                     var att = (AdvBrowsableAttribute)atts[0];
                     AdvPropertyDescriptor descriptor;
-                    if (att.Name != null)
-                    {
-                        descriptor = new AdvPropertyDescriptor(att.Name, info);
-                    }
-                    else
-                    {
-                        descriptor = new AdvPropertyDescriptor(info);
-                    }
+                    descriptor = att.Name != null ? new AdvPropertyDescriptor(att.Name, info) : new AdvPropertyDescriptor(info);
                     atts = info.GetCustomAttributes(typeof(DescriptionAttribute), true);
                     if (atts.Length > 0)
                     {

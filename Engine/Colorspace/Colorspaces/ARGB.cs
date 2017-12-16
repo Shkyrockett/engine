@@ -195,7 +195,7 @@ namespace Engine.Colorspace
         #region Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -221,7 +221,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -271,7 +271,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -301,14 +301,7 @@ namespace Engine.Colorspace
             {
                 l = (max + min) / 2;
 
-                if (l <= .5)
-                {
-                    s = (max - min) / (max + min);
-                }
-                else
-                {
-                    s = (max - min) / (2 - max - min);
-                }
+                s = l <= .5 ? (max - min) / (max + min) : (max - min) / (2 - max - min);
             }
             return s;
         }
@@ -370,7 +363,7 @@ namespace Engine.Colorspace
             => Equals(this, value);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple()

@@ -56,7 +56,7 @@ namespace Engine
             }
 
             // (larger than total solution dist could ever be)
-            var maxLength = double.MaxValue;
+            const double maxLength = double.MaxValue;
 
             var pointList = new List<(double X, double Y, double TotalDistance, int Previous)>
             {

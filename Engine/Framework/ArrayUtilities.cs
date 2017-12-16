@@ -15,12 +15,12 @@ using System.Linq;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public static class ArrayUtilities
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -34,20 +34,8 @@ namespace Engine
             array[array.Length - 1] = t;
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <typeparam name="T"></typeparam>
-        ///// <param name="array"></param>
-        ///// <param name="t"></param>
-        //public static T[] Add<T>(this T[] array, T t)
-        //{
-        //    array.Add(t);
-        //    return array;
-        //}
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -60,7 +48,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="array"></param>
@@ -73,7 +61,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -86,7 +74,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -99,7 +87,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="list"></param>
@@ -159,7 +147,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>
@@ -176,7 +164,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="U"></typeparam>
@@ -196,7 +184,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="Source"></param>
@@ -212,7 +200,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="inputList"></param>

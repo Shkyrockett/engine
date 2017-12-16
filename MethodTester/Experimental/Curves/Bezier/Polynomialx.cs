@@ -23,7 +23,7 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class Polynomialx
         : IFormattable
@@ -31,7 +31,7 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         bool isReadonly;
 
@@ -53,8 +53,7 @@ namespace Engine
         /// <param name="coefficients"></param>
         public Polynomialx(params double[] coefficients)
         {
-            if (coefficients?.Length == 0) Coefficients = new List<double>(1);
-            else Coefficients = new List<double>(coefficients);
+            Coefficients = coefficients?.Length == 0 ? new List<double>(1) : new List<double>(coefficients);
         }
 
         #endregion
@@ -62,18 +61,18 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public List<double> Coefficients { get; set; }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public int Degree
             => Coefficients.Count - 1;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -105,7 +104,7 @@ namespace Engine
         #region Operators
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <returns></returns>
@@ -116,7 +115,7 @@ namespace Engine
             => a;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="b"></param>
         /// <param name="a"></param>
@@ -128,7 +127,7 @@ namespace Engine
             => a + b;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -145,7 +144,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -167,7 +166,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <returns></returns>
@@ -183,7 +182,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -195,7 +194,7 @@ namespace Engine
             => a + (-b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="b"></param>
         /// <param name="a"></param>
@@ -212,7 +211,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -234,7 +233,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p"></param>
         /// <param name="m"></param>
@@ -246,7 +245,7 @@ namespace Engine
             => m * p;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="m"></param>
         /// <param name="p"></param>
@@ -263,7 +262,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -284,7 +283,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="p"></param>
         /// <param name="m"></param>
@@ -305,7 +304,7 @@ namespace Engine
         #region Factories
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="power"></param>
         /// <param name="coefficient"></param>
@@ -351,7 +350,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -360,7 +359,7 @@ namespace Engine
             => new Polynomialx(a, b);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -370,7 +369,7 @@ namespace Engine
             => new Polynomialx(a, b, c);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -381,7 +380,7 @@ namespace Engine
             => new Polynomialx(a, b, c, d);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -393,7 +392,7 @@ namespace Engine
             => new Polynomialx(a, b, c, d, e);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -406,7 +405,7 @@ namespace Engine
             => new Polynomialx(a, b, c, d, e, f);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -420,7 +419,7 @@ namespace Engine
             => new Polynomialx(a, b, c, d, e, f, g);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -435,7 +434,7 @@ namespace Engine
             => new Polynomialx(a, b, c, d, e, f, g, h);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="e1"></param>
         /// <param name="e2"></param>
@@ -470,7 +469,7 @@ namespace Engine
         #region Specific Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -501,7 +500,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -517,7 +516,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="term0"></param>
         /// <returns></returns>
@@ -535,7 +534,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -570,7 +569,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -589,7 +588,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -610,7 +609,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -631,7 +630,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
@@ -650,7 +649,7 @@ namespace Engine
             else if (minValue * maxValue <= 0)
             {
                 var tmp1 = Log(max - min);
-                var tmp2 = LN10 * Accuracy;
+                const double tmp2 = LN10 * Accuracy;
                 var iters = Ceiling((tmp1 + tmp2) / LN2);
 
                 for (var i = 0; i < iters; i++)
@@ -680,7 +679,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -691,7 +690,7 @@ namespace Engine
             => RealOrder(Coefficients.ToArray());
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="coefficients"></param>
         /// <returns></returns>
@@ -716,7 +715,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="x1"></param>
@@ -761,7 +760,7 @@ namespace Engine
             => (CanSolveRealRoots) ? SolveRealRoots() : FindRoots().Where(c => Abs(c.Imaginary) < Epsilon).Select(c => c.Real);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -772,7 +771,7 @@ namespace Engine
             => SolveRealRoots(Coefficients.ToArray());
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="coefficients"></param>
         /// <returns></returns>
@@ -864,7 +863,7 @@ namespace Engine
                         var c = coefficients[2] / coefficients[4];
                         var d = coefficients[1] / coefficients[4];
                         var e = coefficients[0] / coefficients[4];
-                        // <=> y^4 + p x^2 + q x + r = 0, 
+                        // <=> y^4 + p x^2 + q x + r = 0,
                         // where x = y - b / 4
                         var p = c - 3 * b * b / 8;
                         var q = (b * b * b - 4 * b * c + 8 * d) / 8;
@@ -974,7 +973,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
@@ -1024,12 +1023,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="roots"></param>
         public void RemoveMultipleRootsIn01(List<double> roots)
         {
-            var ZEROepsilon = 1e-15;
+            const double ZEROepsilon = 1e-15;
             roots.Sort();// (a, b)=> { return a - b; });
             for (var i = 1; i < roots.Count;)
             {
@@ -1045,7 +1044,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -1056,7 +1055,7 @@ namespace Engine
             => Trim(Epsilon);
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns></returns>
@@ -1089,7 +1088,7 @@ namespace Engine
         #region Standard Methods
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
@@ -1105,7 +1104,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public override Int32 GetHashCode()

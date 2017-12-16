@@ -15,28 +15,28 @@ using static Engine.Maths;
 namespace Engine.Tweening
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public class NumericLerper
         : Lerper
     {
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double from;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double to;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         private double range;
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="fromValue"></param>
         /// <param name="toValue"></param>
@@ -60,13 +60,12 @@ namespace Engine.Tweening
                 var d = r - angle;
                 var a = Abs(d);
 
-                if (a >= 180d) range = (360d - a) * (d > 0d ? -1d : 1d);
-                else range = d;
+                range = a >= 180d ? (360d - a) * (d > 0d ? -1d : 1d) : d;
             }
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="t"></param>
         /// <param name="currentValue"></param>

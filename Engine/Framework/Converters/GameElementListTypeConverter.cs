@@ -77,6 +77,11 @@ namespace Engine
         private class GameElementDescriptor
             : SimplePropertyDescriptor
         {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="GameElementDescriptor"/> class.
+            /// </summary>
+            /// <param name="gameElement">The gameElement.</param>
+            /// <param name="index">The index.</param>
             public GameElementDescriptor(IGameElement gameElement, int index)
                 : base(gameElement.GetType(), index.ToString(), typeof(string))
             {

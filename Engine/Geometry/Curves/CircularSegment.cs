@@ -546,7 +546,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public List<Point2D> InterpolatePoints()
+        public static List<Point2D> InterpolatePoints()
         {
             //double delta_phi = 2 * PI / ArcLength;
             var points = new List<Point2D>();

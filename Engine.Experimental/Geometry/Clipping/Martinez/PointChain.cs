@@ -20,26 +20,12 @@ namespace Engine
     /// </summary>
     public class PointChain
     {
-        #region Fields
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private List<Point2D> pointList;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private bool closed;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointChain"/> class.
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="s">The s.</param>
         public PointChain(LineSegment s)
         {
             PointList = new List<Point2D>
@@ -55,14 +41,14 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
-        public bool Closed { get { return closed; } set { closed = value; } }
+        public bool Closed { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the point list.
         /// </summary>
-        public List<Point2D> PointList { get { return pointList; } set { pointList = value; } }
+        public List<Point2D> PointList { get; set; }
 
         #endregion
 

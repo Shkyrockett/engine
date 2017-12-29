@@ -142,7 +142,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void Distance2DTest()
         {
@@ -168,7 +168,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void DistanceLineSegmentPointTest()
         {
@@ -195,7 +195,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void ConstrainedDistanceLineSegmentPointTest()
         {
@@ -222,7 +222,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void SquareDistanceLineSegmentPointTest()
         {
@@ -253,7 +253,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void VectorMagnitudeTest()
         {
@@ -279,7 +279,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void VectorMagnitudeSquaredTest()
         {
@@ -461,7 +461,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void ArcAreaTest()
         {
@@ -513,7 +513,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void CircleAreaTest()
         {
@@ -544,7 +544,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void EllipseAreaTest()
         {
@@ -574,7 +574,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void RectangleAreaTest()
         {
@@ -604,7 +604,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void SquareAreaTest()
         {
@@ -635,7 +635,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void PolygonAreaTest()
         {
@@ -671,7 +671,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void SignedPolygonAreaTest()
         {
@@ -711,7 +711,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void LineSegmentBoundsTest()
         {
@@ -739,7 +739,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void CircleBoundsTest()
         {
@@ -766,7 +766,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void CircularArcBoundsTest()
         {
@@ -795,7 +795,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void EllipseBoundsTest()
         {
@@ -822,7 +822,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void EllipticalArcBoundsTest()
         {
@@ -849,7 +849,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void RotatedRectangleBoundsTest()
         {
@@ -877,7 +877,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void PolygonBoundsTest()
         {
@@ -905,7 +905,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void PolylineBoundsTest()
         {
@@ -933,7 +933,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void QuadraticBezierBoundsTest()
         {
@@ -964,7 +964,7 @@ namespace EngineTests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MeasurementsTests")]
+        [TestProperty(nameof(Engine), nameof(MeasurementsTests))]
         [DeploymentItem("Engine.dll")]
         public void CubicBezierBoundsTest()
         {

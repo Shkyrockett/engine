@@ -15,7 +15,7 @@ using System.Runtime.CompilerServices;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The rotate distort class.
     /// </summary>
     public class RotateDistort
         : PreservingFilter
@@ -25,16 +25,16 @@ namespace Engine
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
-        //[NonSerialized()]
+        [NonSerialized]
         protected Dictionary<object, object> propertyCache = new Dictionary<object, object>();
 
         /// <summary>
-        /// 
+        /// The center.
         /// </summary>
         private Point2D center;
 
         /// <summary>
-        /// 
+        /// The angle.
         /// </summary>
         private double angle;
 
@@ -43,10 +43,10 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="RotateDistort"/> class.
         /// </summary>
-        /// <param name="center"></param>
-        /// <param name="angle"></param>
+        /// <param name="center">The center.</param>
+        /// <param name="angle">The angle.</param>
         public RotateDistort(Point2D center, double angle)
         {
             this.center = center;
@@ -58,7 +58,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the center.
         /// </summary>
         public Point2D Center
         {
@@ -71,7 +71,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the angle.
         /// </summary>
         public double Angle
         {
@@ -84,13 +84,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the x axis.
         /// </summary>
         public Point2D XAxis
             => (Point2D)CachingProperty(() => new Point2D(Math.Cos(Angle), Math.Sin(Angle)));
 
         /// <summary>
-        /// 
+        /// Gets the y axis.
         /// </summary>
         public Point2D YAxis
             => (Point2D)CachingProperty(() => new Point2D(-Math.Sin(Angle), Math.Cos(Angle)));
@@ -100,15 +100,15 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => Distortions.Rotate(point, Center, XAxis, YAxis);
 
         /// <summary>
-        /// This should be run anytime a property of the item is modified.
+        /// Clear the cache.
         /// </summary>
         public void ClearCache()
             => propertyCache.Clear();

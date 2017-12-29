@@ -236,7 +236,7 @@ namespace Engine.Tweening
         /// </summary>
         /// <param name="propertyType"></param>
         /// <returns></returns>
-        private Lerper CreateLerper(Type propertyType)
+        private static Lerper CreateLerper(Type propertyType)
         {
             if (!RegisteredLerpers.TryGetValue(propertyType, out var lerper))
                 throw new Exception($"No {nameof(Lerper)} found for type {propertyType.FullName}.");
@@ -288,7 +288,7 @@ namespace Engine.Tweening
             toRemove.Clear();
         }
 
-        #region Target control
+        #region Target Control
 
         /// <summary>
         /// Cancel all tweens with the given target.

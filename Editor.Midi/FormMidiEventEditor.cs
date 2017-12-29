@@ -236,7 +236,7 @@ namespace EventEditorMidi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ToolStripButtonSaveFile_Click(object sender, EventArgs e)
+        private static void ToolStripButtonSaveFile_Click(object sender, EventArgs e)
         { }
 
         /// <summary>
@@ -244,7 +244,7 @@ namespace EventEditorMidi
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ToolStripButtonCloseFile_Click(object sender, EventArgs e)
+        private static void ToolStripButtonCloseFile_Click(object sender, EventArgs e)
         { }
     }
 }

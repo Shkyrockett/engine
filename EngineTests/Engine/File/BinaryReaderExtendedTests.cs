@@ -78,7 +78,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt14Test()
@@ -112,7 +112,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt14Test()
@@ -146,7 +146,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt16Test()
@@ -179,7 +179,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt16Test()
@@ -212,7 +212,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt24Test()
@@ -245,7 +245,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt24Test()
@@ -278,7 +278,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt32Test()
@@ -312,7 +312,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt32Test()
@@ -346,7 +346,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkUInt64Test()
@@ -380,7 +380,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadNetworkInt64Test()
@@ -414,7 +414,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void Read7BitEncodedIntTest()
@@ -447,7 +447,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadUTF8StringTest()
@@ -471,7 +471,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryReaderExtended")]
+        [TestProperty("Engine.File", nameof(BinaryReaderExtended))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("Engine.File.dll")]
         public void ReadASCIIStringTest()

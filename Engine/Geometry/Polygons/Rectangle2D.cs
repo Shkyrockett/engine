@@ -172,8 +172,8 @@ namespace Engine
         /// <param name="width"></param>
         public void Deconstruct(out double left, out double top, out double width, out double height)
         {
-            left = this.x;
-            top = this.y;
+            left = x;
+            top = y;
             width = this.width;
             height = this.height;
         }
@@ -185,7 +185,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate location of the rectangle.
         /// </summary>
-        [XmlAttribute("x")]
+        [XmlAttribute(nameof(x))]
         [Browsable(true)]
         //[DisplayName(nameof(X))]
         [Category("Elements")]
@@ -206,7 +206,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate location of the rectangle.
         /// </summary>
-        [XmlAttribute("y")]
+        [XmlAttribute(nameof(y))]
         [Browsable(true)]
         //[DisplayName(nameof(Y))]
         [Category("Elements")]

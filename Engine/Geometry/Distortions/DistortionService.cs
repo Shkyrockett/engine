@@ -13,24 +13,24 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The distortion service class.
     /// </summary>
     public class DistortionService
     {
         #region Fields
 
         /// <summary>
-        /// 
+        /// The distortion (readonly).
         /// </summary>
         private readonly IDistortion distortion;
 
         /// <summary>
-        /// 
+        /// The source (readonly).
         /// </summary>
         private readonly PolycurveContour source;
 
         /// <summary>
-        /// 
+        /// The flatness (readonly).
         /// </summary>
         private readonly float flatness;
 
@@ -58,7 +58,7 @@ namespace Engine
         /// returns a newly created graphics path with points distorted
         /// </summary>
         /// <returns>The distorted Graphics Path</returns>
-        public PolycurveContour ApplyDistortion()
+        public static PolycurveContour ApplyDistortion()
         {
             //var it = new GraphicsPathIterator(source);
             //it.Rewind();
@@ -82,10 +82,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The inject precision points.
         /// </summary>
-        /// <param name="gp"></param>
-        private void InjectPrecisionPoints(PolycurveContour gp)
+        /// <param name="gp">The gp.</param>
+        private static void InjectPrecisionPoints(PolycurveContour gp)
         {
             var InsertDictionary = new Dictionary<int, Point2D[]>();
             //inject points on vertical and horizontal runs to increase precision

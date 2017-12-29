@@ -664,7 +664,7 @@ namespace Engine.File
         ReverseCymbal = 119,
 
         #endregion
-        #region Sound effects
+        #region Sound Effects
 
         /// <summary>
         /// Guitar Fret Noise.

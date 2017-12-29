@@ -21,7 +21,7 @@ namespace Engine.File.Palettes
     /// The <see cref="Palette"/> class used for loading, saving and storing color palette entries.
     /// </summary>
     [FileObject]
-    [DisplayName("Palette")]
+    [DisplayName(nameof(Palette))]
     public class Palette
         : IEnumerable
     {
@@ -662,7 +662,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="testColor"></param>
         /// <returns></returns>
-        private ARGB LookupNamedColor(ARGB testColor)
+        private static ARGB LookupNamedColor(ARGB testColor)
         {
             //var known = ColorSpace.Colors.Color[testColor];
 

@@ -36,8 +36,14 @@ namespace Engine
     {
         #region Fields
 
+        /// <summary>
+        /// The items.
+        /// </summary>
         List<CurveSegment> items;
 
+        /// <summary>
+        /// The closed.
+        /// </summary>
         bool closed = false;
         //private CubicBezier[] cubicBezier;
 

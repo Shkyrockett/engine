@@ -513,7 +513,7 @@ namespace Engine
             var firstToken = tokenizer.NextTokenRequired();
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
-            value = firstToken == "Identity" ? Identity : new Matrix3x2D(
+            value = firstToken == nameof(Identity) ? Identity : new Matrix3x2D(
                     firstToken.ParseFloat(formatProvider),
                     tokenizer.NextTokenRequired().ParseFloat(formatProvider),
                     tokenizer.NextTokenRequired().ParseFloat(formatProvider),
@@ -1528,7 +1528,7 @@ namespace Engine
 #pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
             if (this == null) return nameof(Matrix3x2D);
 #pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
-            if (IsIdentity) return "Identity";
+            if (IsIdentity) return nameof(Identity);
             // Helper to get the numeric list separator for a given culture.
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Matrix3x2D)}{{{nameof(M11)}={m0x0}{sep}{nameof(M12)}={m0x1}{sep}{nameof(M21)}={m1x0}{sep}{nameof(M22)}={m1x1}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";

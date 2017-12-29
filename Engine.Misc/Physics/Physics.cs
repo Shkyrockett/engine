@@ -22,7 +22,7 @@ namespace Engine.Physics
         /// <param name="v2"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        public double AddVelocities(double v1, double v2, double c = 299790000d)
+        public static double AddVelocities(double v1, double v2, double c = 299790000d)
             => v1 + v2 / (1 + v1 * v2 / c * c);
     }
 }

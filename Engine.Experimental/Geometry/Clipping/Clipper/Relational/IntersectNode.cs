@@ -38,6 +38,58 @@ namespace Engine.Experimental
 
         #endregion
 
+        #region Operators
+
+        /// <summary>
+        /// The operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator ==(IntersectNode left, IntersectNode right) => left.Equals(right);
+
+        /// <summary>
+        /// The operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator !=(IntersectNode left, IntersectNode right) => !(left == right);
+
+        /// <summary>
+        /// The operator &lt;.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator <(IntersectNode left, IntersectNode right) => left.CompareTo(right) < 0;
+
+        /// <summary>
+        /// The operator &lt;=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator <=(IntersectNode left, IntersectNode right) => left.CompareTo(right) <= 0;
+
+        /// <summary>
+        /// The operator &gt;.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator >(IntersectNode left, IntersectNode right) => left.CompareTo(right) > 0;
+
+        /// <summary>
+        /// The operator &gt;=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator >=(IntersectNode left, IntersectNode right) => left.CompareTo(right) >= 0;
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -64,6 +116,19 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Compare(IntersectNode node1, IntersectNode node2)
             => node2.Point.Y.CompareTo(node1.Point.Y); // Soft descending sort.
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public override bool Equals(object obj) => CompareTo((IntersectNode)obj) == 0;
+
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
+        public override int GetHashCode() => base.GetHashCode();
 
         #endregion
     }

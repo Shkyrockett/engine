@@ -1,4 +1,4 @@
-﻿// <copyright file="ActorDialog.cs" company="Shkyrockett" >
+﻿// <copyright file="Wavform.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -14,26 +14,32 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// Dialog
+    /// 
     /// </summary>
-    public class ActorDialog
-        : IGameElement
+    public class Wavform
+        : IAudio
     {
         /// <summary>
         /// 
         /// </summary>
-        public ActorDialog()
+        public Wavform()
         {
-            DisplayName = "ActorDialog";
-            Name = "ActorDialog";
-            Text = new List<string>();
+            DisplayName = nameof(Wavform);
+            Name = nameof(Wavform);
+            Filename = "Wavform.wav";
             TimeSyncPoints = new Dictionary<int, DateTimeOffset>();
+            Lyrics = new List<string>();
         }
 
         /// <summary>
         /// 
         /// </summary>
         public string DisplayName { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Filename { get; set; }
 
         /// <summary>
         /// 
@@ -48,6 +54,6 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public List<string> Text { get; set; }
+        public List<string> Lyrics { get; set; }
     }
 }

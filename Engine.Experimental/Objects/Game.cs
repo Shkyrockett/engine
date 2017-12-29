@@ -23,8 +23,8 @@ namespace Engine
         /// </summary>
         public Game()
         {
-            Name = "Game";
-            DisplayName = "Game";
+            Name = nameof(Game);
+            DisplayName = nameof(Game);
             Scenes = new List<Scene>();
             Actors = new List<Actor>();
             ActorsDialog = new List<ActorDialog>();

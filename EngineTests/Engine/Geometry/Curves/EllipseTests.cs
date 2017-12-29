@@ -68,7 +68,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "EllipseTests")]
+        [TestProperty(nameof(Engine), nameof(EllipseTests))]
         [DeploymentItem("Engine.dll")]
         public void PerimeterTest()
         {
@@ -89,7 +89,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "EllipseTests")]
+        [TestProperty(nameof(Engine), nameof(EllipseTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InterpolateTest()
@@ -104,7 +104,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "EllipseTests")]
+        [TestProperty(nameof(Engine), nameof(EllipseTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InterpolatePointsTest()

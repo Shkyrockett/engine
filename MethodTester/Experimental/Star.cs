@@ -20,7 +20,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName("Star")]
+    [DisplayName(nameof(Star))]
     public class Star
         : PolygonContour
     {
@@ -120,7 +120,7 @@ namespace Engine
 
         // Find the point of intersection between
         // the lines p1 --> p2 and p3 --> p4.
-        private void FindIntersection(PointF p1, PointF p2, PointF p3, PointF p4,
+        private static void FindIntersection(PointF p1, PointF p2, PointF p3, PointF p4,
             out bool lines_intersect, out bool segments_intersect,
             out PointF intersection, out PointF close_p1, out PointF close_p2)
         {
@@ -179,8 +179,8 @@ namespace Engine
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Star";
-            return "Star";
+            if (this == null) return nameof(Star);
+            return nameof(Star);
         }
     }
 }

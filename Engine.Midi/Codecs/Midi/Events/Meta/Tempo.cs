@@ -19,7 +19,7 @@ namespace Engine.File
     /// FF 51 03  TT TT TT
     /// </remarks>
     [ElementName(nameof(Tempo))]
-    [DisplayName("Tempo")]
+    [DisplayName(nameof(Tempo))]
     public class Tempo
         : EventStatus
     {

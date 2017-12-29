@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The preserving filter class.
     /// </summary>
     public abstract class PreservingFilter
         : IFilter
@@ -21,30 +21,30 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the tolerence.
         /// </summary>
         public double Tolerence { get; set; } = 1;
 
         /// <summary>
-        /// 
+        /// Gets or sets the sample distance.
         /// </summary>
         public double SampleDistance { get; set; } = 8;
 
         #endregion
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public virtual Point2D Process(Point2D point)
             => point;
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="contour"></param>
-        /// <returns></returns>
+        /// <param name="contour">The contour.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public List<Point2D> Process(List<Point2D> contour)
         {
             var results = new List<Point2D>();
@@ -56,12 +56,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <param name="shape"></param>
-        /// <returns></returns>
         public T Process<S, T>(S shape)
             where S : Shape
             where T : Shape
@@ -105,10 +105,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
+        /// <param name="line">The line.</param>
+        /// <returns>The <see cref="Line"/>.</returns>
         public Line Process(Line line)
         {
             var location = Process(line.Location);
@@ -117,10 +117,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
+        /// <param name="line">The line.</param>
+        /// <returns>The <see cref="Ray"/>.</returns>
         public Ray Process(Ray line)
         {
             var location = Process(line.Location);
@@ -129,10 +129,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
+        /// <param name="line">The line.</param>
+        /// <returns>The <see cref="LineSegment"/>.</returns>
         public LineSegment Process(LineSegment line)
         {
             var result = new LineSegment(Process(line.A), Process(line.B));
@@ -140,10 +140,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The bezier.</param>
+        /// <returns>The <see cref="QuadraticBezier"/>.</returns>
         public QuadraticBezier Process(QuadraticBezier bezier)
         {
             var result = new QuadraticBezier(Process(bezier.A), Process(bezier.B), Process(bezier.C));
@@ -151,10 +151,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The bezier.</param>
+        /// <returns>The <see cref="CubicBezier"/>.</returns>
         public CubicBezier Process(CubicBezier bezier)
         {
             var result = new CubicBezier(Process(bezier.A), Process(bezier.B), Process(bezier.C), Process(bezier.D));
@@ -162,10 +162,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
+        /// <param name="points">The points.</param>
+        /// <returns>The <see cref="PointSet"/>.</returns>
         public PointSet Process(PointSet points)
         {
             var results = new PointSet();
@@ -177,26 +177,26 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="rect"></param>
-        /// <returns></returns>
+        /// <param name="rect">The rect.</param>
+        /// <returns>The <see cref="Triangle"/>.</returns>
         public Triangle Process(Triangle rect)
             => new Triangle(Process(rect.A), Process(rect.B), Process(rect.C));
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="rect"></param>
-        /// <returns></returns>
+        /// <param name="rect">The rect.</param>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         public PolygonContour Process(Rectangle2D rect)
             => new PolygonContour { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="Polygon"/>.</returns>
         public Polygon Process(Polygon polygon)
         {
             var result = new Polygon();
@@ -208,10 +208,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="contour"></param>
-        /// <returns></returns>
+        /// <param name="contour">The contour.</param>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         public PolygonContour Process(PolygonContour contour)
         {
             var results = new PolygonContour();
@@ -223,10 +223,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="polylines"></param>
-        /// <returns></returns>
+        /// <param name="polylines">The polylines.</param>
+        /// <returns>The <see cref="PolylineSet"/>.</returns>
         public PolylineSet Process(PolylineSet polylines)
         {
             var result = new PolylineSet();
@@ -238,10 +238,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="contour"></param>
-        /// <returns></returns>
+        /// <param name="contour">The contour.</param>
+        /// <returns>The <see cref="Polyline"/>.</returns>
         public Polyline Process(Polyline contour)
         {
             var results = new Polyline();
@@ -253,10 +253,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="contour"></param>
-        /// <returns></returns>
+        /// <param name="contour">The contour.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(PolycurveContour contour)
         {
             var result = new PolycurveContour(Process(contour.Items[0].Start.Value));

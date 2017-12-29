@@ -11,24 +11,24 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IFilter interface.
     /// </summary>
     public interface IFilter
     {
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         Point2D Process(Point2D point);
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <typeparam name="S">Shape type.</typeparam>
-        /// <typeparam name="T">Return type.</typeparam>
-        /// <param name="shape"></param>
-        /// <returns></returns>
+        /// <param name="shape">The shape.</param>
+        /// <returns>The <see cref="T"/>.</returns>
+        /// <typeparam name="S"></typeparam>
+        /// <typeparam name="T"></typeparam>
         T Process<S, T>(S shape)
             where S : Shape
             where T : Shape;

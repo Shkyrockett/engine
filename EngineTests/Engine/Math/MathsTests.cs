@@ -88,7 +88,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void IsOneTest()
         {
@@ -104,7 +104,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void IsZeroTest()
         {
@@ -120,7 +120,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void LessThanTest()
         {
@@ -136,7 +136,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void LessThanOrCloseTest()
         {
@@ -152,7 +152,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void GreaterThanTest()
         {
@@ -168,7 +168,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void GreaterThanOrCloseTest()
         {
@@ -184,7 +184,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void IsBetweenZeroAndOneTest()
         {
@@ -207,7 +207,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         //[DeploymentItem("System.ValueTuple.dll")]
         [DeploymentItem("Engine.dll")]
         public void IsAdditionSafeTest()
@@ -580,7 +580,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         //[DeploymentItem("System.ValueTuple.dll")]
         [DeploymentItem("Engine.dll")]
         public void IsSubtractionSafeTest()
@@ -953,7 +953,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void IsMultiplicationSafeTest()
         {
@@ -1034,7 +1034,7 @@ namespace Engine.Tests
                 { (short.MaxValue, short.MinValue), false },
                 { ((short.MinValue / 2), (short.MaxValue / 2)), true },
                 { ((short.MinValue / 2), (short.MinValue / 2)), true },
-                { ((short.MaxValue / 2), (short.MaxValue / 2)), true },
+                { ((short.MaxValue / 2), (short.MaxValue / 2)), false },
                 { (short.MaxValue, short.MaxValue), false },
             };
 
@@ -1060,11 +1060,11 @@ namespace Engine.Tests
             // A listing of expected results for specific values.
             var ushortTestCases = new Dictionary<(ushort a, ushort b), bool>
             {
-                { (ushort.MinValue, ushort.MaxValue), false },
-                { (ushort.MaxValue, ushort.MinValue), false },
-                { (ushort.MinValue, ushort.MaxValue / 2), false },
+                { (ushort.MinValue, ushort.MaxValue), true },
+                { (ushort.MaxValue, ushort.MinValue), true },
+                { (ushort.MinValue, ushort.MaxValue / 2), true },
                 { (ushort.MinValue / 2, ushort.MinValue / 2), true },
-                { (ushort.MaxValue / 2, ushort.MaxValue / 2), true },
+                { (ushort.MaxValue / 2, ushort.MaxValue / 2), false },
                 { (ushort.MaxValue, ushort.MaxValue), true },
             };
 
@@ -1095,11 +1095,11 @@ namespace Engine.Tests
                 { (0, int.MaxValue), true },
                 { (int.MaxValue, 0), true },
                 // Wait, what? Oh, right.
-                { (int.MinValue, int.MaxValue), false },
+                { (int.MinValue, int.MaxValue), true },
                 { (int.MaxValue, int.MinValue), false },
-                { ((int.MinValue / 2), (int.MaxValue / 2)), false },
+                { ((int.MinValue / 2), (int.MaxValue / 2)), true },
                 { ((int.MinValue / 2), (int.MinValue / 2)), false },
-                { ((int.MaxValue / 2), (int.MaxValue / 2)), false },
+                { ((int.MaxValue / 2), (int.MaxValue / 2)), true },
                 //{ (int.MaxValue, int.MaxValue), true },
             };
 
@@ -1125,9 +1125,9 @@ namespace Engine.Tests
             // A listing of expected results for specific values.
             var uintTestCases = new Dictionary<(uint a, uint b), bool>
             {
-                { (uint.MinValue, uint.MaxValue), false },
-                { (uint.MaxValue, uint.MinValue), false },
-                { ((uint.MinValue), (uint.MaxValue / 2u)), false },
+                { (uint.MinValue, uint.MaxValue), true },
+                { (uint.MaxValue, uint.MinValue), true },
+                { ((uint.MinValue), (uint.MaxValue / 2u)), true },
                 //{ ((uint.MinValue / 2u), (uint.MinValue / 2u)), true },
                 //{ ((uint.MaxValue / 2u), (uint.MaxValue / 2u)), true },
                 //{ (uint.MaxValue, uint.MaxValue), true },
@@ -1159,7 +1159,7 @@ namespace Engine.Tests
                 { (long.MinValue, 0), true },
                 { (0, long.MaxValue), true },
                 { (long.MaxValue, 0), true },
-                { (long.MinValue, long.MaxValue), false },
+                { (long.MinValue, long.MaxValue), true },
                 { (long.MaxValue, long.MinValue), false },
                 //{ ((long.MinValue / 2L), (long.MaxValue / 2L)), true },
                 //{ ((long.MinValue / 2L), (long.MinValue / 2L)), true },
@@ -1189,8 +1189,8 @@ namespace Engine.Tests
             // A listing of expected results for specific values.
             var ulongTestCases = new Dictionary<(ulong a, ulong b), bool>
             {
-                { (ulong.MinValue, ulong.MaxValue), false },
-                { (ulong.MaxValue, ulong.MinValue), false },
+                { (ulong.MinValue, ulong.MaxValue), true },
+                { (ulong.MaxValue, ulong.MinValue), true },
                 //{ ((ulong.MinValue), (ulong.MaxValue / 2ul)), false },
                 //{ ((ulong.MinValue / 2ul), (ulong.MinValue / 2ul)), true },
                 //{ ((ulong.MaxValue / 2ul), (ulong.MaxValue / 2ul)), true },
@@ -1223,7 +1223,7 @@ namespace Engine.Tests
                 { (float.MinValue, 0), true },
                 { (0, float.MaxValue), true },
                 { (float.MaxValue, 0), true },
-                { (float.MinValue, float.MaxValue), false },
+                { (float.MinValue, float.MaxValue), true },
                 { (float.MaxValue, float.MinValue), false },
                 //{ ((float.MinValue / 2f), (float.MaxValue / 2f)), true },
                 //{ ((float.MinValue / 2f), (float.MinValue / 2f)), true },
@@ -1257,7 +1257,7 @@ namespace Engine.Tests
                 { (double.MinValue, 0), true },
                 { (0, double.MaxValue), true },
                 { (double.MaxValue, 0), true },
-                { (double.MinValue, double.MaxValue), false },
+                { (double.MinValue, double.MaxValue), true },
                 { (double.MaxValue, double.MinValue), false },
                 //{ ((double.MinValue * 0.5d), (double.MaxValue * 0.5d)), true },
                 //{ ((double.MinValue * 0.5d), (double.MinValue * 0.5d)), true },
@@ -1291,7 +1291,7 @@ namespace Engine.Tests
                 { (decimal.MinValue, decimal.Zero), true },
                 { (decimal.Zero, decimal.MaxValue), true },
                 { (decimal.MaxValue, decimal.Zero), true },
-                { (decimal.MinValue, decimal.MaxValue), false },
+                { (decimal.MinValue, decimal.MaxValue), true },
                 { (decimal.MaxValue, decimal.MinValue), false },
                 //{ ((decimal.MinValue / 2m), (decimal.MaxValue / 2m)), true },
                 //{ ((decimal.MinValue / 2m), (decimal.MinValue / 2m)), true },
@@ -1329,7 +1329,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void Atan2Test()
@@ -1344,7 +1344,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void SecantTest()
@@ -1359,7 +1359,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void CosecantTest()
@@ -1374,7 +1374,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void CotangentTest()
@@ -1389,7 +1389,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseSineTest()
@@ -1404,7 +1404,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseCosineTest()
@@ -1419,7 +1419,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseSecantTest()
@@ -1434,7 +1434,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseCosecantTest()
@@ -1449,7 +1449,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseCotangentTest()
@@ -1464,7 +1464,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicSineTest()
@@ -1479,7 +1479,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicCosineTest()
@@ -1494,7 +1494,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicTangentTest()
@@ -1509,7 +1509,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicSecantTest()
@@ -1524,7 +1524,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicCosecantTest()
@@ -1539,7 +1539,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void HyperbolicCotangentTest()
@@ -1554,7 +1554,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicSineTest()
@@ -1569,7 +1569,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicCosineTest()
@@ -1584,7 +1584,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicTangentTest()
@@ -1599,7 +1599,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicSecantTest()
@@ -1614,7 +1614,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicCosecantTest()
@@ -1629,7 +1629,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void InverseHyperbolicCotangentTest()
@@ -1644,7 +1644,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void LogarithmTobaseNTest()
@@ -1663,7 +1663,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void LinearBezierCoefficientsStackTest()
         {
@@ -1678,7 +1678,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void LinearBezierCoefficientsTest()
         {
@@ -1693,7 +1693,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void QuadraticBezierCoefficientsStackTest()
         {
@@ -1708,7 +1708,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void QuadraticBezierCoefficientsTest()
         {
@@ -1723,7 +1723,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void CubicBezierCoefficientsStackTest()
         {
@@ -1738,7 +1738,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void CubicBezierCoefficientsTest()
         {
@@ -1753,7 +1753,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void QuarticBezierCoefficientsStackTest()
         {
@@ -1768,7 +1768,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void QuarticBezierCoefficientsTest()
         {
@@ -1783,7 +1783,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void QuinticBezierCoefficientsStackTest()
         {
@@ -1798,7 +1798,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void QuinticBezierCoefficientsTest()
         {
@@ -1813,7 +1813,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void SexticBezierCoefficientsStackTest()
         {
@@ -1828,7 +1828,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void SepticBezierCoefficientsStackTest()
         {
@@ -1843,7 +1843,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void OcticBezierCoefficientsStackTest()
         {
@@ -1858,7 +1858,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void NonicBezierCoefficientsStackTest()
         {
@@ -1873,7 +1873,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void DecicBezierCoefficientsStackTest()
         {
@@ -1892,7 +1892,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void ToRadiansTest()
         {
@@ -1939,7 +1939,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void ToDegreesTest()
         {
@@ -1986,7 +1986,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void RoundToMultipleTest()
         {
@@ -2001,7 +2001,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void ModuloTest()
         {
@@ -2016,7 +2016,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void AverageTest()
         {
@@ -2032,7 +2032,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void SumTest()
         {
@@ -2048,7 +2048,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void HiWordTest()
         {
@@ -2064,7 +2064,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void SignedHiWordTest()
         {
@@ -2080,7 +2080,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void LoWordTest()
         {
@@ -2096,7 +2096,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         public void SignedLoWordTest()
         {
@@ -2112,7 +2112,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void RandomTest()
@@ -2127,7 +2127,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void ToFloatTest()
@@ -2142,7 +2142,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void FloatToIntTest()
@@ -2157,7 +2157,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "MathsTests")]
+        [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void DoubleToIntTest()

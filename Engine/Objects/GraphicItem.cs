@@ -141,7 +141,7 @@ namespace Engine
 
         #endregion
 
-        #region Public methods
+        #region Public Methods
 
         /// <summary>
         ///

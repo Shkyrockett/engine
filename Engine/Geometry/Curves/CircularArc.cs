@@ -238,7 +238,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate location of the center of the <see cref="CircularArc"/>.
         /// </summary>
-        [XmlAttribute("x")]
+        [XmlAttribute(nameof(x))]
         [Category("Elements")]
         [Description("The center x coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -259,7 +259,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="Y"/> coordinate location of the center of the <see cref="CircularArc"/>.
         /// </summary>
-        [XmlAttribute("y")]
+        [XmlAttribute(nameof(y))]
         [Category("Elements")]
         [Description("The center y coordinate location of the arc.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The water distort class.
     /// </summary>
     public class WaterDistort
         : DestructiveFilter
@@ -19,10 +19,10 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="WaterDistort"/> class.
         /// </summary>
-        /// <param name="center"></param>
-        /// <param name="strength"></param>
+        /// <param name="center">The center.</param>
+        /// <param name="strength">The strength.</param>
         public WaterDistort(Point2D center, double strength = 8)
         {
             Center = center;
@@ -34,12 +34,12 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the center.
         /// </summary>
         public Point2D Center { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the strength.
         /// </summary>
         public double Strength { get; set; }
 
@@ -48,10 +48,10 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => Distortions.Water(point, Center, Strength);
 

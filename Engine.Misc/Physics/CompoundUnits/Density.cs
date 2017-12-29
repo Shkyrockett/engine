@@ -47,7 +47,7 @@ namespace Engine.Physics
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Density";
+        public string Name => nameof(Density);
 
         /// <summary>
         /// 

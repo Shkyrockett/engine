@@ -41,7 +41,7 @@ namespace EngineTests
 
         #endregion
 
-        #region Class housekeeping
+        #region Class Housekeeping
 
         /// <summary>
         ///
@@ -88,7 +88,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void TrimTest()
         {
@@ -117,7 +117,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void DerivateTest()
         {
@@ -133,7 +133,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void NormalizeTest()
         {
@@ -149,7 +149,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void IntegrateTest()
         {
@@ -165,7 +165,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void PowerTest()
         {
@@ -181,7 +181,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void EvaluateTest()
         {
@@ -197,7 +197,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void DifferentiateTest()
         {
@@ -213,7 +213,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void MinMaxTest()
         {
@@ -229,7 +229,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void GetStandardBaseTest()
         {
@@ -245,7 +245,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void TermTest()
         {
@@ -260,7 +260,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void InterpolateTest()
         {
@@ -276,7 +276,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void MonomialTest()
         {
@@ -291,7 +291,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void BezierTest()
         {
@@ -307,7 +307,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void BisectionTest()
         {
@@ -323,7 +323,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void RealOrComplexRootsTest()
         {
@@ -345,7 +345,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void ComplexRootsTest()
         {
@@ -376,7 +376,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void RootsInIntervalTest()
         {
@@ -398,7 +398,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void RootsTest()
         {
@@ -420,7 +420,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "Polynomial")]
+        [TestProperty(nameof(Engine), nameof(Polynomial))]
         [DeploymentItem("Engine.dll")]
         public void RealOrderTest()
         {

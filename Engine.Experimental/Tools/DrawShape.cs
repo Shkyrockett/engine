@@ -135,7 +135,7 @@ namespace Engine.Tools
         /// 
         /// </summary>
         /// <returns></returns>
-        public string Output()
+        public static string Output()
         {
             var output = new StringBuilder();
             return output.ToString();

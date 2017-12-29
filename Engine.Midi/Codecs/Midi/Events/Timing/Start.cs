@@ -20,7 +20,7 @@ namespace Engine.File
     /// Start the current sequence playing. (This message will be followed with Timing Clocks).
     /// </remarks>
     [ElementName(nameof(Start))]
-    [DisplayName("Start")]
+    [DisplayName(nameof(Start))]
     public class Start
         : EventStatus
     {

@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The scale distort class.
     /// </summary>
     public class ScaleDistort
         : PreservingFilter
@@ -19,9 +19,9 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ScaleDistort"/> class.
         /// </summary>
-        /// <param name="factors"></param>
+        /// <param name="factors">The factors.</param>
         public ScaleDistort(Size2D factors)
         {
             Factors = factors;
@@ -32,7 +32,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the factors.
         /// </summary>
         public Size2D Factors { get; set; }
 
@@ -41,10 +41,10 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => Distortions.Scale(point, Factors);
 

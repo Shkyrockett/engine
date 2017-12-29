@@ -68,7 +68,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "QuadraticBezierTests")]
+        [TestProperty(nameof(Engine), nameof(QuadraticBezierTests))]
         [DeploymentItem("Engine.dll")]
         public void QuadraticBezierLengthTest()
         {
@@ -83,7 +83,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "QuadraticBezierTests")]
+        [TestProperty(nameof(Engine), nameof(QuadraticBezierTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void QuadraticBezierArcLengthByIntegralTest()
@@ -101,7 +101,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "QuadraticBezierTests")]
+        [TestProperty(nameof(Engine), nameof(QuadraticBezierTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void QuadraticBezierArcLengthBySegmentsTest()
@@ -119,7 +119,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "QuadraticBezierTests")]
+        [TestProperty(nameof(Engine), nameof(QuadraticBezierTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void QuadraticBezierApproxArcLengthTest()
@@ -137,7 +137,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "QuadraticBezierTests")]
+        [TestProperty(nameof(Engine), nameof(QuadraticBezierTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void QuadraticBezierInterpolateTest()
@@ -153,7 +153,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "QuadraticBezierTests")]
+        [TestProperty(nameof(Engine), nameof(QuadraticBezierTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
         public void QuadraticBezierInterpolatePointsTest()

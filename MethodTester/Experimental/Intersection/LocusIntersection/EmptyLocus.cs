@@ -17,10 +17,5 @@ namespace Engine
     public class EmptyLocus
         : Locus
     {
-        /// <summary>
-        /// Initializes a default instance of the <see cref="EmptyLocus"/> class.
-        /// </summary>
-        public EmptyLocus()
-        { }
     }
 }

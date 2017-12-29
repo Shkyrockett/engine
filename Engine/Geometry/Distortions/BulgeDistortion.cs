@@ -14,7 +14,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The bulge distortion class.
     /// </summary>
     public class BulgeDistortion
         : DistortionBase, IDistortion
@@ -22,64 +22,53 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        ///
+        /// The distortion path.
         /// </summary>
         public PolycurveContour distortionPath;
 
         /// <summary>
-        ///
+        /// The distortion bounds.
         /// </summary>
         private Rectangle2D distortionBounds;
 
         /// <summary>
-        ///
+        /// The source bounds.
         /// </summary>
         private Rectangle2D sourceBounds;
 
         /// <summary>
-        ///
+        /// The upper left.
         /// </summary>
         private Point2D upperLeft;
 
         /// <summary>
-        ///
+        /// The upper right.
         /// </summary>
         private Point2D upperRight;
 
         /// <summary>
-        ///
+        /// The lower left.
         /// </summary>
         private Point2D lowerLeft;
 
         /// <summary>
-        ///
+        /// The lower right.
         /// </summary>
         private Point2D lowerRight;
 
         /// <summary>
-        ///
+        /// The bound cache (readonly). Value: new Dictionary&lt;double, Point2D[]&gt;().
         /// </summary>
         private readonly Dictionary<double, Point2D[]> boundCache = new Dictionary<double, Point2D[]>();
 
         #endregion
 
-        #region Constructors
-
         /// <summary>
-        ///
+        /// The distort.
         /// </summary>
-        public BulgeDistortion()
-            : base()
-        { }
-
-        #endregion
-
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public Point2D Distort(PolycurveContour source, Point2D point)
         {
             if (distortionPath == null)
@@ -96,11 +85,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Get the bounded points.
         /// </summary>
-        /// <param name="upperBoundPoint"></param>
-        /// <param name="lowerBoundPoint"></param>
-        /// <param name="source"></param>
+        /// <param name="upperBoundPoint">The upperBoundPoint.</param>
+        /// <param name="lowerBoundPoint">The lowerBoundPoint.</param>
+        /// <param name="source">The source.</param>
         private void GetBoundedPoints(out Point2D upperBoundPoint, out Point2D lowerBoundPoint, Point2D source)
         {
             upperBoundPoint = new Point2D();
@@ -153,9 +142,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Build the distortion.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">The source.</param>
         private void BuildDistortion(PolycurveContour source)
         {
             sourceBounds = source.Bounds();
@@ -185,8 +174,6 @@ namespace Engine
             //distortionPoints = ClipperUtility.ConvertToClipperPolygons(distortionPath);
             distortionBounds = distortionPath.Bounds();
         }
-
-
 
         ///// <summary>
         /////
@@ -218,12 +205,12 @@ namespace Engine
         //}
 
         /// <summary>
-        ///
+        /// The deform.
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <returns></returns>
+        /// <param name="path">The path.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         /// <remarks> http://stackoverflow.com/a/9019432 </remarks>
         internal static PolygonContour Deform(PolygonContour path, int width, int height)
         {
@@ -247,6 +234,5 @@ namespace Engine
 
             return new PolygonContour(deformed);
         }
-
     }
 }

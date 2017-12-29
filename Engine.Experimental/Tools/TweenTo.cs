@@ -1,4 +1,4 @@
-﻿// <copyright file="Select.cs" company="Shkyrockett" >
+﻿// <copyright file="TweenTo.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,37 +8,40 @@
 // <summary></summary>
 // <remarks></remarks>
 
-// ToDo: Implement shape drawing tool.
-
+//using Engine.Tweening;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Engine.Tools
 {
     /// <summary>
-    /// Image drawing tool class.
+    /// Tween to tool class.
     /// </summary>
-    public class Pan
+    public class TweenTo
         : Tool, ITool
     {
         #region Fields
 
         
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool mouseDown;
+
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SelectTop"/> class.
+        /// Initializes a new instance of the <see cref="Straightener"/> class.
         /// </summary>
-        public Pan()
+        public TweenTo()
         {
             // Setup the tool properties.
             Index = 0;
 
             // Setup the storage properties. 
-            Points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
+            Line = LineSegment.Empty;
         }
 
         #endregion
@@ -48,18 +51,13 @@ namespace Engine.Tools
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
-        public List<Point2D> Points { get; set; }
+        public LineSegment Line { get; set; }
 
         /// <summary>
         /// Provides the current index of the rubber-band line used to find the angle.
         /// </summary>
         /// <returns>Returns the current index of the rubber-band line.</returns>
         public int Index { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public bool MouseDown { get; set; }
 
         #endregion
 
@@ -69,14 +67,19 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseDownUpdate(ToolStack tools)
         {
-            MouseDown = true;
+            mouseDown = true;
+            InUse = true;
             if (InUse)
             {
-                Points[Index] = tools.MouseLocation;
+                Line.B = tools.MouseLocation;
                 if (!Started)
-                    Points[1] = tools.MouseLocation;
-
-                Started = true;
+                {
+                    tools.Surface.SelectedItems = new List<GraphicItem>(1) { tools.Surface.SelectItem(tools.MouseLocation) };
+                    if (tools.Surface.SelectedItems == null) return;
+                    Line.A = tools.Surface.SelectedItems[0].Shape.Bounds.Location;
+                    tools.Surface.RubberbandItems = new List<GraphicItem> { new GraphicItem(Line, null) };
+                    Started = true;
+                }
             }
         }
 
@@ -90,13 +93,9 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (Measurements.Distance(Points[0], tools.MouseLocation) > 8)
-                    {
-                        if (MouseDown) Index = 1;
-                        Points[Index] = tools.MouseLocation;
-                    }
+                    if (mouseDown) Index = 1;
 
-                    if (Index == 0) Points[1] = tools.MouseLocation;
+                    Line.B = tools.MouseLocation;
                 }
             }
         }
@@ -107,10 +106,10 @@ namespace Engine.Tools
         /// <param name="tools"></param>
         public override void MouseUpUpdate(ToolStack tools)
         {
-            MouseDown = false;
+            mouseDown = false;
             if (InUse)
             {
-                Points[Index] = tools.MouseLocation;
+                Line[Index] = tools.MouseLocation;
                 switch (Index)
                 {
                     case 0:
@@ -119,6 +118,11 @@ namespace Engine.Tools
                     case 1:
                         Index = 0;
                         Started = false;
+                        tools.Surface.RubberbandItems.Clear();
+                        if (tools.Surface?.SelectedItems?.Count > 0)
+                        {
+                            //Tween tt = tools.Surface.Tweener.Tween(tools.Surface.SelectedItems[0].Item, new { Location = tools.MouseLocation }, 100, 0);
+                        }
                         RaiseFinishEvent(tools);
                         break;
                     default:
@@ -135,7 +139,7 @@ namespace Engine.Tools
             InUse = false;
             Started = false;
             Index = 0;
-            Points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
+            Line = LineSegment.Empty;
         }
 
         /// <summary>
@@ -143,13 +147,13 @@ namespace Engine.Tools
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => nameof(SelectTop);
+            => nameof(Straightener);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public string Output()
+        public static string Output()
         {
             var output = new StringBuilder();
             return output.ToString();

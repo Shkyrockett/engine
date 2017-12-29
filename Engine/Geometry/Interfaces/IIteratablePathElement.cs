@@ -13,36 +13,39 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IIteratablePathElement interface.
     /// </summary>
     internal interface IIteratablePathElement
     {
         /// <summary>
-        /// 
+        /// Gets the length.
         /// </summary>
+        /// <value>The <see cref="double"/>.</value>
         double Length { get; }
 
         /// <summary>
-        /// 
+        /// Gets the interpolation min.
         /// </summary>
+        /// <value>The <see cref="double"/>.</value>
         double InterpolationMin { get; }
 
         /// <summary>
-        /// 
+        /// Gets the interpolation max.
         /// </summary>
+        /// <value>The <see cref="double"/>.</value>
         double InterpolationMax { get; }
 
         /// <summary>
-        /// 
+        /// The iterpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         Point2D Iterpolate(double t);
 
         /// <summary>
-        /// 
+        /// The iterpolation chain.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         List<Point2D> IterpolationChain();
     }
 }

@@ -95,8 +95,8 @@ namespace MethodSpeedTester
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(560, 308);
             this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(this.DataGridView1_Paint);
-            this.dataGridView1.Resize += new System.EventHandler(this.DataGridView1_Resize);
+            this.dataGridView1.Paint += new System.Windows.Forms.PaintEventHandler(FormSpeedTester.DataGridView1_Paint);
+            this.dataGridView1.Resize += new System.EventHandler(FormSpeedTester.DataGridView1_Resize);
             // 
             // numericUpDownTrials
             // 

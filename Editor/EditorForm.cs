@@ -338,7 +338,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CanvasPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        private static void CanvasPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         { }
 
         /// <summary>
@@ -346,7 +346,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CanvasPanel_KeyDown(object sender, KeyEventArgs e)
+        private static void CanvasPanel_KeyDown(object sender, KeyEventArgs e)
         {
             //toolStack.KeyDown((Engine.Tools.Keys)e.KeyData);
             //propertyGrid1.Refresh();
@@ -357,7 +357,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CanvasPanel_KeyUp(object sender, KeyEventArgs e)
+        private static void CanvasPanel_KeyUp(object sender, KeyEventArgs e)
         {
             //toolStack.KeyUp((Engine.Tools.Keys)e.KeyData);
             //propertyGrid1.Refresh();
@@ -368,7 +368,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CanvasPanel_KeyPress(object sender, KeyPressEventArgs e)
+        private static void CanvasPanel_KeyPress(object sender, KeyPressEventArgs e)
         { }
 
         /// <summary>

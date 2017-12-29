@@ -17,7 +17,7 @@ using static Engine.Maths;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The generators class.
     /// </summary>
     public static class Generators
     {

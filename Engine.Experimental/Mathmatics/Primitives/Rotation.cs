@@ -22,6 +22,10 @@ namespace Engine
         /// </summary>
         private double? sin;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rotation"/> class.
+        /// </summary>
+        /// <param name="radiens">The radiens.</param>
         public Rotation(double radiens)
         {
             this.radiens = radiens;

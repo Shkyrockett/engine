@@ -29,7 +29,7 @@ namespace Engine.MathNotation
         /// <summary>
         /// 
         /// </summary>
-        public void BuildTable()
+        public static void BuildTable()
         { }
     }
 }

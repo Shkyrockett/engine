@@ -25,34 +25,35 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
+using Engine;
 
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The distortions class.
     /// </summary>
     public static class Distortions
     {
         #region Point Warp Filters
 
         /// <summary>
-        /// 
+        /// The scale.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="factors"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="factors">The factors.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Scale(Point2D point, Size2D factors)
             => new Point2D(point.X * factors.Width, point.Y * factors.Height);
 
         /// <summary>
-        /// 
+        /// The flip.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="bHorz"></param>
-        /// <param name="bVert"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="bHorz">The bHorz.</param>
+        /// <param name="bVert">The bVert.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Flip(Point2D point, Point2D fulcrum, bool bHorz, bool bVert)
         {
@@ -62,21 +63,21 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Translate.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="offset">The offset.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Translate(Point2D point, Vector2D offset)
             => point + offset;
 
         /// <summary>
-        /// 
+        /// The matrix.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="matrix"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Matrix(Point2D point, Matrix3x2D matrix)
             => matrix.Transform(point);
@@ -106,10 +107,9 @@ namespace Engine
         {
             var cosine = Cos(theta);
             var sine = Sin(theta);
-            for (var i = 0; i < a.Count; i++)
+            foreach (var p in a)
             {
-                var p = a[i];
-                for (var j = 0; j < p.Count;)
+                for (var j = 0; j < p.Count; j++)
                 {
                     var x = p[j].X - cx;
                     var y = p[j].Y - cy;
@@ -119,14 +119,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The pinch.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="point">The point.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch(Point2D point, Point2D fulcrum, double strength = OneHalf)
         {
@@ -162,13 +160,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The pinch.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="radius"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
@@ -207,13 +205,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The pinch1.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="radius"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch1(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
@@ -240,13 +238,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The pinch2.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="radius"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Pinch2(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
@@ -272,14 +270,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The swirl.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="degree"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="point">The point.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="degree">The degree.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Swirl(Point2D point, Point2D fulcrum, double degree = OneHalf)
         {
@@ -295,14 +291,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The time warp.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="factor"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="point">The point.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="factor">The factor.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D TimeWarp(Point2D point, Point2D fulcrum, double factor = 10d)
         {
@@ -317,14 +311,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The water.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="nWave"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="point">The point.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="nWave">The nWave.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Water(Point2D point, Point2D fulcrum, double nWave = 1)
         {
@@ -365,16 +357,16 @@ namespace Engine
             {
                 var p0 = source[ip - 1];
                 var p1 = source[ip];
-                var td = Measurements.Distance(p0, p1);
+                var td = p0.Distance(p1);
                 if (cd + td > distance)
                 {
                     var pd = distance - cd;
-                    dest.Add(Primitives.Lerp(p0, p1, pd / td));
+                    dest.Add(p0.Lerp(p1, pd / td));
                     var rd = td - pd;
                     while (rd > distance)
                     {
                         rd -= distance;
-                        var np = Primitives.Lerp(p0, p1, (td - rd) / td);
+                        var np = p0.Lerp(p1, (td - rd) / td);
                         if (!Primitives.EqualsOrClose(np, pp))
                         {
                             dest.Add(np);
@@ -429,15 +421,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The recursive ramer douglas peuker reduce.
         /// </summary>
-        /// <param name="pts"></param>
-        /// <param name="error"></param>
-        /// <param name="first"></param>
-        /// <param name="last"></param>
-        /// <param name="keepIndex"></param>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="pts">The pts.</param>
+        /// <param name="error">The error.</param>
+        /// <param name="first">The first.</param>
+        /// <param name="last">The last.</param>
+        /// <param name="keepIndex">The keepIndex.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void RecursiveRamerDouglasPeukerReduce(List<Point2D> pts, double error, int first, int last, ref List<int> keepIndex)
         {
@@ -518,24 +508,22 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add the points to sides.
         /// </summary>
-        /// <param name="contour"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="contour">The contour.</param>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour AddPointsToSides(PolygonContour contour)
         {
             var result = new PolygonContour();
             for (var i = 1; i < contour.Count; i++)
             {
-                for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
+                for (double j = 0; j < 1; j = j + 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
                 {
                     result.Add(Interpolators.Linear(contour[i - 1], contour[i], j));
                 }
             }
-            for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * 8))
+            for (double j = 0; j < 1; j = j + 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
             {
                 result.Add(Interpolators.Linear(contour[contour.Count - 1], contour[0], j));
             }
@@ -544,13 +532,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The bilinear.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="point">The point.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>
@@ -568,14 +555,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The perspective.
         /// </summary>
-        /// <param name="points"></param>
-        /// <param name="c"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="points">The points.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>
@@ -588,11 +574,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The solve perspective.
         /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="points">The points.</param>
+        /// <returns>The <see cref="(double a, double b, double d, double e, double g, double h)"/>.</returns>
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>

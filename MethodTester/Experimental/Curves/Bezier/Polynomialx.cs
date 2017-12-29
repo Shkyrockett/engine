@@ -1026,7 +1026,7 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="roots"></param>
-        public void RemoveMultipleRootsIn01(List<double> roots)
+        public static void RemoveMultipleRootsIn01(List<double> roots)
         {
             const double ZEROepsilon = 1e-15;
             roots.Sort();// (a, b)=> { return a - b; });

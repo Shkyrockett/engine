@@ -32,9 +32,21 @@ namespace Engine.Colorspace
 
         #region Constants
 
+        /// <summary>
+        /// The alpha shift (const). Value: 0x18.
+        /// </summary>
         private const int AlphaShift = 0x18;
+        /// <summary>
+        /// The red shift (const). Value: 0x10.
+        /// </summary>
         private const int RedShift = 0x10;
+        /// <summary>
+        /// The green shift (const). Value: 0x8.
+        /// </summary>
         private const int GreenShift = 0x8;
+        /// <summary>
+        /// The blue shift (const). Value: 0x0.
+        /// </summary>
         private const int BlueShift = 0x0;
 
         #endregion

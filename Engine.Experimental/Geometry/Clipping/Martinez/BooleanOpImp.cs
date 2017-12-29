@@ -11,47 +11,47 @@ namespace Engine
         /// <summary>
         /// The subject.
         /// </summary>
-        Polygon subject;
+        private Polygon subject;
 
         /// <summary>
         /// The clipping.
         /// </summary>
-        Polygon clipping;
+        private Polygon clipping;
 
         /// <summary>
         /// The result.
         /// </summary>
-        Polygon result;
+        private Polygon result;
 
         /// <summary>
         /// The operation.
         /// </summary>
-        ClippingOperations operation;
+        private ClippingOperations operation;
 
         /// <summary>
         /// event queue (sorted events to be processed)
         /// </summary>
-        PriorityQueue<SweepEvent> eq = new PriorityQueue<SweepEvent>();
+        private PriorityQueue<SweepEvent> eq = new PriorityQueue<SweepEvent>();
 
         /// <summary>
         /// segments intersecting the sweep line
         /// </summary>
-        SortedSet<SweepEvent> sl = new SortedSet<SweepEvent>();
+        private SortedSet<SweepEvent> sl = new SortedSet<SweepEvent>();
 
         /// <summary>
         /// It holds the events generated during the computation of the boolean operation
         /// </summary>
-        LinkedList<SweepEvent> eventHolder = new LinkedList<SweepEvent>();
+        private LinkedList<SweepEvent> eventHolder = new LinkedList<SweepEvent>();
 
         /// <summary>
         /// to compare events
         /// </summary>
-        SweepEventComp sec = new SweepEventComp();
+        private SweepEventComp sec = new SweepEventComp();
 
         /// <summary>
         /// The sorted events (readonly). Value: new LinkedList&lt;SweepEvent&gt;().
         /// </summary>
-        readonly LinkedList<SweepEvent> sortedEvents = new LinkedList<SweepEvent>();
+        private readonly LinkedList<SweepEvent> sortedEvents = new LinkedList<SweepEvent>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BooleanOpImp"/> class.
@@ -71,7 +71,7 @@ namespace Engine
         /// <summary>
         /// The run.
         /// </summary>
-        public void Run()
+        public static void Run()
         {
             //// for optimizations 1 and 2
             //Rectangle2D subjectBB = subject.Bounds;
@@ -154,7 +154,7 @@ namespace Engine
         /// <param name="subjectBB">The subjectBB.</param>
         /// <param name="clippingBB">The clippingBB.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public bool TrivialOperation(Rectangle2D subjectBB, Rectangle2D clippingBB)
+        public static bool TrivialOperation(Rectangle2D subjectBB, Rectangle2D clippingBB)
         {
             //// Test 1 for trivial result case
             //if (subject.ncontours() * clipping.ncontours() == 0)
@@ -187,7 +187,7 @@ namespace Engine
         /// </summary>
         /// <param name="s">The s.</param>
         /// <param name="pt">The pt.</param>
-        public void ProcessSegment(LineSegment s, ClippingRelations pt)
+        public static void ProcessSegment(LineSegment s, ClippingRelations pt)
         {
             //*	if (s.degenerate ()) // if the two edge endpoints are equal the segment is dicarded
             //    return;          // This can be done as preprocessing to avoid "polygons" with less than 3 edges */
@@ -208,7 +208,7 @@ namespace Engine
         }
 
         /* @brief Store the SweepEvent e into the event holder, returning the address of e */
-        SweepEvent StoreSweepEvent(SweepEvent e)
+        private SweepEvent StoreSweepEvent(SweepEvent e)
         {
             eventHolder.AddLast(e);
             return eventHolder.First.Value;
@@ -219,7 +219,7 @@ namespace Engine
         /// </summary>
         /// <param name="le">The le.</param>
         /// <param name="prev">The prev.</param>
-        public void ComputeFields(SweepEvent le, SortedSet<SweepEvent> prev)
+        public static void ComputeFields(SweepEvent le, SortedSet<SweepEvent> prev)
         {
             //// compute inOut and otherInOut fields
             //if (prev == sl.end())
@@ -282,7 +282,7 @@ namespace Engine
         /// <param name="le1">The le1.</param>
         /// <param name="le2">The le2.</param>
         /// <returns>The <see cref="int"/>.</returns>
-        public int PossibleIntersection(SweepEvent le1, SweepEvent le2)
+        public static int PossibleIntersection(SweepEvent le1, SweepEvent le2)
         {
             ////	if (e1.pol == e2.pol) // you can uncomment these two lines if self-intersecting polygons are not allowed
             ////		return 0;
@@ -402,7 +402,7 @@ namespace Engine
         /// <summary>
         /// The connect edges.
         /// </summary>
-        public void ConnectEdges()
+        public static void ConnectEdges()
         {
             //// copy the events in the result polygon to resultEvents array
             //var resultEvents = new List<SweepEvent>(sortedEvents.Count);
@@ -498,7 +498,7 @@ namespace Engine
         /// <param name="resultEvents">The resultEvents.</param>
         /// <param name="processed">The processed.</param>
         /// <returns>The <see cref="int"/>.</returns>
-        public int NextPos(int pos, List<SweepEvent> resultEvents, List<bool> processed)
+        public static int NextPos(int pos, List<SweepEvent> resultEvents, List<bool> processed)
         {
             var newPos = pos + 1;
             while (newPos < resultEvents.Count && resultEvents[newPos].Point == resultEvents[pos].Point)
@@ -524,7 +524,7 @@ namespace Engine
         public static void Compute(Polygon subj, Polygon clip, Polygon result, ClippingOperations op)
         {
             var boi = new BooleanOpImp(subj, clip, result, op);
-            boi.Run();
+            BooleanOpImp.Run();
         }
     }
 }

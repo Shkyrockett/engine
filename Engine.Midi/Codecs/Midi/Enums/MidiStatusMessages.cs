@@ -157,7 +157,7 @@ namespace Engine.File
 
         #endregion
 
-        #region Real-time messages
+        #region Real-time Messages
 
         /// <summary>
         /// Timing Clock.
@@ -206,7 +206,7 @@ namespace Engine.File
 
         #endregion
 
-        #region Meta messages
+        #region Meta Messages
 
         /// <summary>
         /// Sequence Number.

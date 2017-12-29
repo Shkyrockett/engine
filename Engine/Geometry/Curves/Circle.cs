@@ -19,7 +19,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The circle class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -28,7 +28,7 @@ namespace Engine
     public class Circle
         : Shape
     {
-        #region Static creation methods
+        #region Static Creation Methods
 
         /// <summary>
         /// 

@@ -20,7 +20,7 @@ namespace Engine
     /// </summary>
     public static class Conversions
     {
-        #region Conversion Extension methods
+        #region Conversion Extension Methods
 
         /// <summary>
         /// Converts a circle to an ellipse.

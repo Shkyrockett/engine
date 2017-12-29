@@ -1311,7 +1311,7 @@ namespace Engine
 
         #endregion
 
-        #region Greater Than or Equal to
+        #region Greater Than or Equal To
 
         /// <summary>
         /// The greater than or equal.
@@ -1676,7 +1676,7 @@ namespace Engine
 
         #endregion
 
-        #region Less Than or Equal to
+        #region Less Than or Equal To
 
         /// <summary>
         /// The less than or equal.

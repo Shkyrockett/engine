@@ -154,7 +154,7 @@
             this.toolStripButtonSaveFile.Name = "toolStripButtonSaveFile";
             this.toolStripButtonSaveFile.Size = new System.Drawing.Size(35, 19);
             this.toolStripButtonSaveFile.Text = "&Save";
-            this.toolStripButtonSaveFile.Click += new System.EventHandler(this.ToolStripButtonSaveFile_Click);
+            this.toolStripButtonSaveFile.Click += new System.EventHandler(FormMidiEventEditor.ToolStripButtonSaveFile_Click);
             // 
             // toolStripButtonCloseFile
             // 
@@ -164,7 +164,7 @@
             this.toolStripButtonCloseFile.Name = "toolStripButtonCloseFile";
             this.toolStripButtonCloseFile.Size = new System.Drawing.Size(40, 19);
             this.toolStripButtonCloseFile.Text = "&Close";
-            this.toolStripButtonCloseFile.Click += new System.EventHandler(this.ToolStripButtonCloseFile_Click);
+            this.toolStripButtonCloseFile.Click += new System.EventHandler(FormMidiEventEditor.ToolStripButtonCloseFile_Click);
             // 
             // toolStripObject
             // 

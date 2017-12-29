@@ -165,7 +165,7 @@ namespace Engine.Winforms.Direct2D
         /// <summary>
         /// 
         /// </summary>
-        private void UpdateWorld()
+        private static void UpdateWorld()
         {
             //int phase = 0;
             //int center = 100; // 200; // 128;
@@ -229,7 +229,7 @@ namespace Engine.Winforms.Direct2D
         /// <summary>
         /// 
         /// </summary>
-        private void CreateBandBrush()
+        private static void CreateBandBrush()
         {
             //LinearGradientBrushProperties properties = new LinearGradientBrushProperties()
             //{

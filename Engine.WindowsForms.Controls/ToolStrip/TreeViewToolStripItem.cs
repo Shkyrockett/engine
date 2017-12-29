@@ -21,6 +21,9 @@ namespace Engine.WindowsForms
     public partial class TreeViewToolStripItem
         : ToolStripControlHost
     {
+        /// <summary>
+        /// The tree.
+        /// </summary>
         private TreeView tree = new TreeView();
 
         /// <summary>

@@ -142,7 +142,7 @@ namespace Engine
         /// 
         /// </summary>
         [Browsable(false)]
-        [XmlAttribute("points"), SoapAttribute("points")]
+        [XmlAttribute(nameof(points)), SoapAttribute(nameof(points))]
         [RefreshProperties(RefreshProperties.All)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

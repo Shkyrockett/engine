@@ -40,16 +40,6 @@ namespace Engine
 
         #endregion
 
-        #region Constructors
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public CurveSegment()
-        { }
-
-        #endregion
-
         #region Properties
 
         /// <summary>

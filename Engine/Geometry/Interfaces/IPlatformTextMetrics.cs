@@ -11,36 +11,37 @@
 namespace Engine
 {
     /// <summary>
+    /// The IPlatformTextMetrics interface.
     /// https://stackoverflow.com/a/6708492/7004229
     /// </summary>
     public interface IPlatformTextMetrics
     {
         /// <summary>
-        /// 
+        /// The measure string.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="format"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="width">The width.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         Size2D MeasureString(string text, RenderFont font, TextFormat format, int width);
 
         /// <summary>
-        /// 
+        /// The measure string.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="width">The width.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         Size2D MeasureString(string text, RenderFont font, int width);
 
         /// <summary>
-        /// 
+        /// The measure string close.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="width">The width.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         Size2D MeasureStringClose(string text, RenderFont font, int width);
     }
 }

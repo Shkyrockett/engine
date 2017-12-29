@@ -24,7 +24,7 @@ namespace Engine.Tests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "QuadraticBezierTests")]
+        [TestProperty(nameof(Engine), nameof(QuadraticBezierTests))]
         [DeploymentItem("Engine.dll")]
         public void ToStringTest()
         {

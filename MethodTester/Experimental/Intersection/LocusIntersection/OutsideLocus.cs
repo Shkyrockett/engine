@@ -17,10 +17,5 @@ namespace Engine
     public class OutsideLocus
         : EmptyLocus
     {
-        /// <summary>
-        /// Initializes a default instance of the <see cref="OutsideLocus"/> class.
-        /// </summary>
-        public OutsideLocus()
-        { }
     }
 }

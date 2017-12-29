@@ -61,7 +61,7 @@ namespace Editor
             //CommonIntersections(vectorMap);
             //CurveFitting(vectorMap);
             //EllipseToBeziers(vectorMap);
-            //WarpGeometry(vectorMap);
+            WarpGeometry(vectorMap);
             //ComplexPolygonClipping(vectorMap);
             //PolyClipping(vectorMap);
             //FMartinezSamplesForClipping(vectorMap);
@@ -209,8 +209,8 @@ namespace Editor
             const double left = 25d;
             const double top = 200d;
             const double radius = 100d;
-            var delta = radius * 0.5d;
-            var delta2 = radius * 0.13d;
+            const double delta = radius * 0.5d;
+            const double delta2 = radius * 0.13d;
             var poly1 = new Polygon {
                 Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, -Right),
                 Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, -Right),
@@ -376,7 +376,7 @@ namespace Editor
             var line = new Line(left + 200, top + 200, 10, -20);
             var lineItem = new GraphicItem(line, solidLightGreenStyle)
             {
-                Name = "Line"
+                Name = nameof(Line)
             };
 
             var results = line.Split(0.5, 1);
@@ -405,7 +405,7 @@ namespace Editor
             var ray = new Ray(left + 200, top + 200, 10, -20);
             var rayItem = new GraphicItem(ray, solidLightGreenStyle)
             {
-                Name = "ray"
+                Name = nameof(ray)
             };
 
             var results = ray.Split(0.75, 0.25);
@@ -549,7 +549,7 @@ namespace Editor
             var ray = new Ray(left + 20, top + 70, 1, 1);
             var rayItem = new GraphicItem(ray, solidLightGreenStyle)
             {
-                Name = "Ray"
+                Name = nameof(Ray)
             };
 
             left += 25;
@@ -558,7 +558,7 @@ namespace Editor
             var line = new Line(left + 20, top + 70, 1, -2);
             var lineItem = new GraphicItem(line, solidLightGreenStyle)
             {
-                Name = "Line"
+                Name = nameof(Line)
             };
 
             var rayLineIntersections = ray.Intersection(line);
@@ -703,7 +703,7 @@ namespace Editor
             var top = 0;
             var scanPoint = new Point2D(-10, 175);
             const int steps = 5;
-            var padding = steps * 3;
+            const int padding = steps * 3;
 
             var polycurve = new PolycurveContour(new Point2D(left + 50d, top + 100d));
             polycurve.AddLineSegment(new Point2D(left + 100, top + 100))
@@ -717,7 +717,7 @@ namespace Editor
                 .Close();
             var polycurveItem = new GraphicItem(polycurve, solidGreenStyle)
             {
-                Name = "Polycurve"
+                Name = nameof(Polycurve)
             };
 
             var parametricPointTesterFigure = new ParametricPointTester(
@@ -728,7 +728,7 @@ namespace Editor
             var line = new Line(left + scanPoint.X, top + scanPoint.Y, 2, 0);
             var lineItem = new GraphicItem(line, solidGreenStyle)
             {
-                Name = "Line"
+                Name = nameof(Line)
             };
             var lineDefNodeItem = new GraphicItem(new NodeRevealer(new List<Point2D> { line.Location, line.Location + line.Direction }, 5d), handleStyle2)
             {
@@ -804,13 +804,13 @@ namespace Editor
             var circle = new Circle(left + 100, top + 100, 50);
             var circleItem = new GraphicItem(circle, solidGreenStyle)
             {
-                Name = "Circle"
+                Name = nameof(Circle)
             };
 
             var line1 = new Line(left + 160, top + 160, 100, 50);
             var line1Item = new GraphicItem(line1, solidGreenStyle)
             {
-                Name = "Line"
+                Name = nameof(Line)
             };
 
             var intersectionLineCircle = circle.Intersection(line1);
@@ -881,7 +881,7 @@ namespace Editor
             var line2 = new Line(left + 56, top + 30, 100, 50);
             var line2Item = new GraphicItem(line2, solidGreenStyle)
             {
-                Name = "Line"
+                Name = nameof(Line)
             };
 
             var rectangle2 = new Rectangle2D(left + 50, top, 100d, 100d);
@@ -901,13 +901,13 @@ namespace Editor
             var triangle = Generators.RegularConvexPolygon(left + 50, top + 50, 50, 3);
             var triangleItem = new GraphicItem(triangle, solidGreenStyle)
             {
-                Name = "Triangle"
+                Name = nameof(Triangle)
             };
 
             var lineTriangle = new Line(left + 56, top + 30, 100, 50);
             var lineTriangleItem = new GraphicItem(lineTriangle, solidGreenStyle)
             {
-                Name = "Line"
+                Name = nameof(Line)
             };
 
             var intersection5 = lineTriangle.Intersection(triangle);
@@ -963,7 +963,7 @@ namespace Editor
             var ellipse = new Ellipse(150, 100, 100, 50, 0);
             var ellipseItem = new GraphicItem(ellipse, solidGreenStyle)
             {
-                Name = "Ellipse"
+                Name = nameof(Ellipse)
             };
 
             var ellipticalArc = new EllipticalArc(ellipse, -30d.ToRadians(), 90d.ToRadians());
@@ -1027,7 +1027,7 @@ namespace Editor
             var triangle = new PolygonContour { new Point2D(Left + 100, Top), new Point2D(Left + 50, Top + 100), new Point2D(Left + 150, Top + 100) };
             var triangleItem = new GraphicItem(triangle, solidPurpleStyle)
             {
-                Name = "Triangle"
+                Name = nameof(Triangle)
             };
 
             //var scaleDistort = new ScaleDistort(new Size2D(2, 2));
@@ -1090,7 +1090,7 @@ namespace Editor
             const int left = 25;
             const int top = 200;
             const int radius = 100;
-            var delta = radius / 2d;
+            const double delta = radius / 2d;
             var poly1 = new Polygon {
                 Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, -Right),
                 Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, -Right),
@@ -2337,7 +2337,7 @@ namespace Editor
 
             var setItem = new GraphicItem(polyset, whiteishStyle)
             {
-                Name = "Polygon"
+                Name = nameof(Polygon)
             };
             vectorMap.Add(setItem);
 
@@ -3447,7 +3447,7 @@ namespace Editor
             var ellipticalArc = new EllipticalArc(ellipse, startAngle, sweepAngle);
             var ellipseItem = new GraphicItem(ellipticalArc, solidGreenStyle)
             {
-                Name = "Ellipse"
+                Name = nameof(Ellipse)
             };
 
             vectorMap.Add(ellipseItem);
@@ -3497,7 +3497,7 @@ namespace Editor
             var ellipticalArc = new EllipticalArc(ellipse, startAngle, sweepAngle);
             var ellipseItem = new GraphicItem(ellipticalArc, solidGreenStyle)
             {
-                Name = "Ellipse"
+                Name = nameof(Ellipse)
             };
 
             vectorMap.Add(ellipseItem);
@@ -3507,7 +3507,7 @@ namespace Editor
                 var line = new Ray(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)).RotateDistort(ellipse.Center, angle);
                 var lineItem = new GraphicItem(line, solidGreenStyle)
                 {
-                    Name = "Ray"
+                    Name = nameof(Ray)
                 };
                 var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipticalArc.Intersection(line).Points, 5d), handleStyle);
 
@@ -3547,7 +3547,7 @@ namespace Editor
             var ellipticalArc = new EllipticalArc(ellipse, startAngle, sweepAngle);
             var ellipseItem = new GraphicItem(ellipticalArc, solidGreenStyle)
             {
-                Name = "Ellipse"
+                Name = nameof(Ellipse)
             };
 
             vectorMap.Add(ellipseItem);
@@ -3557,7 +3557,7 @@ namespace Editor
                 var line = new Line(new Point2D(ellipse.X - ellipse.MajorRadius - whiskerLength, ellipse.Y + skew), new Vector2D(1, 0)).RotateDistort(ellipse.Center, angle);
                 var lineItem = new GraphicItem(line, solidGreenStyle)
                 {
-                    Name = "Line"
+                    Name = nameof(Line)
                 };
                 var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipticalArc.Intersection(line).Points, 5d), handleStyle);
 
@@ -4038,7 +4038,7 @@ namespace Editor
             var ellipseTweenItem = new GraphicItem(ellipseTween, solidLightBlueStyle);
 
             var parametricPointTesterSegment = new ParametricPointTester(
-                (px, py) => (Intersections.PointLineSegmentIntersects(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, px, py) == true ? Inclusion.Boundary : Inclusion.Outside),
+                (px, py) => (Intersections.PointLineSegmentIntersects(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, px, py, Epsilon) ? Inclusion.Boundary : Inclusion.Outside),
                 segment.Bounds.X - 5, segment.Bounds.Y - 5, segment.Bounds.Right + 10, segment.Bounds.Bottom + 10, 5, 5);
             var parametricPointTesterSegmentItem = new GraphicItem(parametricPointTesterSegment, paperLikeStyle);
 
@@ -4410,7 +4410,7 @@ namespace Editor
 
         #endregion
 
-        #region Regular stuff
+        #region Regular Stuff
 
         /// <summary>
         /// Rendering test case for developing the triangle class.

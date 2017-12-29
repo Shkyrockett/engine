@@ -313,7 +313,7 @@ namespace Engine
         {
             foreach (var poly in contours)
             {
-                poly.Reverse();
+                PolyBezierContour.Reverse();
             }
 
             ClearCache();

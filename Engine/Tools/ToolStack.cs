@@ -100,6 +100,9 @@ namespace Engine.Tools
 
         #region Fields
 
+        /// <summary>
+        /// The tools.
+        /// </summary>
         private Dictionary<MouseButtons, Tool> tools;
 
         /// <summary>

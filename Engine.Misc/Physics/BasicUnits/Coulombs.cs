@@ -36,7 +36,7 @@ namespace Engine.Physics
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
-            => "Coulombs";
+            => nameof(Coulombs);
 
         /// <summary>
         ///

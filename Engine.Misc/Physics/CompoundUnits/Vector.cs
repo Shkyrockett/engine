@@ -50,7 +50,7 @@ namespace Engine.Physics
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
-            => "Vector";
+            => nameof(Vector);
 
         /// <summary>
         ///

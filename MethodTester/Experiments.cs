@@ -262,7 +262,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Angle of the vector of Three 2D Points
+        #region Angle of The Vector of Three 2D Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle of three 2D points.
@@ -392,7 +392,7 @@ namespace MethodSpeedTester
                 area += (points[j].X + points[i].X) * (points[j].Y - points[i].Y); j = i;
             }
 
-            return area * 0.5d; ;
+            return area * 0.5d;
         }
 
         /// <summary>
@@ -474,6 +474,7 @@ namespace MethodSpeedTester
         /// leaving the polygon's area. This method gives odd
         /// results for non-simple polygons.
         /// </summary>
+        /// <param name="polygon">todo: describe polygon parameter on PolygonArea5</param>
         /// <returns>
         /// Return the absolute value of the signed area.
         /// The signed area is negative if the polygon is
@@ -492,10 +493,10 @@ namespace MethodSpeedTester
         /// between the polygon and the axis is subtracted,
         /// leaving the polygon's area. This method gives odd
         /// results for non-simple polygons.
-        ///
         /// The value will be negative if the polygon is
         /// oriented clockwise.
         /// </summary>
+        /// <param name="polygon">todo: describe polygon parameter on PolygonArea5</param>
         /// <returns></returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
         private static double SignedPolygonArea5(List<Point2D> polygon)
@@ -521,7 +522,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Area of the intersection of two circles
+        #region Area of The Intersection of Two Circles
 
         /// <summary>
         ///
@@ -532,7 +533,7 @@ namespace MethodSpeedTester
         /// <remarks>
         /// http://www.xarg.org/2016/07/calculate-the-intersection-area-of-two-circles/
         /// </remarks>
-        public double Area(Circle A, Circle B)
+        public static double Area(Circle A, Circle B)
         {
             var d = Sqrt(Pow(B.X - A.X, 2) + Pow(B.Y - A.Y, 2));
             if (d < A.Radius + B.Radius)
@@ -567,7 +568,7 @@ namespace MethodSpeedTester
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public int RealOrderSuperLloyd(double[] coefficients, double epsilon = Epsilon)
+        public static int RealOrderSuperLloyd(double[] coefficients, double epsilon = Epsilon)
         {
             if (coefficients == null)
             {
@@ -598,7 +599,7 @@ namespace MethodSpeedTester
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolynomialDegree RealOrder(double[] coefficients, double epsilon = Epsilon)
+        public static PolynomialDegree RealOrder(double[] coefficients, double epsilon = Epsilon)
         {
             var pos = 1;
             var count = coefficients.Length;
@@ -1823,7 +1824,7 @@ namespace MethodSpeedTester
         //    return new Rectangle2D(xlow, xhigh, yl, yh);
         //}
 
-        #region Calculate Rectangular boundaries of a circle defined by three points
+        #region Calculate Rectangular Boundaries of a Circle Defined By Three Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
@@ -2164,7 +2165,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Circle from Three points
+        #region Circle from Three Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
@@ -2235,7 +2236,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Change the Angle of a Vector
+        #region Change The Angle of a Vector
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the change of an angle of a vector.
@@ -2381,7 +2382,7 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public Point2D CosineInterpolate(Point2D a, Point2D b, double Index)
+        public static Point2D CosineInterpolate(Point2D a, Point2D b, double Index)
         {
             var MU = ((1 - Cos((Index * 180))) / 2);
             return new Point2D(
@@ -2430,7 +2431,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Clamp a value between a minimum and a maximum
+        #region Clamp a Value Between a Minimum and a Maximum
 
         /// <summary>
         /// Set of tests to run testing methods that clamp a number between a minimum, and a maximum.
@@ -2468,7 +2469,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Closest Point on line
+        #region Closest Point On Line
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
@@ -2639,7 +2640,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Cross Product of the Vector of Three 2D Points
+        #region Cross Product of The Vector of Three 2D Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
@@ -2791,7 +2792,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Cubic Bezier Length approximations
+        #region Cubic Bezier Length Approximations
 
         /// <summary>
         ///
@@ -3205,7 +3206,7 @@ namespace MethodSpeedTester
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
-        private PointF CubicBezierDerivative0(PointF p0, PointF p1, PointF p2, PointF p3, double t) => new PointF((float)(3 * Pow(1 - t, 2) * (p1.X - p0.X) + 6 * (1 - t) * t * (p2.X - p1.X) + 3 * Pow(t, 2) * (p3.X - p2.X)),
+        private static PointF CubicBezierDerivative0(PointF p0, PointF p1, PointF p2, PointF p3, double t) => new PointF((float)(3 * Pow(1 - t, 2) * (p1.X - p0.X) + 6 * (1 - t) * t * (p2.X - p1.X) + 3 * Pow(t, 2) * (p3.X - p2.X)),
                               (float)(3 * Pow(1 - t, 2) * (p1.Y - p0.Y) + 6 * (1 - t) * t * (p2.Y - p1.Y) + 3 * Pow(t, 2) * (p3.Y - p2.Y)));
 
         /// <summary>
@@ -3218,7 +3219,7 @@ namespace MethodSpeedTester
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
-        private PointF CubicBezierDerivative1(PointF p0, PointF p1, PointF p2, PointF p3, double t)
+        private static PointF CubicBezierDerivative1(PointF p0, PointF p1, PointF p2, PointF p3, double t)
         {
             var mu1 = 1 - t;
             var mu12 = mu1 * mu1;
@@ -3518,7 +3519,7 @@ namespace MethodSpeedTester
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://en.wikipedia.org/wiki/B%C3%A9zier_curve</remarks>
-        private PointF CubicBezierCurve(PointF p0, PointF p1, PointF p2, PointF p3, double t)
+        private static PointF CubicBezierCurve(PointF p0, PointF p1, PointF p2, PointF p3, double t)
             => new PointF((float)(Pow(1 - t, 3) * p0.X + 3 * Pow(1 - t, 2) * t * p1.X
                         + 3 * (1 - t) * Pow(t, 2) * p2.X + Pow(t, 3) * p3.X),
                 (float)(Pow(1 - t, 3) * p0.Y + 3 * Pow(1 - t, 2) * t * p1.Y
@@ -3641,7 +3642,7 @@ namespace MethodSpeedTester
         /// <param name="points"></param>
         /// <param name="index"></param>
         /// <returns></returns>
-        public Point2D InterpolateBSpline(List<Point2D> points, double index)
+        public static Point2D InterpolateBSpline(List<Point2D> points, double index)
         {
             if (points.Count >= 4)
             {
@@ -3737,7 +3738,7 @@ namespace MethodSpeedTester
         /// <param name="Points"></param>
         /// <param name="Index"></param>
         /// <returns></returns>
-        public Point2D InterpolateCubicBSplinePoint(Point2D[] Points, double Index)
+        public static Point2D InterpolateCubicBSplinePoint(Point2D[] Points, double Index)
         {
             const int A = 0;
             const int B = 1;
@@ -3962,7 +3963,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Distance of Point to Line Segment
+        #region Distance of Point To Line Segment
 
         /// <summary>
         /// Calculate the distance between the point and the segment.
@@ -4244,7 +4245,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Dot Product of the Vector of Three 2D Points
+        #region Dot Product of The Vector of Three 2D Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the dot product of three 2D points.
@@ -4345,6 +4346,8 @@ namespace MethodSpeedTester
         /// <summary>
         ///
         /// </summary>
+        /// <param name="a">todo: describe a parameter on EllipsePerimeter2</param>
+        /// <param name="b">todo: describe b parameter on EllipsePerimeter2</param>
         /// <returns></returns>
         /// <remarks>
         /// http://ellipse-circumference.blogspot.com/
@@ -4477,7 +4480,7 @@ namespace MethodSpeedTester
         {
             const double d1 = (PI / 4) * (19 / 15) - 1;
             const double d2 = (PI / 4) * (80 / 63) - 1;
-            var p = d1 / (d1 - d2);
+            const double p = d1 / (d1 - d2);
             const double h = 1;
             return PI * (a + b) * (p * ((64 + 16 * h)
                 / (64 - h * h))
@@ -4495,7 +4498,7 @@ namespace MethodSpeedTester
         {
             const double d1 = (PI / 4) * (81 / 64) - 1;
             const double d2 = (PI / 4) * (19 / 15) - 1;
-            var p = d1 / (d1 - d2);
+            const double p = d1 / (d1 - d2);
             const double h = 1;
             return PI * (a + b) * (p * ((16 - 3 * h)
                 / (16 - h))
@@ -4513,7 +4516,7 @@ namespace MethodSpeedTester
         {
             const double d1 = (PI / 4) * (61 / 48) - 1;
             const double d2 = (PI / 4) * (187 / 147) - 1;
-            var p = d1 / (d1 - d2);
+            const double p = d1 / (d1 - d2);
             const double h = 1;
             return PI * (a + b) * (p * ((256 - 48 * h - 21 * h * h)
                 / (256 - 112 * h + 3 * h * h))
@@ -4531,7 +4534,7 @@ namespace MethodSpeedTester
         {
             const double d1 = (PI / 4) * (61 / 48) - 1;
             const double d2 = (PI / 4) * (187 / 147) - 1;
-            var p = d1 / (d1 - d2);
+            const double p = d1 / (d1 - d2);
             const double h = 1;
             return PI * (a + b) * (p * ((3072 - 1280 * h - 252 * h * h + 33 * h * h * h)
                 / (3072 - 2048 * h + 212 * h * h))
@@ -4549,7 +4552,7 @@ namespace MethodSpeedTester
         {
             const double d1 = (PI / 4) * (61 / 48) - 1;
             const double d2 = (PI / 4) * (187 / 147) - 1;
-            var p = d1 / (d1 - d2);
+            const double p = d1 / (d1 - d2);
             const double h = 1;
             return PI * (a + b) * (p * ((135168 - 85760 * h - 5568 * h * h + 3867 * h * h * h)
                 / (135168 - 119552 * h + 22208 * h * h - 345 * h * h * h))
@@ -4895,7 +4898,7 @@ namespace MethodSpeedTester
             const double q = 66.71674;
             const double s = 18.31287;
             const double t = 23.39728;
-            var r = 4 * ((4 - PI) * (4 * s + t + 16) - (4 * p + q));
+            const double r = 4 * ((4 - PI) * (4 * s + t + 16) - (4 * p + q));
             return 4 * (a + b)
                 - ((a * b) / (a + b))
                 * ((p * (a + b) * (a + b) + q * a * b + r * ((a * b) / (a + b)) * ((a * b) / (a + b)))
@@ -4934,7 +4937,7 @@ namespace MethodSpeedTester
         /// <param name="num_points"></param>
         /// <param name="bounds"></param>
         /// <returns>Return PointFs to define a star.</returns>
-        private PointF[] StarPoints(int num_points, Rectangle bounds)
+        private static PointF[] StarPoints(int num_points, Rectangle bounds)
         {
             // Make room for the points.
             var pts = new PointF[num_points];
@@ -5120,7 +5123,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Find Center of a Circle From Three points
+        #region Find Center of a Circle From Three Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
@@ -5339,7 +5342,7 @@ namespace MethodSpeedTester
         }
 
         // Draw a gear.
-        private void DrawGear(Graphics gr, Brush axle_brush, Brush gear_brush, Pen gear_pen, Point2D center, double radius, double tooth_length, int num_teeth, double axle_radius, bool start_with_tooth)
+        private static void DrawGear(Graphics gr, Brush axle_brush, Brush gear_brush, Pen gear_pen, Point2D center, double radius, double tooth_length, int num_teeth, double axle_radius, bool start_with_tooth)
         {
             var dtheta = PI / num_teeth;
             var dtheta_degrees = dtheta * 180 / PI; // dtheta in degrees.
@@ -5392,7 +5395,7 @@ namespace MethodSpeedTester
         #region Heart Interpolation
 
         // The curve's parametric equations.
-        private Point2D Heart(double t)
+        private static Point2D Heart(double t)
         {
             var sin_t = Sin(t);
             return new Point2D(16 * sin_t * sin_t * sin_t,
@@ -5513,7 +5516,7 @@ namespace MethodSpeedTester
         }
 
         // Map from world coordinates to device coordinates.
-        private void SetTransformation(Graphics gr,
+        private static void SetTransformation(Graphics gr,
             Rectangle2D world_rect, Rectangle2D device_rect,
             bool invert_x, bool invert_y)
         {
@@ -5734,7 +5737,7 @@ namespace MethodSpeedTester
         /// <param name="bias">Bias: 0 is even,</param>
         /// <remarks>positive is towards First segment, negative towards the other</remarks>
         /// <returns></returns>
-        private double Hermite_Interpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
+        private static double Hermite_Interpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
         {
             var m0 = ((y1 - y0) * ((1 + bias) * ((1 - tension) / 2)));
             m0 += ((y2 - y1) * ((1 - bias) * ((1 - tension) / 2)));
@@ -5760,7 +5763,7 @@ namespace MethodSpeedTester
         /// <param name="tension"></param>
         /// <param name="bias"></param>
         /// <returns></returns>
-        private double HermiteInterpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
+        private static double HermiteInterpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
         {
             var m0 = ((y1 - y0) * ((1 + bias) * ((1 - tension) / 2)));
             m0 += ((y2 - y1) * ((1 - bias) * ((1 - tension) / 2)));
@@ -5868,14 +5871,14 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Hermite to Cubic Bezier
+        #region Hermite To Cubic Bezier
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
-        public CubicBezier ToCubicBezier(Point2D a, Point2D aTan, Point2D b, Point2D bTan) => new CubicBezier(aTan, new Point2D(aTan.X - (b.X - a.X) / 6, aTan.Y - (b.Y - a.Y) / 6), new Point2D(b.X + (bTan.X - aTan.X) / 6, b.Y + (bTan.Y - aTan.Y) / 6), bTan);
+        public static CubicBezier ToCubicBezier(Point2D a, Point2D aTan, Point2D b, Point2D bTan) => new CubicBezier(aTan, new Point2D(aTan.X - (b.X - a.X) / 6, aTan.Y - (b.Y - a.Y) / 6), new Point2D(b.X + (bTan.X - aTan.X) / 6, b.Y + (bTan.Y - aTan.Y) / 6), bTan);
 
         #endregion
 
@@ -6002,10 +6005,10 @@ namespace MethodSpeedTester
                 }
                 else
                 {
-                    var e1 = ((B.X - A.X) / d, (B.Y - A.Y) / d);
-                    var e2 = (-e1.X, e1.Y);
-                    var P1 = (A.X + x * e1.X + y * e2.Y, A.Y + x * e1.Y + y * e2.X);
-                    var P2 = (A.X + x * e1.X - y * e2.Y, A.Y + x * e1.Y - y * e2.X);
+                    var e1 = (X: (B.X - A.X) / d, Y: (B.Y - A.Y) / d);
+                    var e2 = (X: -e1.X, Y: e1.Y);
+                    var P1 = (X: A.X + x * e1.X + y * e2.Y, Y: A.Y + x * e1.Y + y * e2.X);
+                    var P2 = (X: A.X + x * e1.X - y * e2.Y, Y: A.Y + x * e1.Y - y * e2.X);
                     return (2, P1, P2);
                 }
             }
@@ -6018,7 +6021,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Intersection of Circle and line Segment
+        #region Intersection of Circle and Line Segment
 
         /// <summary>
         /// Find the points of the intersection of a circle and a line segment.
@@ -6161,7 +6164,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Intersection of Circle and line
+        #region Intersection of Circle and Line
 
         /// <summary>
         /// Find the points of intersection.
@@ -6288,7 +6291,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Intersection of Conic Section with Line segment
+        #region Intersection of Conic Section With Line Segment
         // http://csharphelper.com/blog/2014/11/see-where-a-line-intersects-a-conic-section-in-c/
         #endregion
 
@@ -6337,7 +6340,13 @@ namespace MethodSpeedTester
         {
             internal bool GotEllipse1 = false;
             internal bool GotEllipse2 = false;
+            /// <summary>
+            /// The ellipse1.
+            /// </summary>
             private Rectangle2D Ellipse1 = new Rectangle2D();
+            /// <summary>
+            /// The ellipse2.
+            /// </summary>
             private Rectangle2D Ellipse2 = new Rectangle2D();
 
             // Equations that define the ellipses.
@@ -8238,7 +8247,7 @@ namespace MethodSpeedTester
             }
             else
             {
-                result = ua_t == 0 || ub_t == 0 ? null : null;
+                result = null;
             }
 
             return result;
@@ -10486,7 +10495,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Line in Polyline set
+        #region Line in Polyline Set
 
         /// <summary>
         /// This function should be called with the full set of *all* relevant polygons.
@@ -10715,7 +10724,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region List Interpolation points of Quadratic Bezier
+        #region List Interpolation Points of Quadratic Bezier
 
         /// <summary>
         ///
@@ -10768,12 +10777,14 @@ namespace MethodSpeedTester
             {
                 ++bits;
                 a >>= 1;
-            };
-
+            }
             return bits;
         }
 
         // Source: http://graphics.stanford.edu/~seander/bithacks.html
+        /// <summary>
+        /// The multiply de bruijn bit position (readonly). Value: new byte[32] { 0, 9, 1, 10, 13, 21, 2, 29, 11, 14, 16, 18, 22, 25, 3, 30, 8, 12, 20, 28, 15, 17, 24, 7, 19, 27, 23, 6, 26, 5, 4, 31 }.
+        /// </summary>
         private static readonly byte[] multiplyDeBruijnBitPosition = new byte[32]
         {
             0, 9, 1, 10, 13, 21, 2, 29, 11, 14, 16, 18, 22, 25, 3, 30,
@@ -10828,7 +10839,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Mixed product of Three 3D Points
+        #region Mixed Product of Three 3D Points
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the mixed product for three 3D points.
@@ -10942,7 +10953,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Normalize the Vector Between Two 2D Points
+        #region Normalize The Vector Between Two 2D Points
 
         /// <summary>
         /// Find the Normal of Two points.
@@ -10964,7 +10975,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Normalize the Vector Between Two 3D Points
+        #region Normalize The Vector Between Two 3D Points
 
         /// <summary>
         /// Find the Normal of Two points.
@@ -11046,7 +11057,7 @@ namespace MethodSpeedTester
         }
 
         // Return the greatest common divisor (GCD) of a and b.
-        private long GCD(long a, long b)
+        private static long GCD(long a, long b)
         {
             long remainder;
 
@@ -11064,7 +11075,7 @@ namespace MethodSpeedTester
         }
 
         // Draw a star centered at (x, y) using this skip value.
-        private void DrawStar(Graphics gr, int x, int y, PointF[] orig_pts, int skip, int NumPoints)
+        private static void DrawStar(Graphics gr, int x, int y, PointF[] orig_pts, int skip, int NumPoints)
         {
             // Make a PointF array with the points in the proper order.
             var pts = new PointF[NumPoints];
@@ -11082,7 +11093,7 @@ namespace MethodSpeedTester
         #region N Polygon Intersecting Star
 
         // Return PointFs to define a non-intersecting star.
-        private PointF[] NonIntersectingStarPoints(int num_points, Rectangle bounds)
+        private static PointF[] NonIntersectingStarPoints(int num_points, Rectangle bounds)
         {
             // Make room for the points.
             var pts = new PointF[2 * num_points];
@@ -11685,7 +11696,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Perpendicular Vector in the Clockwise Direction
+        #region Perpendicular Vector in The Clockwise Direction
 
         /// <summary>
         /// Find the Clockwise Perpendicular of a Vector.
@@ -11701,7 +11712,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Perpendicular Vector in the Counter Clockwise Direction
+        #region Perpendicular Vector in The Counter Clockwise Direction
 
         /// <summary>
         /// Find the Counter Clockwise Perpendicular of a Vector.
@@ -13602,7 +13613,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Point in Polygon set
+        #region Point in Polygon Set
 
         /// <summary>
         /// This function automatically knows that enclosed polygons are "no-go" areas.
@@ -13802,7 +13813,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Point on Line Segment
+        #region Point On Line Segment
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
@@ -13904,7 +13915,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Points are Close
+        #region Points Are Close
 
         /// <summary>
         /// Return True if (x1, y1) is within close_distance vertically and horizontally of (x2, y2).
@@ -14237,7 +14248,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Quadratic Bezier Length approximations
+        #region Quadratic Bezier Length Approximations
 
         /// <summary>
         /// Closed-form solution to elliptic integral for arc length.
@@ -14325,13 +14336,13 @@ namespace MethodSpeedTester
 
             // Count should be between 2 and 8 to align with MathExtensions.abscissa and MathExtensions.weight.
             const int count = 5;
-            var startl = (count == 2) ? 0 : count * (count - 1) / 2 - 1;
+            const int startl = (count == 2) ? 0 : count * (count - 1) / 2 - 1;
 
             // Minimum, maximum, and scalers.
             const double min = 0;
             const double max = 1;
-            var mult = 0.5 * (max - min);
-            var ab2 = 0.5 * (min + max);
+            const double mult = 0.5 * (max - min);
+            const double ab2 = 0.5 * (min + max);
 
             double theta = 0;
             double xPrime = 0;
@@ -14384,7 +14395,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Rectangle to Square
+        #region Rectangle To Square
 
         private static Rectangle2D ToSquare(Rectangle2D rect)
         {
@@ -14398,7 +14409,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Rectangle has NaN
+        #region Rectangle Has NaN
 
         /// <summary>
         /// rectHasNaN - this returns true if this rectangle has X, Y , Height or Width as NaN.
@@ -14412,7 +14423,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Rectangles are Close
+        #region Rectangles Are Close
 
         /// <summary>
         /// Compares two rectangles for fuzzy equality.  This function
@@ -15450,7 +15461,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Slopes of lines Equal
+        #region Slopes of Lines Equal
 
         /// <summary>
         ///
@@ -15547,7 +15558,7 @@ namespace MethodSpeedTester
         /// by www.Abstractvb.com, Date: 3/9/2001 9:26:43 PM, 20010922
         /// </summary>
         /// <param name="lColor"></param>
-        public (int lRed, int lGreen, int lBlue) SplitRGB01(int lColor)
+        public static (int lRed, int lGreen, int lBlue) SplitRGB01(int lColor)
         {
             lColor = lColor & 0xFFFFFF;
             var lRed = lColor % 0x100;
@@ -15563,7 +15574,7 @@ namespace MethodSpeedTester
         /// by Donald, donald@xbeat.net, 20010922
         /// </summary>
         /// <param name="lColor"></param>
-        public (int lRed, int lGreen, int lBlue) SplitRGB02(int lColor)
+        public static (int lRed, int lGreen, int lBlue) SplitRGB02(int lColor)
             => (lColor & 0xFF,
             (lColor & 0xFF00) / 0x100,
             (lColor & 0xFF0000) / 0x10000);
@@ -15589,7 +15600,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Squared Distance to a Line
+        #region Squared Distance To a Line
 
         /// <summary>
         /// Find the square of the distance of a point from a line.
@@ -16033,7 +16044,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Swap two values
+        #region Swap Two Values
 
         /// <summary>
         /// Set of tests to run testing methods that swap values.
@@ -16065,7 +16076,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Triangulate a polygon
+        #region Triangulate a Polygon
 
         /// <summary>
         /// Set of tests to run testing methods that get the triangles of a polygon.
@@ -16256,7 +16267,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Vector between Vectors
+        #region Vector Between Vectors
 
         /// <summary>
         /// Set of tests to run testing methods that calculate whether a vector is between two others.
@@ -16398,7 +16409,7 @@ namespace MethodSpeedTester
 
         #endregion
 
-        #region Wrap Point on Rectangle Bounds
+        #region Wrap Point On Rectangle Bounds
 
         /// <summary>
         /// Set of tests to run testing methods that calculate the wrapped position of a point in a rectangle.

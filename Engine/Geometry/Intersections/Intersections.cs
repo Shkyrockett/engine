@@ -2139,7 +2139,7 @@ namespace Engine
                 //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
                 if ((nextPoint.Y < pY) != (curPoint.Y < pY)) // At least one point is below the Y threshold and the other is above or equal
                 {
-                    // Optimisation: at least one point must be to the right of the test point
+                    // Optimization: at least one point must be to the right of the test point
                     // If point between start and end points vertically.
                     if (nextPoint.X >= pX)
                     {
@@ -2243,7 +2243,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             var result = Inclusion.Outside;
-            const Engine.Inclusion boundary = Inclusion.Outside;
+            const Inclusion boundary = Inclusion.Outside;
 
             if (path.Count < 2)
             {
@@ -2677,9 +2677,6 @@ namespace Engine
                 return EllipseContainsPoint(cX, cY, r1, r2, sinT, cosT, pX, pY);
             }
 
-            //var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;
-            //var endCosT = sweepCosT * startCosT - sweepSinT * startSinT;
-
             // Find the start and end angles.
             var sa = EllipticalPolarVector(startCosT, startSinT, r1, r2);
             var ea = EllipticalPolarVector(endCosT, endSinT, r1, r2);
@@ -2822,7 +2819,7 @@ namespace Engine
             var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
 
             // Check if the point is on the chord.
-            if (Abs(determinant) <= Epsilon)
+            if (Abs(determinant) <= epsilon)
             {
                 return (sX < eX) ?
                 (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
@@ -9129,7 +9126,7 @@ namespace Engine
 
         #endregion
 
-        #region Parametrized Intersection Index t Methods
+        #region Parametrized Intersection Index T Methods
 
         /// <summary>
         /// Find the intersection parameters of the intersection between two points.
@@ -10270,7 +10267,7 @@ namespace Engine
 
         #endregion
 
-        #region Scan-beam to left Increment Methods
+        #region Scan-beam To Left Increment Methods
 
         /// <summary>
         /// Find the scan-beam points to the left of a point.
@@ -10988,7 +10985,7 @@ namespace Engine
 
         #endregion
 
-        #region Scan-beam to right Increment Methods
+        #region Scan-beam To Right Increment Methods
 
         /// <summary>
         /// Find the scan-beam points to the right of a point.

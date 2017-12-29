@@ -122,8 +122,8 @@ namespace Engine
         {
             rX = this.rX;
             rY = this.rY;
-            endX = this.end.X;
-            endY = this.end.Y;
+            endX = end.X;
+            endY = end.Y;
             angle = this.angle;
             largeArc = this.largeArc;
             sweep = this.sweep;
@@ -267,7 +267,7 @@ namespace Engine
         /// Gets or sets the Angle of the elliptical arc in Degrees.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute("angle")]
+        [XmlAttribute(nameof(angle))]
         [Browsable(false)]
         [GeometryAngleDegrees]
         [Category("Elements")]

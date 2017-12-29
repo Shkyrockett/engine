@@ -18,7 +18,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName("NGonStar")]
+    [DisplayName(nameof(NGonStar))]
     public class NGonStar
         : PolygonContour
     {
@@ -28,8 +28,8 @@ namespace Engine
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "NGonStar";
-            return "NGonStar";
+            if (this == null) return nameof(NGonStar);
+            return nameof(NGonStar);
         }
     }
 }

@@ -200,6 +200,7 @@ namespace Engine
         /// <summary>
         /// Return true if the polygon is convex.
         /// </summary>
+        /// <param name="polygon">todo: describe polygon parameter on PolygonIsConvex</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -350,6 +351,7 @@ namespace Engine
         /// <summary>
         /// Triangulate the polygon.
         /// </summary>
+        /// <param name="polygon">todo: describe polygon parameter on Triangulate</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -727,7 +729,7 @@ namespace Engine
         //    return boundingRect.BestRectangle;
         //}
 
-        #region SutherlandHodgman algorithm's Methods
+        #region SutherlandHodgman Algorithm's Methods
 
         /// <summary>
         /// This iterates through the edges of the polygon, always clockwise

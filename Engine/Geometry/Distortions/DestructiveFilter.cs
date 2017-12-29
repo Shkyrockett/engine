@@ -9,11 +9,12 @@
 // <remarks></remarks>
 
 using System.Collections.Generic;
+using Engine;
 
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The destructive filter class.
     /// </summary>
     public abstract class DestructiveFilter
         : IFilter
@@ -21,32 +22,32 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the tolerence.
         /// </summary>
         public double Tolerence { get; set; } = 1;
 
         /// <summary>
-        /// 
+        /// Gets or sets the sample distance.
         /// </summary>
         public double SampleDistance { get; set; } = 8;
 
         #endregion
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public virtual Point2D Process(Point2D point)
             => point;
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <param name="shape"></param>
-        /// <returns></returns>
         public T Process<S, T>(S shape)
             where S : Shape
             where T : Shape
@@ -82,10 +83,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
+        /// <param name="line">The line.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(LineSegment line)
         {
             var result = new PolycurveContour(Process(line.Points[0]));
@@ -107,10 +108,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
+        /// <param name="line">The line.</param>
+        /// <returns>The <see cref="Line"/>.</returns>
         public Line Process(Line line)
         {
             // ToDo: Figure out how to handle the infiniteness of lines.
@@ -120,10 +121,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
+        /// <param name="points">The points.</param>
+        /// <returns>The <see cref="PointSet"/>.</returns>
         public PointSet Process(PointSet points)
         {
             var results = new PointSet();
@@ -135,10 +136,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(Polygon polygon)
         {
             var result = new PolycurveContour();
@@ -150,10 +151,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="contour"></param>
-        /// <returns></returns>
+        /// <param name="contour">The contour.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(PolygonContour contour)
         {
             var result = new PolycurveContour(Process(contour.Points[0]));
@@ -163,7 +164,7 @@ namespace Engine
             for (var i = 1; i < contour.Count; i++)
             {
                 side = new List<Point2D>();
-                for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * SampleDistance))
+                for (double j = 0; j < 1; j = j + 1d / (contour[contour.Count - 1].Distance(contour[0]) * SampleDistance))
                 {
                     side.Add(Process(Interpolators.Linear(contour[i - 1], contour[i], j)));
                 }
@@ -174,7 +175,7 @@ namespace Engine
                 }
             }
             side = new List<Point2D>();
-            for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * SampleDistance))
+            for (double j = 0; j < 1; j = j + 1d / (contour[contour.Count - 1].Distance(contour[0]) * SampleDistance))
             {
                 side.Add(Process(Interpolators.Linear(contour[contour.Count - 1], contour[0], j)));
             }
@@ -188,10 +189,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="polylines"></param>
-        /// <returns></returns>
+        /// <param name="polylines">The polylines.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(PolylineSet polylines)
         {
             var result = new PolycurveContour();
@@ -203,10 +204,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="contour"></param>
-        /// <returns></returns>
+        /// <param name="contour">The contour.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(Polyline contour)
         {
             var result = new PolycurveContour(Process(contour.Points[0]));
@@ -231,10 +232,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="contour"></param>
-        /// <returns></returns>
+        /// <param name="contour">The contour.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(PolycurveContour contour)
         {
             var result = new PolycurveContour(Process(contour.Items[0].Start.Value));
@@ -260,10 +261,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="rect"></param>
-        /// <returns></returns>
+        /// <param name="rect">The rect.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(Rectangle2D rect)
         {
             var result = new PolycurveContour(Process(rect.Location));

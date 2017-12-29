@@ -18,7 +18,13 @@ namespace Engine.Chrono
     internal class Lunar
     {
         //Variables for Moon program
+        /// <summary>
+        /// The ip.
+        /// </summary>
         private double ip;
+        /// <summary>
+        /// The ag.
+        /// </summary>
         private double ag;
 
         /// <summary>
@@ -28,7 +34,7 @@ namespace Engine.Chrono
         /// <param name="m"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private int JulianDate(int d, int m, int y)
+        private static int JulianDate(int d, int m, int y)
         {
             int mm, yy;
             int k1, k2, k3;
@@ -81,7 +87,7 @@ namespace Engine.Chrono
         /// <param name="month"></param>
         /// <param name="day"></param>
         /// <returns></returns>
-        private int Moon_phase(int year, int month, int day)
+        private static int Moon_phase(int year, int month, int day)
         {
             int c, e;
             double jd;

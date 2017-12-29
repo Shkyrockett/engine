@@ -22,7 +22,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
-    [DisplayName("Point")]
+    [DisplayName(nameof(Point))]
     public class ScreenPoint
         : Shape
     {

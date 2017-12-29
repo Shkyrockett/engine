@@ -61,7 +61,7 @@ namespace EngineTests
 
         #endregion
 
-        #region Class housekeeping
+        #region Class Housekeeping
 
         /// <summary>
         ///
@@ -114,8 +114,8 @@ namespace EngineTests
         [Ignore]
         public void DivideMethodTest()
         {
-            const int x = 0;
-            var value = 1 / x;
+            //const int x = 0;
+            //var value = 1 / x;
             Assert.Fail("No exception was thrown.");
         }
 

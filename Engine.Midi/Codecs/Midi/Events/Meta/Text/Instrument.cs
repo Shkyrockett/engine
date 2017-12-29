@@ -19,7 +19,7 @@ namespace Engine.File
     /// FF 04 len text
     /// </remarks>
     [ElementName(nameof(Instrument))]
-    [DisplayName("Instrument")]
+    [DisplayName(nameof(Instrument))]
     public class Instrument
         : BaseTextEvent
     {

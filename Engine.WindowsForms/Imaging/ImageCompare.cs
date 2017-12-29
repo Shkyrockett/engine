@@ -176,7 +176,7 @@ namespace Engine.Imaging
         /// <remarks>
         /// From http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp 
         /// </remarks>
-        private unsafe void Compare(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
+        private unsafe static void Compare(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
             // For alpha, use the average of both images (otherwise pixels with the same alpha won't be visible)
             => *cPtr = colorComp == 0 ? (byte)((aPtr + bPtr) / 2) : (byte)~(aPtr ^ bPtr);
 
@@ -189,7 +189,7 @@ namespace Engine.Imaging
         /// <remarks>
         /// Based on http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
         /// </remarks>
-        private unsafe void Compare1(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
+        private unsafe static void Compare1(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
             => *cPtr = (byte)(aPtr + bPtr - 2 * Min(aPtr, bPtr));
     }
 }

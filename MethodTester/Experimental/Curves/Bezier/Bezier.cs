@@ -742,11 +742,11 @@ namespace Engine
             if (t2 != 0) return result.Left;
             // if we have a t2, split again:
             t2 = Map(t2, t1, 1, 0, 1);
-            var subsplit = result.Right.Split(t2);
+            var subsplit = Bezier.Split(t2);
             return subsplit.Left;
         }
 
-        private double Map(double t2, double t1, double v1, double v2, double v3)
+        private static double Map(double t2, double t1, double v1, double v2, double v3)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -754,7 +754,7 @@ namespace Engine
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        internal Pair Split(double v)
+        internal static Pair Split(double v)
             => new Pair();
 
         /// <summary>
@@ -801,7 +801,7 @@ namespace Engine
                 );
         }
 
-        private RangeX GetMinMax(Bezier bezier, int v, List<double> extrema)
+        private static RangeX GetMinMax(Bezier bezier, int v, List<double> extrema)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -816,7 +816,7 @@ namespace Engine
             return Bboxoverlap(lbbox, tbbox);
         }
 
-        private bool Bboxoverlap(BBox lbbox, BBox tbbox)
+        private static bool Bboxoverlap(BBox lbbox, BBox tbbox)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -952,7 +952,7 @@ namespace Engine
             return pass2;
         }
 
-        private double Map(double t1, int v1, int v2, double t2, double t3)
+        private static double Map(double t1, int v1, int v2, double t2, double t3)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -1009,10 +1009,10 @@ namespace Engine
             return new Bezier(np);
         }
 
-        private Point3D Copy(Point3D point3D)
+        private static Point3D Copy(Point3D point3D)
             => throw new NotImplementedException();
 
-        private Point3D Lli4(Point3D item31, Point3D item11, Point3D item32, Point3D item12)
+        private static Point3D Lli4(Point3D item31, Point3D item11, Point3D item32, Point3D item12)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -1168,7 +1168,7 @@ namespace Engine
             return new PolyBezier2(segments);
         }
 
-        private Bezier MakeLine(Point3D bs, Point3D fs)
+        private static Bezier MakeLine(Point3D bs, Point3D fs)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -1192,7 +1192,7 @@ namespace Engine
             return shapes;
         }
 
-        private Shape1 MakeShape(Bezier bezier1, Bezier bezier2)
+        private static Shape1 MakeShape(Bezier bezier1, Bezier bezier2)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -1238,7 +1238,7 @@ namespace Engine
                 select Intersections.Between(p.X, mx, MX) && Intersections.Between(p.Y, my, MY));
         }
 
-        private List<double> Roots(List<Point3D> points, Line1 line)
+        private static List<double> Roots(List<Point3D> points, Line1 line)
             => new List<double> { 0 };
 
         /// <summary>
@@ -1295,7 +1295,7 @@ namespace Engine
             return intersections;
         }
 
-        private List<Pair> Pairiteration(Bezier left, Bezier right)
+        private static List<Pair> Pairiteration(Bezier left, Bezier right)
             => throw new NotImplementedException();
 
         /// <summary>
@@ -1412,7 +1412,7 @@ namespace Engine
             return circles;
         }
 
-        private Arc1 Getccenter(Point3D np1, Point3D np2, Point3D np3)
+        private static Arc1 Getccenter(Point3D np1, Point3D np2, Point3D np3)
             => throw new NotImplementedException();
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace Engine.File
     /// <summary>
     /// 
     /// </summary>
-    [ElementName("MidiTrack")]
+    [ElementName(nameof(MidiTrack))]
     [DisplayName("Midi Track")]
     public class MidiTrack
         : IMidiElement

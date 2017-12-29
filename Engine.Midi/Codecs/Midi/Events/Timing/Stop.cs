@@ -20,7 +20,7 @@ namespace Engine.File
     /// Stop the current sequence.
     /// </remarks>
     [ElementName(nameof(Stop))]
-    [DisplayName("Stop")]
+    [DisplayName(nameof(Stop))]
     public class Stop
         : EventStatus
     {

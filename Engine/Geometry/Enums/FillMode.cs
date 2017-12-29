@@ -11,17 +11,17 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The fill mode enum.
     /// </summary>
     public enum FillMode
     {
         /// <summary>
-        /// 
+        /// The Alternate.
         /// </summary>
         Alternate,
 
         /// <summary>
-        /// 
+        /// The Winding.
         /// </summary>
         Winding
     }

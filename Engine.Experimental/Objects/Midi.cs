@@ -1,4 +1,4 @@
-﻿// <copyright file="Wavform.cs" company="Shkyrockett" >
+﻿// <copyright file="Midi.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -11,22 +11,22 @@
 using System;
 using System.Collections.Generic;
 
-namespace Engine
+namespace Engine.Objects
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Wavform
+    public class Midi
         : IAudio
     {
         /// <summary>
         /// 
         /// </summary>
-        public Wavform()
+        public Midi()
         {
-            DisplayName = "Wavform";
-            Name = "Wavform";
-            Filename = "Wavform.wav";
+            DisplayName = nameof(Midi);
+            Name = nameof(Midi);
+            Filename = "Midi.mid";
             TimeSyncPoints = new Dictionary<int, DateTimeOffset>();
             Lyrics = new List<string>();
         }

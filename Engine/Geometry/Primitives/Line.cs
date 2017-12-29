@@ -24,7 +24,7 @@ namespace Engine
     /// <remarks></remarks>
     [DataContract, Serializable]
     [GraphicsObject]
-    [DisplayName("Line")]
+    [DisplayName(nameof(Line))]
     [XmlType(TypeName = "line", Namespace = "http://www.w3.org/2000/svg")]
     public class Line
         : Shape

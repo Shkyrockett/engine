@@ -17,10 +17,5 @@ namespace Engine
     public class CoincidentLineLocus
         : Locus
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        public CoincidentLineLocus()
-        { }
     }
 }

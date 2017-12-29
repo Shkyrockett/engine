@@ -113,7 +113,7 @@ namespace Engine
         /// </summary>
         /// <param name="v"></param>
         /// <returns></returns>
-        public ClippingVertex GetNext(ClippingVertex v)
+        public static ClippingVertex GetNext(ClippingVertex v)
         {
             var c = v;
             while (c.isIntersection)
@@ -213,18 +213,18 @@ namespace Engine
                     {
                         if (!clipVertex.isIntersection)
                         {
-                            var i = new ClippingIntersection(sourceVertex, GetNext(sourceVertex.Next), clipVertex, clip.GetNext(clipVertex.Next));
+                            var i = new ClippingIntersection(sourceVertex, GetNext(sourceVertex.Next), clipVertex, GetNext(clipVertex.Next));
 
                             if (i.Valid())
                             {
-                                var sourceIntersection = clipVertex.CreateIntersection(i.X, i.Y, i.ToSource);
-                                var clipIntersection = clipVertex.CreateIntersection(i.X, i.Y, i.ToClip);
+                                var sourceIntersection = ClippingVertex.CreateIntersection(i.X, i.Y, i.ToSource);
+                                var clipIntersection = ClippingVertex.CreateIntersection(i.X, i.Y, i.ToClip);
 
                                 sourceIntersection.corresponding = clipIntersection;
                                 clipIntersection.corresponding = sourceIntersection;
 
                                 InsertVertex(sourceIntersection, sourceVertex, GetNext(sourceVertex.Next));
-                                clip.InsertVertex(clipIntersection, clipVertex, clip.GetNext(clipVertex.Next));
+                                clip.InsertVertex(clipIntersection, clipVertex, GetNext(clipVertex.Next));
                             }
                         }
                         clipVertex = clipVertex.Next;

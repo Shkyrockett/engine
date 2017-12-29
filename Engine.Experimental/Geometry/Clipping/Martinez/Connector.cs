@@ -22,12 +22,12 @@ namespace Engine
         /// <summary>
         /// The open polygons.
         /// </summary>
-        private List<PointChain> openPolygons;
+        private readonly List<PointChain> openPolygons;
 
         /// <summary>
         /// The closed polygons.
         /// </summary>
-        private List<PointChain> closedPolygons;
+        private readonly List<PointChain> closedPolygons;
 
         #endregion
 
@@ -60,7 +60,7 @@ namespace Engine
                     {
                         if (chain.PointList.Count == 2)
                         {
-                            // We tried linking the same segment (but flipped end and start) to 
+                            // We tried linking the same segment (but flipped end and start) to
                             // a chain. (i.e. chain was <p0, p1>, we tried linking Segment(p1, p0)
                             // so the chain was closed illegally.
                             chain.Closed = false;
@@ -74,7 +74,7 @@ namespace Engine
                     {
                         for (var i = j + 1; i < openPolygons.Count; i++)
                         {
-                            // Try to connect this open link to the rest of the chains. 
+                            // Try to connect this open link to the rest of the chains.
                             // We won't be able to connect this to any of the chains preceding this one
                             // because we know that linkSegment failed on those.
                             if (chain.LinkPointChain(openPolygons[i]))

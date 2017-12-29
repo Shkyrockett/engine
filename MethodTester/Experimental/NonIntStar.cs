@@ -18,7 +18,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName("Star")]
+    [DisplayName(nameof(Star))]
     public class NonIntStar
         : PolygonContour
     {
@@ -29,7 +29,7 @@ namespace Engine
         public override string ToString()
         {
             if (this == null) return "ElipticStar";
-            return "Star";
+            return nameof(Star);
         }
     }
 }

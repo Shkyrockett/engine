@@ -42,9 +42,21 @@ namespace Engine
 
         #region Fields
 
+        /// <summary>
+        /// The curves.
+        /// </summary>
         private List<CubicBezier> curves;
+        /// <summary>
+        /// The curves view.
+        /// </summary>
         private ReadOnlyCollection<CubicBezier> curvesView;
+        /// <summary>
+        /// The arclen.
+        /// </summary>
         private List<double> arclen;
+        /// <summary>
+        /// The samples per curve.
+        /// </summary>
         private int samplesPerCurve;
 
         #endregion
@@ -73,7 +85,7 @@ namespace Engine
         public Spline(ICollection<CubicBezier> curves, int samplesPerCurve)
         {
             if (curves == null)
-                throw new ArgumentNullException("curves");
+                throw new ArgumentNullException(nameof(curves));
             if (samplesPerCurve < MinimumSamplesPerCurve || samplesPerCurve > MaximumSamplesPerCurve)
                 throw new InvalidOperationException("samplesPerCurve must be between " + MinimumSamplesPerCurve + " and " + MaximumSamplesPerCurve);
             this.samplesPerCurve = samplesPerCurve;

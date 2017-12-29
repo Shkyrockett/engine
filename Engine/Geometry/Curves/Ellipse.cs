@@ -137,8 +137,8 @@ namespace Engine
         /// <param name="angle"></param>
         public void Deconstruct(out double cx, out double cy, out double rX, out double rY, out double angle)
         {
-            cx = this.x;
-            cy = this.x;
+            cx = x;
+            cy = x;
             rX = this.rX;
             rY = this.rY;
             angle = this.angle;
@@ -195,7 +195,7 @@ namespace Engine
         /// Gets or sets the X coordinate location of the center of the circle.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute("x")]
+        [XmlAttribute(nameof(x))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The center x coordinate location of the circle.")]
@@ -217,7 +217,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate location of the center of the circle.
         /// </summary>
-        [XmlAttribute("y")]
+        [XmlAttribute(nameof(y))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The center y coordinate location of the circle.")]
@@ -352,7 +352,7 @@ namespace Engine
         /// Gets or sets the Angle of the <see cref="Ellipse"/> in Degrees.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute("angle")]
+        [XmlAttribute(nameof(angle))]
         [Browsable(false)]
         [GeometryAngleDegrees]
         [Category("Elements")]

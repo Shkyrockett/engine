@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The matrix distort class.
     /// </summary>
     public class MatrixDistort
         : PreservingFilter
@@ -19,9 +19,9 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MatrixDistort"/> class.
         /// </summary>
-        /// <param name="matrix"></param>
+        /// <param name="matrix">The matrix.</param>
         public MatrixDistort(Matrix3x2D matrix)
         {
             Matrix = matrix;
@@ -32,7 +32,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the matrix.
         /// </summary>
         public Matrix3x2D Matrix { get; set; }
 
@@ -41,10 +41,10 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => Distortions.Matrix(point, Matrix);
 

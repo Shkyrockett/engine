@@ -183,7 +183,7 @@ namespace Engine.Physics
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
-            => "Meters";
+            => nameof(Meters);
 
         /// <summary>
         ///

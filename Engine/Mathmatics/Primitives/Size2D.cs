@@ -334,7 +334,7 @@ namespace Engine
 
             // The token will already have had whitespace trimmed so we can do a
             // simple string compare.
-            value = firstToken == "Empty" ? Empty : new Size2D(
+            value = firstToken == nameof(Empty) ? Empty : new Size2D(
                     Convert.ToDouble(firstToken, provider),
                     Convert.ToDouble(tokenizer.NextTokenRequired(), provider));
 

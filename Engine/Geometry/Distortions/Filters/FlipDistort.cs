@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The flip distort class.
     /// </summary>
     public class FlipDistort
         : PreservingFilter
@@ -19,11 +19,11 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="FlipDistort"/> class.
         /// </summary>
-        /// <param name="center"></param>
-        /// <param name="flipHorizontal"></param>
-        /// <param name="flipVertical"></param>
+        /// <param name="center">The center.</param>
+        /// <param name="flipHorizontal">The flipHorizontal.</param>
+        /// <param name="flipVertical">The flipVertical.</param>
         public FlipDistort(Point2D center, bool flipHorizontal, bool flipVertical)
         {
             Center = center;
@@ -36,17 +36,17 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the center.
         /// </summary>
         public Point2D Center { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         public bool FlipHorizontal { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         public bool FlipVertical { get; set; }
 
@@ -55,10 +55,10 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => Distortions.Flip(point, Center, FlipHorizontal, FlipVertical);
 

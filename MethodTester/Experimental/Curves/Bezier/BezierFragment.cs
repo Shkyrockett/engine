@@ -175,7 +175,7 @@ namespace Engine
 
         #endregion
 
-        #region basic static operations
+        #region Basic Static Operations
 
         /// <summary>
         /// 

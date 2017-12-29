@@ -29,8 +29,8 @@ namespace Engine
         /// <returns></returns>
         public override string ToString()
         {
-            if (this == null) return "Gear";
-            return string.Format("{0}", "Gear");
+            if (this == null) return nameof(Gear);
+            return string.Format("{0}", nameof(Gear));
         }
     }
 }

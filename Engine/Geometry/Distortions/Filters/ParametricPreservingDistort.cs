@@ -13,7 +13,7 @@ using System;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The parametric preserving distort class.
     /// </summary>
     public class ParametricPreservingDistort
         : PreservingFilter
@@ -21,9 +21,9 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ParametricPreservingDistort"/> class.
         /// </summary>
-        /// <param name="functions"></param>
+        /// <param name="functions">The functions.</param>
         public ParametricPreservingDistort(params Func<Point2D, Point2D>[] functions)
         {
             Functions = functions;
@@ -34,7 +34,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the functions.
         /// </summary>
         public Func<Point2D, Point2D>[] Functions { get; set; }
 
@@ -43,10 +43,10 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
         {
             var result = point;

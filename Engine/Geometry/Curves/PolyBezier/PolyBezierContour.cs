@@ -25,7 +25,7 @@ namespace Engine
     /// Based roughly on the SVG Path.
     /// </summary>
     [DataContract, Serializable]
-    [DisplayName("PolyBezier")]
+    [DisplayName(nameof(PolyBezier))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [XmlType(TypeName = "polybeziercontour", Namespace = "http://www.w3.org/2000/svg")]
     public class PolyBezierContour
@@ -33,8 +33,14 @@ namespace Engine
     {
         #region Fields
 
+        /// <summary>
+        /// The items.
+        /// </summary>
         List<BezierSegmentX> items;
 
+        /// <summary>
+        /// The closed.
+        /// </summary>
         bool closed = false;
 
         #endregion
@@ -271,7 +277,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        public void Reverse()
+        public static void Reverse()
         {
 
         }

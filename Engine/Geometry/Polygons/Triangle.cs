@@ -131,12 +131,12 @@ namespace Engine
         /// <param name="cX"></param>
         public void Deconstruct(out double aX, out double aY, out double bX, out double bY, out double cX, out double cY)
         {
-            aX = this.A.X;
-            aY = this.A.Y;
-            bX = this.B.X;
-            bY = this.B.Y;
-            cX = this.C.X;
-            cY = this.C.Y;
+            aX = A.X;
+            aY = A.Y;
+            bX = B.X;
+            bY = B.Y;
+            cX = C.X;
+            cY = C.Y;
         }
 
         #endregion

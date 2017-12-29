@@ -48,7 +48,7 @@ namespace Engine.Physics
         ///
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Work";
+        public string Name => nameof(Work);
 
         /// <summary>
         ///

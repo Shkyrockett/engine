@@ -754,8 +754,8 @@ namespace Engine
             {
                 //return new List<Pair>() { ((r * (c1._t1 + c1._t2) / 2) | 0d) / r + "/" + ((r * (c2._t1 + c2._t2) / 2) | 0) / r };
             }
-            var cc1 = c1.Split(0.5);
-            var cc2 = c2.Split(0.5);
+            var cc1 = Bezier.Split(0.5);
+            var cc2 = Bezier.Split(0.5);
 
             var pairs = new List<Pair>(
                 from pair in new List<Pair> {

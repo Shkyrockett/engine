@@ -98,7 +98,7 @@ namespace Engine
         /// <param name="y"></param>
         /// <param name="distance"></param>
         /// <returns></returns>
-        public ClippingVertex CreateIntersection(double x, double y, double distance)
+        public static ClippingVertex CreateIntersection(double x, double y, double distance)
         {
             var vertex = new ClippingVertex(x, y)
             {

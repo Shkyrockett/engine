@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The translate distort class.
     /// </summary>
     public class TranslateDistort
         : PreservingFilter
@@ -19,9 +19,9 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TranslateDistort"/> class.
         /// </summary>
-        /// <param name="offset"></param>
+        /// <param name="offset">The offset.</param>
         public TranslateDistort(Vector2D offset)
         {
             Offset = offset;
@@ -32,7 +32,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the offset.
         /// </summary>
         public Vector2D Offset { get; set; }
 
@@ -41,10 +41,10 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => point + Offset;
 

@@ -312,7 +312,7 @@ namespace Engine.Geometry
 
         #endregion
 
-        #region Static funcs
+        #region Static Funcs
 
         /// <summary>
         /// Calcs the absolute value of a complex number.

@@ -56,10 +56,10 @@ namespace Engine.Experimental
         #endregion
 
         /// <summary>
-        /// 
+        /// Set the orientation.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
         public void SetOrientation(Edge e1, Edge e2)
         {
             StartEdge = e1;
@@ -69,7 +69,7 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The swap sides.
         /// </summary>
         public void SwapSides()
         {
@@ -80,7 +80,7 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// The end out rec.
         /// </summary>
         public void EndOutRec()
         {
@@ -95,9 +95,9 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        /// 
+        /// Update the helper.
         /// </summary>
-        /// <param name="leftOutpt"></param>
+        /// <param name="leftOutpt">The leftOutpt.</param>
         public void UpdateHelper(LinkedPoint leftOutpt)
         {
             var leftOpt = (LinkedPointTriangle)leftOutpt;

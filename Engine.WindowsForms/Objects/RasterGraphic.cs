@@ -67,7 +67,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <returns></returns>
-        public object Clone() => new object();
+        public static object Clone() => new object();
 
         /// <summary>
         /// 

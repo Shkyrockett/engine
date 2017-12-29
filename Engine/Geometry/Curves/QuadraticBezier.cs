@@ -142,7 +142,7 @@ namespace Engine
         /// Gets or sets the X coordinate of the first Point of a Cubic Bezier.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute("ax")]
+        [XmlAttribute(nameof(ax))]
         [Browsable(false)]
         [Category("Elements")]
         [Description("The X coordinate of the first Point of a Cubic Bezier.")]
@@ -164,7 +164,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate of the first Point of a Cubic Bezier.
         /// </summary>
-        [XmlAttribute("ay")]
+        [XmlAttribute(nameof(ay))]
         [Browsable(false)]
         [Category("Elements")]
         [Description("The y coordinate of the first Point of a Cubic Bezier.")]
@@ -187,7 +187,7 @@ namespace Engine
         /// Gets or sets the X coordinate of the second Point of a Cubic Bezier.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute("bx")]
+        [XmlAttribute(nameof(bx))]
         [Browsable(false)]
         [Category("Elements")]
         [Description("The X coordinate of the second Point of a Cubic Bezier.")]
@@ -230,7 +230,7 @@ namespace Engine
         /// Gets or sets the X coordinate of the third Point of a Cubic Bezier.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute("cx")]
+        [XmlAttribute(nameof(cx))]
         [Browsable(false)]
         [Category("Elements")]
         [Description("The X coordinate of the third Point of a Cubic Bezier.")]
@@ -252,7 +252,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate of the third Point of a Cubic Bezier.
         /// </summary>
-        [XmlAttribute("cy")]
+        [XmlAttribute(nameof(cy))]
         [Browsable(false)]
         [Category("Elements")]
         [Description("The y coordinate of the third Point of a Cubic Bezier.")]
@@ -324,7 +324,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Y coordinate of the second Point of a Cubic Bezier.
         /// </summary>
-        [XmlAttribute("by")]
+        [XmlAttribute(nameof(by))]
         [Browsable(false)]
         [Category("Elements")]
         [Description("The y coordinate of the second Point of a Cubic Bezier.")]

@@ -784,7 +784,7 @@ namespace Engine.Chrono
         /// </remarks>
         public static Occasion Halloween(int year, Culture culture = null)
             => new Occasion(
-            "Halloween",
+            nameof(Halloween),
             new Culture(Languages.en, Countries.US),
             OccasionDateType.AnnualDate,
             EventType.Holiday,
@@ -1145,7 +1145,7 @@ namespace Engine.Chrono
         /// <param name="ofSouthernHemisphere"></param>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/1579587/how-can-i-get-the-current-season-using-net-summer-winter-etc</remarks>
-        private Season GetSeason(DateTime date, bool ofSouthernHemisphere)
+        private static Season GetSeason(DateTime date, bool ofSouthernHemisphere)
         {
             var hemisphereConst = (ofSouthernHemisphere ? 2 : 0);
             Func<Season, Season> getReturn = (northern)

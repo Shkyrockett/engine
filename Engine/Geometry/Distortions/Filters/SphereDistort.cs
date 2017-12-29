@@ -13,7 +13,7 @@ using System;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The sphere distort class.
     /// </summary>
     public class SphereDistort
         : DestructiveFilter
@@ -21,10 +21,10 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SphereDistort"/> class.
         /// </summary>
-        /// <param name="rect"></param>
-        /// <param name="strength"></param>
+        /// <param name="rect">The rect.</param>
+        /// <param name="strength">The strength.</param>
         public SphereDistort(Rectangle2D rect, double strength = 0.5)
         {
             Center = rect.Center;
@@ -33,11 +33,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SphereDistort"/> class.
         /// </summary>
-        /// <param name="center"></param>
-        /// <param name="radius"></param>
-        /// <param name="strength"></param>
+        /// <param name="center">The center.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="strength">The strength.</param>
         public SphereDistort(Point2D center, double radius, double strength = 0.5)
         {
             Center = center;
@@ -50,17 +50,17 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the center.
         /// </summary>
         public Point2D Center { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the radius.
         /// </summary>
         public double Radius { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the strength.
         /// </summary>
         public double Strength { get; set; }
 
@@ -69,10 +69,10 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// Process.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => Distortions.Pinch(point, Center, Radius, -Strength);
 

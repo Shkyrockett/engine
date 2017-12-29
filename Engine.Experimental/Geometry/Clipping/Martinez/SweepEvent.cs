@@ -243,6 +243,7 @@ namespace Engine
         /// <summary>
         /// Is the line segment (point, otherEvent.point) above point p
         /// </summary>
+        /// <param name="p">todo: describe p parameter on IsAbove</param>
         /// <returns></returns>
         public bool IsAbove(Point2D p)
             => !IsBelow(p);
@@ -268,9 +269,9 @@ namespace Engine
             oss += $" S:[({s.Min.X},{s.Min.Y}) - ({s.Max.X},{s.Max.Y})]";
             oss += $" ({BelongsTo.ToString()})";
             oss += $" ({Contribution.ToString()})";
-            var inOutOutIn = InOut ? "inOut" : "outIn";
+            var inOutOutIn = InOut ? nameof(inOut) : "outIn";
             oss += $" ({inOutOutIn})";
-            var otherInOutOutIn = OtherInOut ? "inOut" : "outIn";
+            var otherInOutOutIn = OtherInOut ? nameof(inOut) : "outIn";
             oss += $" otherInOut: ({otherInOutOutIn})";
             return oss;
         }

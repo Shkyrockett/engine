@@ -557,7 +557,7 @@ namespace Engine
         /// Gets or sets the Angle of the elliptical arc in Degrees.
         /// </summary>
         /// <remarks></remarks>
-        [XmlAttribute("angle")]
+        [XmlAttribute(nameof(angle))]
         [Browsable(false)]
         [GeometryAngleDegrees]
         [Category("Elements")]

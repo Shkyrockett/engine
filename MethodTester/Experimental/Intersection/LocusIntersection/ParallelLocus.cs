@@ -17,10 +17,5 @@ namespace Engine
     public class ParallelLocus
         : EmptyLocus
     {
-        /// <summary>
-        /// Initializes a default instance of the <see cref="ParallelLocus"/> class.
-        /// </summary>
-        public ParallelLocus()
-        { }
     }
 }

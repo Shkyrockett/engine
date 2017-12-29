@@ -11,17 +11,17 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The distortion direction enum.
     /// </summary>
     public enum DistortionDirection
     {
         /// <summary>
-        /// 
+        /// The Vertical.
         /// </summary>
         Vertical,
 
         /// <summary>
-        /// 
+        /// The Horizontal.
         /// </summary>
         Horizontal
     }

@@ -27,6 +27,6 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => "Heart";
+            => nameof(Heart);
     }
 }

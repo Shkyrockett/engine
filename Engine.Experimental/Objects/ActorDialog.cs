@@ -1,4 +1,4 @@
-﻿// <copyright file="Actor.cs" company="Shkyrockett" >
+﻿// <copyright file="ActorDialog.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,24 +8,26 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// Dialog
     /// </summary>
-    public class Actor
+    public class ActorDialog
         : IGameElement
     {
         /// <summary>
         /// 
         /// </summary>
-        public Actor()
+        public ActorDialog()
         {
-            DisplayName = "Actor";
-            Name = "Actor";
-            Inventory = new List<IventoryItem>();
+            DisplayName = nameof(ActorDialog);
+            Name = nameof(ActorDialog);
+            Text = new List<string>();
+            TimeSyncPoints = new Dictionary<int, DateTimeOffset>();
         }
 
         /// <summary>
@@ -41,6 +43,11 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        public List<IventoryItem> Inventory { get; set; }
+        public Dictionary<int, DateTimeOffset> TimeSyncPoints { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public List<string> Text { get; set; }
     }
 }

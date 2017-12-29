@@ -131,7 +131,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate of the location of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute("x")]
+        [XmlAttribute(nameof(x))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The center x coordinate location of the " + nameof(Transform2D) + ".")]
@@ -143,7 +143,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="Y"/> coordinate of the location of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute("y")]
+        [XmlAttribute(nameof(y))]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The center y coordinate location of the " + nameof(Transform2D) + ".")]

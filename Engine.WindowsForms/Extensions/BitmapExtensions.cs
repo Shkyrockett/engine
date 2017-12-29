@@ -35,7 +35,13 @@ namespace Engine.Imaging
         public class DisposableImageData
             : IDisposable
         {
+            /// <summary>
+            /// The bitmap (readonly).
+            /// </summary>
             private readonly Bitmap bitmap;
+            /// <summary>
+            /// The data (readonly).
+            /// </summary>
             private readonly BitmapData data;
 
             /// <summary>

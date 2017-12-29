@@ -100,7 +100,7 @@ namespace Engine.Physics
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
-            => "Seconds";
+            => nameof(Seconds);
 
         /// <summary>
         /// 

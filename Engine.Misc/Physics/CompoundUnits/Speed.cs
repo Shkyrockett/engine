@@ -48,7 +48,7 @@ namespace Engine.Physics
         /// 
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Seconds";
+        public string Name => nameof(Seconds);
 
         /// <summary>
         /// 

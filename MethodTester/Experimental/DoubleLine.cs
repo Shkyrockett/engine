@@ -62,6 +62,6 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => "DoubleLine";
+            => nameof(DoubleLine);
     }
 }

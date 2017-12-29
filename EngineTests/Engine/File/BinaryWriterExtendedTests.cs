@@ -78,7 +78,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryWriterExtended")]
+        [TestProperty("Engine.File", nameof(BinaryWriterExtended))]
         [DeploymentItem("Engine.File.dll")]
         public void WriteNetworkUInt14Test()
         {
@@ -110,7 +110,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryWriterExtended")]
+        [TestProperty("Engine.File", nameof(BinaryWriterExtended))]
         [DeploymentItem("Engine.File.dll")]
         public void WriteNetworkInt14Test()
         {
@@ -142,7 +142,7 @@ namespace EngineTests
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine.File", "BinaryWriterExtended")]
+        [TestProperty("Engine.File", nameof(BinaryWriterExtended))]
         [DeploymentItem("Engine.File.dll")]
         public void Write7BitEncodedIntTest()
         {

@@ -18,7 +18,7 @@ namespace Engine.File
     public enum MidiSystemMessages
         : byte
     {
-        #region Common messages
+        #region Common Messages
 
         /// <summary>
         /// System Exclusive.
@@ -78,7 +78,7 @@ namespace Engine.File
         EndOfExclusive = 0x07,
 
         #endregion
-        #region Real-time messages
+        #region Real-time Messages
 
         /// <summary>
         /// Timing Clock.

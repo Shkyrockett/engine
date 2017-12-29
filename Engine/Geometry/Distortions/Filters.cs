@@ -13,17 +13,17 @@ using System;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The filters class.
     /// </summary>
     public static class Filters
     {
         /// <summary>
-        /// 
+        /// The scale distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="factors">The factors.</param>
+        /// <returns>The <see cref="S"/>.</returns>
         /// <typeparam name="S"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="factors"></param>
-        /// <returns></returns>
         public static S ScaleDistort<S>(this S shape, Size2D factors)
             where S : Shape
         {
@@ -32,14 +32,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The flip distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="center">The center.</param>
+        /// <param name="flipHorizontal">The flipHorizontal.</param>
+        /// <param name="flipVertical">The flipVertical.</param>
+        /// <returns>The <see cref="S"/>.</returns>
         /// <typeparam name="S"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="center"></param>
-        /// <param name="flipHorizontal"></param>
-        /// <param name="flipVertical"></param>
-        /// <returns></returns>
         public static S FlipDistort<S>(this S shape, Point2D center, bool flipHorizontal, bool flipVertical)
             where S : Shape
         {
@@ -48,12 +48,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Translate the distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="offset">The offset.</param>
+        /// <returns>The <see cref="S"/>.</returns>
         /// <typeparam name="S"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="offset"></param>
-        /// <returns></returns>
         public static S TranslateDistort<S>(this S shape, Vector2D offset)
             where S : Shape
         {
@@ -62,13 +62,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The rotate distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="center">The center.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="S"/>.</returns>
         /// <typeparam name="S"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="center"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
         public static S RotateDistort<S>(this S shape, Point2D center, double angle)
             where S : Shape
         {
@@ -77,12 +77,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The matrix distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>The <see cref="S"/>.</returns>
         /// <typeparam name="S"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="matrix"></param>
-        /// <returns></returns>
         public static S MatrixDistort<S>(this S shape, Matrix3x2D matrix)
             where S : Shape
         {
@@ -91,12 +91,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The parametric preserving distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="functions">The functions.</param>
+        /// <returns>The <see cref="S"/>.</returns>
         /// <typeparam name="S"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="functions"></param>
-        /// <returns></returns>
         public static S ParametricPreservingDistort<S>(this S shape, params Func<Point2D, Point2D>[] functions)
             where S : Shape
         {
@@ -105,13 +105,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The parametric destructive distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="functions">The functions.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="functions"></param>
-        /// <returns></returns>
         public static T ParametricDestructiveDistort<S,T>(this S shape, params Func<Point2D, Point2D>[] functions)
             where S : Shape
             where T : Shape
@@ -121,14 +121,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The bulge distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="center">The center.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="center"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
         public static T BulgeDistort<S,T>(this S shape, Point2D center, double strength = 0.5d)
             where S : Shape
             where T : Shape
@@ -138,14 +138,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The sphere distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="rect">The rect.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="rect"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
         public static T SphereDistort<S,T>(this S shape, Rectangle2D rect, double strength = 0.5d)
             where S : Shape
             where T : Shape
@@ -155,15 +155,15 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The sphere distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="center">The center.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="center"></param>
-        /// <param name="radius"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
         public static T SphereDistort<S,T>(this S shape, Point2D center, double radius, double strength = 0.5d)
             where S : Shape
             where T : Shape
@@ -173,14 +173,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The swirl distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="center">The center.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="center"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
         public static T SwirlDistort<S,T>(this S shape, Point2D center, double strength = 0.008d)
             where S : Shape
             where T : Shape
@@ -190,14 +190,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The time warp distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="center">The center.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="center"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
         public static T TimeWarpDistort<S,T>(this S shape, Point2D center, double strength = 10d)
             where S : Shape
             where T : Shape
@@ -207,14 +207,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The water distort.
         /// </summary>
+        /// <param name="shape">The shape.</param>
+        /// <param name="center">The center.</param>
+        /// <param name="strength">The strength.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
-        /// <param name="shape"></param>
-        /// <param name="center"></param>
-        /// <param name="strength"></param>
-        /// <returns></returns>
         public static T WaterDistort<S,T>(this S shape, Point2D center, double strength = 8d)
             where S : Shape
             where T : Shape

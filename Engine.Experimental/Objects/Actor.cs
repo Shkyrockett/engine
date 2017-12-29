@@ -1,4 +1,4 @@
-﻿// <copyright file="Midi.cs" company="Shkyrockett" >
+﻿// <copyright file="Actor.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,27 +8,24 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
 using System.Collections.Generic;
 
-namespace Engine.Objects
+namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Midi
-        : IAudio
+    public class Actor
+        : IGameElement
     {
         /// <summary>
         /// 
         /// </summary>
-        public Midi()
+        public Actor()
         {
-            DisplayName = "Midi";
-            Name = "Midi";
-            Filename = "Midi.mid";
-            TimeSyncPoints = new Dictionary<int, DateTimeOffset>();
-            Lyrics = new List<string>();
+            DisplayName = nameof(Actor);
+            Name = nameof(Actor);
+            Inventory = new List<IventoryItem>();
         }
 
         /// <summary>
@@ -39,21 +36,11 @@ namespace Engine.Objects
         /// <summary>
         /// 
         /// </summary>
-        public string Filename { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<int, DateTimeOffset> TimeSyncPoints { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<string> Lyrics { get; set; }
+        public List<IventoryItem> Inventory { get; set; }
     }
 }

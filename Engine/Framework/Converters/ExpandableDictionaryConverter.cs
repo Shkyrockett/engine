@@ -16,7 +16,7 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The expandable dictionary converter class.
     /// </summary>
     /// <acknowledgment>
     /// http://stackoverflow.com/questions/32582504/propertygrid-expandable-collection
@@ -24,26 +24,16 @@ namespace Engine
     public class ExpandableDictionaryConverter
         : CollectionConverter
     {
-        #region Constructors
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public ExpandableDictionaryConverter()
-        { }
-
-        #endregion
-
         #region Methods
 
         /// <summary>
-        /// 
+        /// Convert the to.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="culture"></param>
-        /// <param name="value"></param>
-        /// <param name="destType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="destType">The destType.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destType)
         {
             if (destType == typeof(string))
@@ -55,20 +45,20 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Get the properties supported.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool GetPropertiesSupported(ITypeDescriptorContext context)
             => true;
 
         /// <summary>
-        /// 
+        /// Get the properties.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="value"></param>
-        /// <param name="attributes"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="attributes">The attributes.</param>
+        /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             var dictionary = value as IDictionary;

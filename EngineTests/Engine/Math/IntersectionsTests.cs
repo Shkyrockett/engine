@@ -87,7 +87,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
         public void CircleContainsPointTest()
         {
@@ -118,7 +118,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
         public void EllipseContainsPointTest()
         {
@@ -154,7 +154,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
         public void PointLineSegmentTest()
         {
@@ -182,7 +182,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
         public void LineLineTest()
         {
@@ -235,7 +235,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
         public void LineSegmentLineSegmentTest()
         {
@@ -288,7 +288,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("System.ValueTuple.dll")]
         public void QuadraticBezierSegmentQuadraticBezierSegmentIntersectionTest()
@@ -334,7 +334,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("System.ValueTuple.dll")]
         public void CubicBezierSegmentSelfIntersectionTest()
@@ -366,7 +366,7 @@ namespace Engine.Tests
         [TestMethod()]
         [Priority(0)]
         [Owner("Shkyrockett")]
-        [TestProperty("Engine", "IntersectionsTests")]
+        [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
         [DeploymentItem("System.ValueTuple.dll")]
         public void CubicBezierSegmentCubicBezierSegmentIntersectionTest()

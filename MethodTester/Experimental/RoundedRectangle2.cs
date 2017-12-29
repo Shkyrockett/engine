@@ -34,7 +34,7 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="e"></param>
-        protected void OnPaint(PaintEventArgs e)
+        protected static void OnPaint(PaintEventArgs e)
         {
             //base.OnPaint(e);
 

@@ -274,7 +274,7 @@ namespace Engine
         /// <param name="seg0">The seg0.</param>
         /// <param name="seg1">The seg1.</param>
         /// <returns>The <see cref="(int, Point2D[])"/>.</returns>
-        private (int, Point2D[]) FindIntersection(LineSegment seg0, LineSegment seg1)
+        private static (int, Point2D[]) FindIntersection(LineSegment seg0, LineSegment seg1)
         {
             var pi0 = new Point2D();
             var pi1 = new Point2D();

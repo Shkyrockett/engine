@@ -93,7 +93,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute("x")]
+        [XmlAttribute(nameof(x))]
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -111,7 +111,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute("y")]
+        [XmlAttribute(nameof(y))]
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -145,7 +145,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute("h")]
+        [XmlAttribute(nameof(h))]
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -163,7 +163,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        [XmlAttribute("v")]
+        [XmlAttribute(nameof(v))]
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]

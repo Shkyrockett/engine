@@ -94,14 +94,14 @@ namespace Engine
         /// <param name="dy"></param>
         public void Deconstruct(out double ax, out double ay, out double bx, out double by, out double cx, out double cy, out double dx, out double dy)
         {
-            ax = this.Start.Value.X;
-            ay = this.Start.Value.Y;
-            bx = this.Handle1.X;
-            by = this.Handle1.Y;
-            cx = this.Handle2.Value.X;
-            cy = this.Handle2.Value.Y;
-            dx = this.End.Value.X;
-            dy = this.End.Value.Y;
+            ax = Start.Value.X;
+            ay = Start.Value.Y;
+            bx = Handle1.X;
+            by = Handle1.Y;
+            cx = Handle2.Value.X;
+            cy = Handle2.Value.Y;
+            dx = End.Value.X;
+            dy = End.Value.Y;
         }
 
         #endregion

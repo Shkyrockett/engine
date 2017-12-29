@@ -20,7 +20,7 @@ namespace Engine.File
     /// Continue at the point the sequence was Stopped.
     /// </remarks>
     [ElementName(nameof(Continue))]
-    [DisplayName("Continue")]
+    [DisplayName(nameof(Continue))]
     public class Continue
         : EventStatus
     {

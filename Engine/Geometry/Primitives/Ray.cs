@@ -21,7 +21,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
-    [DisplayName("Ray")]
+    [DisplayName(nameof(Ray))]
     public class Ray
         : Shape
     {

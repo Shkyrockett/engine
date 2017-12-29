@@ -33,6 +33,9 @@ namespace Engine.WindowsForms
             UpdateStyles();
         }
 
+        /// <summary>
+        /// The wm paint (const). Value: 0x0F.
+        /// </summary>
         private const int WmPaint = 0x0F;
 
         /// <summary>

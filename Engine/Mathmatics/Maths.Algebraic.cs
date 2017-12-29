@@ -904,8 +904,7 @@ namespace Engine
                 // or if correction is in simple loop
                 return (Math.Abs(x_correction) <= min_correction_factor * Math.Abs(x))
                     || (prev_x_ef_correction == (x - x_correction) - x);
-            };
-
+            }
             var i = 0;
             //var stepMethod;
             //var details = [];

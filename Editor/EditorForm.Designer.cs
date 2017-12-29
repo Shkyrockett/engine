@@ -173,13 +173,13 @@ namespace Editor
             this.CanvasPanel.MouseWheelTilt += new System.Windows.Forms.MouseEventHandler(this.CanvasPanel_MouseWheelTilt);
             this.CanvasPanel.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.CanvasPanel_MouseWheel);
             this.CanvasPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.CanvasPanel_Paint);
-            this.CanvasPanel.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CanvasPanel_KeyDown);
-            this.CanvasPanel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CanvasPanel_KeyPress);
-            this.CanvasPanel.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CanvasPanel_KeyUp);
+            this.CanvasPanel.KeyDown += new System.Windows.Forms.KeyEventHandler(EditorForm.CanvasPanel_KeyDown);
+            this.CanvasPanel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(EditorForm.CanvasPanel_KeyPress);
+            this.CanvasPanel.KeyUp += new System.Windows.Forms.KeyEventHandler(EditorForm.CanvasPanel_KeyUp);
             this.CanvasPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CanvasPanel_MouseDown);
             this.CanvasPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.CanvasPanel_MouseMove);
             this.CanvasPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.CanvasPanel_MouseUp);
-            this.CanvasPanel.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.CanvasPanel_PreviewKeyDown);
+            this.CanvasPanel.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(EditorForm.CanvasPanel_PreviewKeyDown);
             this.CanvasPanel.Resize += new System.EventHandler(this.CanvasPanel_Resize);
             // 
             // textBox1

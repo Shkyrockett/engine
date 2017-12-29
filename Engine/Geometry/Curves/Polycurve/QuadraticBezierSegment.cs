@@ -89,12 +89,12 @@ namespace Engine
         /// <param name="cy"></param>
         public void Deconstruct(out double ax, out double ay, out double bx, out double by, out double cx, out double cy)
         {
-            ax = this.Start.Value.X;
-            ay = this.Start.Value.Y;
-            bx = this.Handle.Value.X;
-            by = this.Handle.Value.Y;
-            cx = this.End.Value.X;
-            cy = this.End.Value.Y;
+            ax = Start.Value.X;
+            ay = Start.Value.Y;
+            bx = Handle.Value.X;
+            by = Handle.Value.Y;
+            cx = End.Value.X;
+            cy = End.Value.Y;
         }
 
         #endregion

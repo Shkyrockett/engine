@@ -11,16 +11,16 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IDistortion interface.
     /// </summary>
     public interface IDistortion
     {
         /// <summary>
-        /// 
+        /// The distort.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         Point2D Distort(PolycurveContour source, Point2D point);
     }
 }

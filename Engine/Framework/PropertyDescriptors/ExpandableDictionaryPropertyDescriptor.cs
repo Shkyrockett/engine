@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExpandableDictionaryPropertyDescriptor.cs" company="Shkyrockett" >
-//     Copyright © 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -15,7 +15,7 @@ using System.ComponentModel;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The expandable dictionary property descriptor class.
     /// </summary>
     /// <acknowledgment>
     /// https://stackoverflow.com/a/1928595/7004229
@@ -26,12 +26,12 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The dictionary.
         /// </summary>
         private IDictionary dictionary;
 
         /// <summary>
-        /// 
+        /// The key.
         /// </summary>
         private object key;
 
@@ -40,7 +40,7 @@ namespace Engine
         #region Events
 
         /// <summary>
-        /// 
+        /// The refresh required event of the <see cref="EventHandler"/>.
         /// </summary>
         internal event EventHandler RefreshRequired;
 
@@ -49,10 +49,10 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ExpandableDictionaryPropertyDescriptor"/> class.
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="key"></param>
+        /// <param name="d">The d.</param>
+        /// <param name="key">The key.</param>
         public ExpandableDictionaryPropertyDescriptor(IDictionary d, object key)
             : base(key.ToString(), null)
         {
@@ -65,37 +65,37 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets the name.
         /// </summary>
         public override string Name
             => key.ToString();
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
         public override bool IsReadOnly
             => false;
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
         public override bool SupportsChangeEvents
             => true;
 
         /// <summary>
-        /// 
+        /// Gets the component type.
         /// </summary>
         public override Type ComponentType
             => dictionary.GetType();
 
         /// <summary>
-        /// 
+        /// Gets the property type.
         /// </summary>
         public override Type PropertyType
             => dictionary[key].GetType();
 
         /// <summary>
-        /// 
+        /// Gets the attributes.
         /// </summary>
         public override AttributeCollection Attributes
             => new AttributeCollection(null);
@@ -105,50 +105,50 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// The can reset value.
         /// </summary>
-        /// <param name="component"></param>
-        /// <returns></returns>
+        /// <param name="component">The component.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool CanResetValue(object component)
             => false;
 
         /// <summary>
-        /// 
+        /// Reset the value.
         /// </summary>
-        /// <param name="component"></param>
+        /// <param name="component">The component.</param>
         public override void ResetValue(object component)
         { }
 
         /// <summary>
-        /// 
+        /// Get the value.
         /// </summary>
-        /// <param name="component"></param>
-        /// <returns></returns>
+        /// <param name="component">The component.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object GetValue(object component)
             => dictionary[key];
 
         /// <summary>
-        /// 
+        /// Set the value.
         /// </summary>
-        /// <param name="component"></param>
-        /// <param name="value"></param>
+        /// <param name="component">The component.</param>
+        /// <param name="value">The value.</param>
         public override void SetValue(object component, object value)
             => dictionary[key] = value;
 
         /// <summary>
-        /// 
+        /// The should serialize value.
         /// </summary>
-        /// <param name="component"></param>
-        /// <returns></returns>
+        /// <param name="component">The component.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool ShouldSerializeValue(object component)
             => false;
 
         /// <summary>
-        /// 
+        /// Get the display name.
         /// </summary>
-        /// <param name="dictionary"></param>
-        /// <param name="key"></param>
-        /// <returns></returns>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         private static string GetDisplayName(IDictionary dictionary, object key)
             //=> $"{CSharpName(dictionary[key].GetType())} [{key,4}]";
             => $"[{key}]";
@@ -167,7 +167,7 @@ namespace Engine
         //}
 
         /// <summary>
-        /// 
+        /// Raises the refresh required event.
         /// </summary>
         protected virtual void OnRefreshRequired()
             => RefreshRequired?.Invoke(this, EventArgs.Empty);

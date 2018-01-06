@@ -1,5 +1,5 @@
 ﻿// <copyright file="Tween.cs" company="Shkyrockett" >
-//     Copyright © 2013 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -16,29 +16,29 @@ using static Engine.Maths;
 namespace Engine.Tweening
 {
     /// <summary>
-    ///
+    /// The tween class.
     /// </summary>
     public class Tween
     {
         #region Callbacks
 
         /// <summary>
-        ///
+        /// The ease.
         /// </summary>
         private Func<double, double> ease;
 
         /// <summary>
-        ///
+        /// The begin.
         /// </summary>
         private Action begin;
 
         /// <summary>
-        ///
+        /// The update.
         /// </summary>
         private Action update;
 
         /// <summary>
-        ///
+        /// The complete.
         /// </summary>
         private Action complete;
 
@@ -47,27 +47,27 @@ namespace Engine.Tweening
         #region Timing
 
         /// <summary>
-        ///
+        /// Gets a value indicating whether 
         /// </summary>
         public bool Paused { get; private set; }
 
         /// <summary>
-        ///
+        /// The delay.
         /// </summary>
         private double delay;
 
         /// <summary>
-        ///
+        /// The repeat delay.
         /// </summary>
         private double repeatDelay;
 
         /// <summary>
-        ///
+        /// The duration.
         /// </summary>
         private double duration;
 
         /// <summary>
-        ///
+        /// The time.
         /// </summary>
         private double time;
 
@@ -76,57 +76,57 @@ namespace Engine.Tweening
         #region Fields
 
         /// <summary>
-        ///
+        /// The first update.
         /// </summary>
         private bool firstUpdate;
 
         /// <summary>
-        ///
+        /// The repeat count.
         /// </summary>
         private int repeatCount;
 
         /// <summary>
-        ///
+        /// The times repeated.
         /// </summary>
         private int timesRepeated;
 
         /// <summary>
-        ///
+        /// The behavior.
         /// </summary>
         private LerpBehavior behavior;
 
         /// <summary>
-        ///
+        /// The vars.
         /// </summary>
         private List<GlideInfo> vars;
 
         /// <summary>
-        ///
+        /// The lerpers.
         /// </summary>
         private List<Lerper> lerpers;
 
         /// <summary>
-        ///
+        /// The end.
         /// </summary>
         private List<object> end;
 
         /// <summary>
-        ///
+        /// The start.
         /// </summary>
         private List<object> start;
 
         /// <summary>
-        ///
+        /// The var hash.
         /// </summary>
         private Dictionary<string, int> varHash;
 
         /// <summary>
-        ///
+        /// The parent.
         /// </summary>
         private Tweener Parent;
 
         /// <summary>
-        ///
+        /// The remover.
         /// </summary>
         private Tweener Remover;
 
@@ -135,12 +135,12 @@ namespace Engine.Tweening
         #region Constructors
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Tween"/> class.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="duration"></param>
-        /// <param name="delay"></param>
-        /// <param name="parent"></param>
+        /// <param name="target">The target.</param>
+        /// <param name="duration">The duration.</param>
+        /// <param name="delay">The delay.</param>
+        /// <param name="parent">The parent.</param>
         internal Tween(object target, double duration, double delay, Tweener parent)
         {
             Target = target;
@@ -195,12 +195,12 @@ namespace Engine.Tweening
         #endregion
 
         /// <summary>
-        ///
+        /// Add the lerp.
         /// </summary>
-        /// <param name="lerper"></param>
-        /// <param name="info"></param>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
+        /// <param name="lerper">The lerper.</param>
+        /// <param name="info">The info.</param>
+        /// <param name="from">The from.</param>
+        /// <param name="to">The to.</param>
         internal void AddLerp(Lerper lerper, GlideInfo info, object from, object to)
         {
             varHash.Add(info.MemberName, vars.Count);
@@ -213,9 +213,9 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        ///
+        /// Update.
         /// </summary>
-        /// <param name="elapsed"></param>
+        /// <param name="elapsed">The elapsed.</param>
         internal void Update(double elapsed)
         {
             if (firstUpdate)

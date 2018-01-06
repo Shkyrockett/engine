@@ -1,5 +1,5 @@
 ﻿// <copyright file="PaletteControl.Designer.cs" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

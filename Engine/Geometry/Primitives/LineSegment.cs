@@ -1,5 +1,5 @@
 ﻿// <copyright file="LineSegment.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-//using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -44,22 +43,22 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The a x.
         /// </summary>
         private double aX;
 
         /// <summary>
-        /// 
+        /// The a y.
         /// </summary>
         private double aY;
 
         /// <summary>
-        /// 
+        /// The b x.
         /// </summary>
         private double bX;
 
         /// <summary>
-        /// 
+        /// The b y.
         /// </summary>
         private double bY;
 
@@ -123,12 +122,12 @@ namespace Engine
         #region Deconstructors
 
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
         public void Deconstruct(out double aX, out double aY, out double bX, out double bY)
         {
             aX = this.aX;
@@ -142,10 +141,10 @@ namespace Engine
         #region Indexers
 
         /// <summary>
-        /// 
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type Point2D.</returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -330,21 +329,21 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
-        /// 
+        /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length
             => (double)CachingProperty(() => Measurements.Distance(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
-        /// 
+        /// Gets the length squared.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double LengthSquared
             => (double)CachingProperty(() => Measurements.SquareDistance(A.X, A.Y, B.X, B.Y));
 
         /// <summary>
-        /// 
+        /// Gets the dot product.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double DotProduct
@@ -358,14 +357,14 @@ namespace Engine
             => (double)CachingProperty(() => Maths.CrossProduct(aX, aY, bX, bY));
 
         /// <summary>
-        /// 
+        /// Gets the complex product.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public (double x, double y) ComplexProduct
             => ((double x, double y))CachingProperty(() => Maths.ComplexProduct(aX, aY, bX, bY));
 
         /// <summary>
-        /// 
+        /// Gets the curve x.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
@@ -379,7 +378,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the curve y.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
@@ -407,32 +406,29 @@ namespace Engine
             => (aX > bX) || (aX == bX && aY > bY) ? new Point2D(aX, aY) : new Point2D(bX, bY);
 
         /// <summary>
-        /// 
+        /// Gets the degree.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => PolynomialDegree.Linear;
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
-        /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool Degenerate
             => aX == bX && aY == bY;
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
-        /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsHorizontal
             => aY == bY;
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
-        /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsVertical
             => aX == bX;
@@ -510,7 +506,7 @@ namespace Engine
         #region Mutators
 
         /// <summary>
-        /// 
+        /// The reverse.
         /// </summary>
         public void Reverse()
         {
@@ -526,17 +522,16 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// The to array.
         /// </summary>
-        /// <returns>an array of points</returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
         public Point2D[] ToArray()
             => new Point2D[] { A, B };
 
         /// <summary>
-        /// 
+        /// The to line.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Line"/>.</returns>
         public Line ToLine()
             => new Line(aX, aY, aX - bX, aY - bY);
 

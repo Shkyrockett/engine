@@ -1,5 +1,5 @@
 ﻿// <copyright file="GlideInfo.cs" company="Shkyrockett" >
-//     Copyright © 2013 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -14,14 +14,14 @@ using System.Reflection;
 namespace Engine.Tweening
 {
     /// <summary>
-    /// 
+    /// The glide info class.
     /// </summary>
-	internal class GlideInfo
+    internal class GlideInfo
     {
         #region Constants
 
         /// <summary>
-        /// 
+        /// The flags (const). Value: BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static.
         /// </summary>
         private const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
@@ -30,12 +30,12 @@ namespace Engine.Tweening
         #region Fields
 
         /// <summary>
-        /// 
+        /// The member.
         /// </summary>
         private MemberInfo member;
 
         /// <summary>
-        /// 
+        /// The target.
         /// </summary>
         private object target;
 
@@ -44,10 +44,10 @@ namespace Engine.Tweening
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="GlideInfo"/> class.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="info"></param>
+        /// <param name="target">The target.</param>
+        /// <param name="info">The info.</param>
         public GlideInfo(object target, PropertyInfo info)
         {
             this.target = target;
@@ -57,10 +57,10 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="GlideInfo"/> class.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="info"></param>
+        /// <param name="target">The target.</param>
+        /// <param name="info">The info.</param>
         public GlideInfo(object target, FieldInfo info)
         {
             this.target = target;
@@ -70,10 +70,10 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="GlideInfo"/> class.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="info"></param>
+        /// <param name="target">The target.</param>
+        /// <param name="info">The info.</param>
         public GlideInfo(object target, MemberInfo info)
         {
             this.target = target;
@@ -83,11 +83,12 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="GlideInfo"/> class.
         /// </summary>
-        /// <param name="target"></param>
-        /// <param name="property"></param>
-        /// <param name="writeRequired"></param>
+        /// <param name="target">The target.</param>
+        /// <param name="property">The property.</param>
+        /// <param name="writeRequired">The writeRequired.</param>
+        /// <exception cref="Exception">readable</exception>
         public GlideInfo(object target, string property, bool writeRequired = true)
         {
             this.target = target;
@@ -115,17 +116,17 @@ namespace Engine.Tweening
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets the member name.
         /// </summary>
         public string MemberName { get; }
 
         /// <summary>
-        /// 
+        /// Gets the member type.
         /// </summary>
         public Type MemberType { get; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the value.
         /// </summary>
         public object Value
         {

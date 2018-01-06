@@ -1,5 +1,5 @@
 ﻿// <copyright file="Rectangle2D.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The rectangle2d class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]

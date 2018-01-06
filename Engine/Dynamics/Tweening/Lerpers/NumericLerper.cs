@@ -1,5 +1,5 @@
 ﻿// <copyright file="Vector3Lerper.cs" company="Shkyrockett" >
-//     Copyright © 2013 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -15,32 +15,32 @@ using static Engine.Maths;
 namespace Engine.Tweening
 {
     /// <summary>
-    ///
+    /// The numeric lerper class.
     /// </summary>
     public class NumericLerper
         : Lerper
     {
         /// <summary>
-        ///
+        /// The from.
         /// </summary>
         private double from;
 
         /// <summary>
-        ///
+        /// The to.
         /// </summary>
         private double to;
 
         /// <summary>
-        ///
+        /// The range.
         /// </summary>
         private double range;
 
         /// <summary>
-        ///
+        /// Initialize.
         /// </summary>
-        /// <param name="fromValue"></param>
-        /// <param name="toValue"></param>
-        /// <param name="behavior"></param>
+        /// <param name="fromValue">The fromValue.</param>
+        /// <param name="toValue">The toValue.</param>
+        /// <param name="behavior">The behavior.</param>
         public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
         {
             from = Convert.ToDouble(fromValue);
@@ -65,12 +65,12 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        ///
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="currentValue"></param>
-        /// <param name="behavior"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <param name="currentValue">The currentValue.</param>
+        /// <param name="behavior">The behavior.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object Interpolate(double t, object currentValue, LerpBehavior behavior)
         {
             var value = from + range * t;

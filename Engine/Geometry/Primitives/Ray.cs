@@ -1,5 +1,5 @@
 ﻿// <copyright file="Ray.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -17,7 +17,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The ray class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -28,12 +28,12 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The location.
         /// </summary>
         Point2D location;
 
         /// <summary>
-        /// 
+        /// The direction.
         /// </summary>
         Vector2D direction;
 
@@ -42,15 +42,17 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Ray"/> class.
         /// </summary>
         public Ray()
             : this(Point2D.Empty, Vector2D.Empty)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Ray"/> class.
         /// </summary>
+        /// <param name="location">The location.</param>
+        /// <param name="direction">The direction.</param>
         public Ray(Point2D location, Vector2D direction)
             : base()
         {
@@ -59,12 +61,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Ray"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
         public Ray(double x, double y, double i, double j)
             : this(new Point2D(x, y), new Vector2D(i, j))
         { }
@@ -74,12 +76,12 @@ namespace Engine
         #region Deconstructors
 
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
         public void Deconstruct(out double x, out double y, out double i, out double j)
         {
             x = Location.X;
@@ -93,7 +95,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the location.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         public Point2D Location
@@ -109,7 +111,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the direction.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         public Vector2D Direction
@@ -125,7 +127,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         public override Rectangle2D Bounds
@@ -180,17 +182,17 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => Interpolators.Linear(location, location + direction, t);
 
         /// <summary>
-        /// 
+        /// The to line.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Line"/>.</returns>
         public Line ToLine()
             => new Line(location, direction);
 

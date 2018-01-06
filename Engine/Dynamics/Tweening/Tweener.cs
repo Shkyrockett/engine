@@ -1,5 +1,5 @@
 ﻿// <copyright file="Tweener.cs" company="Shkyrockett" >
-//     Copyright © 2013 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -15,29 +15,29 @@ using System.Reflection;
 namespace Engine.Tweening
 {
     /// <summary>
-    /// 
+    /// The tweener class.
     /// </summary>
     public class Tweener
     {
         #region Fields
 
         /// <summary>
-        /// 
+        /// The tweens.
         /// </summary>
         private Dictionary<object, List<Tween>> tweens;
 
         /// <summary>
-        /// 
+        /// The to remove.
         /// </summary>
         private List<Tween> toRemove;
 
         /// <summary>
-        /// 
+        /// The to add.
         /// </summary>
         private List<Tween> toAdd;
 
         /// <summary>
-        /// 
+        /// The all tweens.
         /// </summary>
         private List<Tween> allTweens;
 
@@ -46,7 +46,7 @@ namespace Engine.Tweening
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes static members of the <see cref="Tweener"/> class.
         /// </summary>
         static Tweener()
         {
@@ -77,7 +77,7 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Tweener"/> class.
         /// </summary>
         public Tweener()
         {
@@ -92,7 +92,7 @@ namespace Engine.Tweening
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the registered lerpers.
         /// </summary>
         public static Dictionary<Type, ConstructorInfo> RegisteredLerpers { get; set; }
 
@@ -232,10 +232,11 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// 
+        /// Create the lerper.
         /// </summary>
-        /// <param name="propertyType"></param>
-        /// <returns></returns>
+        /// <param name="propertyType">The propertyType.</param>
+        /// <returns>The <see cref="Lerper"/>.</returns>
+        /// <exception cref="Exception"></exception>
         private static Lerper CreateLerper(Type propertyType)
         {
             if (!RegisteredLerpers.TryGetValue(propertyType, out var lerper))
@@ -245,14 +246,14 @@ namespace Engine.Tweening
         }
 
         /// <summary>
-        /// 
+        /// Remove.
         /// </summary>
-        /// <param name="tween"></param>
+        /// <param name="tween">The tween.</param>
         internal void Remove(Tween tween)
             => toRemove.Add(tween);
 
         /// <summary>
-        /// 
+        /// Add the and remove.
         /// </summary>
         private void AddAndRemove()
         {

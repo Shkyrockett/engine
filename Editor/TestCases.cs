@@ -1,5 +1,5 @@
 ﻿// <copyright file="TestCases.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -219,41 +219,36 @@ namespace Editor
             var envelope = new Envelope(rect.Left, rect.Top, rect.Width, rect.Height);
             envelope.ControlPointTopLeft = new ControlPoint
             {
-                X = envelope.ControlPointTopLeft.X,
-                Y = envelope.ControlPointTopLeft.Y,
-                AnchorH = envelope.ControlPointTopLeft.AnchorH + new Vector2D(0, off),
-                AnchorV = envelope.ControlPointTopLeft.AnchorV + new Vector2D(off, 0)
+                Point = envelope.ControlPointTopLeft.Point - new Vector2D(off, 0),
+                AnchorH = envelope.ControlPointTopLeft.AnchorH - new Vector2D(0, off),
+                AnchorV = envelope.ControlPointTopLeft.AnchorV - new Vector2D(off, 0)
             };
             envelope.ControlPointTopRight = new ControlPoint
             {
-                X = envelope.ControlPointTopRight.X,
-                Y = envelope.ControlPointTopRight.Y,
-                AnchorH = envelope.ControlPointTopRight.AnchorH + new Vector2D(0, off),
+                Point = envelope.ControlPointTopRight.Point + new Vector2D(off, 0),
+                AnchorH = envelope.ControlPointTopRight.AnchorH - new Vector2D(0, off),
                 AnchorV = envelope.ControlPointTopRight.AnchorV + new Vector2D(off, 0)
             };
             envelope.ControlPointBottomRight = new ControlPoint
             {
-                X = envelope.ControlPointBottomRight.X,
-                Y = envelope.ControlPointBottomRight.Y,
+                Point = envelope.ControlPointBottomRight.Point - new Vector2D(off, 0),
                 AnchorH = envelope.ControlPointBottomRight.AnchorH + new Vector2D(0, off),
                 AnchorV = envelope.ControlPointBottomRight.AnchorV + new Vector2D(off, 0)
             };
             envelope.ControlPointBottomLeft = new ControlPoint
             {
-                X = envelope.ControlPointBottomLeft.X,
-                Y = envelope.ControlPointBottomLeft.Y,
+                Point = envelope.ControlPointBottomLeft.Point + new Vector2D(off, 0),
                 AnchorH = envelope.ControlPointBottomLeft.AnchorH + new Vector2D(0, off),
-                AnchorV = envelope.ControlPointBottomLeft.AnchorV + new Vector2D(off, 0)
+                AnchorV = envelope.ControlPointBottomLeft.AnchorV - new Vector2D(off, 0)
             };
-            envelope.Update();
-            var envelopeDistort = new EnvelopeDistort(envelope);
+            var envelopeDistort = new EnvelopeDistort(envelope, rect);
 
-            var curvedRectangle = envelopeDistort.Process(rect);
-            var curvedRectangleItem = new GraphicItem(curvedRectangle, intersectionBlue)
+            var warpedRectangle = envelopeDistort.Process(rect);
+            var warpedRectangleItem = new GraphicItem(warpedRectangle, intersectionBlue)
             {
-                Name = "Curved Rectangle"
+                Name = "Warped Rectangle"
             };
-            var curvedRectangleNodeItem = new GraphicItem(new NodeRevealer(curvedRectangle.Grips, 5d), handleStyle);
+            var warpedRectangleNodeItem = new GraphicItem(new NodeRevealer(warpedRectangle.Grips, 5d), handleStyle);
 
             var curvedBounds = envelope.ToPolycurve();
             var curvedBoundsItem = new GraphicItem(curvedBounds, intersectionGreen)
@@ -268,10 +263,10 @@ namespace Editor
                 Name = "Warp"
             };
 
-            vectorMap.Add(rectItem);
-            vectorMap.Add(curvedRectangleItem);
-            vectorMap.Add(curvedRectangleNodeItem);
-            vectorMap.Add(curvedBoundsItem);
+            //vectorMap.Add(rectItem);
+            vectorMap.Add(warpedRectangleItem);
+            //vectorMap.Add(warpedRectangleNodeItem);
+            //vectorMap.Add(curvedBoundsItem);
             vectorMap.Add(curvedBoundsItemNodeItem);
             vectorMap.Add(warpGridItem);
         }

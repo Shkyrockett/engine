@@ -1,5 +1,5 @@
 ﻿// <copyright file="Select.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,12 +21,6 @@ namespace Engine.Tools
     public class Pan
         : Tool, ITool
     {
-        #region Fields
-
-        
-        
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -57,7 +51,7 @@ namespace Engine.Tools
         public int Index { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         public bool MouseDown { get; set; }
 
@@ -139,16 +133,16 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => nameof(SelectTop);
 
         /// <summary>
-        /// 
+        /// The output.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public static string Output()
         {
             var output = new StringBuilder();

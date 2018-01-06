@@ -1,5 +1,5 @@
 ﻿// <copyright file="Vector2DConverter.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -25,27 +25,27 @@ namespace Engine
         : ExpandableObjectConverter
     {
         /// <summary>
-        /// 
+        /// The instance ctor.
         /// </summary>
         ConstructorInfo instanceCtor;
 
         /// <summary>
-        /// 
+        /// The parse.
         /// </summary>
         MethodInfo parse;
 
         /// <summary>
-        /// 
+        /// The descriptions.
         /// </summary>
         PropertyDescriptorCollection descriptions;
 
         /// <summary>
-        /// 
+        /// The instance ctor param names.
         /// </summary>
         string[] instanceCtorParamNames;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="StructConverter"/> class.
         /// </summary>
         public StructConverter()
         {
@@ -81,50 +81,50 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The can convert from.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="sourceType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="sourceType">The sourceType.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
             => (parse != null && sourceType == typeof(string)) ||
                 base.CanConvertFrom(context, sourceType);
 
         /// <summary>
-        /// 
+        /// The can convert to.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="destinationType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="destinationType">The destinationType.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
             => (instanceCtor != null && destinationType == typeof(InstanceDescriptor)) ||
                 base.CanConvertTo(context, destinationType);
 
         /// <summary>
-        /// 
+        /// Get the create instance supported.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool GetCreateInstanceSupported(ITypeDescriptorContext context)
             => instanceCtor != null ||
                 base.GetCreateInstanceSupported(context);
 
         /// <summary>
-        /// 
+        /// Get the properties supported.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool GetPropertiesSupported(ITypeDescriptorContext context)
             => descriptions != null ||
                 base.GetPropertiesSupported(context);
 
         /// <summary>
-        /// 
+        /// Convert the from.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="culture"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (parse != null && value is string)
@@ -142,13 +142,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Convert the to.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="culture"></param>
-        /// <param name="value"></param>
-        /// <param name="destinationType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="destinationType">The destinationType.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (instanceCtor != null &&
@@ -162,11 +162,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Create the instance.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="propertyValues"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="propertyValues">The propertyValues.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object CreateInstance(ITypeDescriptorContext context, IDictionary propertyValues)
         {
             if (instanceCtor != null)
@@ -184,12 +184,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Get the properties.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="value"></param>
-        /// <param name="attributes"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="attributes">The attributes.</param>
+        /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             if (descriptions != null)
@@ -200,10 +200,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Get the instance descriptor objects.
         /// </summary>
-        /// <param name="propertyValues"></param>
-        /// <returns></returns>
+        /// <param name="propertyValues">The propertyValues.</param>
+        /// <returns>The <see cref="T:object[]"/>.</returns>
         private object[] GetInstanceDescriptorObjects(IDictionary propertyValues)
         {
             var rv = new object[instanceCtorParamNames.Length];
@@ -215,10 +215,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Get the instance descriptor objects.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="T:object[]"/>.</returns>
         private object[] GetInstanceDescriptorObjects(object value)
         {
             var rv = new object[instanceCtorParamNames.Length];

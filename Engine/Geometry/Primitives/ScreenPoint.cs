@@ -1,5 +1,5 @@
 ﻿// <copyright file="ScreenPoint.cs" company="Shkyrockett" >
-//     Copyright © 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -18,7 +18,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The screen point class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -29,7 +29,7 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The point.
         /// </summary>
         private Point2D point;
 
@@ -38,16 +38,16 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ScreenPoint"/> class.
         /// </summary>
         public ScreenPoint()
             : this(Point2D.Empty)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ScreenPoint"/> class.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The point.</param>
         public ScreenPoint(Point2D point)
             : base()
         {
@@ -55,8 +55,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ScreenPoint"/> class.
         /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         public ScreenPoint(double x, double y)
             : this(new Point2D(x, y))
         { }
@@ -66,10 +68,10 @@ namespace Engine
         #region Deconstructors
 
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         public void Deconstruct(out double x, out double y)
         {
             x = point.X;
@@ -81,7 +83,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the x.
         /// </summary>
         [DataMember, XmlAnyAttribute, SoapElement]
         public double X
@@ -96,7 +98,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the y.
         /// </summary>
         [DataMember, XmlAnyAttribute, SoapElement]
         public double Y
@@ -111,7 +113,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the point.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -128,7 +130,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the perimeter.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -137,7 +139,7 @@ namespace Engine
             => 0;
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -147,7 +149,7 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => new Rectangle2D(point, point));
 
         /// <summary>
-        /// 
+        /// Gets the area.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -202,27 +204,27 @@ namespace Engine
         //#endregion
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => point;
 
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
             => this.point == point;
 
         /// <summary>
-        /// 
+        /// Clone.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="ScreenPoint"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ScreenPoint Clone()

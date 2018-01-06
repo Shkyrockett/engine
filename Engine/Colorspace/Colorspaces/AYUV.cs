@@ -1,5 +1,5 @@
 ﻿// <copyright file="AYUV.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -13,13 +13,13 @@ using System;
 namespace Engine.Colorspace
 {
     /// <summary>
-    ///
+    /// The AYUV struct.
     /// </summary>
     public struct AYUV
         : IColor
     {
         /// <summary>
-        ///
+        /// The empty (readonly). Value: new AYUV().
         /// </summary>
         public static readonly AYUV Empty = new AYUV();
 
@@ -68,30 +68,30 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the y.
         /// </summary>
         public byte Y { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the v.
         /// </summary>
         public byte V { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the u.
         /// </summary>
         public byte U { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the alpha.
         /// </summary>
         public byte Alpha { get; set; }
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
             var a = ToARGBTuple();
@@ -100,16 +100,16 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// The to color.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="ARGB"/>.</returns>
         public ARGB ToColor()
             => new ARGB(ToARGBTuple());
 
         /// <summary>
-        ///
+        /// The to color rounded.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="ARGB"/>.</returns>
         public ARGB ToColorRounded()
         {
             var r = (byte)(Y + 1.140 * V);
@@ -119,9 +119,9 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// The to ARGB tuple.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple()
             => (Alpha,
             (byte)(Y + 0 * U + 1.13983 * V),
@@ -129,11 +129,11 @@ namespace Engine.Colorspace
             (byte)(Y + -0.03211 * U + 0 * V));
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
     }

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Tokenizer.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -15,7 +15,7 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The tokenizer class.
     /// </summary>
     /// <remarks>
     /// Based on TokenizerHelper from: http://referencesource.microsoft.com
@@ -23,42 +23,42 @@ namespace Engine
     public class Tokenizer
     {
         /// <summary>
-        /// 
+        /// The quote char.
         /// </summary>
         private char quoteChar;
 
         /// <summary>
-        /// 
+        /// The arg separator.
         /// </summary>
         private char argSeparator;
 
         /// <summary>
-        /// 
+        /// The str.
         /// </summary>
         private string str;
 
         /// <summary>
-        /// 
+        /// The str len.
         /// </summary>
         private int strLen;
 
         /// <summary>
-        /// 
+        /// The char index.
         /// </summary>
         private int charIndex;
 
         /// <summary>
-        /// 
+        /// The current token index.
         /// </summary>
         internal int currentTokenIndex;
 
         /// <summary>
-        /// 
+        /// The current token length.
         /// </summary>
         internal int currentTokenLength;
 
         /// <summary>
-        /// 
+        /// The found separator.
         /// </summary>
         private bool foundSeparator;
 
@@ -91,7 +91,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
         public bool FoundSeparator
             => foundSeparator;
@@ -124,9 +124,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Get the current token.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public string GetCurrentToken()
         {
             // if no current token, return null

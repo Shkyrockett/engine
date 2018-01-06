@@ -1,5 +1,5 @@
 ﻿// <copyright file="ACYMK.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -19,7 +19,7 @@ namespace Engine.Colorspace
         : IColor
     {
         /// <summary>
-        ///
+        /// The empty (readonly). Value: new ACYMK().
         /// </summary>
         public static readonly ACYMK Empty = new ACYMK();
 
@@ -120,10 +120,10 @@ namespace Engine.Colorspace
         public byte Black { get; set; }
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
             var (A0, R0, G0, B0) = ToARGBTuple();
@@ -171,11 +171,11 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
     }

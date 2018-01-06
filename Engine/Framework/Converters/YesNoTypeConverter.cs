@@ -1,5 +1,5 @@
 ﻿// <copyright file="YesNoTypeConverter.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -10,21 +10,22 @@
 
 using System;
 using System.ComponentModel;
+using static System.ComponentModel.TypeConverter;
 
 namespace Engine.Tools
 {
     /// <summary>
-    /// 
+    /// The yes no type converter class.
     /// </summary>
     public class YesNoTypeConverter
         : TypeConverter
     {
         /// <summary>
-        /// 
+        /// The can convert from.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="sourceType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="sourceType">The sourceType.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
@@ -34,11 +35,11 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// The can convert to.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="destinationType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="destinationType">The destinationType.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -48,12 +49,13 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Convert the from.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="culture"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="object"/>.</returns>
+        /// <exception cref="Exception">Values must be "Yes" or "No"</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
             if (value.GetType() == typeof(string))
@@ -71,13 +73,13 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Convert the to.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="culture"></param>
-        /// <param name="value"></param>
-        /// <param name="destinationType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="destinationType">The destinationType.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -86,17 +88,17 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Get the standard values supported.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool GetStandardValuesSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
-        /// 
+        /// Get the standard values.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="StandardValuesCollection"/>.</returns>
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
         {
             var bools = new bool[] { true, false };

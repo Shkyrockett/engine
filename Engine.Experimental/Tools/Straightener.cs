@@ -1,5 +1,5 @@
 ﻿// <copyright file="Straightener.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,7 +21,7 @@ namespace Engine.Tools
         : Tool, ITool
     {
         /// <summary>
-        ///
+        /// The mouse down.
         /// </summary>
         private bool mouseDown;
 
@@ -157,15 +157,15 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString() => nameof(Straightener);
 
         /// <summary>
-        ///
+        /// The output.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public string Output()
         {
             var output = new StringBuilder();

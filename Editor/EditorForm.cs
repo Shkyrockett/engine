@@ -1,5 +1,5 @@
 ﻿// <copyright file="EditorForm.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -24,7 +24,7 @@ using System.Windows.Forms;
 namespace Editor
 {
     /// <summary>
-    ///
+    /// The editor form class.
     /// </summary>
     public partial class EditorForm
         : Form
@@ -52,7 +52,7 @@ namespace Editor
         private int tick = 1;
 
         /// <summary>
-        /// 
+        /// The vector filename.
         /// </summary>
         private string vectorFilename = String.Empty;
 
@@ -62,17 +62,17 @@ namespace Editor
         //XmlSerializer vectorMapSserializer = new XmlSerializer(typeof(VectorMap));
 
         /// <summary>
-        /// 
+        /// The boundary item.
         /// </summary>
         private GraphicItem boundaryItem = new GraphicItem(Rectangle2D.Empty, new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)));
 
         /// <summary>
-        /// 
+        /// The updatinglist.
         /// </summary>
         private bool updatinglist = false;
 
         /// <summary>
-        /// 
+        /// The text measurer.
         /// </summary>
         private WinFormsTextMeasurer TextMeasurer = new WinFormsTextMeasurer();
 
@@ -121,7 +121,7 @@ namespace Editor
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the reset action.
         /// </summary>
         public Action ResetAction { get; set; }
 
@@ -156,10 +156,10 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The button1 click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void Button1_Click(object sender, EventArgs e)
         {
             ResetAction?.Invoke();
@@ -169,18 +169,18 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The timer1 tick.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void Timer1_Tick(object sender, EventArgs e)
             => tweener.Update(tick);
 
         /// <summary>
-        ///
+        /// The list box1 selected value changed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void ListBox1_SelectedValueChanged(object sender, EventArgs e)
         {
             if (!updatinglist)
@@ -201,18 +201,18 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The property grid1 property value changed.
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="e"></param>
+        /// <param name="s">The s.</param>
+        /// <param name="e">The property value changed event arguments.</param>
         private void PropertyGrid1_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
             => CanvasPanel.Invalidate();
 
         /// <summary>
-        ///
+        /// The tool strip combo box tools selected index changed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void ToolStripComboBoxTools_SelectedIndexChanged(object sender, EventArgs e)
         {
             var box = sender as ToolStripComboBox;
@@ -222,10 +222,10 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The tool strip combo box objects selected index changed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void ToolStripComboBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
         {
             var box = sender as ToolStripComboBox;
@@ -239,10 +239,10 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The canvas panel paint.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The paint event arguments.</param>
         private void CanvasPanel_Paint(object sender, PaintEventArgs e)
         {
             var panel = sender as CanvasPanel;
@@ -268,10 +268,10 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The canvas panel mouse down.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void CanvasPanel_MouseDown(object sender, MouseEventArgs e)
         {
             toolStack.MouseDown((Engine.Tools.MouseButtons)e?.Button, e.Clicks);
@@ -280,10 +280,10 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The canvas panel mouse up.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void CanvasPanel_MouseUp(object sender, MouseEventArgs e)
         {
             if (!updatinglist)
@@ -305,10 +305,10 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The canvas panel mouse move.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void CanvasPanel_MouseMove(object sender, MouseEventArgs e)
         {
             var point = new Point2D(e.X, e.Y);
@@ -318,34 +318,34 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The canvas panel mouse wheel.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void CanvasPanel_MouseWheel(object sender, MouseEventArgs e)
             => toolStack.MouseScroll(Engine.Tools.ScrollOrientation.VerticalScroll, e.Delta);
 
         /// <summary>
-        ///
+        /// The canvas panel mouse wheel tilt.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void CanvasPanel_MouseWheelTilt(object sender, MouseEventArgs e)
             => toolStack.MouseScroll(Engine.Tools.ScrollOrientation.HorizontalScroll, e.Delta);
 
         /// <summary>
-        ///
+        /// The canvas panel preview key down.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The preview key down event arguments.</param>
         private static void CanvasPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         { }
 
         /// <summary>
-        ///
+        /// The canvas panel key down.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The key event arguments.</param>
         private static void CanvasPanel_KeyDown(object sender, KeyEventArgs e)
         {
             //toolStack.KeyDown((Engine.Tools.Keys)e.KeyData);
@@ -353,10 +353,10 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The canvas panel key up.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The key event arguments.</param>
         private static void CanvasPanel_KeyUp(object sender, KeyEventArgs e)
         {
             //toolStack.KeyUp((Engine.Tools.Keys)e.KeyData);
@@ -364,18 +364,18 @@ namespace Editor
         }
 
         /// <summary>
-        ///
+        /// The canvas panel key press.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The key press event arguments.</param>
         private static void CanvasPanel_KeyPress(object sender, KeyPressEventArgs e)
         { }
 
         /// <summary>
-        ///
+        /// The canvas panel resize.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void CanvasPanel_Resize(object sender, EventArgs e)
         {
             var panel = sender as CanvasPanel;
@@ -391,10 +391,10 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Open the tool strip menu item click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void OpenToolStripMenuItem_Click(Object sender, EventArgs e)
         {
             openFileDialog1.FileName = vectorFilename;
@@ -416,10 +416,10 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Save the tool strip menu item click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void SaveToolStripMenuItem_Click(Object sender, EventArgs e)
         {
             if (vectorFilename == String.Empty)
@@ -433,10 +433,10 @@ namespace Editor
         }
 
         /// <summary>
-        /// 
+        /// Save the as tool strip menu item click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void SaveAsToolStripMenuItem_Click(Object sender, EventArgs e)
             => SaveAs(vectorFilename);
 
@@ -445,15 +445,15 @@ namespace Editor
         #region Helpers
 
         /// <summary>
-        /// 
+        /// Build the map.
         /// </summary>
         public void BuildMap()
             => TestCases.Tests(this, vectorMap, toolStack, CanvasPanel, TextMeasurer, out boundaryItem);
 
         /// <summary>
-        /// 
+        /// Save the as.
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">The filename.</param>
         private void SaveAs(string filename = "")
         {
             saveFileDialog1.FileName = filename;

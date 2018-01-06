@@ -1,5 +1,5 @@
 ﻿// <copyright file="LerpBehavior.cs" company="Shkyrockett" >
-//     Copyright © 2013 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>

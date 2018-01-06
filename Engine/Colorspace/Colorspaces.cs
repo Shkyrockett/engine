@@ -1,5 +1,5 @@
 ﻿// <copyright file="Colorspaces.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -14,7 +14,7 @@ using static System.Math;
 namespace Engine.Colorspace
 {
     /// <summary>
-    ///
+    /// The color spaces class.
     /// </summary>
     public static class Colorspaces
     {
@@ -469,12 +469,12 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// The color to HSV.
         /// </summary>
-        /// <param name="color"></param>
-        /// <param name="hue"></param>
-        /// <param name="saturation"></param>
-        /// <param name="value"></param>
+        /// <param name="color">The color.</param>
+        /// <param name="hue">The hue.</param>
+        /// <param name="saturation">The saturation.</param>
+        /// <param name="value">The value.</param>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
         /// </acknowledgment>
@@ -489,12 +489,12 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// The color from HSV.
         /// </summary>
-        /// <param name="hue"></param>
-        /// <param name="saturation"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="hue">The hue.</param>
+        /// <param name="saturation">The saturation.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="ARGB"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
         /// </acknowledgment>
@@ -524,10 +524,14 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
+        /// The ARG bto AHSV.
+        /// </summary>
+        /// <param name="color">The color.</param>
+        /// <returns>The <see cref="AHSV"/>.</returns>
+        /// <remarks>
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
-        /// </summary>
-        /// <param name="color"></param>
+        /// </remarks>
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
@@ -567,14 +571,17 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
+        /// The AHS vto RGB.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="v">The v.</param>
+        /// <returns>The <see cref="ARGB"/>.</returns>
+        /// <remarks>
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="h"></param>
-        /// <param name="s"></param>
-        /// <param name="v"></param>
-        /// <returns></returns>
+        /// </remarks>
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
@@ -651,7 +658,7 @@ namespace Engine.Colorspace
         /// the vector RGB will contain red, green, and blue
         /// calculated values.
         /// </summary>
-        /// <param name="color"></param>
+        /// <param name="color">The color.</param>
         /// <returns>RGB color-space converted vector.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -695,13 +702,13 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// The hsi create from rgb f.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="r"></param>
-        /// <param name="g"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="AHSI"/>.</returns>
         /// <acknowledgment>
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions
@@ -738,9 +745,10 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
+        /// The rgb f create from hsi.
         /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
+        /// <param name="color">The color.</param>
+        /// <returns>The <see cref="ARGB"/>.</returns>
         /// <acknowledgment>
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions

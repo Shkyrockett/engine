@@ -1,5 +1,5 @@
 ﻿// <copyright file="NodeRevealer.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -17,7 +17,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The node revealer class.
     /// </summary>
     [DataContract, Serializable]
     public class NodeRevealer
@@ -26,35 +26,35 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="NodeRevealer"/> class.
         /// </summary>
         public NodeRevealer()
             : this(new List<Point2D>(), 0)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="NodeRevealer"/> class.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="radius"></param>
+        /// <param name="point">The point.</param>
+        /// <param name="radius">The radius.</param>
         public NodeRevealer(Point2D point, double radius)
             : this(new List<Point2D> { point }, radius)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="NodeRevealer"/> class.
         /// </summary>
-        /// <param name="points"></param>
-        /// <param name="radius"></param>
+        /// <param name="points">The points.</param>
+        /// <param name="radius">The radius.</param>
         public NodeRevealer(Point2D[] points, double radius)
             : this(new List<Point2D>(points), radius)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="NodeRevealer"/> class.
         /// </summary>
-        /// <param name="points"></param>
-        /// <param name="radius"></param>
+        /// <param name="points">The points.</param>
+        /// <param name="radius">The radius.</param>
         public NodeRevealer(List<Point2D> points, double radius)
             : base()
         {
@@ -67,10 +67,10 @@ namespace Engine
         #region Deconstructors
 
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="points"></param>
-        /// <param name="radius"></param>
+        /// <param name="points">The points.</param>
+        /// <param name="radius">The radius.</param>
         public void Deconstruct(out List<Point2D> points, out double radius)
         {
             points = Points;
@@ -82,26 +82,26 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the points.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Points { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the radius.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Radius { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public bool ConnectPoints { get; set; } = true;
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
@@ -120,10 +120,10 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
         {
             foreach (var pt in Points)

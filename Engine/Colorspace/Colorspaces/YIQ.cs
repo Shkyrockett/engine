@@ -1,5 +1,5 @@
 ﻿// <copyright file="YIQ.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -13,13 +13,13 @@ using System;
 namespace Engine.Colorspace
 {
     /// <summary>
-    ///
+    /// The YIQ struct.
     /// </summary>
     public struct YIQ
         : IColor
     {
         /// <summary>
-        ///
+        /// The empty (readonly). Value: new YIQ().
         /// </summary>
         public static readonly YIQ Empty = new YIQ();
 
@@ -30,11 +30,11 @@ namespace Engine.Colorspace
         //    : this(0, 0, 0, 0)
         //{ }
 
+
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="YIQ"/> class.
         /// </summary>
-        /// <param name="color"></param>
-        /// <remarks></remarks>
+        /// <param name="color">The color.</param>
         /// <acknowledgment>
         /// https://github.com/dystopiancode/colorspace-conversions/blob/master/colorspace-conversions/colorspace-conversions.c
         /// </acknowledgment>
@@ -51,22 +51,22 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="YIQ"/> class.
         /// </summary>
-        /// <param name="y"></param>
-        /// <param name="i"></param>
-        /// <param name="q"></param>
+        /// <param name="y">The y.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="q">The q.</param>
         public YIQ(double y, double i, double q)
             : this(0, y, i, q)
         { }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="YIQ"/> class.
         /// </summary>
-        /// <param name="alpha"></param>
-        /// <param name="y"></param>
-        /// <param name="i"></param>
-        /// <param name="q"></param>
+        /// <param name="alpha">The alpha.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="q">The q.</param>
         public YIQ(byte alpha, double y, double i, double q)
         {
             Alpha = alpha;
@@ -76,30 +76,30 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the alpha.
         /// </summary>
         public byte Alpha { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the y.
         /// </summary>
         public double Y { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the I.
         /// </summary>
         public double I { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the q.
         /// </summary>
         public double Q { get; set; }
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
             var (A0, R0, G0, B0) = ToARGBTuple();
@@ -108,14 +108,13 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// The to color.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="y"></param>
-        /// <param name="i"></param>
-        /// <param name="q"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="a">The a.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="q">The q.</param>
+        /// <returns>The <see cref="ARGB"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/dystopiancode/colorspace-conversions/blob/master/colorspace-conversions/colorspace-conversions.c
         /// </acknowledgment>
@@ -129,18 +128,18 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// 
+        /// The to ARGB tuple.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple()
             => (Alpha, (byte)(Y + 0.9563 * I + 0.6210 * Q), (byte)(Y - 0.2721 * I - 0.6474 * Q), (byte)(Y - 1.1070 * I + 1.7046 * Q));
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
     }

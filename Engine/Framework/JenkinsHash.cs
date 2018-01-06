@@ -15,18 +15,20 @@ namespace Engine
     /// <summary>
     /// Simple implementation of Jenkin's hashing algorithm.
     /// </summary>
-    /// <remarks> http://en.wikipedia.org/wiki/Jenkins_hash_function </remarks>
+    /// <remarks>
+    /// http://en.wikipedia.org/wiki/Jenkins_hash_function
+    /// </remarks>
     public struct JenkinsHash
     {
         /// <summary>
-        /// 
+        /// The current.
         /// </summary>
         private int current;
 
         /// <summary>
-        /// 
+        /// The mixin.
         /// </summary>
-        /// <param name="hash"></param>
+        /// <param name="hash">The hash.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Mixin(int hash)
         {
@@ -45,9 +47,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Get the value.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int GetValue()
         {

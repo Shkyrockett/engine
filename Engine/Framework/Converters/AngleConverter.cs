@@ -1,5 +1,5 @@
 ﻿// <copyright file="AngleConverter.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -32,11 +32,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The can convert to.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="destinationType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="destinationType">The destinationType.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -48,6 +48,11 @@ namespace Engine
         /// <summary>
         /// Converts the specified string into an angle.
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="object"/>.</returns>
+        /// <exception cref="ArgumentException">Parse failed.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var str = value as string;
@@ -75,8 +80,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// Converts the Angle into a string
+        /// Converts the Angle into a string.
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="destinationType">The destinationType.</param>
+        /// <returns>The <see cref="object"/>.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType == null)
@@ -110,10 +121,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Get the create instance supported.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool GetCreateInstanceSupported(ITypeDescriptorContext context) => true;
 
         ///// <summary>

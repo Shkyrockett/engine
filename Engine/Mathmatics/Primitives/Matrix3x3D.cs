@@ -1,5 +1,5 @@
 ﻿// <copyright file="Matrix3x3D.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

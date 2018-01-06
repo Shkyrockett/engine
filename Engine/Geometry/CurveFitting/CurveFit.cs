@@ -136,9 +136,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Get the instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="CurveFit"/>.</returns>
         private static CurveFit GetInstance()
             => instance ?? (instance = new CurveFit());
     }

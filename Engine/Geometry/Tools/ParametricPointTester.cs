@@ -1,5 +1,5 @@
 ﻿// <copyright file="ParametricPointTester.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -18,7 +18,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The parametric point tester class.
     /// </summary>
     [DataContract, Serializable]
     public class ParametricPointTester
@@ -27,22 +27,22 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ParametricPointTester"/> class.
         /// </summary>
         public ParametricPointTester()
             : base()
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ParametricPointTester"/> class.
         /// </summary>
-        /// <param name="intersecter"></param>
-        /// <param name="minX"></param>
-        /// <param name="minY"></param>
-        /// <param name="maxX"></param>
-        /// <param name="maxY"></param>
-        /// <param name="stepX"></param>
-        /// <param name="stepY"></param>
+        /// <param name="intersecter">The intersecter.</param>
+        /// <param name="minX">The minX.</param>
+        /// <param name="minY">The minY.</param>
+        /// <param name="maxX">The maxX.</param>
+        /// <param name="maxY">The maxY.</param>
+        /// <param name="stepX">The stepX.</param>
+        /// <param name="stepY">The stepY.</param>
         public ParametricPointTester(Func<double, double, Inclusion> intersecter, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
             : base()
         {
@@ -60,15 +60,15 @@ namespace Engine
         #region Deconstructors
 
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="intersecter"></param>
-        /// <param name="minX"></param>
-        /// <param name="minY"></param>
-        /// <param name="maxX"></param>
-        /// <param name="maxY"></param>
-        /// <param name="stepX"></param>
-        /// <param name="stepY"></param>
+        /// <param name="intersecter">The intersecter.</param>
+        /// <param name="minX">The minX.</param>
+        /// <param name="minY">The minY.</param>
+        /// <param name="maxX">The maxX.</param>
+        /// <param name="maxY">The maxY.</param>
+        /// <param name="stepX">The stepX.</param>
+        /// <param name="stepY">The stepY.</param>
         public void Deconstruct(out Func<double, double, Inclusion> intersecter, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
         {
             intersecter = Intersecter;
@@ -85,50 +85,50 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the intersecter.
         /// </summary>
         [Browsable(true)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Func<double, double, Inclusion> Intersecter { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the min x.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double MinX { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the min y.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double MinY { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the max x.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double MaxX { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the max y.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double MaxY { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the step x.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double StepX { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the step y.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double StepY { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
@@ -148,22 +148,22 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// The grid.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public List<Point2D> Grid()
             => Grid(MinX, MinY, MaxX, MaxY, StepX, StepY);
 
         /// <summary>
-        /// 
+        /// The grid.
         /// </summary>
-        /// <param name="minX"></param>
-        /// <param name="minY"></param>
-        /// <param name="maxX"></param>
-        /// <param name="maxY"></param>
-        /// <param name="stepX"></param>
-        /// <param name="stepY"></param>
-        /// <returns></returns>
+        /// <param name="minX">The minX.</param>
+        /// <param name="minY">The minY.</param>
+        /// <param name="maxX">The maxX.</param>
+        /// <param name="maxY">The maxY.</param>
+        /// <param name="stepX">The stepX.</param>
+        /// <param name="stepY">The stepY.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> Grid(double minX, double minY, double maxX, double maxY, double stepX, double stepY)
         {
             var width = stepX == 0 ? (maxX - minX) : (maxX - minX) / stepX;
@@ -175,9 +175,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The interactions.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="(List{Point2D}, List{Point2D}, List{Point2D})"/>.</returns>
         public (List<Point2D>, List<Point2D>, List<Point2D>) Interactions()
         {
             var boundary = new List<Point2D>();

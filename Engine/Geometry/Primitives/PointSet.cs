@@ -1,5 +1,5 @@
 ﻿// <copyright file="PointSet.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -21,7 +21,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The point set class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -32,7 +32,7 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The points.
         /// </summary>
         private List<Point2D> points;
 
@@ -41,65 +41,65 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
         public PointSet()
             : this(new List<Point2D>())
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon">The polygon.</param>
         public PointSet(PolygonContour polygon)
             : this(polygon.Points)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
-        /// <param name="polyline"></param>
+        /// <param name="polyline">The polyline.</param>
         public PointSet(Polyline polyline)
             : this(polyline.Points)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
-        /// <param name="polygons"></param>
+        /// <param name="polygons">The polygons.</param>
         public PointSet(Polygon polygons)
             : this(polygons.Contours)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
-        /// <param name="polygons"></param>
+        /// <param name="polygons">The polygons.</param>
         public PointSet(PolylineSet polygons)
             : this(polygons.Polylines)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public PointSet(params Point2D[] points)
             : this(new List<Point2D>(points))
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public PointSet(IEnumerable<Point2D> points)
         {
             this.points = points as List<Point2D>;
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
-        /// <param name="polylines"></param>
+        /// <param name="polylines">The polylines.</param>
         public PointSet(IEnumerable<Polyline> polylines)
         {
             points = new List<Point2D>();
@@ -108,9 +108,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
-        /// <param name="polygons"></param>
+        /// <param name="polygons">The polygons.</param>
         public PointSet(IEnumerable<PolygonContour> polygons)
         {
             points = new List<Point2D>();
@@ -123,10 +123,10 @@ namespace Engine
         #region Indexers
 
         /// <summary>
-        /// 
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type Point2D.</returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -145,7 +145,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the points.
         /// </summary>
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Points
@@ -160,7 +160,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -169,7 +169,7 @@ namespace Engine
             => points.Count;
 
         /// <summary>
-        /// 
+        /// Gets the perimeter.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -178,7 +178,7 @@ namespace Engine
             => 0;
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -188,7 +188,7 @@ namespace Engine
             => (Rectangle2D) CachingProperty(() => Measurements.PolygonBounds(points));
 
         /// <summary>
-        /// 
+        /// Gets the area.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -245,9 +245,10 @@ namespace Engine
         #region Mutators
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="PointSet"/>.</returns>
         public PointSet Add(Point2D point)
         {
             Points.Add(point);
@@ -257,8 +258,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The reverse.
         /// </summary>
+        /// <returns>The <see cref="PointSet"/>.</returns>
         public PointSet Reverse()
         {
             Points.Reverse();
@@ -268,19 +270,19 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Translate.
         /// </summary>
-        /// <param name="delta"></param>
-        /// <returns></returns>
+        /// <param name="delta">The delta.</param>
+        /// <returns>The <see cref="PointSet"/>.</returns>
         public PointSet Translate(Point2D delta)
             => Translate(this, delta);
 
         /// <summary>
-        /// 
+        /// Translate.
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="delta"></param>
-        /// <returns></returns>
+        /// <param name="path">The path.</param>
+        /// <param name="delta">The delta.</param>
+        /// <returns>The <see cref="PointSet"/>.</returns>
         public static PointSet Translate(PointSet path, Point2D delta)
         {
             var outPath = new List<Point2D>(path.points.Count);
@@ -292,10 +294,10 @@ namespace Engine
         #endregion
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
         {
             var place = (int)Math.Round(Points.Count * t, 0, MidpointRounding.AwayFromZero) - 1;
@@ -305,10 +307,10 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
@@ -327,25 +329,25 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Clone.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="PointSet"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PointSet Clone()
             => new PointSet(points.ToArray());
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
         public IEnumerator<Point2D> GetEnumerator()
             => points.GetEnumerator();
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
 

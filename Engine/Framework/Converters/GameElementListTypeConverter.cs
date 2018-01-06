@@ -1,5 +1,5 @@
 ﻿// <copyright file="GameElementListTypeConverter.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -17,19 +17,19 @@ using System.Linq;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The game element list type converter class.
     /// </summary>
     public class GameElementListTypeConverter
         : TypeConverter
     {
         /// <summary>
-        /// 
+        /// Convert the to.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="culture"></param>
-        /// <param name="value"></param>
-        /// <param name="destinationType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="destinationType">The destinationType.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType != typeof(string))
@@ -43,19 +43,19 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Get the properties supported.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool GetPropertiesSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
-        /// 
+        /// Get the properties.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="value"></param>
-        /// <param name="attributes"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="attributes">The attributes.</param>
+        /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             var list = new List<PropertyDescriptor>();
@@ -72,7 +72,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The game element descriptor class.
         /// </summary>
         private class GameElementDescriptor
             : SimplePropertyDescriptor

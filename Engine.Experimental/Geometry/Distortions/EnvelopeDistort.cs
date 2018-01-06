@@ -1,5 +1,5 @@
 ﻿// <copyright file="SphereDistort.cs" company="Shkyrockett" >
-//     Copyright © 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -7,8 +7,6 @@
 // </license>
 // <summary></summary>
 // <remarks></remarks>
-
-using System;
 
 namespace Engine
 {
@@ -24,9 +22,11 @@ namespace Engine
         /// Initializes a new instance of the <see cref="EnvelopeDistort"/> class.
         /// </summary>
         /// <param name="envelope">The envelope.</param>
-        public EnvelopeDistort(Envelope envelope)
+        /// <param name="boundingBox">The bounding box.</param>
+        public EnvelopeDistort(Envelope envelope, Rectangle2D boundingBox)
         {
             Envelope = envelope;
+            BoundingBox = boundingBox;
         }
 
         #endregion
@@ -38,6 +38,11 @@ namespace Engine
         /// </summary>
         public Envelope Envelope { get; set; }
 
+        /// <summary>
+        /// Gets or sets the bounding box.
+        /// </summary>
+        public Rectangle2D BoundingBox { get; set; }
+
         #endregion
 
         #region Methods
@@ -48,7 +53,7 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
-            => Envelope.GetPoint(point);
+            => Envelope.GetPoint(point, BoundingBox);
 
         #endregion
     }

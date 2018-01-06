@@ -1,5 +1,5 @@
 ﻿// <copyright file="ARGB.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -24,7 +24,7 @@ namespace Engine.Colorspace
         #region Implementations
 
         /// <summary>
-        ///
+        /// The empty (readonly). Value: new ARGB(0, 0, 0, 0).
         /// </summary>
         public static readonly ARGB Empty = new ARGB(0, 0, 0, 0);
 
@@ -36,14 +36,17 @@ namespace Engine.Colorspace
         /// The alpha shift (const). Value: 0x18.
         /// </summary>
         private const int AlphaShift = 0x18;
+
         /// <summary>
         /// The red shift (const). Value: 0x10.
         /// </summary>
         private const int RedShift = 0x10;
+
         /// <summary>
         /// The green shift (const). Value: 0x8.
         /// </summary>
         private const int GreenShift = 0x8;
+
         /// <summary>
         /// The blue shift (const). Value: 0x0.
         /// </summary>
@@ -157,7 +160,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public int Value
         {
@@ -166,7 +169,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the name.
         /// </summary>
         public string Name
         {
@@ -207,9 +210,9 @@ namespace Engine.Colorspace
         #region Methods
 
         /// <summary>
-        ///
+        /// Get the brightness.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="float"/>.</returns>
         /// <remarks>
         /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
         /// </remarks>
@@ -233,9 +236,9 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// Get the hue.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="float"/>.</returns>
         /// <remarks>
         /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
         /// </remarks>
@@ -283,9 +286,9 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// Get the saturation.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="float"/>.</returns>
         /// <remarks>
         /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
         /// </remarks>
@@ -323,9 +326,9 @@ namespace Engine.Colorspace
         #region Standard Methods
 
         /// <summary>
-        ///
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
@@ -334,50 +337,49 @@ namespace Engine.Colorspace
         /// <summary>
         /// Compares two <see cref="ARGB"/> colors
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(ARGB a, ARGB b)
             => Equals(a, b);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(ARGB a, ARGB b)
             => (a.value == b.value);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is ARGB && Equals(this, (ARGB)obj);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(IColor value)
             => Equals(this, value);
 
         /// <summary>
-        ///
+        /// The to ARGB tuple.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
         public (byte A, byte R, byte G, byte B) ToARGBTuple()
             => (Alpha, Red, Green, Blue);
 

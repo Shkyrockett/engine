@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExpandableCollectionPropertyDescriptor.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -16,7 +16,7 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The expandable collection property descriptor class.
     /// </summary>
     /// <acknowledgment>
     /// http://stackoverflow.com/questions/32582504/propertygrid-expandable-collection
@@ -27,12 +27,12 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The collection.
         /// </summary>
         private IList collection;
 
         /// <summary>
-        /// 
+        /// The index (readonly). Value: -1.
         /// </summary>
         private readonly int index = -1;
 
@@ -41,7 +41,7 @@ namespace Engine
         #region Events
 
         /// <summary>
-        /// 
+        /// The refresh required event of the <see cref="EventHandler"/>.
         /// </summary>
         internal event EventHandler RefreshRequired;
 
@@ -50,10 +50,10 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ExpandableCollectionPropertyDescriptor"/> class.
         /// </summary>
-        /// <param name="coll"></param>
-        /// <param name="idx"></param>
+        /// <param name="coll">The coll.</param>
+        /// <param name="idx">The idx.</param>
         public ExpandableCollectionPropertyDescriptor(IList coll, int idx)
             : base(GetDisplayName(coll, idx), null)
         {
@@ -66,31 +66,31 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets the name.
         /// </summary>
         public override string Name
             => index.ToString(CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
         public override bool IsReadOnly
             => false;
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
         public override bool SupportsChangeEvents
             => true;
 
         /// <summary>
-        /// 
+        /// Gets the component type.
         /// </summary>
         public override Type ComponentType
             => collection.GetType();
 
         /// <summary>
-        /// 
+        /// Gets the property type.
         /// </summary>
         public override Type PropertyType
             => collection[index].GetType();
@@ -106,25 +106,25 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        /// 
+        /// The can reset value.
         /// </summary>
-        /// <param name="component"></param>
-        /// <returns></returns>
+        /// <param name="component">The component.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool CanResetValue(object component)
             => true;
 
         /// <summary>
-        /// 
+        /// Reset the value.
         /// </summary>
-        /// <param name="component"></param>
+        /// <param name="component">The component.</param>
         public override void ResetValue(object component)
         { }
 
         /// <summary>
-        /// 
+        /// Get the value.
         /// </summary>
-        /// <param name="component"></param>
-        /// <returns></returns>
+        /// <param name="component">The component.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object GetValue(object component)
         {
             OnRefreshRequired();
@@ -132,27 +132,27 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Set the value.
         /// </summary>
-        /// <param name="component"></param>
-        /// <param name="value"></param>
+        /// <param name="component">The component.</param>
+        /// <param name="value">The value.</param>
         public override void SetValue(object component, object value)
             => collection[index] = value;
 
         /// <summary>
-        /// 
+        /// The should serialize value.
         /// </summary>
-        /// <param name="component"></param>
-        /// <returns></returns>
+        /// <param name="component">The component.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool ShouldSerializeValue(object component)
             => true;
 
         /// <summary>
-        /// 
+        /// Get the display name.
         /// </summary>
-        /// <param name="list"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="list">The list.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         private static string GetDisplayName(IList list, int index)
             //=> $"{CSharpName(list[index].GetType())} [{index,4}]";
             => $"[{index}]";
@@ -171,7 +171,7 @@ namespace Engine
         //}
 
         /// <summary>
-        /// 
+        /// Raises the refresh required event.
         /// </summary>
         protected virtual void OnRefreshRequired()
             => RefreshRequired?.Invoke(this, EventArgs.Empty);

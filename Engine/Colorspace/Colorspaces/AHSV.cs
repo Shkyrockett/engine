@@ -1,5 +1,5 @@
 ﻿// <copyright file="AHSV.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -20,7 +20,7 @@ namespace Engine.Colorspace
         : IColor
     {
         /// <summary>
-        ///
+        /// The empty (readonly). Value: new AHSV().
         /// </summary>
         public static readonly AHSV Empty = new AHSV();
 
@@ -131,10 +131,10 @@ namespace Engine.Colorspace
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
             var a = ToARGBTuple();
@@ -143,14 +143,15 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
+        /// The to color.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="ARGB"/>.</returns>
         public ARGB ToColor() => new ARGB(ToARGBTuple());
 
         /// <summary>
-        ///
+        /// The to ARGB tuple.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
         /// <remarks>
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
@@ -226,11 +227,11 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
     }

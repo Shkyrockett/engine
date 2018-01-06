@@ -1,5 +1,5 @@
 ﻿// <copyright file="Ease.cs" >
-//     Copyright © 2013 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -25,32 +25,32 @@ namespace Engine.Tweening
         #region Constants
 
         /// <summary>
-        ///
+        /// The bounce key1 (const). Value: 1d / 2.75d.
         /// </summary>
         private const double BounceKey1 = 1d / 2.75d;
 
         /// <summary>
-        ///
+        /// The bounce key2 (const). Value: 2d / 2.75d.
         /// </summary>
         private const double BounceKey2 = 2d / 2.75d;
 
         /// <summary>
-        ///
+        /// The bounce key3 (const). Value: 1.5d / 2.75d.
         /// </summary>
         private const double BounceKey3 = 1.5d / 2.75d;
 
         /// <summary>
-        ///
+        /// The bounce key4 (const). Value: 2.5d / 2.75d.
         /// </summary>
         private const double BounceKey4 = 2.5d / 2.75d;
 
         /// <summary>
-        ///
+        /// The bounce key5 (const). Value: 2.25d / 2.75d.
         /// </summary>
         private const double BounceKey5 = 2.25d / 2.75d;
 
         /// <summary>
-        ///
+        /// The bounce key6 (const). Value: 2.625d / 2.75d.
         /// </summary>
         private const double BounceKey6 = 2.625d / 2.75d;
 
@@ -1394,13 +1394,15 @@ namespace Engine.Tweening
         #endregion
 
         /// <summary>
-        ///
+        /// The reference equals.
         /// </summary>
-        /// <param name="objA"></param>
-        /// <param name="objB"></param>
-        /// <returns></returns>
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        /// <param name="objA">The objA.</param>
+        /// <param name="objB">The objB.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [EditorBrowsable(EditorBrowsableState.Never)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         private static new bool ReferenceEquals(object objA, object objB)
             => object.ReferenceEquals(objA, objB);
     }

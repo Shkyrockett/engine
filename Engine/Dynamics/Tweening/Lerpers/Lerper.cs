@@ -1,5 +1,5 @@
 ﻿// <copyright file="Lerper.cs" company="Shkyrockett" >
-//     Copyright © 2013 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -11,25 +11,25 @@
 namespace Engine.Tweening
 {
     /// <summary>
-    /// 
+    /// The lerper class.
     /// </summary>
     public abstract class Lerper
     {
         /// <summary>
-        /// 
+        /// Initialize.
         /// </summary>
-        /// <param name="fromValue"></param>
-        /// <param name="toValue"></param>
-        /// <param name="behavior"></param>
+        /// <param name="fromValue">The fromValue.</param>
+        /// <param name="toValue">The toValue.</param>
+        /// <param name="behavior">The behavior.</param>
         public abstract void Initialize(object fromValue, object toValue, LerpBehavior behavior);
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="currentValue"></param>
-        /// <param name="behavior"></param>
-        /// <returns></returns>
-		public abstract object Interpolate(double t, object currentValue, LerpBehavior behavior);
+        /// <param name="t">The t.</param>
+        /// <param name="currentValue">The currentValue.</param>
+        /// <param name="behavior">The behavior.</param>
+        /// <returns>The <see cref="object"/>.</returns>
+        public abstract object Interpolate(double t, object currentValue, LerpBehavior behavior);
     }
 }

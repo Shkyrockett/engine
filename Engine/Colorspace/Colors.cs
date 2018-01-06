@@ -1,5 +1,5 @@
 ﻿// <copyright file="Colors.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -13,12 +13,12 @@ using System.Collections.Generic;
 namespace Engine.Colorspace
 {
     /// <summary>
-    ///
+    /// The colors class.
     /// </summary>
     public static class Colors
     {
         /// <summary>
-        ///
+        /// The color.
         /// </summary>
         public static Dictionary<ARGB, string> Color = new Dictionary<ARGB, string>
         {

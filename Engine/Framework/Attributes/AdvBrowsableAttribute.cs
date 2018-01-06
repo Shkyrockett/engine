@@ -1,22 +1,13 @@
-﻿/*
- * Copyright © 2005-2007 Jonathan Mark Porter
- * Permission is hereby granted, free of charge, to any person obtaining a copy 
- * of this software and associated documentation files (the "Software"), to deal 
- * in the Software without restriction, including without limitation the rights to 
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of 
- * the Software, and to permit persons to whom the Software is furnished to do so, 
- * subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be 
- * included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
- * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
- * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
- * OTHER DEALINGS IN THE SOFTWARE.
- */
+﻿// <copyright file="AdvBrowsableAttribute.cs" company="" >
+//     Copyright © 2005 - 2007 Jonathan Mark Porter.
+// </copyright>
+// <author id="shkyrockett">Shkyrockett</author>
+// <license>
+//     Licensed under the MIT License. See LICENSE file in the project root for full license information.
+// </license>
+// <date></date>
+// <summary></summary>
+// <remarks></remarks>
 
 using System;
 using System.Collections.Generic;
@@ -26,44 +17,44 @@ using System.Reflection;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The adv browsable attribute class.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public sealed class AdvBrowsableAttribute
         : Attribute
     {
         /// <summary>
-        ///
+        /// The name.
         /// </summary>
         string name;
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="AdvBrowsableAttribute"/> class.
         /// </summary>
         public AdvBrowsableAttribute()
             : this(null)
         { }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="AdvBrowsableAttribute"/> class.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">The name.</param>
         public AdvBrowsableAttribute(string name)
         {
             this.name = name;
         }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         public string Name
             => name;
 
         /// <summary>
-        ///
+        /// Get the disp members.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="PropertyDescriptorCollection"/>.</returns>
         public static PropertyDescriptorCollection GetDispMembers(Type t)
         {
             var order = AdvBrowsableOrderAttribute.GetOrder(t);
@@ -86,6 +77,7 @@ namespace Engine
                     rv.Add(descriptor);
                 }
             }
+
             foreach (FieldInfo info in t.GetFields())
             {
                 atts = info.GetCustomAttributes(typeof(AdvBrowsableAttribute), true);
@@ -103,14 +95,17 @@ namespace Engine
                     rv.Add(descriptor);
                 }
             }
+
             if (rv.Count == 0)
             {
                 return null;
             }
+
             if (order != null)
             {
                 return new PropertyDescriptorCollection(rv.ToArray()).Sort(order);
             }
+
             return new PropertyDescriptorCollection(rv.ToArray());
         }
     }

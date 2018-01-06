@@ -1,5 +1,5 @@
 ﻿// <copyright file="BezierSegment.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -20,7 +20,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The bezier segment class.
     /// </summary>
     /// <remarks>
     /// https://github.com/superlloyd/Poly

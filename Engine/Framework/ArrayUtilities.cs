@@ -1,5 +1,5 @@
 ﻿// <copyright file="ArrayUtilities.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2017 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -15,16 +15,16 @@ using System.Linq;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The array utilities class.
     /// </summary>
     public static class ArrayUtilities
     {
         /// <summary>
-        ///
+        /// Add.
         /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="t">The t.</param>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array"></param>
-        /// <param name="t"></param>
         /// <remarks>
         /// https://social.msdn.microsoft.com/Forums/vstudio/en-US/ae359c99-4294-4c7e-9afd-a161e8096de3/how-to-add-add-extension-method-to-array?forum=csharpgeneral
         /// </remarks>
@@ -35,11 +35,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Remove the at.
         /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="index">The index.</param>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array"></param>
-        /// <param name="index"></param>
         public static void RemoveAt<T>(ref T[] array, int index)
         {
             if (index < array.Length - 1)
@@ -48,12 +48,12 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Remove the at.
         /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="T:T[]"/>.</returns>
         /// <typeparam name="T"></typeparam>
-        /// <param name="array"></param>
-        /// <param name="index"></param>
-        /// <returns></returns>
         public static T[] RemoveAt<T>(this T[] array, int index)
         {
             array.RemoveAt(index);
@@ -61,11 +61,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The pop.
         /// </summary>
+        /// <param name="list">The list.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <returns></returns>
         public static T Pop<T>(this List<T> list)
         {
             var r = list[list.Count - 1];
@@ -74,11 +74,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The shift.
         /// </summary>
+        /// <param name="list">The list.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <returns></returns>
         public static T Shift<T>(this List<T> list)
         {
             var r = list[0];
@@ -87,12 +87,12 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The un shift.
         /// </summary>
+        /// <param name="list">The list.</param>
+        /// <param name="item">The item.</param>
+        /// <returns>The <see cref="T:List{T}"/>.</returns>
         /// <typeparam name="T"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="item"></param>
-        /// <returns></returns>
         public static List<T> UnShift<T>(this List<T> list, T item)
         {
             list.Insert(0, item);
@@ -103,9 +103,11 @@ namespace Engine
         /// Get the array slice between the two indexes.
         /// ... Inclusive for start index, exclusive for end index.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
+        /// <param name="source">The source.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>The <see cref="T:T[]"/>.</returns>
+        /// <typeparam name="T"></typeparam>
         /// <remarks>
         /// https://www.dotnetperls.com/array-slice
         /// </remarks>
@@ -131,7 +133,9 @@ namespace Engine
         /// Get the array slice between the two indexes.
         /// ... Inclusive for start index, exclusive for end index.
         /// </summary>
-        /// <param name="source"></param>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="T:T[]"/>.</returns>
+        /// <typeparam name="T"></typeparam>
         /// <remarks>
         /// https://www.dotnetperls.com/array-slice
         /// </remarks>
@@ -147,13 +151,13 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The map.
         /// </summary>
+        /// <param name="list">The list.</param>
+        /// <param name="func">The func.</param>
+        /// <returns>The <see cref="T:IEnumerable{TResult}"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>
-        /// <param name="func"></param>
-        /// <param name="list"></param>
-        /// <returns></returns>
         /// <remarks>
         /// http://www.justinshield.com/2011/06/mapreduce-in-c//
         /// </remarks>
@@ -164,14 +168,14 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The reduce.
         /// </summary>
+        /// <param name="list">The list.</param>
+        /// <param name="func">The func.</param>
+        /// <param name="acc">The acc.</param>
+        /// <returns>The <see cref="T"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="U"></typeparam>
-        /// <param name="list"></param>
-        /// <param name="func"></param>
-        /// <param name="acc"></param>
-        /// <returns></returns>
         /// <remarks>
         /// http://www.justinshield.com/2011/06/mapreduce-in-c//
         /// </remarks>
@@ -184,14 +188,16 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The splice.
         /// </summary>
+        /// <param name="Source">The Source.</param>
+        /// <param name="Start">The Start.</param>
+        /// <param name="Size">The Size.</param>
+        /// <returns>The <see cref="T:List{T}"/>.</returns>
         /// <typeparam name="T"></typeparam>
-        /// <param name="Source"></param>
-        /// <param name="Start"></param>
-        /// <param name="Size"></param>
-        /// <returns></returns>
-        /// <remarks> http://stackoverflow.com/q/9325627 </remarks>
+        /// <remarks>
+        /// http://stackoverflow.com/q/9325627
+        /// </remarks>
         public static List<T> Splice<T>(this List<T> Source, int Start, int Size)
         {
             var retVal = Source.Skip(Start).Take(Size).ToList<T>();
@@ -200,11 +206,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The shuffle.
         /// </summary>
+        /// <param name="inputList">The inputList.</param>
+        /// <returns>The <see cref="T:List{T}"/>.</returns>
         /// <typeparam name="T"></typeparam>
-        /// <param name="inputList"></param>
-        /// <returns></returns>
         /// <remarks>
         /// http://www.vcskicks.com/randomize_array.php
         /// </remarks>

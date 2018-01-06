@@ -17,12 +17,14 @@
     <LangVersion>7.2</LangVersion>
     <DocumentationFile>bin\Any CPU\Release\netstandard2.0\Engine.xml</DocumentationFile>
     <OutputPath>bin\Any CPU\Release\netstandard2.0\</OutputPath>
+    <DefineConstants>TRACE;deterministic;RELEASE;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>7.2</LangVersion>
     <DocumentationFile>bin\Any CPU\Debug\netstandard2.0\Engine.xml</DocumentationFile>
     <OutputPath>bin\Any CPU\Debug\netstandard2.0\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;deterministic;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

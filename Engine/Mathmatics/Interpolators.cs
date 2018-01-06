@@ -39,7 +39,7 @@ namespace Engine
         #region Linear Interpolation
 
         /// <summary>
-        ///
+        /// Linear interpolation.
         /// </summary>
         /// <param name="aV"></param>
         /// <param name="bV"></param>
@@ -51,10 +51,10 @@ namespace Engine
             double aV,
             double bV,
             double t)
-            => (1 - t) * aV + t * bV;
+            => (1d - t) * aV + t * bV;
 
         /// <summary>
-        ///
+        /// Linear interpolation.
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -72,7 +72,7 @@ namespace Engine
                 (1d - t) * aY + t * bY);
 
         /// <summary>
-        ///
+        /// Linear interpolation.
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -93,7 +93,7 @@ namespace Engine
                 (1d - t) * aZ + t * bZ);
 
         /// <summary>
-        ///
+        /// Linear interpolation.
         /// </summary>
         /// <param name="t"></param>
         /// <param name="a"></param>
@@ -105,7 +105,7 @@ namespace Engine
             => new Point2D(Linear(a.X, a.Y, b.X, b.Y, t));
 
         /// <summary>
-        ///
+        /// Linear interpolation.
         /// </summary>
         /// <param name="t"></param>
         /// <param name="a"></param>

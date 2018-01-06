@@ -14,27 +14,27 @@ using System.Collections.Generic;
 namespace Editor
 {
     /// <summary>
-    /// 
+    /// The examples class.
     /// </summary>
-    public class Examples
+    public static class Examples
     {
         /// <summary>
-        /// 
+        /// The arc.
         /// </summary>
         public static CircularArc Arc = new CircularArc(new Point2D(100, 100), 100, 60d.ToRadians(), 300d.ToRadians());
-        
+
         /// <summary>
-        /// 
+        /// The ellipse.
         /// </summary>
         public static Ellipse Ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
-        
+
         /// <summary>
-        /// 
+        /// The ellptic arc.
         /// </summary>
         public static EllipticalArc EllpticArc = new EllipticalArc(200d, 200d, 100d, 200d, 45d.ToRadians(), -45d.ToRadians(), 90d.ToRadians());
-        
+
         /// <summary>
-        /// 
+        /// The inner polygon.
         /// </summary>
         public static Shape InnerPolygon = new PolygonContour( // First inner triangle
                         new List<Point2D> {
@@ -43,14 +43,14 @@ namespace Editor
                             new Point2D(40, 30)
                         }
                     ).Offset(10);
-        
+
         /// <summary>
-        /// 
+        /// The line.
         /// </summary>
         public static LineSegment Line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
-        
+
         /// <summary>
-        /// 
+        /// The poly set.
         /// </summary>
         public static Polygon PolySet = new Polygon(
             new List<PolygonContour>(
@@ -84,9 +84,9 @@ namespace Editor
                 }
             )
         );
-        
+
         /// <summary>
-        /// 
+        /// The poly triangle.
         /// </summary>
         public static Polyline PolyTriangle = new Polyline(new List<Point2D> { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) });
     }

@@ -1,4 +1,4 @@
-﻿// <copyright file="DistortionDirection.cs" >
+﻿// <copyright file="DistortionBase.cs" >
 //    Copyright © 2017 Ben Morris. All rights reserved.
 // </copyright>
 // <author id="benmorris44">Ben Morris</author>
@@ -11,18 +11,19 @@
 namespace Engine
 {
     /// <summary>
-    /// The distortion direction enum.
+    /// The distortion base class.
     /// </summary>
-    public enum DistortionDirection
+    public class DistortionBase
     {
         /// <summary>
-        /// The Vertical.
+        /// The direction the effect will be applied, for example Bulge vertical will apply to top and bottom only
         /// </summary>
-        Vertical,
+        public Orientation2D Direction { get; set; }
 
         /// <summary>
-        /// The Horizontal.
+        /// The intensity of the effect can be positive or negative
+        /// intensity factor is based on the relative size of the source
         /// </summary>
-        Horizontal
+        public double Intensity { get; set; }
     }
 }

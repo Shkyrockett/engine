@@ -44,7 +44,8 @@ namespace Editor
 
             /* Experimental Previews */
 
-            Clipper(vectorMap);
+            EnvelopeWarp(vectorMap);
+            //Clipper(vectorMap);
             //SelfIntersectingCubicBezier(vectorMap);
             //LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
             //NearestPoint(vectorMap, form, metrics);
@@ -61,7 +62,7 @@ namespace Editor
             //CommonIntersections(vectorMap);
             //CurveFitting(vectorMap);
             //EllipseToBeziers(vectorMap);
-            WarpGeometry(vectorMap);
+            //WarpGeometry(vectorMap);
             //ComplexPolygonClipping(vectorMap);
             //PolyClipping(vectorMap);
             //FMartinezSamplesForClipping(vectorMap);
@@ -199,6 +200,81 @@ namespace Editor
         #endregion
 
         #region Experimental
+
+        /// <summary>
+        /// The envelope warp.
+        /// </summary>
+        /// <param name="vectorMap">The vectorMap.</param>
+        public static void EnvelopeWarp(VectorMap vectorMap)
+        {
+            (double left, double top, double width, double height) = (100, 100, 200, 100);
+            var off = 25;
+
+            var rect = new Rectangle2D(left, top, width, height);
+            var rectItem = new GraphicItem(rect, intersectionRed)
+            {
+                Name = "Rectangle"
+            };
+
+            var envelope = new Envelope(rect.Left, rect.Top, rect.Width, rect.Height);
+            envelope.ControlPointTopLeft = new ControlPoint
+            {
+                X = envelope.ControlPointTopLeft.X,
+                Y = envelope.ControlPointTopLeft.Y,
+                AnchorH = envelope.ControlPointTopLeft.AnchorH + new Vector2D(0, off),
+                AnchorV = envelope.ControlPointTopLeft.AnchorV + new Vector2D(off, 0)
+            };
+            envelope.ControlPointTopRight = new ControlPoint
+            {
+                X = envelope.ControlPointTopRight.X,
+                Y = envelope.ControlPointTopRight.Y,
+                AnchorH = envelope.ControlPointTopRight.AnchorH + new Vector2D(0, off),
+                AnchorV = envelope.ControlPointTopRight.AnchorV + new Vector2D(off, 0)
+            };
+            envelope.ControlPointBottomRight = new ControlPoint
+            {
+                X = envelope.ControlPointBottomRight.X,
+                Y = envelope.ControlPointBottomRight.Y,
+                AnchorH = envelope.ControlPointBottomRight.AnchorH + new Vector2D(0, off),
+                AnchorV = envelope.ControlPointBottomRight.AnchorV + new Vector2D(off, 0)
+            };
+            envelope.ControlPointBottomLeft = new ControlPoint
+            {
+                X = envelope.ControlPointBottomLeft.X,
+                Y = envelope.ControlPointBottomLeft.Y,
+                AnchorH = envelope.ControlPointBottomLeft.AnchorH + new Vector2D(0, off),
+                AnchorV = envelope.ControlPointBottomLeft.AnchorV + new Vector2D(off, 0)
+            };
+            envelope.Update();
+            var envelopeDistort = new EnvelopeDistort(envelope);
+
+            var curvedRectangle = envelopeDistort.Process(rect);
+            var curvedRectangleItem = new GraphicItem(curvedRectangle, intersectionBlue)
+            {
+                Name = "Curved Rectangle"
+            };
+            var curvedRectangleNodeItem = new GraphicItem(new NodeRevealer(curvedRectangle.Grips, 5d), handleStyle);
+
+            var curvedBounds = envelope.ToPolycurve();
+            var curvedBoundsItem = new GraphicItem(curvedBounds, intersectionGreen)
+            {
+                Name = "Curved Rectangle"
+            };
+            var curvedBoundsItemNodeItem = new GraphicItem(new NodeRevealer(curvedBounds.Grips, 5d), handleStyle);
+
+            var warpGrid = new ParametricWarpGrid(envelopeDistort.Process, rect, rect.Bounds.X, rect.Bounds.Y, rect.Bounds.Right, rect.Bounds.Bottom, 5, 5);
+            var warpGridItem = new GraphicItem(warpGrid, handleStyle)
+            {
+                Name = "Warp"
+            };
+
+            vectorMap.Add(rectItem);
+            vectorMap.Add(curvedRectangleItem);
+            vectorMap.Add(curvedRectangleNodeItem);
+            vectorMap.Add(curvedBoundsItem);
+            vectorMap.Add(curvedBoundsItemNodeItem);
+            vectorMap.Add(warpGridItem);
+        }
 
         /// <summary>
         /// Development method for testing the accuracy of the Clipper clipping methods with complex geometry.

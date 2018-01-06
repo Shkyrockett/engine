@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
-using Engine;
 
 namespace Engine
 {
@@ -103,6 +102,7 @@ namespace Engine
         /// <param name="cx"></param>
         /// <param name="cy"></param>
         /// <param name="theta"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void RotateArrays(List<List<Point2D>> a, double cx, double cy, double theta)
         {
             var cosine = Cos(theta);
@@ -116,6 +116,43 @@ namespace Engine
                     p[j] = new Point2D(cosine * x - sine * y + cx, sine * x + cosine * y + cy);
                 }
             }
+        }
+
+        /// <summary>
+        /// Warp the shape using Envelope distortion.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="topLeft">The topLeft.</param>
+        /// <param name="topLeftH">The topLeftH.</param>
+        /// <param name="topLeftV">The topLeftV.</param>
+        /// <param name="topRight">The topRight.</param>
+        /// <param name="topRightH">The topRightH.</param>
+        /// <param name="topRightV">The topRightV.</param>
+        /// <param name="bottomRight">The bottomRight.</param>
+        /// <param name="bottomRightH">The bottomRightH.</param>
+        /// <param name="bottomRightV">The bottomRightV.</param>
+        /// <param name="bottomLeft">The bottomLeft.</param>
+        /// <param name="bottomLeftH">The bottomLeftH.</param>
+        /// <param name="bottomLeftV">The bottomLeftV.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Envelope(
+            Point2D point,
+            Rectangle2D bounds,
+            Point2D topLeft, Point2D topLeftH, Point2D topLeftV,
+            Point2D topRight, Point2D topRightH, Point2D topRightV,
+            Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
+            Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
+        {
+            var norm = NormalizePoint(bounds, point);
+            var left = Interpolators.CubicBezier(topLeft.X, topLeftV.X, bottomLeftV.X, bottomLeft.X, norm.Y);
+            var right = Interpolators.CubicBezier(topRight.X, topRightV.X, bottomRightV.X, bottomRight.X, norm.Y);
+            var top = Interpolators.CubicBezier(topLeft.Y, topLeftH.Y, topRightH.Y, topRight.Y, norm.X);
+            var bottom = Interpolators.CubicBezier(bottomLeft.Y, bottomLeftH.Y, bottomRightH.Y, bottomRight.Y, norm.X);
+            var x = Interpolators.Linear(left, right, norm.X);
+            var y = Interpolators.Linear(top, bottom, norm.Y);
+            return new Point2D(x, y);
         }
 
         /// <summary>
@@ -328,6 +365,15 @@ namespace Engine
         }
 
         #endregion
+
+        /// <summary>
+        /// Normalizes a point, so that it is expressed as percentage coordinates relative to the bounding box.
+        /// </summary>
+        /// <param name="bounds">The bounding box of the shape.</param>
+        /// <param name="point">The point to warp.</param>
+        /// <returns>The returned point in normalized percentage form.</returns>
+        public static Point2D NormalizePoint(Rectangle2D bounds, Point2D point)
+            => new Point2D((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
 
         /// <summary>
         /// Creates a list of equally spaced points that lie on the path described by straight line segments between

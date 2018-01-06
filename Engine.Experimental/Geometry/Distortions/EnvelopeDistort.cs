@@ -1,4 +1,4 @@
-﻿// <copyright file="BulgeDistort.cs" company="Shkyrockett" >
+﻿// <copyright file="SphereDistort.cs" company="Shkyrockett" >
 //     Copyright © 2017 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,25 +8,25 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
     /// <summary>
-    /// The bulge distort class.
+    /// The Envelope distort class.
     /// </summary>
-    public class BulgeDistort
+    public class EnvelopeDistort
         : DestructiveFilter
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BulgeDistort"/> class.
+        /// Initializes a new instance of the <see cref="EnvelopeDistort"/> class.
         /// </summary>
-        /// <param name="center">The center.</param>
-        /// <param name="strength">The strength.</param>
-        public BulgeDistort(Point2D center, double strength = 0.5)
+        /// <param name="envelope">The envelope.</param>
+        public EnvelopeDistort(Envelope envelope)
         {
-            Center = center;
-            Strength = strength;
+            Envelope = envelope;
         }
 
         #endregion
@@ -34,14 +34,9 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// Gets or sets the center.
+        /// Gets or sets the envelope.
         /// </summary>
-        public Point2D Center { get; set; }
-
-        /// <summary>
-        /// Gets or sets the strength.
-        /// </summary>
-        public double Strength { get; set; }
+        public Envelope Envelope { get; set; }
 
         #endregion
 
@@ -53,7 +48,7 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
-            => Distortions.Pinch(point, Center, -Strength);
+            => Envelope.GetPoint(point);
 
         #endregion
     }

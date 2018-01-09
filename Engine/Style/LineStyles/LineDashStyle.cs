@@ -11,7 +11,6 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-//using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,7 +22,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The line dash style struct.
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -31,27 +30,27 @@ namespace Engine
         : IFormattable
     {
         /// <summary>
-        ///
+        /// The solid (readonly). Value: new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 1 }).
         /// </summary>
         public static readonly LineDashStyle Solid = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 1 });
 
         /// <summary>
-        ///
+        /// The dot (readonly). Value: new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 1, 1 }).
         /// </summary>
         public static readonly LineDashStyle Dot = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 1, 1 });
 
         /// <summary>
-        ///
+        /// The dash (readonly). Value: new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1 }).
         /// </summary>
         public static readonly LineDashStyle Dash = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1 });
 
         /// <summary>
-        ///
+        /// The dash dot (readonly). Value: new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1, 1, 1 }).
         /// </summary>
         public static readonly LineDashStyle DashDot = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1, 1, 1 });
 
         /// <summary>
-        ///
+        /// The dash dot dot (readonly). Value: new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1, 1, 1, 1, 1 }).
         /// </summary>
         public static readonly LineDashStyle DashDotDot = new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 3, 1, 1, 1, 1, 1 });
 
@@ -62,7 +61,7 @@ namespace Engine
         //private DashStyle dashStyle;
 
         /// <summary>
-        ///
+        /// The dash pattern.
         /// </summary>
         private float[] dashPattern;
 
@@ -76,10 +75,10 @@ namespace Engine
         //{ }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="LineDashStyle"/> class.
         /// </summary>
-        /// <param name="dashPattern"></param>
-        /// <param name="dashOffset"></param>
+        /// <param name="dashPattern">The dashPattern.</param>
+        /// <param name="dashOffset">The dashOffset.</param>
         internal LineDashStyle(/*DashStyle dashStyle,*/ float[] dashPattern, float dashOffset = 0)
             : this()
         {
@@ -115,7 +114,7 @@ namespace Engine
         //}
 
         /// <summary>
-        ///
+        /// Gets or sets the dash pattern text.
         /// </summary>
         [Browsable(false)]
         [XmlAttribute("d")]
@@ -125,7 +124,7 @@ namespace Engine
         public string DashPatternText { get { return ToString(); } set { Parse(value); } }
 
         /// <summary>
-        ///
+        /// Gets or sets the dash offset.
         /// </summary>
         public float DashOffset { get; set; }
 
@@ -192,10 +191,10 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Parse.
         /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <returns>The <see cref="T:float[]"/>.</returns>
         private float[] Parse(string text)
         {
             const string argSeparators = @"[\s,]|(?=-)";

@@ -1,4 +1,4 @@
-﻿// <copyright file="GradientFill.cs" company="Shkyrockett" >
+﻿// <copyright file="SolidFill.cs" company="Shkyrockett" >
 //     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -8,41 +8,32 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Collections.Generic;
-
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    /// The solid fill struct.
     /// </summary>
-    public struct GradientFill
+    public struct SolidFill
         : IFill
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SolidFill"/> class.
         /// </summary>
-        /// <param name="color"></param>
-        /// <param name="colorStops"></param>
-        /// <param name="fillMode"></param>
-        public GradientFill(IColor color, Dictionary<double, IColor> colorStops, FillMode fillMode = FillMode.Alternate)
+        /// <param name="color">The color.</param>
+        /// <param name="fillMode">The fillMode.</param>
+        public SolidFill(IColor color, FillMode fillMode = FillMode.Alternate)
         {
             Color = color;
-            ColorStops = colorStops;
             FillMode = fillMode;
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the color.
         /// </summary>
         public IColor Color { get; set; }
 
         /// <summary>
-        /// 
-        /// </summary>
-        public Dictionary<double, IColor> ColorStops { get; set; }
-
-        /// <summary>
-        /// 
+        /// Gets or sets the fill mode.
         /// </summary>
         public FillMode FillMode { get; set; }
     }

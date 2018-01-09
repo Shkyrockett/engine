@@ -8,7 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using Engine.MathNotation;
+//using Engine.MathNotation;
 using Engine.WindowsForms;
 using System;
 using System.Drawing;
@@ -54,21 +54,21 @@ namespace Engine.Imaging
                 case Text2D t:
                     t.Render(g, item, style as ShapeStyle);
                     break;
-                case Coefficient t:
-                    t.Render(g, item, style as TextStyle);
-                    break;
-                case Expression t:
-                    t.Render(g, item, style as TextStyle);
-                    break;
-                case Radical t:
-                    t.Render(g, item, style as TextStyle);
-                    break;
-                case Term t:
-                    t.Render(g, item, style as TextStyle);
-                    break;
-                case Logarithm t:
-                    t.Render(g, item, style as TextStyle);
-                    break;
+                //case Coefficient t:
+                //    t.Render(g, item, style as TextStyle);
+                //    break;
+                //case Expression t:
+                //    t.Render(g, item, style as TextStyle);
+                //    break;
+                //case Radical t:
+                //    t.Render(g, item, style as TextStyle);
+                //    break;
+                //case Term t:
+                //    t.Render(g, item, style as TextStyle);
+                //    break;
+                //case Logarithm t:
+                //    t.Render(g, item, style as TextStyle);
+                //    break;
                 case ScreenPoint t:
                     t.Render(g, item, style as ShapeStyle);
                     break;

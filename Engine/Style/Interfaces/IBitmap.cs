@@ -13,13 +13,14 @@ using System.IO;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IBitmap interface.
     /// </summary>
     public interface IBitmap
     {
         /// <summary>
-        /// 
+        /// Gets or sets the stream.
         /// </summary>
+        /// <value>The <see cref="Stream"/>.</value>
         Stream Stream { get; set; }
     }
 }

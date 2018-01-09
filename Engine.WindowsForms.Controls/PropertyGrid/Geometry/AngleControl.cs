@@ -17,53 +17,53 @@ using System.Windows.Forms.Design;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The angle control class.
     /// </summary>
     public partial class AngleControl
         : UserControl
     {
         /// <summary>
-        /// 
+        /// The value changed event args class.
         /// </summary>
         public class ValueChangedEventArgs
             : EventArgs
         {
             /// <summary>
-            /// 
+            /// Initializes a new instance of the <see cref="ValueChangedEventArgs"/> class.
             /// </summary>
-            /// <param name="value"></param>
+            /// <param name="value">The value.</param>
             public ValueChangedEventArgs(double value)
             {
                 Value = value;
             }
 
             /// <summary>
-            /// 
+            /// Gets or sets the value.
             /// </summary>
             public double Value { get; set; }
         }
 
         /// <summary>
-        /// 
+        /// The value changed delegate.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The value changed event arguments.</param>
         public delegate void ValueChangedDelegate(object sender, ValueChangedEventArgs e);
 
         /// <summary>
-        /// 
+        /// The value changed event of the <see cref="ValueChangedDelegate"/>.
         /// </summary>
         [Category("Value")]
         [Description("This event is raised if the value changes.")]
         public event ValueChangedDelegate ValueChanged;
 
         /// <summary>
-        /// 
+        /// The method.
         /// </summary>
         private Angles method;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="AngleControl"/> class.
         /// </summary>
         [Category("Value")]
         [DefaultValue(0)]
@@ -80,7 +80,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the angle.
         /// </summary>
         public double Angle
         {
@@ -89,15 +89,15 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the editor service.
         /// </summary>
         public IWindowsFormsEditorService EditorService { get; set; }
 
         /// <summary>
-        /// 
+        /// The tab control selected index changed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             var tabControl = sender as TabControl;
@@ -121,10 +121,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The needle control1 value changed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The value changed event arguments.</param>
         private void NeedleControl1_ValueChanged(object sender, NeedleControl.ValueChangedEventArgs e)
         {
             switch (method)
@@ -141,18 +141,18 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The needle control1 value committed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The value changed event arguments.</param>
         private void NeedleControl1_ValueCommitted(object sender, NeedleControl.ValueChangedEventArgs e)
             => EditorService?.CloseDropDown();
 
         /// <summary>
-        /// 
+        /// The numeric up down value changed.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void NumericUpDown_ValueChanged(object sender, EventArgs e)
         {
             var nums = sender as NumericUpDown;
@@ -170,10 +170,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The numeric up down key down.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The key event arguments.</param>
         private void NumericUpDown_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
@@ -181,26 +181,26 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The tab control draw item.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The draw item event arguments.</param>
         private void TabControl_DrawItem(object sender, DrawItemEventArgs e)
             => needleControl1.Invalidate();
 
         /// <summary>
-        /// 
+        /// The tab page degrees paint.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The paint event arguments.</param>
         private void TabPageDegrees_Paint(object sender, PaintEventArgs e)
             => needleControl1.Invalidate();
 
         /// <summary>
-        /// 
+        /// The tab page radians paint.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The paint event arguments.</param>
         private void TabPageRadians_Paint(object sender, PaintEventArgs e)
             => needleControl1.Invalidate();
     }

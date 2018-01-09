@@ -195,10 +195,6 @@
       <Project>{928573a5-3e62-4132-8e0b-f05235bbedc7}</Project>
       <Name>Engine.Midi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine.Misc\Engine.Misc.csproj">
-      <Project>{87132739-8056-447a-a25d-7acf85a8bfed}</Project>
-      <Name>Engine.Misc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Engine.WindowsForms\Engine.WindowsForms.csproj">
       <Project>{3a89b55c-8d51-46a4-86ca-825c28958dfd}</Project>
       <Name>Engine.WindowsForms</Name>

@@ -11,7 +11,6 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-//using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
@@ -20,59 +19,59 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The line cap style struct.
     /// </summary>
     [DataContract, Serializable]
     public struct LineCapStyle
         : IFormattable
     {
         /// <summary>
-        /// 
+        /// The flat (readonly). Value: new LineCapStyle(/*LineCap.Flat,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle Flat = new LineCapStyle(/*LineCap.Flat,*/ new PolycurveContour());
 
         /// <summary>
-        /// 
+        /// The square (readonly). Value: new LineCapStyle(/*LineCap.Square,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle Square = new LineCapStyle(/*LineCap.Square,*/ new PolycurveContour());
 
         /// <summary>
-        /// 
+        /// The round (readonly). Value: new LineCapStyle(/*LineCap.Round,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle Round = new LineCapStyle(/*LineCap.Round,*/ new PolycurveContour());
 
         /// <summary>
-        /// 
+        /// The triangle (readonly). Value: new LineCapStyle(/*LineCap.Triangle,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle Triangle = new LineCapStyle(/*LineCap.Triangle,*/ new PolycurveContour());
 
         /// <summary>
-        /// 
+        /// The no anchor (readonly). Value: new LineCapStyle(/*LineCap.NoAnchor,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle NoAnchor = new LineCapStyle(/*LineCap.NoAnchor,*/ new PolycurveContour());
 
         /// <summary>
-        /// 
+        /// The square anchor (readonly). Value: new LineCapStyle(/*LineCap.SquareAnchor,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle SquareAnchor = new LineCapStyle(/*LineCap.SquareAnchor,*/ new PolycurveContour());
 
         /// <summary>
-        /// 
+        /// The round anchor (readonly). Value: new LineCapStyle(/*LineCap.RoundAnchor,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle RoundAnchor = new LineCapStyle(/*LineCap.RoundAnchor,*/ new PolycurveContour());
 
         /// <summary>
-        /// 
+        /// The diamond anchor (readonly). Value: new LineCapStyle(/*LineCap.DiamondAnchor,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle DiamondAnchor = new LineCapStyle(/*LineCap.DiamondAnchor,*/ new PolycurveContour());
 
         /// <summary>
-        /// 
+        /// The arrow anchor (readonly). Value: new LineCapStyle(/*LineCap.ArrowAnchor,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle ArrowAnchor = new LineCapStyle(/*LineCap.ArrowAnchor,*/ new PolycurveContour());
 
         /// <summary>
-        /// 
+        /// The anchor mask (readonly). Value: new LineCapStyle(/*LineCap.AnchorMask,*/ new PolycurveContour()).
         /// </summary>
         public static readonly LineCapStyle AnchorMask = new LineCapStyle(/*LineCap.AnchorMask,*/ new PolycurveContour());
 
@@ -82,14 +81,14 @@ namespace Engine
         //private LineCap lineCap;
 
         /// <summary>
-        /// 
+        /// The cap path.
         /// </summary>
         private PolycurveContour capPath;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="LineCapStyle"/> class.
         /// </summary>
-        /// <param name="path"></param>
+        /// <param name="path">The path.</param>
         public LineCapStyle(/*LineCap lineCap,*/ PolycurveContour path)
             : this()
         {
@@ -103,13 +102,13 @@ namespace Engine
         //internal LineCap LineCap { get { return lineCap; } set { lineCap = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the cap path.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolycurveContour CapPath { get { return capPath; } set { capPath = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the cap path text.
         /// </summary>
         [Browsable(false)]
         [XmlAttribute("d")]

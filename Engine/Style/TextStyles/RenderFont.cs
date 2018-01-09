@@ -8,21 +8,20 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
 
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The render font class.
     /// </summary>
     public class RenderFont
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="RenderFont"/> class.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="size"></param>
-        /// <param name="textStyle"></param>
+        /// <param name="name">The name.</param>
+        /// <param name="size">The size.</param>
+        /// <param name="textStyle">The textStyle.</param>
         public RenderFont(string name, double size, TextStyle textStyle)
         {
             Name = name;
@@ -31,50 +30,18 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the size.
         /// </summary>
         public double Size { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the style.
         /// </summary>
         public TextStyle Style { get; set; }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    [Flags]
-    public enum TextStyle
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        Regular = 0,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Bold = 1,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Italic = 2,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Underline = 4,
-
-        /// <summary>
-        /// 
-        /// </summary>
-        Strikeout = 8,
     }
 }

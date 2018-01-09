@@ -13,19 +13,21 @@ using System.ComponentModel;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IStyle interface.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IStyle
     {
         /// <summary>
-        /// 
+        /// Gets the fill.
         /// </summary>
+        /// <value>The <see cref="IFill"/>.</value>
         IFill Fill { get; }
 
         /// <summary>
-        /// 
+        /// Gets the stroke.
         /// </summary>
+        /// <value>The <see cref="IStroke"/>.</value>
         IStroke Stroke { get; }
     }
 }

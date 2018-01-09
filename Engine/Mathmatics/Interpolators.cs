@@ -1399,5 +1399,20 @@ namespace Engine
         }
 
         #endregion
+
+        /// <summary>
+        /// Linearly tweens between two cubic bezier curves, from key1 to key2.
+        /// </summary>
+        /// <param name="key1">The first cubic bezier key.</param>
+        /// <param name="key2">The second cubic bezier key.</param>
+        /// <param name="t">The t index.</param>
+        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
+        private static CubicBezier TweenCubic(CubicBezier key1, CubicBezier key2, double t)
+            => new CubicBezier(
+                 key1.A + t * (key2.A - key1.A),
+                 key1.B + t * (key2.B - key1.B),
+                 key1.C + t * (key2.C - key1.C),
+                 key1.D + t * (key2.D - key1.D)
+                );
     }
 }

@@ -79,7 +79,7 @@ Code files should start with an XML copyright header like the following, to indi
 
 ### Attribution
 
-Methods found online should be attributed to their original source in an acknowledgment section of the method's xml header. This permits going back to the source while troubleshooting; to compare results with the original code, or to apply updates as needed. As well as to provide credit for the original author. 
+Methods found online should be attributed to their original source in an acknowledgment section of the method's XML header. This permits going back to the source while troubleshooting; to compare results with the original code, or to apply updates as needed. As well as to provide credit for the original author. 
 
 ```csharp
         /// <summary>
@@ -380,7 +380,7 @@ To reduce the chance of errors in equality comparisons across various comparison
 
 ```csharp
     public struct ComparableObject
-	    : IEquatable<ComparableObject>
+        : IEquatable<ComparableObject>
     {
         #region Properties
 
@@ -543,7 +543,7 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
         #endregion
 
         #region Factories
-		
+        
         /// <summary>
         /// Parses the provided string using the current culture to create an instance of the <see cref="FormatableObject"/> struct.
         /// </summary>

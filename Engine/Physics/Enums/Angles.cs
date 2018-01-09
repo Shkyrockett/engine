@@ -11,32 +11,32 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The angles enum.
     /// </summary>
     public enum Angles
     {
         /// <summary>
-        /// 
+        /// The Degree.
         /// </summary>
         Degree,
 
         /// <summary>
-        /// 
+        /// The Radian.
         /// </summary>
         Radian,
 
         /// <summary>
-        /// 
+        /// The Gradian.
         /// </summary>
         Gradian,
 
         /// <summary>
-        /// 
+        /// The ArcMinute.
         /// </summary>
         ArcMinute,
 
         /// <summary>
-        /// 
+        /// The ArcSecond.
         /// </summary>
         ArcSecond
     }

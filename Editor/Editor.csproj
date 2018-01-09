@@ -151,10 +151,6 @@
       <Project>{4c4da771-9467-484f-bbb7-75860c3e7697}</Project>
       <Name>Engine.File</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine.Misc\Engine.Misc.csproj">
-      <Project>{87132739-8056-447a-a25d-7acf85a8bfed}</Project>
-      <Name>Engine.Misc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Engine.WindowsForms.Controls\Engine.WindowsForms.Controls.csproj">
       <Project>{059ab8be-2690-4104-9d5e-6f25972d89f9}</Project>
       <Name>Engine.WindowsForms.Controls</Name>

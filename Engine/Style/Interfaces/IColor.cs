@@ -13,16 +13,16 @@ using System;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IColor interface.
     /// </summary>
     public interface IColor
         : IFormattable, //IComparable<IColor>, //IConvertible,
         IEquatable<IColor>
     {
         /// <summary>
-        /// 
+        /// The to ARGB tuple.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
         (byte A, byte R, byte G, byte B) ToARGBTuple();
     }
 }

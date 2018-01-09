@@ -165,7 +165,10 @@ namespace Engine
         public static Point2D Pinch(Point2D point, Point2D fulcrum, double strength = OneHalf)
         {
             if (fulcrum == point)
+            {
                 return point;
+            }
+
             var dx = point.X - fulcrum.X;
             var dy = point.Y - fulcrum.Y;
             var distanceSquared = dx * dx + dy * dy;
@@ -207,7 +210,10 @@ namespace Engine
         public static Point2D Pinch(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
             if (fulcrum == point)
+            {
                 return point;
+            }
+
             var dx = point.X - fulcrum.X;
             var dy = point.Y - fulcrum.Y;
             var distanceSquared = dx * dx + dy * dy;
@@ -252,7 +258,10 @@ namespace Engine
         public static Point2D Pinch1(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
             if (fulcrum == point)
+            {
                 return point;
+            }
+
             var dx = point.X - fulcrum.X;
             var dy = point.Y - fulcrum.Y;
             var distanceSquared = dx * dx + dy * dy;
@@ -285,7 +294,10 @@ namespace Engine
         public static Point2D Pinch2(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
         {
             if (fulcrum == point)
+            {
                 return point;
+            }
+
             var dx = point.X - fulcrum.X;
             var dy = point.Y - fulcrum.Y;
             var distanceSquared = dx * dx + dy * dy;
@@ -316,7 +328,10 @@ namespace Engine
         public static Point2D Swirl(Point2D point, Point2D fulcrum, double degree = OneHalf)
         {
             if (fulcrum == point)
+            {
                 return point;
+            }
+
             var dX = point.X - fulcrum.X;
             var dY = point.Y - fulcrum.Y;
             var theta = Atan2((dY), (dX));
@@ -365,6 +380,8 @@ namespace Engine
 
         #endregion
 
+        #region Helper Methods
+
         /// <summary>
         /// Normalizes a point, so that it is expressed as percentage coordinates relative to the bounding box.
         /// </summary>
@@ -388,12 +405,20 @@ namespace Engine
         public static List<Point2D> Linearize(List<Point2D> source, double distance, double epsilon = Epsilon)
         {
             if (source == null)
+            {
                 throw new ArgumentNullException(nameof(source), "List must not be null");
+            }
+
             if (distance <= epsilon)
+            {
                 throw new InvalidOperationException($"{nameof(distance)} {distance} must not be less than epsilon { epsilon }.");
+            }
+
             var dest = new List<Point2D>();
             if (source.Count < 1)
+            {
                 return dest;
+            }
 
             var pp = source[0];
             dest.Add(pp);
@@ -429,7 +454,9 @@ namespace Engine
             // last point
             var lp = source[source.Count - 1];
             if (!Primitives.EqualsOrClose(pp, lp))
+            {
                 dest.Add(lp);
+            }
 
             return dest;
         }
@@ -452,16 +479,25 @@ namespace Engine
         public static List<Point2D> RamerDouglasPeukerReduce(List<Point2D> points, double error = 4)
         {
             if (points == null)
+            {
                 throw new ArgumentNullException(nameof(points), "Must not be null.");
+            }
+
             points = RemoveDuplicates(points);
             if (points.Count < 3)
+            {
                 return new List<Point2D>(points);
+            }
+
             var keepIndex = new List<int>(Max(points.Count / 2, 16)) { 0, points.Count - 1 };
             RecursiveRamerDouglasPeukerReduce(points, error, 0, points.Count - 1, ref keepIndex);
             keepIndex.Sort();
             var res = new List<Point2D>(keepIndex.Count);
             foreach (var idx in keepIndex)
+            {
                 res.Add(points[idx]);
+            }
+
             return res;
         }
 
@@ -478,7 +514,9 @@ namespace Engine
         {
             var nPts = last - first + 1;
             if (nPts < 3)
+            {
                 return;
+            }
 
             var segment = new LineSegment(pts[first], pts[last]);
 
@@ -516,7 +554,9 @@ namespace Engine
         public static List<Point2D> RemoveDuplicates(List<Point2D> points)
         {
             if (points.Count < 2)
+            {
                 return points;
+            }
 
             // Common case -- no duplicates, so just return the source list
             var prev = points[0];
@@ -526,13 +566,19 @@ namespace Engine
             {
                 var cur = points[i];
                 if (Primitives.EqualsOrClose(prev, cur))
+                {
                     nDup++;
+                }
                 else
+                {
                     prev = cur;
+                }
             }
 
             if (nDup == 0)
+            {
                 return points;
+            }
             else
             {
                 // Create a copy without them
@@ -577,7 +623,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The bilinear.
+        /// Evaluate the bilinear transform.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="u">The u.</param>
@@ -593,14 +639,18 @@ namespace Engine
             var r = new Point2D(
                 (1 - u) * point[0].X + u * point[1].X,
                 (1 - u) * point[0].Y + u * point[1].Y);
+
             var s = new Point2D(
                 (1 - u) * point[3].X + u * point[2].X,
                 (1 - u) * point[3].Y + u * point[2].Y);
-            return new Point2D((1 - v) * r.X + v * s.X, (1 - v) * r.Y + v * s.Y);
+
+            return new Point2D(
+                (1 - v) * r.X + v * s.X,
+                (1 - v) * r.Y + v * s.Y);
         }
 
         /// <summary>
-        /// The perspective.
+        /// Evaluate the homographic perspective transform.
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="c">The c.</param>
@@ -644,5 +694,7 @@ namespace Engine
             h -= 1;
             return (a, b, d, e, g, h);
         }
+
+        #endregion
     }
 }

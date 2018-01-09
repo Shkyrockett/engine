@@ -217,29 +217,29 @@ namespace Editor
             };
 
             var envelope = new Envelope(rect.Left, rect.Top, rect.Width, rect.Height);
-            envelope.ControlPointTopLeft = new ControlPoint
+            envelope.ControlPointTopLeft = new CubicControlPoint
             {
                 Point = envelope.ControlPointTopLeft.Point - new Vector2D(off, 0),
-                AnchorH = envelope.ControlPointTopLeft.AnchorH - new Vector2D(0, off),
-                AnchorV = envelope.ControlPointTopLeft.AnchorV - new Vector2D(off, 0)
+                AnchorA = envelope.ControlPointTopLeft.AnchorA - new Vector2D(0, off),
+                AnchorB = envelope.ControlPointTopLeft.AnchorB - new Vector2D(off, 0)
             };
-            envelope.ControlPointTopRight = new ControlPoint
+            envelope.ControlPointTopRight = new CubicControlPoint
             {
                 Point = envelope.ControlPointTopRight.Point + new Vector2D(off, 0),
-                AnchorH = envelope.ControlPointTopRight.AnchorH - new Vector2D(0, off),
-                AnchorV = envelope.ControlPointTopRight.AnchorV + new Vector2D(off, 0)
+                AnchorA = envelope.ControlPointTopRight.AnchorA - new Vector2D(0, off),
+                AnchorB = envelope.ControlPointTopRight.AnchorB + new Vector2D(off, 0)
             };
-            envelope.ControlPointBottomRight = new ControlPoint
+            envelope.ControlPointBottomRight = new CubicControlPoint
             {
                 Point = envelope.ControlPointBottomRight.Point - new Vector2D(off, 0),
-                AnchorH = envelope.ControlPointBottomRight.AnchorH + new Vector2D(0, off),
-                AnchorV = envelope.ControlPointBottomRight.AnchorV + new Vector2D(off, 0)
+                AnchorA = envelope.ControlPointBottomRight.AnchorA + new Vector2D(0, off),
+                AnchorB = envelope.ControlPointBottomRight.AnchorB + new Vector2D(off, 0)
             };
-            envelope.ControlPointBottomLeft = new ControlPoint
+            envelope.ControlPointBottomLeft = new CubicControlPoint
             {
                 Point = envelope.ControlPointBottomLeft.Point + new Vector2D(off, 0),
-                AnchorH = envelope.ControlPointBottomLeft.AnchorH + new Vector2D(0, off),
-                AnchorV = envelope.ControlPointBottomLeft.AnchorV - new Vector2D(off, 0)
+                AnchorA = envelope.ControlPointBottomLeft.AnchorA + new Vector2D(0, off),
+                AnchorB = envelope.ControlPointBottomLeft.AnchorB - new Vector2D(off, 0)
             };
             var envelopeDistort = new EnvelopeDistort(envelope, rect);
 
@@ -249,6 +249,13 @@ namespace Editor
                 Name = "Warped Rectangle"
             };
             var warpedRectangleNodeItem = new GraphicItem(new NodeRevealer(warpedRectangle.Grips, 5d), handleStyle);
+
+            var warpedTriangle = envelopeDistort.Process(Generators.RegularConvexPolygon(rect.Center.X, rect.Center.Y, rect.Height * 0.5d, 3, -Right));
+            var warpedTriangleItem = new GraphicItem(warpedTriangle, intersectionRed)
+            {
+                Name = "Warped Triangle"
+            };
+            var warpedTriangleNodeItem = new GraphicItem(new NodeRevealer(warpedTriangle.Grips, 5d), handleStyle);
 
             var curvedBounds = envelope.ToPolycurve();
             var curvedBoundsItem = new GraphicItem(curvedBounds, intersectionGreen)
@@ -267,8 +274,9 @@ namespace Editor
             vectorMap.Add(warpedRectangleItem);
             //vectorMap.Add(warpedRectangleNodeItem);
             //vectorMap.Add(curvedBoundsItem);
-            vectorMap.Add(curvedBoundsItemNodeItem);
+            vectorMap.Add(warpedTriangleItem);
             vectorMap.Add(warpGridItem);
+            vectorMap.Add(curvedBoundsItemNodeItem);
         }
 
         /// <summary>

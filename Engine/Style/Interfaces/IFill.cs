@@ -11,18 +11,20 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IFill interface.
     /// </summary>
     public interface IFill
     {
         /// <summary>
-        /// 
+        /// Gets or sets the color.
         /// </summary>
+        /// <value>The <see cref="IColor"/>.</value>
         IColor Color { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the fill mode.
         /// </summary>
+        /// <value>The <see cref="FillMode"/>.</value>
         FillMode FillMode { get; set; }
     }
 }

@@ -147,10 +147,6 @@
       <Project>{928573a5-3e62-4132-8e0b-f05235bbedc7}</Project>
       <Name>Engine.Midi</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Engine.Misc\Engine.Misc.csproj">
-      <Project>{87132739-8056-447a-a25d-7acf85a8bfed}</Project>
-      <Name>Engine.Misc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Engine\Engine.csproj">
       <Project>{32553305-ddb2-4fd1-b359-8ebd8587bd6f}</Project>
       <Name>Engine</Name>

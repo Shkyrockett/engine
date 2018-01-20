@@ -1319,11 +1319,50 @@ namespace Engine
         #region Comparisons
 
         /// <summary>
-        /// 
+        /// Find the maximum value of three variables.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="x">The first variable.</param>
+        /// <param name="y">The second variable.</param>
+        /// <param name="z">The third variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Max(double x, double y, double z)
+            => x > y ? x > z ? x : z : y > z ? y : z;
+
+        /// <summary>
+        /// Find the maximum value of three variables.
+        /// </summary>
+        /// <param name="x">The first variable.</param>
+        /// <param name="y">The second variable.</param>
+        /// <param name="z">The third variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Max(int x, int y, int z)
+            => x > y ? x > z ? x : z : y > z ? y : z;
+
+        /// <summary>
+        /// Find the maximum value of three variables.
+        /// </summary>
+        /// <param name="x">The first variable.</param>
+        /// <param name="y">The second variable.</param>
+        /// <param name="z">The third variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Max(byte x, byte y, byte z)
+            => x > y ? x > z ? x : z : y > z ? y : z;
+
+        /// <summary>
+        /// Find the maximum value of three variables.
+        /// </summary>
+        /// <param name="x">The first variable.</param>
+        /// <param name="y">The second variable.</param>
+        /// <param name="z">The third variable.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         /// <acknowledgment>
@@ -1331,8 +1370,68 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Max(double x, double y, double z)
+        public static double Max2(double x, double y, double z)
             => Math.Max(x, Math.Max(y, z));
+
+        /// <summary>
+        /// Find the maximum value of four variables.
+        /// </summary>
+        /// <param name="w">The first variable.</param>
+        /// <param name="x">The second variable.</param>
+        /// <param name="y">The third variable.</param>
+        /// <param name="z">The fourth variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Max(double w, double x, double y, double z)
+        {
+            var t = w;
+            if (x > w) t = x;
+            if (y > w) t = y;
+            if (z > w) t = z;
+            return t;
+        }
+
+        /// <summary>
+        /// Find the maximum value of four variables.
+        /// </summary>
+        /// <param name="w">The first variable.</param>
+        /// <param name="x">The second variable.</param>
+        /// <param name="y">The third variable.</param>
+        /// <param name="z">The fourth variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Max(int w, int x, int y, int z)
+        {
+            var t = w;
+            if (x > w) t = x;
+            if (y > w) t = y;
+            if (z > w) t = z;
+            return t;
+        }
+
+        /// <summary>
+        /// Find the maximum value of four variables.
+        /// </summary>
+        /// <param name="w">The first variable.</param>
+        /// <param name="x">The second variable.</param>
+        /// <param name="y">The third variable.</param>
+        /// <param name="z">The fourth variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Max(byte w, byte x, byte y, byte z)
+        {
+            var t = w;
+            if (x > w) t = x;
+            if (y > w) t = y;
+            if (z > w) t = z;
+            return t;
+        }
 
         /// <summary>
         /// 
@@ -1348,7 +1447,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Max(double w, double x, double y, double z)
+        public static double Max2(double w, double x, double y, double z)
             => Math.Max(w, Math.Max(x, Math.Max(y, z)));
 
         /// <summary>
@@ -1368,39 +1467,6 @@ namespace Engine
         /// 
         /// </summary>
         /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Min(double x, double y, double z)
-            => Math.Min(x, Math.Min(y, z));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="w"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Min(double w, double x, double y, double z)
-            => Math.Min(w, Math.Min(x, Math.Max(y, z)));
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="x"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
@@ -1412,6 +1478,98 @@ namespace Engine
             : (x > max)
             ? max
             : x;
+
+        /// <summary>
+        /// Find the minimum value of three variables.
+        /// </summary>
+        /// <param name="x">The first variable.</param>
+        /// <param name="y">The second variable.</param>
+        /// <param name="z">The third variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Min(double x, double y, double z)
+            => x < y ? x < z ? x : z : y < z ? y : z;
+
+        /// <summary>
+        /// Find the minimum value of three variables.
+        /// </summary>
+        /// <param name="x">The first variable.</param>
+        /// <param name="y">The second variable.</param>
+        /// <param name="z">The third variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static int Min(int x, int y, int z)
+            => x < y ? x < z ? x : z : y < z ? y : z;
+
+        /// <summary>
+        /// Find the minimum value of three variables.
+        /// </summary>
+        /// <param name="x">The first variable.</param>
+        /// <param name="y">The second variable.</param>
+        /// <param name="z">The third variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static byte Min(byte x, byte y, byte z)
+            => x < y ? x < z ? x : z : y < z ? y : z;
+
+        /// <summary>
+        /// Find the minimum value of three variables.
+        /// </summary>
+        /// <param name="x">The first variable.</param>
+        /// <param name="y">The second variable.</param>
+        /// <param name="z">The third variable.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Min2(double x, double y, double z)
+            => Math.Min(x, Math.Min(y, z));
+
+        /// <summary>
+        /// Find the minimum value of four variables.
+        /// </summary>
+        /// <param name="w">The first variable.</param>
+        /// <param name="x">The second variable.</param>
+        /// <param name="y">The third variable.</param>
+        /// <param name="z">The fourth variable.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Min(double w, double x, double y, double z)
+        {
+            var t = w;
+            if (x < t) t = x;
+            if (y < t) t = y;
+            if (z < t) t = z;
+            return t;
+        }
+
+        /// <summary>
+        /// Find the minimum value of four variables.
+        /// </summary>
+        /// <param name="w">The first variable.</param>
+        /// <param name="x">The second variable.</param>
+        /// <param name="y">The third variable.</param>
+        /// <param name="z">The fourth variable.</param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Min2(double w, double x, double y, double z)
+            => Math.Min(w, Math.Min(x, Math.Max(y, z)));
 
         /// <summary>
         ///

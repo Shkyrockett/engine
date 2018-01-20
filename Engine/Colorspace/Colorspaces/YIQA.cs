@@ -1,4 +1,4 @@
-﻿// <copyright file="YIQ.cs" company="Shkyrockett" >
+﻿// <copyright file="YIQA.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -13,32 +13,28 @@ using System;
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// The YIQ struct.
+    /// The YIQA struct.
     /// </summary>
-    public struct YIQ
+    public struct YIQA
         : IColor
     {
+        #region Implementations
+
         /// <summary>
         /// The empty (readonly). Value: new YIQ().
         /// </summary>
-        public static readonly YIQ Empty = new YIQ();
+        public static readonly YIQA Empty = new YIQA();
 
-        ///// <summary>
-        /////
-        ///// </summary>
-        //public YIQ()
-        //    : this(0, 0, 0, 0)
-        //{ }
-
+        #endregion
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YIQ"/> class.
+        /// Initializes a new instance of the <see cref="YIQA"/> class.
         /// </summary>
         /// <param name="color">The color.</param>
         /// <acknowledgment>
         /// https://github.com/dystopiancode/colorspace-conversions/blob/master/colorspace-conversions/colorspace-conversions.c
         /// </acknowledgment>
-        public YIQ(ARGB color)
+        public YIQA(RGBA color)
         {
             double r = color.Red;
             double g = color.Green;
@@ -51,23 +47,23 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YIQ"/> class.
+        /// Initializes a new instance of the <see cref="YIQA"/> class.
         /// </summary>
         /// <param name="y">The y.</param>
         /// <param name="i">The i.</param>
         /// <param name="q">The q.</param>
-        public YIQ(double y, double i, double q)
+        public YIQA(double y, double i, double q)
             : this(0, y, i, q)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YIQ"/> class.
+        /// Initializes a new instance of the <see cref="YIQA"/> class.
         /// </summary>
         /// <param name="alpha">The alpha.</param>
         /// <param name="y">The y.</param>
         /// <param name="i">The i.</param>
         /// <param name="q">The q.</param>
-        public YIQ(byte alpha, double y, double i, double q)
+        public YIQA(byte alpha, double y, double i, double q)
         {
             Alpha = alpha;
             Y = y;
@@ -102,9 +98,9 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
-            var (A0, R0, G0, B0) = ToARGBTuple();
-            var (A1, R1, G1, B1) = other.ToARGBTuple();
-            return A0 == A1 && R0 == R1 && G0 == G1 && B0 == B1;
+            var (r0, g0, b0, a0) = ToRGBATuple();
+            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
 
         /// <summary>
@@ -114,25 +110,24 @@ namespace Engine.Colorspace
         /// <param name="y">The y.</param>
         /// <param name="i">The i.</param>
         /// <param name="q">The q.</param>
-        /// <returns>The <see cref="ARGB"/>.</returns>
+        /// <returns>The <see cref="RGBA"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/dystopiancode/colorspace-conversions/blob/master/colorspace-conversions/colorspace-conversions.c
         /// </acknowledgment>
-        public ARGB ToColor(byte a, double y, double i, double q)
+        public RGBA ToColor(byte a, double y, double i, double q)
         {
             var r = (byte)(y + 0.9563 * i + 0.6210 * q);
             var g = (byte)(y - 0.2721 * i - 0.6474 * q);
             var b = (byte)(y - 1.1070 * i + 1.7046 * q);
-
-            return new ARGB(a, r, g, b);
+            return new RGBA(r, g, b, a);
         }
 
         /// <summary>
-        /// The to ARGB tuple.
+        /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
-        public (byte A, byte R, byte G, byte B) ToARGBTuple()
-            => (Alpha, (byte)(Y + 0.9563 * I + 0.6210 * Q), (byte)(Y - 0.2721 * I - 0.6474 * Q), (byte)(Y - 1.1070 * I + 1.7046 * Q));
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
+            => Colorspaces.RGBAFColorToRGBAColor(Colorspaces.YIQAColorToRGBAFColor(Y, I, Q, Alpha));
 
         /// <summary>
         /// The to string.

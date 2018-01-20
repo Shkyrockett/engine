@@ -18,15 +18,17 @@ using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
 using System.Runtime.Serialization;
+using System.Diagnostics;
 
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The point3d struct.
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Point3D>))]
+    [DebuggerDisplay("X: {X}, Y: {Y}, Z: {Z}")]
     public struct Point3D
         : IVector<Point3D>
     {

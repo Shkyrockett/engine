@@ -27,6 +27,7 @@ namespace Engine
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Vector2D>))]
+    [DebuggerDisplay("I: {I}, J: {J}")]
     public struct Vector2D
         : IVector<Vector2D>
     {

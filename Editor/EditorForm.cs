@@ -138,7 +138,7 @@ namespace Editor
         {
             SetStyle(ControlStyles.ResizeRedraw, true);
 
-            paletteToolStripItem1.PaletteControl.Palette = new Palette(new ARGB[] { Color.Black.ToARGB(), Color.White.ToARGB(), Color.Red.ToARGB(), Color.Green.ToARGB(), Color.Blue.ToARGB() });
+            paletteToolStripItem1.PaletteControl.Palette = new Palette(new RGBA[] { Color.Black.ToARGB(), Color.White.ToARGB(), Color.Red.ToARGB(), Color.Green.ToARGB(), Color.Blue.ToARGB() });
 
             vectorMap.Tweener = tweener;
             toolStack = new ToolStack(vectorMap);

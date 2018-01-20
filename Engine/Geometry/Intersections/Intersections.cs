@@ -57,6 +57,57 @@ namespace Engine
         #region Between Extension Method Overloads
 
         /// <summary>
+        /// Check whether the double value is between lower and upper bounds.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="lowerLimit">The lower limit.</param>
+        /// <param name="upperLimit">The upper limit.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(double value, double lowerLimit, double upperLimit)
+            => (value >= lowerLimit && value <= upperLimit);
+
+        /// <summary>
+        /// Check whether the integer value is between lower and upper bounds.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="lowerLimit">The lower limit.</param>
+        /// <param name="upperLimit">The upper limit.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(int value, int lowerLimit, int upperLimit)
+            => (value >= lowerLimit && value <= upperLimit);
+
+        /// <summary>
+        /// Check whether the byte value is between lower and upper bounds.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="lowerLimit">The lower limit.</param>
+        /// <param name="upperLimit">The upper limit.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(byte value, byte lowerLimit, byte upperLimit)
+            => (value >= lowerLimit && value <= upperLimit);
+
+        /// <summary>
+        /// Check whether a vector lies between two other vectors.
+        /// </summary>
+        /// <param name="a">The vector to compare.</param>
+        /// <param name="b">The start vector.</param>
+        /// <param name="c">The end vector.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(Vector2D a, Vector2D b, Vector2D c)
+            => VectorBetweenVectorVector(a.I, a.J, b.I, b.J, c.I, c.J);
+
+        /// <summary>
         /// Check whether a value lies between two other values.
         /// </summary>
         /// <param name="v">The value to check whether it is between the other two.</param>
@@ -69,7 +120,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(double v, double m, double M)
+        public static bool ApproximatelyBetween(double v, double m, double M)
             => (m <= v && v <= M) || Approximately(v, m) || Approximately(v, M);
 
         /// <summary>
@@ -104,18 +155,6 @@ namespace Engine
                 (s < e) ? a >= s && a <= e : a >= s || a <= e :
                 (s > e) ? a <= s && a >= e : a <= s || a >= e;
         }
-
-        /// <summary>
-        /// Check whether a vector lies between two other vectors.
-        /// </summary>
-        /// <param name="a">The vector to compare.</param>
-        /// <param name="b">The start vector.</param>
-        /// <param name="c">The end vector.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(Vector2D a, Vector2D b, Vector2D c)
-            => VectorBetweenVectorVector(a.I, a.J, b.I, b.J, c.I, c.J);
 
         #endregion
 

@@ -27,6 +27,7 @@ namespace Engine
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Point2D>))]
+    [DebuggerDisplay("X: {X}, Y: {Y}")]
     public struct Point2D
         : IVector<Point2D>
     {

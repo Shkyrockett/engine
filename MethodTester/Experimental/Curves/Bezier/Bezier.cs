@@ -1235,7 +1235,7 @@ namespace Engine
                 from t in Roots(Points, line)
                 let p = self.Get(t)
 
-                select Intersections.Between(p.X, mx, MX) && Intersections.Between(p.Y, my, MY));
+                select Intersections.ApproximatelyBetween(p.X, mx, MX) && Intersections.ApproximatelyBetween(p.Y, my, MY));
         }
 
         private static List<double> Roots(List<Point3D> points, Line1 line)

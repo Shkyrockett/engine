@@ -583,6 +583,106 @@ namespace Engine
 
         #endregion
 
+        #region Color Constants
+
+        /// <summary>
+        /// The lower limit for percentages.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double PercentMin = 0d;
+
+        /// <summary>
+        /// The upper limit for percentages.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double PercentMax = 1d;
+
+        /// <summary>
+        /// The lower limit for H.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double HueMin = 0d;
+
+        /// <summary>
+        /// The upper limit for H.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double HueMax = 360d;
+
+        /// <summary>
+        /// The lower limit for R, G, B (integer version).
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const byte RGBMin = 0;
+
+        /// <summary>
+        /// The upper limit for R, G, B (integer version).
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const byte RGBMax = 255;
+
+        /// <summary>
+        /// The lower limit for R, G, B (integer version).
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const byte CYMKMin = 0;
+
+        /// <summary>
+        /// The upper limit for R, G, B (integer version).
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const byte CYMKMax = 100;
+
+        /// <summary>
+        /// The lower limit for I in YIQ.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double YIQMinI = -0.5957d;
+
+        /// <summary>
+        /// The upper limit for I in YIQ.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double YIQMaxI = 0.5957d;
+
+        /// <summary>
+        /// The lower limit for Q in YIQ.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double YIQMinQ = -0.5226d;
+
+        /// <summary>
+        /// The upper limit for Q in YIQ.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double YIQMaxQ = 0.5226d;
+
+        /// <summary>
+        /// The lower limit for U in YUV.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double YUVMinU = -0.436d;
+
+        /// <summary>
+        /// The upper limit for U in YUV.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double YUVMaxU = 0.436d;
+
+        /// <summary>
+        /// The lower limit for V in YUV.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double YUVMinV = -0.615d;
+
+        /// <summary>
+        /// The upper limit for V in YUV.
+        /// </summary>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        public const double YUVMaxV = 0.615d;
+
+        #endregion
+
         #region Logarithms
 
         ///// <summary>

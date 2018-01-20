@@ -150,14 +150,14 @@ namespace Engine.Imaging
                 switch (ForePen.Brush)
                 {
                     case SolidBrush b:
-                        return new Stroke(new SolidFill(new ARGB(b.Color.ToArgb())));
+                        return new Stroke(new SolidFill(new RGBA(b.Color.ToArgb())));
                     case HatchBrush h:
-                        return new Stroke(new SolidFill(new ARGB(h.ForegroundColor.ToArgb())));
+                        return new Stroke(new SolidFill(new RGBA(h.ForegroundColor.ToArgb())));
                     case LinearGradientBrush l:
                     case PathGradientBrush p:
                     case TextureBrush t:
                     default:
-                        return new Stroke(new SolidFill(new ARGB(Color.Transparent.ToArgb())));
+                        return new Stroke(new SolidFill(new RGBA(Color.Transparent.ToArgb())));
                 }
 
             }
@@ -167,7 +167,7 @@ namespace Engine.Imaging
         /// 
         /// </summary>
         public IFill Fill
-            => new SolidFill(new ARGB(BackPen.Color.ToArgb()));
+            => new SolidFill(new RGBA(BackPen.Color.ToArgb()));
 
         /// <summary>
         /// 

@@ -35,7 +35,7 @@ namespace Engine.File.Palettes
         /// </summary>
         public Palette()
         {
-            Colors = new List<ARGB>();
+            Colors = new List<RGBA>();
             PaletteMimeFormat = PaletteMimeFormats.Default;
         }
 
@@ -43,9 +43,9 @@ namespace Engine.File.Palettes
         /// Initializes a new instance of the <see cref="Palette" /> class.
         /// </summary>
         /// <param name="colors">An array of colors to add to the palette.</param>
-        public Palette(ARGB[] colors)
+        public Palette(RGBA[] colors)
         {
-            Colors = new List<ARGB>();
+            Colors = new List<RGBA>();
             AddRange(colors);
             PaletteMimeFormat = PaletteMimeFormats.Default;
         }
@@ -53,7 +53,7 @@ namespace Engine.File.Palettes
         /// <summary>
         /// Gets or sets the list of colors in the palette.
         /// </summary>
-        public List<ARGB> Colors { get; set; }
+        public List<RGBA> Colors { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the palette file.
@@ -74,9 +74,9 @@ namespace Engine.File.Palettes
         /// <summary>
         /// Gets the palette color entry at a specific index.
         /// </summary>
-        /// <param name="index"><see cref="int"/> index of a <see cref="Palette"/> entry <see cref="ARGB"/>.</param>
-        /// <returns>A value representing the <see cref="ARGB"/> at the specified index in the <see cref="Palette"/>.</returns>
-        public ARGB this[int index]
+        /// <param name="index"><see cref="int"/> index of a <see cref="Palette"/> entry <see cref="RGBA"/>.</param>
+        /// <returns>A value representing the <see cref="RGBA"/> at the specified index in the <see cref="Palette"/>.</returns>
+        public RGBA this[int index]
             => Colors[index];
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Engine.File.Palettes
             if (stream == Stream.Null) return;
 
             // If we have a stream, the file should have successfully opened. Clear the colors list.
-            Colors = new List<ARGB>();
+            Colors = new List<RGBA>();
 
             switch (format)
             {
@@ -178,14 +178,14 @@ namespace Engine.File.Palettes
         /// Add a color to the end of the palette.
         /// </summary>
         /// <param name="item">The color to add to the palette.</param>
-        public void Add(ARGB item)
+        public void Add(RGBA item)
             => Colors.Add(item);
 
         /// <summary>
         /// Add a list of palette color entries to the end of the palette.
         /// </summary>
         /// <param name="items">The colors to add to the palette.</param>
-        public void AddRange(IEnumerable<ARGB> items)
+        public void AddRange(IEnumerable<RGBA> items)
             => Colors.AddRange(items);
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="index">Index to insert the palette entry color.</param>
         /// <param name="item">Palette entry color to add to the list.</param>
-        public void Insert(int index, ARGB item)
+        public void Insert(int index, RGBA item)
             => Colors.Insert(index, item);
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="index">Index to insert the palette entry color.</param>
         /// <param name="item">List of palette entry colors to add to the list.</param>
-        public void InsertRange(int index, IEnumerable<ARGB> item)
+        public void InsertRange(int index, IEnumerable<RGBA> item)
             => Colors.InsertRange(index, item);
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>A value indicating whether the color was removed.</returns>
-        public bool RemoveFirstInstance(ARGB item)
+        public bool RemoveFirstInstance(RGBA item)
             => Colors.Remove(Colors[Colors.IndexOf(item)]);
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>A value indicating whether the color was removed.</returns>
-        public bool RemoveLastInstance(ARGB item)
+        public bool RemoveLastInstance(RGBA item)
             => Colors.Remove(Colors[Colors.LastIndexOf(item)]);
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>A value indicating whether the color was found in the list.</returns>
-        public bool Contains(ARGB item)
+        public bool Contains(RGBA item)
             => Colors.Contains(item);
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>The first index of the color in the palette.</returns>
-        public int IndexOf(ARGB item)
+        public int IndexOf(RGBA item)
             => Colors.IndexOf(item);
 
         /// <summary>
@@ -254,7 +254,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="item">The color to look for.</param>
         /// <returns>Returns the index of the last instance of the given color.</returns>
-        public int LastIndexOf(ARGB item)
+        public int LastIndexOf(RGBA item)
             => Colors.LastIndexOf(item);
 
         /// <summary>
@@ -341,7 +341,7 @@ namespace Engine.File.Palettes
                         var green = binaryReader.ReadByte();
                         var red = binaryReader.ReadByte();
                         var alpha = binaryReader.ReadByte();
-                        Colors.Add(new ARGB((byte)(255 - alpha), red, green, blue));
+                        Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
                         var stringLen2 = binaryReader.ReadByte();
                         var colorName = binaryReader.ReadString16(stringLen2 * 2);
                         if (Colors.Count == entryCount) break;
@@ -392,7 +392,7 @@ namespace Engine.File.Palettes
                         //byte epsilon = binaryReader.ReadByte();
                         //byte colorNameLength = binaryReader.ReadByte();
                         //string colorName = binaryReader.ReadString(colorNameLength);
-                        Colors.Add(new ARGB(red, green, blue));
+                        Colors.Add(new RGBA(red, green, blue));
                         //this.colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
                     }
                 }
@@ -455,7 +455,7 @@ namespace Engine.File.Palettes
                     var green = binaryReader.ReadByte();
                     var blue = binaryReader.ReadByte();
                     var alpha = binaryReader.ReadByte();
-                    Colors.Add(new ARGB((byte)(255 - alpha), red, green, blue));
+                    Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
                     //this.colors.Add(Color.FromArgb(br.ReadInt32()));
                 }
             }
@@ -480,7 +480,7 @@ namespace Engine.File.Palettes
                     var green = binaryReader.ReadByte();
                     var red = binaryReader.ReadByte();
                     var alpha = binaryReader.ReadByte();
-                    Colors.Add(new ARGB((byte)(255 - alpha), red, green, blue));
+                    Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
                 }
             }
         }
@@ -506,9 +506,9 @@ namespace Engine.File.Palettes
                 {
                     var ReadStr = StrReader.ReadLine().Split(new char[] { ' ' });
                     if (ReadStr.Length == 3)
-                        Colors.Add(new ARGB(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2])));
+                        Colors.Add(new RGBA(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2])));
                     else if (ReadStr.Length == 4)
-                        Colors.Add(new ARGB(byte.Parse(ReadStr[3]), byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2])));
+                        Colors.Add(new RGBA(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2]), byte.Parse(ReadStr[3])));
                 }
             }
         }
@@ -535,7 +535,7 @@ namespace Engine.File.Palettes
                     else if (!string.IsNullOrWhiteSpace(line))
                     {
                         string[] argb;
-                        var color = new ARGB();
+                        var color = new RGBA();
                         if (line.Contains(" ") || line.Contains(","))
                         {
                             if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(" "))
@@ -546,13 +546,13 @@ namespace Engine.File.Palettes
                             argb = line.Split(new char[] { ' ', ',' });
 
                             if (argb.Length == 3)
-                                color = new ARGB(byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]));
+                                color = new RGBA(byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]));
                             else if (argb.Length == 4)
-                                color = new ARGB(byte.Parse(argb[3]), byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]));
+                                color = new RGBA(byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]), byte.Parse(argb[3]));
                         }
                         else
                         {
-                            color = new ARGB(int.Parse(line, System.Globalization.NumberStyles.HexNumber));
+                            color = new RGBA(int.Parse(line, System.Globalization.NumberStyles.HexNumber));
                         }
 
                         color = LookupNamedColor(color);
@@ -586,7 +586,7 @@ namespace Engine.File.Palettes
                 bw.Write((short)Colors.Count);
 
                 // Colors
-                foreach (ARGB color in Colors)
+                foreach (RGBA color in Colors)
                 {
                     bw.Write(color.Red);
                     bw.Write(color.Green);
@@ -615,7 +615,7 @@ namespace Engine.File.Palettes
                 bw.WriteLine(Colors.Count);
 
                 // Colors
-                foreach (ARGB color in Colors)
+                foreach (RGBA color in Colors)
                     bw.WriteLine(color.Red + " " + color.Green + " " + color.Blue + " " + color.Alpha);
             }
         }
@@ -639,7 +639,7 @@ namespace Engine.File.Palettes
                 bw.WriteLine("; slots will be set to white (FFFFFFFF). If there are more, then the remaining colors will be ignored.");
 
                 // Colors
-                foreach (ARGB color in Colors)
+                foreach (RGBA color in Colors)
                     bw.WriteLine("{0:X2}{1:X2}{2:X2}{3:X2}", color.Alpha, color.Red, color.Green, color.Blue);
             }
         }
@@ -662,7 +662,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="testColor"></param>
         /// <returns></returns>
-        private static ARGB LookupNamedColor(ARGB testColor)
+        private static RGBA LookupNamedColor(RGBA testColor)
         {
             //var known = ColorSpace.Colors.Color[testColor];
 

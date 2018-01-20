@@ -15,7 +15,7 @@ namespace Engine.WindowsForms
         /// <returns></returns>
         public static Color ToColor(this IColor color)
         {
-            (byte A, byte R, byte G, byte B) = color.ToARGBTuple();
+            (byte A, byte R, byte G, byte B) = color.ToRGBATuple();
             return Color.FromArgb(A, R, G, B);
         }
 
@@ -24,8 +24,8 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="color"></param>
         /// <returns></returns>
-        public static ARGB ToARGB(this Color color)
-            => new ARGB(color.A, color.R, color.G, color.B);
+        public static RGBA ToARGB(this Color color)
+            => new RGBA(color.R, color.G, color.B, color.A);
 
         /// <summary>
         /// 

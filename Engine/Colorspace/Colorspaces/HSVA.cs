@@ -16,23 +16,18 @@ namespace Engine.Colorspace
     /// <summary>
     /// Alpha Hue Saturation Value color.
     /// </summary>
-    public struct AHSV
+    public struct HSVA
         : IColor
     {
         /// <summary>
-        /// The empty (readonly). Value: new AHSV().
+        /// The empty Value: new AHSV().
         /// </summary>
-        public static readonly AHSV Empty = new AHSV();
+        public static readonly HSVA Empty = new HSVA();
 
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="AHSV"/> class.
-        ///// </summary>
-        //public AHSV()
-        //    : this(0, 0, 0, 0)
-        //{ }
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AHSV"/> class.
+        /// Initializes a new instance of the <see cref="HSVA"/> class.
         /// </summary>
         /// <param name="color"></param>
         /// <remarks>
@@ -42,7 +37,7 @@ namespace Engine.Colorspace
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
-        public AHSV(ARGB color)
+        public HSVA(RGBA color)
         {
             var red = 1.0 - (color.Red / 255.0);
             var green = 1.0 - (color.Green / 255.0);
@@ -86,23 +81,23 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AHSV"/> class.
+        /// Initializes a new instance of the <see cref="HSVA"/> class.
         /// </summary>
         /// <param name="hue">Hue color component.</param>
         /// <param name="saturation">Saturation color component.</param>
         /// <param name="value">Value color component.</param>
-        public AHSV(double hue, double saturation, double value)
-            : this(0, hue, saturation, value)
+        public HSVA(double hue, double saturation, double value)
+            : this(hue, saturation, value, 0)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AHSV"/> class.
+        /// Initializes a new instance of the <see cref="HSVA"/> class.
         /// </summary>
-        /// <param name="alpha">Alpha color component.</param>
         /// <param name="hue">Hue color component.</param>
         /// <param name="saturation">Saturation color component.</param>
         /// <param name="value">Value color component.</param>
-        public AHSV(byte alpha, double hue, double saturation, double value)
+        /// <param name="alpha">Alpha color component.</param>
+        public HSVA(double hue, double saturation, double value, byte alpha)
         {
             Alpha = alpha;
             Hue = hue;
@@ -110,10 +105,14 @@ namespace Engine.Colorspace
             Value = value;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
-        public byte Alpha { get; set; }
+        public double Alpha { get; set; }
 
         /// <summary>
         /// Gets or sets the hue color value.
@@ -130,6 +129,8 @@ namespace Engine.Colorspace
         /// </summary>
         public double Value { get; set; }
 
+        #endregion
+
         /// <summary>
         /// The equals.
         /// </summary>
@@ -137,21 +138,22 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
-            var a = ToARGBTuple();
-            var b = other.ToARGBTuple();
-            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+            var (r0, g0, b0, a0) = ToRGBATuple();
+            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
 
         /// <summary>
         /// The to color.
         /// </summary>
-        /// <returns>The <see cref="ARGB"/>.</returns>
-        public ARGB ToColor() => new ARGB(ToARGBTuple());
+        /// <returns>The <see cref="RGBA"/>.</returns>
+        public RGBA ToColor()
+            => new RGBA(ToRGBATuple());
 
         /// <summary>
-        /// The to ARGB tuple.
+        /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         /// <remarks>
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
@@ -159,72 +161,8 @@ namespace Engine.Colorspace
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
-        public (byte A, byte R, byte G, byte B) ToARGBTuple()
-        {
-            double r;
-            double g;
-            double b;
-            int i;
-            double f, p, q, t;
-            if (Saturation == 0)
-            {
-                // achromatic (gray)
-                r = g = b = Value;
-
-                r = (1.0 - r) * 255.0 + 0.5;
-                g = (1.0 - g) * 255.0 + 0.5;
-                b = (1.0 - b) * 255.0 + 0.5;
-
-                return (Alpha, (byte)r, (byte)g, (byte)b);
-            }
-
-            Hue /= 60;            // sector 0 to 5
-            i = (int)Floor(Hue);
-            f = Hue - i;          // factorial part of h
-            p = Value * (1 - Saturation);
-            q = Value * (1 - Saturation * f);
-            t = Value * (1 - Saturation * (1 - f));
-            switch (i)
-            {
-                case 0:
-                    r = Value;
-                    g = t;
-                    b = p;
-                    break;
-                case 1:
-                    r = q;
-                    g = Value;
-                    b = p;
-                    break;
-                case 2:
-                    r = p;
-                    g = Value;
-                    b = t;
-                    break;
-                case 3:
-                    r = p;
-                    g = q;
-                    b = Value;
-                    break;
-                case 4:
-                    r = t;
-                    g = p;
-                    b = Value;
-                    break;
-                case 5:
-                default:
-                    r = Value;
-                    g = p;
-                    b = q;
-                    break;
-            }
-
-            r = (1.0 - r) * 255.0d + 0.5d;
-            g = (1.0 - g) * 255.0d + 0.5d;
-            b = (1.0 - b) * 255.0d + 0.5d;
-
-            return (Alpha, (byte)r, (byte)g, (byte)b);
-        }
+        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
+            => Colorspaces.HSVAColorToRGBAColor(Hue, Saturation, Value, Alpha);
 
         /// <summary>
         /// The to string.

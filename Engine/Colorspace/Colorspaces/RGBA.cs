@@ -1,4 +1,4 @@
-﻿// <copyright file="ARGB.cs" company="Shkyrockett" >
+﻿// <copyright file="RGBA.cs" company="Shkyrockett" >
 //     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -16,26 +16,21 @@ using System.Runtime.CompilerServices;
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// Alpha Red Green Blue color class.
+    /// Red Green Blue Alpha color class.
     /// </summary>
-    public struct ARGB
+    public struct RGBA
         : IColor
     {
         #region Implementations
 
         /// <summary>
-        /// The empty (readonly). Value: new ARGB(0, 0, 0, 0).
+        /// The empty Value: new RGBA(0, 0, 0, 0).
         /// </summary>
-        public static readonly ARGB Empty = new ARGB(0, 0, 0, 0);
+        public static readonly RGBA Empty = new RGBA(0, 0, 0, 0);
 
         #endregion
 
         #region Constants
-
-        /// <summary>
-        /// The alpha shift (const). Value: 0x18.
-        /// </summary>
-        private const int AlphaShift = 0x18;
 
         /// <summary>
         /// The red shift (const). Value: 0x10.
@@ -51,6 +46,11 @@ namespace Engine.Colorspace
         /// The blue shift (const). Value: 0x0.
         /// </summary>
         private const int BlueShift = 0x0;
+
+        /// <summary>
+        /// The alpha shift (const). Value: 0x18.
+        /// </summary>
+        private const int AlphaShift = 0x18;
 
         #endregion
 
@@ -71,45 +71,45 @@ namespace Engine.Colorspace
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ARGB"/> class.
+        /// Initializes a new instance of the <see cref="RGBA"/> class.
         /// </summary>
         /// <param name="value">A standard color.</param>
         /// <param name="name">The name of the color.</param>
-        public ARGB(int value, string name = "")
+        public RGBA(int value, string name = "")
         {
             this.name = name;
             this.value = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ARGB"/> class.
+        /// Initializes a new instance of the <see cref="RGBA"/> class.
         /// </summary>
         /// <param name="red">Red color component.</param>
         /// <param name="green">Green color component.</param>
         /// <param name="blue">Blue color component.</param>
         /// <param name="name">The name of the color.</param>
-        public ARGB(byte red, byte green, byte blue, string name = "")
-            : this(0, red, green, blue, name)
+        public RGBA(byte red, byte green, byte blue, string name = "")
+            : this(red, green, blue, 0, name)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ARGB"/> class.
+        /// Initializes a new instance of the <see cref="RGBA"/> class.
         /// </summary>
-        /// <param name="tuple"><see cref="ValueTuple"/> representing the Alpha, Red, Green, and Blue components in an ARGB color.</param>
+        /// <param name="tuple"><see cref="ValueTuple{T1, T2, T3, T4}"/> representing the Red, Green, Blue, and Alpha components in an RGBA color.</param>
         /// <param name="name">The name of the color.</param>
-        public ARGB((byte A, byte R, byte G, byte B) tuple, string name = "")
-            : this(tuple.A, tuple.R, tuple.G, tuple.B, name)
+        public RGBA((byte red, byte green, byte blue, byte alpha) tuple, string name = "")
+            : this(tuple.red, tuple.green, tuple.blue, tuple.alpha, name)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ARGB"/> class.
+        /// Initializes a new instance of the <see cref="RGBA"/> class.
         /// </summary>
+        /// <param name="red">Red color component.</param>
+        /// <param name="green">Green color component.</param>
+        /// <param name="blue">Blue color component.</param>
         /// <param name="alpha">Alpha color component.</param>
-        /// <param name="red">Red color component.</param>
-        /// <param name="green">Green color component.</param>
-        /// <param name="blue">Blue color component.</param>
         /// <param name="name">The name of the color.</param>
-        public ARGB(byte alpha, byte red, byte green, byte blue, string name = "")
+        public RGBA(byte red, byte green, byte blue, byte alpha, string name = "")
         {
             this.name = name;
             value =
@@ -182,27 +182,27 @@ namespace Engine.Colorspace
         #region Operators
 
         /// <summary>
-        /// Compares two <see cref="ARGB"/> objects.
-        /// The result specifies whether the color values of the two <see cref="ARGB"/> objects are equal.
+        /// Compares two <see cref="RGBA"/> objects.
+        /// The result specifies whether the color values of the two <see cref="RGBA"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(ARGB left, ARGB right)
+        public static bool operator ==(RGBA left, RGBA right)
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="ARGB"/> objects.
-        /// The result specifies whether the color values of the two <see cref="ARGB"/> objects are unequal.
+        /// Compares two <see cref="RGBA"/> objects.
+        /// The result specifies whether the color values of the two <see cref="RGBA"/> objects are unequal.
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(ARGB left, ARGB right)
+        public static bool operator !=(RGBA left, RGBA right)
             => !Equals(left, right);
 
         #endregion
@@ -212,114 +212,23 @@ namespace Engine.Colorspace
         /// <summary>
         /// Get the brightness.
         /// </summary>
-        /// <returns>The <see cref="float"/>.</returns>
-        /// <remarks>
-        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
-        /// </remarks>
-        public float GetBrightness()
-        {
-            var r = Red / 255.0f;
-            var g = Green / 255.0f;
-            var b = Blue / 255.0f;
-
-            float max, min;
-
-            max = r; min = r;
-
-            if (g > max) max = g;
-            if (b > max) max = b;
-
-            if (g < min) min = g;
-            if (b < min) min = b;
-
-            return (max + min) / 2f;
-        }
+        /// <returns>The <see cref="double"/>.</returns>
+        public double GetBrightness()
+            => Colorspaces.GetLuminance(Red, Green, Blue);
 
         /// <summary>
         /// Get the hue.
         /// </summary>
-        /// <returns>The <see cref="float"/>.</returns>
-        /// <remarks>
-        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
-        /// </remarks>
-        public float GetHue()
-        {
-            if (Red == Green && Green == Blue)
-                return 0; // 0 makes as good an UNDEFINED value as any
-
-            var r = Red / 255.0f;
-            var g = Green / 255.0f;
-            var b = Blue / 255.0f;
-
-            var hue = 0.0f;
-
-            var max = r;
-            var min = r;
-
-            if (g > max) max = g;
-            if (b > max) max = b;
-
-            if (g < min) min = g;
-            if (b < min) min = b;
-
-            var delta = max - min;
-
-            if (r == max)
-            {
-                hue = (g - b) / delta;
-            }
-            else if (g == max)
-            {
-                hue = 2 + (b - r) / delta;
-            }
-            else if (b == max)
-            {
-                hue = 4 + (r - g) / delta;
-            }
-            hue *= 60;
-
-            if (hue < 0.0f)
-            {
-                hue += 360.0f;
-            }
-            return hue;
-        }
+        /// <returns>The <see cref="double"/>.</returns>
+        public double GetHue()
+            => Colorspaces.GetHue(Red, Green, Blue);
 
         /// <summary>
         /// Get the saturation.
         /// </summary>
-        /// <returns>The <see cref="float"/>.</returns>
-        /// <remarks>
-        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
-        /// </remarks>
-        public float GetSaturation()
-        {
-            var r = Red / 255.0f;
-            var g = Green / 255.0f;
-            var b = Blue / 255.0f;
-
-            var l = 0f;
-            var s = 0f;
-
-            var max = r;
-            var min = r;
-
-            if (g > max) max = g;
-            if (b > max) max = b;
-
-            if (g < min) min = g;
-            if (b < min) min = b;
-
-            // if max == min, then there is no color and
-            // the saturation is zero.
-            if (max != min)
-            {
-                l = (max + min) / 2;
-
-                s = l <= .5 ? (max - min) / (max + min) : (max - min) / (2 - max - min);
-            }
-            return s;
-        }
+        /// <returns>The <see cref="double"/>.</returns>
+        public double GetSaturation()
+            => Colorspaces.GetSaturation(Red, Green, Blue);
 
         #endregion
 
@@ -335,14 +244,14 @@ namespace Engine.Colorspace
             => value.GetHashCode();
 
         /// <summary>
-        /// Compares two <see cref="ARGB"/> colors
+        /// Compares two <see cref="RGBA"/> colors
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(ARGB a, ARGB b)
+        public static bool Compare(RGBA a, RGBA b)
             => Equals(a, b);
 
         /// <summary>
@@ -353,7 +262,7 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(ARGB a, ARGB b)
+        public static bool Equals(RGBA a, RGBA b)
             => (a.value == b.value);
 
         /// <summary>
@@ -364,7 +273,7 @@ namespace Engine.Colorspace
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
-            => obj is ARGB && Equals(this, (ARGB)obj);
+            => obj is RGBA && Equals(this, (RGBA)obj);
 
         /// <summary>
         /// The equals.
@@ -377,14 +286,14 @@ namespace Engine.Colorspace
             => Equals(this, value);
 
         /// <summary>
-        /// The to ARGB tuple.
+        /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
-        public (byte A, byte R, byte G, byte B) ToARGBTuple()
-            => (Alpha, Red, Green, Blue);
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
+            => (Red, Green, Blue,Alpha);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="ARGB"/> struct.
+        /// Creates a human-readable string that represents this <see cref="RGBA"/> struct.
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
@@ -393,7 +302,7 @@ namespace Engine.Colorspace
             => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="ARGB"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="RGBA"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <returns>
@@ -405,7 +314,7 @@ namespace Engine.Colorspace
             => ConvertToString(null /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="ARGB"/> class based on the format string
+        /// Creates a string representation of this <see cref="RGBA"/> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -421,7 +330,7 @@ namespace Engine.Colorspace
             => ConvertToString(format, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="ARGB"/> struct based on the format string
+        /// Creates a string representation of this <see cref="RGBA"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -435,9 +344,8 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(ARGB);
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(ARGB)}{{{nameof(Alpha)}={Alpha.ToString(format, provider)}{sep}{nameof(Red)}={Red.ToString(format, provider)}{sep}{nameof(Green)}={Green.ToString(format, provider)}{sep}{nameof(Blue)}={Blue.ToString(format, provider)}}}";
+            return $"{nameof(RGBA)}{{{nameof(Red)}={Red.ToString(format, provider)}{sep}{nameof(Green)}={Green.ToString(format, provider)}{sep}{nameof(Blue)}={Blue.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
         }
 
         #endregion

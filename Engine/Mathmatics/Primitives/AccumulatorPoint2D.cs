@@ -16,6 +16,7 @@ using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
 using System.Runtime.Serialization;
+using System.Diagnostics;
 
 namespace Engine
 {
@@ -24,6 +25,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
+    [DebuggerDisplay("X: {X}, Y: {Y}, TotalDistance: {TotalDistance}, Previous: {Previous}")]
     public class AccumulatorPoint2D
         : IFormattable
     {
@@ -82,16 +84,14 @@ namespace Engine
         public double Y { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the total distance.
         /// </summary>
-        /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double TotalDistance { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the previous index.
         /// </summary>
-        /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Previous { get; set; }
 

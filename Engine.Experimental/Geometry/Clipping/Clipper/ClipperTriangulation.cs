@@ -235,8 +235,8 @@ namespace Engine.Experimental
                     return null;
                 }
 
-                tris.Capacity = this.triangles.Count;
-                foreach (PolygonContour p in this.triangles)
+                tris.Capacity = triangles.Count;
+                foreach (PolygonContour p in triangles)
                 {
                     tris.Add(p);
                 }
@@ -269,6 +269,12 @@ namespace Engine.Experimental
 
         #endregion
 
+        /// <summary>
+        /// Insert the point.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="afterOutPoint">The afterOutPoint.</param>
+        /// <returns>The <see cref="LinkedPointTriangle"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private LinkedPointTriangle InsertPoint(Point2D point, LinkedPoint afterOutPoint)
         {
@@ -283,6 +289,12 @@ namespace Engine.Experimental
             return result;
         }
 
+        /// <summary>
+        /// Add the polygon.
+        /// </summary>
+        /// <param name="pt1">The pt1.</param>
+        /// <param name="pt2">The pt2.</param>
+        /// <param name="pt3">The pt3.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void AddPolygon(Point2D pt1, Point2D pt2, Point2D pt3)
         {
@@ -296,6 +308,10 @@ namespace Engine.Experimental
             triangles.Add(p);
         }
 
+        /// <summary>
+        /// The triangulate.
+        /// </summary>
+        /// <param name="outrec">The outrec.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void Triangulate(OutRec outrec)
         {

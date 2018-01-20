@@ -18,6 +18,7 @@ using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
 using System.Runtime.Serialization;
+using System.Diagnostics;
 
 namespace Engine
 {
@@ -27,6 +28,7 @@ namespace Engine
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Size2D>))]
+    [DebuggerDisplay("Width: {Width}, Height: {Height}")]
     public struct Size2D
         : IVector<Size2D>
     {

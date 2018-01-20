@@ -1,4 +1,4 @@
-﻿// <copyright file="CIEXYZ.cs" company="Shkyrockett" >
+﻿// <copyright file="CIELUV.cs" company="Shkyrockett" >
 //     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -13,39 +13,39 @@ using System;
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// CIE XYZ: The Tri-stimulus Values
-    /// Wikipedia: (aka "CIE 1931") The first attempt to produce a color space based on measurements of human color perception and the basis for almost all other color spaces.
+    /// The CIELUV struct.
+    /// Wikipedia: Measurements over a larger field of view than the "CIE 1931 XYZ" color space which produces slightly different results.
     /// </summary>
-    public struct CIEXYZ
+    public struct CIELUVW
         : IColor
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CIEXYZ"/> class.
+        /// Initializes a new instance of the <see cref="CIELUVW"/> class.
         /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="z">The z.</param>
-        public CIEXYZ(double x, double y, double z)
+        /// <param name="luminance">The luminance.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        public CIELUVW(double luminance, double u, double v)
         {
-            X = x;
-            Y = y;
-            Z = z;
+            Luminance = luminance;
+            U = u;
+            V = v;
         }
 
         /// <summary>
-        /// Gets or sets the x.
+        /// Gets or sets the luminance.
         /// </summary>
-        public double X { get; set; }
+        public double Luminance { get; set; }
 
         /// <summary>
-        /// Gets or sets the y.
+        /// Gets or sets the u.
         /// </summary>
-        public double Y { get; set; }
+        public double U { get; set; }
 
         /// <summary>
-        /// Gets or sets the z.
+        /// Gets or sets the v or blue to yellow value.
         /// </summary>
-        public double Z { get; set; }
+        public double V { get; set; }
 
         /// <summary>
         /// The equals.

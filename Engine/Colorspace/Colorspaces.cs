@@ -8,8 +8,20 @@
 // <summary></summary>
 // <remarks></remarks>
 
+// <copyright company="dystopiancode" >
+//     Some of the color conversion methods were adapted from https://github.com/dystopiancode/colorspace-conversions/.
+//     Copyright © 2012 bogdan. All rights reserved.
+// </copyright>
+// <author id="thelonious">bogdan</author>
+// <license>
+//     License not listed for project.
+// </license>
+
 using System;
+using System.Runtime.CompilerServices;
 using static System.Math;
+using static Engine.Maths;
+using static Engine.Intersections;
 
 namespace Engine.Colorspace
 {
@@ -18,20 +30,234 @@ namespace Engine.Colorspace
     /// </summary>
     public static class Colorspaces
     {
+        #region ARGB Retrievers and Modifiers
+
+        /// <summary>
+        /// Get the brightness.
+        /// </summary>
+        /// <returns>The <see cref="float"/>.</returns>
+        /// <remarks>
+        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double GetLuminance(byte red, byte green, byte blue)
+        {
+            var r = red / 255d;
+            var g = green / 255d;
+            var b = blue / 255d;
+
+            var max = r;
+            if (g > max) max = g;
+            if (b > max) max = b;
+
+            var min = r;
+            if (g < min) min = g;
+            if (b < min) min = b;
+
+            return (max + min) / 2d;
+        }
+
+        /// <summary>
+        /// Get the brightness.
+        /// </summary>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>
+        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double GetLuminance(double red, double green, double blue)
+        {
+            var max = red;
+            if (green > max) max = green;
+            if (blue > max) max = blue;
+
+            var min = red;
+            if (green < min) min = green;
+            if (blue < min) min = blue;
+
+            return (max + min) / 2d;
+        }
+
+        /// <summary>
+        /// Get the hue.
+        /// </summary>
+        /// <returns>The <see cref="float"/>.</returns>
+        /// <remarks>
+        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double GetHue(byte red, byte green, byte blue)
+        {
+            if (red == green && green == blue)
+                return 0; // 0 makes as good an UNDEFINED value as any
+
+            var r = red / 255d;
+            var g = green / 255d;
+            var b = blue / 255d;
+
+            var hue = 0d;
+
+            var max = r;
+            var min = r;
+
+            if (g > max) max = g;
+            if (b > max) max = b;
+
+            if (g < min) min = g;
+            if (b < min) min = b;
+
+            var delta = max - min;
+
+            if (r == max)
+            {
+                hue = (g - b) / delta;
+            }
+            else if (g == max)
+            {
+                hue = 2d + (b - r) / delta;
+            }
+            else if (b == max)
+            {
+                hue = 4d + (r - g) / delta;
+            }
+            hue *= 60d;
+
+            if (hue < 0d)
+            {
+                hue += 360d;
+            }
+            return hue;
+        }
+
+        /// <summary>
+        /// Get the hue.
+        /// </summary>
+        /// <returns>The <see cref="float"/>.</returns>
+        /// <remarks>
+        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double GetHue(double red, double green, double blue)
+        {
+            if (red == green && green == blue)
+                return 0; // 0 makes as good an UNDEFINED value as any
+
+            var hue = 0d;
+
+            var max = red;
+            var min = red;
+
+            if (green > max) max = green;
+            if (blue > max) max = blue;
+
+            if (green < min) min = green;
+            if (blue < min) min = blue;
+
+            var delta = max - min;
+
+            if (red == max)
+            {
+                hue = (green - blue) / delta;
+            }
+            else if (green == max)
+            {
+                hue = 2 + (blue - red) / delta;
+            }
+            else if (blue == max)
+            {
+                hue = 4 + (red - green) / delta;
+            }
+            hue *= 60d;
+
+            if (hue < 0d)
+            {
+                hue += 360d;
+            }
+            return hue;
+        }
+
+        /// <summary>
+        /// Get the saturation.
+        /// </summary>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>
+        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double GetSaturation(byte red, byte green, byte blue)
+        {
+            var r = red / 255d;
+            var g = green / 255d;
+            var b = blue / 255d;
+
+            var l = 0d;
+            var s = 0d;
+
+            var max = r;
+            var min = r;
+
+            if (g > max) max = g;
+            if (b > max) max = b;
+
+            if (g < min) min = g;
+            if (b < min) min = b;
+
+            // if max == min, then there is no color and
+            // the saturation is zero.
+            if (max != min)
+            {
+                l = (max + min) * 0.5d;
+
+                s = l <= 0.5d ? (max - min) / (max + min) : (max - min) / (2d - max - min);
+            }
+            return s;
+        }
+
+        /// <summary>
+        /// Get the saturation.
+        /// </summary>
+        /// <returns>The <see cref="float"/>.</returns>
+        /// <remarks>
+        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double GetSaturation(double red, double green, double blue)
+        {
+            var l = 0d;
+            var s = 0d;
+
+            var max = red;
+            if (green > max) max = green;
+            if (blue > max) max = blue;
+
+            var min = red;
+            if (green < min) min = green;
+            if (blue < min) min = blue;
+
+            // if max == min, then there is no color and
+            // the saturation is zero.
+            if (max != min)
+            {
+                l = (max + min) / 2d;
+                s = l <= 0.5d ? (max - min) / (max + min) : (max - min) / (2d - max - min);
+            }
+            return s;
+        }
+
         /// <summary>
         /// Sets the absolute brightness of a color
         /// </summary>
-        /// <param name="color">Original color</param>
-        /// <param name="brightness">The luminance level to impose</param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
+        /// <param name="luminance">The luminance level to impose</param>
         /// <returns>an adjusted color</returns>
-        public static ARGB SetBrightness(this ARGB color, double brightness)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) SetLuminance(byte red, byte green, byte blue, byte alpha, double luminance)
         {
-            var hsl = new AHSL(color)
-            {
-                Luminance = brightness
-            };
-
-            return ToARGB(hsl);
+            var hsl = RGBAColorToHSLAColor(red, green, blue, alpha);
+            return HSLAColorToRGBAColor(hsl.hue, hsl.saturation, luminance, hsl.alpha);
         }
 
         /// <summary>
@@ -40,31 +266,35 @@ namespace Engine.Colorspace
         /// <remarks>
         /// To reduce brightness use a number smaller than 1. To increase brightness use a number larger tan 1.
         /// </remarks>
-        /// <param name="color">The original color</param>
-        /// <param name="brightness">The luminance delta</param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
+        /// <param name="luminance">The luminance delta</param>
         /// <returns>An adjusted color</returns>
-        public static ARGB ModifyBrightness(this ARGB color, double brightness)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) ModifyLuminance(byte red, byte green, byte blue, byte alpha, double luminance)
         {
-            var hsl = new AHSL(color);
-            hsl.Luminance *= brightness;
-            return ToARGB(hsl);
+            var hsl = RGBAColorToHSLAColor(red, green, blue, alpha);
+            hsl.luminance *= luminance;
+            return HSLAColorToRGBAColor(hsl.hue, hsl.saturation, hsl.luminance, hsl.alpha);
         }
 
         /// <summary>
         /// Sets the absolute saturation level
         /// </summary>
         /// <remarks>Accepted values 0-1</remarks>
-        /// <param name="color">An original color</param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
         /// <param name="Saturation">The saturation value to impose</param>
         /// <returns>An adjusted color</returns>
-        public static ARGB SetSaturation(this ARGB color, double Saturation)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) SetSaturation(byte red, byte green, byte blue, byte alpha, double Saturation)
         {
-            var hsl = new AHSL(color)
-            {
-                Saturation = Saturation
-            };
-
-            return ToARGB(hsl);
+            var hsl = RGBAColorToHSLAColor(red, green, blue, alpha);
+            return HSLAColorToRGBAColor(hsl.hue, Saturation, hsl.luminance, hsl.alpha);
         }
 
         /// <summary>
@@ -73,31 +303,35 @@ namespace Engine.Colorspace
         /// <remarks>
         /// To reduce Saturation use a number smaller than 1. To increase Saturation use a number larger tan 1.
         /// </remarks>
-        /// <param name="color">The original color</param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
         /// <param name="Saturation">The saturation delta</param>
         /// <returns>An adjusted color</returns>
-        public static ARGB ModifySaturation(this ARGB color, double Saturation)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) ModifySaturation(byte red, byte green, byte blue, byte alpha, double Saturation)
         {
-            var hsl = new AHSL(color);
-            hsl.Saturation *= Saturation;
-            return ToARGB(hsl);
+            var hsl = RGBAColorToHSLAColor(red, green, blue, alpha);
+            hsl.saturation *= Saturation;
+            return HSLAColorToRGBAColor(hsl.hue, hsl.saturation, hsl.luminance, hsl.alpha);
         }
 
         /// <summary>
         /// Sets the absolute Hue level.
         /// </summary>
         /// <remarks>Accepted values 0-1</remarks>
-        /// <param name="color">An original color</param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
         /// <param name="Hue">The Hue value to impose</param>
         /// <returns>An adjusted color</returns>
-        public static ARGB SetHue(this ARGB color, double Hue)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) SetHue(byte red, byte green, byte blue, byte alpha, double Hue)
         {
-            var hsl = new AHSL(color)
-            {
-                Hue = Hue
-            };
-
-            return ToARGB(hsl);
+            var hsl = RGBAColorToHSLAColor(red, green, blue, alpha);
+            return HSLAColorToRGBAColor(Hue, hsl.saturation, hsl.luminance, hsl.alpha);
         }
 
         /// <summary>
@@ -106,58 +340,643 @@ namespace Engine.Colorspace
         /// <remarks>
         /// To reduce Hue use a number smaller than 1. To increase Hue use a number larger tan 1
         /// </remarks>
-        /// <param name="color">The original color</param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
         /// <param name="Hue">The Hue delta</param>
         /// <returns>An adjusted color</returns>
-        public static ARGB ModifyHue(this ARGB color, double Hue)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) ModifyHue(byte red, byte green, byte blue, byte alpha, double Hue)
         {
-            var hsl = new AHSL(color);
-            hsl.Hue *= Hue;
-            return ToARGB(hsl);
+            var hsl = RGBAColorToHSLAColor(red, green, blue, alpha);
+            hsl.hue *= Hue;
+            return HSLAColorToRGBAColor(hsl.hue, hsl.saturation, hsl.luminance, hsl.alpha);
+        }
+
+        #endregion
+
+        #region Validation
+
+        /// <summary>
+        /// Check whether a red green blue color is valid.
+        /// </summary>
+        /// <param name="r">The r.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="a"></param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ValidateRGBA(byte r, byte g, byte b, byte a)
+            => Between(a, RGBMin, RGBMax)
+            && Between(r, RGBMin, RGBMax)
+            && Between(g, RGBMin, RGBMax)
+            && Between(b, RGBMin, RGBMax);
+
+        /// <summary>
+        /// Check whether a red green blue double floating point color is valid.
+        /// </summary>
+        /// <param name="r">The r.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="a"></param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ValidateRGBAF(double r, double g, double b, double a)
+            => Between(a, PercentMin, PercentMax)
+            && Between(r, PercentMin, PercentMax)
+            && Between(g, PercentMin, PercentMax)
+            && Between(b, PercentMin, PercentMax);
+
+        /// <summary>
+        /// Check whether a cyan yellow magenta black color is valid.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="a"></param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://www.codeproject.com/articles/4488/xcmyk-cmyk-to-rgb-calculator-with-source-code</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ValidateCYMKA(byte c, byte y, byte m, byte k, byte a)
+            => Between(a, CYMKMin, CYMKMax)
+            && Between(c, CYMKMin, CYMKMax)
+            && Between(y, CYMKMin, CYMKMax)
+            && Between(m, CYMKMin, CYMKMax)
+            && Between(k, CYMKMin, CYMKMax);
+
+        /// <summary>
+        /// Check whether a hue saturation intensity color is valid.
+        /// </summary>
+        /// <param name="h">The h.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="a"></param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ValidateHSIA(double h, double s, double i, double a)
+            => Between(a, PercentMin, PercentMax)
+            && Between(h, HueMin, HueMax)
+            && Between(s, PercentMin, PercentMax)
+            && Between(i, PercentMin, PercentMax);
+
+        /// <summary>
+        /// Check whether a hue saturation luminance color is valid.
+        /// </summary>
+        /// <param name="h">The h.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="a"></param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ValidateHSLA(double h, double s, double l, double a)
+            => Between(a, PercentMin, PercentMax)
+            && Between(h, HueMin, HueMax)
+            && Between(s, PercentMin, PercentMax)
+            && Between(l, PercentMin, PercentMax);
+
+        /// <summary>
+        /// Check whether a hue saturation value color is valid.
+        /// </summary>
+        /// <param name="h">The h.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="a"></param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ValidateHSVA(double h, double s, double v, double a)
+            => Between(a, PercentMin, PercentMax)
+            && Between(h, HueMin, HueMax)
+            && Between(s, PercentMin, PercentMax)
+            && Between(v, PercentMin, PercentMax);
+
+        /// <summary>
+        /// Check whether a yiq color is valid.
+        /// </summary>
+        /// <param name="y">The y.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="a"></param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ValidateYIQA(double y, double i, double q, double a)
+            => Between(a, PercentMin, PercentMax)
+            && Between(y, PercentMin, PercentMax)
+            && Between(i, YIQMinI, YIQMaxI)
+            && Between(q, YIQMinQ, YIQMaxQ);
+
+        /// <summary>
+        /// Check whether a yuv color is valid.
+        /// </summary>
+        /// <param name="y">The y.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="a"></param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool ValidateYUVA(double y, double u, double v, double a)
+            => Between(a, PercentMin, PercentMax)
+            && Between(y, PercentMin, PercentMax)
+            && Between(u, YUVMinU, YUVMaxU)
+            && Between(v, YUVMinV, YUVMaxV);
+
+        #endregion
+
+        #region Conversion Methods
+
+        /// <summary>
+        /// Converts a byte red green blue alpha color to the double floating point form.
+        /// </summary>
+        /// <param name="red">The red channel.</param>
+        /// <param name="green">The green channel.</param>
+        /// <param name="blue">The blue channel.</param>
+        /// <param name="alpha">The alpha channel.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double red, double green, double blue, double alpha) RGBAColorToRGBAFColor(byte red, byte green, byte blue, byte alpha)
+        {
+            if (!ValidateRGBA(red, green, blue, alpha))
+                throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            var d = 1d / RGBMax;
+            return (
+                red: red * d,
+                green: green * d,
+                blue: blue * d,
+                alpha: alpha * d
+                );
+        }
+
+        /// <summary>
+        /// Convert an red green blue alpha byte color format to red green blue alpha color in double precision float format.
+        /// </summary>
+        /// <param name="red">The red component.</param>
+        /// <param name="green">The green component.</param>
+        /// <param name="blue">The blue component.</param>
+        /// <param name="alpha">The alpha component.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double red, double green, double blue, double alpha) RGBAColorToRGBAFColor2(byte red, byte green, byte blue, byte alpha)
+            => (red: red / 255d, green: green / 255d, blue: blue / 255d, alpha: alpha / 255d);
+
+        /// <summary>
+        /// Convert an red green blue alpha color from double floating point format to byte.
+        /// </summary>
+        /// <param name="red">The r.</param>
+        /// <param name="green">The g.</param>
+        /// <param name="blue">The b.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) RGBAFColorToRGBAColor(double red, double green, double blue, double alpha)
+        {
+            if (!ValidateRGBAF(red, green, blue, alpha))
+                throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            var d = RGBMax + 0.5d;
+            return (
+                red: (byte)(red * d),
+                green: (byte)(green * d),
+                blue: (byte)(blue * d),
+                alpha: (byte)(alpha * d)
+                );
+        }
+
+        /// <summary>
+        /// Convert an red green blue alpha color from double floating point format to byte.
+        /// </summary>
+        /// <param name="tuple"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) RGBAFColorToRGBAColor((double red, double green, double blue, double alpha) tuple)
+        {
+            if (!ValidateRGBAF(tuple.red, tuple.green, tuple.blue, tuple.alpha))
+                throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            var d = RGBMax + 0.5d;
+            return (
+                red: (byte)(tuple.red * d),
+                green: (byte)(tuple.green * d),
+                blue: (byte)(tuple.blue * d),
+                alpha: (byte)(tuple.alpha * d)
+                );
+        }
+
+        /// <summary>
+        /// Convert an alpha cyan yellow magenta black color format to alpha red green blue byte color format.
+        /// </summary>
+        /// <param name="cyan">The cyan.</param>
+        /// <param name="yellow">The yellow.</param>
+        /// <param name="magenta">The magenta.</param>
+        /// <param name="black">The black.</param>
+        /// <param name="alpha">The alpha.</param>
+        /// <returns>The <see cref="(byte alpha, byte red, byte green, byte blue)"/>.</returns>
+        /// <remarks>
+        /// Red   = 1-minimum(1,Cyan*(1-Black)+Black)
+        /// Green = 1-minimum(1,Magenta*(1-Black)+Black)
+        /// Blue  = 1-minimum(1,Yellow*(1-Black)+Black)
+        /// </remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
+        /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) CYMKAColorToRGBAColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
+        {
+            var d = 1d / 100d;//255d;
+
+            // ToDo: Figure out if messing with alpha like this is worth while.
+            var a = alpha * d;
+            var c = cyan * d;
+            var m = magenta * d;
+            var y = yellow * d;
+            var k = black * d;
+
+            a = a * (1d - k) + k;
+            var r = c * (1d - k) + k;
+            var g = m * (1d - k) + k;
+            var b = y * (1d - k) + k;
+
+            return (
+                red: (byte)((1d - r) * 255d + 0.5d),
+                green: (byte)((1d - g) * 255d + 0.5d),
+                blue: (byte)((1d - b) * 255d + 0.5d),
+                alpha: (byte)((1d - a) * 255d + 0.5d)
+                );
+        }
+
+        /// <summary>
+        /// CMYK --> RGB
+        /// Red   = 1-minimum(1,Cyan*(1-Black)+Black)
+        /// Green = 1-minimum(1,Magenta*(1-Black)+Black)
+        /// Blue  = 1-minimum(1,Yellow*(1-Black)+Black)
+        /// </summary>
+        /// <param name="cyan"></param>
+        /// <param name="yellow"></param>
+        /// <param name="magenta"></param>
+        /// <param name="black"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
+        /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double red, double green, double blue, double alpha) CMYKAColorToRGBAColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
+        {
+            var c = cyan / 100d; //255d;
+            var m = magenta / 100d; //255d;
+            var y = yellow / 100d; //255d;
+            var k = black / 100d; //255d;
+
+            var r = c * (1d - k) + k;
+            var g = m * (1d - k) + k;
+            var b = y * (1d - k) + k;
+            var a = (alpha / 100d) * 255d + 0.5d;
+
+            r = (1d - r) * 255d + 0.5d;
+            g = (1d - g) * 255d + 0.5d;
+            b = (1d - b) * 255d + 0.5d;
+
+            return ((byte)r, (byte)g, (byte)b, a);
+        }
+
+        /// <summary>
+        /// Convert an alpha red green blue byte color format to alpha cyan yellow magenta black format.
+        /// </summary>
+        /// <param name="red">The red component.</param>
+        /// <param name="green">The green component.</param>
+        /// <param name="blue">The blue component.</param>
+        /// <param name="alpha">The alpha component.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAColorToCYMKAColor(byte red, byte green, byte blue, byte alpha)
+            => RGBAFColorToCYMKAColor(red / 255d, green / 255d, blue / 255d, alpha / 255d);
+
+        /// <summary>
+        /// RGB --> CMYK
+        /// Black   = minimum(1-Red,1-Green,1-Blue)
+        /// Cyan    = (1-Red-Black)/(1-Black)
+        /// Magenta = (1-Green-Black)/(1-Black)
+        /// Yellow  = (1-Blue-Black)/(1-Black)
+        /// </summary>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
+        /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAColorToCYMKAColor2(byte red, byte green, byte blue, byte alpha)
+        {
+            var r = 1d - (red / 255d);
+            var g = 1d - (green / 255d);
+            var b = 1d - (blue / 255d);
+
+            var K = r < g ? r : g;
+            if (b < K)
+                K = b;
+
+            var c = (r - K) / (1d - K);
+            var m = (g - K) / (1d - K);
+            var y = (b - K) / (1d - K);
+
+            c = (c * 100d) + 0.5d;
+            m = (m * 100d) + 0.5d;
+            y = (y * 100d) + 0.5d;
+            K = (K * 100d) + 0.5d;
+
+            return ((byte)c, (byte)y, (byte)m, (byte)K, alpha);
+        }
+
+        /// <summary>
+        /// Convert an alpha red green blue color in double precision float format to alpha cyan yellow magenta black color format.
+        /// </summary>
+        /// <param name="red">The red.</param>
+        /// <param name="green">The green.</param>
+        /// <param name="blue">The blue.</param>
+        /// <param name="alpha">The alpha.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
+        /// <remarks>
+        /// Black   = minimum(1-Red, 1-Green, 1-Blue)
+        /// Cyan    = (1-Red-Black)/(1-Black)
+        /// Magenta = (1-Green-Black)/(1-Black)
+        /// Yellow  = (1-Blue-Black)/(1-Black)
+        /// </remarks>
+        /// <acknowledgment>
+        /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
+        /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAFColorToCYMKAColor(double red, double green, double blue, double alpha)
+        {
+            var k = red < green ? red : green;
+            k = blue < k ? blue : k;
+            var d = 1d / (1d - k);
+
+            // ToDo: Figure out if messing with alpha like this is worth while.
+            var a = (1d - alpha - k) * d;
+            var c = (1d - red - k) * d;
+            var m = (1d - green - k) * d;
+            var y = (1d - blue - k) * d;
+
+            return (
+                cyan: (byte)((c * 100) + 0.5),
+                yellow: (byte)((y * 100) + 0.5),
+                magenta: (byte)((m * 100) + 0.5),
+                black: (byte)((k * 100) + 0.5),
+                alpha: (byte)((a * 100) + 0.5)
+                );
+        }
+
+        /// <summary>
+        /// The rgbaf create from hsi.
+        /// </summary>
+        /// <param name="hue">The h.</param>
+        /// <param name="saturation">The s.</param>
+        /// <param name="intensity">The i.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <remarks>
+        /// https://github.com/dystopiancode/colorspace-conversions/
+        /// Correction from: https://gist.github.com/rzhukov/9129585
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor(double hue, double saturation, double intensity, double alpha)
+        {
+            if (!ValidateHSIA(hue, saturation, intensity, alpha))
+                throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            var x = intensity * (1 - saturation);
+            if (hue < 2 * PI / 3d)
+            {
+                var y = intensity * (1d + (saturation * Cos(hue)) / (Cos(PI / 3d - hue)));
+                var z = 3d * intensity - (x + y);
+                return (red: y, green: z, blue: x, alpha);
+            }
+            else if (hue < 4 * PI / 3d)
+            {
+                var y = intensity * (1d + (saturation * Cos(hue - 2d * PI / 3d)) / (Cos(PI / 3d - (hue - 2d * PI / 3d))));
+                var z = 3d * intensity - (x + y);
+                return (red: x, green: y, blue: z, alpha);
+            }
+            else
+            {
+                var y = intensity * (1d + (saturation * Cos(hue - 4d * PI / 3d)) / (Cos(PI / 3d - (hue - 4d * PI / 3d))));
+                var z = 3 * intensity - (x + y);
+                return (red: z, green: x, blue: y, alpha);
+            }
+        }
+
+        /// <summary>
+        /// The rgb f create from hsi.
+        /// </summary>
+        /// <param name="hue"></param>
+        /// <param name="saturation"></param>
+        /// <param name="intensity"></param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="RGBA"/>.</returns>
+        /// <acknowledgment>
+        /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
+        /// https://github.com/dystopiancode/colorspace-conversions
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor2(double hue, double saturation, double intensity, double alpha)
+        {
+            const double HueUpperLimit = 360d;
+            var r = 0d;
+            var g = 0d;
+            var b = 0d;
+            var h = hue;
+            var s = saturation;
+            var i = intensity;
+
+            if (h >= 0d && h <= (HueUpperLimit / 3d))
+            {
+                b = i * (1d - s) / 3d;
+                r = i * ((s * Cos(h)) / Cos(60d - h)) / 3d;
+                g = i - (b + r);
+            }
+            else if (h > (HueUpperLimit / 3d) && h <= (2d * HueUpperLimit / 3d))
+            {
+                h -= (HueUpperLimit / 3d);
+                r = i * (1d - s) / 3d;
+                g = i * ((s * Cos(h)) / Cos(60d - h)) / 3d;
+                b = i - (g + r);
+            }
+            else /* h>240 h<360 */
+            {
+                h -= (2d * HueUpperLimit / 3d);
+                g = i * (1d - s) / 3d;
+                b = i * ((s * Cos(h)) / Cos(60d - h)) / 3d;
+                r = i - (g + b);
+            }
+
+            return (r, g, b, alpha);
+        }
+
+        /// <summary>
+        /// Function example takes H, S, I, and a pointer to the
+        /// in the calling function. After calling hsi2rgb
+        /// the vector RGB will contain red, green, and blue
+        /// calculated values.
+        /// </summary>
+        /// <param name="hue"></param>
+        /// <param name="saturation"></param>
+        /// <param name="intensity"></param>
+        /// <param name="alpha"></param>
+        /// <returns>RGB color-space converted vector.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://blog.saikoled.com/post/44677718712/how-to-convert-from-hsi-to-rgb-white
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) HSIAColorToRGBAColor(double hue, double saturation, double intensity, double alpha)
+        {
+            var h = hue;
+            var s = saturation;
+            var i = intensity;
+
+            h = IEEERemainder(h, 360d); // cycle H around to 0-360 degrees
+            h = PI * h / 180d; // Convert to radians.
+            s = s > 0 ? (s < 1d ? s : 1d) : 0d; // clamp S and I to interval [0,1]
+            i = i > 0 ? (i < 1d ? i : 1d) : 0d;
+
+            byte r, g, b;
+
+            // Math! Thanks in part to Kyle Miller.
+            if (h < 2.09439d)
+            {
+                r = (byte)(255d * i / 3d * (1d + s * Cos(h) / Cos(1.047196667d - h)));
+                g = (byte)(255d * i / 3d * (1d + s * (1d - Cos(h) / Cos(1.047196667d - h))));
+                b = (byte)(255d * i / 3d * (1d - s));
+            }
+            else if (h < 4.188787d)
+            {
+                h -= 2.09439d;
+                g = (byte)(255d * i / 3d * (1 + s * Cos(h) / Cos(1.047196667d - h)));
+                b = (byte)(255d * i / 3d * (1 + s * (1 - Cos(h) / Cos(1.047196667d - h))));
+                r = (byte)(255d * i / 3d * (1 - s));
+            }
+            else
+            {
+                h -= 4.188787d;
+                b = (byte)(255d * i / 3d * (1d + s * Cos(h) / Cos(1.047196667d - h)));
+                r = (byte)(255d * i / 3d * (1d + s * (1d - Cos(h) / Cos(1.047196667d - h))));
+                g = (byte)(255d * i / 3d * (1d - s));
+            }
+
+            return (r, g, b, (byte)(255 * alpha));
+        }
+
+        /// <summary>
+        /// The rgb f create from hsl.
+        /// </summary>
+        /// <param name="hue">The h.</param>
+        /// <param name="saturation">The s.</param>
+        /// <param name="luminance">The l.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double red, double green, double blue, double alpha) HSLAColorToRGBAFColor(double hue, double saturation, double luminance, double alpha)
+        {
+            (double red, double green, double blue, double alpha) color = (0d, 0d, 0d, alpha);
+            if (ValidateHSLA(hue, saturation, luminance, alpha) == true)
+            {
+                var c = (1d - Abs(2d * luminance - 1d)) * saturation;
+                var m = 1d * (luminance - 0.5d * c);
+                var x = c * (1d - Abs(IEEERemainder(hue / 60d, 2) - 1d));
+                if (hue >= 0d && hue < (HueMax / 6d))
+                {
+                    color = (c + m, x + m, m, alpha);
+                }
+                else if (hue >= (HueMax / 6d) && hue < (HueMax / 3d))
+                {
+                    color = (x + m, c + m, m, alpha);
+                }
+                else if (hue < (HueMax / 3d) && hue < (HueMax / 2d))
+                {
+                    color = (m, c + m, x + m, alpha);
+                }
+                else if (hue >= (HueMax / 2d) && hue < (2d * HueMax / 3d))
+                {
+                    color = (m, x + m, c + m, alpha);
+                }
+                else if (hue >= (2d * HueMax / 3d) && hue < (5d * HueMax / 6d))
+                {
+                    color = (x + m, m, c + m, alpha);
+                }
+                else if (hue >= (5d * HueMax / 6d) && hue < HueMax)
+                {
+                    color = (c + m, m, x + m, alpha);
+                }
+                else
+                {
+                    color = (m, m, m, alpha);
+                }
+            }
+            return color;
         }
 
         /// <summary>
         /// Converts a color from HSL to RGB.
         /// </summary>
         /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks>
-        /// <param name="hsl">The HSL value</param>
+        /// <param name="hue"></param>
+        /// <param name="saturation"></param>
+        /// <param name="luminance"></param>
+        /// <param name="alpha"></param>
         /// <returns>A Color structure containing the equivalent RGB values</returns>
-        public static ARGB ToARGB(this HSL hsl)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) HSLAColorToRGBAColor3(double hue, double saturation, double luminance, double alpha)
         {
-            double red = 0;
-            double green = 0;
-            double blue = 0;
-            double temp1;
-            double temp2;
+            var red = 0d;
+            var green = 0d;
+            var blue = 0d;
+            var temp1 = 0d;
+            var temp2 = 0d;
 
-            if (hsl.Luminance == 0)
+            if (luminance == 0d)
             {
-                red = green = blue = 0;
+                red = green = blue = 0d;
             }
             else
             {
-                if (hsl.Saturation == 0)
+                if (saturation == 0d)
                 {
-                    red = green = blue = hsl.Luminance;
+                    red = green = blue = luminance;
                 }
                 else
                 {
-                    temp2 = ((hsl.Luminance <= 0.5) ? hsl.Luminance * (1.0 + hsl.Saturation) : hsl.Luminance + hsl.Saturation - (hsl.Luminance * hsl.Saturation));
-                    temp1 = 2.0 * hsl.Luminance - temp2;
-                    var t3 = new double[] { hsl.Hue + 1.0 / 3.0, hsl.Hue, hsl.Hue - 1.0 / 3.0 };
+                    temp2 = ((luminance <= 0.5d) ? luminance * (1d + saturation) : luminance + saturation - (luminance * saturation));
+                    temp1 = 2d * luminance - temp2;
+                    var t3 = new double[] { hue + 1d / 3d, hue, hue - 1d / 3d };
                     var clr = new double[] { 0, 0, 0 };
                     for (var i = 0; i < 3; i++)
                     {
                         if (t3[i] < 0)
-                            t3[i] += 1.0;
+                            t3[i] += 1d;
                         if (t3[i] > 1)
-                            t3[i] -= 1.0;
-                        if (6.0 * t3[i] < 1.0)
-                            clr[i] = temp1 + (temp2 - temp1) * t3[i] * 6.0;
-                        else if (2.0 * t3[i] < 1.0)
+                            t3[i] -= 1d;
+                        if (6d * t3[i] < 1d)
+                            clr[i] = temp1 + (temp2 - temp1) * t3[i] * 6d;
+                        else if (2d * t3[i] < 1d)
                             clr[i] = temp2;
-                        else if (3.0 * t3[i] < 2.0)
-                            clr[i] = (temp1 + (temp2 - temp1) * ((2.0 / 3.0) - t3[i]) * 6.0);
+                        else if (3d * t3[i] < 2d)
+                            clr[i] = (temp1 + (temp2 - temp1) * ((2d / 3d) - t3[i]) * 6d);
                         else
                             clr[i] = temp1;
                     }
@@ -168,16 +987,20 @@ namespace Engine.Colorspace
                 }
             }
 
-            return new ARGB((byte)(255 * red), (byte)(255 * green), (byte)(255 * blue));
+            return ((byte)(255 * red), (byte)(255 * green), (byte)(255 * blue), (byte)(255 * alpha));
         }
 
         /// <summary>
         /// Converts a color from HSL to RGB
         /// </summary>
         /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks>
-        /// <param name="hsl">The HSL value</param>
+        /// <param name="hue"></param>
+        /// <param name="saturation"></param>
+        /// <param name="luminance"></param>
+        /// <param name="alpha"></param>
         /// <returns>A Color structure containing the equivalent RGB values</returns>
-        public static ARGB ToARGB(this AHSL hsl)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) HSLAColorToRGBAColor2(double hue, double saturation, double luminance, double alpha)
         {
             double red = 0;
             double green = 0;
@@ -185,21 +1008,21 @@ namespace Engine.Colorspace
             double temp1;
             double temp2;
 
-            if (hsl.Luminance == 0)
+            if (luminance == 0)
             {
                 red = green = blue = 0;
             }
             else
             {
-                if (hsl.Saturation == 0)
+                if (saturation == 0)
                 {
-                    red = green = blue = hsl.Luminance;
+                    red = green = blue = luminance;
                 }
                 else
                 {
-                    temp2 = ((hsl.Luminance <= 0.5) ? hsl.Luminance * (1.0 + hsl.Saturation) : hsl.Luminance + hsl.Saturation - (hsl.Luminance * hsl.Saturation));
-                    temp1 = 2.0 * hsl.Luminance - temp2;
-                    var t3 = new double[] { hsl.Hue + 1.0 / 3.0, hsl.Hue, hsl.Hue - 1.0 / 3.0 };
+                    temp2 = ((luminance <= 0.5) ? luminance * (1.0 + saturation) : luminance + saturation - (luminance * saturation));
+                    temp1 = 2.0 * luminance - temp2;
+                    var t3 = new double[] { hue + 1.0 / 3.0, hue, hue - 1.0 / 3.0 };
                     var clr = new double[] { 0, 0, 0 };
                     for (var i = 0; i < 3; i++)
                     {
@@ -223,34 +1046,35 @@ namespace Engine.Colorspace
                 }
             }
 
-            return new ARGB((byte)hsl.Alpha, (byte)(255 * red), (byte)(255 * green), (byte)(255 * blue));
+            return ((byte)(255 * red), (byte)(255 * green), (byte)(255 * blue), (byte)(255 * alpha));
         }
 
         /// <summary>
         /// Given H,S,L in range of 0-1
         /// Returns a Color (RGB class) in range of 0-255
         /// </summary>
-        /// <param name="alpha">Alpha value.</param>
         /// <param name="hue">Hue value.</param>
         /// <param name="saturation">Saturation value.</param>
         /// <param name="luminance">Luminance value.</param>
+        /// <param name="alpha">Alpha value.</param>
         /// <returns>An ARGB color structure.</returns>
         /// <acknowledgment>
         /// http://www.geekymonkey.com/Programming/CSharp/RGB2HSL_HSL2RGB.htm
         /// </acknowledgment>
-        public static ARGB AHSLToARGB(byte alpha, double hue, double saturation, double luminance)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) HSLAColorToRGBAColor(double hue, double saturation, double luminance, double alpha)
         {
             // default to gray
             var red = luminance;
             var green = luminance;
             var blue = luminance;
-            var vertex = (luminance <= 0.5) ? (luminance * (1.0 + saturation)) : (luminance + saturation - (luminance * saturation));
+            var vertex = (luminance <= 0.5d) ? (luminance * (1d + saturation)) : (luminance + saturation - (luminance * saturation));
 
             if (vertex > 0)
             {
                 var m = luminance + luminance - vertex;
                 var sv = (vertex - m) / vertex;
-                hue *= 6.0;
+                hue *= 6d;
                 var sextant = (int)hue;
                 var fract = hue - sextant;
                 var vsf = vertex * sv * fract;
@@ -291,201 +1115,144 @@ namespace Engine.Colorspace
                 }
             }
 
-            var rgb = new ARGB(alpha,
-                Convert.ToByte(red * 255.0f),
-                Convert.ToByte(green * 255.0f),
-                Convert.ToByte(blue * 255.0f));
-            return rgb;
+            return (
+                Convert.ToByte(red * 255d),
+                Convert.ToByte(green * 255d),
+                Convert.ToByte(blue * 255d),
+                Convert.ToByte(alpha * 255d)
+                );
         }
 
         /// <summary>
-        /// Given a Color (RGB class) in range of 0-255 Return H,S,L in range of 0-1
+        /// The rgb f create from hsv.
         /// </summary>
-        /// <param name="rgb">ARGB color.</param>
-        /// <param name="alpha">Alpha value out.</param>
-        /// <param name="hue">Hue value out.</param>
-        /// <param name="saturation">Saturation value out.</param>
-        /// <param name="luminance">Luminance value out.</param>
-        public static void ARGBToAHSL(ARGB rgb, out byte alpha, out double hue, out double saturation, out double luminance)
-        {
-            alpha = rgb.Alpha;
-            var red = rgb.Red / 255.0;
-            var green = rgb.Green / 255.0;
-            var blue = rgb.Blue / 255.0;
-            double vertexMin;
-
-            hue = 0; // default to black
-            saturation = 0;
-            luminance = 0;
-            var vertex = Max(Max(red, green), blue);
-            var min = Min(Min(red, green), blue);
-            luminance = (min + vertex) / 2.0;
-            if (luminance <= 0.0)
-                return;
-
-            vertexMin = vertex - min;
-            saturation = vertexMin;
-            if (saturation > 0.0)
-                saturation /= (luminance <= 0.5) ? (vertex + min) : (2.0 - vertex - min);
-            else
-                return;
-
-            var red2 = (vertex - red) / vertexMin;
-            var green2 = (vertex - green) / vertexMin;
-            var blue2 = (vertex - blue) / vertexMin;
-            if (red == vertex)
-                hue = green == min ? 5.0 + blue2 : 1.0 - green2;
-            else hue = green == vertex ? blue == min ? 1.0 + red2 : 3.0 - blue2 : red == min ? 3.0 + green2 : 5.0 - red2;
-
-            hue /= 6.0;
-        }
-
-        /// <summary>
-        /// RGB --> CMYK
-        /// Black   = minimum(1-Red,1-Green,1-Blue)
-        /// Cyan    = (1-Red-Black)/(1-Black)
-        /// Magenta = (1-Green-Black)/(1-Black)
-        /// Yellow  = (1-Blue-Black)/(1-Black)
-        /// </summary>
-        /// <param name="color"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
-        /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
-        /// </acknowledgment>
-        public static ACYMK RGB2CMYK(this ARGB color)
-        {
-            double R = color.Red;
-            double G = color.Green;
-            double B = color.Blue;
-
-            R = 1.0 - (R / 255.0);
-            G = 1.0 - (G / 255.0);
-            B = 1.0 - (B / 255.0);
-
-            double C, M, Y, K;
-            K = R < G ? R : G;
-            if (B < K)
-                K = B;
-
-            C = (R - K) / (1.0 - K);
-            M = (G - K) / (1.0 - K);
-            Y = (B - K) / (1.0 - K);
-
-            C = (C * 100) + 0.5;
-            M = (M * 100) + 0.5;
-            Y = (Y * 100) + 0.5;
-            K = (K * 100) + 0.5;
-
-            return new ACYMK(color.Alpha, (byte)C, (byte)Y, (byte)M, (byte)K);
-        }
-
-        /// <summary>
-        /// RGB --> CMYK
-        /// Black   = minimum(1-Red,1-Green,1-Blue)
-        /// Cyan    = (1-Red-Black)/(1-Black)
-        /// Magenta = (1-Green-Black)/(1-Black)
-        /// Yellow  = (1-Blue-Black)/(1-Black)
-        /// </summary>
+        /// <param name="hue">The h.</param>
+        /// <param name="saturaion">The s.</param>
+        /// <param name="value">The v.</param>
         /// <param name="alpha"></param>
-        /// <param name="red"></param>
-        /// <param name="green"></param>
-        /// <param name="blue"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
-        /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
-        /// </acknowledgment>
-        public static ACYMK RGB2CMYK(byte alpha, byte red, byte green, byte blue)
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double red, double green, double blue, double alpha) HSVAColorToRGBAFColor(double hue, double saturaion, double value, double alpha)
         {
-            double R = red;
-            double G = green;
-            double B = blue;
-
-            R = 1.0 - (R / 255.0);
-            G = 1.0 - (G / 255.0);
-            B = 1.0 - (B / 255.0);
-
-            double C, M, Y, K;
-            K = R < G ? R : G;
-            if (B < K)
-                K = B;
-
-            C = (R - K) / (1.0 - K);
-            M = (G - K) / (1.0 - K);
-            Y = (B - K) / (1.0 - K);
-
-            C = (C * 100) + 0.5;
-            M = (M * 100) + 0.5;
-            Y = (Y * 100) + 0.5;
-            K = (K * 100) + 0.5;
-
-            return new ACYMK(alpha, (byte)C, (byte)Y, (byte)M, (byte)K);
+            (double red, double green, double blue, double alpha) color = (0d, 0d, 0d, alpha);
+            if (ValidateHSVA(hue, saturaion, value, alpha) == true)
+            {
+                var c = value * saturaion;
+                var x = c * (1d - Abs(IEEERemainder(hue / 60d, 2) - 1d));
+                var m = value - c;
+                if (hue >= 0d && hue < 60d)
+                {
+                    color = (c + m, x + m, m, alpha);
+                }
+                else if (hue >= 60d && hue < 120d)
+                {
+                    color = (x + m, c + m, m, alpha);
+                }
+                else if (hue >= 120d && hue < 180d)
+                {
+                    color = (m, c + m, x + m, alpha);
+                }
+                else if (hue >= 180d && hue < 240d)
+                {
+                    color = (m, x + m, c + m, alpha);
+                }
+                else if (hue >= 240d && hue < 300d)
+                {
+                    color = (x + m, m, c + m, alpha);
+                }
+                else if (hue >= 300d && hue < 360d)
+                {
+                    color = (c + m, m, x + m, alpha);
+                }
+                else
+                {
+                    color = (m, m, m, alpha);
+                }
+            }
+            return color;
         }
 
         /// <summary>
-        /// CMYK --> RGB
-        /// Red   = 1-minimum(1,Cyan*(1-Black)+Black)
-        /// Green = 1-minimum(1,Magenta*(1-Black)+Black)
-        /// Blue  = 1-minimum(1,Yellow*(1-Black)+Black)
+        /// The to RGBA tuple.
         /// </summary>
-        /// <param name="alpha"></param>
-        /// <param name="cyan"></param>
-        /// <param name="yellow"></param>
-        /// <param name="magenta"></param>
-        /// <param name="black"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        /// <remarks>
+        /// h = [0,360], s = [0,1], v = [0,1]
+        ///		if s == 0, then h = -1 (undefined)
+        /// </remarks>
         /// <acknowledgment>
-        /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
-        /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
+        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
-        public static ARGB CMYK2RGB(byte alpha, byte cyan, byte yellow, byte magenta, byte black)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) HSVAColorToRGBAColor3(double hue, double saturation, double value, double alpha)
         {
-            double R, G, B;
-            double C, M, Y, K;
+            double a;
+            double r;
+            double g;
+            double b;
+            int i;
+            double f, p, q, t;
+            if (saturation == 0)
+            {
+                // achromatic (gray)
+                r = g = b = value;
 
-            C = cyan;
-            M = magenta;
-            Y = yellow;
-            K = black;
+                a = (1.0 - alpha) * 255.0 + 0.5;
+                r = (1.0 - r) * 255.0 + 0.5;
+                g = (1.0 - g) * 255.0 + 0.5;
+                b = (1.0 - b) * 255.0 + 0.5;
 
-            C /= 255.0;
-            M /= 255.0;
-            Y /= 255.0;
-            K /= 255.0;
+                return ((byte)r, (byte)g, (byte)b, (byte)a);
+            }
 
-            R = C * (1.0 - K) + K;
-            G = M * (1.0 - K) + K;
-            B = Y * (1.0 - K) + K;
+            hue /= 60;            // sector 0 to 5
+            i = (int)Floor(hue);
+            f = hue - i;          // factorial part of h
+            p = value * (1 - saturation);
+            q = value * (1 - saturation * f);
+            t = value * (1 - saturation * (1 - f));
+            switch (i)
+            {
+                case 0:
+                    r = value;
+                    g = t;
+                    b = p;
+                    break;
+                case 1:
+                    r = q;
+                    g = value;
+                    b = p;
+                    break;
+                case 2:
+                    r = p;
+                    g = value;
+                    b = t;
+                    break;
+                case 3:
+                    r = p;
+                    g = q;
+                    b = value;
+                    break;
+                case 4:
+                    r = t;
+                    g = p;
+                    b = value;
+                    break;
+                case 5:
+                default:
+                    r = value;
+                    g = p;
+                    b = q;
+                    break;
+            }
 
-            R = (1.0 - R) * 255.0 + 0.5;
-            G = (1.0 - G) * 255.0 + 0.5;
-            B = (1.0 - B) * 255.0 + 0.5;
+            a = (1.0 - alpha) * 255.0 + 0.5;
+            r = (1.0 - r) * 255.0d + 0.5d;
+            g = (1.0 - g) * 255.0d + 0.5d;
+            b = (1.0 - b) * 255.0d + 0.5d;
 
-            return new ARGB((byte)R, (byte)G, (byte)B);
-        }
-
-        /// <summary>
-        /// The color to HSV.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        /// <param name="hue">The hue.</param>
-        /// <param name="saturation">The saturation.</param>
-        /// <param name="value">The value.</param>
-        /// <acknowledgment>
-        /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
-        /// </acknowledgment>
-        public static void ColorToHSV(this ARGB color, out double hue, out double saturation, out double value)
-        {
-            int max = Max(color.Red, Max(color.Green, color.Blue));
-            int min = Min(color.Red, Min(color.Green, color.Blue));
-
-            hue = color.GetHue();
-            saturation = (max == 0) ? 0 : 1d - (1d * min / max);
-            value = max / 255d;
+            return ((byte)r, (byte)g, (byte)b, (byte)a);
         }
 
         /// <summary>
@@ -494,11 +1261,13 @@ namespace Engine.Colorspace
         /// <param name="hue">The hue.</param>
         /// <param name="saturation">The saturation.</param>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="ARGB"/>.</returns>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="RGBA"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
         /// </acknowledgment>
-        public static ARGB ColorFromHSV(double hue, double saturation, double value)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) HSVAColorToRGBAColor2(double hue, double saturation, double value, double alpha)
         {
             var hi = Convert.ToInt32(Floor(hue / 60)) % 6;
             var f = hue / 60 - Floor(hue / 60);
@@ -508,26 +1277,33 @@ namespace Engine.Colorspace
             var p = Convert.ToByte(value * (1 - saturation));
             var q = Convert.ToByte(value * (1 - f * saturation));
             var t = Convert.ToByte(value * (1 - (1 - f) * saturation));
+            var a = Convert.ToByte((1d - alpha) * 255d + 0.5d);
 
-            if (hi == 0)
-                return new ARGB(255, v, t, p);
-            else if (hi == 1)
-                return new ARGB(255, q, v, p);
-            else if (hi == 2)
-                return new ARGB(255, p, v, t);
-            else if (hi == 3)
-                return new ARGB(255, p, q, v);
-            else if (hi == 4)
-                return new ARGB(255, t, p, v);
-            else
-                return new ARGB(255, v, p, q);
+            switch (hi)
+            {
+                case 0:
+                    return (v, t, p, a);
+                case 1:
+                    return (q, v, p, a);
+                case 2:
+                    return (p, v, t, a);
+                case 3:
+                    return (p, q, v, a);
+                case 4:
+                    return (t, p, v, a);
+                default:
+                    return (v, p, q, a);
+            }
         }
 
         /// <summary>
-        /// The ARG bto AHSV.
+        /// The AHS vto RGB.
         /// </summary>
-        /// <param name="color">The color.</param>
-        /// <returns>The <see cref="AHSV"/>.</returns>
+        /// <param name="hue">The h.</param>
+        /// <param name="saturation">The s.</param>
+        /// <param name="value">The v.</param>
+        /// <param name="alpha">The a.</param>
+        /// <returns>The <see cref="RGBA"/>.</returns>
         /// <remarks>
         /// h = [0,360], s = [0,1], v = [0,1]
         ///		if s == 0, then h = -1 (undefined)
@@ -535,16 +1311,422 @@ namespace Engine.Colorspace
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
         /// </acknowledgment>
-        public static AHSV? ARGBtoAHSV(ARGB color)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte red, byte green, byte blue, byte alpha) HSVAColorToRGBAColor(double hue, double saturation, double value, double alpha)
         {
-            var red = 1.0 - (color.Red / 255.0);
-            var green = 1.0 - (color.Green / 255.0);
-            var blue = 1.0 - (color.Blue / 255.0);
+            double a;
+            double r;
+            double g;
+            double b;
 
-            var min = Min(red, green);
-            min = Min(min, blue);
-            var max = Max(red, green);
-            max = Max(max, blue);
+            if (saturation == 0)
+            {
+                // achromatic (gray)
+                r = g = b = value;
+
+                a = (1d - alpha) * 255d + 0.5d;
+                r = (1d - r) * 255d + 0.5d;
+                g = (1d - g) * 255d + 0.5d;
+                b = (1d - b) * 255d + 0.5d;
+
+                return ((byte)r, (byte)g, (byte)b, (byte)a);
+            }
+
+            hue /= 60;            // sector 0 to 5
+            var i = (int)Floor(hue);
+            var f = hue - i;          // factorial part of h
+            var p = value * (1 - saturation);
+            var q = value * (1 - saturation * f);
+            var t = value * (1 - saturation * (1 - f));
+
+            switch (i)
+            {
+                case 0:
+                    r = value;
+                    g = t;
+                    b = p;
+                    break;
+                case 1:
+                    r = q;
+                    g = value;
+                    b = p;
+                    break;
+                case 2:
+                    r = p;
+                    g = value;
+                    b = t;
+                    break;
+                case 3:
+                    r = p;
+                    g = q;
+                    b = value;
+                    break;
+                case 4:
+                    r = t;
+                    g = p;
+                    b = value;
+                    break;
+                case 5:
+                default:
+                    r = value;
+                    g = p;
+                    b = q;
+                    break;
+            }
+
+            a = (1d - alpha) * 255d + 0.5d;
+            r = (1d - r) * 255d + 0.5d;
+            g = (1d - g) * 255d + 0.5d;
+            b = (1d - b) * 255d + 0.5d;
+
+            return ((byte)r, (byte)g, (byte)b, (byte)a);
+        }
+
+        /// <summary>
+        /// The rgb f create from yiq.
+        /// </summary>
+        /// <param name="y">The y.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double red, double green, double blue, double alpha) YIQAColorToRGBAFColor(double y, double i, double q, double alpha)
+        {
+            if (!ValidateYIQA(y, i, q, alpha))
+                throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            return (
+                red: y + 0.9563d * i + 0.6210d * q,
+                green: y - 0.2721d * i - 0.6474d * q,
+                blue: y - 1.1070d * i + 1.7046d * q,
+                alpha: alpha
+                );
+        }
+
+        /// <summary>
+        /// The rgb f create from yuv.
+        /// </summary>
+        /// <param name="y">The y.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double red, double green, double blue, double alpha) YUVAColorToRGBAFColor(double y, double u, double v, double alpha)
+        {
+            if (!ValidateYUVA(y, u, v, alpha))
+                throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            return (
+                red: y + 1.140d * v,
+                green: y - 0.395d * u - 0.581d * v,
+                blue: y + 2.032d * u,
+                alpha: alpha
+                );
+        }
+
+        /// <summary>
+        /// The hsi create from rgb.
+        /// </summary>
+        /// <param name="red">The r.</param>
+        /// <param name="green">The g.</param>
+        /// <param name="blue">The b.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double intensity, double alpha) RGBAColorToHSIAColor(byte red, byte green, byte blue, byte alpha)
+            => RGBAFColorToHSIAColor(red / 256d, green / 256d, blue / 256d, alpha / 256d);
+
+        /// <summary>
+        /// The hsi create from rgb f.
+        /// </summary>
+        /// <param name="red">The r.</param>
+        /// <param name="green">The g.</param>
+        /// <param name="blue">The b.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double intensity, double alpha) RGBAFColorToHSIAColor(double red, double green, double blue, double alpha)
+        {
+            (double hue, double saturation, double intensity, double alpha) color = (0d, 0d, 0d, alpha);
+            var m = Min(red, green, blue);
+            var M = Max(red, green, blue);
+            var c = M - m;
+            if (ValidateRGBAF(red, green, blue, alpha) == true)
+            {
+                color.intensity = (1d / 3d) * (red + green + blue);
+                if (c == 0)
+                {
+                    color.hue = 0d;
+                    color.saturation = 0d;
+                }
+                else
+                {
+                    if (M == red)
+                    {
+                        color.hue = IEEERemainder(((green - blue) / c), 6d);
+                    }
+                    else if (M == green)
+                    {
+                        color.hue = (blue - red) / c + 2d;
+                    }
+                    else if (M == blue)
+                    {
+                        color.hue = (red - green) / c + 4d;
+                    }
+                    color.hue *= 60d;
+                    color.saturation = 1d - (m / color.intensity);
+                }
+            }
+            return color;
+        }
+
+        /// <summary>
+        /// The hsi create from rgb f.
+        /// </summary>
+        /// <param name="red">The r.</param>
+        /// <param name="green">The g.</param>
+        /// <param name="blue">The b.</param>
+        /// <param name="alpha">The a.</param>
+        /// <returns>The <see cref="HSIA"/>.</returns>
+        /// <acknowledgment>
+        /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
+        /// https://github.com/dystopiancode/colorspace-conversions
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double intensity, double alpha) RGBAFColorToHSIAColor2(double red, double green, double blue, double alpha)
+        {
+            var m = Min(red, green);
+            m = Min(m, blue);
+            var M = Max(red, green);
+            M = Max(m, blue);
+            var c = M - m;
+
+            var i = (1d / 3d) * (red + green + blue);
+            double h = 0;
+            double s;
+            if (c == 0)
+            {
+                h = 0d;
+                s = 0d;
+            }
+            else
+            {
+                if (M == red)
+                    h = IEEERemainder(((green - blue) / c), 6d);
+                else if (M == green)
+                    h = (blue - red) / c + 2d;
+                else if (M == blue)
+                    h = (red - green) / c + 4d;
+                h *= 60d;
+                s = 1d - (m / i);
+            }
+
+            return (h, s, i, alpha);
+        }
+
+        /// <summary>
+        /// The RGB fto HSI v2.
+        /// </summary>
+        /// <param name="red">The r.</param>
+        /// <param name="green">The g.</param>
+        /// <param name="blue">The b.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="(double h, double s, double i)"/>.</returns>
+        /// <remarks>https://gist.github.com/rzhukov/9129585</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double intensity, double alpha) RGBAFColorToHSIAColor3(double red, double green, double blue, double alpha)
+        {
+            var i = (red + green + blue) / 3d;
+            var rn = red / (red + green + blue);
+            var gn = green / (red + green + blue);
+            var bn = blue / (red + green + blue);
+            var h = Acos((0.5d * ((rn - gn) + (rn - bn))) / (Sqrt((rn - gn) * (rn - gn) + (rn - bn) * (gn - bn))));
+            if (blue > green)
+            {
+                h = 2d * PI - h;
+            }
+            var s = 1d - 3d * Min(rn, gn, bn);
+            return (h, s, i, alpha);
+        }
+
+        /// <summary>
+        /// The hsl create from rgb f.
+        /// </summary>
+        /// <param name="red">The r.</param>
+        /// <param name="green">The g.</param>
+        /// <param name="blue">The b.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="(double hue, double saturation, double lumanance "/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double lumanance, double alpha) RGBAFColorToHSLAColor(double red, double green, double blue, double alpha)
+        {
+            (double hue, double saturation, double lumanance, double alpha) color = (0d, 0d, 0d, alpha);
+            if (ValidateRGBAF(red, green, blue, alpha) == true)
+            {
+                var M = Max(red, green, blue);
+                var m = Min(red, green, blue);
+                var c = M - m;
+                color.lumanance = 0.5d * (M + m);
+                if (c != 0d)
+                {
+                    if (M == red)
+                    {
+                        color.hue = IEEERemainder(((green - blue) / c), 6d);
+                    }
+                    else if (M == green)
+                    {
+                        color.hue = ((blue - red) / c) + 2d;
+                    }
+                    else/*if(M==b)*/
+                    {
+                        color.hue = ((red - green) / c) + 4d;
+                    }
+                    color.hue *= 60d;
+                    color.saturation = c / (1d - Abs(2d * color.lumanance - 1d));
+                }
+            }
+            return color;
+        }
+
+        /// <summary>
+        /// Given a Color (RGB class) in range of 0-255 Return H,S,L in range of 0-1
+        /// </summary>
+        /// <param name="alpha">Alpha value out.</param>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="luminance">Luminance value out.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double luminance, double alpha) RGBAColorToHSLAColor(double red, double green, double blue, double alpha)
+        {
+            var a = alpha / 255d;
+            var r = red / 255d;
+            var g = green / 255d;
+            var b = blue / 255d;
+            double vertexMin;
+
+            var h = 0d; // default to black
+            var s = 0d;
+            var l = 0d;
+            var vertex = Max(Max(r, g), b);
+            var min = Min(Min(r, g), b);
+            l = (min + vertex) / 2d;
+            if (l <= 0d)
+                return (h, s, l, a);
+
+            vertexMin = vertex - min;
+            s = vertexMin;
+            if (s > 0d)
+                s /= (l <= 0.5d) ? (vertex + min) : (2d - vertex - min);
+            else
+                return (h, s, l, a);
+
+            var red2 = (vertex - r) / vertexMin;
+            var green2 = (vertex - g) / vertexMin;
+            var blue2 = (vertex - b) / vertexMin;
+            if (r == vertex)
+                h = g == min ? 5d + blue2 : 1d - green2;
+            else h = g == vertex ? b == min ? 1d + red2 : 3d - blue2 : r == min ? 3d + green2 : 5d - red2;
+
+            h /= 6d;
+            return (h, s, l, a);
+        }
+
+        /// <summary>
+        /// The hsv create from rgb f.
+        /// </summary>
+        /// <param name="red">The r.</param>
+        /// <param name="green">The g.</param>
+        /// <param name="blue">The b.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="(double hue, double saturation, double value)"/>.</returns>
+        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double value, double alpha) RGBAFColorToHSVAColor(double red, double green, double blue, double alpha)
+        {
+            (double hue, double saturation, double value, double alpha) color = (0d, 0d, 0d, alpha);
+            if (ValidateRGBAF(red, green, blue, alpha) == true)
+            {
+                var M = Max(red, green, blue);
+                var m = Min(red, green, blue);
+                var c = M - m;
+                color.value = M;
+                if (c != 0d)
+                {
+                    if (M == red)
+                    {
+                        color.hue = IEEERemainder(((green - blue) / c), 6d);
+                    }
+                    else if (M == green)
+                    {
+                        color.hue = (blue - red) / c + 2d;
+                    }
+                    else /*if(M==b)*/
+                    {
+                        color.hue = (red - green) / c + 4d;
+                    }
+                    color.hue *= 60d;
+                    color.saturation = c / color.value;
+                }
+            }
+            return color;
+        }
+
+        /// <summary>
+        /// The color to HSV.
+        /// </summary>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/359612/how-to-change-rgb-color-to-hsv
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double value, double alpha) RGBAColorToHSVAColor(byte red, byte green, byte blue, byte alpha)
+        {
+            var max = Max(red, green, blue);
+            var min = Min(red, green, blue);
+
+            var hue = GetHue(red, green, blue);
+            var saturation = (max == 0) ? 0 : 1d - (1d * min / max);
+            var value = max / 255d;
+
+            return (hue, saturation, value, alpha / 255d);
+        }
+
+        /// <summary>
+        /// The ARG bto AHSV.
+        /// </summary>
+        /// <param name="red"></param>
+        /// <param name="green"></param>
+        /// <param name="blue"></param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="HSVA"/>.</returns>
+        /// <remarks>
+        /// h = [0,360], s = [0,1], v = [0,1]
+        ///		if s == 0, then h = -1 (undefined)
+        /// </remarks>
+        /// <acknowledgment>
+        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double hue, double saturation, double value, double alpha) RGBAColorToHSVAColor2(byte red, byte green, byte blue, byte alpha)
+        {
+            var a = 1d - (alpha / 255d);
+            var r = 1d - (red / 255d);
+            var g = 1d - (green / 255d);
+            var b = 1d - (blue / 255d);
+
+            var min = Min(r, g);
+            min = Min(min, b);
+            var max = Max(r, g);
+            max = Max(max, b);
             double h;
             double s;
             var v = max;               // v
@@ -558,233 +1740,69 @@ namespace Engine.Colorspace
                 // r = g = b = 0		// s = 0, v is undefined
                 s = 0;
                 h = -1;
-                return null;
+                return (h, s, v, a);
             }
 
-            if (red == max)
-                h = (green - blue) / delta;       // between yellow & magenta
-            else h = green == max ? 2 + (blue - red) / delta : 4 + (red - green) / delta;   // between magenta & cyan
+            if (r == max)
+                h = (g - b) / delta;       // between yellow & magenta
+            else h = g == max ? 2 + (b - r) / delta : 4 + (r - g) / delta;   // between magenta & cyan
             h *= 60;               // degrees
             if (h < 0)
                 h += 360;
-            return new AHSV(color.Alpha, h, s, v);
+            return (h, s, v, a);
         }
 
         /// <summary>
-        /// The AHS vto RGB.
+        /// The yiq create from rgb f.
         /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="h">The h.</param>
-        /// <param name="s">The s.</param>
-        /// <param name="v">The v.</param>
-        /// <returns>The <see cref="ARGB"/>.</returns>
+        /// <param name="red">The r.</param>
+        /// <param name="green">The g.</param>
+        /// <param name="blue">The b.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="(double luma, double inPhase, double quadrature)"/>.</returns>
         /// <remarks>
-        /// h = [0,360], s = [0,1], v = [0,1]
-        ///		if s == 0, then h = -1 (undefined)
+        /// https://github.com/dystopiancode/colorspace-conversions/
+        /// Correction from: https://stackoverflow.com/q/22131920
         /// </remarks>
-        /// <acknowledgment>
-        /// https://www.cs.rit.edu/~ncs/color/t_convert.html
-        /// </acknowledgment>
-        public static ARGB AHSVtoRGB(byte a, double h, double s, double v)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double y, double i, double q, double alpha) RGBAFColorToYIQAColor(double red, double green, double blue, double alpha)
         {
-            double r;
-            double g;
-            double b;
-            int i;
-            double f, p, q, t;
-            if (s == 0)
-            {
-                // achromatic (gray)
-                r = g = b = v;
-
-                r = (1.0 - r) * 255.0 + 0.5;
-                g = (1.0 - g) * 255.0 + 0.5;
-                b = (1.0 - b) * 255.0 + 0.5;
-
-                return new ARGB(a, (byte)r, (byte)g, (byte)b);
-            }
-
-            h /= 60;            // sector 0 to 5
-            i = (int)Floor(h);
-            f = h - i;          // factorial part of h
-            p = v * (1 - s);
-            q = v * (1 - s * f);
-            t = v * (1 - s * (1 - f));
-            switch (i)
-            {
-                case 0:
-                    r = v;
-                    g = t;
-                    b = p;
-                    break;
-                case 1:
-                    r = q;
-                    g = v;
-                    b = p;
-                    break;
-                case 2:
-                    r = p;
-                    g = v;
-                    b = t;
-                    break;
-                case 3:
-                    r = p;
-                    g = q;
-                    b = v;
-                    break;
-                case 4:
-                    r = t;
-                    g = p;
-                    b = v;
-                    break;
-                case 5:
-                default:
-                    r = v;
-                    g = p;
-                    b = q;
-                    break;
-            }
-
-            r = (1.0 - r) * 255.0 + 0.5;
-            g = (1.0 - g) * 255.0 + 0.5;
-            b = (1.0 - b) * 255.0 + 0.5;
-
-            return new ARGB(a, (byte)r, (byte)g, (byte)b);
+            if (!ValidateRGBAF(red, green, blue, alpha))
+                throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            return (
+                y: 0.299900d * red + 0.587000d * green + 0.114000d * blue,
+                i: 0.595716d * red - 0.274453d * green - 0.321264d * blue,
+                q: 0.211456d * red - 0.522591d * green + 0.311350d * blue,
+                alpha: alpha
+                );
         }
 
         /// <summary>
-        /// Function example takes H, S, I, and a pointer to the
-        /// in the calling function. After calling hsi2rgb
-        /// the vector RGB will contain red, green, and blue
-        /// calculated values.
+        /// The yuv create from rgb f.
         /// </summary>
-        /// <param name="color">The color.</param>
-        /// <returns>RGB color-space converted vector.</returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// http://blog.saikoled.com/post/44677718712/how-to-convert-from-hsi-to-rgb-white
-        /// </acknowledgment>
-        public static ARGB Hsi2rgb(AHSI color)
+        /// <param name="red">The r.</param>
+        /// <param name="green">The g.</param>
+        /// <param name="blue">The b.</param>
+        /// <param name="alpha"></param>
+        /// <returns>The <see cref="(double y, double u, double v)"/>.</returns>
+        /// <remarks>
+        /// https://github.com/dystopiancode/colorspace-conversions/
+        /// Correction found at: https://www.fourcc.org/fccyvrgb.php
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double y, double u, double v, double alpha) RGBAFColorToYUVAColor(double red, double green, double blue, double alpha)
         {
-            var H = color.Hue;
-            var S = color.Saturation;
-            var I = color.Intensity;
-
-            byte r, g, b;
-            H = IEEERemainder(H, 360); // cycle H around to 0-360 degrees
-            H = 3.14159 * H / (float)180; // Convert to radians.
-            S = S > 0 ? (S < 1 ? S : 1) : 0; // clamp S and I to interval [0,1]
-            I = I > 0 ? (I < 1 ? I : 1) : 0;
-
-            // Math! Thanks in part to Kyle Miller.
-            if (H < 2.09439)
-            {
-                r = (byte)(255 * I / 3 * (1 + S * Cos(H) / Cos(1.047196667 - H)));
-                g = (byte)(255 * I / 3 * (1 + S * (1 - Cos(H) / Cos(1.047196667 - H))));
-                b = (byte)(255 * I / 3 * (1 - S));
-            }
-            else if (H < 4.188787)
-            {
-                H -= 2.09439;
-                g = (byte)(255 * I / 3 * (1 + S * Cos(H) / Cos(1.047196667 - H)));
-                b = (byte)(255 * I / 3 * (1 + S * (1 - Cos(H) / Cos(1.047196667 - H))));
-                r = (byte)(255 * I / 3 * (1 - S));
-            }
-            else
-            {
-                H -= 4.188787;
-                b = (byte)(255 * I / 3 * (1 + S * Cos(H) / Cos(1.047196667 - H)));
-                r = (byte)(255 * I / 3 * (1 + S * (1 - Cos(H) / Cos(1.047196667 - H))));
-                g = (byte)(255 * I / 3 * (1 - S));
-            }
-
-            return new ARGB(color.Alpha, r, g, b);
+            if (!ValidateRGBAF(red, green, blue, alpha))
+                throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            var y = 0.299d * red + 0.587d * green + 0.114d * blue;
+            return (
+                y,
+                u: 0.492d * (blue - y), // u: 0.565 * (b - y),
+                v: 0.877d * (red - y), // v: 0.713d * (r - y)
+                alpha: alpha
+                );
         }
 
-        /// <summary>
-        /// The hsi create from rgb f.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="r">The r.</param>
-        /// <param name="g">The g.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="AHSI"/>.</returns>
-        /// <acknowledgment>
-        /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
-        /// https://github.com/dystopiancode/colorspace-conversions
-        /// </acknowledgment>
-        public static AHSI Hsi_CreateFromRgbF(byte a, double r, double g, double b)
-        {
-            var m = Min(r, g);
-            m = Min(m, b);
-            var M = Max(r, g);
-            M = Max(m, b);
-            var c = M - m;
-
-            var I = (1.0 / 3.0) * (r + g + b);
-            double H = 0;
-            double S;
-            if (c == 0)
-            {
-                H = 0.0;
-                S = 0.0;
-            }
-            else
-            {
-                if (M == r)
-                    H = IEEERemainder(((g - b) / c), 6.0);
-                else if (M == g)
-                    H = (b - r) / c + 2.0;
-                else if (M == b)
-                    H = (r - g) / c + 4.0;
-                H *= 60.0;
-                S = 1.0 - (m / I);
-            }
-
-            return new AHSI(a, H, S, I);
-        }
-
-        /// <summary>
-        /// The rgb f create from hsi.
-        /// </summary>
-        /// <param name="color">The color.</param>
-        /// <returns>The <see cref="ARGB"/>.</returns>
-        /// <acknowledgment>
-        /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
-        /// https://github.com/dystopiancode/colorspace-conversions
-        /// </acknowledgment>
-        public static ARGB RgbF_CreateFromHsi(AHSI color)
-        {
-            double R = 0;
-            double G = 0;
-            double B = 0;
-            var h = color.Hue;
-            var s = color.Saturation;
-            var i = color.Intensity;
-            const double HUE_UPPER_LIMIT = 360.0;
-
-            if (h >= 0.0 && h <= (HUE_UPPER_LIMIT / 3.0))
-            {
-                B = (1.0 / 3.0) * (1.0 - s);
-                R = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
-                G = 1.0 - (B + R);
-            }
-            else if (h > (HUE_UPPER_LIMIT / 3.0) && h <= (2.0 * HUE_UPPER_LIMIT / 3.0))
-            {
-                h -= (HUE_UPPER_LIMIT / 3.0);
-                R = (1.0 / 3.0) * (1.0 - s);
-                G = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
-                B = 1.0 - (G + R);
-            }
-            else /* h>240 h<360 */
-            {
-                h -= (2.0 * HUE_UPPER_LIMIT / 3.0);
-                G = (1.0 / 3.0) * (1.0 - s);
-                B = (1.0 / 3.0) * ((s * Cos(h)) / Cos(60.0 - h));
-                R = 1.0 - (G + B);
-            }
-
-            return new ARGB(color.Alpha, (byte)R, (byte)G, (byte)B);
-        }
+        #endregion
     }
 }

@@ -53,16 +53,16 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
-            var (A0, R0, G0, B0) = ToARGBTuple();
-            var (A1, R1, G1, B1) = other.ToARGBTuple();
-            return A0 == A1 && R0 == R1 && G0 == G1 && B0 == B1;
+            var (r0, g0, b0, a0) = ToRGBATuple();
+            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
 
         /// <summary>
-        /// The to ARGB tuple.
+        /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
-        public (byte A, byte R, byte G, byte B) ToARGBTuple() => throw new NotImplementedException();
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => throw new NotImplementedException();
 
         /// <summary>
         /// The to string.

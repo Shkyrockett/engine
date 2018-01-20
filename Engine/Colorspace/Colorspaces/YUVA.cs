@@ -1,4 +1,4 @@
-﻿// <copyright file="AYUV.cs" company="Shkyrockett" >
+﻿// <copyright file="YUVA.cs" company="Shkyrockett" >
 //     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -13,29 +13,23 @@ using System;
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// The AYUV struct.
+    /// The YUVA struct.
     /// </summary>
-    public struct AYUV
+    public struct YUVA
         : IColor
     {
         /// <summary>
-        /// The empty (readonly). Value: new AYUV().
+        /// The empty (readonly). Value: new YUVA().
         /// </summary>
-        public static readonly AYUV Empty = new AYUV();
-
-        ///// <summary>
-        ///// Initializes a new instance of the <see cref="AYUV"/> class.
-        ///// </summary>
-        //public AYUV()
-        //    : this(0, 0, 0, 0)
-        //{ }
+        public static readonly YUVA Empty = new YUVA();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AYUV"/> class.
         /// </summary>
         /// <param name="value">A standard color.</param>
-        public AYUV(ARGB value)
+        public YUVA(RGBA value)
         {
+            //() = Colorspaces.RGBAFColorToYUVAColor()
             Alpha = value.Alpha;
             Y = (byte)(0.299 * value.Red + 0.587 * value.Green + 0.114 * value.Blue);
             U = (byte)(-0.1687 * value.Red - 0.3313 * value.Green + 0.5 * value.Blue + 128);
@@ -43,23 +37,23 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AYUV"/> class.
+        /// Initializes a new instance of the <see cref="YUVA"/> class.
         /// </summary>
         /// <param name="y">Y color component.</param>
         /// <param name="u">U color component.</param>
         /// <param name="v">V color component.</param>
-        public AYUV(byte y, byte u, byte v)
-            : this(0, y, u, v)
+        public YUVA(byte y, byte u, byte v)
+            : this(y, u, v, 0)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AYUV"/> class.
+        /// Initializes a new instance of the <see cref="YUVA"/> class.
         /// </summary>
-        /// <param name="alpha">Alpha color component.</param>
         /// <param name="y">Y color component.</param>
         /// <param name="u">U color component.</param>
         /// <param name="v">V color component.</param>
-        public AYUV(byte alpha, byte y, byte u, byte v)
+        /// <param name="alpha">Alpha color component.</param>
+        public YUVA(byte y, byte u, byte v, byte alpha)
         {
             Y = y;
             U = u;
@@ -94,39 +88,40 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(IColor other)
         {
-            var a = ToARGBTuple();
-            var b = other.ToARGBTuple();
-            return a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
+            var (r0, g0, b0, a0) = ToRGBATuple();
+            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
 
         /// <summary>
         /// The to color.
         /// </summary>
-        /// <returns>The <see cref="ARGB"/>.</returns>
-        public ARGB ToColor()
-            => new ARGB(ToARGBTuple());
+        /// <returns>The <see cref="RGBA"/>.</returns>
+        public RGBA ToColor()
+            => new RGBA(ToRGBATuple());
 
         /// <summary>
         /// The to color rounded.
         /// </summary>
-        /// <returns>The <see cref="ARGB"/>.</returns>
-        public ARGB ToColorRounded()
+        /// <returns>The <see cref="RGBA"/>.</returns>
+        public RGBA ToColorRounded()
         {
             var r = (byte)(Y + 1.140 * V);
             var g = (byte)(Y - 0.395 * U - 0.581 * V);
             var b = (byte)(Y + 2.032 * U);
-            return new ARGB(Alpha, r, g, b);
+            return new RGBA(r, g, b, Alpha);
         }
 
         /// <summary>
-        /// The to ARGB tuple.
+        /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
-        public (byte A, byte R, byte G, byte B) ToARGBTuple()
-            => (Alpha,
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
+            => (
             (byte)(Y + 0 * U + 1.13983 * V),
             (byte)(Y + -0.39465 * U + -0.58060 * V),
-            (byte)(Y + -0.03211 * U + 0 * V));
+            (byte)(Y + -0.03211 * U + 0 * V),
+            Alpha);
 
         /// <summary>
         /// The to string.

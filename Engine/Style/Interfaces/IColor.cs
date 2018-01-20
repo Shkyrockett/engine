@@ -20,9 +20,9 @@ namespace Engine
         IEquatable<IColor>
     {
         /// <summary>
-        /// The to ARGB tuple.
+        /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="(byte A, byte R, byte G, byte B)"/>.</returns>
-        (byte A, byte R, byte G, byte B) ToARGBTuple();
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        (byte red, byte green, byte blue, byte alpha) ToRGBATuple();
     }
 }

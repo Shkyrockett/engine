@@ -20,7 +20,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// The color.
         /// </summary>
-        public static Dictionary<ARGB, string> Color = new Dictionary<ARGB, string>
+        public static Dictionary<RGBA, string> Color = new Dictionary<RGBA, string>
         {
             { Transparent, Transparent.Name },
             { AliceBlue, AliceBlue.Name },
@@ -167,706 +167,706 @@ namespace Engine.Colorspace
         /// <summary>
         /// Transparent
         /// </summary>
-        public static readonly ARGB Transparent = new ARGB(0x00FFFFFF, nameof(Transparent));
+        public static readonly RGBA Transparent = new RGBA(0x00FFFFFF, nameof(Transparent));
 
         /// <summary>
         /// Alice Blue
         /// </summary>
-        public static readonly ARGB AliceBlue = new ARGB(unchecked((int)0xFFF0F8FF), nameof(AliceBlue));
+        public static readonly RGBA AliceBlue = new RGBA(unchecked((int)0xFFF0F8FF), nameof(AliceBlue));
 
         /// <summary>
         /// Antique White
         /// </summary>
-        public static readonly ARGB AntiqueWhite = new ARGB(unchecked((int)0xFFFAEBD7), nameof(AntiqueWhite));
+        public static readonly RGBA AntiqueWhite = new RGBA(unchecked((int)0xFFFAEBD7), nameof(AntiqueWhite));
 
         /// <summary>
         /// Aqua
         /// </summary>
-        public static readonly ARGB Aqua = new ARGB(unchecked((int)0xFF00FFFF), nameof(Aqua));
+        public static readonly RGBA Aqua = new RGBA(unchecked((int)0xFF00FFFF), nameof(Aqua));
 
         /// <summary>
         /// Aquamarine
         /// </summary>
-        public static readonly ARGB Aquamarine = new ARGB(unchecked((int)0xFF7FFFD4), nameof(Aquamarine));
+        public static readonly RGBA Aquamarine = new RGBA(unchecked((int)0xFF7FFFD4), nameof(Aquamarine));
 
         /// <summary>
         /// Azure
         /// </summary>
-        public static readonly ARGB Azure = new ARGB(unchecked((int)0xFFF0FFFF), nameof(Azure));
+        public static readonly RGBA Azure = new RGBA(unchecked((int)0xFFF0FFFF), nameof(Azure));
 
         /// <summary>
         /// Beige
         /// </summary>
-        public static readonly ARGB Beige = new ARGB(unchecked((int)0xFFF5F5DC), nameof(Beige));
+        public static readonly RGBA Beige = new RGBA(unchecked((int)0xFFF5F5DC), nameof(Beige));
 
         /// <summary>
         /// Bisque
         /// </summary>
-        public static readonly ARGB Bisque = new ARGB(unchecked(unchecked((int)0xFFFFE4C4)), nameof(Bisque));
+        public static readonly RGBA Bisque = new RGBA(unchecked(unchecked((int)0xFFFFE4C4)), nameof(Bisque));
 
         /// <summary>
         /// Black
         /// </summary>
-        public static readonly ARGB Black = new ARGB(unchecked((int)0xFF000000), nameof(Black));
+        public static readonly RGBA Black = new RGBA(unchecked((int)0xFF000000), nameof(Black));
 
         /// <summary>
         /// Blanched Almond
         /// </summary>
-        public static readonly ARGB BlanchedAlmond = new ARGB(unchecked((int)0xFFFFEBCD), nameof(BlanchedAlmond));
+        public static readonly RGBA BlanchedAlmond = new RGBA(unchecked((int)0xFFFFEBCD), nameof(BlanchedAlmond));
 
         /// <summary>
         /// Blue
         /// </summary>
-        public static readonly ARGB Blue = new ARGB(unchecked((int)0xFF0000FF), nameof(Blue));
+        public static readonly RGBA Blue = new RGBA(unchecked((int)0xFF0000FF), nameof(Blue));
 
         /// <summary>
         /// Blue Violet
         /// </summary>
-        public static readonly ARGB BlueViolet = new ARGB(unchecked((int)0xFF8A2BE2), nameof(BlueViolet));
+        public static readonly RGBA BlueViolet = new RGBA(unchecked((int)0xFF8A2BE2), nameof(BlueViolet));
 
         /// <summary>
         /// Brown
         /// </summary>
-        public static readonly ARGB Brown = new ARGB(unchecked((int)0xFFA52A2A), nameof(Brown));
+        public static readonly RGBA Brown = new RGBA(unchecked((int)0xFFA52A2A), nameof(Brown));
 
         /// <summary>
         /// Burly Wood
         /// </summary>
-        public static readonly ARGB BurlyWood = new ARGB(unchecked((int)0xFFDEB887), nameof(BurlyWood));
+        public static readonly RGBA BurlyWood = new RGBA(unchecked((int)0xFFDEB887), nameof(BurlyWood));
 
         /// <summary>
         /// Cadet Blue
         /// </summary>
-        public static readonly ARGB CadetBlue = new ARGB(unchecked((int)0xFF5F9EA0), nameof(CadetBlue));
+        public static readonly RGBA CadetBlue = new RGBA(unchecked((int)0xFF5F9EA0), nameof(CadetBlue));
 
         /// <summary>
         /// Chartreuse
         /// </summary>
-        public static readonly ARGB Chartreuse = new ARGB(unchecked((int)0xFF7FFF00), nameof(Chartreuse));
+        public static readonly RGBA Chartreuse = new RGBA(unchecked((int)0xFF7FFF00), nameof(Chartreuse));
 
         /// <summary>
         /// Chocolate
         /// </summary>
-        public static readonly ARGB Chocolate = new ARGB(unchecked((int)0xFFD2691E), nameof(Chocolate));
+        public static readonly RGBA Chocolate = new RGBA(unchecked((int)0xFFD2691E), nameof(Chocolate));
 
         /// <summary>
         /// Coral
         /// </summary>
-        public static readonly ARGB Coral = new ARGB(unchecked((int)0xFFFF7F50), nameof(Coral));
+        public static readonly RGBA Coral = new RGBA(unchecked((int)0xFFFF7F50), nameof(Coral));
 
         /// <summary>
         /// Cornflower Blue
         /// </summary>
-        public static readonly ARGB CornflowerBlue = new ARGB(unchecked((int)0xFF6495ED), nameof(CornflowerBlue));
+        public static readonly RGBA CornflowerBlue = new RGBA(unchecked((int)0xFF6495ED), nameof(CornflowerBlue));
 
         /// <summary>
         /// Corn-silk
         /// </summary>
-        public static readonly ARGB Cornsilk = new ARGB(unchecked((int)0xFFFFF8DC), nameof(Cornsilk));
+        public static readonly RGBA Cornsilk = new RGBA(unchecked((int)0xFFFFF8DC), nameof(Cornsilk));
 
         /// <summary>
         /// Crimson
         /// </summary>
-        public static readonly ARGB Crimson = new ARGB(unchecked((int)0xFFDC143C), nameof(Crimson));
+        public static readonly RGBA Crimson = new RGBA(unchecked((int)0xFFDC143C), nameof(Crimson));
 
         /// <summary>
         /// Cyan
         /// </summary>
-        public static readonly ARGB Cyan = new ARGB(unchecked((int)0xFF00FFFF), nameof(Cyan));
+        public static readonly RGBA Cyan = new RGBA(unchecked((int)0xFF00FFFF), nameof(Cyan));
 
         /// <summary>
         /// Dark Blue
         /// </summary>
-        public static readonly ARGB DarkBlue = new ARGB(unchecked((int)0xFF00008B), nameof(DarkBlue));
+        public static readonly RGBA DarkBlue = new RGBA(unchecked((int)0xFF00008B), nameof(DarkBlue));
 
         /// <summary>
         /// Dark Cyan
         /// </summary>
-        public static readonly ARGB DarkCyan = new ARGB(unchecked((int)0xFF008B8B), nameof(DarkCyan));
+        public static readonly RGBA DarkCyan = new RGBA(unchecked((int)0xFF008B8B), nameof(DarkCyan));
 
         /// <summary>
         /// Dark Goldenrod
         /// </summary>
-        public static readonly ARGB DarkGoldenrod = new ARGB(unchecked((int)0xFFB8860B), nameof(DarkGoldenrod));
+        public static readonly RGBA DarkGoldenrod = new RGBA(unchecked((int)0xFFB8860B), nameof(DarkGoldenrod));
 
         /// <summary>
         /// Dark Gray
         /// </summary>
-        public static readonly ARGB DarkGray = new ARGB(unchecked((int)0xFFA9A9A9), nameof(DarkGray));
+        public static readonly RGBA DarkGray = new RGBA(unchecked((int)0xFFA9A9A9), nameof(DarkGray));
 
         /// <summary>
         /// Dark Green
         /// </summary>
-        public static readonly ARGB DarkGreen = new ARGB(unchecked((int)0xFF006400), nameof(DarkGreen));
+        public static readonly RGBA DarkGreen = new RGBA(unchecked((int)0xFF006400), nameof(DarkGreen));
 
         /// <summary>
         /// Dark Khaki
         /// </summary>
-        public static readonly ARGB DarkKhaki = new ARGB(unchecked((int)0xFFBDB76B), nameof(DarkKhaki));
+        public static readonly RGBA DarkKhaki = new RGBA(unchecked((int)0xFFBDB76B), nameof(DarkKhaki));
 
         /// <summary>
         /// Dark Magenta
         /// </summary>
-        public static readonly ARGB DarkMagenta = new ARGB(unchecked((int)0xFF8B008B), nameof(DarkMagenta));
+        public static readonly RGBA DarkMagenta = new RGBA(unchecked((int)0xFF8B008B), nameof(DarkMagenta));
 
         /// <summary>
         /// Dark Olive Green
         /// </summary>
-        public static readonly ARGB DarkOliveGreen = new ARGB(unchecked((int)0xFF556B2F), nameof(DarkOliveGreen));
+        public static readonly RGBA DarkOliveGreen = new RGBA(unchecked((int)0xFF556B2F), nameof(DarkOliveGreen));
 
         /// <summary>
         /// Dark Orange
         /// </summary>
-        public static readonly ARGB DarkOrange = new ARGB(unchecked((int)0xFFFF8C00), nameof(DarkOrange));
+        public static readonly RGBA DarkOrange = new RGBA(unchecked((int)0xFFFF8C00), nameof(DarkOrange));
 
         /// <summary>
         /// Dark Orchid
         /// </summary>
-        public static readonly ARGB DarkOrchid = new ARGB(unchecked((int)0xFF9932CC), nameof(DarkOrchid));
+        public static readonly RGBA DarkOrchid = new RGBA(unchecked((int)0xFF9932CC), nameof(DarkOrchid));
 
         /// <summary>
         /// Dark Red
         /// </summary>
-        public static readonly ARGB DarkRed = new ARGB(unchecked((int)0xFF8B0000), nameof(DarkRed));
+        public static readonly RGBA DarkRed = new RGBA(unchecked((int)0xFF8B0000), nameof(DarkRed));
 
         /// <summary>
         /// Dark Salmon
         /// </summary>
-        public static readonly ARGB DarkSalmon = new ARGB(unchecked((int)0xFFE9967A), nameof(DarkSalmon));
+        public static readonly RGBA DarkSalmon = new RGBA(unchecked((int)0xFFE9967A), nameof(DarkSalmon));
 
         /// <summary>
         /// Dark Sea Green
         /// </summary>
-        public static readonly ARGB DarkSeaGreen = new ARGB(unchecked((int)0xFF8FBC8B), nameof(DarkSeaGreen));
+        public static readonly RGBA DarkSeaGreen = new RGBA(unchecked((int)0xFF8FBC8B), nameof(DarkSeaGreen));
 
         /// <summary>
         /// Dark Slate Blue
         /// </summary>
-        public static readonly ARGB DarkSlateBlue = new ARGB(unchecked((int)0xFF483D8B), nameof(DarkSlateBlue));
+        public static readonly RGBA DarkSlateBlue = new RGBA(unchecked((int)0xFF483D8B), nameof(DarkSlateBlue));
 
         /// <summary>
         /// Dark Slate Gray
         /// </summary>
-        public static readonly ARGB DarkSlateGray = new ARGB(unchecked((int)0xFF2F4F4F), nameof(DarkSlateGray));
+        public static readonly RGBA DarkSlateGray = new RGBA(unchecked((int)0xFF2F4F4F), nameof(DarkSlateGray));
 
         /// <summary>
         /// Dark Turquoise
         /// </summary>
-        public static readonly ARGB DarkTurquoise = new ARGB(unchecked((int)0xFF00CED1), nameof(DarkTurquoise));
+        public static readonly RGBA DarkTurquoise = new RGBA(unchecked((int)0xFF00CED1), nameof(DarkTurquoise));
 
         /// <summary>
         /// Dark Violet
         /// </summary>
-        public static readonly ARGB DarkViolet = new ARGB(unchecked((int)0xFF9400D3), nameof(DarkViolet));
+        public static readonly RGBA DarkViolet = new RGBA(unchecked((int)0xFF9400D3), nameof(DarkViolet));
 
         /// <summary>
         /// Deep Pink
         /// </summary>
-        public static readonly ARGB DeepPink = new ARGB(unchecked((int)0xFFFF1493), nameof(DeepPink));
+        public static readonly RGBA DeepPink = new RGBA(unchecked((int)0xFFFF1493), nameof(DeepPink));
 
         /// <summary>
         /// Deep Sky Blue
         /// </summary>
-        public static readonly ARGB DeepSkyBlue = new ARGB(unchecked((int)0xFF00BFFF), nameof(DeepSkyBlue));
+        public static readonly RGBA DeepSkyBlue = new RGBA(unchecked((int)0xFF00BFFF), nameof(DeepSkyBlue));
 
         /// <summary>
         /// Dim Gray
         /// </summary>
-        public static readonly ARGB DimGray = new ARGB(unchecked((int)0xFF696969), nameof(DimGray));
+        public static readonly RGBA DimGray = new RGBA(unchecked((int)0xFF696969), nameof(DimGray));
 
         /// <summary>
         /// Dodger Blue
         /// </summary>
-        public static readonly ARGB DodgerBlue = new ARGB(unchecked((int)0xFF1E90FF), nameof(DodgerBlue));
+        public static readonly RGBA DodgerBlue = new RGBA(unchecked((int)0xFF1E90FF), nameof(DodgerBlue));
 
         /// <summary>
         /// Firebrick
         /// </summary>
-        public static readonly ARGB Firebrick = new ARGB(unchecked((int)0xFFB22222), nameof(Firebrick));
+        public static readonly RGBA Firebrick = new RGBA(unchecked((int)0xFFB22222), nameof(Firebrick));
 
         /// <summary>
         /// Floral White
         /// </summary>
-        public static readonly ARGB FloralWhite = new ARGB(unchecked((int)0xFFFFFAF0), nameof(FloralWhite));
+        public static readonly RGBA FloralWhite = new RGBA(unchecked((int)0xFFFFFAF0), nameof(FloralWhite));
 
         /// <summary>
         /// Forest Green
         /// </summary>
-        public static readonly ARGB ForestGreen = new ARGB(unchecked((int)0xFF228B22), nameof(ForestGreen));
+        public static readonly RGBA ForestGreen = new RGBA(unchecked((int)0xFF228B22), nameof(ForestGreen));
 
         /// <summary>
         /// Fuchsia
         /// </summary>
-        public static readonly ARGB Fuchsia = new ARGB(unchecked((int)0xFFFF00FF), nameof(Fuchsia));
+        public static readonly RGBA Fuchsia = new RGBA(unchecked((int)0xFFFF00FF), nameof(Fuchsia));
 
         /// <summary>
         /// Gainsboro
         /// </summary>
-        public static readonly ARGB Gainsboro = new ARGB(unchecked((int)0xFFDCDCDC), nameof(Gainsboro));
+        public static readonly RGBA Gainsboro = new RGBA(unchecked((int)0xFFDCDCDC), nameof(Gainsboro));
 
         /// <summary>
         /// Ghost White
         /// </summary>
-        public static readonly ARGB GhostWhite = new ARGB(unchecked((int)0xFFF8F8FF), nameof(GhostWhite));
+        public static readonly RGBA GhostWhite = new RGBA(unchecked((int)0xFFF8F8FF), nameof(GhostWhite));
 
         /// <summary>
         /// Gold
         /// </summary>
-        public static readonly ARGB Gold = new ARGB(unchecked((int)0xFFFFD700), nameof(Gold));
+        public static readonly RGBA Gold = new RGBA(unchecked((int)0xFFFFD700), nameof(Gold));
 
         /// <summary>
         /// Goldenrod
         /// </summary>
-        public static readonly ARGB Goldenrod = new ARGB(unchecked((int)0xFFDAA520), nameof(Goldenrod));
+        public static readonly RGBA Goldenrod = new RGBA(unchecked((int)0xFFDAA520), nameof(Goldenrod));
 
         /// <summary>
         /// Gray
         /// </summary>
-        public static readonly ARGB Gray = new ARGB(unchecked((int)0xFF808080), nameof(Gray));
+        public static readonly RGBA Gray = new RGBA(unchecked((int)0xFF808080), nameof(Gray));
 
         /// <summary>
         /// Green
         /// </summary>
-        public static readonly ARGB Green = new ARGB(unchecked((int)0xFF008000), nameof(Green));
+        public static readonly RGBA Green = new RGBA(unchecked((int)0xFF008000), nameof(Green));
 
         /// <summary>
         /// Green Yellow
         /// </summary>
-        public static readonly ARGB GreenYellow = new ARGB(unchecked((int)0xFFADFF2F), nameof(GreenYellow));
+        public static readonly RGBA GreenYellow = new RGBA(unchecked((int)0xFFADFF2F), nameof(GreenYellow));
 
         /// <summary>
         /// Honeydew
         /// </summary>
-        public static readonly ARGB Honeydew = new ARGB(unchecked((int)0xFFF0FFF0), nameof(Honeydew));
+        public static readonly RGBA Honeydew = new RGBA(unchecked((int)0xFFF0FFF0), nameof(Honeydew));
 
         /// <summary>
         /// Hot Pink
         /// </summary>
-        public static readonly ARGB HotPink = new ARGB(unchecked((int)0xFFFF69B4), nameof(HotPink));
+        public static readonly RGBA HotPink = new RGBA(unchecked((int)0xFFFF69B4), nameof(HotPink));
 
         /// <summary>
         /// Indian Red
         /// </summary>
-        public static readonly ARGB IndianRed = new ARGB(unchecked((int)0xFFCD5C5C), nameof(IndianRed));
+        public static readonly RGBA IndianRed = new RGBA(unchecked((int)0xFFCD5C5C), nameof(IndianRed));
 
         /// <summary>
         /// Indigo
         /// </summary>
-        public static readonly ARGB Indigo = new ARGB(unchecked((int)0xFF4B0082), nameof(Indigo));
+        public static readonly RGBA Indigo = new RGBA(unchecked((int)0xFF4B0082), nameof(Indigo));
 
         /// <summary>
         /// Ivory
         /// </summary>
-        public static readonly ARGB Ivory = new ARGB(unchecked((int)0xFFFFFFF0), nameof(Ivory));
+        public static readonly RGBA Ivory = new RGBA(unchecked((int)0xFFFFFFF0), nameof(Ivory));
 
         /// <summary>
         /// Khaki
         /// </summary>
-        public static readonly ARGB Khaki = new ARGB(unchecked((int)0xFFF0E68C), nameof(Khaki));
+        public static readonly RGBA Khaki = new RGBA(unchecked((int)0xFFF0E68C), nameof(Khaki));
 
         /// <summary>
         /// Lavender
         /// </summary>
-        public static readonly ARGB Lavender = new ARGB(unchecked((int)0xFFE6E6FA), nameof(Lavender));
+        public static readonly RGBA Lavender = new RGBA(unchecked((int)0xFFE6E6FA), nameof(Lavender));
 
         /// <summary>
         /// Lavender Blush
         /// </summary>
-        public static readonly ARGB LavenderBlush = new ARGB(unchecked((int)0xFFFFF0F5), nameof(LavenderBlush));
+        public static readonly RGBA LavenderBlush = new RGBA(unchecked((int)0xFFFFF0F5), nameof(LavenderBlush));
 
         /// <summary>
         /// Lawn Green
         /// </summary>
-        public static readonly ARGB LawnGreen = new ARGB(unchecked((int)0xFF7CFC00), nameof(LawnGreen));
+        public static readonly RGBA LawnGreen = new RGBA(unchecked((int)0xFF7CFC00), nameof(LawnGreen));
 
         /// <summary>
         /// Lemon Chiffon
         /// </summary>
-        public static readonly ARGB LemonChiffon = new ARGB(unchecked((int)0xFFFFFACD), nameof(LemonChiffon));
+        public static readonly RGBA LemonChiffon = new RGBA(unchecked((int)0xFFFFFACD), nameof(LemonChiffon));
 
         /// <summary>
         /// Light Blue
         /// </summary>
-        public static readonly ARGB LightBlue = new ARGB(unchecked((int)0xFFADD8E6), nameof(LightBlue));
+        public static readonly RGBA LightBlue = new RGBA(unchecked((int)0xFFADD8E6), nameof(LightBlue));
 
         /// <summary>
         /// Light Coral
         /// </summary>
-        public static readonly ARGB LightCoral = new ARGB(unchecked((int)0xFFF08080), nameof(LightCoral));
+        public static readonly RGBA LightCoral = new RGBA(unchecked((int)0xFFF08080), nameof(LightCoral));
 
         /// <summary>
         /// Light Cyan
         /// </summary>
-        public static readonly ARGB LightCyan = new ARGB(unchecked((int)0xFFE0FFFF), nameof(LightCyan));
+        public static readonly RGBA LightCyan = new RGBA(unchecked((int)0xFFE0FFFF), nameof(LightCyan));
 
         /// <summary>
         /// Light Goldenrod Yellow
         /// </summary>
-        public static readonly ARGB LightGoldenrodYellow = new ARGB(unchecked((int)0xFFFAFAD2), nameof(LightGoldenrodYellow));
+        public static readonly RGBA LightGoldenrodYellow = new RGBA(unchecked((int)0xFFFAFAD2), nameof(LightGoldenrodYellow));
 
         /// <summary>
         /// Light Green
         /// </summary>
-        public static readonly ARGB LightGreen = new ARGB(unchecked((int)0xFFD3D3D3), nameof(LightGreen));
+        public static readonly RGBA LightGreen = new RGBA(unchecked((int)0xFFD3D3D3), nameof(LightGreen));
 
         /// <summary>
         /// Light Gray
         /// </summary>
-        public static readonly ARGB LightGray = new ARGB(unchecked((int)0xFF90EE90), nameof(LightGray));
+        public static readonly RGBA LightGray = new RGBA(unchecked((int)0xFF90EE90), nameof(LightGray));
 
         /// <summary>
         /// Light Pink
         /// </summary>
-        public static readonly ARGB LightPink = new ARGB(unchecked((int)0xFFFFB6C1), nameof(LightPink));
+        public static readonly RGBA LightPink = new RGBA(unchecked((int)0xFFFFB6C1), nameof(LightPink));
 
         /// <summary>
         /// Light Salmon
         /// </summary>
-        public static readonly ARGB LightSalmon = new ARGB(unchecked((int)0xFFFFA07A), nameof(LightSalmon));
+        public static readonly RGBA LightSalmon = new RGBA(unchecked((int)0xFFFFA07A), nameof(LightSalmon));
 
         /// <summary>
         /// Light Sea Green
         /// </summary>
-        public static readonly ARGB LightSeaGreen = new ARGB(unchecked((int)0xFF20B2AA), nameof(LightSeaGreen));
+        public static readonly RGBA LightSeaGreen = new RGBA(unchecked((int)0xFF20B2AA), nameof(LightSeaGreen));
 
         /// <summary>
         /// Light Sky Blue
         /// </summary>
-        public static readonly ARGB LightSkyBlue = new ARGB(unchecked((int)0xFF87CEFA), nameof(LightSkyBlue));
+        public static readonly RGBA LightSkyBlue = new RGBA(unchecked((int)0xFF87CEFA), nameof(LightSkyBlue));
 
         /// <summary>
         /// Light Slate Gray
         /// </summary>
-        public static readonly ARGB LightSlateGray = new ARGB(unchecked((int)0xFF778899), nameof(LightSlateGray));
+        public static readonly RGBA LightSlateGray = new RGBA(unchecked((int)0xFF778899), nameof(LightSlateGray));
 
         /// <summary>
         /// Light Steel Blue
         /// </summary>
-        public static readonly ARGB LightSteelBlue = new ARGB(unchecked((int)0xFFB0C4DE), nameof(LightSteelBlue));
+        public static readonly RGBA LightSteelBlue = new RGBA(unchecked((int)0xFFB0C4DE), nameof(LightSteelBlue));
 
         /// <summary>
         /// Light Yellow
         /// </summary>
-        public static readonly ARGB LightYellow = new ARGB(unchecked((int)0xFFFFFFE0), nameof(LightYellow));
+        public static readonly RGBA LightYellow = new RGBA(unchecked((int)0xFFFFFFE0), nameof(LightYellow));
 
         /// <summary>
         /// Lime
         /// </summary>
-        public static readonly ARGB Lime = new ARGB(unchecked((int)0xFF00FF00), nameof(Lime));
+        public static readonly RGBA Lime = new RGBA(unchecked((int)0xFF00FF00), nameof(Lime));
 
         /// <summary>
         /// Lime Green
         /// </summary>
-        public static readonly ARGB LimeGreen = new ARGB(unchecked((int)0xFF32CD32), nameof(LimeGreen));
+        public static readonly RGBA LimeGreen = new RGBA(unchecked((int)0xFF32CD32), nameof(LimeGreen));
 
         /// <summary>
         /// Linen
         /// </summary>
-        public static readonly ARGB Linen = new ARGB(unchecked((int)0xFFFAF0E6), nameof(Linen));
+        public static readonly RGBA Linen = new RGBA(unchecked((int)0xFFFAF0E6), nameof(Linen));
 
         /// <summary>
         /// Magenta
         /// </summary>
-        public static readonly ARGB Magenta = new ARGB(unchecked((int)0xFFFF00FF), nameof(Magenta));
+        public static readonly RGBA Magenta = new RGBA(unchecked((int)0xFFFF00FF), nameof(Magenta));
 
         /// <summary>
         /// Maroon
         /// </summary>
-        public static readonly ARGB Maroon = new ARGB(unchecked((int)0xFF800000), nameof(Maroon));
+        public static readonly RGBA Maroon = new RGBA(unchecked((int)0xFF800000), nameof(Maroon));
 
         /// <summary>
         /// Medium Aquamarine
         /// </summary>
-        public static readonly ARGB MediumAquamarine = new ARGB(unchecked((int)0xFF66CDAA), nameof(MediumAquamarine));
+        public static readonly RGBA MediumAquamarine = new RGBA(unchecked((int)0xFF66CDAA), nameof(MediumAquamarine));
 
         /// <summary>
         /// Medium Blue
         /// </summary>
-        public static readonly ARGB MediumBlue = new ARGB(unchecked((int)0xFF0000CD), nameof(MediumBlue));
+        public static readonly RGBA MediumBlue = new RGBA(unchecked((int)0xFF0000CD), nameof(MediumBlue));
 
         /// <summary>
         /// Medium Orchid
         /// </summary>
-        public static readonly ARGB MediumOrchid = new ARGB(unchecked((int)0xFFBA55D3), nameof(MediumOrchid));
+        public static readonly RGBA MediumOrchid = new RGBA(unchecked((int)0xFFBA55D3), nameof(MediumOrchid));
 
         /// <summary>
         /// Medium Purple
         /// </summary>
-        public static readonly ARGB MediumPurple = new ARGB(unchecked((int)0xFF9370DB), nameof(MediumPurple));
+        public static readonly RGBA MediumPurple = new RGBA(unchecked((int)0xFF9370DB), nameof(MediumPurple));
 
         /// <summary>
         /// Medium Sea Green
         /// </summary>
-        public static readonly ARGB MediumSeaGreen = new ARGB(unchecked((int)0xFF3CB371), nameof(MediumSeaGreen));
+        public static readonly RGBA MediumSeaGreen = new RGBA(unchecked((int)0xFF3CB371), nameof(MediumSeaGreen));
 
         /// <summary>
         /// Medium Slate Blue
         /// </summary>
-        public static readonly ARGB MediumSlateBlue = new ARGB(unchecked((int)0xFF7B68EE), nameof(MediumSlateBlue));
+        public static readonly RGBA MediumSlateBlue = new RGBA(unchecked((int)0xFF7B68EE), nameof(MediumSlateBlue));
 
         /// <summary>
         /// Medium Spring Green
         /// </summary>
-        public static readonly ARGB MediumSpringGreen = new ARGB(unchecked((int)0xFF00FA9A), nameof(MediumSpringGreen));
+        public static readonly RGBA MediumSpringGreen = new RGBA(unchecked((int)0xFF00FA9A), nameof(MediumSpringGreen));
 
         /// <summary>
         /// Medium Turquoise
         /// </summary>
-        public static readonly ARGB MediumTurquoise = new ARGB(unchecked((int)0xFF48D1CC), nameof(MediumTurquoise));
+        public static readonly RGBA MediumTurquoise = new RGBA(unchecked((int)0xFF48D1CC), nameof(MediumTurquoise));
 
         /// <summary>
         /// Medium Violet Red
         /// </summary>
-        public static readonly ARGB MediumVioletRed = new ARGB(unchecked((int)0xFFC71585), nameof(MediumVioletRed));
+        public static readonly RGBA MediumVioletRed = new RGBA(unchecked((int)0xFFC71585), nameof(MediumVioletRed));
 
         /// <summary>
         /// Midnight Blue
         /// </summary>
-        public static readonly ARGB MidnightBlue = new ARGB(unchecked((int)0xFF191970), nameof(MidnightBlue));
+        public static readonly RGBA MidnightBlue = new RGBA(unchecked((int)0xFF191970), nameof(MidnightBlue));
 
         /// <summary>
         /// Mint Cream
         /// </summary>
-        public static readonly ARGB MintCream = new ARGB(unchecked((int)0xFFF5FFFA), nameof(MintCream));
+        public static readonly RGBA MintCream = new RGBA(unchecked((int)0xFFF5FFFA), nameof(MintCream));
 
         /// <summary>
         /// Misty Rose
         /// </summary>
-        public static readonly ARGB MistyRose = new ARGB(unchecked((int)0xFFFFE4E1), nameof(MistyRose));
+        public static readonly RGBA MistyRose = new RGBA(unchecked((int)0xFFFFE4E1), nameof(MistyRose));
 
         /// <summary>
         /// Moccasin
         /// </summary>
-        public static readonly ARGB Moccasin = new ARGB(unchecked((int)0xFFFFE4B5), nameof(Moccasin));
+        public static readonly RGBA Moccasin = new RGBA(unchecked((int)0xFFFFE4B5), nameof(Moccasin));
 
         /// <summary>
         /// Navajo White
         /// </summary>
-        public static readonly ARGB NavajoWhite = new ARGB(unchecked((int)0xFFFFDEAD), nameof(NavajoWhite));
+        public static readonly RGBA NavajoWhite = new RGBA(unchecked((int)0xFFFFDEAD), nameof(NavajoWhite));
 
         /// <summary>
         /// Navy
         /// </summary>
-        public static readonly ARGB Navy = new ARGB(unchecked((int)0xFF000080), nameof(Navy));
+        public static readonly RGBA Navy = new RGBA(unchecked((int)0xFF000080), nameof(Navy));
 
         /// <summary>
         /// Old Lace
         /// </summary>
-        public static readonly ARGB OldLace = new ARGB(unchecked((int)0xFFFDF5E6), nameof(OldLace));
+        public static readonly RGBA OldLace = new RGBA(unchecked((int)0xFFFDF5E6), nameof(OldLace));
 
         /// <summary>
         /// Olive
         /// </summary>
-        public static readonly ARGB Olive = new ARGB(unchecked((int)0xFF808000), nameof(Olive));
+        public static readonly RGBA Olive = new RGBA(unchecked((int)0xFF808000), nameof(Olive));
 
         /// <summary>
         /// Olive Drab
         /// </summary>
-        public static readonly ARGB OliveDrab = new ARGB(unchecked((int)0xFF6B8E23), nameof(OliveDrab));
+        public static readonly RGBA OliveDrab = new RGBA(unchecked((int)0xFF6B8E23), nameof(OliveDrab));
 
         /// <summary>
         /// Orange
         /// </summary>
-        public static readonly ARGB Orange = new ARGB(unchecked((int)0xFFFFA500), nameof(Orange));
+        public static readonly RGBA Orange = new RGBA(unchecked((int)0xFFFFA500), nameof(Orange));
 
         /// <summary>
         /// Orange Red
         /// </summary>
-        public static readonly ARGB OrangeRed = new ARGB(unchecked((int)0xFFFF4500), nameof(OrangeRed));
+        public static readonly RGBA OrangeRed = new RGBA(unchecked((int)0xFFFF4500), nameof(OrangeRed));
 
         /// <summary>
         /// Orchid
         /// </summary>
-        public static readonly ARGB Orchid = new ARGB(unchecked((int)0xFFDA70D6), nameof(Orchid));
+        public static readonly RGBA Orchid = new RGBA(unchecked((int)0xFFDA70D6), nameof(Orchid));
 
         /// <summary>
         /// Pale Goldenrod
         /// </summary>
-        public static readonly ARGB PaleGoldenrod = new ARGB(unchecked((int)0xFFEEE8AA), nameof(PaleGoldenrod));
+        public static readonly RGBA PaleGoldenrod = new RGBA(unchecked((int)0xFFEEE8AA), nameof(PaleGoldenrod));
 
         /// <summary>
         /// Pale Green
         /// </summary>
-        public static readonly ARGB PaleGreen = new ARGB(unchecked((int)0xFF98FB98), nameof(PaleGreen));
+        public static readonly RGBA PaleGreen = new RGBA(unchecked((int)0xFF98FB98), nameof(PaleGreen));
 
         /// <summary>
         /// PaleTurquoise
         /// </summary>
-        public static readonly ARGB PaleTurquoise = new ARGB(unchecked((int)0xFFAFEEEE), nameof(PaleTurquoise));
+        public static readonly RGBA PaleTurquoise = new RGBA(unchecked((int)0xFFAFEEEE), nameof(PaleTurquoise));
 
         /// <summary>
         /// Pale Violet Red
         /// </summary>
-        public static readonly ARGB PaleVioletRed = new ARGB(unchecked((int)0xFFDB7093), nameof(PaleVioletRed));
+        public static readonly RGBA PaleVioletRed = new RGBA(unchecked((int)0xFFDB7093), nameof(PaleVioletRed));
 
         /// <summary>
         /// Papaya Whip
         /// </summary>
-        public static readonly ARGB PapayaWhip = new ARGB(unchecked((int)0xFFFFEFD5), nameof(PapayaWhip));
+        public static readonly RGBA PapayaWhip = new RGBA(unchecked((int)0xFFFFEFD5), nameof(PapayaWhip));
 
         /// <summary>
         /// Peach Puff
         /// </summary>
-        public static readonly ARGB PeachPuff = new ARGB(unchecked((int)0xFFFFDAB9), nameof(PeachPuff));
+        public static readonly RGBA PeachPuff = new RGBA(unchecked((int)0xFFFFDAB9), nameof(PeachPuff));
 
         /// <summary>
         /// Peru
         /// </summary>
-        public static readonly ARGB Peru = new ARGB(unchecked((int)0xFFCD853F), nameof(Peru));
+        public static readonly RGBA Peru = new RGBA(unchecked((int)0xFFCD853F), nameof(Peru));
 
         /// <summary>
         /// Pink
         /// </summary>
-        public static readonly ARGB Pink = new ARGB(unchecked((int)0xFFFFC0CB), nameof(Pink));
+        public static readonly RGBA Pink = new RGBA(unchecked((int)0xFFFFC0CB), nameof(Pink));
 
         /// <summary>
         /// Plum
         /// </summary>
-        public static readonly ARGB Plum = new ARGB(unchecked((int)0xFFDDA0DD), nameof(Plum));
+        public static readonly RGBA Plum = new RGBA(unchecked((int)0xFFDDA0DD), nameof(Plum));
 
         /// <summary>
         /// Powder Blue
         /// </summary>
-        public static readonly ARGB PowderBlue = new ARGB(unchecked((int)0xFFB0E0E6), nameof(PowderBlue));
+        public static readonly RGBA PowderBlue = new RGBA(unchecked((int)0xFFB0E0E6), nameof(PowderBlue));
 
         /// <summary>
         /// Purple
         /// </summary>
-        public static readonly ARGB Purple = new ARGB(unchecked((int)0xFF800080), nameof(Purple));
+        public static readonly RGBA Purple = new RGBA(unchecked((int)0xFF800080), nameof(Purple));
 
         /// <summary>
         /// Red
         /// </summary>
-        public static readonly ARGB Red = new ARGB(unchecked((int)0xFFFF0000), nameof(Red));
+        public static readonly RGBA Red = new RGBA(unchecked((int)0xFFFF0000), nameof(Red));
 
         /// <summary>
         /// Rosy Brown
         /// </summary>
-        public static readonly ARGB RosyBrown = new ARGB(unchecked((int)0xFFBC8F8F), nameof(RosyBrown));
+        public static readonly RGBA RosyBrown = new RGBA(unchecked((int)0xFFBC8F8F), nameof(RosyBrown));
 
         /// <summary>
         /// Royal Blue
         /// </summary>
-        public static readonly ARGB RoyalBlue = new ARGB(unchecked((int)0xFF4169E1), nameof(RoyalBlue));
+        public static readonly RGBA RoyalBlue = new RGBA(unchecked((int)0xFF4169E1), nameof(RoyalBlue));
 
         /// <summary>
         /// Saddle Brown
         /// </summary>
-        public static readonly ARGB SaddleBrown = new ARGB(unchecked((int)0xFF8B4513), nameof(SaddleBrown));
+        public static readonly RGBA SaddleBrown = new RGBA(unchecked((int)0xFF8B4513), nameof(SaddleBrown));
 
         /// <summary>
         /// Salmon
         /// </summary>
-        public static readonly ARGB Salmon = new ARGB(unchecked((int)0xFFFA8072), nameof(Salmon));
+        public static readonly RGBA Salmon = new RGBA(unchecked((int)0xFFFA8072), nameof(Salmon));
 
         /// <summary>
         /// Sandy Brown
         /// </summary>
-        public static readonly ARGB SandyBrown = new ARGB(unchecked((int)0xFFF4A460), nameof(SandyBrown));
+        public static readonly RGBA SandyBrown = new RGBA(unchecked((int)0xFFF4A460), nameof(SandyBrown));
 
         /// <summary>
         /// Sea Green
         /// </summary>
-        public static readonly ARGB SeaGreen = new ARGB(unchecked((int)0xFF2E8B57), nameof(SeaGreen));
+        public static readonly RGBA SeaGreen = new RGBA(unchecked((int)0xFF2E8B57), nameof(SeaGreen));
 
         /// <summary>
         /// Sea Shell
         /// </summary>
-        public static readonly ARGB SeaShell = new ARGB(unchecked((int)0xFFFFF5EE), nameof(SeaShell));
+        public static readonly RGBA SeaShell = new RGBA(unchecked((int)0xFFFFF5EE), nameof(SeaShell));
 
         /// <summary>
         /// Sienna
         /// </summary>
-        public static readonly ARGB Sienna = new ARGB(unchecked((int)0xFFA0522D), nameof(Sienna));
+        public static readonly RGBA Sienna = new RGBA(unchecked((int)0xFFA0522D), nameof(Sienna));
 
         /// <summary>
         /// Silver
         /// </summary>
-        public static readonly ARGB Silver = new ARGB(unchecked((int)0xFFC0C0C0), nameof(Silver));
+        public static readonly RGBA Silver = new RGBA(unchecked((int)0xFFC0C0C0), nameof(Silver));
 
         /// <summary>
         /// Sky Blue
         /// </summary>
-        public static readonly ARGB SkyBlue = new ARGB(unchecked((int)0xFF87CEEB), nameof(SkyBlue));
+        public static readonly RGBA SkyBlue = new RGBA(unchecked((int)0xFF87CEEB), nameof(SkyBlue));
 
         /// <summary>
         /// Slate Blue
         /// </summary>
-        public static readonly ARGB SlateBlue = new ARGB(unchecked((int)0xFF6A5ACD), nameof(SlateBlue));
+        public static readonly RGBA SlateBlue = new RGBA(unchecked((int)0xFF6A5ACD), nameof(SlateBlue));
 
         /// <summary>
         /// Slate Gray
         /// </summary>
-        public static readonly ARGB SlateGray = new ARGB(unchecked((int)0xFF708090), nameof(SlateGray));
+        public static readonly RGBA SlateGray = new RGBA(unchecked((int)0xFF708090), nameof(SlateGray));
 
         /// <summary>
         /// Snow
         /// </summary>
-        public static readonly ARGB Snow = new ARGB(unchecked((int)0xFFFFFAFA), nameof(Snow));
+        public static readonly RGBA Snow = new RGBA(unchecked((int)0xFFFFFAFA), nameof(Snow));
 
         /// <summary>
         /// Spring Green
         /// </summary>
-        public static readonly ARGB SpringGreen = new ARGB(unchecked((int)0xFF00FF7F), nameof(SpringGreen));
+        public static readonly RGBA SpringGreen = new RGBA(unchecked((int)0xFF00FF7F), nameof(SpringGreen));
 
         /// <summary>
         /// Steel Blue
         /// </summary>
-        public static readonly ARGB SteelBlue = new ARGB(unchecked((int)0xFF4682B4), nameof(SteelBlue));
+        public static readonly RGBA SteelBlue = new RGBA(unchecked((int)0xFF4682B4), nameof(SteelBlue));
 
         /// <summary>
         /// Tan
         /// </summary>
-        public static readonly ARGB Tan = new ARGB(unchecked((int)0xFFD2B48C), nameof(Tan));
+        public static readonly RGBA Tan = new RGBA(unchecked((int)0xFFD2B48C), nameof(Tan));
 
         /// <summary>
         /// Teal
         /// </summary>
-        public static readonly ARGB Teal = new ARGB(unchecked((int)0xFF008080), nameof(Teal));
+        public static readonly RGBA Teal = new RGBA(unchecked((int)0xFF008080), nameof(Teal));
 
         /// <summary>
         /// Thistle
         /// </summary>
-        public static readonly ARGB Thistle = new ARGB(unchecked((int)0xFFD8BFD8), nameof(Thistle));
+        public static readonly RGBA Thistle = new RGBA(unchecked((int)0xFFD8BFD8), nameof(Thistle));
 
         /// <summary>
         /// Tomato
         /// </summary>
-        public static readonly ARGB Tomato = new ARGB(unchecked((int)0xFFFF6347), nameof(Tomato));
+        public static readonly RGBA Tomato = new RGBA(unchecked((int)0xFFFF6347), nameof(Tomato));
 
         /// <summary>
         /// Turquoise
         /// </summary>
-        public static readonly ARGB Turquoise = new ARGB(unchecked((int)0xFF40E0D0), nameof(Turquoise));
+        public static readonly RGBA Turquoise = new RGBA(unchecked((int)0xFF40E0D0), nameof(Turquoise));
 
         /// <summary>
         /// Violet
         /// </summary>
-        public static readonly ARGB Violet = new ARGB(unchecked((int)0xFFEE82EE), nameof(Violet));
+        public static readonly RGBA Violet = new RGBA(unchecked((int)0xFFEE82EE), nameof(Violet));
 
         /// <summary>
         /// Wheat
         /// </summary>
-        public static readonly ARGB Wheat = new ARGB(unchecked((int)0xFFF5DEB3), nameof(Wheat));
+        public static readonly RGBA Wheat = new RGBA(unchecked((int)0xFFF5DEB3), nameof(Wheat));
 
         /// <summary>
         /// White
         /// </summary>
-        public static readonly ARGB White = new ARGB(unchecked((int)0xFFFFFFFF), nameof(White));
+        public static readonly RGBA White = new RGBA(unchecked((int)0xFFFFFFFF), nameof(White));
 
         /// <summary>
         /// White Smoke
         /// </summary>
-        public static readonly ARGB WhiteSmoke = new ARGB(unchecked((int)0xFFF5F5F5), nameof(WhiteSmoke));
+        public static readonly RGBA WhiteSmoke = new RGBA(unchecked((int)0xFFF5F5F5), nameof(WhiteSmoke));
 
         /// <summary>
         /// Yellow
         /// </summary>
-        public static readonly ARGB Yellow = new ARGB(unchecked((int)0xFFFFFF00), nameof(Yellow));
+        public static readonly RGBA Yellow = new RGBA(unchecked((int)0xFFFFFF00), nameof(Yellow));
 
         /// <summary>
         /// Yellow Green
         /// </summary>
-        public static readonly ARGB YellowGreen = new ARGB(unchecked((int)0xFF9ACD32), nameof(YellowGreen));
+        public static readonly RGBA YellowGreen = new RGBA(unchecked((int)0xFF9ACD32), nameof(YellowGreen));
     }
 }

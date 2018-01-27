@@ -44,7 +44,7 @@ namespace Editor
 
             /* Experimental Previews */
 
-            EnvelopeWarp(vectorMap);
+            //EnvelopeWarp(vectorMap);
             //Clipper(vectorMap);
             //SelfIntersectingCubicBezier(vectorMap);
             //LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
@@ -79,6 +79,7 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
+            GridClick(vectorMap);
             //IntersectingsEllipseEllipse(vectorMap);
             //IntersectingsEllipseQuadraticSegment(vectorMap);
             //IntersectingsEllipseCubicSegment(vectorMap);
@@ -105,11 +106,11 @@ namespace Editor
             //QuadraticBezierPathFollow(vectorMap, form);
             //CubicBezierPathFollow(vectorMap, form);
             //PathFollow(vectorMap, form);
-            //Pathfinding(vectorMap, form);
             //ResizeRefreshBounds(vectorMap, canvasPanel, out boundaryItem);
             //Tweenning(vectorMap, form);
             //KaraokeBall(vectorMap, form);
             //Tweens(vectorMap);
+            //Pathfinding(vectorMap, form);
 
             //TrianglePointingRight(vectorMap);
             //PaperPlaneTriangles(vectorMap);
@@ -2801,6 +2802,27 @@ namespace Editor
         #endregion
 
         #region Regression Tests
+
+        /// <summary>
+        /// The grid click.
+        /// </summary>
+        /// <param name="vectorMap">The vectorMap.</param>
+        public static void GridClick(VectorMap vectorMap)
+        {
+            var count = 8;
+            var index = 1;
+            var rectangleGrid = new RectangleDCellGrid(50, 50, 350, 350, count);
+            for (var i = 0; i < count; i++)
+            {
+                vectorMap.Add(rectangleGrid[i], selectionStyle);
+            }
+
+            var parametricPointTesterRectangle = new ParametricPointTester(
+                (px, py) => rectangleGrid[(px, py)] == index ? Inclusion.Inside : Inclusion.Outside,
+                rectangleGrid.Bounds.X - 200, rectangleGrid.Bounds.Y - 200, rectangleGrid.Bounds.Right + 205, rectangleGrid.Bounds.Bottom + 205, 5, 5);
+            var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, handleStyle);
+            vectorMap.Add(parametricPointTesterRectangleItem);
+        }
 
         /// <summary>
         /// Development test cases for working on self intersection of Cubic Bezier methods.

@@ -27,22 +27,22 @@ namespace Engine
         #region Fields
 
         /// <summary>
-        /// 
+        /// The x.
         /// </summary>
         private double x;
 
         /// <summary>
-        /// 
+        /// The y.
         /// </summary>
         private double y;
 
         /// <summary>
-        /// 
+        /// The h.
         /// </summary>
         private double h;
 
         /// <summary>
-        /// 
+        /// The v.
         /// </summary>
         private double v;
 
@@ -56,7 +56,7 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="RectangleDCellGrid"/> class.
         /// </summary>
         public RectangleDCellGrid()
         { }
@@ -126,8 +126,14 @@ namespace Engine
                 if (!InnerBounds.Contains(location))
                     return -1;
 
+                var (cw, ch) = (CellSize.Width, CellSize.Height);
+                var (c, r) = (Columns, Rows);
+                var (bw, bh) = (c * cw, r * ch);
+                var (dx, dy) = (location.X - x, location.Y - y);
+
                 // Calculate the index of the item under the point location.
-                var value = (int)(((((location.Y - y) / CellSize.Height) % Rows) * Columns) + (((location.X - x) / CellSize.Width) % Columns));
+
+                var value = (int)((dx + c * dy) / cw);
 
                 // Return only valid cells.
                 return (value < count) ? value : -1;
@@ -145,7 +151,7 @@ namespace Engine
             get
             {
                 // ToDo: Implement flow orientation options.
-                var point = new Point2D(x + (index % Columns) * CellSize.Width, y + (index / Columns) * CellSize.Height);
+                var point = new Point2D(x + (index % Columns) * CellSize.Width, y + (index / Rows) * CellSize.Height);
                 return new Rectangle2D(point, CellSize);
             }
         }
@@ -239,28 +245,28 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double CellScale
-            => (double) CachingProperty(() => Min(h / Columns, v / Rows));
+            => (double)CachingProperty(() => Min(h / Columns, v / Rows));
 
         /// <summary>
         /// Gets the calculated optimum <see cref="Size2D"/> height and width of any cell in the grid.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Size2D CellSize
-            => (Size2D) CachingProperty(() => new Size2D(CellScale, CellScale));
+            => (Size2D)CachingProperty(() => new Size2D(CellScale, CellScale));
 
         /// <summary>
         /// Gets the inner-bounding <see cref="Rectangle2D"/> of the grid. 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Rectangle2D InnerBounds
-            => (Rectangle2D)CachingProperty(() => new Rectangle2D(new Point2D(x, y), new Size2D(Columns* CellSize.Width, Rows* CellSize.Height)));
+            => (Rectangle2D)CachingProperty(() => new Rectangle2D(new Point2D(x, y), new Size2D(Columns * CellSize.Width, Rows * CellSize.Height)));
 
         /// <summary>
         /// Gets the calculated optimum number of columns the grid can contain for its height and width.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Columns
-            => (int)CachingProperty(() => (int) Ceiling(Sqrt((h* count) / v)));
+            => (int)CachingProperty(() => (int)Ceiling(Sqrt((h * count) / v)));
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.

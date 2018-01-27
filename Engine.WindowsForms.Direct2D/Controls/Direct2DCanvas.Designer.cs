@@ -35,7 +35,7 @@ namespace Engine.Winforms.Direct2D
 
             if (disposing && (components != null))
             {
-                target.Dispose();
+                //target.Dispose();
                 components.Dispose();
             }
 

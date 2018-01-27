@@ -6340,10 +6340,12 @@ namespace MethodSpeedTester
         {
             internal bool GotEllipse1 = false;
             internal bool GotEllipse2 = false;
+
             /// <summary>
             /// The ellipse1.
             /// </summary>
             private Rectangle2D Ellipse1 = new Rectangle2D();
+
             /// <summary>
             /// The ellipse2.
             /// </summary>

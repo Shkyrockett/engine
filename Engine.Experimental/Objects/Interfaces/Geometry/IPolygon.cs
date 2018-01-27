@@ -10,6 +10,9 @@
 
 namespace Engine
 {
+    /// <summary>
+    /// The IPolygon interface.
+    /// </summary>
     internal interface IPolygon
     { }
 }

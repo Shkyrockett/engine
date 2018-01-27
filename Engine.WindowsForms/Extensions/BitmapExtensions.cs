@@ -39,6 +39,7 @@ namespace Engine.Imaging
             /// The bitmap (readonly).
             /// </summary>
             private readonly Bitmap bitmap;
+
             /// <summary>
             /// The data (readonly).
             /// </summary>

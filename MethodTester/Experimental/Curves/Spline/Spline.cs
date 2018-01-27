@@ -46,14 +46,17 @@ namespace Engine
         /// The curves.
         /// </summary>
         private List<CubicBezier> curves;
+
         /// <summary>
         /// The curves view.
         /// </summary>
         private ReadOnlyCollection<CubicBezier> curvesView;
+
         /// <summary>
         /// The arclen.
         /// </summary>
         private List<double> arclen;
+
         /// <summary>
         /// The samples per curve.
         /// </summary>

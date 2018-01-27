@@ -1,5 +1,5 @@
 ﻿// <copyright file="Tween.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2018 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -98,22 +98,22 @@ namespace Engine.Tweening
         /// <summary>
         /// The vars.
         /// </summary>
-        private List<GlideInfo> vars;
+        private List<MemberAccessor> vars;
 
         /// <summary>
         /// The lerpers.
         /// </summary>
-        private List<Lerper> lerpers;
-
-        /// <summary>
-        /// The end.
-        /// </summary>
-        private List<object> end;
+        private List<MemberLerper> lerpers;
 
         /// <summary>
         /// The start.
         /// </summary>
         private List<object> start;
+
+        /// <summary>
+        /// The end.
+        /// </summary>
+        private List<object> end;
 
         /// <summary>
         /// The var hash.
@@ -152,8 +152,8 @@ namespace Engine.Tweening
             firstUpdate = true;
 
             varHash = new Dictionary<string, int>();
-            vars = new List<GlideInfo>();
-            lerpers = new List<Lerper>();
+            vars = new List<MemberAccessor>();
+            lerpers = new List<MemberLerper>();
             start = new List<object>();
             end = new List<object>();
             behavior = LerpBehavior.None;
@@ -190,7 +190,7 @@ namespace Engine.Tweening
         /// <summary>
         /// The object this tween targets. Will be null if the tween represents a timer.
         /// </summary>
-        public object Target { get; }
+        public object Target { get; private set; }
 
         #endregion
 
@@ -201,7 +201,7 @@ namespace Engine.Tweening
         /// <param name="info">The info.</param>
         /// <param name="from">The from.</param>
         /// <param name="to">The to.</param>
-        internal void AddLerp(Lerper lerper, GlideInfo info, object from, object to)
+        internal void AddLerp(MemberLerper lerper, MemberAccessor info, object from, object to)
         {
             varHash.Add(info.MemberName, vars.Count);
             vars.Add(info);
@@ -238,7 +238,7 @@ namespace Engine.Tweening
                         return;
                 }
 
-                if (Abs(time) < Epsilon && timesRepeated == 0 && begin != null)
+                if (time == 0 && timesRepeated == 0 && begin != null)
                     begin();
 
                 time += elapsed;
@@ -282,7 +282,7 @@ namespace Engine.Tweening
 
                 //	If the timer is zero here, we just restarted.
                 //	If reflect mode is on, flip start to end
-                if (Abs(time) < Epsilon && behavior.HasFlag(LerpBehavior.Reflect))
+                if (time == 0 && behavior.HasFlag(LerpBehavior.Reflect))
                     Reverse();
 
                 update?.Invoke();
@@ -315,7 +315,7 @@ namespace Engine.Tweening
                 }
 
                 //	if we aren't tweening this value, just set it
-                var info = new GlideInfo(Target, property.Name, true)
+                var info = new MemberAccessor(Target, property.Name, true)
                 {
                     Value = propValue
                 };
@@ -342,10 +342,16 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween OnBegin(Action callback)
         {
-            if (begin == null)
-                begin = callback;
-            else
-                begin += callback;
+            switch (begin)
+            {
+                case null:
+                    begin = callback;
+                    break;
+                default:
+                    begin += callback;
+                    break;
+            }
+
             return this;
         }
 
@@ -357,10 +363,15 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween OnComplete(Action callback)
         {
-            if (complete == null)
-                complete = callback;
-            else
-                complete += callback;
+            switch (complete)
+            {
+                case null:
+                    complete = callback;
+                    break;
+                default:
+                    complete += callback;
+                    break;
+            }
             return this;
         }
 
@@ -371,10 +382,15 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween OnUpdate(Action callback)
         {
-            if (update == null)
-                update = callback;
-            else
-                update += callback;
+            switch (update)
+            {
+                case null:
+                    update = callback;
+                    break;
+                default:
+                    update += callback;
+                    break;
+            }
             return this;
         }
 

@@ -22,6 +22,7 @@ namespace Engine.Chrono
         /// The ip.
         /// </summary>
         private double ip;
+
         /// <summary>
         /// The ag.
         /// </summary>

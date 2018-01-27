@@ -10,6 +10,9 @@
 
 namespace Engine
 {
+    /// <summary>
+    /// The canvas class.
+    /// </summary>
     internal class Canvas
     { }
 }

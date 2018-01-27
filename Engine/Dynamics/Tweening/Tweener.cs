@@ -1,5 +1,5 @@
 ﻿// <copyright file="Tweener.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2018 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -24,7 +24,7 @@ namespace Engine.Tweening
         /// <summary>
         /// The tweens.
         /// </summary>
-        private Dictionary<object, List<Tween>> tweens;
+        private readonly Dictionary<object, List<Tween>> tweens;
 
         /// <summary>
         /// The to remove.
@@ -105,7 +105,7 @@ namespace Engine.Tweening
         /// <param name="propertyType">The type of the property to associate the given Lerper with.</param>
         public static void RegisterLerper<TLerper>(Type propertyType)
             where TLerper
-            : Lerper, new()
+            : MemberLerper, new()
             => RegisterLerper(typeof(TLerper), propertyType);
 
         /// <summary>
@@ -134,13 +134,15 @@ namespace Engine.Tweening
 
             // Prevent tweening on structs if you cheat by casting target as Object
             var targetType = target.GetType();
-            if (targetType.IsValueType) throw new Exception("Target of tween cannot be a struct!");
+            if (targetType.IsValueType)
+                throw new Exception("Target of tween cannot be a struct!");
 
             var tween = new Tween(target, duration, delay, this);
             toAdd.Add(tween);
 
             // valid in case of manual timer
-            if (dests == null) return tween;
+            if (dests == null)
+                return tween;
 
             var props = dests.GetType().GetProperties();
             for (var i = 0; i < props.Length; ++i)
@@ -152,8 +154,8 @@ namespace Engine.Tweening
                 }
 
                 var property = props[i];
-                var info = new GlideInfo(target, property.Name);
-                var to = new GlideInfo(dests, property.Name, false);
+                var info = new MemberAccessor(target, property.Name);
+                var to = new MemberAccessor(dests, property.Name, false);
                 var lerper = CreateLerper(info.MemberType);
 
                 tween.AddLerp(lerper, info, info.Value, to.Value);
@@ -197,7 +199,7 @@ namespace Engine.Tweening
         /// </summary>
         public void Pause()
         {
-            foreach (Tween tween in allTweens)
+            foreach (var tween in allTweens)
                 tween.Pause();
         }
 
@@ -206,7 +208,7 @@ namespace Engine.Tweening
         /// </summary>
         public void PauseToggle()
         {
-            foreach (Tween tween in allTweens)
+            foreach (var tween in allTweens)
                 tween.PauseToggle();
         }
 
@@ -215,7 +217,7 @@ namespace Engine.Tweening
         /// </summary>
         public void Resume()
         {
-            foreach (Tween tween in allTweens)
+            foreach (var tween in allTweens)
                 tween.Resume();
         }
 
@@ -225,7 +227,7 @@ namespace Engine.Tweening
         /// <param name="ticksElapsed">Seconds elapsed since last update.</param>
         public void Update(double ticksElapsed)
         {
-            foreach (Tween tween in allTweens)
+            foreach (var tween in allTweens)
                 tween.Update(ticksElapsed);
 
             AddAndRemove();
@@ -235,14 +237,14 @@ namespace Engine.Tweening
         /// Create the lerper.
         /// </summary>
         /// <param name="propertyType">The propertyType.</param>
-        /// <returns>The <see cref="Lerper"/>.</returns>
+        /// <returns>The <see cref="MemberLerper"/>.</returns>
         /// <exception cref="Exception"></exception>
-        private static Lerper CreateLerper(Type propertyType)
+        private static MemberLerper CreateLerper(Type propertyType)
         {
             if (!RegisteredLerpers.TryGetValue(propertyType, out var lerper))
-                throw new Exception($"No {nameof(Lerper)} found for type {propertyType.FullName}.");
+                throw new Exception($"No {nameof(MemberLerper)} found for type {propertyType.FullName}.");
 
-            return lerper.Invoke(null) as Lerper;
+            return lerper.Invoke(null) as MemberLerper;
         }
 
         /// <summary>
@@ -274,7 +276,8 @@ namespace Engine.Tweening
                 allTweens.Remove(tween);
 
                 // don't sort timers by target
-                if (tween.Target == null) continue;
+                if (tween.Target == null)
+                    continue;
                 if (tweens.TryGetValue(tween.Target, out var list))
                 {
                     list.Remove(tween);
@@ -313,7 +316,7 @@ namespace Engine.Tweening
         {
             if (tweens.TryGetValue(target, out var list))
             {
-                foreach (Tween tween in list)
+                foreach (var tween in list)
                     tween.Cancel(properties);
             }
         }
@@ -326,7 +329,7 @@ namespace Engine.Tweening
         {
             if (tweens.TryGetValue(target, out var list))
             {
-                foreach (Tween tween in list)
+                foreach (var tween in list)
                     tween.CancelAndComplete();
             }
         }
@@ -339,7 +342,7 @@ namespace Engine.Tweening
         {
             if (tweens.TryGetValue(target, out var list))
             {
-                foreach (Tween tween in list)
+                foreach (var tween in list)
                     tween.Pause();
             }
         }
@@ -352,7 +355,7 @@ namespace Engine.Tweening
         {
             if (tweens.TryGetValue(target, out var list))
             {
-                foreach (Tween tween in list)
+                foreach (var tween in list)
                     tween.PauseToggle();
             }
         }
@@ -365,7 +368,7 @@ namespace Engine.Tweening
         {
             if (tweens.TryGetValue(target, out var list))
             {
-                foreach (Tween tween in list)
+                foreach (var tween in list)
                     tween.Resume();
             }
         }

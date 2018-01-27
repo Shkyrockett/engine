@@ -10,6 +10,9 @@
 
 namespace Engine
 {
+    /// <summary>
+    /// The ITreeObject interface.
+    /// </summary>
     internal interface ITreeObject
     { }
 }

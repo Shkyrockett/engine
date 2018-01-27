@@ -1,5 +1,5 @@
 ﻿// <copyright file="Vector3Lerper.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2018 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -18,8 +18,10 @@ namespace Engine.Tweening
     /// The numeric lerper class.
     /// </summary>
     public class NumericLerper
-        : Lerper
+        : MemberLerper
     {
+        #region Fields
+
         /// <summary>
         /// The from.
         /// </summary>
@@ -34,6 +36,8 @@ namespace Engine.Tweening
         /// The range.
         /// </summary>
         private double range;
+
+        #endregion
 
         /// <summary>
         /// Initialize.
@@ -88,7 +92,8 @@ namespace Engine.Tweening
                     value *= Radian;
             }
 
-            if (behavior.HasFlag(LerpBehavior.Round)) value = Round(value);
+            if (behavior.HasFlag(LerpBehavior.Round))
+                value = Round(value);
 
             var type = currentValue.GetType();
             return Convert.ChangeType(value, type);

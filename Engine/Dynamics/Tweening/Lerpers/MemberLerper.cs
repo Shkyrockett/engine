@@ -1,5 +1,5 @@
 ﻿// <copyright file="Lerper.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2017 Jacob Albano. All rights reserved.
+//     Copyright © 2013 - 2018 Jacob Albano. All rights reserved.
 // </copyright>
 // <author id="jacobalbano">Jacob Albano</author>
 // <license>
@@ -11,9 +11,9 @@
 namespace Engine.Tweening
 {
     /// <summary>
-    /// The lerper class.
+    /// The base member lerper class for deriving other lerpers.
     /// </summary>
-    public abstract class Lerper
+    public abstract class MemberLerper
     {
         /// <summary>
         /// Initialize.

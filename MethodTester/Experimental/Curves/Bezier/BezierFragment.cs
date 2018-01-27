@@ -143,6 +143,7 @@ namespace Engine
             /// <param name="index"></param>
             /// <returns></returns>
             public Point2D this[int index] => values[index];
+
             /// <summary>
             /// 
             /// </summary>
@@ -153,6 +154,7 @@ namespace Engine
             /// </summary>
             /// <returns></returns>
             public IEnumerator<Point2D> GetEnumerator() => values.Cast<Point2D>().GetEnumerator();
+
             /// <summary>
             /// 
             /// </summary>

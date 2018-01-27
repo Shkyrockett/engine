@@ -22,33 +22,33 @@ namespace Engine.Winforms.Direct2D
     public partial class Direct2DCanvas
         : UserControl
     {
-        /// <summary>
-        /// Window Render target.
-        /// </summary>
-        private WindowRenderTarget target;
+        ///// <summary>
+        ///// Window Render target.
+        ///// </summary>
+        //private WindowRenderTarget target;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        SharpDX.Color color = SharpDX.Color.CornflowerBlue;
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //SharpDX.Color color = SharpDX.Color.CornflowerBlue;
 
         /// <summary>
         /// 
         /// </summary>
         public Direct2DCanvas()
         {
-            SetStyle(
-                ControlStyles.AllPaintingInWmPaint
-                | ControlStyles.Selectable
-                , true);
-            SetStyle(
-                ControlStyles.UserPaint // We will be doing all of our own painting.
-                | ControlStyles.SupportsTransparentBackColor
-                | ControlStyles.OptimizedDoubleBuffer
-                | ControlStyles.ResizeRedraw // We are doing our own repainting when the control is resized.
-                | ControlStyles.Opaque  // Let's let the parent paint, so we can have transparencies if needed.
-                , false);
-            InitializeComponent();
+            //SetStyle(
+            //    ControlStyles.AllPaintingInWmPaint
+            //    | ControlStyles.Selectable
+            //    , true);
+            //SetStyle(
+            //    ControlStyles.UserPaint // We will be doing all of our own painting.
+            //    | ControlStyles.SupportsTransparentBackColor
+            //    | ControlStyles.OptimizedDoubleBuffer
+            //    | ControlStyles.ResizeRedraw // We are doing our own repainting when the control is resized.
+            //    | ControlStyles.Opaque  // Let's let the parent paint, so we can have transparencies if needed.
+            //    , false);
+            //InitializeComponent();
         }
 
         /// <summary>
@@ -57,24 +57,24 @@ namespace Engine.Winforms.Direct2D
         /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
-            // Process other controls first.
-            base.WndProc(ref m);
+            //// Process other controls first.
+            //base.WndProc(ref m);
 
-            // Handle messages we want to customize.
-            switch ((WindowsMessages)m.Msg)
-            {
-                case WindowsMessages.WM_PAINT:
-                    // We are doing our own painting.
-                    Render();
-                    m.Result = (IntPtr)1;
-                    break;
-                case WindowsMessages.WM_ERASEBKGND:
-                    // We are ignoring EraseBackground since we are drawing it all ourselves.
-                    m.Result = (IntPtr)1;
-                    break;
-                default:
-                    break;
-            }
+            //// Handle messages we want to customize.
+            //switch ((WindowsMessages)m.Msg)
+            //{
+            //    case WindowsMessages.WM_PAINT:
+            //        // We are doing our own painting.
+            //        Render();
+            //        m.Result = (IntPtr)1;
+            //        break;
+            //    case WindowsMessages.WM_ERASEBKGND:
+            //        // We are ignoring EraseBackground since we are drawing it all ourselves.
+            //        m.Result = (IntPtr)1;
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         /// <summary>
@@ -84,20 +84,20 @@ namespace Engine.Winforms.Direct2D
         /// <param name="e"></param>
         private void Direct2DCanvas_Load(object sender, EventArgs e)
         {
-            // Get the changed object.
-            var panel = sender as Direct2DCanvas;
+            //// Get the changed object.
+            //var panel = sender as Direct2DCanvas;
 
-            // Create DirectX target
-            InitialiseTarget(panel.Width, panel.Height);
+            //// Create DirectX target
+            //InitialiseTarget(panel.Width, panel.Height);
 
-            // Initialize the world.
-            UpdateWorld();
+            //// Initialize the world.
+            //UpdateWorld();
 
-            // Set the number of ticks to refresh the world.
-            timer.Interval = 50;
+            //// Set the number of ticks to refresh the world.
+            //timer.Interval = 50;
 
-            // Start the world update timer if it isn't in design mode.
-            if (!DesignMode) timer.Start();
+            //// Start the world update timer if it isn't in design mode.
+            //if (!DesignMode) timer.Start();
         }
 
         /// <summary>
@@ -107,14 +107,14 @@ namespace Engine.Winforms.Direct2D
         /// <param name="e"></param>
         private void Direct2DCanvas_Resize(object sender, EventArgs e)
         {
-            // Get the changed object.
-            var panel = sender as Direct2DCanvas;
+            //// Get the changed object.
+            //var panel = sender as Direct2DCanvas;
 
-            // Update the resolution.
-            InitialiseTarget(panel.Width, panel.Height);
+            //// Update the resolution.
+            //InitialiseTarget(panel.Width, panel.Height);
 
-            //Invalidate and redraw the form http://stackoverflow.com/a/9827091
-            Update();
+            ////Invalidate and redraw the form http://stackoverflow.com/a/9827091
+            //Update();
         }
 
         /// <summary>
@@ -124,11 +124,11 @@ namespace Engine.Winforms.Direct2D
         /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // Process all changes to the world.
-            UpdateWorld();
+            //// Process all changes to the world.
+            //UpdateWorld();
 
-            // Now that the world has been updated it needs to be redrawn.
-            Invalidate();
+            //// Now that the world has been updated it needs to be redrawn.
+            //Invalidate();
         }
 
         /// <summary>
@@ -136,30 +136,30 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         public void Render()
         {
-            target?.BeginDraw();
+            //target?.BeginDraw();
 
-            target?.Clear(color);
+            //target?.Clear(color);
 
-            //int bandCount = bands.Length;
+            ////int bandCount = bands.Length;
 
-            //float bandWidth = (target.Size.Width + gap) / bandCount;
+            ////float bandWidth = (target.Size.Width + gap) / bandCount;
 
-            //int i = 0;
-            //foreach (var bandPercentage in bands)
-            //{
-            //    target.FillRectangle(new RectangleF()
-            //    {
-            //        Top = target.Size.Height * bandPercentage / 100,
-            //        Left = i * bandWidth,
-            //        Width = bandWidth - gap,
-            //        Bottom = target.Size.Height
-            //    }, bandBrush);
-            //    i++;
-            //}
+            ////int i = 0;
+            ////foreach (var bandPercentage in bands)
+            ////{
+            ////    target.FillRectangle(new RectangleF()
+            ////    {
+            ////        Top = target.Size.Height * bandPercentage / 100,
+            ////        Left = i * bandWidth,
+            ////        Width = bandWidth - gap,
+            ////        Bottom = target.Size.Height
+            ////    }, bandBrush);
+            ////    i++;
+            ////}
 
-            //target.DrawText("", TextFormat,)
+            ////target.DrawText("", TextFormat,)
 
-            target?.EndDraw();
+            //target?.EndDraw();
         }
 
         /// <summary>
@@ -196,9 +196,9 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         private void InitialiseTarget(int width, int height)
         {
-            if (target == null) CreateDxTarget(width, height);
-            target.Resize(new Size2(width, height));
-            CreateBandBrush();
+            //if (target == null) CreateDxTarget(width, height);
+            //target.Resize(new Size2(width, height));
+            //CreateBandBrush();
         }
 
         /// <summary>
@@ -206,24 +206,24 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         private void CreateDxTarget(int width, int height)
         {
-            var targetProperties = new RenderTargetProperties(
-                RenderTargetType.Default,
-                new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
-                0, 0,
-                RenderTargetUsage.None,
-                FeatureLevel.Level_10);
+            //var targetProperties = new RenderTargetProperties(
+            //    RenderTargetType.Default,
+            //    new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
+            //    0, 0,
+            //    RenderTargetUsage.None,
+            //    FeatureLevel.Level_10);
 
-            var windowProperties = new HwndRenderTargetProperties
-            {
-                Hwnd = Handle,
-                PixelSize = new Size2(width, height),
-                PresentOptions = PresentOptions.None
-            };
+            //var windowProperties = new HwndRenderTargetProperties
+            //{
+            //    Hwnd = Handle,
+            //    PixelSize = new Size2(width, height),
+            //    PresentOptions = PresentOptions.None
+            //};
 
-            using (var factory = new SharpDX.Direct2D1.Factory())
-            {
-                target = new WindowRenderTarget(factory, targetProperties, windowProperties);
-            }
+            //using (var factory = new SharpDX.Direct2D1.Factory())
+            //{
+            //    target = new WindowRenderTarget(factory, targetProperties, windowProperties);
+            //}
         }
 
         /// <summary>

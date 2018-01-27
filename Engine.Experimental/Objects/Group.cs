@@ -10,6 +10,9 @@
 
 namespace Engine
 {
+    /// <summary>
+    /// The group class.
+    /// </summary>
     internal class Group
     { }
 }

@@ -187,7 +187,7 @@ namespace Engine
             => true;
 
         /// <summary>
-        /// Get the hash code.
+        /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode()

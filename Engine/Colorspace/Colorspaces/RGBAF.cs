@@ -24,7 +24,7 @@ namespace Engine.Colorspace
         #region Implementations
 
         /// <summary>
-        /// The empty (readonly). Value: new ARGBF(0, 0, 0, 0).
+        /// The empty (readonly). Value: new RGBAF(0, 0, 0, 0).
         /// </summary>
         public static readonly RGBAF Empty = new RGBAF(0, 0, 0, 0);
 
@@ -65,9 +65,9 @@ namespace Engine.Colorspace
         /// <summary>
         /// Initializes a new instance of the <see cref="RGBAF"/> class.
         /// </summary>
-        /// <param name="tuple"><see cref="ValueTuple"/> representing the Alpha, Red, Green, and Blue components in an ARGB color.</param>
+        /// <param name="tuple"><see cref="ValueTuple"/> representing the Alpha, Red, Green, and Blue components in an RGBA color.</param>
         /// <param name="name">The name of the color.</param>
-        public RGBAF((double A, double R, double G, double B) tuple, string name = "")
+        public RGBAF((double R, double G, double B,double A ) tuple, string name = "")
             : this(tuple.R, tuple.G, tuple.B, tuple.A, name)
         { }
 
@@ -175,7 +175,7 @@ namespace Engine.Colorspace
         #region Standard Methods
 
         /// <summary>
-        /// Get the hash code.
+        /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]

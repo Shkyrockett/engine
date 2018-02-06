@@ -15,7 +15,7 @@ using System.Drawing.Drawing2D;
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    /// The renderer class.
     /// </summary>
     public static partial class Renderer
     {
@@ -49,12 +49,12 @@ namespace Engine.Imaging
         //}
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="shape"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this ParametricDelegateCurve shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -64,12 +64,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this ScreenPoint shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -77,14 +77,14 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="renderer"></param>
-        /// <param name="item"></param>
-        /// <param name="bounds"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this Ray shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -106,14 +106,14 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="renderer"></param>
-        /// <param name="item"></param>
-        /// <param name="bounds"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this Line shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -130,13 +130,13 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="renderer"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this LineSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -145,12 +145,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="shape"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this PolygonContour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -159,12 +159,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this Polyline shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -173,12 +173,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="set"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
+        /// <param name="set">The set.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this PolylineSet set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -190,12 +190,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="set"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
+        /// <param name="set">The set.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this Polygon set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -209,12 +209,14 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
+        /// <exception cref="NullReferenceException"></exception>
+        /// <exception cref="InvalidCastException"></exception>
         public static void Render(this PolycurveContour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -265,12 +267,14 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="set"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
+        /// <param name="set">The set.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
+        /// <exception cref="NullReferenceException"></exception>
+        /// <exception cref="InvalidCastException"></exception>
         public static void Render(this Polycurve set, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -324,13 +328,13 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="renderer"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this Rectangle2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -342,13 +346,13 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="renderer"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this Circle shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -359,12 +363,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this CircularArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -375,13 +379,13 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="renderer"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this Ellipse shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -394,12 +398,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this EllipticalArc shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -444,12 +448,12 @@ namespace Engine.Imaging
         //}
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this BezierSegment shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -476,13 +480,13 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="renderer"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this CubicBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
@@ -495,13 +499,13 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="renderer"></param>
-        /// <param name="item"></param>
-        /// <param name="shape"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this QuadraticBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;

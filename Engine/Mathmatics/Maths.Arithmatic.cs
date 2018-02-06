@@ -108,6 +108,7 @@ namespace Engine
         /// <param name="sourceM1x0"></param>
         /// <param name="sourceM1x1"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double, double, double, double) Negate(
             double sourceM0x0, double sourceM0x1,
             double sourceM1x0, double sourceM1x1)
@@ -129,6 +130,7 @@ namespace Engine
         /// <param name="sourceM2x1"></param>
         /// <param name="sourceM2x2"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double, double, double, double, double, double, double, double, double) Negate(
             double sourceM0x0, double sourceM0x1, double sourceM0x2,
             double sourceM1x0, double sourceM1x1, double sourceM1x2,
@@ -163,6 +165,7 @@ namespace Engine
         /// <param name="sourceM3x2"></param>
         /// <param name="sourceM3x3"></param>
         /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) Negate(
             double sourceM0x0, double sourceM0x1, double sourceM0x2, double sourceM0x3,
             double sourceM1x0, double sourceM1x1, double sourceM1x2, double sourceM1x3,

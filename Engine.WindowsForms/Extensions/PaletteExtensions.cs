@@ -117,7 +117,7 @@ namespace Engine.WindowsForms
             // Exit if data is not properly formated.
             if (palette?.Colors?.Count != 0)
             {
-                var grid = new RectangleCellGrid(bounds.ToRectangle2D(), palette.Colors.Count);
+                var grid = new RectangleDCellGrid(bounds.ToRectangle2D(), palette.Colors.Count);
 
                 // Calculate the index of the item under the point location.
                 value = grid[location.ToPoint2D()];

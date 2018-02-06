@@ -211,9 +211,9 @@ namespace Engine.File.Palettes
             => Colors.Clear();
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         public IEnumerator GetEnumerator()
             => (IEnumerator)Colors;
 
@@ -270,9 +270,9 @@ namespace Engine.File.Palettes
             => Colors.Sort();
 
         /// <summary>
-        /// 
+        /// Read the auto desk palette.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
         private void ReadAutoDeskPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.AutoDesk;
@@ -285,9 +285,9 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Read the adobe palette.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
         private void ReadAdobePalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.Adobe;
@@ -300,9 +300,12 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// http://www.selapa.net/swatches/colors/fileformats.php
+        /// Read the Corel palette.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
+        /// <remarks>
+        /// http://www.selapa.net/swatches/colors/fileformats.php
+        /// </remarks>
         private void ReadCorelPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.Corel;
@@ -400,9 +403,9 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Read the pal palette.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
         private void ReadPalPalette(Stream stream)
         {
             var startPossition = stream.Position;
@@ -426,10 +429,9 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Read the riff palette.
         /// </summary>
-        /// <param name="stream"></param>
-        /// <returns></returns>
+        /// <param name="stream">The stream.</param>
         private void ReadRiffPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.RiffPal;
@@ -462,9 +464,9 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Read the binary palette.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
         private void ReadBinaryPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.Binary;
@@ -486,9 +488,9 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Read the Jasc palette.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
         private void ReadJascPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.JascPal0100;
@@ -514,9 +516,9 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Read the text palette.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">The stream.</param>
         private void ReadTextPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.Text;
@@ -563,9 +565,9 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Write the riff palette.
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">The filename.</param>
         private void WriteRiffPalette(string filename)
         {
             // Calculate file length
@@ -597,9 +599,9 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Write the jasc palette.
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">The filename.</param>
         private void WriteJascPalette(string filename)
         {
             var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
@@ -621,9 +623,9 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Write the paint dot net palette.
         /// </summary>
-        /// <param name="filename"></param>
+        /// <param name="filename">The filename.</param>
         private void WritePaintDotNetPalette(string filename)
         {
             var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
@@ -645,10 +647,10 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// Check the extension support.
         /// </summary>
-        /// <param name="filepath"></param>
-        /// <returns></returns>
+        /// <param name="filepath">The filepath.</param>
+        /// <returns>The <see cref="PaletteFileExtensions"/>.</returns>
         private static PaletteFileExtensions CheckExtensionSupport(string filepath)
         {
             var format = PaletteFileExtensions.unknown;
@@ -658,17 +660,17 @@ namespace Engine.File.Palettes
         }
 
         /// <summary>
-        /// 
+        /// The lookup named color.
         /// </summary>
-        /// <param name="testColor"></param>
-        /// <returns></returns>
+        /// <param name="testColor">The testColor.</param>
+        /// <returns>The <see cref="RGBA"/>.</returns>
         private static RGBA LookupNamedColor(RGBA testColor)
         {
-            //var known = ColorSpace.Colors.Color[testColor];
+            //var known = testColor;
+            //if (Colorspace.Colors.Color.ContainsKey(testColor)) return Colorspace.Colors.Color.Keys.FirstOrDefault();
+            //    known = Colorspace.Colors.Color[testColor];
 
-            //if (ColorSpace.Colors.Color.ContainsKey(testColor)) return ColorSpace.Colors.Color.Keys.FirstOrDefault();
-
-            //ARGB known = (
+            //var known = (
             //            from prop in typeof(ARGB)
             //                .GetRuntimeProperties(BindingFlags.Public | BindingFlags.Static)
             //            where prop.PropertyType == typeof(ARGB)

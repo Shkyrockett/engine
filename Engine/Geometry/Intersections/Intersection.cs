@@ -201,7 +201,7 @@ namespace Engine
         #region Standard Class Methods
 
         /// <summary>
-        /// Get the hash code.
+        /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]

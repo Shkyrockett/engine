@@ -4,7 +4,7 @@ This document is not intended to state the law. Rather, it is intended as a guid
 
 For the most part, follow the standards for .NET libraries in [C# Coding Conventions (C# Programming Guide)](https://msdn.microsoft.com/en-us/library/ff926074.aspx). Visual Studio defaults fit these standards. The `Ctrl` + `k` + `CTRL` + `d` shortcut key combination are your best friend for beautifying code.
 
-This project is being written in C# 7.0. Which brings some interesting constructs into the language to do things that were previously impossible.
+This project is being written in C# 7.0.1 Which brings some interesting constructs into the language to do things that were previously impossible.
 
 In high level summary:
 
@@ -68,7 +68,7 @@ Code files should start with an XML copyright header like the following, to indi
 
 ```csharp
 // <copyright file="Filenme.cs" >
-//     Copyright © Year Copyright holder. All rights reserved.
+//     Copyright Â© Year Copyright holder. All rights reserved.
 // </copyright>
 // <author id="username">Author</author>
 // <license>
@@ -305,26 +305,26 @@ To standardize these specific methods throughout the Engine to work the same, pl
 If a struct/class can be generalized by a numeric tuple; please use a tuple constructor and explicit operator so you can take advantage of any existing methods with the same signature.
 
 ```csharp
-    public struct NumaricObject
+    public struct NumericObject
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NumaricObject"/> struct from a tuple.
+        /// Initializes a new instance of the <see cref="NumericObject"/> struct from a tuple.
         /// </summary>
-        /// <param name="tuple">A Tuple containing the values for this <see cref="NumaricObject"/>.</param>
+        /// <param name="tuple">A Tuple containing the values for this <see cref="NumericObject"/>.</param>
         [DebuggerStepThrough]
-        public NumaricObject((double A, double B, double C) tuple)
+        public NumericObject((double A, double B, double C) tuple)
             => (A, B, C) = tuple;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NumaricObject"/> struct from a tuple.
+        /// Initializes a new instance of the <see cref="NumericObject"/> struct from a tuple.
         /// </summary>
         /// <param name="a">The a parameter.</param>
         /// <param name="b">The b parameter.</param>
         /// <param name="c">The c parameter.</param>
         [DebuggerStepThrough]
-        public NumaricObject(double a, double b, double c)
+        public NumericObject(double a, double b, double c)
         {
             A = a;
             B = b;
@@ -362,13 +362,13 @@ If a struct/class can be generalized by a numeric tuple; please use a tuple cons
         #region Operators
 
         /// <summary>
-        /// Convert a tuple to a <see cref="NumaricObject"/> struct.
+        /// Convert a tuple to a <see cref="NumericObject"/> struct.
         /// </summary>
         /// <param name="tuple">The source Tuple.</param>
-        /// <returns>A new instance of the <see cref="NumaricObject"/> struct with the contents of the tuple.</returns>
+        /// <returns>A new instance of the <see cref="NumericObject"/> struct with the contents of the tuple.</returns>
         [DebuggerStepThrough]
-        public static implicit operator NumaricObject((double A, double B, double C) tuple)
-            => new NumaricObject(tuple);
+        public static implicit operator NumericObject((double A, double B, double C) tuple)
+            => new NumericObject(tuple);
 
         #endregion
     }
@@ -377,6 +377,8 @@ If a struct/class can be generalized by a numeric tuple; please use a tuple cons
 ### Equality Comparison
 
 To reduce the chance of errors in equality comparisons across various comparison operators, please use the following as a template for modeling Structs/Classes that need equality comparisons.
+
+If the Structs/Classes are also relational merge with the Relational Comparisons below, using the relational equivalents when there are duplicates.
 
 ```csharp
     public struct ComparableObject
@@ -393,12 +395,12 @@ To reduce the chance of errors in equality comparisons across various comparison
         #region Operators
 
         /// <summary>
-        /// Compares two <see cref="ComparableObject"/> instances for exact equality.
+        /// The == operator compares two <see cref="ComparableObject"/> instances for exact equality.
         /// </summary>
-        /// <param name="a">The first <see cref="ComparableObject"/> to compare</param>
-        /// <param name="b">The second <see cref="ComparableObject"/> to compare</param>
+        /// <param name="left">The first <see cref="ComparableObject"/> to compare</param>
+        /// <param name="right">The second <see cref="ComparableObject"/> to compare</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly equal.
+        /// Returns a boolean value indicating whether the two <see cref="ComparableObject"/> instances are exactly equal.
         /// The return value is true if they are equal, false otherwise.
         /// </returns>
         /// <remarks>
@@ -406,16 +408,16 @@ To reduce the chance of errors in equality comparisons across various comparison
         /// an exact comparison between two values which are logically equal may fail.
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </remarks>
-        public static bool operator ==(ComparableObject a, ComparableObject b)
-            => Equals(a, b);
+        public static bool operator ==(ComparableObject left, ComparableObject right)
+            => left.Equals(right);
 
         /// <summary>
-        /// Compares two <see cref="ComparableObject"/> instances for exact inequality.
+        /// The != operator compares two <see cref="ComparableObject"/> instances for exact inequality.
         /// </summary>
-        /// <param name="a">The first <see cref="ComparableObject"/> to compare</param>
-        /// <param name="b">The second <see cref="ComparableObject"/> to compare</param>
+        /// <param name="left">The first <see cref="ComparableObject"/> to compare</param>
+        /// <param name="right">The second <see cref="ComparableObject"/> to compare</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// Returns a boolean value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
@@ -423,8 +425,8 @@ To reduce the chance of errors in equality comparisons across various comparison
         /// an exact comparison between two values which are logically equal may fail.
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </remarks>
-        public static bool operator !=(ComparableObject a, ComparableObject b)
-            => !Equals(a, b);
+        public static bool operator !=(ComparableObject left, ComparableObject right)
+            => !left.Equals(right);
 
         #endregion
 
@@ -443,21 +445,21 @@ To reduce the chance of errors in equality comparisons across various comparison
         /// <summary>
         /// Compares two <see cref="ComparableObject"/> structs.
         /// </summary>
-        /// <param name="a">The object to comare.</param>
-        /// <param name="b">The object to compare against.</param>
+        /// <param name="left">The object to comare.</param>
+        /// <param name="right">The object to compare against.</param>
         /// <returns></returns>
         /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(ComparableObject a, ComparableObject b)
-            => Equals(a, b);
+        public static bool Compare(ComparableObject left, ComparableObject right)
+            => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="ComparableObject"/> instances for exact equality.
         /// </summary>
-        /// <param name="a">The first <see cref="ComparableObject"/> to compare</param>
-        /// <param name="b">The second <see cref="ComparableObject"/> to compare</param>
+        /// <param name="left">The first <see cref="ComparableObject"/> to compare</param>
+        /// <param name="right">The second <see cref="ComparableObject"/> to compare</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
@@ -466,17 +468,17 @@ To reduce the chance of errors in equality comparisons across various comparison
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(ComparableObject a, ComparableObject b)
-            => a?.A == b?.A
-             & a?.B == b?.B
-             & a?.C == b?.C;
+        public static bool Equals(ComparableObject left, ComparableObject right)
+            => left?.A == right?.A
+             & left?.B == right?.B
+             & left?.C == right?.C;
 
         /// <summary>
         /// Compares this <see cref="ComparableObject"/> with the passed in object.
         /// </summary>
         /// <param name="obj">The object to compare to this <see cref="ComparableObject"/> to.</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
@@ -493,7 +495,7 @@ To reduce the chance of errors in equality comparisons across various comparison
         /// </summary>
         /// <param name="value">The <see cref="ComparableObject"/> to compare to this <see cref="ComparableObject"/> to.</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
@@ -509,9 +511,187 @@ To reduce the chance of errors in equality comparisons across various comparison
     }
 ```
 
+### Relational Comparison
+
+To reduce the chance of errors in relational comparisons across various comparison operators, please use the following as a template for modeling Structs/Classes that need relational comparisons.
+
+If the Structs/Classes are also relational merge with the Equality Comparisons above, using the relational versions when there are duplicates.
+
+```csharp
+    public struct ComparableObject
+        : IComparable, IComparable<ComparableObject>
+    {
+        #region Properties
+
+        public double A { get; set; }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// The == operator compares two <see cref="ComparableObject"/> instances for exact equality.
+        /// </summary>
+        /// <param name="left">The first <see cref="ComparableObject"/> to compare</param>
+        /// <param name="right">The second <see cref="ComparableObject"/> to compare</param>
+        /// <returns>
+        /// Returns a boolean value indicating whether the two <see cref="ComparableObject"/> instances are exactly equal.
+        /// The return value is true if they are equal, false otherwise.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// </remarks>
+        public static bool operator ==(ComparableObject left, ComparableObject right)
+            => left.Equals(right);
+
+        /// <summary>
+        /// The != operator compares two <see cref="ComparableObject"/> instances for exact inequality.
+        /// </summary>
+        /// <param name="left">The first <see cref="ComparableObject"/> to compare</param>
+        /// <param name="right">The second <see cref="ComparableObject"/> to compare</param>
+        /// <returns>
+        /// Returns a boolean value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// The return value is true if they are unequal, false otherwise.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// </remarks>
+        public static bool operator !=(ComparableObject left, ComparableObject right)
+            => !left.Equals(right);
+
+        /// <summary>
+        /// The operator &lt; returns a value that indicates whether a specified <see cref="ComparableObject"/> value
+        /// is less than another specified <see cref="ComparableObject"/> value.
+        /// </summary>
+        /// <param name="left">The first <see cref="ComparableObject"/> to compare.</param>
+        /// <param name="right">The second <see cref="ComparableObject"/> to compare.</param>
+        /// <returns>Returns a boolean value indicating true if left is less than right; otherwise, false.</returns>
+        public static bool operator <(ComparableObject left, ComparableObject right)
+            => left.CompareTo(right) < 0;
+
+        /// <summary>
+        /// The operator &gt; returns a value that indicates whether a specified <see cref="ComparableObject"/> value
+        /// is greater than another specified <see cref="ComparableObject"/> value.
+        /// </summary>
+        /// <param name="left">The first <see cref="ComparableObject"/> to compare.</param>
+        /// <param name="right">The second <see cref="ComparableObject"/> to compare.</param>
+        /// <returns>Returns a boolean value indicating true if left is greater than right; otherwise, false.</returns>
+        public static bool operator >(ComparableObject left, ComparableObject right)
+            => left.CompareTo(right) > 0;
+
+        /// <summary>
+        /// The &lt;= operator returns a value that indicates whether a specified <see cref="ComparableObject"/> value
+        /// is less than or equal to another specified <see cref="ComparableObject"/> value.
+        /// </summary>
+        /// <param name="left">The first <see cref="ComparableObject"/> to compare.</param>
+        /// <param name="right">The second <see cref="ComparableObject"/> to compare.</param>
+        /// <returns>Returns a boolean value indicating true if left is less than or equal to right; otherwise, false.</returns>
+        public static bool operator <=(ComparableObject left, ComparableObject right)
+            => left.CompareTo(right) <= 0;
+
+        /// <summary>
+        /// The &gt;= operator returns a value that indicates whether a specified <see cref="ComparableObject"/> value
+        /// is greater than or equal to another specified <see cref="ComparableObject"/> value.
+        /// </summary>
+        /// <param name="left">The first <see cref="ComparableObject"/> to compare.</param>
+        /// <param name="right">The second <see cref="ComparableObject"/> to compare.</param>
+        /// <returns>Returns a boolean value indicating true if left is greater than or equal to right; otherwise, false.</returns>
+        public static bool operator >=(ComparableObject left, ComparableObject right)
+            => left.CompareTo(right) >= 0;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>Returns a 32-bit signed integer hash code.</returns>
+        public override int GetHashCode()
+            => base.GetHashCode();
+
+        /// <summary>
+        /// Compares this <see cref="ComparableObject"/> with the passed in object.
+        /// </summary>
+        /// <param name="obj">The object to compare to this <see cref="ComparableObject"/> to.</param>
+        /// <returns>
+        /// A boolean value indicating whether the two <see cref="ComparableObject"/> instances are exactly unequal.
+        /// The return value is true if they are unequal, false otherwise.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// </remarks>
+        public override bool Equals(object obj)
+            => obj is ComparableObject && CompareTo((ComparableObject)obj) == 0;
+
+        /// <summary>
+        /// Compares this <see cref="ComparableObject"/> to another object, returning a value indicating the relation.
+        /// Null is considered less than any instance.
+        /// If object is not of type <see cref="ComparableObject"/>, this method throws an ArgumentException.
+        /// </summary>
+        /// <param name="other">The object to compare to this <see cref="ComparableObject"/> to.</param>
+        /// <returns>
+        /// Returns an <see cref="int"/> value less than zero if this <see cref="ComparableObject"/> is less than the object,
+        /// zero if this <see cref="ComparableObject"/> is the same value as the object, or a value greater than zero if this
+        /// <see cref="ComparableObject"/> is greater than the object.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public int CompareTo(object other)
+            => other is null ? 1 : other is ComparableObject ? CompareTo((ComparableObject)other) : throw new ArgumentException("Object must be an ComparableObject.", nameof(other));
+
+        /// <summary>
+        /// Compares this <see cref="ComparableObject"/> to another <see cref="ComparableObject"/>, returning a value indicating the relation.
+        /// Null is considered less than any instance.
+        /// </summary>
+        /// <param name="other">The <see cref="ComparableObject"/> to compare to this <see cref="ComparableObject"/> to.</param>
+        /// <returns>
+        /// Returns an <see cref="int"/> value less than zero if this <see cref="ComparableObject"/> is less than the other <see cref="ComparableObject"/>,
+        /// zero if this <see cref="ComparableObject"/> is the same value as the other <see cref="ComparableObject"/>, or a value greater than zero if this
+        /// <see cref="ComparableObject"/> is greater than the other <see cref="ComparableObject"/>.
+        /// </returns>
+        /// <remarks>
+        /// Note that double values can acquire error when operated upon, such that
+        /// an exact comparison between two values which are logically equal may fail.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// </remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public int CompareTo(ComparableObject other)
+            => Compare(this, other);
+
+        /// <summary>
+        /// Compares two <see cref="ComparableObject"/> objects, returning a value indicating the relation.
+        /// Null is considered less than any instance.
+        /// </summary>
+        /// <param name="left">The <see cref="ComparableObject"/> to compare.</param>
+        /// <param name="right">The <see cref="ComparableObject"/> to compare against.</param>
+        /// <returns>
+        /// Returns an <see cref="int"/> value less than zero if the left <see cref="ComparableObject"/> is less than the right <see cref="ComparableObject"/>,
+        /// zero if the left <see cref="ComparableObject"/> is the same value as the right <see cref="ComparableObject"/>, or a value greater than zero if the left
+        /// <see cref="ComparableObject"/> is greater than the right <see cref="ComparableObject"/>.
+        /// </returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int Compare(ComparableObject left, ComparableObject right)
+            => right.A.CompareTo(left.A);
+
+        #endregion
+    }
+```
+
 ### IFormattable
 
-Please use the following as a template for IFormatable Structs/Classes, or objects that need to provide a string representation of the self.
+Please use the following as a template for IFormatable Structs/Classes, or objects that need to provide a string representation of the object.
 
 ```csharp
     public struct FormatableObject

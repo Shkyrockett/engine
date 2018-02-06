@@ -138,7 +138,18 @@ namespace Editor
         {
             SetStyle(ControlStyles.ResizeRedraw, true);
 
-            paletteToolStripItem1.PaletteControl.Palette = new Palette(new RGBA[] { Color.Black.ToARGB(), Color.White.ToARGB(), Color.Red.ToARGB(), Color.Green.ToARGB(), Color.Blue.ToARGB() });
+            paletteToolStripItem1.PaletteControl.Palette = new Palette(new RGBA[] {
+                Colors.Black,
+                Colors.White,
+                Colors.Red,
+                Colors.Orange,
+                Colors.Yellow,
+                Colors.Green,
+                Colors.Cyan,
+                Colors.Blue,
+                Colors.Purple,
+                Colors.Magenta
+            });
 
             vectorMap.Tweener = tweener;
             toolStack = new ToolStack(vectorMap);
@@ -422,7 +433,7 @@ namespace Editor
         /// <param name="e">The event arguments.</param>
         private void SaveToolStripMenuItem_Click(Object sender, EventArgs e)
         {
-            if (vectorFilename == String.Empty)
+            if ((vectorFilename != null) && (vectorFilename == String.Empty))
             {
                 SaveAs(vectorFilename);
             }

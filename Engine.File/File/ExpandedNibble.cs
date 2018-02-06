@@ -104,7 +104,7 @@ namespace Engine.File
             => $"HighNibble: {HighNibble.ToString(CultureInfo.InvariantCulture)} LowNibble: {LowNibble.ToString(CultureInfo.InvariantCulture)}";
 
         /// <summary>
-        /// Get the hash code.
+        /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode()

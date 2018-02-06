@@ -22,7 +22,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The point2d struct.
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
@@ -448,9 +448,9 @@ namespace Engine
         #region Methods
 
         /// <summary>
-        ///
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
@@ -458,52 +458,51 @@ namespace Engine
             ^ Y.GetHashCode();
 
         /// <summary>
-        /// Compares two Vectors
+        /// The compare.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Point2D a, Point2D b)
             => Equals(a, b);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Point2D a, Point2D b)
             => (a.X == b.X) & (a.Y == b.Y);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Point2D && Equals(this, (Point2D)obj);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Point2D value)
             => Equals(this, value);
 
         /// <summary>
-        /// 
+        /// Clone.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         internal Point2D Clone()
             => new Point2D(X, Y);
 

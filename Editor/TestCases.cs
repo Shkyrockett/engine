@@ -45,7 +45,7 @@ namespace Editor
             /* Experimental Previews */
 
             //EnvelopeWarp(vectorMap);
-            //Clipper(vectorMap);
+            Clipper(vectorMap);
             //SelfIntersectingCubicBezier(vectorMap);
             //LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
             //NearestPoint(vectorMap, form, metrics);
@@ -79,7 +79,7 @@ namespace Editor
             //GridTests(vectorMap, foreColor, backColor);
 
             /* Regression Test Cases */
-            GridClick(vectorMap);
+            //GridHitTest(vectorMap);
             //IntersectingsEllipseEllipse(vectorMap);
             //IntersectingsEllipseQuadraticSegment(vectorMap);
             //IntersectingsEllipseCubicSegment(vectorMap);
@@ -2807,20 +2807,24 @@ namespace Editor
         /// The grid click.
         /// </summary>
         /// <param name="vectorMap">The vectorMap.</param>
-        public static void GridClick(VectorMap vectorMap)
+        public static void GridHitTest(VectorMap vectorMap)
         {
-            var count = 8;
-            var index = 1;
+            var count = 40;
+            var index = 6;
             var rectangleGrid = new RectangleDCellGrid(50, 50, 350, 350, count);
             for (var i = 0; i < count; i++)
             {
-                vectorMap.Add(rectangleGrid[i], selectionStyle);
+                var cell = new GraphicItem(rectangleGrid[i], solidLightBlueStyle)
+                {
+                    Name = $"Cell {i}"
+                };
+                vectorMap.Add(cell);
             }
 
             var parametricPointTesterRectangle = new ParametricPointTester(
                 (px, py) => rectangleGrid[(px, py)] == index ? Inclusion.Inside : Inclusion.Outside,
                 rectangleGrid.Bounds.X - 200, rectangleGrid.Bounds.Y - 200, rectangleGrid.Bounds.Right + 205, rectangleGrid.Bounds.Bottom + 205, 5, 5);
-            var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, handleStyle);
+            var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, selectionStyle);
             vectorMap.Add(parametricPointTesterRectangleItem);
         }
 

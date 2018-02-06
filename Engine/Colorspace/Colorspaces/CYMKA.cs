@@ -131,7 +131,7 @@ namespace Engine.Colorspace
         #region Methods
 
         /// <summary>
-        /// Get the hash code.
+        /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
@@ -191,7 +191,7 @@ namespace Engine.Colorspace
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public RGBA ToARGB()
+        public RGBA ToRGBA()
             => new RGBA(ToRGBATuple());
 
         /// <summary>

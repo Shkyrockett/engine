@@ -118,7 +118,7 @@ namespace Engine.Experimental
         public override bool Equals(object obj) => CompareTo((LocalMinima)obj) == 0;
 
         /// <summary>
-        /// Get the hash code.
+        /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode() => base.GetHashCode();

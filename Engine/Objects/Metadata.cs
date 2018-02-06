@@ -8,11 +8,15 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+using System.Runtime.Serialization;
+
 namespace Engine
 {
     /// <summary>
     /// 
     /// </summary>
+    [DataContract, Serializable]
     public abstract class Metadata
     { }
 }

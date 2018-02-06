@@ -386,7 +386,7 @@ namespace Engine
         /// <param name="a">The first <see cref="QuaternionD"/> to compare</param>
         /// <param name="b">The second <see cref="QuaternionD"/> to compare</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="QuaternionD"/> instances are exactly equal.
+        /// A boolean value indicating whether the two <see cref="QuaternionD"/> instances are exactly equal.
         /// The return value is true if they are equal, false otherwise.
         /// </returns>
         /// <remarks>
@@ -403,7 +403,7 @@ namespace Engine
         /// <param name="a">The first <see cref="QuaternionD"/> to compare</param>
         /// <param name="b">The second <see cref="QuaternionD"/> to compare</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="QuaternionD"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="QuaternionD"/> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
@@ -646,7 +646,7 @@ namespace Engine
         /// <param name="a">The first <see cref="QuaternionD"/> to compare</param>
         /// <param name="b">The second <see cref="QuaternionD"/> to compare</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="QuaternionD"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="QuaternionD"/> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
@@ -666,7 +666,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj">The object to compare to this <see cref="QuaternionD"/> to.</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="QuaternionD"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="QuaternionD"/> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
@@ -683,7 +683,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The <see cref="QuaternionD"/> to compare to this <see cref="QuaternionD"/> to.</param>
         /// <returns>
-        /// A boolian value indicating whether the two <see cref="QuaternionD"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="QuaternionD"/> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>

@@ -23,6 +23,7 @@ namespace Engine
     /// <summary>
     /// Graphic objects base class.
     /// </summary>
+    [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public abstract class GraphicsObject
         : IFormattable, INotifyPropertyChanging, INotifyPropertyChanged
@@ -52,19 +53,7 @@ namespace Engine
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
         [NonSerialized()]
-        protected Dictionary<object, object> propertyCache;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        ///
-        /// </summary>
-        public GraphicsObject()
-        {
-            propertyCache = new Dictionary<object, object>();
-        }
+        protected Dictionary<object, object> propertyCache = new Dictionary<object, object>();
 
         #endregion
 
@@ -206,16 +195,16 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Raises the property changing event.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">The name.</param>
         protected void OnPropertyChanging([CallerMemberName] string name = "")
             => PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
 
         /// <summary>
-        ///
+        /// Raises the property changed event.
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">The name.</param>
         protected void OnPropertyChanged([CallerMemberName] string name = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
@@ -267,6 +256,7 @@ namespace Engine
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
+        /// <param name="provider">todo: describe provider parameter on ToString</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>

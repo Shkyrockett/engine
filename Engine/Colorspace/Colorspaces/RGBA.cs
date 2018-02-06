@@ -16,8 +16,9 @@ using System.Runtime.CompilerServices;
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// Red Green Blue Alpha color class.
+    /// Red Green Blue Alpha color struct.
     /// </summary>
+    //[DebuggerDisplay("R: {R}, G: {G}, B: {B}, A: {A}")]
     public struct RGBA
         : IColor
     {
@@ -33,24 +34,24 @@ namespace Engine.Colorspace
         #region Constants
 
         /// <summary>
-        /// The red shift (const). Value: 0x10.
+        /// The red shift value.
         /// </summary>
-        private const int RedShift = 0x10;
+        private const int RedShift = 0x18;
 
         /// <summary>
-        /// The green shift (const). Value: 0x8.
+        /// The green shift value.
         /// </summary>
-        private const int GreenShift = 0x8;
+        private const int GreenShift = 0x10;
 
         /// <summary>
-        /// The blue shift (const). Value: 0x0.
+        /// The blue shift value.
         /// </summary>
-        private const int BlueShift = 0x0;
+        private const int BlueShift = 0x8;
 
         /// <summary>
-        /// The alpha shift (const). Value: 0x18.
+        /// The alpha shift Value.
         /// </summary>
-        private const int AlphaShift = 0x18;
+        private const int AlphaShift = 0x0;
 
         #endregion
 
@@ -235,7 +236,7 @@ namespace Engine.Colorspace
         #region Standard Methods
 
         /// <summary>
-        /// Get the hash code.
+        /// Returns the hash code for this instance.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
@@ -290,7 +291,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => (Red, Green, Blue,Alpha);
+            => (Red, Green, Blue, Alpha);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="RGBA"/> struct.
@@ -345,7 +346,7 @@ namespace Engine.Colorspace
         internal string ConvertToString(string format, IFormatProvider provider)
         {
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(RGBA)}{{{nameof(Red)}={Red.ToString(format, provider)}{sep}{nameof(Green)}={Green.ToString(format, provider)}{sep}{nameof(Blue)}={Blue.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
+            return $"{nameof(RGBA)}{{{nameof(Red)}={Red.ToString(format, provider)}{sep}{nameof(Green)}={Green.ToString(format, provider)}{sep}{nameof(Blue)}={Blue.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}{sep}{nameof(Name)}={name}}}";
         }
 
         #endregion

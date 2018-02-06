@@ -43,17 +43,17 @@ namespace Engine
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="GraphicItem"/> class.
         /// </summary>
         public GraphicItem()
         { }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="GraphicItem"/> class.
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
-        /// <param name="metadata"></param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
+        /// <param name="metadata">The metadata.</param>
         public GraphicItem(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
             Shape = item;
@@ -75,7 +75,7 @@ namespace Engine
             => id;
 
         /// <summary>
-        ///
+        /// Gets or sets the name.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         [Category("Properties")]
@@ -83,7 +83,7 @@ namespace Engine
         public string Name { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the metadata.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
@@ -132,7 +132,7 @@ namespace Engine
         public GraphicsObject Shape { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the style.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
@@ -144,18 +144,18 @@ namespace Engine
         #region Public Methods
 
         /// <summary>
-        ///
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Contains(Point2D point)
             => Shape.Contains(point);
 
         /// <summary>
-        ///
+        /// The visible test.
         /// </summary>
-        /// <param name="bounds"></param>
-        /// <returns></returns>
+        /// <param name="bounds">The bounds.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool VisibleTest(Rectangle2D bounds)
         {
             // Unbounded shapes have to be cropped to the visible bounds.
@@ -171,9 +171,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => "";//$"{nameof(GraphicItem)}{{{Item}}}";
 

@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -18,9 +19,12 @@ namespace Engine
     /// <summary>
     /// <see cref="RectangleDCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
     /// </summary>
+    /// <remarks>
+    /// https://stackoverflow.com/questions/39217512/make-a-1d-array-of-a-2d-grid-with-x-and-y-coordinates-x-and-y-are-not-referring
+    /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]
-    //[DisplayName(nameof(RectangleDCellGrid))]
+    [DisplayName(nameof(RectangleDCellGrid))]
     public class RectangleDCellGrid
         : Shape
     {
@@ -39,12 +43,12 @@ namespace Engine
         /// <summary>
         /// The h.
         /// </summary>
-        private double h;
+        private double width;
 
         /// <summary>
         /// The v.
         /// </summary>
-        private double v;
+        private double height;
 
         /// <summary>
         /// The number of cells the grid should contain.
@@ -79,11 +83,12 @@ namespace Engine
         /// <param name="height"></param>
         /// <param name="count"></param>
         public RectangleDCellGrid(double x, double y, double width, double height, int count)
+            : base()
         {
             this.x = x;
             this.y = y;
-            h = width;
-            v = height;
+            this.width = width;
+            this.height = height;
             this.count = count;
         }
 
@@ -92,19 +97,19 @@ namespace Engine
         #region Deconstructors
 
         /// <summary>
-        /// 
+        /// The deconstructor.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="count"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="count">The count.</param>
         public void Deconstruct(out double x, out double y, out double width, out double height, out int count)
         {
             x = this.x;
             y = this.y;
-            width = h;
-            height = v;
+            width = this.width;
+            height = this.height;
             count = this.count;
         }
 
@@ -116,7 +121,12 @@ namespace Engine
         /// Gets the index of a cell at a given point in the grid.
         /// </summary>
         /// <param name="location">The location of the point in the grid to look up the index of the cell beneath the point.</param>
-        /// <returns>The index of the cell under the point in the grid or -1 if a cell is not found.</returns>
+        /// <returns>
+        /// The index of the cell under the point in the grid or -1 if a cell is not found.
+        /// </returns>
+        /// <remarks>
+        /// https://www.cyotek.com/blog/converting-2d-arrays-to-1d-and-accessing-as-either-2d-or-1d
+        /// </remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int this[Point2D location]
         {
@@ -126,14 +136,17 @@ namespace Engine
                 if (!InnerBounds.Contains(location))
                     return -1;
 
-                var (cw, ch) = (CellSize.Width, CellSize.Height);
-                var (c, r) = (Columns, Rows);
-                var (bw, bh) = (c * cw, r * ch);
-                var (dx, dy) = (location.X - x, location.Y - y);
+                // Find the horizontal and vertical integer indexes.
+                (int dx, int dy) = ((int)((location.X - x) / CellSize.Width), (int)((location.Y - y) / CellSize.Height));
+
+                var (columns, rows) = (Columns, Rows);
+
+                // Omit any rows or columns that are out of range.
+                if (dx < 0 || dx >= columns || dy < 0 || dy >= rows)
+                    return -1;
 
                 // Calculate the index of the item under the point location.
-
-                var value = (int)((dx + c * dy) / cw);
+                var value = dy * columns + dx;
 
                 // Return only valid cells.
                 return (value < count) ? value : -1;
@@ -151,7 +164,10 @@ namespace Engine
             get
             {
                 // ToDo: Implement flow orientation options.
-                var point = new Point2D(x + (index % Columns) * CellSize.Width, y + (index / Rows) * CellSize.Height);
+                var point = new Point2D(
+                    x + (index % Columns) * CellSize.Width,
+                    y + (index / Columns) * CellSize.Height
+                    );
                 return new Rectangle2D(point, CellSize);
             }
         }
@@ -161,7 +177,7 @@ namespace Engine
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the x.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double X
@@ -169,6 +185,7 @@ namespace Engine
             get { return x; }
             set
             {
+                OnPropertyChanging(nameof(X));
                 x = value;
                 ClearCache();
                 OnPropertyChanged(nameof(Count));
@@ -177,7 +194,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the y.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Y
@@ -185,6 +202,7 @@ namespace Engine
             get { return y; }
             set
             {
+                OnPropertyChanging(nameof(Y));
                 y = value;
                 ClearCache();
                 OnPropertyChanged(nameof(Count));
@@ -193,15 +211,16 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the width.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Width
         {
-            get { return h; }
+            get { return width; }
             set
             {
-                h = value;
+                OnPropertyChanging(nameof(Width));
+                width = value;
                 ClearCache();
                 OnPropertyChanged(nameof(Count));
                 update?.Invoke();
@@ -209,15 +228,16 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the height.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Height
         {
-            get { return v; }
+            get { return height; }
             set
             {
-                v = value;
+                OnPropertyChanging(nameof(Height));
+                height = value;
                 ClearCache();
                 OnPropertyChanged(nameof(Count));
                 update?.Invoke();
@@ -233,6 +253,7 @@ namespace Engine
             get { return count; }
             set
             {
+                OnPropertyChanging(nameof(Count));
                 count = value;
                 ClearCache();
                 OnPropertyChanged(nameof(Count));
@@ -245,7 +266,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double CellScale
-            => (double)CachingProperty(() => Min(h / Columns, v / Rows));
+            => (double)CachingProperty(() => Min(width / Columns, height / Rows));
 
         /// <summary>
         /// Gets the calculated optimum <see cref="Size2D"/> height and width of any cell in the grid.
@@ -266,7 +287,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Columns
-            => (int)CachingProperty(() => (int)Ceiling(Sqrt((h * count) / v)));
+            => (int)CachingProperty(() => (int)Ceiling(Sqrt((width * count) / height)));
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.
@@ -281,13 +302,14 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public new Rectangle2D Bounds
         {
-            get { return new Rectangle2D(x, y, h, v); }
+            get { return new Rectangle2D(x, y, width, height); }
             set
             {
+                OnPropertyChanging(nameof(Bounds));
                 x = value.X;
                 y = value.Y;
-                h = value.Width;
-                v = value.Height;
+                width = value.Width;
+                height = value.Height;
                 ClearCache();
                 OnPropertyChanged(nameof(Bounds));
                 update?.Invoke();
@@ -305,7 +327,7 @@ namespace Engine
         //[OnSerializing()]
         //private void OnSerializing(StreamingContext context)
         //{
-        //    Debug.WriteLine($"{nameof(RectangleDCellGrid)} is being serialized.");
+        //    Debug.WriteLine($"{nameof(RectangleCellGrid)} is being serialized.");
         //}
 
         ///// <summary>
@@ -315,7 +337,7 @@ namespace Engine
         //[OnSerialized()]
         //private void OnSerialized(StreamingContext context)
         //{
-        //    Debug.WriteLine($"{nameof(RectangleDCellGrid)} has been serialized.");
+        //    Debug.WriteLine($"{nameof(RectangleCellGrid)} has been serialized.");
         //}
 
         ///// <summary>
@@ -325,7 +347,7 @@ namespace Engine
         //[OnDeserializing()]
         //private void OnDeserializing(StreamingContext context)
         //{
-        //    Debug.WriteLine($"{nameof(RectangleDCellGrid)} is being deserialized.");
+        //    Debug.WriteLine($"{nameof(RectangleCellGrid)} is being deserialized.");
         //}
 
         ///// <summary>
@@ -335,7 +357,7 @@ namespace Engine
         //[OnDeserialized()]
         //private void OnDeserialized(StreamingContext context)
         //{
-        //    Debug.WriteLine($"{nameof(RectangleDCellGrid)} has been deserialized.");
+        //    Debug.WriteLine($"{nameof(RectangleCellGrid)} has been deserialized.");
         //}
 
         //#endregion

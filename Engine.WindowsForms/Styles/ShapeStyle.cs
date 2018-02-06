@@ -9,17 +9,18 @@
 // <remarks></remarks>
 
 using Engine.Colorspace;
+using Engine.WindowsForms;
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-//using System.Drawing;
-//using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    /// The shape style class.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class ShapeStyle
@@ -28,7 +29,7 @@ namespace Engine.Imaging
         #region Public Implementations
 
         /// <summary>
-        /// 
+        /// The default style (readonly). Value: new ShapeStyle(Brushes.Black, new Pen(Brushes.White)).
         /// </summary>
         public static readonly ShapeStyle DefaultStyle = new ShapeStyle(Brushes.Black, new Pen(Brushes.White));
 
@@ -37,7 +38,7 @@ namespace Engine.Imaging
         #region Private Fields
 
         /// <summary>
-        /// 
+        /// The disposed.
         /// </summary>
         private bool disposed = false;
 
@@ -46,28 +47,28 @@ namespace Engine.Imaging
         #region Constructors
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ShapeStyle"/> class.
         /// </summary>
         public ShapeStyle()
             : this(Brushes.Transparent, Pens.Transparent)
         {
-            LineStyle.PropertyChanged += new PropertyChangedEventHandler(PropertyChanged_Event);
+            LineStyle.PropertyChanged += PropertyChanged_Event;
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ShapeStyle"/> class.
         /// </summary>
-        /// <param name="forePen"></param>
-        /// <param name="backPen"></param>
+        /// <param name="forePen">The forePen.</param>
+        /// <param name="backPen">The backPen.</param>
         public ShapeStyle(Brush forePen, Brush backPen)
             : this(backPen, new Pen(forePen))
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ShapeStyle"/> class.
         /// </summary>
-        /// <param name="forePen"></param>
-        /// <param name="backPen"></param>
+        /// <param name="forePen">The forePen.</param>
+        /// <param name="backPen">The backPen.</param>
         public ShapeStyle(Brush forePen, Pen backPen)
         {
             BackPen = backPen;
@@ -76,13 +77,18 @@ namespace Engine.Imaging
 
         #endregion
 
+        /// <summary>
+        /// The property changed event.
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The property changed event arguments.</param>
         private void PropertyChanged_Event(Object sender, PropertyChangedEventArgs e)
             => BuildPen();
 
         #region Destructors
 
         /// <summary>
-        /// 
+        /// Dispose.
         /// </summary>
         public void Dispose()
         {
@@ -91,9 +97,9 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Dispose.
         /// </summary>
-        /// <param name="disposing"></param>
+        /// <param name="disposing">The disposing.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposed) return;
@@ -110,7 +116,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Finalizes an instance of the <see cref="ShapeStyle"/> class.
         /// </summary>
         ~ShapeStyle()
         {
@@ -122,7 +128,7 @@ namespace Engine.Imaging
         #region Properties
 
         /// <summary>
-        /// 
+        /// Gets or sets the line style.
         /// </summary>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -131,17 +137,17 @@ namespace Engine.Imaging
         public Stroke LineStyle { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the fore pen.
         /// </summary>
-        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [NotifyParentProperty(true)]
         public Pen ForePen { get; private set; }
 
         /// <summary>
-        /// 
+        /// Gets the stroke.
         /// </summary>
         public IStroke Stroke
         {
@@ -150,30 +156,30 @@ namespace Engine.Imaging
                 switch (ForePen.Brush)
                 {
                     case SolidBrush b:
-                        return new Stroke(new SolidFill(new RGBA(b.Color.ToArgb())));
+                        return new Stroke(new SolidFill(b.Color.ToRGBA()));
                     case HatchBrush h:
-                        return new Stroke(new SolidFill(new RGBA(h.ForegroundColor.ToArgb())));
+                        return new Stroke(new SolidFill(h.ForegroundColor.ToRGBA()));
                     case LinearGradientBrush l:
                     case PathGradientBrush p:
                     case TextureBrush t:
                     default:
-                        return new Stroke(new SolidFill(new RGBA(Color.Transparent.ToArgb())));
+                        return new Stroke(new SolidFill(Colors.Transparent));
                 }
 
             }
         }
 
         /// <summary>
-        /// 
+        /// Gets the fill.
         /// </summary>
         public IFill Fill
-            => new SolidFill(new RGBA(BackPen.Color.ToArgb()));
+            => new SolidFill(BackPen.Color.ToRGBA());
 
         /// <summary>
-        /// 
+        /// Gets or sets the fore brush.
         /// </summary>
-        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [NotifyParentProperty(true)]
@@ -184,20 +190,20 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the back pen.
         /// </summary>
-        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [NotifyParentProperty(true)]
         public Pen BackPen { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the back brush.
         /// </summary>
-        //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [NotifyParentProperty(true)]
@@ -212,7 +218,7 @@ namespace Engine.Imaging
         #region Methods
 
         /// <summary>
-        /// 
+        /// Build the pen.
         /// </summary>
         public void BuildPen()
         {
@@ -228,9 +234,9 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{nameof(ShapeStyle)}{{{nameof(ForePen)}={ForePen},{nameof(BackPen)}={BackPen}}}";
 

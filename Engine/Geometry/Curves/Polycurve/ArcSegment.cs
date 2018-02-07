@@ -26,7 +26,6 @@ namespace Engine
         : CurveSegment
     {
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
@@ -56,11 +55,9 @@ namespace Engine
         /// 
         /// </summary>
         private Point2D end;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -103,11 +100,9 @@ namespace Engine
             Sweep = sweep;
             End = end.Value;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="EllipticalArc"/> to a Tuple.
         /// </summary>
@@ -128,11 +123,9 @@ namespace Engine
             largeArc = this.largeArc;
             sweep = this.sweep;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -437,8 +430,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
             => (double)CachingProperty(() => ToEllipticalArc().Perimeter);
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// 
@@ -449,7 +441,6 @@ namespace Engine
             => ToEllipticalArc().Interpolate(t);
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -464,7 +455,6 @@ namespace Engine
         /// <returns></returns>
         public EllipticalArc ToEllipticalArc()
             => (EllipticalArc)CachingProperty(() => new EllipticalArc(Start.Value.X, Start.Value.Y, RX, RY, Angle, LargeArc, Sweep, End.Value.X, End.Value.Y));
-
-        #endregion
+        #endregion Methods
     }
 }

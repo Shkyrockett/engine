@@ -24,7 +24,6 @@ namespace Engine.File
         None,
 
         #region Channel Voice Messages
-
         /// <summary>
         /// 0x80 Note Off event.
         /// </summary>
@@ -59,10 +58,9 @@ namespace Engine.File
         /// 0xE0 Pitch wheel change event.
         /// </summary>
         PitchWheelChange = 0xE0,
+        #endregion Channel Voice Messages
 
-        #endregion
         #region System Common Messages
-
         /// <summary>
         /// 0xF0 Sysex message event.
         /// </summary>
@@ -92,17 +90,16 @@ namespace Engine.File
         /// 0xF7 End of Exclusive event.
         /// </summary>
         Eox = 0xF7,
+        #endregion System Common Messages
 
-        #endregion
         #region System Real-Time Messages
-
         /// <summary>
         /// 0xF8 Midi Sync Timing Clock event.
         /// </summary>
         TimingClock = 0xF8,
 
-        /// <summary
-        /// >0xF9 Tick Clock event.
+        /// <summary>
+        /// 0xF9 Tick Clock event.
         /// </summary>
         TimingTick = 0xF9,
 
@@ -117,17 +114,17 @@ namespace Engine.File
         ContinueSequence = 0xFB,
 
         /// <summary>
-        /// 0xFC Stop sequence event event.
+        /// 0xFC Stop sequence event.
         /// </summary>
         StopSequence = 0xFC,
 
         /// <summary>
-        /// 0xFE Active-Sensing event event.
+        /// 0xFE Active-Sensing event.
         /// </summary>
         ActiveSensing = 0xFE,
 
         /// <summary>
-        /// 0xFF Meta-event event event.
+        /// 0xFF Meta-event.
         /// </summary>
         MetaEvent = 0xFF, // Meta event.
 
@@ -135,7 +132,6 @@ namespace Engine.File
         ///// 0xFF System Reset event.
         ///// </summary>
         //SystemReset = 0xFF,
-
-        #endregion
+        #endregion System Real-Time Messages
     }
 }

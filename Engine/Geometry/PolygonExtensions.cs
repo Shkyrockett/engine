@@ -730,7 +730,6 @@ namespace Engine
         //}
 
         #region SutherlandHodgman Algorithm's Methods
-
         /// <summary>
         /// This iterates through the edges of the polygon, always clockwise
         /// </summary>
@@ -824,7 +823,6 @@ namespace Engine
                 return null;
             }
         }
-
-        #endregion
+        #endregion SutherlandHodgman Algorithm's Methods
     }
 }

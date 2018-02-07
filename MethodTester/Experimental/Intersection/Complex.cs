@@ -20,7 +20,6 @@ namespace Engine.Geometry
         : IFormattable
     {
         #region Impementations
-
         /// <summary>
         /// Imaginary unit.
         /// </summary>
@@ -35,11 +34,9 @@ namespace Engine.Geometry
         /// Complex number one.
         /// </summary>
         public static readonly Complex One = new Complex(1, 0);
-
-        #endregion
+        #endregion Impementations
 
         #region Private Fields
-
         /// <summary>
         ///
         /// </summary>
@@ -49,11 +46,9 @@ namespace Engine.Geometry
         ///
         /// </summary>
         double imaginary;
-
-        #endregion
+        #endregion Private Fields
 
         #region Constructors
-
         /// <summary>
         /// Inits complex number as (0, 0).
         /// </summary>
@@ -79,11 +74,9 @@ namespace Engine.Geometry
             Real = realPart;
             Imaginary = imaginaryPart;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Contains the real part of a complex number.
         /// </summary>
@@ -113,11 +106,9 @@ namespace Engine.Geometry
         /// </summary>
         public bool IsImaginary
             => (Real == 0);
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         ///
         /// </summary>
@@ -309,11 +300,9 @@ namespace Engine.Geometry
         /// <param name="d"></param>
         public static implicit operator Complex(double d)
             => new Complex(d);
-
-        #endregion
+        #endregion Operators
 
         #region Static Funcs
-
         /// <summary>
         /// Calcs the absolute value of a complex number.
         /// </summary>
@@ -499,11 +488,9 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Complex Pow(Complex a, double b)
             => Exp(b * Log(a));
-
-        #endregion
+        #endregion Static Funcs
 
         #region Overrides
-
         /// <summary>
         ///
         /// </summary>
@@ -571,7 +558,6 @@ namespace Engine.Geometry
 
             return re + sign + im;
         }
-
-        #endregion
+        #endregion Overrides
     }
 }

@@ -20,7 +20,6 @@ namespace Engine.Tools
     public class ToolStack
     {
         #region Callbacks
-
         /// <summary>
         /// 
         /// </summary>
@@ -95,11 +94,9 @@ namespace Engine.Tools
         /// 
         /// </summary>
         internal Action<ToolStack> mouseForwardButtonUp;
-
-        #endregion
+        #endregion Callbacks
 
         #region Fields
-
         /// <summary>
         /// The tools.
         /// </summary>
@@ -119,11 +116,9 @@ namespace Engine.Tools
         /// 
         /// </summary>
         private double mouseVerticalScrollDelta;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -137,11 +132,9 @@ namespace Engine.Tools
             mouseScrollTiltDelta = 0;
             Clicks = 0;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the press state of the keyboard keys.
         /// </summary>
@@ -351,11 +344,9 @@ namespace Engine.Tools
         /// 
         /// </summary>
         public VectorMap Surface { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Mutators
-
         /// <summary>
         /// 
         /// </summary>
@@ -432,8 +423,7 @@ namespace Engine.Tools
                     break;
             }
         }
-
-        #endregion
+        #endregion Mutators
 
         /// <summary>
         /// 

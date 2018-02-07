@@ -20,16 +20,13 @@ namespace Engine.Tools
         : Tool, ITool
     {
         #region Fields
-
         /// <summary>
         /// The mouse down.
         /// </summary>
         private bool mouseDown;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Straightener"/> class.
         /// </summary>
@@ -41,11 +38,9 @@ namespace Engine.Tools
             // Setup the storage properties. 
             Line = LineSegment.Empty;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
@@ -56,8 +51,7 @@ namespace Engine.Tools
         /// </summary>
         /// <returns>Returns the current index of the rubber-band line.</returns>
         public int Index { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Update tool on mouse down.

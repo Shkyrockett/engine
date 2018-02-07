@@ -20,7 +20,6 @@ namespace Engine
     public static partial class Maths
     {
         #region Queries
-
         /// <summary>
         /// Counts the number of base 10 digits an integer is represented by.
         /// </summary>
@@ -616,7 +615,6 @@ namespace Engine
             double normalI1, double normalJ1, double normalK1,
             double lineOfSightI2, double lineOfSightJ2, double lineOfSightK2)
             => DotProduct(normalI1, normalJ1, normalK1, lineOfSightI2, lineOfSightJ2, lineOfSightK2) < 0;
-
-        #endregion
+        #endregion Queries
     }
 }

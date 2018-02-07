@@ -31,7 +31,6 @@ namespace Engine.WindowsForms
         Graphics Graphics { get; set; }
 
         #region IDisposable Support
-
         /// <summary>
         /// Dispose.
         /// </summary>
@@ -71,8 +70,7 @@ namespace Engine.WindowsForms
             // TODO: uncomment the following line if the finalizer is overridden above.
             GC.SuppressFinalize(this);
         }
-
-        #endregion
+        #endregion IDisposable Support
 
         /// <summary>
         /// Clear.

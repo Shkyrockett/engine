@@ -37,7 +37,6 @@ namespace Engine
             select func((1d / count) * i));
 
         #region Linear Interpolation
-
         /// <summary>
         /// Linear interpolation.
         /// </summary>
@@ -115,11 +114,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D Linear(Point3D a, Point3D b, double t)
             => new Point3D(Linear(a.X, a.Y, a.Z, b.X, b.Y, b.Z, t));
-
-        #endregion
+        #endregion Linear Interpolation
 
         #region Curve Interpolation
-
         /// <summary>
         ///
         /// </summary>
@@ -200,11 +197,9 @@ namespace Engine
 
             return (x, y, z);
         }
-
-        #endregion
+        #endregion Curve Interpolation
 
         #region Quadratic Bezier Interpolation
-
         /// <summary>
         /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
@@ -289,11 +284,9 @@ namespace Engine
                 (y0 * ti2 + 2d * y1 * ti * t + y2 * t2),
                 (z0 * ti2 + 2d * z1 * ti * t + z2 * t2));
         }
-
-        #endregion
+        #endregion Quadratic Bezier Interpolation
 
         #region Cubic Interpolation
-
         /// <summary>
         ///
         /// </summary>
@@ -391,11 +384,9 @@ namespace Engine
                 aY0 * t * t2 + (aY - bY - aY0) * t2 + (cY - aY) * t + bY,
                 aZ0 * t * t2 + (aZ - bZ - aZ0) * t2 + (cZ - aZ) * t + bZ);
         }
-
-        #endregion
+        #endregion Cubic Interpolation
 
         #region Cubic Bezier Interpolation
-
         /// <summary>
         /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
         /// </summary>
@@ -551,11 +542,9 @@ namespace Engine
 
             return (b);
         }
-
-        #endregion
+        #endregion Cubic Bezier Interpolation
 
         #region Catmull-Rom Spline Interpolation
-
         /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
@@ -715,11 +704,9 @@ namespace Engine
                 + (-tangentA.Y + 3d * positionA.Y - 3d * positionB.Y + tangentB.Y) * t3)
             );
         }
-
-        #endregion
+        #endregion Catmull-Rom Spline Interpolation
 
         #region Hermite Interpolation
-
         /// <summary>
         ///
         /// </summary>
@@ -872,11 +859,9 @@ namespace Engine
                 a0 * bY + a1 * mY0 + a2 * mY1 + a3 * cY,
                 a0 * bZ + a1 * mZ0 + a2 * mZ1 + a3 * cZ);
         }
-
-        #endregion
+        #endregion Hermite Interpolation
 
         #region Circle Interpolation
-
         /// <summary>
         /// Interpolates the Arc.
         /// </summary>
@@ -928,11 +913,9 @@ namespace Engine
             double t) => (
                 cX + (Cos(t) * r),
                 cY + (Sin(t) * r));
-
-        #endregion
+        #endregion Circle Interpolation
 
         #region Ellipse Interpolation
-
         /// <summary>
         /// Interpolates the unrotated elliptical Arc.
         /// </summary>
@@ -1165,11 +1148,9 @@ namespace Engine
                 cX + (u * cosAngle + v * sinAngle),
                 cY + (u * sinAngle - v * cosAngle));
         }
-
-        #endregion
+        #endregion Ellipse Interpolation
 
         #region Cosine Interpolation
-
         /// <summary>
         ///
         /// </summary>
@@ -1245,11 +1226,9 @@ namespace Engine
                 aY * (1d - mu2) + bY * mu2,
                 aZ * (1d - mu2) + bZ * mu2);
         }
-
-        #endregion
+        #endregion Cosine Interpolation
 
         #region Sine Interpolation
-
         /// <summary>
         /// Interpolate a sine wave.
         /// </summary>
@@ -1326,11 +1305,9 @@ namespace Engine
                 y1 * (1d - mu2) + y2 * mu2,
                 z1 * (1d - mu2) + z2 * mu2);
         }
-
-        #endregion
+        #endregion Sine Interpolation
 
         #region Rectangle
-
         /// <summary>
         /// Rotates the points of the corners of a rectangle about the fulcrum point.
         /// </summary>
@@ -1397,8 +1374,7 @@ namespace Engine
 
             return points;
         }
-
-        #endregion
+        #endregion Rectangle
 
         /// <summary>
         /// Linearly tweens between two cubic bezier curves, from key1 to key2.

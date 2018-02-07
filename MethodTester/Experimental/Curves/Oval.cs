@@ -26,7 +26,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
@@ -46,11 +45,9 @@ namespace Engine
         /// 
         /// </summary>
         private double v;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -69,11 +66,9 @@ namespace Engine
             h = size.Width;
             v = size.Height;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -185,8 +180,7 @@ namespace Engine
         [Browsable(true)]
         public override Rectangle2D Bounds
             => new Rectangle2D(x, y, h, v);
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -233,7 +227,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// Creates a string representation of this <see cref="Oval"/> struct based on the format string
         /// and IFormatProvider passed in.
@@ -252,7 +245,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Oval)}{{{nameof(Location)}={Location}{sep}{nameof(Size)}={Size}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

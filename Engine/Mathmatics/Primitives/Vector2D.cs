@@ -32,7 +32,6 @@ namespace Engine
         : IVector<Vector2D>
     {
         #region Static Fields
-
         /// <summary>
         /// An Empty <see cref="Vector2D"/>.
         /// </summary>
@@ -52,11 +51,9 @@ namespace Engine
         /// Vector2D(0,1)
         /// </summary>
         public static readonly Vector2D YAxis = new Vector2D(0, 1);
-
-        #endregion
+        #endregion Static Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
@@ -108,11 +105,9 @@ namespace Engine
         public Vector2D(Point2D a, Point2D b)
             : this(a.Delta(b).Unit())
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// First Point of a 2D Vector
         /// </summary>
@@ -159,11 +154,9 @@ namespace Engine
         [Browsable(false)]
         public double LengthSquared
             => Measurements.VectorMagnitudeSquared(I, J);
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// 
         /// </summary>
@@ -368,11 +361,9 @@ namespace Engine
         //[DebuggerStepThrough]
         //public static explicit operator Point(Vector2D value)
         //    => new Point((int)value.I, (int)value.I);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Create a Random <see cref="Vector2D"/>.
         /// </summary>
@@ -414,8 +405,7 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -462,7 +452,6 @@ namespace Engine
         //#endregion
 
         #region Public Methods
-
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
@@ -565,7 +554,6 @@ namespace Engine
             // Create the string representation of the struct.
             return $"{nameof(Vector2D)}({nameof(I)}={I.ToString(format, provider)}{sep}{nameof(J)}={J.ToString(format, provider)})";
         }
-
-        #endregion
+        #endregion Public Methods
     }
 }

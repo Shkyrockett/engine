@@ -22,7 +22,6 @@ namespace Engine
         : PropertyDescriptor, IEquatable<AdvPropertyDescriptor>
     {
         #region Fields
-
         /// <summary>
         /// The info.
         /// </summary>
@@ -42,11 +41,9 @@ namespace Engine
         /// The description.
         /// </summary>
         string description;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AdvPropertyDescriptor"/> class.
         /// </summary>
@@ -89,11 +86,9 @@ namespace Engine
             this.property = property;
             description = base.Description;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets the description.
         /// </summary>
@@ -126,11 +121,9 @@ namespace Engine
                 return field.FieldType;
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// The can reset value.
         /// </summary>
@@ -215,7 +208,6 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         public bool Equals(AdvPropertyDescriptor other)
             => info.Equals(other.info);
-
-        #endregion
+        #endregion Methods
     }
 }

@@ -17,7 +17,6 @@ namespace Engine.Tools
         : ITool
     {
         #region Callbacks
-
         /// <summary>
         /// Signal the canvas to provide feedback to finish the command.
         /// </summary>
@@ -27,11 +26,9 @@ namespace Engine.Tools
         /// The <see cref="ToolFinishEvent"/> type delegate. 
         /// </summary>
         public delegate void ToolFinishEvent(object Sender, ToolStack e);
-
-        #endregion
+        #endregion Callbacks
 
         #region Fields
-
         /// <summary>
         /// Check to determine if the tool is in use.
         /// </summary>
@@ -41,11 +38,9 @@ namespace Engine.Tools
         /// Check if first action of tool has taken place.
         /// </summary>
         protected bool started;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Tool"/> class.
         /// </summary>
@@ -54,11 +49,9 @@ namespace Engine.Tools
             inUse = false;
             started = false;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Check if the tool is in use.
         /// </summary>
@@ -81,8 +74,7 @@ namespace Engine.Tools
         /// 
         /// </summary>
         public bool MouseUp { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Signal the parent to provide feedback to finish the command.

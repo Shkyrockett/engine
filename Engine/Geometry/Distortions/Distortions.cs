@@ -33,7 +33,6 @@ namespace Engine
     public static class Distortions
     {
         #region Point Warp Filters
-
         /// <summary>
         /// The scale.
         /// </summary>
@@ -377,11 +376,9 @@ namespace Engine
             var newY = (point.Y + yo);
             return new Point2D(newX, newY);
         }
-
-        #endregion
+        #endregion Point Warp Filters
 
         #region Helper Methods
-
         /// <summary>
         /// Normalizes a point, so that it is expressed as percentage coordinates relative to the bounding box.
         /// </summary>
@@ -694,7 +691,6 @@ namespace Engine
             h -= 1;
             return (a, b, d, e, g, h);
         }
-
-        #endregion
+        #endregion Helper Methods
     }
 }

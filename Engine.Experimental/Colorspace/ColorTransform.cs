@@ -16,16 +16,13 @@ namespace Engine
     public struct ColorTransform
     {
         #region Implementations
-
         /// <summary>
         /// The identity.
         /// </summary>
         public static ColorTransform Identity = new ColorTransform(1d, 1d, 1d, 1d, 0, 0, 0, 0);
-
-        #endregion
+        #endregion Implementations
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorTransform"/> class.
         /// </summary>
@@ -48,11 +45,9 @@ namespace Engine
             GreenOffset = greenOffset;
             BlueOffset = blueOffset;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the alpha multiplier.
         /// </summary>
@@ -92,7 +87,6 @@ namespace Engine
         /// Gets or sets the blue offset.
         /// </summary>
         public int BlueOffset { get; set; }
-
-        #endregion
+        #endregion Properties
     }
 }

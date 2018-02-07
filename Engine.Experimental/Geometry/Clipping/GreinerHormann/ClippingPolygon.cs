@@ -18,7 +18,6 @@ namespace Engine
     public class ClippingPolygon
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClippingPolygon"/> class.
         /// </summary>
@@ -30,11 +29,9 @@ namespace Engine
                 AddVertex(new ClippingVertex(p[i]));
             }
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the first.
         /// </summary>
@@ -54,8 +51,7 @@ namespace Engine
         /// Gets or sets the first intersect.
         /// </summary>
         private ClippingVertex FirstIntersect { get; set; } = null;
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Add a vertex object to the polygon (vertex is added at the 'end' of the list')

@@ -35,7 +35,6 @@ namespace Engine
         : Shape, IEnumerable<CurveSegment>
     {
         #region Fields
-
         /// <summary>
         /// The items.
         /// </summary>
@@ -45,17 +44,15 @@ namespace Engine
         /// The closed.
         /// </summary>
         bool closed = false;
-        //private CubicBezier[] cubicBezier;
 
-        #endregion
+        //private CubicBezier[] cubicBezier;
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
         public PolycurveContour()
-            : base()
         {
             Items = new List<CurveSegment>();
         }
@@ -64,7 +61,6 @@ namespace Engine
         ///
         /// </summary>
         public PolycurveContour(Point2D start)
-            : base()
         {
             Items = new List<CurveSegment>
             {
@@ -92,7 +88,6 @@ namespace Engine
         ///
         /// </summary>
         public PolycurveContour(List<CurveSegment> items)
-            : base()
         {
             Items = items;
         }
@@ -109,22 +104,18 @@ namespace Engine
                 AddCubicBezier(curve.B, curve.C, curve.D);
             }
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         ///
         /// </summary>
         /// <param name="items"></param>
         public void Deconstruct(out List<CurveSegment> items)
             => items = Items;
-
-        #endregion
+        #endregion Deconstructors
 
         #region Indexers
-
         /// <summary>
         ///
         /// </summary>
@@ -133,11 +124,9 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public CurveSegment this[int index]
                 => Items[index];
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -236,8 +225,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
             => items.Count;
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -323,7 +311,6 @@ namespace Engine
         }
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -738,7 +725,6 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
             => (this == null) ? nameof(PolycurveContour) : $"{nameof(PolycurveContour)}{{{ToPathDefString(format, provider)}}}";
-
-        #endregion
+        #endregion Methods
     }
 }

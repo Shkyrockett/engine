@@ -2,7 +2,7 @@
 
 An attempt to write a 2D vector based Graphical Adventure game engine from scratch, using C#, having no previous experience ever writing a game engine.
 
-This is mostly a playground to play with new language features in preview versions of c#, and learn how to implement various algorithms. It is currently using [.NET Standard 2.0](https://www.microsoft.com/net/core/preview#windowscmd), and [.NET Framework 4.6.2](https://www.microsoft.com/en-us/download/details.aspx?id=53345), so it will only compile using Visual Studio 15.3 or the latest [Preview](https://www.visualstudio.com/vs/preview/) (Community, Professional, or Enterprise should all work).
+This is mostly a playground to play with new language features in preview versions of c#, and learn how to implement various algorithms. It is currently using [.NET Standard 2.0](https://www.microsoft.com/net/core/preview#windowscmd), and [.NET Framework 4.7.2](https://blogs.msdn.microsoft.com/dotnet/2018/02/05/announcing-net-framework-4-7-2-early-access-build-3052/), with C# 7.2, so it will only compile using Visual Studio 15.6. The latest [Preview](https://www.visualstudio.com/vs/preview/) (Community, Professional, or Enterprise should all work).
 
 Because this is a playground, APIs get refactored frequently and files get moved around frequently. As an engine this is very early pre-alpha. Classes may be there one commit and disappear the next. Methods may move from one class to another just because I didn't like where they were, and it makes more sense to put them in the new location. Methods may change the way they work, because a bug was found that needed to be squashed. 
 

@@ -24,7 +24,6 @@ namespace Engine
          : CurveSegment
     {
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -42,11 +41,9 @@ namespace Engine
             previous.Next = this;
             CentralPoints = points;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -117,8 +114,7 @@ namespace Engine
         /// ToDo: Add length calculation for Cardinal curves.
         /// </summary>
         public override double Length => 0;
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// 

@@ -26,7 +26,6 @@ namespace Engine.File
         Unknown = -1,
 
         #region Channel Voice Messages
-
         /// <summary>
         /// Note Off Status.
         /// </summary>
@@ -56,11 +55,9 @@ namespace Engine.File
         /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the pressure value.
         /// </remarks>
         PolyphonicPressure = MidiStatus.PolyphonicPressure,
-
-        #endregion
+        #endregion Channel Voice Messages
 
         #region Channel Mode Messages
-
         /// <summary>
         /// Controller/Mode Change Status.
         /// </summary>
@@ -96,11 +93,9 @@ namespace Engine.File
         /// 0mmmmmmm This message is sent to indicate a change in the pitch bender (wheel or lever, typically). The pitch bender is measured by a fourteen bit value. Center (no pitch change) is 2000H. Sensitivity is a function of the transmitter. (llllll) are the least significant 7 bits. (mmmmmm) are the most significant 7 bits.
         /// </remarks>
         PitchBend = MidiStatus.PitchBend,
-
-        #endregion
+        #endregion Channel Mode Messages
 
         #region System Common Messages
-
         /// <summary>
         /// System Exclusive.
         /// </summary>
@@ -154,11 +149,9 @@ namespace Engine.File
         /// Used to terminate a System Exclusive dump (see above).
         /// </remarks>
         EndOfExclusive = MidiStatus.System | MidiSystemMessages.EndOfExclusive << 8,
-
-        #endregion
+        #endregion System Common Messages
 
         #region Real-time Messages
-
         /// <summary>
         /// Timing Clock.
         /// </summary>
@@ -203,11 +196,9 @@ namespace Engine.File
         /// This message is intended to be sent repeatedly to tell the receiver that a connection is alive. Use of this message is optional. When initially received, the receiver will expect to receive another Active Sensing message each 300ms (max), and if it does not then it will assume that the connection has been terminated. At termination, the receiver will turn off all voices and return to normal (non- active sensing) operation. 
         /// </remarks>
         ActiveSensing = MidiStatus.System | MidiSystemMessages.ActiveSensing << 8,
-
-        #endregion
+        #endregion Real-time Messages
 
         #region Meta Messages
-
         /// <summary>
         /// Sequence Number.
         /// </summary>
@@ -363,7 +354,6 @@ namespace Engine.File
         /// Running status does not apply to and may not be used for these messages.
         /// </remarks>
         SequencerSpecific = MidiStatus.Meta | MidiMetaEvents.SequencerSpecific << 8,
-
-        #endregion
+        #endregion Meta Messages
     }
 }

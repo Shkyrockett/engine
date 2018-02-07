@@ -31,16 +31,13 @@ namespace Engine
         : Shape, IEnumerable<Point2D>
     {
         #region Fields
-
         /// <summary>
         ///
         /// </summary>
         private List<Point2D> points;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
@@ -91,22 +88,18 @@ namespace Engine
             foreach (Polyline polyline in polylines)
                 points.AddRange(polyline.Points);
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
         public void Deconstruct(out List<Point2D> points)
             => points = this.points;
-
-        #endregion
+        #endregion Deconstructors
 
         #region Indexers
-
         /// <summary>
         ///
         /// </summary>
@@ -124,11 +117,9 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -174,8 +165,7 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public int Count
             => points.Count;
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -222,7 +212,6 @@ namespace Engine
         //#endregion
 
         #region Mutators
-
         /// <summary>
         ///
         /// </summary>
@@ -245,8 +234,7 @@ namespace Engine
             update?.Invoke();
             return this;
         }
-
-        #endregion
+        #endregion Mutators
 
         /// <summary>
         /// 
@@ -322,7 +310,6 @@ namespace Engine
         }
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -380,7 +367,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Polyline)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

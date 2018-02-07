@@ -74,7 +74,6 @@ namespace Engine
             => graphics.MeasureString(text, font.ToFont(), width, StringFormat.GenericTypographic).ToSize2D();
 
         #region IDisposable Support
-
         /// <summary>
         /// 
         /// </summary>
@@ -117,7 +116,7 @@ namespace Engine
             // TODO: uncomment the following line if the finalizer is overridden above.
             GC.SuppressFinalize(this);
         }
-        #endregion
+        #endregion IDisposable Support
 
     }
 }

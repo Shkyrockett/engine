@@ -33,16 +33,13 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
         Point2D[] handles;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a default instance of the <see cref="BezierSegmentX"/> class with no terms.
         /// </summary>
@@ -110,22 +107,18 @@ namespace Engine
         public BezierSegmentX(BezierSegmentX previous, IEnumerable<Point2D> points)
             : this(previous, points.ToArray())
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
         public void Deconstruct(out Point2D[] points)
             => points = handles;
-
-        #endregion
+        #endregion Deconstructors
 
         #region Indexers
-
         /// <summary>
         /// 
         /// </summary>
@@ -136,11 +129,9 @@ namespace Engine
             get { return handles[index]; }
             set { handles[index] = value; }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         /// Gets or sets a reference to the previous geometric item.
         /// </summary>
@@ -273,8 +264,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => (PolynomialDegree)(Handles.Length);
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -321,7 +311,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
         /// and IFormatProvider passed in.
@@ -342,7 +331,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(BezierSegmentX)}{{{string.Join(sep.ToString(), handles)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

@@ -24,7 +24,6 @@ namespace Engine
          : CurveSegment
     {
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -76,11 +75,9 @@ namespace Engine
             Handle2 = handle2;
             End = end;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="CubicBezierSegment"/> to a Tuple.
         /// </summary>
@@ -103,11 +100,9 @@ namespace Engine
             dx = End.Value.X;
             dy = End.Value.Y;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -192,8 +187,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
             => (double)CachingProperty(() => Measurements.CubicBezierArcLength(Start.Value.X, Start.Value.Y, Handle1.X, Handle1.Y, Handle2.Value.X, Handle2.Value.Y, End.Value.X, End.Value.Y));
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// 
@@ -204,14 +198,12 @@ namespace Engine
             => ToCubicBezier().Interpolate(t);
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public CubicBezier ToCubicBezier()
             => new CubicBezier(Start.Value, Handle1, Handle2.Value, End.Value);
-
-        #endregion
+        #endregion Methods
     }
 }

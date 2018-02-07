@@ -21,7 +21,6 @@ namespace Engine.Tweening
         : MemberLerper
     {
         #region Fields
-
         /// <summary>
         /// The from.
         /// </summary>
@@ -36,8 +35,7 @@ namespace Engine.Tweening
         /// The range.
         /// </summary>
         private double range;
-
-        #endregion
+        #endregion Fields
 
         /// <summary>
         /// Initialize.

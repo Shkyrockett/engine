@@ -30,7 +30,6 @@ namespace Engine
         : CurveFitBase, IEnumerable<CubicBezier>
     {
         #region Fields
-
         /// <summary>
         /// result curves (updated whenever a new point is added)
         /// </summary>
@@ -65,11 +64,9 @@ namespace Engine
         /// Index of first point in current curve
         /// </summary>
         private int first;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -82,21 +79,17 @@ namespace Engine
             resultView = new ReadOnlyCollection<CubicBezier>(result);
             this.linDist = linDist;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// The current curves in the builder.
         /// </summary>
         public ReadOnlyCollection<CubicBezier> Curves
             => resultView;
-
-        #endregion
+        #endregion Properties
 
         #region Mutators
-
         /// <summary>
         /// Adds a data point to the curve builder. This doesn't always result in the generated curve changing immediately.
         /// </summary>
@@ -223,8 +216,7 @@ namespace Engine
             tanL = default;
             prev = default;
         }
-
-        #endregion
+        #endregion Mutators
 
         // We provide these for both convenience and performance, since a call to List<T>.GetEnumerator() doesn't actually allocate if
         // the type is never boxed

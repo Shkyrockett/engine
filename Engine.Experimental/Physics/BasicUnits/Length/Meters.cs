@@ -24,7 +24,6 @@ namespace Engine.Physics
         : ILength, IFormattable
     {
         #region Constants
-
         /// <summary>
         /// The number of Mill in a Meter.
         /// </summary>
@@ -74,11 +73,9 @@ namespace Engine.Physics
         /// The fraction of NauticalcMiles in a Meter.
         /// </summary>
         public const double NauticalMile = 1d / MetersInNauticalMile; // 1d / 1852d;
-
-        #endregion
+        #endregion Constants
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Meters"/> Struct.
         /// </summary>
@@ -87,11 +84,9 @@ namespace Engine.Physics
         {
             Value = value;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// The numarical value of the distance in <see cref="Meters"/>.
         /// </summary>
@@ -191,11 +186,9 @@ namespace Engine.Physics
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "m";
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         ///
         /// </summary>
@@ -467,11 +460,9 @@ namespace Engine.Physics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Meters(NauticalMiles value)
             => value.Meters;
-
-        #endregion
+        #endregion Operators
 
         #region Methods
-
         /// <summary>
         /// Returns the hash code for this instance of the <see cref="Meters"/> value.
         /// </summary>
@@ -550,7 +541,6 @@ namespace Engine.Physics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
             => $"{Value.ToString(format, provider)} {Abreviation}";
-
-        #endregion
+        #endregion Methods
     }
 }

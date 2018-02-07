@@ -22,7 +22,6 @@ namespace Engine.Tools
         : Tool, ITool
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SelectTop"/> class.
         /// </summary>
@@ -34,11 +33,9 @@ namespace Engine.Tools
             // Setup the storage properties. 
             Points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Array of points for the Rubber-band line.
         /// </summary>
@@ -54,8 +51,7 @@ namespace Engine.Tools
         /// Gets or sets a value indicating whether 
         /// </summary>
         public bool MouseDown { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Update tool on mouse down.

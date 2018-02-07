@@ -20,7 +20,6 @@ namespace Engine
         : DistortionBase, IDistortion
     {
         #region Fields
-
         /// <summary>
         /// The distortion path.
         /// </summary>
@@ -60,8 +59,7 @@ namespace Engine
         /// The bound cache (readonly). Value: new Dictionary&lt;double, Point2D[]&gt;().
         /// </summary>
         private readonly Dictionary<double, Point2D[]> boundCache = new Dictionary<double, Point2D[]>();
-
-        #endregion
+        #endregion Fields
 
         /// <summary>
         /// The distort.

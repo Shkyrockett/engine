@@ -24,7 +24,7 @@ using System.Collections;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The matrix3x2d struct.
     /// </summary>
     /// <remarks>http://referencesource.microsoft.com</remarks>
     [DataContract, Serializable]
@@ -34,7 +34,6 @@ namespace Engine
         : IMatrix<Matrix3x2D, Vector2D>
     {
         #region Static Fields
-
         /// <summary>
         /// An Empty <see cref="Matrix3x2D"/>.
         /// </summary>
@@ -44,47 +43,46 @@ namespace Engine
         /// An Identity <see cref="Matrix3x2D"/>.
         /// </summary>
         public static readonly Matrix3x2D Identity = CreateIdentity();
-
-        #endregion
+        #endregion Static Fields
 
         #region Private Fields
-
         /// <summary>
-        ///
+        /// The type.
         /// </summary>
         private MatrixTypes type;
 
         /// <summary>
-        ///
+        /// The m0x0.
         /// </summary>
         private double m0x0;
 
         /// <summary>
-        ///
+        /// The m0x1.
         /// </summary>
         private double m0x1;
 
         /// <summary>
-        ///
+        /// The m1x0.
         /// </summary>
         private double m1x0;
 
         /// <summary>
-        ///
+        /// The m1x1.
         /// </summary>
         private double m1x1;
 
         /// <summary>
-        ///
+        /// The offset x.
         /// </summary>
         private double offsetX;
 
         /// <summary>
-        ///
+        /// The offset y.
         /// </summary>
         private double offsetY;
 
 #pragma warning disable CS0414
+
         /// <summary>
         /// This field is only used by unmanaged code which isn't detected by the compiler.
         /// Matrix in blt'd to unmanaged code, so this is padding
@@ -92,21 +90,17 @@ namespace Engine
         /// </summary>
         private int padding;
 #pragma warning restore CS0414
-
-        #endregion
+        #endregion Private Fields
 
         #region Constants
-
         /// <summary>
         /// The hash code for a matrix is the xor of its element's hashes.
         /// Since the identity matrix has 2 1's and 4 0's its hash is 0.
         /// </summary>
         private const int c_identityHashCode = 0;
-
-        #endregion
+        #endregion Constants
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Matrix3x2D"/> class of the form:<br/>
         /// / m11, m12, 0 \<br/>
@@ -128,11 +122,9 @@ namespace Engine
             // scale+translation and use special case algorithms.
             DeriveMatrixType();
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// M11
         /// </summary>
@@ -349,11 +341,9 @@ namespace Engine
         /// </summary>
         public bool HasInverse
             => !Determinant.IsZero();
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Operator Point * Matrix
         /// </summary>
@@ -396,11 +386,9 @@ namespace Engine
         /// <param name='matrix2'>The second Matrix to compare</param>
         public static bool operator !=(Matrix3x2D matrix1, Matrix3x2D matrix2)
             => !Equals(matrix1, matrix2);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Creates a rotation transformation about the given point
         /// </summary>
@@ -524,8 +512,7 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -572,7 +559,6 @@ namespace Engine
         //#endregion
 
         #region Mutators
-
         /// <summary>
         /// TransformRect - Internal helper for perf
         /// </summary>
@@ -881,7 +867,6 @@ namespace Engine
 
             return matrix1;
         }
-
 
         /// <summary>
         /// Applies an offset to the specified matrix in place.
@@ -1325,11 +1310,9 @@ namespace Engine
             }
             return;
         }
-
-        #endregion
+        #endregion Mutators
 
         #region Methods
-
         /// <summary>
         /// Transform - returns the result of transforming the point by this matrix
         /// </summary>
@@ -1552,7 +1535,6 @@ namespace Engine
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
-
-        #endregion
+        #endregion Methods
     }
 }

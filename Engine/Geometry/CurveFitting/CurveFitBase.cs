@@ -23,7 +23,6 @@ namespace Engine
     public abstract class CurveFitBase
     {
         #region Constants
-
         /// <summary>
         /// maximum number of iterations of newton's method to run before giving up and splitting curve
         /// </summary>
@@ -38,11 +37,9 @@ namespace Engine
         /// maximum number of points on each side to base mid tangent on
         /// </summary>
         protected const int MidTangentNPoints = 4;
-
-        #endregion
+        #endregion Constants
 
         #region Fields
-
         /// <summary>
         /// Points in the whole line being used for fitting.
         /// </summary>
@@ -65,8 +62,7 @@ namespace Engine
         /// maximum squared error before we split the curve
         /// </summary>
         protected double squaredError;
-
-        #endregion
+        #endregion Fields
 
         /// <summary>
         /// Gets the tangent for the start of the cure.

@@ -27,7 +27,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// The center x coordinate point of the Arc.
         /// </summary>
@@ -52,11 +51,9 @@ namespace Engine
         /// 
         /// </summary>
         private double sweepAngle;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new default instance of the <see cref="CircularArc"/> class.
         /// </summary>
@@ -142,11 +139,9 @@ namespace Engine
             // Get the radius.
             radius = (Center.Distance(PointA));
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="Circle"/> to a Tuple.
         /// </summary>
@@ -163,11 +158,9 @@ namespace Engine
             startAngle = this.startAngle;
             sweepAngle = this.sweepAngle;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the location of the center point of the circular arc.
         /// </summary>
@@ -499,11 +492,9 @@ namespace Engine
         [Description("The axis aligned bounding box of the complete circle that the arc is a segment of.")]
         public Rectangle2D DrawingBounds
             => (Rectangle2D)CachingProperty(() => Measurements.CircleBounds(x, y, radius));
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Implicit conversion from tuple.
         /// </summary>
@@ -511,8 +502,7 @@ namespace Engine
         /// <param name="tuple"></param>
         public static implicit operator CircularArc((double X, double Y, double Radius, double StartAngle, double SweepAngle) tuple)
             => new CircularArc(tuple);
-
-        #endregion
+        #endregion Operators
 
         //#region Serialization
 
@@ -559,7 +549,6 @@ namespace Engine
         //#endregion
 
         #region Interpolators
-
         /// <summary>
         /// Interpolates the Arc.
         /// </summary>
@@ -567,11 +556,9 @@ namespace Engine
         /// <returns>Returns the interpolated point of the index value.</returns>
         public override Point2D Interpolate(double t)
             => Interpolators.CircularArc(x, y, radius, startAngle, SweepAngle, t);
-
-        #endregion
+        #endregion Interpolators
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -599,7 +586,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(CircularArc)}{{{nameof(Center)}={Center}{sep}{nameof(Radius)}={radius}{sep}{nameof(StartAngle)}={startAngle}{sep}{nameof(EndAngle)}={sweepAngle}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

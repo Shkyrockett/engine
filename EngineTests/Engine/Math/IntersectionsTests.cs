@@ -20,26 +20,21 @@ namespace Engine.Tests
     public class IntersectionsTests
     {
         #region Constants
-
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
         private const double TestEpsilon = 0.000000000001d;
-
-        #endregion
+        #endregion Constants
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Housekeeping
-
         /// <summary>
         /// 
         /// </summary>
@@ -76,11 +71,9 @@ namespace Engine.Tests
         {
             //MessageBox.Show("ClassCleanup");
         }
-
-        #endregion
+        #endregion Housekeeping
 
         #region Contains Tests
-
         /// <summary>
         /// 
         /// </summary>
@@ -142,12 +135,9 @@ namespace Engine.Tests
                 Assert.AreEqual(expected, result, $"Test case: {test}, Expected: {result}, Actual: {result}");
             }
         }
-
-
-        #endregion
+        #endregion Contains Tests
 
         #region Intersection Tests
-
         /// <summary>
         /// 
         /// </summary>
@@ -413,7 +403,6 @@ namespace Engine.Tests
 
             }
         }
-
-        #endregion
+        #endregion Intersection Tests
     }
 }

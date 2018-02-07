@@ -22,7 +22,6 @@ namespace Engine
     public static class Generators
     {
         #region Regular Polygons
-
         /// <summary>
         /// The regular convex polygon.
         /// </summary>
@@ -46,11 +45,9 @@ namespace Engine
 
             return new PolygonContour(points);
         }
-
-        #endregion
+        #endregion Regular Polygons
 
         #region Heart Curves
-
         /// <summary>
         /// a is the constant of the original Cardioid.
         /// </summary>
@@ -135,7 +132,6 @@ namespace Engine
             heartCurve.AddCubicBeziers(last);
             return heartCurve;
         }
-
-        #endregion
+        #endregion Heart Curves
     }
 }

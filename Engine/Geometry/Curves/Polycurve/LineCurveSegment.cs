@@ -24,7 +24,6 @@ namespace Engine
          : CurveSegment
     {
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -57,11 +56,9 @@ namespace Engine
             previous.Next = this;
             End = end;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -76,11 +73,9 @@ namespace Engine
             bx = End.Value.X;
             by = End.Value.Y;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -123,8 +118,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
             => (double)CachingProperty(() => ToLineSegment().Length);
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// 
@@ -135,13 +129,11 @@ namespace Engine
             => ToLineSegment().Interpolate(t);
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
         public LineSegment ToLineSegment()
             => new LineSegment(Start.Value, End.Value);
-
-        #endregion
+        #endregion Methods
     }
 }

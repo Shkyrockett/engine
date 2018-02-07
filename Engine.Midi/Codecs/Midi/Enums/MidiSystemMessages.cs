@@ -19,7 +19,6 @@ namespace Engine.File
         : byte
     {
         #region Common Messages
-
         /// <summary>
         /// System Exclusive.
         /// </summary>
@@ -76,10 +75,9 @@ namespace Engine.File
         /// Used to terminate a System Exclusive dump (see above).
         /// </remarks>
         EndOfExclusive = 0x07,
+        #endregion Common Messages
 
-        #endregion
         #region Real-time Messages
-
         /// <summary>
         /// Timing Clock.
         /// </summary>
@@ -137,7 +135,6 @@ namespace Engine.File
         /// Reset all receivers in the system to power-up status. This should be used sparingly, preferably under manual control. In particular, it should not be sent on power-up.
         /// </remarks>
         Reset = 0x0F,
-
-        #endregion
+        #endregion Real-time Messages
     }
 }

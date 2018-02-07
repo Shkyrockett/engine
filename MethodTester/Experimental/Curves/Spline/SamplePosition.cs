@@ -16,7 +16,6 @@ namespace Engine
     public struct SamplePosition
     {
         #region Fields
-
         /// <summary>
         /// Index of sampled curve in the spline curves array.
         /// </summary>
@@ -26,11 +25,9 @@ namespace Engine
         /// The "t" value from which to sample the curve.
         /// </summary>
         public readonly double Time;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -41,7 +38,6 @@ namespace Engine
             Index = curveIndex;
             Time = t;
         }
-
-        #endregion
+        #endregion Constructors
     }
 }

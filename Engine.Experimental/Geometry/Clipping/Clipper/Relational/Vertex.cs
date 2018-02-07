@@ -16,7 +16,6 @@ namespace Engine.Experimental
     public class Vertex
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Vertex"/> class.
         /// </summary>
@@ -25,11 +24,9 @@ namespace Engine.Experimental
         {
             Point = point;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the point.
         /// </summary>
@@ -49,7 +46,6 @@ namespace Engine.Experimental
         /// Gets or sets the vertex flags.
         /// </summary>
         public VertexFlags Flags { get; set; }
-
-        #endregion
+        #endregion Properties
     }
 }

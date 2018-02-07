@@ -19,7 +19,6 @@ namespace Engine.Experimental
     public class Edge
     {
         #region Fields
-
         /// <summary>
         /// The bot.
         /// </summary>
@@ -94,11 +93,9 @@ namespace Engine.Experimental
         /// The local min.
         /// </summary>
         internal LocalMinima LocalMin;
-
-        #endregion
+        #endregion Fields
 
         #region Getters
-
         /// <summary>
         /// Get the owner.
         /// </summary>
@@ -271,11 +268,9 @@ namespace Engine.Experimental
             horzRight = Curr.X;
             return (false, horzLeft, horzRight); //right to left
         }
-
-        #endregion
+        #endregion Getters
 
         #region Setters
-
         /// <summary>
         /// Set the dx.
         /// </summary>
@@ -284,11 +279,9 @@ namespace Engine.Experimental
             var dy = (Top.Y - Bot.Y);
             Dx = (dy == 0 ? horizontal : (Top.X - Bot.X) / dy);
         }
-
-        #endregion
+        #endregion Setters
 
         #region Mutators
-
         /// <summary>
         /// The fix orientation.
         /// </summary>
@@ -363,11 +356,9 @@ namespace Engine.Experimental
             PrevInAEL = eLeft;
             eLeft.NextInAEL = this;
         }
-
-        #endregion
+        #endregion Mutators
 
         #region Queries
-
         /// <summary>
         /// The is maxima.
         /// </summary>
@@ -410,8 +401,7 @@ namespace Engine.Experimental
         /// <returns>The <see cref="bool"/>.</returns>
         public bool IsSamePathType(Edge e2)
             => (LocalMin.ClippingRelation == e2.LocalMin.ClippingRelation);
-
-        #endregion
+        #endregion Queries
 
         /// <summary>
         /// The top x.

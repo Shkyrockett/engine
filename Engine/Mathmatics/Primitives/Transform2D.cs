@@ -29,16 +29,13 @@ namespace Engine
         IEquatable<Transform2D>
     {
         #region Implementations
-
         /// <summary>
         ///
         /// </summary>
         public static Transform2D Identity = new Transform2D(0, 0, 0, 0, 1, 1);
-
-        #endregion
+        #endregion Implementations
 
         #region Fields
-
         /// <summary>
         ///
         /// </summary>
@@ -68,11 +65,9 @@ namespace Engine
         ///
         /// </summary>
         private double scaleY;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
@@ -100,11 +95,9 @@ namespace Engine
             this.scaleX = scaleX;
             this.scaleY = scaleY;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         ///
         /// </summary>
@@ -123,11 +116,9 @@ namespace Engine
             scaleX = this.scaleX;
             scaleY = this.scaleY;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate of the location of the <see cref="Transform2D"/>.
         /// </summary>
@@ -306,11 +297,9 @@ namespace Engine
                 scaleY = value.Height;
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Add two <see cref="Transform2D"/> structs together.
         /// </summary>
@@ -362,11 +351,9 @@ namespace Engine
         /// <param name='transform2'>The second <see cref="Transform2D"/> to compare</param>
         public static bool operator !=(Transform2D transform1, Transform2D transform2)
             => !Equals(transform1, transform2);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         ///
         /// </summary>
@@ -406,11 +393,9 @@ namespace Engine
         /// <returns></returns>
         public Matrix3x2D ToMatrix()
             => new Matrix3x2D(ScaleX * Cos(SkewY), ScaleX * Sin(SkewY), -ScaleY * Sin(SkewX), ScaleY * Cos(SkewX), X, Y);
-
-        #endregion
+        #endregion Factories
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -502,7 +487,6 @@ namespace Engine
             // Create the string representation of the struct.
             return $"{nameof(Transform2D)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}{sep}{nameof(SkewX)}={SkewX.ToString(format, provider)}{sep}{nameof(SkewY)}={SkewY.ToString(format, provider)}{sep}{nameof(ScaleX)}={ScaleX.ToString(format, provider)}{sep}{nameof(ScaleY)}={ScaleY.ToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

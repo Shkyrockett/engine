@@ -17,7 +17,6 @@ namespace Engine
         : PreservingFilter
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MatrixDistort"/> class.
         /// </summary>
@@ -26,20 +25,16 @@ namespace Engine
         {
             Matrix = matrix;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the matrix.
         /// </summary>
         public Matrix3x2D Matrix { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Process.
         /// </summary>
@@ -47,7 +42,6 @@ namespace Engine
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => Distortions.Matrix(point, Matrix);
-
-        #endregion
+        #endregion Methods
     }
 }

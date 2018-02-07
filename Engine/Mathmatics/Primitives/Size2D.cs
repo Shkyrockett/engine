@@ -33,7 +33,6 @@ namespace Engine
         : IVector<Size2D>
     {
         #region Implementations
-
         /// <summary>
         /// An Empty <see cref="Size2D"/>.
         /// </summary>
@@ -43,11 +42,9 @@ namespace Engine
         /// A Unit <see cref="Size2D"/>.
         /// </summary>
         public static readonly Size2D Unit = new Size2D(1, 1);
-
-        #endregion
+        #endregion Implementations
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
@@ -89,11 +86,9 @@ namespace Engine
             Width = width;
             Height = height;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Width component of a <see cref="Size2D"/> coordinate.
         /// </summary>
@@ -116,11 +111,9 @@ namespace Engine
         public bool IsEmpty
             => Abs(Width) < Epsilon
             && Abs(Height) < Epsilon;
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         ///
         /// </summary>
@@ -294,11 +287,9 @@ namespace Engine
         /// <param name="size"></param>
         public static explicit operator Point2D(Size2D size)
             => new Point2D(size.Width, size.Height);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Create a Random <see cref="Size2D"/>.
         /// </summary>
@@ -344,8 +335,7 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -392,7 +382,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -462,7 +451,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Size2D)}({nameof(Width)}={Width}{sep}{nameof(Height)}={Height})";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

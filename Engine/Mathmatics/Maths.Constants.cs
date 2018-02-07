@@ -19,7 +19,6 @@ namespace Engine
     public partial class Maths
     {
         #region Epsilons, Minimums, Maximums
-
         /// <summary>
         /// The horizontal (const). Value: double.NegativeInfinity.
         /// </summary>
@@ -111,11 +110,9 @@ namespace Engine
         /// The hi range64 (const). Value: 0x3FFFFFFFFFFFFFFFL.
         /// </summary>
         public const long HiRange64 = 0x3FFFFFFFFFFFFFFFL;
-
-        #endregion
+        #endregion Epsilons, Minimums, Maximums
 
         #region Pi Derivations
-
         /// <summary>
         /// Represents the inverse of Pi, or the quotient of one over pi.
         /// </summary>
@@ -192,8 +189,7 @@ namespace Engine
         /// </summary>
         /// <remarks>180 / PI</remarks>
         public const double Degree = 180d / PI; // 57.295779513082320876798154814105d;
-
-        #endregion
+        #endregion Pi Derivations
 
         /// <summary>
         /// Represents the golden ratio as specified by the constant, φ (phi).
@@ -208,7 +204,6 @@ namespace Engine
         public static readonly double Rho = Root(0.5d + (1d / 6d * Sqrt(23d / 3d)), 3d) + Root(0.5d - (1d / 6d * Sqrt(23d / 3d)), 3d);
 
         #region Roots
-
         /// <summary>
         /// Represents the inverse square root of 2.
         /// </summary>
@@ -236,11 +231,9 @@ namespace Engine
         /// </summary>
         /// <value>≈2.23606...</value>
         public static readonly double Sqrt5 = Sqrt(5); // 2.2360679774997896964091736687313d;
-
-        #endregion
+        #endregion Roots
 
         #region Fractions
-
         /// <summary>
         /// The zero (const). Value: 0.
         /// </summary>
@@ -580,11 +573,9 @@ namespace Engine
         /// The one twenty seventh (const). Value: 1 / 27.
         /// </summary>
         public const double OneTwentySeventh = 1 / 27;
-
-        #endregion
+        #endregion Fractions
 
         #region Color Constants
-
         /// <summary>
         /// The lower limit for percentages.
         /// </summary>
@@ -680,11 +671,9 @@ namespace Engine
         /// </summary>
         /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
         public const double YUVMaxV = 0.615d;
-
-        #endregion
+        #endregion Color Constants
 
         #region Logarithms
-
         ///// <summary>
         /////
         ///// </summary>
@@ -724,11 +713,9 @@ namespace Engine
         /// The inverse of the log of two.
         /// </summary>
         public static readonly double InverseLogTwo = 1 / LogTwo;
-
-        #endregion
+        #endregion Logarithms
 
         #region Gauss Tables
-
         /// <summary>
         /// Gauss abscissa table
         /// </summary>
@@ -834,7 +821,6 @@ namespace Engine
                 0.3626837834,
                 0.3626837834
             };
-
-        #endregion
+        #endregion Gauss Tables
     }
 }

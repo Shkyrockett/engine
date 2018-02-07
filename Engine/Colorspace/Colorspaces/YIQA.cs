@@ -19,13 +19,11 @@ namespace Engine.Colorspace
         : IColor
     {
         #region Implementations
-
         /// <summary>
         /// The empty (readonly). Value: new YIQ().
         /// </summary>
         public static readonly YIQA Empty = new YIQA();
-
-        #endregion
+        #endregion Implementations
 
         /// <summary>
         /// Initializes a new instance of the <see cref="YIQA"/> class.

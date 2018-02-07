@@ -36,18 +36,15 @@ namespace Engine
         : Shape, IEnumerable<PolyBezierContour>
     {
         #region Fields
-
         /// <summary>
         /// An array of Polygon Contours.
         /// </summary>
         /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         private List<PolyBezierContour> contours;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a default instance of the <see cref="PolyBezier"/> class.
         /// </summary>
@@ -59,7 +56,6 @@ namespace Engine
         /// Initializes a default instance of the <see cref="PolyBezier"/> class.
         /// </summary>
         public PolyBezier(string definition)
-            : base()
         {
             contours = ParsePathDefString(definition);
         }
@@ -120,11 +116,9 @@ namespace Engine
                 this.contours.Add(contour);
             }
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Indexers
-
         /// <summary>
         ///
         /// </summary>
@@ -139,11 +133,9 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -235,8 +227,7 @@ namespace Engine
                 }
             }
         }
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -283,7 +274,6 @@ namespace Engine
         //#endregion
 
         #region Mutators
-
         /// <summary>
         ///
         /// </summary>
@@ -318,8 +308,7 @@ namespace Engine
 
             ClearCache();
         }
-
-        #endregion
+        #endregion Mutators
 
         /// <summary>
         ///
@@ -424,7 +413,6 @@ namespace Engine
         }
 
         #region Methods
-
         ///// <summary>
         /////
         ///// </summary>
@@ -471,7 +459,6 @@ namespace Engine
             if (this == null) return nameof(PolyBezier);
             return $"{nameof(PolyBezier)}{{{ToPathDefString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

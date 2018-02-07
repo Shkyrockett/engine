@@ -22,7 +22,6 @@ namespace Engine.Experimental
     public class Clipper
     {
         #region Fields
-
         /// <summary>
         /// The active edge link.
         /// </summary>
@@ -32,11 +31,9 @@ namespace Engine.Experimental
         /// The selected edge link.
         /// </summary>
         private Edge SelectedEdgeLink;
-
-        #endregion
+        #endregion Fields
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the clip type.
         /// </summary>
@@ -86,11 +83,9 @@ namespace Engine.Experimental
         /// Gets or sets the intersect list.
         /// </summary>
         private List<IntersectNode> IntersectList { get; set; } = new List<IntersectNode>();
-
-        #endregion
+        #endregion Properties
 
         #region Virtual Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -361,8 +356,7 @@ namespace Engine.Experimental
             }
             finally { CleanUp(); }
         }
-
-        #endregion
+        #endregion Virtual Methods
 
         /// <summary>
         /// Reset.

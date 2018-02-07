@@ -32,7 +32,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// The center x-coordinate point of the <see cref="EllipticalArc"/>.
         /// </summary>
@@ -70,11 +69,9 @@ namespace Engine
         ///
         /// </summary>
         private double sweepAngle;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
@@ -291,11 +288,9 @@ namespace Engine
             sweepAngle %= Tau;
             startAngle %= Tau;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="EllipticalArc"/> to a Tuple.
         /// </summary>
@@ -316,11 +311,9 @@ namespace Engine
             startAngle = this.startAngle;
             sweepAngle = this.sweepAngle;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the location of the center point of the elliptical arc.
         /// </summary>
@@ -945,11 +938,9 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D DrawingBounds
             => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(cx, cy, rX, rY));
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Implicit conversion from tuple.
         /// </summary>
@@ -957,8 +948,7 @@ namespace Engine
         /// <param name="tuple"></param>
         public static implicit operator EllipticalArc((double X, double Y, double RX, double RY, double Angle, double StartAngle, double SweepAngle) tuple)
             => new EllipticalArc(tuple);
-
-        #endregion
+        #endregion Operators
 
         //#region Serialization
 
@@ -1005,7 +995,6 @@ namespace Engine
         //#endregion
 
         #region Interpolators
-
         /// <summary>
         /// 
         /// </summary>
@@ -1013,11 +1002,9 @@ namespace Engine
         /// <returns></returns>
         public override Point2D Interpolate(double t)
             => Interpolators.EllipticalArc(cx, cy, rX, rY, CosAngle, SinAngle, startAngle, sweepAngle, t);
-
-        #endregion
+        #endregion Interpolators
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -1045,7 +1032,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(EllipticalArc)}{{{nameof(Center)}={Center},{nameof(RX)}={rX},{nameof(RY)}={rY},{nameof(Angle)}={angle},{nameof(StartAngle)}={startAngle},{SweepAngle}={sweepAngle}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

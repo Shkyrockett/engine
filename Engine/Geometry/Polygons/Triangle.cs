@@ -26,7 +26,6 @@ namespace Engine
          : PolygonContour
     {
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -115,11 +114,9 @@ namespace Engine
                 throw new IndexOutOfRangeException();
             }
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -138,11 +135,9 @@ namespace Engine
             cX = C.X;
             cY = C.Y;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -199,8 +194,7 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -247,7 +241,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
         /// and IFormatProvider passed in.
@@ -270,7 +263,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Triangle)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

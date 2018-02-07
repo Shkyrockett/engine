@@ -25,7 +25,6 @@ namespace Engine.Colorspace
         public static readonly HSVA Empty = new HSVA();
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="HSVA"/> class.
         /// </summary>
@@ -104,11 +103,9 @@ namespace Engine.Colorspace
             Saturation = saturation;
             Value = value;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
@@ -128,8 +125,7 @@ namespace Engine.Colorspace
         /// Gets or sets the value color value.
         /// </summary>
         public double Value { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// The equals.

@@ -31,17 +31,14 @@ namespace Engine
     public abstract class CurveSegment
     {
         #region Fields
-
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
         //[NonSerialized()]
         protected Dictionary<object, object> propertyCache = new Dictionary<object, object>();
-
-        #endregion
+        #endregion Fields
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the flag indicating whether the item's position should be 
         /// calculated relative to the last item, or from Origin. 
@@ -106,8 +103,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public abstract Point2D Interpolate(double t);
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// This should be run anytime a property of the item is modified.

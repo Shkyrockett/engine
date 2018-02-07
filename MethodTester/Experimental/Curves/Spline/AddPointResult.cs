@@ -19,7 +19,6 @@ namespace Engine
     public struct AddPointResult
     {
         #region Fields
-
         /// <summary>
         /// packed value... need this so that default(AddPointResult) which is always 0 to represent no change
         /// </summary>
@@ -29,11 +28,9 @@ namespace Engine
         /// No changes were made.
         /// </summary>
         public static readonly AddPointResult NO_CHANGE = default;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -45,11 +42,9 @@ namespace Engine
                 throw new InvalidOperationException("firstChangedIndex must be greater than zero");
             data = (firstChangedIndex + 1) * (curveAdded ? -1 : 1);
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Index into curves array of first curve that was changed, or -1 if no curves were changed.
         /// All curves after this are assumed to have changed/been added as well. If a curve was added
@@ -69,7 +64,6 @@ namespace Engine
         /// </summary>
         public bool WasChanged
             => data != 0;
-
-        #endregion
+        #endregion Properties
     }
 }

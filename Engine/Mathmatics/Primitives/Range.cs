@@ -23,11 +23,9 @@ namespace Engine
         : IEnumerable<double>
     {
         #region Implementations
-
-        #endregion
+        #endregion Implementations
 
         #region Factories
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Range"/> struct for iteration of a range from 0 to 1.
         /// </summary>
@@ -64,11 +62,9 @@ namespace Engine
         /// <returns>A new <see cref="Range"/> struct set up for iterating degrees.</returns>
         public static Range DegreesRange(double start, double end)
             => new Range(start, end, 0d, 360d, 1d, Overflows.Wrap);
-
-        #endregion
+        #endregion Factories
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Range"/> struct;
         /// </summary>
@@ -87,8 +83,7 @@ namespace Engine
             Step = step;
             Overflow = overflow;
         }
-
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Provides access to the enumeration of the linear interpolation from the <see cref="Min"/> value to the <see cref="Max"/> value.
@@ -112,7 +107,6 @@ namespace Engine
         }
 
         #region Properties
-
         /// <summary>
         /// Gets the minimum value of the <see cref="Range"/>.
         /// </summary>
@@ -142,11 +136,9 @@ namespace Engine
         /// Gets a value indicating whether to wrap the return value or clamp it between max and min.
         /// </summary>
         public Overflows Overflow { get; }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Enumerate all values at the <see cref="Step"/> interval between the <see cref="Max"/> and <see cref="Min"/> values.
         /// </summary>
@@ -166,7 +158,6 @@ namespace Engine
             for (var i = Min; i < Max; i += Step)
                 yield return this[i];
         }
-
-        #endregion
+        #endregion Methods
     }
 }

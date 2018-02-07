@@ -17,7 +17,6 @@ namespace Engine
         : DestructiveFilter
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SwirlDistort"/> class.
         /// </summary>
@@ -28,11 +27,9 @@ namespace Engine
             Center = center;
             Strength = strength;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the center.
         /// </summary>
@@ -42,11 +39,9 @@ namespace Engine
         /// Gets or sets the strength.
         /// </summary>
         public double Strength { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Process.
         /// </summary>
@@ -54,7 +49,6 @@ namespace Engine
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => Distortions.Swirl(point, Center, -Strength);
-
-        #endregion
+        #endregion Methods
     }
 }

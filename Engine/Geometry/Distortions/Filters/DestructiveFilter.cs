@@ -19,7 +19,6 @@ namespace Engine
         : IFilter
     {
         #region Properties
-
         /// <summary>
         /// Gets or sets the tolerence.
         /// </summary>
@@ -29,8 +28,7 @@ namespace Engine
         /// Gets or sets the sample distance.
         /// </summary>
         public double SampleDistance { get; set; } = 8;
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Process.

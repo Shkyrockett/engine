@@ -21,7 +21,6 @@ namespace Engine.Tweening
     public class Tween
     {
         #region Callbacks
-
         /// <summary>
         /// The ease.
         /// </summary>
@@ -41,11 +40,9 @@ namespace Engine.Tweening
         /// The complete.
         /// </summary>
         private Action complete;
-
-        #endregion
+        #endregion Callbacks
 
         #region Timing
-
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
@@ -70,11 +67,9 @@ namespace Engine.Tweening
         /// The time.
         /// </summary>
         private double time;
-
-        #endregion
+        #endregion Timing
 
         #region Fields
-
         /// <summary>
         /// The first update.
         /// </summary>
@@ -129,11 +124,9 @@ namespace Engine.Tweening
         /// The remover.
         /// </summary>
         private Tweener Remover;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Tween"/> class.
         /// </summary>
@@ -158,11 +151,9 @@ namespace Engine.Tweening
             end = new List<object>();
             behavior = LerpBehavior.None;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// The time remaining before the tween ends or repeats.
         /// </summary>
@@ -191,8 +182,7 @@ namespace Engine.Tweening
         /// The object this tween targets. Will be null if the tween represents a timer.
         /// </summary>
         public object Target { get; private set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Add the lerp.
@@ -293,7 +283,6 @@ namespace Engine.Tweening
         }
 
         #region Behavior
-
         /// <summary>
         /// Apply target values to a starting point before tweening.
         /// </summary>
@@ -469,11 +458,9 @@ namespace Engine.Tweening
             behavior |= LerpBehavior.Round;
             return this;
         }
-
-        #endregion
+        #endregion Behavior
 
         #region Control
-
         /// <summary>
         /// Cancel tweening given properties.
         /// </summary>
@@ -532,7 +519,6 @@ namespace Engine.Tweening
         /// </summary>
         public void Resume()
             => Paused = false;
-
-        #endregion
+        #endregion Control
     }
 }

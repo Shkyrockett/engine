@@ -23,16 +23,13 @@ namespace Engine.Colorspace
         : IColor
     {
         #region Implementations
-
         /// <summary>
         /// The empty Value: new RGBA(0, 0, 0, 0).
         /// </summary>
         public static readonly RGBA Empty = new RGBA(0, 0, 0, 0);
-
-        #endregion
+        #endregion Implementations
 
         #region Constants
-
         /// <summary>
         /// The red shift value.
         /// </summary>
@@ -52,11 +49,9 @@ namespace Engine.Colorspace
         /// The alpha shift Value.
         /// </summary>
         private const int AlphaShift = 0x0;
-
-        #endregion
+        #endregion Constants
 
         #region Fields
-
         /// <summary>
         /// The integer value of the color.
         /// </summary>
@@ -66,11 +61,9 @@ namespace Engine.Colorspace
         /// The name of the color.
         /// </summary>
         private string name;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RGBA"/> class.
         /// </summary>
@@ -119,11 +112,9 @@ namespace Engine.Colorspace
                 | blue << BlueShift
                 | alpha << AlphaShift);// & 0xffffffff;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the red color value.
         /// </summary>
@@ -177,11 +168,9 @@ namespace Engine.Colorspace
             get { return name; }
             set { name = value; }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Compares two <see cref="RGBA"/> objects.
         /// The result specifies whether the color values of the two <see cref="RGBA"/> objects are equal.
@@ -205,11 +194,9 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(RGBA left, RGBA right)
             => !Equals(left, right);
-
-        #endregion
+        #endregion Operators
 
         #region Methods
-
         /// <summary>
         /// Get the brightness.
         /// </summary>
@@ -230,11 +217,9 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="double"/>.</returns>
         public double GetSaturation()
             => Colorspaces.GetSaturation(Red, Green, Blue);
-
-        #endregion
+        #endregion Methods
 
         #region Standard Methods
-
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
@@ -348,7 +333,6 @@ namespace Engine.Colorspace
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(RGBA)}{{{nameof(Red)}={Red.ToString(format, provider)}{sep}{nameof(Green)}={Green.ToString(format, provider)}{sep}{nameof(Blue)}={Blue.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}{sep}{nameof(Name)}={name}}}";
         }
-
-        #endregion
+        #endregion Standard Methods
     }
 }

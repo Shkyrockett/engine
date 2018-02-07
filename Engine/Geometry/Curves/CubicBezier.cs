@@ -33,7 +33,6 @@ namespace Engine
         : Shape, IEquatable<CubicBezier>
     {
         #region Fields
-
         /// <summary>
         /// Position 1 x-coordinate.
         /// </summary>
@@ -73,11 +72,9 @@ namespace Engine
         /// Position 2 y-coordinate.
         /// </summary>
         private double dy;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CubicBezier"/> class.
         /// </summary>
@@ -175,11 +172,9 @@ namespace Engine
         public CubicBezier((double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) tuple)
             : this(tuple.aX, tuple.aY, tuple.bX, tuple.bY, tuple.cX, tuple.cY, tuple.dX, tuple.dY)
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="CubicBezier"/> to a Tuple.
         /// </summary>
@@ -202,11 +197,9 @@ namespace Engine
             dx = this.dx;
             dy = this.dy;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets a list of points representing the handles of the <see cref="CubicBezier"/> curve.
         /// </summary>
@@ -552,11 +545,9 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => PolynomialDegree.Cubic;
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// 
         /// </summary>
@@ -598,8 +589,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator CubicBezier((double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) tuple)
             => new CubicBezier(tuple);
-
-        #endregion
+        #endregion Operators
 
         //#region Serialization
 
@@ -705,7 +695,6 @@ namespace Engine
             => Derivative(t).Normalize();
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -778,7 +767,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(CubicBezier)}={{{nameof(A)}={A}{sep}{nameof(B)}={B}{sep}{nameof(C)}={C}{sep}{nameof(D)}={D}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

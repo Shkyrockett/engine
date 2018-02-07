@@ -18,7 +18,6 @@ namespace Engine
     public class Connector
     {
         #region Fields
-
         /// <summary>
         /// The open polygons.
         /// </summary>
@@ -28,11 +27,9 @@ namespace Engine
         /// The closed polygons.
         /// </summary>
         private readonly List<PointChain> closedPolygons;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Connector"/> class.
         /// </summary>
@@ -41,8 +38,7 @@ namespace Engine
             openPolygons = new List<PointChain>();
             closedPolygons = new List<PointChain>();
         }
-
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Add.

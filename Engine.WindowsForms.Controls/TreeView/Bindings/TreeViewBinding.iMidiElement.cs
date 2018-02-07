@@ -34,7 +34,6 @@ namespace Engine
         : class
     {
         #region Fields
-
         /// <summary>
         ///
         /// </summary>
@@ -74,11 +73,9 @@ namespace Engine
         ///
         /// </summary>
         private TreeNode parentTreeNode;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
@@ -178,11 +175,9 @@ namespace Engine
 
             SelectItem();
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -277,7 +272,6 @@ namespace Engine
             treeNode.EnsureVisible();
             treeView.SelectedNode = treeNode;
         }
-
-        #endregion
+        #endregion Methods
     }
 }

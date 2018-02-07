@@ -29,7 +29,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// The x.
         /// </summary>
@@ -54,16 +53,13 @@ namespace Engine
         /// The number of cells the grid should contain.
         /// </summary>
         private int count;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="SquareCellGrid"/> class.
         /// </summary>
         public SquareCellGrid()
-            : base()
         { }
 
         /// <summary>
@@ -84,7 +80,6 @@ namespace Engine
         /// <param name="height"></param>
         /// <param name="count"></param>
         public SquareCellGrid(int x, int y, int width, int height, int count)
-            : base()
         {
             this.x = x;
             this.y = y;
@@ -92,11 +87,9 @@ namespace Engine
             this.height = height;
             this.count = count;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// The deconstructor.
         /// </summary>
@@ -113,11 +106,9 @@ namespace Engine
             height = this.height;
             count = this.count;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Indexers
-
         /// <summary>
         /// Gets the index of a cell at a given point in the grid.
         /// </summary>
@@ -172,11 +163,9 @@ namespace Engine
                 return new Rectangle2D(point, CellSize);
             }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the x.
         /// </summary>
@@ -316,8 +305,7 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -364,7 +352,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// Converts the attributes of this <see cref="SquareCellGrid"/> to a human-readable string. 
         /// </summary>
@@ -373,7 +360,6 @@ namespace Engine
         /// <returns></returns>
         public override string ConvertToString(string format, IFormatProvider provider)
             => $"{nameof(SquareCellGrid)}{{Bounds{{{Bounds}}},Count {count}}}";
-
-        #endregion
+        #endregion Methods
     }
 }

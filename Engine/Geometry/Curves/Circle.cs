@@ -29,7 +29,6 @@ namespace Engine
         : Shape
     {
         #region Static Creation Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -64,11 +63,9 @@ namespace Engine
         /// <returns></returns>
         public static Circle FromRectangle(Rectangle2D rectangle)
             => new Circle(rectangle);
-
-        #endregion
+        #endregion Static Creation Methods
 
         #region Private Fields
-
         /// <summary>
         /// The center x coordinate point of the circle.
         /// </summary>
@@ -83,11 +80,9 @@ namespace Engine
         /// The radius of the circle.
         /// </summary>
         private double radius;
-
-        #endregion
+        #endregion Private Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.
         /// </summary>
@@ -110,7 +105,6 @@ namespace Engine
         /// <param name="y">The center y coordinate point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         public Circle(double x, double y, double radius)
-            : base()
         {
             this.x = x;
             this.y = y;
@@ -123,7 +117,6 @@ namespace Engine
         /// <param name="center">The center point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         public Circle(Point2D center, double radius)
-            : base()
         {
             x = center.X;
             y = center.Y;
@@ -135,7 +128,6 @@ namespace Engine
         /// </summary>
         /// <param name="bounds">The bounding box of the circle.</param>
         public Circle(Rectangle2D bounds)
-            : base()
         {
             x = bounds.Center().X;
             y = bounds.Center().Y;
@@ -157,7 +149,6 @@ namespace Engine
         /// <param name="PointB"></param>
         /// <param name="PointC"></param>
         public Circle(Point2D PointA, Point2D PointB, Point2D PointC)
-            : base()
         {
             //  Calculate the slopes of the lines.
             var slopeA = (PointA.Slope(PointB));
@@ -172,11 +163,9 @@ namespace Engine
             // Get the radius.
             radius = (Center.Distance(PointA));
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="Circle"/> to a Tuple.
         /// </summary>
@@ -189,11 +178,9 @@ namespace Engine
             y = this.y;
             radius = this.radius;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the radius of the circle.
         /// </summary>
@@ -377,11 +364,9 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Implicit conversion from tuple.
         /// </summary>
@@ -389,8 +374,7 @@ namespace Engine
         /// <param name="tuple"></param>
         public static implicit operator Circle((double X, double Y, double Radius) tuple)
             => new Circle(tuple);
-
-        #endregion
+        #endregion Operators
 
         //#region Serialization
 
@@ -437,7 +421,6 @@ namespace Engine
         //#endregion
 
         #region Interpolators
-
         /// <summary>
         /// Interpolates the circle.
         /// </summary>
@@ -446,11 +429,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
             => Interpolators.UnitCircle(x, y, radius, t);
-
-        #endregion
+        #endregion Interpolators
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -476,7 +457,6 @@ namespace Engine
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Circle)}{{{nameof(X)}={x.ToString(format, provider)}{sep}{nameof(Y)}={y.ToString(format, provider)}{sep}{nameof(Radius)}={radius.ToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

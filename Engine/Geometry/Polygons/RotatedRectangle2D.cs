@@ -28,7 +28,6 @@ namespace Engine
         : Shape
     {
         #region Implementations
-
         /// <summary>
         /// 
         /// </summary>
@@ -38,11 +37,9 @@ namespace Engine
         /// 
         /// </summary>
         public static readonly RotatedRectangle2D Unit = new RotatedRectangle2D(0, 0, 1, 1, 0);
-
-        #endregion
+        #endregion Implementations
 
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
@@ -67,11 +64,9 @@ namespace Engine
         /// 
         /// </summary>
         private double angle;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new default instance of the <see cref="RotatedRectangle2D"/> class.
         /// </summary>
@@ -164,11 +159,9 @@ namespace Engine
             width = Max(Max(point1.X, point2.X) - x, 0);
             height = Max(Max(point1.Y, point2.Y) - y, 0);
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the X coordinate location of the rectangle.
         /// </summary>
@@ -404,11 +397,9 @@ namespace Engine
         [Description("bounding box of the rectangle.")]
         public override Rectangle2D Bounds
             => Measurements.RotatedRectangleBounds(width, height, Center, angle);
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Tests whether two <see cref="RotatedRectangle2D"/> objects have equal location, size, an angle.
         /// </summary>
@@ -461,11 +452,9 @@ namespace Engine
         /// <returns></returns>
         public override bool Equals(object obj)
             => obj is RotatedRectangle2D && Equals(this, obj as RotatedRectangle2D);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Creates a new <see cref="RotatedRectangle2D"/> with the specified location and size.
         /// </summary>
@@ -602,8 +591,7 @@ namespace Engine
         //    Matrix2x3D.TransformRect(ref rect, ref matrix);
         //    return rect;
         //}
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -650,7 +638,6 @@ namespace Engine
         //#endregion
 
         #region Mutators
-
         ///// <summary>
         ///// Union - Update this rectangle to be the union of this and Rectangle2D.
         ///// </summary>
@@ -772,11 +759,9 @@ namespace Engine
         //{
         //    Matrix2x3D.TransformRect(ref this, ref matrix);
         //}
-
-        #endregion
+        #endregion Mutators
 
         #region Methods
-
         ///// <summary>
         ///// 
         ///// </summary>
@@ -850,7 +835,6 @@ namespace Engine
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(RotatedRectangle2D)}{{{nameof(X)}={x.ToString(format, provider)},{nameof(Y)}={y.ToString(format, provider)},{nameof(Width)}={width.ToString(format, provider)},{nameof(Height)}={height.ToString(format, provider)},{nameof(Angle)}={angle.ToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

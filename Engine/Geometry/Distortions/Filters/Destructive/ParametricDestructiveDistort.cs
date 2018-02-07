@@ -19,7 +19,6 @@ namespace Engine
         : DestructiveFilter
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ParametricDestructiveDistort"/> class.
         /// </summary>
@@ -28,20 +27,16 @@ namespace Engine
         {
             Functions = functions;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the functions.
         /// </summary>
         public Func<Point2D, Point2D>[] Functions { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Process.
         /// </summary>
@@ -56,7 +51,6 @@ namespace Engine
             }
             return result;
         }
-
-        #endregion
+        #endregion Methods
     }
 }

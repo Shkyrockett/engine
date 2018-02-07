@@ -23,44 +23,62 @@ namespace Engine.Tweening
     public static class Ease
     {
         #region Constants
-
         /// <summary>
         /// The bounce key1 (const). Value: 1d / 2.75d.
         /// </summary>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         private const double BounceKey1 = 1d / 2.75d;
 
         /// <summary>
         /// The bounce key2 (const). Value: 2d / 2.75d.
         /// </summary>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         private const double BounceKey2 = 2d / 2.75d;
 
         /// <summary>
         /// The bounce key3 (const). Value: 1.5d / 2.75d.
         /// </summary>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         private const double BounceKey3 = 1.5d / 2.75d;
 
         /// <summary>
         /// The bounce key4 (const). Value: 2.5d / 2.75d.
         /// </summary>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         private const double BounceKey4 = 2.5d / 2.75d;
 
         /// <summary>
         /// The bounce key5 (const). Value: 2.25d / 2.75d.
         /// </summary>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         private const double BounceKey5 = 2.25d / 2.75d;
 
         /// <summary>
         /// The bounce key6 (const). Value: 2.625d / 2.75d.
         /// </summary>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         private const double BounceKey6 = 2.625d / 2.75d;
-
-        #endregion
+        #endregion Constants
 
         #region To and Fro Easing Methods
-
         /// <summary>
         /// Ease a value to its target and then back with another easing function. Use this to wrap two other easing functions.
         /// </summary>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Func<double, double> ToAndFro(Func<double, double> easer1, Func<double, double> easer2)
@@ -69,6 +87,9 @@ namespace Engine.Tweening
         /// <summary>
         /// Ease a value to its target and then back. Use this to wrap another easing function.
         /// </summary>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Func<double, double> ToAndFro(Func<double, double> easer)
@@ -77,6 +98,9 @@ namespace Engine.Tweening
         /// <summary>
         /// Ease a value to its target and then back.
         /// </summary>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToAndFro(double t)
@@ -85,28 +109,26 @@ namespace Engine.Tweening
         /// <summary>
         /// Parabolic to and fro method.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Parabolic(double t)
             => -4 * t * t + 4 * t - 0;
-
-        #endregion
+        #endregion To and Fro Easing Methods
 
         #region Linear Easing Methods
-
         /// <summary>
         /// Easing equation function for a simple linear tweening, with no easing.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(double t, double b, double c, double d)
@@ -115,39 +137,44 @@ namespace Engine.Tweening
         /// <summary>
         /// Easing equation function for a simple linear tweening, with no easing.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>The correct value.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(double t)
             => t;
-
-        #endregion
+        #endregion Linear Easing Methods
 
         #region Quadratic Easing Methods
-
         /// <summary>
         /// Easing equation function for a quadratic (t^2) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadIn(double t, double b, double c, double d)
             => c * (t /= d) * t + b;
 
         /// <summary>
-        /// Quadratic in.
+        /// Easing equation function for a quadratic (t^2) easing in:
+        /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadIn(double t)
@@ -157,24 +184,28 @@ namespace Engine.Tweening
         /// Easing equation function for a quadratic (t^2) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOut(double t, double b, double c, double d)
             => -c * (t /= d) * (t - 2) + b;
 
         /// <summary>
-        /// Quadratic out.
+        /// Easing equation function for a quadratic (t^2) easing out:
+        /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOut(double t)
@@ -184,24 +215,31 @@ namespace Engine.Tweening
         /// Easing equation function for a quadratic (t^2) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadInOut(double t, double b, double c, double d)
             => ((t /= d / 2) < 1) ? c / 2 * t * t + b : -c / 2 * ((--t) * (t - 2) - 1) + b;
 
         /// <summary>
-        /// Quadratic in and out.
+        /// Easing equation function for a quadratic (t^2) easing in/out:
+        /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadInOut(double t)
@@ -211,14 +249,14 @@ namespace Engine.Tweening
         /// Easing equation function for a quadratic (t^2) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOutIn(double t, double b, double c, double d)
@@ -228,42 +266,47 @@ namespace Engine.Tweening
         /// Easing equation function for a quadratic (t^2) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOutIn(double t)
             => (t < 0.5) ? QuadOut(t * 2) : QuadIn((t * 2) - 1);
-
-        #endregion
+        #endregion Quadratic Easing Methods
 
         #region Cubic Easing Methods
-
         /// <summary>
         /// Easing equation function for a cubic (t^3) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicIn(double t, double b, double c, double d)
             => c * (t /= d) * t * t + b;
 
         /// <summary>
-        /// Cubic in.
+        /// Easing equation function for a cubic (t^3) easing in:
+        /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicIn(double t)
@@ -273,14 +316,14 @@ namespace Engine.Tweening
         /// Easing equation function for a cubic (t^3) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOut(double t, double b, double c, double d)
@@ -289,8 +332,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Cubic out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOut(double t)
@@ -300,14 +346,14 @@ namespace Engine.Tweening
         /// Easing equation function for a cubic (t^3) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicInOut(double t, double b, double c, double d)
@@ -316,8 +362,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Cubic in and out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicInOut(double t)
@@ -327,14 +376,14 @@ namespace Engine.Tweening
         /// Easing equation function for a cubic (t^3) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOutIn(double t, double b, double c, double d)
@@ -344,32 +393,33 @@ namespace Engine.Tweening
         /// Easing equation function for a cubic (t^3) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOutIn(double t)
             => (t < 0.5) ? CubicOut(t * 2) : CubicIn((t * 2) - 1);
-
-        #endregion
+        #endregion Cubic Easing Methods
 
         #region Quartic Easing Methods
-
         /// <summary>
         /// Easing equation function for a quartic (t^4) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartIn(double t, double b, double c, double d)
@@ -378,8 +428,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Quart in.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartIn(double t)
@@ -389,14 +442,14 @@ namespace Engine.Tweening
         /// Easing equation function for a quartic (t^4) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOut(double t, double b, double c, double d)
@@ -405,8 +458,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Quart out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOut(double t)
@@ -416,14 +472,14 @@ namespace Engine.Tweening
         /// Easing equation function for a quartic (t^4) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartInOut(double t, double b, double c, double d)
@@ -432,8 +488,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Quart in and out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartInOut(double t)
@@ -443,14 +502,14 @@ namespace Engine.Tweening
         /// Easing equation function for a quartic (t^4) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOutIn(double t, double b, double c, double d)
@@ -460,32 +519,33 @@ namespace Engine.Tweening
         /// Easing equation function for a quartic (t^4) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOutIn(double t)
             => (t < 0.5) ? QuartOut(t * 2) : QuartIn((t * 2) - 1);
-
-        #endregion
+        #endregion Quartic Easing Methods
 
         #region Quintic Easing Methods
-
         /// <summary>
         /// Easing equation function for a quintic (t^5) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintIn(double t, double b, double c, double d)
@@ -494,8 +554,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Quint in.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintIn(double t)
@@ -505,14 +568,14 @@ namespace Engine.Tweening
         /// Easing equation function for a quintic (t^5) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOut(double t, double b, double c, double d)
@@ -521,8 +584,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Quint out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOut(double t)
@@ -532,14 +598,14 @@ namespace Engine.Tweening
         /// Easing equation function for a quintic (t^5) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintInOut(double t, double b, double c, double d)
@@ -548,8 +614,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Quint in and out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintInOut(double t)
@@ -559,14 +628,14 @@ namespace Engine.Tweening
         /// Easing equation function for a quintic (t^5) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOutIn(double t, double b, double c, double d)
@@ -576,32 +645,33 @@ namespace Engine.Tweening
         /// Easing equation function for a quintic (t^5) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOutIn(double t)
             => (t < 0.5) ? QuintOut(t * 2) : QuintIn((t * 2) - 1);
-
-        #endregion
+        #endregion Quintic Easing Methods
 
         #region Exponential Easing Methods
-
         /// <summary>
         /// Easing equation function for an exponential (2^t) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoIn(double t, double b, double c, double d)
@@ -610,8 +680,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Exponential in.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoIn(double t)
@@ -621,14 +694,14 @@ namespace Engine.Tweening
         /// Easing equation function for an exponential (2^t) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOut(double t, double b, double c, double d)
@@ -637,8 +710,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Exponential out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOut(double t)
@@ -648,14 +724,14 @@ namespace Engine.Tweening
         /// Easing equation function for an exponential (2^t) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoInOut(double t, double b, double c, double d)
@@ -675,8 +751,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Exponential in and out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoInOut(double t)
@@ -687,14 +766,14 @@ namespace Engine.Tweening
         /// Easing equation function for an exponential (2^t) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOutIn(double t, double b, double c, double d)
@@ -704,32 +783,33 @@ namespace Engine.Tweening
         /// Easing equation function for an exponential (2^t) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOutIn(double t)
             => (t < 0.5) ? ExpoOut(t * 2) : ExpoIn((t * 2) - 1);
-
-        #endregion
+        #endregion Exponential Easing Methods
 
         #region Sine Easing Methods
-
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineIn(double t, double b, double c, double d)
@@ -738,8 +818,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Sine in.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineIn(double t)
@@ -751,14 +834,14 @@ namespace Engine.Tweening
         /// Easing equation function for a sinusoidal (sin(t)) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOut(double t, double b, double c, double d)
@@ -767,8 +850,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Sine out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOut(double t)
@@ -778,14 +864,14 @@ namespace Engine.Tweening
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineInOut(double t, double b, double c, double d)
@@ -796,8 +882,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Sine in and out
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineInOut(double t)
@@ -807,14 +896,14 @@ namespace Engine.Tweening
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOutIn(double t, double b, double c, double d)
@@ -826,34 +915,32 @@ namespace Engine.Tweening
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
-        /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOutIn(double t)
             => (t < 0.5)
             ? SineOut(t * 2)
             : SineIn((t * 2) - 1);
-
-        #endregion
+        #endregion Sine Easing Methods
 
         #region Circular Easing Methods
-
         /// <summary>
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircIn(double t, double b, double c, double d)
@@ -862,8 +949,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Circle in.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircIn(double t)
@@ -873,14 +963,14 @@ namespace Engine.Tweening
         /// Easing equation function for a circular (sqrt(1-t^2)) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOut(double t, double b, double c, double d)
@@ -889,8 +979,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Circle out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOut(double t)
@@ -900,14 +993,14 @@ namespace Engine.Tweening
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircInOut(double t, double b, double c, double d)
@@ -916,8 +1009,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Circle in and out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircInOut(double t)
@@ -927,14 +1023,14 @@ namespace Engine.Tweening
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOutIn(double t, double b, double c, double d)
@@ -944,32 +1040,30 @@ namespace Engine.Tweening
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
-        /// Modified from: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOutIn(double t)
             => (t < 0.5) ? CircOut(t * 2) : CircIn((t * 2) - 1);
-
-        #endregion
+        #endregion Circular Easing Methods
 
         #region Elastic Easing Methods
-
         /// <summary>
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticIn(double t, double b, double c, double d)
@@ -986,8 +1080,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Elastic in.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticIn(double t)
@@ -997,14 +1094,14 @@ namespace Engine.Tweening
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOut(double t, double b, double c, double d)
@@ -1021,8 +1118,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Elastic out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOut(double t)
@@ -1032,14 +1132,14 @@ namespace Engine.Tweening
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticInOut(double t, double b, double c, double d)
@@ -1058,8 +1158,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Elastic in and out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticInOut(double t)
@@ -1071,14 +1174,14 @@ namespace Engine.Tweening
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOutIn(double t, double b, double c, double d)
@@ -1088,32 +1191,30 @@ namespace Engine.Tweening
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
-        /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOutIn(double t)
             => (t < 0.5) ? ElasticOut(t * 2) : ElasticIn((t * 2) - 1);
-
-        #endregion
+        #endregion Elastic Easing Methods
 
         #region Bounce Easing Methods
-
         /// <summary>
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceIn(double t, double b, double c, double d)
@@ -1122,8 +1223,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Bounce in.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceIn(double t)
@@ -1142,14 +1246,14 @@ namespace Engine.Tweening
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOut(double t, double b, double c, double d)
@@ -1167,8 +1271,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Bounce out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOut(double t)
@@ -1186,14 +1293,14 @@ namespace Engine.Tweening
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceEaseInOut(double t, double b, double c, double d)
@@ -1207,8 +1314,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Bounce in and out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceInOut(double t)
@@ -1239,14 +1349,14 @@ namespace Engine.Tweening
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOutIn(double t, double b, double c, double d)
@@ -1256,32 +1366,30 @@ namespace Engine.Tweening
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
-        /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOutIn(double t)
             => (t < 0.5) ? BounceOut(t * 2) : BounceIn((t * 2) - 1);
-
-        #endregion
+        #endregion Bounce Easing Methods
 
         #region Back Easing Methods
-
         /// <summary>
         /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in:
         /// accelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackIn(double t, double b, double c, double d)
@@ -1290,8 +1398,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Back in.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackIn(double t)
@@ -1301,14 +1412,14 @@ namespace Engine.Tweening
         /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out:
         /// decelerating from zero velocity.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOut(double t, double b, double c, double d)
@@ -1317,8 +1428,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Back out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOut(double t)
@@ -1328,14 +1442,14 @@ namespace Engine.Tweening
         /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in/out:
         /// acceleration until halfway, then deceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackInOut(double t, double b, double c, double d)
@@ -1347,8 +1461,11 @@ namespace Engine.Tweening
         /// <summary>
         /// Back in and out.
         /// </summary>
-        /// <param name="t">Time elapsed.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns>Eased timescale.</returns>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackInOut(double t)
@@ -1364,14 +1481,14 @@ namespace Engine.Tweening
         /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <param name="b">Starting value.</param>
         /// <param name="c">Final value.</param>
         /// <param name="d">Duration of animation.</param>
         /// <returns>The correct value.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOutIn(double t, double b, double c, double d)
@@ -1381,29 +1498,18 @@ namespace Engine.Tweening
         /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out/in:
         /// deceleration until halfway, then acceleration.
         /// </summary>
-        /// <param name="t">Current time in seconds.</param>
+        /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: https://github.com/darrendavid/wpf-animation
-        /// </remarks>
+        /// </acknowledgment>
+        /// <acknowledgment>
+        /// https://bitbucket.org/jacobalbano/glide
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOutIn(double t)
             => (t < 0.5) ? BackOut(t * 2) : BackIn((t * 2) - 1);
-
-        #endregion
-
-        /// <summary>
-        /// The reference equals.
-        /// </summary>
-        /// <param name="objA">The objA.</param>
-        /// <param name="objB">The objB.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [DebuggerStepThrough]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        private static new bool ReferenceEquals(object objA, object objB)
-            => object.ReferenceEquals(objA, objB);
+        #endregion Back Easing Methods
     }
 }

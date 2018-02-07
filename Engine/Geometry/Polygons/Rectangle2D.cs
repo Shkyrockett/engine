@@ -29,7 +29,6 @@ namespace Engine
         : Shape
     {
         #region Implementations
-
         /// <summary>
         ///
         /// </summary>
@@ -39,11 +38,9 @@ namespace Engine
         ///
         /// </summary>
         public static readonly Rectangle2D Unit = new Rectangle2D(0, 0, 1, 1);
-
-        #endregion
+        #endregion Implementations
 
         #region Fields
-
         /// <summary>
         ///
         /// </summary>
@@ -63,11 +60,9 @@ namespace Engine
         ///
         /// </summary>
         private double height;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new default instance of the <see cref="Rectangle2D"/> class.
         /// </summary>
@@ -158,11 +153,9 @@ namespace Engine
             width = Max(Max(point1.X, point2.X) - x, 0);
             height = Max(Max(point1.Y, point2.Y) - y, 0);
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -177,11 +170,9 @@ namespace Engine
             width = this.width;
             height = this.height;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the X coordinate location of the rectangle.
         /// </summary>
@@ -613,11 +604,9 @@ namespace Engine
         [Description("bounding box of the rectangle.")]
         public override Rectangle2D Bounds
             => this;
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Tests whether two <see cref="Rectangle2D"/> objects have equal location and size.
         /// </summary>
@@ -674,11 +663,9 @@ namespace Engine
         /// <param name="tuple"></param>
         public static implicit operator Rectangle2D((double Left, double Top, double Width, double Height) tuple)
             => new Rectangle2D(tuple);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Creates a new <see cref="Rectangle2D"/> with the specified location and size.
         /// </summary>
@@ -811,8 +798,7 @@ namespace Engine
             Matrix3x2D.TransformRect(ref rect, ref matrix);
             return rect;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -859,7 +845,6 @@ namespace Engine
         //#endregion
 
         #region Mutators
-
         /// <summary>
         /// Union - Update this rectangle to be the union of this and Rectangle2D.
         /// </summary>
@@ -1028,11 +1013,9 @@ namespace Engine
         //{
         //    Matrix2x3D.TransformRect(ref this, ref matrix);
         //}
-
-        #endregion
+        #endregion Mutators
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -1116,7 +1099,6 @@ namespace Engine
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Rectangle2D)}{{{nameof(X)}={x.ToString(format, provider)},{nameof(Y)}={y.ToString(format, provider)},{nameof(Width)}={width.ToString(format, provider)},{nameof(Height)}={height.ToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

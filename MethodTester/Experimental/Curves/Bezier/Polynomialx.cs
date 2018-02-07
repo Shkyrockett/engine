@@ -29,16 +29,13 @@ namespace Engine
         : IFormattable
     {
         #region Fields
-
         /// <summary>
         ///
         /// </summary>
         bool isReadonly;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a default instance of the <see cref="Polynomialx"/> class.
         /// </summary>
@@ -55,11 +52,9 @@ namespace Engine
         {
             Coefficients = coefficients?.Length == 0 ? new List<double>(1) : new List<double>(coefficients);
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -98,11 +93,9 @@ namespace Engine
                     isReadonly = true;
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         ///
         /// </summary>
@@ -298,11 +291,9 @@ namespace Engine
                 res[i] = p.Coefficients[i] / m;
             return new Polynomialx(res);
         }
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         ///
         /// </summary>
@@ -463,11 +454,9 @@ namespace Engine
                 AD * DF - AF * AF
             );
         }
-
-        #endregion
+        #endregion Factories
 
         #region Specific Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -748,8 +737,7 @@ namespace Engine
                 }
             }
         }
-
-        #endregion
+        #endregion Specific Methods
 
         /// <summary>
         /// Will try to solve root analytically, and if it can will use numerical approach.
@@ -1086,7 +1074,6 @@ namespace Engine
         }
 
         #region Standard Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -1186,7 +1173,6 @@ namespace Engine
                 sb.Append('0');
             return sb.ToString();
         }
-
-        #endregion
+        #endregion Standard Methods
     }
 }

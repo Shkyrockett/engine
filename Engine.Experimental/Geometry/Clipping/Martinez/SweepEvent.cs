@@ -23,7 +23,6 @@ namespace Engine
         : IComparable<SweepEvent>
     {
         #region Fields
-
         /// <summary>
         /// is point the left endpoint of the edge (point, otherEvent.point)?
         /// </summary>
@@ -90,11 +89,9 @@ namespace Engine
         /// 
         /// </summary>
         private int contourId;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -119,11 +116,9 @@ namespace Engine
             PrevInResult = null;
             InResult = false;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Is the line segment (point, otherEvent.point) a vertical line segment
         /// </summary>
@@ -197,11 +192,9 @@ namespace Engine
         /// 
         /// </summary>
         public int ContourId { get { return contourId; } set { contourId = value; } }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// 
         /// </summary>
@@ -219,11 +212,9 @@ namespace Engine
         /// <returns></returns>
         public static bool operator >(SweepEvent a, SweepEvent b)
             => SweepEventComp(a, b) > 0;
-
-        #endregion
+        #endregion Operators
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -275,7 +266,6 @@ namespace Engine
             oss += $" otherInOut: ({otherInOutOutIn})";
             return oss;
         }
-
-        #endregion
+        #endregion Methods
     }
 }

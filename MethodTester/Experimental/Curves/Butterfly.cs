@@ -31,7 +31,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
@@ -46,11 +45,9 @@ namespace Engine
         /// 
         /// </summary>
         private double precision;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -60,11 +57,9 @@ namespace Engine
             offset = new Point2D();
             multiplyer = new Size2D();
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -106,11 +101,9 @@ namespace Engine
                 OnPropertyChanged(nameof(Precision));
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Interpolators
-
         /// <summary>
         /// 
         /// </summary>
@@ -138,11 +131,9 @@ namespace Engine
             }
             return points;
         }
-
-        #endregion
+        #endregion Interpolators
 
         #region Methods
-
         /// <summary>
         /// Creates a string representation of this <see cref="Butterfly"/> struct based on the format string
         /// and IFormatProvider passed in.
@@ -161,7 +152,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Butterfly)}{{{nameof(Offset)}={offset},{nameof(Multiplyer)}={multiplyer},{nameof(Precision)}={precision}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

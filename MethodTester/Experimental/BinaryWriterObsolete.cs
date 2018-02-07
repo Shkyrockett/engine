@@ -26,7 +26,6 @@ namespace Engine.File
         : BinaryWriter
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryWriterExtended"/> class based on the
         /// supplied stream and using UTF-8 as the encoding for strings.
@@ -45,11 +44,9 @@ namespace Engine.File
         public BinaryWriterObsolete(Stream output, Encoding encoding)
             : base(output, encoding)
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the position within the current stream.
         /// </summary>
@@ -64,11 +61,9 @@ namespace Engine.File
         /// </summary>
         public long Length
             => BaseStream.Length;
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Writes a variable-length unsigned integer to the current stream and advances the
         /// stream position by the size of the integer in bytes.
@@ -216,7 +211,6 @@ namespace Engine.File
                 buffer >>= 8;
             }
         }
-
-        #endregion
+        #endregion Methods
     }
 }

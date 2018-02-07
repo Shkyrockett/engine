@@ -26,7 +26,6 @@ namespace Engine
         : CollectionConverter
     {
         #region Methods
-
         /// <summary>
         /// Convert the to.
         /// </summary>
@@ -88,7 +87,6 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         public override bool GetPropertiesSupported(ITypeDescriptorContext context)
             => true;
-
-        #endregion
+        #endregion Methods
     }
 }

@@ -22,25 +22,20 @@ namespace Engine.Colorspace
         : IColor
     {
         #region Implementations
-
         /// <summary>
         /// The empty (readonly). Value: new RGBAF(0, 0, 0, 0).
         /// </summary>
         public static readonly RGBAF Empty = new RGBAF(0, 0, 0, 0);
-
-        #endregion
+        #endregion Implementations
 
         #region Fields
-
         /// <summary>
         /// The name of the color.
         /// </summary>
         private string name;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RGBAF"/> class.
         /// </summary>
@@ -87,11 +82,9 @@ namespace Engine.Colorspace
             Green = green;
             Blue = blue;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the red color value.
         /// </summary>
@@ -116,11 +109,9 @@ namespace Engine.Colorspace
         /// Gets or sets the name.
         /// </summary>
         public string Name { get { return name; } set { name = value; } }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Compares two <see cref="RGBAF"/> objects.
         /// The result specifies whether the color values of the two <see cref="RGBAF"/> objects are equal.
@@ -144,11 +135,9 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(RGBAF left, RGBAF right)
             => !Equals(left, right);
-
-        #endregion
+        #endregion Operators
 
         #region Methods
-
         /// <summary>
         /// Get the brightness.
         /// </summary>
@@ -169,11 +158,9 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="double"/>.</returns>
         public double GetSaturation()
             => Colorspaces.GetSaturation(Red, Green, Blue);
-
-        #endregion
+        #endregion Methods
 
         #region Standard Methods
-
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
@@ -293,7 +280,6 @@ namespace Engine.Colorspace
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(RGBAF)}{{{nameof(Red)}={Red.ToString(format, provider)}{sep}{nameof(Green)}={Green.ToString(format, provider)}{sep}{nameof(Blue)}={Blue.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Standard Methods
     }
 }

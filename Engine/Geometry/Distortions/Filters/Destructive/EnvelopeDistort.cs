@@ -17,7 +17,6 @@ namespace Engine
         : DestructiveFilter
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EnvelopeDistort"/> class.
         /// </summary>
@@ -28,11 +27,9 @@ namespace Engine
             Envelope = envelope;
             BoundingBox = boundingBox;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the envelope to use for warping.
         /// </summary>
@@ -42,11 +39,9 @@ namespace Engine
         /// Gets or sets the bounding box of the shape.
         /// </summary>
         public Rectangle2D BoundingBox { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Process.
         /// </summary>
@@ -68,7 +63,6 @@ namespace Engine
                 envelope.ControlPointTopRight.Point, envelope.ControlPointTopRight.AnchorAGlobal, envelope.ControlPointTopRight.AnchorBGlobal,
                 envelope.ControlPointBottomRight.Point, envelope.ControlPointBottomRight.AnchorAGlobal, envelope.ControlPointBottomRight.AnchorBGlobal,
                 envelope.ControlPointBottomLeft.Point, envelope.ControlPointBottomLeft.AnchorAGlobal, envelope.ControlPointBottomLeft.AnchorBGlobal);
-
-        #endregion
+        #endregion Methods
     }
 }

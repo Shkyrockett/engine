@@ -32,7 +32,6 @@ namespace Engine
         : Shape, IEquatable<QuadraticBezier>
     {
         #region Fields
-
         /// <summary>
         /// Position 1 x-coordinate.
         /// </summary>
@@ -62,11 +61,9 @@ namespace Engine
         /// Position 2 y-coordinate.
         /// </summary>
         private double cy;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="QuadraticBezier"/> class.
         /// </summary>
@@ -110,11 +107,9 @@ namespace Engine
         public QuadraticBezier((double aX, double aY, double bX, double bY, double cX, double cY) tuple)
             : this(tuple.aX, tuple.aY, tuple.bX, tuple.bY, tuple.cX, tuple.cY)
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="QuadraticBezier"/> to a Tuple.
         /// </summary>
@@ -133,11 +128,9 @@ namespace Engine
             cx = this.cx;
             cy = this.cy;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the X coordinate of the first Point of a Cubic Bezier.
         /// </summary>
@@ -402,11 +395,9 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => PolynomialDegree.Quadratic;
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// 
         /// </summary>
@@ -438,8 +429,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator QuadraticBezier((double aX, double aY, double bX, double bY, double cX, double cY) tuple)
             => new QuadraticBezier(tuple);
-
-        #endregion
+        #endregion Operators
 
         //#region Serialization
 
@@ -486,7 +476,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// Samples the bezier curve at the given t value.
         /// </summary>
@@ -616,7 +605,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(QuadraticBezier)}={{{nameof(A)}={A}{sep}{nameof(B)}={B}{sep}{nameof(C)}={C}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

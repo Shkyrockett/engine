@@ -20,7 +20,6 @@ namespace Engine.Experimental
         : IComparable, IComparable<IntersectNode>
     {
         #region Properties
-
         /// <summary>
         /// Gets or sets the point of intersection.
         /// </summary>
@@ -35,11 +34,9 @@ namespace Engine.Experimental
         /// Gets or sets the second edge.
         /// </summary>
         public Edge EdgeB { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// The == operator compares two <see cref="IntersectNode"/> instances for exact equality.
         /// </summary>
@@ -113,11 +110,9 @@ namespace Engine.Experimental
         /// <returns>Returns a boolean value indicating true if left is greater than or equal to right; otherwise, false.</returns>
         public static bool operator >=(IntersectNode left, IntersectNode right)
             => left.CompareTo(right) >= 0;
-
-        #endregion
+        #endregion Operators
 
         #region Methods
-
         /// <summary>
         /// The edges adjacent in SEL.
         /// </summary>
@@ -202,7 +197,6 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Compare(IntersectNode left, IntersectNode right)
             => right.Point.Y.CompareTo(left.Point.Y); // Soft descending sort.
-
-        #endregion
+        #endregion Methods
     }
 }

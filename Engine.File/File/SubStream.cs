@@ -31,7 +31,6 @@ namespace Engine.File
         : Stream
     {
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
@@ -46,11 +45,9 @@ namespace Engine.File
         /// 
         /// </summary>
         private long length;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Constructor setting the source <see cref="Stream"/> as well as the start position and count
         /// of the sub-chunk specifying the <see cref="SubStream"/>
@@ -75,11 +72,9 @@ namespace Engine.File
             this.length = length;
             Position = 0;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets a value indicating whether the current stream supports reading. 
         /// </summary>
@@ -127,11 +122,9 @@ namespace Engine.File
                 baseStream.Position = startPosition + newPos;
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Does nothing since a <see cref="SubStream"/> is read-only
         /// </summary>
@@ -275,7 +268,6 @@ namespace Engine.File
         {
             if (baseStream == null) throw new ObjectDisposedException(GetType().Name);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

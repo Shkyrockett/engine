@@ -21,7 +21,6 @@ namespace Engine
     public class Bezier
     {
         #region Private Fields
-
         /// <summary>
         ///
         /// </summary>
@@ -31,11 +30,9 @@ namespace Engine
         ///
         /// </summary>
         private List<char> dims = new List<char> { 'x', 'y', 'z' };
-
-        #endregion
+        #endregion Private Fields
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
@@ -113,11 +110,9 @@ namespace Engine
         public Bezier(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
             : this(new List<Point3D> { p1, p2, p3, p4 })
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -162,11 +157,9 @@ namespace Engine
         ///
         /// </summary>
         public bool Linear { get; }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         ///
         /// </summary>
@@ -210,8 +203,7 @@ namespace Engine
         /// <param name="obj"></param>
         /// <returns></returns>
         public override bool Equals(object obj) => obj is Bezier && Equals(this, (Bezier)obj);
-
-        #endregion
+        #endregion Operators
 
         /// <summary>
         ///

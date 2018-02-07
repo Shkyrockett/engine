@@ -26,7 +26,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
@@ -51,11 +50,9 @@ namespace Engine
         /// 
         /// </summary>
         private double r;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -80,11 +77,9 @@ namespace Engine
             Rotation = rotation;
             Precision = precision;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="ParametricDelegateCurve"/> to a Tuple.
         /// </summary>
@@ -101,11 +96,9 @@ namespace Engine
             v = this.v;
             r = this.r;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -308,8 +301,7 @@ namespace Engine
                 return Rectangle2D.FromLTRB(left, top, right, bottom);
             }
         }
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -356,7 +348,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -416,7 +407,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(ParametricDelegateCurve)}{{{nameof(Location)}={Location},{nameof(Scale)}={Scale},{nameof(Precision)}={Precision}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

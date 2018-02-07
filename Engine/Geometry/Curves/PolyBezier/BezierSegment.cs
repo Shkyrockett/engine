@@ -34,16 +34,13 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
         Point2D[] points;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -64,26 +61,21 @@ namespace Engine
         /// </summary>
         /// <param name="points"></param>
         public BezierSegment(params Point2D[] points)
-            : base()
         {
             this.points = points ?? throw new ArgumentNullException(nameof(points));
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="points"></param>
         public void Deconstruct(out Point2D[] points)
             => points = this.points;
-
-        #endregion
+        #endregion Deconstructors
 
         #region Indexers
-
         /// <summary>
         /// 
         /// </summary>
@@ -94,11 +86,9 @@ namespace Engine
             get { return points[index]; }
             set { points[index] = value; }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -157,8 +147,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
             => (PolynomialDegree)(Points.Length - 1);
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -205,7 +194,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// Creates a string representation of this <see cref="PolygonContour"/> struct based on the format string
         /// and IFormatProvider passed in.
@@ -226,7 +214,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(BezierSegment)}{{{string.Join(sep.ToString(), points)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

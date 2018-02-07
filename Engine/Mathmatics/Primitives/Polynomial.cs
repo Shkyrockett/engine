@@ -37,7 +37,6 @@ namespace Engine
     public struct Polynomial
     {
         #region Constants
-
         /// <summary>
         /// The array form of the Identity <see cref="Polynomial"/>.
         /// </summary>
@@ -47,11 +46,9 @@ namespace Engine
         /// The Bisection accuracy.
         /// </summary>
         private const double accuracy = 6;
-
-        #endregion
+        #endregion Constants
 
         #region Implementations
-
         /// <summary>
         /// An empty polynomial.
         /// </summary>
@@ -66,11 +63,9 @@ namespace Engine
         /// One minus the T Identity polynomial.
         /// </summary>
         public static readonly Polynomial OneMinusT = 1 - T;
-
-        #endregion
+        #endregion Implementations
 
         #region Fields
-
         /// <summary>
         /// The coefficients of the polynomial in lowest degree to highest degree order.
         /// </summary>
@@ -85,11 +80,9 @@ namespace Engine
         /// Semaphore indicating whether the polynomial can be edited.
         /// </summary>
         bool isReadonly;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Polynomial"/> class using left to right letter order, descending in degrees.
         /// </summary>
@@ -115,11 +108,9 @@ namespace Engine
             isReadonly = false;
             degree = null;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Indexers
-
         /// <summary>
         /// Gets or sets the coeficient at the given index.
         /// </summary>
@@ -251,11 +242,9 @@ namespace Engine
                 degree = null;
             }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         /// Gets the degree of the polynomial.
         /// </summary>
@@ -335,11 +324,9 @@ namespace Engine
         public string Text => ToString();
 
 #endif
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Unary addition operator.
         /// </summary>
@@ -711,11 +698,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) tuple)
             => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i, tuple.j);
-
-        #endregion
+        #endregion Operators
 
         #region Operations
-
         /// <summary>
         /// Trim off any leading zero coefficient terms from the Polynomial.
         /// </summary>
@@ -1038,11 +1023,9 @@ namespace Engine
             // If coefficients is empty return constant, otherwise return the calculated order of degree of the polynomial.
             return (PolynomialDegree)(coefficients?.Length - pos ?? 0);
         }
-
-        #endregion
+        #endregion Operations
 
         #region Factories
-
         /// <summary>
         /// 
         /// </summary>
@@ -1221,8 +1204,7 @@ namespace Engine
             => (from == to)
             ? new Polynomial(values[from])
             : OneMinusT * Bezier(from, to - 1, values) + T * Bezier(from + 1, to, values);
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -1269,7 +1251,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -1905,11 +1886,9 @@ namespace Engine
         }
 
 #endif
-
-        #endregion
+        #endregion Methods
 
         #region Standard Methods
-
         /// <summary>
         /// Clears the coefficients of the polinomial.
         /// </summary>
@@ -2104,7 +2083,6 @@ namespace Engine
 
             return result;
         }
-
-        #endregion
+        #endregion Standard Methods
     }
 }

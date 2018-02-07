@@ -31,7 +31,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
@@ -46,11 +45,9 @@ namespace Engine
         /// 
         /// </summary>
         private double precision;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -67,11 +64,9 @@ namespace Engine
             multiplyer = multiplyter;
             precision = 0.1;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -113,11 +108,9 @@ namespace Engine
                 OnPropertyChanged(nameof(Precision));
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Interpolations
-
         /// <summary>
         /// 
         /// </summary>
@@ -141,11 +134,9 @@ namespace Engine
 
             return points;
         }
-
-        #endregion
+        #endregion Interpolations
 
         #region Methods
-
         /// <summary>
         /// Creates a string representation of this <see cref="Bicorn"/> struct based on the format string
         /// and IFormatProvider passed in.
@@ -164,7 +155,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Bicorn)}{{{nameof(Offset)}={offset},{nameof(Multiplyer)}={multiplyer},{nameof(Precision)}={precision}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

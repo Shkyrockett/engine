@@ -19,7 +19,6 @@ namespace Engine.File
         : byte
     {
         #region Octave 0
-
         /// <summary>
         /// 
         /// </summary>
@@ -79,11 +78,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B00,
-
-        #endregion
+        #endregion Octave 0
 
         #region Octave 1
-
         /// <summary>
         /// 
         /// </summary>
@@ -143,11 +140,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B01,
-
-        #endregion
+        #endregion Octave 1
 
         #region Octave 2
-
         /// <summary>
         /// 
         /// </summary>
@@ -207,11 +202,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B02,
-
-        #endregion
+        #endregion Octave 2
 
         #region Octave 3
-
         /// <summary>
         /// 
         /// </summary>
@@ -271,11 +264,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B03,
-
-        #endregion
+        #endregion Octave 3
 
         #region Octave 4
-
         /// <summary>
         /// 
         /// </summary>
@@ -335,11 +326,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B04,
-
-        #endregion
+        #endregion Octave 4
 
         #region Octave 5
-
         /// <summary>
         /// 
         /// </summary>
@@ -399,11 +388,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B05,
-
-        #endregion
+        #endregion Octave 5
 
         #region Octave 6
-
         /// <summary>
         /// 
         /// </summary>
@@ -463,11 +450,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B06,
-
-        #endregion
+        #endregion Octave 6
 
         #region Octave 7
-
         /// <summary>
         /// 
         /// </summary>
@@ -527,11 +512,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B07,
-
-        #endregion
+        #endregion Octave 7
 
         #region Octave 8
-
         /// <summary>
         /// 
         /// </summary>
@@ -591,11 +574,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B08,
-
-        #endregion
+        #endregion Octave 8
 
         #region Octave 9
-
         /// <summary>
         /// 
         /// </summary>
@@ -655,11 +636,9 @@ namespace Engine.File
         /// 
         /// </summary>
         B09,
-
-        #endregion
+        #endregion Octave 9
 
         #region Octave 10
-
         /// <summary>
         /// 
         /// </summary>
@@ -699,7 +678,6 @@ namespace Engine.File
         /// 
         /// </summary>
         G10,
-
-        #endregion
+        #endregion Octave 10
     }
 }

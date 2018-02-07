@@ -29,7 +29,6 @@ namespace Engine
         : IFormattable, INotifyPropertyChanging, INotifyPropertyChanged
     {
         #region Callbacks
-
         /// <summary>
         /// Action delegate for notifying callbacks on object updates.
         /// </summary>
@@ -44,21 +43,17 @@ namespace Engine
         ///
         /// </summary>
         public event PropertyChangingEventHandler PropertyChanging;
-
-        #endregion
+        #endregion Callbacks
 
         #region Fields
-
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
         [NonSerialized()]
         protected Dictionary<object, object> propertyCache = new Dictionary<object, object>();
-
-        #endregion
+        #endregion Fields
 
         #region Properties
-
         /// <summary>
         /// Gets the <see cref="Area"/> of a <see cref="Shape"/>.
         /// </summary>
@@ -82,8 +77,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The bounding box of the shape.")]
         public virtual Rectangle2D Bounds { get; set; }
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -130,7 +124,6 @@ namespace Engine
         //#endregion
 
         #region Interpolation
-
         /// <summary>
         /// Interpolates a <see cref="Shape"/>.
         /// </summary>
@@ -167,11 +160,9 @@ namespace Engine
                 points.Add(Interpolate(item));
             return points;
         }
-
-        #endregion
+        #endregion Interpolation
 
         #region Methods
-
         /// <summary>
         /// Test whether a point intersects with the object.
         /// </summary>
@@ -300,7 +291,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(GraphicsObject)}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

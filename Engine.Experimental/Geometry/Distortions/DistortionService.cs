@@ -18,7 +18,6 @@ namespace Engine
     public class DistortionService
     {
         #region Fields
-
         /// <summary>
         /// The distortion (readonly).
         /// </summary>
@@ -33,11 +32,9 @@ namespace Engine
         /// The flatness (readonly).
         /// </summary>
         private readonly float flatness;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Creates a new instance of a Distortion Service
         /// </summary>
@@ -51,8 +48,7 @@ namespace Engine
             this.flatness = flatness;
             //this.source.Flatten(null, flatness);
         }
-
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// returns a newly created graphics path with points distorted

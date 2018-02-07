@@ -24,7 +24,6 @@ namespace Engine
         : CurveSegment
     {
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -69,11 +68,9 @@ namespace Engine
             Start = start;
             Previous = this;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -84,11 +81,9 @@ namespace Engine
             x = Start.Value.X;
             y = Start.Value.Y;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -130,8 +125,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
             => 0;
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// 
@@ -142,13 +136,11 @@ namespace Engine
             => Start.Value;
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
         public Point2D ToPoint2D()
             => Start.Value;
-
-        #endregion
+        #endregion Methods
     }
 }

@@ -22,16 +22,13 @@ namespace Engine.Colorspace
         : IColor
     {
         #region Implementations
-
         /// <summary>
         /// The empty (readonly). Value: new ACYMK().
         /// </summary>
         public static readonly CYMKA Empty = new CYMKA(0, 0, 0, 0);
-
-        #endregion
+        #endregion Implementations
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="CYMKA"/> class.
         /// </summary>
@@ -68,11 +65,9 @@ namespace Engine.Colorspace
             Black = black;
             Alpha = alpha;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the cyan color value.
         /// </summary>
@@ -97,11 +92,9 @@ namespace Engine.Colorspace
         /// Gets or sets the alpha color value.
         /// </summary>
         public byte Alpha { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Compares two <see cref="CYMKA"/> objects.
         /// The result specifies whether the color values of the two <see cref="CYMKA"/> objects are equal.
@@ -125,11 +118,9 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(CYMKA left, CYMKA right)
             => !Equals(left, right);
-
-        #endregion
+        #endregion Operators
 
         #region Methods
-
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
@@ -268,7 +259,6 @@ namespace Engine.Colorspace
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(CYMKA)}{{{nameof(Cyan)}={Cyan.ToString(format, provider)}{sep}{nameof(Yellow)}={Yellow.ToString(format, provider)}{sep}{nameof(Magenta)}={Magenta.ToString(format, provider)}{sep}{nameof(Black)}={Black.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

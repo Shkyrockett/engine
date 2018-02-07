@@ -31,17 +31,14 @@ namespace Engine
         : Shape
     {
         #region Implementations
-
         /// <summary>
         /// Represents a Engine.Geometry.Segment that is null.
         /// </summary>
         /// <remarks></remarks>
         public static readonly LineSegment Empty = new LineSegment();
-
-        #endregion
+        #endregion Implementations
 
         #region Fields
-
         /// <summary>
         /// The a x.
         /// </summary>
@@ -61,11 +58,9 @@ namespace Engine
         /// The b y.
         /// </summary>
         private double bY;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
@@ -116,11 +111,9 @@ namespace Engine
             A = a;
             B = b;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// The deconstruct.
         /// </summary>
@@ -135,11 +128,9 @@ namespace Engine
             bX = this.bX;
             bY = this.bY;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Indexers
-
         /// <summary>
         /// The Indexer.
         /// </summary>
@@ -158,11 +149,9 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         /// Get or sets an array of points representing a line segment.
         /// </summary>
@@ -432,11 +421,9 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsVertical
             => aX == bX;
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Implicit conversion from tuple.
         /// </summary>
@@ -444,8 +431,7 @@ namespace Engine
         /// <param name="tuple"></param>
         public static implicit operator LineSegment((double I, double J, double K, double L) tuple)
             => new LineSegment(tuple);
-
-        #endregion
+        #endregion Operators
 
         //#region Serialization
 
@@ -492,7 +478,6 @@ namespace Engine
         //#endregion
 
         #region Interpolators
-
         /// <summary>
         /// Interpolates a shape.
         /// </summary>
@@ -500,11 +485,9 @@ namespace Engine
         /// <returns>Returns the interpolated point of the index value.</returns>
         public override Point2D Interpolate(double t)
             => Interpolators.Linear(A, B, t);
-
-        #endregion
+        #endregion Interpolators
 
         #region Mutators
-
         /// <summary>
         /// The reverse.
         /// </summary>
@@ -516,11 +499,9 @@ namespace Engine
             ClearCache();
             update?.Invoke();
         }
-
-        #endregion
+        #endregion Mutators
 
         #region Methods
-
         /// <summary>
         /// The to array.
         /// </summary>
@@ -552,8 +533,7 @@ namespace Engine
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(LineSegment)}{{{nameof(A)}={A.ConvertToString(format, provider)},{nameof(B)}={B.ConvertToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }
 

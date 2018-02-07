@@ -20,7 +20,6 @@ namespace Engine.Experimental
         : IComparable<LocalMinima>
     {
         #region Properties
-
         /// <summary>
         /// Gets or sets the vertex of the local minima.
         /// </summary>
@@ -35,11 +34,9 @@ namespace Engine.Experimental
         /// Gets or sets a flag that determines whether the polygon is an open polyline, or a closed polygon.
         /// </summary>
         public bool IsOpen { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region MyRegion
-
         /// <summary>
         /// The operator ==.
         /// </summary>
@@ -87,11 +84,9 @@ namespace Engine.Experimental
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator >=(LocalMinima left, LocalMinima right) => left.CompareTo(right) >= 0;
-
-        #endregion
+        #endregion MyRegion
 
         #region Methods
-
         /// <summary>
         /// The compare to.
         /// </summary>
@@ -122,7 +117,6 @@ namespace Engine.Experimental
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode() => base.GetHashCode();
-
-        #endregion
+        #endregion Methods
     }
 }

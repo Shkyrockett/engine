@@ -36,18 +36,15 @@ namespace Engine
         : Shape, IEnumerable<PolygonContour>
     {
         #region Private Fields
-
         /// <summary>
         /// An array of Polygon Contours.
         /// </summary>
         /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         private List<PolygonContour> contours;
-
-        #endregion
+        #endregion Private Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a default instance of the <see cref="Polygon"/> class.
         /// </summary>
@@ -106,11 +103,9 @@ namespace Engine
                 this.contours.Add(new PolygonContour(list));
             }
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Indexers
-
         /// <summary>
         ///
         /// </summary>
@@ -129,11 +124,9 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -234,8 +227,7 @@ namespace Engine
                 }
             }
         }
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -352,7 +344,6 @@ namespace Engine
         }
 
         #region Mutators
-
         /// <summary>
         ///
         /// </summary>
@@ -401,11 +392,9 @@ namespace Engine
                 poly.Reverse();
             }
         }
-
-        #endregion
+        #endregion Mutators
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -454,7 +443,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Polygon)}{{{string.Join(sep.ToString(), Contours)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

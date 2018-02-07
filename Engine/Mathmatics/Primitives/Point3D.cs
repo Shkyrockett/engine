@@ -33,7 +33,6 @@ namespace Engine
         : IVector<Point3D>
     {
         #region Implementations
-
         /// <summary>
         /// An Empty <see cref="Point3D"/>.
         /// </summary>
@@ -43,11 +42,9 @@ namespace Engine
         /// A Unit <see cref="Point3D"/>.
         /// </summary>
         public static readonly Point3D Unit = new Point3D(1, 1, 1);
-
-        #endregion
+        #endregion Implementations
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point3D"/> class.
         /// </summary>
@@ -80,11 +77,9 @@ namespace Engine
             Y = y;
             Z = z;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -97,11 +92,9 @@ namespace Engine
             y = Y;
             z = Z;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// X component of a <see cref="Point3D"/> coordinate.
         /// </summary>
@@ -132,11 +125,9 @@ namespace Engine
             => Abs(X) < Epsilon
             && Abs(Y) < Epsilon
             && Abs(Z) < Epsilon;
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Unary addition operator.
         /// </summary>
@@ -250,11 +241,9 @@ namespace Engine
         /// <param name="tuple"></param>
         public static implicit operator Point3D((double X, double Y, double Z) tuple)
             => new Point3D(tuple);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Create a Random <see cref="Point3D"/>.
         /// </summary>
@@ -296,8 +285,7 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -344,7 +332,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -442,7 +429,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Point3D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}{sep}{nameof(Z)}={Z}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

@@ -24,7 +24,6 @@ namespace Engine.Physics
         : ILength, IFormattable
     {
         #region Constants
-
         /// <summary>
         ///
         /// </summary>
@@ -74,11 +73,9 @@ namespace Engine.Physics
         ///
         /// </summary>
         public const double NauticalMile = 1d / 2025.37183d;
-
-        #endregion
+        #endregion Constants
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
@@ -87,11 +84,9 @@ namespace Engine.Physics
         {
             Value = value;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -191,11 +186,9 @@ namespace Engine.Physics
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "yd";
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         ///
         /// </summary>
@@ -265,11 +258,9 @@ namespace Engine.Physics
         /// <param name="value"></param>
         public static explicit operator Yards(NauticalMiles value)
             => value.Yards;
-
-        #endregion
+        #endregion Operators
 
         #region Methods
-
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Yards"/> struct.
         /// </summary>
@@ -339,7 +330,6 @@ namespace Engine.Physics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
             => $"{Value.ToString(format, provider)} {Abreviation}";
-
-        #endregion
+        #endregion Methods
     }
 }

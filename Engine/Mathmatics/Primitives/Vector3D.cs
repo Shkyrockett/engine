@@ -32,7 +32,6 @@ namespace Engine
         : IVector<Vector3D>
     {
         #region Static Fields
-
         /// <summary>
         /// An Empty <see cref="Vector3D"/>.
         /// </summary>
@@ -57,11 +56,9 @@ namespace Engine
         /// 
         /// </summary>
         public static readonly Vector3D ZAxis = new Vector3D(0, 0, 1);
-
-        #endregion
+        #endregion Static Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector3D"/> class.
         /// </summary>
@@ -117,11 +114,9 @@ namespace Engine
         public Vector3D(Vector3D a, Vector3D b)
             : this(new Vector3D(a.I - b.I, a.J - b.J, a.K - b.K).Unit())
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// First Point of a 3D Vector
         /// </summary>
@@ -176,11 +171,9 @@ namespace Engine
         [Browsable(false)]
         public double LengthSquared
             => Measurements.VectorMagnitudeSquared(I, J, K);
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// 
         /// </summary>
@@ -336,11 +329,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector3D(Point3D value)
             => new Vector3D(value.X, value.Y, value.Z);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Create a Random <see cref="Vector3D"/>.
         /// </summary>
@@ -385,8 +376,7 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -433,7 +423,6 @@ namespace Engine
         //#endregion
 
         #region Public Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -522,7 +511,6 @@ namespace Engine
             // Create the string representation of the struct.
             return $"{nameof(Vector3D)}({nameof(I)}={I.ToString(format, provider)}{sep}{nameof(J)}={J.ToString(format, provider)}{sep}{nameof(K)}={K.ToString(format, provider)})";
         }
-
-        #endregion
+        #endregion Public Methods
     }
 }

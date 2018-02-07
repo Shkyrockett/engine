@@ -32,7 +32,6 @@ namespace Engine
         : IVector<Vector4D>
     {
         #region Static Fields
-
         /// <summary>
         /// An Empty <see cref="Vector4D"/>.
         /// </summary>
@@ -62,11 +61,9 @@ namespace Engine
         /// 
         /// </summary>
         public static readonly Vector4D WAxis = new Vector4D(0, 0, 0, 1);
-
-        #endregion
+        #endregion Static Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector4D"/> class as a copy of the one provided.
         /// </summary>
@@ -126,11 +123,9 @@ namespace Engine
         public Vector4D(Vector4D a, Vector4D b)
             : this(new Vector4D(a.I - b.I, a.J - b.J, a.K - b.K, a.L - b.L).Unit())
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// First Point of a 4D Vector
         /// </summary>
@@ -193,11 +188,9 @@ namespace Engine
         [Browsable(false)]
         public double LengthSquared
             => Measurements.VectorMagnitudeSquared(I, J, K, L);
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// 
         /// </summary>
@@ -321,11 +314,9 @@ namespace Engine
         [DebuggerStepThrough]
         public static implicit operator Vector4D((double X, double Y, double Z, double W) value)
             => new Vector4D(value);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Create a Random <see cref="Vector4D"/>.
         /// </summary>
@@ -372,8 +363,7 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -420,7 +410,6 @@ namespace Engine
         //#endregion
 
         #region Public Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -515,7 +504,6 @@ namespace Engine
             // Create the string representation of the struct.
             return $"{nameof(Vector4D)}({nameof(I)}={I.ToString(format, provider)}{sep}{nameof(J)}={J.ToString(format, provider)}{sep}{nameof(K)}={K.ToString(format, provider)}{sep}{nameof(L)}={L.ToString(format, provider)})";
         }
-
-        #endregion
+        #endregion Public Methods
     }
 }

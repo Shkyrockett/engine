@@ -24,7 +24,6 @@ namespace Engine
         : CurveFitBase
     {
         #region Fields
-
         /// <summary>
         /// Use a thread-static instance to prevent multi-threading issues without needing to re-allocate on each run.
         /// </summary>
@@ -40,18 +39,15 @@ namespace Engine
         /// Shared zero-curve array.
         /// </summary>
         private static readonly CubicBezier[] ZeroCurves = new CubicBezier[0];
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Private constructor so it can't be constructed externally.
         /// </summary>
         private CurveFit()
         { }
-
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Attempts to fit a set of Bezier curves to the given data. It returns a set of curves that form a 

@@ -21,26 +21,21 @@ namespace Engine.Tests
     public class MathsTests
     {
         #region Constants
-
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
         private const double TestEpsilon = 0.0000000000001d;
-
-        #endregion
+        #endregion Constants
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Housekeeping
-
         /// <summary>
         ///
         /// </summary>
@@ -77,11 +72,9 @@ namespace Engine.Tests
         {
             //MessageBox.Show("ClassCleanup");
         }
-
-        #endregion
+        #endregion Housekeeping
 
         #region Queries
-
         /// <summary>
         ///
         /// </summary>
@@ -196,11 +189,9 @@ namespace Engine.Tests
             Assert.AreEqual(true, 1d.IsBetweenZeroAndOne());
             Assert.AreEqual(false, 2d.IsBetweenZeroAndOne());
         }
-
-        #endregion
+        #endregion Queries
 
         #region Arithmetic Safety Tests
-
         /// <summary>
         ///
         /// </summary>
@@ -1318,11 +1309,9 @@ namespace Engine.Tests
                 Assert.AreEqual(decimalTestCases[value], result, $"decimalTestCases({value.a}, {value.b})");
             }
         }
-
-        #endregion
+        #endregion Arithmetic Safety Tests
 
         #region Derived Equivalent Math Functions Tests
-
         /// <summary>
         ///
         /// </summary>
@@ -1652,11 +1641,9 @@ namespace Engine.Tests
             Assert.Inconclusive("ToDo: Implement code to verify target.");
             throw new NotImplementedException();
         }
-
-        #endregion
+        #endregion Derived Equivalent Math Functions Tests
 
         #region Bezier Polynomial Coefficients Tests
-
         /// <summary>
         /// Test the <see cref="Maths.LinearBezierCoefficientsStack(double, double)"/> method.
         /// </summary>
@@ -1881,11 +1868,9 @@ namespace Engine.Tests
             var result = Maths.DecicBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
             Assert.AreEqual(expected, result);
         }
-
-        #endregion
+        #endregion Bezier Polynomial Coefficients Tests
 
         #region Misc
-
         /// <summary>
         /// A Test for converting Radians to Degrees.
         /// </summary>
@@ -2165,7 +2150,6 @@ namespace Engine.Tests
             Assert.Inconclusive("ToDo: Implement code to verify target.");
             throw new NotImplementedException();
         }
-
-        #endregion
+        #endregion Misc
     }
 }

@@ -30,7 +30,6 @@ namespace MethodSpeedTester
     public class Experiments
     {
         #region Absolute Angle
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the absolute angle of Two 2D points.
         /// </summary>
@@ -79,11 +78,9 @@ namespace MethodSpeedTester
             var test = -Angle(aX, aY, bX, bY) % PI;
             return test < 0 ? test += PI : test;
         }
-
-        #endregion
+        #endregion Absolute Angle
 
         #region Angle Between Two 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 2D points.
         /// </summary>
@@ -108,11 +105,9 @@ namespace MethodSpeedTester
             double uX, double uY,
             double vX, double vY)
             => Acos((uX * vX + uY * vY) / Sqrt((uX * uX + uY * uY) * (vX * vX + vY * vY)));
-
-        #endregion
+        #endregion Angle Between Two 2D Points
 
         #region Angle Between Two 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
@@ -139,11 +134,9 @@ namespace MethodSpeedTester
             double uX, double uY, double uZ,
             double vX, double vY, double vZ)
             => Acos((uX * vX + uY * vY + uZ * vZ) / Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
-
-        #endregion
+        #endregion Angle Between Two 3D Points
 
         #region Angle of a Vector
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
@@ -197,11 +190,9 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static double GetAngle(double i, double j)
             => (Tau + (j > 0.0 ? 1.0 : -1.0) * Acos(i / Sqrt(i * i + j * j)) % Tau);
-
-        #endregion
+        #endregion Angle of a Vector
 
         #region Angle of Two 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle of Two 2D points.
         /// </summary>
@@ -226,11 +217,9 @@ namespace MethodSpeedTester
             double x1, double y1,
             double x2, double y2)
             => Atan2((y1 - y2), (x1 - x2));
-
-        #endregion
+        #endregion Angle of Two 2D Points
 
         #region Angle of Two 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle of Two 3D points.
         /// </summary>
@@ -259,11 +248,9 @@ namespace MethodSpeedTester
             && Abs(y1 - y2) < DoubleEpsilon
             && Abs(z1 - z2) < DoubleEpsilon)
             ? 0 : Acos(Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
-
-        #endregion
+        #endregion Angle of Two 3D Points
 
         #region Angle of The Vector of Three 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle of three 2D points.
         /// </summary>
@@ -329,11 +316,9 @@ namespace MethodSpeedTester
             // Calculate the angle.
             return Atan2(crossProduct, dotProduct);
         }
-
-        #endregion
+        #endregion Angle of The Vector of Three 2D Points
 
         #region Area of Polygon
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the area of a polygon.
         /// </summary>
@@ -519,11 +504,9 @@ namespace MethodSpeedTester
             // Return the result.
             return area;
         }
-
-        #endregion
+        #endregion Area of Polygon
 
         #region Area of The Intersection of Two Circles
-
         /// <summary>
         ///
         /// </summary>
@@ -553,11 +536,9 @@ namespace MethodSpeedTester
 
             return 0;
         }
-
-        #endregion
+        #endregion Area of The Intersection of Two Circles
 
         #region Array Trim
-
         /// <summary>
         ///
         /// </summary>
@@ -625,11 +606,9 @@ namespace MethodSpeedTester
 
             return (PolynomialDegree)(coefficients?.Length - pos ?? 0);
         }
-
-        #endregion
+        #endregion Array Trim
 
         #region Barycentric
-
         /// <summary>
         /// Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.
         /// </summary>
@@ -641,11 +620,9 @@ namespace MethodSpeedTester
         /// <returns>Cartesian coordinate of the specified point with respect to the axis being used.</returns>
         public static double Barycentric(float value1, double value2, double value3, double amount1, double amount2)
                 => value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
-
-        #endregion
+        #endregion Barycentric
 
         #region Bezier Coefficients
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the Polynomial Bezier Coefficients.
         /// </summary>
@@ -889,12 +866,9 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
             => (Polynomial.OneMinusT * Septic(a, b, c, d, e, f, g, h) + Polynomial.T * Septic(b, c, d, e, f, g, h, i));
-
-
-        #endregion
+        #endregion Bezier Coefficients
 
         #region Boundaries of Polygons
-
         /// <summary>
         ///
         /// </summary>
@@ -923,11 +897,9 @@ namespace MethodSpeedTester
                 }
             return result;
         }
-
-        #endregion
+        #endregion Boundaries of Polygons
 
         #region Boundaries of Polygons
-
         /// <summary>
         /// Set of tests to run testing methods that Find the bounds of polygons.
         /// </summary>
@@ -997,11 +969,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Boundaries of Polygons
 
         #region Boundary of Rotated Ellipse
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle of three 2D points.
         /// </summary>
@@ -1071,11 +1041,9 @@ namespace MethodSpeedTester
                 (y + bbox_halfheight)
                 );
         }
-
-        #endregion
+        #endregion Boundary of Rotated Ellipse
 
         #region Boundary of Rotated Elliptical Arc
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle of three 2D points.
         /// </summary>
@@ -1548,11 +1516,9 @@ namespace MethodSpeedTester
 
             return Rectangle2D.FromLTRB(xmin, ymin, xmax, ymax);
         }
-
-        #endregion
+        #endregion Boundary of Rotated Elliptical Arc
 
         #region Boundary of Cubic Bezier
-
         /// <summary>
         ///
         /// </summary>
@@ -1662,12 +1628,9 @@ namespace MethodSpeedTester
         //private static double evalBez(double p0, double p1, double p2, double p3, double t)
         //{
         //    return p0 * (1 - t) * (1 - t) * (1 - t) + 3 * p1 * t * (1 - t) * (1 - t) + 3 * p2 * t * t * (1 - t) + p3 * t * t * t;
-        //}
-
-        #endregion
+        //}        #endregion Boundary of Cubic Bezier
 
         #region Boundary of Quadratic Bezier
-
         /// <summary>
         ///
         /// </summary>
@@ -1697,8 +1660,7 @@ namespace MethodSpeedTester
 
             return Rectangle2D.FromLTRB(left, top, right, bottom);
         }
-
-        #endregion
+        #endregion Boundary of Quadratic Bezier
 
         ///// <summary>
         ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Quadratic Bezier curve.
@@ -1825,7 +1787,6 @@ namespace MethodSpeedTester
         //}
 
         #region Calculate Rectangular Boundaries of a Circle Defined By Three Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
@@ -1892,11 +1853,9 @@ namespace MethodSpeedTester
 
             return Rectangle2D.FromLTRB((centerx - radius), (centery - radius), (centerx + radius), (centery + radius));
         }
-
-        #endregion
+        #endregion Calculate Rectangular Boundaries of a Circle Defined By Three Points
 
         #region Catmull-Rom 1D Spline Interpolation
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
@@ -1962,11 +1921,9 @@ namespace MethodSpeedTester
             var a3 = v1;
             return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
         }
-
-        #endregion
+        #endregion Catmull-Rom 1D Spline Interpolation
 
         #region Catmull-Rom 2D Spline Interpolation
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
@@ -2058,11 +2015,9 @@ namespace MethodSpeedTester
                 aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
                 aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1);
         }
-
-        #endregion
+        #endregion Catmull-Rom 2D Spline Interpolation
 
         #region Catmull-Rom 3D Spline Interpolation
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
@@ -2162,11 +2117,9 @@ namespace MethodSpeedTester
                 aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1,
                 aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
         }
-
-        #endregion
+        #endregion Catmull-Rom 3D Spline Interpolation
 
         #region Circle from Three Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
@@ -2233,11 +2186,9 @@ namespace MethodSpeedTester
 
             return new Circle(new Point2D(centerx, centery), radius);
         }
-
-        #endregion
+        #endregion Circle from Three Points
 
         #region Change The Angle of a Vector
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the change of an angle of a vector.
         /// </summary>
@@ -2263,11 +2214,9 @@ namespace MethodSpeedTester
                 Sin(angle) * dist,
                 -(Cos(angle) * dist));
         }
-
-        #endregion
+        #endregion Change The Angle of a Vector
 
         #region Complex Product of Two 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the complex product of Two 2D points.
         /// </summary>
@@ -2295,11 +2244,9 @@ namespace MethodSpeedTester
             double x0, double y0,
             double x1, double y1)
             => (x0 * x1 - y0 * y1, x0 * y1 + y0 * x1);
-
-        #endregion
+        #endregion Complex Product of Two 2D Points
 
         #region Cosine Interpolation of 1D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D Cosine interpolation point.
         /// </summary>
@@ -2323,11 +2270,9 @@ namespace MethodSpeedTester
             var mu2 = (1 - Cos(t * PI)) / 2;
             return v1 * (1 - mu2) + v2 * mu2;
         }
-
-        #endregion
+        #endregion Cosine Interpolation of 1D Points
 
         #region Cosine Interpolation of 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D Cosine interpolation point.
         /// </summary>
@@ -2390,11 +2335,9 @@ namespace MethodSpeedTester
                 (a.Y * (1 - MU)) + (b.Y * MU)
                 );
         }
-
-        #endregion
+        #endregion Cosine Interpolation of 2D Points
 
         #region Cosine Interpolation of 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Cosine interpolation point.
         /// </summary>
@@ -2428,11 +2371,9 @@ namespace MethodSpeedTester
                 y1 * (1 - mu2) + y2 * mu2,
                 z1 * (1 - mu2) + z2 * mu2);
         }
-
-        #endregion
+        #endregion Cosine Interpolation of 3D Points
 
         #region Clamp a Value Between a Minimum and a Maximum
-
         /// <summary>
         /// Set of tests to run testing methods that clamp a number between a minimum, and a maximum.
         /// </summary>
@@ -2466,11 +2407,9 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Clamp1(double value, double min, double max)
             => Max(min, Min(value, max));
-
-        #endregion
+        #endregion Clamp a Value Between a Minimum and a Maximum
 
         #region Closest Point On Line
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
         /// </summary>
@@ -2571,11 +2510,9 @@ namespace MethodSpeedTester
             var dist = dotABAP / dotAB;
             return new Point2D(aX + diffAB.X * dist, aY + diffAB.Y * dist);
         }
-
-        #endregion
+        #endregion Closest Point On Line
 
         #region Cross Product of Two 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of two 2D points.
         /// </summary>
@@ -2601,11 +2538,9 @@ namespace MethodSpeedTester
             double x1, double y1,
             double x2, double y2)
             => (x1 * y2) - (y1 * x2);
-
-        #endregion
+        #endregion Cross Product of Two 2D Points
 
         #region Cross Product of Two 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of two 2D points.
         /// </summary>
@@ -2637,11 +2572,9 @@ namespace MethodSpeedTester
                     (z1 * x2) - (x1 * z2), // Y
                     (x1 * y2) - (y1 * x2)  // Z
                 );
-
-        #endregion
+        #endregion Cross Product of Two 3D Points
 
         #region Cross Product of The Vector of Three 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
         /// </summary>
@@ -2746,11 +2679,9 @@ namespace MethodSpeedTester
             // Calculate the Z coordinate of the cross product.
             return (BAx * BCy - BAy * BCx);
         }
-
-        #endregion
+        #endregion Cross Product of The Vector of Three 2D Points
 
         #region Cubic Bezier Get T
-
         /// <summary>
         ///
         /// </summary>
@@ -2789,11 +2720,9 @@ namespace MethodSpeedTester
                 Lut[(int)(t * 100)] = new Point2D(Interpolators.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, t));
             return Lut;
         }
-
-        #endregion
+        #endregion Cubic Bezier Get T
 
         #region Cubic Bezier Length Approximations
-
         /// <summary>
         ///
         /// </summary>
@@ -2904,11 +2833,9 @@ namespace MethodSpeedTester
             }
             return length;
         }
-
-        #endregion
+        #endregion Cubic Bezier Length Approximations
 
         #region Cubic Interpolation of 1D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
         /// </summary>
@@ -2941,11 +2868,9 @@ namespace MethodSpeedTester
 
             return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
         }
-
-        #endregion
+        #endregion Cubic Interpolation of 1D Points
 
         #region Cubic Interpolation of 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
@@ -2990,11 +2915,9 @@ namespace MethodSpeedTester
                 aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
                 aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1);
         }
-
-        #endregion
+        #endregion Cubic Interpolation of 2D Points
 
         #region Cubic Interpolation of 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D cubic interpolation of a point.
         /// </summary>
@@ -3047,11 +2970,9 @@ namespace MethodSpeedTester
                 aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1,
                 aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
         }
-
-        #endregion
+        #endregion Cubic Interpolation of 3D Points
 
         #region Cubic CatmulRom Spline Interpolation of 1D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D Catmull Rom Spline interpolation of a point.
         /// </summary>
@@ -3084,11 +3005,9 @@ namespace MethodSpeedTester
 
             return (a0 * t * mu2 + a1 * mu2 + a2 * t + a3);
         }
-
-        #endregion
+        #endregion Cubic CatmulRom Spline Interpolation of 1D Points
 
         #region Cubic CatmulRom Spline Interpolation of 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D Catmull Rom Spline interpolation of a point.
         /// </summary>
@@ -3133,11 +3052,9 @@ namespace MethodSpeedTester
                 aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
                 aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1);
         }
-
-        #endregion
+        #endregion Cubic CatmulRom Spline Interpolation of 2D Points
 
         #region Cubic CatmulRom Spline Interpolation of 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Catmull Rom Spline interpolation of a point.
         /// </summary>
@@ -3190,12 +3107,9 @@ namespace MethodSpeedTester
                 aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1,
                 aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
         }
-
-        #endregion
+        #endregion Cubic CatmulRom Spline Interpolation of 3D Points
 
         #region Cubic Bezier Derivative
-
-
         /// <summary>
         ///
         /// </summary>
@@ -3230,15 +3144,12 @@ namespace MethodSpeedTester
                 (float)(3 * mu12 * (p1.Y - p0.Y) + 6 * mu1 * t * (p2.Y - p1.Y) + 3 * mu2 * (p3.Y - p2.Y))
                 );
         }
-
-        #endregion
+        #endregion Cubic Bezier Derivative
 
         #region Cubic Bezier Interpolation of 1D Points
-
-        #endregion
+        #endregion Cubic Bezier Interpolation of 1D Points
 
         #region Cubic Bezier Interpolation of 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
@@ -3524,19 +3435,15 @@ namespace MethodSpeedTester
                         + 3 * (1 - t) * Pow(t, 2) * p2.X + Pow(t, 3) * p3.X),
                 (float)(Pow(1 - t, 3) * p0.Y + 3 * Pow(1 - t, 2) * t * p1.Y
                         + 3 * (1 - t) * Pow(t, 2) * p2.Y + Pow(t, 3) * p3.Y));
-
-        #endregion
+        #endregion Cubic Bezier Interpolation of 2D Points
 
         #region Cubic Bezier Interpolation of 3D Points
-
-        #endregion
+        #endregion Cubic Bezier Interpolation of 3D Points
 
         #region Cubic Bezier and Line Intersections
-
-        #endregion
+        #endregion Cubic Bezier and Line Intersections
 
         #region Cubic Bezier Self Intersection
-
         /// <summary>
         ///
         /// </summary>
@@ -3631,11 +3538,9 @@ namespace MethodSpeedTester
 
             return null;
         }
-
-        #endregion
+        #endregion Cubic Bezier Self Intersection
 
         #region Cubic BSpline Interpolation
-
         /// <summary>
         /// Function to Interpolate a Cubic Bezier Spline
         /// </summary>
@@ -3769,11 +3674,9 @@ namespace MethodSpeedTester
                 VPoints[0].Y * V1 * V1 * V1 + VPoints[1].Y * V1 * V1 * V1 + VPoints[2].Y * V1 + VPoints[3].Y
             );
         }
-
-        #endregion
+        #endregion Cubic BSpline Interpolation
 
         #region Distance Between Two 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the distance between two 3D points.
         /// </summary>
@@ -3845,11 +3748,9 @@ namespace MethodSpeedTester
             var z = (z2 - z1);
             return Sqrt(x * x + y * y + z * z);
         }
-
-        #endregion
+        #endregion Distance Between Two 3D Points
 
         #region Distance Between Two 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the distance between two 2D points.
         /// </summary>
@@ -3960,11 +3861,9 @@ namespace MethodSpeedTester
             var dy = vector1.J - vector2.J;
             return Sqrt(dx * dx + dy * dy);
         }
-
-        #endregion
+        #endregion Distance Between Two 2D Points
 
         #region Distance of Point To Line Segment
-
         /// <summary>
         /// Calculate the distance between the point and the segment.
         /// </summary>
@@ -4131,11 +4030,9 @@ namespace MethodSpeedTester
             var d = num / segLength;
             return d;
         }
-
-        #endregion
+        #endregion Distance of Point To Line Segment
 
         #region Dot Product of Two 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the dot product of two 2D points.
         /// </summary>
@@ -4178,11 +4075,9 @@ namespace MethodSpeedTester
         public static double DotProduct2Points2D_1(
         double x1, double y1,
         double x2, double y2) => ((x1 * x2) + (y1 * y2));
-
-        #endregion
+        #endregion Dot Product of Two 2D Points
 
         #region Dot Product of Two 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the dot product for two 3D points.
         /// </summary>
@@ -4242,11 +4137,9 @@ namespace MethodSpeedTester
                 tuple1.X, tuple1.Y, tuple1.Z,
                 tuple2.X, tuple2.Y, tuple2.Z
                 );
-
-        #endregion
+        #endregion Dot Product of Two 3D Points
 
         #region Dot Product of The Vector of Three 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the dot product of three 2D points.
         /// </summary>
@@ -4329,11 +4222,9 @@ namespace MethodSpeedTester
             // Calculate the dot product.
             return (BAx * BCx + BAy * BCy);
         }
-
-        #endregion
+        #endregion Dot Product of The Vector of Three 2D Points
 
         #region Ellipse Perimeter Length
-
         /// <summary>
         /// This approximation is within about 5% of the true value, so long as a is not more than 3 times longer than b (in other words, the ellipse is not too "squashed"):
         /// </summary>
@@ -4922,15 +4813,12 @@ namespace MethodSpeedTester
             var k = 1 - ((c1 * a * b) / ((a * a + b * b) + c2 * Sqrt(c3 * a * b * a * b + a * b * Sqrt(a * b * (c4 * (a * a + b * b) + c5 * a * b)))));
             return 4 * ((PI * a * b + k * (a - b) * (a - b)) / (a + b));
         }
-
-        #endregion
+        #endregion Ellipse Perimeter Length
 
         #region Elliptic Arc From Points and Radii
-
-        #endregion
+        #endregion Elliptic Arc From Points and Radii
 
         #region Elliptic Star Points
-
         /// <summary>
         ///
         /// </summary>
@@ -4960,11 +4848,9 @@ namespace MethodSpeedTester
 
             return pts;
         }
-
-        #endregion
+        #endregion Elliptic Star Points
 
         #region Evaluate a Polynomial
-
         /// <summary>
         /// Set of tests to run testing methods that evaluates a polynomial.
         /// </summary>
@@ -5120,11 +5006,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Evaluate a Polynomial
 
         #region Find Center of a Circle From Three Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
         /// </summary>
@@ -5194,11 +5078,9 @@ namespace MethodSpeedTester
                 (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant,
                 (cd * (p1X - p2X) - bc * (p2X - p3X)) / determinant);
         }
-
-        #endregion
+        #endregion Find Center of a Circle From Three Points
 
         #region Find Polygon Ear
-
         /// <summary>
         /// Find the indexes of three points that form an "ear."
         /// </summary>
@@ -5268,11 +5150,9 @@ namespace MethodSpeedTester
             // This is an ear.
             return true;
         }
-
-        #endregion
+        #endregion Find Polygon Ear
 
         #region Fit in Rectangle
-
         /// <summary>
         ///
         /// </summary>
@@ -5314,11 +5194,9 @@ namespace MethodSpeedTester
 
             return new Size2D((x_max - x_min), (y_max - y_min));
         }
-
-        #endregion
+        #endregion Fit in Rectangle
 
         #region Gear Points
-
         // Draw the gear.
         private void PicGears_Paint(PaintEventArgs e, Rectangle bounds)
         {
@@ -5389,11 +5267,9 @@ namespace MethodSpeedTester
                  (float)(center.X - axle_radius), (float)(center.Y - axle_radius),
                 (float)(2 * axle_radius), (float)(2 * axle_radius));
         }
-
-        #endregion
+        #endregion Gear Points
 
         #region Heart Interpolation
-
         // The curve's parametric equations.
         private static Point2D Heart(double t)
         {
@@ -5542,11 +5418,9 @@ namespace MethodSpeedTester
 
             gr.Transform = new Matrix(world_rect.ToRectangleF(), device_points.ToPointFArray());
         }
-
-        #endregion
+        #endregion Heart Interpolation
 
         #region Hermite Interpolation of 1D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D Hermite interpolation of points.
         /// </summary>
@@ -5624,11 +5498,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Hermite Interpolation of 1D Points
 
         #region Hermite Interpolation of 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D Hermite interpolation of points.
         /// </summary>
@@ -5801,11 +5673,9 @@ namespace MethodSpeedTester
             var tb = ((1 + bias) * ((1 - tension) / 2));
             return (Point2D)aTan.Scale(((2 * t3) - (3 * t2)) + 1).Add(aTan.Subtract(a).Add(b.Subtract(aTan)).Scale((t3 - (2 * t2)) + index).Add(b.Subtract(aTan).Add(bTan.Subtract(b)).Scale(t3 - t2)).Scale(tb).Add(b.Scale((3 * t2) - (2 * t3))));
         }
-
-        #endregion
+        #endregion Hermite Interpolation of 2D Points
 
         #region Hermite Interpolation of 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
         /// </summary>
@@ -5868,22 +5738,18 @@ namespace MethodSpeedTester
                 a0 * y1 + a1 * mY0 + a2 * mY1 + a3 * y2,
                 a0 * z1 + a1 * mZ0 + a2 * mZ1 + a3 * z2);
         }
-
-        #endregion
+        #endregion Hermite Interpolation of 3D Points
 
         #region Hermite To Cubic Bezier
-
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
         public static CubicBezier ToCubicBezier(Point2D a, Point2D aTan, Point2D b, Point2D bTan) => new CubicBezier(aTan, new Point2D(aTan.X - (b.X - a.X) / 6, aTan.Y - (b.Y - a.Y) / 6), new Point2D(b.X + (bTan.X - aTan.X) / 6, b.Y + (bTan.Y - aTan.Y) / 6), bTan);
-
-        #endregion
+        #endregion Hermite To Cubic Bezier
 
         #region Horizontal Line Segments Overlap
-
         /// <summary>
         ///
         /// </summary>
@@ -5899,11 +5765,9 @@ namespace MethodSpeedTester
             if (segBX > segBY) Maths.Swap(ref segBX, ref segBY);
             return (segAX < segBY) && (segBX < segAY);
         }
-
-        #endregion
+        #endregion Horizontal Line Segments Overlap
 
         #region Intersection of Circle and Circle
-
         /// <summary>
         /// Find the points where the two circles intersect.
         /// </summary>
@@ -6018,11 +5882,9 @@ namespace MethodSpeedTester
                 return null;
             }
         }
-
-        #endregion
+        #endregion Intersection of Circle and Circle
 
         #region Intersection of Circle and Line Segment
-
         /// <summary>
         /// Find the points of the intersection of a circle and a line segment.
         /// </summary>
@@ -6161,11 +6023,9 @@ namespace MethodSpeedTester
             }
             return result;
         }
-
-        #endregion
+        #endregion Intersection of Circle and Line Segment
 
         #region Intersection of Circle and Line
-
         /// <summary>
         /// Find the points of intersection.
         /// </summary>
@@ -6288,16 +6148,13 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Intersection of Circle and Line
 
         #region Intersection of Conic Section With Line Segment
-        // http://csharphelper.com/blog/2014/11/see-where-a-line-intersects-a-conic-section-in-c/
-        #endregion
+        // http://csharphelper.com/blog/2014/11/see-where-a-line-intersects-a-conic-section-in-c/        #endregion Intersection of Conic Section With Line Segment
 
         #region Intersection of Conic Section with Conic Section
-        // http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/
-        #endregion
+        // http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/        #endregion Intersection of Conic Section with Conic Section
 
         #region Intersection of Ellipse and Ellipse
 
@@ -7185,11 +7042,9 @@ namespace MethodSpeedTester
         /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
         private static bool IsNumber(double number)
             => !(double.IsNaN(number) || double.IsInfinity(number));
-
-        #endregion
+        #endregion Intersection of Ellipse and Ellipse
 
         #region Intersection of Ellipse and Line Segment
-
         /// <summary>
         /// Find the points of the intersection between an unrotated ellipse and a line segment.
         /// </summary>
@@ -7615,11 +7470,9 @@ namespace MethodSpeedTester
 
             return (true, (xA, yA), true, (xB, yB));
         }
-
-        #endregion
+        #endregion Intersection of Ellipse and Line Segment
 
         #region Intersection of Elliptical Arc and Line Segment
-
         /// <summary>
         ///
         /// </summary>
@@ -7737,12 +7590,10 @@ namespace MethodSpeedTester
                 result.State |= IntersectionState.Intersection;
             return result;
         }
-
-        #endregion
+        #endregion Intersection of Elliptical Arc and Line Segment
 
         #region Intersection of Parabola and Hyperbola
-        //http://csharphelper.com/blog/2014/11/see-where-a-parabola-and-hyperbola-intersect-in-c/
-        #endregion
+        //http://csharphelper.com/blog/2014/11/see-where-a-parabola-and-hyperbola-intersect-in-c/        #endregion Intersection of Parabola and Hyperbola
 
         #region Intersection of two Line Segments
 
@@ -8254,11 +8105,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Intersection of two Line Segments
 
         #region Intersection of a Line and a Line Segment
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
         /// </summary>
@@ -8420,11 +8269,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Intersection of a Line and a Line Segment
 
         #region Intersection of a Line and a Quadratic Bezier
-
         /// <summary>
         ///
         /// </summary>
@@ -8493,11 +8340,9 @@ namespace MethodSpeedTester
                 result.State |= IntersectionState.Intersection;
             return result;
         }
-
-        #endregion
+        #endregion Intersection of a Line and a Quadratic Bezier
 
         #region Intersection of a Line and a Cubic Bezier
-
         /// <summary>
         ///
         /// </summary>
@@ -8587,11 +8432,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Intersection of a Line and a Cubic Bezier
 
         #region Intersection of a Line Segment and a Quadratic Bezier
-
         /// <summary>
         ///
         /// </summary>
@@ -8759,11 +8602,9 @@ namespace MethodSpeedTester
             }
             return result;
         }
-
-        #endregion
+        #endregion Intersection of a Line Segment and a Quadratic Bezier
 
         #region Intersection of a Line Segment and a Cubic Bezier
-
         /// <summary>
         ///
         /// </summary>
@@ -8934,11 +8775,9 @@ namespace MethodSpeedTester
             }
             return result;
         }
-
-        #endregion
+        #endregion Intersection of a Line Segment and a Cubic Bezier
 
         #region Intersection of a Quadratic Bezier and a Quadratic Bezier
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the Intersection of two Quadratic Bezier curves.
         /// </summary>
@@ -9496,11 +9335,9 @@ namespace MethodSpeedTester
                 result.State = IntersectionState.Intersection;
             return result;
         }
-
-        #endregion
+        #endregion Intersection of a Quadratic Bezier and a Quadratic Bezier
 
         #region Intersection of a Quadratic Bezier and a Cubic Bezier
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bezier curves.
         /// </summary>
@@ -9734,11 +9571,9 @@ namespace MethodSpeedTester
                 result.State = IntersectionState.Intersection;
             return result;
         }
-
-        #endregion
+        #endregion Intersection of a Quadratic Bezier and a Cubic Bezier
 
         #region Intersection of a Cubic Bezier and a Cubic Bezier
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bezier curves.
         /// </summary>
@@ -10029,11 +9864,9 @@ namespace MethodSpeedTester
                 result.State = IntersectionState.Intersection;
             return result;
         }
-
-        #endregion
+        #endregion Intersection of a Cubic Bezier and a Cubic Bezier
 
         #region Is Convex
-
         /// <summary>
         /// For each set of three adjacent points A, B, C,
         /// find the dot product AB · BC. If the sign of
@@ -10072,11 +9905,9 @@ namespace MethodSpeedTester
             // If we got this far, the polygon is convex.
             return true;
         }
-
-        #endregion
+        #endregion Is Convex
 
         #region Is Valid
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
         /// </summary>
@@ -10119,11 +9950,9 @@ namespace MethodSpeedTester
 
             return !double.IsInfinity(x);
         }
-
-        #endregion
+        #endregion Is Valid
 
         #region Linear Interpolation of Two 1D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
         /// </summary>
@@ -10180,11 +10009,9 @@ namespace MethodSpeedTester
         public static double LinearInterpolate1D_2(
             double v1, double v2, double t)
             => (Abs(v1 - v2) < DoubleEpsilon) ? 0 : v1 - ((1 / (v1 - v2)) * t);
-
-        #endregion
+        #endregion Linear Interpolation of Two 1D Points
 
         #region Linear Interpolation of Two 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
         /// </summary>
@@ -10279,11 +10106,9 @@ namespace MethodSpeedTester
             => (
                 (Abs(x1 - x2) < DoubleEpsilon) ? 0 : x1 - ((1 / (x1 - x2)) * t),
                 (Abs(y1 - y2) < DoubleEpsilon) ? 0 : y1 - ((1 / (y1 - y2)) * t));
-
-        #endregion
+        #endregion Linear Interpolation of Two 2D Points
 
         #region Linear Interpolation of Two 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
         /// </summary>
@@ -10389,11 +10214,9 @@ namespace MethodSpeedTester
                 (Abs(x1 - x2) < DoubleEpsilon) ? 0 : x1 - ((1 / (x1 - x2)) * t),
                 (Abs(y1 - y2) < DoubleEpsilon) ? 0 : y1 - ((1 / (y1 - y2)) * t),
                 (Abs(z1 - z2) < DoubleEpsilon) ? 0 : z1 - ((1 / (z1 - z2)) * t));
-
-        #endregion
+        #endregion Linear Interpolation of Two 3D Points
 
         #region Linear Offset Interpolation
-
         /// <summary>
         ///
         /// </summary>
@@ -10408,11 +10231,9 @@ namespace MethodSpeedTester
             var PerpendicularAB = UnitVectorAB.Perpendicular().Scale(0.5).Scale(Offset);
             return Interpolators.Linear(Value1, Value2, Weight).Inflate(PerpendicularAB);
         }
-
-        #endregion
+        #endregion Linear Offset Interpolation
 
         #region Line in Polyline
-
         /// <summary>
         /// This function should be called with the full set of *all* relevant polygons.
         /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
@@ -10494,11 +10315,9 @@ namespace MethodSpeedTester
 
             return polygon.Contains(new Point2D(start.X + end.X * 0.5d, start.Y + end.Y * 0.5d));
         }
-
-        #endregion
+        #endregion Line in Polyline
 
         #region Line in Polyline Set
-
         /// <summary>
         /// This function should be called with the full set of *all* relevant polygons.
         /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
@@ -10576,11 +10395,9 @@ namespace MethodSpeedTester
 
             return allPolys.Contains(new Point2D(start.X + end.X * 0.5d, start.Y + end.Y * 0.5d));
         }
-
-        #endregion
+        #endregion Line in Polyline Set
 
         #region Line Overlap
-
         /// <summary>
         ///
         /// </summary>
@@ -10606,11 +10423,9 @@ namespace MethodSpeedTester
             }
             return Left < Right;
         }
-
-        #endregion
+        #endregion Line Overlap
 
         #region List Interpolation Points of Cubic Bezier
-
         /// <summary>
         ///
         /// </summary>
@@ -10723,11 +10538,9 @@ namespace MethodSpeedTester
 
             return new List<Point2D>(BPoints);
         }
-
-        #endregion
+        #endregion List Interpolation Points of Cubic Bezier
 
         #region List Interpolation Points of Quadratic Bezier
-
         /// <summary>
         ///
         /// </summary>
@@ -10745,11 +10558,9 @@ namespace MethodSpeedTester
 
             return new List<Point2D>(ipoints);
         }
-
-        #endregion
+        #endregion List Interpolation Points of Quadratic Bezier
 
         #region Log2
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D Hermite interpolation of points.
         /// </summary>
@@ -10838,11 +10649,9 @@ namespace MethodSpeedTester
 
             return r;
         }
-
-        #endregion
+        #endregion Log2
 
         #region Mixed Product of Three 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the mixed product for three 3D points.
         /// </summary>
@@ -10871,11 +10680,9 @@ namespace MethodSpeedTester
             double x2, double y2, double z2,
             double x3, double y3, double z3)
             => DotProduct(CrossProduct2Points3D_0(x1, y1, z1, x2, y2, z2), x3, y3, z3);
-
-        #endregion
+        #endregion Mixed Product of Three 3D Points
 
         #region Near Zero Inquiry
-
         /// <summary>
         ///
         /// </summary>
@@ -10912,11 +10719,9 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool NearZero1(double value, double epsilon = NearZeroEpsilon)
             => Abs(value) <= epsilon;
-
-        #endregion
+        #endregion Near Zero Inquiry
 
         #region Normalize a 2D Vector
-
         /// <summary>
         /// Normalize a Vector.
         /// </summary>
@@ -10931,11 +10736,9 @@ namespace MethodSpeedTester
                 i / Sqrt((i * i) + (j * j)),
                 j / Sqrt((i * i) + (j * j))
                 );
-
-        #endregion
+        #endregion Normalize a 2D Vector
 
         #region Normalize a 3D Vector
-
         /// <summary>
         /// Normalize a Vector.
         /// </summary>
@@ -10952,11 +10755,9 @@ namespace MethodSpeedTester
                 j / Sqrt((i * i) + (j * j) + (k * k)),
                 k / Sqrt((i * i) + (j * j) + (k * k))
                 );
-
-        #endregion
+        #endregion Normalize a 3D Vector
 
         #region Normalize The Vector Between Two 2D Points
-
         /// <summary>
         /// Find the Normal of Two points.
         /// </summary>
@@ -10974,11 +10775,9 @@ namespace MethodSpeedTester
                 x1 / Sqrt(((x1 * x2) + (y1 * y2))),
                 y1 / Sqrt(((x1 * x2) + (y1 * y2)))
                 );
-
-        #endregion
+        #endregion Normalize The Vector Between Two 2D Points
 
         #region Normalize The Vector Between Two 3D Points
-
         /// <summary>
         /// Find the Normal of Two points.
         /// </summary>
@@ -10999,11 +10798,9 @@ namespace MethodSpeedTester
                 y1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2)),
                 z1 / Sqrt((x1 * x2) + (y1 * y2) + (z1 * z2))
                 );
-
-        #endregion
+        #endregion Normalize The Vector Between Two 3D Points
 
         #region N Polygon Star
-
         // Draw the stars.
         private void PicCanvas_Paint(PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
         {
@@ -11089,11 +10886,9 @@ namespace MethodSpeedTester
             gr.DrawPolygon(Pens.Blue, pts);
             gr.ResetTransform();
         }
-
-        #endregion
+        #endregion N Polygon Star
 
         #region N Polygon Intersecting Star
-
         // Return PointFs to define a non-intersecting star.
         private static PointF[] NonIntersectingStarPoints(int num_points, Rectangle bounds)
         {
@@ -11125,11 +10920,9 @@ namespace MethodSpeedTester
 
             return pts;
         }
-
-        #endregion
+        #endregion N Polygon Intersecting Star
 
         #region Offset Line
-
         /// <summary>
         /// Calculate the geometry of points offset at a specified distance. aka Double Line.
         /// </summary>
@@ -11188,11 +10981,9 @@ namespace MethodSpeedTester
             };
             return Out;
         }
-
-        #endregion
+        #endregion Offset Line
 
         #region Operation Addition Safe
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the safty of operations.
         /// </summary>
@@ -11310,11 +11101,9 @@ namespace MethodSpeedTester
             if (b < 0) return (a < int.MinValue - b);
             return true;
         }
-
-        #endregion
+        #endregion Operation Addition Safe
 
         #region Operation Division Safe
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the safty of operations.
         /// </summary>
@@ -11340,11 +11129,9 @@ namespace MethodSpeedTester
             if (a == int.MinValue && b == -1) return false;
             return true;
         }
-
-        #endregion
+        #endregion Operation Division Safe
 
         #region Operation Exponentiation Safe
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the safty of operations.
         /// </summary>
@@ -11365,11 +11152,9 @@ namespace MethodSpeedTester
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
         public static bool IsExponentiationSafe(int a, int b)
             => (Log2(a) * b <= sizeof(int));
-
-        #endregion
+        #endregion Operation Exponentiation Safe
 
         #region Operation Multiplication Safe
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the safety of operations.
         /// </summary>
@@ -11449,11 +11234,9 @@ namespace MethodSpeedTester
             if ((b == -1) && (a == int.MinValue)) return false /* `a * x` (or `a / x`) can overflow */;
             return true;
         }
-
-        #endregion
+        #endregion Operation Multiplication Safe
 
         #region Operation Subtraction Safe
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the safety of operations.
         /// </summary>
@@ -11479,11 +11262,9 @@ namespace MethodSpeedTester
             if (b > 0) return (a < int.MinValue + b);
             return true;
         }
-
-        #endregion
+        #endregion Operation Subtraction Safe
 
         #region Orient Polygon Clockwise
-
         /// <summary>
         /// If the polygon is oriented counterclockwise,
         /// reverse the order of its points.
@@ -11495,11 +11276,9 @@ namespace MethodSpeedTester
             if (polygon.Orientation == RotationDirections.CounterClockwise)
                 polygon.Points.Reverse();
         }
-
-        #endregion
+        #endregion Orient Polygon Clockwise
 
         #region Perimeter of a Polygon
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the cross product of three 2D points.
         /// </summary>
@@ -11537,11 +11316,9 @@ namespace MethodSpeedTester
         /// <remarks>http://stackoverflow.com/questions/2227828/find-the-distance-required-to-navigate-a-list-of-points-using-linq</remarks>
         public static double Perimeter1(List<(double X, double Y)> points)
             => points.Zip(points.Skip(1), Distance2D_1).Sum();
-
-        #endregion
+        #endregion Perimeter of a Polygon
 
         #region Perimeter Polygon of a Polygon
-
         /// <summary>
         /// Determine the radian angle of the specified point (as it relates to the origin).
         /// Warning: Do not pass zero in both parameters, as this will cause a division-by-zero.
@@ -11695,11 +11472,9 @@ namespace MethodSpeedTester
                 d = f;
             }
         }
-
-        #endregion
+        #endregion Perimeter Polygon of a Polygon
 
         #region Perpendicular Vector in The Clockwise Direction
-
         /// <summary>
         /// Find the Clockwise Perpendicular of a Vector.
         /// </summary>
@@ -11711,11 +11486,9 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularClockwise(double i, double j)
             => (-j, i);
-
-        #endregion
+        #endregion Perpendicular Vector in The Clockwise Direction
 
         #region Perpendicular Vector in The Counter Clockwise Direction
-
         /// <summary>
         /// Find the Counter Clockwise Perpendicular of a Vector.
         /// </summary>
@@ -11727,11 +11500,9 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularCounterClockwise(double i, double j)
             => (j, -i);
-
-        #endregion
+        #endregion Perpendicular Vector in The Counter Clockwise Direction
 
         #region Point in Circle
-
         /// <summary>
         /// Set of tests to run testing methods that calculate whether a point is within a circle.
         /// </summary>
@@ -11908,11 +11679,9 @@ namespace MethodSpeedTester
             }
             return Inclusion.Outside;
         }
-
-        #endregion
+        #endregion Point in Circle
 
         #region Point in Ellipse
-
         /// <summary>
         /// Checks whether a point is found within the boundaries of an ellipse.
         /// </summary>
@@ -11945,11 +11714,9 @@ namespace MethodSpeedTester
 
             return (normalizedRadius <= 1d) ? ((Abs(normalizedRadius - 1d) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
-
-        #endregion
+        #endregion Point in Ellipse
 
         #region Point in Ellipse Unrotated
-
         /// <summary>
         ///
         /// </summary>
@@ -11973,12 +11740,9 @@ namespace MethodSpeedTester
             return (a / d1Squared)
                  + (b / d2Squared) <= 1d;
         }
-
-        #endregion
+        #endregion Point in Ellipse Unrotated
 
         #region Point in Elliptical Arc Sector
-
-
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="EllipticalArc"/>.
         /// </summary>
@@ -12464,11 +12228,9 @@ namespace MethodSpeedTester
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
-
-        #endregion
+        #endregion Point in Elliptical Arc Sector
 
         #region Point in Polygon Contour
-
         /// <summary>
         /// Set of tests to run testing methods that test whether a point is contained in a polygon contour.
         /// </summary>
@@ -13612,11 +13374,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Point in Polygon Contour
 
         #region Point in Polygon Set
-
         /// <summary>
         /// This function automatically knows that enclosed polygons are "no-go" areas.
         /// </summary>
@@ -13681,11 +13441,9 @@ namespace MethodSpeedTester
 
             return returnValue;
         }
-
-        #endregion
+        #endregion Point in Polygon Set
 
         #region Point in Rectangle
-
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
@@ -13752,11 +13510,9 @@ namespace MethodSpeedTester
                 && rectangle.Y <= point.Y
                 && point.Y < rectangle.Y + rectangle.Height) ? Inclusion.Inside : Inclusion.Outside;
         }
-
-        #endregion
+        #endregion Point in Rectangle
 
         #region Point Near Ellipse
-
         /// <summary>
         /// Return True if the point is inside the ellipse
         /// (expanded by distance close_distance vertically
@@ -13779,11 +13535,9 @@ namespace MethodSpeedTester
             py = (py - (y2 + y1) / 2);
             return (((px * px) / (a * a)) + ((py * py) / (b * b)) <= 1);
         }
-
-        #endregion
+        #endregion Point Near Ellipse
 
         #region Point Near a Line Segment
-
         /// <summary>
         ///
         /// </summary>
@@ -13812,11 +13566,9 @@ namespace MethodSpeedTester
         /// <remarks></remarks>
         public static bool PointNearSegment2(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
             => (DistToSegment(px, py, x1, y1, x2, y2) <= close_distance);
-
-        #endregion
+        #endregion Point Near a Line Segment
 
         #region Point On Line Segment
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
         /// </summary>
@@ -13914,11 +13666,9 @@ namespace MethodSpeedTester
             // Sqrt((Point.X - Line.A.X) ^ 2 + (Point.Y - Line.A.Y))
             return Abs(segment.Length() - Length1 + Length2) < DoubleEpsilon;
         }
-
-        #endregion
+        #endregion Point On Line Segment
 
         #region Points Are Close
-
         /// <summary>
         /// Return True if (x1, y1) is within close_distance vertically and horizontally of (x2, y2).
         /// </summary>
@@ -13970,11 +13720,9 @@ namespace MethodSpeedTester
         public static bool AreClose(Vector2D vector1, Vector2D vector2, double epsilon = DoubleEpsilon)
             => Maths.AreClose(vector1.I, vector2.I, epsilon)
             && Maths.AreClose(vector1.J, vector2.J, epsilon);
-
-        #endregion
+        #endregion Points Are Close
 
         #region Polygon Centroid
-
         /// <summary>
         /// Find the polygon's centroid.
         /// </summary>
@@ -14017,11 +13765,9 @@ namespace MethodSpeedTester
 
             return new Point2D(X, Y);
         }
-
-        #endregion
+        #endregion Polygon Centroid
 
         #region Polygon Oriented Clockwise
-
         /// <summary>
         ///
         /// </summary>
@@ -14031,11 +13777,9 @@ namespace MethodSpeedTester
         /// </returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
         public static bool PolygonIsOrientedClockwise(PolygonContour polygon) => (SignedPolygonArea5(polygon.Points) < 0);
-
-        #endregion
+        #endregion Polygon Oriented Clockwise
 
         #region Power of Two
-
         /// <summary>
         /// Determines if value is powered by two.
         /// </summary>
@@ -14043,11 +13787,9 @@ namespace MethodSpeedTester
         /// <returns><c>true</c> if <c>value</c> is powered by two; otherwise <c>false</c>.</returns>
         public static bool IsPowerOfTwo(int value)
             => (value > 0) && ((value & (value - 1)) == 0);
-
-        #endregion
+        #endregion Power of Two
 
         #region Quadratic Bezier Interpolation of 1D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
         /// </summary>
@@ -14103,11 +13845,9 @@ namespace MethodSpeedTester
             // point on the bezier-curve
             return LinearInterpolate1D_0(ab, bc, t);
         }
-
-        #endregion
+        #endregion Quadratic Bezier Interpolation of 1D Points
 
         #region Quadratic Bezier Interpolation of 2D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
@@ -14172,11 +13912,9 @@ namespace MethodSpeedTester
             // point on the bezier-curve
             return LinearInterpolate2D_0(ab.X, ab.Y, bc.X, bc.Y, t);
         }
-
-        #endregion
+        #endregion Quadratic Bezier Interpolation of 2D Points
 
         #region Quadratic Bezier Interpolation of 3D Points
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D cubic interpolation of a point.
         /// </summary>
@@ -14247,11 +13985,9 @@ namespace MethodSpeedTester
             // point on the bezier-curve
             return LinearInterpolate3D_0(ab.X, ab.Y, ab.Z, bc.X, bc.Y, bc.Z, t);
         }
-
-        #endregion
+        #endregion Quadratic Bezier Interpolation of 3D Points
 
         #region Quadratic Bezier Length Approximations
-
         /// <summary>
         /// Closed-form solution to elliptic integral for arc length.
         /// </summary>
@@ -14368,11 +14104,9 @@ namespace MethodSpeedTester
 
             return Abs(mult) < DoubleEpsilon ? sum : mult * sum;
         }
-
-        #endregion
+        #endregion Quadratic Bezier Length Approximations
 
         #region Rectangle Center
-
         /// <summary>
         /// Extension method to find the center point of a rectangle.
         /// </summary>
@@ -14394,11 +14128,9 @@ namespace MethodSpeedTester
             (rectangle.Left + rectangle.Right) * 0.5f,
             (rectangle.Top + rectangle.Bottom) * 0.5f
         );
-
-        #endregion
+        #endregion Rectangle Center
 
         #region Rectangle To Square
-
         private static Rectangle2D ToSquare(Rectangle2D rect)
         {
             var smallest = rect.Height <= rect.Width ? rect.Height : rect.Width;
@@ -14408,11 +14140,9 @@ namespace MethodSpeedTester
                 smallest,
                 smallest);
         }
-
-        #endregion
+        #endregion Rectangle To Square
 
         #region Rectangle Has NaN
-
         /// <summary>
         /// rectHasNaN - this returns true if this rectangle has X, Y , Height or Width as NaN.
         /// </summary>
@@ -14422,11 +14152,9 @@ namespace MethodSpeedTester
              || double.IsNaN(rect.Y)
              || double.IsNaN(rect.Height)
              || double.IsNaN(rect.Width);
-
-        #endregion
+        #endregion Rectangle Has NaN
 
         #region Rectangles Are Close
-
         /// <summary>
         /// Compares two rectangles for fuzzy equality.  This function
         /// helps compensate for the fact that double values can
@@ -14450,11 +14178,9 @@ namespace MethodSpeedTester
                 && Maths.AreClose(rect1.Height, rect2.Height, epsilon)
                 && Maths.AreClose(rect1.Width, rect2.Width, epsilon);
         }
-
-        #endregion
+        #endregion Rectangles Are Close
 
         #region Remove Point
-
         /// <summary>
         /// Remove point target from the array.
         /// </summary>
@@ -14477,11 +14203,9 @@ namespace MethodSpeedTester
             Array.Copy(polygon.Points.ToArray(), target + 1, points, target, polygon.Points.Count - target - 1);
             polygon.Points = points.ToList();
         }
-
-        #endregion
+        #endregion Remove Point
 
         #region Remove Polygon Ear
-
         /// <summary>
         /// Remove an ear from the polygon and add it to the triangles array.
         /// </summary>
@@ -14501,11 +14225,9 @@ namespace MethodSpeedTester
             // Remove the ear from the polygon.
             RemovePoint(polygon, B);
         }
-
-        #endregion
+        #endregion Remove Polygon Ear
 
         #region Retrieve Cursor Resource
-
         /// <summary>
         /// Retrieve Cursor Resource from Executable
         /// </summary>
@@ -14540,11 +14262,9 @@ namespace MethodSpeedTester
             else
                 return Cursors.Default;
         }
-
-        #endregion
+        #endregion Retrieve Cursor Resource
 
         #region Roots of a Linear Polynomial
-
         /// <summary>
         ///
         /// </summary>
@@ -14562,11 +14282,9 @@ namespace MethodSpeedTester
                 return new List<double> { a / (a - b) };
             return new List<double>();
         }
-
-        #endregion
+        #endregion Roots of a Linear Polynomial
 
         #region Roots of a Quadratic Polynomial
-
         /// <summary>
         ///
         /// </summary>
@@ -14597,11 +14315,9 @@ namespace MethodSpeedTester
             }
             return new List<double>();
         }
-
-        #endregion
+        #endregion Roots of a Quadratic Polynomial
 
         #region Roots of a Cubic Polynomial
-
         /// <summary>
         ///
         /// </summary>
@@ -14766,11 +14482,9 @@ namespace MethodSpeedTester
             }
             return R;
         }
-
-        #endregion
+        #endregion Roots of a Cubic Polynomial
 
         #region Roots of a Quartic Polynomial
-
         /// <summary>
         ///
         /// </summary>
@@ -14945,12 +14659,9 @@ namespace MethodSpeedTester
         //        results = results.Concat(guesses).ToList();
         //    }
         //    return results;
-        //}
-
-        #endregion
+        //}        #endregion Roots of a Quartic Polynomial
 
         #region Rotated Rectangle Bounds
-
         /// <summary>
         ///
         /// </summary>
@@ -14978,11 +14689,9 @@ namespace MethodSpeedTester
 
             return new Rectangle2D(loc, size);
         }
-
-        #endregion
+        #endregion Rotated Rectangle Bounds
 
         #region Rotated Rectangle Points
-
         /// <summary>
         ///
         /// </summary>
@@ -15020,11 +14729,9 @@ namespace MethodSpeedTester
 
             return points;
         }
-
-        #endregion
+        #endregion Rotated Rectangle Points
 
         #region Rotation Matrix
-
         /// <summary>
         /// Creates a matrix to rotate an object around a particular point.
         /// </summary>
@@ -15041,11 +14748,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Rotation Matrix
 
         #region Round
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
         /// </summary>
@@ -15116,23 +14821,19 @@ namespace MethodSpeedTester
         /// <returns></returns>
         public static double Truncate(double value)
             => (int)value;
-
-        #endregion
+        #endregion Round
 
         #region Self Intersecting Bezier
-        // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py
-        #endregion
+        // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py        #endregion Self Intersecting Bezier
 
         #region Sign
 
         // sign of number
         private static double Sign0(double x)
             => (x < 0d) ? -1 : 1;
-
-        #endregion
+        #endregion Sign
 
         #region Signed Triangle Area
-
         /// <summary>
         /// Set of Finds the signed area of a triangle.
         /// </summary>
@@ -15183,15 +14884,12 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangleAreaW8R(double aX, double aY, double bX, double bY, double cX, double cY)
             => (aX - cX) * (bY - cY) - (bX - cX) * (aY - cY);
-
-        #endregion
+        #endregion Signed Triangle Area
 
         #region Sine
-
-        #endregion
+        #endregion Sine
 
         #region Sine Cosine Lookup
-
         /// <summary>
         /// Set of tests to lookup the Sin and Cos of a radian angle.
         /// </summary>
@@ -15291,11 +14989,9 @@ namespace MethodSpeedTester
 
             return sinCosTable[radian].Value;
         }
-
-        #endregion
+        #endregion Sine Cosine Lookup
 
         #region Sine Interpolation of 1D
-
         /// <summary>
         ///
         /// </summary>
@@ -15314,11 +15010,9 @@ namespace MethodSpeedTester
             var mu2 = (1 - Sin(t * PI)) / 2;
             return v1 * (1 - mu2) + v2 * mu2;
         }
-
-        #endregion
+        #endregion Sine Interpolation of 1D
 
         #region Sine Interpolation of 2D Points
-
         /// <summary>
         ///
         /// </summary>
@@ -15353,11 +15047,9 @@ namespace MethodSpeedTester
             var MU2 = (1.0 - Sin(index * 180)) * 0.5;
             return (Point2D)a.Scale(1.0 - MU2).Add(b.Scale(MU2));
         }
-
-        #endregion
+        #endregion Sine Interpolation of 2D Points
 
         #region Sine Interpolation of 3D Points
-
         /// <summary>
         ///
         /// </summary>
@@ -15381,11 +15073,9 @@ namespace MethodSpeedTester
                 y1 * (1 - mu2) + y2 * mu2,
                 z1 * (1 - mu2) + z2 * mu2);
         }
-
-        #endregion
+        #endregion Sine Interpolation of 3D Points
 
         #region Slope of a 2D Vector
-
         /// <summary>
         /// Calculates the Slope of a vector.
         /// </summary>
@@ -15401,11 +15091,9 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(double i, double j)
             => Abs(i) < DoubleEpsilon ? SlopeMax : (j / i);
-
-        #endregion
+        #endregion Slope of a 2D Vector
 
         #region Slope of a 2D Line
-
         /// <summary>
         /// Returns the slope angle of a line.
         /// </summary>
@@ -15424,8 +15112,7 @@ namespace MethodSpeedTester
             double x1, double y1,
             double x2, double y2)
             => (Abs(x1 - x2) < DoubleEpsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
-
-        #endregion
+        #endregion Slope of a 2D Line
 
         #region Slopes Near Coliniar
         /// <summary>
@@ -15460,11 +15147,9 @@ namespace MethodSpeedTester
                     return SquareDistanceToLine(c.X, c.Y, a.X, a.Y, b.X, b.Y) < distSqrd;
             }
         }
-
-        #endregion
+        #endregion Slopes Near Coliniar
 
         #region Slopes of Lines Equal
-
         /// <summary>
         ///
         /// </summary>
@@ -15491,11 +15176,9 @@ namespace MethodSpeedTester
         public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, Point2D d, bool UseFullRange = false)
             => UseFullRange ? BigInteger.Multiply((BigInteger)(a.Y - b.Y), (BigInteger)(b.X - c.X)) == BigInteger.Multiply((BigInteger)(a.X - b.X), (BigInteger)(b.Y - c.Y))
             : (int)(a.Y - b.Y) * (c.X - d.X) - (int)(a.X - b.X) * (c.Y - d.Y) == 0;
-
-        #endregion
+        #endregion Slopes of Lines Equal
 
         #region Smooth Step
-
         /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
@@ -15513,11 +15196,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-
-        #endregion
+        #endregion Smooth Step
 
         #region Sorting Special
-
         /// <summary>
         /// Special sorting routine designed to place negitive values at the back.
         /// </summary>
@@ -15550,11 +15231,9 @@ namespace MethodSpeedTester
             } while (flip);
             return a;
         }
-
-        #endregion
+        #endregion Sorting Special
 
         #region Split RGB
-
         /// <summary>
         /// http://xbeat.net/vbspeed/c_SplitRGB.htm
         /// by www.Abstractvb.com, Date: 3/9/2001 9:26:43 PM, 20010922
@@ -15580,11 +15259,9 @@ namespace MethodSpeedTester
             => (lColor & 0xFF,
             (lColor & 0xFF00) / 0x100,
             (lColor & 0xFF0000) / 0x10000);
-
-        #endregion
+        #endregion Split RGB
 
         #region Squared Distance Between Two 2D Points
-
         /// <summary>
         /// The square of the distance between two points.
         /// </summary>
@@ -15599,11 +15276,9 @@ namespace MethodSpeedTester
             double x1, double y1,
             double x2, double y2)
             => ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-
-        #endregion
+        #endregion Squared Distance Between Two 2D Points
 
         #region Squared Distance To a Line
-
         /// <summary>
         /// Find the square of the distance of a point from a line.
         /// </summary>
@@ -15624,11 +15299,9 @@ namespace MethodSpeedTester
             var C = (A * x1 + B * y1) - (A * x2_ + B * y2_);
             return (C * C) / (A * A + B * B);
         }
-
-        #endregion
+        #endregion Squared Distance To a Line
 
         #region Shortest Path
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the wrapped angle of an angle.
         /// </summary>
@@ -16043,11 +15716,9 @@ namespace MethodSpeedTester
             // Success.
             return new Polyline(solution);
         }
-
-        #endregion
+        #endregion Shortest Path
 
         #region Swap Two Values
-
         /// <summary>
         /// Set of tests to run testing methods that swap values.
         /// </summary>
@@ -16075,11 +15746,9 @@ namespace MethodSpeedTester
             b = swap;
             return true;
         }
-
-        #endregion
+        #endregion Swap Two Values
 
         #region Triangulate a Polygon
-
         /// <summary>
         /// Set of tests to run testing methods that get the triangles of a polygon.
         /// </summary>
@@ -16129,11 +15798,9 @@ namespace MethodSpeedTester
 
             return triangles;
         }
-
-        #endregion
+        #endregion Triangulate a Polygon
 
         #region Trim Leading Zeros from Polynomials
-
         ///// <summary>
         ///// Simplify a polynomial, removing near zero terms.
         ///// </summary>
@@ -16222,12 +15889,9 @@ namespace MethodSpeedTester
         //    }
 
         //    return new Polynomial() { coefficients = res, isReadonly = this.isReadonly };
-        //}
-
-        #endregion
+        //}        #endregion Trim Leading Zeros from Polynomials
 
         #region Values are Close
-
         /// <summary>
         /// Set of tests to run testing methods that determine whether values are close.
         /// </summary>
@@ -16266,11 +15930,9 @@ namespace MethodSpeedTester
             var delta = value1 - value2;
             return (-eps < delta) && (eps > delta);
         }
-
-        #endregion
+        #endregion Values are Close
 
         #region Vector Between Vectors
-
         /// <summary>
         /// Set of tests to run testing methods that calculate whether a vector is between two others.
         /// </summary>
@@ -16335,11 +15997,9 @@ namespace MethodSpeedTester
         public static bool VectorBetween1(double i, double j, double i2, double j2, double i3, double j3)
             => ((i2 * j) - (j2 * i)) * ((i2 * j3) - (j2 * i3)) >= 0
             && ((i3 * j) - (j3 * i)) * ((i3 * j2) - (j3 * i2)) >= 0;
-
-        #endregion
+        #endregion Vector Between Vectors
 
         #region Wrap Angle
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the wrapped angle of an angle.
         /// </summary>
@@ -16408,11 +16068,9 @@ namespace MethodSpeedTester
             var test = angle % Tau;
             return (test <= -PI) ? test + Tau : test - Tau;
         }
-
-        #endregion
+        #endregion Wrap Angle
 
         #region Wrap Point On Rectangle Bounds
-
         /// <summary>
         /// Set of tests to run testing methods that calculate the wrapped position of a point in a rectangle.
         /// </summary>
@@ -16460,8 +16118,7 @@ namespace MethodSpeedTester
             return point;
             // 'ToDo: Adjust My_StartPoint when Screen is wrapped
         }
-
-        #endregion
+        #endregion Wrap Point On Rectangle Bounds
 
         /// <summary>
         ///

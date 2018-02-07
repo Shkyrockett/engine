@@ -26,7 +26,6 @@ namespace Engine.File
         : BinaryReader
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryReaderExtended"/> class, based on the
         /// supplied stream, using System.Text.UTF8Encoding.
@@ -54,11 +53,9 @@ namespace Engine.File
         public BinaryReaderExtended(Stream input, Encoding encoding)
             : base(input, encoding)
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the position within the current stream.
         /// </summary>
@@ -78,11 +75,9 @@ namespace Engine.File
         /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
         public long Length
             => BaseStream.Length;
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Reads a 2-byte unsigned 14-bit integer from the current stream using Big-endian
         /// encoding, and advances the current position of the stream by two bytes.
@@ -481,7 +476,6 @@ namespace Engine.File
             BaseStream.Position -= sizeof(long);
             return temp;
         }
-		
-        #endregion
+        #endregion Methods
     }
 }

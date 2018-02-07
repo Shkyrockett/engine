@@ -28,7 +28,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// The center x coordinate point of the <see cref="Ellipse"/>.
         /// </summary>
@@ -56,11 +55,9 @@ namespace Engine
         /// </summary>
         /// <remarks></remarks>
         private double angle;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
@@ -122,11 +119,9 @@ namespace Engine
         public Ellipse(Point2D center, Size2D size, double angle = 0)
             : this(center, size.Width, size.Height, angle)
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="Ellipse"/> to a Tuple.
         /// </summary>
@@ -143,11 +138,9 @@ namespace Engine
             rY = this.rY;
             angle = this.angle;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the <see cref="Location"/> of the <see cref="Ellipse"/>
         /// </summary>
@@ -520,11 +513,9 @@ namespace Engine
         [TypeConverter(typeof(Rectangle2DConverter))]
         public Rectangle2D UnrotatedBounds
             => (Rectangle2D)CachingProperty(() => Measurements.EllipseBounds(x, y, rX, rY));
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Implicit conversion from tuple.
         /// </summary>
@@ -532,8 +523,7 @@ namespace Engine
         /// <param name="tuple"></param>
         public static implicit operator Ellipse((double X, double Y, double RX, double RY, double Angle) tuple)
             => new Ellipse(tuple);
-
-        #endregion
+        #endregion Operators
 
         //#region Serialization
 
@@ -580,7 +570,6 @@ namespace Engine
         //#endregion
 
         #region Interpolators
-
         /// <summary>
         ///
         /// </summary>
@@ -588,11 +577,9 @@ namespace Engine
         /// <returns></returns>
         public override Point2D Interpolate(double t)
             => Interpolators.Ellipse(x, y, rX, rY, angle, t);
-
-        #endregion
+        #endregion Interpolators
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -620,7 +607,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Ellipse)}{{{nameof(Center)}={Center},{nameof(RX)}={rX},{nameof(RY)}={rY},{nameof(Angle)}={angle}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

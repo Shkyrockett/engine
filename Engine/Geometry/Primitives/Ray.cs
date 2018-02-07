@@ -26,7 +26,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// The location.
         /// </summary>
@@ -36,11 +35,9 @@ namespace Engine
         /// The direction.
         /// </summary>
         Vector2D direction;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Ray"/> class.
         /// </summary>
@@ -54,7 +51,6 @@ namespace Engine
         /// <param name="location">The location.</param>
         /// <param name="direction">The direction.</param>
         public Ray(Point2D location, Vector2D direction)
-            : base()
         {
             this.location = location;
             this.direction = direction;
@@ -70,11 +66,9 @@ namespace Engine
         public Ray(double x, double y, double i, double j)
             : this(new Point2D(x, y), new Vector2D(i, j))
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// The deconstruct.
         /// </summary>
@@ -89,11 +83,9 @@ namespace Engine
             i = Direction.I;
             j = Direction.J;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the location.
         /// </summary>
@@ -132,8 +124,7 @@ namespace Engine
         [DataMember, XmlElement, SoapElement]
         public override Rectangle2D Bounds
             => new Rectangle2D(location, location + direction);
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -180,7 +171,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// The interpolate.
         /// </summary>
@@ -214,7 +204,6 @@ namespace Engine
             if (this == null) return $"{nameof(Ray)}";
             return $"{nameof(Ray)}={{{nameof(Location)}:{Location.ConvertToString(format, provider)},{nameof(Direction)}:{Direction.ConvertToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

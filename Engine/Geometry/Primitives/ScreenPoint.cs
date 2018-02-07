@@ -27,16 +27,13 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// The point.
         /// </summary>
         private Point2D point;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ScreenPoint"/> class.
         /// </summary>
@@ -49,7 +46,6 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         public ScreenPoint(Point2D point)
-            : base()
         {
             this.point = point;
         }
@@ -62,11 +58,9 @@ namespace Engine
         public ScreenPoint(double x, double y)
             : this(new Point2D(x, y))
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// The deconstruct.
         /// </summary>
@@ -77,11 +71,9 @@ namespace Engine
             x = point.X;
             y = point.Y;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the x.
         /// </summary>
@@ -156,8 +148,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Area
             => 0;
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 

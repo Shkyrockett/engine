@@ -30,7 +30,6 @@ namespace Editor
         : Form
     {
         #region Fields
-
         /// <summary>
         /// Map containing all of the vector objects.
         /// </summary>
@@ -75,11 +74,9 @@ namespace Editor
         /// The text measurer.
         /// </summary>
         private WinFormsTextMeasurer TextMeasurer = new WinFormsTextMeasurer();
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EditorForm"/> class.
         /// </summary>
@@ -115,20 +112,16 @@ namespace Editor
 
             //propertyGrid1.SelectedObject = toolStack;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the reset action.
         /// </summary>
         public Action ResetAction { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Events
-
         /// <summary>
         /// Events to execute when the form loads.
         /// </summary>
@@ -450,11 +443,9 @@ namespace Editor
         /// <param name="e">The event arguments.</param>
         private void SaveAsToolStripMenuItem_Click(Object sender, EventArgs e)
             => SaveAs(vectorFilename);
-
-        #endregion
+        #endregion Events
 
         #region Helpers
-
         /// <summary>
         /// Build the map.
         /// </summary>
@@ -531,7 +522,6 @@ namespace Editor
         /// </summary>
         public void CompleteCallback()
             => CanvasPanel.Invalidate(true);
-
-        #endregion
+        #endregion Helpers
     }
 }

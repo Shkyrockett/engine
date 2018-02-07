@@ -21,7 +21,6 @@ namespace Engine
     public static class Conversions
     {
         #region Conversion Extension Methods
-
         /// <summary>
         /// Converts a circle to an ellipse.
         /// </summary>
@@ -88,11 +87,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CubicBezier ToCubicBezier(this QuadraticBezier curve)
             => QuadraticBezierToCubicBezier(curve.A, curve.B, curve.C);
-
-        #endregion
+        #endregion Conversion Extension Methods
 
         #region Conversion Implementations
-
         /// <summary>
         /// Converts a Circle to a Circular arc.
         /// </summary>
@@ -384,7 +381,6 @@ namespace Engine
 
             return d;
         }
-
-        #endregion
+        #endregion Conversion Implementations
     }
 }

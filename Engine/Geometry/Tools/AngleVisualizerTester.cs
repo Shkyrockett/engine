@@ -24,7 +24,6 @@ namespace Engine
         : Shape
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AngleVisualizerTester"/> class.
         /// </summary>
@@ -54,7 +53,6 @@ namespace Engine
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
         public AngleVisualizerTester(double x, double y, double radius, List<double> testAngles, double startAngle, double sweepAngle)
-            : base()
         {
             X = x;
             Y = y;
@@ -63,11 +61,9 @@ namespace Engine
             StartAngle = startAngle;
             SweepAngle = sweepAngle;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// The deconstruct.
         /// </summary>
@@ -86,11 +82,9 @@ namespace Engine
             startAngle = StartAngle;
             sweepAngle = SweepAngle;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the x.
         /// </summary>
@@ -235,11 +229,9 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Test the point.
         /// </summary>
@@ -255,7 +247,6 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         public bool InSweep(double angle)
             => Intersections.Within(angle, StartAngle, SweepAngle);
-
-        #endregion
+        #endregion Methods
     }
 }

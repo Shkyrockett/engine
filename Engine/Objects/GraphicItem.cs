@@ -23,25 +23,20 @@ namespace Engine
     public class GraphicItem
     {
         #region Constants
-
         /// <summary>
         /// Unique identifier indexer.
         /// </summary>
         private static uint _id = 0;
-
-        #endregion
+        #endregion Constants
 
         #region Fields
-
         /// <summary>
         /// The unique identifier for the object.
         /// </summary>
         protected uint id = _id++;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GraphicItem"/> class.
         /// </summary>
@@ -60,11 +55,9 @@ namespace Engine
             Name = Shape.ToString();
             Style = style;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets the unique identifier for the object.
         /// </summary>
@@ -138,11 +131,9 @@ namespace Engine
         [Category("Properties")]
         [Description("The style of the item.")]
         public IStyle Style { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Public Methods
-
         /// <summary>
         /// The contains.
         /// </summary>
@@ -176,7 +167,6 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => "";//$"{nameof(GraphicItem)}{{{Item}}}";
-
-        #endregion
+        #endregion Public Methods
     }
 }

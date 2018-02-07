@@ -23,7 +23,6 @@ namespace Engine
     public static partial class Maths
     {
         #region Random
-
         /// <summary>
         /// Initialize random number generator with seed based on time.
         /// </summary>
@@ -38,11 +37,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Random(this double Lower, double Upper)
             => ((RandomNumberGenerator.Next() * ((Upper - Lower) + 1)) + Lower);
-
-        #endregion
+        #endregion Random
 
         #region Array Math
-
         /// <summary>
         /// The min.
         /// </summary>
@@ -165,11 +162,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this IEnumerable<double> values)
             => values.Sum() / values.Count();
-
-        #endregion
+        #endregion Array Math
 
         #region Parsing.
-
         /// <summary>
         /// Parse the float.
         /// </summary>
@@ -211,7 +206,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ParseDouble(this string text, IFormatProvider provider)
             => double.Parse(text, provider);
-
-        #endregion
+        #endregion Parsing.
     }
 }

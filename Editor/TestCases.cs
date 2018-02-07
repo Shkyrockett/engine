@@ -122,7 +122,6 @@ namespace Editor
         }
 
         #region Styles
-
         /// <summary>
         /// The selection style (readonly). Value: new ShapeStyle(new HatchBrush(HatchStyle.SmallCheckerBoard, Color.Pink, Color.Transparent), new Pen(Brushes.Transparent)).
         /// </summary>
@@ -197,11 +196,9 @@ namespace Editor
         /// The intersection red.
         /// </summary>
         private static readonly ShapeStyle intersectionRed = new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Red)), new SolidBrush(Color.FromArgb(128, Color.Red)));
-
-        #endregion
+        #endregion Styles
 
         #region Experimental
-
         /// <summary>
         /// The envelope warp.
         /// </summary>
@@ -2224,11 +2221,9 @@ namespace Editor
                 vectorMap.Add(rectangleGrid[mapStyles.IndexOf(style)], style);
             }
         }
-
-        #endregion
+        #endregion Experimental
 
         #region Interactive
-
         /// <summary>
         ///
         /// </summary>
@@ -2798,11 +2793,9 @@ namespace Editor
             vectorMap.Add(backInOutItem);
             vectorMap.Add(backOutInItem);
         }
-
-        #endregion
+        #endregion Interactive
 
         #region Regression Tests
-
         /// <summary>
         /// The grid click.
         /// </summary>
@@ -4512,11 +4505,9 @@ namespace Editor
             vectorMap.Add(ellpticArcBoundsItem);
             vectorMap.Add(ellpticArcItem);
         }
-
-        #endregion
+        #endregion Regression Tests
 
         #region Regular Stuff
-
         /// <summary>
         /// Rendering test case for developing the triangle class.
         /// </summary>
@@ -4655,7 +4646,6 @@ namespace Editor
             vectorMap.Add(cubeBezierItem);
             vectorMap.Add(textItem);
         }
-
-        #endregion
+        #endregion Regular Stuff
     }
 }

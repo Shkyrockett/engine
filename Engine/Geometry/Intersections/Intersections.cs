@@ -55,7 +55,6 @@ namespace Engine
     public static class Intersections
     {
         #region Between Extension Method Overloads
-
         /// <summary>
         /// Check whether the double value is between lower and upper bounds.
         /// </summary>
@@ -155,11 +154,9 @@ namespace Engine
                 (s < e) ? a >= s && a <= e : a >= s || a <= e :
                 (s > e) ? a <= s && a >= e : a <= s || a >= e;
         }
-
-        #endregion
+        #endregion Between Extension Method Overloads
 
         #region Contains Extension Method Overloads
-
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Point2D"/>.
         /// </summary>
@@ -281,11 +278,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(this Rectangle2D a, Rectangle2D b)
             => RectangleContainsRectangle(a.X, a.Y, a.Width, a.Height, b.X, b.Y, b.Width, b.Height);
-
-        #endregion
+        #endregion Contains Extension Method Overloads
 
         #region Intersects Extension Method Overloads
-
         /// <summary>
         /// Check whether a Rectangle and a shape intersects.
         /// </summary>
@@ -419,11 +414,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Intersects(this Circle c0, Circle c1, double epsilon = Epsilon)
             => CircleCircleIntersects(c0.X, c0.Y, c0.Radius, c1.X, c1.Y, c1.Radius, epsilon);
-
-        #endregion
+        #endregion Intersects Extension Method Overloads
 
         #region Intersection Extension Method Overloads
-
         /// <summary>
         /// Find the intersection of two Points.
         /// </summary>
@@ -2018,11 +2011,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection Intersection(this EllipticalArc e, Line s, double epsilon = Epsilon)
             => LineEllipticalArcIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
-
-        #endregion
+        #endregion Intersection Extension Method Overloads
 
         #region Between Methods
-
         /// <summary>
         /// Check whether a vector lies between two other vectors.
         /// </summary>
@@ -2045,11 +2036,9 @@ namespace Engine
         public static bool VectorBetweenVectorVector(double i0, double j0, double i1, double j1, double i2, double j2)
             => ((i1 * j0) - (j1 * i0)) * ((i1 * j2) - (j1 * i2)) >= 0
             && ((i2 * j0) - (j2 * i0)) * ((i2 * j1) - (j2 * i1)) >= 0;
-
-        #endregion
+        #endregion Between Methods
 
         #region Contains Methods
-
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by a triangle.
         /// </summary>
@@ -3009,11 +2998,9 @@ namespace Engine
             && ((bX + bWidth) <= (aX + aWidth))
             && (aY <= bY)
             && ((bY + bHeight) <= (aY + aHeight));
-
-        #endregion
+        #endregion Contains Methods
 
         #region Intersects Methods
-
         /// <summary>
         /// Checks whether two points are at the same location.
         /// </summary>
@@ -3775,11 +3762,9 @@ namespace Engine
                 return true;
             }
         }
-
-        #endregion
+        #endregion Intersects Methods
 
         #region Intersection Methods
-
         /// <summary>
         /// Find the intersection point between two points.
         /// </summary>
@@ -9162,11 +9147,9 @@ namespace Engine
 
             return result;
         }
-
-        #endregion
+        #endregion Intersection Methods
 
         #region Parametrized Intersection Index T Methods
-
         /// <summary>
         /// Find the intersection parameters of the intersection between two points.
         /// </summary>
@@ -9646,11 +9629,9 @@ namespace Engine
 
             return new double[0];
         }
-
-        #endregion
+        #endregion Parametrized Intersection Index T Methods
 
         #region Scan-beam Intersection Methods
-
         /// <summary>
         /// Find the scan-beam intersections of a point.
         /// </summary>
@@ -10303,11 +10284,9 @@ namespace Engine
                 }
             }
         }
-
-        #endregion
+        #endregion Scan-beam Intersection Methods
 
         #region Scan-beam To Left Increment Methods
-
         /// <summary>
         /// Find the scan-beam points to the left of a point.
         /// </summary>
@@ -11021,11 +11000,9 @@ namespace Engine
 
             return results;
         }
-
-        #endregion
+        #endregion Scan-beam To Left Increment Methods
 
         #region Scan-beam To Right Increment Methods
-
         /// <summary>
         /// Find the scan-beam points to the right of a point.
         /// </summary>
@@ -11733,11 +11710,9 @@ namespace Engine
 
             return results;
         }
-
-        #endregion
+        #endregion Scan-beam To Right Increment Methods
 
         #region Helpers
-
         /// <summary>
         /// Calculate the bezier curve polynomial of ellipses.
         /// </summary>
@@ -11780,7 +11755,6 @@ namespace Engine
                 /* x¹ */ ab * df + ad * bfPde - 2 * ae * af,
                 /* c  */ ad * df - af * af);
         }
-
-        #endregion
+        #endregion Helpers
     }
 }

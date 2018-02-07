@@ -18,7 +18,6 @@ namespace Engine.Experimental
         : IEnumerable<T>
     {
         #region Fields
-
         /// <summary>
         /// The items.
         /// </summary>
@@ -28,11 +27,9 @@ namespace Engine.Experimental
         /// The size.
         /// </summary>
         private Size2D size;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ArrayMap"/> class.
         /// </summary>
@@ -57,11 +54,9 @@ namespace Engine.Experimental
         {
             Size = size;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets the count.
         /// </summary>
@@ -80,11 +75,9 @@ namespace Engine.Experimental
                 items = new T[(int)(size.Width * size.Height)];
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Indexers
-
         /// <summary>
         /// The Indexer.
         /// </summary>
@@ -118,11 +111,9 @@ namespace Engine.Experimental
             get { return items[index]; }
             set { items[index] = value; }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Methods
-
         /// <summary>
         /// Get the item index.
         /// </summary>
@@ -188,7 +179,6 @@ namespace Engine.Experimental
                 yield return item;
             }
         }
-
-        #endregion
+        #endregion Methods
     }
 }

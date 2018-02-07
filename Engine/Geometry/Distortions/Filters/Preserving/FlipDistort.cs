@@ -17,7 +17,6 @@ namespace Engine
         : PreservingFilter
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="FlipDistort"/> class.
         /// </summary>
@@ -30,11 +29,9 @@ namespace Engine
             FlipHorizontal = flipHorizontal;
             FlipVertical = flipVertical;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the center.
         /// </summary>
@@ -49,11 +46,9 @@ namespace Engine
         /// Gets or sets a value indicating whether 
         /// </summary>
         public bool FlipVertical { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Process.
         /// </summary>
@@ -61,7 +56,6 @@ namespace Engine
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Process(Point2D point)
             => Distortions.Flip(point, Center, FlipHorizontal, FlipVertical);
-
-        #endregion
+        #endregion Methods
     }
 }

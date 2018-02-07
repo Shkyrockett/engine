@@ -24,7 +24,6 @@ namespace Engine
         : Shape
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="NodeRevealer"/> class.
         /// </summary>
@@ -56,16 +55,13 @@ namespace Engine
         /// <param name="points">The points.</param>
         /// <param name="radius">The radius.</param>
         public NodeRevealer(List<Point2D> points, double radius)
-            : base()
         {
             Points = points;
             Radius = radius;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// The deconstruct.
         /// </summary>
@@ -76,11 +72,9 @@ namespace Engine
             points = Points;
             radius = Radius;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the points.
         /// </summary>
@@ -114,11 +108,9 @@ namespace Engine
                 return boundings;
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// The contains.
         /// </summary>
@@ -133,7 +125,6 @@ namespace Engine
 
             return false;
         }
-
-        #endregion
+        #endregion Methods
     }
 }

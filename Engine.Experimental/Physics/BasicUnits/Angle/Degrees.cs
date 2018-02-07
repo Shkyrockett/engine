@@ -26,7 +26,6 @@ namespace Engine.Physics
         : IDirection, IFormattable
     {
         #region Constants
-
         ///// <summary>
         /////
         ///// </summary>
@@ -35,12 +34,9 @@ namespace Engine.Physics
         ///// <summary>
         /////
         ///// </summary>
-        //public const double Degree = Maths.Radien;
-
-        #endregion
+        //public const double Degree = Maths.Radien;        #endregion Constants
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Degrees"/> struct.
         /// </summary>
@@ -67,11 +63,9 @@ namespace Engine.Physics
         {
             Value = radians.Value.ToDegrees();
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -99,11 +93,9 @@ namespace Engine.Physics
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "deg";
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Compares two <see cref="Degrees"/> objects.
         /// </summary>
@@ -186,11 +178,9 @@ namespace Engine.Physics
         [DebuggerStepThrough]
         public static explicit operator Degrees(Radians value)
             => value.Degrees;
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Parse a string for a <see cref="Degrees"/> value.
         /// </summary>
@@ -207,11 +197,9 @@ namespace Engine.Physics
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         #region Methods
-
         /// <summary>
         /// override object.GetHashCode
         /// </summary>
@@ -273,7 +261,6 @@ namespace Engine.Physics
             IFormattable formatable = $"{Value}°";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

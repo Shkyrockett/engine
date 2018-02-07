@@ -65,7 +65,6 @@ namespace Engine
         }
 
         #region IDisposable Support
-
         /// <summary>
         /// Releases the unmanaged resources used by the <see cref="AngleEditor"/>
         /// and optionally releases the managed resources.
@@ -106,7 +105,6 @@ namespace Engine
             // TODO: uncomment the following line if the finalizer is overridden above.
             //GC.SuppressFinalize(this);
         }
-
-        #endregion
+        #endregion IDisposable Support
     }
 }

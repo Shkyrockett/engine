@@ -34,7 +34,6 @@ namespace Engine
         : IMatrix<Matrix4x4D, Vector4D>
     {
         #region Static Fields
-
         /// <summary>
         /// An Empty <see cref="Matrix4x4D"/>.
         /// </summary>
@@ -52,11 +51,9 @@ namespace Engine
             0, 1, 0, 0,
             0, 0, 1, 0,
             0, 0, 0, 1);
-
-        #endregion
+        #endregion Static Fields
 
         #region Private Fields
-
         /// <summary>
         ///
         /// </summary>
@@ -136,11 +133,9 @@ namespace Engine
         ///
         /// </summary>
         private double m3x3;
-
-        #endregion
+        #endregion Private Fields
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
@@ -209,11 +204,9 @@ namespace Engine
                   zAxis.I, zAxis.J, zAxis.K, zAxis.L,
                   wAxis.I, wAxis.J, wAxis.K, wAxis.L)
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -483,11 +476,9 @@ namespace Engine
                 && Abs(m3x1) < Epsilon
                 && Abs(m3x2) < Epsilon
                 && Abs(m3x3 - 1) < Epsilon);
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Used to add two matrices together.
         /// </summary>
@@ -649,11 +640,9 @@ namespace Engine
         [DebuggerStepThrough]
         public static implicit operator Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple)
             => new Matrix4x4D(tuple);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Creates a scaling transform around the origin
         /// </summary>
@@ -778,8 +767,7 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -826,7 +814,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// Returns the HashCode for this Matrix
         /// </summary>
@@ -991,7 +978,6 @@ namespace Engine
         /// <returns></returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
-
-        #endregion
+        #endregion Methods
     }
 }

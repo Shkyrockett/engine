@@ -19,16 +19,13 @@ namespace Engine.Colorspace
         : IColor
     {
         #region Implementations
-
         /// <summary>
         /// The empty (readonly). Value: new AHSI().
         /// </summary>
         public static readonly HSIA Empty = new HSIA();
-
-        #endregion
+        #endregion Implementations
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="HSIA"/> class.
         /// </summary>
@@ -63,11 +60,9 @@ namespace Engine.Colorspace
             Intensity = intensity;
             Alpha = alpha;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the hue color value.
         /// </summary>
@@ -87,11 +82,9 @@ namespace Engine.Colorspace
         /// Gets or sets the alpha color value.
         /// </summary>
         public double Alpha { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// The equals.
         /// </summary>
@@ -130,7 +123,6 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
-
-        #endregion
+        #endregion Methods
     }
 }

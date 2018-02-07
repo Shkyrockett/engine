@@ -30,16 +30,13 @@ namespace Engine
         : Shape, IEnumerable<Point2D>
     {
         #region Fields
-
         /// <summary>
         /// The points.
         /// </summary>
         private List<Point2D> points;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PointSet"/> class.
         /// </summary>
@@ -117,11 +114,9 @@ namespace Engine
             foreach (var polygon in polygons)
                 points.Concat(polygon.Points);
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Indexers
-
         /// <summary>
         /// The Indexer.
         /// </summary>
@@ -139,11 +134,9 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the points.
         /// </summary>
@@ -195,8 +188,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public override double Area
             => 0;
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -243,7 +235,6 @@ namespace Engine
         //#endregion
 
         #region Mutators
-
         /// <summary>
         /// Add.
         /// </summary>
@@ -290,8 +281,7 @@ namespace Engine
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
             return new PointSet(outPath);
         }
-
-        #endregion
+        #endregion Mutators
 
         /// <summary>
         /// The interpolate.
@@ -305,7 +295,6 @@ namespace Engine
         }
 
         #region Methods
-
         /// <summary>
         /// The contains.
         /// </summary>
@@ -371,7 +360,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(PointSet)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

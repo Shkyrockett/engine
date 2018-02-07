@@ -21,7 +21,6 @@ namespace Engine
     public class PointChain
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PointChain"/> class.
         /// </summary>
@@ -35,11 +34,9 @@ namespace Engine
             };
             Closed = false;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets a value indicating whether 
         /// </summary>
@@ -49,8 +46,7 @@ namespace Engine
         /// Gets or sets the point list.
         /// </summary>
         public List<Point2D> PointList { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Links a segment to the pointChain

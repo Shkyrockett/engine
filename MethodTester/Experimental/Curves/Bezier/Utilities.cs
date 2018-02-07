@@ -42,7 +42,6 @@ namespace Engine
     internal class Utilities
     {
         #region Gauss Tables
-
         /// <summary>
         /// Legendre-Gauss abscissae with n=24 (x_i values, defined at i=n as the roots of the nth order Legendre polynomial Pn(x))
         /// </summary>
@@ -104,8 +103,7 @@ namespace Engine
             0.0123412297999871995468056670700372915759,
             0.0123412297999871995468056670700372915759
         };
-
-        #endregion
+        #endregion Gauss Tables
 
         /// <summary>
         ///

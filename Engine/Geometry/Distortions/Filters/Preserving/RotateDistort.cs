@@ -21,7 +21,6 @@ namespace Engine
         : PreservingFilter
     {
         #region Fields
-
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
@@ -37,11 +36,9 @@ namespace Engine
         /// The angle.
         /// </summary>
         private double angle;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="RotateDistort"/> class.
         /// </summary>
@@ -52,11 +49,9 @@ namespace Engine
             this.center = center;
             Angle = angle;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the center.
         /// </summary>
@@ -94,11 +89,9 @@ namespace Engine
         /// </summary>
         public Point2D YAxis
             => (Point2D)CachingProperty(() => new Point2D(-Math.Sin(Angle), Math.Cos(Angle)));
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Process.
         /// </summary>
@@ -132,7 +125,6 @@ namespace Engine
 
             return propertyCache[name];
         }
-
-        #endregion
+        #endregion Methods
     }
 }

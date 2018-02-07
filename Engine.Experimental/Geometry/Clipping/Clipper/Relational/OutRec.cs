@@ -17,7 +17,6 @@ namespace Engine.Experimental
     public class OutRec
     {
         #region Properties
-
         /// <summary>
         /// Gets or sets the Idx.
         /// </summary>
@@ -52,8 +51,7 @@ namespace Engine.Experimental
         /// Gets or sets the flag.
         /// </summary>
         public OutrecFlag Flag { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Set the orientation.

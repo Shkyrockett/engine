@@ -27,25 +27,20 @@ namespace Engine.Imaging
         : IStyle, IDisposable
     {
         #region Public Implementations
-
         /// <summary>
         /// The default style (readonly). Value: new ShapeStyle(Brushes.Black, new Pen(Brushes.White)).
         /// </summary>
         public static readonly ShapeStyle DefaultStyle = new ShapeStyle(Brushes.Black, new Pen(Brushes.White));
-
-        #endregion
+        #endregion Public Implementations
 
         #region Private Fields
-
         /// <summary>
         /// The disposed.
         /// </summary>
         private bool disposed = false;
-
-        #endregion
+        #endregion Private Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ShapeStyle"/> class.
         /// </summary>
@@ -74,8 +69,7 @@ namespace Engine.Imaging
             BackPen = backPen;
             ForePen = new Pen(forePen);
         }
-
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// The property changed event.
@@ -86,7 +80,6 @@ namespace Engine.Imaging
             => BuildPen();
 
         #region Destructors
-
         /// <summary>
         /// Dispose.
         /// </summary>
@@ -122,11 +115,9 @@ namespace Engine.Imaging
         {
             Dispose(false);
         }
-
-        #endregion
+        #endregion Destructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the line style.
         /// </summary>
@@ -212,11 +203,9 @@ namespace Engine.Imaging
             get { return BackPen.Brush; }
             set { BackPen.Brush = value; }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Build the pen.
         /// </summary>
@@ -239,7 +228,6 @@ namespace Engine.Imaging
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{nameof(ShapeStyle)}{{{nameof(ForePen)}={ForePen},{nameof(BackPen)}={BackPen}}}";
-
-        #endregion
+        #endregion Methods
     }
 }

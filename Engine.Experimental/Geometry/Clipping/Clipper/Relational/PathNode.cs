@@ -16,7 +16,6 @@ namespace Engine.Experimental
     internal struct PathNode
     {
         #region Properties
-
         /// <summary>
         /// Gets or sets the path.
         /// </summary>
@@ -36,11 +35,9 @@ namespace Engine.Experimental
         /// Gets or sets the lowest index.
         /// </summary>
         public int LowestIndex { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PathNode"/> class.
         /// </summary>
@@ -110,7 +107,6 @@ namespace Engine.Experimental
                 Path = null;
             }
         }
-
-        #endregion
+        #endregion Constructors
     }
 }

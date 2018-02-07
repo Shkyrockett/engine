@@ -20,7 +20,6 @@ namespace Engine
     public sealed class SplineBuilder
     {
         #region Fields
-
         /// <summary>
         /// Underlying curve fitter
         /// </summary>
@@ -30,11 +29,9 @@ namespace Engine
         /// Underlying spline
         /// </summary>
         private readonly Spline spline;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -46,21 +43,17 @@ namespace Engine
             builder = new CurveBuilder(pointDistance, error);
             spline = new Spline(samplesPerCurve);
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// The curves that make up the spline.
         /// </summary>
         public ReadOnlyCollection<CubicBezier> Curves
             => spline.Curves;
-
-        #endregion
+        #endregion Properties
 
         #region Mutators
-
         /// <summary>
         /// Adds a data point.
         /// </summary>
@@ -105,8 +98,7 @@ namespace Engine
             builder.Clear();
             spline.Clear();
         }
-
-        #endregion
+        #endregion Mutators
 
         /// <summary>
         /// Gets the position of a point on the spline that's close to the desired point along the spline. For example, if u = 0.5, then a point

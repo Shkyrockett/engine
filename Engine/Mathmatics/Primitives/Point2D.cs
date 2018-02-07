@@ -32,7 +32,6 @@ namespace Engine
         : IVector<Point2D>
     {
         #region Implementations
-
         /// <summary>
         /// An Empty <see cref="Point2D"/>.
         /// </summary>
@@ -42,11 +41,9 @@ namespace Engine
         /// A Unit <see cref="Point2D"/>.
         /// </summary>
         public static readonly Point2D Unit = new Point2D(1, 1);
-
-        #endregion
+        #endregion Implementations
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
         /// </summary>
@@ -80,11 +77,9 @@ namespace Engine
             X = x;
             Y = y;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -95,11 +90,9 @@ namespace Engine
             x = X;
             y = Y;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// X component of a <see cref="Point2D"/> coordinate.
         /// </summary>
@@ -122,11 +115,9 @@ namespace Engine
         public bool IsEmpty
             => Abs(X) < Epsilon
             && Abs(Y) < Epsilon;
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Unary addition operator.
         /// </summary>
@@ -352,11 +343,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Point2D((double X, double Y) tuple)
             => new Point2D(tuple);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Create a Random <see cref="Point2D"/>.
         /// </summary>
@@ -398,8 +387,7 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -446,7 +434,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// Get the hash code.
         /// </summary>
@@ -562,7 +549,6 @@ namespace Engine
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Point2D)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

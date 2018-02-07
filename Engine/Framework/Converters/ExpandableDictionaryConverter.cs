@@ -25,7 +25,6 @@ namespace Engine
         : CollectionConverter
     {
         #region Methods
-
         /// <summary>
         /// Convert the to.
         /// </summary>
@@ -74,7 +73,6 @@ namespace Engine
 
             return items;
         }
-
-        #endregion
+        #endregion Methods
     }
 }

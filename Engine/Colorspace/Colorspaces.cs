@@ -31,7 +31,6 @@ namespace Engine.Colorspace
     public static class Colorspaces
     {
         #region ARGB Retrievers and Modifiers
-
         /// <summary>
         /// Get the brightness.
         /// </summary>
@@ -353,11 +352,9 @@ namespace Engine.Colorspace
             hsl.hue *= Hue;
             return HSLAColorToRGBAColor(hsl.hue, hsl.saturation, hsl.luminance, hsl.alpha);
         }
-
-        #endregion
+        #endregion ARGB Retrievers and Modifiers
 
         #region Validation
-
         /// <summary>
         /// Check whether a red green blue color is valid.
         /// </summary>
@@ -487,11 +484,9 @@ namespace Engine.Colorspace
             && Between(y, PercentMin, PercentMax)
             && Between(u, YUVMinU, YUVMaxU)
             && Between(v, YUVMinV, YUVMaxV);
-
-        #endregion
+        #endregion Validation
 
         #region Conversion Methods
-
         /// <summary>
         /// Converts a byte red green blue alpha color to the double floating point form.
         /// </summary>
@@ -1802,7 +1797,6 @@ namespace Engine.Colorspace
                 alpha: alpha
                 );
         }
-
-        #endregion
+        #endregion Conversion Methods
     }
 }

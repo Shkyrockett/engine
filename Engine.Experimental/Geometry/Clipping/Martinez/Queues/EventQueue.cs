@@ -10,7 +10,6 @@ namespace Engine
     public class EventQueue
     {
         #region Fields
-
         /// <summary>
         /// The heap.
         /// </summary>
@@ -20,11 +19,9 @@ namespace Engine
         /// The sorted.
         /// </summary>
         private bool sorted = false;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EventQueue"/> class.
         /// </summary>
@@ -33,11 +30,9 @@ namespace Engine
             heap = new List<SweepEvent>();
             sorted = false;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets the count.
         /// </summary>
@@ -49,8 +44,7 @@ namespace Engine
         /// </summary>
         public bool IsEmpty
             => heap.Count == 0;
-
-        #endregion
+        #endregion Properties
 
         // If already sorted use insertionSort on the inserted item.
 

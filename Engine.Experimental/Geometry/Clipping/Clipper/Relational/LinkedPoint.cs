@@ -16,7 +16,6 @@ namespace Engine.Experimental
     public class LinkedPoint
     {
         #region Properties
-
         /// <summary>
         /// The pt.
         /// </summary>
@@ -31,8 +30,7 @@ namespace Engine.Experimental
         /// The previous.
         /// </summary>
         public LinkedPoint Prev { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// The point count.

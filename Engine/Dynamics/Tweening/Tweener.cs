@@ -20,7 +20,6 @@ namespace Engine.Tweening
     public class Tweener
     {
         #region Fields
-
         /// <summary>
         /// The tweens.
         /// </summary>
@@ -40,11 +39,9 @@ namespace Engine.Tweening
         /// The all tweens.
         /// </summary>
         private List<Tween> allTweens;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes static members of the <see cref="Tweener"/> class.
         /// </summary>
@@ -86,17 +83,14 @@ namespace Engine.Tweening
             toAdd = new List<Tween>();
             allTweens = new List<Tween>();
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the registered lerpers.
         /// </summary>
         public static Dictionary<Type, ConstructorInfo> RegisteredLerpers { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Associate a Lerper class with a property type.
@@ -293,7 +287,6 @@ namespace Engine.Tweening
         }
 
         #region Target Control
-
         /// <summary>
         /// Cancel all tweens with the given target.
         /// </summary>
@@ -372,7 +365,6 @@ namespace Engine.Tweening
                     tween.Resume();
             }
         }
-
-        #endregion
+        #endregion Target Control
     }
 }

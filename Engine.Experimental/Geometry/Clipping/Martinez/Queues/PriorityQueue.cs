@@ -11,7 +11,6 @@ namespace Engine
     public class PriorityQueue<T>
     {
         #region Fields
-
         /// <summary>
         /// The comparer.
         /// </summary>
@@ -21,11 +20,9 @@ namespace Engine
         /// The heap.
         /// </summary>
         T[] heap;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="PriorityQueue"/> class.
         /// </summary>
@@ -59,11 +56,9 @@ namespace Engine
             this.comparer = comparer ?? Comparer<T>.Default;
             heap = new T[capacity];
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets the count.
         /// </summary>
@@ -75,8 +70,7 @@ namespace Engine
         /// </summary>
         internal bool IsEmpty
             => heap.Length == 0;
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Push.

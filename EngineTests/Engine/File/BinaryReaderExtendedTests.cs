@@ -22,17 +22,14 @@ namespace EngineTests
     public class BinaryReaderExtendedTests
     {
         #region Properties
-
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Housekeeping
-
         /// <summary>
         ///
         /// </summary>
@@ -69,8 +66,7 @@ namespace EngineTests
         {
             //MessageBox.Show("ClassCleanup");
         }
-
-        #endregion
+        #endregion Housekeeping
 
         /// <summary>
         ///

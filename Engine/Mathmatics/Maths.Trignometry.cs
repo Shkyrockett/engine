@@ -433,7 +433,6 @@ namespace Engine
         }
 
         #region Reflect
-
         /// <summary>
         /// Calculates the reflection of a point off a line segment
         /// </summary>
@@ -455,11 +454,9 @@ namespace Engine
             return ((magnatude * reflection - axisX),
                     (magnatude * reflection - axisY));
         }
-
-        #endregion
+        #endregion Reflect
 
         #region Rotate Point
-
         /// <summary>
         /// Rotate a point around the world origin.
         /// </summary>
@@ -492,11 +489,9 @@ namespace Engine
             return ((cx + (deltaX * angleCos - deltaY * angleSin)),
                     (cy + (deltaX * angleSin + deltaY * angleCos)));
         }
-
-        #endregion
+        #endregion Rotate Point
 
         #region Slope
-
         /// <summary>
         /// Calculates the Slope of a vector.
         /// </summary>
@@ -533,11 +528,9 @@ namespace Engine
             double x1, double y1,
             double x2, double y2)
             => (Math.Abs(x1 - x2) < Epsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
-
-        #endregion
+        #endregion Slope
 
         #region Unit
-
         /// <summary>
         /// Unit of a 2D Vector.
         /// </summary>
@@ -576,11 +569,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Unit(double i, double j, double k, double l)
             => Scale4D(i, j, k, l, 1 / Sqrt(((i * i) + (j * j) + (k * k) + (l * l))));
-
-        #endregion
+        #endregion Unit
 
         #region Derived Equivalent Math Functions
-
         /// <summary>
         ///
         /// </summary>
@@ -968,7 +959,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LogarithmTobaseN(double value, double numberBase)
             => (numberBase == 1) ? (Log(value) / Log(numberBase)) : 0;
-
-        #endregion
+        #endregion Derived Equivalent Math Functions
     }
 }

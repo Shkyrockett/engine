@@ -24,7 +24,6 @@ namespace Engine
         : PropertyDescriptor
     {
         #region Fields
-
         /// <summary>
         /// The dictionary.
         /// </summary>
@@ -34,20 +33,16 @@ namespace Engine
         /// The key.
         /// </summary>
         private object key;
-
-        #endregion
+        #endregion Fields
 
         #region Events
-
         /// <summary>
         /// The refresh required event of the <see cref="EventHandler"/>.
         /// </summary>
         internal event EventHandler RefreshRequired;
-
-        #endregion
+        #endregion Events
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpandableDictionaryPropertyDescriptor"/> class.
         /// </summary>
@@ -59,11 +54,9 @@ namespace Engine
             dictionary = d;
             this.key = key;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets the name.
         /// </summary>
@@ -99,11 +92,9 @@ namespace Engine
         /// </summary>
         public override AttributeCollection Attributes
             => new AttributeCollection(null);
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// The can reset value.
         /// </summary>
@@ -171,7 +162,6 @@ namespace Engine
         /// </summary>
         protected virtual void OnRefreshRequired()
             => RefreshRequired?.Invoke(this, EventArgs.Empty);
-
-        #endregion
+        #endregion Methods
     }
 }

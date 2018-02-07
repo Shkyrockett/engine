@@ -4,7 +4,7 @@ This document is not intended to state the law. Rather, it is intended as a guid
 
 For the most part, follow the standards for .NET libraries in [C# Coding Conventions (C# Programming Guide)](https://msdn.microsoft.com/en-us/library/ff926074.aspx). Visual Studio defaults fit these standards. The `Ctrl` + `k` + `CTRL` + `d` shortcut key combination are your best friend for beautifying code.
 
-This project is being written in C# 7.0.1 Which brings some interesting constructs into the language to do things that were previously impossible.
+This project is being written in C# 7.2 Which brings some interesting constructs into the language to do things that were previously impossible.
 
 In high level summary:
 

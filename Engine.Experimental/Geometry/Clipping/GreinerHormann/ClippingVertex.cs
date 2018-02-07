@@ -16,7 +16,6 @@ namespace Engine
     public class ClippingVertex
     {
         #region Fields
-
         /// <summary>
         /// The corresponding.
         /// </summary>
@@ -41,11 +40,9 @@ namespace Engine
         /// The visited.
         /// </summary>
         internal bool visited;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClippingVertex"/> class.
         /// </summary>
@@ -64,11 +61,9 @@ namespace Engine
             X = x;
             Y = y;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the x.
         /// </summary>
@@ -88,8 +83,7 @@ namespace Engine
         /// Gets or sets the previous.
         /// </summary>
         public ClippingVertex Previous { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Creates intersection vertex

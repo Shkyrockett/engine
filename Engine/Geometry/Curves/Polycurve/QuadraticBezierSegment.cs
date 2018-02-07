@@ -24,7 +24,6 @@ namespace Engine
          : CurveSegment
     {
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -73,11 +72,9 @@ namespace Engine
             Handle = handle ?? (Point2D)(2 * previous.End - previous.NextToEnd);
             End = end;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="QuadraticBezier"/> to a Tuple.
         /// </summary>
@@ -96,11 +93,9 @@ namespace Engine
             cx = End.Value.X;
             cy = End.Value.Y;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -179,8 +174,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
             => (double)CachingProperty(() => Measurements.QuadraticBezierArcLengthByIntegral(Start.Value.X, Start.Value.Y, Handle.Value.X, Handle.Value.Y, End.Value.X, End.Value.Y));
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// 
@@ -191,13 +185,11 @@ namespace Engine
             => ToQuadtraticBezier().Interpolate(t);
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
         public QuadraticBezier ToQuadtraticBezier()
             => new QuadraticBezier(Start.Value, Handle.Value, End.Value);
-
-        #endregion
+        #endregion Methods
     }
 }

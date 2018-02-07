@@ -27,7 +27,6 @@ namespace Engine
         : Shape
     {
         #region Constants
-
         /// <summary>
         /// 
         /// </summary>
@@ -37,11 +36,9 @@ namespace Engine
         /// 
         /// </summary>
         public const int MaximumSamplesPerCurve = 1024;
-
-        #endregion
+        #endregion Constants
 
         #region Fields
-
         /// <summary>
         /// The curves.
         /// </summary>
@@ -61,11 +58,9 @@ namespace Engine
         /// The samples per curve.
         /// </summary>
         private int samplesPerCurve;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Creates an empty spline.
         /// </summary>
@@ -98,11 +93,9 @@ namespace Engine
             foreach (CubicBezier curve in curves)
                 Add(curve);
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets a read-only view of the current curves collection.
         /// </summary>
@@ -121,11 +114,9 @@ namespace Engine
                 return count == 0 ? 0 : arclen[count - 1];
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Mutators
-
         /// <summary>
         /// Adds a curve to the end of the spline.
         /// </summary>
@@ -171,8 +162,7 @@ namespace Engine
             curves.Clear();
             arclen.Clear();
         }
-
-        #endregion
+        #endregion Mutators
 
         /// <summary>
         /// Gets the position of a point on the spline that's close to the desired point along the spline. For example, if u = 0.5, then a point

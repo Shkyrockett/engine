@@ -68,7 +68,6 @@ namespace Engine
         }
 
         #region Compute() CurveX CurveY
-
         /// <summary>
         /// 
         /// </summary>
@@ -112,11 +111,9 @@ namespace Engine
                 return mCurveY;
             }
         }
-
-        #endregion
+        #endregion Compute() CurveX CurveY
 
         #region ControlPoints
-
         /// <summary>
         /// 
         /// </summary>
@@ -174,11 +171,9 @@ namespace Engine
                 return roPoints;
             }
         }
-
-        #endregion
+        #endregion ControlPoints
 
         #region Basic Static Operations
-
         /// <summary>
         /// 
         /// </summary>
@@ -253,11 +248,9 @@ namespace Engine
             var T = new Polynomialx(0, 1);
             return (1 - T) * Quadratic(p0, p1, p2) + T * Quadratic(p1, p2, p3);
         }
-
-        #endregion
+        #endregion Basic Static Operations
 
         #region BoundingBox()
-
         /// <summary>
         /// 
         /// </summary>
@@ -272,11 +265,9 @@ namespace Engine
             }
             return bounds;
         }
-
-        #endregion
+        #endregion BoundingBox()
 
         #region Split()
-
         /// <summary>
         /// Cut a <see cref="BezierFragment"/> in multiple fragment at the given t indices, using "De Casteljau" algorithm.
         /// <param name="t">The value at which to split the curve. Should be strictly inside ]0,1[ interval.</param>
@@ -342,11 +333,9 @@ namespace Engine
             list.Add(start);
             return list.ToArray();
         }
-
-        #endregion
+        #endregion Split()
 
         #region ParameterizedSquareDistance() ClosestParameter() DistanceTo()
-
         /// <summary>
         /// 
         /// </summary>
@@ -393,7 +382,6 @@ namespace Engine
                 .OrderBy(x => x)
                 .First();
         }
-
-        #endregion
+        #endregion ParameterizedSquareDistance() ClosestParameter() DistanceTo()
     }
 }

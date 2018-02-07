@@ -22,16 +22,13 @@ namespace Engine.Colorspace
         : IColor
     {
         #region Implementations
-
         /// <summary>
         /// The empty (readonly). Value: new HSLA().
         /// </summary>
         public static readonly HSLA Empty = new HSLA();
-
-        #endregion
+        #endregion Implementations
 
         #region Fields
-
         /// <summary>
         /// Hue color component.
         /// </summary>
@@ -51,11 +48,9 @@ namespace Engine.Colorspace
         /// Alpha color component.
         /// </summary>
         private double alpha;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="HSLA"/> class Converted from RGB to HSL.
         /// </summary>
@@ -95,11 +90,9 @@ namespace Engine.Colorspace
             this.luminance = luminance > 1 ? 1 : luminance < 0 ? 0 : luminance;
             this.alpha = alpha > 1 ? 1 : alpha < 0 ? 0 : alpha;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the hue color value.
         /// </summary>
@@ -151,11 +144,9 @@ namespace Engine.Colorspace
                 alpha = value > 1 ? 1 : value < 0 ? 0 : value;
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// The equals.
         /// </summary>
@@ -230,7 +221,6 @@ namespace Engine.Colorspace
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(HSLA)}{{{nameof(Hue)}={hue.ToString(format, provider)}{sep}{nameof(Saturation)}={saturation.ToString(format, provider)}{sep}{nameof(Luminance)}={luminance.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

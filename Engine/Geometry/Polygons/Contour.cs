@@ -34,16 +34,13 @@ namespace Engine
         : Shape, IEnumerable<Point2D>
     {
         #region Fields
-
         /// <summary>
         /// 
         /// </summary>
         private List<Point2D> points;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -94,11 +91,9 @@ namespace Engine
             foreach (Polyline polyline in polylines)
                 points.Concat(polyline.Points);
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Indexers
-
         /// <summary>
         /// 
         /// </summary>
@@ -116,11 +111,9 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -221,8 +214,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public RotationDirections Orientation
             => (RotationDirections)CachingProperty(() => (RotationDirections)Math.Sign(Measurements.SignedPolygonArea(points)));
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -269,7 +261,6 @@ namespace Engine
         //#endregion
 
         #region Mutators
-
         /// <summary>
         /// 
         /// </summary>
@@ -323,8 +314,7 @@ namespace Engine
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
             return new PolygonContour(outPath);
         }
-
-        #endregion
+        #endregion Mutators
 
         /// <summary>
         /// 
@@ -382,7 +372,6 @@ namespace Engine
                 : new LineSegment(points[index], points[index + 1]);
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -511,7 +500,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(PolygonContour)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

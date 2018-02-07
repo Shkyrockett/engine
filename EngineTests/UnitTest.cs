@@ -20,26 +20,21 @@ namespace EngineTests
     public class UnitTest
     {
         #region Constants
-
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
         private const double TestEpsilon = 0.0000000000001d;
-
-        #endregion
+        #endregion Constants
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Assembly Housekeeping
-
         /// <summary>
         ///
         /// </summary>
@@ -58,11 +53,9 @@ namespace EngineTests
         {
             //MessageBox.Show("AssemblyCleanup");
         }
-
-        #endregion
+        #endregion Assembly Housekeeping
 
         #region Class Housekeeping
-
         /// <summary>
         ///
         /// </summary>
@@ -99,8 +92,7 @@ namespace EngineTests
         {
             //MessageBox.Show("ClassCleanup");
         }
-
-        #endregion
+        #endregion Class Housekeeping
 
         /// <summary>
         /// An example exception test involving dividing by 0.

@@ -30,7 +30,6 @@ namespace Engine
         : IFormattable
     {
         #region Implementations
-
         /// <summary>
         /// An Empty <see cref="AccumulatorPoint2D"/>.
         /// </summary>
@@ -40,11 +39,9 @@ namespace Engine
         /// A Unit <see cref="AccumulatorPoint2D"/>.
         /// </summary>
         public static readonly AccumulatorPoint2D Unit = new AccumulatorPoint2D(1, 1);
-
-        #endregion
+        #endregion Implementations
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
@@ -64,11 +61,9 @@ namespace Engine
             X = x;
             Y = y;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// X component of a <see cref="AccumulatorPoint2D"/> coordinate.
         /// </summary>
@@ -103,11 +98,9 @@ namespace Engine
         public bool IsEmpty
             => Abs(X) < Epsilon
             && Abs(Y) < Epsilon;
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Compares two <see cref="AccumulatorPoint2D"/> objects. 
         /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/> 
@@ -186,11 +179,9 @@ namespace Engine
         /// <param name="point"></param>
         public static implicit operator AccumulatorPoint2D(Point2D point)
             => new AccumulatorPoint2D(point.X, point.Y);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Parse a string for a <see cref="AccumulatorPoint2D"/> value.
         /// </summary>
@@ -209,8 +200,7 @@ namespace Engine
             tokenizer.LastTokenRequired();
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -257,7 +247,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -315,7 +304,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Point2D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

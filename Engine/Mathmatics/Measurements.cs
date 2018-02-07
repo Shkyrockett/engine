@@ -26,7 +26,6 @@ namespace Engine
     public static class Measurements
     {
         #region Distance Extension Method Overloads
-
         /// <summary>
         /// Distance between two tuple points.
         /// </summary>
@@ -213,11 +212,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this Point2D point, CubicBezier bezier)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
-
-        #endregion
+        #endregion Distance Extension Method Overloads
 
         #region SquareDistance Extension Method Overloads
-
         /// <summary>
         /// Finds the square distance between two points.
         /// </summary>
@@ -239,11 +236,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SquareDistance(this Vector2D vectorA, Vector2D vectorB)
             => SquareDistance(vectorA.I, vectorA.J, vectorB.I, vectorB.J);
-
-        #endregion
+        #endregion SquareDistance Extension Method Overloads
 
         #region Nearest Extension Method Overloads
-
         /// <summary>
         /// Finds the nearest point on a point. A redundant method that always returns the first point.
         /// </summary>
@@ -306,11 +301,9 @@ namespace Engine
         /// <returns>Returns the t parameter that represents the nearest point on a Cubic Bezier curve segment.</returns>
         public static double NearestT(this CubicBezier bezier, Point2D point)
             => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
-
-        #endregion
+        #endregion Nearest Extension Method Overloads
 
         #region Length Extension Method Overloads
-
         /// <summary>
         /// Finds the length of a point.
         /// </summary>
@@ -455,11 +448,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this CubicBezier bezier)
             => CubicBezierArcLength(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY, bezier.DX, bezier.DY);
-
-        #endregion
+        #endregion Length Extension Method Overloads
 
         #region Length Squared Extension Method Overloads
-
         /// <summary>
         /// Finds the square length or magnitude of a 2-dimensional vector.
         /// </summary>
@@ -509,11 +500,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double LengthSquared(this LineSegment segment)
             => SquareDistance(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
-
-        #endregion
+        #endregion Length Squared Extension Method Overloads
 
         #region Bounds Extension Method Overloads
-
         /// <summary>
         /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a line segment.
         /// </summary>
@@ -641,11 +630,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this PolycurveContour path)
             => PolycurveContourBounds(path);
-
-        #endregion
+        #endregion Bounds Extension Method Overloads
 
         #region Area Extension Method Overloads
-
         /// <summary>
         /// Finds the area of a triangle.
         /// </summary>
@@ -725,11 +712,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Area(this Ellipse ellipse)
             => EllipseArea(ellipse.RX, ellipse.RY);
-
-        #endregion
+        #endregion Area Extension Method Overloads
 
         #region Distance Methods
-
         /// <summary>
         /// Calculates the distance between two points in 2-dimensional euclidean space.
         /// </summary>
@@ -900,11 +885,9 @@ namespace Engine
                 ? Sqrt(vi * vi + vj * vj)
                 : Abs(ui * vj - vi * uj) / length;
         }
-
-        #endregion
+        #endregion Distance Methods
 
         #region Square Distance Methods
-
         /// <summary>
         /// Calculates the Magnitude or squared length of a vector.
         /// </summary>
@@ -1068,11 +1051,9 @@ namespace Engine
             var d = lj * lj + li * li;
             return (c * c) / d;
         }
-
-        #endregion
+        #endregion Square Distance Methods
 
         #region Nearest Methods
-
         /// <summary>
         /// Finds the nearest point on a line segment to a point.
         /// </summary>
@@ -1238,11 +1219,9 @@ namespace Engine
             double p3X, double p3Y,
             double pX, double pY)
             => null;
-
-        #endregion
+        #endregion Nearest Methods
 
         #region Length Methods
-
         /// <summary>
         /// Calculates the magnitude or length of a vector.
         /// </summary>
@@ -1520,11 +1499,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PolygonContourPerimeter(this List<Point2D> points)
             => points.Count > 0d ? points.Zip(points.Skip(1), Distance).Sum() + points[0].Distance(points[points.Count - 1]) : 0d;
-
-        #endregion
+        #endregion Length Methods
 
         #region BoundsMethods
-
         /// <summary>
         /// Finds the Axis Aligned Bounding Box (AABB) Rectangle of a line segment.
         /// </summary>
@@ -1953,11 +1930,9 @@ namespace Engine
             // Return the rectangle that encompasses the points at the found extremes.
             return Rectangle2D.FromLTRB(left, top, right, bottom);
         }
-
-        #endregion
+        #endregion BoundsMethods
 
         #region Area Methods
-
         /// <summary>
         /// Calculates the sign of a triangle (p1, p2, o)
         /// </summary>
@@ -2133,11 +2108,9 @@ namespace Engine
 
             return -area * 0.5d;
         }
-
-        #endregion
+        #endregion Area Methods
 
         #region Other
-
         /// <summary>
         /// Finds the Aspect ratio of the elliptical arc or rectangle.
         /// </summary>
@@ -2430,7 +2403,6 @@ namespace Engine
                             y - (rX * rY)       / hypotonuseCD),
             };
         }
-
-        #endregion
+        #endregion Other
     }
 }

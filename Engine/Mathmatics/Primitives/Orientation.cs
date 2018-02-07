@@ -30,7 +30,6 @@ namespace Engine
         : IVector<Vector3D>
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Orientation"/> struct from a tuple.
         /// </summary>
@@ -52,11 +51,9 @@ namespace Engine
             Pitch = pitch;
             Yaw = yaw;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the roll.
         /// </summary>
@@ -74,11 +71,9 @@ namespace Engine
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Yaw { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// The operator +.
         /// </summary>
@@ -194,8 +189,7 @@ namespace Engine
         [DebuggerStepThrough]
         public static implicit operator Orientation((double Roll, double Pitch, double Yaw) tuple)
             => new Orientation(tuple);
-
-        #endregion
+        #endregion Operators
 
         //#region Serialization
 
@@ -242,7 +236,6 @@ namespace Engine
         //#endregion
 
         #region Public Methods
-
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
@@ -330,7 +323,6 @@ namespace Engine
             // Create the string representation of the struct.
             return $"{nameof(Orientation)}({nameof(Roll)}={Roll.ToString(format, provider)}{sep}{nameof(Pitch)}={Pitch.ToString(format, provider)}{sep}{nameof(Yaw)}={Yaw.ToString(format, provider)})";
         }
-
-        #endregion
+        #endregion Public Methods
     }
 }

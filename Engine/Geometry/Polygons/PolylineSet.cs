@@ -31,17 +31,14 @@ namespace Engine
         : Shape, IEnumerable<Polyline>
     {
         #region Fields
-
         /// <summary>
         /// An array of Polygons representing a set.
         /// </summary>
         /// <remarks></remarks>
         private List<Polyline> polylines;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a default instance of the <see cref="PolylineSet"/> class.
         /// </summary>
@@ -78,11 +75,9 @@ namespace Engine
                 this.polylines.Add(new Polyline(list));
             }
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -136,8 +131,7 @@ namespace Engine
                 return bounds;
             }
         }
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -184,18 +178,15 @@ namespace Engine
         //#endregion
 
         #region Mutators
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="polyline"></param>
         public void Add(Polyline polyline)
             => polylines.Add(polyline);
-
-        #endregion
+        #endregion Mutators
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -225,7 +216,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(PolylineSet)}{{{string.Join(sep.ToString(), Polylines)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

@@ -18,7 +18,6 @@ namespace Engine.Experimental
     public class PolyPath
     {
         #region Properties
-
         /// <summary>
         /// Gets the parent.
         /// </summary>
@@ -39,8 +38,7 @@ namespace Engine.Experimental
         /// </summary>
         public int ChildCount
             => Children.Count;
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Add the child.

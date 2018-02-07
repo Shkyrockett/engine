@@ -16,17 +16,14 @@ namespace Engine.Tools
     public interface ITool
     {
         #region Callbacks
-
         /// <summary>
         /// 
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         event Tool.ToolFinishEvent Finish;
-
-        #endregion
+        #endregion Callbacks
 
         #region Properties
-
         /// <summary>
         /// Gets or sets a value indicating whether the tool is in use.
         /// </summary>
@@ -41,8 +38,7 @@ namespace Engine.Tools
         /// Gets or sets a value indicating whether the mouse button is up.
         /// </summary>
         bool MouseUp { get; set; }
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Reset the tool.

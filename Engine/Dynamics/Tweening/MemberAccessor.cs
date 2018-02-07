@@ -20,16 +20,13 @@ namespace Engine.Tweening
     public class MemberAccessor
     {
         #region Constants
-
         /// <summary>
         /// The flags (const). Value: BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static.
         /// </summary>
         private const BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
-
-        #endregion
+        #endregion Constants
 
         #region Fields
-
         /// <summary>
         /// The get method.
         /// </summary>
@@ -39,11 +36,9 @@ namespace Engine.Tweening
         /// The set method.
         /// </summary>
         protected Action<object, object> setMethod;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MemberAccessor"/> class.
         /// </summary>
@@ -110,11 +105,9 @@ namespace Engine.Tweening
                 throw new Exception($"Field or {(writable ? "read/write" : "readable")} property '{name}' not found on object of type {targetType.FullName}.");
             }
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets the target.
         /// </summary>
@@ -134,7 +127,6 @@ namespace Engine.Tweening
         /// Gets or sets the value.
         /// </summary>
         public object Value { get { return getMethod(Target); } set { setMethod(Target, value); } }
-
-        #endregion
+        #endregion Properties
     }
 }

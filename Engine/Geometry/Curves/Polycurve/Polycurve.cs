@@ -36,18 +36,15 @@ namespace Engine
         : Shape, IEnumerable<PolycurveContour>
     {
         #region Private Fields
-
         /// <summary>
         /// An array of Polygon Contours.
         /// </summary>
         /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         private List<PolycurveContour> contours;
-
-        #endregion
+        #endregion Private Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a default instance of the <see cref="Polycurve"/> class.
         /// </summary>
@@ -62,22 +59,18 @@ namespace Engine
         {
             this.contours = contours as List<PolycurveContour>;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         ///
         /// </summary>
         /// <param name="items"></param>
         public void Deconstruct(out List<PolycurveContour> items)
             => items = contours;
-
-        #endregion
+        #endregion Deconstructors
 
         #region Indexers
-
         /// <summary>
         ///
         /// </summary>
@@ -92,11 +85,9 @@ namespace Engine
                 update?.Invoke();
             }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -191,8 +182,7 @@ namespace Engine
                 }
             }
         }
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -308,7 +298,6 @@ namespace Engine
         }
 
         #region Mutators
-
         /// <summary>
         ///
         /// </summary>
@@ -329,11 +318,9 @@ namespace Engine
                 poly.Reverse();
             }
         }
-
-        #endregion
+        #endregion Mutators
 
         #region Methods
-
         ///// <summary>
         /////
         ///// </summary>
@@ -382,7 +369,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Polycurve)}{{{string.Join(sep.ToString(), Contours)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

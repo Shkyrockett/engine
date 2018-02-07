@@ -20,7 +20,6 @@ namespace Engine.File
         : byte
     {
         #region Piano
-
         /// <summary>
         /// Acoustic Grand Piano.
         /// </summary>
@@ -60,10 +59,9 @@ namespace Engine.File
         /// Clavinet instrument.
         /// </summary>
         Clavinet = 7,
+        #endregion Piano
 
-        #endregion
         #region Chromatic Percussion
-
         /// <summary>
         /// Celesta instrument.
         /// </summary>
@@ -103,10 +101,9 @@ namespace Engine.File
         /// Dulcimer instrument.
         /// </summary>
         Dulcimer = 15,
+        #endregion Chromatic Percussion
 
-        #endregion
         #region Organ
-
         /// <summary>
         /// Drawbar Organ.
         /// </summary>
@@ -146,10 +143,9 @@ namespace Engine.File
         /// Tango Accordian.
         /// </summary>
         TangoAccordian = 23,
+        #endregion Organ
 
-        #endregion
         #region Guitar
-
         /// <summary>
         /// Nylon String Acoustic Guitar.
         /// </summary>
@@ -189,10 +185,9 @@ namespace Engine.File
         /// Guitar Harmonics.
         /// </summary>
         GuitarHarmonics = 31,
+        #endregion Guitar
 
-        #endregion
         #region Bass
-
         /// <summary>
         /// Acoustic Bass.
         /// </summary>
@@ -232,10 +227,9 @@ namespace Engine.File
         /// Synth Bass 2.
         /// </summary>
         SynthBass2 = 39,
+        #endregion Bass
 
-        #endregion
         #region Strings
-
         /// <summary>
         /// Violin instrument.
         /// </summary>
@@ -275,10 +269,9 @@ namespace Engine.File
         /// Timpani instrument.
         /// </summary>
         Timpani = 47,
+        #endregion Strings
 
-        #endregion
         #region Ensemble
-
         /// <summary>
         /// FastString Ensemble.
         /// </summary>
@@ -318,10 +311,9 @@ namespace Engine.File
         /// Orchestra Hit.
         /// </summary>
         OrchestraHit = 55,
+        #endregion Ensemble
 
-        #endregion
         #region Brass
-
         /// <summary>
         /// Trumpet instrument.
         /// </summary>
@@ -361,10 +353,9 @@ namespace Engine.File
         /// Synth Brass 2.
         /// </summary>
         SynthBrass2 = 63,
+        #endregion Brass
 
-        #endregion
         #region Reed
-
         /// <summary>
         /// Soprano Sax.
         /// </summary>
@@ -404,10 +395,9 @@ namespace Engine.File
         /// Clarinet instrument.
         /// </summary>
         Clarinet = 71,
+        #endregion Reed
 
-        #endregion
         #region Pipe
-
         /// <summary>
         /// Piccolo instrument.
         /// </summary>
@@ -447,10 +437,9 @@ namespace Engine.File
         /// Ocarina instrument.
         /// </summary>
         Ocarina = 79,
+        #endregion Pipe
 
-        #endregion
         #region Synth Lead
-
         /// <summary>
         /// Square Wave Lead.
         /// </summary>
@@ -490,10 +479,9 @@ namespace Engine.File
         /// Base Lead.
         /// </summary>
         BaseLead = 87,
+        #endregion Synth Lead
 
-        #endregion
         #region Synth Pad
-
         /// <summary>
         /// New Age Fantasia Pad.
         /// </summary>
@@ -533,10 +521,9 @@ namespace Engine.File
         /// Sweep Pad.
         /// </summary>
         SweepPad = 95,
+        #endregion Synth Pad
 
-        #endregion
         #region Synth Effects
-
         /// <summary>
         /// Ice Rain FX sounds.
         /// </summary>
@@ -576,10 +563,9 @@ namespace Engine.File
         /// SciFi Star Theme FX sounds.
         /// </summary>
         SciFiStarThemeFX = 103,
+        #endregion Synth Effects
 
-        #endregion
         #region Ethnic
-
         /// <summary>
         /// Sitar instrument.
         /// </summary>
@@ -619,10 +605,9 @@ namespace Engine.File
         /// Shanai instrument.
         /// </summary>
         Shanai = 111,
+        #endregion Ethnic
 
-        #endregion
         #region Percussive
-
         /// <summary>
         /// Tinkle Bell.
         /// </summary>
@@ -662,10 +647,9 @@ namespace Engine.File
         /// Reverse Cymbal.
         /// </summary>
         ReverseCymbal = 119,
+        #endregion Percussive
 
-        #endregion
         #region Sound Effects
-
         /// <summary>
         /// Guitar Fret Noise.
         /// </summary>
@@ -705,7 +689,6 @@ namespace Engine.File
         /// Gunshot noise.
         /// </summary>
         Gunshot = 127,
-
-        #endregion
+        #endregion Sound Effects
     }
 }

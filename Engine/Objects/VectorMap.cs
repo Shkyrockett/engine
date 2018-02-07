@@ -28,7 +28,6 @@ namespace Engine
         : ICollection<GraphicItem>
     {
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -44,11 +43,9 @@ namespace Engine
         {
             Items = shapes;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Indexers
-
         /// <summary>
         /// 
         /// </summary>
@@ -70,11 +67,9 @@ namespace Engine
                 from shape in Items
                 where (shape?.Shape?.Bounds != null) && shape.Shape.Bounds.Contains(point) && shape.Shape.Contains(point)
                 select shape);
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         /// 
         /// </summary>
@@ -132,8 +127,7 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
             => Items.Count;
-
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// 

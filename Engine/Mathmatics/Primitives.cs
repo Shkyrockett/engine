@@ -46,7 +46,6 @@ namespace Engine
             => v0.SquareDistance(v1) < Epsilon;
 
         #region Absolute Angle
-
         /// <summary>
         /// Find the absolute positive value of a radian angle from two points.
         /// </summary>
@@ -69,11 +68,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this LineSegment segment)
             => Maths.AbsoluteAngle(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
-
-        #endregion
+        #endregion Absolute Angle
 
         #region Add
-
         /// <summary>
         /// Adds a <see cref="Point2D"/> by a value.
         /// </summary>
@@ -420,11 +417,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Transform2D Add(this Transform2D augend, Transform2D addend)
             => new Transform2D(augend.X + addend.X, augend.Y + addend.Y, augend.SkewX + addend.SkewX, augend.SkewY + addend.SkewY, augend.ScaleX * addend.ScaleX, augend.ScaleY * addend.ScaleY);
-
-        #endregion
+        #endregion Add
 
         #region Adjoint
-
         /// <summary>
         /// The adjoint.
         /// </summary>
@@ -509,11 +504,9 @@ namespace Engine
                 (-(source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11)),
                 (source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11));
         }
-
-        #endregion
+        #endregion Adjoint
 
         #region Angle
-
         /// <summary>
         /// Returns the Angle of a line.
         /// </summary>
@@ -535,11 +528,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this LineSegment segment)
             => Maths.Angle(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y);
-
-        #endregion
+        #endregion Angle
 
         #region Append
-
         /// <summary>
         /// Add.
         /// </summary>
@@ -623,11 +614,9 @@ namespace Engine
             ArrayUtilities.Add(ref array, t);
             return array;
         }
-
-        #endregion
+        #endregion Append
 
         #region Center
-
         /// <summary>
         /// Extension method to find the center point of a rectangle.
         /// </summary>
@@ -638,11 +627,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Center(this Rectangle2D rectangle)
             => new Point2D((0.5d * rectangle.Width) + rectangle.X, (0.5d * rectangle.Height) + rectangle.Y);
-
-        #endregion
+        #endregion Center
 
         #region Cofactor
-
         /// <summary>
         /// The cofactor.
         /// </summary>
@@ -727,11 +714,9 @@ namespace Engine
                 (-(source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11)));
 
         }
-
-        #endregion
+        #endregion Cofactor
 
         #region Concatenate
-
         /// <summary>
         /// The concatenate.
         /// </summary>
@@ -746,11 +731,9 @@ namespace Engine
                 ((b.Y * a.W) + (a.Y * b.W)) + ((b.Z * a.X) - (b.X * a.Z)),
                 ((b.Z * a.W) + (a.Z * b.W)) + ((b.X * a.Y) - (b.Y * a.X)),
                 (b.W * a.W) - (((b.X * a.X) + (b.Y * a.Y)) + (b.Z * a.Z)));
-
-        #endregion
+        #endregion Concatenate
 
         #region Conjugate
-
         /// <summary>
         /// The conjugate.
         /// </summary>
@@ -760,11 +743,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Conjugate(this QuaternionD value)
             => new QuaternionD(-value.X, -value.Y, -value.Z, value.W);
-
-        #endregion
+        #endregion Conjugate
 
         #region Convert
-
         /// <summary>
         /// Gets a 3x3 rotation matrix from this Quaternion.
         /// </summary>
@@ -849,11 +830,9 @@ namespace Engine
         /// <returns>The <see cref="Orientation"/>.</returns>
         public static Orientation ToEulerAngles(this QuaternionD quaternion)
             => QuaternionToEulerAngles(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
-
-        #endregion
+        #endregion Convert
 
         #region Cross Product
-
         /// <summary>
         /// Cross Product a Perpendicular dot product of two vectors.
         /// The cross product is a vector perpendicular to AB
@@ -933,11 +912,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Vector2D valueA, Vector2D valueB)
             => Maths.CrossProduct(valueA.I, valueA.J, valueB.I, valueB.J);
-
-        #endregion
+        #endregion Cross Product
 
         #region Delta
-
         /// <summary>
         /// Finds the Delta of two Points
         /// </summary>
@@ -973,11 +950,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Delta(this Vector2D vector, Vector2D value)
             => Maths.Delta(vector.I, vector.J, value.I, value.J);
-
-        #endregion
+        #endregion Delta
 
         #region Determinant
-
         /// <summary>
         /// The determinant.
         /// </summary>
@@ -1016,11 +991,9 @@ namespace Engine
                 source.M1x0, source.M1x1, source.M1x2, source.M1x3,
                 source.M2x0, source.M2x1, source.M2x2, source.M2x3,
                 source.M3x0, source.M3x1, source.M3x2, source.M3x3);
-
-        #endregion
+        #endregion Determinant
 
         #region Divide
-
         /// <summary>
         /// The divide.
         /// </summary>
@@ -1106,11 +1079,9 @@ namespace Engine
                 ((z * num) + (num2 * w)) + num11,
                 (w * num) - num10);
         }
-
-        #endregion
+        #endregion Divide
 
         #region Dot Product
-
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
         /// </summary>
@@ -1213,11 +1184,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this QuaternionD quaternion1, QuaternionD quaternion2)
             => ((((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W));
-
-        #endregion
+        #endregion Dot Product
 
         #region Exponent
-
         /// <summary>
         /// Calculates the Exponent of a Quaternion.
         /// </summary>
@@ -1256,11 +1225,9 @@ namespace Engine
 
             return returnvalue;
         }
-
-        #endregion
+        #endregion Exponent
 
         #region Equals
-
         /// <summary>
         /// The equals.
         /// </summary>
@@ -1282,11 +1249,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(this Vector2D point1, Vector2D point2)
             => (point1.I == point2.I && point1.J == point2.J);
-
-        #endregion
+        #endregion Equals
 
         #region Greater Than
-
         /// <summary>
         /// The greater than.
         /// </summary>
@@ -1308,11 +1273,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this Vector2D point1, Vector2D point2)
             => (point1.I > point2.I && point1.J > point2.J);
-
-        #endregion
+        #endregion Greater Than
 
         #region Greater Than or Equal To
-
         /// <summary>
         /// The greater than or equal.
         /// </summary>
@@ -1345,11 +1308,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOEqual(this Vector2D point1, Vector2D point2)
             => (point1.I >= point2.I && point1.J >= point2.J);
-
-        #endregion
+        #endregion Greater Than or Equal To
 
         #region Inflate
-
         /// <summary>
         /// Inflates a <see cref="Point2D"/> by a given factor.
         /// </summary>
@@ -1481,11 +1442,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Inflate(this Vector2D point, Vector2D factors)
             => new Vector2D(point.I * factors.I, point.J * factors.J);
-
-        #endregion
+        #endregion Inflate
 
         #region Invert
-
         /// <summary>
         /// Inverts a Vector.
         /// </summary>
@@ -1647,11 +1606,9 @@ namespace Engine
                 detInv * (-(source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11)),
                 detInv * (source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11));
         }
-
-        #endregion
+        #endregion Invert
 
         #region Less Than
-
         /// <summary>
         /// The less than.
         /// </summary>
@@ -1673,11 +1630,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this Vector2D point1, Vector2D point2)
             => (point1.I < point2.I && point1.J < point2.J);
-
-        #endregion
+        #endregion Less Than
 
         #region Less Than or Equal To
-
         /// <summary>
         /// The less than or equal.
         /// </summary>
@@ -1710,11 +1665,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this Vector2D point1, Vector2D point2)
             => (point1.I <= point2.I && point1.J <= point2.J);
-
-        #endregion
+        #endregion Less Than or Equal To
 
         #region Linear Interpolation
-
         /// <summary>
         /// The lerp.
         /// </summary>
@@ -1788,11 +1741,9 @@ namespace Engine
             quaternion.W *= num3;
             return quaternion;
         }
-
-        #endregion
+        #endregion Linear Interpolation
 
         #region Log
-
         /// <summary>
         /// Calculates the logarithm of a Quaternion.
         /// </summary>
@@ -1832,11 +1783,9 @@ namespace Engine
 
             return returnvalue;
         }
-
-        #endregion
+        #endregion Log
 
         #region Max
-
         /// <summary>
         ///
         /// </summary>
@@ -1858,11 +1807,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Max(this Vector2D point1, Vector2D point2)
             => new Vector2D(Math.Max(point1.I, point2.I), Math.Max(point1.J, point2.J));
-
-        #endregion
+        #endregion Max
 
         #region Min
-
         /// <summary>
         ///
         /// </summary>
@@ -1884,11 +1831,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Min(this Vector2D point1, Vector2D point2)
             => new Vector2D(Math.Min(point1.I, point2.I), Math.Min(point1.J, point2.J));
-
-        #endregion
+        #endregion Min
 
         #region Modulus
-
         /// <summary>
         /// Modulus of a Vector.
         /// </summary>
@@ -1899,11 +1844,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(this Vector2D value)
             => Maths.Modulus(value.I, value.J);
-
-        #endregion
+        #endregion Modulus
 
         #region Multiply
-
         /// <summary>
         /// Multiply: Point * Matrix
         /// </summary>
@@ -2104,11 +2047,9 @@ namespace Engine
                 ((z * num) + (num2 * w)) + num10,
                 (w * num) - num9);
         }
-
-        #endregion
+        #endregion Multiply
 
         #region Negate
-
         /// <summary>
         ///	Negates a <see cref="Matrix2x2D"/>.
         /// </summary>
@@ -2161,11 +2102,9 @@ namespace Engine
                 -quaternion.Y,
                 -quaternion.Z,
                 -quaternion.W);
-
-        #endregion
+        #endregion Negate
 
         #region Normalize
-
         /// <summary>
         /// Normalize Two Points
         /// </summary>
@@ -2228,11 +2167,9 @@ namespace Engine
                 quaternion.Z * num,
                 quaternion.W * num);
         }
-
-        #endregion
+        #endregion Normalize
 
         #region Perpendicular Vector
-
         /// <summary>
         /// Perpendicular of a Vector.
         /// </summary>
@@ -2267,11 +2204,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Perpendicular(this Vector2D vector)
             => PerpendicularClockwise(vector.I, vector.J);
-
-        #endregion
+        #endregion Perpendicular Vector
 
         #region Reflect
-
         /// <summary>
         /// Calculates the reflection of a point off a line segment
         /// </summary>
@@ -2283,19 +2218,19 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Reflect(this Point2D point, Point2D value, Point2D axis)
+            //{
+            //    Vector2D SegmentVectorDelta = point.Delta(value);
+            //    var QC12 = new Vector2D(
+            //        value.CrossProduct(point),
+            //        axis.DotProduct((Point2D)SegmentVectorDelta)
+            //        );
+            //    double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
+            //    return new Point2D(
+            //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
+            //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
+            //        );
+            //}
             => Maths.Reflect(point.X, point.Y, value.X, value.Y, axis.X, axis.Y);
-        //{
-        //    Vector2D SegmentVectorDelta = point.Delta(value);
-        //    var QC12 = new Vector2D(
-        //        value.CrossProduct(point),
-        //        axis.DotProduct((Point2D)SegmentVectorDelta)
-        //        );
-        //    double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
-        //    return new Point2D(
-        //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
-        //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
-        //        );
-        //}
 
         /// <summary>
         /// Calculates the reflection of a point off a line segment
@@ -2307,24 +2242,23 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Reflect(this LineSegment segment, Point2D axis)
+            //{
+            //    Vector2D SegmentVectorDelta = segment.A.Delta(segment.B);
+            //    var QC12 = new Vector2D(
+            //        segment.B.CrossProduct(segment.A),
+            //        axis.DotProduct((Point2D)SegmentVectorDelta)
+            //        );
+            //    double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
+            //    return new Point2D(
+            //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
+            //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
+            //        );
+            //}
             => Maths.Reflect(segment.AX, segment.AY, segment.BX, segment.BY, axis.X, axis.Y);
-        //{
-        //    Vector2D SegmentVectorDelta = segment.A.Delta(segment.B);
-        //    var QC12 = new Vector2D(
-        //        segment.B.CrossProduct(segment.A),
-        //        axis.DotProduct((Point2D)SegmentVectorDelta)
-        //        );
-        //    double QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
-        //    return new Point2D(
-        //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
-        //        (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
-        //        );
-        //}
 
-        #endregion
+        #endregion Reflect
 
         #region Remove At
-
         /// <summary>
         /// Remove the at.
         /// </summary>
@@ -2384,11 +2318,9 @@ namespace Engine
             ArrayUtilities.RemoveAt(ref array, index);
             return array;
         }
-
-        #endregion
+        #endregion Remove At
 
         #region Reverse
-
         //[DebuggerStepThrough]
         /// <summary>
         /// The reverse.
@@ -2397,11 +2329,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Reverse(this LineSegment segment)
             => segment.Points.Reverse();
-
-        #endregion
+        #endregion Reverse
 
         #region Rotate Around Point
-
         /// <summary>
         /// Creates a matrix to rotate an object around a particular point.
         /// </summary>
@@ -2420,11 +2350,9 @@ namespace Engine
 
             return result;
         }
-
-        #endregion
+        #endregion Rotate Around Point
 
         #region Rotate Point
-
         /// <summary>
         /// Rotate a point around the world origin.
         /// </summary>
@@ -2447,11 +2375,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D RotatePoint(this Point2D point, Point2D axis, double angle)
             => RotatePoint2D(point.X, point.Y, axis.X, axis.Y, angle);
-
-        #endregion
+        #endregion Rotate Point
 
         #region Rotate Points
-
         /// <summary>
         /// Rotate a series of points around the world origin.
         /// </summary>
@@ -2478,11 +2404,9 @@ namespace Engine
             for (var i = 0; i < points.Length; i++)
                 points[i] = RotatePoint(points[i], fulcrum, angle);
         }
-
-        #endregion
+        #endregion Rotate Points
 
         #region Scale
-
         /// <summary>
         /// Inflates a <see cref="Point2D"/> by a given factor.
         /// </summary>
@@ -2617,11 +2541,9 @@ namespace Engine
                 left.M2x0, left.M2x1, left.M2x2, left.M2x3,
                 left.M3x0, left.M3x1, left.M3x2, left.M3x3,
                 scalar);
-
-        #endregion
+        #endregion Scale
 
         #region Slerp
-
         //[DebuggerStepThrough]
         /// <summary>
         /// The slerp.
@@ -2661,11 +2583,9 @@ namespace Engine
                 (num3 * quaternion1.Z) + (num2 * quaternion2.Z),
                 (num3 * quaternion1.W) + (num2 * quaternion2.W));
         }
-
-        #endregion
+        #endregion Slerp
 
         #region Slope
-
         /// <summary>
         /// Calculates the Slope of two points.
         /// </summary>
@@ -2699,11 +2619,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this LineSegment Line)
             => Maths.Slope(Line.A.X, Line.A.Y, Line.B.X, Line.B.Y);
-
-        #endregion
+        #endregion Slope
 
         #region Subtract
-
         /// <summary>
         /// Subtracts a <see cref="Point2D"/> by a value.
         /// </summary>
@@ -3041,11 +2959,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Transform2D Subtract(this Transform2D minuend, Transform2D subtrahend)
             => new Transform2D(minuend.X - subtrahend.X, minuend.Y - subtrahend.Y, NormalizeRadian(minuend.SkewX - subtrahend.SkewX), NormalizeRadian(minuend.SkewY - subtrahend.SkewY), minuend.ScaleX / subtrahend.ScaleX, minuend.ScaleY / subtrahend.ScaleY);
-
-        #endregion
+        #endregion Subtract
 
         #region Transpose
-
         /// <summary>
         /// Swap the rows of the matrix with the columns.
         /// </summary>
@@ -3104,11 +3020,9 @@ namespace Engine
                 source.M1x3,
                 source.M2x3,
                 source.M3x3);
-
-        #endregion
+        #endregion Transpose
 
         #region Unit
-
         /// <summary>
         /// Unit of a Vector
         /// </summary>
@@ -3141,8 +3055,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Unit(this Vector4D value)
             => Maths.Unit(value.I, value.J, value.K, value.L);
-
-        #endregion
+        #endregion Unit
 
         /// <summary>
         /// http://jwezorek.com/2017/09/basic-convex-hull-in-c/

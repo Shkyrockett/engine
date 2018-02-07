@@ -32,7 +32,6 @@ namespace Engine
         : IEquatable<QuaternionD>, IFormattable
     {
         #region Static Fields
-
         /// <summary>
         /// 
         /// </summary>
@@ -47,11 +46,9 @@ namespace Engine
         /// 
         /// </summary>
         public static QuaternionD Identity = new QuaternionD(0, 0, 0, 1);
-
-        #endregion
+        #endregion Static Fields
 
         #region Feilds
-
         /// <summary>
         /// 
         /// </summary>
@@ -71,11 +68,9 @@ namespace Engine
         /// 
         /// </summary>
         private double w;
-
-        #endregion
+        #endregion Feilds
 
         #region Constructors
-
         /// <summary>
         /// 
         /// </summary>
@@ -108,11 +103,9 @@ namespace Engine
         public QuaternionD(Vector3D vector, double scalar)
             : this(vector.I, vector.J, vector.K, scalar)
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the X value of this Quaternion. 
         /// </summary>
@@ -281,11 +274,9 @@ namespace Engine
                 return new Vector3D(fTXZ + fTWY, fTYZ - fTWX, 1d - (fTXX + fTYY));
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// 
         /// </summary>
@@ -423,11 +414,9 @@ namespace Engine
         [DebuggerStepThrough]
         public static implicit operator QuaternionD((double X, double Y, double Z, double W) tuple)
             => new QuaternionD(tuple);
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// set this quaternion's values from the rotation matrix built from the Axi.
         /// </summary>
@@ -568,8 +557,7 @@ namespace Engine
                 }
             }
         }
-
-        #endregion
+        #endregion Factories
 
         //#region Serialization
 
@@ -616,7 +604,6 @@ namespace Engine
         //#endregion
 
         #region Methods
-
         /// <summary>
         ///
         /// </summary>
@@ -750,7 +737,6 @@ namespace Engine
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(QuaternionD)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}{sep}{nameof(Z)}={Z.ToString(format, provider)}{sep}{nameof(W)}={W.ToString(format, provider)}}}";
         }
-
-        #endregion
+        #endregion Methods
     }
 }

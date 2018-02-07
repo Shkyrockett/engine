@@ -32,7 +32,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// The items.
         /// </summary>
@@ -42,16 +41,13 @@ namespace Engine
         /// The closed.
         /// </summary>
         bool closed = false;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         ///
         /// </summary>
         public PolyBezierContour()
-            : base()
         {
             items = new List<BezierSegmentX>();
         }
@@ -60,7 +56,6 @@ namespace Engine
         ///
         /// </summary>
         public PolyBezierContour(Point2D start)
-            : base()
         {
             items.Add(new BezierSegmentX(start));
         }
@@ -69,26 +64,21 @@ namespace Engine
         ///
         /// </summary>
         public PolyBezierContour(List<BezierSegmentX> items)
-            : base()
         {
             this.items = items;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         ///
         /// </summary>
         /// <param name="items"></param>
         public void Deconstruct(out List<BezierSegmentX> items)
             => items = this.items;
-
-        #endregion
+        #endregion Deconstructors
 
         #region Indexers
-
         /// <summary>
         ///
         /// </summary>
@@ -97,11 +87,9 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public BezierSegmentX this[int index]
                 => items[index];
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -188,8 +176,7 @@ namespace Engine
         //[IgnoreDataMember, XmlIgnore, SoapIgnore]
         //public override double Perimeter
         //    => (double)CachingProperty(() => Items.Sum(p => p.Length));
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -283,7 +270,6 @@ namespace Engine
         }
 
         #region Methods
-
         ///// <summary>
         /////
         ///// </summary>
@@ -483,7 +469,6 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
             => (this == null) ? nameof(PolyBezierContour) : $"{nameof(PolyBezierContour)}{{{ToPathDefString(format, provider)}}}";
-
-        #endregion
+        #endregion Methods
     }
 }

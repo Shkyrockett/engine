@@ -94,7 +94,6 @@ namespace Engine
             (-b - Sqrt(b * b - (4 * a * c))) / (2 * a));
 
         #region Root Finding
-
         /// <summary>
         ///
         /// </summary>
@@ -478,11 +477,9 @@ namespace Engine
 
             return real;
         }
-
-        #endregion
+        #endregion Root Finding
 
         #region Bezier Coefficients Overloads
-
         /// <summary>
         /// Coefficients for a Linear Bezier curve.
         /// </summary>
@@ -551,11 +548,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F) BezierCoefficients(double a, double b, double c, double d, double e, double f)
             => QuinticBezierCoefficients(a, b, c, d, e, f);
-
-        #endregion
+        #endregion Bezier Coefficients Overloads
 
         #region Bezier Coefficients
-
         /// <summary>
         /// Coefficients for a Linear Bezier curve.
         /// </summary>
@@ -853,8 +848,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial DecicBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
             => (Polynomial.OneMinusT * NonicBezierCoefficientsStack(a, b, c, d, e, f, g, h, i, j) + Polynomial.T * NonicBezierCoefficientsStack(b, c, d, e, f, g, h, i, j, k));
-
-        #endregion
+        #endregion Bezier Coefficients
 
         /// <summary>
         /// Newton's (Newton-Raphson) method for finding Real roots on univariate function. <br/>

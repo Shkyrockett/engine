@@ -27,7 +27,6 @@ namespace Engine
         : Shape
     {
         #region Fields
-
         /// <summary>
         /// The center x coordinate point of the circle.
         /// </summary>
@@ -52,11 +51,9 @@ namespace Engine
         /// 
         /// </summary>
         private double endAngle;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new default instance of the <see cref="CircularSegment"/> class.
         /// </summary>
@@ -134,11 +131,9 @@ namespace Engine
             // Get the radius.
             radius = (Center.Distance(PointA));
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// Deconstruct this <see cref="CircularSegment"/> to a Tuple.
         /// </summary>
@@ -155,11 +150,9 @@ namespace Engine
             startAngle = this.startAngle;
             endAngle = this.endAngle;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the location of the center point of the circular segment.
         /// </summary>
@@ -479,8 +472,7 @@ namespace Engine
         [Description("The rectangular boundaries of the circle containing the Chord.")]
         public Rectangle2D DrawingBounds
             => (Rectangle2D)CachingProperty(() => Rectangle2D.FromLTRB((x - radius), (y - radius), (x + radius), (y + radius)));
-
-        #endregion
+        #endregion Properties
 
         //#region Serialization
 
@@ -527,7 +519,6 @@ namespace Engine
         //#endregion
 
         #region Interpolators
-
         /// <summary>
         /// Interpolates the circle.
         /// </summary>
@@ -557,11 +548,9 @@ namespace Engine
 
             return points;
         }
-
-        #endregion
+        #endregion Interpolators
 
         #region Methods
-
         /// <summary>
         /// Creates a string representation of this <see cref="CircularSegment"/> struct based on the format string
         /// and IFormatProvider passed in.
@@ -580,7 +569,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(CircularSegment)}{{{nameof(Center)}={Center},{nameof(Radius)}={radius},{nameof(StartAngle)}={startAngle},{nameof(EndAngle)}={endAngle}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

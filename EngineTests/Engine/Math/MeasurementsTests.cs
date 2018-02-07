@@ -21,7 +21,6 @@ namespace EngineTests
     public class MeasurementsTests
     {
         #region Constants
-
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
@@ -82,21 +81,17 @@ namespace EngineTests
                 new Point2D(50, 100),
                 new Point2D(25, 100) }),
         };
-
-        #endregion
+        #endregion Constants
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Housekeeping
-
         /// <summary>
         /// 
         /// </summary>
@@ -131,11 +126,9 @@ namespace EngineTests
         {
             //MessageBox.Show("ClassCleanup");
         }
-
-        #endregion
+        #endregion Housekeeping
 
         #region Distance
-
         /// <summary>
         /// 
         /// </summary>
@@ -242,11 +235,9 @@ namespace EngineTests
                 Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
             }
         }
-
-        #endregion
+        #endregion Distance
 
         #region Length
-
         /// <summary>
         /// 
         /// </summary>
@@ -450,11 +441,9 @@ namespace EngineTests
                 Assert.AreEqual(test.Value, distance, TestEpsilon, $"Value: {test.Key.ToString()}, Expected: {test.Value}, Actual: {distance}");
             }
         }
-
-        #endregion
+        #endregion Length
 
         #region Area
-
         /// <summary>
         /// 
         /// </summary>
@@ -700,11 +689,9 @@ namespace EngineTests
                 Assert.AreEqual(results[i], area, TestEpsilon, polygons[i].description);
             }
         }
-
-        #endregion
+        #endregion Area
 
         #region Bounds
-
         /// <summary>
         /// 
         /// </summary>
@@ -991,7 +978,6 @@ namespace EngineTests
                 Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
             }
         }
-
-        #endregion
+        #endregion Bounds
     }
 }

@@ -21,7 +21,6 @@ namespace Engine
     public class MartinezPolygonClipper
     {
         #region Fields
-
         /// <summary>
         /// The subject.
         /// </summary>
@@ -36,11 +35,9 @@ namespace Engine
         /// The event queue.
         /// </summary>
         private EventQueue eventQueue;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MartinezPolygonClipper"/> class.
         /// </summary>
@@ -52,8 +49,7 @@ namespace Engine
             this.clipping = clipping;
             eventQueue = new EventQueue();
         }
-
-        #endregion
+        #endregion Constructors
 
         /// <summary>
         /// Computes the polygon operation given by operation.

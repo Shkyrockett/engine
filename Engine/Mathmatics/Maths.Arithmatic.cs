@@ -20,7 +20,6 @@ namespace Engine
     public static partial class Maths
     {
         #region Wrapping
-
         /// <summary>
         /// The round.
         /// </summary>
@@ -95,11 +94,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Wrap(this double value, double min, double max)
             => (value < min) ? max - (min - value) % (max - min) : min + (value - min) % (max - min);
-
-        #endregion
+        #endregion Wrapping
 
         #region Negate
-
         /// <summary>
         ///	Negates a <see cref="Matrix2x2D"/>.
         /// </summary>
@@ -187,11 +184,9 @@ namespace Engine
                 -sourceM3x1,
                 -sourceM3x2,
                 -sourceM3x3);
-
-        #endregion
+        #endregion Negate
 
         #region Addition
-
         /// <summary>
         /// The add2d.
         /// </summary>
@@ -416,11 +411,9 @@ namespace Engine
                 augendM3x1 + addendM3x1,
                 augendM3x2 + addendM3x2,
                 augendM3x3 + addendM3x3);
-
-        #endregion
+        #endregion Addition
 
         #region Subtraction
-
         /// <summary>
         /// Finds the Delta of two 2D Vectors.
         /// </summary>
@@ -681,11 +674,9 @@ namespace Engine
                 minuendM3x1 - subtrahendM3x1,
                 minuendM3x2 - subtrahendM3x2,
                 minuendM3x3 - subtrahendM3x3);
-
-        #endregion
+        #endregion Subtraction
 
         #region Multiplication
-
         /// <summary>
         /// Inflates a vector by a given factor.
         /// </summary>
@@ -1234,11 +1225,9 @@ namespace Engine
                 leftM3x0 * rightM0x1 + leftM3x1 * rightM1x1 + leftM3x2 * rightM2x1 + leftM3x3 * rightM3x1,
                 leftM3x0 * rightM0x2 + leftM3x1 * rightM1x2 + leftM3x2 * rightM2x2 + leftM3x3 * rightM3x2,
                 leftM3x0 * rightM0x3 + leftM3x1 * rightM1x3 + leftM3x2 * rightM2x3 + leftM3x3 * rightM3x3);
-
-        #endregion
+        #endregion Multiplication
 
         #region Division
-
         /// <summary>
         /// The divide2d1d.
         /// </summary>
@@ -1316,11 +1305,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Divide1D4D(double divisor, double divedendI, double divedendJ, double divedendK, double divedendL)
             => (divisor / divedendI, divisor / divedendJ, divisor / divedendK, divisor / divedendL);
-
-        #endregion
+        #endregion Division
 
         #region Comparisons
-
         /// <summary>
         /// Find the maximum value of three variables.
         /// </summary>
@@ -1965,7 +1952,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this double val)
             => (GreaterThanOrClose(val, 0d) && LessThanOrClose(val, 1));
-
-        #endregion
+        #endregion Comparisons
     }
 }

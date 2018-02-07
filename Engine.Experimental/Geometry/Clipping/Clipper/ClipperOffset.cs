@@ -21,7 +21,6 @@ namespace Engine.Experimental
     public class ClipperOffset
     {
         #region Constants
-
         /// <summary>
         /// The default arc frac (const). Value: 0.02d.
         /// </summary>
@@ -31,11 +30,9 @@ namespace Engine.Experimental
         /// The tolerance (const). Value: 1.0E-15.
         /// </summary>
         private const double Tolerance = 1.0E-15;
-
-        #endregion
+        #endregion Constants
 
         #region Fields
-
         /// <summary>
         /// The delta.
         /// </summary>
@@ -85,11 +82,9 @@ namespace Engine.Experimental
         /// The lowest idx.
         /// </summary>
         private int lowestIdx;
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ClipperOffset"/> class.
         /// </summary>
@@ -100,11 +95,9 @@ namespace Engine.Experimental
             this.MiterLimit = MiterLimit;
             this.ArcTolerance = ArcTolerance;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the norms.
         /// </summary>
@@ -124,11 +117,9 @@ namespace Engine.Experimental
         /// Gets or sets the miter limit.
         /// </summary>
         public double MiterLimit { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Add the path.
         /// </summary>
@@ -209,8 +200,7 @@ namespace Engine.Experimental
             co.AddPaths(pp, jt, et);
             return co.Execute(delta);
         }
-
-        #endregion
+        #endregion Methods
 
         /// <summary>
         /// Get the lowest polygon idx.

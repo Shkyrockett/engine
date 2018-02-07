@@ -27,7 +27,6 @@ namespace Engine.File
         : BinaryReader
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BinaryReaderExtended"/> class, based on the
         /// supplied stream, using System.Text.UTF8Encoding.
@@ -55,11 +54,9 @@ namespace Engine.File
         public BinaryReaderObsolete(Stream input, Encoding encoding)
             : base(input, encoding)
         { }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the position within the current stream.
         /// </summary>
@@ -79,11 +76,9 @@ namespace Engine.File
         /// <exception cref="ObjectDisposedException">Methods were called after the stream was closed.</exception>
         public long Length
             => BaseStream.Length;
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// 
         /// </summary>
@@ -280,7 +275,6 @@ namespace Engine.File
 
             throw new FormatException("Invalid Var Int");
         }
-
-        #endregion
+        #endregion Methods
     }
 }

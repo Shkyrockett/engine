@@ -25,12 +25,10 @@ namespace Engine
         : Shape
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ParametricPointTester"/> class.
         /// </summary>
         public ParametricPointTester()
-            : base()
         { }
 
         /// <summary>
@@ -44,7 +42,6 @@ namespace Engine
         /// <param name="stepX">The stepX.</param>
         /// <param name="stepY">The stepY.</param>
         public ParametricPointTester(Func<double, double, Inclusion> intersecter, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
-            : base()
         {
             Intersecter = intersecter;
             MinX = minX;
@@ -54,11 +51,9 @@ namespace Engine
             StepX = stepX;
             StepY = stepY;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// The deconstruct.
         /// </summary>
@@ -79,11 +74,9 @@ namespace Engine
             stepX = StepX;
             stepY = StepY;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the intersecter.
         /// </summary>
@@ -142,11 +135,9 @@ namespace Engine
                 MaxY = value.Bottom;
             }
         }
-
-        #endregion
+        #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// The grid.
         /// </summary>
@@ -202,7 +193,6 @@ namespace Engine
             
             return (boundary, inside, outside);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

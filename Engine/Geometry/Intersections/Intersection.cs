@@ -34,7 +34,6 @@ namespace Engine
         : IFormattable
     {
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Intersection"/> class.
         /// </summary>
@@ -75,11 +74,9 @@ namespace Engine
             State = state;
             Points = points;
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Deconstructors
-
         /// <summary>
         /// The deconstruct.
         /// </summary>
@@ -90,11 +87,9 @@ namespace Engine
             state = State;
             points = Points;
         }
-
-        #endregion
+        #endregion Deconstructors
 
         #region Indexers
-
         /// <summary>
         /// The Indexer.
         /// </summary>
@@ -105,11 +100,9 @@ namespace Engine
             get { return Points[index]; }
             set { Points[index] = value; }
         }
-
-        #endregion
+        #endregion Indexers
 
         #region Properties
-
         /// <summary>
         /// Gets or sets the state.
         /// </summary>
@@ -125,11 +118,9 @@ namespace Engine
         /// </summary>
         public int Count
             => (Points == null) ? 0 : Points.Count;
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// The operator ==.
         /// Compares two <see cref="Intersection"/> objects.
@@ -155,11 +146,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Intersection left, Intersection right)
             => !Equals(left, right);
-
-        #endregion
+        #endregion Operators
 
         #region Mutators
-
         /// <summary>
         /// The append point.
         /// </summary>
@@ -195,11 +184,9 @@ namespace Engine
             else
                 Points.AddRange(points);
         }
-
-        #endregion
+        #endregion Mutators
 
         #region Standard Class Methods
-
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
@@ -306,7 +293,6 @@ namespace Engine
             IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State.ToString()}, {string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Standard Class Methods
     }
 }

@@ -20,17 +20,14 @@ namespace Engine.Tests
     public class EllipseTests
     {
         #region Properties
-
         /// <summary>
         /// Gets or sets the test context which provides
         /// information about and functionality for the current test run.
         ///</summary>
         public TestContext TestContext { get; set; }
-
-        #endregion
+        #endregion Properties
 
         #region Housekeeping
-
         /// <summary>
         /// 
         /// </summary>
@@ -59,8 +56,7 @@ namespace Engine.Tests
         [ClassCleanup]
         public static void ClassCleanup()
         { }
-
-        #endregion
+        #endregion Housekeeping
 
         /// <summary>
         /// 

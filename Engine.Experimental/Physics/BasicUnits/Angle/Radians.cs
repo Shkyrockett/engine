@@ -26,7 +26,6 @@ namespace Engine.Physics
         : IDirection, IFormattable
     {
         #region Constants
-
         ///// <summary>
         /////
         ///// </summary>
@@ -35,16 +34,12 @@ namespace Engine.Physics
         ///// <summary>
         /////
         ///// </summary>
-        //public const double Degree = Maths.Radien;
-
-        #endregion
+        //public const double Degree = Maths.Radien;        #endregion Constants
 
         #region Fields
-
-        #endregion
+        #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Radians"/> struct.
         /// </summary>
@@ -71,11 +66,9 @@ namespace Engine.Physics
         {
             Value = degrees.Value.ToRadians();
         }
-
-        #endregion
+        #endregion Constructors
 
         #region Properties
-
         /// <summary>
         ///
         /// </summary>
@@ -103,11 +96,9 @@ namespace Engine.Physics
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "rad";
-
-        #endregion
+        #endregion Properties
 
         #region Operators
-
         /// <summary>
         /// Compares two <see cref="Radians"/> objects.
         /// </summary>
@@ -190,11 +181,9 @@ namespace Engine.Physics
         [DebuggerStepThrough]
         public static explicit operator Radians(Degrees value)
             => value.Radians;
-
-        #endregion
+        #endregion Operators
 
         #region Factories
-
         /// <summary>
         /// Parse a string for a <see cref="Radians"/> value.
         /// </summary>
@@ -216,11 +205,9 @@ namespace Engine.Physics
 
             return value;
         }
-
-        #endregion
+        #endregion Factories
 
         #region Methods
-
         /// <summary>
         /// override object.GetHashCode
         /// </summary>
@@ -284,7 +271,6 @@ namespace Engine.Physics
             IFormattable formatable = $"{Value} rad";
             return formatable.ToString(format, provider);
         }
-
-        #endregion
+        #endregion Methods
     }
 }

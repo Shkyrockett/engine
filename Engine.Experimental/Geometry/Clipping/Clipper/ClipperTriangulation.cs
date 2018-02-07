@@ -20,7 +20,6 @@ namespace Engine.Experimental
         : Clipper
     {
         #region Fields
-
         /// <summary>
         /// The last op.
         /// </summary>
@@ -30,11 +29,9 @@ namespace Engine.Experimental
         /// The triangles.
         /// </summary>
         private readonly Polygon triangles = new Polygon();
-
-        #endregion
+        #endregion Fields
 
         #region Overrides
-
         /// <summary>
         /// Add the local min poly.
         /// </summary>
@@ -266,8 +263,7 @@ namespace Engine.Experimental
         /// <returns>The <see cref="bool"/>.</returns>
         public override bool Execute(ClippingOperations clipType, PolyTree polytree, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
             => false; //unsupported
-
-        #endregion
+        #endregion Overrides
 
         /// <summary>
         /// Insert the point.

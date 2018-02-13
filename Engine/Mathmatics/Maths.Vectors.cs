@@ -625,7 +625,7 @@ namespace Engine
             if (Math.Abs(Math.Abs(Angle(i1, j1, k1, i2, j2, k2)) - PI / 2) < double.Epsilon)
                 return (-i1, -j1, -k1);
 
-            (double x, double y, double z) = Projection(i1, j1, k1, i2, j2, k2);
+            (var x, var y, var z) = Projection(i1, j1, k1, i2, j2, k2);
             return (
                 (2 * x - i1) * Magnitude(i1, j1, k1),
                 (2 * y - j1) * Magnitude(i1, j1, k1),

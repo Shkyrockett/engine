@@ -97,12 +97,26 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Process(Point2D point)
-            => Distortions.Rotate(point, Center, XAxis, YAxis);
+            => Process(point, Center, XAxis, YAxis);
+
+        /// <summary>
+        /// Process.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="center"></param>
+        /// <param name="xAxis"></param>
+        /// <param name="yAxis"></param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Process(Point2D point, Point2D center, Point2D xAxis, Point2D yAxis)
+            => Distortions.Rotate(point, center, xAxis, yAxis);
 
         /// <summary>
         /// Clear the cache.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ClearCache()
             => propertyCache.Clear();
 
@@ -114,6 +128,7 @@ namespace Engine
         /// <param name="name"></param>
         /// <returns></returns>
         /// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
         {
             if (!propertyCache.ContainsKey(name))

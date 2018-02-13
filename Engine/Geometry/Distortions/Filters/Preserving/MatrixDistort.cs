@@ -8,6 +8,8 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine
 {
     /// <summary>
@@ -40,8 +42,19 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Process(Point2D point)
-            => Distortions.Matrix(point, Matrix);
+            => Process(point, Matrix);
+
+        /// <summary>
+        /// Process.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="matrix"></param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Process(Point2D point, Matrix3x2D matrix)
+            => Distortions.Matrix(point, matrix);
         #endregion Methods
     }
 }

@@ -957,7 +957,7 @@ namespace Engine
 
             var first = true;
 
-            (double minY, double maxY) = (minX, minX);
+            (var minY, var maxY) = (minX, minX);
 
             foreach (var t in roots)
             {

@@ -8,6 +8,8 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine
 {
     /// <summary>
@@ -47,8 +49,20 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Process(Point2D point)
-            => Distortions.Swirl(point, Center, -Strength);
+            => Process(point, Center, -Strength);
+
+        /// <summary>
+        /// Process.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="center"></param>
+        /// <param name="strength"></param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Process(Point2D point, Point2D center, double strength)
+            => Distortions.Swirl(point, center, strength);
         #endregion Methods
     }
 }

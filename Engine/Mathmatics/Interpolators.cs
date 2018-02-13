@@ -199,15 +199,15 @@ namespace Engine
         }
         #endregion Curve Interpolation
 
-        #region Quadratic Bezier Interpolation
+        #region Quadratic Bézier Interpolation
         /// <summary>
-        /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
+        /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
         /// <param name="aV">The first parameter.</param>
         /// <param name="bV">The second parameter.</param>
         /// <param name="cV">The third parameter.</param>
         /// <param name="t">The time parameter.</param>
-        /// <returns>Returns a value interpolated from a Quadratic Bezier.</returns>
+        /// <returns>Returns a value interpolated from a Quadratic Bézier.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
         [DebuggerStepThrough]
@@ -223,7 +223,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
+        /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
         /// <param name="aX">The x-component of the first parameter.</param>
         /// <param name="aY">The y-component of the first parameter.</param>
@@ -232,7 +232,7 @@ namespace Engine
         /// <param name="cX">The x-component of the third parameter.</param>
         /// <param name="cY">The y component of the third parameter.</param>
         /// <param name="t">The time parameter.</param>
-        /// <returns>Returns a point at t position of a Quadratic Bezier curve.</returns>
+        /// <returns>Returns a point at t position of a Quadratic Bézier curve.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
         [DebuggerStepThrough]
@@ -253,19 +253,19 @@ namespace Engine
         }
 
         /// <summary>
-        /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
+        /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
-        /// <param name="x0">The x-component of the first point on a Bezier curve.</param>
-        /// <param name="y0">The y-component of the first point on a Bezier curve.</param>
-        /// <param name="z0">The z-component of the first point on a Bezier curve.</param>
-        /// <param name="x1">The x-component of the handle point of the Bezier curve.</param>
-        /// <param name="y1">The y-component of the handle point of the Bezier curve.</param>
-        /// <param name="z1">The z-component of the handle point of the Bezier curve.</param>
-        /// <param name="x2">The x-component of the last point on the Bezier curve.</param>
-        /// <param name="y2">The y-component of the last point on the Bezier curve.</param>
-        /// <param name="z2">The z-component of the last point on the Bezier curve.</param>
-        /// <param name="t">The time parameter of the Bezier curve.</param>
-        /// <returns>Returns a point on the Bezier curve.</returns>
+        /// <param name="x0">The x-component of the first point on a Bézier curve.</param>
+        /// <param name="y0">The y-component of the first point on a Bézier curve.</param>
+        /// <param name="z0">The z-component of the first point on a Bézier curve.</param>
+        /// <param name="x1">The x-component of the handle point of the Bézier curve.</param>
+        /// <param name="y1">The y-component of the handle point of the Bézier curve.</param>
+        /// <param name="z1">The z-component of the handle point of the Bézier curve.</param>
+        /// <param name="x2">The x-component of the last point on the Bézier curve.</param>
+        /// <param name="y2">The y-component of the last point on the Bézier curve.</param>
+        /// <param name="z2">The z-component of the last point on the Bézier curve.</param>
+        /// <param name="t">The time parameter of the Bézier curve.</param>
+        /// <returns>Returns a point on the Bézier curve.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
         [DebuggerStepThrough]
@@ -284,7 +284,7 @@ namespace Engine
                 (y0 * ti2 + 2d * y1 * ti * t + y2 * t2),
                 (z0 * ti2 + 2d * z1 * ti * t + z2 * t2));
         }
-        #endregion Quadratic Bezier Interpolation
+        #endregion Quadratic Bézier Interpolation
 
         #region Cubic Interpolation
         /// <summary>
@@ -386,9 +386,9 @@ namespace Engine
         }
         #endregion Cubic Interpolation
 
-        #region Cubic Bezier Interpolation
+        #region Cubic Bézier Interpolation
         /// <summary>
-        /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
+        /// Four control point Bézier interpolation mu ranges from 0 to 1, start to end of curve.
         /// </summary>
         /// <param name="v0"></param>
         /// <param name="v1"></param>
@@ -407,15 +407,15 @@ namespace Engine
             double v3,
             double t)
         {
-            var mum1 = 1 - t;
+            var mum1 = 1d - t;
             var mum13 = mum1 * mum1 * mum1;
             var mu3 = t * t * t;
 
-            return (mum13 * v0 + 3 * t * mum1 * mum1 * v1 + 3 * t * t * mum1 * v2 + mu3 * v3);
+            return (mum13 * v0 + 3d * t * mum1 * mum1 * v1 + 3d * t * t * mum1 * v2 + mu3 * v3);
         }
 
         /// <summary>
-        /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
+        /// Four control point Bézier interpolation mu ranges from 0 to 1, start to end of curve.
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -438,18 +438,18 @@ namespace Engine
             double x3, double y3,
             double t)
         {
-            var mum1 = 1 - t;
+            var mum1 = 1d - t;
             var mum13 = mum1 * mum1 * mum1;
             var mu3 = t * t * t;
 
             return (
-                (mum13 * x0 + 3 * t * mum1 * mum1 * x1 + 3 * t * t * mum1 * x2 + mu3 * x3),
-                (mum13 * y0 + 3 * t * mum1 * mum1 * y1 + 3 * t * t * mum1 * y2 + mu3 * y3)
+                (mum13 * x0 + 3d * t * mum1 * mum1 * x1 + 3d * t * t * mum1 * x2 + mu3 * x3),
+                (mum13 * y0 + 3d * t * mum1 * mum1 * y1 + 3d * t * t * mum1 * y2 + mu3 * y3)
                 );
         }
 
         /// <summary>
-        /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
+        /// Four control point Bézier interpolation mu ranges from 0 to 1, start to end of curve.
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -476,19 +476,19 @@ namespace Engine
             double x3, double y3, double z3,
             double t)
         {
-            var mum1 = 1 - t;
+            var mum1 = 1d - t;
             var mum13 = mum1 * mum1 * mum1;
             var mu3 = t * t * t;
 
             return (
-                (mum13 * x0 + 3 * t * mum1 * mum1 * x1 + 3 * t * t * mum1 * x2 + mu3 * x3),
-                (mum13 * y0 + 3 * t * mum1 * mum1 * y1 + 3 * t * t * mum1 * y2 + mu3 * y3),
-                (mum13 * z0 + 3 * t * mum1 * mum1 * z1 + 3 * t * t * mum1 * z2 + mu3 * z3)
+                (mum13 * x0 + 3d * t * mum1 * mum1 * x1 + 3d * t * t * mum1 * x2 + mu3 * x3),
+                (mum13 * y0 + 3d * t * mum1 * mum1 * y1 + 3d * t * t * mum1 * y2 + mu3 * y3),
+                (mum13 * z0 + 3d * t * mum1 * mum1 * z1 + 3d * t * t * mum1 * z2 + mu3 * z3)
                 );
         }
 
         /// <summary>
-        /// General Bezier curve Number of control points is n+1 0 less than or equal to mu less than 1
+        /// General Bézier curve Number of control points is n+1 0 less than or equal to mu less than 1
         /// IMPORTANT, the last point is not computed.
         /// </summary>
         /// <param name="points"></param>
@@ -508,7 +508,7 @@ namespace Engine
             double muk = 1;
             var munk = Pow(1 - t, n);
 
-            var b = new Point2D(0.0f, 0.0f);
+            var b = new Point2D(0d, 0d);
 
             for (var k = 0; k <= n; k++)
             {
@@ -517,7 +517,7 @@ namespace Engine
                 nkn = n - k;
                 blend = muk * munk;
                 muk *= t;
-                munk /= (1 - t);
+                munk /= (1d - t);
                 while (nn >= 1)
                 {
                     blend *= nn;
@@ -542,7 +542,7 @@ namespace Engine
 
             return (b);
         }
-        #endregion Cubic Bezier Interpolation
+        #endregion Cubic Bézier Interpolation
 
         #region Catmull-Rom Spline Interpolation
         /// <summary>
@@ -1377,10 +1377,10 @@ namespace Engine
         #endregion Rectangle
 
         /// <summary>
-        /// Linearly tweens between two cubic bezier curves, from key1 to key2.
+        /// Linearly tweens between two cubic Bézier curves, from key1 to key2.
         /// </summary>
-        /// <param name="key1">The first cubic bezier key.</param>
-        /// <param name="key2">The second cubic bezier key.</param>
+        /// <param name="key1">The first cubic Bézier key.</param>
+        /// <param name="key2">The second cubic Bézier key.</param>
         /// <param name="t">The t index.</param>
         /// <returns>The <see cref="T:Point2D[]"/>.</returns>
         private static CubicBezier TweenCubic(CubicBezier key1, CubicBezier key2, double t)

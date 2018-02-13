@@ -470,7 +470,7 @@ namespace Engine.Tweening
             var canceled = 0;
             for (var i = 0; i < properties.Length; ++i)
             {
-                if (!varHash.TryGetValue(properties[i], out int index))
+                if (!varHash.TryGetValue(properties[i], out var index))
                     continue;
 
                 varHash.Remove(properties[i]);

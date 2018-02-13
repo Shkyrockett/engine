@@ -15,7 +15,7 @@ namespace Engine.WindowsForms
         /// <returns>The <see cref="Color"/>.</returns>
         public static Color ToColor(this IColor color)
         {
-            (byte red, byte green, byte blue, byte alpha) = color.ToRGBATuple();
+            (var red, var green, var blue, var alpha) = color.ToRGBATuple();
             return Color.FromArgb(alpha, red, green, blue);
         }
 

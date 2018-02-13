@@ -107,7 +107,7 @@ namespace Engine
         /// </summary>
         private void FitRecursive(int first, int last, Vector2D tanL, Vector2D tanR)
         {
-            if (FitCurve(first, last, tanL, tanR, out CubicBezier curve, out int split))
+            if (FitCurve(first, last, tanL, tanR, out CubicBezier curve, out var split))
             {
                 result.Add(curve);
             }

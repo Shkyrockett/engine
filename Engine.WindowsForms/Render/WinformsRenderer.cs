@@ -152,7 +152,7 @@ namespace Engine.WindowsForms
         /// <param name="y3">The y3.</param>
         public void DrawQuadraticBezier(IStroke pen, double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) = Conversions.QuadraticBezierToCubicBezierTuple(x1, y1, x2, y2, x3, y3);
+            (var aX, var aY, var bX, var bY, var cX, var cY, var dX, var dY) = Conversions.QuadraticBezierToCubicBezierTuple(x1, y1, x2, y2, x3, y3);
             Graphics.DrawBezier(pen.ToPen(), (float)aX, (float)aY, (float)bX, (float)bY, (float)cX, (float)cY, (float)dX, (float)dY);
         }
 
@@ -316,7 +316,7 @@ namespace Engine.WindowsForms
         public void FillQuadraticBezier(IFill brush, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             var path = new GraphicsPath();
-            (double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) = Conversions.QuadraticBezierToCubicBezierTuple(x1, y1, x2, y2, x3, y3);
+            (var aX, var aY, var bX, var bY, var cX, var cY, var dX, var dY) = Conversions.QuadraticBezierToCubicBezierTuple(x1, y1, x2, y2, x3, y3);
             path.AddBezier((float)aX, (float)aY, (float)bX, (float)bY, (float)cX, (float)cY, (float)dX, (float)dY);
             Graphics.FillPath(brush.ToBrush(), path);
         }

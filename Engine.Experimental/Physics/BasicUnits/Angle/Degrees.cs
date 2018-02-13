@@ -14,28 +14,18 @@ using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
+using System.Runtime.Serialization;
 
 namespace Engine.Physics
 {
     /// <summary>
     ///
     /// </summary>
-    //[DataContract, Serializable]
-    //[DisplayName(nameof(Degrees))]
+    [DataContract, Serializable]
+    [DisplayName(nameof(Degrees))]
     public struct Degrees
         : IDirection, IFormattable
     {
-        #region Constants
-        ///// <summary>
-        /////
-        ///// </summary>
-        //public const double Radien = Maths.Radien;
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        //public const double Degree = Maths.Radien;        #endregion Constants
-
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Degrees"/> struct.

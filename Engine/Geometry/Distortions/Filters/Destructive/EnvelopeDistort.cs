@@ -8,6 +8,8 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.Runtime.CompilerServices;
+
 namespace Engine
 {
     /// <summary>
@@ -47,6 +49,7 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Process(Point2D point)
             => Process(point, Envelope, BoundingBox);
 
@@ -57,7 +60,8 @@ namespace Engine
         /// <param name="envelope">The envelope.</param>
         /// <param name="boundingBox"></param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public Point2D Process(Point2D point, Envelope envelope, Rectangle2D boundingBox)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Process(Point2D point, Envelope envelope, Rectangle2D boundingBox)
             => Distortions.Envelope(point, boundingBox,
                 envelope.ControlPointTopLeft.Point, envelope.ControlPointTopLeft.AnchorAGlobal, envelope.ControlPointTopLeft.AnchorBGlobal,
                 envelope.ControlPointTopRight.Point, envelope.ControlPointTopRight.AnchorAGlobal, envelope.ControlPointTopRight.AnchorBGlobal,

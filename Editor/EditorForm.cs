@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Editor
 {
@@ -55,10 +57,10 @@ namespace Editor
         /// </summary>
         private string vectorFilename = String.Empty;
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //XmlSerializer vectorMapSserializer = new XmlSerializer(typeof(VectorMap));
+        /// <summary>
+        /// 
+        /// </summary>
+        XmlSerializer vectorMapSerializer = new XmlSerializer(typeof(VectorMap));
 
         /// <summary>
         /// The boundary item.
@@ -68,7 +70,7 @@ namespace Editor
         /// <summary>
         /// The updatinglist.
         /// </summary>
-        private bool updatinglist = false;
+        private bool updatinglist;
 
         /// <summary>
         /// The text measurer.
@@ -129,14 +131,17 @@ namespace Editor
         /// <param name="e"></param>
         private void EditorForm_Load(object sender, EventArgs e)
         {
+            // Turn on redraw on resize.
             SetStyle(ControlStyles.ResizeRedraw, true);
 
-            paletteToolStripItem1.PaletteControl.Palette = new Palette(new RGBA[] {
+            // Build the color palette.
+            paletteToolStripItem1.PaletteControl.Palette = new Palette(new[] {
                 Colors.Black,
                 Colors.White,
                 Colors.Red,
                 Colors.Orange,
                 Colors.Yellow,
+                Colors.Lime,
                 Colors.Green,
                 Colors.Cyan,
                 Colors.Blue,
@@ -144,17 +149,19 @@ namespace Editor
                 Colors.Magenta
             });
 
+            // ToDo: Rework tweener into time line.
             vectorMap.Tweener = tweener;
+
+            // Set up the tool stack.
             toolStack = new ToolStack(vectorMap);
             toolStack?.RegisterMouseLeftButton(new SelectTop());
             toolStack?.RegisterMouseMiddleButton(new Pan());
             toolStack?.RegisterMouseScroll(new Zoom());
 
-            var foreColor = Color.Black;
-            var backColor = Color.White;
-
+            // Build the map.
             BuildMap();
 
+            // list the shapes in the vector map.
             listBox1.DataSource = vectorMap.Items;
             listBox1.ValueMember = "Name";
         }
@@ -166,7 +173,10 @@ namespace Editor
         /// <param name="e">The event arguments.</param>
         private void Button1_Click(object sender, EventArgs e)
         {
+            // Call the reset action if it exists.
             ResetAction?.Invoke();
+
+            // Enable and start the timer.
             timer1.Enabled = true;
             timer1.Interval = 1;
             timer1.Start();
@@ -249,24 +259,33 @@ namespace Editor
         /// <param name="e">The paint event arguments.</param>
         private void CanvasPanel_Paint(object sender, PaintEventArgs e)
         {
+            // Reference the panel.
             var panel = sender as CanvasPanel;
+
+            // Run the base painting first.
             base.OnPaint(e);
+
+            // Set to smooth anti aliasing
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
+            // We are using the Winforms renderer shim.
             var renderer = e.Graphics.ToWinformsRenderer();
 
             // Only need to draw the shapes that are on screen.
             foreach (GraphicItem item in vectorMap[vectorMap.VisibleBounds])
             {
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
+                    // Render selected items with selection style
                     Renderer.Render(item, e.Graphics, renderer, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
                 else
+                    // Render items according to their set style.
                     Renderer.Render(item, e.Graphics, renderer);
             }
 
             if (vectorMap?.RubberbandItems != null)
             {
                 foreach (GraphicItem item in vectorMap?.RubberbandItems)
+                    // Render temporary rubber band tools shapes.
                     Renderer.Render(item, e.Graphics, renderer, new ShapeStyle(Brushes.Red, Brushes.Red));
             }
         }
@@ -278,8 +297,12 @@ namespace Editor
         /// <param name="e">The mouse event arguments.</param>
         private void CanvasPanel_MouseDown(object sender, MouseEventArgs e)
         {
+            // Update the tool stack.
             toolStack.MouseDown((Engine.Tools.MouseButtons)e?.Button, e.Clicks);
+
             //propertyGrid1.Refresh();
+
+            // Repaint.
             CanvasPanel.Invalidate(true);
         }
 
@@ -293,16 +316,24 @@ namespace Editor
             if (!updatinglist)
             {
                 updatinglist = true;
+
+                // Update the tool stack.
                 toolStack.MouseUp((Engine.Tools.MouseButtons)e?.Button, e.Clicks);
-                listBox1.SuspendLayout();
-                listBox1.SelectedItem = vectorMap.SelectedItems.Count > 0 ? vectorMap?.SelectedItems[0] : null;
-                listBox1.SelectedItems.Clear();
-                foreach (var item in vectorMap.SelectedItems)
+
+                // This should all probably be handled by the tool stack
                 {
-                    listBox1.SelectedItems.Add(item);
+                    listBox1.SuspendLayout();
+                    listBox1.SelectedItem = vectorMap.SelectedItems.Count > 0 ? vectorMap?.SelectedItems[0] : null;
+                    listBox1.SelectedItems.Clear();
+                    foreach (var item in vectorMap.SelectedItems)
+                    {
+                        listBox1.SelectedItems.Add(item);
+                    }
+                    listBox1.ResumeLayout();
+                    propertyGrid1.Refresh();
                 }
-                listBox1.ResumeLayout();
-                propertyGrid1.Refresh();
+
+                // Repaint.
                 CanvasPanel.Invalidate(true);
                 updatinglist = false;
             }
@@ -315,8 +346,9 @@ namespace Editor
         /// <param name="e">The mouse event arguments.</param>
         private void CanvasPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            var point = new Point2D(e.X, e.Y);
-            toolStack.MouseMove(point);
+            // Update the tool stack.
+            toolStack.MouseMove(e.Location.ToPoint2D());
+
             //propertyGrid1.Refresh();
             //CanvasPanel.Invalidate(true);
         }
@@ -327,6 +359,7 @@ namespace Editor
         /// <param name="sender">The sender.</param>
         /// <param name="e">The mouse event arguments.</param>
         private void CanvasPanel_MouseWheel(object sender, MouseEventArgs e)
+            // Update the tool stack.
             => toolStack.MouseScroll(Engine.Tools.ScrollOrientation.VerticalScroll, e.Delta);
 
         /// <summary>
@@ -335,6 +368,7 @@ namespace Editor
         /// <param name="sender">The sender.</param>
         /// <param name="e">The mouse event arguments.</param>
         private void CanvasPanel_MouseWheelTilt(object sender, MouseEventArgs e)
+            // Update the tool stack.
             => toolStack.MouseScroll(Engine.Tools.ScrollOrientation.HorizontalScroll, e.Delta);
 
         /// <summary>
@@ -382,9 +416,12 @@ namespace Editor
         /// <param name="e">The event arguments.</param>
         private void CanvasPanel_Resize(object sender, EventArgs e)
         {
+            // Reference the canvas panel.
             var panel = sender as CanvasPanel;
+
             if (vectorMap != null)
             {
+                // Resize the vector map when the canvas is resized.
                 vectorMap.VisibleBounds = new Rectangle2D(
                     panel.ClientRectangle.X,
                     panel.ClientRectangle.Y,
@@ -406,7 +443,7 @@ namespace Editor
             {
                 case DialogResult.Yes:
                 case DialogResult.OK:
-                    //vectorMap = LoadFile(openFileDialog1.FileName) as VectorMap;
+                    vectorMap = LoadFile(openFileDialog1.FileName) as VectorMap;
                     break;
                 case DialogResult.None:
                 case DialogResult.Cancel:
@@ -426,13 +463,13 @@ namespace Editor
         /// <param name="e">The event arguments.</param>
         private void SaveToolStripMenuItem_Click(Object sender, EventArgs e)
         {
-            if ((vectorFilename != null) && (vectorFilename == String.Empty))
+            if (string.IsNullOrEmpty(vectorFilename))
             {
                 SaveAs(vectorFilename);
             }
             else
             {
-                //Serialize(saveFileDialog1.FileName, vectorMap);
+                Serialize(vectorFilename, vectorMap);
             }
         }
 
@@ -464,7 +501,7 @@ namespace Editor
             {
                 case DialogResult.Yes:
                 case DialogResult.OK:
-                    //Serialize(saveFileDialog1.FileName, vectorMap);
+                    Serialize(saveFileDialog1.FileName, vectorMap);
                     break;
                 case DialogResult.None:
                 case DialogResult.No:
@@ -477,39 +514,39 @@ namespace Editor
             }
         }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="filename"></param>
-        ///// <returns></returns>
-        //private object LoadFile(string filename)
-        //{
-        //    using (TextReader reader = new StreamReader(filename))
-        //    {
-        //        return vectorMapSserializer.Deserialize(reader);
-        //    }
-        //}
+        /// <summary>
+        /// Load the file.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <returns>The <see cref="object"/>.</returns>
+        private object LoadFile(string filename)
+        {
+            using (TextReader reader = new StreamReader(filename))
+            {
+                return vectorMapSerializer.Deserialize(reader);
+            }
+        }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="filename"></param>
-        ///// <param name="item"></param>
-        //private void Serialize(string filename, VectorMap item)
-        //{
-        //    using (TextWriter tw = new StreamWriter(filename))
-        //    {
-        //        Serialize(tw, item);
-        //    }
-        //}
+        /// <summary>
+        /// The serialize.
+        /// </summary>
+        /// <param name="filename">The filename.</param>
+        /// <param name="item">The item.</param>
+        private void Serialize(string filename, VectorMap item)
+        {
+            using (TextWriter tw = new StreamWriter(filename))
+            {
+                Serialize(tw, item);
+            }
+        }
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="writer"></param>
-        ///// <param name="item"></param>
-        //private void Serialize(TextWriter writer, VectorMap item)
-        //    => vectorMapSserializer.Serialize(writer, item);
+        /// <summary>
+        /// The serialize.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="item">The item.</param>
+        private void Serialize(TextWriter writer, VectorMap item)
+            => vectorMapSerializer.Serialize(writer, item);
 
         /// <summary>
         /// Tweening update callback.

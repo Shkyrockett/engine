@@ -27,7 +27,7 @@ namespace MethodSpeedTester
     /// <summary>
     /// Class to contain experimental methods to test.
     /// </summary>
-    public class Experiments
+    public static partial class Experiments
     {
         #region Absolute Angle
         /// <summary>
@@ -622,7 +622,7 @@ namespace MethodSpeedTester
                 => value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
         #endregion Barycentric
 
-        #region Bezier Coefficients
+        #region Bézier Coefficients
         /// <summary>
         /// Set of tests to run testing methods that calculate the Polynomial Bezier Coefficients.
         /// </summary>
@@ -866,7 +866,7 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
             => (Polynomial.OneMinusT * Septic(a, b, c, d, e, f, g, h) + Polynomial.T * Septic(b, c, d, e, f, g, h, i));
-        #endregion Bezier Coefficients
+        #endregion Bézier Coefficients
 
         #region Boundaries of Polygons
         /// <summary>
@@ -1518,7 +1518,7 @@ namespace MethodSpeedTester
         }
         #endregion Boundary of Rotated Elliptical Arc
 
-        #region Boundary of Cubic Bezier
+        #region Boundary of Cubic Bézier
         /// <summary>
         ///
         /// </summary>
@@ -1628,9 +1628,10 @@ namespace MethodSpeedTester
         //private static double evalBez(double p0, double p1, double p2, double p3, double t)
         //{
         //    return p0 * (1 - t) * (1 - t) * (1 - t) + 3 * p1 * t * (1 - t) * (1 - t) + 3 * p2 * t * t * (1 - t) + p3 * t * t * t;
-        //}        #endregion Boundary of Cubic Bezier
+        //}
+        #endregion Boundary of Cubic Bézier
 
-        #region Boundary of Quadratic Bezier
+        #region Boundary of Quadratic Bézier
         /// <summary>
         ///
         /// </summary>
@@ -1660,10 +1661,10 @@ namespace MethodSpeedTester
 
             return Rectangle2D.FromLTRB(left, top, right, bottom);
         }
-        #endregion Boundary of Quadratic Bezier
+        #endregion Boundary of Quadratic Bézier
 
         ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Quadratic Bezier curve.
+        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Quadratic Bézier curve.
         ///// </summary>
         ///// <param name="ax">The x-component of the starting point.</param>
         ///// <param name="ay">The y-component of the starting point.</param>
@@ -1671,7 +1672,7 @@ namespace MethodSpeedTester
         ///// <param name="by">The y-component of the handle point.</param>
         ///// <param name="cx">The x-component of the end point.</param>
         ///// <param name="cy">The y-component of the end point.</param>
-        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Quadratic Bezier curve.</returns>
+        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Quadratic Bézier curve.</returns>
         ///// <remarks></remarks>
         ///// <acknowledgment>
         ///// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
@@ -1689,7 +1690,7 @@ namespace MethodSpeedTester
         //}
 
         ///// <summary>
-        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Cubic Bezier curve.
+        ///// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a Cubic Bézier curve.
         ///// </summary>
         ///// <param name="ax">The x-component of the starting point.</param>
         ///// <param name="ay">The y-component of the starting point.</param>
@@ -1815,7 +1816,7 @@ namespace MethodSpeedTester
             double PointBX, double PointBY,
             double PointCX, double PointCY)
         {
-            (double X, double Y) = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
+            (var X, var Y) = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
             var Radius = Distance2D_0(X, Y, PointAX, PointAY);
             return Rectangle2D.FromLTRB((X - Radius), (Y - Radius), (X + Radius), (Y + Radius));
         }
@@ -2148,7 +2149,7 @@ namespace MethodSpeedTester
             double PointBX, double PointBY,
             double PointCX, double PointCY)
         {
-            (double X, double Y) = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
+            (var X, var Y) = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
             var radius = Distance2D_0(X, Y, PointAX, PointAY);
             return new Circle(new Point2D(X, Y), radius);
         }
@@ -2681,7 +2682,7 @@ namespace MethodSpeedTester
         }
         #endregion Cross Product of The Vector of Three 2D Points
 
-        #region Cubic Bezier Get T
+        #region Cubic Bézier Get T
         /// <summary>
         ///
         /// </summary>
@@ -2720,9 +2721,9 @@ namespace MethodSpeedTester
                 Lut[(int)(t * 100)] = new Point2D(Interpolators.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, t));
             return Lut;
         }
-        #endregion Cubic Bezier Get T
+        #endregion Cubic Bézier Get T
 
-        #region Cubic Bezier Length Approximations
+        #region Cubic Bézier Length Approximations
         /// <summary>
         ///
         /// </summary>
@@ -2833,7 +2834,7 @@ namespace MethodSpeedTester
             }
             return length;
         }
-        #endregion Cubic Bezier Length Approximations
+        #endregion Cubic Bézier Length Approximations
 
         #region Cubic Interpolation of 1D Points
         /// <summary>
@@ -3109,7 +3110,7 @@ namespace MethodSpeedTester
         }
         #endregion Cubic CatmulRom Spline Interpolation of 3D Points
 
-        #region Cubic Bezier Derivative
+        #region Cubic Bézier Derivative
         /// <summary>
         ///
         /// </summary>
@@ -3144,12 +3145,12 @@ namespace MethodSpeedTester
                 (float)(3 * mu12 * (p1.Y - p0.Y) + 6 * mu1 * t * (p2.Y - p1.Y) + 3 * mu2 * (p3.Y - p2.Y))
                 );
         }
-        #endregion Cubic Bezier Derivative
+        #endregion Cubic Bézier Derivative
 
-        #region Cubic Bezier Interpolation of 1D Points
-        #endregion Cubic Bezier Interpolation of 1D Points
+        #region Cubic Bézier Interpolation of 1D Points
+        #endregion Cubic Bézier Interpolation of 1D Points
 
-        #region Cubic Bezier Interpolation of 2D Points
+        #region Cubic Bézier Interpolation of 2D Points
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
@@ -3221,7 +3222,7 @@ namespace MethodSpeedTester
         /// <param name="t"></param>
         /// <returns></returns>
         /// <remarks>http://www.lemoda.net/maths/bezier-length/index.html</remarks>
-        // Formula from Wikipedia article on Bezier curves.
+        // Formula from Wikipedia article on Bézier curves.
         public static (double X, double Y) CubicBezierInterpolate2D_1(
         double aX, double aY,
         double bX, double bY,
@@ -3254,15 +3255,15 @@ namespace MethodSpeedTester
             double t)
         {
             // point between a and b
-            (double abX, double abY) = LinearInterpolate2D_0(x0, y0, x1, y1, t);
+            (var abX, var abY) = LinearInterpolate2D_0(x0, y0, x1, y1, t);
             // point between b and c
-            (double bcX, double bcY) = LinearInterpolate2D_0(x1, y1, x2, y2, t);
+            (var bcX, var bcY) = LinearInterpolate2D_0(x1, y1, x2, y2, t);
             // point between c and d
-            (double cdX, double cdY) = LinearInterpolate2D_0(x2, y2, x3, y3, t);
+            (var cdX, var cdY) = LinearInterpolate2D_0(x2, y2, x3, y3, t);
             // point between ab and bc
-            (double abbcX, double abbcY) = LinearInterpolate2D_0(abX, abY, bcX, bcY, t);
+            (var abbcX, var abbcY) = LinearInterpolate2D_0(abX, abY, bcX, bcY, t);
             // point between bc and cd
-            (double bccdX, double bccdY) = LinearInterpolate2D_0(bcX, bcY, cdX, cdY, t);
+            (var bccdX, var bccdY) = LinearInterpolate2D_0(bcX, bcY, cdX, cdY, t);
             // point on the bezier-curve
             return LinearInterpolate2D_0(abbcX, abbcY, bccdX, bccdY, t);
         }
@@ -3435,15 +3436,15 @@ namespace MethodSpeedTester
                         + 3 * (1 - t) * Pow(t, 2) * p2.X + Pow(t, 3) * p3.X),
                 (float)(Pow(1 - t, 3) * p0.Y + 3 * Pow(1 - t, 2) * t * p1.Y
                         + 3 * (1 - t) * Pow(t, 2) * p2.Y + Pow(t, 3) * p3.Y));
-        #endregion Cubic Bezier Interpolation of 2D Points
+        #endregion Cubic Bézier Interpolation of 2D Points
 
-        #region Cubic Bezier Interpolation of 3D Points
-        #endregion Cubic Bezier Interpolation of 3D Points
+        #region Cubic Bézier Interpolation of 3D Points
+        #endregion Cubic Bézier Interpolation of 3D Points
 
-        #region Cubic Bezier and Line Intersections
-        #endregion Cubic Bezier and Line Intersections
+        #region Cubic Bézier and Line Intersections
+        #endregion Cubic Bézier and Line Intersections
 
-        #region Cubic Bezier Self Intersection
+        #region Cubic Bézier Self Intersection
         /// <summary>
         ///
         /// </summary>
@@ -3538,7 +3539,7 @@ namespace MethodSpeedTester
 
             return null;
         }
-        #endregion Cubic Bezier Self Intersection
+        #endregion Cubic Bézier Self Intersection
 
         #region Cubic BSpline Interpolation
         /// <summary>
@@ -4850,6 +4851,97 @@ namespace MethodSpeedTester
         }
         #endregion Elliptic Star Points
 
+        #region Envelope Distort
+
+        /// <summary>
+        /// Warp the shape using Envelope distortion.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="topLeft">The topLeft.</param>
+        /// <param name="topLeftH">The topLeftH.</param>
+        /// <param name="topLeftV">The topLeftV.</param>
+        /// <param name="topRight">The topRight.</param>
+        /// <param name="topRightH">The topRightH.</param>
+        /// <param name="topRightV">The topRightV.</param>
+        /// <param name="bottomRight">The bottomRight.</param>
+        /// <param name="bottomRightH">The bottomRightH.</param>
+        /// <param name="bottomRightV">The bottomRightV.</param>
+        /// <param name="bottomLeft">The bottomLeft.</param>
+        /// <param name="bottomLeftH">The bottomLeftH.</param>
+        /// <param name="bottomLeftV">The bottomLeftV.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Envelope1(
+            Point2D point,
+            Rectangle2D bounds,
+            Point2D topLeft, Point2D topLeftH, Point2D topLeftV,
+            Point2D topRight, Point2D topRightH, Point2D topRightV,
+            Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
+            Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
+        {
+            var norm = Distortions.NormalizePoint(bounds, point);
+            var left = Interpolators.CubicBezier(topLeft.X, topLeftV.X, bottomLeftV.X, bottomLeft.X, norm.Y);
+            var right = Interpolators.CubicBezier(topRight.X, topRightV.X, bottomRightV.X, bottomRight.X, norm.Y);
+            var top = Interpolators.CubicBezier(topLeft.Y, topLeftH.Y, topRightH.Y, topRight.Y, norm.X);
+            var bottom = Interpolators.CubicBezier(bottomLeft.Y, bottomLeftH.Y, bottomRightH.Y, bottomRight.Y, norm.X);
+            var x = Interpolators.Linear(left, right, norm.X);
+            var y = Interpolators.Linear(top, bottom, norm.Y);
+            return new Point2D(x, y);
+        }
+
+        /// <summary>
+        /// Warp the shape using Envelope distortion.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="topLeft">The topLeft.</param>
+        /// <param name="topLeftH">The topLeftH.</param>
+        /// <param name="topLeftV">The topLeftV.</param>
+        /// <param name="topRight">The topRight.</param>
+        /// <param name="topRightH">The topRightH.</param>
+        /// <param name="topRightV">The topRightV.</param>
+        /// <param name="bottomRight">The bottomRight.</param>
+        /// <param name="bottomRightH">The bottomRightH.</param>
+        /// <param name="bottomRightV">The bottomRightV.</param>
+        /// <param name="bottomLeft">The bottomLeft.</param>
+        /// <param name="bottomLeftH">The bottomLeftH.</param>
+        /// <param name="bottomLeftV">The bottomLeftV.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Envelope2(
+            Point2D point,
+            Rectangle2D bounds,
+            Point2D topLeft, Point2D topLeftH, Point2D topLeftV,
+            Point2D topRight, Point2D topRightH, Point2D topRightV,
+            Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
+            Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
+        {
+            // Normalize the point to the bounding box.
+            var (normX, normY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+
+            // Set up Interpolation variables.
+            var (minusNormX, minusNormY) = (1d - normX, 1d - normY);
+            var (minusNormXSquared, minusNormYSquared) = (minusNormX * minusNormX, minusNormY * minusNormY);
+            var (minusNormXCubed, minusNormYCubed) = (minusNormXSquared * minusNormX, minusNormYSquared * minusNormY);
+            var (normXSquared, normYSquared) = (normX * normX, normY * normY);
+            var (normXCubed, normYCubed) = (normXSquared * normX, normYSquared * normY);
+
+            // Interpolate the normalized point along the Cubic Bézier curves
+            var left = (minusNormYCubed * topLeft.X + 3d * normY * minusNormYSquared * topLeftV.X + 3d * normYSquared * minusNormY * bottomLeftV.X + normYCubed * bottomLeft.X);
+            var right = (minusNormYCubed * topRight.X + 3d * normY * minusNormYSquared * topRightV.X + 3d * normYSquared * minusNormY * bottomRightV.X + normYCubed * bottomRight.X);
+            var top = (minusNormXCubed * topLeft.Y + 3d * normX * minusNormXSquared * topLeftH.Y + 3d * normXSquared * minusNormX * topRightH.Y + normXCubed * topRight.Y);
+            var bottom = (minusNormXCubed * bottomLeft.Y + 3d * normX * minusNormXSquared * bottomLeftH.Y + 3d * normXSquared * minusNormX * bottomRightH.Y + normXCubed * bottomRight.Y);
+
+            // Linearly interpolate the point between the Bézier curves.
+            return new Point2D(
+                minusNormX * left + normX * right,
+                minusNormY * top + normY * bottom
+                );
+        }
+
+        #endregion Envelope Distort
+
         #region Evaluate a Polynomial
         /// <summary>
         /// Set of tests to run testing methods that evaluates a polynomial.
@@ -5198,7 +5290,12 @@ namespace MethodSpeedTester
 
         #region Gear Points
         // Draw the gear.
-        private void PicGears_Paint(PaintEventArgs e, Rectangle bounds)
+        /// <summary>
+        /// The pic gears paint.
+        /// </summary>
+        /// <param name="e">The paint event arguments.</param>
+        /// <param name="bounds">The bounds.</param>
+        private static void PicGears_Paint(PaintEventArgs e, Rectangle bounds)
         {
             // Draw smoothly.
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -5220,6 +5317,19 @@ namespace MethodSpeedTester
         }
 
         // Draw a gear.
+        /// <summary>
+        /// The draw gear.
+        /// </summary>
+        /// <param name="gr">The gr.</param>
+        /// <param name="axle_brush">The axle_brush.</param>
+        /// <param name="gear_brush">The gear_brush.</param>
+        /// <param name="gear_pen">The gear_pen.</param>
+        /// <param name="center">The center.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="tooth_length">The tooth_length.</param>
+        /// <param name="num_teeth">The num_teeth.</param>
+        /// <param name="axle_radius">The axle_radius.</param>
+        /// <param name="start_with_tooth">The start_with_tooth.</param>
         private static void DrawGear(Graphics gr, Brush axle_brush, Brush gear_brush, Pen gear_pen, Point2D center, double radius, double tooth_length, int num_teeth, double axle_radius, bool start_with_tooth)
         {
             var dtheta = PI / num_teeth;
@@ -5271,6 +5381,11 @@ namespace MethodSpeedTester
 
         #region Heart Interpolation
         // The curve's parametric equations.
+        /// <summary>
+        /// The heart.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         private static Point2D Heart(double t)
         {
             var sin_t = Sin(t);
@@ -5282,7 +5397,13 @@ namespace MethodSpeedTester
         }
 
         // Draw the curve on a bitmap.
-        private Bitmap DrawHeart(int width, int height)
+        /// <summary>
+        /// The draw heart.
+        /// </summary>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <returns>The <see cref="Bitmap"/>.</returns>
+        private static Bitmap DrawHeart(int width, int height)
         {
             var bm = new Bitmap(width, height);
             using (var gr = Graphics.FromImage(bm))
@@ -5353,7 +5474,15 @@ namespace MethodSpeedTester
 
         // Map from world coordinates to device coordinates
         // without distortion.
-        private void SetTransformationWithoutDisortion(Graphics gr,
+        /// <summary>
+        /// Set the transformation without distortion.
+        /// </summary>
+        /// <param name="gr">The gr.</param>
+        /// <param name="world_rect">The world_rect.</param>
+        /// <param name="device_rect">The device_rect.</param>
+        /// <param name="invert_x">The invert_x.</param>
+        /// <param name="invert_y">The invert_y.</param>
+        private static void SetTransformationWithoutDisortion(Graphics gr,
             Rectangle2D world_rect, Rectangle2D device_rect,
             bool invert_x, bool invert_y)
         {
@@ -5392,6 +5521,14 @@ namespace MethodSpeedTester
         }
 
         // Map from world coordinates to device coordinates.
+        /// <summary>
+        /// Set the transformation.
+        /// </summary>
+        /// <param name="gr">The gr.</param>
+        /// <param name="world_rect">The world_rect.</param>
+        /// <param name="device_rect">The device_rect.</param>
+        /// <param name="invert_x">The invert_x.</param>
+        /// <param name="invert_y">The invert_y.</param>
         private static void SetTransformation(Graphics gr,
             Rectangle2D world_rect, Rectangle2D device_rect,
             bool invert_x, bool invert_y)
@@ -5740,14 +5877,14 @@ namespace MethodSpeedTester
         }
         #endregion Hermite Interpolation of 3D Points
 
-        #region Hermite To Cubic Bezier
+        #region Hermite To Cubic Bézier
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
         /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
         public static CubicBezier ToCubicBezier(Point2D a, Point2D aTan, Point2D b, Point2D bTan) => new CubicBezier(aTan, new Point2D(aTan.X - (b.X - a.X) / 6, aTan.Y - (b.Y - a.Y) / 6), new Point2D(b.X + (bTan.X - aTan.X) / 6, b.Y + (bTan.Y - aTan.Y) / 6), bTan);
-        #endregion Hermite To Cubic Bezier
+        #endregion Hermite To Cubic Bézier
 
         #region Horizontal Line Segments Overlap
         /// <summary>
@@ -5870,7 +6007,7 @@ namespace MethodSpeedTester
                 else
                 {
                     var e1 = (X: (B.X - A.X) / d, Y: (B.Y - A.Y) / d);
-                    var e2 = (X: -e1.X, Y: e1.Y);
+                    var e2 = (X: -e1.X, e1.Y);
                     var P1 = (X: A.X + x * e1.X + y * e2.Y, Y: A.Y + x * e1.Y + y * e2.X);
                     var P2 = (X: A.X + x * e1.X - y * e2.Y, Y: A.Y + x * e1.Y - y * e2.X);
                     return (2, P1, P2);
@@ -6151,10 +6288,12 @@ namespace MethodSpeedTester
         #endregion Intersection of Circle and Line
 
         #region Intersection of Conic Section With Line Segment
-        // http://csharphelper.com/blog/2014/11/see-where-a-line-intersects-a-conic-section-in-c/        #endregion Intersection of Conic Section With Line Segment
+        // http://csharphelper.com/blog/2014/11/see-where-a-line-intersects-a-conic-section-in-c/
+        #endregion Intersection of Conic Section With Line Segment
 
         #region Intersection of Conic Section with Conic Section
-        // http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/        #endregion Intersection of Conic Section with Conic Section
+        // http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/
+        #endregion Intersection of Conic Section with Conic Section
 
         #region Intersection of Ellipse and Ellipse
 
@@ -6188,61 +6327,6 @@ namespace MethodSpeedTester
             if (Abs(ellipseA.Center.Y - ellipseB.Center.Y) < DoubleEpsilon)
                 YC = 2 * ellipseA.Center.Y - YA;
             return new LineSegment(XA, YA, XB, YC);
-        }
-
-        /// <summary>
-        ///
-        /// </summary>
-        public class EllipseIntersectStuff
-        {
-            internal bool GotEllipse1 = false;
-            internal bool GotEllipse2 = false;
-
-            /// <summary>
-            /// The ellipse1.
-            /// </summary>
-            private Rectangle2D Ellipse1 = new Rectangle2D();
-
-            /// <summary>
-            /// The ellipse2.
-            /// </summary>
-            private Rectangle2D Ellipse2 = new Rectangle2D();
-
-            // Equations that define the ellipses.
-            internal double Dx1 = 0;
-            internal double Dy1 = 0;
-            internal double Dx2 = 0;
-            internal double Dy2 = 0;
-
-            internal double Rx1 = 0;
-            internal double Ry1 = 0;
-            internal double Rx2 = 0;
-            internal double Ry2 = 0;
-
-            internal double A1 = 0;
-            internal double B1 = 0;
-            internal double C1 = 0;
-            internal double D1 = 0;
-            internal double E1 = 0;
-            internal double F1 = 0;
-            internal double A2 = 0;
-            internal double B2 = 0;
-            internal double C2 = 0;
-            internal double D2 = 0;
-            internal double E2 = 0;
-            internal double F2 = 0;
-
-            // The points of intersection.
-            internal List<Point2D> Roots = new List<Point2D>();
-            internal List<double> RootSign1 = new List<double>();
-            internal List<double> RootSign2 = new List<double>();
-            internal List<Point2D> PointsOfIntersection = new List<Point2D>();
-
-            // Difference function tangent lines.
-            internal double TangentX = 0;
-            internal List<Point2D> TangentCenters;
-            internal List<Point2D> TangentP1;
-            internal List<Point2D> TangentP2;
         }
 
         /// <summary>
@@ -6381,7 +6465,7 @@ namespace MethodSpeedTester
             for (var i = 0; i < num_tests; i++)
             {
                 // Try to find a root at this position.
-                UseNewtonsMethod(x0, out double x, out double y,
+                UseNewtonsMethod(x0, out var x, out var y,
                     A1, B1, C1, D1, E1, F1, sign1,
                     A2, B2, C2, D2, E2, F2, sign2);
 
@@ -6449,7 +6533,7 @@ namespace MethodSpeedTester
             for (var i = 0; i < num_tests; i++)
             {
                 // Try to find a root in this range.
-                UseBinaryDivision(x0, delta_x, out double x, out double y,
+                UseBinaryDivision(x0, delta_x, out var x, out var y,
                     A1, B1, C1, D1, E1, F1, sign1,
                     A2, B2, C2, D2, E2, F2, sign2);
 
@@ -7593,7 +7677,8 @@ namespace MethodSpeedTester
         #endregion Intersection of Elliptical Arc and Line Segment
 
         #region Intersection of Parabola and Hyperbola
-        //http://csharphelper.com/blog/2014/11/see-where-a-parabola-and-hyperbola-intersect-in-c/        #endregion Intersection of Parabola and Hyperbola
+        //http://csharphelper.com/blog/2014/11/see-where-a-parabola-and-hyperbola-intersect-in-c/
+        #endregion Intersection of Parabola and Hyperbola
 
         #region Intersection of two Line Segments
 
@@ -8271,7 +8356,7 @@ namespace MethodSpeedTester
         }
         #endregion Intersection of a Line and a Line Segment
 
-        #region Intersection of a Line and a Quadratic Bezier
+        #region Intersection of a Line and a Quadratic Bézier
         /// <summary>
         ///
         /// </summary>
@@ -8340,9 +8425,9 @@ namespace MethodSpeedTester
                 result.State |= IntersectionState.Intersection;
             return result;
         }
-        #endregion Intersection of a Line and a Quadratic Bezier
+        #endregion Intersection of a Line and a Quadratic Bézier
 
-        #region Intersection of a Line and a Cubic Bezier
+        #region Intersection of a Line and a Cubic Bézier
         /// <summary>
         ///
         /// </summary>
@@ -8432,9 +8517,9 @@ namespace MethodSpeedTester
 
             return result;
         }
-        #endregion Intersection of a Line and a Cubic Bezier
+        #endregion Intersection of a Line and a Cubic Bézier
 
-        #region Intersection of a Line Segment and a Quadratic Bezier
+        #region Intersection of a Line Segment and a Quadratic Bézier
         /// <summary>
         ///
         /// </summary>
@@ -8602,9 +8687,9 @@ namespace MethodSpeedTester
             }
             return result;
         }
-        #endregion Intersection of a Line Segment and a Quadratic Bezier
+        #endregion Intersection of a Line Segment and a Quadratic Bézier
 
-        #region Intersection of a Line Segment and a Cubic Bezier
+        #region Intersection of a Line Segment and a Cubic Bézier
         /// <summary>
         ///
         /// </summary>
@@ -8775,9 +8860,9 @@ namespace MethodSpeedTester
             }
             return result;
         }
-        #endregion Intersection of a Line Segment and a Cubic Bezier
+        #endregion Intersection of a Line Segment and a Cubic Bézier
 
-        #region Intersection of a Quadratic Bezier and a Quadratic Bezier
+        #region Intersection of a Quadratic Bézier and a Quadratic Bézier
         /// <summary>
         /// Set of tests to run testing methods that calculate the Intersection of two Quadratic Bezier curves.
         /// </summary>
@@ -9335,9 +9420,9 @@ namespace MethodSpeedTester
                 result.State = IntersectionState.Intersection;
             return result;
         }
-        #endregion Intersection of a Quadratic Bezier and a Quadratic Bezier
+        #endregion Intersection of a Quadratic Bézier and a Quadratic Bézier
 
-        #region Intersection of a Quadratic Bezier and a Cubic Bezier
+        #region Intersection of a Quadratic Bézier and a Cubic Bézier
         /// <summary>
         /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bezier curves.
         /// </summary>
@@ -9571,9 +9656,9 @@ namespace MethodSpeedTester
                 result.State = IntersectionState.Intersection;
             return result;
         }
-        #endregion Intersection of a Quadratic Bezier and a Cubic Bezier
+        #endregion Intersection of a Quadratic Bézier and a Cubic Bézier
 
-        #region Intersection of a Cubic Bezier and a Cubic Bezier
+        #region Intersection of a Cubic Bézier and a Cubic Bézier
         /// <summary>
         /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bezier curves.
         /// </summary>
@@ -9864,7 +9949,7 @@ namespace MethodSpeedTester
                 result.State = IntersectionState.Intersection;
             return result;
         }
-        #endregion Intersection of a Cubic Bezier and a Cubic Bezier
+        #endregion Intersection of a Cubic Bézier and a Cubic Bézier
 
         #region Is Convex
         /// <summary>
@@ -10425,7 +10510,7 @@ namespace MethodSpeedTester
         }
         #endregion Line Overlap
 
-        #region List Interpolation Points of Cubic Bezier
+        #region List Interpolation Points of Cubic Bézier
         /// <summary>
         ///
         /// </summary>
@@ -10538,9 +10623,9 @@ namespace MethodSpeedTester
 
             return new List<Point2D>(BPoints);
         }
-        #endregion List Interpolation Points of Cubic Bezier
+        #endregion List Interpolation Points of Cubic Bézier
 
-        #region List Interpolation Points of Quadratic Bezier
+        #region List Interpolation Points of Quadratic Bézier
         /// <summary>
         ///
         /// </summary>
@@ -10558,7 +10643,7 @@ namespace MethodSpeedTester
 
             return new List<Point2D>(ipoints);
         }
-        #endregion List Interpolation Points of Quadratic Bezier
+        #endregion List Interpolation Points of Quadratic Bézier
 
         #region Log2
         /// <summary>
@@ -10802,7 +10887,15 @@ namespace MethodSpeedTester
 
         #region N Polygon Star
         // Draw the stars.
-        private void PicCanvas_Paint(PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
+        /// <summary>
+        /// The pic canvas paint.
+        /// </summary>
+        /// <param name="e">The paint event arguments.</param>
+        /// <param name="NumPoints">The NumPoints.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="chkHalfOnly">The chkHalfOnly.</param>
+        /// <param name="chkRelPrimeOnly">The chkRelPrimeOnly.</param>
+        private static void PicCanvas_Paint(PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
         {
             if (NumPoints < 3)
                 return;
@@ -10856,6 +10949,12 @@ namespace MethodSpeedTester
         }
 
         // Return the greatest common divisor (GCD) of a and b.
+        /// <summary>
+        /// The GCD.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="long"/>.</returns>
         private static long GCD(long a, long b)
         {
             long remainder;
@@ -10874,6 +10973,15 @@ namespace MethodSpeedTester
         }
 
         // Draw a star centered at (x, y) using this skip value.
+        /// <summary>
+        /// The draw star.
+        /// </summary>
+        /// <param name="gr">The gr.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="orig_pts">The orig_pts.</param>
+        /// <param name="skip">The skip.</param>
+        /// <param name="NumPoints">The NumPoints.</param>
         private static void DrawStar(Graphics gr, int x, int y, PointF[] orig_pts, int skip, int NumPoints)
         {
             // Make a PointF array with the points in the proper order.
@@ -10890,6 +10998,12 @@ namespace MethodSpeedTester
 
         #region N Polygon Intersecting Star
         // Return PointFs to define a non-intersecting star.
+        /// <summary>
+        /// The non intersecting star points.
+        /// </summary>
+        /// <param name="num_points">The num_points.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <returns>The <see cref="T:PointF[]"/>.</returns>
         private static PointF[] NonIntersectingStarPoints(int num_points, Rectangle bounds)
         {
             // Make room for the points.
@@ -13789,7 +13903,7 @@ namespace MethodSpeedTester
             => (value > 0) && ((value & (value - 1)) == 0);
         #endregion Power of Two
 
-        #region Quadratic Bezier Interpolation of 1D Points
+        #region Quadratic Bézier Interpolation of 1D Points
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
         /// </summary>
@@ -13803,7 +13917,7 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
+        /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="x1"></param>
@@ -13824,7 +13938,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// Evaluate a point on a bezier-curve. t goes from 0 to 1.0
+        /// Evaluate a point on a Bézier-curve. t goes from 0 to 1.0
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="x1"></param>
@@ -13845,9 +13959,9 @@ namespace MethodSpeedTester
             // point on the bezier-curve
             return LinearInterpolate1D_0(ab, bc, t);
         }
-        #endregion Quadratic Bezier Interpolation of 1D Points
+        #endregion Quadratic Bézier Interpolation of 1D Points
 
-        #region Quadratic Bezier Interpolation of 2D Points
+        #region Quadratic Bézier Interpolation of 2D Points
         /// <summary>
         /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
         /// </summary>
@@ -13861,7 +13975,7 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
+        /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -13888,7 +14002,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// Evaluate a point on a bezier-curve. t goes from 0 to 1.0
+        /// Evaluate a point on a Bézier-curve. t goes from 0 to 1.0
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -13912,9 +14026,9 @@ namespace MethodSpeedTester
             // point on the bezier-curve
             return LinearInterpolate2D_0(ab.X, ab.Y, bc.X, bc.Y, t);
         }
-        #endregion Quadratic Bezier Interpolation of 2D Points
+        #endregion Quadratic Bézier Interpolation of 2D Points
 
-        #region Quadratic Bezier Interpolation of 3D Points
+        #region Quadratic Bézier Interpolation of 3D Points
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D cubic interpolation of a point.
         /// </summary>
@@ -13958,7 +14072,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// Evaluate a point on a bezier-curve. t goes from 0 to 1.0
+        /// Evaluate a point on a Bézier-curve. t goes from 0 to 1.0
         /// </summary>
         /// <param name="x0"></param>
         /// <param name="y0"></param>
@@ -13985,9 +14099,9 @@ namespace MethodSpeedTester
             // point on the bezier-curve
             return LinearInterpolate3D_0(ab.X, ab.Y, ab.Z, bc.X, bc.Y, bc.Z, t);
         }
-        #endregion Quadratic Bezier Interpolation of 3D Points
+        #endregion Quadratic Bézier Interpolation of 3D Points
 
-        #region Quadratic Bezier Length Approximations
+        #region Quadratic Bézier Length Approximations
         /// <summary>
         /// Closed-form solution to elliptic integral for arc length.
         /// </summary>
@@ -14104,7 +14218,7 @@ namespace MethodSpeedTester
 
             return Abs(mult) < DoubleEpsilon ? sum : mult * sum;
         }
-        #endregion Quadratic Bezier Length Approximations
+        #endregion Quadratic Bézier Length Approximations
 
         #region Rectangle Center
         /// <summary>
@@ -14131,6 +14245,11 @@ namespace MethodSpeedTester
         #endregion Rectangle Center
 
         #region Rectangle To Square
+        /// <summary>
+        /// The to square.
+        /// </summary>
+        /// <param name="rect">The rect.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         private static Rectangle2D ToSquare(Rectangle2D rect)
         {
             var smallest = rect.Height <= rect.Width ? rect.Height : rect.Width;
@@ -14659,7 +14778,8 @@ namespace MethodSpeedTester
         //        results = results.Concat(guesses).ToList();
         //    }
         //    return results;
-        //}        #endregion Roots of a Quartic Polynomial
+        //}
+        #endregion Roots of a Quartic Polynomial
 
         #region Rotated Rectangle Bounds
         /// <summary>
@@ -14823,12 +14943,18 @@ namespace MethodSpeedTester
             => (int)value;
         #endregion Round
 
-        #region Self Intersecting Bezier
-        // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py        #endregion Self Intersecting Bezier
+        #region Self Intersecting Bézier
+        // https://github.com/Parclytaxel/Kinross/blob/master/kinback/segment.py
+        #endregion Self Intersecting Bézier
 
         #region Sign
 
         // sign of number
+        /// <summary>
+        /// The sign0.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         private static double Sign0(double x)
             => (x < 0d) ? -1 : 1;
         #endregion Sign
@@ -15114,7 +15240,7 @@ namespace MethodSpeedTester
             => (Abs(x1 - x2) < DoubleEpsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
         #endregion Slope of a 2D Line
 
-        #region Slopes Near Coliniar
+        #region Slopes Near Collinear
         /// <summary>
         ///
         /// </summary>
@@ -15147,7 +15273,7 @@ namespace MethodSpeedTester
                     return SquareDistanceToLine(c.X, c.Y, a.X, a.Y, b.X, b.Y) < distSqrd;
             }
         }
-        #endregion Slopes Near Coliniar
+        #endregion Slopes Near Collinear
 
         #region Slopes of Lines Equal
         /// <summary>
@@ -15889,7 +16015,8 @@ namespace MethodSpeedTester
         //    }
 
         //    return new Polynomial() { coefficients = res, isReadonly = this.isReadonly };
-        //}        #endregion Trim Leading Zeros from Polynomials
+        //}
+        #endregion Trim Leading Zeros from Polynomials
 
         #region Values are Close
         /// <summary>

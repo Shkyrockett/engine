@@ -1869,8 +1869,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D BezierBounds(Polynomial CurveX, Polynomial CurveY)
         {
-            (double left, double right) = CurveX.MinMax(0, 1);
-            (double top, double bottom) = CurveY.MinMax(0, 1);
+            (var left, var right) = CurveX.MinMax(0, 1);
+            (var top, var bottom) = CurveY.MinMax(0, 1);
             return new Rectangle2D(left, top, right - left, bottom - top);
         }
 

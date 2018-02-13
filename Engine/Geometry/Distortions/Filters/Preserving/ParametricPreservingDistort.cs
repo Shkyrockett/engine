@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Engine
 {
@@ -42,10 +43,21 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Process(Point2D point)
+            => Process(point, Functions);
+
+        /// <summary>
+        /// Process.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="functions"></param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Process(Point2D point, Func<Point2D, Point2D>[] functions)
         {
             var result = point;
-            foreach (var function in Functions)
+            foreach (var function in functions)
             {
                 result = function.Invoke(result);
             }

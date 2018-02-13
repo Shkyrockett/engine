@@ -25,6 +25,15 @@ namespace Engine
         : PolygonContour
     {
         // Draw the indicated star in the rectangle.
+        /// <summary>
+        /// The draw star.
+        /// </summary>
+        /// <param name="gr">The gr.</param>
+        /// <param name="the_pen">The the_pen.</param>
+        /// <param name="the_brush">The the_brush.</param>
+        /// <param name="num_points">The num_points.</param>
+        /// <param name="skip">The skip.</param>
+        /// <param name="rect">The rect.</param>
         private void DrawStar(Graphics gr, Pen the_pen, Brush the_brush, int num_points, int skip, Rectangle rect)
         {
             // Get the star's points.
@@ -36,6 +45,14 @@ namespace Engine
         }
 
         // Generate the points for a star.
+        /// <summary>
+        /// The make star points.
+        /// </summary>
+        /// <param name="start_theta">The start_theta.</param>
+        /// <param name="num_points">The num_points.</param>
+        /// <param name="skip">The skip.</param>
+        /// <param name="rect">The rect.</param>
+        /// <returns>The <see cref="T:PointF[]"/>.</returns>
         private PointF[] MakeStarPoints(double start_theta, int num_points, int skip, Rectangle rect)
         {
             double theta, dtheta;
@@ -81,6 +98,12 @@ namespace Engine
         }
 
         // Calculate the inner star radius.
+        /// <summary>
+        /// Calculate the concave radius.
+        /// </summary>
+        /// <param name="num_points">The num_points.</param>
+        /// <param name="skip">The skip.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         private double CalculateConcaveRadius(int num_points, int skip)
         {
             // For really small numbers of points.
@@ -108,7 +131,7 @@ namespace Engine
                 (float)Sin(theta11));
             // See where the segments connecting the points intersect.
             FindIntersection(pt00, pt01, pt10, pt11,
-                out bool lines_intersect, out bool segments_intersect,
+                out var lines_intersect, out var segments_intersect,
                 out var intersection, out var close_p1, out var close_p2);
 
             // Calculate the distance between the
@@ -120,6 +143,18 @@ namespace Engine
 
         // Find the point of intersection between
         // the lines p1 --> p2 and p3 --> p4.
+        /// <summary>
+        /// Find the intersection.
+        /// </summary>
+        /// <param name="p1">The p1.</param>
+        /// <param name="p2">The p2.</param>
+        /// <param name="p3">The p3.</param>
+        /// <param name="p4">The p4.</param>
+        /// <param name="lines_intersect">The lines_intersect.</param>
+        /// <param name="segments_intersect">The segments_intersect.</param>
+        /// <param name="intersection">The intersection.</param>
+        /// <param name="close_p1">The close_p1.</param>
+        /// <param name="close_p2">The close_p2.</param>
         private static void FindIntersection(PointF p1, PointF p2, PointF p3, PointF p4,
             out bool lines_intersect, out bool segments_intersect,
             out PointF intersection, out PointF close_p1, out PointF close_p2)

@@ -1882,7 +1882,7 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ProcessHorizontal(Edge horz)
         /*******************************************************************************
-        * Notes: Horizontal edges (HEs) at scan-line intersections (ie at the top or   *
+        * Notes: Horizontal edges (HEs) at scan-line intersections (I.E. at the top or   *
         * bottom of a scan-beam) are processed as if layered.The order in which HEs    *
         * are processed doesn't matter. HEs intersect with the bottom vertices of      *
         * other HEs[#] and with non-horizontal edges [*]. Once these intersections     *
@@ -1897,7 +1897,7 @@ namespace Engine.Experimental
         *******************************************************************************/
         {
             Point2D pt;
-            //with closed paths, simplify consecutive horizontals into a 'single' edge ...
+            // with closed paths, simplify consecutive horizontals into a 'single' edge ...
             if (!horz.IsOpen())
             {
                 pt = horz.Bot;
@@ -1922,7 +1922,7 @@ namespace Engine.Experimental
                 AddOutPoint(horz, horz.Curr);
             }
 
-            while (true) // loops through consec. horizontal edges (if open)
+            while (true) // loops through consecutive. horizontal edges (if open)
             {
                 Edge e;
                 var isMax = horz.IsMaxima();
@@ -1930,13 +1930,13 @@ namespace Engine.Experimental
 
                 while (e != null)
                 {
-                    //break if we've gone past the } of the horizontal ...
+                    // break if we've gone past the } of the horizontal ...
                     if ((isLeftToRight && (e.Curr.X > horzRight)) ||
                       (!isLeftToRight && (e.Curr.X < horzLeft)))
                     {
                         break;
                     }
-                    //or if we've got to the } of an intermediate horizontal edge ...
+                    // or if we've got to the } of an intermediate horizontal edge ...
                     if (e.Curr.X == horz.Top.X && !isMax && !e.IsHorizontal())
                     {
                         pt = horz.NextVertex().Point;
@@ -1974,13 +1974,13 @@ namespace Engine.Experimental
                     e = eNext;
                 }
 
-                //check if we've finished with (consecutive) horizontals ...
+                // check if we've finished with (consecutive) horizontals ...
                 if (isMax || horz.NextVertex().Point.Y != horz.Top.Y)
                 {
                     break;
                 }
 
-                //still more horizontals in bound to process ...
+                // still more horizontals in bound to process ...
                 UpdateEdgeIntoAEL(ref horz);
                 (isLeftToRight, horzLeft, horzRight) = horz.ResetHorzDirection(maxPair);
 
@@ -2005,13 +2005,13 @@ namespace Engine.Experimental
 
             if (!horz.IsOpen())
             {
-                UpdateEdgeIntoAEL(ref horz); //this is the } of an intermediate horiz.
+                UpdateEdgeIntoAEL(ref horz); // this is the } of an intermediate horiz.
             }
             else if (!horz.IsMaxima())
             {
                 UpdateEdgeIntoAEL(ref horz);
             }
-            else if (maxPair == null)      //ie open at top
+            else if (maxPair == null)      // ie open at top
             {
                 DeleteFromAEL(horz);
             }
@@ -2033,18 +2033,18 @@ namespace Engine.Experimental
             var e = ActiveEdgeLink;
             while (e != null)
             {
-                //nb: E will never be horizontal at this point
+                // nb: E will never be horizontal at this point
                 if (e.Top.Y == Y)
                 {
-                    e.Curr = e.Top; //needed for horizontal processing
+                    e.Curr = e.Top; // needed for horizontal processing
                     if (e.IsMaxima())
                     {
-                        e = DoMaxima(e); //TOP OF BOUND (MAXIMA)
+                        e = DoMaxima(e); // TOP OF BOUND (MAXIMA)
                         continue;
                     }
                     else
                     {
-                        //INTERMEDIATE VERTEX ...
+                        // INTERMEDIATE VERTEX ...
                         UpdateEdgeIntoAEL(ref e);
                         if (e.IsHotEdge())
                         {
@@ -2053,7 +2053,7 @@ namespace Engine.Experimental
 
                         if (e.IsHorizontal())
                         {
-                            PushHorz(e); //horizontals are processed later
+                            PushHorz(e); // horizontals are processed later
                         }
                     }
                 }
@@ -2100,12 +2100,12 @@ namespace Engine.Experimental
                 eMaxPair = e.GetMaximaPair();
                 if (eMaxPair == null)
                 {
-                    return eNext; //eMaxPair is horizontal
+                    return eNext; // eMaxPair is horizontal
                 }
             }
 
-            //only non-horizontal maxima here.
-            //process any edges between maxima pair ...
+            // only non-horizontal maxima here.
+            // process any edges between maxima pair ...
             while (eNext != eMaxPair)
             {
                 IntersectEdges(e, eNext, e.Top);
@@ -2134,7 +2134,7 @@ namespace Engine.Experimental
                 DeleteFromAEL(e);
                 return (ePrev != null ? ePrev.NextInAEL : ActiveEdgeLink);
             }
-            //here E.NextInAEL == ENext == EMaxPair ...
+            // here E.NextInAEL == ENext == EMaxPair ...
             if (e.IsHotEdge())
             {
                 AddLocalMaxPoly(e, eMaxPair, e.Top);
@@ -2155,7 +2155,7 @@ namespace Engine.Experimental
         {
             var closedPaths = new Polygon
             {
-                //closedPaths.Clear();
+                // closedPaths.Clear();
                 Capacity = OutRecList.Count
             };
             if (openPaths != null)
@@ -2169,39 +2169,39 @@ namespace Engine.Experimental
                 if (outrec.Points != null)
                 {
                     var op = outrec.Points.Next;
-                    var cnt = op.PointCount();
-                    //fixup for duplicate start and } points ...
+                    var count = op.PointCount();
+                    // fixup for duplicate start and } points ...
                     if (op.Pt == outrec.Points.Pt)
                     {
-                        cnt--;
+                        count--;
                     }
 
                     if (outrec.Flag == OutrecFlag.Open)
                     {
-                        if (cnt < 2 || openPaths == null)
+                        if (count < 2 || openPaths == null)
                         {
                             continue;
                         }
 
                         var p = new PolygonContour
                         {
-                            Capacity = cnt
+                            Capacity = count
                         };
-                        for (var i = 0; i < cnt; i++) { p.Add(op.Pt); op = op.Next; }
+                        for (var i = 0; i < count; i++) { p.Add(op.Pt); op = op.Next; }
                         openPaths.Add(p);
                     }
                     else
                     {
-                        if (cnt < 3)
+                        if (count < 3)
                         {
                             continue;
                         }
 
                         var p = new PolygonContour
                         {
-                            Capacity = cnt
+                            Capacity = count
                         };
-                        for (var i = 0; i < cnt; i++) { p.Add(op.Pt); op = op.Next; }
+                        for (var i = 0; i < count; i++) { p.Add(op.Pt); op = op.Next; }
                         closedPaths.Add(p);
                     }
                 }
@@ -2213,12 +2213,12 @@ namespace Engine.Experimental
         /// <summary>
         /// Build the result.
         /// </summary>
-        /// <param name="pt">The pt.</param>
+        /// <param name="polyTree">The pt.</param>
         /// <param name="openPaths">The openPaths.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void BuildResult(PolyTree pt, Polygon openPaths)
+        private void BuildResult(PolyTree polyTree, Polygon openPaths)
         {
-            if (pt == null)
+            if (polyTree == null)
             {
                 return;
             }
@@ -2234,16 +2234,16 @@ namespace Engine.Experimental
                 if (outrec.Points != null)
                 {
                     var op = outrec.Points.Next;
-                    var cnt = op.PointCount();
+                    var count = op.PointCount();
                     // fix-up for duplicate start and end points ...
                     if (op.Pt == outrec.Points.Pt)
                     {
-                        cnt--;
+                        count--;
                     }
 
-                    if (cnt < 3)
+                    if (count < 3)
                     {
-                        if (outrec.Flag == OutrecFlag.Open || cnt < 2)
+                        if (outrec.Flag == OutrecFlag.Open || count < 2)
                         {
                             continue;
                         }
@@ -2251,9 +2251,9 @@ namespace Engine.Experimental
 
                     var p = new PolygonContour
                     {
-                        Capacity = cnt
+                        Capacity = count
                     };
-                    for (var i = 0; i < cnt; i++) { p.Add(op.Pt); op = op.Prev; }
+                    for (var i = 0; i < count; i++) { p.Add(op.Pt); op = op.Prev; }
                     if (outrec.Flag == OutrecFlag.Open)
                     {
                         openPaths.Add(p);
@@ -2266,7 +2266,7 @@ namespace Engine.Experimental
                         }
                         else
                         {
-                            outrec.PolyPath = pt.AddChild(p);
+                            outrec.PolyPath = polyTree.AddChild(p);
                         }
                     }
                 }

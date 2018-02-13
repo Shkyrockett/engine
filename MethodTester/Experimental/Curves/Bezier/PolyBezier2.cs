@@ -73,6 +73,11 @@ namespace Engine
             return bbox;
         }
 
+        /// <summary>
+        /// The expandbox.
+        /// </summary>
+        /// <param name="bbox">The bbox.</param>
+        /// <param name="bBox">The bBox.</param>
         private static void Expandbox(BBox bbox, BBox bBox) => throw new NotImplementedException();
 
         /// <summary>

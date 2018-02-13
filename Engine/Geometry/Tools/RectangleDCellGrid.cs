@@ -129,7 +129,7 @@ namespace Engine
                     return -1;
 
                 // Find the horizontal and vertical integer indexes.
-                (int dx, int dy) = ((int)((location.X - x) / CellSize.Width), (int)((location.Y - y) / CellSize.Height));
+                (var dx, var dy) = ((int)((location.X - x) / CellSize.Width), (int)((location.Y - y) / CellSize.Height));
 
                 var (columns, rows) = (Columns, Rows);
 

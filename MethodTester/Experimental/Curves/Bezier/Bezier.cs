@@ -248,9 +248,21 @@ namespace Engine
             return (A, B, C);
         }
 
+        /// <summary>
+        /// The abcratio.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         private static double Abcratio(double t, double n)
             => throw new NotImplementedException();
 
+        /// <summary>
+        /// The projection ratio.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         private static double ProjectionRatio(double t, double n)
             => throw new NotImplementedException();
 
@@ -738,6 +750,15 @@ namespace Engine
             return subsplit.Left;
         }
 
+        /// <summary>
+        /// The map.
+        /// </summary>
+        /// <param name="t2">The t2.</param>
+        /// <param name="t1">The t1.</param>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="v3">The v3.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         private static double Map(double t2, double t1, double v1, double v2, double v3)
             => throw new NotImplementedException();
 
@@ -793,6 +814,13 @@ namespace Engine
                 );
         }
 
+        /// <summary>
+        /// Get the min max.
+        /// </summary>
+        /// <param name="bezier">The bezier.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="extrema">The extrema.</param>
+        /// <returns>The <see cref="RangeX"/>.</returns>
         private static RangeX GetMinMax(Bezier bezier, int v, List<double> extrema)
             => throw new NotImplementedException();
 
@@ -808,6 +836,12 @@ namespace Engine
             return Bboxoverlap(lbbox, tbbox);
         }
 
+        /// <summary>
+        /// The bboxoverlap.
+        /// </summary>
+        /// <param name="lbbox">The lbbox.</param>
+        /// <param name="tbbox">The tbbox.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         private static bool Bboxoverlap(BBox lbbox, BBox tbbox)
             => throw new NotImplementedException();
 
@@ -944,6 +978,15 @@ namespace Engine
             return pass2;
         }
 
+        /// <summary>
+        /// The map.
+        /// </summary>
+        /// <param name="t1">The t1.</param>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="t2">The t2.</param>
+        /// <param name="t3">The t3.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         private static double Map(double t1, int v1, int v2, double t2, double t3)
             => throw new NotImplementedException();
 
@@ -1001,9 +1044,22 @@ namespace Engine
             return new Bezier(np);
         }
 
+        /// <summary>
+        /// Copy.
+        /// </summary>
+        /// <param name="point3D">The point3D.</param>
+        /// <returns>The <see cref="Point3D"/>.</returns>
         private static Point3D Copy(Point3D point3D)
             => throw new NotImplementedException();
 
+        /// <summary>
+        /// The lli4.
+        /// </summary>
+        /// <param name="item31">The item31.</param>
+        /// <param name="item11">The item11.</param>
+        /// <param name="item32">The item32.</param>
+        /// <param name="item12">The item12.</param>
+        /// <returns>The <see cref="Point3D"/>.</returns>
         private static Point3D Lli4(Point3D item31, Point3D item11, Point3D item32, Point3D item12)
             => throw new NotImplementedException();
 
@@ -1160,6 +1216,12 @@ namespace Engine
             return new PolyBezier2(segments);
         }
 
+        /// <summary>
+        /// The make line.
+        /// </summary>
+        /// <param name="bs">The bs.</param>
+        /// <param name="fs">The fs.</param>
+        /// <returns>The <see cref="Bezier"/>.</returns>
         private static Bezier MakeLine(Point3D bs, Point3D fs)
             => throw new NotImplementedException();
 
@@ -1184,6 +1246,12 @@ namespace Engine
             return shapes;
         }
 
+        /// <summary>
+        /// The make shape.
+        /// </summary>
+        /// <param name="bezier1">The bezier1.</param>
+        /// <param name="bezier2">The bezier2.</param>
+        /// <returns>The <see cref="Shape1"/>.</returns>
         private static Shape1 MakeShape(Bezier bezier1, Bezier bezier2)
             => throw new NotImplementedException();
 
@@ -1230,6 +1298,12 @@ namespace Engine
                 select Intersections.ApproximatelyBetween(p.X, mx, MX) && Intersections.ApproximatelyBetween(p.Y, my, MY));
         }
 
+        /// <summary>
+        /// The roots.
+        /// </summary>
+        /// <param name="points">The points.</param>
+        /// <param name="line">The line.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
         private static List<double> Roots(List<Point3D> points, Line1 line)
             => new List<double> { 0 };
 
@@ -1287,6 +1361,12 @@ namespace Engine
             return intersections;
         }
 
+        /// <summary>
+        /// The pairiteration.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="T:List{Pair}"/>.</returns>
         private static List<Pair> Pairiteration(Bezier left, Bezier right)
             => throw new NotImplementedException();
 
@@ -1404,6 +1484,13 @@ namespace Engine
             return circles;
         }
 
+        /// <summary>
+        /// The getccenter.
+        /// </summary>
+        /// <param name="np1">The np1.</param>
+        /// <param name="np2">The np2.</param>
+        /// <param name="np3">The np3.</param>
+        /// <returns>The <see cref="Arc1"/>.</returns>
         private static Arc1 Getccenter(Point3D np1, Point3D np2, Point3D np3)
             => throw new NotImplementedException();
 
@@ -1496,6 +1583,12 @@ cosphi = t < -1 ? -1 : t > 1 ? 1 : t;
             }
         }
 
+        /// <summary>
+        /// The align.
+        /// </summary>
+        /// <param name="list">The list.</param>
+        /// <param name="line">The line.</param>
+        /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
         private static List<Point3D> Align(List<Point3D> list, Line1 line)
             => throw new NotImplementedException();
     }

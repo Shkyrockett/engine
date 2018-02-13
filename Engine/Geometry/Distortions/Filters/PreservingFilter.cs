@@ -140,7 +140,7 @@ namespace Engine
         /// <summary>
         /// Process.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <returns>The <see cref="QuadraticBezier"/>.</returns>
         public QuadraticBezier Process(QuadraticBezier bezier)
         {
@@ -151,7 +151,7 @@ namespace Engine
         /// <summary>
         /// Process.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <returns>The <see cref="CubicBezier"/>.</returns>
         public CubicBezier Process(CubicBezier bezier)
         {

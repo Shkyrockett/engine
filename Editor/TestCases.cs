@@ -44,8 +44,8 @@ namespace Editor
 
             /* Experimental Previews */
 
-            //EnvelopeWarp(vectorMap);
-            Clipper(vectorMap);
+            EnvelopeWarp(vectorMap);
+            //Clipper(vectorMap);
             //SelfIntersectingCubicBezier(vectorMap);
             //LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
             //NearestPoint(vectorMap, form, metrics);

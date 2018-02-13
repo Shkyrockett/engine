@@ -104,6 +104,10 @@ namespace Engine.WindowsForms
         ///     WM_SYSKEYUP messages.
         /// </devdoc>
         /// <internalonly/>
+        /// <summary>
+        /// The wm key char.
+        /// </summary>
+        /// <param name="m">The m.</param>
         private void WmKeyChar(ref Message m)
         {
             if (ProcessKeyMessage(ref m)) return;
@@ -117,6 +121,10 @@ namespace Engine.WindowsForms
         /// <remarks>
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
+        /// <summary>
+        /// The wm mouse wheel.
+        /// </summary>
+        /// <param name="m">The m.</param>
         private void WmMouseWheel(ref Message m)
         {
             var p = PointToClient(new Point(m.LParam.SignedLowWord(), m.LParam.SignedHighWord()));
@@ -134,6 +142,10 @@ namespace Engine.WindowsForms
         /// <remarks>
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
+        /// <summary>
+        /// The wm mouse wheel tilt.
+        /// </summary>
+        /// <param name="m">The m.</param>
         private void WmMouseWheelTilt(ref Message m)
         {
             var p = PointToClient(new Point(m.LParam.SignedLowWord(), m.LParam.SignedHighWord()));

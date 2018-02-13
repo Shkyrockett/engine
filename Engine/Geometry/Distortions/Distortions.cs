@@ -48,14 +48,14 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
-        /// <param name="bHorz">The bHorz.</param>
-        /// <param name="bVert">The bVert.</param>
+        /// <param name="flipHorz">The bHorz.</param>
+        /// <param name="flipVert">The bVert.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Flip(Point2D point, Point2D fulcrum, bool bHorz, bool bVert)
+        public static Point2D Flip(Point2D point, Point2D fulcrum, bool flipHorz, bool flipVert)
         {
-            var x = (bHorz) ? fulcrum.X - (point.X - fulcrum.X + 1) : point.X;
-            var y = (bVert) ? fulcrum.Y - (point.Y - fulcrum.Y + 1) : point.Y;
+            var x = (flipHorz) ? fulcrum.X - (point.X - fulcrum.X + 1d) : point.X;
+            var y = (flipVert) ? fulcrum.Y - (point.Y - fulcrum.Y + 1d) : point.Y;
             return new Point2D(x, y);
         }
 
@@ -143,14 +143,27 @@ namespace Engine
             Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
             Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
         {
-            var norm = NormalizePoint(bounds, point);
-            var left = Interpolators.CubicBezier(topLeft.X, topLeftV.X, bottomLeftV.X, bottomLeft.X, norm.Y);
-            var right = Interpolators.CubicBezier(topRight.X, topRightV.X, bottomRightV.X, bottomRight.X, norm.Y);
-            var top = Interpolators.CubicBezier(topLeft.Y, topLeftH.Y, topRightH.Y, topRight.Y, norm.X);
-            var bottom = Interpolators.CubicBezier(bottomLeft.Y, bottomLeftH.Y, bottomRightH.Y, bottomRight.Y, norm.X);
-            var x = Interpolators.Linear(left, right, norm.X);
-            var y = Interpolators.Linear(top, bottom, norm.Y);
-            return new Point2D(x, y);
+            // Normalize the point to the bounding box.
+            var (normX, normY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+
+            // Set up Interpolation variables.
+            var (minusNormX, minusNormY) = (1d - normX, 1d - normY);
+            var (minusNormXSquared, minusNormYSquared) = (minusNormX * minusNormX, minusNormY * minusNormY);
+            var (minusNormXCubed, minusNormYCubed) = (minusNormXSquared * minusNormX, minusNormYSquared * minusNormY);
+            var (normXSquared, normYSquared) = (normX * normX, normY * normY);
+            var (normXCubed, normYCubed) = (normXSquared * normX, normYSquared * normY);
+
+            // Interpolate the normalized point along the Cubic Bézier curves
+            var left = (minusNormYCubed * topLeft.X + 3d * normY * minusNormYSquared * topLeftV.X + 3d * normYSquared * minusNormY * bottomLeftV.X + normYCubed * bottomLeft.X);
+            var right = (minusNormYCubed * topRight.X + 3d * normY * minusNormYSquared * topRightV.X + 3d * normYSquared * minusNormY * bottomRightV.X + normYCubed * bottomRight.X);
+            var top = (minusNormXCubed * topLeft.Y + 3d * normX * minusNormXSquared * topLeftH.Y + 3d * normXSquared * minusNormX * topRightH.Y + normXCubed * topRight.Y);
+            var bottom = (minusNormXCubed * bottomLeft.Y + 3d * normX * minusNormXSquared * bottomLeftH.Y + 3d * normXSquared * minusNormX * bottomRightH.Y + normXCubed * bottomRight.Y);
+
+            // Linearly interpolate the point between the Bézier curves.
+            return new Point2D(
+                minusNormX * left + normX * right,
+                minusNormY * top + normY * bottom
+                );
         }
 
         /// <summary>
@@ -669,7 +682,7 @@ namespace Engine
         /// The solve perspective.
         /// </summary>
         /// <param name="points">The points.</param>
-        /// <returns>The <see cref="(double a, double b, double d, double e, double g, double h)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>

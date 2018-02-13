@@ -327,7 +327,7 @@ namespace Engine
         private static void RemoveEar(this PolygonContour polygon, List<Triangle> triangles)
         {
             // Find an ear.
-            (int a, int b, int c) = FindEar(polygon);
+            (var a, var b, var c) = FindEar(polygon);
 
             // Create a new triangle for the ear.
             triangles.Add(new Triangle(polygon.Points[a], polygon.Points[b], polygon.Points[c]));

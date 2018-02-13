@@ -259,8 +259,8 @@ namespace Engine
         {
             if (bounds.IsEmpty)
             {
-                CurveX.GetMinMax(0, 1, out double x0, out double x1);
-                CurveY.GetMinMax(0, 1, out double y0, out double y1);
+                CurveX.GetMinMax(0, 1, out var x0, out var x1);
+                CurveY.GetMinMax(0, 1, out var y0, out var y1);
                 bounds = new Rectangle2D(x0, y0, x1 - x0, y1 - y0);
             }
             return bounds;

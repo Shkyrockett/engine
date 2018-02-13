@@ -208,6 +208,11 @@ namespace Engine
         }
 
         /* @brief Store the SweepEvent e into the event holder, returning the address of e */
+        /// <summary>
+        /// The store sweep event.
+        /// </summary>
+        /// <param name="e">The e.</param>
+        /// <returns>The <see cref="SweepEvent"/>.</returns>
         private SweepEvent StoreSweepEvent(SweepEvent e)
         {
             eventHolder.AddLast(e);

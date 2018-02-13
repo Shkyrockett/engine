@@ -118,6 +118,7 @@
     <Compile Include="CirclePointTester.Designer.cs">
       <DependentUpon>CirclePointTester.cs</DependentUpon>
     </Compile>
+    <Compile Include="EllipseIntersectStuff.cs" />
     <Compile Include="Experimental\BinaryReaderObsolete.cs" />
     <Compile Include="Experimental\BinaryWriterObsolete.cs" />
     <Compile Include="Experimental\BoundingBbox2D.cs" />

@@ -326,7 +326,7 @@ namespace Engine
             var s1 = s0 + (d0.I * d1.I + d0.J * d1.J) / sqrLen0;  // s1 = s0 + Dot (D0, D1) * sqrLen0
             var smin = Math.Min(s0, s1);
             var smax = Math.Max(s0, s1);
-            (int imax, double[] w) = FindIntersection(0.0, 1.0, smin, smax);
+            (var imax, var w) = FindIntersection(0.0, 1.0, smin, smax);
 
             if (imax > 0)
             {
@@ -394,7 +394,7 @@ namespace Engine
             //if ((e1.pl == e2.pl)) // Uncomment these two lines if self-intersecting polygons are not allowed
             //    return false;
 
-            (int numIntersections, Point2D[] ip) = FindIntersection(e1.Segment(), e2.Segment());
+            (var numIntersections, Point2D[] ip) = FindIntersection(e1.Segment(), e2.Segment());
             var ip1 = ip[0];
             var ip2 = ip[1];
 

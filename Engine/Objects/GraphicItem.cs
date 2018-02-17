@@ -11,6 +11,7 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using System.ServiceModel;
 using System.Xml.Serialization;
 
 namespace Engine
@@ -19,6 +20,7 @@ namespace Engine
     /// Represents an object that can be displayed on screen.
     /// </summary>
     [DataContract, Serializable]
+    //[XmlSerializerFormat]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public class GraphicItem
     {
@@ -70,7 +72,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        [DataMember, XmlElement, SoapElement]
+        [DataMember(Name = "name"), XmlAttribute(AttributeName = "name"), SoapAttribute(AttributeName = "name")]
         [Category("Properties")]
         [Description("The name of the item.")]
         public string Name { get; set; }

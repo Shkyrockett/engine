@@ -18,7 +18,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// Cubic or 3rd degree Bezier curve.
+    /// Cubic or 3rd degree Bézier curve.
     /// </summary>
     /// <structure>Engine.Geometry.CubicBezier2D</structure>
     /// <remarks>
@@ -28,7 +28,7 @@ namespace Engine
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(CubicBezier))]
-    [XmlType(TypeName = "bezier-Cubic")]
+    [XmlType(TypeName = "Bézier-Cubic")]
     public class CubicBezier
         : Shape, IEquatable<CubicBezier>
     {
@@ -224,7 +224,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Elements")]
-        [Description("The first Point of a Cubic Bezier.")]
+        [Description("The first Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -242,13 +242,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the X coordinate of the first Point of a Cubic Bezier.
+        /// Gets or sets the X coordinate of the first Point of a Cubic Bézier.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute(nameof(ax))]
         [Browsable(false)]
         [Category("Elements")]
-        [Description("The X coordinate of the first Point of a Cubic Bezier.")]
+        [Description("The X coordinate of the first Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -265,12 +265,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the Y coordinate of the first Point of a Cubic Bezier.
+        /// Gets or sets the Y coordinate of the first Point of a Cubic Bézier.
         /// </summary>
         [XmlAttribute(nameof(ay))]
         [Browsable(false)]
         [Category("Elements")]
-        [Description("The y coordinate of the first Point of a Cubic Bezier.")]
+        [Description("The y coordinate of the first Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -291,7 +291,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Elements")]
-        [Description("The second Point of a Cubic Bezier.")]
+        [Description("The second Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -309,13 +309,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the X coordinate of the second Point of a Cubic Bezier.
+        /// Gets or sets the X coordinate of the second Point of a Cubic Bézier.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute(nameof(bx))]
         [Browsable(false)]
         [Category("Elements")]
-        [Description("The X coordinate of the second Point of a Cubic Bezier.")]
+        [Description("The X coordinate of the second Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -332,12 +332,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the Y coordinate of the second Point of a Cubic Bezier.
+        /// Gets or sets the Y coordinate of the second Point of a Cubic Bézier.
         /// </summary>
         [XmlAttribute(nameof(by))]
         [Browsable(false)]
         [Category("Elements")]
-        [Description("The y coordinate of the second Point of a Cubic Bezier.")]
+        [Description("The y coordinate of the second Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -358,7 +358,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Elements")]
-        [Description("The third Point of a Cubic Bezier.")]
+        [Description("The third Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -376,13 +376,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the X coordinate of the third Point of a Cubic Bezier.
+        /// Gets or sets the X coordinate of the third Point of a Cubic Bézier.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute(nameof(cx))]
         [Browsable(false)]
         [Category("Elements")]
-        [Description("The X coordinate of the third Point of a Cubic Bezier.")]
+        [Description("The X coordinate of the third Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -399,12 +399,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the Y coordinate of the third Point of a Cubic Bezier.
+        /// Gets or sets the Y coordinate of the third Point of a Cubic Bézier.
         /// </summary>
         [XmlAttribute(nameof(cy))]
         [Browsable(false)]
         [Category("Elements")]
-        [Description("The y coordinate of the third Point of a Cubic Bezier.")]
+        [Description("The y coordinate of the third Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -441,13 +441,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the X coordinate of the fourth Point of a Cubic Bezier.
+        /// Gets or sets the X coordinate of the fourth Point of a Cubic Bézier.
         /// </summary>
         /// <remarks></remarks>
         [XmlAttribute(nameof(dx))]
         [Browsable(false)]
         [Category("Elements")]
-        [Description("The X coordinate of the fourth Point of a Cubic Bezier.")]
+        [Description("The X coordinate of the fourth Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -464,12 +464,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets the Y coordinate of the fourth Point of a Cubic Bezier.
+        /// Gets or sets the Y coordinate of the fourth Point of a Cubic Bézier.
         /// </summary>
         [XmlAttribute(nameof(dy))]
         [Browsable(false)]
         [Category("Elements")]
-        [Description("The y coordinate of the fourth Point of a Cubic Bezier.")]
+        [Description("The y coordinate of the fourth Point of a Cubic Bézier.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
@@ -636,7 +636,7 @@ namespace Engine
         //#endregion
 
         /// <summary>
-        /// Samples the bezier curve at the given t value.
+        /// Samples the Bézier curve at the given t value.
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>Sampled point.</returns>

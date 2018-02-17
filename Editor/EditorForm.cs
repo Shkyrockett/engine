@@ -496,7 +496,7 @@ namespace Editor
         private void SaveAs(string filename = "")
         {
             saveFileDialog1.FileName = filename;
-            //saveFileDialog1.Filter = ".xml";
+            saveFileDialog1.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
             switch (saveFileDialog1.ShowDialog())
             {
                 case DialogResult.Yes:

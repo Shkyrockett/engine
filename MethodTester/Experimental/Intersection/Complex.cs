@@ -40,12 +40,12 @@ namespace Engine.Geometry
         /// <summary>
         ///
         /// </summary>
-        double real;
+        private double real;
 
         /// <summary>
         ///
         /// </summary>
-        double imaginary;
+        private double imaginary;
         #endregion Private Fields
 
         #region Constructors

@@ -8,6 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
@@ -60,7 +61,7 @@ namespace Engine
         /// <param name="bX">The bX.</param>
         /// <param name="bY">The bY.</param>
         /// <param name="distance">The distance.</param>
-        /// <returns>The <see cref="(double x1, double y1, double x2, double y2)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x1, double y1, double x2, double y2)
             OffsetSegment(
@@ -89,7 +90,7 @@ namespace Engine
         /// <param name="distanceX">The distanceX.</param>
         /// <param name="distanceY">The distanceY.</param>
         /// <param name="distanceZ">The distanceZ.</param>
-        /// <returns>The <see cref="(double x1, double y1, double z1, double x2, double y2, double z2)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x1, double y1, double z1, double x2, double y2, double z2)
             OffsetSegment(

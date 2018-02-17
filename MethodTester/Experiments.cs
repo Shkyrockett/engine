@@ -679,7 +679,7 @@ namespace MethodSpeedTester
             : Polynomial.OneMinusT * BezierCoefficientsRecursive(from, to - 1, values) + Polynomial.T * BezierCoefficientsRecursive(from + 1, to, values);
 
         /// <summary>
-        /// Coefficients for a Cubic Bezier curve.
+        /// Coefficients for a Cubic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -720,7 +720,7 @@ namespace MethodSpeedTester
                 a);
 
         /// <summary>
-        /// Interpolate the polynomial of a Linear Bezier curve.
+        /// Interpolate the polynomial of a Linear Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -735,7 +735,7 @@ namespace MethodSpeedTester
             => Polynomial.OneMinusT * a + Polynomial.T * b;
 
         /// <summary>
-        /// Interpolate the polynomial of a Quadratic Bezier curve.
+        /// Interpolate the polynomial of a Quadratic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -751,7 +751,7 @@ namespace MethodSpeedTester
             => Polynomial.OneMinusT * Linear(a, b) + Polynomial.T * Linear(b, c);
 
         /// <summary>
-        /// Interpolate the polynomial of a Cubic Bezier curve.
+        /// Interpolate the polynomial of a Cubic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -768,7 +768,7 @@ namespace MethodSpeedTester
             => (Polynomial.OneMinusT * Quadratic(a, b, c) + Polynomial.T * Quadratic(b, c, d));
 
         /// <summary>
-        /// Interpolate the polynomial of a Quartic Bezier curve.
+        /// Interpolate the polynomial of a Quartic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -786,7 +786,7 @@ namespace MethodSpeedTester
             => (Polynomial.OneMinusT * Cubic(a, b, c, d) + Polynomial.T * Cubic(b, c, d, e));
 
         /// <summary>
-        /// Interpolate the polynomial of a Quintic Bezier curve.
+        /// Interpolate the polynomial of a Quintic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -805,7 +805,7 @@ namespace MethodSpeedTester
             => (Polynomial.OneMinusT * Quartic(a, b, c, d, e) + Polynomial.T * Quartic(b, c, d, e, f));
 
         /// <summary>
-        /// Interpolate the polynomial of a Sextic Bezier curve.
+        /// Interpolate the polynomial of a Sextic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -825,7 +825,7 @@ namespace MethodSpeedTester
             => (Polynomial.OneMinusT * Quintic(a, b, c, d, e, f) + Polynomial.T * Quintic(b, c, d, e, f, g));
 
         /// <summary>
-        /// Interpolate the polynomial of a Septic Bezier curve.
+        /// Interpolate the polynomial of a Septic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -846,7 +846,7 @@ namespace MethodSpeedTester
             => (Polynomial.OneMinusT * Sextic(a, b, c, d, e, f, g) + Polynomial.T * Sextic(b, c, d, e, f, g, h));
 
         /// <summary>
-        /// Interpolate the polynomial of a Octic Bezier curve.
+        /// Interpolate the polynomial of a Octic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -1700,7 +1700,7 @@ namespace MethodSpeedTester
         ///// <param name="cy">The y-component of the second handle point.</param>
         ///// <param name="dx">The x-component of the end point.</param>
         ///// <param name="dy">The y-component of the end point.</param>
-        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Cubic Bezier curve.</returns>
+        ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Cubic Bézier curve.</returns>
         ///// <remarks>
         ///// This method has an error where if the end nodes are horizontal to each other, while the handles are also horizontal to each other the bounds are not correctly calculated.
         ///// </remarks>
@@ -2803,7 +2803,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// Approximate length of the Bezier curve which starts at "start" and
+        /// Approximate length of the Bézier curve which starts at "start" and
         /// is defined by "c". According to Computing the Arc Length of Cubic Bezier Curves
         /// there is no closed form integral for it.
         /// </summary>
@@ -3335,7 +3335,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///  Code to generate a cubic Bezier curve
+        ///  Code to generate a cubic Bézier curve
         /// </summary>
         /// <param name="aX">the starting point, or A in the above diagram</param>
         /// <param name="aY">the starting point, or A in the above diagram</param>
@@ -3586,7 +3586,7 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        /// General Bezier curve Number of control points is n+1 0 less than or equal to mu less than 1
+        /// General Bézier curve Number of control points is n+1 0 less than or equal to mu less than 1
         /// IMPORTANT, the last point is not computed.
         /// </summary>
         /// <param name="points"></param>
@@ -8864,7 +8864,7 @@ namespace MethodSpeedTester
 
         #region Intersection of a Quadratic Bézier and a Quadratic Bézier
         /// <summary>
-        /// Set of tests to run testing methods that calculate the Intersection of two Quadratic Bezier curves.
+        /// Set of tests to run testing methods that calculate the Intersection of two Quadratic Bézier curves.
         /// </summary>
         /// <returns></returns>
         [System.ComponentModel.DisplayName(nameof(IntersectionQuadraticBezierQuadraticBezier))]
@@ -8913,7 +8913,7 @@ namespace MethodSpeedTester
             // ToDo: Break early if the AABB of the ends and handles do not intersect.
             // ToDo: Break early if the AABB of the curve does not intersect.
 
-            // Parametric matrix form of the Bezier curve
+            // Parametric matrix form of the Bézier curve
             var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
             var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
             var xCoeffB = QuadraticBezierCoefficients(b1X, b2X, b3X);
@@ -9424,7 +9424,7 @@ namespace MethodSpeedTester
 
         #region Intersection of a Quadratic Bézier and a Cubic Bézier
         /// <summary>
-        /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bezier curves.
+        /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bézier curves.
         /// </summary>
         /// <returns></returns>
         [System.ComponentModel.DisplayName(nameof(IntersectionQuadraticBezierCubicBezier))]
@@ -9660,7 +9660,7 @@ namespace MethodSpeedTester
 
         #region Intersection of a Cubic Bézier and a Cubic Bézier
         /// <summary>
-        /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bezier curves.
+        /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bézier curves.
         /// </summary>
         /// <returns></returns>
         [System.ComponentModel.DisplayName(nameof(IntersectionCubicBezierCubicBezier))]

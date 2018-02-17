@@ -27,22 +27,22 @@ namespace Engine
         /// <summary>
         /// The instance ctor.
         /// </summary>
-        ConstructorInfo instanceCtor;
+        private ConstructorInfo instanceCtor;
 
         /// <summary>
         /// The parse.
         /// </summary>
-        MethodInfo parse;
+        private MethodInfo parse;
 
         /// <summary>
         /// The descriptions.
         /// </summary>
-        PropertyDescriptorCollection descriptions;
+        private PropertyDescriptorCollection descriptions;
 
         /// <summary>
         /// The instance ctor param names.
         /// </summary>
-        string[] instanceCtorParamNames;
+        private string[] instanceCtorParamNames;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StructConverter"/> class.

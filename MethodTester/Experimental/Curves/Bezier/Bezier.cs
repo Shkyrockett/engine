@@ -1,5 +1,5 @@
 ﻿/*
-  A javascript Bezier curve library by Pomax.
+  A javascript Bézier curve library by Pomax.
 
   Based on http://pomax.github.io/bezierinfo
 
@@ -436,9 +436,7 @@ namespace Engine
             var LUT = GetLUT(1000);
             var l = LUT.Count - 1;
 
-            var closest = Utilities.Closest(LUT, point);
-            var mdist = closest.X;
-            var mpos = closest.Y;
+            var (mdist, mpos) = Utilities.Closest(LUT, point);
             if (mpos == 0 || mpos == l)
             {
                 var t0 = mpos / l;
@@ -1111,7 +1109,7 @@ namespace Engine
         /// <param name="alen"></param>
         /// <param name="slen"></param>
         /// <returns></returns>
-        public double LinearDistanceFunction(double s, double e, double tlen, double alen, double slen)
+        public static double LinearDistanceFunction(double s, double e, double tlen, double alen, double slen)
         {
             const double v = 0;
             var f1 = alen / tlen;
@@ -1337,7 +1335,7 @@ namespace Engine
         /// <param name="c1"></param>
         /// <param name="c2"></param>
         /// <returns></returns>
-        private List<Pair> Curveintersects(List<Bezier> c1, List<Bezier> c2)
+        private static List<Pair> Curveintersects(List<Bezier> c1, List<Bezier> c2)
         {
             var pairs = new List<Pair>();
             // step 1: pair off any overlapping segments

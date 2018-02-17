@@ -35,12 +35,12 @@ namespace Engine
         /// <summary>
         /// The items.
         /// </summary>
-        List<BezierSegmentX> items;
+        private List<BezierSegmentX> items;
 
         /// <summary>
         /// The closed.
         /// </summary>
-        bool closed = false;
+        private bool closed = false;
         #endregion Fields
 
         #region Constructors

@@ -1,5 +1,5 @@
 ﻿/*
-  A port of the javascript Bezier curve Utility library by Pomax.
+  A port of the javascript Bézier curve Utility library by Pomax.
 
   Based on http://pomax.github.io/bezierinfo
 

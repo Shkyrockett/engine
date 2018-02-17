@@ -649,7 +649,7 @@ namespace Engine
                 0, 0, 1);
 
         /// <summary>
-        /// Constructs this Matrix from 3 euler angles, in degrees.
+        /// Constructs this Matrix from 3 Euler angles, in degrees.
         /// </summary>
         /// <param name="yaw"></param>
         /// <param name="pitch"></param>

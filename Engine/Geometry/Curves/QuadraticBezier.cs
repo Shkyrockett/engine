@@ -18,7 +18,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// Quadratic or 2nd degree Bezier curve.
+    /// Quadratic or 2nd degree Bézier curve.
     /// </summary>
     /// <remarks>
     /// http://paulbourke.net/geometry/bezier/index.html

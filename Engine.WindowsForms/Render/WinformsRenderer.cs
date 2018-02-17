@@ -28,7 +28,7 @@ namespace Engine.WindowsForms
         /// <summary>
         /// Gets or sets the graphics.
         /// </summary>
-        Graphics Graphics { get; set; }
+        private Graphics Graphics { get; set; }
 
         #region IDisposable Support
         /// <summary>

@@ -38,7 +38,7 @@ namespace Engine
         /// The Indexer.
         /// </summary>
         /// <param name="index">The index index.</param>
-        /// <returns>One element of type List<(Delegate, List<object>)>.</returns>
+        /// <returns>One element of type List{(Delegate, List{object})}" .</returns>
         public List<(Delegate, List<object>)> this[double index]
         {
             get { return Actions[index]; }

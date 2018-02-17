@@ -77,7 +77,7 @@ namespace Engine
     /// <summary>
     /// The bezier envelope class.
     /// </summary>
-    class BezierEnvelope
+    internal class BezierEnvelope
     {
         ///// <summary>
         ///// The effect.

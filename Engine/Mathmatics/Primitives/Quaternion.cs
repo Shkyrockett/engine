@@ -33,42 +33,20 @@ namespace Engine
     {
         #region Static Fields
         /// <summary>
-        /// 
+        /// The empty.
         /// </summary>
         public static QuaternionD Empty = new QuaternionD(0, 0, 0, 0);
 
         /// <summary>
-        /// 
+        /// The zero.
         /// </summary>
         public static QuaternionD Zero = Empty;
 
         /// <summary>
-        /// 
+        /// The identity.
         /// </summary>
         public static QuaternionD Identity = new QuaternionD(0, 0, 0, 1);
         #endregion Static Fields
-
-        #region Feilds
-        /// <summary>
-        /// 
-        /// </summary>
-        private double x;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double y;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double z;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private double w;
-        #endregion Feilds
 
         #region Constructors
         /// <summary>
@@ -77,7 +55,7 @@ namespace Engine
         /// <param name="tuple"></param>
         public QuaternionD((double X, double Y, double Z, double W) tuple)
         {
-            (x, y, z, w) = tuple;
+            (X, Y, Z, W) = tuple;
         }
 
         /// <summary>
@@ -89,10 +67,10 @@ namespace Engine
         /// <param name="z"></param>
         public QuaternionD(double x, double y, double z, double w)
         {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-            this.w = w;
+            this.X = x;
+            this.Y = y;
+            this.Z = z;
+            this.W = w;
         }
 
         /// <summary>
@@ -110,25 +88,25 @@ namespace Engine
         /// Gets or sets the X value of this Quaternion. 
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        public double X { get { return x; } set { x = value; } }
+        public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the Y value of this Quaternion. 
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        public double Y { get { return y; } set { y = value; } }
+        public double Y { get; set; }
 
         /// <summary>
         /// Gets or sets the Z value of this Quaternion. 
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        public double Z { get { return z; } set { z = value; } }
+        public double Z { get; set; }
 
         /// <summary>
         /// Gets or sets the W value of this Quaternion. 
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        public double W { get { return w; } set { w = value; } }
+        public double W { get; set; }
 
         /// <summary>
         /// Gets the squared 'length' of this quaternion.
@@ -229,7 +207,7 @@ namespace Engine
                 var fTXZ = fTZ * X;
                 var fTYY = fTY * Y;
                 var fTZZ = fTZ * Z;
-                return new Vector3D(1.0f - (fTYY + fTZZ), fTXY + fTWZ, fTXZ - fTWY);
+                return new Vector3D(1.0d - (fTYY + fTZZ), fTXY + fTWZ, fTXZ - fTWY);
             }
         }
 
@@ -283,7 +261,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         public static QuaternionD operator +(QuaternionD value)
-            => new QuaternionD(+value.x, +value.y, +value.z, +value.w);
+            => new QuaternionD(+value.X, +value.Y, +value.Z, +value.W);
 
         /// <summary>
         /// Add Points
@@ -311,7 +289,7 @@ namespace Engine
         /// <param name="value"></param>
         /// <returns></returns>
         public static QuaternionD operator -(QuaternionD value)
-            => new QuaternionD(-value.x, -value.y, -value.z, -value.w);
+            => new QuaternionD(-value.X, -value.Y, -value.Z, -value.W);
 
         /// <summary>
         /// Subtract
@@ -643,10 +621,10 @@ namespace Engine
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(QuaternionD a, QuaternionD b)
-            => a.x == b.x
-             & a.y == b.y
-             & a.z == b.z
-             & a.w == b.w;
+            => a.X == b.X
+             & a.Y == b.Y
+             & a.Z == b.Z
+             & a.W == b.W;
 
         /// <summary>
         /// Compares this <see cref="QuaternionD"/> with the passed in object.

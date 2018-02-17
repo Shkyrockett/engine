@@ -87,7 +87,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The un shift.
+        /// The unshift.
         /// </summary>
         /// <param name="list">The list.</param>
         /// <param name="item">The item.</param>

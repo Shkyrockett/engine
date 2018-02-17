@@ -28,7 +28,7 @@ namespace Engine
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(CubicBezier))]
-    [XmlType(TypeName = "Bézier-Cubic")]
+    [XmlType(TypeName = "Bezier-Cubic")]
     public class CubicBezier
         : Shape, IEquatable<CubicBezier>
     {

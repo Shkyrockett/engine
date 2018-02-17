@@ -34,7 +34,7 @@ namespace Engine
         /// <summary>
         /// The event queue.
         /// </summary>
-        private EventQueue eventQueue;
+        private readonly EventQueue eventQueue;
         #endregion Fields
 
         #region Constructors
@@ -269,7 +269,7 @@ namespace Engine
         /// </summary>
         /// <param name="seg0">The seg0.</param>
         /// <param name="seg1">The seg1.</param>
-        /// <returns>The <see cref="(int, Point2D[])"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         private static (int, Point2D[]) FindIntersection(LineSegment seg0, LineSegment seg1)
         {
             var pi0 = new Point2D();

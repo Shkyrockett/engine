@@ -8,6 +8,7 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
+using System;
 using static System.Math;
 using static Engine.Maths;
 
@@ -240,7 +241,7 @@ namespace Engine.Experimental
         /// Reset the horz direction.
         /// </summary>
         /// <param name="maxPair">The maxPair.</param>
-        /// <returns>The <see cref="(bool, double horzLeft, double horzRight)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         public (bool, double horzLeft, double horzRight) ResetHorzDirection(Edge maxPair)
         {
             double horzLeft;

@@ -39,7 +39,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSqrt(double number)
-            => 1 / Sqrt(number);
+            => 1d / Sqrt(number);
 
         /// <summary>
         /// Returns the specified root a specified number.
@@ -50,7 +50,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Root(double x, double y)
-            => (x < 0 && Math.Abs(y % 2 - 1) < Epsilon) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
+            => (x < 0d && Math.Abs(y % 2d - 1d) < Epsilon) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
 
         /// <summary>
         /// Cube root equivalent of the sqrt function. (note that there are actually
@@ -77,7 +77,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCrt(double number)
-            => 1 / Crt(number);
+            => 1d / Crt(number);
 
         /// <summary>
         /// The quadratic equation.
@@ -85,7 +85,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
-        /// <returns>The <see cref="(double A, double S)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double S) QuadraticEquation(double a, double b, double c)
@@ -113,10 +113,13 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The quadratic roots.
         /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name = "epsilon"> The minimal value to represent a change.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -130,7 +133,7 @@ namespace Engine
             // Polynomial discriminant
             var discriminant = b_ * b_ - 4d * c_;
 
-            // ToDo: May need to switch from a hash set to a list for scanbeams.
+            // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
 
             if (Math.Abs(discriminant) <= epsilon)
@@ -181,7 +184,7 @@ namespace Engine
             // Polynomial discriminant
             var discriminant = R * R + Q * Q * Q;
 
-            // ToDo: May need to switch from a hash set to a list for scanbeams.
+            // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
 
             if (Math.Abs(discriminant) <= epsilon)
@@ -206,7 +209,7 @@ namespace Engine
                 results.Add(-offset + (s + t));
 
                 // Complex part of root pair.
-                var Im = Math.Abs(Sqrt(3) * (s - t) * OneHalf);
+                var Im = Math.Abs(Sqrt(3d) * (s - t) * OneHalf);
                 if (Im == 0d)
                 {
                     // Real part of complex root.
@@ -218,17 +221,24 @@ namespace Engine
                 // Distinct real roots.
                 var th = Acos(R / Sqrt(-Q * Q * Q));
 
-                results.Add(2 * Sqrt(-Q) * Cos(th * OneThird) - offset);
-                results.Add(2 * Sqrt(-Q) * Cos((th + Tau) * OneThird) - offset);
-                results.Add(2 * Sqrt(-Q) * Cos((th + 4 * PI) * OneThird) - offset);
+                results.Add(2d * Sqrt(-Q) * Cos(th * OneThird) - offset);
+                results.Add(2d * Sqrt(-Q) * Cos((th + Tau) * OneThird) - offset);
+                results.Add(2d * Sqrt(-Q) * Cos((th + 4d * PI) * OneThird) - offset);
             }
 
             return results.ToList();
         }
 
         /// <summary>
+        /// The quartic roots.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name = "epsilon"> The minimal value to represent a change.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <remarks>
         /// ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/:
         /// This method computes complex and real roots for any quintic polynomial.
@@ -255,54 +265,54 @@ namespace Engine
             var D = e / a;
 
             var resolveRoots = CubicRoots(
-                1,
+                1d,
                 -B,
                 A * C - 4d * D,
-                -A * A * D + 4 * B * D - C * C,
+                -A * A * D + 4d * B * D - C * C,
                 epsilon);
             var y = resolveRoots[0];
             var discriminant = A * A * OneQuarter - B + y;
 
-            // ToDo: May need to switch from a hash set to a list for scanbeams.
+            // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
 
             if (Math.Abs(discriminant) <= epsilon)
                 discriminant = 0d;
-            if (discriminant > 0)
+            if (discriminant > 0d)
             {
                 var ee = Sqrt(discriminant);
-                var t1 = 3 * A * A * OneQuarter - ee * ee - 2 * B;
-                var t2 = (4 * A * B - 8 * C - A * A * A) / (4 * ee);
+                var t1 = 3d * A * A * OneQuarter - ee * ee - 2d * B;
+                var t2 = (4d * A * B - 8d * C - A * A * A) / (4d * ee);
                 var plus = t1 + t2;
                 var minus = t1 - t2;
                 if (Math.Abs(plus) <= epsilon)
-                    plus = 0;
+                    plus = 0d;
                 if (Math.Abs(minus) <= epsilon)
-                    minus = 0;
-                if (plus >= 0)
+                    minus = 0d;
+                if (plus >= 0d)
                 {
                     var f = Sqrt(plus);
                     results.Add(-A * OneQuarter + (ee + f) * OneHalf);
                     results.Add(-A * OneQuarter + (ee - f) * OneHalf);
                 }
-                if (minus >= 0)
+                if (minus >= 0d)
                 {
                     var f = Sqrt(minus);
                     results.Add(-A * OneQuarter + (f - ee) * OneHalf);
                     results.Add(-A * OneQuarter - (f + ee) * OneHalf);
                 }
             }
-            else if (discriminant < 0)
+            else if (discriminant < 0d)
             {
             }
             else
             {
-                var t2 = y * y - 4 * D;
+                var t2 = y * y - 4d * D;
                 if (t2 >= -epsilon)
                 {
-                    if (t2 < 0) t2 = 0;
+                    if (t2 < 0) t2 = 0d;
                     t2 = 2d * Sqrt(t2);
-                    var t1 = 3 * A * A * OneQuarter - 2d * B;
+                    var t1 = 3d * A * A * OneQuarter - 2d * B;
                     if (t1 + t2 >= epsilon)
                     {
                         var d0 = Sqrt(t1 + t2);
@@ -322,17 +332,16 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The quintic roots.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name = "epsilon"> The minimal value to represent a change.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <acknowledgment>
         /// This is a Copy and paste port of the method found at:
         /// https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
@@ -355,11 +364,8 @@ namespace Engine
             var delta2 = 0d;
             var delta3 = 0d;
 
-            var i = 0;
-            var j = 0;
-            var k = 0;
-
-            var n = 4;// 5;       // order
+            // order
+            var n = 4;// 5;
             var n1 = 5;// 6;
             var n2 = 6;// 7;
 
@@ -372,36 +378,36 @@ namespace Engine
 
             // is the coefficient of the highest term zero?
             if (Math.Abs(coeff[0]) < epsilon)
+            {
                 return new List<double>();
+            }
 
-            for (i = 0; i <= n; i++)      //  copy into working array
+            //  copy into working array
+            for (var i = 0; i <= n; i++)
+            {
                 a_[(a_.Count - 1) - i] = coeff[i];
+            }
 
-            var count = 0;             // initialize root counter
+            // initialize root counter
+            var count = 0;
 
             // start the main Lin-Bairstow iteration loop
             do
             {
-                // initialize the counter and guesses for the
-                // coefficients of quadratic factor:
-                //
-                // p(x) = x^2 + alfa1*x + beta1
-                var alfa1 = Random(0.5, 1);
+                // initialize the counter and guesses for the coefficients of quadratic factor: p(x) = x^2 + alfa1*x + beta1
+                var alfa1 = Random(OneHalf, 1d);
                 var alfa2 = 0d;
-                var beta1 = Random(0.5, 1);
+                var beta1 = Random(OneHalf, 1d);
                 var limit = 1000;
 
                 do
                 {
-                    b_[0] = 0;
-                    d_[0] = 0;
-                    b_[1] = 1;
-                    d_[1] = 1;
+                    b_[0] = 0d;
+                    d_[0] = 0d;
+                    b_[1] = 1d;
+                    d_[1] = 1d;
 
-                    j = 1;
-                    k = 0;
-
-                    for (i = 2; i < a_.Count; i++)
+                    for (int i = 2, j = 1, k = 0; i < a_.Count; i++)
                     {
                         b_[i] = a_[i] - alfa1 * b_[j] - beta1 * b_[k];
                         d_[i] = b_[i] - alfa1 * d_[j] - beta1 * d_[k];
@@ -409,15 +415,18 @@ namespace Engine
                         k = k + 1;
                     }
 
-                    j = n - 1;
-                    k = n - 2;
-                    delta1 = d_[j] * d_[j] - (d_[n] - b_[n]) * d_[k];
-                    alfa2 = (b_[n] * d_[j] - b_[n1] * d_[k]) / delta1;
-                    beta2 = (b_[n1] * d_[j] - (d_[n] - b_[n]) * b_[n]) / delta1;
-                    alfa1 = alfa1 + alfa2;
-                    beta1 = beta1 + beta2;
+                    {
+                        var j = n - 1;
+                        var k = n - 2;
+                        delta1 = d_[j] * d_[j] - (d_[n] - b_[n]) * d_[k];
+                        alfa2 = (b_[n] * d_[j] - b_[n1] * d_[k]) / delta1;
+                        beta2 = (b_[n1] * d_[j] - (d_[n] - b_[n]) * b_[n]) / delta1;
+                        alfa1 = alfa1 + alfa2;
+                        beta1 = beta1 + beta2;
+                    }
 
-                    if (--limit < 0)         // cannot solve
+                    if (--limit < 0)
+                        // cannot solve
                         return new List<double>();
 
                     if (Math.Abs(alfa2) < epsilon && Math.Abs(beta2) < epsilon)
@@ -425,34 +434,38 @@ namespace Engine
                 }
                 while (true);
 
-                delta1 = alfa1 * alfa1 - 4 * beta1;
+                delta1 = alfa1 * alfa1 - 4d * beta1;
 
-                if (delta1 < 0)              // imaginary roots
+                // imaginary roots
+                if (delta1 < 0)
                 {
-                    delta2 = Sqrt(Math.Abs(delta1)) / 2;
-                    delta3 = -alfa1 / 2;
+                    delta2 = Sqrt(Math.Abs(delta1)) * OneHalf;
+                    delta3 = -alfa1 * OneHalf;
 
                     real[count] = delta3;
                     imag[count] = delta2;
 
                     real[count + 1] = delta3;
-                    imag[count + 1] = delta2;  // sign is inverted on display
+                    // sign is inverted on display
+                    imag[count + 1] = delta2;
                 }
-                else                          // roots are real
+                else
                 {
+                    // roots are real
                     delta2 = Sqrt(delta1);
 
-                    real[count] = (delta2 - alfa1) / 2;
+                    real[count] = (delta2 - alfa1) * OneHalf;
                     imag[count] = 0;
 
-                    real[count + 1] = (delta2 + alfa1) / (-2);
+                    real[count + 1] = (delta2 + alfa1) * -OneHalf;
                     imag[count + 1] = 0;
                 }
 
+                // update root counter
+                count = count + 2;
 
-                count = count + 2;            // update root counter
-
-                n = n - 2;                  // reduce polynomial order
+                // reduce polynomial order
+                n = n - 2;
                 n1 = n1 - 2;
                 n2 = n2 - 2;
 
@@ -460,8 +473,10 @@ namespace Engine
                 //  the new polynomial
                 if (n >= 2)
                 {
-                    for (i = 1; i <= n1; i++)
+                    for (var i = 1; i <= n1; i++)
+                    {
                         a_[i] = b_[i];
+                    }
                 }
 
                 if (n < 2) break;
@@ -479,9 +494,9 @@ namespace Engine
         }
         #endregion Root Finding
 
-        #region Bezier Coefficients Overloads
+        #region Bézier Coefficients Overloads
         /// <summary>
-        /// Coefficients for a Linear Bezier curve.
+        /// Coefficients for a Linear Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -493,7 +508,7 @@ namespace Engine
             => LinearBezierCoefficients(a, b);
 
         /// <summary>
-        /// Coefficients for a Quadratic Bezier curve.
+        /// Coefficients for a Quadratic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -507,7 +522,7 @@ namespace Engine
             => QuadraticBezierCoefficients(a, b, c);
 
         /// <summary>
-        /// Coefficients for a Cubic Bezier curve.
+        /// Coefficients for a Cubic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -521,7 +536,7 @@ namespace Engine
             => CubicBezierCoefficients(a, b, c, d);
 
         /// <summary>
-        /// Coefficients for a Quartic Bezier curve.
+        /// Coefficients for a Quartic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -535,7 +550,7 @@ namespace Engine
             => QuarticBezierCoefficients(a, b, c, d, e);
 
         /// <summary>
-        /// Coefficients for a Quintic Bezier curve.
+        /// Coefficients for a Quintic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -548,11 +563,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F) BezierCoefficients(double a, double b, double c, double d, double e, double f)
             => QuinticBezierCoefficients(a, b, c, d, e, f);
-        #endregion Bezier Coefficients Overloads
+        #endregion Bézier Coefficients Overloads
 
-        #region Bezier Coefficients
+        #region Bézier Coefficients
         /// <summary>
-        /// Coefficients for a Linear Bezier curve.
+        /// Coefficients for a Linear Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -567,7 +582,7 @@ namespace Engine
             => Polynomial.OneMinusT * a + Polynomial.T * b;
 
         /// <summary>
-        /// Coefficients for a Linear Bezier curve.
+        /// Coefficients for a Linear Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -583,7 +598,7 @@ namespace Engine
                 a);
 
         /// <summary>
-        /// Coefficients for a Quadratic Bezier curve.
+        /// Coefficients for a Quadratic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -599,7 +614,7 @@ namespace Engine
             => Polynomial.OneMinusT * LinearBezierCoefficientsStack(a, b) + Polynomial.T * LinearBezierCoefficientsStack(b, c);
 
         /// <summary>
-        /// Coefficients for a Quadratic Bezier curve.
+        /// Coefficients for a Quadratic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -618,7 +633,7 @@ namespace Engine
                 a);
 
         /// <summary>
-        /// Coefficients for a Cubic Bezier curve.
+        /// Coefficients for a Cubic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -635,7 +650,7 @@ namespace Engine
             => (Polynomial.OneMinusT * QuadraticBezierCoefficientsStack(a, b, c) + Polynomial.T * QuadraticBezierCoefficientsStack(b, c, d));
 
         /// <summary>
-        /// Coefficients for a Cubic Bezier curve.
+        /// Coefficients for a Cubic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -657,7 +672,7 @@ namespace Engine
                 a);
 
         /// <summary>
-        /// Coefficients for a Quartic Bezier curve.
+        /// Coefficients for a Quartic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -675,7 +690,7 @@ namespace Engine
             => (Polynomial.OneMinusT * CubicBezierCoefficientsStack(a, b, c, d) + Polynomial.T * CubicBezierCoefficientsStack(b, c, d, e));
 
         /// <summary>
-        /// Coefficients for a Quartic Bezier curve.
+        /// Coefficients for a Quartic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -697,7 +712,7 @@ namespace Engine
                 a);
 
         /// <summary>
-        /// Coefficients for a Quintic Bezier curve.
+        /// Coefficients for a Quintic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -716,7 +731,7 @@ namespace Engine
             => (Polynomial.OneMinusT * QuarticBezierCoefficientsStack(a, b, c, d, e) + Polynomial.T * QuarticBezierCoefficientsStack(b, c, d, e, f));
 
         /// <summary>
-        /// Coefficients for a Quintic Bezier curve.
+        /// Coefficients for a Quintic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -726,7 +741,7 @@ namespace Engine
         /// <param name="f"></param>
         /// <returns></returns>
         /// <acknowledgment>
-        /// Based off of pseudocode for the matrix found at:
+        /// Based off of pseudo-code for the matrix found at:
         /// https://simtk.org/api_docs/opensim/api_docs/classOpenSim_1_1SegmentedQuinticBezierToolkit.html
         /// </acknowledgment>
         [DebuggerStepThrough]
@@ -740,7 +755,7 @@ namespace Engine
                 a);
 
         /// <summary>
-        /// Coefficients for a Sextic Bezier curve.
+        /// Coefficients for a Sextic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -760,7 +775,7 @@ namespace Engine
             => (Polynomial.OneMinusT * QuinticBezierCoefficientsStack(a, b, c, d, e, f) + Polynomial.T * QuinticBezierCoefficientsStack(b, c, d, e, f, g));
 
         /// <summary>
-        /// Coefficients for a Septic Bezier curve.
+        /// Coefficients for a Septic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -781,7 +796,7 @@ namespace Engine
             => (Polynomial.OneMinusT * SexticBezierCoefficientsStack(a, b, c, d, e, f, g) + Polynomial.T * SexticBezierCoefficientsStack(b, c, d, e, f, g, h));
 
         /// <summary>
-        /// Coefficients for a Octic Bezier curve.
+        /// Coefficients for a Octic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -803,7 +818,7 @@ namespace Engine
             => (Polynomial.OneMinusT * SepticBezierCoefficientsStack(a, b, c, d, e, f, g, h) + Polynomial.T * SepticBezierCoefficientsStack(b, c, d, e, f, g, h, i));
 
         /// <summary>
-        /// Coefficients for a Nonic Bezier curve.
+        /// Coefficients for a Nonic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -826,7 +841,7 @@ namespace Engine
             => (Polynomial.OneMinusT * OcticBezierCoefficientsStack(a, b, c, d, e, f, g, h, i) + Polynomial.T * OcticBezierCoefficientsStack(b, c, d, e, f, g, h, i, j));
 
         /// <summary>
-        /// Coefficients for a Decic Bezier curve.
+        /// Coefficients for a Decic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
@@ -848,7 +863,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial DecicBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
             => (Polynomial.OneMinusT * NonicBezierCoefficientsStack(a, b, c, d, e, f, g, h, i, j) + Polynomial.T * NonicBezierCoefficientsStack(b, c, d, e, f, g, h, i, j, k));
-        #endregion Bezier Coefficients
+        #endregion Bézier Coefficients
 
         /// <summary>
         /// Newton's (Newton-Raphson) method for finding Real roots on univariate function. <br/>
@@ -919,7 +934,7 @@ namespace Engine
                         dfx = prev_dfx;
                     }
                     // or move x a little?
-                    //dfx = df(x != 0 ? x + x * 1e-15 : 1e-15);
+                    // dfx = df(x != 0 ? x + x * 1e-15 : 1e-15);
                 }
                 //stepMethod = 'newton';
                 prev_dfx = dfx;

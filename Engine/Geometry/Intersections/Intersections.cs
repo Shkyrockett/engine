@@ -466,10 +466,10 @@ namespace Engine
             => PointRayIntersection(p.X, p.Y, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
 
         /// <summary>
-        /// Find the intersection of two Bezier segments.
+        /// Find the intersection of two Bézier segments.
         /// </summary>
-        /// <param name="b0">The first Bezier segment.</param>
-        /// <param name="b1">The second Bezier segment.</param>
+        /// <param name="b0">The first Bézier segment.</param>
+        /// <param name="b1">The second Bézier segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -520,9 +520,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection of a Bezier segment and a line segment.
+        /// Find the intersection of a Bézier segment and a line segment.
         /// </summary>
-        /// <param name="b">The bezier segment.</param>
+        /// <param name="b">The Bézier segment.</param>
         /// <param name="l">The line segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
@@ -544,10 +544,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection of a Bezier segment and a Quadratic Bezier.
+        /// Find the intersection of a Bézier segment and a Quadratic Bézier.
         /// </summary>
-        /// <param name="b0">The Bezier segment.</param>
-        /// <param name="b1">The quadratic bezier curve segment.</param>
+        /// <param name="b0">The Bézier segment.</param>
+        /// <param name="b1">The quadratic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -568,10 +568,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection of a Bezier segment and a Cubic Bezier.
+        /// Find the intersection of a Bézier segment and a Cubic Bézier.
         /// </summary>
-        /// <param name="b">The Bezier segment.</param>
-        /// <param name="c">The cubic bezier curve segment.</param>
+        /// <param name="b">The Bézier segment.</param>
+        /// <param name="c">The cubic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -628,10 +628,10 @@ namespace Engine
             => RayLineSegmentIntersection(r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, s.AX, s.AY, s.BX, s.BY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a line segment and a Bezier segment.
+        /// Find the intersection of a line segment and a Bézier segment.
         /// </summary>
         /// <param name="s">The line segment.</param>
-        /// <param name="b">The bezier curve segment.</param>
+        /// <param name="b">The Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -652,10 +652,10 @@ namespace Engine
             => LineSegmentLineSegmentIntersection(s1.A.X, s1.A.Y, s1.B.X, s1.B.Y, s2.A.X, s2.A.Y, s2.B.X, s2.B.Y, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Line segment and a Quadratic Bezier.
+        /// Find the intersection of a Line segment and a Quadratic Bézier.
         /// </summary>
         /// <param name="s">The line segment.</param>
-        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="b">The quadratic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -664,10 +664,10 @@ namespace Engine
             => LineSegmentQuadraticBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Line segment and a Cubic Bezier.
+        /// Find the intersection of a Line segment and a Cubic Bézier.
         /// </summary>
         /// <param name="s">The line segment.</param>
-        /// <param name="b">The cubic bezier curve segment.</param>
+        /// <param name="b">The cubic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -808,10 +808,10 @@ namespace Engine
             => LineRayIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, r.Location.X, r.Location.Y, r.Direction.I, r.Direction.J, epsilon);
 
         /// <summary>
-        /// Find the intersection of a ray and a Quadratic Bezier.
+        /// Find the intersection of a ray and a Quadratic Bézier.
         /// </summary>
         /// <param name="s">The ray.</param>
-        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="b">The quadratic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -820,10 +820,10 @@ namespace Engine
             => RayQuadraticBezierSegmentIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Ray and a Cubic Bezier.
+        /// Find the intersection of a Ray and a Cubic Bézier.
         /// </summary>
         /// <param name="s">The ray.</param>
-        /// <param name="b">The cubic bezier curve segment.</param>
+        /// <param name="b">The cubic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -969,10 +969,10 @@ namespace Engine
                 );
 
         /// <summary>
-        /// Find the intersection of a Line segment and a Quadratic Bezier.
+        /// Find the intersection of a Line segment and a Quadratic Bézier.
         /// </summary>
         /// <param name="l">The line.</param>
-        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="b">The quadratic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -981,10 +981,10 @@ namespace Engine
             => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Line segment and a Cubic Bezier.
+        /// Find the intersection of a Line segment and a Cubic Bézier.
         /// </summary>
         /// <param name="l">The line.</param>
-        /// <param name="b">The cubic bezier curve segment.</param>
+        /// <param name="b">The cubic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -1077,10 +1077,10 @@ namespace Engine
             => LineEllipticalArcIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, e.StartAngle, e.SweepAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a Bezier segment.
+        /// Find the intersection of a Quadratic Bézier and a Bézier segment.
         /// </summary>
-        /// <param name="q">The quadratic bezier curve segment.</param>
-        /// <param name="b">The bezier segment.</param>
+        /// <param name="q">The quadratic Bézier curve segment.</param>
+        /// <param name="b">The Bézier segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -1089,9 +1089,9 @@ namespace Engine
             => Intersection(b, q, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a Line segment.
+        /// Find the intersection of a Quadratic Bézier and a Line segment.
         /// </summary>
-        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="b">The quadratic Bézier curve segment.</param>
         /// <param name="l">The line segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
@@ -1101,10 +1101,10 @@ namespace Engine
             => LineSegmentQuadraticBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a ray and a Quadratic Bezier.
+        /// Find the intersection of a ray and a Quadratic Bézier.
         /// </summary>
         /// <param name="s">The ray.</param>
-        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="b">The quadratic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -1113,9 +1113,9 @@ namespace Engine
             => RayQuadraticBezierSegmentIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a Line segment.
+        /// Find the intersection of a Quadratic Bézier and a Line segment.
         /// </summary>
-        /// <param name="b">The quadratic bezier curve segment.</param>
+        /// <param name="b">The quadratic Bézier curve segment.</param>
         /// <param name="l">The line.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
@@ -1125,7 +1125,7 @@ namespace Engine
             => LineQuadraticBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of two Quadratic Beziers.
+        /// Find the intersection of two Quadratic Bézier curves.
         /// </summary>
         /// <param name="b0"></param>
         /// <param name="b1"></param>
@@ -1137,7 +1137,7 @@ namespace Engine
             => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a Cubic Bezier.
+        /// Find the intersection of a Quadratic Bézier and a Cubic Bézier.
         /// </summary>
         /// <param name="b0"></param>
         /// <param name="b1"></param>
@@ -1149,7 +1149,7 @@ namespace Engine
             => QuadraticBezierSegmentCubicBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a triangle.
+        /// Find the intersection of a Quadratic Bézier and a triangle.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="t"></param>
@@ -1161,7 +1161,7 @@ namespace Engine
             => QuadraticBezierSegmentTriangleIntersection(b.CurveX, b.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a Rectangle.
+        /// Find the intersection of a Quadratic Bézier and a Rectangle.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="r"></param>
@@ -1173,7 +1173,7 @@ namespace Engine
             => QuadraticBezierSegmentRectangleIntersection(b.CurveX, b.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a Polygon Contour.
+        /// Find the intersection of a Quadratic Bézier and a Polygon Contour.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="p"></param>
@@ -1185,7 +1185,7 @@ namespace Engine
             => QuadraticBezierSegmentPolygonContourIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a Circle.
+        /// Find the intersection of a Quadratic Bézier and a Circle.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="c"></param>
@@ -1197,7 +1197,7 @@ namespace Engine
             => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and an unrotated Ellipse.
+        /// Find the intersection of a Quadratic Bézier and an unrotated Ellipse.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="e"></param>
@@ -1209,7 +1209,7 @@ namespace Engine
             => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Bezier segment.
+        /// Find the intersection of a Cubic Bézier and a Bézier segment.
         /// </summary>
         /// <param name="b0"></param>
         /// <param name="b1"></param>
@@ -1221,7 +1221,7 @@ namespace Engine
             => Intersection(b1, b0, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Line segment.
+        /// Find the intersection of a Cubic Bézier and a Line segment.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="l"></param>
@@ -1233,10 +1233,10 @@ namespace Engine
             => LineSegmentCubicBezierSegmentIntersection(l.AX, l.AY, l.BX, l.BY, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Ray and a Cubic Bezier.
+        /// Find the intersection of a Ray and a Cubic Bézier.
         /// </summary>
         /// <param name="s">The ray.</param>
-        /// <param name="b">The cubic bezier curve segment.</param>
+        /// <param name="b">The cubic Bézier curve segment.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         //[DebuggerStepThrough]
@@ -1245,7 +1245,7 @@ namespace Engine
             => RayCubicBezierSegmentIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Line segment.
+        /// Find the intersection of a Cubic Bézier and a Line segment.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="l"></param>
@@ -1257,7 +1257,7 @@ namespace Engine
             => LineCubicBezierIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, b.CurveX, b.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Quadratic Bezier.
+        /// Find the intersection of a Cubic Bézier and a Quadratic Bézier.
         /// </summary>
         /// <param name="b1"></param>
         /// <param name="b0"></param>
@@ -1269,7 +1269,7 @@ namespace Engine
             => QuadraticBezierSegmentCubicBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of two Cubic Beziers.
+        /// Find the intersection of two Cubic Bézier curves.
         /// </summary>
         /// <param name="b0"></param>
         /// <param name="b1"></param>
@@ -1281,7 +1281,7 @@ namespace Engine
             => CubicBezierSegmentCubicBezierSegmentIntersection(b0.CurveX, b0.CurveY, b1.CurveX, b1.CurveY, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Triangle.
+        /// Find the intersection of a Cubic Bézier and a Triangle.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="t"></param>
@@ -1293,7 +1293,7 @@ namespace Engine
             => CubicBezierSegmentTriangleIntersection(b.CurveX, b.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Rectangle.
+        /// Find the intersection of a Cubic Bézier and a Rectangle.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="r"></param>
@@ -1305,7 +1305,7 @@ namespace Engine
             => CubicBezierSegmentRectangleIntersection(b.CurveX, b.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Polygon Contour.
+        /// Find the intersection of a Cubic Bézier and a Polygon Contour.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="p"></param>
@@ -1317,7 +1317,7 @@ namespace Engine
             => CubicBezierSegmentPolygonIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Circle.
+        /// Find the intersection of a Cubic Bézier and a Circle.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="c"></param>
@@ -1329,7 +1329,7 @@ namespace Engine
             => CubicBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and an unrotated Ellipse.
+        /// Find the intersection of a Cubic Bézier and an unrotated Ellipse.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="e"></param>
@@ -1377,7 +1377,7 @@ namespace Engine
             => LineSegmentTriangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Quadratic Bezier and a triangle.
+        /// Find the intersection of a Quadratic Bézier and a triangle.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="t"></param>
@@ -1389,7 +1389,7 @@ namespace Engine
             => QuadraticBezierSegmentTriangleIntersection(b.CurveX, b.CurveY, t.A.X, t.A.Y, t.B.X, t.B.Y, t.C.X, t.C.Y, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Cubic Bezier and a Triangle.
+        /// Find the intersection of a Cubic Bézier and a Triangle.
         /// </summary>
         /// <param name="b"></param>
         /// <param name="t"></param>
@@ -1497,7 +1497,7 @@ namespace Engine
             => RayRectangleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Rectangle and a Quadratic Bezier.
+        /// Find the intersection of a Rectangle and a Quadratic Bézier.
         /// </summary>
         /// <param name="r"></param>
         /// <param name="b"></param>
@@ -1509,7 +1509,7 @@ namespace Engine
             => QuadraticBezierSegmentRectangleIntersection(b.CurveX, b.CurveY, r.X, r.Y, r.Right, r.Bottom, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Rectangle and a Cubic Bezier.
+        /// Find the intersection of a Rectangle and a Cubic Bézier.
         /// </summary>
         /// <param name="r"></param>
         /// <param name="b"></param>
@@ -1617,7 +1617,7 @@ namespace Engine
             => LinePolygonContourIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, p.Points, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Polygon contour and a Quadratic Bezier.
+        /// Find the intersection of a Polygon contour and a Quadratic Bézier.
         /// </summary>
         /// <param name="p"></param>
         /// <param name="b"></param>
@@ -1629,7 +1629,7 @@ namespace Engine
              => QuadraticBezierSegmentPolygonContourIntersection(b.CurveX, b.CurveY, p.Points, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Polygon Contour and a Cubic Bezier.
+        /// Find the intersection of a Polygon Contour and a Cubic Bézier.
         /// </summary>
         /// <param name="p"></param>
         /// <param name="b"></param>
@@ -1737,7 +1737,7 @@ namespace Engine
             => LineCircleIntersection(l.Location.X, l.Location.Y, l.Direction.I, l.Direction.J, c.X, c.Y, c.Radius, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Circle and a Quadratic Bezier.
+        /// Find the intersection of a Circle and a Quadratic Bézier.
         /// </summary>
         /// <param name="c"></param>
         /// <param name="b"></param>
@@ -1749,7 +1749,7 @@ namespace Engine
             => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, c.X, c.Y, c.Radius, c.Radius, epsilon);
 
         /// <summary>
-        /// Find the intersection of a Circle and a Cubic Bezier.
+        /// Find the intersection of a Circle and a Cubic Bézier.
         /// </summary>
         /// <param name="c"></param>
         /// <param name="b"></param>
@@ -1893,7 +1893,7 @@ namespace Engine
             => LineEllipseIntersection(s.Location.X, s.Location.Y, s.Direction.I, s.Direction.J, e.X, e.Y, e.RX, e.RY, e.CosAngle, e.SinAngle, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated Ellipse and a Quadratic Bezier.
+        /// Find the intersection of an unrotated Ellipse and a Quadratic Bézier.
         /// </summary>
         /// <param name="e"></param>
         /// <param name="b"></param>
@@ -1905,7 +1905,7 @@ namespace Engine
              => QuadraticBezierSegmentUnrotatedEllipseIntersection(b.CurveX, b.CurveY, e.X, e.Y, e.RX, e.RY, epsilon);
 
         /// <summary>
-        /// Find the intersection of an unrotated ellipse and a Cubic Bezier.
+        /// Find the intersection of an unrotated ellipse and a Cubic Bézier.
         /// </summary>
         /// <param name="e"></param>
         /// <param name="b"></param>
@@ -2056,18 +2056,18 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The triangle contains point.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="pX">The pX.</param>
+        /// <param name="pY">The pY.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="Inclusion"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion TriangleContainsPoint(double aX, double aY, double bX, double bY, double cX, double cY, double pX, double pY, double epsilon = Epsilon)
@@ -3515,7 +3515,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find out whether a quadratic bezier segment and a line segment intersects.
+        /// Find out whether a quadratic Bézier segment and a line segment intersects.
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -3538,11 +3538,11 @@ namespace Engine
             double x, double y,
             double right, double bottom,
             double epsilon)
-            // ToDo: Figure out code to check whether a quadratic Bezier curve and a line segment intersect.
+            // ToDo: Figure out code to check whether a quadratic Bézier curve and a line segment intersect.
             => throw new NotImplementedException();
 
         /// <summary>
-        /// Find out whether a quadratic bezier segment and a rectangle intersects.
+        /// Find out whether a quadratic Bézier segment and a rectangle intersects.
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -3594,7 +3594,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find out whether a cubic bezier segment and a line segment intersects.
+        /// Find out whether a cubic Bézier segment and a line segment intersects.
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -3620,11 +3620,11 @@ namespace Engine
             double a1X, double a1Y,
             double a2X, double a2Y,
             double epsilon)
-            // ToDo: Figure out code to check whether a cubic Bezier curve and a line segment intersect.
+            // ToDo: Figure out code to check whether a cubic Bézier curve and a line segment intersect.
             => throw new NotImplementedException();
 
         /// <summary>
-        /// Find out whether a cubic bezier segment and a rectangle intersects.
+        /// Find out whether a cubic Bézier segment and a rectangle intersects.
         /// </summary>
         /// <param name="aX"></param>
         /// <param name="aY"></param>
@@ -4214,7 +4214,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a line and a quadratic bezier.
+        /// Find the intersection between a line and a quadratic Bézier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -4241,14 +4241,14 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a line and a quadratic bezier.
+        /// Find the intersection between a line and a quadratic Bézier.
         /// </summary>
         /// <param name="lx"></param>
         /// <param name="ly"></param>
         /// <param name="li"></param>
         /// <param name="lj"></param>
-        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
-        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
@@ -4292,7 +4292,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a line and a cubic bezier.
+        /// Find the intersection between a line and a cubic Bézier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -4321,14 +4321,14 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a line and a cubic bezier.
+        /// Find the intersection between a line and a cubic Bézier.
         /// </summary>
         /// <param name="lx"></param>
         /// <param name="ly"></param>
         /// <param name="li"></param>
         /// <param name="lj"></param>
-        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
-        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
@@ -5144,14 +5144,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a Ray and a quadratic bezier.
+        /// Find the intersection between a Ray and a quadratic Bézier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="i1"></param>
         /// <param name="j1"></param>
-        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
-        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
@@ -5202,14 +5202,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a ray and a cubic bezier.
+        /// Find the intersection between a ray and a cubic Bézier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="i1"></param>
         /// <param name="j1"></param>
-        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
-        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
@@ -5938,7 +5938,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a line segment and a quadratic bezier.
+        /// Find the intersection between a line segment and a quadratic Bézier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -5965,14 +5965,14 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a line segment and a quadratic bezier.
+        /// Find the intersection between a line segment and a quadratic Bézier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
-        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
@@ -6028,7 +6028,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a line segment and a cubic bezier.
+        /// Find the intersection between a line segment and a cubic Bézier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
@@ -6057,14 +6057,14 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a line segment and a cubic bezier.
+        /// Find the intersection between a line segment and a cubic Bézier.
         /// </summary>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
-        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
@@ -6789,7 +6789,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between two quadratic beziers.
+        /// Find the intersection between two quadratic Bézier.
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
@@ -6819,12 +6819,12 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between two quadratic beziers.
+        /// Find the intersection between two quadratic Bézier.
         /// </summary>
-        /// <param name="xCurveA">The set of Polynomial Bezier Coefficients of the x coordinates of the first Bezier curve.</param>
-        /// <param name="yCurveA">The set of Polynomial Bezier Coefficients of the y coordinates of the first Bezier curve.</param>
-        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
-        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <param name="xCurveA">The set of Polynomial Bézier Coefficients of the x coordinates of the first Bézier curve.</param>
+        /// <param name="yCurveA">The set of Polynomial Bézier Coefficients of the y coordinates of the first Bézier curve.</param>
+        /// <param name="xCurveB">The set of Polynomial Bézier Coefficients of the x coordinates of the second Bézier curve.</param>
+        /// <param name="yCurveB">The set of Polynomial Bézier Coefficients of the y coordinates of the second Bézier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
@@ -6919,7 +6919,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a cubic bezier.
+        /// Find the intersection between a quadratic Bézier and a cubic Bézier.
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
@@ -6951,12 +6951,12 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a cubic bezier.
+        /// Find the intersection between a quadratic Bézier and a cubic Bézier.
         /// </summary>
-        /// <param name="xCurveA">The set of Polynomial Bezier Coefficients of the x coordinates of the first Bezier curve.</param>
-        /// <param name="yCurveA">The set of Polynomial Bezier Coefficients of the y coordinates of the first Bezier curve.</param>
-        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
-        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <param name="xCurveA">The set of Polynomial Bézier Coefficients of the x coordinates of the first Bézier curve.</param>
+        /// <param name="yCurveA">The set of Polynomial Bézier Coefficients of the y coordinates of the first Bézier curve.</param>
+        /// <param name="xCurveB">The set of Polynomial Bézier Coefficients of the x coordinates of the second Bézier curve.</param>
+        /// <param name="yCurveB">The set of Polynomial Bézier Coefficients of the y coordinates of the second Bézier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
@@ -7046,7 +7046,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a polyline.
+        /// Find the intersection between a quadratic Bézier and a polyline.
         /// </summary>
         /// <param name="b1X"></param>
         /// <param name="b1Y"></param>
@@ -7073,7 +7073,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a polyline.
+        /// Find the intersection between a quadratic Bézier and a polyline.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -7115,7 +7115,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a polygon contour.
+        /// Find the intersection between a quadratic Bézier and a polygon contour.
         /// </summary>
         /// <param name="b1X"></param>
         /// <param name="b1Y"></param>
@@ -7142,7 +7142,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a polygon contour.
+        /// Find the intersection between a quadratic Bézier and a polygon contour.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -7184,7 +7184,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a triangle.
+        /// Find the intersection between a quadratic Bézier and a triangle.
         /// </summary>
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
@@ -7216,7 +7216,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a triangle.
+        /// Find the intersection between a quadratic Bézier and a triangle.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -7255,7 +7255,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a rectangle.
+        /// Find the intersection between a quadratic Bézier and a rectangle.
         /// </summary>
         /// <param name="p1X"></param>
         /// <param name="p1Y"></param>
@@ -7285,7 +7285,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and a rectangle.
+        /// Find the intersection between a quadratic Bézier and a rectangle.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -7327,7 +7327,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the point of self intersection of a cubic bezier curve, if the cubic bezier curve has self intersection.
+        /// Find the point of self intersection of a cubic Bézier curve, if the cubic Bézier curve has self intersection.
         /// </summary>
         /// <param name="x0">The x-component of the starting point.</param>
         /// <param name="y0">The y-component of the starting point.</param>
@@ -7350,7 +7350,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the point of self intersection of a cubic bezier curve, if the cubic bezier curve has self intersection.
+        /// Find the point of self intersection of a cubic Bézier curve, if the cubic Bézier curve has self intersection.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -7431,7 +7431,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between two cubic beziers.
+        /// Find the intersection between two cubic Bézier.
         /// </summary>
         /// <param name="a1X"></param>
         /// <param name="a1Y"></param>
@@ -7465,12 +7465,12 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between two cubic beziers.
+        /// Find the intersection between two cubic Bézier.
         /// </summary>
-        /// <param name="xCurveA">The set of Polynomial Bezier Coefficients of the x coordinates of the first Bezier curve.</param>
-        /// <param name="yCurveA">The set of Polynomial Bezier Coefficients of the y coordinates of the first Bezier curve.</param>
-        /// <param name="xCurveB">The set of Polynomial Bezier Coefficients of the x coordinates of the second Bezier curve.</param>
-        /// <param name="yCurveB">The set of Polynomial Bezier Coefficients of the y coordinates of the second Bezier curve.</param>
+        /// <param name="xCurveA">The set of Polynomial Bézier Coefficients of the x coordinates of the first Bézier curve.</param>
+        /// <param name="yCurveA">The set of Polynomial Bézier Coefficients of the y coordinates of the first Bézier curve.</param>
+        /// <param name="xCurveB">The set of Polynomial Bézier Coefficients of the x coordinates of the second Bézier curve.</param>
+        /// <param name="yCurveB">The set of Polynomial Bézier Coefficients of the y coordinates of the second Bézier curve.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         /// <acknowledgment>
@@ -7583,7 +7583,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Finds the intersection between a cubic bezier and a polyline.
+        /// Finds the intersection between a cubic Bézier and a polyline.
         /// </summary>
         /// <param name="b1X"></param>
         /// <param name="b1Y"></param>
@@ -7612,7 +7612,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Finds the intersection between a cubic bezier and a polyline.
+        /// Finds the intersection between a cubic Bézier and a polyline.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -7656,7 +7656,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Finds the intersection between a cubic bezier and a polygon.
+        /// Finds the intersection between a cubic Bézier and a polygon.
         /// </summary>
         /// <param name="b1X"></param>
         /// <param name="b1Y"></param>
@@ -7685,7 +7685,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Finds the intersection between a cubic bezier and a polygon.
+        /// Finds the intersection between a cubic Bézier and a polygon.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -7729,7 +7729,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a cubic bezier and a rectangle.
+        /// Find the intersection between a cubic Bézier and a rectangle.
         /// </summary>
         /// <param name="b1X"></param>
         /// <param name="b1Y"></param>
@@ -7763,7 +7763,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a cubic bezier and a rectangle.
+        /// Find the intersection between a cubic Bézier and a rectangle.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -7804,7 +7804,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a cubic bezier and a rectangle.
+        /// Find the intersection between a cubic Bézier and a rectangle.
         /// </summary>
         /// <param name="b1X"></param>
         /// <param name="b1Y"></param>
@@ -7836,7 +7836,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a cubic bezier and a rectangle.
+        /// Find the intersection between a cubic Bézier and a rectangle.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -8917,7 +8917,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and an unrotated ellipse.
+        /// Find the intersection between a quadratic Bézier and an unrotated ellipse.
         /// </summary>
         /// <param name="b1X"></param>
         /// <param name="b1Y"></param>
@@ -8944,10 +8944,10 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a quadratic bezier and an unrotated ellipse.
+        /// Find the intersection between a quadratic Bézier and an unrotated ellipse.
         /// </summary>
-        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
-        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
         /// <param name="ecX"></param>
         /// <param name="ecY"></param>
         /// <param name="rx"></param>
@@ -9000,7 +9000,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection between a cubic bezier and an unrotated ellipse.
+        /// Find the intersection between a cubic Bézier and an unrotated ellipse.
         /// </summary>
         /// <param name="b1X"></param>
         /// <param name="b1Y"></param>
@@ -9032,10 +9032,10 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the intersection between a cubic bezier and an unrotated ellipse.
+        /// Find the intersection between a cubic Bézier and an unrotated ellipse.
         /// </summary>
-        /// <param name="xCurve">The set of Polynomial Bezier Coefficients of the x coordinates of the Bezier curve.</param>
-        /// <param name="yCurve">The set of Polynomial Bezier Coefficients of the y coordinates of the Bezier curve.</param>
+        /// <param name="xCurve">The set of Polynomial Bézier Coefficients of the x coordinates of the Bézier curve.</param>
+        /// <param name="yCurve">The set of Polynomial Bézier Coefficients of the y coordinates of the Bézier curve.</param>
         /// <param name="ecX"></param>
         /// <param name="ecY"></param>
         /// <param name="rx"></param>
@@ -9584,7 +9584,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the intersection parameters of the self intersection of a cubic bezier curve.
+        /// Find the intersection parameters of the self intersection of a cubic Bézier curve.
         /// </summary>
         /// <param name="xCurve"></param>
         /// <param name="yCurve"></param>
@@ -9748,7 +9748,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the scan-beam intersections of a quadratic bezier curve segment.
+        /// Find the scan-beam intersections of a quadratic Bézier curve segment.
         /// </summary>
         /// <param name="scanlist"></param>
         /// <param name="x"></param>
@@ -9775,7 +9775,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the scan-beam intersections of a quadratic bezier curve segment.
+        /// Find the scan-beam intersections of a quadratic Bézier curve segment.
         /// </summary>
         /// <param name="scanlist"></param>
         /// <param name="x"></param>
@@ -9804,7 +9804,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the scan-beam intersections of a cubic bezier curve segment.
+        /// Find the scan-beam intersections of a cubic Bézier curve segment.
         /// </summary>
         /// <param name="scanlist"></param>
         /// <param name="x"></param>
@@ -9833,7 +9833,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the scan-beam intersections of a cubic bezier curve segment.
+        /// Find the scan-beam intersections of a cubic Bézier curve segment.
         /// </summary>
         /// <param name="scanlist"></param>
         /// <param name="x"></param>
@@ -10414,7 +10414,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the scan-beam points to the left of a quadratic bezier segment.
+        /// Find the scan-beam points to the left of a quadratic Bézier segment.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -10439,7 +10439,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the scan-beam points to the left of a quadratic bezier segment.
+        /// Find the scan-beam points to the left of a quadratic Bézier segment.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -10470,7 +10470,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the scan-beam points to the left of a cubic bezier segment.
+        /// Find the scan-beam points to the left of a cubic Bézier segment.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -10497,7 +10497,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the scan-beam points to the left of a cubic bezier segment.
+        /// Find the scan-beam points to the left of a cubic Bézier segment.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -11125,7 +11125,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the scan-beam points to the right of a quadratic bezier curve segment.
+        /// Find the scan-beam points to the right of a quadratic Bézier curve segment.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -11150,7 +11150,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the scan-beam points to the right of a quadratic bezier curve segment.
+        /// Find the scan-beam points to the right of a quadratic Bézier curve segment.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -11181,7 +11181,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the scan-beam points to the right of a cubic bezier curve segment.
+        /// Find the scan-beam points to the right of a cubic Bézier curve segment.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -11208,7 +11208,7 @@ namespace Engine
                 epsilon);
 
         /// <summary>
-        /// Find the scan-beam points to the right of a cubic bezier curve segment.
+        /// Find the scan-beam points to the right of a cubic Bézier curve segment.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -11714,7 +11714,7 @@ namespace Engine
 
         #region Helpers
         /// <summary>
-        /// Calculate the bezier curve polynomial of ellipses.
+        /// Calculate the Bézier curve polynomial of ellipses.
         /// </summary>
         /// <param name="e1">First Ellipse parameters.</param>
         /// <param name="e2">Second Ellipse parameters.</param>

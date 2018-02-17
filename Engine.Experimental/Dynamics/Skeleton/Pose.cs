@@ -18,6 +18,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the bones.
         /// </summary>
-        Bone[] Bones { get; set; }
+        private Bone[] Bones { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace Engine
         /// <summary>
         /// The parameter names.
         /// </summary>
-        string[] parameterNames;
+        private string[] parameterNames;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InstanceConstructorAttribute"/> class.

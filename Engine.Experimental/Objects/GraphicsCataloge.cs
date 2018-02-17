@@ -20,7 +20,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        List<GraphicsObject> items;
+        private List<GraphicsObject> items;
 
         /// <summary>
         /// 

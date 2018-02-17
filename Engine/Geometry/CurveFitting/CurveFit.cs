@@ -50,7 +50,7 @@ namespace Engine
         #endregion Constructors
 
         /// <summary>
-        /// Attempts to fit a set of Bezier curves to the given data. It returns a set of curves that form a 
+        /// Attempts to fit a set of Bézier curves to the given data. It returns a set of curves that form a 
         /// http://en.wikipedia.org/wiki/Composite_B%C3%A9zier_curve with C1 continuity (that is, each curve's start
         /// point is coincident with the previous curve's end point, and the tangent vectors of the start and end
         /// points are going in the same direction, so the curves will join up smoothly). Returns an empty array

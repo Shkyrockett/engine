@@ -18,7 +18,7 @@
         /// <summary>
         /// 
         /// </summary>
-        LineSegment2D()
+        private LineSegment2D()
         { }
 
         /// <summary>
@@ -66,14 +66,14 @@
         /// 
         /// </summary>
         /// <returns></returns>
-        bool Degenerate
+        private bool Degenerate
             => a == b;
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        bool IsVertical
+        private bool IsVertical
             => a.X == b.X;
 
         /// <summary>

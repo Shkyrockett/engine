@@ -555,7 +555,7 @@ namespace Engine.Colorspace
         public static (byte red, byte green, byte blue, byte alpha) RGBAFColorToRGBAColor((double red, double green, double blue, double alpha) tuple)
         {
             if (!ValidateRGBAF(tuple.red, tuple.green, tuple.blue, tuple.alpha))
-                throw new ArgumentOutOfRangeException("A parameter is out of range.");
+                throw new ArgumentOutOfRangeException(nameof(tuple), "A parameter is out of range.");
             var d = RGBMax + 0.5d;
             return (
                 red: (byte)(tuple.red * d),
@@ -573,7 +573,7 @@ namespace Engine.Colorspace
         /// <param name="magenta">The magenta.</param>
         /// <param name="black">The black.</param>
         /// <param name="alpha">The alpha.</param>
-        /// <returns>The <see cref="(byte alpha, byte red, byte green, byte blue)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>
         /// Red   = 1-minimum(1,Cyan*(1-Black)+Black)
         /// Green = 1-minimum(1,Magenta*(1-Black)+Black)
@@ -1394,8 +1394,7 @@ namespace Engine.Colorspace
             return (
                 red: y + 0.9563d * i + 0.6210d * q,
                 green: y - 0.2721d * i - 0.6474d * q,
-                blue: y - 1.1070d * i + 1.7046d * q,
-                alpha: alpha
+                blue: y - 1.1070d * i + 1.7046d * q, alpha
                 );
         }
 
@@ -1416,8 +1415,7 @@ namespace Engine.Colorspace
             return (
                 red: y + 1.140d * v,
                 green: y - 0.395d * u - 0.581d * v,
-                blue: y + 2.032d * u,
-                alpha: alpha
+                blue: y + 2.032d * u, alpha
                 );
         }
 
@@ -1530,7 +1528,7 @@ namespace Engine.Colorspace
         /// <param name="green">The g.</param>
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
-        /// <returns>The <see cref="(double h, double s, double i)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>https://gist.github.com/rzhukov/9129585</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double intensity, double alpha) RGBAFColorToHSIAColor3(double red, double green, double blue, double alpha)
@@ -1555,7 +1553,7 @@ namespace Engine.Colorspace
         /// <param name="green">The g.</param>
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
-        /// <returns>The <see cref="(double hue, double saturation, double lumanance "/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double lumanance, double alpha) RGBAFColorToHSLAColor(double red, double green, double blue, double alpha)
@@ -1595,7 +1593,6 @@ namespace Engine.Colorspace
         /// <param name="red"></param>
         /// <param name="green"></param>
         /// <param name="blue"></param>
-        /// <param name="luminance">Luminance value out.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double luminance, double alpha) RGBAColorToHSLAColor(double red, double green, double blue, double alpha)
         {
@@ -1639,7 +1636,7 @@ namespace Engine.Colorspace
         /// <param name="green">The g.</param>
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
-        /// <returns>The <see cref="(double hue, double saturation, double value)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double value, double alpha) RGBAFColorToHSVAColor(double red, double green, double blue, double alpha)
@@ -1754,7 +1751,7 @@ namespace Engine.Colorspace
         /// <param name="green">The g.</param>
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
-        /// <returns>The <see cref="(double luma, double inPhase, double quadrature)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>
         /// https://github.com/dystopiancode/colorspace-conversions/
         /// Correction from: https://stackoverflow.com/q/22131920
@@ -1768,7 +1765,7 @@ namespace Engine.Colorspace
                 y: 0.299900d * red + 0.587000d * green + 0.114000d * blue,
                 i: 0.595716d * red - 0.274453d * green - 0.321264d * blue,
                 q: 0.211456d * red - 0.522591d * green + 0.311350d * blue,
-                alpha: alpha
+                alpha
                 );
         }
 
@@ -1779,7 +1776,7 @@ namespace Engine.Colorspace
         /// <param name="green">The g.</param>
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
-        /// <returns>The <see cref="(double y, double u, double v)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>
         /// https://github.com/dystopiancode/colorspace-conversions/
         /// Correction found at: https://www.fourcc.org/fccyvrgb.php
@@ -1794,7 +1791,7 @@ namespace Engine.Colorspace
                 y,
                 u: 0.492d * (blue - y), // u: 0.565 * (b - y),
                 v: 0.877d * (red - y), // v: 0.713d * (r - y)
-                alpha: alpha
+                 alpha
                 );
         }
         #endregion Conversion Methods

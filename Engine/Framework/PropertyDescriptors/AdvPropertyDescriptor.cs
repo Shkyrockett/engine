@@ -25,22 +25,22 @@ namespace Engine
         /// <summary>
         /// The info.
         /// </summary>
-        MemberInfo info;
+        private MemberInfo info;
 
         /// <summary>
         /// The field.
         /// </summary>
-        FieldInfo field;
+        private FieldInfo field;
 
         /// <summary>
         /// The property.
         /// </summary>
-        PropertyInfo property;
+        private PropertyInfo property;
 
         /// <summary>
         /// The description.
         /// </summary>
-        string description;
+        private string description;
         #endregion Fields
 
         #region Constructors

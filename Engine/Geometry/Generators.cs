@@ -51,17 +51,17 @@ namespace Engine
         /// <summary>
         /// a is the constant of the original Cardioid.
         /// </summary>
-        const double a = 1d;
+        private const double a = 1d;
 
         /// <summary>
         /// the minimum values of the phase angle "t".
         /// </summary>
-        const double tmin = -PI * 0.5d;
+        private const double tmin = -PI * 0.5d;
 
         /// <summary>
         /// the maximum values of the phase angle "t".
         /// </summary>
-        const double tmax = 3d * PI * 0.5d;
+        private const double tmax = 3d * PI * 0.5d;
 
         /// <summary>
         /// The heart curve.

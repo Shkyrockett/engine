@@ -8,7 +8,7 @@ The geometrical calculations use the following basic primitives:
 
 ### Mathmatical Primitives 
 
-- [x] **Polynomial** A mathematical primitive used to store the polynomial function of a polynomial based shape. Used mostly with Bezier curve calculations.
+- [x] **Polynomial** A mathematical primitive used to store the polynomial function of a polynomial based shape. Used mostly with Bézier curve calculations.
 - [x] **2x2 Matrix**
 - [x] **3x3 Matrix**
 - [x] **4x4 Matrix**
@@ -91,7 +91,7 @@ The following 2D shapes should be renderable.
 - [ ] **Polygon** _Needs testing._
 - [x] **Polycurve Contour** _Needs work._
 - [ ] **Polycurve** _Needs work._
-- [ ] **PolyBezier Contour** A Polyline like structure that is constructed out of Bezier curves of various degrees. Generally a start point, Bezier line segments, Quadratic curves, and Cubic curves.
+- [ ] **PolyBezier Contour** A Polyline like structure that is constructed out of Bézier curves of various degrees. Generally a start point, Bezier line segments, Quadratic curves, and Cubic curves.
 - [ ] **PolyBezier**
 - [x] **Circle** <svg width="25" height="25">
   <g style="fill:transparent;stroke-width:1;">

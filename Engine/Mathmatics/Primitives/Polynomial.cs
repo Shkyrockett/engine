@@ -79,7 +79,7 @@ namespace Engine
         /// <summary>
         /// Semaphore indicating whether the polynomial can be edited.
         /// </summary>
-        bool isReadonly;
+        private bool isReadonly;
         #endregion Fields
 
         #region Constructors
@@ -1491,7 +1491,7 @@ namespace Engine
                 case PolynomialDegree.Constant:
                     if (coefficients == null)
                     {
-                        return new double[] { };
+                        return Array.Empty<double>();
                     }
 
                     return new double[] { coefficients[0] };
@@ -1516,7 +1516,7 @@ namespace Engine
                 //return poly.OcticRoots(epsilon);
                 default:
                     // ToDo: If a general root finding algorithm can be found, call it here instead of returning an empty list.
-                    return new double[] { };
+                    return Array.Empty<double>();
             }
 
             // should try Newton's method and/or bisection

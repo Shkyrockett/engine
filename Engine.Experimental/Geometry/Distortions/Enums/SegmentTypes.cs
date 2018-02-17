@@ -3,7 +3,7 @@
     /// <summary>
     /// The segment types enum.
     /// </summary>
-    enum SegmentTypes
+    internal enum SegmentTypes
     {
         /// <summary>
         /// The move.

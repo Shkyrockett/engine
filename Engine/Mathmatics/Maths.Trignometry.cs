@@ -16,7 +16,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The maths class.
     /// </summary>
     public partial class Maths
     {
@@ -43,30 +43,31 @@ namespace Engine
             => radiens * Degree;
 
         /// <summary>
-        /// The quaternion to euler angles.
+        /// The quaternion to Euler angles.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="z">The z.</param>
         /// <param name="w">The w.</param>
-        /// <returns>The <see cref="(double Roll, double Pitch, double Yaw)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double Roll, double Pitch, double Yaw) QuaternionToEulerAngles(double x, double y, double z, double w)
         {
-            const double halfPi = PI / 2;
             var test = x * y + z * w;
             var quat = (Yaw: 0d, Roll: 0d, Pitch: 0d);
             if (test > 0.499d)
-            { // singularitY at north pole
+            {
+                // singularitY at north pole
                 quat.Yaw = 2d * Atan2(x, w);
-                quat.Roll = halfPi;
+                quat.Roll = Right;
                 quat.Pitch = 0d;
             }
             else if (test < -0.499d)
-            { // singularitY at south pole
+            {
+                // singularitY at south pole
                 quat.Yaw = -2d * Atan2(x, w);
-                quat.Roll = -halfPi;
+                quat.Roll = -Right;
                 quat.Pitch = 0d;
             }
             else
@@ -168,11 +169,11 @@ namespace Engine
             => ((valueA %= valueB) < 0) ? valueA + valueB : valueA;
 
         /// <summary>
-        ///
+        /// The angle.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(double i, double j)
@@ -195,16 +196,15 @@ namespace Engine
             => Atan2((y1 - y2), (x1 - x2));
 
         /// <summary>
-        ///
+        /// The angle.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -218,14 +218,14 @@ namespace Engine
             && Math.Abs(z1 - z2) < Epsilon) ? 0 : Acos(Min(1.0d, DotProduct(Normalize3D(x1, y1, z1), Normalize3D(x2, y2, z2))));
 
         /// <summary>
-        ///
+        /// The angle vector.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
         /// <returns>
         /// Return the angle ABC.
         /// Return a value between PI and -PI.
@@ -266,13 +266,12 @@ namespace Engine
 
         /// <summary>
         /// Finds the angle between two vectors.
-        /// </summary>
-        /// <param name="uX"></param>
-        /// <param name="uY"></param>
-        /// <param name="vX"></param>
-        /// <param name="vY"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// </summary> 
+        /// <param name="uX">The uX.</param>
+        /// <param name="uY">The uY.</param>
+        /// <param name="vX">The vX.</param>
+        /// <param name="vY">The vY.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://james-ramsden.com/angle-between-two-vectors/
         /// </acknowledgment>
@@ -286,14 +285,13 @@ namespace Engine
         /// <summary>
         /// Finds the angle between two vectors.
         /// </summary>
-        /// <param name="uX"></param>
-        /// <param name="uY"></param>
-        /// <param name="uZ"></param>
-        /// <param name="vX"></param>
-        /// <param name="vY"></param>
-        /// <param name="vZ"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="uX">The uX.</param>
+        /// <param name="uY">The uY.</param>
+        /// <param name="uZ">The uZ.</param>
+        /// <param name="vX">The vX.</param>
+        /// <param name="vY">The vY.</param>
+        /// <param name="vZ">The vZ.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://james-ramsden.com/angle-between-two-vectors/
         /// </acknowledgment>
@@ -573,27 +571,23 @@ namespace Engine
 
         #region Derived Equivalent Math Functions
         /// <summary>
-        ///
+        /// The abs.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Abs(double i, double j)
             => Magnitude(i, j);
 
         /// <summary>
-        ///
+        /// The abs.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
-        /// </acknowledgment>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="k">The k.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Abs(double i, double j, double k)

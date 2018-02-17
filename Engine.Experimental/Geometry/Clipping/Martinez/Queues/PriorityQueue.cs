@@ -10,28 +10,29 @@ namespace Engine
     /// <remarks> http://stackoverflow.com/a/33888482 </remarks>
     public class PriorityQueue<T>
     {
+
         #region Fields
         /// <summary>
         /// The comparer.
         /// </summary>
-        IComparer<T> comparer;
+        private readonly IComparer<T> comparer;
 
         /// <summary>
         /// The heap.
         /// </summary>
-        T[] heap;
+        private T[] heap;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="PriorityQueue"/> class.
+        /// Initializes a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
         public PriorityQueue()
             : this(null)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PriorityQueue"/> class.
+        /// Initializes a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
         /// <param name="capacity">The capacity.</param>
         public PriorityQueue(int capacity)
@@ -39,7 +40,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PriorityQueue"/> class.
+        /// Initializes a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
         /// <param name="comparer">The comparer.</param>
         public PriorityQueue(IComparer<T> comparer)
@@ -47,7 +48,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PriorityQueue"/> class.
+        /// Initializes a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
         /// <param name="capacity">The capacity.</param>
         /// <param name="comparer">The comparer.</param>
@@ -112,7 +113,7 @@ namespace Engine
         /// The sift up.
         /// </summary>
         /// <param name="n">The n.</param>
-        void SiftUp(int n)
+        private void SiftUp(int n)
         {
             var v = heap[n];
             for (var n2 = n / 2; n > 0 && comparer.Compare(v, heap[n2]) > 0; n = n2, n2 /= 2)
@@ -124,7 +125,7 @@ namespace Engine
         /// The sift down.
         /// </summary>
         /// <param name="n">The n.</param>
-        void SiftDown(int n)
+        private void SiftDown(int n)
         {
             var v = heap[n];
             for (var n2 = n * 2; n2 < Count; n = n2, n2 *= 2)

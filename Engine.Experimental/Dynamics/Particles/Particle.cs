@@ -50,12 +50,12 @@ namespace Engine
         /// The apply force.
         /// </summary>
         /// <param name="force">The force.</param>
-        void ApplyForce(Vector2D force) => Acceleration += force;
+        private void ApplyForce(Vector2D force) => Acceleration += force;
 
         /// <summary>
         /// Update.
         /// </summary>
-        void Update()
+        private void Update()
         {
             Velocity += Acceleration;
             Location += Velocity;

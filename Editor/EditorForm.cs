@@ -60,7 +60,7 @@ namespace Editor
         /// <summary>
         /// 
         /// </summary>
-        XmlSerializer vectorMapSerializer = new XmlSerializer(typeof(VectorMap));
+        private XmlSerializer vectorMapSerializer = new XmlSerializer(typeof(VectorMap));
 
         /// <summary>
         /// The boundary item.
@@ -347,7 +347,9 @@ namespace Editor
         private void CanvasPanel_MouseMove(object sender, MouseEventArgs e)
         {
             // Update the tool stack.
+#pragma warning disable IDE0022 // Use expression body for methods
             toolStack.MouseMove(e.Location.ToPoint2D());
+#pragma warning restore IDE0022 // Use expression body for methods
 
             //propertyGrid1.Refresh();
             //CanvasPanel.Invalidate(true);

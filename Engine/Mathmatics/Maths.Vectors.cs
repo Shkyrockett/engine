@@ -16,12 +16,12 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The maths class.
     /// </summary>
     public partial class Maths
     {
         /// <summary>
-        /// The lerp.
+        /// The linear interpolation method.
         /// </summary>
         /// <param name="u0">The u0.</param>
         /// <param name="u1">The u1.</param>
@@ -33,14 +33,14 @@ namespace Engine
             => u0 + (u1 - u0) * t;
 
         /// <summary>
-        /// The lerp.
+        /// The linear interpolation method.
         /// </summary>
         /// <param name="x0">The x0.</param>
         /// <param name="y0">The y0.</param>
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="(double X, double Y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Lerp(
@@ -50,7 +50,7 @@ namespace Engine
             => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t);
 
         /// <summary>
-        /// The lerp.
+        /// The linear interpolation method.
         /// </summary>
         /// <param name="x0">The x0.</param>
         /// <param name="y0">The y0.</param>
@@ -59,7 +59,7 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Lerp(
@@ -69,7 +69,7 @@ namespace Engine
             => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, z0 + (z1 - z0) * t);
 
         /// <summary>
-        /// The lerp.
+        /// The linear interpolation method.
         /// </summary>
         /// <param name="x0">The x0.</param>
         /// <param name="y0">The y0.</param>
@@ -80,7 +80,7 @@ namespace Engine
         /// <param name="z1">The z1.</param>
         /// <param name="w1">The w1.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z, double W)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z, double W) Lerp(
@@ -96,7 +96,7 @@ namespace Engine
         /// <param name="y0">The y0.</param>
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
-        /// <returns>The <see cref="(double X, double Y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/1476497/multiply-two-point-objects
         /// </acknowledgment>
@@ -132,7 +132,7 @@ namespace Engine
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
         /// <param name="z2">The z2.</param>
-        /// <returns>The <see cref="(double, double, double)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double, double, double) CrossProduct(
@@ -352,7 +352,7 @@ namespace Engine
         /// <param name="pt1Y">The pt1Y.</param>
         /// <param name="pt2X">The pt2X.</param>
         /// <param name="pt2Y">The pt2Y.</param>
-        /// <returns>The <see cref="(double, double)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://www.angusj.com
         /// </acknowledgment>
@@ -374,7 +374,7 @@ namespace Engine
         /// </summary>
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
-        /// <returns>The <see cref="(double X, double Y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Unitize(double i, double j)
@@ -386,7 +386,7 @@ namespace Engine
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
         /// <param name="k">The k.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Unitize(double i, double j, double k)
@@ -563,7 +563,7 @@ namespace Engine
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
         /// <param name="z2">The z2.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -587,7 +587,7 @@ namespace Engine
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
         /// <param name="z2">The z2.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -611,7 +611,7 @@ namespace Engine
         /// <param name="i2">The i2.</param>
         /// <param name="j2">The j2.</param>
         /// <param name="k2">The k2.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -640,7 +640,7 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -660,7 +660,7 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -676,7 +676,7 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -696,7 +696,7 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -712,7 +712,7 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -732,7 +732,7 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="z1">The z1.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -750,7 +750,7 @@ namespace Engine
         /// <param name="yOff">The yOff.</param>
         /// <param name="zOff">The zOff.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -772,7 +772,7 @@ namespace Engine
         /// <param name="xOff">The xOff.</param>
         /// <param name="zOff">The zOff.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>
@@ -794,7 +794,7 @@ namespace Engine
         /// <param name="xOff">The xOff.</param>
         /// <param name="yOff">The yOff.</param>
         /// <param name="rad">The rad.</param>
-        /// <returns>The <see cref="(double X, double Y, double Z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C
         /// </acknowledgment>

@@ -168,7 +168,7 @@ namespace Engine
         /// <summary>
         /// The interactions.
         /// </summary>
-        /// <returns>The <see cref="(List{Point2D}, List{Point2D}, List{Point2D})"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         public (List<Point2D>, List<Point2D>, List<Point2D>) Interactions()
         {
             var boundary = new List<Point2D>();

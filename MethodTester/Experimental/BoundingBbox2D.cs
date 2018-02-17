@@ -34,7 +34,7 @@ namespace Engine
         /// <param name="ymin"></param>
         /// <param name="xmax"></param>
         /// <param name="ymax"></param>
-        BoundingBbox2D(double xmin = 0, double ymin = 0, double xmax = 0, double ymax = 0)
+        private BoundingBbox2D(double xmin = 0, double ymin = 0, double xmax = 0, double ymax = 0)
         {
             this.xmin = xmin;
             this.ymin = ymin;

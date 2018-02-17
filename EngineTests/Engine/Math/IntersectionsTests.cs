@@ -273,7 +273,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// Test for correct intersections between two Quadratic Bezier curves.
+        /// Test for correct intersections between two Quadratic Bézier curves.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -283,13 +283,13 @@ namespace Engine.Tests
         [DeploymentItem("System.ValueTuple.dll")]
         public void QuadraticBezierSegmentQuadraticBezierSegmentIntersectionTest()
         {
-            // List of test-cases for intersections between two Quadratic Bezier curves.
+            // List of test-cases for intersections between two Quadratic Bézier curves.
             var testCases = new Dictionary<((double AX, double AY, double BX, double BY, double CX, double CY) a, (double AX, double AY, double BX, double BY, double CX, double CY) b), Intersection>
             {
-                // Parallel vertically mirrored Quadratic Bezier curves.
+                // Parallel vertically mirrored Quadratic Bézier curves.
                 { ((0, 0, 10, 10, 20, 0), (0, 5, 10, -5, 20, 5)),
                     new Intersection(IntersectionState.Intersection, new Point2D(17.0710678118655,2.5), new Point2D(2.92893218813452,2.5)) },
-                // Reduce Quintic to Quadratic Parallel Mirrored Quadratic Bezier curves with one leg shifted to the right.
+                // Reduce Quintic to Quadratic Parallel Mirrored Quadratic Bézier curves with one leg shifted to the right.
                 { ((5, 0, 10, 10, 20, 0), (0, 5, 10, -5, 20, 5)),
                     new Intersection(IntersectionState.Intersection, new Point2D(17.1265312836548, 2.53937240684556), new Point2D(5.53889706744833, 0.995071968741055)) },
                 // KLD four point result Quadratic Bezier intersection test case.
@@ -319,7 +319,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// Test for correct self intersections of Cubic Bezier curves.
+        /// Test for correct self intersections of Cubic Bézier curves.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -351,7 +351,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        /// Test for correct intersections between two Cubic Bezier curves.
+        /// Test for correct intersections between two Cubic Bézier curves.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -361,13 +361,13 @@ namespace Engine.Tests
         [DeploymentItem("System.ValueTuple.dll")]
         public void CubicBezierSegmentCubicBezierSegmentIntersectionTest()
         {
-            // List of test-cases for intersections between two Quadratic Bezier curves.
+            // List of test-cases for intersections between two Quadratic Bézier curves.
             var testCases = new Dictionary<((double AX, double AY, double BX, double BY, double CX, double CY, double DX, double DY) a, (double AX, double AY, double BX, double BY, double CX, double CY, double DX, double DY) b), Intersection>
             {
-                // Parallel vertically mirrored Cubic Bezier curves.
+                // Parallel vertically mirrored Cubic Bézier curves.
                 { ((100, 100, 166.66666666666663, 166.66666666666663, 233.33333333333337, 166.66666666666663, 300, 100), (100, 150, 166.66666666666663, 83.333333333333343, 233.33333333333337, 83.333333333333343, 300, 150)),
                     new Intersection(IntersectionState.Intersection, new Point2D(129.289436340332, 124.99991906534), new Point2D(270.710563659668, 124.99991906534)) },
-                // Parallel Mirrored Quadratic Bezier curves with one leg shifted to the right.
+                // Parallel Mirrored Quadratic Bézier curves with one leg shifted to the right.
                 { ((150, 100, 183.33333333333331, 166.66666666666663, 233.33333333333337, 166.66666666666663, 300, 100), (100, 150, 166.66666666666663, 83.333333333333343, 233.33333333333337, 83.333333333333343, 300, 150)),
                     new Intersection(IntersectionState.Intersection, new Point2D(155.389060528796, 109.950679602517), new Point2D(271.265415062589, 125.393796920216)) },
                 // KLD four point result Cubic Bezier intersection test case.

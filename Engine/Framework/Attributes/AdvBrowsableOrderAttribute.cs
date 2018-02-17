@@ -23,7 +23,7 @@ namespace Engine
         /// <summary>
         /// The order.
         /// </summary>
-        string[] order;
+        private string[] order;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdvBrowsableOrderAttribute"/> class.

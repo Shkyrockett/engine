@@ -20,7 +20,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// Utility class about 2D Bezier curves
+    /// Utility class about 2D Bézier curves
     /// Aka a segment, or quadratic or cubic bezier curve.
     /// Extensive Bezier explanation can be found at http://pomax.github.io/bezierinfo/
     /// </summary>
@@ -36,7 +36,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        Point2D[] handles;
+        private Point2D[] handles;
         #endregion Fields
 
         #region Constructors

@@ -148,66 +148,66 @@ namespace Engine
             => DistanceLinePoint(line.Location.X, line.Location.Y, line.Direction.I, line.Direction.J, point.X, point.Y);
 
         /// <summary>
-        /// Finds the shortest distance between a point and a Bezier segment.
+        /// Finds the shortest distance between a point and a Bézier segment.
         /// </summary>
-        /// <param name="bezier">The Bezier segment.</param>
+        /// <param name="bezier">The Bézier segment.</param>
         /// <param name="point">The point.</param>
-        /// <returns>Returns the length of the distance between a point and a Bezier segment.</returns>
+        /// <returns>Returns the length of the distance between a point and a Bézier segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this BezierSegmentX bezier, Point2D point)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// Finds the shortest distance between a point and a Bezier segment.
+        /// Finds the shortest distance between a point and a Bézier segment.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <param name="bezier">The Bezier segment.</param>
-        /// <returns>Returns the length of the distance between a point and a Bezier segment.</returns>
+        /// <param name="bezier">The Bézier segment.</param>
+        /// <returns>Returns the length of the distance between a point and a Bézier segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this Point2D point, BezierSegmentX bezier)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// Finds the shortest distance between a point and a Quadratic Bezier curve.
+        /// Finds the shortest distance between a point and a Quadratic Bézier curve.
         /// </summary>
-        /// <param name="bezier">The Quadratic Bezier curve.</param>
+        /// <param name="bezier">The Quadratic Bézier curve.</param>
         /// <param name="point">The point.</param>
-        /// <returns>Returns the length of the shortest distance between a point and a Quadratic Bezier curve.</returns>
+        /// <returns>Returns the length of the shortest distance between a point and a Quadratic Bézier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this QuadraticBezier bezier, Point2D point)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// Finds the shortest distance between a point and a Quadratic Bezier curve.
+        /// Finds the shortest distance between a point and a Quadratic Bézier curve.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <param name="bezier">The Quadratic Bezier curve.</param>
-        /// <returns>Returns the length of the shortest distance between a point and a Quadratic Bezier curve.</returns>
+        /// <param name="bezier">The Quadratic Bézier curve.</param>
+        /// <returns>Returns the length of the shortest distance between a point and a Quadratic Bézier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this Point2D point, QuadraticBezier bezier)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// Finds the shortest distance between a point and a Cubic Bezier curve.
+        /// Finds the shortest distance between a point and a Cubic Bézier curve.
         /// </summary>
-        /// <param name="bezier">The Cubic Bezier curve.</param>
+        /// <param name="bezier">The Cubic Bézier curve.</param>
         /// <param name="point">The point.</param>
-        /// <returns>Returns the length of the shortest distance between a point and a Cubic Bezier curve.</returns>
+        /// <returns>Returns the length of the shortest distance between a point and a Cubic Bézier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this CubicBezier bezier, Point2D point)
             => DistanceTo(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// Finds the shortest distance between a point and a Cubic Bezier curve.
+        /// Finds the shortest distance between a point and a Cubic Bézier curve.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <param name="bezier">The Cubic Bezier curve.</param>
-        /// <returns>Returns the length of the shortest distance between a point and a Cubic Bezier curve.</returns>
+        /// <param name="bezier">The Cubic Bézier curve.</param>
+        /// <returns>Returns the length of the shortest distance between a point and a Cubic Bézier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(this Point2D point, CubicBezier bezier)
@@ -276,29 +276,29 @@ namespace Engine
             => NearestPointOnEllipticalArc(ellipticalArc.X, ellipticalArc.Y, ellipticalArc.RX, ellipticalArc.RY, ellipticalArc.StartAngle, ellipticalArc.SweepAngle, point.X, point.Y);
 
         /// <summary>
-        /// Finds the nearest t parameter on a Bezier curve segment to a point.
+        /// Finds the nearest t parameter on a Bézier curve segment to a point.
         /// </summary>
-        /// <param name="bezier">The Bezier curve.</param>
+        /// <param name="bezier">The Bézier curve.</param>
         /// <param name="point">The Point.</param>
-        /// <returns>Returns the t parameter that represents the nearest point on a Bezier curve segment.</returns>
+        /// <returns>Returns the t parameter that represents the nearest point on a Bézier curve segment.</returns>
         public static double NearestT(this BezierSegmentX bezier, Point2D point)
             => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// Finds the nearest t parameter on a Quadratic Bezier curve segment to a point.
+        /// Finds the nearest t parameter on a Quadratic Bézier curve segment to a point.
         /// </summary>
-        /// <param name="bezier">The Quadratic Bezier curve.</param>
+        /// <param name="bezier">The Quadratic Bézier curve.</param>
         /// <param name="point">The Point.</param>
-        /// <returns>Returns the t parameter that represents the nearest point on a Quadratic Bezier curve segment.</returns>
+        /// <returns>Returns the t parameter that represents the nearest point on a Quadratic Bézier curve segment.</returns>
         public static double NearestT(this QuadraticBezier bezier, Point2D point)
             => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
 
         /// <summary>
-        /// Finds the nearest t parameter on a Cubic Bezier curve segment to a point.
+        /// Finds the nearest t parameter on a Cubic Bézier curve segment to a point.
         /// </summary>
-        /// <param name="bezier">The Cubic Bezier curve.</param>
+        /// <param name="bezier">The Cubic Bézier curve.</param>
         /// <param name="point">The Point.</param>
-        /// <returns>Returns the t parameter that represents the nearest point on a Cubic Bezier curve segment.</returns>
+        /// <returns>Returns the t parameter that represents the nearest point on a Cubic Bézier curve segment.</returns>
         public static double NearestT(this CubicBezier bezier, Point2D point)
             => ClosestParameter(bezier.CurveX, bezier.CurveY, point);
         #endregion Nearest Extension Method Overloads
@@ -406,10 +406,10 @@ namespace Engine
             => EllipsePerimeter(ellipse.RX, ellipse.RY);
 
         /// <summary>
-        /// Finds the approximate length of a Bezier segment.
+        /// Finds the approximate length of a Bézier segment.
         /// </summary>
-        /// <param name="bezier">The Bezier segment.</param>
-        /// <returns>Returns the approximate length of the Bezier segment.</returns>
+        /// <param name="bezier">The Bézier segment.</param>
+        /// <returns>Returns the approximate length of the Bézier segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this BezierSegmentX bezier)
@@ -432,18 +432,18 @@ namespace Engine
         /// <summary>
         /// Finds the approximate length of a Quadratic curve.
         /// </summary>
-        /// <param name="bezier">The Quadratic Bezier curve.</param>
-        /// <returns>Returns the approximate length of a Quadratic Bezier curve.</returns>
+        /// <param name="bezier">The Quadratic Bézier curve.</param>
+        /// <returns>Returns the approximate length of a Quadratic Bézier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this QuadraticBezier bezier)
             => QuadraticBezierArcLengthByIntegral(bezier.AX, bezier.AY, bezier.BX, bezier.BY, bezier.CX, bezier.CY);
 
         /// <summary>
-        /// Finds the approximate length of a Cubic Bezier curve.
+        /// Finds the approximate length of a Cubic Bézier curve.
         /// </summary>
-        /// <param name="bezier">The Cubic Bezier curve.</param>
-        /// <returns>Returns the approximate length of a Cubic Bezier curve.</returns>
+        /// <param name="bezier">The Cubic Bézier curve.</param>
+        /// <returns>Returns the approximate length of a Cubic Bézier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this CubicBezier bezier)
@@ -574,10 +574,10 @@ namespace Engine
             => PolygonBounds(polyline.Points);
 
         /// <summary>
-        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Bezier curve segment.
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Bézier curve segment.
         /// </summary>
-        /// <param name="bezier">The Bezier curve segment.</param>
-        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Bezier curve segment.</returns>
+        /// <param name="bezier">The Bézier curve segment.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Bézier curve segment.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this BezierSegmentX bezier)
@@ -600,10 +600,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Quadratic Bezier curve.
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Quadratic Bézier curve.
         /// </summary>
-        /// <param name="bezier">The Quadratic Bezier curve.</param>
-        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Quadratic Bezier curve.</returns>
+        /// <param name="bezier">The Quadratic Bézier curve.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Quadratic Bézier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this QuadraticBezier bezier)
@@ -611,10 +611,10 @@ namespace Engine
             => BezierBounds(bezier.CurveX, bezier.CurveY);
 
         /// <summary>
-        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Cubic Bezier curve.
+        /// Finds the axis aligned bounding box (AABB) rectangle that fully encompasses a Cubic Bézier curve.
         /// </summary>
-        /// <param name="bezier">The Cubic Bezier curve.</param>
-        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Cubic Bezier curve.</returns>
+        /// <param name="bezier">The Cubic Bézier curve.</param>
+        /// <returns>Returns a rectangle representing the axis aligned bounding box (AABB) that contains the Cubic Bézier curve.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Bounds(this CubicBezier bezier)
@@ -1174,7 +1174,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Finds the nearest point on a Cubic Bezier curve.
+        /// Finds the nearest point on a Cubic Bézier curve.
         /// </summary>
         /// <param name="p0X">The x-component of the starting point of the curve.</param>
         /// <param name="p0Y">The y-component of the starting point of the curve.</param>
@@ -1184,7 +1184,7 @@ namespace Engine
         /// <param name="p2Y">The y-component of the ending point of the curve.</param>
         /// <param name="pX">The x-component of the point.</param>
         /// <param name="pY">The y-component of the point.</param>
-        /// <returns>Returns the nearest point on the Quadratic Bezier curve to a point.</returns>
+        /// <returns>Returns the nearest point on the Quadratic Bézier curve to a point.</returns>
         //[DebuggerStepThrough]
         [Obsolete(message: "Not yet implemented.")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1196,7 +1196,7 @@ namespace Engine
             => null;
 
         /// <summary>
-        /// Finds the nearest point on a Cubic Bezier curve.
+        /// Finds the nearest point on a Cubic Bézier curve.
         /// </summary>
         /// <param name="p0X">The x-component of the starting point of the curve.</param>
         /// <param name="p0Y">The y-component of the starting point of the curve.</param>
@@ -1208,7 +1208,7 @@ namespace Engine
         /// <param name="p3Y">The y-component of the ending point of the curve.</param>
         /// <param name="pX">The x-component of the point.</param>
         /// <param name="pY">The y-component of the point.</param>
-        /// <returns>Returns the nearest point on the Cubic Bezier curve to a point.</returns>
+        /// <returns>Returns the nearest point on the Cubic Bézier curve to a point.</returns>
         //[DebuggerStepThrough]
         [Obsolete(message: "Not yet implemented.")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1338,7 +1338,7 @@ namespace Engine
         /// <param name="by">The middle y-coordinate for the tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="cx">The closing x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="cy">The closing y-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <returns>Returns the arc length of the Quadratic Bezier curve.</returns>
+        /// <returns>Returns the arc length of the Quadratic Bézier curve.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
@@ -1369,7 +1369,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Calculates the arc length of a Cubic Bezier curve.
+        /// Calculates the arc length of a Cubic Bézier curve.
         /// </summary>
         /// <param name="ax">The starting x-coordinate for the <see cref="CubicBezier"/> curve.</param>
         /// <param name="ay">The starting y-coordinate for the <see cref="CubicBezier"/> curve.</param>
@@ -1379,7 +1379,7 @@ namespace Engine
         /// <param name="cy">The second y-coordinate for the tangent control node for the <see cref="CubicBezier"/> curve.</param>
         /// <param name="dx">The closing x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="dy">The closing y-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <returns>Returns the arc length of the Cubic bezier curve.</returns>
+        /// <returns>Returns the arc length of the Cubic Bézier curve.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://steve.hollasch.net/cgindex/curves/cbezarclen.html
@@ -1442,7 +1442,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Calculates the Bezier Arc Length.
+        /// Calculates the Bézier Arc Length.
         /// </summary>
         /// <param name="t">The t parameter.</param>
         /// <param name="q1"></param>
@@ -1836,7 +1836,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Calculates the external Axis Aligned Bounding Box (AABB) rectangle of a Polyline.
+        /// Calculates the external Axis Aligned Bounding Box (AABB) rectangle of a <see cref="Polyline"/>.
         /// </summary>
         /// <param name="points">The points of the polygon.</param>
         /// <returns>Returns anAxis Aligned Bounding Box (AABB) containing the polyline.</returns>

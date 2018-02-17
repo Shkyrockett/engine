@@ -18,7 +18,7 @@ namespace Engine
 {
     /// <summary>
     /// This is a version of <see cref="CurveFit"/> that works on partial curves so that a spline can be built in "real-time"
-    /// as the user is drawing it. The quality of the generated spline may be lower, and it might use more Bezier curves
+    /// as the user is drawing it. The quality of the generated spline may be lower, and it might use more Bézier curves
     /// than is necessary. Only the most recent two curves will be modified, once another curve is being built on top of it, curves
     /// lower in the "stack" are permanent. This reduces visual jumpiness as the user draws since the entire spline doesn't move
     /// around as points are added. It only uses linearizion-based preprocessing; it doesn't support the RDP method.

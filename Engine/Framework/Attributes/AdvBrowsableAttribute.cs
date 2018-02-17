@@ -26,7 +26,7 @@ namespace Engine
         /// <summary>
         /// The name.
         /// </summary>
-        string name;
+        private string name;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdvBrowsableAttribute"/> class.

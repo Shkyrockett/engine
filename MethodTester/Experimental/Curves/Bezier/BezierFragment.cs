@@ -7,7 +7,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// Utility class about 2D Bezier curves
+    /// Utility class about 2D Bézier curves
     /// Aka a segment, or quadratic or cubic bezier curve.
     /// Extensive Bezier explanation can be found at http://pomax.github.io/bezierinfo/
     /// </summary>
@@ -19,32 +19,32 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        static readonly double[] Bezier01 = new double[] { 0, 1 };
+        private static readonly double[] Bezier01 = new double[] { 0, 1 };
 
         /// <summary>
         /// 
         /// </summary>
-        Point2D[] controlPoints;
+        private Point2D[] controlPoints;
 
         /// <summary>
         /// 
         /// </summary>
-        ReadonlyPoints roPoints;
+        private ReadonlyPoints roPoints;
 
         /// <summary>
         /// 
         /// </summary>
-        Polynomialx mCurveX;
+        private Polynomialx mCurveX;
 
         /// <summary>
         /// 
         /// </summary>
-        Polynomialx mCurveY;
+        private Polynomialx mCurveY;
 
         /// <summary>
         /// 
         /// </summary>
-        Rectangle2D bounds = Rectangle2D.Empty;
+        private Rectangle2D bounds = Rectangle2D.Empty;
 
         /// <summary>
         /// 
@@ -63,7 +63,7 @@ namespace Engine
             if (points == null)
                 throw new ArgumentNullException();
             if (points.Length < 2)
-                throw new ArgumentException("Bezier curve need at least 2 points (segment).");
+                throw new ArgumentException("Bézier curve need at least 2 points (segment).");
             controlPoints = points;
         }
 
@@ -123,7 +123,7 @@ namespace Engine
             /// <summary>
             /// 
             /// </summary>
-            Point2D[] values;
+            private Point2D[] values;
 
             /// <summary>
             /// 
@@ -193,7 +193,7 @@ namespace Engine
         /// <param name="to"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        static Polynomialx Bezier(int from, int to, double[] values)
+        private static Polynomialx Bezier(int from, int to, double[] values)
         {
             if (from == to)
                 return new Polynomialx(values[from]);
@@ -203,12 +203,12 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        static readonly Polynomialx T = new Polynomialx(0, 1);
+        private static readonly Polynomialx T = new Polynomialx(0, 1);
 
         /// <summary>
         /// 
         /// </summary>
-        static readonly Polynomialx OneMinusT = 1 - T;
+        private static readonly Polynomialx OneMinusT = 1 - T;
 
         /// <summary>
         /// 

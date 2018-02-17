@@ -29,12 +29,12 @@ namespace Engine
         /// <summary>
         /// The location.
         /// </summary>
-        Point2D location;
+        private Point2D location;
 
         /// <summary>
         /// The direction.
         /// </summary>
-        Vector2D direction;
+        private Vector2D direction;
         #endregion Fields
 
         #region Constructors

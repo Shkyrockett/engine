@@ -38,12 +38,12 @@ namespace Engine
         /// <summary>
         /// The items.
         /// </summary>
-        List<CurveSegment> items;
+        private List<CurveSegment> items;
 
         /// <summary>
         /// The closed.
         /// </summary>
-        bool closed = false;
+        private bool closed = false;
 
         //private CubicBezier[] cubicBezier;
         #endregion Fields
@@ -585,10 +585,10 @@ namespace Engine
                         item.Relitive = relitive;
                         relitive = false;
                         break;
-                    case 'c': // Relative Svg Cubic Bezier curveto
+                    case 'c': // Relative Svg Cubic Bézier curveto
                         relitive = true;
                         goto case 'C';
-                    case 'C': // Svg Cubic Bezier curveto
+                    case 'C': // Svg Cubic Bézier curveto
                         item = new CubicBezierSegment(item, relitive, args);
                         figure.Add(item);
                         item.Relitive = relitive;

@@ -456,7 +456,7 @@ namespace Engine
         /// <summary>
         /// Used to generate the adjoint of this matrix.
         /// </summary>
-        /// <param name="source">todo: describe source parameter on Adjoint</param>
+        /// <param name="source"></param>
         /// <returns>The adjoint matrix of the current instance.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -749,7 +749,7 @@ namespace Engine
         /// <summary>
         /// Gets a 3x3 rotation matrix from this Quaternion.
         /// </summary>
-        /// <param name="quaternion">todo: describe quaternion parameter on ToRotationMatrix</param>
+        /// <param name="quaternion"></param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -798,7 +798,7 @@ namespace Engine
         /// The to axis.
         /// </summary>
         /// <param name="quaternion">The quaternion.</param>
-        /// <returns>The <see cref="(Vector3D XAxis, Vector3D YAxis, Vector3D ZAxis)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (Vector3D XAxis, Vector3D YAxis, Vector3D ZAxis) ToAxis(this QuaternionD quaternion)
@@ -811,7 +811,7 @@ namespace Engine
         /// The quaternion representing the rotation is
         /// q = cos(A/2)+sin(A/2)*(X*i+Y*j+Z*k)
         /// </summary>
-        /// <param name="quaternion">todo: describe quaternion parameter on ToAngleAxis</param>
+        /// <param name="quaternion"></param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -824,7 +824,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The to euler angles.
+        /// The to Euler angles.
         /// </summary>
         /// <param name="quaternion">The quaternion.</param>
         /// <returns>The <see cref="Orientation"/>.</returns>

@@ -193,7 +193,7 @@ namespace Engine
         /// <param name="augendI">The augendI.</param>
         /// <param name="augendJ">The augendJ.</param>
         /// <param name="addend">The addend.</param>
-        /// <returns>The <see cref="(double I, double J)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Add2D(
@@ -208,7 +208,7 @@ namespace Engine
         /// <param name="augendJ">The augendJ.</param>
         /// <param name="augendK">The augendK.</param>
         /// <param name="addend">The addend.</param>
-        /// <returns>The <see cref="(double I, double J, double K)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Add3D(
@@ -224,7 +224,7 @@ namespace Engine
         /// <param name="augendK">The augendK.</param>
         /// <param name="augendL">The augendL.</param>
         /// <param name="addend">The addend.</param>
-        /// <returns>The <see cref="(double I, double J, double K, double L)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Add4D(
@@ -239,7 +239,7 @@ namespace Engine
         /// <param name="augendJ">The augendJ.</param>
         /// <param name="addendI">The addendI.</param>
         /// <param name="addendJ">The addendJ.</param>
-        /// <returns>The <see cref="(double I, double J)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Add2D(
@@ -256,7 +256,7 @@ namespace Engine
         /// <param name="addendI">The addendI.</param>
         /// <param name="addendJ">The addendJ.</param>
         /// <param name="addendK">The addendK.</param>
-        /// <returns>The <see cref="(double I, double J, double K)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Add3D(
@@ -275,7 +275,7 @@ namespace Engine
         /// <param name="addendJ">The addendJ.</param>
         /// <param name="addendK">The addendK.</param>
         /// <param name="addendL">The addendL.</param>
-        /// <returns>The <see cref="(double I, double J, double K, double L)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Add4D(
@@ -468,7 +468,7 @@ namespace Engine
         /// <param name="minuendI">The minuendI.</param>
         /// <param name="minuendJ">The minuendJ.</param>
         /// <param name="subtrahend">The subtrahend.</param>
-        /// <returns>The <see cref="(double I, double J)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Subtract2D(double minuendI, double minuendJ, double subtrahend)
@@ -481,7 +481,7 @@ namespace Engine
         /// <param name="minuendJ">The minuendJ.</param>
         /// <param name="minuendK">The minuendK.</param>
         /// <param name="subtrahend">The subtrahend.</param>
-        /// <returns>The <see cref="(double I, double J, double K)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Subtract3D(double minuendI, double minuendJ, double minuendK, double subtrahend)
@@ -495,7 +495,7 @@ namespace Engine
         /// <param name="minuendK">The minuendK.</param>
         /// <param name="minuendL">The minuendL.</param>
         /// <param name="subtrahend">The subtrahend.</param>
-        /// <returns>The <see cref="(double I, double J, double K, double L)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Subtract4D(double minuendI, double minuendJ, double minuendK, double minuendL, double subtrahend)
@@ -508,7 +508,7 @@ namespace Engine
         /// <param name="minuendJ">The minuendJ.</param>
         /// <param name="subtrahendI">The subtrahendI.</param>
         /// <param name="subtrahendJ">The subtrahendJ.</param>
-        /// <returns>The <see cref="(double I, double J)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Subtract2D(double minuendI, double minuendJ, double subtrahendI, double subtrahendJ)
@@ -523,7 +523,7 @@ namespace Engine
         /// <param name="subtrahendI">The subtrahendI.</param>
         /// <param name="subtrahendJ">The subtrahendJ.</param>
         /// <param name="subtrahendK">The subtrahendK.</param>
-        /// <returns>The <see cref="(double I, double J, double K)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Subtract3D(double minuendI, double minuendJ, double minuendK, double subtrahendI, double subtrahendJ, double subtrahendK)
@@ -540,7 +540,7 @@ namespace Engine
         /// <param name="subtrahendJ">The subtrahendJ.</param>
         /// <param name="subtrahendK">The subtrahendK.</param>
         /// <param name="subtrahendL">The subtrahendL.</param>
-        /// <returns>The <see cref="(double I, double J, double K, double L)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Subtract4D(double minuendI, double minuendJ, double minuendK, double minuendL, double subtrahendI, double subtrahendJ, double subtrahendK, double subtrahendL)
@@ -1233,24 +1233,24 @@ namespace Engine
         /// </summary>
         /// <param name="divisorI">The divisorI.</param>
         /// <param name="divisorJ">The divisorJ.</param>
-        /// <param name="divedend">The divedend.</param>
-        /// <returns>The <see cref="(double I, double J)"/>.</returns>
+        /// <param name="dividend">The dividend.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J) Divide2D1D(double divisorI, double divisorJ, double divedend)
-            => (divisorI / divedend, divisorJ / divedend);
+        public static (double I, double J) Divide2D1D(double divisorI, double divisorJ, double dividend)
+            => (divisorI / dividend, divisorJ / dividend);
 
         /// <summary>
         /// The divide1d2d.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="divedendI">The divedendI.</param>
-        /// <param name="divedendJ">The divedendJ.</param>
-        /// <returns>The <see cref="(double I, double J)"/>.</returns>
+        /// <param name="dividendI">The divedendI.</param>
+        /// <param name="dividendJ">The divedendJ.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J) Divide1D2D(double divisor, double divedendI, double divedendJ)
-            => (divisor / divedendI, divisor / divedendJ);
+        public static (double I, double J) Divide1D2D(double divisor, double dividendI, double dividendJ)
+            => (divisor / dividendI, divisor / dividendJ);
 
         /// <summary>
         /// The divide3d1d.
@@ -1258,25 +1258,25 @@ namespace Engine
         /// <param name="divisorI">The divisorI.</param>
         /// <param name="divisorJ">The divisorJ.</param>
         /// <param name="divisorK">The divisorK.</param>
-        /// <param name="divedend">The divedend.</param>
-        /// <returns>The <see cref="(double I, double J, double K)"/>.</returns>
+        /// <param name="dividend">The dividend.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K) Divide3D1D(double divisorI, double divisorJ, double divisorK, double divedend)
-            => (divisorI / divedend, divisorJ / divedend, divisorK / divedend);
+        public static (double I, double J, double K) Divide3D1D(double divisorI, double divisorJ, double divisorK, double dividend)
+            => (divisorI / dividend, divisorJ / dividend, divisorK / dividend);
 
         /// <summary>
         /// The divide1d3d.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="divedendI">The divedendI.</param>
-        /// <param name="divedendJ">The divedendJ.</param>
-        /// <param name="divedendK">The divedendK.</param>
-        /// <returns>The <see cref="(double I, double J, double K)"/>.</returns>
+        /// <param name="dividendI">The divedendI.</param>
+        /// <param name="dividendJ">The divedendJ.</param>
+        /// <param name="dividendK">The divedendK.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K) Divide1D3D(double divisor, double divedendI, double divedendJ, double divedendK)
-            => (divisor / divedendI, divisor / divedendJ, divisor / divedendK);
+        public static (double I, double J, double K) Divide1D3D(double divisor, double dividendI, double dividendJ, double dividendK)
+            => (divisor / dividendI, divisor / dividendJ, divisor / dividendK);
 
         /// <summary>
         /// The divide4d1d.
@@ -1285,26 +1285,26 @@ namespace Engine
         /// <param name="divisorJ">The divisorJ.</param>
         /// <param name="divisorK">The divisorK.</param>
         /// <param name="divisorL">The divisorL.</param>
-        /// <param name="divedend">The divedend.</param>
-        /// <returns>The <see cref="(double I, double J, double K, double L)"/>.</returns>
+        /// <param name="dividend">The dividend.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K, double L) Divide4D1D(double divisorI, double divisorJ, double divisorK, double divisorL, double divedend)
-            => (divisorI / divedend, divisorJ / divedend, divisorK / divedend, divisorL / divedend);
+        public static (double I, double J, double K, double L) Divide4D1D(double divisorI, double divisorJ, double divisorK, double divisorL, double dividend)
+            => (divisorI / dividend, divisorJ / dividend, divisorK / dividend, divisorL / dividend);
 
         /// <summary>
         /// The divide1d4d.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="divedendI">The divedendI.</param>
-        /// <param name="divedendJ">The divedendJ.</param>
-        /// <param name="divedendK">The divedendK.</param>
-        /// <param name="divedendL">The divedendL.</param>
-        /// <returns>The <see cref="(double I, double J, double K, double L)"/>.</returns>
+        /// <param name="dividendI">The divedendI.</param>
+        /// <param name="dividendJ">The divedendJ.</param>
+        /// <param name="dividendK">The divedendK.</param>
+        /// <param name="dividendL">The divedendL.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J, double K, double L) Divide1D4D(double divisor, double divedendI, double divedendJ, double divedendK, double divedendL)
-            => (divisor / divedendI, divisor / divedendJ, divisor / divedendK, divisor / divedendL);
+        public static (double I, double J, double K, double L) Divide1D4D(double divisor, double dividendI, double dividendJ, double dividendK, double dividendL)
+            => (divisor / dividendI, divisor / dividendJ, divisor / dividendK, divisor / dividendL);
         #endregion Division
 
         #region Comparisons

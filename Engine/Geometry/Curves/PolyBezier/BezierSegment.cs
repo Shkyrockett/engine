@@ -37,7 +37,7 @@ namespace Engine
         /// <summary>
         /// 
         /// </summary>
-        Point2D[] points;
+        private Point2D[] points;
         #endregion Fields
 
         #region Constructors

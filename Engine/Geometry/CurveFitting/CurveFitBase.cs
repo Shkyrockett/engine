@@ -185,7 +185,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Tries to fit single Bezier curve to the points in [first ... last]. Destroys anything in <see cref="u"/> in the process.
+        /// Tries to fit single Bézier curve to the points in [first ... last]. Destroys anything in <see cref="u"/> in the process.
         /// Assumes there are at least two points to fit.
         /// </summary>
         /// <param name="first">Index of first point to consider.</param>
@@ -275,7 +275,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Generates a bezier curve for the segment using a least-squares approximation. for the derivation of this and why it works,
+        /// Generates a Bézier curve for the segment using a least-squares approximation. for the derivation of this and why it works,
         /// see http://read.pudn.com/downloads141/ebook/610086/Graphics_Gems_I.pdf page 626 and beyond. tl;dr: math.
         /// </summary>
         protected CubicBezier GenerateCubicBezier(int first, int last, Vector2D tanL, Vector2D tanR)
@@ -286,7 +286,7 @@ namespace Engine
             double c00 = 0, c01 = 0, c11 = 0, x0 = 0, x1 = 0; // matrix members -- both C[0,1] and C[1,0] are the same, stored in c01
             for (var i = 1; i < nPts; i++)
             {
-                // Calculate cubic bezier multipliers
+                // Calculate cubic Bézier multipliers
                 var t = u[i];
                 var ti = 1 - t;
                 var t0 = ti * ti * ti;

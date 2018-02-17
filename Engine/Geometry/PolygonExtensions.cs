@@ -758,11 +758,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The is inside.
         /// </summary>
-        /// <param name="edge"></param>
-        /// <param name="test"></param>
-        /// <returns></returns>
+        /// <param name="edge">The edge.</param>
+        /// <param name="test">The test.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsInside(LineSegment edge, Point2D test)
         {
@@ -777,10 +777,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The is clockwise.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <exception cref="ArgumentException">All the points in the polygon are collinear</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsClockwise(List<Point2D> polygon)
         {
@@ -800,6 +801,9 @@ namespace Engine
         /// <summary>
         /// Tells if the test point lies on the left side of the edge line
         /// </summary>
+        /// <param name="edge">The edge.</param>
+        /// <param name="test">The test.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool? IsLeftOf(LineSegment edge, Point2D test)
         {

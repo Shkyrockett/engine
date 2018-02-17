@@ -23,8 +23,9 @@ namespace Engine.Colorspace
         /// </summary>
         public static readonly YUVA Empty = new YUVA();
 
+        #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="AYUV"/> class.
+        /// Initializes a new instance of the <see cref="YUVA"/> class.
         /// </summary>
         /// <param name="value">A standard color.</param>
         public YUVA(RGBA value)
@@ -60,7 +61,9 @@ namespace Engine.Colorspace
             V = v;
             Alpha = alpha;
         }
+        #endregion Constructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the y.
         /// </summary>
@@ -80,7 +83,29 @@ namespace Engine.Colorspace
         /// Gets or sets the alpha.
         /// </summary>
         public byte Alpha { get; set; }
+        #endregion Properties
 
+        #region Operators
+        /// <summary>
+        /// The operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator ==(YUVA left, YUVA right)
+            => left.Equals(right);
+
+        /// <summary>
+        /// The operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator !=(YUVA left, YUVA right)
+            => !(left == right);
+        #endregion Operators
+
+        #region Methods
         /// <summary>
         /// The equals.
         /// </summary>
@@ -92,6 +117,14 @@ namespace Engine.Colorspace
             var (r1, g1, b1, a1) = other.ToRGBATuple();
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public override bool Equals(object obj)
+            => obj is IColor && Equals(obj as IColor);
 
         /// <summary>
         /// The to color.
@@ -131,5 +164,13 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
+
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
+        public override int GetHashCode()
+            => Y.GetHashCode() | V.GetHashCode() | U.GetHashCode() | Alpha.GetHashCode();
+        #endregion Methods
     }
 }

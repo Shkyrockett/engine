@@ -32,7 +32,7 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        bool isReadonly;
+        private bool isReadonly;
         #endregion Fields
 
         #region Constructors

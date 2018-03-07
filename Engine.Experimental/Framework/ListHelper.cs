@@ -15,39 +15,39 @@ using System.Drawing;
 namespace MethodSpeedTester
 {
     /// <summary>
-    /// 
+    /// The list helper class.
     /// </summary>
     public static class ListHelper
     {
         /// <summary>
-        /// 
+        /// The to point.
         /// </summary>
-        /// <param name="tuple"></param>
-        /// <returns></returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>The <see cref="Point"/>.</returns>
         public static Point ToPoint(this (double X, double Y) tuple)
             => new Point((int)tuple.X, (int)tuple.Y);
 
         /// <summary>
-        /// 
+        /// The to point f.
         /// </summary>
-        /// <param name="tuple"></param>
-        /// <returns></returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>The <see cref="PointF"/>.</returns>
         public static PointF ToPointF(this (double X, double Y) tuple)
             => new PointF((float)tuple.X, (float)tuple.Y);
 
         /// <summary>
-        /// 
+        /// The to point array.
         /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
+        /// <param name="list">The list.</param>
+        /// <returns>The <see cref="T:Point[]"/>.</returns>
         public static Point[] ToPointArray(this List<(double X, double Y)> list)
             => list.ConvertAll(new Converter<(double X, double Y), Point>(ToPoint)).ToArray();
 
         /// <summary>
-        /// 
+        /// The to point f array.
         /// </summary>
-        /// <param name="list"></param>
-        /// <returns></returns>
+        /// <param name="list">The list.</param>
+        /// <returns>The <see cref="T:PointF[]"/>.</returns>
         public static PointF[] ToPointFArray(this List<(double X, double Y)> list)
             => list.ConvertAll(new Converter<(double X, double Y), PointF>(ToPointF)).ToArray();
 

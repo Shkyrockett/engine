@@ -23,7 +23,7 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The polynomialx class.
     /// </summary>
     public class Polynomialx
         : IFormattable
@@ -1131,7 +1131,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

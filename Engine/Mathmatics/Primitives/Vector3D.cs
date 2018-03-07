@@ -27,7 +27,7 @@ namespace Engine
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Vector3D>))]
-    [DebuggerDisplay("I: {I}, J: {J}, K: {K}")]
+    //[DebuggerDisplay("I: {I}, J: {J}, K: {K}")]
     public struct Vector3D
         : IVector<Vector3D>
     {
@@ -489,7 +489,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

@@ -11,21 +11,21 @@
         private Point2D a;
 
         /// <summary>
-        /// 
+        /// The b.
         /// </summary>
         private Point2D b;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
         /// </summary>
         private LineSegment2D()
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="LineSegment2D"/> class.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
         public LineSegment2D(Point2D a, Point2D b)
         {
             this.a = a;
@@ -63,16 +63,14 @@
         public Point2D Max => (a.X > b.X) || (a.X == b.X && a.Y > b.Y) ? a : b;
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
-        /// <returns></returns>
         private bool Degenerate
             => a == b;
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
-        /// <returns></returns>
         private bool IsVertical
             => a.X == b.X;
 

@@ -24,17 +24,17 @@ namespace Engine
     public class Intersectionx
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Intersectionx"/> class.
         /// </summary>
         public Intersectionx()
             :this(false,new Point2D[] { Point2D.Empty })
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Intersectionx"/> class.
         /// </summary>
-        /// <param name="isIntersection"></param>
-        /// <param name="intersectionPoint"></param>
+        /// <param name="isIntersection">The isIntersection.</param>
+        /// <param name="intersectionPoint">The intersectionPoint.</param>
         public Intersectionx(bool isIntersection, Point2D[] intersectionPoint)
         {
             Itersecting = isIntersection;
@@ -42,12 +42,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Intersectionx"/> class.
         /// </summary>
-        /// <param name="Locations"></param>
-        /// <param name="Intersects"></param>
-        /// <param name="Type"></param>
-        /// <remarks></remarks>
+        /// <param name="Locations">The Locations.</param>
+        /// <param name="Intersects">The Intersects.</param>
+        /// <param name="Type">The Type.</param>
         public Intersectionx(Point2D[] Locations, bool Intersects, IntersectionState Type)
         {
             IntersectionPoint = Locations;
@@ -57,44 +56,41 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Intersectionx"/> class.
         /// </summary>
-        /// <param name="Locations"></param>
-        /// <param name="Intersects"></param>
-        /// <param name="Paralell"></param>
-        /// <remarks></remarks>
-        public Intersectionx(Point2D[] Locations, bool Intersects, bool Paralell)
+        /// <param name="Locations">The Locations.</param>
+        /// <param name="Intersects">The Intersects.</param>
+        /// <param name="Parallel">The Parallel.</param>
+        public Intersectionx(Point2D[] Locations, bool Intersects, bool Parallel)
         {
             IntersectionPoint = Locations;
             Itersecting = Intersects;
-            this.Paralell = Paralell;
-            if (Paralell)
+            this.Paralell = Parallel;
+            if (Parallel)
                 Type = IntersectionState.Parallel;
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Intersectionx"/> class.
         /// </summary>
-        /// <param name="Locations"></param>
-        /// <param name="Intersects"></param>
-        /// <param name="Paralell"></param>
-        /// <remarks></remarks>
-        public Intersectionx(Point2D Locations, bool Intersects, bool Paralell)
+        /// <param name="Locations">The Locations.</param>
+        /// <param name="Intersects">The Intersects.</param>
+        /// <param name="Parallel">The Parallel.</param>
+        public Intersectionx(Point2D Locations, bool Intersects, bool Parallel)
         {
             IntersectionPoint = new Point2D[] { Locations };
             Itersecting = Intersects;
-            this.Paralell = Paralell;
-            if (Paralell)
+            this.Paralell = Parallel;
+            if (Parallel)
                 Type = IntersectionState.Parallel;
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Intersectionx"/> class.
         /// </summary>
-        /// <param name="Locations"></param>
-        /// <param name="Intersects"></param>
-        /// <param name="Type"></param>
-        /// <remarks></remarks>
+        /// <param name="Locations">The Locations.</param>
+        /// <param name="Intersects">The Intersects.</param>
+        /// <param name="Type">The Type.</param>
         public Intersectionx(Point2D Locations, bool Intersects, IntersectionState Type)
         {
             IntersectionPoint = new Point2D[] {
@@ -117,12 +113,12 @@ namespace Engine
         public Point2D[] IntersectionPoint { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         public bool Paralell { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the type.
         /// </summary>
         public IntersectionState Type { get; set; }
     }

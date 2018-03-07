@@ -8,10 +8,11 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace Engine.Tests
+namespace EngineTests
 {
     /// <summary>
     /// 
@@ -280,7 +281,7 @@ namespace Engine.Tests
         [Owner("Shkyrockett")]
         [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
-        [DeploymentItem("System.ValueTuple.dll")]
+        //[DeploymentItem("System.ValueTuple.dll")]
         public void QuadraticBezierSegmentQuadraticBezierSegmentIntersectionTest()
         {
             // List of test-cases for intersections between two Quadratic Bézier curves.
@@ -326,12 +327,12 @@ namespace Engine.Tests
         [Owner("Shkyrockett")]
         [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
-        [DeploymentItem("System.ValueTuple.dll")]
+        //[DeploymentItem("System.ValueTuple.dll")]
         public void CubicBezierSegmentSelfIntersectionTest()
         {
             var testCases = new Dictionary<(double AX, double AY, double BX, double BY, double CX, double CY, double DX, double DY), Intersection>
             {
-                { (0, 0, 0, 0, 0, 0, 0, 0), new Intersection(IntersectionState.NoIntersection, new Point2D[]{ }) },
+                { (0, 0, 0, 0, 0, 0, 0, 0), new Intersection(IntersectionState.NoIntersection, System.Array.Empty<Point2D>()) },
                 { (150, 300, 300, 100, 100, 100, 250, 300), new Intersection(IntersectionState.Intersection, new Point2D[]{ (199.893126357613, 214.564969294897) }) }
             };
 
@@ -358,7 +359,7 @@ namespace Engine.Tests
         [Owner("Shkyrockett")]
         [TestProperty(nameof(Engine), nameof(IntersectionsTests))]
         [DeploymentItem("Engine.dll")]
-        [DeploymentItem("System.ValueTuple.dll")]
+        //[DeploymentItem("System.ValueTuple.dll")]
         public void CubicBezierSegmentCubicBezierSegmentIntersectionTest()
         {
             // List of test-cases for intersections between two Quadratic Bézier curves.

@@ -456,7 +456,7 @@ namespace Engine
                     // check that angle2 > angle1
                     if (angleEnd < startAngle) angleEnd += 2 * PI;
                     if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = x + radius;
-                    if ((angleEnd >= Maths.Right) && (startAngle <= Maths.Right)) bounds.Top = y - radius;
+                    if ((angleEnd >= Maths.HalfPi) && (startAngle <= Maths.HalfPi)) bounds.Top = y - radius;
                     if ((angleEnd >= PI) && (startAngle <= PI)) bounds.Left = x - radius;
                     if ((angleEnd >= Maths.Pau) && (startAngle <= Maths.Pau)) bounds.Bottom = y + radius;
                     if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau)) bounds.Right = x + radius;

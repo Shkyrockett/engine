@@ -18,7 +18,7 @@ using static Engine.Physics.LengthUnits;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The centimeters struct.
     /// </summary>
     public struct Centimeters
         : ILength, IFormattable
@@ -307,7 +307,7 @@ namespace Engine.Physics
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

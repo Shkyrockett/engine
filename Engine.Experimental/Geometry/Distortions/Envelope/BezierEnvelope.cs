@@ -449,7 +449,7 @@ namespace Engine
         /// The rotate transform.
         /// </summary>
         /// <param name="a">The a.</param>
-        /// <returns>The <see cref="((double x, double y, double z) x, (double x, double y, double z) y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         private static ((double x, double y, double z) x, (double x, double y, double z) y) RotateTransform(double a)
             => ((Math.Cos(a), -Math.Sin(a), 0), (Math.Sin(a), Math.Cos(a), 0));
 
@@ -458,7 +458,7 @@ namespace Engine
         /// </summary>
         /// <param name="sx">The sx.</param>
         /// <param name="sy">The sy.</param>
-        /// <returns>The <see cref="((double x, double y, double z) x, (double x, double y, double z) y)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         private static ((double x, double y, double z) x, (double x, double y, double z) y) ScaleTransform(double sx, double sy)
             => ((sx, 0, 0), (0, sy, 0));
     }

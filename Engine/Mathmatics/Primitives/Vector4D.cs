@@ -27,7 +27,7 @@ namespace Engine
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Vector4D>))]
-    [DebuggerDisplay("I: {I}, J: {J}, K: {K}, L: {L}")]
+    //[DebuggerDisplay("I: {I}, J: {J}, K: {K}, L: {L}")]
     public struct Vector4D
         : IVector<Vector4D>
     {
@@ -411,9 +411,9 @@ namespace Engine
 
         #region Public Methods
         /// <summary>
-        /// 
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode()
             => I.GetHashCode()
             ^ J.GetHashCode()
@@ -432,29 +432,29 @@ namespace Engine
             => Equals(a, b);
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Vector4D a, Vector4D b)
             => a.I == b.I & a.J == b.J & a.K == b.K & a.L == b.L;
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Vector4D && Equals(this, (Vector4D)obj);
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector4D value)
             => Equals(this, value);
@@ -477,7 +477,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

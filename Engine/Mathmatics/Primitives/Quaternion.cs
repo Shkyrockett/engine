@@ -23,13 +23,13 @@ using static Engine.Maths;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The quaternion d struct.
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<QuaternionD>))]
     public struct QuaternionD
-        : IEquatable<QuaternionD>, IFormattable
+        : IVector<QuaternionD>
     {
         #region Static Fields
         /// <summary>
@@ -130,7 +130,7 @@ namespace Engine
             => Measurements.QuaternionMagnitude( X, Y, Z, W);
 
         /// <summary>
-        /// 
+        /// Gets or sets the pitch.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Pitch
@@ -151,7 +151,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the yaw.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Yaw
@@ -171,7 +171,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the roll.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Roll
@@ -185,7 +185,7 @@ namespace Engine
             {
                 var test = X * Y + Z * W;
                 if (Abs(test) > 0.499d) // singularitY at north and south pole
-                    return Sign(test) * Right;
+                    return Sign(test) * HalfPi;
                 return Asin(2d * test);
             }
         }
@@ -583,9 +583,9 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        ///
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
@@ -597,7 +597,7 @@ namespace Engine
         /// <summary>
         /// Compares two <see cref="QuaternionD"/> structs.
         /// </summary>
-        /// <param name="a">The object to comare.</param>
+        /// <param name="a">The object to compare.</param>
         /// <param name="b">The object to compare against.</param>
         /// <returns></returns>
         /// <remarks></remarks>
@@ -694,7 +694,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

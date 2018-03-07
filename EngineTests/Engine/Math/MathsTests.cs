@@ -8,14 +8,15 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 
-namespace Engine.Tests
+namespace EngineTests
 {
     /// <summary>
-    ///
+    /// The maths tests unit test class.
     /// </summary>
     [TestClass()]
     public class MathsTests
@@ -37,9 +38,9 @@ namespace Engine.Tests
 
         #region Housekeeping
         /// <summary>
-        ///
+        /// ClassInitialize runs code before running the first test in the class.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">The context.</param>
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
@@ -47,7 +48,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// TestInitialize runs code before running each test.
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -56,7 +57,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// TestCleanup runs code after each test has run.
         /// </summary>
         [TestCleanup]
         public void Cleanup()
@@ -65,7 +66,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// ClassCleanup runs code after all tests in a class have run.
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()
@@ -76,7 +77,7 @@ namespace Engine.Tests
 
         #region Queries
         /// <summary>
-        ///
+        /// The is one test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -92,7 +93,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The is zero test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -108,7 +109,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The less than test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -124,7 +125,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The less than or close test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -140,7 +141,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The greater than test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -156,7 +157,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The greater than or close test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -172,7 +173,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The is between zero and one test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -193,7 +194,7 @@ namespace Engine.Tests
 
         #region Arithmetic Safety Tests
         /// <summary>
-        ///
+        /// The is addition safe test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -566,7 +567,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The is subtraction safe test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -939,7 +940,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The is multiplication safe test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -1313,8 +1314,9 @@ namespace Engine.Tests
 
         #region Derived Equivalent Math Functions Tests
         /// <summary>
-        ///
+        /// The atan2test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1328,8 +1330,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The secant test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1343,8 +1346,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The cosecant test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1358,8 +1362,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The cotangent test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1373,8 +1378,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse sine test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1388,8 +1394,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse cosine test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1403,8 +1410,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse secant test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1418,8 +1426,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse cosecant test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1433,8 +1442,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse cotangent test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1448,8 +1458,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The hyperbolic sine test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1463,8 +1474,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The hyperbolic cosine test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1478,8 +1490,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The hyperbolic tangent test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1493,8 +1506,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The hyperbolic secant test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1508,8 +1522,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The hyperbolic cosecant test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1523,8 +1538,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The hyperbolic cotangent test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1538,8 +1554,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse hyperbolic sine test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1553,8 +1570,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse hyperbolic cosine test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1568,8 +1586,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse hyperbolic tangent test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1583,8 +1602,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse hyperbolic secant test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1598,8 +1618,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse hyperbolic cosecant test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1613,8 +1634,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The inverse hyperbolic cotangent test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -1628,22 +1650,23 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The logarithm to base n test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
         [TestProperty(nameof(Engine), nameof(MathsTests))]
         [DeploymentItem("Engine.dll")]
         [Ignore]
-        public void LogarithmTobaseNTest()
+        public void LogarithmToBaseNTest()
         {
             Assert.Inconclusive("ToDo: Implement code to verify target.");
             throw new NotImplementedException();
         }
         #endregion Derived Equivalent Math Functions Tests
 
-        #region Bezier Polynomial Coefficients Tests
+        #region Bézier Polynomial Coefficients Tests
         /// <summary>
         /// Test the <see cref="Maths.LinearBezierCoefficientsStack(double, double)"/> method.
         /// </summary>
@@ -1868,7 +1891,7 @@ namespace Engine.Tests
             var result = Maths.DecicBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
             Assert.AreEqual(expected, result);
         }
-        #endregion Bezier Polynomial Coefficients Tests
+        #endregion Bézier Polynomial Coefficients Tests
 
         #region Misc
         /// <summary>
@@ -2028,7 +2051,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The hi word test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2044,7 +2067,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The signed hi word test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2060,7 +2083,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The lo word test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2076,7 +2099,7 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The signed lo word test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -2092,8 +2115,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The random test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -2107,8 +2131,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The to float test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -2122,8 +2147,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The float to int test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -2137,8 +2163,9 @@ namespace Engine.Tests
         }
 
         /// <summary>
-        ///
+        /// The double to int test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]

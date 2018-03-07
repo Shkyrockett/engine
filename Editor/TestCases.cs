@@ -45,6 +45,7 @@ namespace Editor
             /* Experimental Previews */
 
             EnvelopeWarp(vectorMap);
+            //PathContourWArcLine(vectorMap);
             //Clipper(vectorMap);
             //SelfIntersectingCubicBezier(vectorMap);
             //LineSegmentLineSegmentIntersectionT(vectorMap, form, metrics);
@@ -67,7 +68,6 @@ namespace Editor
             //PolyClipping(vectorMap);
             //FMartinezSamplesForClipping(vectorMap);
             //SutherlandHodgman(vectorMap);
-            //PathContourWArcLine(vectorMap);
             //WindingOrder(vectorMap);
             //PolylineClicking(vectorMap);
             //TextRendering(vectorMap, form, metrics);
@@ -248,7 +248,7 @@ namespace Editor
             };
             var warpedRectangleNodeItem = new GraphicItem(new NodeRevealer(warpedRectangle.Grips, 5d), handleStyle);
 
-            var warpedTriangle = envelopeDistort.Process(Generators.RegularConvexPolygon(rect.Center.X, rect.Center.Y, rect.Height * 0.5d, 3, -Right));
+            var warpedTriangle = envelopeDistort.Process(Generators.RegularConvexPolygon(rect.Center.X, rect.Center.Y, rect.Height * 0.5d, 3, -HalfPi));
             var warpedTriangleItem = new GraphicItem(warpedTriangle, intersectionRed)
             {
                 Name = "Warped Triangle"
@@ -289,8 +289,8 @@ namespace Editor
             const double delta = radius * 0.5d;
             const double delta2 = radius * 0.13d;
             var poly1 = new Polygon {
-                Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, -Right),
-                Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, -Right),
+                Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, -HalfPi),
+                Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, -HalfPi),
             };
             var poly1Item = new GraphicItem(poly1, intersectionBlue)
             {
@@ -298,8 +298,8 @@ namespace Editor
             };
 
             var poly2 = new Polygon {
-                Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, Right),
-                Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, Right),
+                Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, HalfPi),
+                Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, HalfPi),
             };
             var poly2Item = new GraphicItem(poly2, intersectionGreen)
             {
@@ -530,7 +530,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development method for spiting quadratic bezier curve segments.
+        /// Development method for spiting quadratic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void SplitQuadraticBezier(VectorMap vectorMap)
@@ -544,15 +544,15 @@ namespace Editor
             var quadratic = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ScaleDistort(scale).RotateDistort(axis, angle);
             var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
             {
-                Name = "Quadratic Bezier 1"
+                Name = "Quadratic Bézier 1"
             };
             var quardaticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 1 Bounds"
+                Name = "Quadratic Bézier 1 Bounds"
             };
             var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 1 Handles"
+                Name = "Quadratic Bézier 1 Handles"
             };
 
             var results = quadratic.Split(0.25, 0.75);
@@ -573,7 +573,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development method for spiting cubic bezier curve segments.
+        /// Development method for spiting cubic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void SplitCubicBezier(VectorMap vectorMap)
@@ -587,15 +587,15 @@ namespace Editor
             var cubic = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ToCubicBezier().ScaleDistort(scale).RotateDistort(axis, angle);
             var cubicItem = new GraphicItem(cubic, intersectionBlue)
             {
-                Name = "Cubic Bezier 1"
+                Name = "Cubic Bézier 1"
             };
             var cubicBoundsItem = new GraphicItem(cubic.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 1 Bounds"
+                Name = "Cubic Bézier 1 Bounds"
             };
             var cubicHandles = new GraphicItem(new NodeRevealer(cubic.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 1 Handles"
+                Name = "Cubic Bézier 1 Handles"
             };
 
             var results = cubic.Split(0.25, 0.75);
@@ -650,7 +650,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development method for trying to work out nearest parameter to point on bezier curve.
+        /// Development method for trying to work out nearest parameter to point on Bézier curve.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         /// <param name="tools">Reference to the Tools stack.</param>
@@ -665,15 +665,15 @@ namespace Editor
             var quadratic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ScaleDistort(scale).RotateDistort(axis, angle);
             var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
             {
-                Name = "Quadratic Bezier 1"
+                Name = "Quadratic Bézier 1"
             };
             var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 1 Bounds"
+                Name = "Quadratic Bézier 1 Bounds"
             };
             var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 1 Handles"
+                Name = "Quadratic Bézier 1 Handles"
             };
 
             var point1 = new Point2D(100, 200);
@@ -700,7 +700,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development method for trying to work out nearest parameter to point on bezier curve.
+        /// Development method for trying to work out nearest parameter to point on Bézier curve.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         /// <param name="tools">Reference to the Tools stack.</param>
@@ -721,15 +721,15 @@ namespace Editor
                 .RotateDistort(axis, angle);
             var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
             {
-                Name = "Quadratic Bezier 1"
+                Name = "Quadratic Bézier 1"
             };
             var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 1 Bounds"
+                Name = "Quadratic Bézier 1 Bounds"
             };
             var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 1 Handles"
+                Name = "Quadratic Bézier 1 Handles"
             };
 
             var point1 = new Point2D(100, 200);
@@ -842,21 +842,21 @@ namespace Editor
             var bezier1 = new CubicBezier(left + 0, top + 50, left + 0, top + 100, left + 100, top + 100, left + 100, top + 50);
             var bezier1Item = new GraphicItem(bezier1, solidGreenStyle)
             {
-                Name = "Bezier"
+                Name = "Bézier"
             };
             var bezier1Intersect = new GraphicItem(new NodeRevealer(bezier1.Intersection(line).Points, 5d), handleStyle)
             {
-                Name = "Bezier Intersection"
+                Name = "Bézier Intersection"
             };
 
             var bezier2 = new CubicBezier(left + 0, top + 50, left + 0, top + 100, left + 100, top + 50, left + 100, top + 100);
             var bezier2Item = new GraphicItem(bezier2, solidCyanStyle)
             {
-                Name = "Bezier"
+                Name = "Bézier"
             };
             var bezier2Intersect = new GraphicItem(new NodeRevealer(bezier2.Intersection(line).Points, 5d), handleStyle)
             {
-                Name = "Bezier Intersection"
+                Name = "Bézier Intersection"
             };
 
             vectorMap.Add(bezier1Item);
@@ -1032,7 +1032,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development method for testing the mapping from ellipses to bezier curve segments.
+        /// Development method for testing the mapping from ellipses to Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void EllipseToBeziers(VectorMap vectorMap)
@@ -1058,7 +1058,7 @@ namespace Editor
             }
             var arcContourItem = new GraphicItem(contour, solidPurpleStyle)
             {
-                Name = "Bezier Arc"
+                Name = "Bézier Arc"
             };
             var arcContourNodeItem = new GraphicItem(new NodeRevealer(contour.Grips, 5d), handleStyle)
             {
@@ -1169,8 +1169,8 @@ namespace Editor
             const int radius = 100;
             const double delta = radius / 2d;
             var poly1 = new Polygon {
-                Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, -Right),
-                Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, -Right),
+                Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, -HalfPi),
+                Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, -HalfPi),
             };
             var poly1Item = new GraphicItem(poly1, intersectionBlue)
             {
@@ -1178,8 +1178,8 @@ namespace Editor
             };
 
             var poly2 = new Polygon {
-                Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, Right),
-                Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, Right),
+                Generators.RegularConvexPolygon(left + radius, top + radius, radius, 3, HalfPi),
+                Generators.RegularConvexPolygon(left + radius, top + radius, delta, 3, HalfPi),
             };
             var poly2Item = new GraphicItem(poly2, intersectionGreen)
             {
@@ -1738,10 +1738,13 @@ namespace Editor
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void PathContourWArcLine(VectorMap vectorMap)
         {
-            const int left = 100;
-            const int top = 0;
-            var figure = new PolycurveContour(new Point2D(left + 50d, top + 100d));
-            figure.AddLineSegment(new Point2D(left + 100, top + 100))
+            var left = 100d;
+            var top = 0d;
+            var gridOffset = 5d;
+
+            // Right angle arcs and triple right angle arcs on/subtracted from square.
+            var figure1 = new PolycurveContour(new Point2D(left + 50d, top + 100d));
+            figure1.AddLineSegment(new Point2D(left + 100, top + 100))
                 .AddArc(50d, 50d, 0d, false, false, new Point2D(left + 150d, top + 150d))
                 .AddLineSegment(new Point2D(left + 150, top + 200))
                 .AddArc(50d, 50d, 0d, false, true, new Point2D(left + 100d, top + 250d))
@@ -1750,22 +1753,56 @@ namespace Editor
                 .AddLineSegment(new Point2D(left, top + 150))
                 .AddArc(50d, 50d, 0d, true, true, new Point2D(left + 50d, top + 100d))
                 .Close();
-            var figureItem = new GraphicItem(figure, solidGreenStyle);
-            var figureBounds = figure.Bounds;
-            var figureBoundsItem = new GraphicItem(figureBounds, selectionStyle);
+
+            var figure1Item = new GraphicItem(figure1, solidGreenStyle)
+            {
+                Name = "Figure 1"
+            };
+            var figure1Bounds = figure1.Bounds;
+            //var figure1BoundsItem = new GraphicItem(figureBounds, selectionStyle);
             var parametricPointTesterFigure = new ParametricPointTester(
-                (px, py) => Intersections.PolycurveContourContainsPoint(figure, new Point2D(px, py)),
-                figureBounds.X, figureBounds.Y, figureBounds.Right + 5, figureBounds.Bottom + 5, 5, 5);
-            var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, handleStyle);
+                (px, py) => Intersections.PolycurveContourContainsPoint(figure1, new Point2D(px, py)),
+                figure1Bounds.X - gridOffset, figure1Bounds.Y - gridOffset, figure1Bounds.Right + gridOffset, figure1Bounds.Bottom + gridOffset, gridOffset, gridOffset);
+            var parametricPointTesterFigureItem = new GraphicItem(parametricPointTesterFigure, handleStyle)
+            {
+                Name = "Figure 1 Points Tests"
+            };
 
-            var parametricPointTesterRectangle = new ParametricPointTester(
-                (px, py) => Intersections.RectangleContainsPoint(figureBounds.Left, figureBounds.Top, figureBounds.Right, figureBounds.Bottom, px, py),
-                figureBounds.X - 200, figureBounds.Y - 200, figureBounds.Right + 205, figureBounds.Bottom + 205, 5, 5);
-            var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, handleStyle);
+            //var parametricPointTesterRectangle = new ParametricPointTester(
+            //    (px, py) => Intersections.RectangleContainsPoint(figure1Bounds.Left, figure1Bounds.Top, figure1Bounds.Right, figure1Bounds.Bottom, px, py),
+            //    figure1Bounds.X - 200, figure1Bounds.Y - 200, figure1Bounds.Right + 205, figure1Bounds.Bottom + 205, gridOffset, gridOffset);
+            //var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, handleStyle);
 
-            vectorMap.Add(figureBoundsItem);
-            vectorMap.Add(figureItem);
+            top += 250;
+            left = 0;
+
+            // Double lobular https://stackoverflow.com/a/34884949.
+            var figure2 = new PolycurveContour(new Point2D(left + 50d, top + 100d));
+            figure2
+                .AddArc(80d, 80d, 0d, false, true, new Point2D(left + 200d, top + 180d))
+                .AddArc(50d, 50d, 0d, false, true, new Point2D(left + 180d, top + 300d))
+                .AddLineSegment(new Point2D(left + 50, top + 250))
+                .AddLineSegment(new Point2D(left + 150, top + 225))
+                .Close();
+
+            var figure2Item = new GraphicItem(figure2, solidGreenStyle)
+            {
+                Name = "Figure 2"
+            };
+            var figure2Bounds = figure2.Bounds;
+            var parametricPointTesterFigure2 = new ParametricPointTester(
+                (px, py) => Intersections.PolycurveContourContainsPoint(figure2, new Point2D(px, py)),
+                figure2Bounds.X - gridOffset, figure2Bounds.Y - gridOffset, figure2Bounds.Right + gridOffset, figure2Bounds.Bottom + gridOffset, gridOffset, gridOffset);
+            var parametricPointTesterFigure2Item = new GraphicItem(parametricPointTesterFigure2, handleStyle)
+            {
+                Name = "Figure 2 Points Tester"
+            };
+
+            //vectorMap.Add(figureBoundsItem);
+            vectorMap.Add(figure1Item);
+            vectorMap.Add(figure2Item);
             vectorMap.Add(parametricPointTesterFigureItem);
+            vectorMap.Add(parametricPointTesterFigure2Item);
             //vectorMap.Add(parametricPointTesterRectangleItem);
         }
 
@@ -2249,15 +2286,15 @@ namespace Editor
                 .RotateDistort(axis, angle);
             var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
             {
-                Name = "Quadratic Bezier"
+                Name = "Quadratic Bézier"
             };
             var quadraticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier Bounds"
+                Name = "Quadratic Bézier Bounds"
             };
             var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier Handles"
+                Name = "Quadratic Bézier Handles"
             };
 
             var circle = new Circle(quadratic.Interpolate(0), radius);
@@ -2304,15 +2341,15 @@ namespace Editor
                 .RotateDistort(axis, angle);
             var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
             {
-                Name = "Quadratic Bezier"
+                Name = "Quadratic Bézier"
             };
             var quadraticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier Bounds"
+                Name = "Quadratic Bézier Bounds"
             };
             var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier Handles"
+                Name = "Quadratic Bézier Handles"
             };
 
             var circle = new Circle(quadratic.Interpolate(0), radius);
@@ -2360,15 +2397,15 @@ namespace Editor
                 .RotateDistort(axis, angle);
             var cubicItem = new GraphicItem(cubic, intersectionBlue)
             {
-                Name = "Cubic Bezier"
+                Name = "Cubic Bézier"
             };
             var cubicBoundsItem = new GraphicItem(cubic.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier Bounds"
+                Name = "Cubic Bézier Bounds"
             };
             var cubicHandles = new GraphicItem(new NodeRevealer(cubic.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier Handles"
+                Name = "Cubic Bézier Handles"
             };
 
             var circle = new Circle(cubic.Interpolate(0), radius);
@@ -2822,7 +2859,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for working on self intersection of Cubic Bezier methods.
+        /// Development test cases for working on self intersection of Cubic Bézier methods.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void SelfIntersectingCubicBezier(VectorMap vectorMap)
@@ -2838,20 +2875,20 @@ namespace Editor
                 left + 250, top + 300).ScaleDistort(scale).TranslateDistort(shift);
             var cubic1Item = new GraphicItem(cubic1, intersectionBlue)
             {
-                Name = "Cubic Bezier 1"
+                Name = "Cubic Bézier 1"
             };
             var cubic1BoundsItem = new GraphicItem(cubic1.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 1 Bounds"
+                Name = "Cubic Bézier 1 Bounds"
             };
             var cubic1Handles = new GraphicItem(new NodeRevealer(cubic1.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 1 Handles"
+                Name = "Cubic Bézier 1 Handles"
             };
             var cubic1Self = Intersections.CubicBezierSegmentSelfIntersection(cubic1.CurveX, cubic1.CurveY);
             var cubic1SelfHandles = new GraphicItem(new NodeRevealer(cubic1Self.Points, 5d), handleStyle2)
             {
-                Name = "Cubic 1 Bezier self intersection Handles"
+                Name = "Cubic 1 Bézier self intersection Handles"
             };
 
             var cubic2 = new CubicBezier(
@@ -2862,20 +2899,20 @@ namespace Editor
                 ).ScaleDistort(scale).TranslateDistort(shift).RotateDistort(new Point2D(left + 200, top + 200), angle);
             var cubic2Item = new GraphicItem(cubic2, intersectionBlue)
             {
-                Name = "Cubic Bezier 2"
+                Name = "Cubic Bézier 2"
             };
             var cubic2BoundsItem = new GraphicItem(cubic2.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 2 Bounds"
+                Name = "Cubic Bézier 2 Bounds"
             };
             var cubic2Handles = new GraphicItem(new NodeRevealer(cubic2.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 2 Handles"
+                Name = "Cubic Bézier 2 Handles"
             };
             var cubic2Self = Intersections.CubicBezierSegmentSelfIntersection(cubic2.CurveX, cubic2.CurveY);
             var cubic2SelfHandles = new GraphicItem(new NodeRevealer(cubic2Self.Points, 5d), handleStyle2)
             {
-                Name = "Cubic 2 Bezier self intersection Handles"
+                Name = "Cubic 2 Bézier self intersection Handles"
             };
 
             top -= 175;
@@ -2888,20 +2925,20 @@ namespace Editor
                 ).ScaleDistort(scale).TranslateDistort(shift);
             var cubic3Item = new GraphicItem(cubic3, intersectionBlue)
             {
-                Name = "Cubic Bezier 3"
+                Name = "Cubic Bézier 3"
             };
             var cubic3BoundsItem = new GraphicItem(cubic3.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 3 Bounds"
+                Name = "Cubic Bézier 3 Bounds"
             };
             var cubic3Handles = new GraphicItem(new NodeRevealer(cubic3.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 3 Handles"
+                Name = "Cubic Bézier 3 Handles"
             };
             var cubic3Self = Intersections.CubicBezierSegmentSelfIntersection(cubic3.CurveX, cubic3.CurveY);
             var cubic3SelfHandles = new GraphicItem(new NodeRevealer(cubic3Self.Points, 5d), handleStyle2)
             {
-                Name = "Cubic 3 Bezier self intersection Handles"
+                Name = "Cubic 3 Bézier self intersection Handles"
             };
 
             var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(cubic2).Points, 5d), handleStyle);
@@ -2971,7 +3008,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for testing intersections between ellipses and quadratic bezier curve segments.
+        /// Development test cases for testing intersections between ellipses and quadratic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectingsEllipseQuadraticSegment(VectorMap vectorMap)
@@ -2996,11 +3033,11 @@ namespace Editor
             var quadratic1 = new QuadraticBezier(location.X - 50, location.Y + 60, location.X, location.Y, location.X + 50, location.Y + 60);
             var quadratic1Item = new GraphicItem(quadratic1, intersectionRed)
             {
-                Name = "Quadratic Bezier 1"
+                Name = "Quadratic Bézier 1"
             };
             var quadratic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 1 Bounds"
+                Name = "Quadratic Bézier 1 Bounds"
             };
 
             var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipse1.Intersection(quadratic1).Points, 5d), handleStyle)
@@ -3016,7 +3053,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for testing intersections between ellipses and cubic bezier curve segments.
+        /// Development test cases for testing intersections between ellipses and cubic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectingsEllipseCubicSegment(VectorMap vectorMap)
@@ -3041,11 +3078,11 @@ namespace Editor
             var cubic1 = new CubicBezier(location.X - 50, location.Y + 60, location.X - 50, location.Y, location.X + 50, location.Y, location.X + 50, location.Y + 60);
             var cubic1Item = new GraphicItem(cubic1, intersectionRed)
             {
-                Name = "Cubic Bezier 1"
+                Name = "Cubic Bézier 1"
             };
             var cubic1BoundsItem = new GraphicItem(cubic1.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 1 Bounds"
+                Name = "Cubic Bézier 1 Bounds"
             };
 
             var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipse1.Intersection(cubic1).Points, 5d), handleStyle)
@@ -3061,7 +3098,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for testing intersections methods between two quadratic bezier curve segments.
+        /// Development test cases for testing intersections methods between two quadratic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsQuadraticBezierQuadraticBezier(VectorMap vectorMap)
@@ -3075,15 +3112,15 @@ namespace Editor
             var quadratic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ScaleDistort(scale).RotateDistort(axis, angle);
             var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
             {
-                Name = "Quadratic Bezier 1"
+                Name = "Quadratic Bézier 1"
             };
             var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 1 Bounds"
+                Name = "Quadratic Bézier 1 Bounds"
             };
             var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 1 Handles"
+                Name = "Quadratic Bézier 1 Handles"
             };
 
             top -= 5;
@@ -3091,15 +3128,15 @@ namespace Editor
             var quadratic2 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10).ScaleDistort(scale).RotateDistort(axis, angle);
             var quadratic2Item = new GraphicItem(quadratic2, intersectionRed)
             {
-                Name = "Quadratic Bezier 2"
+                Name = "Quadratic Bézier 2"
             };
             var quardatic2BoundsItem = new GraphicItem(quadratic2.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 2 Bounds"
+                Name = "Quadratic Bézier 2 Bounds"
             };
             var quadratic2Handles = new GraphicItem(new NodeRevealer(quadratic2.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 2 Handles"
+                Name = "Quadratic Bézier 2 Handles"
             };
 
             var intersectionNode1Item = new GraphicItem(new NodeRevealer(quadratic1.Intersection(quadratic2).Points, 5d), handleStyle)
@@ -3113,15 +3150,15 @@ namespace Editor
             var quadratic3 = new QuadraticBezier(left + 5, top, left + 10, top + 10, left + 20, top).ScaleDistort(scale);
             var quadratic3Item = new GraphicItem(quadratic3, intersectionBlue)
             {
-                Name = "Quadratic Bezier 3"
+                Name = "Quadratic Bézier 3"
             };
             var quardatic3BoundsItem = new GraphicItem(quadratic3.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 3 Bounds"
+                Name = "Quadratic Bézier 3 Bounds"
             };
             var quadratic3Handles = new GraphicItem(new NodeRevealer(quadratic3.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 3 Handles"
+                Name = "Quadratic Bézier 3 Handles"
             };
 
             top -= 5;
@@ -3129,15 +3166,15 @@ namespace Editor
             var quadratic4 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10).ScaleDistort(scale);
             var quadratic4Item = new GraphicItem(quadratic4, intersectionRed)
             {
-                Name = "Quadratic Bezier 4"
+                Name = "Quadratic Bézier 4"
             };
             var quardatic4BoundsItem = new GraphicItem(quadratic4.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 4 Bounds"
+                Name = "Quadratic Bézier 4 Bounds"
             };
             var quadratic4Handles = new GraphicItem(new NodeRevealer(quadratic4.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 4 Handles"
+                Name = "Quadratic Bézier 4 Handles"
             };
 
             var intersectionNode2Item = new GraphicItem(new NodeRevealer(quadratic3.Intersection(quadratic4).Points, 5d), handleStyle)
@@ -3162,7 +3199,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for testing intersection methods between cubic and quadratic bezier curve segments.
+        /// Development test cases for testing intersection methods between cubic and quadratic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsCubicBezierQuadraticBezier(VectorMap vectorMap)
@@ -3174,15 +3211,15 @@ namespace Editor
             var cubic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ToCubicBezier().ScaleDistort(scale);
             var cubic1Item = new GraphicItem(cubic1, intersectionBlue)
             {
-                Name = "Cubic Bezier 1"
+                Name = "Cubic Bézier 1"
             };
             var cubic1BoundsItem = new GraphicItem(cubic1.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 1 Bounds"
+                Name = "Cubic Bézier 1 Bounds"
             };
             var cubic1Handles = new GraphicItem(new NodeRevealer(cubic1.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 1 Handles"
+                Name = "Cubic Bézier 1 Handles"
             };
 
             top -= 5;
@@ -3190,15 +3227,15 @@ namespace Editor
             var quadratic2 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10).ScaleDistort(scale);
             var quadratic2Item = new GraphicItem(quadratic2, intersectionRed)
             {
-                Name = "Quadratic Bezier 2"
+                Name = "Quadratic Bézier 2"
             };
             var quardatic2BoundsItem = new GraphicItem(quadratic2.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 2 Bounds"
+                Name = "Quadratic Bézier 2 Bounds"
             };
             var quadratic2Handles = new GraphicItem(new NodeRevealer(quadratic2.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 2 Handles"
+                Name = "Quadratic Bézier 2 Handles"
             };
 
             var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(quadratic2).Points, 5d), handleStyle);
@@ -3209,15 +3246,15 @@ namespace Editor
             var cubic3 = new QuadraticBezier(left + 5, top, left + 10, top + 10, left + 20, top).ToCubicBezier().ScaleDistort(scale);
             var cubic3Item = new GraphicItem(cubic3, intersectionBlue)
             {
-                Name = "Cubic Bezier 3"
+                Name = "Cubic Bézier 3"
             };
             var cubic3BoundsItem = new GraphicItem(cubic3.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 3 Bounds"
+                Name = "Cubic Bézier 3 Bounds"
             };
             var cubic3Handles = new GraphicItem(new NodeRevealer(cubic3.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 3 Handles"
+                Name = "Cubic Bézier 3 Handles"
             };
 
             top -= 5;
@@ -3225,15 +3262,15 @@ namespace Editor
             var quadratic4 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10).ScaleDistort(scale);
             var quadratic4Item = new GraphicItem(quadratic4, intersectionRed)
             {
-                Name = "Quadratic Bezier 4"
+                Name = "Quadratic Bézier 4"
             };
             var quardatic4BoundsItem = new GraphicItem(quadratic4.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 4 Bounds"
+                Name = "Quadratic Bézier 4 Bounds"
             };
             var quadratic4Handles = new GraphicItem(new NodeRevealer(quadratic4.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 4 Handles"
+                Name = "Quadratic Bézier 4 Handles"
             };
 
             var intersectionNode2Item = new GraphicItem(new NodeRevealer(cubic3.Intersection(quadratic4).Points, 5d), handleStyle);
@@ -3255,7 +3292,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for testing intersections methods between two cubic bezier curve segments.
+        /// Development test cases for testing intersections methods between two cubic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsCubicBezierCubicBezier(VectorMap vectorMap)
@@ -3272,15 +3309,15 @@ namespace Editor
                 .RotateDistort(axis, angle);
             var cubic1Item = new GraphicItem(cubic1, intersectionBlue)
             {
-                Name = "Cubic Bezier 1"
+                Name = "Cubic Bézier 1"
             };
             var cubic1BoundsItem = new GraphicItem(cubic1.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 1 Bounds"
+                Name = "Cubic Bézier 1 Bounds"
             };
             var cubic1Handles = new GraphicItem(new NodeRevealer(cubic1.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 1 Handles"
+                Name = "Cubic Bézier 1 Handles"
             };
 
             top -= 5;
@@ -3291,15 +3328,15 @@ namespace Editor
                 .RotateDistort(axis, angle);
             var cubic2Item = new GraphicItem(cubc2, intersectionRed)
             {
-                Name = "Cubic Bezier 2"
+                Name = "Cubic Bézier 2"
             };
             var cubic2BoundsItem = new GraphicItem(cubc2.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 2 Bounds"
+                Name = "Cubic Bézier 2 Bounds"
             };
             var cubic2Handles = new GraphicItem(new NodeRevealer(cubc2.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 2 Handles"
+                Name = "Cubic Bézier 2 Handles"
             };
 
             var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(cubc2).Points, 5d), handleStyle);
@@ -3315,15 +3352,15 @@ namespace Editor
                 .RotateDistort(axis, angle);
             var cubic3Item = new GraphicItem(cubic3, intersectionBlue)
             {
-                Name = "Cubic Bezier 3"
+                Name = "Cubic Bézier 3"
             };
             var cubic3BoundsItem = new GraphicItem(cubic3.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 3 Bounds"
+                Name = "Cubic Bézier 3 Bounds"
             };
             var cubic3Handles = new GraphicItem(new NodeRevealer(cubic3.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 3 Handles"
+                Name = "Cubic Bézier 3 Handles"
             };
 
             top -= 5;
@@ -3334,15 +3371,15 @@ namespace Editor
                 .RotateDistort(axis, angle);
             var cubic4Item = new GraphicItem(cubic4, intersectionRed)
             {
-                Name = "Cubic Bezier 4"
+                Name = "Cubic Bézier 4"
             };
             var cubic4BoundsItem = new GraphicItem(cubic4.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 4 Bounds"
+                Name = "Cubic Bézier 4 Bounds"
             };
             var cubic4Handles = new GraphicItem(new NodeRevealer(cubic4.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 4 Handles"
+                Name = "Cubic Bézier 4 Handles"
             };
 
             var intersectionNode2Item = new GraphicItem(new NodeRevealer(cubic3.Intersection(cubic4).Points, 5d), handleStyle);
@@ -3364,7 +3401,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for testing intersections methods between two quadratic bezier curve segments.
+        /// Development test cases for testing intersections methods between two quadratic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsQuadraticBezierQuadraticBezierKLD(VectorMap vectorMap)
@@ -3376,34 +3413,34 @@ namespace Editor
             var quadratic1 = new QuadraticBezier(left + 83, top + 214, left + 335, top + 173, left + 91, top + 137).ScaleDistort(scale);
             var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
             {
-                Name = "Quadratic Bezier 1"
+                Name = "Quadratic Bézier 1"
             };
             var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 1 Bounds"
+                Name = "Quadratic Bézier 1 Bounds"
             };
             var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 1 Handles"
+                Name = "Quadratic Bézier 1 Handles"
             };
 
             var quadratic2 = new QuadraticBezier(left + 92, top + 233, left + 152, top + 30, left + 198, top + 227).ScaleDistort(scale);
             var quadratic2Item = new GraphicItem(quadratic2, intersectionRed)
             {
-                Name = "Quadratic Bezier 2"
+                Name = "Quadratic Bézier 2"
             };
             var quardatic2BoundsItem = new GraphicItem(quadratic2.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 2 Bounds"
+                Name = "Quadratic Bézier 2 Bounds"
             };
             var quadratic2Handles = new GraphicItem(new NodeRevealer(quadratic2.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 2 Handles"
+                Name = "Quadratic Bézier 2 Handles"
             };
 
             var intersectionNode1Item = new GraphicItem(new NodeRevealer(quadratic1.Intersection(quadratic2).Points, 5d), handleStyle)
             {
-                Name = "Quadratic Bezier Intersections"
+                Name = "Quadratic Bézier Intersections"
             };
 
             vectorMap.Add(quardatic1BoundsItem);
@@ -3416,7 +3453,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for testing intersections methods between two cubic bezier curve segments.
+        /// Development test cases for testing intersections methods between two cubic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsCubicBezierCubicBezierKLD(VectorMap vectorMap)
@@ -3429,34 +3466,34 @@ namespace Editor
             var cubic1 = new CubicBezier(left + 203, top + 140, left + 206, top + 359, left + 245, top + 6, 248, 212).ScaleDistort(scale).TranslateDistort(shift);
             var cubic1Item = new GraphicItem(cubic1, intersectionBlue)
             {
-                Name = "Cubic Bezier 1"
+                Name = "Cubic Bézier 1"
             };
             var cubic1BoundsItem = new GraphicItem(cubic1.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 1 Bounds"
+                Name = "Cubic Bézier 1 Bounds"
             };
             var cubic1Handles = new GraphicItem(new NodeRevealer(cubic1.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 1 Handles"
+                Name = "Cubic Bézier 1 Handles"
             };
 
             var cubic2 = new CubicBezier(left + 177, top + 204, left + 441, top + 204, left + 8, top + 149, 265, 154).ScaleDistort(scale).TranslateDistort(shift);
             var cubic2Item = new GraphicItem(cubic2, intersectionRed)
             {
-                Name = "Cubic Bezier 2"
+                Name = "Cubic Bézier 2"
             };
             var cubic2BoundsItem = new GraphicItem(cubic2.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 2 Bounds"
+                Name = "Cubic Bézier 2 Bounds"
             };
             var cubic2Handles = new GraphicItem(new NodeRevealer(cubic2.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 2 Handles"
+                Name = "Cubic Bézier 2 Handles"
             };
 
             var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(cubic2).Points, 5d), handleStyle)
             {
-                Name = "Cubic Bezier Intersections"
+                Name = "Cubic Bézier Intersections"
             };
 
             vectorMap.Add(cubic1BoundsItem);
@@ -3469,7 +3506,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for testing intersection methods between cubic and quadratic bezier curve segments.
+        /// Development test cases for testing intersection methods between cubic and quadratic Bézier curve segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void IntersectionsQuadraticBezierCubicBezierKLD(VectorMap vectorMap)
@@ -3481,34 +3518,34 @@ namespace Editor
             var quadratic1 = new QuadraticBezier(left + 123, top + 47, left + 146, top + 255, left + 188, top + 47).ScaleDistort(scale);
             var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
             {
-                Name = "Quadratic Bezier 1"
+                Name = "Quadratic Bézier 1"
             };
             var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier 1 Bounds"
+                Name = "Quadratic Bézier 1 Bounds"
             };
             var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
             {
-                Name = "Quadratic Bezier 1 Handles"
+                Name = "Quadratic Bézier 1 Handles"
             };
 
             var cubic2 = new CubicBezier(left + 171, top + 143, left + 22, top + 132, left + 330, top + 64, left + 107, top + 65).ScaleDistort(scale);
             var cubic2Item = new GraphicItem(cubic2, intersectionRed)
             {
-                Name = "Cubic Bezier 2"
+                Name = "Cubic Bézier 2"
             };
             var cubic2BoundsItem = new GraphicItem(cubic2.Bounds, selectionStyle)
             {
-                Name = "Cubic Bezier 2 Bounds"
+                Name = "Cubic Bézier 2 Bounds"
             };
             var cubic2Handles = new GraphicItem(new NodeRevealer(cubic2.Points, 5d), handleStyle2)
             {
-                Name = "Cubic Bezier 2 Handles"
+                Name = "Cubic Bézier 2 Handles"
             };
 
             var intersectionNode1Item = new GraphicItem(new NodeRevealer(quadratic1.Intersection(cubic2).Points, 5d), handleStyle)
             {
-                Name = "Quadratic Cubic Bezier Intersections"
+                Name = "Quadratic Cubic Bézier Intersections"
             };
 
             vectorMap.Add(quardatic1BoundsItem);
@@ -3688,7 +3725,7 @@ namespace Editor
                 Name = "Cubic Bézier curve Intersecting Line Segment."
             };
 
-            // Cubic Bezier where end points are horizontal and the handles between share another y-axis.
+            // Cubic Bézier where end points are horizontal and the handles between share another y-axis.
             var cubicBezier1 = new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 100, left + 150, top + 50).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var cubicBezier1Item = new GraphicItem(cubicBezier1, solidGreenStyle)
             {
@@ -3712,7 +3749,7 @@ namespace Editor
                 Name = "Cubic Bézier curve Intersecting Line Segment."
             };
 
-            // Cubic Bezier where end points are horizontal and the handles between share another y-axis.
+            // Cubic Bézier where end points are horizontal and the handles between share another y-axis.
             var cubicBezier2 = new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 50, left + 150, top + 100).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var cubicBezier2Item = new GraphicItem(cubicBezier2, solidGreenStyle)
             {
@@ -3737,7 +3774,7 @@ namespace Editor
                 Name = "Quadratic Bézier curve Intersecting Line."
             };
 
-            // Quadratic Bezier where end points are horizontal.
+            // Quadratic Bézier where end points are horizontal.
             var quadraticBezier1 = new QuadraticBezier(left + 50, top + 50, left + 100, top + 150, left + 150, top + 50).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var quadraticBezier1Item = new GraphicItem(quadraticBezier1, solidGreenStyle)
             {
@@ -3761,7 +3798,7 @@ namespace Editor
                 Name = "Quadratic Bézier curve Intersecting Line Segment."
             };
 
-            // Quadratic Bezier where end points are horizontal.
+            // Quadratic Bézier where end points are horizontal.
             var quadraticBezier2 = new QuadraticBezier(left + 50, top + 50, left + 100, top + 50, left + 150, top + 100).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var quadraticBezier2Item = new GraphicItem(quadraticBezier2, solidGreenStyle)
             {
@@ -3811,7 +3848,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development regression test cases for testing for intersections between various bezier curve and line segments.
+        /// Development regression test cases for testing for intersections between various Bézier curve and line segments.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         public static void BezierLineSegmentIntersections(VectorMap vectorMap)
@@ -3832,7 +3869,7 @@ namespace Editor
                 Name = "Cubic Bézier curve Intersecting Line Segment Nodes."
             };
 
-            // Cubic Bezier where end points are horizontal and the handles between share another y-axis.
+            // Cubic Bézier where end points are horizontal and the handles between share another y-axis.
             var cubicBezier1 = new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 100, left + 150, top + 50).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var cubicBezier1Item = new GraphicItem(cubicBezier1, solidGreenStyle)
             {
@@ -3860,7 +3897,7 @@ namespace Editor
                 Name = "Cubic Bézier curve Intersecting Line Segment Nodes."
             };
 
-            // Cubic Bezier where end points are horizontal and the handles between share another y-axis.
+            // Cubic Bézier where end points are horizontal and the handles between share another y-axis.
             var cubicBezier2 = new CubicBezier(left + 50, top + 50, left + 75, top + 100, left + 125, top + 50, left + 150, top + 100).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var cubicBezier2Item = new GraphicItem(cubicBezier2, solidGreenStyle)
             {
@@ -3889,7 +3926,7 @@ namespace Editor
                 Name = "Quadratic Bézier curve Intersecting Line Nodes."
             };
 
-            // Quadratic Bezier where end points are horizontal.
+            // Quadratic Bézier where end points are horizontal.
             var quadraticBezier1 = new QuadraticBezier(left + 50, top + 50, left + 100, top + 150, left + 150, top + 50).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var quadraticBezier1Item = new GraphicItem(quadraticBezier1, solidGreenStyle)
             {
@@ -3917,7 +3954,7 @@ namespace Editor
                 Name = "Quadratic Bézier curve Intersecting Line Segment Nodes."
             };
 
-            // Quadratic Bezier where end points are horizontal.
+            // Quadratic Bézier where end points are horizontal.
             var quadraticBezier2 = new QuadraticBezier(left + 50, top + 50, left + 100, top + 50, left + 150, top + 100).RotateDistort(new Point2D(left + 100, top + 72.5), curveAngle);
             var quadraticBezier2Item = new GraphicItem(quadraticBezier2, solidGreenStyle)
             {
@@ -3971,7 +4008,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// This is a regression test case for an error where the intersection of a horizontal line and a specific Quadratic Bezier might not end up with intersection points.
+        /// This is a regression test case for an error where the intersection of a horizontal line and a specific Quadratic Bézier might not end up with intersection points.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void QuadraticBezierHorizontalLineIntersection(VectorMap vectorMap)
@@ -3980,21 +4017,21 @@ namespace Editor
             var quadraticSegment = new LineSegment(new Point2D(220, 70), new Point2D(350, 70));
             var quadraticSegmentItem = new GraphicItem(quadraticSegment, solidGreenStyle)
             {
-                Name = "Quadratic Bezier Intersecting Line Segment."
+                Name = "Quadratic Bézier Intersecting Line Segment."
             };
 
             var quadraticSegmentNodeItem = new GraphicItem(new NodeRevealer(quadraticSegment.Points, 5d), handleStyle);
 
-            // Quadratic Bezier where end points are horizontal.
+            // Quadratic Bézier where end points are horizontal.
             var quadraticBezier = new QuadraticBezier(new Point2D(250, 50), new Point2D(300, 100), new Point2D(350, 50));
             var quadraticBezierItem = new GraphicItem(quadraticBezier, solidGreenStyle)
             {
-                Name = "Quadratic Bezier."
+                Name = "Quadratic Bézier."
             };
 
             var quadraticBezierBoundsItem = new GraphicItem(quadraticBezier.Bounds, selectionStyle)
             {
-                Name = "Quadratic Bezier Bounds."
+                Name = "Quadratic Bézier Bounds."
             };
 
             var quadraticBezierNodeItem = new GraphicItem(new NodeRevealer(quadraticBezier.Points, 5d), handleStyle);
@@ -4011,7 +4048,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// This is a regression test case for an error where the intersection of a horizontal line and a specific Cubic Bezier might not end up with intersection points.
+        /// This is a regression test case for an error where the intersection of a horizontal line and a specific Cubic Bézier might not end up with intersection points.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void CubicBezierHorizontalLineIntersection(VectorMap vectorMap)
@@ -4028,7 +4065,7 @@ namespace Editor
 
             var cubicSegmentNodeItem = new GraphicItem(new NodeRevealer(cubicSegment.Points, 5d), handleStyle);
 
-            // Quadratic Bezier where end points are horizontal and the handles between share another y-axis.
+            // Quadratic Bézier where end points are horizontal and the handles between share another y-axis.
             var cubicBezier = new CubicBezier(new Point2D(left + 50, top + 50), new Point2D(left + 75, top + 100), new Point2D(left + 125, top + 100), new Point2D(left + 150, top + 50));
             var cubicBezierItem = new GraphicItem(cubicBezier, solidGreenStyle)
             {
@@ -4592,7 +4629,7 @@ namespace Editor
         //}
 
         /// <summary>
-        /// Development test cases for trying to find the best length method for quadratic bezier curves.
+        /// Development test cases for trying to find the best length method for quadratic Bézier curves.
         /// </summary>
         /// <param name="vectorMap">The vector map to write to.</param>
         /// <param name="form">The form to reference.</param>
@@ -4604,9 +4641,9 @@ namespace Editor
             var quadBezierBoundsIthem = new GraphicItem(quadBezier.Bounds, selectionStyle);
 
             var text = new Text2D(
-                $"Quadratic Bezier arc length by segments: \t{quadBezier.Length}\r\n" /* +
-                $"Bezier arc length by integral: \t{quadBezier.Length}\r\n" +
-                $"Bezier arc length by Gauss-Legendre \t{quadBezier.Length}" */,
+                $"Quadratic Bézier arc length by segments: \t{quadBezier.Length}\r\n" /* +
+                $"Bézier arc length by integral: \t{quadBezier.Length}\r\n" +
+                $"Bézier arc length by Gauss-Legendre \t{quadBezier.Length}" */,
                 form.Font.ToRenderFont(),
                 new Point2D(100, 150),
                 metrics);
@@ -4621,7 +4658,7 @@ namespace Editor
         }
 
         /// <summary>
-        /// Development test cases for trying to find the best length method for cubic bezier curves.
+        /// Development test cases for trying to find the best length method for cubic Bézier curves.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
         /// <param name="form">The form to reference.</param>
@@ -4633,7 +4670,7 @@ namespace Editor
             var cubeBezierBoundsItem = new GraphicItem(cubeBezier.Bounds, selectionStyle);
 
             var text = new Text2D(
-                $"Cubic Bezier arc length: \t{cubeBezier.Length}",
+                $"Cubic Bézier arc length: \t{cubeBezier.Length}",
                 form.Font.ToRenderFont(),
                 new Point2D(100, 200),
                 metrics);

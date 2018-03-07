@@ -15484,7 +15484,7 @@ namespace MethodSpeedTester
         /// unlikely that anywhere near that many elements will ever be needed).
         /// Returns YES if the optimal solution was found, or NO if there is no solution.
         /// If a solution was found, solutionX and solutionY will contain the coordinates
-        /// of the intermediate nodes of the path, in order.  (The startpoint and endpoint
+        /// of the intermediate nodes of the path, in order.  (The start point and endpoint
         /// are assumed, and will not be included in the solution.)
         /// </summary>
         /// <param name="start"></param>
@@ -15508,7 +15508,7 @@ namespace MethodSpeedTester
             int treeCount, polyI, i, j, bestI = 0, bestJ;
             double bestDist, newDist;
 
-            //  Fail if either the startpoint or endpoint is outside the polygon set.
+            //  Fail if either the start point or endpoint is outside the polygon set.
             if (!polygons.Contains(start)
             || !polygons.Contains(end))
             {
@@ -15520,7 +15520,7 @@ namespace MethodSpeedTester
                 return new Polyline(new List<Point2D> { start, end });
 
             //  Build a point list that refers to the corners of the
-            //  polygons, as well as to the startpoint and endpoint.
+            //  polygons, as well as to the start point and endpoint.
             pointList.Add(start);
             pointCount = 1;
             for (polyI = 0; polyI < polygons.Count; polyI++)
@@ -15535,9 +15535,9 @@ namespace MethodSpeedTester
             pointList.Add(end);
             pointCount++;
 
-            //  Initialize the shortest-path tree to include just the startpoint.
+            //  Initialize the shortest-path tree to include just the start point.
             treeCount = 1;
-            pointList[0].TotalDistance = 0.0;
+            pointList[0] = new AccumulatorPoint2D(pointList[0].X, pointList[0].Y) { TotalDistance = 0d };
 
             //  Iteratively grow the shortest-path tree until it reaches the endpoint
             //  -- or until it becomes unable to grow, in which case exit with failure.
@@ -15564,8 +15564,7 @@ namespace MethodSpeedTester
 
                 if (Abs(bestDist - maxLength) < DoubleEpsilon)
                     return null;   //  (no solution)
-                pointList[bestJ].Previous = bestI;
-                pointList[bestJ].TotalDistance = bestDist;
+                pointList[bestJ] = new AccumulatorPoint2D(pointList[bestJ].X, pointList[bestJ].Y) { Previous = bestI, TotalDistance = bestDist };
 
                 // Swap
                 var temp = pointList[bestJ];
@@ -15605,7 +15604,7 @@ namespace MethodSpeedTester
         /// unlikely that anywhere near that many elements will ever be needed).
         /// Returns YES if the optimal solution was found, or NO if there is no solution.
         /// If a solution was found, solutionX and solutionY will contain the coordinates
-        /// of the intermediate nodes of the path, in order.  (The startpoint and endpoint
+        /// of the intermediate nodes of the path, in order.  (The start point and endpoint
         /// are assumed, and will not be included in the solution.)
         /// </summary>
         /// <param name="start"></param>
@@ -15633,7 +15632,7 @@ namespace MethodSpeedTester
             double bestDist;
             double newDist;
 
-            //  Fail if either the startpoint or endpoint is outside the polygon set.
+            //  Fail if either the start point or endpoint is outside the polygon set.
             if (!polygons.Contains(start)
             || !polygons.Contains(end))
             {
@@ -15645,7 +15644,7 @@ namespace MethodSpeedTester
                 return new Polyline(new List<Point2D> { start, end });
 
             //  Build a point list that refers to the corners of the
-            //  polygons, as well as to the startpoint and endpoint.
+            //  polygons, as well as to the start point and endpoint.
             pointList.Add(start);
             pointCount = 1;
             foreach (PolygonContour poly in polygons.Contours)
@@ -15660,9 +15659,9 @@ namespace MethodSpeedTester
             pointList.Add(end);
             pointCount++;
 
-            //  Initialize the shortest-path tree to include just the startpoint.
+            //  Initialize the shortest-path tree to include just the start point.
             treeCount = 1;
-            pointList[0].TotalDistance = 0.0;
+            pointList[0] = new AccumulatorPoint2D(pointList[0]) { TotalDistance = 0d };
 
             //  Iteratively grow the shortest-path tree until it reaches the endpoint
             //  -- or until it becomes unable to grow, in which case exit with failure.
@@ -15689,8 +15688,7 @@ namespace MethodSpeedTester
 
                 if (Abs(bestDist - maxLength) < DoubleEpsilon)
                     return null;   //  (no solution)
-                pointList[bestJ].Previous = bestI;
-                pointList[bestJ].TotalDistance = bestDist;
+                pointList[bestJ] = new AccumulatorPoint2D(pointList[bestJ]) { TotalDistance = bestDist, Previous = bestI, };
 
                 // Swap
                 var temp = pointList[bestJ];

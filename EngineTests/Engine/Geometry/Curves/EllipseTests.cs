@@ -8,10 +8,11 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Engine.Tests
+namespace EngineTests
 {
     /// <summary>
     /// 

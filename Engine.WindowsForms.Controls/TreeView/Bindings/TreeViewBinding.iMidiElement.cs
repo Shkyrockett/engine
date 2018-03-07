@@ -37,17 +37,17 @@ namespace Engine
         /// <summary>
         ///
         /// </summary>
-        private TreeView treeView;
+        private readonly TreeView treeView;
 
         /// <summary>
         ///
         /// </summary>
-        private TreeNodeCollection treeNodeCollection;
+        private readonly TreeNodeCollection treeNodeCollection;
 
         /// <summary>
         ///
         /// </summary>
-        private BindingSource bindingSource;
+        private readonly BindingSource bindingSource;
 
         /// <summary>
         ///

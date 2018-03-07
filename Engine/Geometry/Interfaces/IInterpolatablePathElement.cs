@@ -1,4 +1,4 @@
-﻿// <copyright file="IIteratablePathElement.cs" company="Shkyrockett" >
+﻿// <copyright file="IInterpolatablePathElement.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -13,9 +13,9 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// The IIteratablePathElement interface.
+    /// The Interpolatable Path Element interface.
     /// </summary>
-    internal interface IIteratablePathElement
+    internal interface IInterpolatablePathElement
     {
         /// <summary>
         /// Gets the length.
@@ -36,16 +36,16 @@ namespace Engine
         double InterpolationMax { get; }
 
         /// <summary>
-        /// The iterpolate.
+        /// The interpolate.
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         Point2D Iterpolate(double t);
 
         /// <summary>
-        /// The iterpolation chain.
+        /// The interpolation chain.
         /// </summary>
         /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
-        List<Point2D> IterpolationChain();
+        List<Point2D> InterpolationChain();
     }
 }

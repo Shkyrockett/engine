@@ -42,7 +42,7 @@ namespace Engine
         /// <summary>
         /// The curves.
         /// </summary>
-        private List<CubicBezier> curves;
+        private readonly List<CubicBezier> curves;
 
         /// <summary>
         /// The curves view.
@@ -52,12 +52,12 @@ namespace Engine
         /// <summary>
         /// The arclen.
         /// </summary>
-        private List<double> arclen;
+        private readonly List<double> arclen;
 
         /// <summary>
         /// The samples per curve.
         /// </summary>
-        private int samplesPerCurve;
+        private readonly int samplesPerCurve;
         #endregion Fields
 
         #region Constructors

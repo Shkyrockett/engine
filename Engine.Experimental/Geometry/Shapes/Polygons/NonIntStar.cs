@@ -5,7 +5,7 @@
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <summary>http://csharphelper.com/blog/2015/05/draw-stars-inside-polygons-in-c/</summary>
+// <summary>http://csharphelper.com/blog/2014/08/draw-a-non-intersecting-star-in-c/</summary>
 // <remarks></remarks>
 
 using System;
@@ -14,22 +14,22 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The non int star class.
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(NGonStar))]
-    public class NGonStar
+    [DisplayName(nameof(Star))]
+    public class NonIntStar
         : PolygonContour
     {
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this == null) return nameof(NGonStar);
-            return nameof(NGonStar);
+            if (this == null) return "ElipticStar";
+            return nameof(Star);
         }
     }
 }

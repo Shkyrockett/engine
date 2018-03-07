@@ -2209,7 +2209,19 @@ namespace Engine
             return result;
         }
 
-#if !PolycurveTest
+        /// <summary>
+        /// The monotones.
+        /// </summary>
+        /// <param name="arc">The arc.</param>
+        /// <returns>The <see cref="T:ArcSegment[]"/>.</returns>
+        /// <acknowledgment>
+        /// https://stackoverflow.com/a/34884949
+        /// </acknowledgment>
+        private static EllipticalArc[] Monotones(EllipticalArc arc)
+        {
+            var angles = EllipticalArcVerticalExtremeAngles(arc.RX, arc.RY, arc.Angle, arc.StartAngle, arc.SweepAngle);
+            return arc.Split(angles);
+        }
 
         /// <summary>
         ///
@@ -2230,14 +2242,72 @@ namespace Engine
                 switch (item)
                 {
                     case LineCurveSegment l:
+                        //inside += ScanbeamPointsToRightLineSegment(point.X, point.Y, l.Start.Value.X, l.Start.Value.Y, l.End.Value.X, l.End.Value.Y);
                         {
-                            inside += ScanbeamPointsToRightLineSegment(point.X, point.Y, l.Start.Value.X, l.Start.Value.Y, l.End.Value.X, l.End.Value.Y);
+                            // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
+                            if ((l.End.Value.Y == point.Y) && ((l.End.Value.X == point.X) || ((l.Start.Value.Y == point.Y) && ((l.End.Value.X > point.X) == (l.Start.Value.X < point.X)))))
+                            //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
+                            {
+                                return Inclusion.Boundary;
+                            }
+
+                            // At least one point is below the Y threshold and the other is above or equal
+                            if ((l.Start.Value.Y < point.Y) != (l.End.Value.Y < point.Y))
+                            {
+                                // At least one point must be to the right of the test point
+                                if (l.Start.Value.X >= point.X)
+                                {
+                                    if (l.End.Value.X > point.X)
+                                    {
+                                        inside = 1 - inside;
+                                    }
+                                    else
+                                    {
+                                        var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
+                                        if (Abs(determinant) < epsilon)
+                                        {
+                                            return Inclusion.Boundary;
+                                        }
+                                        else if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                        {
+                                            inside = 1 - inside;
+                                        }
+                                    }
+                                }
+                                else if (l.End.Value.X > point.X)
+                                {
+                                    var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
+                                    if (Abs(determinant) < epsilon)
+                                    {
+                                        return Inclusion.Boundary;
+                                    }
+
+                                    if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
+                                    {
+                                        inside = 1 - inside;
+                                    }
+                                }
+                            }
                         }
                         break;
                     case ArcSegment a:
                         {
-                            // ToDo: Figure out how to implement this: https://stackoverflow.com/a/34884949
-                            inside += ScanbeamPointsToRightEllipticalArc(point.X, point.Y, a.Center.X, a.Center.Y, a.RX, a.RY, a.CosAngle, a.SinAngle, a.StartAngle, a.SweepAngle, epsilon);
+                            // https://stackoverflow.com/a/34884949
+                            //var monotones = Monotones(a.ToEllipticalArc());
+                            //foreach (var m in monotones)
+                            var m = a.ToEllipticalArc();
+                            {
+                                //if (Intersections.EllipticalArcContainsPoint(m.Center.X, m.Center.Y, m.RX, m.RY, m.CosAngle, m.SinAngle, Cos(m.StartAngle), Sin(m.StartAngle), Cos(m.SweepAngle), Sin(m.SweepAngle), point.X, point.Y, epsilon) == Inclusion.Boundary)
+                                //    return Inclusion.Boundary;
+
+                                var extreams = Measurements.EllipseExtremePoints(m.Center.X, m.Center.Y, m.RX, m.RY, m.CosAngle, m.SinAngle);
+                                if (extreams.Contains(m.StartPoint)) inside--;
+                                if (extreams.Contains(m.EndPoint)) inside--;
+
+                                //if ((m.StartPoint.Y > point.Y != m.EndPoint.Y > point.Y))
+                                inside += ScanbeamPointsToRightEllipticalArc(point.X, point.Y, m.Center.X, m.Center.Y, m.RX, m.RY, m.CosAngle, m.SinAngle, m.StartAngle, m.SweepAngle, epsilon);
+
+                            }
                         }
                         break;
                     case QuadraticBezierSegment q:
@@ -2443,9 +2513,6 @@ namespace Engine
             }
             return result;
         }
-
-#else
-#endif
 
         /// <summary>
         /// Determines whether the specified point is contained withing the set of regions defined by this <see cref="Polygon"/>.
@@ -9206,8 +9273,8 @@ namespace Engine
 
             // Check whether the closest point falls between the ends of line segment.
             // Return the t values if the distance to the nearest point on the line segment is within epsilon.
-            return (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }))
-                : ((Abs(li * vj - vi * lj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }));
+            return (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()))
+                : ((Abs(li * vj - vi * lj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()));
         }
 
         /// <summary>
@@ -9245,9 +9312,9 @@ namespace Engine
 
             // Check whether the closest point falls between the ends of line segment.
             // Return the t values if the distance to the nearest point on the line segment is within epsilon.
-            return (t < 0d) ? (new double[] { }, new double[] { })
-                : (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }))
-                : ((Abs(ui * vj - vi * uj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }));
+            return (t < 0d) ? (Array.Empty<double>(), Array.Empty<double>())
+                : (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()))
+                : ((Abs(ui * vj - vi * uj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()));
         }
 
         /// <summary>
@@ -9285,9 +9352,9 @@ namespace Engine
 
             // Check whether the closest point falls between the ends of line segment.
             // Return the t values if the distance to the nearest point on the line segment is within epsilon.
-            return (t < 0d || t > 1d) ? (new double[] { }, new double[] { })
-                : (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }))
-                : ((Abs(ui * vj - vi * uj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (new double[] { }, new double[] { }));
+            return (t < 0d || t > 1d) ? (Array.Empty<double>(), Array.Empty<double>())
+                : (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()))
+                : ((Abs(ui * vj - vi * uj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()));
         }
 
         /// <summary>
@@ -9310,7 +9377,7 @@ namespace Engine
             double bx, double by, double bi, double bj,
             double epsilon = Epsilon)
         {
-            var result = (a: new double[] { }, b: new double[] { });
+            var result = (a: Array.Empty<double>(), b: Array.Empty<double>());
 
             var ua = bi * (ay - by) - bj * (ax - bx);
             var ub = ai * (ay - by) - aj * (ax - bx);
@@ -9380,7 +9447,7 @@ namespace Engine
                 }
             }
 
-            return (a: new double[] { }, b: new double[] { });
+            return (a: Array.Empty<double>(), b: Array.Empty<double>());
         }
 
         /// <summary>
@@ -9438,7 +9505,7 @@ namespace Engine
                 }
             }
 
-            return (a: new double[] { }, b: new double[] { });
+            return (a: Array.Empty<double>(), b: Array.Empty<double>());
         }
 
         /// <summary>
@@ -9461,7 +9528,7 @@ namespace Engine
             double bx, double by, double bi, double bj,
             double epsilon = Epsilon)
         {
-            var result = (a: new double[] { }, b: new double[] { });
+            var result = (a: Array.Empty<double>(), b: Array.Empty<double>());
 
             var ua = bi * (ay - by) - bj * (ax - bx);
             var ub = ai * (ay - by) - aj * (ax - bx);
@@ -9522,7 +9589,7 @@ namespace Engine
                 if (ua == 0 || ub == 0)
                 {
                     // Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
-                    return (a: new double[] { }, b: new double[] { });
+                    return (a: Array.Empty<double>(), b: Array.Empty<double>());
                     // ToDo: Figure out which end points intersect which ray/line segment.
                 }
             }
@@ -9539,7 +9606,7 @@ namespace Engine
                 }
             }
 
-            return (a: new double[] { }, b: new double[] { });
+            return (a: Array.Empty<double>(), b: Array.Empty<double>());
         }
 
         /// <summary>
@@ -9562,7 +9629,7 @@ namespace Engine
             double bax, double bay, double bbx, double bby,
             double epsilon = Epsilon)
         {
-            var result = (a: new double[] { }, b: new double[] { });
+            var result = (a: Array.Empty<double>(), b: Array.Empty<double>());
 
             var ua = (bbx - bax) * (aay - bay) - (bby - bay) * (aax - bax);
             var ub = (abx - aax) * (aay - bay) - (aby - aay) * (aax - bax);
@@ -9604,7 +9671,7 @@ namespace Engine
 
             if (a == p || q == b)
             {
-                return new double[0];
+                return Array.Empty<double>();
             }
 
             var k = (q - b) / (a - p);
@@ -9627,7 +9694,7 @@ namespace Engine
                 return new double[] { roots[0], roots[2] };
             }
 
-            return new double[0];
+            return Array.Empty<double>();
         }
         #endregion Parametrized Intersection Index T Methods
 

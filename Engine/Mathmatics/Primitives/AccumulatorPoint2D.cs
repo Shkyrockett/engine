@@ -21,13 +21,13 @@ using System.Diagnostics;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The accumulator point2d struct.
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    [DebuggerDisplay("X: {X}, Y: {Y}, TotalDistance: {TotalDistance}, Previous: {Previous}")]
-    public class AccumulatorPoint2D
-        : IFormattable
+    //[DebuggerDisplay("X: {X}, Y: {Y}, TotalDistance: {TotalDistance}, Previous: {Previous}")]
+    public struct AccumulatorPoint2D
+        : IVector<AccumulatorPoint2D>
     {
         #region Implementations
         /// <summary>
@@ -45,22 +45,26 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="totalDistance"></param>
+        /// <param name="previous"></param>
         /// <remarks></remarks>
-        public AccumulatorPoint2D()
-            : this(0, 0)
-        { }
+        public AccumulatorPoint2D(double x, double y, double totalDistance = 0, int previous = 0)
+        {
+            X = x;
+            Y = y;
+            TotalDistance = totalDistance;
+            Previous = previous;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <remarks></remarks>
-        public AccumulatorPoint2D(double x, double y)
-        {
-            X = x;
-            Y = y;
-        }
+        /// <param name="accumulatorPoint2D">The accumulatorPoint2D.</param>
+        public AccumulatorPoint2D(AccumulatorPoint2D accumulatorPoint2D)
+            : this(accumulatorPoint2D.X, accumulatorPoint2D.Y, accumulatorPoint2D.TotalDistance, accumulatorPoint2D.Previous)
+        { }
         #endregion Constructors
 
         #region Properties
@@ -122,45 +126,6 @@ namespace Engine
         /// <returns></returns>
         public static bool operator !=(AccumulatorPoint2D left, AccumulatorPoint2D right)
             => !Equals(left, right);
-
-        /// <summary>
-        /// Compares two Vectors
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(AccumulatorPoint2D a, AccumulatorPoint2D b)
-            => Equals(a, b);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(AccumulatorPoint2D a, AccumulatorPoint2D b)
-            => a?.X == b?.X & a?.Y == b?.Y & a?.Previous == b?.Previous & a?.TotalDistance == b?.TotalDistance;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is AccumulatorPoint2D && Equals(this, obj as AccumulatorPoint2D);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(AccumulatorPoint2D value)
-            => Equals(this, value);
 
         /// <summary>
         /// Explicit conversion to Point2D.
@@ -248,9 +213,48 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// 
+        /// Compares two Vectors
         /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         /// <returns></returns>
+        /// <remarks></remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(AccumulatorPoint2D a, AccumulatorPoint2D b)
+            => Equals(a, b);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(AccumulatorPoint2D a, AccumulatorPoint2D b)
+            => a.X == b.X & a.Y == b.Y & a.Previous == b.Previous & a.TotalDistance == b.TotalDistance;
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+            => obj is AccumulatorPoint2D && Equals(this, (AccumulatorPoint2D)obj);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(AccumulatorPoint2D value)
+            => Equals(this, value);
+
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode()
             => X.GetHashCode()
             ^ Y.GetHashCode();
@@ -283,7 +287,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>
@@ -301,7 +305,7 @@ namespace Engine
         {
             if (this == null) return nameof(AccumulatorPoint2D);
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Point2D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}}}";
+            IFormattable formatable = $"{nameof(Point2D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}{sep}{nameof(TotalDistance)}={TotalDistance}{sep}{nameof(Previous)}={Previous}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

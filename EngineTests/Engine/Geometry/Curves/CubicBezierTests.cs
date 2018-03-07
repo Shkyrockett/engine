@@ -8,18 +8,19 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using Engine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Engine.Tests
+namespace EngineTests
 {
     /// <summary>
-    /// 
+    /// The cubic Bézier tests unit test class.
     /// </summary>
     [TestClass]
     public class CubicBezierTests
     {
         /// <summary>
-        /// 
+        /// The to string test.
         /// </summary>
         [TestMethod]
         [Priority(0)]

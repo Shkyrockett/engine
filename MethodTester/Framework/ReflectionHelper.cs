@@ -16,15 +16,15 @@ using System.Reflection;
 namespace MethodSpeedTester
 {
     /// <summary>
-    /// 
+    /// The reflection helper class.
     /// </summary>
     public static class ReflectionHelper
     {
         /// <summary>
-        /// 
+        /// The list static factory constructors.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        /// <param name="type">The type.</param>
+        /// <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
             => new List<MethodInfo>
             (
@@ -35,11 +35,11 @@ namespace MethodSpeedTester
             ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
-        /// 
+        /// The list static factory constructors list.
         /// </summary>
-        /// <param name="type"></param>
-        /// <param name="type2"></param>
-        /// <returns></returns>
+        /// <param name="type">The type.</param>
+        /// <param name="type2">The type2.</param>
+        /// <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
         public static List<MethodInfo> ListStaticFactoryConstructorsList(Type type, Type type2)
             => new List<MethodInfo>
             (

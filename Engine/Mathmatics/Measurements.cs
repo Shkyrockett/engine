@@ -1591,7 +1591,7 @@ namespace Engine
             // Expand the boundaries if any of the extreme angles fall within the sweep angle.
             if (Intersections.Within(0, start, sweepAngle))
                 bounds.Right = cX + r;
-            if (Intersections.Within(Right, start, sweepAngle))
+            if (Intersections.Within(HalfPi, start, sweepAngle))
                 bounds.Bottom = cY + r;
             if (Intersections.Within(PI, start, sweepAngle))
                 bounds.Left = cX - r;
@@ -2238,14 +2238,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the extreme angles of a circle.
-        /// </summary>
-        /// <returns>Returns the angles of the extremes of a circle.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> CircleExtremeAngles()
-            => new List<double> { 0, Right, PI, Pau };
-
-        /// <summary>
         /// Finds the extreme angles of a circle, that fall within the sweep angle of a circular arc.
         /// </summary>
         /// <param name="startAngle">The start angle.</param>
@@ -2254,6 +2246,27 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> CirclularArcExtremeAngles(double startAngle, double sweepAngle)
             => CircleExtremeAngles().Where((a) => Intersections.Within(a, startAngle, sweepAngle)).ToList();
+
+        /// <summary>
+        /// Find the extreme angles of a circle.
+        /// </summary>
+        /// <returns>Returns the angles of the extremes of a circle.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> CircleExtremeAngles()
+            => new List<double> { 0, HalfPi, PI, Pau };
+
+        /// <summary>
+        /// Finds the angles of the extreme points of a rotated ellipse, that fall within the sweep angle of the arc.
+        /// </summary>
+        /// <param name="rX">The horizontal radius of the ellipse.</param>
+        /// <param name="rY">The vertical radius of the ellipse.</param>
+        /// <param name="angle">The angle of orientation of the ellipse.</param>
+        /// <param name="startAngle">The start angle of the arc.</param>
+        /// <param name="sweepAngle">The sweep angle of the arc.</param>
+        /// <returns>Returns the angles of the extreme points of an elliptical arc.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> EllipticalArcExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle)
+            => EllipseExtremeAngles(rX, rY, angle).Where((a) => Intersections.Within(a, angle + startAngle, sweepAngle)).ToList();
 
         /// <summary>
         /// Finds the angles of the extreme points of the rotated ellipse.
@@ -2306,8 +2319,49 @@ namespace Engine
         /// <param name="sweepAngle">The sweep angle of the arc.</param>
         /// <returns>Returns the angles of the extreme points of an elliptical arc.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> EllipticalArcExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle)
-            => EllipseExtremeAngles(rX, rY, angle).Where((a) => Intersections.Within(a, angle + startAngle, sweepAngle)).ToList();
+        public static List<double> EllipticalArcVerticalExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle)
+            => EllipseVerticalExtremeAngles(rX, rY, angle).Where((a) => Intersections.Within(a, angle + startAngle, sweepAngle)).ToList();
+
+        /// <summary>
+        /// Finds the angles of the extreme points of the rotated ellipse.
+        /// </summary>
+        /// <param name="rX">The horizontal radius of the ellipse.</param>
+        /// <param name="rY">The vertical radius of the ellipse.</param>
+        /// <param name="angle">The angle of orientation of the ellipse.</param>
+        /// <returns>Returns a list of the extreme angles of a rotated ellipse.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// Based roughly on the principles found at:
+        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static List<double> EllipseVerticalExtremeAngles(double rX, double rY, double angle)
+        {
+            // Get the ellipse rotation transform.
+            var cosT = Cos(angle);
+            var sinT = Sin(angle);
+
+            // Calculate the radii of the angle of rotation.
+            var a = rX * cosT;
+            var b = rY * sinT;
+            var c = rX * sinT;
+            var d = rY * cosT;
+
+            // Ellipse equation for an ellipse at origin.
+            var u1 = rX * Cos(Atan2(d, c));
+            var v1 = -(rY * Sin(Atan2(d, c)));
+            var u2 = rX * Cos(Atan2(-b, a));
+            var v2 = -(rY * Sin(Atan2(-b, a)));
+
+            // Return the list of angles.
+            return new List<double>
+            {
+                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
+                //Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
+                //Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI,
+                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI
+            };
+        }
 
         /// <summary>
         /// Calculates the points of the Cartesian extremes of a circle.
@@ -2326,7 +2380,7 @@ namespace Engine
             => new List<Point2D>
             {
                 Interpolators.Circle(x, y, radius, 0),
-                Interpolators.Circle(x, y, radius, Right),
+                Interpolators.Circle(x, y, radius, HalfPi),
                 Interpolators.Circle(x, y, radius, PI),
                 Interpolators.Circle(x, y, radius, Pau)
             };

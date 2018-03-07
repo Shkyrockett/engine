@@ -14,12 +14,12 @@ using System.Security;
 namespace Engine.Geometry
 {
     /// <summary>
-    ///
+    /// The complex class.
     /// </summary>
     public class Complex
         : IFormattable
     {
-        #region Impementations
+        #region Implementations
         /// <summary>
         /// Imaginary unit.
         /// </summary>
@@ -34,19 +34,8 @@ namespace Engine.Geometry
         /// Complex number one.
         /// </summary>
         public static readonly Complex One = new Complex(1, 0);
-        #endregion Impementations
 
-        #region Private Fields
-        /// <summary>
-        ///
-        /// </summary>
-        private double real;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double imaginary;
-        #endregion Private Fields
+        #endregion Implementations
 
         #region Constructors
         /// <summary>
@@ -80,29 +69,21 @@ namespace Engine.Geometry
         /// <summary>
         /// Contains the real part of a complex number.
         /// </summary>
-        public double Real
-        {
-            get { return real; }
-            set { real = value; }
-        }
+        public double Real { get; set; }
 
         /// <summary>
         /// Contains the imaginary part of a complex number.
         /// </summary>
-        public double Imaginary
-        {
-            get { return imaginary; }
-            set { imaginary = value; }
-        }
+        public double Imaginary { get; set; }
 
         /// <summary>
-        ///
+        /// Gets a value indicating whether 
         /// </summary>
         public bool IsReal
             => (Imaginary == 0);
 
         /// <summary>
-        ///
+        /// Gets a value indicating whether 
         /// </summary>
         public bool IsImaginary
             => (Real == 0);
@@ -110,199 +91,199 @@ namespace Engine.Geometry
 
         #region Operators
         /// <summary>
-        ///
+        /// The operator +.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator +(Complex a, Complex b)
             => new Complex(a.Real + b.Real, a.Imaginary + b.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator +.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator +(Complex a, double b)
             => new Complex(a.Real + b, a.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator +.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator +(double a, Complex b)
             => new Complex(a + b.Real, b.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator -.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator -(Complex a, Complex b)
             => new Complex(a.Real - b.Real, a.Imaginary - b.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator -.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator -(Complex a, double b)
             => new Complex(a.Real - b, a.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator -.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator -(double a, Complex b)
             => new Complex(a - b.Real, -b.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator -.
         /// </summary>
-        /// <param name="a"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator -(Complex a)
             => new Complex(-a.Real, -a.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator *.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator *(Complex a, Complex b)
             => new Complex(a.Real * b.Real - a.Imaginary * b.Imaginary,
                 a.Imaginary * b.Real + a.Real * b.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator *.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="d">The d.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator *(Complex a, double d)
             => new Complex(d * a.Real, d * a.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator *.
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="a"></param>
-        /// <returns></returns>
+        /// <param name="d">The d.</param>
+        /// <param name="a">The a.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator *(double d, Complex a)
             => new Complex(d * a.Real, d * a.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator /.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator /(Complex a, Complex b)
             => a * Conj(b) * (1 / (Abs(b) * Abs(b)));
 
         /// <summary>
-        ///
+        /// The operator /.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator /(Complex a, double b)
             => a * (1 / b);
 
         /// <summary>
-        ///
+        /// The operator /.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator /(double a, Complex b)
             => a * Conj(b) * (1 / (Abs(b) * Abs(b)));
 
         /// <summary>
-        ///
+        /// The operator ==.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator ==(Complex a, Complex b)
             => (a.Real == b.Real && a.Imaginary == b.Imaginary);
 
         /// <summary>
-        ///
+        /// The operator ==.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator ==(Complex a, double b)
             => a == new Complex(b);
 
         /// <summary>
-        ///
+        /// The operator ==.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator ==(double a, Complex b)
             => new Complex(a) == b;
 
         /// <summary>
-        ///
+        /// The operator !=.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator !=(Complex a, Complex b)
             => !(a == b);
 
         /// <summary>
-        ///
+        /// The operator !=.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator !=(Complex a, double b)
             => !(a == b);
 
         /// <summary>
-        ///
+        /// The operator !=.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator !=(double a, Complex b)
             => !(a == b);
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="d"></param>
         public static implicit operator Complex(int d)
             => new Complex(d);
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="d"></param>
         public static implicit operator Complex(float d)
             => new Complex(d);
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="d"></param>
         public static implicit operator Complex(double d)
             => new Complex(d);
         #endregion Operators
 
-        #region Static Funcs
+        #region Static Methods
         /// <summary>
         /// Calcs the absolute value of a complex number.
         /// </summary>
@@ -406,7 +387,7 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <returns></returns>
         public static Complex Sqrt(Complex a)
-            => Pow(a, .5);
+            => Pow(a, 0.5d);
 
         /// <summary>
         /// Complex exponential function.
@@ -460,83 +441,83 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <returns></returns>
         public static Complex Sin(Complex a)
-            => (Exp(I * a) - Exp(-I * a)) / (2 * I);
+            => (Exp(I * a) - Exp(-I * a)) / (2d * I);
 
         /// <summary>
-        ///
+        /// The pow.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex Pow(Complex a, Complex b)
             => Exp(b * Log(a));
 
         /// <summary>
-        ///
+        /// The pow.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex Pow(double a, Complex b)
             => Exp(b * Math.Log(a));
 
         /// <summary>
-        ///
+        /// The pow.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex Pow(Complex a, double b)
             => Exp(b * Log(a));
-        #endregion Static Funcs
+        #endregion Static Methods
 
         #region Overrides
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Equals(object obj)
             => obj.ToString() == ToString();
 
         /// <summary>
-        ///
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         [SecuritySafeCritical]
         public override int GetHashCode()
-            => real.GetHashCode() ^ imaginary.GetHashCode();
+            => Real.GetHashCode() ^ Imaginary.GetHashCode();
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => ConvertToString(String.Empty, CultureInfo.In­variantCulture);
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format)
             => ConvertToString(format, CultureInfo.In­variantCulture);
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(String format, IFormatProvider formatProvider)
             => ConvertToString(format, formatProvider);
 
         /// <summary>
-        ///
+        /// Convert the to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ConvertToString(string format, IFormatProvider formatProvider)
         {
             if (this == Zero) return "0";

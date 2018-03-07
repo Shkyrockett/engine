@@ -28,7 +28,7 @@ namespace Engine
         /// <summary>
         /// The v.
         /// </summary>
-        private string v;
+        private readonly string v;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementNameAttribute"/> class.

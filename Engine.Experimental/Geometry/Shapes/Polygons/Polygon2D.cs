@@ -8,17 +8,17 @@ namespace Engine
     public class Polygon2D
     {
         /// <summary>
-        ///
+        /// The contours.
         /// </summary>
         public List<PolygonContour> contours = new List<PolygonContour>();
 
         /// <summary>
-        ///
+        /// The bounds.
         /// </summary>
         public Rectangle2D bounds;
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Polygon2D"/> class.
         /// </summary>
         public Polygon2D()
         {
@@ -26,9 +26,8 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets the vertices count.
         /// </summary>
-        /// <returns></returns>
         public int VerticesCount
         {
             get
@@ -42,9 +41,8 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets the bounds.
         /// </summary>
-        /// <returns></returns>
         public Rectangle2D Bounds
         {
             get
@@ -65,16 +63,16 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add.
         /// </summary>
-        /// <param name="c"></param>
+        /// <param name="c">The c.</param>
         public void Add(PolygonContour c)
             => contours.Add(c);
 
         /// <summary>
-        ///
+        /// Clone.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Polygon"/>.</returns>
         public Polygon Clone()
         {
             var poly = new Polygon();

@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using static Engine.Maths;
 
 namespace Engine
 {
@@ -72,10 +73,10 @@ namespace Engine
             var d = Measurements.Distance(aX, aY, bX, bY);
             var dY = (bY - aY) / d;
             var dX = (bX - aX) / d;
-            return ((aX + 0.5 * -dY * distance),
-                (aY + 0.5 * dX * distance),
-                (bX + 0.5 * -dY * distance),
-                (bY + 0.5 * dX * distance));
+            return ((aX + OneHalf * -dY * distance),
+                (aY + OneHalf * dX * distance),
+                (bX + OneHalf * -dY * distance),
+                (bY + OneHalf * dX * distance));
         }
 
         /// <summary>
@@ -102,12 +103,12 @@ namespace Engine
             var dX = (bX - aX) / d;
             var dY = (bY - aY) / d;
             var dZ = (bZ - aZ) / d;
-            return ((aX + 0.5 * -dY * distanceX),
-                (aY + 0.5 * dX * distanceY),
-                (aZ + 0.5 * dZ * distanceZ),
-                (bX + 0.5 * -dY * distanceX),
-                (bY + 0.5 * dX * distanceY),
-                (bZ + 0.5 * dZ * distanceZ));
+            return ((aX + OneHalf * -dY * distanceX),
+                (aY + OneHalf * dX * distanceY),
+                (aZ + OneHalf * dZ * distanceZ),
+                (bX + OneHalf * -dY * distanceX),
+                (bY + OneHalf * dX * distanceY),
+                (bZ + OneHalf * dZ * distanceZ));
         }
 
         /// <summary>
@@ -159,7 +160,7 @@ namespace Engine
         /// <returns>The <see cref="Rectangle2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Offset(this Rectangle2D rectangle, double offset)
-            => new Rectangle2D(rectangle.X - offset, rectangle.Y - offset, rectangle.Width + (2 * offset), rectangle.Height + (2 * offset));
+            => new Rectangle2D(rectangle.X - offset, rectangle.Y - offset, rectangle.Width + (2d * offset), rectangle.Height + (2d * offset));
 
         /// <summary>
         /// The offset.
@@ -170,7 +171,7 @@ namespace Engine
         /// <returns>The <see cref="Rectangle2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D Offset(this Rectangle2D rectangle, double x, double y)
-            => new Rectangle2D(rectangle.X - x, rectangle.Y - y, rectangle.Width + (2 * x), rectangle.Height + (2 * y));
+            => new Rectangle2D(rectangle.X - x, rectangle.Y - y, rectangle.Width + (2d * x), rectangle.Height + (2d * y));
 
         /// <summary>
         /// The offset.

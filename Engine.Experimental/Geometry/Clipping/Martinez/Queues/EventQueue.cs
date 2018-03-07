@@ -13,7 +13,7 @@ namespace Engine
         /// <summary>
         /// The heap.
         /// </summary>
-        private List<SweepEvent> heap;
+        private readonly List<SweepEvent> heap;
 
         /// <summary>
         /// The sorted.

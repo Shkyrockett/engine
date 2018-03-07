@@ -25,7 +25,7 @@ namespace Engine
         /// <summary>
         /// The info.
         /// </summary>
-        private MemberInfo info;
+        private readonly MemberInfo info;
 
         /// <summary>
         /// The field.

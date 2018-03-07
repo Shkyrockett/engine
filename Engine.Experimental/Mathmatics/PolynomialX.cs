@@ -18,7 +18,7 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    public class Polynomial
+    public class PolynomialX
         : IFormattable
     {
         private const double TOLERANCE = 1e-6;
@@ -40,7 +40,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Inits zero polynomial p = 0.
         /// </summary>
-        public Polynomial()
+        public PolynomialX()
         {
             Coefficients = new Complex[1];
             Coefficients[0] = Complex.Zero;
@@ -50,7 +50,7 @@ namespace Engine.Geometry
         /// Inits polynomial from given complex coefficient array.
         /// </summary>
         /// <param name="coeffs"></param>
-        public Polynomial(params Complex[] coeffs)
+        public PolynomialX(params Complex[] coeffs)
         {
             if (coeffs == null || coeffs.Length < 1)
             {
@@ -67,7 +67,7 @@ namespace Engine.Geometry
         /// Inits polynomial from given real coefficient array.
         /// </summary>
         /// <param name="coeffs"></param>
-        public Polynomial(params double[] coeffs)
+        public PolynomialX(params double[] coeffs)
         {
             if (coeffs == null || coeffs.Length < 1)
             {
@@ -77,7 +77,7 @@ namespace Engine.Geometry
             else
             {
                 Coefficients = new Complex[coeffs.Length];
-                for (int i = 0; i < coeffs.Length; i++)
+                for (var i = 0; i < coeffs.Length; i++)
                     Coefficients[i] = new Complex(coeffs[i]);
             }
         }
@@ -86,7 +86,7 @@ namespace Engine.Geometry
         /// Inits constant polynomial.
         /// </summary>
         /// <param name="coeffs"></param>
-        public Polynomial(Complex coeffs)
+        public PolynomialX(Complex coeffs)
         {
             Coefficients = new Complex[1];
 
@@ -100,7 +100,7 @@ namespace Engine.Geometry
         /// Inits constant polynomial.
         /// </summary>
         /// <param name="coeffs"></param>
-        public Polynomial(double coeffs)
+        public PolynomialX(double coeffs)
         {
             Coefficients = new Complex[1];
 
@@ -125,7 +125,7 @@ namespace Engine.Geometry
         {
             get
             {
-                for (int i = 0; i < Coefficients.Length; i++)
+                for (var i = 0; i < Coefficients.Length; i++)
                     if (Coefficients[i] != 0) return false;
 
                 return true;
@@ -142,21 +142,21 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <param name="q"></param>
         /// <returns></returns>
-        public static Polynomial operator +(Polynomial p, Polynomial q)
+        public static PolynomialX operator +(PolynomialX p, PolynomialX q)
         {
 
-            int degree = Math.Max(p.Degree, q.Degree);
+            var degree = Math.Max(p.Degree, q.Degree);
 
-            Complex[] coeffs = new Complex[degree + 1];
+            var coeffs = new Complex[degree + 1];
 
-            for (int i = 0; i <= degree; i++)
+            for (var i = 0; i <= degree; i++)
             {
                 if (i > p.Degree) coeffs[i] = q.Coefficients[i];
                 else if (i > q.Degree) coeffs[i] = p.Coefficients[i];
                 else coeffs[i] = p.Coefficients[i] + q.Coefficients[i];
             }
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <param name="q"></param>
         /// <returns></returns>
-        public static Polynomial operator -(Polynomial p, Polynomial q)
+        public static PolynomialX operator -(PolynomialX p, PolynomialX q)
             => p + (-q);
 
         /// <summary>
@@ -173,14 +173,14 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Polynomial operator -(Polynomial p)
+        public static PolynomialX operator -(PolynomialX p)
         {
-            Complex[] coeffs = new Complex[p.Degree + 1];
+            var coeffs = new Complex[p.Degree + 1];
 
-            for (int i = 0; i < coeffs.Length; i++)
+            for (var i = 0; i < coeffs.Length; i++)
                 coeffs[i] = -p.Coefficients[i];
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
@@ -189,14 +189,14 @@ namespace Engine.Geometry
         /// <param name="d"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Polynomial operator *(Complex d, Polynomial p)
+        public static PolynomialX operator *(Complex d, PolynomialX p)
         {
-            Complex[] coeffs = new Complex[p.Degree + 1];
+            var coeffs = new Complex[p.Degree + 1];
 
-            for (int i = 0; i < coeffs.Length; i++)
+            for (var i = 0; i < coeffs.Length; i++)
                 coeffs[i] = d * p.Coefficients[i];
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
@@ -205,14 +205,14 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        public static Polynomial operator *(Polynomial p, Complex d)
+        public static PolynomialX operator *(PolynomialX p, Complex d)
         {
-            Complex[] coeffs = new Complex[p.Degree + 1];
+            var coeffs = new Complex[p.Degree + 1];
 
-            for (int i = 0; i < coeffs.Length; i++)
+            for (var i = 0; i < coeffs.Length; i++)
                 coeffs[i] = d * p.Coefficients[i];
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
@@ -221,14 +221,14 @@ namespace Engine.Geometry
         /// <param name="d"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Polynomial operator *(double d, Polynomial p)
+        public static PolynomialX operator *(double d, PolynomialX p)
         {
-            Complex[] coeffs = new Complex[p.Degree + 1];
+            var coeffs = new Complex[p.Degree + 1];
 
-            for (int i = 0; i < coeffs.Length; i++)
+            for (var i = 0; i < coeffs.Length; i++)
                 coeffs[i] = d * p.Coefficients[i];
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
@@ -237,14 +237,14 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        public static Polynomial operator *(Polynomial p, double d)
+        public static PolynomialX operator *(PolynomialX p, double d)
         {
-            Complex[] coeffs = new Complex[p.Degree + 1];
+            var coeffs = new Complex[p.Degree + 1];
 
-            for (int i = 0; i < coeffs.Length; i++)
+            for (var i = 0; i < coeffs.Length; i++)
                 coeffs[i] = d * p.Coefficients[i];
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
@@ -253,14 +253,14 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        public static Polynomial operator /(Polynomial p, Complex d)
+        public static PolynomialX operator /(PolynomialX p, Complex d)
         {
-            Complex[] coeffs = new Complex[p.Degree + 1];
+            var coeffs = new Complex[p.Degree + 1];
 
-            for (int i = 0; i < coeffs.Length; i++)
+            for (var i = 0; i < coeffs.Length; i++)
                 coeffs[i] = p.Coefficients[i] / d;
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
@@ -269,14 +269,14 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        public static Polynomial operator /(Polynomial p, double d)
+        public static PolynomialX operator /(PolynomialX p, double d)
         {
-            Complex[] coeffs = new Complex[p.Degree + 1];
+            var coeffs = new Complex[p.Degree + 1];
 
-            for (int i = 0; i < coeffs.Length; i++)
+            for (var i = 0; i < coeffs.Length; i++)
                 coeffs[i] = p.Coefficients[i] / d;
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
@@ -285,15 +285,15 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <param name="q"></param>
         /// <returns></returns>
-        public static Polynomial operator *(Polynomial p, Polynomial q)
+        public static PolynomialX operator *(PolynomialX p, PolynomialX q)
         {
-            int degree = p.Degree + q.Degree;
+            var degree = p.Degree + q.Degree;
 
-            Polynomial r = new Polynomial();
+            var r = new PolynomialX();
 
 
-            for (int i = 0; i <= p.Degree; i++)
-                for (int j = 0; j <= q.Degree; j++)
+            for (var i = 0; i <= p.Degree; i++)
+                for (var j = 0; j <= q.Degree; j++)
                     r += (p.Coefficients[i] * q.Coefficients[j]) * Monomial(i + j);
 
             return r;
@@ -305,7 +305,7 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <param name="k"></param>
         /// <returns></returns>
-        public static Polynomial operator ^(Polynomial p, uint k)
+        public static PolynomialX operator ^(PolynomialX p, uint k)
         {
             if (k == 0)
                 return Monomial(0);
@@ -322,17 +322,16 @@ namespace Engine.Geometry
         /// <summary>
         /// Computes value of the differentiated polynomial at x.
         /// </summary>
-        /// <param name="p"></param>
         /// <param name="x"></param>
         /// <returns></returns>
         public Complex Differentiate(Complex x)
         {
-            Complex[] buf = new Complex[Degree];
+            var buf = new Complex[Degree];
 
-            for (int i = 0; i < buf.Length; i++)
+            for (var i = 0; i < buf.Length; i++)
                 buf[i] = (i + 1) * Coefficients[i + 1];
 
-            return (new Polynomial(buf)).Evaluate(x);
+            return (new PolynomialX(buf)).Evaluate(x);
         }
 
         /// <summary>
@@ -343,13 +342,13 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Complex Integrate(Complex a, Complex b)
         {
-            Complex[] buf = new Complex[Degree + 2];
+            var buf = new Complex[Degree + 2];
             buf[0] = Complex.Zero; // this value can be arbitrary, in fact
 
-            for (int i = 1; i < buf.Length; i++)
+            for (var i = 1; i < buf.Length; i++)
                 buf[i] = Coefficients[i - 1] / i;
 
-            Polynomial p = new Polynomial(buf);
+            var p = new PolynomialX(buf);
 
             return (p.Evaluate(b) - p.Evaluate(a));
         }
@@ -363,7 +362,7 @@ namespace Engine.Geometry
         {
             Complex buf = Coefficients[Degree];
 
-            for (int i = Degree - 1; i >= 0; i--)
+            for (var i = Degree - 1; i >= 0; i--)
             {
                 buf = Coefficients[i] + x * buf;
             }
@@ -380,7 +379,7 @@ namespace Engine.Geometry
             Clean();
 
             if (Coefficients[Degree] != Complex.One)
-                for (int k = 0; k <= Degree; k++)
+                for (var k = 0; k <= Degree; k++)
                     Coefficients[k] /= Coefficients[Degree];
         }
 
@@ -391,11 +390,12 @@ namespace Engine.Geometry
         {
             int i;
 
-            for (i = Degree; i >= 0 && Coefficients[i] == 0; i--) ;
+            for (i = Degree; i >= 0 && Coefficients[i] == 0; i--)
+            { }
 
-            Complex[] coeffs = new Complex[i + 1];
+            var coeffs = new Complex[i + 1];
 
-            for (int k = 0; k <= i; k++)
+            for (var k = 0; k <= i; k++)
                 coeffs[k] = Coefficients[k];
 
             Coefficients = (Complex[])coeffs.Clone();
@@ -405,15 +405,15 @@ namespace Engine.Geometry
         /// Factorizes polynomial to its linear factors.
         /// </summary>
         /// <returns></returns>
-        public FactorizedPolynomial Factorize()
+        public FactorizedPolynomialX Factorize()
         {
             // this is to be returned
-            FactorizedPolynomial p = new FactorizedPolynomial();
+            var p = new FactorizedPolynomialX();
 
             // cannot factorize polynomial of degree 0 or 1
             if (Degree <= 1)
             {
-                p.Factor = new Polynomial[] { this };
+                p.Factor = new PolynomialX[] { this };
                 p.Power = new int[] { 1 };
 
                 return p;
@@ -435,8 +435,8 @@ namespace Engine.Geometry
             //for (int i = 1; i < rootlist.Count; i++)
             //    if (rootlist[i] != rootlist[i - 1]) num++;
 
-            Polynomial[] factor = new Polynomial[roots.Length];
-            int[] power = new int[roots.Length];
+            var factor = new PolynomialX[roots.Length];
+            var power = new int[roots.Length];
 
             //factor[0] = new Polynomial( new Complex[]{ -(Complex)rootlist[0] * Coefficients[Degree],
             //    Coefficients[Degree] } );
@@ -457,12 +457,12 @@ namespace Engine.Geometry
             //}
 
             power[0] = 1;
-            factor[0] = new Polynomial(new Complex[] { -Coefficients[Degree] * (Complex)roots[0], Coefficients[Degree] });
+            factor[0] = new PolynomialX(new Complex[] { -Coefficients[Degree] * (Complex)roots[0], Coefficients[Degree] });
 
-            for (int i = 1; i < roots.Length; i++)
+            for (var i = 1; i < roots.Length; i++)
             {
                 power[i] = 1;
-                factor[i] = new Polynomial(new Complex[] { -(Complex)roots[i], Complex.One });
+                factor[i] = new PolynomialX(new Complex[] { -(Complex)roots[i], Complex.One });
             }
 
             p.Factor = factor;
@@ -477,34 +477,34 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Complex[] Roots()
         {
-            double tolerance = 1e-12;
-            int max_iterations = 30;
+            var tolerance = 1e-12;
+            var max_iterations = 30;
 
-            Polynomial q = Normalize(this);
-            //Polynomial q = p;
+            PolynomialX q = Normalize(this);
+            //PolynomialX q = p;
 
-            Complex[] z = new Complex[q.Degree]; // approx. for roots
-            Complex[] w = new Complex[q.Degree]; // Weierstraß corrections
+            var z = new Complex[q.Degree]; // approx. for roots
+            var w = new Complex[q.Degree]; // Weierstraß corrections
 
             // init z
-            for (int k = 0; k < q.Degree; k++)
+            for (var k = 0; k < q.Degree; k++)
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
 
 
-            for (int iter = 0; iter < max_iterations
+            for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
-                for (int i = 0; i < 10; i++)
+                for (var i = 0; i < 10; i++)
                 {
-                    for (int k = 0; k < q.Degree; k++)
+                    for (var k = 0; k < q.Degree; k++)
                         w[k] = q.Evaluate(z[k]) / WeierNull(z, k);
 
-                    for (int k = 0; k < q.Degree; k++)
+                    for (var k = 0; k < q.Degree; k++)
                         z[k] -= w[k];
                 }
 
             // clean...
-            for (int k = 0; k < q.Degree; k++)
+            for (var k = 0; k < q.Degree; k++)
             {
                 z[k].Real = Math.Round(z[k].Real, 12);
                 z[k].Imaginary = Math.Round(z[k].Imaginary, 12);
@@ -516,37 +516,36 @@ namespace Engine.Geometry
         /// <summary>
         /// Computes the roots of polynomial p via Weierstrass iteration.
         /// </summary>
-        /// <param name="p">Polynomial to compute the roots of.</param>
         /// <param name="tolerance">Computation precision; e.g. 1e-12 denotes 12 exact digits.</param>
         /// <param name="max_iterations">Maximum number of iterations; this value is used to bound
-        /// the computation effort if desired pecision is hard to achieve.</param>
+        /// the computation effort if desired precision is hard to achieve.</param>
         /// <returns></returns>
         public Complex[] Roots(double tolerance, int max_iterations)
         {
-            Polynomial q = Normalize(this);
+            PolynomialX q = Normalize(this);
 
-            Complex[] z = new Complex[q.Degree]; // approx. for roots
-            Complex[] w = new Complex[q.Degree]; // Weierstraß corrections
+            var z = new Complex[q.Degree]; // approx. for roots
+            var w = new Complex[q.Degree]; // Weierstraß corrections
 
             // init z
-            for (int k = 0; k < q.Degree; k++)
+            for (var k = 0; k < q.Degree; k++)
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
 
 
-            for (int iter = 0; iter < max_iterations
+            for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
-                for (int i = 0; i < 10; i++)
+                for (var i = 0; i < 10; i++)
                 {
-                    for (int k = 0; k < q.Degree; k++)
+                    for (var k = 0; k < q.Degree; k++)
                         w[k] = q.Evaluate(z[k]) / WeierNull(z, k);
 
-                    for (int k = 0; k < q.Degree; k++)
+                    for (var k = 0; k < q.Degree; k++)
                         z[k] -= w[k];
                 }
 
             // clean...
-            for (int k = 0; k < q.Degree; k++)
+            for (var k = 0; k < q.Degree; k++)
             {
                 z[k].Real = Math.Round(z[k].Real, 12);
                 z[k].Imaginary = Math.Round(z[k].Imaginary, 12);
@@ -564,20 +563,20 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Polynomial Expand(FactorizedPolynomial p)
+        public static PolynomialX Expand(FactorizedPolynomialX p)
         {
-            Polynomial q = new Polynomial(new Complex[] { Complex.One });
+            var q = new PolynomialX(new Complex[] { Complex.One });
 
-            for (int i = 0; i < p.Factor.Length; i++)
+            for (var i = 0; i < p.Factor.Length; i++)
             {
-                for (int j = 0; j < p.Power[i]; j++)
+                for (var j = 0; j < p.Power[i]; j++)
                     q *= p.Factor[i];
 
                 q.Clean();
             }
 
             // clean...
-            for (int k = 0; k <= q.Degree; k++)
+            for (var k = 0; k <= q.Degree; k++)
             {
                 q.Coefficients[k].Real = Math.Round(q.Coefficients[k].Real, 12);
                 q.Coefficients[k].Imaginary = Math.Round(q.Coefficients[k].Imaginary, 12);
@@ -590,12 +589,13 @@ namespace Engine.Geometry
         /// Evaluates factorized polynomial p at point x.
         /// </summary>
         /// <param name="p"></param>
+        /// <param name="x"></param>
         /// <returns></returns>
-        public static Complex Evaluate(FactorizedPolynomial p, Complex x)
+        public static Complex Evaluate(FactorizedPolynomialX p, Complex x)
         {
             Complex z = Complex.One;
 
-            for (int i = 0; i < p.Factor.Length; i++)
+            for (var i = 0; i < p.Factor.Length; i++)
             {
                 z *= Complex.Pow(p.Factor[i].Evaluate(x), p.Power[i]);
             }
@@ -604,34 +604,34 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// Removes unncessary leading zeros.
+        /// Removes unnecessary leading zeros.
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Polynomial Clean(Polynomial p)
+        public static PolynomialX Clean(PolynomialX p)
         {
             int i;
 
             for (i = p.Degree; i >= 0 && p.Coefficients[i] == 0; i--) ;
 
-            Complex[] coeffs = new Complex[i + 1];
+            var coeffs = new Complex[i + 1];
 
-            for (int k = 0; k <= i; k++)
+            for (var k = 0; k <= i; k++)
                 coeffs[k] = p.Coefficients[k];
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
         /// Normalizes the polynomial, e.i. divides each coefficient by the
         /// coefficient of a_n the greatest term if a_n != 1.
         /// </summary>
-        public static Polynomial Normalize(Polynomial p)
+        public static PolynomialX Normalize(PolynomialX p)
         {
-            Polynomial q = Clean(p);
+            PolynomialX q = Clean(p);
 
             if (q.Coefficients[q.Degree] != Complex.One)
-                for (int k = 0; k <= q.Degree; k++)
+                for (var k = 0; k <= q.Degree; k++)
                     q.Coefficients[k] /= q.Coefficients[q.Degree];
 
             return q;
@@ -642,36 +642,36 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Complex[] Roots(Polynomial p)
+        public static Complex[] Roots(PolynomialX p)
         {
-            double tolerance = 1e-12;
-            int max_iterations = 30;
+            var tolerance = 1e-12;
+            var max_iterations = 30;
 
-            Polynomial q = Normalize(p);
-            //Polynomial q = p;
+            PolynomialX q = Normalize(p);
+            //PolynomialX q = p;
 
-            Complex[] z = new Complex[q.Degree]; // approx. for roots
-            Complex[] w = new Complex[q.Degree]; // Weierstraß corrections
+            var z = new Complex[q.Degree]; // approx. for roots
+            var w = new Complex[q.Degree]; // Weierstraß corrections
 
             // init z
-            for (int k = 0; k < q.Degree; k++)
+            for (var k = 0; k < q.Degree; k++)
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
 
 
-            for (int iter = 0; iter < max_iterations
+            for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
-                for (int i = 0; i < 10; i++)
+                for (var i = 0; i < 10; i++)
                 {
-                    for (int k = 0; k < q.Degree; k++)
+                    for (var k = 0; k < q.Degree; k++)
                         w[k] = q.Evaluate(z[k]) / WeierNull(z, k);
 
-                    for (int k = 0; k < q.Degree; k++)
+                    for (var k = 0; k < q.Degree; k++)
                         z[k] -= w[k];
                 }
 
             // clean...
-            for (int k = 0; k < q.Degree; k++)
+            for (var k = 0; k < q.Degree; k++)
             {
                 z[k].Real = Math.Round(z[k].Real, 12);
                 z[k].Imaginary = Math.Round(z[k].Imaginary, 12);
@@ -686,34 +686,34 @@ namespace Engine.Geometry
         /// <param name="p">Polynomial to compute the roots of.</param>
         /// <param name="tolerance">Computation precision; e.g. 1e-12 denotes 12 exact digits.</param>
         /// <param name="max_iterations">Maximum number of iterations; this value is used to bound
-        /// the computation effort if desired pecision is hard to achieve.</param>
+        /// the computation effort if desired precision is hard to achieve.</param>
         /// <returns></returns>
-        public static Complex[] Roots(Polynomial p, double tolerance, int max_iterations)
+        public static Complex[] Roots(PolynomialX p, double tolerance, int max_iterations)
         {
-            Polynomial q = Normalize(p);
+            PolynomialX q = Normalize(p);
 
-            Complex[] z = new Complex[q.Degree]; // approx. for roots
-            Complex[] w = new Complex[q.Degree]; // Weierstraß corrections
+            var z = new Complex[q.Degree]; // approx. for roots
+            var w = new Complex[q.Degree]; // Weierstraß corrections
 
             // init z
-            for (int k = 0; k < q.Degree; k++)
+            for (var k = 0; k < q.Degree; k++)
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
 
 
-            for (int iter = 0; iter < max_iterations
+            for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
-                for (int i = 0; i < 10; i++)
+                for (var i = 0; i < 10; i++)
                 {
-                    for (int k = 0; k < q.Degree; k++)
+                    for (var k = 0; k < q.Degree; k++)
                         w[k] = q.Evaluate(z[k]) / WeierNull(z, k);
 
-                    for (int k = 0; k < q.Degree; k++)
+                    for (var k = 0; k < q.Degree; k++)
                         z[k] -= w[k];
                 }
 
             // clean...
-            for (int k = 0; k < q.Degree; k++)
+            for (var k = 0; k < q.Degree; k++)
             {
                 z[k].Real = Math.Round(z[k].Real, 12);
                 z[k].Imaginary = Math.Round(z[k].Imaginary, 12);
@@ -728,12 +728,12 @@ namespace Engine.Geometry
         /// <param name="p"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        public static double MaxValue(Polynomial p, Complex[] z)
+        public static double MaxValue(PolynomialX p, Complex[] z)
         {
             double buf = 0;
 
 
-            for (int i = 0; i < z.Length; i++)
+            for (var i = 0; i < z.Length; i++)
             {
                 if (Complex.Abs(p.Evaluate(z[i])) > buf)
                     buf = Complex.Abs(p.Evaluate(z[i]));
@@ -747,6 +747,7 @@ namespace Engine.Geometry
         /// g'(z_k) = \prod_{j != k} (z_k - z_j).
         /// </summary>
         /// <param name="z"></param>
+        /// <param name="k"></param>
         /// <returns></returns>
         private static Complex WeierNull(Complex[] z, int k)
         {
@@ -755,7 +756,7 @@ namespace Engine.Geometry
 
             Complex buf = Complex.One;
 
-            for (int j = 0; j < z.Length; j++)
+            for (var j = 0; j < z.Length; j++)
                 if (j != k) buf *= (z[k] - z[j]);
 
             return buf;
@@ -766,14 +767,14 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Polynomial Derivative(Polynomial p)
+        public static PolynomialX Derivative(PolynomialX p)
         {
-            Complex[] buf = new Complex[p.Degree];
+            var buf = new Complex[p.Degree];
 
-            for (int i = 0; i < buf.Length; i++)
+            for (var i = 0; i < buf.Length; i++)
                 buf[i] = (i + 1) * p.Coefficients[i + 1];
 
-            return new Polynomial(buf);
+            return new PolynomialX(buf);
         }
 
         /// <summary>
@@ -781,15 +782,15 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        public static Polynomial Integral(Polynomial p)
+        public static PolynomialX Integral(PolynomialX p)
         {
-            Complex[] buf = new Complex[p.Degree + 2];
+            var buf = new Complex[p.Degree + 2];
             buf[0] = Complex.Zero; // this value can be arbitrary, in fact
 
-            for (int i = 1; i < buf.Length; i++)
+            for (var i = 1; i < buf.Length; i++)
                 buf[i] = p.Coefficients[i - 1] / i;
 
-            return new Polynomial(buf);
+            return new PolynomialX(buf);
         }
 
         /// <summary>
@@ -797,18 +798,18 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="degree"></param>
         /// <returns></returns>
-        public static Polynomial Monomial(int degree)
+        public static PolynomialX Monomial(int degree)
         {
-            if (degree == 0) return new Polynomial(1);
+            if (degree == 0) return new PolynomialX(1);
 
-            Complex[] coeffs = new Complex[degree + 1];
+            var coeffs = new Complex[degree + 1];
 
-            for (int i = 0; i < degree; i++)
+            for (var i = 0; i < degree; i++)
                 coeffs[i] = Complex.Zero;
 
             coeffs[degree] = Complex.One;
 
-            return new Polynomial(coeffs);
+            return new PolynomialX(coeffs);
         }
 
         /// <summary>
@@ -816,14 +817,14 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="dim"></param>
         /// <returns></returns>
-        public static Polynomial[] GetStandardBase(int dim)
+        public static PolynomialX[] GetStandardBase(int dim)
         {
             if (dim < 1)
                 throw new ArgumentException("Dimension expected to be greater than zero.");
 
-            Polynomial[] buf = new Polynomial[dim];
+            var buf = new PolynomialX[dim];
 
-            for (int i = 0; i < dim; i++)
+            for (var i = 0; i < dim; i++)
                 buf[i] = Monomial(i);
 
             return buf;
@@ -854,8 +855,8 @@ namespace Engine.Geometry
             Complex dy = 0d;
             var c = new Complex[n];
             var d = new Complex[n];
-            int ns = 0;
-            (double y, double dy) result;
+            var ns = 0;
+            (double y, double dy) result = (0, 0);
 
             var diff = Math.Abs(x - xs[offset].Real);
             for (var i = 0; i < n; i++)
@@ -895,7 +896,7 @@ namespace Engine.Geometry
                 y += dy;
             }
 
-            return (y: y, dy: dy);
+            return result;
         }
 
         /// <summary>
@@ -924,9 +925,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="that"></param>
         /// <returns></returns>
-        public Polynomial Add(Polynomial that)
+        public PolynomialX Add(PolynomialX that)
         {
-            var result = new Polynomial();
+            var result = new PolynomialX();
             var d1 = GetDegree();
             var d2 = that.GetDegree();
             var dmax = Math.Max(d1, d2);
@@ -947,9 +948,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="that"></param>
         /// <returns></returns>
-        public Polynomial Multiply(Polynomial that)
+        public PolynomialX Multiply(PolynomialX that)
         {
-            var result = new Polynomial();
+            var result = new PolynomialX();
             var lst = new List<Complex>(that.Coefficients);
 
             for (var i = 0; i <= GetDegree() + that.GetDegree(); i++)
@@ -969,7 +970,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="scalar"></param>
         /// <returns></returns>
-        public Polynomial Divide(double scalar)
+        public PolynomialX Divide(double scalar)
         {
             for (var i = 0; i < Coefficients.Length; i++)
                 Coefficients[i] /= scalar;
@@ -1146,7 +1147,7 @@ namespace Engine.Geometry
             (Complex y, Complex dy) result = (y: 0, dy: 0);
 
             h[0] = 1.0;
-            for (int j = 1; j <= MAX; j++)
+            for (var j = 1; j <= MAX; j++)
             {
                 s[j - 1] = Trapezoid(min, max, j);
                 if (j >= K)
@@ -1172,7 +1173,7 @@ namespace Engine.Geometry
         /**
          *  getDerivative
          */
-        public Polynomial GetDerivative()
+        public PolynomialX GetDerivative()
         {
             var lst = new List<Complex>();
 
@@ -1180,7 +1181,7 @@ namespace Engine.Geometry
             {
                 lst.Add(i * Coefficients[i]);
             }
-            var derivative = new Polynomial(lst.ToArray());
+            var derivative = new PolynomialX(lst.ToArray());
 
             return derivative;
         }
@@ -1196,7 +1197,7 @@ namespace Engine.Geometry
             switch (GetDegree())
             {
                 case 0:
-                    result = new Complex[0];
+                    result = Array.Empty<Complex>();
                     break;
                 case 1:
                     result = GetLinearRoot();
@@ -1205,13 +1206,13 @@ namespace Engine.Geometry
                     result = GetQuadraticRoots();
                     break;
                 case 3:
-                    result = GetCubicRoots();
-                    break;
-                case 4:
-                    result = GetQuarticRoots();
-                    break;
+                //    result = GetCubicRoots();
+                //    break;
+                //case 4:
+                //    result = GetQuarticRoots();
+                //    break;
                 default:
-                    result = new Complex[0];
+                    result = Array.Empty<Complex>();
                     break;
                     // should try Newton's method and/or bisection
             }
@@ -1245,7 +1246,7 @@ namespace Engine.Geometry
                     if (root != null) roots.Add(root);
 
                     // find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
-                    for (int i = 0; i <= droots.Length - 2; i++)
+                    for (var i = 0; i <= droots.Length - 2; i++)
                     {
                         root = Bisection(droots[i].Real, droots[i + 1].Real);
                         if (root != null) roots.Add(root);
@@ -1311,486 +1312,488 @@ namespace Engine.Geometry
             return results.ToArray();
         }
 
-        /**
-         *  getCubicRoots
-         *
-         *  This code is based on MgcPolynomial.cpp written by David Eberly.  His
-         *  code along with many other excellent examples are avaiable at his site:
-         *  http://www.geometrictools.com
-         */
-        public Complex[] GetCubicRoots()
-        {
-            var results = new List<Complex>();
+        ///**
+        // *  getCubicRoots
+        // *
+        // *  This code is based on MgcPolynomial.cpp written by David Eberly.  His
+        // *  code along with many other excellent examples are available at his site:
+        // *  http://www.geometrictools.com
+        // */
+        //public Complex[] GetCubicRoots()
+        //{
+        //    var results = new List<Complex>();
 
-            if (GetDegree() == 3)
-            {
-                var c3 = Coefficients[3];
-                var c2 = Coefficients[2] / c3;
-                var c1 = Coefficients[1] / c3;
-                var c0 = Coefficients[0] / c3;
+        //    if (GetDegree() == 3)
+        //    {
+        //        var c3 = Coefficients[3];
+        //        var c2 = Coefficients[2] / c3;
+        //        var c1 = Coefficients[1] / c3;
+        //        var c0 = Coefficients[0] / c3;
 
-                var a = (3 * c1 - c2 * c2) / 3;
-                var b = (2 * c2 * c2 * c2 - 9 * c1 * c2 + 27 * c0) / 27;
-                var offset = c2 / 3;
-                var discrim = b * b / 4 + a * a * a / 27;
-                var halfB = b / 2;
+        //        var a = (3 * c1 - c2 * c2) / 3;
+        //        var b = (2 * c2 * c2 * c2 - 9 * c1 * c2 + 27 * c0) / 27;
+        //        var offset = c2 / 3;
+        //        var discrim = b * b / 4 + a * a * a / 27;
+        //        var halfB = b / 2;
 
-                var ZEROepsilon = zeroErrorEstimate();
-                if (Math.Abs(discrim.Real) <= ZEROepsilon) discrim = 0;
+        //        var ZEROepsilon = ZeroErrorEstimate();
+        //        if (Math.Abs(discrim.Real) <= ZEROepsilon) discrim = 0;
 
-                if (discrim.Real > 0)
-                {
-                    var e = Math.Sqrt(discrim.Real);
+        //        if (discrim.Real > 0)
+        //        {
+        //            var e = Math.Sqrt(discrim.Real);
 
-                    double root;
-                    var tmp = -halfB + e;
-                    if (tmp.Real >= 0)
-                        root = Math.Pow(tmp.Real, 1d / 3d);
-                    else
-                        root = -Math.Pow(-tmp.Real, 1d / 3d);
+        //            double root;
+        //            var tmp = -halfB + e;
+        //            if (tmp.Real >= 0)
+        //                root = Math.Pow(tmp.Real, 1d / 3d);
+        //            else
+        //                root = -Math.Pow(-tmp.Real, 1d / 3d);
 
-                    tmp = -halfB - e;
-                    if (tmp.Real >= 0)
-                        root += Math.Pow(tmp.Real, 1d / 3d);
-                    else
-                        root -= Math.Pow(-tmp.Real, 1d / 3d);
+        //            tmp = -halfB - e;
+        //            if (tmp.Real >= 0)
+        //                root += Math.Pow(tmp.Real, 1d / 3d);
+        //            else
+        //                root -= Math.Pow(-tmp.Real, 1d / 3d);
 
-                    results.Add(root - offset);
-                }
-                else if (discrim.Real < 0)
-                {
-                    var distance = Math.Sqrt(-a.Real / 3d);
-                    var angle = Math.Atan2(Math.Sqrt(-discrim.Real), -halfB.Real) / 3;
-                    var cos = Math.Cos(angle);
-                    var sin = Math.Sin(angle);
-                    var sqrt3 = Math.Sqrt(3);
+        //            results.Add(root - offset);
+        //        }
+        //        else if (discrim.Real < 0)
+        //        {
+        //            var distance = Math.Sqrt(-a.Real / 3d);
+        //            var angle = Math.Atan2(Math.Sqrt(-discrim.Real), -halfB.Real) / 3;
+        //            var cos = Math.Cos(angle);
+        //            var sin = Math.Sin(angle);
+        //            var sqrt3 = Math.Sqrt(3);
 
-                    results.Add(2 * distance * cos - offset);
-                    results.Add(-distance * (cos + sqrt3 * sin) - offset);
-                    results.Add(-distance * (cos - sqrt3 * sin) - offset);
-                }
-                else
-                {
-                    double tmp;
+        //            results.Add(2 * distance * cos - offset);
+        //            results.Add(-distance * (cos + sqrt3 * sin) - offset);
+        //            results.Add(-distance * (cos - sqrt3 * sin) - offset);
+        //        }
+        //        else
+        //        {
+        //            double tmp;
 
-                    if (halfB.Real >= 0)
-                        tmp = -Math.Pow(halfB.Real, 1 / 3);
-                    else
-                        tmp = Math.Pow(-halfB.Real, 1 / 3);
+        //            if (halfB.Real >= 0)
+        //                tmp = -Math.Pow(halfB.Real, 1 / 3);
+        //            else
+        //                tmp = Math.Pow(-halfB.Real, 1 / 3);
 
-                    results.Add(2 * tmp - offset);
-                    // really should return next root twice, but we return only one
-                    results.Add(-tmp - offset);
-                }
-            }
+        //            results.Add(2 * tmp - offset);
+        //            // really should return next root twice, but we return only one
+        //            results.Add(-tmp - offset);
+        //        }
+        //    }
 
-            return results.ToArray();
-        }
-
-        ///////////////////////////////////////////////////////////////////
-        /**
-            Calculates roots of quartic polynomial. <br/>
-            First, derivative roots are found, then used to split quartic polynomial 
-            into segments, each containing one root of quartic polynomial.
-            Segments are then passed to newton's method to find roots.
-
-            @returns {Array<Number>} roots
-        */
-        public Complex[] GetQuarticRoots()
-        {
-            var results = new List<Complex>();
-
-            var n = GetDegree();
-            if (n == 4)
-            {
-                var poly = new Polynomial();
-                poly.Coefficients = Coefficients.Slice();
-                poly.Divide(poly.Coefficients[n].Real);
-                var ERRF = 1e-15;
-                if (Math.Abs(poly.Coefficients[0].Real) < 10 * ERRF * Math.Abs(poly.Coefficients[3].Real))
-                    poly.Coefficients[0] = 0;
-                var poly_d = poly.GetDerivative();
-                var derrt = new List<Complex>(poly_d.GetRoots());
-                derrt.Sort();
-                var dery = new List<Complex>();
-                int nr = derrt.Count - 1;
-                int i;
-                var rb = Bounds();
-                var maxabsX = Math.Max(Math.Abs(rb.minX), Math.Abs(rb.maxX));
-                var ZEROepsilon = zeroErrorEstimate(maxabsX);
-
-                for (i = 0; i <= nr; i++)
-                {
-                    dery.Add(poly.Eval(derrt[i]));
-                }
-
-                for (i = 0; i <= nr; i++)
-                {
-                    if (Math.Abs(dery[i].Real) < ZEROepsilon)
-                        dery[i] = 0;
-                }
-
-                i = 0;
-                var dx = Math.Max(0.1 * (rb.maxX - rb.minX) / n, ERRF);
-                var guesses = new List<Complex>();
-                var minmax = new List<(double, double)>();
-                if (nr > -1)
-                {
-                    if (dery[0] != 0)
-                    {
-                        if (Math.Sign(dery[0].Real) != Math.Sign(poly.Eval(derrt[0] - dx).Real - dery[0].Real))
-                        {
-                            guesses.Add(derrt[0] - dx);
-                            minmax.Add((rb.minX, derrt[0].Real));
-                        }
-                    }
-                    else
-                    {
-                        results.Add(derrt[0], derrt[0]);
-                        i++;
-                    }
-
-                    for (; i < nr; i++)
-                    {
-                        if (dery[i + 1] == 0)
-                        {
-                            results.Add(derrt[i + 1], derrt[i + 1]);
-                            i++;
-                        }
-                        else if (Math.Sign(dery[i].Real) != Math.Sign(dery[i + 1].Real))
-                        {
-                            guesses.Add((derrt[i] + derrt[i + 1]) / 2);
-                            minmax.Add((derrt[i].Real, derrt[i + 1].Real));
-                        }
-                    }
-                    if (dery[nr] != 0 && Math.Sign(dery[nr].Real) != Math.Sign(poly.Eval(derrt[nr].Real + dx).Real - dery[nr].Real))
-                    {
-                        guesses.Add(derrt[nr] + dx);
-                        minmax.Add((derrt[nr].Real, rb.maxX));
-                    }
-                }
-
-                if (guesses.Count > 0)
-                {
-                    for (i = 0; i < guesses.Count; i++)
-                    {
-                        guesses[i] = Polynomial.NewtonSecantBisection(guesses[i], (x, f) => poly.Eval(x), (x, df) => poly_d.Eval(x), 32, minmax[i][0], minmax[i][1]);
-                    }
-                }
-
-                results = results.Concat(guesses).ToList();
-            }
-            return results.ToArray();
-        }
+        //    return results.ToArray();
+        //}
 
         ///////////////////////////////////////////////////////////////////
-        /**
-            Estimate what is the maximum polynomial evaluation error value under which polynomial evaluation could be in fact 0.
-            
-            @returns {Number} 
-*/
-        public double zeroErrorEstimate()
-        {
-            var poly = this;
-            var ERRF = 1e-15;
-            var rb = poly.Bounds();
-            double maxabsX = Math.Max(Math.Abs(rb.minX), Math.Abs(rb.maxX));
-            if (maxabsX < 0.001)
-            {
-                return 2 * Math.Abs(poly.Eval(ERRF).Real);
-            }
-            var n = poly.Coefficients.Length - 1;
-            var an = poly.Coefficients[n];
-            return 10 * ERRF * poly.Coefficients.Aggregate((m, v, i) =>
-            {
-                var nm = v / an * Math.Pow(maxabsX, i);
-                return nm > m ? nm : m;
-            }, 0);
-        }
+        ///**
+        //    Calculates roots of quartic polynomial. <br/>
+        //    First, derivative roots are found, then used to split quartic polynomial 
+        //    into segments, each containing one root of quartic polynomial.
+        //    Segments are then passed to newton's method to find roots.
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="maxabsX"></param>
-        /// <returns></returns>
-        public double zeroErrorEstimate(double maxabsX)
-        {
-            var poly = this;
-            var ERRF = 1e-15;
-            if (maxabsX < 0.001)
-            {
-                return 2 * Math.Abs(poly.Eval(ERRF).Real);
-            }
-            var n = poly.Coefficients.Length - 1;
-            var an = poly.Coefficients[n];
-            return 10 * ERRF * poly.Coefficients.Aggregate((m, v, i) =>
-            {
-                var nm = v / an * Math.Pow(maxabsX, i);
-                return nm > m ? nm : m;
-            }, 0);
-        }
+        //    @returns {Array<Number>} roots
+        //*/
+        //public Complex[] GetQuarticRoots()
+        //{
+        //    var results = new List<Complex>();
 
-        ///////////////////////////////////////////////////////////////////
-        /**
-            Calculates upper Real roots bounds. <br/>
-            Real roots are in interval [negX, posX]. Determined by Fujiwara method.
-            @see {@link http://en.wikipedia.org/wiki/Properties_of_polynomial_roots}
+        //    var n = GetDegree();
+        //    if (n == 4)
+        //    {
+        //        var poly = new PolynomialX
+        //        {
+        //            Coefficients = Coefficients.Slice()
+        //        };
+        //        poly.Divide(poly.Coefficients[n].Real);
+        //        var ERRF = 1e-15;
+        //        if (Math.Abs(poly.Coefficients[0].Real) < 10 * ERRF * Math.Abs(poly.Coefficients[3].Real))
+        //            poly.Coefficients[0] = 0;
+        //        var poly_d = poly.GetDerivative();
+        //        var derrt = new List<Complex>(poly_d.GetRoots());
+        //        derrt.Sort();
+        //        var dery = new List<Complex>();
+        //        var nr = derrt.Count - 1;
+        //        int i;
+        //        var rb = Bounds();
+        //        var maxabsX = Math.Max(Math.Abs(rb.minX), Math.Abs(rb.maxX));
+        //        var ZEROepsilon = ZeroErrorEstimate(maxabsX);
 
-            @returns {{ negX: Number, posX: Number }}
-*/
-        public (double negX, double posX) BoundsUpperRealFujiwara()
-        {
-            var a = Coefficients;
-            var n = a.Length - 1;
-            var an = a[n];
-            if (an != 1)
-            {
-                a = Coefficients.Select((v) => { return v / an; }).ToArray();
-            }
-            var b = a.Select((v, i) => { return (i < n) ? Math.Pow(Math.Abs((i == 0) ? v.Real / 2 : v.Real), 1 / (n - i)) : v; });
+        //        for (i = 0; i <= nr; i++)
+        //        {
+        //            dery.Add(poly.Eval(derrt[i]));
+        //        }
 
-            //var find2Max = (acc, bi, i) =>
-            // {
-            //     if (coefSelectionFunc(i))
-            //     {
-            //         if (acc.max < bi)
-            //         {
-            //             acc.nearmax = acc.max;
-            //             acc.max = bi;
-            //         }
-            //         else if (acc.nearmax < bi)
-            //         {
-            //             acc.nearmax = bi;
-            //         }
-            //     }
-            //     return acc;
-            // };
+        //        for (i = 0; i <= nr; i++)
+        //        {
+        //            if (Math.Abs(dery[i].Real) < ZEROepsilon)
+        //                dery[i] = 0;
+        //        }
 
-            (Complex max, Complex nearmax) zed = (max: 0, nearmax: 0);
+        //        i = 0;
+        //        var dx = Math.Max(0.1 * (rb.maxX - rb.minX) / n, ERRF);
+        //        var guesses = new List<Complex>();
+        //        var minmax = new List<(double, double)>();
+        //        if (nr > -1)
+        //        {
+        //            if (dery[0] != 0)
+        //            {
+        //                if (Math.Sign(dery[0].Real) != Math.Sign(poly.Eval(derrt[0] - dx).Real - dery[0].Real))
+        //                {
+        //                    guesses.Add(derrt[0] - dx);
+        //                    minmax.Add((rb.minX, derrt[0].Real));
+        //                }
+        //            }
+        //            else
+        //            {
+        //                results.Add(derrt[0]);
+        //                i++;
+        //            }
 
-            //coefSelectionFunc(i)=> { return i < n && a[i] < 0; };
-            List<Complex> max_nearmax_pos = b.Aggregate(((Complex max, Complex nearmax) acc, Complex bi, int i) => {
-                if ((i) => { return i < n && a[i] < 0; })
-                {
-                    if (acc.max < bi)
-                    {
-                        acc.nearmax = acc.max;
-                        acc.max = bi;
-                    }
-                    else if (acc.nearmax < bi)
-                    {
-                        acc.nearmax = bi;
-                    }
-                }
-                return acc;
-            }, zed).ToList();
+        //            for (; i < nr; i++)
+        //            {
+        //                if (dery[i + 1] == 0)
+        //                {
+        //                    results.Add(derrt[i + 1]);
+        //                    i++;
+        //                }
+        //                else if (Math.Sign(dery[i].Real) != Math.Sign(dery[i + 1].Real))
+        //                {
+        //                    guesses.Add((derrt[i] + derrt[i + 1]) / 2);
+        //                    minmax.Add((derrt[i].Real, derrt[i + 1].Real));
+        //                }
+        //            }
+        //            if (dery[nr] != 0 && Math.Sign(dery[nr].Real) != Math.Sign(poly.Eval(derrt[nr].Real + dx).Real - dery[nr].Real))
+        //            {
+        //                guesses.Add(derrt[nr] + dx);
+        //                minmax.Add((derrt[nr].Real, rb.maxX));
+        //            }
+        //        }
 
-            //coefSelectionFunc(i)=> { return i < n && ((n % 2 == i % 2) ? a[i] < 0 : a[i] > 0); };
-            var max_nearmax_neg = b.Aggregate((double acc, double bi, int i) =>
-            {
-                if ((i) => { return i < n && ((n % 2 == i % 2) ? a[i] < 0 : a[i] > 0); })
-                {
-                    if (acc.max < bi)
-                    {
-                        acc.nearmax = acc.max;
-                        acc.max = bi;
-                    }
-                    else if (acc.nearmax < bi)
-                    {
-                        acc.nearmax = bi;
-                    }
-                }
-                return acc;
-            }, zed);
+        //        if (guesses.Count > 0)
+        //        {
+        //            for (i = 0; i < guesses.Count; i++)
+        //            {
+        //                guesses[i] = PolynomialX.NewtonSecantBisection(guesses[i], (x, f) => poly.Eval(x), (x, df) => poly_d.Eval(x), 32, minmax[i][0], minmax[i][1]);
+        //            }
+        //        }
 
-            return (negX: -2 * max_nearmax_neg.max, posX: 2 * max_nearmax_pos.max);
-        }
+        //        results = results.Concat(guesses).ToList();
+        //    }
+        //    return results.ToArray();
+        //}
 
         ///////////////////////////////////////////////////////////////////
-        /** 
-            Calculates lower Real roots bounds. <br/>
-            There are no Real roots in interval <negX, posX>. Determined by Fujiwara method.
-            @see {@link http://en.wikipedia.org/wiki/Properties_of_polynomial_roots}
+        //        /**
+        //            Estimate what is the maximum polynomial evaluation error value under which polynomial evaluation could be in fact 0.
 
-            @returns {{ negX: Number, posX: Number }}
-        */
-        public (double negX, double posX) BoundsLowerRealFujiwara()
-        {
-            var poly = new Polynomial();
-            poly.Coefficients = Coefficients.Slice();
-            Array.Reverse(poly.Coefficients);
-            var res = poly.BoundsUpperRealFujiwara();
-            res.negX = 1 / res.negX;
-            res.posX = 1 / res.posX;
-            return res;
-        }
+        //            @returns {Number} 
+        //*/
+        //        public double ZeroErrorEstimate()
+        //        {
+        //            var poly = this;
+        //            var ERRF = 1e-15;
+        //            var rb = poly.Bounds();
+        //            var maxabsX = Math.Max(Math.Abs(rb.minX), Math.Abs(rb.maxX));
+        //            if (maxabsX < 0.001)
+        //            {
+        //                return 2 * Math.Abs(poly.Eval(ERRF).Real);
+        //            }
+        //            var n = poly.Coefficients.Length - 1;
+        //            var an = poly.Coefficients[n];
+        //            return 10d * ERRF * poly.Coefficients.Aggregate((Complex m, Complex v, int i) =>
+        //            {
+        //                double nm = v / an * Math.Pow(maxabsX, i);
+        //                return nm > m ? nm : m;
+        //            }, 0d);
+        //        }
+
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="maxabsX"></param>
+        ///// <returns></returns>
+        //public double ZeroErrorEstimate(double maxabsX)
+        //{
+        //    var poly = this;
+        //    var ERRF = 1e-15;
+        //    if (maxabsX < 0.001)
+        //    {
+        //        return 2 * Math.Abs(poly.Eval(ERRF).Real);
+        //    }
+        //    var n = poly.Coefficients.Length - 1;
+        //    var an = poly.Coefficients[n];
+        //    return 10 * ERRF * poly.Coefficients.Aggregate((Complex m, Complex v, int i) =>
+        //    {
+        //        var nm = v / an * Math.Pow(maxabsX, i);
+        //        return nm > m ? nm : m;
+        //    }, 0);
+        //}
 
         ///////////////////////////////////////////////////////////////////
-        /** 
-            Calculates left and right Real roots bounds. <br/>
-            Real roots are in interval [minX, maxX]. Combines Fujiwara lower and upper bounds to get minimal interval.
-            @see {@link http://en.wikipedia.org/wiki/Properties_of_polynomial_roots}
+        //        /**
+        //            Calculates upper Real roots bounds. <br/>
+        //            Real roots are in interval [negX, posX]. Determined by Fujiwara method.
+        //            @see {@link http://en.wikipedia.org/wiki/Properties_of_polynomial_roots}
 
-            @returns {{ minX: Number, maxX: Number }}
-*/
-        public (double minX, double maxX) Bounds()
-        {
-            var urb = BoundsUpperRealFujiwara();
-            var rb = (minX: urb.negX, maxX: urb.posX);
-            if (urb.negX == 0 && urb.posX == 0)
-                return rb;
-            if (urb.negX == 0)
-            {
-                rb.minX = BoundsLowerRealFujiwara().posX;
-            }
-            else if (urb.posX == 0)
-            {
-                rb.maxX = BoundsLowerRealFujiwara().negX;
-            }
-            if (rb.minX > rb.maxX)
-            {
-                //console.log('public void bounds: poly has no real roots? or floating point error?');
-                rb.minX = rb.maxX = 0;
-            }
-            return rb;
-            // TODO: if sure that there are no complex roots 
-            // (maybe by using Sturm's theorem) use:
-            //return this.bounds_Real_Laguerre();
-        }
+        //            @returns {{ negX: Number, posX: Number }}
+        //*/
+        //        public (double negX, double posX) BoundsUpperRealFujiwara()
+        //        {
+        //            var a = Coefficients;
+        //            var n = a.Length - 1;
+        //            var an = a[n];
+        //            if (an != 1)
+        //            {
+        //                a = Coefficients.Select((v) => { return v / an; }).ToArray();
+        //            }
+        //            var b = a.Select((v, i) => { return (i < n) ? Math.Pow(Math.Abs((i == 0) ? v.Real / 2 : v.Real), 1 / (n - i)) : v; });
 
-        /////////////////////////////////////////////////////////////////// 
-        /**
-            Newton's (Newton-Raphson) method for finding Real roots on univariate function. <br/>
-            When using bounds, algorithm falls back to secant if newton goes out of range.
-            Bisection is fallback for secant when determined secant is not efficient enough.
-            @see {@link http://en.wikipedia.org/wiki/Newton%27s_method}
-            @see {@link http://en.wikipedia.org/wiki/Secant_method}
-            @see {@link http://en.wikipedia.org/wiki/Bisection_method}
+        //            //var find2Max = (acc, bi, i) =>
+        //            // {
+        //            //     if (coefSelectionFunc(i))
+        //            //     {
+        //            //         if (acc.max < bi)
+        //            //         {
+        //            //             acc.nearmax = acc.max;
+        //            //             acc.max = bi;
+        //            //         }
+        //            //         else if (acc.nearmax < bi)
+        //            //         {
+        //            //             acc.nearmax = bi;
+        //            //         }
+        //            //     }
+        //            //     return acc;
+        //            // };
 
-            @param {Number} x0 - Inital root guess
-            @param {function(x)} f - Function which root we are trying to find
-            @param {function(x)} df - Derivative of function f
-            @param {Number} max_iterations - Maximum number of algorithm iterations
-            @param {Number} [min_x] - Left bound value
-            @param {Number} [max_x] - Right bound value
-            @returns {Number} - root
-*/
-        public double NewtonSecantBisection(double x0, Func<double, double> f, Func<double, double> df, int max_iterations, double min, double max)
-        {
-            double prev_dfx = 0, dfx, prev_x_ef_correction = 0, x_correction, x_new;
-            double v, y_atmin = 0, y_atmax = 0;
-            double x = x0;
-            var ACCURACY = 14;
-            var min_correction_factor = Math.Pow(10, -ACCURACY);
-            var isBounded = (min is double && max is double);
-            if (isBounded)
-            {
-                if (min > max)
-                    throw new Exception("newton root finding: min must be greater than max");
-                y_atmin = f(min);
-                y_atmax = f(max);
-                if (Math.Sign(y_atmin) == Math.Sign(y_atmax))
-                    throw new Exception("newton root finding: y values of bounds must be of opposite sign");
-            }
+        //            (Complex max, Complex nearmax) zed = (max: 0, nearmax: 0);
 
-            int i;
-            //var stepMethod;
-            //var details = [];
-            for (i = 0; i < max_iterations; i++)
-            {
-                dfx = df(x);
-                if (dfx == 0)
-                {
-                    if (prev_dfx == 0)
-                    {
-                        // error
-                        throw new Exception("newton root finding: df(x) is zero");
-                        //return null;
-                    }
-                    else
-                    {
-                        // use previous derivation value
-                        dfx = prev_dfx;
-                    }
-                    // or move x a little?
-                    //dfx = df(x != 0 ? x + x * 1e-15 : 1e-15);
-                }
-                //stepMethod = 'newton';
-                prev_dfx = dfx;
-                var y = f(x);
-                x_correction = y / dfx;
-                x_new = x - x_correction;
-                if ((Math.Abs(x_correction) <= min_correction_factor * Math.Abs(x))
-                        || (prev_x_ef_correction == (x - x_correction) - x))
-                {
-                    break;
-                }
+        //            //coefSelectionFunc(i)=> { return i < n && a[i] < 0; };
+        //            List<Complex> max_nearmax_pos = b.Aggregate(((Complex max, Complex nearmax) acc, Complex bi, int i) => {
+        //                if ((i) => { return i < n && a[i] < 0; })
+        //                {
+        //                    if (acc.max < bi)
+        //                    {
+        //                        acc.nearmax = acc.max;
+        //                        acc.max = bi;
+        //                    }
+        //                    else if (acc.nearmax < bi)
+        //                    {
+        //                        acc.nearmax = bi;
+        //                    }
+        //                }
+        //                return acc;
+        //            }, zed).ToList();
 
-                if (isBounded)
-                {
-                    if (Math.Sign(y) == Math.Sign(y_atmax))
-                    {
-                        max = x;
-                        y_atmax = y;
-                    }
-                    else if (Math.Sign(y) == Math.Sign(y_atmin))
-                    {
-                        min = x;
-                        y_atmin = y;
-                    }
-                    else
-                    {
-                        x = x_new;
-                        //console.log("newton root finding: sign(y) not matched.");
-                        break;
-                    }
+        //            //coefSelectionFunc(i)=> { return i < n && ((n % 2 == i % 2) ? a[i] < 0 : a[i] > 0); };
+        //            var max_nearmax_neg = b.Aggregate((Complex acc, Complex bi, int i) =>
+        //            {
+        //                if ((i) => { return i < n && ((n % 2 == i % 2) ? a[i] < 0 : a[i] > 0); })
+        //                {
+        //                    if (acc.max < bi)
+        //                    {
+        //                        acc.nearmax = acc.max;
+        //                        acc.max = bi;
+        //                    }
+        //                    else if (acc.nearmax < bi)
+        //                    {
+        //                        acc.nearmax = bi;
+        //                    }
+        //                }
+        //                return acc;
+        //            }, zed);
 
-                    if ((x_new < min) || (x_new > max))
-                    {
-                        if (Math.Sign(y_atmin) == Math.Sign(y_atmax))
-                        {
-                            break;
-                        }
+        //            return (negX: -2 * max_nearmax_neg.max, posX: 2 * max_nearmax_pos.max);
+        //        }
 
-                        var RATIO_LIMIT = 50;
-                        var AIMED_BISECT_OFFSET = 0.25; // [0, 0.5)
-                        var dy = y_atmax - y_atmin;
-                        var dx = max - min;
+        ///////////////////////////////////////////////////////////////////
+        ///** 
+        //    Calculates lower Real roots bounds. <br/>
+        //    There are no Real roots in interval <negX, posX>. Determined by Fujiwara method.
+        //    @see {@link http://en.wikipedia.org/wiki/Properties_of_polynomial_roots}
 
-                        if (dy == 0)
-                        {
-                            //stepMethod = 'bisect';
-                            x_correction = x - (min + dx * 0.5);
-                        }
-                        else if (Math.Abs(dy / Math.Min(y_atmin, y_atmax)) > RATIO_LIMIT)
-                        {
-                            //stepMethod = 'aimed bisect';
-                            x_correction = x - (min + dx * (0.5 + (Math.Abs(y_atmin) < Math.Abs(y_atmax) ? -AIMED_BISECT_OFFSET : AIMED_BISECT_OFFSET)));
-                        }
-                        else
-                        {
-                            //stepMethod = 'secant'; 
-                            x_correction = x - (min - y_atmin / dy * dx);
-                        }
-                        x_new = x - x_correction;
+        //    @returns {{ negX: Number, posX: Number }}
+        //*/
+        //public (double negX, double posX) BoundsLowerRealFujiwara()
+        //{
+        //    var poly = new PolynomialX();
+        //    poly.Coefficients = Coefficients.Slice();
+        //    Array.Reverse(poly.Coefficients);
+        //    var res = poly.BoundsUpperRealFujiwara();
+        //    res.negX = 1 / res.negX;
+        //    res.posX = 1 / res.posX;
+        //    return res;
+        //}
 
-                        if ((Math.Abs(x_correction) <= min_correction_factor * Math.Abs(x))
-                        || (prev_x_ef_correction == (x - x_correction) - x))
-                        {
-                            break;
-                        }
-                    }
-                }
-                //details.Add([stepMethod, i, x, x_new, x_correction, min, max, y]);
-                prev_x_ef_correction = x - x_new;
-                x = x_new;
-            }
-            //details.Add([stepMethod, i, x, x_new, x_correction, min, max, y]);
-            //console.log(details.join('\r\n'));
-            //if (i == max_iterations)
-            //    console.log('newt: steps=' + ((i==max_iterations)? i:(i + 1)));
-            return x;
-        }
+        ///////////////////////////////////////////////////////////////////
+        //        /** 
+        //            Calculates left and right Real roots bounds. <br/>
+        //            Real roots are in interval [minX, maxX]. Combines Fujiwara lower and upper bounds to get minimal interval.
+        //            @see {@link http://en.wikipedia.org/wiki/Properties_of_polynomial_roots}
+
+        //            @returns {{ minX: Number, maxX: Number }}
+        //*/
+        //        public (double minX, double maxX) Bounds()
+        //        {
+        //            var urb = BoundsUpperRealFujiwara();
+        //            var rb = (minX: urb.negX, maxX: urb.posX);
+        //            if (urb.negX == 0 && urb.posX == 0)
+        //                return rb;
+        //            if (urb.negX == 0)
+        //            {
+        //                rb.minX = BoundsLowerRealFujiwara().posX;
+        //            }
+        //            else if (urb.posX == 0)
+        //            {
+        //                rb.maxX = BoundsLowerRealFujiwara().negX;
+        //            }
+        //            if (rb.minX > rb.maxX)
+        //            {
+        //                //console.log('public void bounds: poly has no real roots? or floating point error?');
+        //                rb.minX = rb.maxX = 0;
+        //            }
+        //            return rb;
+        //            // TODO: if sure that there are no complex roots 
+        //            // (maybe by using Sturm's theorem) use:
+        //            //return this.bounds_Real_Laguerre();
+        //        }
+
+        //        /////////////////////////////////////////////////////////////////// 
+        //        /**
+        //            Newton's (Newton-Raphson) method for finding Real roots on univariate function. <br/>
+        //            When using bounds, algorithm falls back to secant if newton goes out of range.
+        //            Bisection is fallback for secant when determined secant is not efficient enough.
+        //            @see {@link http://en.wikipedia.org/wiki/Newton%27s_method}
+        //            @see {@link http://en.wikipedia.org/wiki/Secant_method}
+        //            @see {@link http://en.wikipedia.org/wiki/Bisection_method}
+
+        //            @param {Number} x0 - Inital root guess
+        //            @param {function(x)} f - Function which root we are trying to find
+        //            @param {function(x)} df - Derivative of function f
+        //            @param {Number} max_iterations - Maximum number of algorithm iterations
+        //            @param {Number} [min_x] - Left bound value
+        //            @param {Number} [max_x] - Right bound value
+        //            @returns {Number} - root
+        //*/
+        //        public double NewtonSecantBisection(double x0, Func<double, double> f, Func<double, double> df, int max_iterations, double min, double max)
+        //        {
+        //            double prev_dfx = 0, dfx, prev_x_ef_correction = 0, x_correction, x_new;
+        //            double v, y_atmin = 0, y_atmax = 0;
+        //            var x = x0;
+        //            var ACCURACY = 14;
+        //            var min_correction_factor = Math.Pow(10, -ACCURACY);
+        //            var isBounded = (min is double && max is double);
+        //            if (isBounded)
+        //            {
+        //                if (min > max)
+        //                    throw new Exception("newton root finding: min must be greater than max");
+        //                y_atmin = f(min);
+        //                y_atmax = f(max);
+        //                if (Math.Sign(y_atmin) == Math.Sign(y_atmax))
+        //                    throw new Exception("newton root finding: y values of bounds must be of opposite sign");
+        //            }
+
+        //            int i;
+        //            //var stepMethod;
+        //            //var details = [];
+        //            for (i = 0; i < max_iterations; i++)
+        //            {
+        //                dfx = df(x);
+        //                if (dfx == 0)
+        //                {
+        //                    if (prev_dfx == 0)
+        //                    {
+        //                        // error
+        //                        throw new Exception("newton root finding: df(x) is zero");
+        //                        //return null;
+        //                    }
+        //                    else
+        //                    {
+        //                        // use previous derivation value
+        //                        dfx = prev_dfx;
+        //                    }
+        //                    // or move x a little?
+        //                    //dfx = df(x != 0 ? x + x * 1e-15 : 1e-15);
+        //                }
+        //                //stepMethod = 'newton';
+        //                prev_dfx = dfx;
+        //                var y = f(x);
+        //                x_correction = y / dfx;
+        //                x_new = x - x_correction;
+        //                if ((Math.Abs(x_correction) <= min_correction_factor * Math.Abs(x))
+        //                        || (prev_x_ef_correction == (x - x_correction) - x))
+        //                {
+        //                    break;
+        //                }
+
+        //                if (isBounded)
+        //                {
+        //                    if (Math.Sign(y) == Math.Sign(y_atmax))
+        //                    {
+        //                        max = x;
+        //                        y_atmax = y;
+        //                    }
+        //                    else if (Math.Sign(y) == Math.Sign(y_atmin))
+        //                    {
+        //                        min = x;
+        //                        y_atmin = y;
+        //                    }
+        //                    else
+        //                    {
+        //                        x = x_new;
+        //                        //console.log("newton root finding: sign(y) not matched.");
+        //                        break;
+        //                    }
+
+        //                    if ((x_new < min) || (x_new > max))
+        //                    {
+        //                        if (Math.Sign(y_atmin) == Math.Sign(y_atmax))
+        //                        {
+        //                            break;
+        //                        }
+
+        //                        var RATIO_LIMIT = 50;
+        //                        var AIMED_BISECT_OFFSET = 0.25; // [0, 0.5)
+        //                        var dy = y_atmax - y_atmin;
+        //                        var dx = max - min;
+
+        //                        if (dy == 0)
+        //                        {
+        //                            //stepMethod = 'bisect';
+        //                            x_correction = x - (min + dx * 0.5);
+        //                        }
+        //                        else if (Math.Abs(dy / Math.Min(y_atmin, y_atmax)) > RATIO_LIMIT)
+        //                        {
+        //                            //stepMethod = 'aimed bisect';
+        //                            x_correction = x - (min + dx * (0.5 + (Math.Abs(y_atmin) < Math.Abs(y_atmax) ? -AIMED_BISECT_OFFSET : AIMED_BISECT_OFFSET)));
+        //                        }
+        //                        else
+        //                        {
+        //                            //stepMethod = 'secant'; 
+        //                            x_correction = x - (min - y_atmin / dy * dx);
+        //                        }
+        //                        x_new = x - x_correction;
+
+        //                        if ((Math.Abs(x_correction) <= min_correction_factor * Math.Abs(x))
+        //                        || (prev_x_ef_correction == (x - x_correction) - x))
+        //                        {
+        //                            break;
+        //                        }
+        //                    }
+        //                }
+        //                //details.Add([stepMethod, i, x, x_new, x_correction, min, max, y]);
+        //                prev_x_ef_correction = x - x_new;
+        //                x = x_new;
+        //            }
+        //            //details.Add([stepMethod, i, x, x_new, x_correction, min, max, y]);
+        //            //console.log(details.join('\r\n'));
+        //            //if (i == max_iterations)
+        //            //    console.log('newt: steps=' + ((i==max_iterations)? i:(i + 1)));
+        //            return x;
+        //        }
 
         #region Overrides
 
@@ -1845,9 +1848,9 @@ namespace Engine.Geometry
             if (IsZero) return "0";
             else
             {
-                string s = "";
+                var s = "";
 
-                for (int i = 0; i < Degree + 1; i++)
+                for (var i = 0; i < Degree + 1; i++)
                 {
                     if (Coefficients[i] != Complex.Zero)
                     {

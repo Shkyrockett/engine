@@ -1,11 +1,11 @@
-﻿// <copyright file="Gear.cs" company="Shkyrockett" >
-//     Copyright © 2015 - 2018 Shkyrockett. All rights reserved.
+﻿// <copyright file="Star.cs" company="Shkyrockett" >
+//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-// <summary></summary>
+// <summary>http://csharphelper.com/blog/2014/08/draw-a-star-in-c/</summary>
 // <remarks></remarks>
 
 using System;
@@ -14,23 +14,22 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// http://csharphelper.com/blog/2015/08/animate-gears-with-unequal-sizes-in-c/
-    /// http://csharphelper.com/blog/2015/08/draw-gears-in-c/
+    /// The elliptic star class.
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
-    [DisplayName(nameof(Gear))]
-    public class Gear
+    [DisplayName("ElipticStar")]
+    public class EllipticStar
         : PolygonContour
     {
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this == null) return nameof(Gear);
-            return string.Format("{0}", nameof(Gear));
+            if (this == null) return "ElipticStar";
+            return "ElipticStar";
         }
     }
 }

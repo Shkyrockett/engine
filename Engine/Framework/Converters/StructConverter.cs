@@ -37,15 +37,15 @@ namespace Engine
         /// <summary>
         /// The descriptions.
         /// </summary>
-        private PropertyDescriptorCollection descriptions;
+        private readonly PropertyDescriptorCollection descriptions;
 
         /// <summary>
         /// The instance ctor param names.
         /// </summary>
-        private string[] instanceCtorParamNames;
+        private readonly string[] instanceCtorParamNames;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StructConverter"/> class.
+        /// Initializes a new instance of the <see cref="StructConverter{TType}"/> class.
         /// </summary>
         public StructConverter()
         {

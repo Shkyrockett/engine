@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The matrix4x4d struct.
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
@@ -938,7 +938,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

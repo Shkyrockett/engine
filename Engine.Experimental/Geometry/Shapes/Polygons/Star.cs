@@ -24,25 +24,25 @@ namespace Engine
     public class Star
         : PolygonContour
     {
-        // Draw the indicated star in the rectangle.
-        /// <summary>
-        /// The draw star.
-        /// </summary>
-        /// <param name="gr">The gr.</param>
-        /// <param name="the_pen">The the_pen.</param>
-        /// <param name="the_brush">The the_brush.</param>
-        /// <param name="num_points">The num_points.</param>
-        /// <param name="skip">The skip.</param>
-        /// <param name="rect">The rect.</param>
-        private void DrawStar(Graphics gr, Pen the_pen, Brush the_brush, int num_points, int skip, Rectangle rect)
-        {
-            // Get the star's points.
-            var star_points = MakeStarPoints(-PI / 2, num_points, skip, rect);
+        //// Draw the indicated star in the rectangle.
+        ///// <summary>
+        ///// The draw star.
+        ///// </summary>
+        ///// <param name="gr">The gr.</param>
+        ///// <param name="the_pen">The the_pen.</param>
+        ///// <param name="the_brush">The the_brush.</param>
+        ///// <param name="num_points">The num_points.</param>
+        ///// <param name="skip">The skip.</param>
+        ///// <param name="rect">The rect.</param>
+        //private void DrawStar(Graphics gr, Pen the_pen, Brush the_brush, int num_points, int skip, Rectangle rect)
+        //{
+        //    // Get the star's points.
+        //    var star_points = MakeStarPoints(-PI / 2, num_points, skip, rect);
 
-            // Draw the star.
-            gr.FillPolygon(the_brush, star_points);
-            gr.DrawPolygon(the_pen, star_points);
-        }
+        //    // Draw the star.
+        //    gr.FillPolygon(the_brush, star_points);
+        //    gr.DrawPolygon(the_pen, star_points);
+        //}
 
         // Generate the points for a star.
         /// <summary>
@@ -53,7 +53,7 @@ namespace Engine
         /// <param name="skip">The skip.</param>
         /// <param name="rect">The rect.</param>
         /// <returns>The <see cref="T:PointF[]"/>.</returns>
-        private PointF[] MakeStarPoints(double start_theta, int num_points, int skip, Rectangle rect)
+        private static PointF[] MakeStarPoints(double start_theta, int num_points, int skip, Rectangle rect)
         {
             double theta, dtheta;
             PointF[] result;
@@ -104,7 +104,7 @@ namespace Engine
         /// <param name="num_points">The num_points.</param>
         /// <param name="skip">The skip.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        private double CalculateConcaveRadius(int num_points, int skip)
+        private static double CalculateConcaveRadius(int num_points, int skip)
         {
             // For really small numbers of points.
             if (num_points < 5) return 0.33f;

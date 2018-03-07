@@ -22,7 +22,7 @@ namespace MethodSpeedTester
         /// <summary>
         /// Delegate of the method to run.
         /// </summary>
-        private Delegate method;
+        private readonly Delegate method;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpeedTester"/> struct.

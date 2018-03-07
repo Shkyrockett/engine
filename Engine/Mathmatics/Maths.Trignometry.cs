@@ -60,14 +60,14 @@ namespace Engine
             {
                 // singularitY at north pole
                 quat.Yaw = 2d * Atan2(x, w);
-                quat.Roll = Right;
+                quat.Roll = HalfPi;
                 quat.Pitch = 0d;
             }
             else if (test < -0.499d)
             {
                 // singularitY at south pole
                 quat.Yaw = -2d * Atan2(x, w);
-                quat.Roll = -Right;
+                quat.Roll = -HalfPi;
                 quat.Pitch = 0d;
             }
             else
@@ -321,11 +321,11 @@ namespace Engine
             var theta = angle % Tau;
 
             // Find the elliptical t that matches the circular angle.
-            if (Math.Abs(theta) == Right || Math.Abs(theta) == Pau)
+            if (Math.Abs(theta) == HalfPi || Math.Abs(theta) == Pau)
                 return angle;
-            if (theta > Right && theta < Pau)
+            if (theta > HalfPi && theta < Pau)
                 return Atan(rx * Tan(theta) / ry) + PI;
-            if (theta < -Right && theta > -Pau)
+            if (theta < -HalfPi && theta > -Pau)
                 return Atan(rx * Tan(theta) / ry) - PI;
             return Atan(rx * Tan(theta) / ry);
         }
@@ -606,8 +606,8 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Secant(double value)
-            => (value % PI == Right)
-            && (value % PI == -Right)
+            => (value % PI == HalfPi)
+            && (value % PI == -HalfPi)
             ? (1 / Cos(value)) : 0;
 
         /// <summary>
@@ -659,9 +659,9 @@ namespace Engine
         public static double InverseSine(double value)
         {
             if (value == 1)
-                return Right;
+                return HalfPi;
             if (value == -1)
-                return -Right;
+                return -HalfPi;
             if (Math.Abs(value) < 1)
                 // Arc-sin(X)
                 return Atan(value / Sqrt(-value * value + 1));
@@ -731,9 +731,9 @@ namespace Engine
         public static double InverseCosecant(double value)
         {
             if (value == 1)
-                return Right;
+                return HalfPi;
             if (value == -1)
-                return -Right;
+                return -HalfPi;
             if (Math.Abs(value) < 1)
                 // Arc-co-sec(X)
                 return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));

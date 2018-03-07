@@ -21,100 +21,68 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The transform2d struct.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct Transform2D
-        : IFormattable,
+        : IPrimitive, // IMatrix<Transform2D, Vector2D>,
         IEquatable<Transform2D>
     {
         #region Implementations
         /// <summary>
-        ///
+        /// The identity.
         /// </summary>
         public static Transform2D Identity = new Transform2D(0, 0, 0, 0, 1, 1);
         #endregion Implementations
 
-        #region Fields
-        /// <summary>
-        ///
-        /// </summary>
-        private double x;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double y;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double skewX;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double skewY;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double scaleX;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double scaleY;
-        #endregion Fields
-
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Transform2D"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">The tuple.</param>
         public Transform2D((double x, double y, double skewX, double skewY, double scaleX, double scaleY) tuple)
         {
-            (x, y, skewX, skewY, scaleX, scaleY) = tuple;
+            (X, Y, SkewX, SkewY, ScaleX, ScaleY) = tuple;
         }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Transform2D"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="skewX"></param>
-        /// <param name="skewY"></param>
-        /// <param name="scaleX"></param>
-        /// <param name="scaleY"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="skewX">The skewX.</param>
+        /// <param name="skewY">The skewY.</param>
+        /// <param name="scaleX">The scaleX.</param>
+        /// <param name="scaleY">The scaleY.</param>
         public Transform2D(double x, double y, double skewX, double skewY, double scaleX, double scaleY)
         {
-            this.x = x;
-            this.y = y;
-            this.skewX = skewX;
-            this.skewY = skewY;
-            this.scaleX = scaleX;
-            this.scaleY = scaleY;
+            this.X = x;
+            this.Y = y;
+            this.SkewX = skewX;
+            this.SkewY = skewY;
+            this.ScaleX = scaleX;
+            this.ScaleY = scaleY;
         }
         #endregion Constructors
 
         #region Deconstructors
         /// <summary>
-        ///
+        /// The deconstruct.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="skewX"></param>
-        /// <param name="skewY"></param>
-        /// <param name="scaleX"></param>
-        /// <param name="scaleY"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="skewX">The skewX.</param>
+        /// <param name="skewY">The skewY.</param>
+        /// <param name="scaleX">The scaleX.</param>
+        /// <param name="scaleY">The scaleY.</param>
         public void Deconstruct(out double x, out double y, out double skewX, out double skewY, out double scaleX, out double scaleY)
         {
-            x = this.x;
-            y = this.y;
-            skewX = this.skewX;
-            skewY = this.skewY;
-            scaleX = this.scaleX;
-            scaleY = this.scaleY;
+            x = this.X;
+            y = this.Y;
+            skewX = this.SkewX;
+            skewY = this.SkewY;
+            scaleX = this.ScaleX;
+            scaleY = this.ScaleY;
         }
         #endregion Deconstructors
 
@@ -122,26 +90,26 @@ namespace Engine
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate of the location of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute(nameof(x))]
+        [XmlAttribute("x")]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The center x coordinate location of the " + nameof(Transform2D) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double X { get { return x; } set { x = value; } }
+        public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Y"/> coordinate of the location of the <see cref="Transform2D"/>.
         /// </summary>
-        [XmlAttribute(nameof(y))]
+        [XmlAttribute("y")]
         [Browsable(true)]
         [Category("Elements")]
         [Description("The center y coordinate location of the " + nameof(Transform2D) + ".")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double Y { get { return y; } set { y = value; } }
+        public double Y { get; set; }
 
         /// <summary>
         /// Gets or sets the horizontal skew value of the <see cref="Transform2D"/>.
@@ -153,7 +121,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double SkewX { get { return skewX; } set { skewX = value; } }
+        public double SkewX { get; set; }
 
         /// <summary>
         /// Gets or sets the vertical skew value of the <see cref="Transform2D"/>.
@@ -165,7 +133,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double SkewY { get { return skewY; } set { skewY = value; } }
+        public double SkewY { get; set; }
 
         /// <summary>
         /// Gets or sets the horizontal scale of the <see cref="Transform2D"/>.
@@ -177,7 +145,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double ScaleX { get { return scaleX; } set { scaleX = value; } }
+        public double ScaleX { get; set; }
 
         /// <summary>
         /// Gets or sets the vertical scale of the <see cref="Transform2D"/>.
@@ -189,7 +157,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double ScaleY { get { return scaleY; } set { scaleY = value; } }
+        public double ScaleY { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="Rotation"/> angle of the <see cref="Transform2D"/> in Radians.
@@ -205,12 +173,12 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public double Rotation
         {
-            get { return skewY; }
+            get { return SkewY; }
             set
             {
-                var delta = value - skewY;
-                skewX += delta;
-                skewY += delta;
+                var delta = value - SkewY;
+                SkewX += delta;
+                SkewY += delta;
             }
         }
 
@@ -246,16 +214,16 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Location
         {
-            get { return new Point2D(x, y); }
+            get { return new Point2D(X, Y); }
             set
             {
-                x = value.X;
-                y = value.Y;
+                X = value.X;
+                Y = value.Y;
             }
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="skewY"/> vector of the <see cref="Transform2D"/>
+        /// Gets or sets the <see cref="SkewY"/> vector of the <see cref="Transform2D"/>
         /// </summary>
         /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
@@ -268,11 +236,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Vector2D Skew
         {
-            get { return new Vector2D(x, y); }
+            get { return new Vector2D(X, Y); }
             set
             {
-                skewX = value.I;
-                skewY = value.J;
+                SkewX = value.I;
+                SkewY = value.J;
             }
         }
 
@@ -290,11 +258,11 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Size2D Scale
         {
-            get { return new Size2D(x, y); }
+            get { return new Size2D(X, Y); }
             set
             {
-                scaleX = value.Width;
-                scaleY = value.Height;
+                ScaleX = value.Width;
+                ScaleY = value.Height;
             }
         }
         #endregion Properties
@@ -355,10 +323,10 @@ namespace Engine
 
         #region Factories
         /// <summary>
-        ///
+        /// The from matrix.
         /// </summary>
-        /// <param name="matrix"></param>
-        /// <returns></returns>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>The <see cref="Transform2D"/>.</returns>
         public static Transform2D FromMatrix(Matrix3x2D matrix)
         {
             const int backupScaleX = 0;//scaleX;
@@ -388,24 +356,24 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The to matrix.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Matrix3x2D"/>.</returns>
         public Matrix3x2D ToMatrix()
             => new Matrix3x2D(ScaleX * Cos(SkewY), ScaleX * Sin(SkewY), -ScaleY * Sin(SkewX), ScaleY * Cos(SkewX), X, Y);
         #endregion Factories
 
         #region Methods
         /// <summary>
-        ///
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode()
             => X.GetHashCode()
             ^ Y.GetHashCode()
-            ^ skewX.GetHashCode()
+            ^ SkewX.GetHashCode()
             ^ SkewY.GetHashCode()
-            ^ scaleX.GetHashCode()
+            ^ ScaleX.GetHashCode()
             ^ ScaleY.GetHashCode();
 
         /// <summary>
@@ -420,29 +388,29 @@ namespace Engine
             => Equals(a, b);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Transform2D a, Transform2D b)
-            => a.X == b.X & a.Y == b.Y & a.skewX == b.skewX & a.SkewY == b.SkewY & a.scaleX == b.scaleX & a.scaleY == b.scaleY;
+            => a.X == b.X & a.Y == b.Y & a.SkewX == b.SkewX & a.SkewY == b.SkewY & a.ScaleX == b.ScaleX & a.ScaleY == b.ScaleY;
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Transform2D && Equals(this, (Transform2D)obj);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Transform2D value)
             => Equals(this, value);
@@ -465,7 +433,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

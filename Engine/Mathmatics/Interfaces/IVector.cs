@@ -15,12 +15,12 @@ using System.ComponentModel;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IVector interface.
     /// </summary>
-    /// <typeparam name="V"></typeparam>
+    /// <typeparam name="V">The V.</typeparam>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IVector<V>
-        : IFormattable, //IComparable<V>, //IConvertible,
+        : IPrimitive, //IComparable<V>, //IConvertible,
         IEquatable<V> where V : struct, IVector<V>
     { }
 }

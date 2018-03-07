@@ -32,7 +32,7 @@ namespace Engine
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="PolygonContour"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PolygonContour RegularConvexPolygon(double x, double y, double radius, int count, double angle = -Right)
+        public static PolygonContour RegularConvexPolygon(double x, double y, double radius, int count, double angle = -HalfPi)
         {
             var points = new Point2D[count];
             var theta = angle;
@@ -56,12 +56,12 @@ namespace Engine
         /// <summary>
         /// the minimum values of the phase angle "t".
         /// </summary>
-        private const double tmin = -PI * 0.5d;
+        private const double tmin = -HalfPi;
 
         /// <summary>
         /// the maximum values of the phase angle "t".
         /// </summary>
-        private const double tmax = 3d * PI * 0.5d;
+        private const double tmax = Pau;
 
         /// <summary>
         /// The heart curve.
@@ -107,7 +107,7 @@ namespace Engine
                 }
 
                 // The phase angle [radian] of a Cardioid after the final conversion into a horned one
-                var f = -alpha * z / PI + PI * 0.5d;
+                var f = -alpha * z / PI + PI * OneHalf;
 
                 points.Add(new Point2D(-(r * Cos(f)) * scale + x, -(beta * r * Sin(f)) * scale + y + radius));
             }
@@ -126,8 +126,8 @@ namespace Engine
         {
             // ToDo: Optimize algorithm to calculate minimum points for minimum curves.
             var heart = HeartCurve(x, y, radius, 0.9d, OneThird);
-            var first = CurveFit.Fit(heart.Take(heart.Count / 2).ToList(), 0.5d);
-            var last = CurveFit.Fit(heart.Skip(heart.Count / 2).ToList(), 0.5d);
+            var first = CurveFit.Fit(heart.Take(heart.Count / 2).ToList(), OneHalf);
+            var last = CurveFit.Fit(heart.Skip(heart.Count / 2).ToList(), OneHalf);
             var heartCurve = new PolycurveContour(first);
             heartCurve.AddCubicBeziers(last);
             return heartCurve;

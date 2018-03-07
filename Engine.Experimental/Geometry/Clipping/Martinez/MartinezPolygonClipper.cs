@@ -355,7 +355,7 @@ namespace Engine
         /// <param name="u1">The u1.</param>
         /// <param name="v0">The v0.</param>
         /// <param name="v1">The v1.</param>
-        /// <returns>The <see cref="(int, double[] w)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         private static (int, double[] w) FindIntersection(double u0, double u1, double v0, double v1)
         {
             var w = new double[2];

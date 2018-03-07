@@ -381,10 +381,15 @@ namespace Engine
         public static EllipticalArc[] Split(this Ellipse ellipse, params double[] ts)
         {
             if (ts == null)
+            {
                 return new[] { Split(ellipse, 0) };
+            }
+
             var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
+            {
                 return new[] { Split(ellipse, 0) };
+            }
 
             var arc = Split(ellipse, filtered[0]);
             var tLast = 0d;
@@ -425,7 +430,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EllipticalArc[] Split(this EllipticalArc arc, double t)
         {
-            if (t < 0 || t > 1) throw new ArgumentOutOfRangeException();
+            if (t < 0 || t > 1)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             return new[] {
                 new EllipticalArc(arc.Center, arc.RX, arc.RY, arc.Angle, arc.StartAngle, (arc.SweepAngle * t)),
                 new EllipticalArc(arc.Center, arc.RX, arc.RY, arc.Angle, (arc.StartAngle + (arc.SweepAngle * t)), (arc.SweepAngle - (arc.SweepAngle * t)))
@@ -443,10 +452,15 @@ namespace Engine
         public static EllipticalArc[] Split(this EllipticalArc arc, params double[] ts)
         {
             if (ts == null)
+            {
                 return new[] { arc };
+            }
+
             var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
+            {
                 return new[] { arc };
+            }
 
             var tLast = 0d;
             var start = arc;
@@ -478,7 +492,7 @@ namespace Engine
         /// <summary>
         /// The split.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
         [DebuggerStepThrough]
@@ -489,7 +503,7 @@ namespace Engine
         /// <summary>
         /// The split.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
         [DebuggerStepThrough]
@@ -520,7 +534,7 @@ namespace Engine
         /// <summary>
         /// The split.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
         [DebuggerStepThrough]
@@ -531,7 +545,7 @@ namespace Engine
         /// <summary>
         /// The split.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
         [DebuggerStepThrough]
@@ -542,7 +556,7 @@ namespace Engine
         /// <summary>
         /// The split.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
         [DebuggerStepThrough]
@@ -579,7 +593,7 @@ namespace Engine
         /// <summary>
         /// The split.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
         [DebuggerStepThrough]
@@ -590,7 +604,7 @@ namespace Engine
         /// <summary>
         /// The split.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
         [DebuggerStepThrough]
@@ -601,7 +615,7 @@ namespace Engine
         /// <summary>
         /// The split.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
         [DebuggerStepThrough]
@@ -639,7 +653,7 @@ namespace Engine
         /// <summary>
         /// The split.
         /// </summary>
-        /// <param name="bezier">The bezier.</param>
+        /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
         /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
         //[DebuggerStepThrough]

@@ -31,13 +31,13 @@ namespace Engine.Experimental
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArrayMap"/> class.
+        /// Initializes a new instance of the <see cref="ArrayMap{T}"/> class.
         /// </summary>
         public ArrayMap()
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArrayMap"/> class.
+        /// Initializes a new instance of the <see cref="ArrayMap{T}"/> class.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
@@ -46,7 +46,7 @@ namespace Engine.Experimental
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ArrayMap"/> class.
+        /// Initializes a new instance of the <see cref="ArrayMap{T}"/> class.
         /// </summary>
         /// <param name="size">The size.</param>
         public ArrayMap(Size2D size)

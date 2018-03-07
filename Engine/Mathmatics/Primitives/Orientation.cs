@@ -25,7 +25,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    [DebuggerDisplay("Roll: {Roll}, Pitch: {Pitch}, Yaw: {Yaw}")]
+    //[DebuggerDisplay("Roll: {Roll}, Pitch: {Pitch}, Yaw: {Yaw}")]
     public struct Orientation
         : IVector<Vector3D>
     {
@@ -301,7 +301,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

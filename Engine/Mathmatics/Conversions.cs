@@ -146,7 +146,7 @@ namespace Engine
             var stop = startAngle + sweepAngle;
             startAngle += SubtendedToParametric(startAngle, rx, ry);
             sweepAngle = stop + SubtendedToParametric(stop, rx, ry) - startAngle;
-            var segs = Ceiling(Abs(sweepAngle) / Right);
+            var segs = Ceiling(Abs(sweepAngle) / HalfPi);
             var theta = sweepAngle / segs;  /* arc size of each segment */
             var tanT2 = Tan(theta * OneHalf);
             var alpha = Sin(theta) * (Sqrt(4 + 3 * tanT2 * tanT2) - 1) * OneThird;

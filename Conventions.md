@@ -788,7 +788,7 @@ Please use the following as a template for IFormatable Structs/Classes, or objec
         /// <returns>
         /// A string representation of this instance as specified by format and provider.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

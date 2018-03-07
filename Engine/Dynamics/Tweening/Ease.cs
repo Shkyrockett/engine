@@ -813,7 +813,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineIn(double t, double b, double c, double d)
-            => -c * Cos(t / d * Right) + c + b;
+            => -c * Cos(t / d * HalfPi) + c + b;
 
         /// <summary>
         /// Sine in.
@@ -828,7 +828,7 @@ namespace Engine.Tweening
         public static double SineIn(double t)
             => (Abs(t - 1d) < Epsilon)
             ? 1d
-            : (-Cos(Right * t) + 1d);
+            : (-Cos(HalfPi * t) + 1d);
 
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing out:
@@ -845,7 +845,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOut(double t, double b, double c, double d)
-            => c * Sin(t / d * Right) + b;
+            => c * Sin(t / d * HalfPi) + b;
 
         /// <summary>
         /// Sine out.
@@ -858,7 +858,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOut(double t)
-            => (Sin(Right * t));
+            => (Sin(HalfPi * t));
 
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
@@ -876,8 +876,8 @@ namespace Engine.Tweening
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineInOut(double t, double b, double c, double d)
             => ((t /= d * 0.5d) < 1)
-            ? c * 0.5d * (Sin(Right * t)) + b
-            : -c * 0.5d * (Cos(Right * --t) - 2) + b;
+            ? c * 0.5d * (Sin(HalfPi * t)) + b
+            : -c * 0.5d * (Cos(HalfPi * --t) - 2) + b;
 
         /// <summary>
         /// Sine in and out
@@ -1088,7 +1088,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticIn(double t)
-            => (Sin(13d * Right * t) * Pow(2d, 10d * (t - 1d)));
+            => (Sin(13d * HalfPi * t) * Pow(2d, 10d * (t - 1d)));
 
         /// <summary>
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing out:
@@ -1126,7 +1126,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOut(double t)
-            => (Abs(t - 1d) < Epsilon) ? 1d : (Sin(-13d * Right * (t + 1d)) * Pow(2d, -10d * t) + 1d);
+            => (Abs(t - 1d) < Epsilon) ? 1d : (Sin(-13d * HalfPi * (t + 1d)) * Pow(2d, -10d * t) + 1d);
 
         /// <summary>
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing in/out:
@@ -1167,8 +1167,8 @@ namespace Engine.Tweening
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticInOut(double t)
             => (t < 0.5d) ?
-                (0.5d * Sin(13d * Right * (2d * t)) * Pow(2d, 10d * ((2d * t) - 1d))) :
-                (0.5d * (Sin(-13d * Right * ((2d * t - 1) + 1d)) * Pow(2d, -10d * (2d * t - 1d)) + 2d));
+                (0.5d * Sin(13d * HalfPi * (2d * t)) * Pow(2d, 10d * ((2d * t) - 1d))) :
+                (0.5d * (Sin(-13d * HalfPi * ((2d * t - 1) + 1d)) * Pow(2d, -10d * (2d * t - 1d)) + 2d));
 
         /// <summary>
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in:

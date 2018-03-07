@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The matrix3x3d struct.
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
@@ -536,7 +536,7 @@ namespace Engine
                 }
                 else
                 {
-                    zAngle = Right;
+                    zAngle = HalfPi;
                     yAngle = Atan(axis.K / axis.J);
                 }
             }
@@ -856,7 +856,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

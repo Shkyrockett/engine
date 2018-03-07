@@ -12,12 +12,12 @@ namespace Engine.Geometry
     /// <summary>
     /// 
     /// </summary>
-    public class FactorizedPolynomial
+    public class FactorizedPolynomialX
     {
         /// <summary>
         /// Set of factors the polynomial  consists of.
         /// </summary>
-        public Polynomial[] Factor;
+        public PolynomialX[] Factor;
 
         /// <summary>
         /// Set of powers, where Factor[i] is lifted

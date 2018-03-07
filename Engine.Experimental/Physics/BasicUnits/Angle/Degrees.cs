@@ -19,7 +19,7 @@ using System.Runtime.Serialization;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The degrees struct.
     /// </summary>
     [DataContract, Serializable]
     [DisplayName(nameof(Degrees))]
@@ -230,7 +230,7 @@ namespace Engine.Physics
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

@@ -23,12 +23,12 @@ using System.Diagnostics;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The size2d struct.
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Size2D>))]
-    [DebuggerDisplay("Width: {Width}, Height: {Height}")]
+    //[DebuggerDisplay("Width: {Width}, Height: {Height}")]
     public struct Size2D
         : IVector<Size2D>
     {
@@ -383,22 +383,23 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        ///
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode() => Width.GetHashCode()
-    ^ Height.GetHashCode();
+        /// <returns>The <see cref="int"/>.</returns>
+        public override int GetHashCode()
+            => Width.GetHashCode()
+            ^ Height.GetHashCode();
 
         /// <summary>
-        ///
+        /// The to point2d.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public Point2D ToPoint2D() => (Point2D)this;
 
         /// <summary>
-        ///
+        /// The truncate.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         public Size2D Truncate() => new Size2D((int)Width, (int)Height);
 
         /// <summary>
@@ -429,7 +430,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>
@@ -446,7 +447,6 @@ namespace Engine
         internal string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Size2D);
-            //return string.Format(CultureInfo.CurrentCulture, "{0}{{{1}={2},{3}={4}}}", nameof(Size2D), nameof(Width), Width, nameof(Height), Height);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Size2D)}({nameof(Width)}={Width}{sep}{nameof(Height)}={Height})";
             return formatable.ToString(format, provider);

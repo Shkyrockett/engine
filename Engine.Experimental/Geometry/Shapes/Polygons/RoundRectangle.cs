@@ -10,7 +10,7 @@
 
 using Engine.Imaging;
 using System;
-using System.Drawing.Drawing2D;
+//using System.Drawing.Drawing2D;
 using System.Runtime.Serialization;
 
 namespace Engine
@@ -34,11 +34,11 @@ namespace Engine
         /// </summary>
         private Rectangle2D bounds;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        [NonSerialized]
-        private GraphicsPath path;
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        //[NonSerialized]
+        //private GraphicsPath path;
 
         /// <summary>
         /// 
@@ -56,7 +56,7 @@ namespace Engine
         {
             this.radius = radius;
             this.bounds = bounds;
-            path = InterpolatePath();
+            //path = InterpolatePath();
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Engine
             set
             {
                 bounds = value;
-                path = InterpolatePath();
+                //path = InterpolatePath();
             }
         }
 
@@ -81,48 +81,48 @@ namespace Engine
             set
             {
                 radius = value;
-                path = InterpolatePath();
+                //path = InterpolatePath();
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public GraphicsPath InterpolatePath()
-            => GetGraphicsPath(bounds, radius);
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <returns></returns>
+        //public GraphicsPath InterpolatePath()
+        //    => GetGraphicsPath(bounds, radius);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="bounds"></param>
-        /// <param name="radius"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        public static GraphicsPath GetGraphicsPath(Rectangle2D bounds, double radius)
-        {
-            //  Start the Path object.
-            var GfxPath = new GraphicsPath();
-            if (!bounds.IsEmpty)
-            {
-                if (radius > 0)
-                {
-                    var diameter = radius * 2;
-                    //  prepare the curves.
-                    GfxPath.AddArc((float)(bounds.X + (bounds.Width - diameter)), (float)bounds.Y, (float)diameter, (float)diameter, 270, 90);
-                    GfxPath.AddArc((float)(bounds.X + (bounds.Width - diameter)), (float)(bounds.Y + (bounds.Height - diameter)), (float)diameter, (float)diameter, 0, 90);
-                    GfxPath.AddArc((float)bounds.X, (float)(bounds.Y + (bounds.Height - diameter)), (float)diameter, (float)diameter, 90, 90);
-                    GfxPath.AddArc((float)bounds.X, (float)bounds.Y, (float)diameter, (float)diameter, 180, 90);
-                    //  Close the path.
-                    GfxPath.CloseFigure();
-                }
-                else
-                {
-                    GfxPath.AddRectangle(bounds.ToRectangleF());
-                }
-            }
-            return GfxPath;
-        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="bounds"></param>
+        ///// <param name="radius"></param>
+        ///// <returns></returns>
+        ///// <remarks></remarks>
+        //public static GraphicsPath GetGraphicsPath(Rectangle2D bounds, double radius)
+        //{
+        //    //  Start the Path object.
+        //    var GfxPath = new GraphicsPath();
+        //    if (!bounds.IsEmpty)
+        //    {
+        //        if (radius > 0)
+        //        {
+        //            var diameter = radius * 2;
+        //            //  prepare the curves.
+        //            GfxPath.AddArc((float)(bounds.X + (bounds.Width - diameter)), (float)bounds.Y, (float)diameter, (float)diameter, 270, 90);
+        //            GfxPath.AddArc((float)(bounds.X + (bounds.Width - diameter)), (float)(bounds.Y + (bounds.Height - diameter)), (float)diameter, (float)diameter, 0, 90);
+        //            GfxPath.AddArc((float)bounds.X, (float)(bounds.Y + (bounds.Height - diameter)), (float)diameter, (float)diameter, 90, 90);
+        //            GfxPath.AddArc((float)bounds.X, (float)bounds.Y, (float)diameter, (float)diameter, 180, 90);
+        //            //  Close the path.
+        //            GfxPath.CloseFigure();
+        //        }
+        //        else
+        //        {
+        //            GfxPath.AddRectangle(bounds.ToRectangleF());
+        //        }
+        //    }
+        //    return GfxPath;
+        //}
 
         /// <summary>
         /// 

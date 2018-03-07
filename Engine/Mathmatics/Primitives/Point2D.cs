@@ -27,7 +27,7 @@ namespace Engine
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Point2D>))]
-    [DebuggerDisplay("X: {X}, Y: {Y}")]
+    //[DebuggerDisplay("X: {X}, Y: {Y}")]
     public struct Point2D
         : IVector<Point2D>
     {
@@ -527,7 +527,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>

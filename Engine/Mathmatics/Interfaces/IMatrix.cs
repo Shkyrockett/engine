@@ -16,13 +16,13 @@ using System.ComponentModel;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IMatrix interface.
     /// </summary>
-    /// <typeparam name="M"></typeparam>
-    /// <typeparam name="V"></typeparam>
+    /// <typeparam name="M">The M.</typeparam>
+    /// <typeparam name="V">The V.</typeparam>
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public interface IMatrix<M, V>
-        : IFormattable,
+        : IPrimitive, 
         IEnumerable<IEnumerable<double>>,
         IEquatable<M> where M : struct, IMatrix<M, V> where V : struct, IVector<V>
     { }

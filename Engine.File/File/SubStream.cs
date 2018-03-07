@@ -34,7 +34,7 @@ namespace Engine.File
         /// <summary>
         /// 
         /// </summary>
-        private Stream baseStream;
+        private readonly Stream baseStream;
 
         /// <summary>
         /// 

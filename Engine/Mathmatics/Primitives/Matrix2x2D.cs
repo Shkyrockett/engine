@@ -25,7 +25,7 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The matrix2x2d struct.
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
@@ -522,9 +522,9 @@ namespace Engine
             => Equals(this, value);
 
         /// <summary>
-        ///
+        /// The to matrix3x3d.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         public Matrix3x3D ToMatrix3x3D()
         {
             var result = Matrix3x3D.Identity;
@@ -561,7 +561,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        string IFormattable.ToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
             => ConvertToString(format, provider);
 
         /// <summary>
@@ -583,9 +583,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
@@ -594,9 +594,9 @@ namespace Engine
             }.GetEnumerator();
 
         /// <summary>
-        ///
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
         #endregion Methods

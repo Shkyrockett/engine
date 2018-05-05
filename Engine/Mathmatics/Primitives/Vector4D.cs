@@ -491,7 +491,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        internal string ConvertToString(string format, IFormatProvider provider)
+        private string ConvertToString(string format, IFormatProvider provider)
         {
             // If the object hasn't been initialized yet, for example reading from reflection, return its name.
 #pragma warning disable RECS0065 // Expression is always 'true' or always 'false'

@@ -422,7 +422,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        internal string ConvertToString(string format, IFormatProvider provider)
+        private string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point3D);
             var sep = Tokenizer.GetNumericListSeparator(provider);

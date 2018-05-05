@@ -7632,7 +7632,7 @@ namespace Engine
                                 if ((t >= 0 ? t : -t) < tolerance)
                                 {
                                     result.Points.Add(point);
-                                    goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
+                                    goto checkRoots; // Break through two levels of for each loops. Using goto for performance.
                                 }
                             }
                         }
@@ -11811,6 +11811,64 @@ namespace Engine
 
             var de = e1[3] * e2[4] - e2[3] * e1[4];
             var df = e1[3] * e2[5] - e2[3] * e1[5];
+
+            var bfPde = bf + de;
+            var beMcd = be - cd;
+
+            return new Polynomial(
+                /* x⁴ */ ab * bc - ac * ac,
+                /* x³ */ ab * beMcd + ad * bc - 2 * ac * ae,
+                /* x² */ ab * bfPde + ad * beMcd - ae * ae - 2 * ac * af,
+                /* x¹ */ ab * df + ad * bfPde - 2 * ae * af,
+                /* c  */ ad * df - af * af);
+        }
+
+        /// <summary>
+        /// Calculate the Bézier curve polynomial of ellipses.
+        /// </summary>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="f1">The f1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="f2">The f2.</param>
+        /// <returns>Returns a <see cref="Polynomial"/> of the ellipse.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
+        /// His code along with many other excellent examples formerly available
+        /// at his site but the latest version now at: https://www.geometrictools.com/
+        /// </acknowledgment>
+        /// <remarks></remarks>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial Bezout(
+            double a1, double b1, double c1, double d1, double e1, double f1,
+            double a2, double b2, double c2, double d2, double e2, double f2)
+        {
+            // 1 | a | b | c | d | e | f |
+            // 2 | a | b | c | d | e | f |
+
+            var ab = a1 * b2 - a2 * b1;
+            var ac = a1 * c2 - a2 * c1;
+            var ad = a1 * d2 - a2 * d1;
+            var ae = a1 * e2 - a2 * e1;
+            var af = a1 * f2 - a2 * f1;
+
+            var bc = b1 * c2 - b2 * c1;
+            var be = b1 * e2 - b2 * e1;
+            var bf = b1 * f2 - b2 * f1;
+
+            var cd = c1 * d2 - c2 * d1;
+
+            var de = d1 * e2 - d2 * e1;
+            var df = d1 * f2 - d2 * f1;
 
             var bfPde = bf + de;
             var beMcd = be - cd;

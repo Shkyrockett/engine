@@ -215,9 +215,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        public static float ProcessSegment(PointF a, PointF b)
-        {
-            return a.X * b.X - a.Y * b.Y;
-        }
+        public static float ProcessSegment(PointF a, PointF b) => a.X * b.X - a.Y * b.Y;
     }
 }

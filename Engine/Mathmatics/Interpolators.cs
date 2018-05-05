@@ -36,6 +36,43 @@ namespace Engine
             from i in Enumerable.Range(0, count)
             select func((1d / count) * i));
 
+        /// <summary>
+        /// The slerp.
+        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <param name="percent">The percent.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        public static Point2D Slerp(Point2D start, Point2D end, float percent)
+        {
+            // Dot product - the cosine of the angle between 2 vectors.
+            // Clamp it to be in the range of Acos()
+            // This may be unnecessary, but floating point
+            // precision can be a fickle mistress.
+            var dot = Maths.Clamp(Primitives.DotProduct(start, end), -1.0f, 1.0f);
+            // Acos(dot) returns the angle between start and end,
+            // And multiplying that by percent returns the angle between
+            // start and the final result.
+            var theta = Math.Acos(dot) * percent;
+            var RelativeVec = end - start * dot;
+            // Orthonormal basis
+            RelativeVec.Normalize();
+            // The final result.
+            return ((start * Math.Cos(theta)) + (RelativeVec * Math.Sin(theta)));
+        }
+
+        /// <summary>
+        /// The nlerp.
+        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <param name="percent">The percent.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        public static Point2D Nlerp(Point2D start, Point2D end, float percent)
+            => (Point2D)((Vector2D)Linear(start, end, percent)).Normalize();
+
         #region Linear Interpolation
         /// <summary>
         /// Linear interpolation.

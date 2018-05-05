@@ -315,7 +315,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        internal string ConvertToString(string format, IFormatProvider provider)
+        private string ConvertToString(string format, IFormatProvider provider)
         {
             // Capture the culture's list separator character.
             var sep = Tokenizer.GetNumericListSeparator(provider);

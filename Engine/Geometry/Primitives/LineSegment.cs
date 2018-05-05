@@ -531,7 +531,7 @@ namespace Engine
         {
             if (this == null) return nameof(LineSegment);
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(LineSegment)}{{{nameof(A)}={A.ConvertToString(format, provider)},{nameof(B)}={B.ConvertToString(format, provider)}}}";
+            return $"{nameof(LineSegment)}{{{nameof(A)}={A.ToString(format, provider)}{sep}{nameof(B)}={B.ToString(format, provider)}}}";
         }
         #endregion Methods
     }

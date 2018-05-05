@@ -62,7 +62,9 @@ namespace Engine
         /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Process(Point2D point, Envelope envelope, Rectangle2D boundingBox)
-            => Distortions.Envelope(point, boundingBox,
+            => Distortions.CubicBezierEnvelope(
+                point,
+                boundingBox,
                 envelope.ControlPointTopLeft.Point, envelope.ControlPointTopLeft.AnchorAGlobal, envelope.ControlPointTopLeft.AnchorBGlobal,
                 envelope.ControlPointTopRight.Point, envelope.ControlPointTopRight.AnchorAGlobal, envelope.ControlPointTopRight.AnchorBGlobal,
                 envelope.ControlPointBottomRight.Point, envelope.ControlPointBottomRight.AnchorAGlobal, envelope.ControlPointBottomRight.AnchorBGlobal,

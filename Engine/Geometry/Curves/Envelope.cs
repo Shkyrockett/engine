@@ -8,13 +8,21 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Runtime.CompilerServices;
+using static Engine.Maths;
+
 namespace Engine
 {
     /// <summary>
-    /// The envelope distort test class.
+    /// The envelope distort class.
     /// </summary>
-    public class Envelope
+    public struct Envelope
     {
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Envelope"/> class.
         /// </summary>
@@ -24,10 +32,10 @@ namespace Engine
         /// <param name="height">The height.</param>
         public Envelope(double x, double y, double width, double height)
         {
-            var w3 = width / 3;
-            var h3 = height / 3;
+            var w3 = width * OneThird;
+            var h3 = height * OneThird;
 
-            //  TOP LEFT
+            //  Top Left
             ControlPointTopLeft = new CubicControlPoint
             {
                 Point = new Point2D(x, y),
@@ -35,7 +43,7 @@ namespace Engine
                 AnchorB = new Point2D(0, h3)
             };
 
-            //  TOP RIGHT
+            //  Top Right
             ControlPointTopRight = new CubicControlPoint
             {
                 Point = new Point2D(x + width, y),
@@ -43,7 +51,7 @@ namespace Engine
                 AnchorB = new Point2D(0, h3)
             };
 
-            //  BOTTOM LEFT
+            //  Bottom Left
             ControlPointBottomLeft = new CubicControlPoint
             {
                 Point = new Point2D(x, y + height),
@@ -51,7 +59,7 @@ namespace Engine
                 AnchorB = new Point2D(0, -h3)
             };
 
-            //  BOTTOM RIGHT
+            //  Bottom Right
             ControlPointBottomRight = new CubicControlPoint
             {
                 Point = new Point2D(x + width, y + height),
@@ -61,7 +69,9 @@ namespace Engine
 
             //Update();
         }
+        #endregion Constructors
 
+        #region Properties
         /// <summary>
         /// Gets or sets the control point top left.
         /// </summary>
@@ -81,7 +91,29 @@ namespace Engine
         /// Gets or sets the control point bottom right.
         /// </summary>
         public CubicControlPoint ControlPointBottomRight { get; set; }
+        #endregion Properties
 
+        #region Operators
+        /// <summary>
+        /// The operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator ==(Envelope left, Envelope right)
+            => left.Equals(right);
+
+        /// <summary>
+        /// The operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool operator !=(Envelope left, Envelope right)
+            => !(left == right);
+        #endregion Operators
+
+        #region Methods
         /// <summary>
         /// The to polycurve.
         /// </summary>
@@ -95,5 +127,98 @@ namespace Engine
             curve.AddCubicBezier(ControlPointBottomLeft.AnchorBGlobal, ControlPointTopLeft.AnchorBGlobal, ControlPointTopLeft.Point);
             return curve;
         }
+
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
+        public override int GetHashCode()
+            => ControlPointTopLeft.GetHashCode()
+                | ControlPointTopRight.GetHashCode()
+                | ControlPointBottomLeft.GetHashCode()
+                | ControlPointBottomRight.GetHashCode();
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+            => obj is Envelope && Equals((Envelope)obj);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="envelope">The envelope.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Envelope envelope)
+            => ControlPointTopLeft == envelope.ControlPointTopLeft
+                && ControlPointTopRight == envelope.ControlPointTopRight
+                && ControlPointBottomLeft == envelope.ControlPointBottomLeft
+                && ControlPointBottomRight == envelope.ControlPointBottomRight;
+
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="Envelope"/>.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Envelope"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Envelope"/> class based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Envelope"/> class based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private string ConvertToString(string format, IFormatProvider provider)
+        {
+            var sep = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Envelope)}{{{nameof(ControlPointTopLeft)}={ControlPointTopLeft.ToString(format, provider)}" +
+                $"{sep}{nameof(ControlPointTopRight)}={ControlPointTopRight.ToString(format, provider)}" +
+                $"{sep}{nameof(ControlPointBottomLeft)}={ControlPointBottomLeft.ToString(format, provider)}" +
+                $"{sep}{nameof(ControlPointBottomRight)}={ControlPointBottomRight.ToString(format, provider)}}}";
+        }
+        #endregion Methods
     }
 }

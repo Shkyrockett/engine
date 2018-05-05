@@ -43,9 +43,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		Architecture.md = Architecture.md
 		Conventions.md = Conventions.md
 		LICENSE = LICENSE
 		README.md = README.md
+		ToDo.md = ToDo.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "References", "References", "{B8050EC6-6A4A-491D-BFB6-DBD152D993F9}"

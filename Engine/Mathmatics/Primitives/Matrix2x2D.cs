@@ -573,7 +573,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        internal string ConvertToString(string format, IFormatProvider provider)
+        private string ConvertToString(string format, IFormatProvider provider)
         {
             if (IsIdentity) return nameof(Identity);
             // Helper to get the numeric list separator for a given culture.

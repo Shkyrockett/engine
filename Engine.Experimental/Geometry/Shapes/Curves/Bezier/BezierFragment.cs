@@ -144,7 +144,7 @@ namespace Engine
             /// <summary>
             /// 
             /// </summary>
-            public int Count { get { return values.Length; } }
+            public int Count => values.Length;
 
             /// <summary>
             /// 

@@ -75,7 +75,7 @@ namespace Engine
     // from ffgeom import *;
 
     /// <summary>
-    /// The bezier envelope class.
+    /// The Bézier envelope class.
     /// </summary>
     internal class BezierEnvelope
     {
@@ -381,12 +381,12 @@ namespace Engine
             var _1t3 = _1t2 * _1t;
 
             return new Point2D(
-            a.X * _1t3 + 3 * b.X * _1t2 * t + 3 * c.X * _1t * t2 + d.X * t3,
-            a.Y * _1t3 + 3 * b.Y * _1t2 * t + 3 * c.Y * _1t * t2 + d.Y * t3);
+                a.X * _1t3 + 3d * b.X * _1t2 * t + 3d * c.X * _1t * t2 + d.X * t3,
+                a.Y * _1t3 + 3d * b.Y * _1t2 * t + 3d * c.Y * _1t * t2 + d.Y * t3);
         }
 
         /// <summary>
-        /// Tweens 2 bezier curves in a straightforward way,
+        /// Tweens 2 Bézier curves in a straightforward way,
         /// i.e. each of the points on the curve is tweened along a straight line
         /// between the respective point on key1 and key2.
         /// </summary>

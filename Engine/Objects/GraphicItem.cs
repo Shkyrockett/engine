@@ -54,7 +54,7 @@ namespace Engine
         public GraphicItem(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
             Shape = item;
-            Name = Shape.ToString();
+            Name = Shape?.ToString();
             Style = style;
         }
         #endregion Constructors

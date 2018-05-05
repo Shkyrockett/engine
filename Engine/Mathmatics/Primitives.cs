@@ -24,7 +24,7 @@ namespace Engine
     public static class Primitives
     {
         // ToDo: Add Tuple Math here.
-
+        
         /// <summary>
         /// Checks if two vectors are equal within a small bounded error.
         /// </summary>
@@ -2560,21 +2560,21 @@ namespace Engine
             var num = amount;
             var num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
             var flag = false;
-            if (num4 < 0f)
+            if (num4 < 0d)
             {
                 flag = true;
                 num4 = -num4;
             }
-            if (num4 > 0.999999f)
+            if (num4 > 0.999999d)
             {
-                num3 = 1f - num;
+                num3 = 1d - num;
                 num2 = flag ? -num : num;
             }
             else
             {
                 var num5 = Acos(num4);
-                var num6 = 1.0 / Sin(num5);
-                num3 = Sin((1f - num) * num5) * num6;
+                var num6 = 1d / Sin(num5);
+                num3 = Sin((1d - num) * num5) * num6;
                 num2 = flag ? -Sin(num * num5) * num6 : Sin(num * num5) * num6;
             }
             return new QuaternionD(

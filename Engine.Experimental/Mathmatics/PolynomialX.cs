@@ -33,7 +33,7 @@ namespace Engine.Geometry
         /// </summary>
         public Complex[] Coefficients;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -107,7 +107,7 @@ namespace Engine.Geometry
             Coefficients[0] = new Complex(coeffs);
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Properties
 
@@ -132,7 +132,7 @@ namespace Engine.Geometry
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Operators
 
@@ -315,7 +315,7 @@ namespace Engine.Geometry
                 return p * (p ^ (k - 1));
         }
 
-        #endregion
+        #endregion Operators
 
         #region dynamics
 
@@ -554,7 +554,7 @@ namespace Engine.Geometry
             return z;
         }
 
-        #endregion
+        #endregion dynamics
 
         #region statics
 
@@ -830,7 +830,7 @@ namespace Engine.Geometry
             return buf;
         }
 
-        #endregion
+        #endregion statics
 
         /// <summary>
         /// 
@@ -1881,6 +1881,6 @@ namespace Engine.Geometry
             }
         }
 
-        #endregion
+        #endregion Overrides
     }
 }

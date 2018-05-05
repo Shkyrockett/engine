@@ -30,10 +30,7 @@ namespace Engine
         ///
         /// </summary>
         /// <param name="p"></param>
-        public void Add(Point2D p)
-        {
-            points.Add(p);
-        }
+        public void Add(Point2D p) => points.Add(p);
 
         /// <summary>
         ///

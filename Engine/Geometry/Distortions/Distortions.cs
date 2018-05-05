@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;
@@ -34,7 +35,7 @@ namespace Engine
     {
         #region Point Warp Filters
         /// <summary>
-        /// The scale.
+        /// The scale distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="factors">The factors.</param>
@@ -44,7 +45,7 @@ namespace Engine
             => new Point2D(point.X * factors.Width, point.Y * factors.Height);
 
         /// <summary>
-        /// The flip.
+        /// The flip distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
@@ -60,7 +61,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Translate.
+        /// The Translate distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="offset">The offset.</param>
@@ -70,7 +71,7 @@ namespace Engine
             => point + offset;
 
         /// <summary>
-        /// The matrix.
+        /// The matrix distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="matrix">The matrix.</param>
@@ -117,7 +118,94 @@ namespace Engine
         }
 
         /// <summary>
-        /// Warp the shape using Envelope distortion.
+        /// Warp the shape using Linear Envelope distortion.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="topLeft">The topLeft.</param>
+        /// <param name="topRight">The topRight.</param>
+        /// <param name="bottomRight">The bottomRight.</param>
+        /// <param name="bottomLeft">The bottomLeft.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D LinearEnvelope(
+            Point2D point,
+            Rectangle2D bounds,
+            Point2D topLeft, Point2D topRight, Point2D bottomRight, Point2D bottomLeft)
+        {
+            // topLeft          topRight
+            //   0-----------------0
+            //   |                 |
+            //   |                 |
+            //   |                 |
+            //   |                 |
+            //   |                 |
+            //   |                 |
+            //   0-----------------0
+            // bottomLeft   bottomRight
+            // 
+            // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
+
+            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
+            var leftAnchor = Interpolators.Linear(topLeft.X, topLeft.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
+            var rightAnchor = Interpolators.Linear(topRight.X, topRight.Y, bottomRight.X, bottomRight.Y, normal.Y);
+            return Interpolators.Linear(leftAnchor.X, leftAnchor.Y, rightAnchor.X, rightAnchor.Y, normal.X);
+        }
+
+        /// <summary>
+        /// Warp the shape using Quadratic Bézier Envelope distortion.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="topLeft">The topLeft.</param>
+        /// <param name="topHandle">The topLeftH.</param>
+        /// <param name="leftHandle">The topLeftV.</param>
+        /// <param name="rightHandle">The topRightV.</param>
+        /// <param name="topRight">The topRight.</param>
+        /// <param name="bottomRight">The bottomRight.</param>
+        /// <param name="bottomHandle">The bottomRightH.</param>
+        /// <param name="bottomLeft">The bottomLeft.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D QuadraticBezierEnvelope(
+            Point2D point,
+            Rectangle2D bounds,
+            Point2D topLeft, Point2D topHandle, Point2D topRight, Point2D rightHandle,
+            Point2D bottomRight, Point2D bottomHandle, Point2D bottomLeft, Point2D leftHandle)
+        {
+            // topLeft                             topRight
+            //   0------------------0------------------0
+            //   |              topHandle              |
+            //   |                                     |
+            //   |                                     |
+            //   |                                     |
+            //   |                                     |
+            //   0 leftHandle              rightHandle 0
+            //   |                                     |
+            //   |                                     |
+            //   |                                     |
+            //   |                                     |
+            //   |             bottomHandle            |
+            //   0------------------0------------------0
+            // bottomLeft                       bottomRight
+            // 
+            // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
+
+            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
+            var leftAnchor = Interpolators.QuadraticBezier(topLeft.X, topLeft.Y, leftHandle.X, leftHandle.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
+            var handle = Interpolators.Linear(topHandle.X, topHandle.Y, bottomHandle.X, bottomHandle.Y, normal.Y);
+            var rightAnchor = Interpolators.QuadraticBezier(topRight.X, topRight.Y, rightHandle.X, rightHandle.Y, bottomRight.X, bottomRight.Y, normal.Y);
+            return Interpolators.QuadraticBezier(leftAnchor.X, leftAnchor.Y, handle.X, handle.Y, rightAnchor.X, rightAnchor.Y, normal.X);
+        }
+
+        /// <summary>
+        /// Warp the shape using Cubic Bézier Envelope distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="bounds">The bounds.</param>
@@ -134,8 +222,11 @@ namespace Engine
         /// <param name="bottomLeftH">The bottomLeftH.</param>
         /// <param name="bottomLeftV">The bottomLeftV.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Envelope(
+        public static Point2D CubicBezierEnvelope(
             Point2D point,
             Rectangle2D bounds,
             Point2D topLeft, Point2D topLeftH, Point2D topLeftV,
@@ -143,31 +234,116 @@ namespace Engine
             Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
             Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
         {
-            // Normalize the point to the bounding box.
-            var (normX, normY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+            // topLeft                             topRight
+            //   0--------0                 0----------0
+            //   |   topLeftH             topRightH    |
+            //   |                                     |
+            //   |                                     |
+            //   0 topLeftV                  topRightV 0
+            //   
+            //   
+            //   
+            //   0 bottomLeftV            bottomRightV 0
+            //   |                                     |
+            //   |                                     |
+            //   |  bottomLeftH         bottomRightH   |
+            //   0--------0                 0----------0
+            // bottomLeft                       bottomRight
+            // 
+            // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
-            // Set up Interpolation variables.
-            var (minusNormX, minusNormY) = (1d - normX, 1d - normY);
-            var (minusNormXSquared, minusNormYSquared) = (minusNormX * minusNormX, minusNormY * minusNormY);
-            var (minusNormXCubed, minusNormYCubed) = (minusNormXSquared * minusNormX, minusNormYSquared * minusNormY);
-            var (normXSquared, normYSquared) = (normX * normX, normY * normY);
-            var (normXCubed, normYCubed) = (normXSquared * normX, normYSquared * normY);
+            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
+            var normalSquared = (X: normal.X * normal.X, Y: normal.Y * normal.Y);
+            var normalCubed = (X: normalSquared.X * normal.X, Y: normalSquared.Y * normal.Y);
+            var reverseNormal = (X: 1d - normal.X, Y: 1d - normal.Y);
+            var reverseNormalSquared = (X: reverseNormal.X * reverseNormal.X, Y: reverseNormal.Y * reverseNormal.Y);
+            var reverseNormalCubed = (X: reverseNormalSquared.X * reverseNormal.X, Y: reverseNormalSquared.Y * reverseNormal.Y);
 
-            // Interpolate the normalized point along the Cubic Bézier curves
-            var left = (minusNormYCubed * topLeft.X + 3d * normY * minusNormYSquared * topLeftV.X + 3d * normYSquared * minusNormY * bottomLeftV.X + normYCubed * bottomLeft.X);
-            var right = (minusNormYCubed * topRight.X + 3d * normY * minusNormYSquared * topRightV.X + 3d * normYSquared * minusNormY * bottomRightV.X + normYCubed * bottomRight.X);
-            var top = (minusNormXCubed * topLeft.Y + 3d * normX * minusNormXSquared * topLeftH.Y + 3d * normXSquared * minusNormX * topRightH.Y + normXCubed * topRight.Y);
-            var bottom = (minusNormXCubed * bottomLeft.Y + 3d * normX * minusNormXSquared * bottomLeftH.Y + 3d * normXSquared * minusNormX * bottomRightH.Y + normXCubed * bottomRight.Y);
-
-            // Linearly interpolate the point between the Bézier curves.
-            return new Point2D(
-                minusNormX * left + normX * right,
-                minusNormY * top + normY * bottom
+            // Cubic interpolate the left anchor node.
+            var leftAnchor = (
+                X: topLeft.X * reverseNormalCubed.Y + 3d * topLeftV.X * normal.Y * reverseNormalSquared.Y + 3d * bottomLeftV.X * normalSquared.Y * reverseNormal.Y + bottomLeft.X * normalCubed.Y,
+                Y: topLeft.Y * reverseNormalCubed.Y + 3d * topLeftV.Y * normal.Y * reverseNormalSquared.Y + 3d * bottomLeftV.Y * normalSquared.Y * reverseNormal.Y + bottomLeft.Y * normalCubed.Y
+                );
+            // Linear interpolate the left handle node.
+            var leftHandle = (
+                X: topLeftH.X * reverseNormal.Y + bottomLeftH.X * normal.Y,
+                Y: topLeftH.Y * reverseNormal.Y + bottomLeftH.Y * normal.Y
+                );
+            // Linear interpolate the right handle node.
+            var rightHandle = (
+                X: topRightH.X * reverseNormal.Y + bottomRightH.X * normal.Y,
+                Y: topRightH.Y * reverseNormal.Y + bottomRightH.Y * normal.Y
+                );
+            // Cubic interpolate the right anchor node.
+            var rightAnchor = (
+                X: topRight.X * reverseNormalCubed.Y + 3d * topRightV.X * normal.Y * reverseNormalSquared.Y + 3d * bottomRightV.X * normalSquared.Y * reverseNormal.Y + bottomRight.X * normalCubed.Y,
+                Y: topRight.Y * reverseNormalCubed.Y + 3d * topRightV.Y * normal.Y * reverseNormalSquared.Y + 3d * bottomRightV.Y * normalSquared.Y * reverseNormal.Y + bottomRight.Y * normalCubed.Y
+                );
+            // Cubic interpolate the final result.
+            return (
+                X: leftAnchor.X * reverseNormalCubed.X + 3d * leftHandle.X * normal.X * reverseNormalSquared.X + 3d * rightHandle.X * normalSquared.X * reverseNormal.X + rightAnchor.X * normalCubed.X,
+                Y: leftAnchor.Y * reverseNormalCubed.X + 3d * leftHandle.Y * normal.X * reverseNormalSquared.X + 3d * rightHandle.Y * normalSquared.X * reverseNormal.X + rightAnchor.Y * normalCubed.X
                 );
         }
 
         /// <summary>
-        /// The pinch.
+        /// Warp the shape using Cubic Bézier Envelope distortion.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="topLeft">The topLeft.</param>
+        /// <param name="topLeftH">The topLeftH.</param>
+        /// <param name="topLeftV">The topLeftV.</param>
+        /// <param name="topRight">The topRight.</param>
+        /// <param name="topRightH">The topRightH.</param>
+        /// <param name="topRightV">The topRightV.</param>
+        /// <param name="bottomRight">The bottomRight.</param>
+        /// <param name="bottomRightH">The bottomRightH.</param>
+        /// <param name="bottomRightV">The bottomRightV.</param>
+        /// <param name="bottomLeft">The bottomLeft.</param>
+        /// <param name="bottomLeftH">The bottomLeftH.</param>
+        /// <param name="bottomLeftV">The bottomLeftV.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
+        /// </acknowledgment>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D CubicBezierEnvelope0(
+            Point2D point,
+            Rectangle2D bounds,
+            Point2D topLeft, Point2D topLeftH, Point2D topLeftV,
+            Point2D topRight, Point2D topRightH, Point2D topRightV,
+            Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
+            Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
+        {
+            // topLeft                             topRight
+            //   0--------0                 0----------0
+            //   |   topLeftH             topRightH    |
+            //   |                                     |
+            //   |                                     |
+            //   0 topLeftV                  topRightV 0
+            //   
+            //   
+            //   
+            //   0 bottomLeftV            bottomRightV 0
+            //   |                                     |
+            //   |                                     |
+            //   |  bottomLeftH         bottomRightH   |
+            //   0--------0                 0----------0
+            // bottomLeft                       bottomRight
+            // 
+            // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
+
+            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
+            var leftAnchor = Interpolators.CubicBezier(topLeft.X, topLeft.Y, topLeftV.X, topLeftV.Y, bottomLeftV.X, bottomLeftV.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
+            var leftHandle = Interpolators.Linear(topLeftH.X, topLeftH.Y, bottomLeftH.X, bottomLeftH.Y, normal.Y);
+            var rightHandle = Interpolators.Linear(topRightH.X, topRightH.Y, bottomRightH.X, bottomRightH.Y, normal.Y);
+            var rightAnchor = Interpolators.CubicBezier(topRight.X, topRight.Y, topRightV.X, topRightV.Y, bottomRightV.X, bottomRightV.Y, bottomRight.X, bottomRight.Y, normal.Y);
+            return Interpolators.CubicBezier(leftAnchor.X, leftAnchor.Y, leftHandle.X, leftHandle.Y, rightHandle.X, rightHandle.Y, rightAnchor.X, rightAnchor.Y, normal.X);
+        }
+
+        /// <summary>
+        /// The pinch distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
@@ -211,7 +387,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The pinch.
+        /// The pinch distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
@@ -259,7 +435,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The pinch1.
+        /// The pinch1 distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
@@ -295,7 +471,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The pinch2.
+        /// The pinch2 distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
@@ -330,7 +506,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The swirl.
+        /// The swirl distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
@@ -354,7 +530,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The time warp.
+        /// The time warp distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>
@@ -374,7 +550,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The water.
+        /// The water distortion.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <param name="fulcrum">The fulcrum.</param>

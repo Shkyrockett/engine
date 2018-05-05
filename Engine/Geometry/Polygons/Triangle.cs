@@ -27,26 +27,28 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Triangle"/> class.
         /// </summary>
         public Triangle()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Triangle"/> class.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
         public Triangle(Point2D a, Point2D b, Point2D c)
             : base(new List<Point2D> { a, b, c })
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Triangle"/> class.
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon">The polygon.</param>
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public Triangle(PolygonContour polygon)
             : base(polygon.Points)
         {
@@ -62,9 +64,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Triangle"/> class.
         /// </summary>
-        /// <param name="polyline"></param>
+        /// <param name="polyline">The polyline.</param>
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public Triangle(Polyline polyline)
             : base(polyline.Points)
         {
@@ -80,9 +84,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Triangle"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public Triangle(params Point2D[] points)
             : this(new List<Point2D>(points))
         {
@@ -98,9 +104,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Triangle"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
+        /// <exception cref="IndexOutOfRangeException"></exception>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         public Triangle(IEnumerable<Point2D> points)
             : base(points)
         {
@@ -118,14 +126,14 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bY"></param>
-        /// <param name="bX"></param>
-        /// <param name="cY"></param>
-        /// <param name="cX"></param>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
         public void Deconstruct(out double aX, out double aY, out double bX, out double bY, out double cX, out double cY)
         {
             aX = A.X;
@@ -139,7 +147,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the a.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -158,7 +166,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the b.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -177,7 +185,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the c.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]

@@ -254,7 +254,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        public string ConvertToString(string format, IFormatProvider provider)
         {
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(CYMKA)}{{{nameof(Cyan)}={Cyan.ToString(format, provider)}{sep}{nameof(Yellow)}={Yellow.ToString(format, provider)}{sep}{nameof(Magenta)}={Magenta.ToString(format, provider)}{sep}{nameof(Black)}={Black.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";

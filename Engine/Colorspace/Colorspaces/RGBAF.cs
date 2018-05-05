@@ -62,7 +62,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="tuple"><see cref="ValueTuple"/> representing the Alpha, Red, Green, and Blue components in an RGBA color.</param>
         /// <param name="name">The name of the color.</param>
-        public RGBAF((double R, double G, double B,double A ) tuple, string name = "")
+        public RGBAF((double R, double G, double B, double A) tuple, string name = "")
             : this(tuple.R, tuple.G, tuple.B, tuple.A, name)
         { }
 
@@ -275,7 +275,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        public string ConvertToString(string format, IFormatProvider provider)
         {
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(RGBAF)}{{{nameof(Red)}={Red.ToString(format, provider)}{sep}{nameof(Green)}={Green.ToString(format, provider)}{sep}{nameof(Blue)}={Blue.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";

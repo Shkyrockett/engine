@@ -236,7 +236,8 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return $"{nameof(Line)}";
-            return $"{nameof(Line)}={{{nameof(Location)}:{Location.ConvertToString(format, provider)},{nameof(Direction)}:{Direction.ConvertToString(format, provider)}}}";
+            var sep = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Line)}={{{nameof(Location)}={Location.ToString(format, provider)}{sep}{nameof(Direction)}={Direction.ToString(format, provider)}}}";
         }
         #endregion Methods
     }

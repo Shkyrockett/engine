@@ -20,7 +20,7 @@ namespace Engine
     {
         #region Properties
         /// <summary>
-        /// Gets or sets the tolerence.
+        /// Gets or sets the tolerance.
         /// </summary>
         public double Tolerence { get; set; } = 1;
 
@@ -31,7 +31,7 @@ namespace Engine
         #endregion Properties
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="Point2D"/> structure with a distortion filter.
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
@@ -39,7 +39,7 @@ namespace Engine
             => point;
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="List{Point2D}"/> structure with a distortion filter.
         /// </summary>
         /// <param name="contour">The contour.</param>
         /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
@@ -54,7 +54,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="S"/> structure with a distortion filter.
         /// </summary>
         /// <param name="shape">The shape.</param>
         /// <returns>The <see cref="T"/>.</returns>
@@ -103,7 +103,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="Line"/> structure with a distortion filter.
         /// </summary>
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="Line"/>.</returns>
@@ -115,7 +115,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="Ray"/> structure with a distortion filter.
         /// </summary>
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="Ray"/>.</returns>
@@ -127,7 +127,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="LineSegment"/> structure with a distortion filter.
         /// </summary>
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="LineSegment"/>.</returns>
@@ -138,7 +138,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="QuadraticBezier"/> structure with a distortion filter.
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <returns>The <see cref="QuadraticBezier"/>.</returns>
@@ -149,7 +149,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="CubicBezier"/> structure with a distortion filter.
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <returns>The <see cref="CubicBezier"/>.</returns>
@@ -160,7 +160,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="PointSet"/> structure with a distortion filter.
         /// </summary>
         /// <param name="points">The points.</param>
         /// <returns>The <see cref="PointSet"/>.</returns>
@@ -175,23 +175,23 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="Triangle"/> structure with a distortion filter.
         /// </summary>
-        /// <param name="rect">The rect.</param>
+        /// <param name="triangle">The triangle.</param>
         /// <returns>The <see cref="Triangle"/>.</returns>
-        public Triangle Process(Triangle rect)
-            => new Triangle(Process(rect.A), Process(rect.B), Process(rect.C));
+        public Triangle Process(Triangle triangle)
+            => new Triangle(Process(triangle.A), Process(triangle.B), Process(triangle.C));
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="Rectangle2D"/> structure with a distortion filter.
         /// </summary>
-        /// <param name="rect">The rect.</param>
+        /// <param name="rect">The rectangle.</param>
         /// <returns>The <see cref="PolygonContour"/>.</returns>
         public PolygonContour Process(Rectangle2D rect)
             => new PolygonContour { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="Polygon"/> structure with a distortion filter.
         /// </summary>
         /// <param name="polygon">The polygon.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
@@ -206,7 +206,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="PolygonContour"/> structure with a distortion filter.
         /// </summary>
         /// <param name="contour">The contour.</param>
         /// <returns>The <see cref="PolygonContour"/>.</returns>
@@ -221,7 +221,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="PolylineSet"/> structure with a distortion filter.
         /// </summary>
         /// <param name="polylines">The polylines.</param>
         /// <returns>The <see cref="PolylineSet"/>.</returns>
@@ -236,7 +236,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="Polyline"/> structure with a distortion filter.
         /// </summary>
         /// <param name="contour">The contour.</param>
         /// <returns>The <see cref="Polyline"/>.</returns>
@@ -251,7 +251,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process.
+        /// Process a <see cref="PolycurveContour"/> structure with a distortion filter.
         /// </summary>
         /// <param name="contour">The contour.</param>
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
@@ -285,6 +285,36 @@ namespace Engine
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Process a <see cref="Envelope"/> structure with a distortion filter.
+        /// </summary>
+        /// <param name="envelope">The contour.</param>
+        /// <returns>The <see cref="Polyline"/>.</returns>
+        public Envelope Process(Envelope envelope)
+        {
+            var results = new Envelope
+            {
+                ControlPointTopLeft = new CubicControlPoint(
+                    Process(envelope.ControlPointTopLeft.Point),
+                    Process(envelope.ControlPointTopLeft.AnchorAGlobal),
+                    Process(envelope.ControlPointTopLeft.AnchorBGlobal), true),
+                ControlPointTopRight = new CubicControlPoint(
+                    Process(envelope.ControlPointTopRight.Point),
+                    Process(envelope.ControlPointTopRight.AnchorAGlobal),
+                    Process(envelope.ControlPointTopRight.AnchorBGlobal), true),
+                ControlPointBottomRight = new CubicControlPoint(
+                    Process(envelope.ControlPointBottomRight.Point),
+                    Process(envelope.ControlPointBottomRight.AnchorAGlobal),
+                    Process(envelope.ControlPointBottomRight.AnchorBGlobal), true),
+                ControlPointBottomLeft = new CubicControlPoint(
+                    Process(envelope.ControlPointBottomLeft.Point),
+                    Process(envelope.ControlPointBottomLeft.AnchorAGlobal),
+                    Process(envelope.ControlPointBottomLeft.AnchorBGlobal), true)
+            };
+
+            return results;
         }
     }
 }

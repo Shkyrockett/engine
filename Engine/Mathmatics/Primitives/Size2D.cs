@@ -191,6 +191,28 @@ namespace Engine
             => value.Subtract(subend);
 
         /// <summary>
+        /// Scale a point
+        /// </summary>
+        /// <param name="factor"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size2D operator *(double value, Size2D factor)
+            => new Size2D(value * factor.Width, value * factor.Height);
+
+        /// <summary>
+        /// Scale a point.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="factor"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Size2D operator *(Size2D value, double factor)
+            => new Size2D(value.Width * factor, value.Height * factor);
+
+        /// <summary>
         /// Divide a <see cref="Size2D"/> by a <see cref="double"/> value.
         /// </summary>
         /// <param name="dividend"></param>
@@ -444,7 +466,7 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        internal string ConvertToString(string format, IFormatProvider provider)
+        private string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Size2D);
             var sep = Tokenizer.GetNumericListSeparator(provider);

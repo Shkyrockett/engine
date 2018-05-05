@@ -216,7 +216,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        public string ConvertToString(string format, IFormatProvider provider)
         {
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(HSLA)}{{{nameof(Hue)}={hue.ToString(format, provider)}{sep}{nameof(Saturation)}={saturation.ToString(format, provider)}{sep}{nameof(Luminance)}={luminance.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";

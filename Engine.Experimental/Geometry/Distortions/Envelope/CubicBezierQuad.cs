@@ -1,7 +1,7 @@
 ﻿namespace Engine.Experimental
 {
     /// <summary>
-    /// The cubic bezier quad class intended for Envelope manipulation.
+    /// The cubic Bézier quad class intended for Envelope manipulation.
     /// </summary>
     public class CubicBezierQuad
         : Shape

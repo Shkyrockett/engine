@@ -28,11 +28,31 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="anchorA">The anchorA.</param>
         /// <param name="anchorB">The anchorB.</param>
-        public CubicControlPoint(Point2D point, Point2D anchorA, Point2D anchorB)
+        /// <param name="global"></param>
+        public CubicControlPoint(Point2D point, Point2D anchorA, Point2D anchorB, bool global = false)
         {
             Point = point;
-            AnchorA = anchorA;
-            AnchorB = anchorB;
+            if (global)
+            {
+                AnchorA = GlobalToLocal(anchorA, Point);
+                AnchorB = GlobalToLocal(anchorB, Point);
+            }
+            else
+            {
+                AnchorA = anchorA;
+                AnchorB = anchorB;
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CubicControlPoint"/> class.
+        /// </summary>
+        /// <param name="point">The point.</param>
+        public CubicControlPoint(Point2D point)
+        {
+            Point = point;
+            AnchorA = point;
+            AnchorB = point;
         }
         #endregion Constructors
 
@@ -55,12 +75,12 @@ namespace Engine
         /// <summary>
         /// Gets or sets the global horizontal anchor.
         /// </summary>
-        public Point2D AnchorAGlobal { get { return LocalToGlobal(AnchorA); } set { AnchorA = GlobalToLocal(value); } }
+        public Point2D AnchorAGlobal { get { return LocalToGlobal(AnchorA, Point); } set { AnchorA = GlobalToLocal(value, Point); } }
 
         /// <summary>
         /// Gets or sets the global vertical anchor.
         /// </summary>
-        public Point2D AnchorBGlobal { get { return LocalToGlobal(AnchorB); } set { AnchorB = GlobalToLocal(value); } }
+        public Point2D AnchorBGlobal { get { return LocalToGlobal(AnchorB, Point); } set { AnchorB = GlobalToLocal(value, Point); } }
         #endregion Properties
 
         #region Operators
@@ -88,19 +108,23 @@ namespace Engine
         /// The local to global method.
         /// </summary>
         /// <param name="point">The point.</param>
+        /// <param name="reference"></param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private Point2D LocalToGlobal(Point2D point)
-            => new Point2D(point.X + Point.X, point.Y + Point.Y);
+        private static Point2D LocalToGlobal(Point2D point, Point2D reference)
+            => new Point2D(point.X + reference.X, point.Y + reference.Y);
 
         /// <summary>
         /// The global to local method.
         /// </summary>
         /// <param name="point">The point.</param>
+        /// <param name="reference"></param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private Point2D GlobalToLocal(Point2D point)
-            => new Point2D(Point.X - point.X, Point.Y - point.Y);
+        private static Point2D GlobalToLocal(Point2D point, Point2D reference)
+            => new Point2D(point.X - reference.X, point.Y - reference.Y);
 
         /// <summary>
         /// Get the hash code.
@@ -205,10 +229,10 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        private string ConvertToString(string format, IFormatProvider provider)
         {
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Point2D)}{{{nameof(Point)}={Point.ToString(format, provider)}{sep}{nameof(AnchorA)}={AnchorA.ToString(format, provider)}{sep}{nameof(AnchorB)}={AnchorB.ToString(format, provider)}}}";
+            return $"{nameof(CubicControlPoint)}{{{nameof(Point)}={Point.ToString(format, provider)}{sep}{nameof(AnchorA)}={AnchorA.ToString(format, provider)}{sep}{nameof(AnchorB)}={AnchorB.ToString(format, provider)}}}";
         }
         #endregion Methods
     }

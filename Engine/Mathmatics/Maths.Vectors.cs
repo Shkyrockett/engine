@@ -105,7 +105,10 @@ namespace Engine
         public static (double X, double Y) ComplexProduct(
             double x0, double y0,
             double x1, double y1)
-            => (x0 * x1 - y0 * y1, x0 * y1 + y0 * x1);
+            => (
+                    x0 * x1 - y0 * y1,
+                    x0 * y1 + y0 * x1
+                );
 
         /// <summary>
         /// Cross Product of two points.

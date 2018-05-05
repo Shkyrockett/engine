@@ -218,7 +218,10 @@ namespace Engine
 
                 Rectangle2D bounds(List<PolygonContour> contours)
                 {
-                    var bb = contours[0].Bounds;
+                    if (contours.Count == 0)
+                        return Rectangle2D.Empty;
+
+                    var bb = contours[0]?.Bounds;
 
                     foreach (PolygonContour c in contours)
                         bb = bb.Union(c.Bounds);

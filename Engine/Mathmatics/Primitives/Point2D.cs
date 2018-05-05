@@ -543,7 +543,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal string ConvertToString(string format, IFormatProvider provider)
+        private string ConvertToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point2D);
             var sep = Tokenizer.GetNumericListSeparator(provider);

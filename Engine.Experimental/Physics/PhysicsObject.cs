@@ -11,12 +11,12 @@
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The physics object class.
     /// </summary>
     public class PhysicsObject
     {
         /// <summary>
-        ///
+        /// The p.
         /// </summary>
         public Momentum p; // p = momentum.
     }

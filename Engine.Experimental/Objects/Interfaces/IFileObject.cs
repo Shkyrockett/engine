@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IFileObject interface.
     /// </summary>
     public interface IFileObject
     { }

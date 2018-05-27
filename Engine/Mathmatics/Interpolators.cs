@@ -44,6 +44,7 @@ namespace Engine
         /// <param name="end">The end.</param>
         /// <param name="percent">The percent.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Slerp(Point2D start, Point2D end, float percent)
         {
             // Dot product - the cosine of the angle between 2 vectors.
@@ -70,17 +71,22 @@ namespace Engine
         /// <param name="end">The end.</param>
         /// <param name="percent">The percent.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Nlerp(Point2D start, Point2D end, float percent)
             => (Point2D)((Vector2D)Linear(start, end, percent)).Normalize();
 
         #region Linear Interpolation
         /// <summary>
-        /// Linear interpolation.
+        /// Two control point 1D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
-        /// <param name="aV"></param>
-        /// <param name="bV"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="aV">The first anchor value.</param>
+        /// <param name="bV">The second anchor value.</param>
+        /// <param name="t">The t index of the linear curve.</param>
+        /// <returns>Returns a <see cref="double"/> representing a point on the linear curve at the t index.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/index.html
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(
@@ -90,14 +96,18 @@ namespace Engine
             => (1d - t) * aV + t * bV;
 
         /// <summary>
-        /// Linear interpolation.
+        /// Two control point 2D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="aX">The first anchor point x value.</param>
+        /// <param name="aY">The first anchor point y value.</param>
+        /// <param name="bX">The second anchor point x value.</param>
+        /// <param name="bY">The second anchor point y value.</param>
+        /// <param name="t">The t index of the linear curve.</param>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing a point on the linear curve at the t index.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/index.html
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Linear(
@@ -108,16 +118,20 @@ namespace Engine
                 (1d - t) * aY + t * bY);
 
         /// <summary>
-        /// Linear interpolation.
+        /// Two control point 3D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="aZ"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="bZ"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="aX">The first anchor point x value.</param>
+        /// <param name="aY">The first anchor point y value.</param>
+        /// <param name="aZ">The first anchor point z value.</param>
+        /// <param name="bX">The second anchor point x value.</param>
+        /// <param name="bY">The second anchor point y value.</param>
+        /// <param name="bZ">The second anchor point z value.</param>
+        /// <param name="t">The t index of the linear curve.</param>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the linear curve at the t index.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/index.html
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Linear(
@@ -129,24 +143,24 @@ namespace Engine
                 (1d - t) * aZ + t * bZ);
 
         /// <summary>
-        /// Linear interpolation.
+        /// Two control point 2D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The first anchor point.</param>
+        /// <param name="b">The second anchor point value.</param>
+        /// <param name="t">The t index of the linear curve.</param>
+        /// <returns>Returns a <see cref="Point2D"/> representing a point on the linear curve at the t index.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Linear(Point2D a, Point2D b, double t)
             => new Point2D(Linear(a.X, a.Y, b.X, b.Y, t));
 
         /// <summary>
-        /// Linear interpolation.
+        /// Two control point 3D Linear interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The first anchor point.</param>
+        /// <param name="b">The second anchor point value.</param>
+        /// <param name="t">The t index of the linear curve.</param>
+        /// <returns>Returns a <see cref="Point3D"/> representing a point on the linear curve at the t index.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D Linear(Point3D a, Point3D b, double t)
@@ -155,11 +169,11 @@ namespace Engine
 
         #region Curve Interpolation
         /// <summary>
-        ///
+        /// The curve.
         /// </summary>
-        /// <param name="vCurve"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="vCurve">The vCurve.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Curve(Polynomial vCurve, double t)
@@ -180,12 +194,12 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The curve.
         /// </summary>
-        /// <param name="xCurve"></param>
-        /// <param name="yCurve"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="xCurve">The xCurve.</param>
+        /// <param name="yCurve">The yCurve.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y) Curve(Polynomial xCurve, Polynomial yCurve, double t)
@@ -207,13 +221,13 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The curve.
         /// </summary>
-        /// <param name="xCurve"></param>
-        /// <param name="yCurve"></param>
-        /// <param name="zCurve"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="xCurve">The xCurve.</param>
+        /// <param name="yCurve">The yCurve.</param>
+        /// <param name="zCurve">The zCurve.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y, double z) Curve(Polynomial xCurve, Polynomial yCurve, Polynomial zCurve, double t)
@@ -425,17 +439,19 @@ namespace Engine
 
         #region Cubic Bézier Interpolation
         /// <summary>
-        /// Four control point Bézier interpolation mu ranges from 0 to 1, start to end of curve.
+        /// Four control point 1D Quadratic Bézier interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="v3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="v0">The first anchor value.</param>
+        /// <param name="v1">The first handle value.</param>
+        /// <param name="v2">The second handle value.</param>
+        /// <param name="v3">The second anchor value.</param>
+        /// <param name="t">The t index of the curve.</param>
+        /// <returns>Returns a <see cref="double"/> representing a value on the Bézier curve at the t index.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicBezier(
             double v0,
@@ -452,21 +468,23 @@ namespace Engine
         }
 
         /// <summary>
-        /// Four control point Bézier interpolation mu ranges from 0 to 1, start to end of curve.
+        /// Four control point 2D Quadratic Bézier interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The first anchor point x value.</param>
+        /// <param name="y0">The first anchor point y value.</param>
+        /// <param name="x1">The first handle point x value.</param>
+        /// <param name="y1">The first handle point y value.</param>
+        /// <param name="x2">The second handle point x value.</param>
+        /// <param name="y2">The second handle point y value.</param>
+        /// <param name="x3">The second anchor point x value.</param>
+        /// <param name="y3">The second anchor point y value.</param>
+        /// <param name="t">The t index of the curve.</param>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing a point on the Bézier curve at the t index.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) CubicBezier(
             double x0, double y0,
@@ -486,25 +504,27 @@ namespace Engine
         }
 
         /// <summary>
-        /// Four control point Bézier interpolation mu ranges from 0 to 1, start to end of curve.
+        /// Four control point 2D Quadratic Bézier interpolation for ranges from 0 to 1, start to end of curve.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The first anchor point x value.</param>
+        /// <param name="y0">The first anchor point y value.</param>
+        /// <param name="z0">The first anchor point z value..</param>
+        /// <param name="x1">The first handle point x value.</param>
+        /// <param name="y1">The first handle point y value.</param>
+        /// <param name="z1">The first handle point z value.</param>
+        /// <param name="x2">The second handle point x value.</param>
+        /// <param name="y2">The second handle point y value.</param>
+        /// <param name="z2">The second handle point z value.</param>
+        /// <param name="x3">The second anchor point x value.</param>
+        /// <param name="y3">The second anchor point y value.</param>
+        /// <param name="z3">The second anchor point z value.</param>
+        /// <param name="t">The t index of the curve.</param>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the Bézier curve at the t index.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) CubicBezier(
             double x0, double y0, double z0,
@@ -533,6 +553,7 @@ namespace Engine
         /// <returns></returns>
         /// <acknowledgment>
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D CubicBSpline(List<Point2D> points, double t)
         {
@@ -707,14 +728,14 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The catmull rom.
         /// </summary>
-        /// <param name="positionA"></param>
-        /// <param name="tangentA"></param>
-        /// <param name="positionB"></param>
-        /// <param name="tangentB"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="tangentA">The tangentA.</param>
+        /// <param name="positionA">The positionA.</param>
+        /// <param name="positionB">The positionB.</param>
+        /// <param name="tangentB">The tangentB.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
@@ -745,16 +766,16 @@ namespace Engine
 
         #region Hermite Interpolation
         /// <summary>
-        ///
+        /// The hermite.
         /// </summary>
-        /// <param name="aV"></param>
-        /// <param name="bV"></param>
-        /// <param name="cV"></param>
-        /// <param name="dV"></param>
+        /// <param name="aV">The aV.</param>
+        /// <param name="bV">The bV.</param>
+        /// <param name="cV">The cV.</param>
+        /// <param name="dV">The dV.</param>
         /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -781,20 +802,20 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The hermite.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="dX">The dX.</param>
+        /// <param name="dY">The dY.</param>
         /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -834,24 +855,24 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The hermite.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="aZ"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="bZ"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="cZ"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="dZ"></param>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="aZ">The aZ.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="bZ">The bZ.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="cZ">The cZ.</param>
+        /// <param name="dX">The dX.</param>
+        /// <param name="dY">The dY.</param>
+        /// <param name="dZ">The dZ.</param>
         /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even, positive is towards first segment, negative towards the other</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -1189,12 +1210,12 @@ namespace Engine
 
         #region Cosine Interpolation
         /// <summary>
-        ///
+        /// The cosine.
         /// </summary>
-        /// <param name="aV"></param>
-        /// <param name="bV"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="aV">The aV.</param>
+        /// <param name="bV">The bV.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -1211,14 +1232,14 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The cosine.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
@@ -1236,16 +1257,16 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The cosine.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="aZ"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="bZ"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="aZ">The aZ.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="bZ">The bZ.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/

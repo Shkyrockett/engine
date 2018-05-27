@@ -10,7 +10,7 @@
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    /// The factorized polynomial x class.
     /// </summary>
     public class FactorizedPolynomialX
     {

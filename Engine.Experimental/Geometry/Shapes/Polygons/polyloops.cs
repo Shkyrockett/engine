@@ -7,12 +7,12 @@ using System.Drawing;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The poly loops class.
     /// </summary>
     public class PolyLoops
     {
         /// <summary>
-        ///
+        /// Test.
         /// </summary>
         public static void Test()
         {
@@ -210,11 +210,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Process the segment.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="float"/>.</returns>
         public static float ProcessSegment(PointF a, PointF b) => a.X * b.X - a.Y * b.Y;
     }
 }

@@ -13,17 +13,17 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The backdrop class.
     /// </summary>
     public class Backdrop
     {
         /// <summary>
-        /// 
+        /// The name.
         /// </summary>
         public string Name;
 
         ///// <summary>
-        ///// 
+        ///// The image.
         ///// </summary>
         //public Bitmap image;
     }

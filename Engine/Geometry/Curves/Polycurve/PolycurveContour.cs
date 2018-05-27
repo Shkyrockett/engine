@@ -50,7 +50,7 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="PolycurveContour"/> class.
         /// </summary>
         public PolycurveContour()
         {
@@ -58,8 +58,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="PolycurveContour"/> class.
         /// </summary>
+        /// <param name="start">The start.</param>
         public PolycurveContour(Point2D start)
         {
             Items = new List<CurveSegment>
@@ -69,9 +70,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="PolycurveContour"/> class.
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon">The polygon.</param>
         public PolycurveContour(PolygonContour polygon)
         {
             Items = new List<CurveSegment>();
@@ -85,17 +86,18 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="PolycurveContour"/> class.
         /// </summary>
+        /// <param name="items">The items.</param>
         public PolycurveContour(List<CurveSegment> items)
         {
             Items = items;
         }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="PolycurveContour"/> class.
         /// </summary>
-        /// <param name="curves"></param>
+        /// <param name="curves">The curves.</param>
         public PolycurveContour(CubicBezier[] curves)
         {
             Items = new List<CurveSegment> { new PointSegment(curves[0].A) };
@@ -108,19 +110,19 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        ///
+        /// The deconstruct.
         /// </summary>
-        /// <param name="items"></param>
+        /// <param name="items">The items.</param>
         public void Deconstruct(out List<CurveSegment> items)
             => items = Items;
         #endregion Deconstructors
 
         #region Indexers
         /// <summary>
-        ///
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type CurveSegment.</returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public CurveSegment this[int index]
                 => Items[index];
@@ -128,7 +130,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the items.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
@@ -147,7 +149,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the definition.
         /// </summary>
         [Browsable(false)]
         [XmlAttribute("d"), SoapAttribute("d")]
@@ -193,7 +195,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets a value indicating whether 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
@@ -204,14 +206,14 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.PolycurveContourBounds(this));
 
         /// <summary>
-        ///
+        /// Gets the perimeter.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -220,7 +222,7 @@ namespace Engine
             => (double)CachingProperty(() => Items.Sum(p => p.Length));
 
         /// <summary>
-        ///
+        /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
@@ -272,10 +274,10 @@ namespace Engine
         //#endregion
 
         /// <summary>
-        ///
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
         {
             if (t == 0) return Items[0].Start.Value;
@@ -312,33 +314,35 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        ///
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
             => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
-        ///
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{CurveSegment}"/>.</returns>
         public IEnumerator<CurveSegment> GetEnumerator()
             => items.GetEnumerator();
 
         /// <summary>
-        ///
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
 
         /// <summary>
-        ///
+        /// Add.
         /// </summary>
-        /// <param name="o"></param>
+        /// <param name="o">The o.</param>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Add(object o)
         {
             switch (o)
@@ -381,10 +385,12 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add the line segment.
         /// </summary>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <param name="end">The end.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour AddLineSegment(Point2D end)
         {
             var segment = new LineCurveSegment(Items[Items.Count - 1], end);
@@ -393,15 +399,34 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add the arc.
         /// </summary>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
-        /// <param name="angle"></param>
-        /// <param name="largeArc"></param>
-        /// <param name="sweep"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <param name="centerX">The centerX.</param>
+        /// <param name="centerY">The centerY.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="sweepAngle">The sweepAngle.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public PolycurveContour AddArc(double centerX, double centerY, double radius, double sweepAngle)
+        {
+            var arc = new ArcSegment(Items[Items.Count - 1], centerX, centerY, radius, sweepAngle);
+            Items.Add(arc);
+            return this;
+        }
+
+        /// <summary>
+        /// Add the arc.
+        /// </summary>
+        /// <param name="r1">The r1.</param>
+        /// <param name="r2">The r2.</param>
+        /// <param name="angle">The angle.</param>
+        /// <param name="largeArc">The largeArc.</param>
+        /// <param name="sweep">The sweep.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour AddArc(double r1, double r2, double angle, bool largeArc, bool sweep, Point2D end)
         {
             var arc = new ArcSegment(Items[Items.Count - 1], r1, r2, angle, largeArc, sweep, end);
@@ -410,11 +435,13 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add the quadratic bezier.
         /// </summary>
-        /// <param name="handle"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <param name="handle">The handle.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour AddQuadraticBezier(Point2D handle, Point2D end)
         {
             var quad = new QuadraticBezierSegment(Items[Items.Count - 1], handle, end);
@@ -423,10 +450,12 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add the quadratic beziers.
         /// </summary>
-        /// <param name="curves"></param>
-        /// <returns></returns>
+        /// <param name="curves">The curves.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour AddQuadraticBeziers(CubicBezier[] curves)
         {
             foreach (var curve in curves)
@@ -437,12 +466,14 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add the cubic bezier.
         /// </summary>
-        /// <param name="handle1"></param>
-        /// <param name="handle2"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <param name="handle1">The handle1.</param>
+        /// <param name="handle2">The handle2.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
             var cubic = new CubicBezierSegment(Items[Items.Count - 1], handle1, handle2, end);
@@ -451,10 +482,12 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add the cubic beziers.
         /// </summary>
-        /// <param name="curves"></param>
-        /// <returns></returns>
+        /// <param name="curves">The curves.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour AddCubicBeziers(CubicBezier[] curves)
         {
             foreach (var curve in curves)
@@ -465,10 +498,12 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add the cardinal curve.
         /// </summary>
-        /// <param name="nodes"></param>
-        /// <returns></returns>
+        /// <param name="nodes">The nodes.</param>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal PolycurveContour AddCardinalCurve(List<Point2D> nodes)
         {
             var cardinal = new CardinalSegment(Items[Items.Count - 1], nodes);
@@ -477,9 +512,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Close.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Close()
         {
             if (Items[0].Start.Value != Items[Items.Count - 1].End.Value)
@@ -492,10 +527,10 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Parse the path def string.
         /// </summary>
-        /// <param name="pathDefinition"></param>
-        /// <returns></returns>
+        /// <param name="pathDefinition">The pathDefinition.</param>
+        /// <returns>The <see cref="(List{CurveSegment}, bool)"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
@@ -503,11 +538,11 @@ namespace Engine
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
-        ///
+        /// Parse the path def string.
         /// </summary>
-        /// <param name="pathDefinition"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="pathDefinition">The pathDefinition.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="(List{CurveSegment}, bool)"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
@@ -640,18 +675,18 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The to path def string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="String"/>.</returns>
         private String ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
-        ///
+        /// The to path def string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="String"/>.</returns>
         private String ToPathDefString(string format, IFormatProvider provider)
         {
             var output = new StringBuilder();

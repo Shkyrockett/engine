@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The range class.
     /// </summary>
     public class Range
         : GraphicsObject

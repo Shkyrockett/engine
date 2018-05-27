@@ -77,9 +77,9 @@ namespace Engine.Physics
 
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Feet"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public Feet(double value)
         {
             Value = value;
@@ -88,12 +88,12 @@ namespace Engine.Physics
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the mils.
         /// </summary>
         public double Mils
         {
@@ -102,7 +102,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the centimeters.
         /// </summary>
         public double Centimeters
         {
@@ -111,7 +111,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the inches.
         /// </summary>
         public double Inches
         {
@@ -120,7 +120,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the yards.
         /// </summary>
         public double Yards
         {
@@ -129,7 +129,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the meters.
         /// </summary>
         public double Meters
         {
@@ -138,7 +138,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the smoots.
         /// </summary>
         public double Smoots
         {
@@ -147,7 +147,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the kilometers.
         /// </summary>
         public double Kilometers
         {
@@ -156,7 +156,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the miles.
         /// </summary>
         public double Miles
         {
@@ -165,7 +165,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the nautical miles.
         /// </summary>
         public double NauticalMiles
         {
@@ -174,14 +174,14 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Feet);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation

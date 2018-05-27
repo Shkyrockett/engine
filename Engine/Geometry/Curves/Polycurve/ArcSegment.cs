@@ -19,7 +19,7 @@ using static Engine.Maths;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The arc segment class.
     /// </summary>
     [DataContract, Serializable]
     public class ArcSegment
@@ -27,70 +27,83 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// 
+        /// The r x.
         /// </summary>
         private double rX;
 
         /// <summary>
-        /// 
+        /// The r y.
         /// </summary>
         private double rY;
 
         /// <summary>
-        /// 
+        /// The angle.
         /// </summary>
         private double angle;
 
         /// <summary>
-        /// 
+        /// The large arc.
         /// </summary>
         private bool largeArc;
 
         /// <summary>
-        /// 
+        /// The sweep.
         /// </summary>
         private bool sweep;
 
         /// <summary>
-        /// 
+        /// The end.
         /// </summary>
         private Point2D end;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ArcSegment"/> class.
         /// </summary>
         public ArcSegment()
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ArcSegment"/> class.
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="relitive"></param>
-        /// <param name="args"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ArcSegment(CurveSegment item, bool relitive, Double[] args)
-            : this(item, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
+        /// <param name="previous">The previous.</param>
+        /// <param name="centerX">The centerX.</param>
+        /// <param name="centerY">The centerY.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="sweepAngle">The sweepAngle.</param>
+        public ArcSegment(CurveSegment previous, double centerX, double centerY, double radius, double sweepAngle)
+            : this(previous, radius, radius, sweepAngle, false, sweepAngle <= 180, PolarToCartesian(centerX, centerY, radius, Atan2(previous.End.Value.Y, previous.End.Value.X) + sweepAngle))
+        { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ArcSegment"/> class.
+        /// </summary>
+        /// <param name="previous">The item.</param>
+        /// <param name="relitive">The relitive.</param>
+        /// <param name="args">The args.</param>
+        public ArcSegment(CurveSegment previous, bool relitive, Double[] args)
+            : this(previous, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
         {
             if (relitive)
-                End = (Point2D)(End + item.End);
+            {
+                End = (Point2D)(End + previous.End);
+            }
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ArcSegment"/> class.
         /// </summary>
-        /// <param name="previous"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="angle"></param>
-        /// <param name="largeArc"></param>
-        /// <param name="sweep"></param>
-        /// <param name="end"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        /// <param name="previous">The previous.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="angle">The angle.</param>
+        /// <param name="largeArc">The largeArc.</param>
+        /// <param name="sweep">The sweep.</param>
+        /// <param name="end">The end.</param>
         public ArcSegment(CurveSegment previous, double rx, double ry, double angle, bool largeArc, bool sweep, Point2D? end)
         {
+            // SVG uses: rx, ry, x-axis-rotation, large-arc-flag, sweep-flag, xf, yf
             Previous = previous;
             previous.Next = this;
             RX = rx;
@@ -106,13 +119,13 @@ namespace Engine
         /// <summary>
         /// Deconstruct this <see cref="EllipticalArc"/> to a Tuple.
         /// </summary>
-        /// <param name="rX"></param>
-        /// <param name="rY"></param>
-        /// <param name="angle"></param>
-        /// <param name="largeArc"></param>
-        /// <param name="sweep"></param>
-        /// <param name="endX"></param>
-        /// <param name="endY"></param>
+        /// <param name="rX">The rX.</param>
+        /// <param name="rY">The rY.</param>
+        /// <param name="angle">The angle.</param>
+        /// <param name="largeArc">The largeArc.</param>
+        /// <param name="sweep">The sweep.</param>
+        /// <param name="endX">The endX.</param>
+        /// <param name="endY">The endY.</param>
         public void Deconstruct(out double rX, out double rY, out double angle, out bool largeArc, out bool sweep, out double endX, out double endY)
         {
             rX = this.rX;
@@ -127,7 +140,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the start.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         [Browsable(true)]
@@ -144,7 +157,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the center.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
@@ -293,7 +306,7 @@ namespace Engine
             => (double)CachingProperty(() => Sin(angle));
 
         /// <summary>
-        /// 
+        /// Gets the start angle.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
@@ -315,7 +328,7 @@ namespace Engine
             => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle, rX, rY));
 
         /// <summary>
-        /// 
+        /// Gets the sweep angle.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
@@ -329,7 +342,7 @@ namespace Engine
             => (double)CachingProperty(() => ToEllipticalArc().SweepAngle);
 
         /// <summary>
-        /// 
+        /// Gets the end angle.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
@@ -351,7 +364,7 @@ namespace Engine
             => (double)CachingProperty(() => EllipticalPolarAngle(StartAngle + SweepAngle, rX, rY));
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public bool LargeArc
@@ -365,7 +378,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public bool Sweep
@@ -379,7 +392,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? NextToEnd
@@ -393,7 +406,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         public override Point2D? End
@@ -407,7 +420,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the grips.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
@@ -415,7 +428,7 @@ namespace Engine
             => new List<Point2D> { Start.Value, End.Value };
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(Rectangle2DConverter))]
@@ -425,7 +438,7 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => ToEllipticalArc().Bounds);
 
         /// <summary>
-        /// 
+        /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
@@ -433,26 +446,26 @@ namespace Engine
         #endregion Properties
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => ToEllipticalArc().Interpolate(t);
 
         #region Methods
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Inclusion"/>.</returns>
         public Inclusion Contains(Point2D point)
             => Intersections.Contains(ToEllipticalArc(), point);
 
         /// <summary>
-        /// 
+        /// The to elliptical arc.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="EllipticalArc"/>.</returns>
         public EllipticalArc ToEllipticalArc()
             => (EllipticalArc)CachingProperty(() => new EllipticalArc(Start.Value.X, Start.Value.Y, RX, RY, Angle, LargeArc, Sweep, End.Value.X, End.Value.Y));
         #endregion Methods

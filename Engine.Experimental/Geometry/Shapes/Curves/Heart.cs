@@ -13,6 +13,10 @@ using System.Runtime.Serialization;
 
 namespace Engine
 {
+
+    /// <summary>
+    /// The heart class.
+    /// </summary>
     /// <summary>
     /// http://csharphelper.com/blog/2016/02/draw-parametric-heart-shaped-curve-c/
     /// </summary>
@@ -23,9 +27,9 @@ namespace Engine
         : Shape
     {
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => nameof(Heart);
     }

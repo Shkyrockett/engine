@@ -13,33 +13,33 @@ using System.Collections.Generic;
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The term class.
     /// </summary>
     public class Term
         : GraphicsObject
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Term"/> class.
         /// </summary>
         public Term()
             : this(new Coefficient(), new List<Variable>())
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Term"/> class.
         /// </summary>
-        /// <param name="coefficient"></param>
-        /// <param name="variables"></param>
+        /// <param name="coefficient">The coefficient.</param>
+        /// <param name="variables">The variables.</param>
         public Term(Coefficient coefficient, List<Variable> variables)
             : this(Point2D.Empty, coefficient, variables)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Term"/> class.
         /// </summary>
-        /// <param name="location"></param>
-        /// <param name="coefficient"></param>
-        /// <param name="variables"></param>
+        /// <param name="location">The location.</param>
+        /// <param name="coefficient">The coefficient.</param>
+        /// <param name="variables">The variables.</param>
         public Term(Point2D location, Coefficient coefficient, List<Variable> variables)
         {
             Location = location;

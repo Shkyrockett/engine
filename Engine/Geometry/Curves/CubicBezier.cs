@@ -670,15 +670,31 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
             => new Point2D(Interpolators.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, t));
+
+        /// <summary>
+        /// The interpolate.
+        /// </summary>
+        /// <param name="ts">The ts.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public List<Point2D> Interpolate(List<double> ts)
+        {
+            var list = new List<Point2D>();
+            foreach (var t in ts)
+            {
+                list.Add(Interpolate(t));
+            }
+            return list;
+        }
 
         /// <summary>
         /// Gets the tangent (normalized derivative) of the curve at a given T value.
@@ -696,9 +712,9 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<Point2D> GetEnumerator()

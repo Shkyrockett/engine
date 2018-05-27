@@ -30,37 +30,37 @@ namespace Engine
     {
         #region Static Creation Methods
         /// <summary>
-        /// 
+        /// The from center and radius.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="radius"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="radius">The radius.</param>
+        /// <returns>The <see cref="Circle"/>.</returns>
         public static Circle FromCenterAndRadius(Point2D point, double radius)
             => new Circle(point, radius);
 
         /// <summary>
-        /// 
+        /// The from three points.
         /// </summary>
-        /// <param name="pointA"></param>
-        /// <param name="pointB"></param>
-        /// <param name="pointC"></param>
-        /// <returns></returns>
+        /// <param name="pointA">The pointA.</param>
+        /// <param name="pointB">The pointB.</param>
+        /// <param name="pointC">The pointC.</param>
+        /// <returns>The <see cref="Circle"/>.</returns>
         public static Circle FromThreePoints(Point2D pointA, Point2D pointB, Point2D pointC)
             => new Circle(pointA, pointB, pointC);
 
         /// <summary>
-        /// 
+        /// The from triangle.
         /// </summary>
-        /// <param name="triangle"></param>
-        /// <returns></returns>
+        /// <param name="triangle">The triangle.</param>
+        /// <returns>The <see cref="Circle"/>.</returns>
         public static Circle FromTriangle(Triangle triangle)
             => new Circle(triangle.A, triangle.B, triangle.C);
 
         /// <summary>
-        /// 
+        /// The from rectangle.
         /// </summary>
-        /// <param name="rectangle"></param>
-        /// <returns></returns>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <returns>The <see cref="Circle"/>.</returns>
         public static Circle FromRectangle(Rectangle2D rectangle)
             => new Circle(rectangle);
         #endregion Static Creation Methods
@@ -135,19 +135,19 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Circle"/> class.
         /// </summary>
-        /// <param name="triangle"></param>
+        /// <param name="triangle">The triangle.</param>
         public Circle(Triangle triangle)
             : this(triangle.A, triangle.B, triangle.C)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Circle"/> class.
         /// </summary>
-        /// <param name="PointA"></param>
-        /// <param name="PointB"></param>
-        /// <param name="PointC"></param>
+        /// <param name="PointA">The PointA.</param>
+        /// <param name="PointB">The PointB.</param>
+        /// <param name="PointC">The PointC.</param>
         public Circle(Point2D PointA, Point2D PointB, Point2D PointC)
         {
             //  Calculate the slopes of the lines.
@@ -433,10 +433,10 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
             => Intersections.Contains(this, point) != Inclusion.Outside;
 

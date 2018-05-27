@@ -13,17 +13,17 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The sprite class.
     /// </summary>
     public class Sprite
     {
         /// <summary>
-        /// 
+        /// The graphic objects.
         /// </summary>
         public List<Shape> GraphicObjects;
 
         /// <summary>
-        /// 
+        /// The state.
         /// </summary>
         public object State;
     }

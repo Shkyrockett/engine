@@ -43,8 +43,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" />
-    <PackageReference Include="System.Memory" Version="4.5.0-preview2-26406-04" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0-preview2-26406-04" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+    <PackageReference Include="System.Memory" Version="4.5.0-rc1" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0-rc1" />
   </ItemGroup>
 
   <ItemGroup>

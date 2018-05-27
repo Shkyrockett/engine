@@ -16,7 +16,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The star class.
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
@@ -209,9 +209,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
             if (this == null) return nameof(Star);

@@ -135,7 +135,7 @@ namespace Engine
                 }
                 catch (TargetInvocationException ex)
                 {
-                    throw ex.InnerException;
+                    throw;// ex.InnerException;
                 }
             }
             return base.ConvertFrom(context, culture, value);
@@ -177,7 +177,7 @@ namespace Engine
                 }
                 catch (TargetInvocationException ex)
                 {
-                    throw ex.InnerException;
+                    throw;// ex.InnerException;
                 }
             }
             return base.CreateInstance(context, propertyValues);

@@ -60,12 +60,12 @@ namespace Engine.Physics
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the degrees.
         /// </summary>
         public double Degrees
         {
@@ -74,14 +74,14 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Radians);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
@@ -119,11 +119,11 @@ namespace Engine.Physics
             => Equals(a, b);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Radians a, Radians b)
             => (a.Value == b.Value) & (a.Value == b.Value);
@@ -144,10 +144,10 @@ namespace Engine.Physics
             => (obj is Radians || obj is Degrees) && obj is Radians ? Equals(this, (Radians)obj) : Equals(this, ((Degrees)obj).ToRadian());
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Radians value)
             => Equals(this, value);

@@ -29,10 +29,10 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SamplePosition"/> class.
         /// </summary>
-        /// <param name="curveIndex"></param>
-        /// <param name="t"></param>
+        /// <param name="curveIndex">The curveIndex.</param>
+        /// <param name="t">The t.</param>
         public SamplePosition(int curveIndex, double t)
         {
             Index = curveIndex;

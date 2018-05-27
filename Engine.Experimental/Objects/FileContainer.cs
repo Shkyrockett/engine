@@ -11,12 +11,12 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The file container class.
     /// </summary>
     public class FileContainer
     {
         /// <summary>
-        /// 
+        /// Gets or sets the filename.
         /// </summary>
         public string Filename { get; set; }
     }

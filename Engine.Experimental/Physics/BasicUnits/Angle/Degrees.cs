@@ -57,12 +57,12 @@ namespace Engine.Physics
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the radians.
         /// </summary>
         public double Radians
         {
@@ -71,14 +71,14 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Degrees);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
@@ -116,11 +116,11 @@ namespace Engine.Physics
             => Equals(a, b);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Degrees a, Degrees b)
             => (a.Value == b.Value) & (a.Value == b.Value);
@@ -141,30 +141,26 @@ namespace Engine.Physics
             => (obj is Degrees || obj is Radians) && obj is Degrees ? Equals(this, (Degrees)obj) : Equals(this, ((Radians)obj).ToDegrees());
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Degrees value)
             => Equals(this, value);
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         public static implicit operator Degrees(double value)
             => new Degrees(value);
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         public static explicit operator Degrees(Radians value)
             => value.Degrees;

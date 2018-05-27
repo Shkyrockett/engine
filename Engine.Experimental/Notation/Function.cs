@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The function class.
     /// </summary>
     public class Function
         : GraphicsObject

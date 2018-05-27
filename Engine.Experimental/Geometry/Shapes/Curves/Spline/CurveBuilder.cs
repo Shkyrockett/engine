@@ -68,10 +68,10 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CurveBuilder"/> class.
         /// </summary>
-        /// <param name="linDist"></param>
-        /// <param name="error"></param>
+        /// <param name="linDist">The linDist.</param>
+        /// <param name="error">The error.</param>
         public CurveBuilder(double linDist, double error)
         {
             squaredError = error * error;
@@ -132,10 +132,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add the internal.
         /// </summary>
-        /// <param name="np"></param>
-        /// <returns></returns>
+        /// <param name="np">The np.</param>
+        /// <returns>The <see cref="AddPointResult"/>.</returns>
         private AddPointResult AddInternal(Point2D np)
         {
             var last = points.Count;
@@ -222,23 +222,23 @@ namespace Engine
         // the type is never boxed
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="List{CubicBezier}.Enumerator"/>.</returns>
         public List<CubicBezier>.Enumerator GetEnumerator()
             => result.GetEnumerator();
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{CubicBezier}"/>.</returns>
         IEnumerator<CubicBezier> IEnumerable<CubicBezier>.GetEnumerator()
             => GetEnumerator();
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
     }

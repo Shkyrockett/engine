@@ -6,15 +6,12 @@
   This code is MIT licensed.
 */
 
-#pragma warning disable RCS1060 // Declare each type in separate file.
-
 using System.Collections.Generic;
 
 namespace Engine
 {
-
     /// <summary>
-    /// 
+    /// The pair comparer class.
     /// </summary>
     internal class PairComparer
         : IEqualityComparer<Pair>
@@ -32,7 +29,7 @@ namespace Engine
                 return true;
 
             //Check whether any of the compared objects is null.
-            if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
+            if (x is null || y is null)
                 return false;
 
             //Check whether the products' properties are equal.
@@ -48,7 +45,7 @@ namespace Engine
         public int GetHashCode(Pair pair)
         {
             //Check whether the object is null
-            if (ReferenceEquals(pair, null))
+            if (pair is null)
                 return 0;
 
             //Calculate the hash code for the product.
@@ -56,5 +53,3 @@ namespace Engine
         }
     }
 }
-
-#pragma warning restore RCS1060 // Declare each type in separate file.

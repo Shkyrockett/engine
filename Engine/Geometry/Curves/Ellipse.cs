@@ -59,7 +59,7 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Ellipse"/> class.
         /// </summary>
         public Ellipse()
             : this(0, 0, 0, 0, 0)
@@ -581,10 +581,10 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        ///
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
             => Intersections.Contains(this, point) != Inclusion.Outside;
 

@@ -11,17 +11,17 @@
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The physics class.
     /// </summary>
     public class Physics
     {
         /// <summary>
-        /// 
+        /// Add the velocities.
         /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public static double AddVelocities(double v1, double v2, double c = 299790000d)
             => v1 + v2 / (1 + v1 * v2 / c * c);
     }

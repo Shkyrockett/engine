@@ -13,50 +13,50 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The electron volt struct.
     /// </summary>
     public struct ElectronVolt
         : IEnergy
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="ElectronVolt"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public ElectronVolt(double value)
         {
             Value = value;
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => "Electron Volt";
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "eV";
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         public static implicit operator ElectronVolt(double value)
             => new ElectronVolt(value);
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{Value} eV";
     }

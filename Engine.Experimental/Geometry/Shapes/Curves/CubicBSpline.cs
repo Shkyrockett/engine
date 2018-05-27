@@ -15,7 +15,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The cubic b spline class.
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
@@ -24,38 +24,38 @@ namespace Engine
         : Shape
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CubicBSpline"/> class.
         /// </summary>
         public CubicBSpline()
             : this(new List<Point2D> { Point2D.Empty })
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CubicBSpline"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public CubicBSpline(List<Point2D> points)
         {
             NodePoints = points;
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the node points.
         /// </summary>
         public List<Point2D> NodePoints { get; set; }
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => Interpolators.CubicBSpline(NodePoints, t);
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
             if (this == null) return nameof(CubicBSpline);

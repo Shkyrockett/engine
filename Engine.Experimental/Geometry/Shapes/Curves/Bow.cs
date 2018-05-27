@@ -32,32 +32,34 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// 
+        /// The offset.
         /// </summary>
         private Point2D offset;
 
         /// <summary>
-        /// 
+        /// The multiplyer.
         /// </summary>
         private Size2D multiplyer;
 
         /// <summary>
-        /// 
+        /// The precision.
         /// </summary>
         private double precision;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Bow"/> class.
         /// </summary>
         public Bow()
             : this(new Point2D(), new Size2D())
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Bow"/> class.
         /// </summary>
+        /// <param name="offset">The offset.</param>
+        /// <param name="multiplyer">The multiplyer.</param>
         public Bow(Point2D offset, Size2D multiplyer)
         {
             this.offset = offset;
@@ -68,7 +70,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the offset.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -84,7 +86,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the multiplyer.
         /// </summary>
         public Size2D Multiplyer
         {
@@ -97,7 +99,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the precision.
         /// </summary>
         public double Precision
         {
@@ -112,20 +114,20 @@ namespace Engine
 
         #region Interpolators
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t) => new Point2D(
-    offset.X + ((1 - (Tan(t) * 2)) * Cos(t)) * multiplyer.Width,
-    offset.Y + ((1 - (Tan(t) * 2)) * (2 * Sin(t))) * multiplyer.Height
-    );
+            offset.X + ((1 - (Tan(t) * 2)) * Cos(t)) * multiplyer.Width,
+            offset.Y + ((1 - (Tan(t) * 2)) * (2 * Sin(t))) * multiplyer.Height
+        );
 
         /// <summary>
-        /// 
+        /// The interpolate points.
         /// </summary>
-        /// <param name="count"></param>
-        /// <returns></returns>
+        /// <param name="count">The count.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public override List<Point2D> InterpolatePoints(int count)
         {
             var points = new List<Point2D>();

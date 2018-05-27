@@ -14,13 +14,13 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// Dialog
+    /// The actor dialog class.
     /// </summary>
     public class ActorDialog
         : IGameElement
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ActorDialog"/> class.
         /// </summary>
         public ActorDialog()
         {
@@ -31,22 +31,22 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the display name.
         /// </summary>
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the time sync points.
         /// </summary>
         public Dictionary<int, DateTimeOffset> TimeSyncPoints { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the text.
         /// </summary>
         public List<string> Text { get; set; }
     }

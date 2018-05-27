@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The fraction class.
     /// </summary>
     public class Fraction
         : GraphicsObject

@@ -11,7 +11,7 @@
 namespace Engine.Localization
 {
     /// <summary>
-    /// 
+    /// The ISO3166 2 enum.
     /// </summary>
     public enum ISO3166_2
     {

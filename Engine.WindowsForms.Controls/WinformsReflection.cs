@@ -17,17 +17,17 @@ using static Engine.EngineReflection;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The winforms reflection class.
     /// </summary>
     public static class WinformsReflection
     {
         /// <summary>
-        /// 
+        /// The angle editor attribute (readonly). Value: new EditorAttribute(typeof(AngleEditor), typeof(UITypeEditor)).
         /// </summary>
         private static readonly Attribute angleEditorAttribute = new EditorAttribute(typeof(AngleEditor), typeof(UITypeEditor));
 
         /// <summary>
-        /// 
+        /// Initializes static members of the <see cref="WinformsReflection"/> class.
         /// </summary>
         static WinformsReflection()
         {

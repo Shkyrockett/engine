@@ -13,22 +13,22 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The resources class.
     /// </summary>
     public class Resources
     {
         /// <summary>
-        /// 
+        /// The fonts.
         /// </summary>
         public List<Sprite> Fonts;
 
         /// <summary>
-        /// 
+        /// The sprites.
         /// </summary>
         public List<Sprite> Sprites;
 
         /// <summary>
-        /// 
+        /// The audio.
         /// </summary>
         public List<IAudio> Audio;
     }

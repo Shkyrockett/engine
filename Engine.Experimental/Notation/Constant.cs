@@ -13,13 +13,13 @@ using System.Collections.Generic;
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The constant class.
     /// </summary>
     public class Constant
         :Term
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Constant"/> class.
         /// </summary>
         public Constant()
         {
@@ -27,7 +27,7 @@ namespace Engine.MathNotation
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the variables.
         /// </summary>
         private new List<Variable> Variables { get; set; }
     }

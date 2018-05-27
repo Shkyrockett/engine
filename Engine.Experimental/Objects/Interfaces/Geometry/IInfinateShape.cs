@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IInfinateShape interface.
     /// </summary>
     public interface IInfinateShape
     { }

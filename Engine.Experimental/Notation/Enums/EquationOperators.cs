@@ -11,42 +11,42 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The equation operators enum.
     /// </summary>
     public enum EquationOperators
     {
         /// <summary>
-        /// 
+        /// The Equals.
         /// </summary>
         Equals,
 
         /// <summary>
-        /// 
+        /// The NotEqual.
         /// </summary>
         NotEqual,
 
         /// <summary>
-        /// 
+        /// The LessThan.
         /// </summary>
         LessThan,
 
         /// <summary>
-        /// 
+        /// The GreaterThan.
         /// </summary>
         GreaterThan,
 
         /// <summary>
-        /// 
+        /// The LessThanOrEqualTo.
         /// </summary>
         LessThanOrEqualTo,
 
         /// <summary>
-        /// 
+        /// The GreaterThanOrEqualTo.
         /// </summary>
         GreaterThanOrEqualTo,
 
         /// <summary>
-        /// 
+        /// The Approximately.
         /// </summary>
         Approximately
     }

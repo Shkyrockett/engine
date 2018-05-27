@@ -13,13 +13,14 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The ITweenable interface.
     /// </summary>
     public interface ITweenable
     {
         /// <summary>
-        /// 
+        /// Gets or sets the values.
         /// </summary>
+        /// <value>The <see cref="List{T}"/>.</value>
         List<double> Values { get; set; }
     }
 }

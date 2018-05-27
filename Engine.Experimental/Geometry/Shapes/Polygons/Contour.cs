@@ -4,22 +4,22 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The contour2d class.
     /// </summary>
     public class Contour2D
     {
         /// <summary>
-        ///
+        /// The points.
         /// </summary>
         public List<Point2D> points;
 
         /// <summary>
-        ///
+        /// The bounds.
         /// </summary>
         public Rectangle2D bounds;
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Contour2D"/> class.
         /// </summary>
         public Contour2D()
         {
@@ -27,15 +27,15 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add.
         /// </summary>
-        /// <param name="p"></param>
-        public void Add(Point2D p) => points.Add(p);
+        /// <param name="p">The p.</param>
+        public void Add(Point2D p)
+            => points.Add(p);
 
         /// <summary>
-        ///
+        /// Gets the bounds.
         /// </summary>
-        /// <returns></returns>
         public Rectangle2D Bounds
         {
             get
@@ -65,10 +65,10 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Get the segment.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="LineSegment"/>.</returns>
         public LineSegment GetSegment(int index)
         {
             if (index == points.Count - 1)

@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The cosine class.
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
@@ -23,15 +23,17 @@ namespace Engine
         : Shape
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Cosine"/> class.
         /// </summary>
         public Cosine()
             :this(Point2D.Empty,Point2D.Empty)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Cosine"/> class.
         /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
         public Cosine(Point2D a, Point2D b)
         {
             A = a;
@@ -39,12 +41,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the a.
         /// </summary>
         public Point2D A { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the b.
         /// </summary>
         public Point2D B { get; set; }
 
@@ -58,9 +60,9 @@ namespace Engine
             => new Point2D(Interpolators.Cosine(A.X, A.Y, B.X, B.Y, t));
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
             if (this == null) return nameof(Cosine);

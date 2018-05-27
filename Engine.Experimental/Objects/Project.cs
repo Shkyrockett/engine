@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The project class.
     /// </summary>
     public class Project
     { }

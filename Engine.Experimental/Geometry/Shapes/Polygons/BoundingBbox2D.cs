@@ -3,37 +3,30 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The bounding bbox2d class.
     /// </summary>
     public class BoundingBbox2D
     {
         /// <summary>
-        /// 
+        /// The xmin.
         /// </summary>
         private double xmin;
 
         /// <summary>
-        /// 
+        /// The xmax.
         /// </summary>
         private double xmax;
 
         /// <summary>
-        /// 
+        /// The ymin.
         /// </summary>
         private double ymin;
 
         /// <summary>
-        /// 
+        /// The ymax.
         /// </summary>
         private double ymax;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="xmin"></param>
-        /// <param name="ymin"></param>
-        /// <param name="xmax"></param>
-        /// <param name="ymax"></param>
         private BoundingBbox2D(double xmin = 0, double ymin = 0, double xmax = 0, double ymax = 0)
         {
             this.xmin = xmin;
@@ -43,27 +36,23 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the xmin.
         /// </summary>
-        /// <returns></returns>
         public double Xmin { get { return xmin; } set { xmin = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the xmax.
         /// </summary>
-        /// <returns></returns>
         public double Xmax { get { return xmax; } set { xmax = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the ymin.
         /// </summary>
-        /// <returns></returns>
         public double Ymin { get { return ymin; } set { ymin = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the ymax.
         /// </summary>
-        /// <returns></returns>
         public double Ymax { get { return ymax; } set { ymax = value; } }
 
         /// <summary>

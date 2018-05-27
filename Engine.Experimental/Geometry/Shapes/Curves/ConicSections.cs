@@ -13,12 +13,12 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The conic sections class.
     /// </summary>
     public class ConicSections
     {
         /// <summary>
-        /// 
+        /// Gets or sets the points.
         /// </summary>
         public List<Point2D> Points { get; set; }
     }

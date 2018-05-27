@@ -17,47 +17,49 @@ namespace Engine
     public class BezierFragment
     {
         /// <summary>
-        /// 
+        /// The bezier01 (readonly). Value: new double[] { 0, 1 }.
         /// </summary>
         private static readonly double[] Bezier01 = new double[] { 0, 1 };
 
         /// <summary>
-        /// 
+        /// The control points.
         /// </summary>
         private Point2D[] controlPoints;
 
         /// <summary>
-        /// 
+        /// The ro points.
         /// </summary>
         private ReadonlyPoints roPoints;
 
         /// <summary>
-        /// 
+        /// The m curve x.
         /// </summary>
         private Polynomialx mCurveX;
 
         /// <summary>
-        /// 
+        /// The m curve y.
         /// </summary>
         private Polynomialx mCurveY;
 
         /// <summary>
-        /// 
+        /// The bounds.
         /// </summary>
         private Rectangle2D bounds = Rectangle2D.Empty;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="BezierFragment"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public BezierFragment(IEnumerable<Point2D> points)
             : this(points.ToArray())
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="BezierFragment"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException">Bézier curve need at least 2 points (segment).</exception>
         public BezierFragment(params Point2D[] points)
         {
             if (points == null)
@@ -69,10 +71,10 @@ namespace Engine
 
         #region Compute() CurveX CurveY
         /// <summary>
-        /// 
+        /// The compute.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public Point2D Compute(double t)
         {
             var x = CurveX.Compute(t);
@@ -81,7 +83,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the curve x.
         /// </summary>
         public Polynomialx CurveX
         {
@@ -97,7 +99,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the curve y.
         /// </summary>
         public Polynomialx CurveY
         {
@@ -115,52 +117,52 @@ namespace Engine
 
         #region ControlPoints
         /// <summary>
-        /// 
+        /// The readonly points class.
         /// </summary>
         public class ReadonlyPoints
             : IReadOnlyList<Point2D>
         {
             /// <summary>
-            /// 
+            /// The values.
             /// </summary>
             private Point2D[] values;
 
             /// <summary>
-            /// 
+            /// Initializes a new instance of the <see cref="ReadonlyPoints"/> class.
             /// </summary>
-            /// <param name="values"></param>
+            /// <param name="values">The values.</param>
             internal ReadonlyPoints(Point2D[] values)
             {
                 this.values = values;
             }
 
             /// <summary>
-            /// 
+            /// The Indexer.
             /// </summary>
-            /// <param name="index"></param>
-            /// <returns></returns>
+            /// <param name="index">The index index.</param>
+            /// <returns>One element of type Point2D.</returns>
             public Point2D this[int index] => values[index];
 
             /// <summary>
-            /// 
+            /// Gets the count.
             /// </summary>
             public int Count => values.Length;
 
             /// <summary>
-            /// 
+            /// Get the enumerator.
             /// </summary>
-            /// <returns></returns>
+            /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
             public IEnumerator<Point2D> GetEnumerator() => values.Cast<Point2D>().GetEnumerator();
 
             /// <summary>
-            /// 
+            /// Get the enumerator.
             /// </summary>
-            /// <returns></returns>
+            /// <returns>The <see cref="IEnumerator"/>.</returns>
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
         /// <summary>
-        /// 
+        /// Gets the control points.
         /// </summary>
         public ReadonlyPoints ControlPoints
         {
@@ -175,10 +177,11 @@ namespace Engine
 
         #region Basic Static Operations
         /// <summary>
-        /// 
+        /// The bezier.
         /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="Polynomialx"/>.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static Polynomialx Bezier(params double[] values)
         {
             if (values == null || values.Length < 1)
@@ -187,12 +190,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The bezier.
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
+        /// <param name="from">The from.</param>
+        /// <param name="to">The to.</param>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="Polynomialx"/>.</returns>
         private static Polynomialx Bezier(int from, int to, double[] values)
         {
             if (from == to)
@@ -201,21 +204,21 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The t (readonly). Value: new Polynomialx(0, 1).
         /// </summary>
         private static readonly Polynomialx T = new Polynomialx(0, 1);
 
         /// <summary>
-        /// 
+        /// The one minus t (readonly). Value: 1 - T.
         /// </summary>
         private static readonly Polynomialx OneMinusT = 1 - T;
 
         /// <summary>
-        /// 
+        /// The line.
         /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <returns></returns>
+        /// <param name="p0">The p0.</param>
+        /// <param name="p1">The p1.</param>
+        /// <returns>The <see cref="Polynomialx"/>.</returns>
         public static Polynomialx Line(double p0, double p1)
         {
             var T = new Polynomialx(0, 1);
@@ -223,12 +226,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The quadratic.
         /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <returns></returns>
+        /// <param name="p0">The p0.</param>
+        /// <param name="p1">The p1.</param>
+        /// <param name="p2">The p2.</param>
+        /// <returns>The <see cref="Polynomialx"/>.</returns>
         public static Polynomialx Quadratic(double p0, double p1, double p2)
         {
             var T = new Polynomialx(0, 1);
@@ -236,13 +239,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The cubic.
         /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
-        /// <returns></returns>
+        /// <param name="p0">The p0.</param>
+        /// <param name="p1">The p1.</param>
+        /// <param name="p2">The p2.</param>
+        /// <param name="p3">The p3.</param>
+        /// <returns>The <see cref="Polynomialx"/>.</returns>
         public static Polynomialx Cubic(double p0, double p1, double p2, double p3)
         {
             var T = new Polynomialx(0, 1);
@@ -252,9 +255,9 @@ namespace Engine
 
         #region BoundingBox()
         /// <summary>
-        /// 
+        /// The bounding box.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         public Rectangle2D BoundingBox()
         {
             if (bounds.IsEmpty)
@@ -299,18 +302,18 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The split.
         /// </summary>
-        /// <param name="ts"></param>
-        /// <returns></returns>
+        /// <param name="ts">The ts.</param>
+        /// <returns>The <see cref="T:BezierFragment[]"/>.</returns>
         public BezierFragment[] Split(params double[] ts)
             => Split((IEnumerable<double>)ts);
 
         /// <summary>
-        /// 
+        /// The split.
         /// </summary>
-        /// <param name="ts"></param>
-        /// <returns></returns>
+        /// <param name="ts">The ts.</param>
+        /// <returns>The <see cref="T:BezierFragment[]"/>.</returns>
         public BezierFragment[] Split(IEnumerable<double> ts)
         {
             if (ts == null)
@@ -337,10 +340,10 @@ namespace Engine
 
         #region ParameterizedSquareDistance() ClosestParameter() DistanceTo()
         /// <summary>
-        /// 
+        /// The parameterized square distance.
         /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <returns>The <see cref="Polynomialx"/>.</returns>
         public Polynomialx ParameterizedSquareDistance(Point2D p)
         {
             var vx = CurveX - p.X;
@@ -349,10 +352,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The closest parameter.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public double ClosestParameter(Point2D point)
         {
             var dsquare = ParameterizedSquareDistance(point);
@@ -366,10 +369,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The distance to.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public double DistanceTo(Point2D point)
         {
             var dsquare = ParameterizedSquareDistance(point);

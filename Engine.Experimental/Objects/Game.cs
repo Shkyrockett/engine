@@ -19,7 +19,7 @@ namespace Engine
         : IGameElement
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Game"/> class.
         /// </summary>
         public Game()
         {
@@ -49,27 +49,27 @@ namespace Engine
         public List<Scene> Scenes { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the actors.
         /// </summary>
         public List<Actor> Actors { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the actors dialog.
         /// </summary>
         public List<ActorDialog> ActorsDialog { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the audio.
         /// </summary>
         public List<IAudio> Audio { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the graphics.
         /// </summary>
         public List<IBitmap> Graphics { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the variables.
         /// </summary>
         public Dictionary<string, object> Variables { get; set; }
     }

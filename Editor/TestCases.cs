@@ -44,7 +44,8 @@ namespace Editor
 
             /* Experimental Previews */
 
-            EnvelopeWarp(vectorMap);
+            BezierExp(vectorMap);
+            //EnvelopeWarp(vectorMap);
             //Clipper(vectorMap);
             //ComplexPolygonClipping(vectorMap);
             //PolyClipping(vectorMap);
@@ -200,6 +201,109 @@ namespace Editor
 
         #region Experimental
         /// <summary>
+        /// The bezier exp.
+        /// </summary>
+        /// <param name="vectorMap">The vectorMap.</param>
+        public static void BezierExp(VectorMap vectorMap)
+        {
+            var bezier = new Bezier((100, 100), (50, 150), (200, 150), (250, 300));
+            var curve = new CubicBezier(bezier.Points[0], bezier.Points[1], bezier.Points[2], bezier.Points[3]);
+            var curveItem = new GraphicItem(curve, azureTransparent)
+            {
+                Name = "Curve"
+            };
+
+            var extrema = curve.Interpolate(bezier.Extrema());
+            var extremaNodeItem = new GraphicItem(new NodeRevealer(extrema, 5d), handleStyle)
+            {
+                Name = "Extrema Nodes"
+            };
+
+            var inflections = curve.Interpolate(bezier.Inflections());
+            var inflectionsNodeItem = new GraphicItem(new NodeRevealer(inflections, 5d), handleStyle)
+            {
+                Name = "Inflections Nodes"
+            };
+
+            //var hull = bezier.Hull(0.5);
+            //var hullNodeItem = new GraphicItem(new NodeRevealer(hull, 5d), handleStyle)
+            //{
+            //    Name = "Hull Nodes"
+            //};
+
+            var bounds = bezier.Bbox();
+            var rect = new Rectangle2D(bounds.X.Min, bounds.Y.Min, bounds.X.Size, bounds.Y.Size);
+            var rectItem = new GraphicItem(rect, selectionStyle)
+            {
+                Name = "Bounds"
+            };
+
+            var offset = bezier.Offset(50);
+            var offsetCurve = new PolycurveContour(offset[0].Points[0]);
+            foreach (var bez in offset)
+            {
+                offsetCurve.AddCubicBezier(bez.Points[1], bez.Points[2], bez.Points[3]);
+            }
+            var offsetCurveItem = new GraphicItem(offsetCurve, azureTransparent)
+            {
+                Name = "Offset Curve"
+            };
+
+            var reduce = bezier.Reduce();
+            var reduceCurve = new PolycurveContour(reduce[0].Points[0]);
+            foreach (var bez in reduce)
+            {
+                reduceCurve.AddCubicBezier(bez.Points[1], bez.Points[2], bez.Points[3]);
+            }
+            var reduceCurveItem = new GraphicItem(reduceCurve, azureTransparent)
+            {
+                Name = "Reduce Curve"
+            };
+
+            //var outline = bezier.Outline(50,50,50,50,true);
+            //var outlineCurve = new PolycurveContour(outline.Curves[0].Points[0]);
+            //foreach (var bez in outline.Curves)
+            //{
+            //    outlineCurve.AddCubicBezier(bez.Points[1], bez.Points[2], bez.Points[3]);
+            //}
+            //var outlineCurveItem = new GraphicItem(outlineCurve, azureTransparent)
+            //{
+            //    Name = "Outline Curve"
+            //};
+
+            //var scale = bezier.Scale(50);
+            //var scaleCurve = new CubicBezier(scale.Points[0], scale.Points[1], scale.Points[2], scale.Points[3]);
+            //var scaleCurveItem = new GraphicItem(scaleCurve, azureTransparent)
+            //{
+            //    Name = "Scale Curve"
+            //};
+
+            //var arcs = bezier.Arcs();
+            //arcs.Reverse();
+            //var arcsCurve = new PolycurveContour(new CircularArc(arcs[0].Center, arcs[0].Radius, arcs[0].Start, arcs[0].End).StartPoint);
+            //foreach (var arc in arcs)
+            //{
+            //    var arcx = new CircularArc(arc.Center, arc.Radius, arc.Start, arc.End);
+            //    arcsCurve.AddArc(arc.Center.X,arc.Center.Y,arc.Radius,arcx.SweepAngle);
+            //}
+            //var arcsCurveItem = new GraphicItem(arcsCurve, azureTransparent)
+            //{
+            //    Name = "Arcs Curve"
+            //};
+
+            vectorMap.Add(rectItem);
+            vectorMap.Add(curveItem);
+            //vectorMap.Add(scaleCurveItem);
+            vectorMap.Add(offsetCurveItem);
+            vectorMap.Add(reduceCurveItem);
+            //vectorMap.Add(outlineCurveItem);
+            //vectorMap.Add(arcsCurveItem);
+            vectorMap.Add(extremaNodeItem);
+            vectorMap.Add(inflectionsNodeItem);
+            //vectorMap.Add(hullNodeItem);
+        }
+
+        /// <summary>
         /// The envelope warp.
         /// </summary>
         /// <param name="vectorMap">The vectorMap.</param>
@@ -280,10 +384,10 @@ namespace Editor
                 Name = "Warp"
             };
 
-            //vectorMap.Add(rectItem);
+            vectorMap.Add(rectItem);
             vectorMap.Add(curvedBoundsItem);
             vectorMap.Add(warpedRectangleItem);
-            //vectorMap.Add(warpedRectangleNodeItem);
+            vectorMap.Add(warpedRectangleNodeItem);
             vectorMap.Add(warpedTriangleItem);
             vectorMap.Add(warpGridItem);
             vectorMap.Add(curvedBoundsItemNodeItem);

@@ -18,7 +18,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The spline class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -28,12 +28,12 @@ namespace Engine
     {
         #region Constants
         /// <summary>
-        /// 
+        /// The minimum samples per curve (const). Value: 8.
         /// </summary>
         public const int MinimumSamplesPerCurve = 8;
 
         /// <summary>
-        /// 
+        /// The maximum samples per curve (const). Value: 1024.
         /// </summary>
         public const int MaximumSamplesPerCurve = 1024;
         #endregion Constants

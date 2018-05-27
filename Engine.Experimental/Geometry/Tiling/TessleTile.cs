@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Engine.Experimental
 {
@@ -118,7 +117,6 @@ namespace Engine.Experimental
         #endregion Properties
 
         #region Methods
-
         /// <summary>
         /// Build the polyline.
         /// </summary>
@@ -165,7 +163,6 @@ namespace Engine.Experimental
             }
             return new PolygonContour(polygon);
         }
-
         #endregion Methods
     }
 }

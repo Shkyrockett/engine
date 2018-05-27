@@ -13,17 +13,17 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The graphics cataloge class.
     /// </summary>
     public class GraphicsCataloge
     {
         /// <summary>
-        /// 
+        /// The items.
         /// </summary>
         private List<GraphicsObject> items;
 
         /// <summary>
-        /// 
+        /// Gets or sets the items.
         /// </summary>
         public List<GraphicsObject> Items { get { return items; } set { items = value; } }
     }

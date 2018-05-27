@@ -11,37 +11,37 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The geometry class.
     /// </summary>
     public class Geometry_
     {
         /// <summary>
-        /// 
+        /// Gets or sets the origional.
         /// </summary>
         public Shape[] Origional { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the current.
         /// </summary>
         public Shape[] Current { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the transform.
         /// </summary>
         public Matrix3x2D Transform { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the bounds.
         /// </summary>
         public Rectangle2D Bounds { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the style.
         /// </summary>
         public IStyle Style { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the metadata.
         /// </summary>
         public IMetadata Metadata { get; set; }
     }

@@ -17,7 +17,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The circular arc class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -43,12 +43,12 @@ namespace Engine
         private double radius;
 
         /// <summary>
-        /// 
+        /// The start angle.
         /// </summary>
         private double startAngle;
 
         /// <summary>
-        /// 
+        /// The sweep angle.
         /// </summary>
         private double sweepAngle;
         #endregion Fields
@@ -560,10 +560,10 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
             => Intersections.Contains(this, point) != Inclusion.Outside;
 

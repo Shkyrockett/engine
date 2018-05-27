@@ -13,50 +13,50 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The atomic mass unit struct.
     /// </summary>
     public struct AtomicMassUnit
         : IEnergy
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="AtomicMassUnit"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public AtomicMassUnit(double value)
         {
             Value = value;
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => "Atomic Mass Unit";
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "amu";
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         public static implicit operator AtomicMassUnit(double value)
             => new AtomicMassUnit(value);
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString() => $"{Value} amu";
     }
 }

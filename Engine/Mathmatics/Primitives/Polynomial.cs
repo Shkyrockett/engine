@@ -264,8 +264,6 @@ namespace Engine
         /// <summary>
         /// Gets a value indicating whether the real roots for the polynomial can be solved with availible methods.
         /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -330,9 +328,8 @@ namespace Engine
         /// <summary>
         /// Unary addition operator.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="value">The original value.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -344,10 +341,9 @@ namespace Engine
         /// <summary>
         /// Add an amount to both values in the <see cref="Polynomial"/> structs.
         /// </summary>
-        /// <param name="value">The original value</param>
+        /// <param name="value">The original value.</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -361,8 +357,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -381,8 +376,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -413,8 +407,7 @@ namespace Engine
         /// Unary subtraction operator.
         /// </summary>
         /// <param name="value">The original value</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -436,8 +429,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="subend">The amount to subtract.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -451,8 +443,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="subend">The amount to subtract.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -475,8 +466,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="subend">The amount to subtract.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -509,8 +499,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="factor">The factor value.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -524,8 +513,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="factor">The factor value.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -547,8 +535,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="factor">The factor value.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -574,8 +561,7 @@ namespace Engine
         /// </summary>
         /// <param name="divisor">The divisor value</param>
         /// <param name="dividend">The dividend to add.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -597,9 +583,9 @@ namespace Engine
         /// The result specifies whether the values of the x and x
         /// values of the two <see cref="Polynomial"/> objects are equal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left Polynomial.</param>
+        /// <param name="right">The right Polynomial.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Polynomial left, Polynomial right)
@@ -610,9 +596,9 @@ namespace Engine
         /// The result specifies whether the values of the x or y
         /// values of the two <see cref="Polynomial"/> objects are unequal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left Polynomial.</param>
+        /// <param name="right">The right Polynomial.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Polynomial left, Polynomial right)
@@ -621,7 +607,8 @@ namespace Engine
         /// <summary>
         /// Implicit conversion from a binomial tuple to a polynomial.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b) tuple)
@@ -630,7 +617,8 @@ namespace Engine
         /// <summary>
         /// Implicit conversion from a trinomial tuple to a polynomial.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c) tuple)
@@ -639,7 +627,8 @@ namespace Engine
         /// <summary>
         /// Implicit conversion from a quadrinomial tuple to a polynomial.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d) tuple)
@@ -648,7 +637,8 @@ namespace Engine
         /// <summary>
         /// Implicit conversion from a quintinomial tuple to a polynomial.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e) tuple)
@@ -657,7 +647,8 @@ namespace Engine
         /// <summary>
         /// Implicit conversion from a sextomial tuple to a polynomial.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f) tuple)
@@ -666,7 +657,8 @@ namespace Engine
         /// <summary>
         /// Implicit conversion from a septomial tuple to a polynomial.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g) tuple)
@@ -675,7 +667,8 @@ namespace Engine
         /// <summary>
         /// Implicit conversion from a octomial tuple to a polynomial.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h) tuple)
@@ -684,7 +677,8 @@ namespace Engine
         /// <summary>
         /// Implicit conversion from a nonomial tuple to a polynomial.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i) tuple)
@@ -693,7 +687,8 @@ namespace Engine
         /// <summary>
         /// Implicit conversion from a decomial tuple to a polynomial.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) tuple)
@@ -787,8 +782,8 @@ namespace Engine
         /// <summary>
         /// Integrates a <see cref="Polynomial"/>.
         /// </summary>
-        /// <param name="term0"></param>
-        /// <returns></returns>
+        /// <param name="term0">The term0.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -816,9 +811,10 @@ namespace Engine
         /// <summary>
         /// Raises a Polynomial to a <see cref="Power"/>.
         /// </summary>
-        /// <param name="n"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="ArithmeticException"></exception>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -870,7 +866,7 @@ namespace Engine
         /// </summary>
         /// <param name="x">The value to evaluate.</param>
         /// <returns>Returns a value calculated by evaluating the polynomial.</returns>
-        /// <remarks></remarks>
+        /// <exception cref="ArithmeticException"></exception>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Horner%27s_method
         /// https://github.com/thelonious/kld-polynomial
@@ -898,9 +894,8 @@ namespace Engine
         /// <summary>
         /// An implementation of Horner's Evaluate method for Complex numbers.
         /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x">The x.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// http://rosettacode.org/wiki/Horner%27s_rule_for_polynomial_evaluation
@@ -924,9 +919,11 @@ namespace Engine
         /// <summary>
         /// Computes value of the differentiated polynomial at x.
         /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <summary>
+        /// The differentiate.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/thelonious/kld-polynomial
         /// </acknowledgment>
@@ -938,9 +935,12 @@ namespace Engine
         /// <summary>
         /// Finds the Minimum and Maximum values of the <see cref="Polynomial"/>.
         /// </summary>
+        /// <summary>
+        /// The min max.
+        /// </summary>
         /// <param name="minX">The lower bound minimum.</param>
         /// <param name="maxX">The upper bound maximum.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>
         /// Do not use this method on a polynomial that has been simplified or trimmed.
         /// </remarks>
@@ -987,7 +987,8 @@ namespace Engine
         /// <summary>
         /// Calculates the real order or degree of the polynomial.
         /// </summary>
-        /// <returns>Returns a value representing the order of degree of the polynomial.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
         /// <remarks>Primaraly used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
         /// <acknowledgment>
         /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
@@ -997,8 +998,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolynomialDegree RealOrder(double epsilon = Epsilon)
         {
-            Contract.Ensures(Contract.Result<PolynomialDegree>() != null);
-
             var pos = 1;
 
             // Monomial can be a zero constant, skip them and check the rest.
@@ -1027,10 +1026,11 @@ namespace Engine
 
         #region Factories
         /// <summary>
-        /// 
+        /// Get the standard base.
         /// </summary>
-        /// <param name="degree"></param>
-        /// <returns></returns>
+        /// <param name="degree">The degree.</param>
+        /// <returns>The <see cref="T:Polynomial[]"/>.</returns>
+        /// <exception cref="ArgumentException"></exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial[] GetStandardBase(int degree)
@@ -1051,12 +1051,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The term.
         /// </summary>
-        /// <param name="degree"></param>
-        /// <param name="coefficient"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="degree">The degree.</param>
+        /// <param name="coefficient">The coefficient.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1078,7 +1078,9 @@ namespace Engine
         /// <summary>
         /// Construct a polynomial P such as y[i] = P.Compute(i).
         /// </summary>
-        /// <remarks></remarks>
+        /// <param name="ys">The ys.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1110,13 +1112,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The monomial.
         /// </summary>
-        /// <param name="degree"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="degree">The degree.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Monomial(PolynomialDegree degree)
@@ -1144,8 +1143,8 @@ namespace Engine
         /// Creates a Matrix transformed Bezier Polynomial from the Bezier parameters.
         /// </summary>
         /// <param name="values">The Bezier node parameters.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <exception cref="ArgumentNullException">At least 2 different points must be given</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Bezier(params double[] values)
@@ -1190,11 +1189,10 @@ namespace Engine
         /// <summary>
         /// Internal Recursive method for calculating the Bezier Polynomial.
         /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="from">The from.</param>
+        /// <param name="to">The to.</param>
+        /// <param name="values">The values.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1252,13 +1250,12 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// 
+        /// The bisection.
         /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/thelonious/kld-polynomial
         /// </acknowledgment>
@@ -1310,9 +1307,8 @@ namespace Engine
         /// <summary>
         /// Will try to solve root analytically, and if it can will use numerical approach.
         /// </summary>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// </acknowledgment>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="T:IEnumerable{double}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<double> RealOrComplexRoots(double epsilon = Epsilon)
@@ -1330,7 +1326,8 @@ namespace Engine
         /// <summary>
         /// This method use the Durand-Kerner aka Weierstrass algorithm to find approximate root of this polynomial.
         /// </summary>
-        /// <remarks></remarks>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>The <see cref="T:Complex[]"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// http://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method
@@ -1407,13 +1404,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The roots in interval.
         /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="T:double[]"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -1477,8 +1473,7 @@ namespace Engine
         /// Find the Roots of up to Quintic degree <see cref="Polynomial"/>s.
         /// </summary>
         /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="T:double[]"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -1521,371 +1516,6 @@ namespace Engine
 
             // should try Newton's method and/or bisection
         }
-
-#if Quazistax
-
-        /// <summary>
-        /// interpolate
-        /// </summary>
-        /// <param name="xs"></param>
-        /// <param name="ys"></param>
-        /// <param name="n"></param>
-        /// <param name="offset"></param>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/thelonious/kld-polynomial
-        /// Based on trapzd in "Numerical Recipes in C", page 139
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (double y, double dy) Interpolate(List<double> xs, List<double> ys, int n, int offset, double x)
-        {
-            if (double.IsNaN(n) || double.IsNaN(offset) || double.IsNaN(x))
-                throw new Exception($"{nameof(Interpolate)}: {nameof(n)}, {nameof(offset)}, and {nameof(x)} must be numbers");
-
-            var y = 0d;
-            var dy = 0d;
-            var c = new List<double>(n);
-            var d = new List<double>(n);
-            var ns = 0;
-            var result = (y: y, dy: dy);
-
-            var diff = Abs(x - xs[offset]);
-            for (var i = 0; i < n; i++)
-            {
-                var dift = Abs(x - xs[offset + i]);
-
-                if (dift < diff)
-                {
-                    ns = i;
-                    diff = dift;
-                }
-                c[i] = d[i] = ys[offset + i];
-            }
-            y = ys[offset + ns];
-            ns--;
-
-            for (var m = 1; m < n; m++)
-            {
-                for (var i = 0; i < n - m; i++)
-                {
-                    var ho = xs[offset + i] - x;
-                    var hp = xs[offset + i + m] - x;
-                    var w = c[i + 1] - d[i];
-                    var den = ho - hp;
-
-                    if (den == 0.0)
-                    {
-                        result = (y: 0, dy: 0);
-                        break;
-                    }
-
-                    den = w / den;
-                    d[i] = hp * den;
-                    c[i] = ho * den;
-                }
-                dy = (2 * (ns + 1) < (n - m)) ? c[ns + 1] : d[ns--];
-                y += dy;
-            }
-
-            return (y: y, dy: dy);
-        }
-
-        /// <summary>
-        /// Estimate what is the maximum polynomial evaluation error value under which polynomial evaluation could be in fact 0.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/thelonious/kld-polynomial
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double ZeroErrorEstimate()
-        {
-            var poly = this;
-            var ERRF = 1e-15;
-            var rb = poly.Bounds();
-            var maxabsX = Max(Abs(rb.minX), Abs(rb.maxX));
-            if (maxabsX < 0.001)
-            {
-                return 2 * Abs(poly.Evaluate(ERRF));
-            }
-            var n = poly.coefficients.Count() - 1;
-            var an = poly.coefficients[n];
-            var i = 0d;
-            return 10 * ERRF * poly.coefficients.Reduce((m, v) => (int)process(m, v, i++), 0);
-            double process(double m, double v, double itter)
-            {
-                var nm = v / an * Pow(maxabsX, itter);
-                return nm > m ? nm : m;
-            }
-        }
-
-        /// <summary>
-        /// Calculates left and right Real roots bounds. <br/>
-        /// Real roots are in interval [minX, maxX]. Combines Fujiwara lower and upper bounds to get minimal interval.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/thelonious/kld-polynomial
-        /// http://en.wikipedia.org/wiki/Properties_of_polynomial_roots
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (double minX, double maxX) Bounds()
-        {
-            var urb = Bounds_UpperReal_Fujiwara();
-            var rb = (minX: urb.negX, maxX: urb.posX);
-            if (urb.negX == 0 && urb.posX == 0)
-                return rb;
-            if (urb.negX == 0)
-            {
-                rb.minX = Bounds_LowerReal_Fujiwara().posX;
-            }
-            else if (urb.posX == 0)
-            {
-                rb.maxX = Bounds_LowerReal_Fujiwara().negX;
-            }
-            if (rb.minX > rb.maxX)
-            {
-                //console.log('Polynomial.prototype.bounds: poly has no real roots? or floating point error?');
-                rb.minX = rb.maxX = 0;
-            }
-            return rb;
-            // TODO: if sure that there are no complex roots 
-            // (maybe by using Sturm's theorem) use:
-            //return this.bounds_Real_Laguerre();
-        }
-
-        /// <summary>
-        /// Calculates upper Real roots bounds. <br/>
-        /// Real roots are in interval [negX, posX]. Determined by Fujiwara method.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/thelonious/kld-polynomial
-        /// http://en.wikipedia.org/wiki/Properties_of_polynomial_roots
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (double negX, double posX) Bounds_UpperReal_Fujiwara()
-        {
-            var a = coefficients;
-            var n = a.Length - 1;
-            var an = a[n];
-            if (an != 1)
-            {
-                a = coefficients.Map((v) => v / an).ToArray();
-            }
-            var i = -1;
-            var b = a.Map((v) => { return (++i < n) ? Pow(Abs((i == 0) ? v / 2 : v), 1 / (n - i)) : v; });
-
-            //var coefSelectionFunc;
-            //var bi = 0;
-            (double max, double nearmax) find2Max(Func<int, bool> coefSelectionFunc, (double max, double nearmax) acc, double bi, int itter)
-            {
-                if (coefSelectionFunc(itter))
-                {
-                    if (acc.max < bi)
-                    {
-                        acc.nearmax = acc.max;
-                        acc.max = bi;
-                    }
-                    else if (acc.nearmax < bi)
-                    {
-                        acc.nearmax = bi;
-                    }
-                }
-                return acc;
-            };
-
-            var max_nearmax_pos = b.Reduce((bi, acc) => find2Max((itter) => coefSelectionFunc0(itter), acc, bi, i++), (max: 0d, nearmax: 0d));
-            bool coefSelectionFunc0(int itter) { return itter < n && a[itter] < 0; };
-
-            var max_nearmax_neg = b.Reduce((bi, acc) => find2Max((itter) => coefSelectionFunc1(itter), acc, bi, i++), (max: 0d, nearmax: 0d));
-            bool coefSelectionFunc1(int itter) { return itter < n && ((n % 2 == itter % 2) ? a[itter] < 0 : a[itter] > 0); };
-
-            return (negX: -2 * max_nearmax_neg.max, posX: 2 * max_nearmax_pos.max);
-        }
-
-        /// <summary>
-        /// Calculates lower Real roots bounds. <br/>
-        /// There are no Real roots in interval (negX, posX). Determined by Fujiwara method.
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/thelonious/kld-polynomial
-        /// http://en.wikipedia.org/wiki/Properties_of_polynomial_roots
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public (double negX, double posX) Bounds_LowerReal_Fujiwara()
-        {
-            var poly = new Polynomial()
-            {
-                coefficients = coefficients.Slice()
-            };
-            poly.coefficients.Reverse();
-            var res = poly.Bounds_UpperReal_Fujiwara();
-            res.negX = 1 / res.negX;
-            res.posX = 1 / res.posX;
-            return res;
-        }
-
-        /// <summary>
-        /// trapezoid
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <param name="n"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/thelonious/kld-polynomial
-        /// Based on trapzd in "Numerical Recipes in C", page 137
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double Trapezoid(double min, double max, int n, double epsilon = Epsilon)
-        {
-            if (double.IsNaN(min) || double.IsNaN(max) || double.IsNaN(n))
-                throw new Exception($"{nameof(Trapezoid)}: parameters must be numbers.");
-
-            var range = max - min;
-
-            var s = 0d;
-
-            if (n == 1)
-            {
-                var minValue = Evaluate(min);
-                var maxValue = Evaluate(max);
-                s = 0.5d * range * (minValue + maxValue);
-            }
-            else
-            {
-                var it = 1 << (n - 2);
-                var delta = range / it;
-                var x = min + 0.5 * delta;
-                var sum = 0d;
-
-                for (var i = 0; i < it; i++)
-                {
-                    sum += Evaluate(x);
-                    x += delta;
-                }
-                s = 0.5d * (s + range * sum / it);
-            }
-
-            if (double.IsNaN(s))
-                throw new Exception($"{nameof(Trapezoid)}: {nameof(s)} is NaN");
-
-            return s;
-        }
-
-        /// <summary>
-        /// Simpson
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/thelonious/kld-polynomial
-        /// Based on trapzd in "Numerical Recipes in C", page 139
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double Simpson(double min, double max, double epsilon = Epsilon)
-        {
-            if (double.IsNaN(min) || double.IsNaN(max))
-                throw new Exception($"{nameof(Simpson)}: parameters must be numbers");
-
-            var range = max - min;
-            var st = 0.5 * range * (Evaluate(min) + Evaluate(max));
-            var t = st;
-            var s = 4.0 * st / 3.0;
-            var os = s;
-            var ost = st;
-
-            var it = 1;
-            for (var n = 2; n <= 20; n++)
-            {
-                var delta = range / it;
-                var x = min + 0.5 * delta;
-                var sum = 0d;
-
-                for (var i = 1; i <= it; i++)
-                {
-                    sum += Evaluate(x);
-                    x += delta;
-                }
-
-                t = 0.5 * (t + range * sum / it);
-                st = t;
-                s = (4.0 * st - ost) / 3.0;
-
-                if (Abs(s - os) < epsilon * Abs(os))
-                    break;
-
-                os = s;
-                ost = st;
-                it <<= 1;
-            }
-
-            return s;
-        }
-
-        /// <summary>
-        /// Romberg
-        /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/thelonious/kld-polynomial
-        /// Based on trapzd in "Numerical Recipes in C", page 139
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double Romberg(double min, double max, double epsilon = Epsilon)
-        {
-            if (double.IsNaN(min) || double.IsNaN(max))
-                throw new Exception($"{nameof(Romberg)}: parameters must be numbers");
-
-            var MAX = 20;
-            var K = 3;
-
-            var s = new List<double>(MAX + 1);
-            var h = new List<double>(MAX + 1);
-            (double y, double dy) result = (y: 0, dy: 0);
-
-            h[0] = 1.0;
-            for (var j = 1; j <= MAX; j++)
-            {
-                s[j - 1] = Trapezoid(min, max, j);
-                if (j >= K)
-                {
-                    result = Interpolate(h, s, K, j - K, 0.0);
-                    if (Abs(result.dy) <= epsilon * result.y) break;
-                }
-                s[j] = s[j - 1];
-                h[j] = 0.25 * h[j - 1];
-            }
-
-            return result.y;
-        }
-
-#endif
         #endregion Methods
 
         #region Standard Methods
@@ -1915,10 +1545,9 @@ namespace Engine
         /// <summary>
         /// Compares two Polynomials.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Polynomial a, Polynomial b)
@@ -2018,11 +1647,12 @@ namespace Engine
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
+        /// <summary>
+        /// Convert the to string.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {

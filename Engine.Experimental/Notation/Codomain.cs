@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The codomain class.
     /// </summary>
     public class Codomain
         : GraphicsObject

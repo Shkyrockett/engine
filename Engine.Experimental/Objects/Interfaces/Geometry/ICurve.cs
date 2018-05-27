@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The ICurve interface.
     /// </summary>
     public interface ICurve
     { }

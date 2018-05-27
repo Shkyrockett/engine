@@ -19,7 +19,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The butterfly class.
     /// </summary>
     /// <remarks>
     /// Class based on information found at: <seealso href="http://csharphelper.com/blog/2014/11/draw-a-colored-butterfly-curve-in-c/"/>. <br />
@@ -32,24 +32,24 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// 
+        /// The offset.
         /// </summary>
         private Point2D offset;
 
         /// <summary>
-        /// 
+        /// The multiplyer.
         /// </summary>
         private Size2D multiplyer;
 
         /// <summary>
-        /// 
+        /// The precision.
         /// </summary>
         private double precision;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Butterfly"/> class.
         /// </summary>
         public Butterfly()
         {
@@ -61,7 +61,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the offset.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -77,7 +77,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the multiplyer.
         /// </summary>
         public Size2D Multiplyer
         {
@@ -90,7 +90,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the precision.
         /// </summary>
         public double Precision
         {
@@ -105,20 +105,20 @@ namespace Engine
 
         #region Interpolators
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t) => new Point2D(
-     offset.X + (Cos(t) * ((Exp(Cos(t)) - ((2 * Cos((4 * t))) - Pow(Sin((t / 12)), 5))) * multiplyer.Width)),
-     offset.Y + ((Sin(t) * (Exp(Cos(t)) - ((2 * Cos((4 * t))) - Pow(Sin((t / 12)), 5)))) * multiplyer.Height)
-     );
+             offset.X + (Cos(t) * ((Exp(Cos(t)) - ((2 * Cos((4 * t))) - Pow(Sin((t / 12)), 5))) * multiplyer.Width)),
+             offset.Y + ((Sin(t) * (Exp(Cos(t)) - ((2 * Cos((4 * t))) - Pow(Sin((t / 12)), 5)))) * multiplyer.Height)
+         );
 
         /// <summary>
-        /// 
+        /// The interpolate points.
         /// </summary>
-        /// <param name="count"></param>
-        /// <returns></returns>
+        /// <param name="count">The count.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public override List<Point2D> InterpolatePoints(int count)
         {
             const double n = 10000;

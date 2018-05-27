@@ -130,6 +130,7 @@ namespace Engine
         /// <acknowledgment>
         /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D LinearEnvelope(
             Point2D point,
@@ -172,6 +173,7 @@ namespace Engine
         /// <acknowledgment>
         /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D QuadraticBezierEnvelope(
             Point2D point,
@@ -225,6 +227,7 @@ namespace Engine
         /// <acknowledgment>
         /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D CubicBezierEnvelope(
             Point2D point,
@@ -287,26 +290,27 @@ namespace Engine
         }
 
         /// <summary>
-        /// Warp the shape using Cubic Bézier Envelope distortion.
+        /// Warp the shape using Cubic Bézier envelope distortion.
         /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="bounds">The bounds.</param>
-        /// <param name="topLeft">The topLeft.</param>
-        /// <param name="topLeftH">The topLeftH.</param>
-        /// <param name="topLeftV">The topLeftV.</param>
-        /// <param name="topRight">The topRight.</param>
-        /// <param name="topRightH">The topRightH.</param>
-        /// <param name="topRightV">The topRightV.</param>
-        /// <param name="bottomRight">The bottomRight.</param>
-        /// <param name="bottomRightH">The bottomRightH.</param>
-        /// <param name="bottomRightV">The bottomRightV.</param>
-        /// <param name="bottomLeft">The bottomLeft.</param>
-        /// <param name="bottomLeftH">The bottomLeftH.</param>
-        /// <param name="bottomLeftV">The bottomLeftV.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <param name="point">The point to move.</param>
+        /// <param name="bounds">The bounds of the shape.</param>
+        /// <param name="topLeft">The top left anchor point of the envelope.</param>
+        /// <param name="topLeftH">The top left horizontal point of the envelope.</param>
+        /// <param name="topLeftV">The top left vertical point of the envelope.</param>
+        /// <param name="topRight">The top right anchor point of the envelope.</param>
+        /// <param name="topRightH">The top right horizontal point of the envelope.</param>
+        /// <param name="topRightV">The top right vertical point of the envelope.</param>
+        /// <param name="bottomRight">The bottom right anchor point of the envelope.</param>
+        /// <param name="bottomRightH">The bottom right horizontal point of the envelope.</param>
+        /// <param name="bottomRightV">The bottom right vertical point of the envelope.</param>
+        /// <param name="bottomLeft">The bottom left anchor point of the envelope.</param>
+        /// <param name="bottomLeftH">The bottom left horizontal point of the envelope.</param>
+        /// <param name="bottomLeftV">The bottom left vertical point of the envelope.</param>
+        /// <returns>Returns a <see cref="Point2D"/> shifted by the envelope.</returns>
         /// <acknowledgment>
         /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
         /// </acknowledgment>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D CubicBezierEnvelope0(
             Point2D point,

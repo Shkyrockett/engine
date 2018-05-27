@@ -15,7 +15,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The double line class.
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
@@ -24,22 +24,22 @@ namespace Engine
         : Shape
     {
         /// <summary>
-        /// 
+        /// The border points (readonly). Value: new List&lt;Point2D&gt;().
         /// </summary>
-        private List<Point2D> borderPoints = new List<Point2D>();
+        private readonly List<Point2D> borderPoints = new List<Point2D>();
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="DoubleLine"/> class.
         /// </summary>
         public DoubleLine()
             :this(new List<Point2D>(),new List<Point2D>())
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="DoubleLine"/> class.
         /// </summary>
-        /// <param name="borderPoints"></param>
-        /// <param name="centerPoints"></param>
+        /// <param name="borderPoints">The borderPoints.</param>
+        /// <param name="centerPoints">The centerPoints.</param>
         public DoubleLine(List<Point2D> borderPoints, List<Point2D> centerPoints)
         {
             this.borderPoints = borderPoints;
@@ -47,20 +47,20 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the center points.
         /// </summary>
         public List<Point2D> CenterPoints { get; set; } = new List<Point2D>();
 
         /// <summary>
-        /// 
+        /// Gets the border points.
         /// </summary>
         public List<Point2D> BorderPoints
             => borderPoints;
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => nameof(DoubleLine);
     }

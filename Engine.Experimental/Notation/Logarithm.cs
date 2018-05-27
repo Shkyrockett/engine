@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The logarithm class.
     /// </summary>
     public class Logarithm
         : GraphicsObject

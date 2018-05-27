@@ -13,49 +13,52 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The ampere struct.
     /// </summary>
     public struct Ampere
         : IEnergy
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Ampere"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public Ampere(double value)
         {
             Value = value;
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Ampere);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "A";
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
-        public static implicit operator Ampere(double value) => new Ampere(value);
+        public static implicit operator Ampere(double value)
+        {
+            return new Ampere(value);
+        }
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{Value} A";
     }

@@ -18,7 +18,7 @@ namespace Engine
     public class CardinalSpline
     {
         /// <summary>
-        /// 
+        /// Gets or sets the points.
         /// </summary>
         public List<Point2D> Points { get; set; }
     }

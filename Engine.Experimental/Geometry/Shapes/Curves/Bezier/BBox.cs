@@ -6,23 +6,19 @@
   This code is MIT licensed.
 */
 
-#pragma warning disable RCS1060 // Declare each type in separate file.
-
-
 namespace Engine
 {
-
     /// <summary>
-    /// 
+    /// The b box class.
     /// </summary>
     public class BBox
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="BBox"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
         public BBox(RangeX x, RangeX y, RangeX z = null)
         {
             X = x;
@@ -31,20 +27,18 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the x.
         /// </summary>
         public RangeX X { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the y.
         /// </summary>
         public RangeX Y { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the z.
         /// </summary>
         public RangeX Z { get; set; }
     }
 }
-
-#pragma warning restore RCS1060 // Declare each type in separate file.

@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The I metadata class.
     /// </summary>
     public class IMetadata
     { }

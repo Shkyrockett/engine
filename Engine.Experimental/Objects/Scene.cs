@@ -13,13 +13,13 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The scene class.
     /// </summary>
     public class Scene
         : IGameElement
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Scene"/> class.
         /// </summary>
         public Scene()
         {
@@ -31,27 +31,27 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the display name.
         /// </summary>
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the backdrops.
         /// </summary>
         public List<Backdrop> Backdrops { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the actors.
         /// </summary>
         public List<Actor> Actors { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the inventory.
         /// </summary>
         public List<IventoryItem> Inventory { get; set; }
     }

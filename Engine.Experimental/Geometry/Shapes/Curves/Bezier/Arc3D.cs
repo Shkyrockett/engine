@@ -6,37 +6,32 @@
   This code is MIT licensed.
 */
 
-#pragma warning disable RCS1060 // Declare each type in separate file.
-
-
 namespace Engine
 {
 
     /// <summary>
-    /// 
+    /// The arc1 class.
     /// </summary>
-    public class Arc1
+    public class Arc3D
     {
         /// <summary>
-        /// 
+        /// Gets or sets the center.
         /// </summary>
         public Point3D Center { get; internal set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the radius.
         /// </summary>
         public double Radius { get; internal set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the e.
         /// </summary>
-        public double E { get; internal set; }
+        public double End { get; internal set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the s.
         /// </summary>
-        public double S { get; internal set; }
+        public double Start { get; internal set; }
     }
 }
-
-#pragma warning restore RCS1060 // Declare each type in separate file.

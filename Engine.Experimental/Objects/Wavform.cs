@@ -14,13 +14,13 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The wavform class.
     /// </summary>
     public class Wavform
         : IAudio
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Wavform"/> class.
         /// </summary>
         public Wavform()
         {
@@ -32,27 +32,27 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the display name.
         /// </summary>
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the filename.
         /// </summary>
         public string Filename { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the time sync points.
         /// </summary>
         public Dictionary<int, DateTimeOffset> TimeSyncPoints { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the lyrics.
         /// </summary>
         public List<string> Lyrics { get; set; }
     }

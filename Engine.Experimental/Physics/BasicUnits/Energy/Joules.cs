@@ -13,50 +13,50 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The joules struct.
     /// </summary>
     public struct Joules
         : IEnergy
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Joules"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public Joules(double value)
         {
             Value = value;
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Joules);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "J";
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         public static implicit operator Joules(double value)
             => new Joules(value);
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{Value} J";
     }

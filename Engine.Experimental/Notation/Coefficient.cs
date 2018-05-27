@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The coefficient class.
     /// </summary>
     public class Coefficient
         : GraphicsObject

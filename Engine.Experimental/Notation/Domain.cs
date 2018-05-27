@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The domain class.
     /// </summary>
     public class Domain
         : GraphicsObject

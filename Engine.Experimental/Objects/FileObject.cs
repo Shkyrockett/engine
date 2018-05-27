@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The file object class.
     /// </summary>
     public abstract class FileObject
         : IFileObject

@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The matrix class.
     /// </summary>
     public class Matrix
         : GraphicsObject

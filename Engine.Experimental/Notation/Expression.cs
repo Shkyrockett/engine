@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The expression class.
     /// </summary>
     public class Expression
         : GraphicsObject

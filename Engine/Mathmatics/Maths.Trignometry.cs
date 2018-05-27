@@ -43,6 +43,54 @@ namespace Engine
             => radiens * Degree;
 
         /// <summary>
+        /// The polar to cartesian.
+        /// </summary>
+        /// <param name="centerX">The centerX.</param>
+        /// <param name="centerY">The centerY.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="theta">The angleInRadians.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <acknowledgment>
+        /// https://codereview.stackexchange.com/q/183
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) PolarToCartesian(double centerX, double centerY, double radius, double theta)
+        {
+            var sin = Sin(theta);
+
+            // This is faster than:
+            // double cos = Math.Cos(theta);
+            var cos = -Sqrt(1 - (sin * sin));
+            return (
+                X: centerX + radius * cos,
+                Y: centerY + radius * sin
+                );
+        }
+
+        /// <summary>
+        /// The cartesian to polar.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="centerX">The centerX.</param>
+        /// <param name="centerY">The centerY.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <acknowledgment>
+        /// https://stackoverflow.com/a/34315013
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double Radius, double Theta) CartesianToPolar(double x, double y, double centerX = 0, double centerY = 0)
+        {
+            var dx = x - centerX;
+            var dy = y - centerY;
+            var radius = Sqrt((dx * dx) + (dy * dy));
+            var angle = Atan2(dy, dx);
+            return (radius, angle);
+        }
+
+        /// <summary>
         /// The quaternion to Euler angles.
         /// </summary>
         /// <param name="x">The x.</param>

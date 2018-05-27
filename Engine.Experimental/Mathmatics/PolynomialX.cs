@@ -16,27 +16,30 @@ using System.Security;
 namespace Engine.Geometry
 {
     /// <summary>
-    /// 
+    /// The polynomial x class.
     /// </summary>
     public class PolynomialX
         : IFormattable
     {
+        /// <summary>
+        /// The TOLERANCE (const). Value: 1e-6.
+        /// </summary>
         private const double TOLERANCE = 1e-6;
 
+        /// <summary>
+        /// The ACCURACY (const). Value: 15.
+        /// </summary>
         private const double ACCURACY = 15;
 
         #region Fields
-
         /// <summary>
         /// Coefficients a_0,...,a_n of a polynomial p, such that
         /// p(x) = a_0 + a_1*x + a_2*x^2 + ... + a_n*x^n.
         /// </summary>
         public Complex[] Coefficients;
-
         #endregion Fields
 
         #region Constructors
-
         /// <summary>
         /// Inits zero polynomial p = 0.
         /// </summary>
@@ -106,11 +109,9 @@ namespace Engine.Geometry
 
             Coefficients[0] = new Complex(coeffs);
         }
-
         #endregion Constructors
 
         #region Properties
-
         /// <summary>
         /// Degree of the polynomial.
         /// </summary>
@@ -131,17 +132,15 @@ namespace Engine.Geometry
                 return true;
             }
         }
-
         #endregion Properties
 
         #region Operators
-
         /// <summary>
-        /// 
+        /// The operator +.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator +(PolynomialX p, PolynomialX q)
         {
 
@@ -160,19 +159,19 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The operator -.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator -(PolynomialX p, PolynomialX q)
             => p + (-q);
 
         /// <summary>
-        /// 
+        /// The operator -.
         /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator -(PolynomialX p)
         {
             var coeffs = new Complex[p.Degree + 1];
@@ -184,11 +183,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The operator *.
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="p"></param>
-        /// <returns></returns>
+        /// <param name="d">The d.</param>
+        /// <param name="p">The p.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(Complex d, PolynomialX p)
         {
             var coeffs = new Complex[p.Degree + 1];
@@ -200,11 +199,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The operator *.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="d">The d.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(PolynomialX p, Complex d)
         {
             var coeffs = new Complex[p.Degree + 1];
@@ -216,11 +215,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The operator *.
         /// </summary>
-        /// <param name="d"></param>
-        /// <param name="p"></param>
-        /// <returns></returns>
+        /// <param name="d">The d.</param>
+        /// <param name="p">The p.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(double d, PolynomialX p)
         {
             var coeffs = new Complex[p.Degree + 1];
@@ -232,11 +231,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The operator *.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="d">The d.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(PolynomialX p, double d)
         {
             var coeffs = new Complex[p.Degree + 1];
@@ -248,11 +247,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The operator /.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="d">The d.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator /(PolynomialX p, Complex d)
         {
             var coeffs = new Complex[p.Degree + 1];
@@ -264,11 +263,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The operator /.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="d">The d.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator /(PolynomialX p, double d)
         {
             var coeffs = new Complex[p.Degree + 1];
@@ -280,11 +279,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The operator *.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="q">The q.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(PolynomialX p, PolynomialX q)
         {
             var degree = p.Degree + q.Degree;
@@ -300,11 +299,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The operator ^.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="k"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="k">The k.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator ^(PolynomialX p, uint k)
         {
             if (k == 0)
@@ -314,11 +313,9 @@ namespace Engine.Geometry
             else
                 return p * (p ^ (k - 1));
         }
-
         #endregion Operators
 
-        #region dynamics
-
+        #region Dynamics
         /// <summary>
         /// Computes value of the differentiated polynomial at x.
         /// </summary>
@@ -553,11 +550,9 @@ namespace Engine.Geometry
 
             return z;
         }
+        #endregion Dynamics
 
-        #endregion dynamics
-
-        #region statics
-
+        #region Statics
         /// <summary>
         /// Expands factorized polynomial p_1(x)^(k_1)*...*p_r(x)^(k_r) to its normal form a_0 + a_1 x + ... + a_n x^n.
         /// </summary>
@@ -829,18 +824,19 @@ namespace Engine.Geometry
 
             return buf;
         }
-
-        #endregion statics
+        #endregion Statics
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="xs"></param>
-        /// <param name="ys"></param>
-        /// <param name="n"></param>
-        /// <param name="offset"></param>
-        /// <param name="x"></param>
-        /// <returns></returns>
+        /// <param name="xs">The xs.</param>
+        /// <param name="ys">The ys.</param>
+        /// <param name="n">The n.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="x">The x.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <exception cref="Exception">Polynomial.interpolate: xs and ys must be arrays</exception>
+        /// <exception cref="Exception">Polynomial.interpolate: n, offset, and x must be numbers</exception>
         /// <remarks>
         /// https://github.com/thelonious/kld-polynomial
         /// </remarks>
@@ -900,10 +896,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The eval.
         /// </summary>
-        /// <param name="x"></param>
-        /// <returns></returns>
+        /// <param name="x">The x.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <exception cref="Exception">Polynomial.eval: parameter must be a number</exception>
         /// <remarks>
         /// https://github.com/thelonious/kld-polynomial
         /// </remarks>
@@ -921,10 +918,10 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="that"></param>
-        /// <returns></returns>
+        /// <param name="that">The that.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public PolynomialX Add(PolynomialX that)
         {
             var result = new PolynomialX();
@@ -944,10 +941,10 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The multiply.
         /// </summary>
-        /// <param name="that"></param>
-        /// <returns></returns>
+        /// <param name="that">The that.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public PolynomialX Multiply(PolynomialX that)
         {
             var result = new PolynomialX();
@@ -966,10 +963,10 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The divide.
         /// </summary>
-        /// <param name="scalar"></param>
-        /// <returns></returns>
+        /// <param name="scalar">The scalar.</param>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public PolynomialX Divide(double scalar)
         {
             for (var i = 0; i < Coefficients.Length; i++)
@@ -978,7 +975,7 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The simplify.
         /// </summary>
         public void Simplify()
         {
@@ -997,11 +994,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The bisection.
         /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         public Complex Bisection(Complex min, Complex max)
         {
             var minValue = Eval(min);
@@ -1045,12 +1042,14 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// The trapezoid.
         /// </summary>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <param name="n"></param>
-        /// <returns></returns>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <param name="n">The n.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <exception cref="Exception">Polynomial.trapezoid: parameters must be numbers</exception>
+        /// <exception cref="Exception">Polynomial.trapezoid: this._s is NaN</exception>
         public Complex Trapezoid(Complex min, Complex max, int n)
         {
             if (double.IsNaN(min.Real) || double.IsNaN(max.Real) || double.IsNaN(n))
@@ -1085,10 +1084,13 @@ namespace Engine.Geometry
             return _s;
         }
 
-        /**
-         *  simpson
-         *  Based on trapzd in "Numerical Recipes in C", page 139
-         */
+        /// <summary>
+        /// The simpson.
+        /// </summary>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <exception cref="Exception">Polynomial.simpson: parameters must be numbers</exception>
         public Complex Simpson(Complex min, Complex max)
         {
             if (double.IsNaN(min.Real) || double.IsNaN(max.Real))
@@ -1130,10 +1132,13 @@ namespace Engine.Geometry
             return s;
         }
 
-
-        /**
-         *  romberg
-         */
+        /// <summary>
+        /// The romberg.
+        /// </summary>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <exception cref="Exception">Polynomial.romberg: parameters must be numbers</exception>
         public Complex Romberg(Complex min, Complex max)
         {
             if (double.IsNaN(min.Real) || double.IsNaN(max.Real))
@@ -1164,15 +1169,17 @@ namespace Engine.Geometry
 
         // getters and setters
 
-        /**
-         *  get degree
-         */
+        /// <summary>
+        /// Get the degree.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
         public int GetDegree()
             => Coefficients.Length - 1;
 
-        /**
-         *  getDerivative
-         */
+        /// <summary>
+        /// Get the derivative.
+        /// </summary>
+        /// <returns>The <see cref="PolynomialX"/>.</returns>
         public PolynomialX GetDerivative()
         {
             var lst = new List<Complex>();
@@ -1186,9 +1193,10 @@ namespace Engine.Geometry
             return derivative;
         }
 
-        /**
-         *  getRoots
-         */
+        /// <summary>
+        /// Get the roots.
+        /// </summary>
+        /// <returns>The <see cref="T:Complex[]"/>.</returns>
         public Complex[] GetRoots()
         {
             Complex[] result;
@@ -1220,9 +1228,12 @@ namespace Engine.Geometry
             return result;
         }
 
-        /**
-         *  getRootsInInterval
-         */
+        /// <summary>
+        /// Get the roots in interval.
+        /// </summary>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="T:Complex[]"/>.</returns>
         public Complex[] GetRootsInInterval(Complex min, Complex max)
         {
             var roots = new List<Complex>();
@@ -1267,9 +1278,10 @@ namespace Engine.Geometry
             return roots.ToArray();
         }
 
-        /**
-         *  getLinearRoot
-         */
+        /// <summary>
+        /// Get the linear root.
+        /// </summary>
+        /// <returns>The <see cref="T:Complex[]"/>.</returns>
         public Complex[] GetLinearRoot()
         {
             var result = new List<Complex>();
@@ -1281,9 +1293,10 @@ namespace Engine.Geometry
             return result.ToArray();
         }
 
-        /**
-         *  getQuadraticRoots
-         */
+        /// <summary>
+        /// Get the quadratic roots.
+        /// </summary>
+        /// <returns>The <see cref="T:Complex[]"/>.</returns>
         public Complex[] GetQuadraticRoots()
         {
             var results = new List<Complex>();
@@ -1312,7 +1325,7 @@ namespace Engine.Geometry
             return results.ToArray();
         }
 
-        ///**
+        /////**
         // *  getCubicRoots
         // *
         // *  This code is based on MgcPolynomial.cpp written by David Eberly.  His
@@ -1389,7 +1402,7 @@ namespace Engine.Geometry
         //}
 
         ///////////////////////////////////////////////////////////////////
-        ///**
+        /////**
         //    Calculates roots of quartic polynomial. <br/>
         //    First, derivative roots are found, then used to split quartic polynomial 
         //    into segments, each containing one root of quartic polynomial.
@@ -1610,7 +1623,7 @@ namespace Engine.Geometry
         //        }
 
         ///////////////////////////////////////////////////////////////////
-        ///** 
+        /////** 
         //    Calculates lower Real roots bounds. <br/>
         //    There are no Real roots in interval <negX, posX>. Determined by Fujiwara method.
         //    @see {@link http://en.wikipedia.org/wiki/Properties_of_polynomial_roots}
@@ -1796,53 +1809,52 @@ namespace Engine.Geometry
         //        }
 
         #region Overrides
-
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Equals(object obj)
             => (ToString() == ((Polynomial)obj).ToString());
 
         /// <summary>
-        /// 
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         [SecuritySafeCritical]
         public override int GetHashCode()
             => Coefficients.GetHashCode();
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => ConvertToString(String.Empty, CultureInfo.In­variantCulture);
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format)
             => ConvertToString(format, CultureInfo.In­variantCulture);
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ToString(String format, IFormatProvider formatProvider)
             => ConvertToString(format, formatProvider);
 
         /// <summary>
-        /// 
+        /// Convert the to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="formatProvider">The formatProvider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public string ConvertToString(string format, IFormatProvider formatProvider)
         {
             if (IsZero) return "0";
@@ -1880,7 +1892,6 @@ namespace Engine.Geometry
                 return s;
             }
         }
-
         #endregion Overrides
     }
 }

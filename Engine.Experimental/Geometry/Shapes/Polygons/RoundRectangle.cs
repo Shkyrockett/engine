@@ -16,7 +16,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The round rectangle class.
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
@@ -25,12 +25,12 @@ namespace Engine
         : Shape
     {
         /// <summary>
-        /// 
+        /// The radius.
         /// </summary>
         private double radius;
 
         /// <summary>
-        /// 
+        /// The bounds.
         /// </summary>
         private Rectangle2D bounds;
 
@@ -41,17 +41,17 @@ namespace Engine
         //private GraphicsPath path;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="RoundRectangle"/> class.
         /// </summary>
         public RoundRectangle()
             : this(new Rectangle2D(), 0)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="RoundRectangle"/> class.
         /// </summary>
-        /// <param name="bounds"></param>
-        /// <param name="radius"></param>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="radius">The radius.</param>
         public RoundRectangle(Rectangle2D bounds, double radius)
         {
             this.radius = radius;
@@ -60,7 +60,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the bounds.
         /// </summary>
         public new Rectangle2D Bounds
         {
@@ -73,7 +73,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the radius.
         /// </summary>
         public double Radius
         {
@@ -125,9 +125,9 @@ namespace Engine
         //}
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
             if (this == null)

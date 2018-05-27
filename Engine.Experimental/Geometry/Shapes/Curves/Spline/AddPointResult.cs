@@ -32,10 +32,11 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="AddPointResult"/> class.
         /// </summary>
-        /// <param name="firstChangedIndex"></param>
-        /// <param name="curveAdded"></param>
+        /// <param name="firstChangedIndex">The firstChangedIndex.</param>
+        /// <param name="curveAdded">The curveAdded.</param>
+        /// <exception cref="InvalidOperationException">firstChangedIndex must be greater than zero</exception>
         public AddPointResult(int firstChangedIndex, bool curveAdded)
         {
             if (firstChangedIndex < 0 || firstChangedIndex == int.MaxValue)

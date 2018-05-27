@@ -662,6 +662,44 @@ namespace Engine
             => Split(bezier, ts.ToArray());
 
         /// <summary>
+        /// The split.
+        /// </summary>
+        /// <param name="points">The Bézier.</param>
+        /// <param name="ts">The ts.</param>
+        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static BezierSegment[] SplitBezier(IEnumerable<Point2D> points, params double[] ts)
+        {
+            if (ts == null)
+            {
+                return new[] { new BezierSegment(points) };
+            }
+
+            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
+
+            if (filtered.Count == 0)
+            {
+                return new[] { new BezierSegment(points) };
+            }
+
+            var tLast = 0d;
+            var prev = new BezierSegment(points);
+            var list = new List<BezierSegment>(filtered.Count + 1);
+            foreach (var t in filtered)
+            {
+                var relT = (1 - t) / (1 - tLast);
+                tLast = t;
+                var cut = SplitBezier(prev.Points, relT);
+                list.Add(cut[1]);
+                prev = cut[0];
+            }
+
+            list.Add(prev);
+            return list.ToArray();
+        }
+
+        /// <summary>
         /// Cut a <see cref="BezierSegment"/> into multiple fragments at the given t indices, using "De Casteljau" algorithm.
         /// The value at which to split the curve. Should be strictly inside ]0,1[ interval.
         /// </summary>

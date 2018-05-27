@@ -10,8 +10,9 @@
 
 namespace Engine.MathNotation
 {
+
     /// <summary>
-    /// 
+    /// The group types enum.
     /// </summary>
     /// <remarks>
     /// http://symbolcodes.tlt.psu.edu/bylanguage/mathchart.html

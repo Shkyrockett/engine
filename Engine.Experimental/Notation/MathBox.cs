@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The math box class.
     /// </summary>
     public class MathBox
         : GraphicsObject

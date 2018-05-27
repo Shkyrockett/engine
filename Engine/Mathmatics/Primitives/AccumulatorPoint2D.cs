@@ -45,16 +45,17 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="AccumulatorPoint2D"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="totalDistance"></param>
-        /// <param name="previous"></param>
-        /// <remarks></remarks>
-        public AccumulatorPoint2D(double x, double y, double totalDistance = 0, int previous = 0)
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="totalDistance">The totalDistance.</param>
+        /// <param name="theta">The theta.</param>
+        /// <param name="previous">The previous.</param>
+        public AccumulatorPoint2D(double x, double y, double totalDistance = 0, double theta = 0, int previous = 0)
         {
             X = x;
             Y = y;
             TotalDistance = totalDistance;
+            Theta = theta;
             Previous = previous;
         }
 
@@ -81,6 +82,12 @@ namespace Engine
         /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Theta index value.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public double Theta { get; set; }
 
         /// <summary>
         /// Gets or sets the total distance.
@@ -258,6 +265,13 @@ namespace Engine
         public override int GetHashCode()
             => X.GetHashCode()
             ^ Y.GetHashCode();
+
+        /// <summary>
+        /// The to point.
+        /// </summary>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        public Point2D ToPoint()
+            => new Point2D(X, Y);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="AccumulatorPoint2D"/> struct.

@@ -16,7 +16,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The oval class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -27,38 +27,38 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// 
+        /// The x.
         /// </summary>
         private double x;
 
         /// <summary>
-        /// 
+        /// The y.
         /// </summary>
         private double y;
 
         /// <summary>
-        /// 
+        /// The h.
         /// </summary>
         private double h;
 
         /// <summary>
-        /// 
+        /// The v.
         /// </summary>
         private double v;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Oval"/> class.
         /// </summary>
         public Oval()
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Oval"/> class.
         /// </summary>
-        /// <param name="location"></param>
-        /// <param name="size"></param>
+        /// <param name="location">The location.</param>
+        /// <param name="size">The size.</param>
         public Oval(Point2D location, Size2D size)
         {
             x = location.X;
@@ -70,7 +70,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the location.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
@@ -86,7 +86,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the x.
         /// </summary>
         [XmlAttribute(nameof(x))]
         [Browsable(true)]
@@ -104,7 +104,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the y.
         /// </summary>
         [XmlAttribute(nameof(y))]
         [Browsable(true)]
@@ -122,7 +122,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the size.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
@@ -138,7 +138,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the width.
         /// </summary>
         [XmlAttribute(nameof(h))]
         [Browsable(true)]
@@ -156,7 +156,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the height.
         /// </summary>
         [XmlAttribute(nameof(v))]
         [Browsable(true)]
@@ -174,7 +174,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]

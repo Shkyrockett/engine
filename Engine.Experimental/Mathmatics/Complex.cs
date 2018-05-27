@@ -34,7 +34,6 @@ namespace Engine.Geometry
         /// Complex number one.
         /// </summary>
         public static readonly Complex One = new Complex(1, 0);
-
         #endregion Implementations
 
         #region Constructors

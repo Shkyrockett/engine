@@ -11,7 +11,7 @@
 namespace Engine.MathNotation
 {
     /// <summary>
-    /// 
+    /// The variable class.
     /// </summary>
     public class Variable
         : GraphicsObject

@@ -30,39 +30,39 @@ namespace Engine
         : Shape
     {
         /// <summary>
-        /// 
+        /// The tangent a.
         /// </summary>
         public Point2D tangentA;
 
         /// <summary>
-        /// 
+        /// The position a.
         /// </summary>
         public Point2D positionA;
 
         /// <summary>
-        /// 
+        /// The position b.
         /// </summary>
         public Point2D positionB;
 
         /// <summary>
-        /// 
+        /// The tangent b.
         /// </summary>
         public Point2D tangentB;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CatmullRom"/> class.
         /// </summary>
         public CatmullRom()
             : this(Point2D.Empty, Point2D.Empty, Point2D.Empty, Point2D.Empty)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CatmullRom"/> class.
         /// </summary>
-        /// <param name="tangentA"></param>
-        /// <param name="positionA"></param>
-        /// <param name="positionB"></param>
-        /// <param name="tangentB"></param>
+        /// <param name="tangentA">The tangentA.</param>
+        /// <param name="positionA">The positionA.</param>
+        /// <param name="positionB">The positionB.</param>
+        /// <param name="tangentB">The tangentB.</param>
         public CatmullRom(Point2D tangentA, Point2D positionA, Point2D positionB, Point2D tangentB)
         {
             this.tangentA = tangentA;
@@ -73,7 +73,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the tangent a.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -86,7 +86,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the position a.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -99,7 +99,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the position b.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -112,7 +112,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the tangent b.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -125,12 +125,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the precision.
         /// </summary>
         public double Precision { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the handles.
         /// </summary>
         public List<Point2D> Handles
         {
@@ -145,17 +145,17 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => Interpolators.CatmullRom(tangentA, positionA, positionB, TangentB, t);
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
             if (this == null) return nameof(CatmullRom);

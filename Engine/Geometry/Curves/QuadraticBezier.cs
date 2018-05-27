@@ -511,14 +511,29 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
             => new Point2D(Interpolators.QuadraticBezier(ax, ay, bx, by, cx, cy, t));
+
+        /// <summary>
+        /// The interpolate.
+        /// </summary>
+        /// <param name="ts">The ts.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public List<Point2D> Interpolate(List<double> ts)
+        {
+            var list = new List<Point2D>();
+            foreach (var t in ts)
+            {
+                list.Add(Interpolate(t));
+            }
+            return list;
+        }
 
         /// <summary>
         /// Gets the tangent (normalized derivative) of the curve at a given T value.
@@ -535,9 +550,9 @@ namespace Engine
             => Derivative(t).Normalize();
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<Point2D> GetEnumerator()
@@ -546,20 +561,20 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(QuadraticBezier other)
             => A.Equals(other?.A) && B.Equals(other?.B) && C.Equals(other?.C);
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)

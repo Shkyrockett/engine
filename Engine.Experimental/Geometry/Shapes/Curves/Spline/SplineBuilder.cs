@@ -33,11 +33,11 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SplineBuilder"/> class.
         /// </summary>
-        /// <param name="pointDistance"></param>
-        /// <param name="error"></param>
-        /// <param name="samplesPerCurve"></param>
+        /// <param name="pointDistance">The pointDistance.</param>
+        /// <param name="error">The error.</param>
+        /// <param name="samplesPerCurve">The samplesPerCurve.</param>
         public SplineBuilder(double pointDistance, double error, int samplesPerCurve)
         {
             builder = new CurveBuilder(pointDistance, error);

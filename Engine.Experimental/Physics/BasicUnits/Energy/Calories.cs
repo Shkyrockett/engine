@@ -13,50 +13,50 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The calories struct.
     /// </summary>
     public struct Calories
         : IEnergy
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Calories"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public Calories(double value)
         {
             Value = value;
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Calories);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "cal";
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         public static implicit operator Calories(double value)
             => new Calories(value);
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{Value} cal";
     }

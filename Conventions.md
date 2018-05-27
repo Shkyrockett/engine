@@ -4,7 +4,7 @@ This document is not intended to state the law. Rather, it is intended as a guid
 
 For the most part, follow the standards for .NET libraries in [C# Coding Conventions (C# Programming Guide)](https://msdn.microsoft.com/en-us/library/ff926074.aspx). Visual Studio defaults fit these standards. The `Ctrl` + `k` + `CTRL` + `d` shortcut key combination are your best friend for beautifying code.
 
-This project is being written in C# 7.2 Which brings some interesting constructs into the language to do things that were previously impossible.
+This project is being written in C# Previews Which brings some interesting constructs into the language to do things that were previously impossible.
 
 In high level summary:
 
@@ -204,6 +204,47 @@ public Point()
 ```
 
 Method parameters should generally be on the same line, unless the number of parameters are unwieldy long and would make more sense grouped together on separate lines. Methods involving the raw parameters of Matrices, for example should be on multiple logically organized lines.
+
+## Exceptions
+
+Having a game crash at a pecarious point, causing the player to loose everything is a frustrating experience. Exceptions should be used with restraint. For the times they are needed and they need to be handled here are some best practices. Throw them only where nessisary, such as in situations that will corrupt the game state. In general follow [Microsot best practices](https://docs.microsoft.com/en-us/dotnet/standard/exceptions/best-practices-for-exceptions)
+
+### Rethrowing an exception
+
+When you need to re-throw an exception after processing it, do so with the default throw without passing the exception object. This way the stack is preserved the rest of the way up the chain.
+
+```
+var response = strig.Empty;
+try
+{
+    response = GetFatalCrashThing();
+}
+catch (Exception)
+{
+    DoSomeThingHere();
+    throw;
+}
+```
+
+### Adding Context to an exception
+
+When you need to ad aditional context to an exception, do so for the specific exception, then rethrow with the aditional detail passing the exception object. Then end the throw catch with a default throw without passing the exception object.
+
+```
+var response = strig.Empty;
+try
+{
+    response = GetFatalCrashThing();
+}
+catch (SpcializedException e)
+{
+    throw new Exception($"There was a problem with the GetFatalCrashThing. The response was: \n\r{response}", e);
+}
+catch (Exception)
+{
+    throw;
+}
+```
 
 ## C# 6 Features
 

@@ -11,7 +11,7 @@
 namespace Engine.Localization
 {
     /// <summary>
-    /// 
+    /// The ISO639 enum.
     /// </summary>
     public enum ISO639
     {

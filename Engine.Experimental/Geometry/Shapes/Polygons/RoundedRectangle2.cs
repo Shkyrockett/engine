@@ -17,7 +17,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The rounded rectangle2 class.
     /// </summary>
     [DataContract, Serializable]
     //[GraphicsObject]
@@ -25,10 +25,10 @@ namespace Engine
     public abstract class RoundedRectangle2
         : Shape
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        private Rectangle bounds;
+        ///// <summary>
+        ///// The bounds.
+        ///// </summary>
+        //private readonly Rectangle bounds;
 
         ///// <summary>
         ///// 

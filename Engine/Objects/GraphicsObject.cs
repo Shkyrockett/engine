@@ -35,12 +35,12 @@ namespace Engine
         internal Action update;
 
         /// <summary>
-        ///
+        /// The property changed event of the <see cref="PropertyChangedEventHandler"/>.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        ///
+        /// The property changing event of the <see cref="PropertyChangingEventHandler"/>.
         /// </summary>
         public event PropertyChangingEventHandler PropertyChanging;
         #endregion Callbacks
@@ -149,10 +149,10 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The interpolate points.
         /// </summary>
-        /// <param name="range"></param>
-        /// <returns></returns>
+        /// <param name="range">The range.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public virtual List<Point2D> InterpolatePoints(Range range)
         {
             var points = new List<Point2D>();

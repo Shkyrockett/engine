@@ -20,6 +20,9 @@ namespace Engine
     /// <summary>
     /// The bezier class.
     /// </summary>
+    /// <acknowledgment>
+    /// http://pomax.github.io/bezierinfo/
+    /// </acknowledgment>
     public class Bezier
     {
         #region Private Fields
@@ -55,7 +58,7 @@ namespace Engine
                 new Point2D(v3,v4/*,0*/),
                 new Point2D(x2,y2/*,0*/)
             };
-            DerivedPoints = DeriveCoordinates(Points);
+            DerivativePoints = DerivativeCoordinates(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -83,7 +86,7 @@ namespace Engine
                 new Point2D(v4,v5/*,v6*/),
                 new Point2D(x2,y2/*,z2*/)
             };
-            DerivedPoints = DeriveCoordinates(Points);
+            DerivativePoints = DerivativeCoordinates(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -94,7 +97,7 @@ namespace Engine
         public Bezier(List<Point2D> points)
         {
             Points = points;
-            DerivedPoints = DeriveCoordinates(Points);
+            DerivativePoints = DerivativeCoordinates(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -129,7 +132,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the dpoints.
         /// </summary>
-        public List<List<Point2D>> DerivedPoints { get; set; }
+        public List<List<Point2D>> DerivativePoints { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether 
@@ -203,6 +206,9 @@ namespace Engine
         /// <param name="p3">The p3.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Bezier"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Bezier QuadraticFromPoints(Point2D p1, Point2D p2, Point2D p3, double t = 0.5d)
@@ -229,6 +235,9 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <param name="d1">The d1.</param>
         /// <returns>The <see cref="Bezier"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Bezier CubicFromPoints(Point2D S, Point2D B, Point2D E, double t = 0.5d, double d1 = 0d)
@@ -293,11 +302,14 @@ namespace Engine
         /// <summary>
         /// Update.
         /// </summary>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<List<Point2D>> DeriveCoordinates(List<Point2D> Points)
+        public static List<List<Point2D>> DerivativeCoordinates(List<Point2D> Points)
         {
-            // one-time compute derivative coordinates
+            // One-time compute of derivative coordinates
             var derivitivePoints = new List<List<Point2D>>();
             var p = Points;
             for (int d = p.Count, c = d - 1; d > 1; d--, c--)
@@ -307,20 +319,26 @@ namespace Engine
                 {
                     var dpt = new Point2D(
                          x: c * (p[j + 1].X - p[j].X),
-                         y: c * (p[j + 1].Y - p[j].Y)//,
-                                                     //z: c * (p[j + 1].Z - p[j].Z)
+                         y: c * (p[j + 1].Y - p[j].Y)
+                        //,z: c * (p[j + 1].Z - p[j].Z)
                     );
+
                     list.Add(dpt);
                 }
+
                 derivitivePoints.Add(list);
                 p = list;
             }
+
             return derivitivePoints;
         }
 
         /// <summary>
         /// The computedirection.
         /// </summary>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RotationDirections ComputeDirection(List<Point2D> Points)
@@ -335,6 +353,9 @@ namespace Engine
         /// </summary>
         /// <param name="steps">The steps.</param>
         /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Point2D> GetLookUpTable(int steps = 100)
@@ -360,11 +381,13 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="error">The error.</param>
         /// <returns>The <see cref="double"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double On(Point2D point, double error)
         {
-            //error = error || 5;
             var lut = GetLookUpTable(1000);
             var hits = new List<Point2D>();
             Point2D c;
@@ -387,6 +410,9 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public AccumulatorPoint2D Project(Point2D point)
@@ -436,6 +462,9 @@ namespace Engine
         /// </summary>
         /// <param name="idx">The idx.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private Point2D Point(int idx)
@@ -446,6 +475,9 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point3D"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Interpolate(double t)
@@ -521,31 +553,34 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Derivative(double t)
         {
-            var mt = 1 - t;
+            var ti = 1 - t;
             double a = 0;
             double b = 0;
             double c = 0;
-            var p = DerivedPoints[0];
+            var p = DerivativePoints[0];
             if (Order == 2)
             {
                 p = new List<Point2D> { p[0], p[1], Point2D.Empty };
-                a = mt;
+                a = ti;
                 b = t;
             }
             if (Order == 3)
             {
-                a = mt * mt;
-                b = mt * t * 2;
+                a = ti * ti;
+                b = ti * t * 2;
                 c = t * t;
             }
             var ret = new Point2D(
                 x: a * p[0].X + b * p[1].X + c * p[2].X,
-                y: a * p[0].Y + b * p[1].Y + c * p[2].Y//,
-                                                       //z: a * p[0].Z + b * p[1].Z + c * p[2].Z
+                y: a * p[0].Y + b * p[1].Y + c * p[2].Y
+                //,z: a * p[0].Z + b * p[1].Z + c * p[2].Z
             );
             return ret;
         }
@@ -555,6 +590,9 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point3D"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D Normal(double t)
@@ -572,6 +610,9 @@ namespace Engine
         ///// </summary>
         ///// <param name="t">The t.</param>
         ///// <returns>The <see cref="Point3D"/>.</returns>
+        ///// <acknowledgment>
+        ///// http://pomax.github.io/bezierinfo/
+        ///// </acknowledgment>
         //public Point3D Normal3D(double t)
         //{
         //    // see http://stackoverflow.com/questions/25453159
@@ -608,6 +649,9 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Point2D> Hull(double t)
@@ -643,43 +687,6 @@ namespace Engine
             }
             return q;
         }
-
-        ///// <summary>
-        ///// The split.
-        ///// </summary>
-        ///// <param name="ts">The ts.</param>
-        ///// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
-        //[DebuggerStepThrough]
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //public Bezier[] Split(params double[] ts)
-        //{
-        //    if (ts == null)
-        //    {
-        //        return new[] { new Bezier(Points) };
-        //    }
-
-        //    var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
-
-        //    if (filtered.Count == 0)
-        //    {
-        //        return new[] { new Bezier(Points) };
-        //    }
-
-        //    var tLast = 0d;
-        //    var prev = new Bezier(Points);
-        //    var list = new List<Bezier>(filtered.Count + 1);
-        //    foreach (var t in filtered)
-        //    {
-        //        var relT = (1 - t) / (1 - tLast);
-        //        tLast = t;
-        //        var cut = Split(relT);
-        //        list.Add(cut.Left);
-        //        prev = cut.Right;
-        //    }
-
-        //    list.Add(prev);
-        //    return list.ToArray();
-        //}
 
         ///// <summary>
         ///// Cut a <see cref="BezierSegment"/> into multiple fragments at the given t indices, using "De Casteljau" algorithm.
@@ -730,6 +737,9 @@ namespace Engine
         ///// <param name="t1">The t1.</param>
         ///// <param name="t2">The t2.</param>
         ///// <returns>The <see cref="Bezier"/>.</returns>
+        ///// <acknowledgment>
+        ///// http://pomax.github.io/bezierinfo/
+        ///// </acknowledgment>
         ////[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public Bezier Split(double t1, double t2)
@@ -765,6 +775,9 @@ namespace Engine
         /// </summary>
         /// <param name="ts">The ts.</param>
         /// <returns>The <see cref="T:Bezier[]"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Bezier[] Split(params double[] ts)
@@ -893,6 +906,9 @@ namespace Engine
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="T:List{Bezier}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Bezier> Offset(double t)
@@ -928,6 +944,9 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <param name="d">The d.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (Point2D, Point2D, Point2D) Offset(double t, double d)
@@ -951,6 +970,9 @@ namespace Engine
         /// <param name="d">The d.</param>
         /// <returns>The <see cref="Bezier"/>.</returns>
         /// <exception cref="NullReferenceException">cannot scale this curve. Try reducing it first.</exception>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Bezier Scale(double d)
@@ -995,6 +1017,9 @@ namespace Engine
         /// <param name="distanceFn">The distanceFn.</param>
         /// <returns>The <see cref="Bezier"/>.</returns>
         /// <exception cref="NullReferenceException">cannot scale this curve. Try reducing it first.</exception>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Bezier Scale(DerivitiveMethodDouble distanceFn)
@@ -1053,6 +1078,9 @@ namespace Engine
         /// </summary>
         /// <param name="d1">The d1.</param>
         /// <returns>The <see cref="PolyBezier2"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolyBezier2 Outline(double d1)
@@ -1064,6 +1092,9 @@ namespace Engine
         /// <param name="d1">The d1.</param>
         /// <param name="d2">The d2.</param>
         /// <returns>The <see cref="PolyBezier2"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolyBezier2 Outline(double d1, double d2)
@@ -1076,6 +1107,9 @@ namespace Engine
         /// <param name="d3">The d3.</param>
         /// <param name="d4">The d4.</param>
         /// <returns>The <see cref="PolyBezier2"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolyBezier2 Outline(double d1, double d3, double d4)
@@ -1090,6 +1124,9 @@ namespace Engine
         /// <param name="d4">The d4.</param>
         /// <param name="graduated">The graduated.</param>
         /// <returns>The <see cref="PolyBezier2"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolyBezier2 Outline(double d1, double d2, double d3, double d4, bool graduated = false)
@@ -1158,6 +1195,9 @@ namespace Engine
         /// <param name="d1">The d1.</param>
         /// <param name="d2">The d2.</param>
         /// <returns>The <see cref="T:List{Shape1}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Shape1> Outlineshapes(double d1, double d2)
@@ -1180,6 +1220,9 @@ namespace Engine
         /// </summary>
         /// <param name="errorThreshold">The errorThreshold.</param>
         /// <returns>The <see cref="T:List{Arc1}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Arc2D> Arcs(double errorThreshold = 0.5d)
@@ -1195,6 +1238,9 @@ namespace Engine
         /// <param name="errorThreshold">The errorThreshold.</param>
         /// <param name="circles">The circles.</param>
         /// <returns>The <see cref="T:List{Arc1}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Arc2D> Iterate(double errorThreshold, List<Arc2D> circles)
@@ -1287,6 +1333,9 @@ namespace Engine
         /// <param name="s">The s.</param>
         /// <param name="e">The e.</param>
         /// <returns>The <see cref="double"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Error(Arc2D pc, Point2D np1, double s, double e)
@@ -1304,6 +1353,9 @@ namespace Engine
         /// The raise.
         /// </summary>
         /// <returns>The <see cref="Bezier"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Bezier Raise()
@@ -1331,6 +1383,9 @@ namespace Engine
         /// The simple.
         /// </summary>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Simple()
@@ -1352,6 +1407,9 @@ namespace Engine
         /// The inflections.
         /// </summary>
         /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> Inflections()
@@ -1361,6 +1419,9 @@ namespace Engine
         /// The extrema.
         /// </summary>
         /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> Extrema()
@@ -1374,25 +1435,25 @@ namespace Engine
                 switch (dim)
                 {
                     case 'x':
-                        p = (from a in this.DerivedPoints[0] select a.X).ToList();
+                        p = (from a in DerivativePoints[0] select a.X).ToList();
                         break;
                     case 'y':
-                        p = (from a in this.DerivedPoints[0] select a.Y).ToList();
+                        p = (from a in DerivativePoints[0] select a.Y).ToList();
                         break;
                     default:
                         break;
                 }
 
                 result[dim] = BezierUtil.Roots(p);
-                if (this.Order == 3)
+                if (Order == 3)
                 {
                     switch (dim)
                     {
                         case 'x':
-                            p = (from a in this.DerivedPoints[1] select a.X).ToList();
+                            p = (from a in DerivativePoints[1] select a.X).ToList();
                             break;
                         case 'y':
-                            p = (from a in this.DerivedPoints[1] select a.Y).ToList();
+                            p = (from a in DerivativePoints[1] select a.Y).ToList();
                             break;
                         default:
                             break;
@@ -1413,6 +1474,9 @@ namespace Engine
         /// The bbox.
         /// </summary>
         /// <returns>The <see cref="BBox"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public BBox Bbox()
@@ -1429,6 +1493,9 @@ namespace Engine
         /// The reduce.
         /// </summary>
         /// <returns>The <see cref="T:List{Bezier}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Bezier> Reduce()
@@ -1507,6 +1574,9 @@ namespace Engine
         /// </summary>
         /// <param name="curve">The curve.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Overlaps(Bezier curve)
@@ -1520,6 +1590,9 @@ namespace Engine
         /// The intersects.
         /// </summary>
         /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Pair> Intersects()
@@ -1530,6 +1603,9 @@ namespace Engine
         /// </summary>
         /// <param name="curve">The curve.</param>
         /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Pair> Intersects(Bezier curve)
@@ -1540,6 +1616,9 @@ namespace Engine
         /// </summary>
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="T:List{bool}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<bool> Intersects(Line2D line)
@@ -1550,6 +1629,9 @@ namespace Engine
         /// </summary>
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="T:List{bool}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<bool> LineIntersects(Line2D line)
@@ -1571,6 +1653,9 @@ namespace Engine
         /// The selfintersects.
         /// </summary>
         /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<Pair> Selfintersects()
@@ -1599,6 +1684,9 @@ namespace Engine
         /// <param name="c1">The c1.</param>
         /// <param name="c2">The c2.</param>
         /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static List<Pair> Curveintersects(List<Bezier> c1, List<Bezier> c2)
@@ -1630,6 +1718,9 @@ namespace Engine
         /// </summary>
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<double> CubicBezierCardanoIntersection(Line2D line)
@@ -1644,6 +1735,9 @@ namespace Engine
         /// <param name="p4">The p4.</param>
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static List<double> CubicBezierCardanoIntersection(Point2D p1, Point2D p2, Point2D p3, Point2D p4, Line2D line)

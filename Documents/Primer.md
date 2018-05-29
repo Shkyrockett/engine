@@ -7,9 +7,9 @@ A **Formula** is a set of rules to come up with a final result.
 ## Equation
 
 An **Equation** is a formula involving the = (equals) operator. The purpose of an equation is to solve it. You want to find the missing variable.
-An **equation** is a statement that sets of expressions are the same. The following is an equation:  
+An **equation** is a statement that sets of expressions are the same. The following is an equation:
 
-![][2x^2+y+1=z]
+![Equation][2x^2+y+1=z]
 
 ### Solution
 
@@ -19,75 +19,75 @@ A **Solution** is the result of an equation.
 
 **Expressions** are the sets of terms on both sides of the equals operator in an equation. The expressions are highlighted in red:
 
-![][2x^2+y+1=z.expressions]
+![Expression][2x^2+y+1=z.expressions]
 
 ### Polynomial
 
-A **Polynomial** is a general term for the sets of expressions set up with terms containing constants, coefficients, variables, and exponents.  
+A **Polynomial** is a general term for the sets of expressions set up with terms containing constants, coefficients, variables, and exponents.
 
-![][polynomial]
+![Polynomial][polynomial]
 
 #### Common and Uncommon Sub-Sets of Polynomials
 
 | Name | Example | Description |
 |:---:|---|---|
-| Monomial | ![][monomial] | A Monomial is a polynomial that consists of only a single term. |
-| Binomial | ![][binomial] | A Binomial is a polynomial that consists of two terms. |
-| Trinomial | ![][trinomial] | A Trinomial is a polynomial that consists of three sets of terms. |
-| Multinomial | ![][polynomial] | A Multinomial is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considered a Multinomial. |
-| Quadrinomial | ![][quadrinomial] | A Quadrinomial is a polynomial that consists of four sets of terms. |
-| Quintinomial | ![][quintinomial] | A Quintinomial is a polynomial that consists of five sets of terms. |
-| Sextomial | ![][sextomial] | A Sextomial is a polynomial that consists of six sets of terms. |
-| Septomial | ![][septomial] | A Septomial is a polynomial that consists of seven sets of terms. |
-| Octomial | ![][octomial] | A Octomial is a polynomial that consists of eight sets of terms. |
-| Nonomial | ![][nonomial] | A Nonomial is a polynomial that consists of nine sets of terms. |
-| Decomial | ![][decomial] | A decomial is a polynomial that consists of ten sets of terms. |
+| Monomial | ![Monomial][monomial] | A Monomial is a polynomial that consists of only a single term. |
+| Binomial | ![Binomial][binomial] | A Binomial is a polynomial that consists of two terms. |
+| Trinomial | ![Trinomial][trinomial] | A Trinomial is a polynomial that consists of three sets of terms. |
+| Multinomial | ![Multinomial][polynomial] | A Multinomial is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considered a Multinomial. |
+| Quadrinomial | ![Quadrinomial][quadrinomial] | A Quadrinomial is a polynomial that consists of four sets of terms. |
+| Quintinomial | ![Quintinomial][quintinomial] | A Quintinomial is a polynomial that consists of five sets of terms. |
+| Sextomial | ![Sextomial][sextomial] | A Sextomial is a polynomial that consists of six sets of terms. |
+| Septomial | ![Septomial][septomial] | A Septomial is a polynomial that consists of seven sets of terms. |
+| Octomial | ![Octomial][octomial] | A Octomial is a polynomial that consists of eight sets of terms. |
+| Nonomial | ![Nonomial][nonomial] | A Nonomial is a polynomial that consists of nine sets of terms. |
+| Decomial | ![Decomial][decomial] | A decomial is a polynomial that consists of ten sets of terms. |
 
 ### Term
 
 **Terms** are the parts of an expression separated by addition or subtraction operators. The terms below are highlighted in red:
 
-![][2x^2+y+1=z.terms]
+![Terms][2x^2+y+1=z.terms]
 
 ### Constant
 
 **Constants** are the Number terms, where the numbers are on their own, are called constants. The constant term below is highlighted in red: 
 
-![][2x^2+y+1=z.constants]
+![Constants][2x^2+y+1=z.constants]
 
 ### Coefficient
 
 A **coefficient** is the number used to multiply a variable. The coefficient is highlighted below in red:
 
-![][2x^2+y+1=z.coefficient]
+![Coefficient][2x^2+y+1=z.coefficient]
 
 ### Variable
 
-**Variables** are placeholder characters or text that stand in for a value or statement. The variables below are highlighted in red: 
+**Variables** are placeholder characters or text that stand in for a value or statement. The variables below are highlighted in red:
 
-![][2x^2+y+1=z.variables]
+![Variable][2x^2+y+1=z.variables]
 
 #### Common Variables
 
 | Var | Name | Description  |
 |:---:|---|---|
-| ![][i] | i component | Often denotes the first part of a vector. |
-| ![][j] | j component | Often denotes the second part of a vector. |
-| ![][k] | k component | Often denotes the third part of a vector. |
-| ![][x] | x-coordinate | Often used as the horizontal component of a coordinate. |
-| ![][y] | y-coordinate | Often used as the vertical component of a coordinate. |
-| ![][z] | z-coordinate | Often used as the depth component of a coordinate. |
-| ![][A] | area | The area of a shape.  |
-| ![][r] | radius |  The radius of a circle. |
-| ![][theta] | theta |  The angle between two vectors |
+| ![i][i] | i component | Often denotes the first part of a vector. |
+| ![j][j] | j component | Often denotes the second part of a vector. |
+| ![k][k] | k component | Often denotes the third part of a vector. |
+| ![x][x] | x-coordinate | Often used as the horizontal component of a coordinate. |
+| ![y][y] | y-coordinate | Often used as the vertical component of a coordinate. |
+| ![z][z] | z-coordinate | Often used as the depth component of a coordinate. |
+| ![A][A] | area | The area of a shape.  |
+| ![r][r] | radius |  The radius of a circle. |
+| ![theta][theta] |  |  The angle between two vectors |
 
-#### Vectors Matrices 
+#### s Matrices
 
 | Representations | Name | Description |
 |:---:|---|---|
-| ![][3d vector] |  | visual representation of a vector |
-| ![][common generic vectors] |  | common generic vectors. |
-| ![][common generic unit vectors.inline] |  | common generic unit  vectors (length = 1). |
+| ![Vector][3d vector] |  | visual representation of a vector |
+| ![Generic vectors][common generic vectors] |  | common generic vectors. |
+| ![Generic unit vectors][common generic unit vectors.inline] |  | common generic unit  vectors (length = 1). |
 
 #### Constant Variables
 
@@ -95,39 +95,39 @@ In some instances a numerical value is replaced with a symbolic representation t
 
 | Constant | Value | Notes|
 |:---:|---|---|
-| ![][pi.inline] | ≈3.1415926535897932384626433832795… | Pi is the irrational constant that represents the ratio of the circumference of a circle to it's radius. |
-| ![][tau.inline] | ≈6.283185307179586476925286766559... | Tau is a proposed irrational constant intended to represent the ratio of the circumference of a circle to it's diameter. Or 2Pi. |
-| ![][i] | Imaginary  | Denotes that a number should be considered imaginary as opposed to a real number. |
+| ![Pi][pi.inline] | ≈3.1415926535897932384626433832795… | Pi is the irrational constant that represents the ratio of the circumference of a circle to it's radius. |
+| ![Tau][tau.inline] | ≈6.283185307179586476925286766559... | Tau is a proposed irrational constant intended to represent the ratio of the circumference of a circle to it's diameter. Or 2Pi. |
+| ![i][i] | Imaginary  | Denotes that a number should be considered imaginary as opposed to a real number. |
 
 #### Table of Common Angles
 
 | Angle | 0° | 30° | 45° | 60° | 90° |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| ![][sin squared theta] | 0/4 | 1/4 | 2/4 | 3/4 | 4/4 |
-| ![][cos squared theta] | 4/4 | 3/4 | 2/4 | 1/4 | 0/4 |
-| ![][tan squared theta] | 0/4 | 1/3 | 2/2 | 3/1 | 4/0 |
+| ![Sine][sin squared theta] | 0/4 | 1/4 | 2/4 | 3/4 | 4/4 |
+| ![Cosine][cos squared theta] | 4/4 | 3/4 | 2/4 | 1/4 | 0/4 |
+| ![Tangent][tan squared theta] | 0/4 | 1/3 | 2/2 | 3/1 | 4/0 |
 
 ### Exponent
 
 **Exponents** tell how many times a number or variable should be multiplied.
 
-![][2x^2+y+1=z.exponent]
+![Exponent][2x^2+y+1=z.exponent]
 
 For exponents of 1, the exponent is dropped
 
-![][exponent of 1]
+![Exponent of 1][exponent of 1]
 
-![][exponent of 2]
+![Exponent of 2][exponent of 2]
 
-##### Exponents Powers and Roots
+#### Exponents Powers and Roots
 
 Roots can be represented as Exponents or Powers
 
 ### Operator
 
-**Operators** are symbols used to denote an operation that needs to occur between values. The operators are highlighted in red below: 
+**Operators** are symbols used to denote an operation that needs to occur between values. The operators are highlighted in red below:
 
-![][2x^2+y+1=z.operators]
+![Operators][2x^2+y+1=z.operators]
 
 #### Common Operators
 
@@ -137,64 +137,62 @@ Below are tables of common operators.
 
 | Symbol | Name | Operation |
 |:---:|---|---|
-| ![][operators.equal.inline] | Equals | Indicates that the expressions on either side are equal. |
-| ![][operators.notequal.inline] | Not Equal | Indicates that the expressions on either side are not equal. |
-| ![][operators.lessthan.inline] | Less Than | Indicates that the expression on the left should be smaller than the expression on the right. |
-| ![][operators.greaterthan.inline] | Greater Than | Indicates that the expression to the left should be larger than the expression to the right. |
-| ![][operators.lessthanequal.inline] | Less Than Or Equal To | Indicates that the expression to the left should be less than or equal to the expression to the right. |
-| ![][operators.greaterthanequal.inline] | Greater Than Or Equal To | Indicates that the expression to the left should be larger or equal to the expression to the right. |
-| ![][operators.approximate.inline] | Approximately | Indicates that the expressions on either side are approximately equal. |
+| ![Equals][operators.equal.inline] | Equals | Indicates that the expressions on either side are equal. |
+| ![Not Equal][operators.notequal.inline] | Not Equal | Indicates that the expressions on either side are not equal. |
+| ![Less Than][operators.lessthan.inline] | Less Than | Indicates that the expression on the left should be smaller than the expression on the right. |
+| ![Greater Than][operators.greaterthan.inline] | Greater Than | Indicates that the expression to the left should be larger than the expression to the right. |
+| ![Less Than Or Equal To][operators.lessthanequal.inline] | Less Than Or Equal To | Indicates that the expression to the left should be less than or equal to the expression to the right. |
+| ![Greater Than Or Equal To][operators.greaterthanequal.inline] | Greater Than Or Equal To | Indicates that the expression to the left should be larger or equal to the expression to the right. |
+| ![Approximately][operators.approximate.inline] | Approximately | Indicates that the expressions on either side are approximately equal. |
 
 ##### Binary/Unary Operators
 
 | Symbol | Name | Operation |
 |:---:|---|---|
-| ![][operators.add.inline] | Add or Plus | Adds the value of the left argument to the right. |
-| ![][operators.subtract.inline] | Minus or Subtract | removes the value of the right argument from the left. |
-| ![][operators.multiply.inline] | Multiply or Times | Repeatedly adds the right value to the left. |
-| ![][operators.divide.inline] | Divide | Divides the left argument into the number of arguments on the right, or below. |
+| ![Add or Plus][operators.add.inline] | Add or Plus | Adds the value of the left argument to the right. |
+| ![Minus or Subtract][operators.subtract.inline] | Minus or Subtract | removes the value of the right argument from the left. |
+| ![Multiply or Times][operators.multiply.inline] | Multiply or Times | Repeatedly adds the right value to the left. |
+| ![Divide][operators.divide.inline] | Divide | Divides the left argument into the number of arguments on the right, or below. |
 
 ### Functions
 
 | Symbol | Name | Operation |
 |:---:|---|---|
-| ![][operators.exponent.inline] | Exponent | Indicates how many times the multiplication should be used. |
-| ![][operators.root.inline] | Root, Radix, or Radical | An inverse of the exponent, in finding the zeros of a number. |
-| ![][operators.log.inline] | Logarithm | An inverse of an exponential. Indicates how many of a number needs to be multiplied to get another. |
-|  |  |  |
+| ![Exponent][operators.exponent.inline] | Exponent | Indicates how many times the multiplication should be used. |
+| ![Radical][operators.root.inline] | Root, Radix, or Radical | An inverse of the exponent, in finding the zeros of a number. |
+| ![Logarithm][operators.log.inline] | Logarithm | An inverse of an exponential. Indicates how many of a number needs to be multiplied to get another. |
 
-##### Trigonometric Functions
+#### Trigonometric Functions
 
 | Symbol | Name | Operation |
 |:---:|---|---|
-| ![][operators.sin.inline] | Sine |  |
-| ![][operators.cos.inline] | Cosine |  |
-| ![][operators.tan.inline] | Tangent |  |
-| ![][operators.csc.inline] | Cosecant |  |
-| ![][operators.sec.inline] | Secant |  |
-| ![][operators.cot.inline] | Cotangent |  |
-
+| ![Sine][operators.sin.inline] | Sine |  |
+| ![Cosine][operators.cos.inline] | Cosine |  |
+| ![Tangent][operators.tan.inline] | Tangent |  |
+| ![Cosecant][operators.csc.inline] | Cosecant |  |
+| ![Secant][operators.sec.inline] | Secant |  |
+| ![Cotangent][operators.cot.inline] | Cotangent |  |
 
 ### Vector Functions
 
 | Function | Name | Description |
 |:---:|---|---|
-| ![][dot product] | dot product | dot product of ![][u vector right] and ![][w vector right.inline]. |
-| ![][cross product] |cross product  | cross product of ![][u vector right] and ![][w vector right.inline]. |
-| ![][vector length] |  | Length of a Vector. |
-| ![][3d vector length] |  | Length of a 3D Vector |
-| ![][vector normal] |  | Normalize a vector |
-| ![][vector dot product cos.inline] |  | cos in terms of dot product. |
-| ![][vector cross product sin] |  | sin in terms of cross product. |
+| ![Dot product][dot product] | dot product | dot product of ![u vector right][u vector right] and ![w vector right.inline][w vector right.inline]. |
+| ![Cross product][cross product] | cross product  | cross product of ![u vector right][u vector right] and ![w vector right.inline][w vector right.inline]. |
+| ![Length of a Vector][vector length] |  | Length of a Vector. |
+| ![Length of a 3D Vector][3d vector length] |  | Length of a 3D Vector |
+| ![Normalize a vector][vector normal] |  | Normalize a vector |
+| ![cos in terms of dot product][vector dot product cos.inline] |  | cos in terms of dot product. |
+| ![sin in terms of cross product][vector cross product sin] |  | sin in terms of cross product. |
 
 ### Order of Operations
 
 | Order | Operators | Name | Description |
 |:---:|:---:|---|---|
-| 0 | ![][parenthesis], ![][square brackets], ![][braces], ![][angle brackets] | Parenthesis, Brackets, Braces | Perform calculations withing brackets first. |
-| 1 | ![][operators.exponent.inline], ![][operators.root.inline] | Exponents, Powers, Roots | Exponents, Powers and Roots then follow. |
-| 2 | ![][operators.multiply.inline], ![][operators.divide.inline] | Multiply, Divide | Then Multiply and Divide. |
-| 3 | ![][operators.add.inline], ![][operators.subtract.inline] | Addition Subtraction | All Addition and Subtraction is then done from left to right.  |
+| 0 | ![Parenthesis][parenthesis], ![Brackets][square brackets], ![Braces][braces], ![Angle brackets][angle brackets] | Parenthesis, Brackets, Braces | Perform calculations withing brackets first. |
+| 1 | ![Exponents][operators.exponent.inline], ![Roots][operators.root.inline] | Exponents, Powers, Roots | Exponents, Powers and Roots then follow. |
+| 2 | ![Multiply][operators.multiply.inline], ![Divide][operators.divide.inline] | Multiply, Divide | Then Multiply and Divide. |
+| 3 | ![Addition][operators.add.inline], ![Subtraction][operators.subtract.inline] | Addition Subtraction | All Addition and Subtraction is then done from left to right.  |
 
 #### Operators and Order of Precedence
 
@@ -204,7 +202,7 @@ There are a few quirks on the order of precedence of operations.
 
 When a negated bracketed set of terms is simplified, the addition, and subtraction operators change sign.
 
-For example: ![][x=1-(3-4).inline] becomes ![][x=1-3+4.inline]  
+For example: ![x=1-(3-4)][x=1-(3-4).inline] becomes ![x=1-3+4][x=1-3+4.inline]
 
 ##### Multiplication Division
 
@@ -233,13 +231,13 @@ A positive times a negative is a negative.
 
 ### Linear Equations
 
-Linear means straight line. So a linear equation is any formula which results in a straight line. It is the simplest form of arithmetic where the exponent is 1. ![][exponent of 1.Inline]
+Linear means straight line. So a linear equation is any formula which results in a straight line. It is the simplest form of arithmetic where the exponent is 1. ![Exponent of 1][exponent of 1.Inline]
 
 | Function | Name | Description |
 |:---:|---|---|
-| ![][Parameterized Line Segment x] ![][Parameterized Line Segment y] | Parameterized Line Segment Equation | The parameterized equation for a line segment through two points. |
-| ![][pythagorean theorem] | Pythagorean Theorem |  |
-| ![][distance] | Distance | The distance between two Cartesian Points. |
+| ![Parameterized Line Segment x][Parameterized Line Segment x] ![Parameterized Line Segment y][Parameterized Line Segment y] | Parameterized Line Segment Equation | The parameterized equation for a line segment through two points. |
+| ![Pythagorean Theorem][pythagorean theorem] | Pythagorean Theorem |  |
+| ![Distance][distance] | Distance | The distance between two Cartesian Points. |
 
 ### The Quadratics
 
@@ -247,48 +245,48 @@ Quadratic equation is where the equation involves an exponent of 2.
 
 | Function | Name | Description |
 |:---:|---|---|
-| ![][quadratic equation] | quadratic equation |  |
-| ![][quadratic formula] | The Quadratic Formula | Quadratic formula gives the solution(s) to any Quadratic equation.  |
-| ![][discriminant] | Discriminant | The discriminant is the part of the Quadratic formula that is inside the radical. |
+| ![Quadratic equation][quadratic equation] | Quadratic equation |  |
+| ![Quadratic Formula][quadratic formula] | The Quadratic Formula | Quadratic formula gives the solution(s) to any Quadratic equation.  |
+| ![Discriminant][discriminant] | Discriminant | The discriminant is the part of the Quadratic formula that is inside the radical. |
 
 ### Circles
 
 | Function | Name | Description |
 |:---:|---|---|
-| ![][circle simple form] | Simple Equation of the Circle | The simple form definition of a circle. |
-| ![][circle definition] | Equation of the Circle |  |
-| ![][circle definition polar] |Equation of the Circle in polar form.  |  |
-| ![][circle parametric x] | Circle parametric form for x |  |
-| ![][circle parametric y] | Circle parametric form for y |  |
-| ![][circle parametric x 2] | Alternative circle parametric form for x |  |
-| ![][circle parametric y 2] | Alternative circle parametric form for y |  |
-| ![][circle circumference from radius] | circumference | The circumference of a circle from it's radius. |
-| ![][circle circumference from diameter] | circumference | The circumference of a circle from it's diameter. |
-| ![][area of circle radius.inline] | area | Area of a circle from it's radius. |
-| ![][area of circle diameter] | area | Area of a circle from it's diameter. |
-| ![][radius of circle in polar] | radius | Solve for the radius in polar coordinates. |
-| ![][circle tangent 1] | tangent form | An equation for the tangent of the circle. |
-| ![][circle tangent 2] | tangent form | Another equation for the tangent of the circle. |
-| ![][circle slope tangent line] | slope | The slope of the tangent line of the circle. |
+| ![Simple Equation of the Circle][circle simple form] | Simple Equation of the Circle | The simple form definition of a circle. |
+| ![Equation of the Circle][circle definition] | Equation of the Circle |  |
+| ![Equation of the Circle in polar form][circle definition polar] | Equation of the Circle in polar form.  |  |
+| ![Circle parametric form for x][circle parametric x] | Circle parametric form for x |  |
+| ![Circle parametric form for y][circle parametric y] | Circle parametric form for y |  |
+| ![Alternative circle parametric form for x][circle parametric x 2] | Alternative circle parametric form for x |  |
+| ![Alternative circle parametric form for y][circle parametric y 2] | Alternative circle parametric form for y |  |
+| ![The circumference of a circle from it's radius][circle circumference from radius] | circumference | The circumference of a circle from it's radius. |
+| ![The circumference of a circle from it's diameter][circle circumference from diameter] | circumference | The circumference of a circle from it's diameter. |
+| ![Area of a circle from it's radius][area of circle radius.inline] | area | Area of a circle from it's radius. |
+| ![Area of a circle from it's diameter][area of circle diameter] | area | Area of a circle from it's diameter. |
+| ![Solve for the radius in polar coordinates][radius of circle in polar] | radius | Solve for the radius in polar coordinates. |
+| ![An equation for the tangent of the circle][circle tangent 1] | tangent form | An equation for the tangent of the circle. |
+| ![Another equation for the tangent of the circle][circle tangent 2] | tangent form | Another equation for the tangent of the circle. |
+| ![The slope of the tangent line of the circle][circle slope tangent line] | slope | The slope of the tangent line of the circle. |
 
 ### Ellipses
 
 | Function | Name | Description |
 |:---:|---|---|
-| ![][ellipse equation] | Ellipse Equation | The equation of an ellipse whose major and minor axes coincide with the Cartesian axes. |
-| ![][ellipse equation not centered] | Translated Ellipse Equation | The equation of an ellipse that has been Translated away from the Origin. Where h, and k are the new center point. |
-| ![][rotated ellipse equation not centered] | Rotated and Translated Ellipse Equation | The equation of an ellipse that has been Translated away from the Origin, and rotated. Where h, and k are the new center point, and α is the angle of rotation. |
-| ![][ellipse parametric x 1] |  | Parametric form of ellipse for x. |
-| ![][ellipse parametric y 1] |  | Parametric form of ellipse for y. |
-| ![][ellipse focus distance] |  | The focus distance of the ellipse from the axi. |
-| ![][ellipse eccentricity 1] | eccentricity | The eccentricity of the ellipse. |
-| ![][ellipse eccentricity 2] | eccentricity | The eccentricity of the ellipse. |
-| ![][ellipse eccentricity 3] | eccentricity | The eccentricity of the ellipse. |
-| ![][ellipse eccentricity 4] | eccentricity | The eccentricity of the ellipse. |
-| ![][ellipse area] | area | The area of an ellipse. |
-| ![][ellipse circumference 1] | circumference | The circumference of an ellipse. |
+| ![Ellipse Equation][ellipse equation] | Ellipse Equation | The equation of an ellipse whose major and minor axes coincide with the Cartesian axes. |
+| ![Translated Ellipse Equation][ellipse equation not centered] | Translated Ellipse Equation | The equation of an ellipse that has been Translated away from the Origin. Where h, and k are the new center point. |
+| ![Rotated and Translated Ellipse Equation][rotated ellipse equation not centered] | Rotated and Translated Ellipse Equation | The equation of an ellipse that has been Translated away from the Origin, and rotated. Where h, and k are the new center point, and α is the angle of rotation. |
+| ![Parametric form of ellipse for x][ellipse parametric x 1] |  | Parametric form of ellipse for x. |
+| ![Parametric form of ellipse for y][ellipse parametric y 1] |  | Parametric form of ellipse for y. |
+| ![The focus distance of the ellipse from the axi][ellipse focus distance] |  | The focus distance of the ellipse from the axi. |
+| ![The eccentricity of the ellipse][ellipse eccentricity 1] | eccentricity | The eccentricity of the ellipse. |
+| ![The eccentricity of the ellipse][ellipse eccentricity 2] | eccentricity | The eccentricity of the ellipse. |
+| ![The eccentricity of the ellipse][ellipse eccentricity 3] | eccentricity | The eccentricity of the ellipse. |
+| ![The eccentricity of the ellipse][ellipse eccentricity 4] | eccentricity | The eccentricity of the ellipse. |
+| ![The area of an ellipse][ellipse area] | area | The area of an ellipse. |
+| ![The circumference of an ellipse][ellipse circumference 1] | circumference | The circumference of an ellipse. |
 | ... | ... | ... |
-| ![][ellipse curvature] | curvature | The curvature of an ellipse. |
+| ![The curvature of an ellipse][ellipse curvature] | curvature | The curvature of an ellipse. |
 
 ### Trigonometric Identities
 
@@ -312,8 +310,8 @@ Quadratic equation is where the equation involves an exponent of 2.
 
 | Equation | Name | Description |
 |:---:|---|---|
-| ![][sin theta equals a over c] | Sine Identity |  |
-| ![][cos theta equals b over c] | Cosine Identity |  |
+| ![Sine Identity][sin theta equals a over c] | Sine Identity |  |
+| ![Cosine Identity][cos theta equals b over c] | Cosine Identity |  |
 | ![][tan theta equals sin theta over cos theta equals a over b] |  |  |
 | ![][csc theta equals one over sin theta equals c over a] |  |  |
 | ![][sec theta equals one over cos theta equals c over b] |  |  |
@@ -337,19 +335,19 @@ Quadratic equation is where the equation involves an exponent of 2.
 | ![][cos squared theta equals one half plus one half times cos two theta] |  |  |
 | ![][sin theta sub one minus sin theta sub two equals two sin theta sub one minus theta sub two over two times cos theta sub one plus theta sub two over two] |  |  |
 | ![][cos theta sub one minus cos theta sub two equals negative two sin theta sub one minus theta sub two over two times sin theta sub one plus theta sub two over two] |  |  |
-| ![][law of sines] | Law of Sines |  |
-| ![][law of cosines a] </br> ![][law of cosines b] </br> ![][law of cosines c] | Law of Cosines |  |
-| ![][law of tangents] | Law of Tangents |  |
+| ![Law of Sines][law of sines] | Law of Sines |  |
+| ![Law of cosines a][law of cosines a] </br> ![Law of cosines b][law of cosines b] </br> ![Law of cosines c][law of cosines c] | Law of Cosines |  |
+| ![Law of Tangents][law of tangents] | Law of Tangents |  |
 
 ## Bézier Matrix Forms
 
 | Name | Equation |
 |---|---|
-| Linear Bézier Curve | ![linear bezier matrix][] |
-| Quadratic Bézier Curve | ![quadratic bezier matrix][] |
-| Cubic Bézier Curve | ![cubic bezier matrix][] |
-| Quartic Bézier Curve | ![quartic bezier matrix][] |
-| Quintic Bézier Curve | ![quintic bezier matrix][] |
+| Linear Bézier Curve | ![Linear bézier matrix][linear bezier matrix] |
+| Quadratic Bézier Curve | ![Quadratic bézier matrix][quadratic bezier matrix] |
+| Cubic Bézier Curve | ![Cubic bézier matrix][cubic bezier matrix] |
+| Quartic Bézier Curve | ![Quartic bézier matrix][quartic bezier matrix] |
+| Quintic Bézier Curve | ![Quintic bézier matrix][quintic bezier matrix] |
 
 ## Polynomial Degrees
 
@@ -649,7 +647,6 @@ Learn more in the PBS Infinite Series: Why Computers are Bad at Algebra.
 
 > [![IMAGE ALT TEXT](http://img.youtube.com/vi/pQs_wx8eoQ8/0.jpg)](https://youtu.be/pQs_wx8eoQ8)
 
-
 ## Mathematical Tricks
 
 ### Multiplication Tricks
@@ -664,7 +661,7 @@ This one is for finding the squares of numbers ending with 5. e.g. ( 〖25〗^2=
 
 ## References:
 
-- [CodeCogs latex equation editor][codecogs latex equation editor] used to render the equations.  
+- [CodeCogs latex equation editor][codecogs latex equation editor] used to render the equations.
 
 - [Unicode Entity Codes for Math](http://symbolcodes.tlt.psu.edu/bylanguage/mathchart.html)
 

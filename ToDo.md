@@ -66,6 +66,8 @@ This is a list of interesting subjects to study and possibly implement in the en
 
 - A Primer on Bézier Curves <https://pomax.github.io/bezierinfo/> <https://pomax.github.io/bezierjs/>
 
+- Bezier Curve of N order <https://stackoverflow.com/questions/41663348/bezier-curve-of-n-order>
+
 - Bézier Curves and Type Design: A Tutorial <http://learn.scannerlicker.net/2014/04/16/bezier-curves-and-type-design-a-tutorial/>
 
 - Bézier curvature extrema <https://math.stackexchange.com/questions/1954845/bezier-curvature-extrema>
@@ -91,6 +93,8 @@ This is a list of interesting subjects to study and possibly implement in the en
 - Converting a cubic bezier curves into a cardinal spline and back <https://stackoverflow.com/questions/31274246/converting-a-cubic-bezier-curves-into-a-cardinal-spline-and-back>
 
 - Sporo <http://levien.com/garden/js/spiro.html>
+
+- Spiro2SVG: Convert Spirographs to SVG Using Bezier Curves <https://www.codeproject.com/Articles/1160697/Spiro-SVG-Convert-Spirographs-to-SVG-Using-Bezier> <https://github.com/alvinpenner/Spiro2SVG>
 
 - Smooth Bézier Spline Through Prescribed Points <https://www.particleincell.com/2012/bezier-splines/>
 

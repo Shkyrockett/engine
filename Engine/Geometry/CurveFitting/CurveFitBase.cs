@@ -357,7 +357,7 @@ namespace Engine
                 var qpp1 = (qp2 - qp1) * 2;
 
                 // Evaluate Q(t), Q'(t), and Q''(t)
-                var p0 = curve.Sample(t);
+                var p0 = curve.Interpolate(t);
                 var p1 = ((ti * ti) * qp0) + ((2 * ti * t) * qp1) + ((t * t) * qp2);
                 var p2 = (ti * qpp0) + (t * qpp1);
 
@@ -381,7 +381,7 @@ namespace Engine
             for (var i = 1; i < nPts; i++)
             {
                 var v0 = points[first + i];
-                var v1 = curve.Sample(u[i]);
+                var v1 = curve.Interpolate(u[i]);
                 var d = Measurements.SquareDistance(v0, v1);
                 if (d > max)
                 {

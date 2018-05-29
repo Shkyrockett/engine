@@ -108,7 +108,7 @@ namespace Engine
         /// <param name="u">How far along the spline to sample (for example, 0.5 will be halfway along the length of the spline). Should be between 0 and 1.</param>
         /// <returns>The position on the spline.</returns>
         public Point2D Sample(double u)
-            => spline.Sample(u);
+            => spline.Interpolate(u);
 
         /// <summary>
         /// Gets the tangent of a point on the spline that's close to the desired point along the spline. For example, if u = 0.5, then the direction vector

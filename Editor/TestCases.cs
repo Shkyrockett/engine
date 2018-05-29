@@ -225,6 +225,17 @@ namespace Editor
                 Name = "Inflections Nodes"
             };
 
+            var derivativePointsList = bezier.DerivativePoints;
+            var derivativePoints = new List<Point2D>();
+            foreach (var points in derivativePointsList)
+            {
+                derivativePoints.AddRange(points);
+            }
+            var derivativePointsNodeItem = new GraphicItem(new NodeRevealer(derivativePoints, 5d), handleStyle)
+            {
+                Name = "Derivative Points Nodes"
+            };
+
             //var hull = bezier.Hull(0.5);
             //var hullNodeItem = new GraphicItem(new NodeRevealer(hull, 5d), handleStyle)
             //{
@@ -300,6 +311,7 @@ namespace Editor
             //vectorMap.Add(arcsCurveItem);
             vectorMap.Add(extremaNodeItem);
             vectorMap.Add(inflectionsNodeItem);
+            vectorMap.Add(derivativePointsNodeItem);
             //vectorMap.Add(hullNodeItem);
         }
 

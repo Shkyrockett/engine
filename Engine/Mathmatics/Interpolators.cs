@@ -36,45 +36,6 @@ namespace Engine
             from i in Enumerable.Range(0, count)
             select func((1d / count) * i));
 
-        /// <summary>
-        /// The slerp.
-        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
-        /// </summary>
-        /// <param name="start">The start.</param>
-        /// <param name="end">The end.</param>
-        /// <param name="percent">The percent.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Slerp(Point2D start, Point2D end, float percent)
-        {
-            // Dot product - the cosine of the angle between 2 vectors.
-            // Clamp it to be in the range of Acos()
-            // This may be unnecessary, but floating point
-            // precision can be a fickle mistress.
-            var dot = Maths.Clamp(Primitives.DotProduct(start, end), -1.0f, 1.0f);
-            // Acos(dot) returns the angle between start and end,
-            // And multiplying that by percent returns the angle between
-            // start and the final result.
-            var theta = Math.Acos(dot) * percent;
-            var RelativeVec = end - start * dot;
-            // Orthonormal basis
-            RelativeVec.Normalize();
-            // The final result.
-            return ((start * Math.Cos(theta)) + (RelativeVec * Math.Sin(theta)));
-        }
-
-        /// <summary>
-        /// The nlerp.
-        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
-        /// </summary>
-        /// <param name="start">The start.</param>
-        /// <param name="end">The end.</param>
-        /// <param name="percent">The percent.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Nlerp(Point2D start, Point2D end, float percent)
-            => (Point2D)((Vector2D)Linear(start, end, percent)).Normalize();
-
         #region Linear Interpolation
         /// <summary>
         /// Two control point 1D Linear interpolation for ranges from 0 to 1, start to end of curve.
@@ -166,6 +127,54 @@ namespace Engine
         public static Point3D Linear(Point3D a, Point3D b, double t)
             => new Point3D(Linear(a.X, a.Y, a.Z, b.X, b.Y, b.Z, t));
         #endregion Linear Interpolation
+
+        /// <summary>
+        /// The slerp.
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <param name="percent">The percent.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Slerp(Point2D start, Point2D end, float percent)
+        {
+            // Dot product - the cosine of the angle between 2 vectors.
+            // Clamp it to be in the range of Acos()
+            // This may be unnecessary, but floating point
+            // precision can be a fickle mistress.
+            var dot = Maths.Clamp(Primitives.DotProduct(start, end), -1d, 1d);
+
+            // Acos(dot) returns the angle between start and end,
+            // And multiplying that by percent returns the angle between
+            // start and the final result.
+            var theta = Acos(dot) * percent;
+            var RelativeVec = end - start * dot;
+
+            // Orthonormal basis
+            RelativeVec.Normalize();
+
+            // The final result.
+            return ((start * Cos(theta)) + (RelativeVec * Sin(theta)));
+        }
+
+        /// <summary>
+        /// The nlerp.
+        /// </summary>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <param name="percent">The percent.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Nlerp(Point2D start, Point2D end, float percent)
+            => (Point2D)((Vector2D)Linear(start, end, percent)).Normalize();
 
         #region Curve Interpolation
         /// <summary>
@@ -260,6 +269,7 @@ namespace Engine
         /// <param name="t">The time parameter.</param>
         /// <returns>Returns a value interpolated from a Quadratic Bézier.</returns>
         /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -269,7 +279,9 @@ namespace Engine
             double cV,
             double t)
         {
+            // The inverse of t.
             var ti = 1d - t;
+
             return aV * ti * ti + 2d * bV * ti * t + cV * t * t;
         }
 
@@ -285,6 +297,7 @@ namespace Engine
         /// <param name="t">The time parameter.</param>
         /// <returns>Returns a point at t position of a Quadratic Bézier curve.</returns>
         /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -294,9 +307,15 @@ namespace Engine
             double cX, double cY,
             double t)
         {
+            // The inverse of t.
             var ti = 1d - t;
+
+            // The inverse of t squared.
             var ti2 = ti * ti;
+
+            // The t squared.
             var t2 = t * t;
+
             return (
                 (aX * ti2 + 2d * bX * ti * t + cX * t2),
                 (aY * ti2 + 2d * bY * ti * t + cY * t2)
@@ -318,6 +337,7 @@ namespace Engine
         /// <param name="t">The time parameter of the Bézier curve.</param>
         /// <returns>Returns a point on the Bézier curve.</returns>
         /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -327,9 +347,15 @@ namespace Engine
             double x2, double y2, double z2,
             double t)
         {
+            // The inverse of t.
             var ti = 1d - t;
+
+            // The inverse of t squared.
             var ti2 = ti * ti;
+
+            // The t squared.
             var t2 = t * t;
+
             return (
                 (x0 * ti2 + 2d * x1 * ti * t + x2 * t2),
                 (y0 * ti2 + 2d * y1 * ti * t + y2 * t2),
@@ -339,18 +365,18 @@ namespace Engine
 
         #region Cubic Interpolation
         /// <summary>
-        ///
+        /// The cubic.
         /// </summary>
-        /// <param name="aV"></param>
-        /// <param name="bV"></param>
-        /// <param name="cV"></param>
-        /// <param name="dV"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="aV">The aV.</param>
+        /// <param name="bV">The bV.</param>
+        /// <param name="cV">The cV.</param>
+        /// <param name="dV">The dV.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cubic(
             double aV,
@@ -365,22 +391,22 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The cubic.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="dX">The dX.</param>
+        /// <param name="dY">The dY.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Cubic(
             double aX, double aY,
@@ -398,26 +424,26 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The cubic.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="aZ"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="bZ"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="cZ"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="dZ"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="aZ">The aZ.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="bZ">The bZ.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="cZ">The cZ.</param>
+        /// <param name="dX">The dX.</param>
+        /// <param name="dY">The dY.</param>
+        /// <param name="dZ">The dZ.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Cubic(
             double aX, double aY, double aZ,
@@ -460,11 +486,16 @@ namespace Engine
             double v3,
             double t)
         {
-            var mum1 = 1d - t;
-            var mum13 = mum1 * mum1 * mum1;
-            var mu3 = t * t * t;
+            // The inverse of t.
+            var ti = 1d - t;
 
-            return (mum13 * v0 + 3d * t * mum1 * mum1 * v1 + 3d * t * t * mum1 * v2 + mu3 * v3);
+            // The inverse of t cubed.
+            var ti3 = ti * ti * ti;
+
+            // The t cubed.
+            var t3 = t * t * t;
+
+            return (ti3 * v0 + 3d * t * ti * ti * v1 + 3d * t * t * ti * v2 + t3 * v3);
         }
 
         /// <summary>
@@ -483,6 +514,7 @@ namespace Engine
         /// <remarks></remarks>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
+        /// https://github.com/burningmime/curves
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -493,14 +525,21 @@ namespace Engine
             double x3, double y3,
             double t)
         {
-            var mum1 = 1d - t;
-            var mum13 = mum1 * mum1 * mum1;
-            var mu3 = t * t * t;
+            // The inverse of t.
+            var ti = 1d - t;
+
+            // The inverse of t cubed.
+            var ti3 = ti * ti * ti;
+
+            // The t cubed.
+            var t3 = t * t * t;
 
             return (
-                (mum13 * x0 + 3d * t * mum1 * mum1 * x1 + 3d * t * t * mum1 * x2 + mu3 * x3),
-                (mum13 * y0 + 3d * t * mum1 * mum1 * y1 + 3d * t * t * mum1 * y2 + mu3 * y3)
+                X: ti3 * x0 + 3d * ti * ti * t * x1 + 3d * ti * t * t * x2 + t3 * x3,
+                Y: ti3 * y0 + 3d * ti * ti * t * y1 + 3d * ti * t * t * y2 + t3 * y3
                 );
+
+            //return (Point2D)(ti3 * A + 3d * ti * ti * t * B + 3d * ti * t * t * C + t3 * D);
         }
 
         /// <summary>
@@ -533,17 +572,24 @@ namespace Engine
             double x3, double y3, double z3,
             double t)
         {
-            var mum1 = 1d - t;
-            var mum13 = mum1 * mum1 * mum1;
-            var mu3 = t * t * t;
+            // The inverse of t.
+            var ti = 1d - t;
+
+            // The inverse of t cubed.
+            var ti3 = ti * ti * ti;
+
+            // The t cubed.
+            var t3 = t * t * t;
 
             return (
-                (mum13 * x0 + 3d * t * mum1 * mum1 * x1 + 3d * t * t * mum1 * x2 + mu3 * x3),
-                (mum13 * y0 + 3d * t * mum1 * mum1 * y1 + 3d * t * t * mum1 * y2 + mu3 * y3),
-                (mum13 * z0 + 3d * t * mum1 * mum1 * z1 + 3d * t * t * mum1 * z2 + mu3 * z3)
+                (ti3 * x0 + 3d * t * ti * ti * x1 + 3d * t * t * ti * x2 + t3 * x3),
+                (ti3 * y0 + 3d * t * ti * ti * y1 + 3d * t * t * ti * y2 + t3 * y3),
+                (ti3 * z0 + 3d * t * ti * ti * z1 + 3d * t * t * ti * z2 + t3 * z3)
                 );
         }
+        #endregion Cubic Bézier Interpolation
 
+        #region N Bézier Interpolation
         /// <summary>
         /// General Bézier curve Number of control points is n+1 0 less than or equal to mu less than 1
         /// IMPORTANT, the last point is not computed.
@@ -552,10 +598,11 @@ namespace Engine
         /// <param name="t"></param>
         /// <returns></returns>
         /// <acknowledgment>
+        /// http://paulbourke.net/geometry/bezier/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D CubicBSpline(List<Point2D> points, double t)
+        public static Point2D CubicBezierSpline(List<Point2D> points, double t)
         {
             var n = points.Count - 1;
             int kn;
@@ -566,7 +613,7 @@ namespace Engine
             double muk = 1;
             var munk = Pow(1 - t, n);
 
-            var b = new Point2D(0d, 0d);
+            var b = Point2D.Empty;
 
             for (var k = 0; k <= n; k++)
             {
@@ -593,14 +640,14 @@ namespace Engine
                 }
 
                 b = new Point2D(
-                b.X + points[k].X * blend,
-                b.Y + points[k].Y * blend
-                    );
+                    b.X + points[k].X * blend,
+                    b.Y + points[k].Y * blend
+                );
             }
 
             return (b);
         }
-        #endregion Cubic Bézier Interpolation
+        #endregion N Bézier Interpolation
 
         #region Catmull-Rom Spline Interpolation
         /// <summary>

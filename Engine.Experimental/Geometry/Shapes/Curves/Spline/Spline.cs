@@ -169,30 +169,30 @@ namespace Engine
         /// that's about halfway through the spline will be returned. The returned point will lie exactly on one of the curves that make up the
         /// spline.
         /// </summary>
-        /// <param name="u">How far along the spline to sample (for example, 0.5 will be halfway along the length of the spline). Should be between 0 and 1.</param>
+        /// <param name="t">How far along the spline to sample (for example, 0.5 will be halfway along the length of the spline). Should be between 0 and 1.</param>
         /// <returns>The position on the spline.</returns>
-        public Point2D Sample(double u)
+        public override Point2D Interpolate(double t)
         {
-            var pos = GetSamplePosition(u);
-            return curves[pos.Index].Sample(pos.Time);
+            var pos = GetSamplePosition(t);
+            return curves[pos.Index].Interpolate(pos.Time);
         }
 
         /// <summary>
         /// Gets the curve index and t-value to sample to get a point at the desired part of the spline.
         /// </summary>
-        /// <param name="u">How far along the spline to sample (for example, 0.5 will be halfway along the length of the spline). Should be between 0 and 1.</param>
+        /// <param name="t">How far along the spline to sample (for example, 0.5 will be halfway along the length of the spline). Should be between 0 and 1.</param>
         /// <returns>The position to sample at.</returns>
-        public SamplePosition GetSamplePosition(double u)
+        public SamplePosition GetSamplePosition(double t)
         {
             if (curves.Count == 0)
                 throw new InvalidOperationException("No curves have been added to the spline");
-            if (u < 0)
+            if (t < 0)
                 return new SamplePosition(0, 0);
-            if (u > 1)
+            if (t > 1)
                 return new SamplePosition(curves.Count - 1, 1);
 
             var total = Length;
-            var target = u * total;
+            var target = t * total;
             Debug.Assert(target >= 0);
 
             // Binary search to find largest value <= target
@@ -224,8 +224,8 @@ namespace Engine
                 var max = arclen[0];
                 Debug.Assert(target <= max + Maths.Epsilon);
                 var part = target / max;
-                var t = part / samplesPerCurve;
-                return new SamplePosition(0, t);
+                var tp = part / samplesPerCurve;
+                return new SamplePosition(0, tp);
             }
             else
             {
@@ -234,9 +234,9 @@ namespace Engine
                 var max = arclen[index + 1];
                 Debug.Assert(target >= min - Maths.Epsilon && target <= max + Maths.Epsilon);
                 var part = target < min ? 0 : target > max ? 1 : (target - min) / (max - min);
-                var t = (((index + 1) % samplesPerCurve) + part) / samplesPerCurve;
+                var tp = (((index + 1) % samplesPerCurve) + part) / samplesPerCurve;
                 var curveIndex = (index + 1) / samplesPerCurve;
-                return new SamplePosition(curveIndex, t);
+                return new SamplePosition(curveIndex, tp);
             }
         }
 
@@ -254,7 +254,7 @@ namespace Engine
             {
                 var idx = (iCurve * nSamples) + iPoint;
                 var t = (iPoint + 1) / (double)nSamples;
-                var np = curve.Sample(t);
+                var np = curve.Interpolate(t);
                 var d = Measurements.Distance(np, pp);
                 clen += d;
                 arclen[idx] = clen;

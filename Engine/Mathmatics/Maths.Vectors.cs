@@ -363,7 +363,8 @@ namespace Engine
         {
             var dx = (pt2X - pt1X);
             var dy = (pt2Y - pt1Y);
-            if ((dx == 0d) && (dy == 0d)) return (0d, 0d);
+            if ((dx == 0d) && (dy == 0d))
+                return (0d, 0d);
 
             var f = 1d / Sqrt(dx * dx + dy * dy);
             dx *= f;

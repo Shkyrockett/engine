@@ -636,23 +636,6 @@ namespace Engine
         //#endregion
 
         /// <summary>
-        /// Samples the Bézier curve at the given t value.
-        /// </summary>
-        /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
-        /// <returns>Sampled point.</returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/burningmime/curves
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Sample(double t)
-        {
-            var ti = 1d - t;
-            return (Point2D)((ti * ti * ti * A) + (3 * ti * ti * t * B) + (3 * ti * t * t * C) + (t * t * t * D));
-        }
-
-        /// <summary>
         /// Gets the first derivative of the curve at the given T value.
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
@@ -665,8 +648,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Derivative(double t)
         {
-            var ti = 1 - t;
-            return (3 * ti * ti * (B - A)) + (6 * t * ti * (C - B)) + (3 * t * t * (D - C));
+            // The inverse of t.
+            var ti = 1d - t;
+
+            // The derivative of the de Casteljau method applied to a cubic Bezier curve.
+            return (3d * ti * ti * (B - A)) + (6d * t * ti * (C - B)) + (3d * t * t * (D - C));
         }
 
         /// <summary>

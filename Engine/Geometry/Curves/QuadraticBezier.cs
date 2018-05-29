@@ -475,24 +475,6 @@ namespace Engine
 
         //#endregion
 
-        #region Methods
-        /// <summary>
-        /// Samples the bezier curve at the given t value.
-        /// </summary>
-        /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
-        /// <returns>Sampled point.</returns>
-        /// <remarks></remarks>
-        /// <acknowledgment>
-        /// https://github.com/burningmime/curves
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Sample(double t)
-        {
-            var ti = 1d - t;
-            return (ti * ti * ti * A) + (3d * ti * ti * t * B) + (3d * ti * t * t * C);
-        }
-
         /// <summary>
         /// Gets the first derivative of the curve at the given T value.
         /// </summary>
@@ -501,13 +483,17 @@ namespace Engine
         /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
+        /// https://www.gamedev.net/forums/topic/419818-derivative-of-bezier-curve/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Derivative(double t)
         {
+            // The inverse of t.
             var ti = 1d - t;
-            return (3d * ti * ti * (B - A)) + (6d * t * ti * (C - B));
+
+            // The derivative of the de Casteljau method applied to a quadratic Bezier curve.
+            return (2d * ti * (B - A)) + (2d * t * (C - B));
         }
 
         /// <summary>
@@ -549,6 +535,7 @@ namespace Engine
         public Vector2D Tangent(double t)
             => Derivative(t).Normalize();
 
+        #region Methods
         /// <summary>
         /// Get the enumerator.
         /// </summary>

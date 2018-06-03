@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -362,6 +363,13 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
+        /// Gets the Polynomial degree of the <see cref="QuadraticBezier"/> curve.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public PolynomialDegree Degree
+            => PolynomialDegree.Quadratic;
+
+        /// <summary>
         /// Gets the <see cref="QuadraticBezier"/> curve's polynomial representation along the x-axis.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
@@ -390,11 +398,82 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the Polynomial degree of the <see cref="QuadraticBezier"/> curve.
+        /// Gets the derivative coordinates.
         /// </summary>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public PolynomialDegree Degree
-            => PolynomialDegree.Quadratic;
+        public List<List<Point2D>> DerivativeCoordinates
+        {
+            get
+            {
+                return (List<List<Point2D>>)CachingProperty(() => DerivativeCoordinates());
+
+                List<List<Point2D>> DerivativeCoordinates()
+                {
+                    // One-time compute of derivative coordinates
+                    var derivitivePoints = new List<List<Point2D>>();
+                    var p = Points;
+                    for (int d = p.Count, c = d - 1; d > 1; d--, c--)
+                    {
+                        var list = new List<Point2D>();
+                        for (var j = 0; j < c; j++)
+                        {
+                            var dpt = new Point2D(
+                                 x: c * (p[j + 1].X - p[j].X),
+                                 y: c * (p[j + 1].Y - p[j].Y)
+                            //,z: c * (p[j + 1].Z - p[j].Z)
+                            );
+
+                            list.Add(dpt);
+                        }
+
+                        derivitivePoints.Add(list);
+                        p = list;
+                    }
+
+                    return derivitivePoints;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the extrema.
+        /// </summary>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public List<double> Extrema
+        {
+            get
+            {
+                return (List<double>)CachingProperty(() => Extrema(DerivativeCoordinates));
+
+                // ToDo: What are DRoots?
+                List<double> Extrema(List<List<Point2D>> derivativeCoordinates)
+                {
+                    var p = (from a in derivativeCoordinates[0] select a.X).ToList();
+                    var r = Maths.DRoots(p);
+                    var result = new List<double>(r);
+                    p = (from a in derivativeCoordinates[0] select a.Y).ToList();
+                    r = Maths.DRoots(p);
+                    result.AddRange(r);
+                    p = (from a in derivativeCoordinates[1] select a.X).ToList();
+                    r = Maths.DRoots(p);
+                    result.AddRange(r);
+                    p = (from a in derivativeCoordinates[1] select a.Y).ToList();
+                    r = Maths.DRoots(p);
+                    result.AddRange(r);
+
+                    result = result.Where((t) => { return (t >= 0 && t <= 1); }).ToList();
+                    result.Sort();
+                    result.Reverse();
+                    return result;
+                }
+            }
+        }
         #endregion Properties
 
         #region Operators
@@ -476,24 +555,35 @@ namespace Engine
         //#endregion
 
         /// <summary>
-        /// Gets the first derivative of the curve at the given T value.
+        /// The hull.
         /// </summary>
-        /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
-        /// <returns>First derivative of curve at sampled point.</returns>
-        /// <remarks></remarks>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
         /// <acknowledgment>
-        /// https://github.com/burningmime/curves
-        /// https://www.gamedev.net/forums/topic/419818-derivative-of-bezier-curve/
+        /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Derivative(double t)
+        public List<Point2D> Hull(double t)
         {
-            // The inverse of t.
-            var ti = 1d - t;
+            var points = Points;
+            var results = new List<Point2D>(Points);
 
-            // The derivative of the de Casteljau method applied to a quadratic Bezier curve.
-            return (2d * ti * (B - A)) + (2d * t * (C - B));
+            // We lerp between all points at each iteration, until we have 1 point left.
+            while (points.Count > 1)
+            {
+                var remaining = new List<Point2D>();
+                for (var i = 0; i < points.Count - 1; i++)
+                {
+                    var pt = Interpolators.Linear(points[i], points[i + 1], t);
+                    results.Add(pt);
+                    remaining.Add(pt);
+                }
+
+                points = remaining;
+            }
+
+            return results;
         }
 
         /// <summary>
@@ -510,15 +600,56 @@ namespace Engine
         /// The interpolate.
         /// </summary>
         /// <param name="ts">The ts.</param>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<Point2D> Interpolate(List<double> ts)
+        public IList<Point2D> Interpolate(IList<double> ts)
         {
             var list = new List<Point2D>();
+
             foreach (var t in ts)
             {
                 list.Add(Interpolate(t));
             }
+
             return list;
+        }
+
+        /// <summary>
+        /// Gets the first derivative of the curve at the given T value.
+        /// </summary>
+        /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
+        /// <returns>First derivative of curve at sampled point.</returns>
+        /// <remarks></remarks>
+        /// <acknowledgment>
+        /// https://github.com/burningmime/curves
+        /// https://www.gamedev.net/forums/topic/419818-derivative-of-bezier-curve/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D Derivate(double t)
+        {
+            // The inverse of t.
+            var ti = 1d - t;
+
+            // The derivative of the de Casteljau method applied to a quadratic Bezier curve.
+            return (2d * ti * (B - A)) + (2d * t * (C - B));
+        }
+
+        /// <summary>
+        /// The normal.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// https://pomax.github.io/bezierinfo/#pointvectors
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D Normal(double t)
+        {
+            var d = Derivate(t);
+            var q = 1d / Math.Sqrt(d.I * d.I + d.J * d.J);
+            return new Vector2D(-d.J * q, d.I * q);
         }
 
         /// <summary>
@@ -533,7 +664,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D Tangent(double t)
-            => Derivative(t).Normalize();
+            => Derivate(t).Normalize();
 
         #region Methods
         /// <summary>

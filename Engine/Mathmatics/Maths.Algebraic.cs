@@ -93,18 +93,228 @@ namespace Engine
             (-b + Sqrt(b * b - (4 * a * c))) / (2 * a),
             (-b - Sqrt(b * b - (4 * a * c))) / (2 * a));
 
+        /// <summary>
+        /// Calculates the real order or degree of the polynomial.
+        /// </summary>
+        /// <param name="coefficients">The coefficients.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
+        /// <remarks>Primaraly used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
+        /// <acknowledgment>
+        /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
+        /// as well as Trim and RealOrder from: https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PolynomialDegree DegreeRealOrder(IList<double> coefficients, double epsilon = Epsilon)
+        {
+            var pos = 1;
+            var count = coefficients.Count;
+
+            // Monomial can be a zero constant, skip them and check the rest.
+            if (count > 1)
+            {
+                // Count the number of leading zeros. Because the coefficients array is reversed, start at the end because there should generally be fewer leading zeros than other coefficients.
+                for (var i = count - 1; i >= 1 /* Monomials can be 0. */; i--)
+                {
+                    // Check if coefficient is a leading zero.
+                    if (Math.Abs(coefficients[i]) <= epsilon)
+                    {
+                        pos++;
+                    }
+                    else
+                    {
+                        // Break early if a non zero value was found. This indicates the end of any leading zeros.
+                        break;
+                    }
+                }
+            }
+
+            // If coefficients is empty return constant, otherwise return the calculated order of degree of the polynomial.
+            return (PolynomialDegree)(coefficients?.Count - pos ?? 0);
+        }
+
+        /// <summary>
+        /// Align points to a line.
+        /// </summary>
+        /// <param name="points">The points to align.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <acknowledgment>
+        /// https://pomax.github.io/bezierinfo/#aligning
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<Point2D> AlignPoints(IList<Point2D> points, double x1, double y1, double x2, double y2)
+        {
+            //var angle = -Atan2(y2 - y1, x2 - x1);
+            //var sinA = Sin(angle);
+            //var cosA = Cos(angle);
+
+            // Atan2, Sin and Cos are kind of slow. In theory this should be faster.
+            var dx = x2 - x1;
+            var dy = y2 - y1;
+            var det = dx * dx + dy * dy;
+            // I believe det should only be 0 if the line is a point.
+            var sinA = det == 0 ? 0 : -dy / det;
+            var cosA = det == 0 ? 1 : -dx / det;
+
+            var results = new List<Point2D>();
+
+            foreach (Point2D point in points)
+            {
+                results.Add(new Point2D(
+                    (point.X - x1) * cosA - (point.Y - y1) * sinA,
+                    (point.X - x1) * sinA + (point.Y - y1) * cosA)
+                    );
+            }
+
+            return results;
+        }
+
+        #region D Root Finding
+        /// <summary>
+        /// The d roots.
+        /// </summary>
+        /// <param name="coefficients">The coefficients.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> DRoots(IList<double> coefficients, double epsilon = Epsilon)
+        {
+            // ToDo: What are DRoots?
+            switch (coefficients.Count)
+            {
+                case 2:
+                    return LinearDRoots(coefficients[0], coefficients[1], epsilon);
+                case 3:
+                    return QuadraticDRoots(coefficients[0], coefficients[1], coefficients[2], epsilon);
+                default:
+                    return new double[] { };
+            }
+        }
+
+        /// <summary>
+        /// The linear d roots.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="T:IList{double}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> LinearDRoots(double a, double b, double epsilon = Epsilon)
+             // ToDo: What are DRoots?
+             => a != b ? (new double[] { a / (a - b) }) : (new double[] { });
+
+        /// <summary>
+        /// The quadratic d roots.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="T:IList{double}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> QuadraticDRoots(double a, double b, double c, double epsilon = Epsilon)
+        {
+            // ToDo: What are DRoots?
+            var det = a - 2 * b + c;
+            if (det != 0)
+            {
+                // Negitive square root descriminant. Missing the 4?
+                var sqrtd = -Sqrt(b * b - a * c);
+                var m2 = b - a;
+                var v1 = -(m2 + sqrtd) / det;
+                var v2 = -(m2 - sqrtd) / det;
+                return new double[] { v1, v2 };
+            }
+            else if (b != c && det == 0)
+            {
+                return new double[] { (2 * b - c) / (2 * (b - c)) };
+            }
+
+            return new double[] { };
+        }
+        #endregion D Root Finding
+
         #region Root Finding
         /// <summary>
-        ///
+        /// Find the Roots of up to Quintic degree <see cref="Polynomial"/>s.
         /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="coefficients">The coefficients.</param>
+        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <returns>The <see cref="T:double[]"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> LinearRoots(double a, double b, double epsilon = Epsilon)
+        public static IList<double> Roots(IList<double> coefficients, double epsilon = Epsilon)
+        {
+            switch (DegreeRealOrder(coefficients))
+            {
+                case PolynomialDegree.Constant:
+                    if (coefficients == null)
+                    {
+                        return Array.Empty<double>();
+                    }
+
+                    return new double[] { coefficients[0] };
+                case PolynomialDegree.Linear:
+                    return LinearRoots(coefficients[1], coefficients[0], epsilon);
+                case PolynomialDegree.Quadratic:
+                    return QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon);
+                case PolynomialDegree.Cubic:
+                    return CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
+                case PolynomialDegree.Quartic:
+                    return QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
+                case PolynomialDegree.Quintic:
+                    return QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
+                case PolynomialDegree.Sextic:
+                // ToDo: Uncomment when Sextic roots are implemented.
+                //return poly.SexticRoots(epsilon);
+                case PolynomialDegree.Septic:
+                // ToDo: Uncomment when Septic roots are implemented.
+                //return poly.SepticRoots(epsilon);
+                case PolynomialDegree.Octic:
+                // ToDo: Uncomment when Octic roots are implemented.
+                //return poly.OcticRoots(epsilon);
+                default:
+                    // ToDo: If a general root finding algorithm can be found, call it here instead of returning an empty list.
+                    return Array.Empty<double>();
+            }
+
+            // should try Newton's method and/or bisection
+        }
+
+        /// <summary>
+        /// The linear roots.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/geometry/2D/intersections/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static IList<double> LinearRoots(double a, double b, double epsilon = Epsilon)
         {
             var result = new HashSet<double>();
             if (!(Math.Abs(a) <= epsilon))
@@ -125,7 +335,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> QuadraticRoots(double a, double b, double c, double epsilon = Epsilon)
+        public static IList<double> QuadraticRoots(double a, double b, double c, double epsilon = Epsilon)
         {
             var b_ = b / a;
             var c_ = c / a;
@@ -170,7 +380,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> CubicRoots(double a, double b, double c, double d, double epsilon = Epsilon)
+        public static IList<double> CubicRoots(double a, double b, double c, double d, double epsilon = Epsilon)
         {
             var A = b / a;
             var B = c / a;
@@ -254,7 +464,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
+        public static IList<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
         {
             // ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html
             // and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
@@ -349,7 +559,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = Epsilon)
+        public static IList<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = Epsilon)
         {
             var A = b / a;
             var B = c / a;

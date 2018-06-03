@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -54,9 +55,9 @@ namespace Engine
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="radius">The radius.</param>
-        public NodeRevealer(List<Point2D> points, double radius)
+        public NodeRevealer(IList<Point2D> points, double radius)
         {
-            Points = points;
+            Points = points.ToList();
             Radius = radius;
         }
         #endregion Constructors

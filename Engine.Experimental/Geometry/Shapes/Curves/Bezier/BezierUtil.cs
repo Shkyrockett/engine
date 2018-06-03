@@ -201,11 +201,11 @@ namespace Engine.Experimental
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
         /// <acknowledgment>
-        /// http://pomax.github.io/bezierinfo/
+        /// https://pomax.github.io/bezierinfo/#aligning
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<Point2D> Align(List<Point2D> points, Line2D line)
+        public static List<Point2D> AlignPoints(List<Point2D> points, Line2D line)
         {
             var angle = -Atan2(line.P2.Y - line.P1.Y, line.P2.X - line.P1.X);
             var sinA = Sin(angle);
@@ -231,7 +231,7 @@ namespace Engine.Experimental
         /// <param name="line">The line.</param>
         /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
         /// <acknowledgment>
-        /// http://pomax.github.io/bezierinfo/
+        /// https://pomax.github.io/bezierinfo/#aligning
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -640,13 +640,13 @@ namespace Engine.Experimental
         /// <param name="points">The points.</param>
         /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <acknowledgment>
-        /// http://pomax.github.io/bezierinfo/
+        /// https://pomax.github.io/bezierinfo/#inflections
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> Inflections(List<Point2D> points)
         {
-            var p = Align(points, new Line2D(p1: points[0], p2: points[3]));
+            var p = AlignPoints(points, new Line2D(p1: points[0], p2: points[3]));
             var a = p[2].X * p[1].Y;
             var b = p[3].X * p[1].Y;
             var c = p[1].X * p[2].Y;
@@ -658,14 +658,13 @@ namespace Engine.Experimental
             if (Approximately(v1, 0))
                 return new List<double>();
 
-            var trm = v2 * v2 - 4 * v1 * v3;
-            var sq = Sqrt(trm);
+            var descriminant = v2 * v2 - 4 * v1 * v3;
+            var sq = Sqrt(descriminant);
             d = 2 * v1;
 
-            if (Approximately(d, 0))
-                return new List<double>();
-
-            return new List<double>(
+            return Approximately(d, 0)
+                ? new List<double>()
+                : new List<double>(
                 from r in new List<double> { (sq - v2) / d, -(v2 + sq) / d }
                 where (0 <= r && r <= 1)
                 select r
@@ -1279,7 +1278,7 @@ namespace Engine.Experimental
         {
             //line = line || new Line(p1: new Point2D(x: 0, y: 0), p2: new Point2D(x: 1, y: 0));
             var order = points.Count - 1;
-            var pts = Align(points, line);
+            var pts = AlignPoints(points, line);
 
             double a = 0;
             double b = 0;
@@ -1506,7 +1505,7 @@ namespace Engine.Experimental
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> Roots(List<double> p)
+        public static List<double> DRoots(List<double> p)
         {
             // quadratic roots are easy
             if (p.Count == 3)

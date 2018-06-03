@@ -12,6 +12,6 @@ This is an attempt to calculate an order for which calculations are more or less
 | Atan2 | `Atan2(3, 4)` | 100000000 in 4.77 sec | Finding the angle of a slope using Atan2 can be slow compared to just using trig identities. |
 | Sin | `Sin(Pi)` | 100000000 in 5.67 sec | Sin is fairly slow. It is best to calculate the value once and store it to use the stored value multiple times. |
 | cos | `Cos(Pi)` | 100000000 in 6.17 sec | Cos is fairly slow. It is best to calculate the value once and store it to use the stored value multiple times. |
-| Pow | Pow(2, 2) | 100000000 in 9.04 sec | Using multiplying values multiple times is much faster than using Pow. |
+| Pow | `Pow(2, 2)` | 100000000 in 9.04 sec | Using multiplying values multiple times is much faster than using Pow. |
 
 See Also: [Compare the performance of simple arithmetic operations in C#](http://csharphelper.com/blog/2017/05/compare-the-performance-of-simple-arithmetic-operations-in-c/)

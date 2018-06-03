@@ -64,6 +64,16 @@ This is a list of interesting subjects to study and possibly implement in the en
 
 - Nurbs Distort <https://web.archive.org/web/20160517104054/http://www.neuroproductions.be:80/experiments/nurbs/>
 
+- A geometric path constructed from straight lines, quadratic and cubic (Bezier) curves and elliptical arc. : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/AgeometricpathconstructedfromstraightlinesquadraticandcubicBeziercurvesandellipticalarc.htm>
+
+- A class representing a linear path segment. : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Aclassrepresentingalinearpathsegment.htm>
+
+- A class representing a quadratic path segment : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Aclassrepresentingaquadraticpathsegment.htm>
+
+- A class representing a cubic path segment : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Aclassrepresentingacubicpathsegment.htm>
+
+- Utilitiy class for length calculations of paths. : Path « 2D Graphics GUI « Java <http://www.java2s.com/Code/Java/2D-Graphics-GUI/Utilitiyclassforlengthcalculationsofpaths.htm>
+
 - A Primer on Bézier Curves <https://pomax.github.io/bezierinfo/> <https://pomax.github.io/bezierjs/>
 
 - Bezier Curve of N order <https://stackoverflow.com/questions/41663348/bezier-curve-of-n-order>

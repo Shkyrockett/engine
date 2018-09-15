@@ -56,10 +56,10 @@ namespace Engine
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var str = value as string;
-            if (str == null) return base.ConvertFrom(context, culture, value);
+            if (str is null) return base.ConvertFrom(context, culture, value);
             var str2 = str.Trim();
             if (str2.Length == 0) return null;
-            if (culture == null) culture = CultureInfo.CurrentCulture;
+            if (culture is null) culture = CultureInfo.CurrentCulture;
             var strArray = str2.Split(new char[] { culture.TextInfo.ListSeparator[0] });
             var numArray = new double[strArray.Length];
             var converter = TypeDescriptor.GetConverter(typeof(double));
@@ -81,7 +81,7 @@ namespace Engine
         ///   <paramref name="value" /> is null.- or - <paramref name="value" /> is not a <see cref="T:System.Windows.Rect" />.- or - The <paramref name="destinationType" /> is not one of the valid types for conversion.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType == null)
+            if (destinationType is null)
                 throw new ArgumentNullException(nameof(destinationType));
 
             if (value is Rectangle2D)
@@ -89,7 +89,7 @@ namespace Engine
                 if (destinationType == typeof(string))
                 {
                     var rectangle2D = (Rectangle2D)value;
-                    if (culture == null)
+                    if (culture is null)
                         culture = CultureInfo.CurrentCulture;
 
                     var separator = culture.TextInfo.ListSeparator + " ";

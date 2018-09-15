@@ -85,8 +85,8 @@ namespace Engine.Experimental
         /// <returns>One element of type T.</returns>
         public T this[Point2D location]
         {
-            get { return this[(int)(location.X), (int)(location.Y)]; }
-            set { this[(int)(location.X), (int)(location.Y)] = value; }
+            get { return this[(int)location.X, (int)location.Y]; }
+            set { this[(int)location.X, (int)location.Y] = value; }
         }
 
         /// <summary>

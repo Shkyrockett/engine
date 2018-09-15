@@ -133,6 +133,36 @@ namespace Engine
 
         #region Properties
         /// <summary>
+        /// Gets or sets a list of points representing the handles of the <see cref="QuadraticBezier"/> curve.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(ExpandableCollectionConverter))]
+        public List<Point2D> Points
+            => new List<Point2D> { A, B, C };
+
+        /// <summary>
+        /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        public Point2D A
+        {
+            get { return new Point2D(ax, ay); }
+            set
+            {
+                ax = value.X;
+                ay = value.Y;
+                ClearCache();
+                OnPropertyChanged(nameof(A));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the X coordinate of the first Point of a Cubic Bezier.
         /// </summary>
         /// <remarks></remarks>
@@ -173,6 +203,26 @@ namespace Engine
                 ay = value;
                 ClearCache();
                 OnPropertyChanged(nameof(AY));
+                update?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Point2DConverter))]
+        public Point2D B
+        {
+            get { return new Point2D(bx, by); }
+            set
+            {
+                bx = value.X;
+                by = value.Y;
+                ClearCache();
+                OnPropertyChanged(nameof(B));
                 update?.Invoke();
             }
         }
@@ -266,56 +316,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets or sets a list of points representing the handles of the <see cref="QuadraticBezier"/> curve.
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(ExpandableCollectionConverter))]
-        public List<Point2D> Points
-            => new List<Point2D> { A, B, C };
-
-        /// <summary>
-        /// Gets or sets the starting node for the <see cref="QuadraticBezier"/> curve.
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
-        public Point2D A
-        {
-            get { return new Point2D(ax, ay); }
-            set
-            {
-                ax = value.X;
-                ay = value.Y;
-                ClearCache();
-                OnPropertyChanged(nameof(A));
-                update?.Invoke();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the middle tangent control node for the <see cref="QuadraticBezier"/> curve.
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Point2DConverter))]
-        public Point2D B
-        {
-            get { return new Point2D(bx, by); }
-            set
-            {
-                bx = value.X;
-                by = value.Y;
-                ClearCache();
-                OnPropertyChanged(nameof(B));
-                update?.Invoke();
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the Y coordinate of the second Point of a Cubic Bezier.
         /// </summary>
         [XmlAttribute(nameof(by))]
@@ -338,6 +338,17 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets the axial aligned bounding box of the <see cref="QuadraticBezier"/> curve.
+        /// </summary>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        [ReadOnly(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [EditorBrowsable(EditorBrowsableState.Advanced)]
+        [TypeConverter(typeof(Rectangle2DConverter))]
+        public override Rectangle2D Bounds
+            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
+
+        /// <summary>
         /// An approximation of the length of a <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
@@ -350,17 +361,6 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Perimeter
             => Length;
-
-        /// <summary>
-        /// Gets the axial aligned bounding box of the <see cref="QuadraticBezier"/> curve.
-        /// </summary>
-        [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        [ReadOnly(true)]
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        [EditorBrowsable(EditorBrowsableState.Advanced)]
-        [TypeConverter(typeof(Rectangle2DConverter))]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
         /// Gets the Polynomial degree of the <see cref="QuadraticBezier"/> curve.
@@ -394,6 +394,30 @@ namespace Engine
                 var curveY = (Polynomial)CachingProperty(() => (Polynomial)Maths.QuadraticBezierCoefficients(cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the curve is simple.
+        /// </summary>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public bool IsSimple
+        {
+            get
+            {
+                return (bool)CachingProperty(() => isSimple());
+
+                bool isSimple()
+                {
+                    var n1 = Normal(0);
+                    var n2 = Normal(1);
+                    var s = n1.I * n2.I + n1.J * n2.J;
+                    var angle = Math.Abs(Math.Acos(s));
+                    return angle < Math.PI / 3d;
+                }
             }
         }
 
@@ -467,10 +491,115 @@ namespace Engine
                     r = Maths.DRoots(p);
                     result.AddRange(r);
 
-                    result = result.Where((t) => { return (t >= 0 && t <= 1); }).ToList();
+                    result = result.Where((t) => { return t >= 0 && t <= 1; }).ToList();
                     result.Sort();
                     result.Reverse();
                     return result;
+                }
+            }
+        }
+
+        /// <summary>
+        /// The reduce.
+        /// </summary>
+        /// <returns>The <see cref="T:List{Bezier}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        [IgnoreDataMember, XmlIgnore, SoapIgnore]
+        public IList<CubicBezier> Reduction
+        {
+            get
+            {
+                return (IList<CubicBezier>)CachingProperty(() => Reduce());
+
+                IList<CubicBezier> Reduce()
+                {
+                    int i;
+                    double t1 = 0, t2 = 0;
+                    const double step = 0.01;
+                    CubicBezier segment;
+                    var pass1 = new List<CubicBezier>();
+                    var pass2 = new List<CubicBezier>();
+
+                    // first pass: split on extrema
+                    var extrema = Extrema;
+                    if (extrema.IndexOf(0) == -1) extrema.Insert(0, 0);
+                    if (extrema.IndexOf(1) == -1) extrema.Add(1);
+
+                    //extrema.Sort();
+                    extrema.Reverse();
+                    for (t1 = extrema[0], i = 1; i < extrema.Count; i++)
+                    {
+                        t2 = extrema[i];
+                        var s = this.Split(t1, t2);
+
+                        segment = new CubicBezier(
+                            s[1].Points[0],
+                            s[1].Points[1],
+                            s[1].Points[2],
+                            s[1].Points[3]);
+                        //segment.T1 = t1;
+                        //segment.T2 = t2;
+                        pass1.Add(segment);
+                        t1 = t2;
+                    }
+
+                    // Second pass: further reduce these segments to simple segments
+                    foreach (CubicBezier p1 in pass1)
+                    {
+                        t1 = 0;
+                        t2 = 0;
+                        while (t2 <= 1)
+                        {
+                            for (t2 = t1 + step; t2 <= 1 + step; t2 += step)
+                            {
+                                {
+                                    var s = p1.Split(t1, t2);
+                                    segment = new CubicBezier(
+                                        s[1].Points[0],
+                                        s[1].Points[1],
+                                        s[1].Points[2],
+                                        s[1].Points[3]);
+
+                                }
+                                if (!segment.IsSimple)
+                                {
+                                    t2 -= step;
+                                    if (Math.Abs(t1 - t2) < step)
+                                    {
+                                        // we can never form a reduction
+                                        return new List<CubicBezier>();
+                                    }
+                                    var s = p1.Split(t1, t2);
+                                    segment = new CubicBezier(
+                                        s[1].Points[0],
+                                        s[1].Points[1],
+                                        s[1].Points[2],
+                                        s[1].Points[3]);
+                                    //segment.T1 = BezierUtil.Map(t1, 0, 1, p1.T1, p1.T2);
+                                    //segment.T2 = BezierUtil.Map(t2, 0, 1, p1.T1, p1.T2);
+                                    pass2.Add(segment);
+                                    t1 = t2;
+                                    break;
+                                }
+                            }
+                        }
+                        if (t1 < 1)
+                        {
+                            var s = p1.Split(t1, 1);
+                            segment = new CubicBezier(
+                                s[1].Points[0],
+                                s[1].Points[1],
+                                s[1].Points[2],
+                                s[1].Points[3]);
+                            //segment.T1 = BezierUtil.Map(t1, 0, 1, p1.T1, p1.T2);
+                            //segment.T2 = p1.T2;
+                            pass2.Add(segment);
+                        }
+                    }
+
+                    return pass2;
                 }
             }
         }
@@ -615,7 +744,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the first derivative of the curve at the given T value.
+        /// Gets the first derivative of the curve at the given t value.
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>First derivative of curve at sampled point.</returns>
@@ -636,7 +765,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The normal.
+        /// Gets the normal vector of the curve at the given t value.
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
@@ -653,7 +782,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the tangent (normalized derivative) of the curve at a given T value.
+        /// Gets the tangent (normalized derivative) of the curve at a given t value.
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>Direction the curve is going at that point.</returns>
@@ -733,7 +862,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(QuadraticBezier);
+            if (this is null) return nameof(QuadraticBezier);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(QuadraticBezier)}={{{nameof(A)}={A}{sep}{nameof(B)}={B}{sep}{nameof(C)}={C}}}";
             return formatable.ToString(format, provider);

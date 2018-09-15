@@ -529,7 +529,7 @@ namespace Engine
         public static void Compute(Polygon subj, Polygon clip, Polygon result, ClippingOperations op)
         {
             var boi = new BooleanOpImp(subj, clip, result, op);
-            BooleanOpImp.Run();
+            Run();
         }
     }
 }

@@ -35,56 +35,56 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// 
+        /// The points.
         /// </summary>
         private List<Point2D> points;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
         /// </summary>
         public PolygonContour()
             : this(new List<Point2D>())
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon">The polygon.</param>
         public PolygonContour(PolygonContour polygon)
             : this(polygon.points)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
         /// </summary>
-        /// <param name="polyline"></param>
+        /// <param name="polyline">The polyline.</param>
         public PolygonContour(Polyline polyline)
             : this(polyline.Points)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public PolygonContour(params Point2D[] points)
             : this(new List<Point2D>(points))
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public PolygonContour(IEnumerable<Point2D> points)
         {
             this.points = points as List<Point2D>;
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PolygonContour"/> class.
         /// </summary>
-        /// <param name="polylines"></param>
+        /// <param name="polylines">The polylines.</param>
         public PolygonContour(IEnumerable<Polyline> polylines)
         {
             points = new List<Point2D>();
@@ -95,10 +95,10 @@ namespace Engine
 
         #region Indexers
         /// <summary>
-        /// 
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type Point2D.</returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -115,7 +115,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the points.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
@@ -132,7 +132,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the definition.
         /// </summary>
         [Browsable(false)]
         [XmlAttribute(nameof(points)), SoapAttribute(nameof(points))]
@@ -152,7 +152,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -161,7 +161,7 @@ namespace Engine
             => points.Count;
 
         /// <summary>
-        /// 
+        /// Gets or sets the capacity.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -169,7 +169,7 @@ namespace Engine
         public int Capacity { get { return points.Capacity; } set { points.Capacity = value; } }
 
         /// <summary>
-        /// 
+        /// Gets the perimeter.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -178,7 +178,7 @@ namespace Engine
             => (double)CachingProperty(() => Measurements.PolygonContourPerimeter(points));
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -188,7 +188,7 @@ namespace Engine
             => (points != null) ? (Rectangle2D)CachingProperty(() => Measurements.PolygonBounds(points)) : null;
 
         /// <summary>
-        /// 
+        /// Gets the area.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -197,7 +197,7 @@ namespace Engine
             => (double)CachingProperty(() => Math.Abs(Measurements.SignedPolygonArea(points)));
 
         /// <summary>
-        /// 
+        /// Gets the signed area.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -206,9 +206,8 @@ namespace Engine
             => (double)CachingProperty(() => Measurements.SignedPolygonArea(points));
 
         /// <summary>
-        /// 
+        /// Gets the orientation.
         /// </summary>
-        /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -262,9 +261,10 @@ namespace Engine
 
         #region Mutators
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         public PolygonContour Add(Point2D point)
         {
             Points.Add(point);
@@ -282,8 +282,9 @@ namespace Engine
             => points.Clear();
 
         /// <summary>
-        /// 
+        /// The reverse.
         /// </summary>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         public PolygonContour Reverse()
         {
             Points.Reverse();
@@ -294,19 +295,19 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Translate.
         /// </summary>
-        /// <param name="delta"></param>
-        /// <returns></returns>
+        /// <param name="delta">The delta.</param>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         public PolygonContour Translate(Point2D delta)
             => Translate(this, delta);
 
         /// <summary>
-        /// 
+        /// Translate.
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="delta"></param>
-        /// <returns></returns>
+        /// <param name="path">The path.</param>
+        /// <param name="delta">The delta.</param>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         public static PolygonContour Translate(PolygonContour path, Point2D delta)
         {
             var outPath = new List<Point2D>(path.points.Count);
@@ -317,10 +318,10 @@ namespace Engine
         #endregion Mutators
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
@@ -362,10 +363,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The segment.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index.</param>
+        /// <returns>The <see cref="LineSegment"/>.</returns>
         public LineSegment Segment(int index)
             => (index == points.Count - 1)
                 ? new LineSegment(points[points.Count - 1], points[0])
@@ -373,62 +374,63 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
             => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
-        /// 
+        /// Clone.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolygonContour Clone()
             => new PolygonContour(points.ToArray());
 
         /// <summary>
-        /// 
+        /// The offset.
         /// </summary>
-        /// <param name="offset"></param>
-        /// <returns></returns>
+        /// <param name="offset">The offset.</param>
+        /// <returns>The <see cref="PolygonContour"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual PolygonContour Offset(double offset)
             => Offsets.Offset(this, offset);
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
         public IEnumerator<Point2D> GetEnumerator()
             => points.GetEnumerator();
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
 
         /// <summary>
-        /// 
+        /// Parse the path def string.
         /// </summary>
-        /// <param name="pathDefinition"></param>
-        /// <returns></returns>
+        /// <param name="pathDefinition">The pathDefinition.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        /// Parse the path def string.
         /// </summary>
-        /// <param name="pathDefinition"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="pathDefinition">The pathDefinition.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <exception cref="Exception">Polygon definitions must be in sets of two numbers.</exception>
         public static List<Point2D> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // Discard whitespace and comma but keep the - minus sign.
@@ -450,19 +452,19 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The to path def string.
         /// </summary>
-        /// <returns></returns>
-        private String ToPathDefString()
+        /// <returns>The <see cref="string"/>.</returns>
+        private string ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        /// The to path def string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
-        private String ToPathDefString(string format, IFormatProvider provider)
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
+        private string ToPathDefString(string format, IFormatProvider provider)
         {
             var output = new StringBuilder();
 
@@ -495,7 +497,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(PolygonContour);
+            if (this is null) return nameof(PolygonContour);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(PolygonContour)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);

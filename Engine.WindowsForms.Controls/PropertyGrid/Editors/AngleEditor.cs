@@ -16,13 +16,13 @@ using System.Windows.Forms.Design;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The angle editor class.
     /// </summary>
     public class AngleEditor
         : UITypeEditor, IDisposable
     {
         /// <summary>
-        ///
+        /// The ui display.
         /// </summary>
         private AngleControl uiDisplay;
 
@@ -32,28 +32,28 @@ namespace Engine
         private bool disposedValue = false;
 
         /// <summary>
-        ///
+        /// Get the edit style.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="UITypeEditorEditStyle"/>.</returns>
         public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
             => UITypeEditorEditStyle.DropDown;
 
         /// <summary>
-        ///
+        /// The edit value.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="provider"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="provider">The provider.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
             // ----- Prompt the user using a drop-down editor.
             IWindowsFormsEditorService useService;
 
             // ----- Prepare the interface to the drop-down control.
-            useService = (IWindowsFormsEditorService)(provider.GetService(typeof(IWindowsFormsEditorService)));
-            if (uiDisplay == null) uiDisplay = new AngleControl();
+            useService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+            if (uiDisplay is null) uiDisplay = new AngleControl();
             uiDisplay.EditorService = useService;
             uiDisplay.Angle = (double)value;
 

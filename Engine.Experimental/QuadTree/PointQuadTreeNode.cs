@@ -238,8 +238,8 @@ namespace Engine.Experimental
             if ((bounds.Height * bounds.Width) <= 10)
                 return;
 
-            var halfWidth = (bounds.Width * OneHalf);
-            var halfHeight = (bounds.Height * OneHalf);
+            var halfWidth = bounds.Width * OneHalf;
+            var halfHeight = bounds.Height * OneHalf;
 
             nodes.Add(new PointQuadTreeNode<T>(new Rectangle2D(bounds.Location, new Size2D(halfWidth, halfHeight))));
             nodes.Add(new PointQuadTreeNode<T>(new Rectangle2D(new Point2D(bounds.Left, bounds.Top + halfHeight), new Size2D(halfWidth, halfHeight))));

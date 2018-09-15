@@ -15,17 +15,17 @@ using static System.Math;
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    /// The image compare class.
     /// </summary>
     public class ImageCompare
     {
         /// <summary>
-        /// 
+        /// The bytes (const). Value: 4.
         /// </summary>
         private const int bytes = 4;
 
         /// <summary>
-        /// 
+        /// The max (const). Value: 255.
         /// </summary>
         private const byte max = 255;
 
@@ -38,9 +38,9 @@ namespace Engine.Imaging
         /// <remarks>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp </remarks>
         public unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
         {
-            if (a == null || b == null) return null;
-            else if (a == null) return b;
-            else if (b == null) return a;
+            if (a is null || b is null) return null;
+            else if (a is null) return b;
+            else if (b is null) return a;
 
             var aRect = new Rectangle(Point.Empty, a.Size);
             var bRect = new Rectangle(Point.Empty, b.Size);
@@ -107,9 +107,9 @@ namespace Engine.Imaging
         /// <remarks>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp </remarks>
         public unsafe Bitmap PixelDiff1(Bitmap a, Bitmap b)
         {
-            if (a == null || b == null) return null;
-            else if (a == null) return b;
-            else if (b == null) return a;
+            if (a is null || b is null) return null;
+            else if (a is null) return b;
+            else if (b is null) return a;
 
             var aRect = new Rectangle(Point.Empty, a.Size);
             var bRect = new Rectangle(Point.Empty, b.Size);
@@ -168,11 +168,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
+        /// The compare.
         /// </summary>
-        /// <param name="aPtr"></param>
-        /// <param name="bPtr"></param>
-        /// <param name="cPtr"></param>
-        /// <param name="colorComp"></param>
+        /// <param name="aPtr">The aPtr.</param>
+        /// <param name="bPtr">The bPtr.</param>
+        /// <param name="cPtr">The cPtr.</param>
+        /// <param name="colorComp">The colorComp.</param>
         /// <remarks>
         /// From http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp 
         /// </remarks>
@@ -181,11 +182,12 @@ namespace Engine.Imaging
             => *cPtr = colorComp == 0 ? (byte)((aPtr + bPtr) / 2) : (byte)~(aPtr ^ bPtr);
 
         /// <summary>
+        /// The compare1.
         /// </summary>
-        /// <param name="aPtr"></param>
-        /// <param name="bPtr"></param>
-        /// <param name="cPtr"></param>
-        /// <param name="colorComp"></param>
+        /// <param name="aPtr">The aPtr.</param>
+        /// <param name="bPtr">The bPtr.</param>
+        /// <param name="cPtr">The cPtr.</param>
+        /// <param name="colorComp">The colorComp.</param>
         /// <remarks>
         /// Based on http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
         /// </remarks>

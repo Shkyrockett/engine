@@ -59,8 +59,8 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             var points = shape.InterpolatePoints(100);
-            g.FillPolygon((itemStyle).BackBrush, points?.ToPointFArray());
-            g.DrawPolygon((itemStyle).ForePen, points?.ToPointFArray());
+            g.FillPolygon(itemStyle.BackBrush, points?.ToPointFArray());
+            g.DrawPolygon(itemStyle.ForePen, points?.ToPointFArray());
         }
 
         /// <summary>
@@ -154,8 +154,8 @@ namespace Engine.Imaging
         public static void Render(this PolygonContour shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
-            g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
-            g.DrawPolygon((itemStyle).ForePen, shape.Points.ToPointFArray());
+            g.FillPolygon(itemStyle.BackBrush, shape.Points.ToPointFArray());
+            g.DrawPolygon(itemStyle.ForePen, shape.Points.ToPointFArray());
         }
 
         /// <summary>
@@ -168,8 +168,8 @@ namespace Engine.Imaging
         public static void Render(this Polyline shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
-            g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
-            g.DrawLines((itemStyle).ForePen, shape.Points.ToPointFArray());
+            g.FillPolygon(itemStyle.BackBrush, shape.Points.ToPointFArray());
+            g.DrawLines(itemStyle.ForePen, shape.Points.ToPointFArray());
         }
 
         /// <summary>
@@ -184,8 +184,8 @@ namespace Engine.Imaging
             var itemStyle = style ?? (ShapeStyle)item.Style;
             foreach (Polyline shape in set.Polylines)
             {
-                g.FillPolygon((itemStyle).BackBrush, shape.Points.ToPointFArray());
-                g.DrawLines((itemStyle).ForePen, shape.Points.ToPointFArray());
+                g.FillPolygon(itemStyle.BackBrush, shape.Points.ToPointFArray());
+                g.DrawLines(itemStyle.ForePen, shape.Points.ToPointFArray());
             }
         }
 
@@ -204,8 +204,8 @@ namespace Engine.Imaging
             foreach (PolygonContour shape in set.Contours)
                 path.AddPolygon(shape.Points.ToPointFArray());
 
-            g.FillPath((itemStyle).BackBrush, path);
-            g.DrawPath((itemStyle).ForePen, path);
+            g.FillPath(itemStyle.BackBrush, path);
+            g.DrawPath(itemStyle.ForePen, path);
         }
 
         /// <summary>
@@ -238,7 +238,7 @@ namespace Engine.Imaging
                         var mat = new Matrix();
                         mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
                         path.Transform(mat);
-                        path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)(arc.StartAngle.ToDegrees()), (float)arc.SweepAngle.ToDegrees());
+                        path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)arc.StartAngle.ToDegrees(), (float)arc.SweepAngle.ToDegrees());
                         mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
                         path.Transform(mat);
                         break;
@@ -298,7 +298,7 @@ namespace Engine.Imaging
                             var mat = new Matrix();
                             mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
                             path.Transform(mat);
-                            path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)(arc.StartAngle.ToDegrees()), (float)arc.SweepAngle.ToDegrees());
+                            path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)arc.StartAngle.ToDegrees(), (float)arc.SweepAngle.ToDegrees());
                             mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
                             path.Transform(mat);
                             break;
@@ -323,8 +323,8 @@ namespace Engine.Imaging
             }
 
             //  Draw the path.
-            g.FillPath((itemStyle).BackBrush, path);
-            g.DrawPath((itemStyle).ForePen, path);
+            g.FillPath(itemStyle.BackBrush, path);
+            g.DrawPath(itemStyle.ForePen, path);
         }
 
         /// <summary>
@@ -373,9 +373,9 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             var path = new GraphicsPath();
-            path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
-            g.FillPath((itemStyle).BackBrush, path);
-            g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+            path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
+            g.FillPath(itemStyle.BackBrush, path);
+            g.DrawArc(itemStyle.ForePen, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
         }
 
         /// <summary>
@@ -392,8 +392,8 @@ namespace Engine.Imaging
             var mat = new Matrix();
             mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
             g.Transform = mat;
-            g.FillEllipse((itemStyle).BackBrush, shape.UnrotatedBounds.ToRectangleF());
-            g.DrawEllipse((itemStyle).ForePen, shape.UnrotatedBounds.ToRectangleF());
+            g.FillEllipse(itemStyle.BackBrush, shape.UnrotatedBounds.ToRectangleF());
+            g.DrawEllipse(itemStyle.ForePen, shape.UnrotatedBounds.ToRectangleF());
             g.ResetTransform();
         }
 
@@ -408,12 +408,12 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             var path = new GraphicsPath();
-            path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
+            path.AddArc(shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
             var mat = new Matrix();
             mat.RotateAt((float)shape.Angle.ToDegrees(), shape.Center.ToPointF());
             g.Transform = mat;
-            g.FillPath((itemStyle).BackBrush, path);
-            g.DrawArc((itemStyle).ForePen, shape.DrawingBounds.ToRectangleF(), (float)(shape.StartAngle.ToDegrees()), (float)shape.SweepAngle.ToDegrees());
+            g.FillPath(itemStyle.BackBrush, path);
+            g.DrawArc(itemStyle.ForePen, shape.DrawingBounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
             g.ResetTransform();
         }
 
@@ -459,24 +459,24 @@ namespace Engine.Imaging
             var itemStyle = style ?? (ShapeStyle)item.Style;
             var path = new GraphicsPath();
 
-            switch (shape.Points.Length)
+            switch (shape.Degree)
             {
-                case 2:
+                case PolynomialDegree.Linear:
                     path.AddLine(shape.Points[0].ToPointF(), shape.Points[1].ToPointF());
                     break;
-                case 3:
+                case PolynomialDegree.Quadragintic:
                     var cubic = Conversions.QuadraticBezierToCubicBezier(shape.Points[0], shape.Points[1], shape.Points[2]);
                     path.AddBezier(cubic.A.ToPointF(), cubic.B.ToPointF(), cubic.C.ToPointF(), cubic.D.ToPointF());
                     break;
-                case 4:
+                case PolynomialDegree.Cubic:
                     path.AddBezier(shape.Points[0].ToPointF(), shape.Points[1].ToPointF(), shape.Points[2].ToPointF(), shape.Points[3].ToPointF());
                     break;
                 default:
                     break;
             }
 
-            g.FillPath((itemStyle).BackBrush, path);
-            g.DrawPath((itemStyle).ForePen, path);
+            g.FillPath(itemStyle.BackBrush, path);
+            g.DrawPath(itemStyle.ForePen, path);
         }
 
         /// <summary>

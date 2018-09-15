@@ -79,7 +79,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the polylines.
         /// </summary>
         [XmlArray]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
@@ -95,7 +95,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -104,7 +104,7 @@ namespace Engine
             => polylines.Count;
 
         /// <summary>
-        /// 
+        /// Gets the perimeter.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -113,7 +113,7 @@ namespace Engine
             => polylines.Sum(p => p.Perimeter);
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -179,39 +179,39 @@ namespace Engine
 
         #region Mutators
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="polyline"></param>
+        /// <param name="polyline">The polyline.</param>
         public void Add(Polyline polyline)
             => polylines.Add(polyline);
         #endregion Mutators
 
         #region Methods
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{Polyline}"/>.</returns>
         public IEnumerator<Polyline> GetEnumerator()
             => polylines.GetEnumerator();
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => polylines.GetEnumerator();
 
         /// <summary>
-        /// 
+        /// Convert the to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(PolylineSet);
+            if (this is null) return nameof(PolylineSet);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(PolylineSet)}{{{string.Join(sep.ToString(), Polylines)}}}";
             return formatable.ToString(format, provider);

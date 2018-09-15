@@ -67,7 +67,7 @@ namespace Engine
         {
             if (maxError < Epsilon)
                 throw new InvalidOperationException("maxError cannot be negative/zero/less than epsilon value");
-            if (points == null)
+            if (points is null)
                 throw new ArgumentNullException(nameof(points));
             if (points.Count < 2)
                 return ZeroCurves; // need at least 2 points to do anything

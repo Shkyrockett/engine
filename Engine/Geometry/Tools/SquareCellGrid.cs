@@ -157,8 +157,8 @@ namespace Engine
             {
                 // ToDo: Implement flow orientation options.
                 var point = new Point2D(
-                    x + (index % Columns) * CellSize.Width,
-                    y + (index / Columns) * CellSize.Height
+                    x + index % Columns * CellSize.Width,
+                    y + index / Columns * CellSize.Height
                     );
                 return new Rectangle2D(point, CellSize);
             }

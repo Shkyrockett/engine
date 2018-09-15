@@ -242,7 +242,7 @@ namespace Engine.Physics
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Degrees);
+            //if (this is null) return nameof(Degrees);
             //return string.Format(provider, "{0:" + format + "}°", value);
             IFormattable formatable = $"{Value}°";
             return formatable.ToString(format, provider);

@@ -250,7 +250,7 @@ namespace Engine
                         }
                     }
                 }
-                else if ((char.IsWhiteSpace(currentChar)) || (currentChar == separator))
+                else if (char.IsWhiteSpace(currentChar) || (currentChar == separator))
                 {
                     foundSeparator |= currentChar == separator;
                     break;

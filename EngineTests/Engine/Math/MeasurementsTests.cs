@@ -151,7 +151,7 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var distance = Measurements.Distance(k.a.X, k.a.Y, k.b.X, k.b.Y);
-                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Point A: {k.a.ToString()}, Point B: {k.b.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+                Assert.AreEqual(cases[k], distance, TestEpsilon, $"Point A: {k.a.ToString()}, Point B: {k.b.ToString()}, Expected: {cases[k]}, Actual: {distance}");
             }
         }
 
@@ -178,7 +178,7 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var distance = Measurements.DistanceLineSegmentPoint(k.s.AX, k.s.AY, k.s.BX, k.s.BY, k.p.X, k.p.Y);
-                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+                Assert.AreEqual(cases[k], distance, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[k]}, Actual: {distance}");
             }
         }
 
@@ -205,7 +205,7 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var distance = Measurements.ConstrainedDistanceLineSegmentPoint(k.s.AX, k.s.AY, k.s.BX, k.s.BY, k.p.X, k.p.Y);
-                Assert.AreEqual(cases[(k)] ?? double.PositiveInfinity, distance ?? double.PositiveInfinity, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+                Assert.AreEqual(cases[k] ?? double.PositiveInfinity, distance ?? double.PositiveInfinity, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[k]}, Actual: {distance}");
             }
         }
 
@@ -232,7 +232,7 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var distance = Measurements.SquareDistanceLineSegmentPoint(k.s.AX, k.s.AY, k.s.BX, k.s.BY, k.p.X, k.p.Y);
-                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+                Assert.AreEqual(cases[k], distance, TestEpsilon, $"Segment: {k.s.ToString()}, Point: {k.p.ToString()}, Expected: {cases[k]}, Actual: {distance}");
             }
         }
         #endregion Distance
@@ -260,7 +260,7 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var distance = Measurements.VectorMagnitude(k.I, k.J);
-                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Vector: {k.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+                Assert.AreEqual(cases[k], distance, TestEpsilon, $"Vector: {k.ToString()}, Expected: {cases[k]}, Actual: {distance}");
             }
         }
 
@@ -286,7 +286,7 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var distance = Measurements.VectorMagnitudeSquared(k.I, k.J);
-                Assert.AreEqual(cases[(k)], distance, TestEpsilon, $"Vector: {k.ToString()}, Expected: {cases[(k)]}, Actual: {distance}");
+                Assert.AreEqual(cases[k], distance, TestEpsilon, $"Vector: {k.ToString()}, Expected: {cases[k]}, Actual: {distance}");
             }
         }
 
@@ -492,7 +492,7 @@ namespace EngineTests
             foreach (var arc in results.Keys)
             {
                 var area = Measurements.CircularArcSectorArea(arc.radius, arc.sweepAngle.ToRadians());
-                Assert.AreEqual(results[(arc)], area, TestEpsilon);
+                Assert.AreEqual(results[arc], area, TestEpsilon);
             }
         }
 
@@ -553,7 +553,7 @@ namespace EngineTests
                 var area = Measurements.EllipseArea(radii.r1, radii.r2);
 
                 // Check for a correct result.
-                Assert.AreEqual(results[(radii)], area, TestEpsilon);
+                Assert.AreEqual(results[radii], area, TestEpsilon);
             }
         }
 
@@ -713,10 +713,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.LineSegmentBounds(k.AX, k.AY, k.BX, k.BY);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Segment: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
 
@@ -740,10 +740,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.CircleBounds(k.X, k.Y, k.Radius);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Circle: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
 
@@ -769,10 +769,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.CircularArcBounds(k.X, k.Y, k.Radius, 0, k.StartAngle, k.SweepAngle);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
 
@@ -796,10 +796,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.EllipseBounds(k.X, k.Y, k.RX, k.RY);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Ellipse: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
 
@@ -823,10 +823,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.EllipticalArcBounds(k.X, k.Y, k.RX, k.RY, k.Angle, k.StartAngle, k.SweepAngle);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Arc: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
 
@@ -851,10 +851,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.RotatedRectangleBounds(k.Width, k.Height, k.X, k.Y, k.Angle);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Rectangle: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
 
@@ -879,10 +879,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.PolygonBounds(k);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Polygon: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
 
@@ -907,10 +907,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.PolylineBounds(k);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Polyline: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
 
@@ -938,10 +938,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.BezierBounds(k.CurveX, k.CurveY);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Quadratic: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
 
@@ -972,10 +972,10 @@ namespace EngineTests
             foreach (var k in cases.Keys)
             {
                 var bounds = Measurements.BezierBounds(k.CurveX, k.CurveY);
-                Assert.AreEqual(cases[(k)].Left, bounds.Left, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Top, bounds.Top, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Width, bounds.Width, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
-                Assert.AreEqual(cases[(k)].Height, bounds.Height, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[(k)].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Left, bounds.Left, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Left)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Top, bounds.Top, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Top)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Width, bounds.Width, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Width)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
+                Assert.AreEqual(cases[k].Height, bounds.Height, TestEpsilon, $"Cubic: {k.ToString()}, Expected {nameof(Rectangle2D.Height)}: {cases[k].ToString()}, Actual: {bounds.ToString()}");
             }
         }
         #endregion Bounds

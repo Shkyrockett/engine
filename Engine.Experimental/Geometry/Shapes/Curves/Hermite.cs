@@ -105,7 +105,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this == null)
+            if (this is null)
                 return nameof(Hermite);
             return $"{nameof(Hermite)}{{{nameof(A)}={A},{nameof(ATan)}={ATan},{nameof(B)}={B},{nameof(BTan)}={BTan},{nameof(Tension)}={Tension},{nameof(Bias)}={Bias}}}";
         }

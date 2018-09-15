@@ -33,11 +33,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The can convert to.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="destinationType"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="destinationType">The destinationType.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -52,14 +52,14 @@ namespace Engine
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var str = value as string;
-            if (str == null)
+            if (str is null)
                 return base.ConvertFrom(context, culture, value);
 
             var str2 = str.Trim();
             if (str2.Length == 0)
                 return null;
 
-            if (culture == null)
+            if (culture is null)
                 culture = CultureInfo.CurrentCulture;
 
             var ch = culture.TextInfo.ListSeparator[0];
@@ -80,7 +80,7 @@ namespace Engine
         /// </summary>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType == null)
+            if (destinationType is null)
                 throw new ArgumentNullException(nameof(destinationType));
 
             if (value is SizeF)
@@ -88,7 +88,7 @@ namespace Engine
                 if (destinationType == typeof(string))
                 {
                     var sizeF = (SizeF)value;
-                    if (culture == null)
+                    if (culture is null)
                         culture = CultureInfo.CurrentCulture;
 
                     var separator = culture.TextInfo.ListSeparator + " ";
@@ -112,18 +112,18 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Get the create instance supported.
         /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool GetCreateInstanceSupported(ITypeDescriptorContext context) => true;
 
         /// <summary>
-        ///
+        /// Create the instance.
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="propertyValues"></param>
-        /// <returns></returns>
+        /// <param name="context">The context.</param>
+        /// <param name="propertyValues">The propertyValues.</param>
+        /// <returns>The <see cref="object"/>.</returns>
         public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)
         {
             if (propertyValues != null)

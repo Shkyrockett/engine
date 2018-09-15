@@ -59,7 +59,7 @@ namespace Engine
         /// <param name="vertex"></param>
         public void AddVertex(ClippingVertex vertex)
         {
-            if (First == null)
+            if (First is null)
             {
                 First = vertex;
                 First.Next = vertex;

@@ -65,7 +65,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this == null) return nameof(Cosine);
+            if (this is null) return nameof(Cosine);
             return $"{nameof(Cosine)}{{{nameof(A)}={A},{nameof(B)}={B}}}";
         }
     }

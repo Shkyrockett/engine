@@ -43,22 +43,22 @@ namespace Engine
         public static readonly Vector4D Unit = new Vector4D(1, 1, 1, 1);
 
         /// <summary>
-        /// 
+        /// The x axis (readonly). Value: new Vector4D(1, 0, 0, 0).
         /// </summary>
         public static readonly Vector4D XAxis = new Vector4D(1, 0, 0, 0);
 
         /// <summary>
-        /// 
+        /// The y axis (readonly). Value: new Vector4D(0, 1, 0, 0).
         /// </summary>
         public static readonly Vector4D YAxis = new Vector4D(0, 1, 0, 0);
 
         /// <summary>
-        /// 
+        /// The z axis (readonly). Value: new Vector4D(0, 0, 1, 0).
         /// </summary>
         public static readonly Vector4D ZAxis = new Vector4D(0, 0, 1, 0);
 
         /// <summary>
-        /// 
+        /// The w axis (readonly). Value: new Vector4D(0, 0, 0, 1).
         /// </summary>
         public static readonly Vector4D WAxis = new Vector4D(0, 0, 0, 1);
         #endregion Static Fields
@@ -192,10 +192,10 @@ namespace Engine
 
         #region Operators
         /// <summary>
-        /// 
+        /// The operator +.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Vector4D"/>.</returns>
         public static Vector4D operator +(Vector4D value)
             => new Vector4D(+value.I, +value.J, +value.K, +value.L);
 
@@ -220,10 +220,10 @@ namespace Engine
             => value.Add(addend);
 
         /// <summary>
-        /// 
+        /// The operator -.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Vector4D"/>.</returns>
         public static Vector4D operator -(Vector4D value)
             => new Vector4D(-value.I, -value.J, -value.K, -value.L);
 
@@ -288,20 +288,20 @@ namespace Engine
             => new Vector4D(divisor / dividend.I, divisor / dividend.I, divisor / dividend.K, divisor / dividend.L);
 
         /// <summary>
-        /// 
+        /// The operator ==.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator ==(Vector4D a, Vector4D b)
             => Equals(a, b);
 
         /// <summary>
-        /// 
+        /// The operator !=.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator !=(Vector4D a, Vector4D b)
             => !Equals(a, b);
 
@@ -494,9 +494,9 @@ namespace Engine
         private string ConvertToString(string format, IFormatProvider provider)
         {
             // If the object hasn't been initialized yet, for example reading from reflection, return its name.
-#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-            if (this == null) return nameof(Vector4D);
-#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
+            //#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
+            //            if (this is null) return nameof(Vector4D);
+            //#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
 
             // Capture the culture's list ceparator character.
             var sep = Tokenizer.GetNumericListSeparator(provider);

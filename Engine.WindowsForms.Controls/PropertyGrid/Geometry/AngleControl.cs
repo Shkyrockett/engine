@@ -113,7 +113,7 @@ namespace Engine
                     break;
                 case Angles.Radian:
                     numericUpDown.Value = (decimal)Angle;
-                    numericUpDown.Increment = (decimal)(15d.ToRadians());
+                    numericUpDown.Increment = (decimal)15d.ToRadians();
                     numericUpDown.Maximum = (decimal)(2 * Math.PI);
                     numericUpDown.Minimum = -(decimal)(2 * Math.PI);
                     break;

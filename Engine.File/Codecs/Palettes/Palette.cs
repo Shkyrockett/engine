@@ -476,7 +476,7 @@ namespace Engine.File.Palettes
             //using (StreamReader streamReader = new StreamReader(stream))
             {
                 var Length = binaryReader.BaseStream.Length / 4 - 1;
-                for (var Index = 0; (Index <= Length); Index++)
+                for (var Index = 0; Index <= Length; Index++)
                 {
                     var blue = binaryReader.ReadByte();
                     var green = binaryReader.ReadByte();
@@ -503,8 +503,8 @@ namespace Engine.File.Palettes
                 var head = StrReader.ReadLine();
                 var version = StrReader.ReadLine();
                 var len = StrReader.ReadLine();
-                var length = (double.Parse(len) - 1);
-                for (var Index = 0; (Index <= length); Index++)
+                var length = double.Parse(len) - 1;
+                for (var Index = 0; Index <= length; Index++)
                 {
                     var ReadStr = StrReader.ReadLine().Split(new char[] { ' ' });
                     if (ReadStr.Length == 3)

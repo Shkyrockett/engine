@@ -55,8 +55,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Flip(Point2D point, Point2D fulcrum, bool flipHorz, bool flipVert)
         {
-            var x = (flipHorz) ? fulcrum.X - (point.X - fulcrum.X + 1d) : point.X;
-            var y = (flipVert) ? fulcrum.Y - (point.Y - fulcrum.Y + 1d) : point.Y;
+            var x = flipHorz ? fulcrum.X - (point.X - fulcrum.X + 1d) : point.X;
+            var y = flipVert ? fulcrum.Y - (point.Y - fulcrum.Y + 1d) : point.Y;
             return new Point2D(x, y);
         }
 
@@ -374,8 +374,8 @@ namespace Engine
                 var rn = Pow(r, strength) * distance;
                 var newX = rn * Cos(a) + fulcrum.X;
                 var newY = rn * Sin(a) + fulcrum.Y;
-                sx += (newX - point.X);
-                sy += (newY - point.Y);
+                sx += newX - point.X;
+                sy += newY - point.Y;
             }
             else
             {
@@ -421,8 +421,8 @@ namespace Engine
                     var rn = Pow(r, strength) * distance;
                     var newX = rn * Cos(a) + fulcrum.X;
                     var newY = rn * Sin(a) + fulcrum.Y;
-                    sx += (newX - point.X);
-                    sy += (newY - point.Y);
+                    sx += newX - point.X;
+                    sy += newY - point.Y;
                 }
                 else
                 {
@@ -467,8 +467,8 @@ namespace Engine
                 var rn = Pow(r, strength) * distance;
                 var newX = rn * Cos(a) + fulcrum.X;
                 var newY = rn * Sin(a) + fulcrum.Y;
-                sx += (newX - point.X);
-                sy += (newY - point.Y);
+                sx += newX - point.X;
+                sy += newY - point.Y;
             }
 
             return new Point2D(sx, sy);
@@ -526,7 +526,7 @@ namespace Engine
 
             var dX = point.X - fulcrum.X;
             var dY = point.Y - fulcrum.Y;
-            var theta = Atan2((dY), (dX));
+            var theta = Atan2(dY, dX);
             var radius = Sqrt(dX * dX + dY * dY);
             var newX = fulcrum.X + (radius * Cos(theta + degree * radius));
             var newY = fulcrum.Y + (radius * Sin(theta + degree * radius));
@@ -545,7 +545,7 @@ namespace Engine
         {
             var dX = point.X - fulcrum.X;
             var dY = point.Y - fulcrum.Y;
-            var theta = Atan2((dY), (dX)); // Might this be simplified by finding the unit of the vector?
+            var theta = Atan2(dY, dX); // Might this be simplified by finding the unit of the vector?
             var radius = Sqrt(dX * dX + dY * dY);
             var newRadius = Sqrt(radius) * factor;
             var newX = fulcrum.X + (newRadius * Cos(theta));
@@ -565,8 +565,8 @@ namespace Engine
         {
             var xo = nWave * Sin(2d * PI * point.Y / 128d);
             var yo = nWave * Cos(2d * PI * point.X / 128d);
-            var newX = (point.X + xo);
-            var newY = (point.Y + yo);
+            var newX = point.X + xo;
+            var newY = point.Y + yo;
             return new Point2D(newX, newY);
         }
         #endregion Point Warp Filters
@@ -594,7 +594,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> Linearize(List<Point2D> source, double distance, double epsilon = Epsilon)
         {
-            if (source == null)
+            if (source is null)
             {
                 throw new ArgumentNullException(nameof(source), "List must not be null");
             }
@@ -668,7 +668,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RamerDouglasPeukerReduce(List<Point2D> points, double error = 4)
         {
-            if (points == null)
+            if (points is null)
             {
                 throw new ArgumentNullException(nameof(points), "Must not be null.");
             }

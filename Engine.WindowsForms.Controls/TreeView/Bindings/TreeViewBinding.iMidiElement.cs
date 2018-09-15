@@ -22,7 +22,7 @@ using System.Windows.Forms;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The tree view binding class.
     /// </summary>
     /// <typeparam name="iMidiElement"></typeparam>
     /// <remarks>
@@ -35,55 +35,55 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        ///
+        /// The tree view (readonly).
         /// </summary>
         private readonly TreeView treeView;
 
         /// <summary>
-        ///
+        /// The tree node collection (readonly).
         /// </summary>
         private readonly TreeNodeCollection treeNodeCollection;
 
         /// <summary>
-        ///
+        /// The binding source (readonly).
         /// </summary>
         private readonly BindingSource bindingSource;
 
         /// <summary>
-        ///
+        /// The get data item func.
         /// </summary>
         private Func<object, iMidiElement> getDataItemFunc;
 
         /// <summary>
-        ///
+        /// The add tree node func.
         /// </summary>
         private Func<iMidiElement, TreeNode> addTreeNodeFunc;
 
         /// <summary>
-        ///
+        /// The update tree node action.
         /// </summary>
         private Action<iMidiElement, TreeNode> updateTreeNodeAction;
 
         /// <summary>
-        ///
+        /// The current add item.
         /// </summary>
         private TreeNode currentAddItem;
 
         /// <summary>
-        ///
+        /// The parent tree node.
         /// </summary>
         private TreeNode parentTreeNode;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="TreeViewBinding{iMidiElement}"/> class.
         /// </summary>
-        /// <param name="treeView"></param>
-        /// <param name="bindingSource"></param>
-        /// <param name="getDataItemFunc"></param>
-        /// <param name="addTreeNodeFunc"></param>
-        /// <param name="updateTreeNodeAction"></param>
+        /// <param name="treeView">The treeView.</param>
+        /// <param name="bindingSource">The bindingSource.</param>
+        /// <param name="getDataItemFunc">The getDataItemFunc.</param>
+        /// <param name="addTreeNodeFunc">The addTreeNodeFunc.</param>
+        /// <param name="updateTreeNodeAction">The updateTreeNodeAction.</param>
         public TreeViewBinding(
             TreeView treeView,
             BindingSource bindingSource,
@@ -94,13 +94,13 @@ namespace Engine
         { }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="TreeViewBinding{iMidiElement}"/> class.
         /// </summary>
-        /// <param name="parentTreeNode"></param>
-        /// <param name="bindingSource"></param>
-        /// <param name="getDataItemFunc"></param>
-        /// <param name="addTreeNodeFunc"></param>
-        /// <param name="updateTreeNodeAction"></param>
+        /// <param name="parentTreeNode">The parentTreeNode.</param>
+        /// <param name="bindingSource">The bindingSource.</param>
+        /// <param name="getDataItemFunc">The getDataItemFunc.</param>
+        /// <param name="addTreeNodeFunc">The addTreeNodeFunc.</param>
+        /// <param name="updateTreeNodeAction">The updateTreeNodeAction.</param>
         public TreeViewBinding(
             TreeNode parentTreeNode,
             BindingSource bindingSource,
@@ -111,15 +111,15 @@ namespace Engine
         { }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="TreeViewBinding{iMidiElement}"/> class.
         /// </summary>
-        /// <param name="treeView"></param>
-        /// <param name="treeNodeCollection"></param>
-        /// <param name="parentTreeNode"></param>
-        /// <param name="bindingSource"></param>
-        /// <param name="getDataItemFunc"></param>
-        /// <param name="addTreeNodeFunc"></param>
-        /// <param name="updateTreeNodeAction"></param>
+        /// <param name="treeView">The treeView.</param>
+        /// <param name="treeNodeCollection">The treeNodeCollection.</param>
+        /// <param name="parentTreeNode">The parentTreeNode.</param>
+        /// <param name="bindingSource">The bindingSource.</param>
+        /// <param name="getDataItemFunc">The getDataItemFunc.</param>
+        /// <param name="addTreeNodeFunc">The addTreeNodeFunc.</param>
+        /// <param name="updateTreeNodeAction">The updateTreeNodeAction.</param>
         private TreeViewBinding(
             TreeView treeView,
             TreeNodeCollection treeNodeCollection,
@@ -179,10 +179,10 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        ///
+        /// The after node select.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The tree view event arguments.</param>
         private void AfterNodeSelect(object sender, TreeViewEventArgs e)
         {
             var treeNode = e.Node;
@@ -192,7 +192,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add the existing items.
         /// </summary>
         private void AddExistingItems()
         {
@@ -200,23 +200,23 @@ namespace Engine
             {
                 var dataItem = getDataItemFunc(listItem);
                 var treeNode = addTreeNodeFunc(dataItem);
-                if (treeNode == null) continue;
+                if (treeNode is null) continue;
                 updateTreeNodeAction(dataItem, treeNode);
                 treeNodeCollection.Add(treeNode);
             }
         }
 
         /// <summary>
-        ///
+        /// Add the item.
         /// </summary>
-        /// <param name="newIndex"></param>
+        /// <param name="newIndex">The newIndex.</param>
         private void AddItem(int newIndex)
         {
             var dataItem = getDataItemFunc(bindingSource.Current);
-            if (currentAddItem == null)
+            if (currentAddItem is null)
             {
                 var treeNode = addTreeNodeFunc(dataItem);
-                if (treeNode == null) return;
+                if (treeNode is null) return;
                 treeNodeCollection.Insert(newIndex, treeNode);
                 currentAddItem = treeNode;
                 return;
@@ -226,11 +226,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Update the item.
         /// </summary>
         public void UpdateItem()
         {
-            if (bindingSource.Current == null)
+            if (bindingSource.Current is null)
                 return;
             var dataItem = getDataItemFunc(bindingSource.Current);
             var treeNode = treeNodeCollection[bindingSource.Position];
@@ -238,9 +238,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Delete the item.
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">The index.</param>
         private void DeleteItem(int index)
         {
             treeNodeCollection.RemoveAt(index);
@@ -248,10 +248,10 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Move the item.
         /// </summary>
-        /// <param name="oldIndex"></param>
-        /// <param name="newIndex"></param>
+        /// <param name="oldIndex">The oldIndex.</param>
+        /// <param name="newIndex">The newIndex.</param>
         private void MoveItem(int oldIndex, int newIndex)
         {
             var treeNode = treeNodeCollection[bindingSource.Position];
@@ -260,7 +260,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Select the item.
         /// </summary>
         private void SelectItem()
         {

@@ -50,9 +50,9 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void DataGridView1_Paint(Object sender, PaintEventArgs e)
+        private static void DataGridView1_Paint(object sender, PaintEventArgs e)
         {
-            var dgv = (sender as DataGridView);
+            var dgv = sender as DataGridView;
 
             if (dgv.Rows.Count == 0)
             {
@@ -74,9 +74,9 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private static void DataGridView1_Resize(Object sender, EventArgs e)
+        private static void DataGridView1_Resize(object sender, EventArgs e)
         {
-            var dgv = (sender as DataGridView);
+            var dgv = sender as DataGridView;
             if (dgv.Rows.Count == 0) dgv.Invalidate();
         }
 

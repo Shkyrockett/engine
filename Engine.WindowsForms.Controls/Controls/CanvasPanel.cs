@@ -16,13 +16,13 @@ using System.Drawing;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The canvas panel class.
     /// </summary>
     public partial class CanvasPanel
         : Control
     {
         /// <summary>
-        /// 
+        /// The event mouse wheel (readonly). Value: new object().
         /// </summary>
         /// <remarks>
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
@@ -30,7 +30,7 @@ namespace Engine.WindowsForms
         private static readonly object EventMouseWheel = new object();
 
         /// <summary>
-        /// 
+        /// The event mouse wheel tilt (readonly). Value: new object().
         /// </summary>
         /// <remarks>
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
@@ -70,7 +70,7 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CanvasPanel"/> class.
         /// </summary>
         public CanvasPanel()
         {
@@ -78,9 +78,9 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// The wnd proc.
         /// </summary>
-        /// <param name="m"></param>
+        /// <param name="m">The m.</param>
         /// <remarks>
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
@@ -114,17 +114,13 @@ namespace Engine.WindowsForms
             DefWndProc(ref m);
         }
 
-        /// <devdoc>
+        /// <summary>
         /// Handles the WM_MOUSEWHEEL message
-        /// </devdoc>
-        /// <internalonly/>
+        /// </summary>
+        /// <param name="m">The m.</param>
         /// <remarks>
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
-        /// <summary>
-        /// The wm mouse wheel.
-        /// </summary>
-        /// <param name="m">The m.</param>
         private void WmMouseWheel(ref Message m)
         {
             var p = PointToClient(new Point(m.LParam.SignedLowWord(), m.LParam.SignedHighWord()));
@@ -135,17 +131,13 @@ namespace Engine.WindowsForms
             if (!e.Handled) DefWndProc(ref m);
         }
 
-        /// <devdoc>
+        /// <summary>
         /// Handles the WM_MOUSEHWHEEL message
-        /// </devdoc>
-        /// <internalonly/>
+        /// </summary>
+        /// <param name="m">The m.</param>
         /// <remarks>
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
-        /// <summary>
-        /// The wm mouse wheel tilt.
-        /// </summary>
-        /// <param name="m">The m.</param>
         private void WmMouseWheelTilt(ref Message m)
         {
             var p = PointToClient(new Point(m.LParam.SignedLowWord(), m.LParam.SignedHighWord()));

@@ -26,9 +26,9 @@ namespace Engine.Chrono
         public List<Occasion> HolidayList;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Occasions"/> class.
         /// </summary>
-        /// <param name="year"></param>
+        /// <param name="year">The year.</param>
         /// <remarks>
         /// http://www.kenhamady.com/form26.shtml
         /// http://www.kenhamady.com/form25b.shtml
@@ -2120,14 +2120,14 @@ namespace Engine.Chrono
                     new DateTime(year, (int)Months.December, 31),
                     "National Champagne Day"),
             };
-            HolidayList.RemoveAll(a => a == null);
+            HolidayList.RemoveAll(a => a is null);
         }
 
         /// <summary>
-        /// 
+        /// The is holiday.
         /// </summary>
-        /// <param name="currentDate"></param>
-        /// <returns></returns>
+        /// <param name="currentDate">The currentDate.</param>
+        /// <returns>The <see cref="Tuple{T1, T2}"/>.</returns>
         /// <remarks>http://solidcoding.blogspot.com/2007/11/c30-extension-method-to-check-holidays.html</remarks>
         public (bool, List<Occasion>) IsHoliday(DateTime currentDate)
         {

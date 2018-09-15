@@ -1107,7 +1107,7 @@ namespace Engine.Chrono
 
             var jdn = (float)Floor(val);
             var ut = val - jdn;
-            var julian = (jdn <= LASTJULJDN);
+            var julian = jdn <= LASTJULJDN;
             var x = jdn + 68569f;
 
             if (julian)
@@ -1147,7 +1147,7 @@ namespace Engine.Chrono
         /// <remarks>http://stackoverflow.com/questions/1579587/how-can-i-get-the-current-season-using-net-summer-winter-etc</remarks>
         private static Season GetSeason(DateTime date, bool ofSouthernHemisphere)
         {
-            var hemisphereConst = (ofSouthernHemisphere ? 2 : 0);
+            var hemisphereConst = ofSouthernHemisphere ? 2 : 0;
             Func<Season, Season> getReturn = (northern)
                 => (Season)(((int)northern + hemisphereConst) % 4);
 
@@ -1341,7 +1341,7 @@ namespace Engine.Chrono
             if (christmas.DayOfWeek != DayOfWeek.Sunday)
             {
                 weeks--;
-                correction = ((int)christmas.DayOfWeek - (int)DayOfWeek.Sunday);
+                correction = (int)christmas.DayOfWeek - (int)DayOfWeek.Sunday;
             }
 
             return christmas.AddDays(-1 * ((weeks * 7) + correction));

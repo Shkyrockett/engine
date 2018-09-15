@@ -99,7 +99,7 @@ namespace Engine
         /// Gets a value indicating whether 
         /// </summary>
         public override bool IsReadOnly
-            => !(property == null || !property.CanWrite);
+            => !(property is null || !property.CanWrite);
 
         /// <summary>
         /// Gets the component type.
@@ -114,7 +114,7 @@ namespace Engine
         {
             get
             {
-                if (field == null)
+                if (field is null)
                 {
                     return property.PropertyType;
                 }
@@ -146,7 +146,7 @@ namespace Engine
         /// <returns>The <see cref="object"/>.</returns>
         public override object GetValue(object component)
         {
-            if (field == null)
+            if (field is null)
             {
                 return property.GetValue(component, null);
             }
@@ -160,7 +160,7 @@ namespace Engine
         /// <param name="value">The value.</param>
         public override void SetValue(object component, object value)
         {
-            if (field == null)
+            if (field is null)
             {
                 property.SetValue(component, value, null);
             }

@@ -64,10 +64,10 @@ namespace Engine.Experimental
 
             // Interpolate the normalized point along the Cubic Bézier curves.
             // ToDo: Certain variables are only using one of their components. This messes up the envelope when rotated 90 degrees where they turn 0 in combination. Need to add the other components in somehow.
-            var left = (reverseNormalCubed.Y * topLeft.X + 3d * normal.Y * reverseNormalSquared.Y * (topLeftV.X) + 3d * normalSquared.Y * reverseNormal.Y * (bottomLeftV.X) + normalCubed.Y * bottomLeft.X);
-            var right = (reverseNormalCubed.Y * topRight.X + 3d * normal.Y * reverseNormalSquared.Y * (topRightV.X) + 3d * normalSquared.Y * reverseNormal.Y * (bottomRightV.X) + normalCubed.Y * bottomRight.X);
-            var top = (reverseNormalCubed.X * topLeft.Y + 3d * normal.X * reverseNormalSquared.X * (topLeftH.Y) + 3d * normalSquared.X * reverseNormal.X * (topRightH.Y) + normalCubed.X * topRight.Y);
-            var bottom = (reverseNormalCubed.X * bottomLeft.Y + 3d * normal.X * reverseNormalSquared.X * (bottomLeftH.Y) + 3d * normalSquared.X * reverseNormal.X * (bottomRightH.Y) + normalCubed.X * bottomRight.Y);
+            var left = reverseNormalCubed.Y * topLeft.X + 3d * normal.Y * reverseNormalSquared.Y * topLeftV.X + 3d * normalSquared.Y * reverseNormal.Y * bottomLeftV.X + normalCubed.Y * bottomLeft.X;
+            var right = reverseNormalCubed.Y * topRight.X + 3d * normal.Y * reverseNormalSquared.Y * topRightV.X + 3d * normalSquared.Y * reverseNormal.Y * bottomRightV.X + normalCubed.Y * bottomRight.X;
+            var top = reverseNormalCubed.X * topLeft.Y + 3d * normal.X * reverseNormalSquared.X * topLeftH.Y + 3d * normalSquared.X * reverseNormal.X * topRightH.Y + normalCubed.X * topRight.Y;
+            var bottom = reverseNormalCubed.X * bottomLeft.Y + 3d * normal.X * reverseNormalSquared.X * bottomLeftH.Y + 3d * normalSquared.X * reverseNormal.X * bottomRightH.Y + normalCubed.X * bottomRight.Y;
 
             // Linearly interpolate the point between the Bézier curves.
             return new Point2D(
@@ -185,7 +185,7 @@ namespace Engine.Experimental
             // RIGHT LINE
             var anchor2 = CubicInterpolate(cpTR.Point, cpTR.AnchorAGlobal, cpBR.AnchorAGlobal, cpBR.Point, point.Y * (1d / (size.Height - 1d)));
 
-            var inter = ((size.Width - 1) - point.Y) / (size.Width - 1);
+            var inter = (size.Width - 1 - point.Y) / (size.Width - 1);
 
             var contLeft = Interpolators.Linear(cpTL.AnchorBGlobal, cpBL.AnchorBGlobal, inter);
             var contRight = Interpolators.Linear(cpTR.AnchorBGlobal, cpBR.AnchorBGlobal, inter);

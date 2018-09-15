@@ -12,7 +12,7 @@
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    /// The renderer class.
     /// </summary>
     internal static partial class Renderer
     {

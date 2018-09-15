@@ -35,7 +35,7 @@ namespace Engine.Imaging
         /// <returns>A copy of the original image in the requested Pixel format.</returns>
         public static Image ConvertToFormat(this Image canvas, PixelFormat format)
         {
-            if (canvas == null) return canvas;
+            if (canvas is null) return canvas;
 
             var NewRect = new Rectangle(Point.Empty, canvas.Size);
             var New_Bmp = new Bitmap(canvas.Width, canvas.Height, format);
@@ -45,11 +45,11 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The crop image.
         /// </summary>
-        /// <param name="canvas"></param>
-        /// <param name="cropArea"></param>
-        /// <returns></returns>
+        /// <param name="canvas">The canvas.</param>
+        /// <param name="cropArea">The cropArea.</param>
+        /// <returns>The <see cref="Image"/>.</returns>
         /// <remarks>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</remarks>
         public static Image CropImage(this Image canvas, Rectangle cropArea)
         {
@@ -60,11 +60,11 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        ///
+        /// The resize image.
         /// </summary>
-        /// <param name="canvas"></param>
-        /// <param name="size"></param>
-        /// <returns></returns>
+        /// <param name="canvas">The canvas.</param>
+        /// <param name="size">The size.</param>
+        /// <returns>The <see cref="Image"/>.</returns>
         /// <remarks>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</remarks>
         public static Image ResizeImage(this Image canvas, Size size)
         {
@@ -144,7 +144,7 @@ namespace Engine.Imaging
         //public static Image RotateByAngle(this Image canvas, double angle)
         //{
         //    // If there is nothing to rotate, return what was given.
-        //    if (canvas == null) return canvas;
+        //    if (canvas is null) return canvas;
 
         //    // New canvas bounding size.
         //    RectangleF bounds = new RectangleF(PointF.Empty, canvas.Size).RotatedOffsetBounds(angle);
@@ -186,13 +186,13 @@ namespace Engine.Imaging
             //  Get the namespace
             var strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
             //  Get the resource into a stream
-            var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream((strNameSpace + ("." + ResourceName)));
-            if (ResourceStream == null)
+            var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(strNameSpace + "." + ResourceName);
+            if (ResourceStream is null)
             {
                 // TODO: #If Then ... Warning!!! not translated
-                MessageBox.Show(("Unable to find: "
-                                + (ResourceName + ("\r\n" + ("Be Sure "
-                                + (ResourceName + (" Property Build Action is set to Embedded Resource" + ("\r\n" + "Another reason can be that the Project Root Namespace is not the same as the Assembly Name"))))))));
+                MessageBox.Show("Unable to find: "
+                                + ResourceName + "\r\n" + "Be Sure "
+                                + ResourceName + " Property Build Action is set to Embedded Resource" + "\r\n" + "Another reason can be that the Project Root Namespace is not the same as the Assembly Name");
                 // TODO: # ... Warning!!! not translated
             }
             else

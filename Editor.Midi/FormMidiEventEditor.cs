@@ -11,18 +11,18 @@ using Engine.File;
 namespace EventEditorMidi
 {
     /// <summary>
-    ///
+    /// The form midi event editor class.
     /// </summary>
     public partial class FormMidiEventEditor
         : Form
     {
         /// <summary>
-        ///
+        /// The music files.
         /// </summary>
         private MusicFiles musicFiles = new MusicFiles();
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="FormMidiEventEditor"/> class.
         /// </summary>
         public FormMidiEventEditor()
         {
@@ -35,13 +35,13 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        ///
+        /// The form1 load.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            musicFiles.Midi = new List<Engine.File.MediaFile> {
+            musicFiles.Midi = new List<MediaFile> {
                 new MediaFile(
                 new Midi
                 {
@@ -63,18 +63,18 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        ///
+        /// The tree view1 after select.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The tree view event arguments.</param>
         private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
             => propertyGrid.SelectedObject = treeView.SelectedNode.Tag;
 
         /// <summary>
-        ///
+        /// Add the node.
         /// </summary>
-        /// <param name="tree"></param>
-        /// <param name="items"></param>
+        /// <param name="tree">The tree.</param>
+        /// <param name="items">The items.</param>
         private void AddNode(TreeView tree, List<MediaFile> items)
         {
             var node = new TreeNode("Midi Files")
@@ -87,13 +87,13 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        ///
+        /// Add the node.
         /// </summary>
-        /// <param name="tree"></param>
-        /// <param name="item"></param>
+        /// <param name="tree">The tree.</param>
+        /// <param name="item">The item.</param>
         private void AddNode(TreeNode tree, MediaFile item)
         {
-            if (item == null) return;
+            if (item is null) return;
             var typeString = item?.Media.GetType().Name;
             var filename = string.IsNullOrWhiteSpace(item?.FileName) ? $"New {typeString} File*" : Path.GetFileName(item.FileName);
             var node = new TreeNode(filename)
@@ -105,13 +105,13 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        ///
+        /// Add the node.
         /// </summary>
-        /// <param name="tree"></param>
-        /// <param name="item"></param>
+        /// <param name="tree">The tree.</param>
+        /// <param name="item">The item.</param>
         private void AddNode(TreeNode tree, IMidiElement item)
         {
-            if (item == null) return;
+            if (item is null) return;
             string nodeName = null;
             var attributeDisplayName = (Engine.DisplayNameAttribute)Attribute.GetCustomAttribute(item?.GetType(), typeof(Engine.DisplayNameAttribute));
             nodeName = attributeDisplayName != null ? attributeDisplayName.DisplayName : item?.ToString();
@@ -124,9 +124,9 @@ namespace EventEditorMidi
 
             foreach (PropertyInfo prop in item?.GetType().GetProperties()
                 .Where(p =>
-                        (
+                        
                            p.ReflectedType.GetInterfaces().Contains(typeof(IMidiElement))
-                        )
+                        
                         ||
                         (
                                p.PropertyType.IsGenericType
@@ -165,10 +165,10 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        ///
+        /// The tool strip button new file click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void ToolStripButtonNewFile_Click(object sender, EventArgs e)
         {
             var type = (Type)toolStripComboBoxFileFormat.SelectedItem;
@@ -181,10 +181,10 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        ///
+        /// The tool strip button open file click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void ToolStripButtonOpenFile_Click(object sender, EventArgs e)
         {
             switch (openFileDialog.ShowDialog())
@@ -211,9 +211,9 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        ///
+        /// Open the file.
         /// </summary>
-        /// <param name="fileName"></param>
+        /// <param name="fileName">The fileName.</param>
         private void OpenFile(string fileName)
         {
             MediaFile musicFile = null;
@@ -232,18 +232,18 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        ///
+        /// The tool strip button save file click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private static void ToolStripButtonSaveFile_Click(object sender, EventArgs e)
         { }
 
         /// <summary>
-        ///
+        /// The tool strip button close file click.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private static void ToolStripButtonCloseFile_Click(object sender, EventArgs e)
         { }
     }

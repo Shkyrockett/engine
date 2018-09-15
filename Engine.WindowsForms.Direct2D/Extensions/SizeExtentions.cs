@@ -16,7 +16,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The size extentions class.
     /// </summary>
     public static class SizeExtentions
     {

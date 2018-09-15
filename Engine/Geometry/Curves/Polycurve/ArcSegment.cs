@@ -82,7 +82,7 @@ namespace Engine
         /// <param name="previous">The item.</param>
         /// <param name="relitive">The relitive.</param>
         /// <param name="args">The args.</param>
-        public ArcSegment(CurveSegment previous, bool relitive, Double[] args)
+        public ArcSegment(CurveSegment previous, bool relitive, double[] args)
             : this(previous, args[0], args[1], args[2], args[3] != 0, args[4] != 0, args.Length == 7 ? (Point2D?)new Point2D(args[5], args[6]) : null)
         {
             if (relitive)
@@ -176,15 +176,15 @@ namespace Engine
                 Point2D center(Point2D start, Point2D end, double cosT, double sinT)
                 {
                     // Step 1 : Compute (x1, y1).
-                    var x1 = (cosT * (start.X - end.X) * OneHalf + sinT * (start.Y - end.Y) * OneHalf);
-                    var y1 = (-sinT * (start.X - end.X) * OneHalf + cosT * (start.Y - end.Y) * OneHalf);
+                    var x1 = cosT * (start.X - end.X) * OneHalf + sinT * (start.Y - end.Y) * OneHalf;
+                    var y1 = -sinT * (start.X - end.X) * OneHalf + cosT * (start.Y - end.Y) * OneHalf;
 
                     // Ensure radii are positive.
                     RX = Abs(RX);
                     RY = Abs(RY);
 
                     // Check that radii are large enough.
-                    var radiiCheck = (x1 * x1) / (RX * RX) + (y1 * y1) / (RY * RY);
+                    var radiiCheck = x1 * x1 / (RX * RX) + y1 * y1 / (RY * RY);
                     if (radiiCheck > 1)
                     {
                         RX = Sqrt(radiiCheck) * RX;
@@ -194,12 +194,12 @@ namespace Engine
                     // Step 2 : Compute (cx1, cy1).
                     var sq = ((RX * RX * RY * RY) - (RX * RX * y1 * y1) - (RY * RY * x1 * x1)) / ((RX * RX * y1 * y1) + (RY * RY * x1 * x1));
                     sq = (sq < 0) ? 0 : sq;
-                    var coef = (((LargeArc == Sweep) ? -1d : 1d) * Sqrt(sq));
+                    var coef = ((LargeArc == Sweep) ? -1d : 1d) * Sqrt(sq);
 
                     // Step 3 : Compute (cx, cy) from (cx1, cy1).
                     return new Point2D(
-                        (start.X + end.X) * OneHalf + (cosT * coef * ((RX * y1) / RY) - sinT * coef * -((RY * x1) / RX)),
-                        (start.Y + end.Y) * OneHalf + (sinT * coef * ((RX * y1) / RY) + cosT * coef * -((RY * x1) / RX)));
+                        (start.X + end.X) * OneHalf + (cosT * coef * (RX * y1 / RY) - sinT * coef * -(RY * x1 / RX)),
+                        (start.Y + end.Y) * OneHalf + (sinT * coef * (RX * y1 / RY) + cosT * coef * -(RY * x1 / RX)));
                 }
             }
         }

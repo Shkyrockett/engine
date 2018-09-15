@@ -115,10 +115,10 @@ namespace Engine
 
         #region Operators
         /// <summary>
-        ///
+        /// The operator +.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         public static Size2D operator +(Size2D value)
             => new Size2D(+value.Width, +value.Height);
 
@@ -153,10 +153,10 @@ namespace Engine
             => value.Add(addend);
 
         /// <summary>
-        ///
+        /// The operator -.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         public static Size2D operator -(Size2D value)
             => new Size2D(-value.Width, -value.Height);
 
@@ -256,11 +256,11 @@ namespace Engine
             => Equals(a, b);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Size2D a, Size2D b)
             => (a.Width == b.Width) & (a.Height == b.Height);
@@ -276,10 +276,10 @@ namespace Engine
             => obj is Size2D && Equals(this, (Size2D)obj);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Size2D value)
             => Equals(this, value);
@@ -468,7 +468,7 @@ namespace Engine
         /// </returns>
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Size2D);
+            //if (this is null) return nameof(Size2D);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Size2D)}({nameof(Width)}={Width}{sep}{nameof(Height)}={Height})";
             return formatable.ToString(format, provider);

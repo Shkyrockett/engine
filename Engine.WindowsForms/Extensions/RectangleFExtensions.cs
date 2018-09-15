@@ -151,23 +151,23 @@ namespace Engine
         {
             if (Location.X <= Bounds.X)
             {
-                Reference = (Reference - new Size(Bounds.X, 0));
-                return new Point((Bounds.Width - 2), Location.Y);
+                Reference = Reference - new Size(Bounds.X, 0);
+                return new Point(Bounds.Width - 2, Location.Y);
             }
             if (Location.Y <= Bounds.Y)
             {
-                Reference = (Reference - new Size(0, Bounds.Y));
-                return new Point(Location.X, (Bounds.Height - 2));
+                Reference = Reference - new Size(0, Bounds.Y);
+                return new Point(Location.X, Bounds.Height - 2);
             }
             if (Location.X >= (Bounds.Width - 1))
             {
-                Reference = (Reference + new Size(Bounds.Width, 0));
-                return new Point((Bounds.X + 2), Location.Y);
+                Reference = Reference + new Size(Bounds.Width, 0);
+                return new Point(Bounds.X + 2, Location.Y);
             }
             if (Location.Y >= (Bounds.Height - 1))
             {
-                Reference = (Reference + new Size(0, Bounds.Height));
-                return new Point(Location.X, (Bounds.Y + 2));
+                Reference = Reference + new Size(0, Bounds.Height);
+                return new Point(Location.X, Bounds.Y + 2);
             }
             return Location;
         }

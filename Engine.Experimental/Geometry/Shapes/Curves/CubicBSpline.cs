@@ -58,7 +58,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this == null) return nameof(CubicBSpline);
+            if (this is null) return nameof(CubicBSpline);
             return $"{nameof(CubicBSpline)}{{{NodePoints.ToString()}}}";
         }
     }

@@ -43,17 +43,17 @@ namespace Engine
         public static readonly Vector3D Unit = new Vector3D(1, 1, 1);
 
         /// <summary>
-        /// 
+        /// The x axis (readonly). Value: new Vector3D(1, 0, 0).
         /// </summary>
         public static readonly Vector3D XAxis = new Vector3D(1, 0, 0);
 
         /// <summary>
-        /// 
+        /// The y axis (readonly). Value: new Vector3D(0, 1, 0).
         /// </summary>
         public static readonly Vector3D YAxis = new Vector3D(0, 1, 0);
 
         /// <summary>
-        /// 
+        /// The z axis (readonly). Value: new Vector3D(0, 0, 1).
         /// </summary>
         public static readonly Vector3D ZAxis = new Vector3D(0, 0, 1);
         #endregion Static Fields
@@ -175,10 +175,10 @@ namespace Engine
 
         #region Operators
         /// <summary>
-        /// 
+        /// The operator +.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Vector3D"/>.</returns>
         public static Vector3D operator +(Vector3D value)
             => new Vector3D(+value.I, +value.J, +value.K);
 
@@ -213,10 +213,10 @@ namespace Engine
             => value.Add(addend);
 
         /// <summary>
-        /// 
+        /// The operator -.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Vector3D"/>.</returns>
         public static Vector3D operator -(Vector3D value)
             => new Vector3D(-value.I, -value.J, -value.K);
 
@@ -291,20 +291,20 @@ namespace Engine
             => new Vector3D(divisor / dividend.I, divisor / dividend.I, divisor / dividend.K);
 
         /// <summary>
-        /// 
+        /// The operator ==.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator ==(Vector3D a, Vector3D b)
             => Equals(a, b);
 
         /// <summary>
-        /// 
+        /// The operator !=.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator !=(Vector3D a, Vector3D b)
             => !Equals(a, b);
 
@@ -319,16 +319,16 @@ namespace Engine
         public static implicit operator Vector3D((double X, double Y, double Z) tuple)
             => new Vector3D(tuple);
 
-        /// <summary>
-        /// Point to Vector3D
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Vector3D(Point3D value)
-            => new Vector3D(value.X, value.Y, value.Z);
+        ///// <summary>
+        ///// Point to Vector3D
+        ///// </summary>
+        ///// <param name="value"></param>
+        ///// <returns></returns>
+        ///// <remarks></remarks>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static implicit operator Vector3D(Point3D value)
+        //    => new Vector3D(value.X, value.Y, value.Z);
         #endregion Operators
 
         #region Factories

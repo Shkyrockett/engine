@@ -277,9 +277,9 @@ namespace EngineTests
                 { (short.MaxValue, 0), true },
                 { (short.MinValue, short.MaxValue), true },
                 { (short.MaxValue, short.MinValue), true },
-                { ((short.MinValue /2), (short.MaxValue / 2)), true },
-                { ((short.MinValue / 2), (short.MinValue / 2)), true },
-                { ((short.MaxValue / 2), (short.MaxValue / 2)), true },
+                { (short.MinValue /2, short.MaxValue / 2), true },
+                { (short.MinValue / 2, short.MinValue / 2), true },
+                { (short.MaxValue / 2, short.MaxValue / 2), true },
                 { (short.MaxValue, short.MaxValue), false },
             };
 
@@ -341,9 +341,9 @@ namespace EngineTests
                 { (int.MaxValue, 0), true },
                 { (int.MinValue, int.MaxValue), true },
                 { (int.MaxValue, int.MinValue), true },
-                { ((int.MinValue / 2), (int.MaxValue / 2)), true },
-                { ((int.MinValue / 2), (int.MinValue / 2)), true },
-                { ((int.MaxValue / 2), (int.MaxValue / 2)), true },
+                { (int.MinValue / 2, int.MaxValue / 2), true },
+                { (int.MinValue / 2, int.MinValue / 2), true },
+                { (int.MaxValue / 2, int.MaxValue / 2), true },
                 { (int.MaxValue, int.MaxValue), false },
             };
 
@@ -371,9 +371,9 @@ namespace EngineTests
             {
                 { (uint.MinValue, uint.MaxValue), true },
                 { (uint.MaxValue, uint.MinValue), true },
-                { ((uint.MinValue / 2u), (uint.MaxValue / 2u)), true },
-                { ((uint.MinValue / 2u), (uint.MinValue / 2u)), true },
-                { ((uint.MaxValue / 2u), (uint.MaxValue / 2u)), true },
+                { (uint.MinValue / 2u, uint.MaxValue / 2u), true },
+                { (uint.MinValue / 2u, uint.MinValue / 2u), true },
+                { (uint.MaxValue / 2u, uint.MaxValue / 2u), true },
                 { (uint.MaxValue, uint.MaxValue), false },
             };
 
@@ -405,9 +405,9 @@ namespace EngineTests
                 { (long.MaxValue, 0), true },
                 { (long.MinValue, long.MaxValue), true },
                 { (long.MaxValue, long.MinValue), true },
-                { ((long.MinValue / 2L), (long.MaxValue / 2L)), true },
-                { ((long.MinValue / 2L), (long.MinValue / 2L)), true },
-                { ((long.MaxValue / 2L), (long.MaxValue / 2L)), true },
+                { (long.MinValue / 2L, long.MaxValue / 2L), true },
+                { (long.MinValue / 2L, long.MinValue / 2L), true },
+                { (long.MaxValue / 2L, long.MaxValue / 2L), true },
                 { (long.MaxValue, long.MaxValue), false },
             };
 
@@ -435,9 +435,9 @@ namespace EngineTests
             {
                 { (ulong.MinValue, ulong.MaxValue), true },
                 { (ulong.MaxValue, ulong.MinValue), true },
-                { ((ulong.MinValue / 2ul), (ulong.MaxValue / 2ul)), true },
-                { ((ulong.MinValue / 2ul), (ulong.MinValue / 2ul)), true },
-                { ((ulong.MaxValue / 2ul), (ulong.MaxValue / 2ul)), true },
+                { (ulong.MinValue / 2ul, ulong.MaxValue / 2ul), true },
+                { (ulong.MinValue / 2ul, ulong.MinValue / 2ul), true },
+                { (ulong.MaxValue / 2ul, ulong.MaxValue / 2ul), true },
                 { (ulong.MaxValue, ulong.MaxValue), false },
             };
 
@@ -469,9 +469,9 @@ namespace EngineTests
                 { (float.MaxValue, 0), true },
                 { (float.MinValue, float.MaxValue), true },
                 { (float.MaxValue, float.MinValue), true },
-                { ((float.MinValue * 0.5f), (float.MaxValue * 0.5f)), true },
-                { ((float.MinValue * 0.5f), (float.MinValue * 0.5f)), true },
-                { ((float.MaxValue * 0.5f), (float.MaxValue * 0.5f)), true },
+                { (float.MinValue * 0.5f, float.MaxValue * 0.5f), true },
+                { (float.MinValue * 0.5f, float.MinValue * 0.5f), true },
+                { (float.MaxValue * 0.5f, float.MaxValue * 0.5f), true },
                 { (float.MaxValue, float.MaxValue), false },
             };
 
@@ -503,9 +503,9 @@ namespace EngineTests
                 { (double.MaxValue, 0), true },
                 { (double.MinValue, double.MaxValue), true },
                 { (double.MaxValue, double.MinValue), true },
-                { ((double.MinValue * 0.5d), (double.MaxValue * 0.5d)), true },
-                { ((double.MinValue * 0.5d), (double.MinValue * 0.5d)), true },
-                { ((double.MaxValue * 0.5d), (double.MaxValue * 0.5d)), true },
+                { (double.MinValue * 0.5d, double.MaxValue * 0.5d), true },
+                { (double.MinValue * 0.5d, double.MinValue * 0.5d), true },
+                { (double.MaxValue * 0.5d, double.MaxValue * 0.5d), true },
                 { (double.MaxValue, double.MaxValue), false },
             };
 
@@ -537,7 +537,7 @@ namespace EngineTests
                 { (decimal.MaxValue, decimal.Zero), true },
                 { (decimal.MinValue, decimal.MaxValue), true },
                 { (decimal.MaxValue, decimal.MinValue), true },
-                { ((decimal.MinValue * 0.5m), (decimal.MaxValue * 0.5m)), true },
+                { (decimal.MinValue * 0.5m, decimal.MaxValue * 0.5m), true },
                 // Need to figure out why the following two test cases fail only for decimals.
                 //{ ((decimal.MinValue * 0.5m), (decimal.MinValue * 0.5m)), true },
                 //{ ((decimal.MaxValue * 0.5m), (decimal.MaxValue * 0.5m)), true },
@@ -652,9 +652,9 @@ namespace EngineTests
                 // Wait, what? Oh right.
                 { (short.MinValue, short.MaxValue), true },
                 { (short.MaxValue, short.MinValue), true },
-                { ((short.MinValue / 2), (short.MaxValue / 2)), true },
-                { ((short.MinValue / 2), (short.MinValue / 2)), true },
-                { ((short.MaxValue / 2), (short.MaxValue / 2)), true },
+                { (short.MinValue / 2, short.MaxValue / 2), true },
+                { (short.MinValue / 2, short.MinValue / 2), true },
+                { (short.MaxValue / 2, short.MaxValue / 2), true },
                 { (short.MaxValue, short.MaxValue), true },
             };
 
@@ -717,9 +717,9 @@ namespace EngineTests
                 // Wait, what? Oh, right.
                 { (int.MinValue, int.MaxValue), true },
                 { (int.MaxValue, int.MinValue), true },
-                { ((int.MinValue / 2), (int.MaxValue / 2)), false },
-                { ((int.MinValue / 2), (int.MinValue / 2)), false },
-                { ((int.MaxValue / 2), (int.MaxValue / 2)), false },
+                { (int.MinValue / 2, int.MaxValue / 2), false },
+                { (int.MinValue / 2, int.MinValue / 2), false },
+                { (int.MaxValue / 2, int.MaxValue / 2), false },
                 //{ (int.MaxValue, int.MaxValue), true },
             };
 
@@ -747,7 +747,7 @@ namespace EngineTests
             {
                 { (uint.MinValue, uint.MaxValue), false },
                 { (uint.MaxValue, uint.MinValue), true },
-                { ((uint.MinValue), (uint.MaxValue / 2u)), false },
+                { (uint.MinValue, uint.MaxValue / 2u), false },
                 //{ ((uint.MinValue / 2u), (uint.MinValue / 2u)), true },
                 //{ ((uint.MaxValue / 2u), (uint.MaxValue / 2u)), true },
                 //{ (uint.MaxValue, uint.MaxValue), true },
@@ -1024,9 +1024,9 @@ namespace EngineTests
                 // Wait, what? Oh right.
                 { (short.MinValue, short.MaxValue), true },
                 { (short.MaxValue, short.MinValue), false },
-                { ((short.MinValue / 2), (short.MaxValue / 2)), true },
-                { ((short.MinValue / 2), (short.MinValue / 2)), true },
-                { ((short.MaxValue / 2), (short.MaxValue / 2)), false },
+                { (short.MinValue / 2, short.MaxValue / 2), true },
+                { (short.MinValue / 2, short.MinValue / 2), true },
+                { (short.MaxValue / 2, short.MaxValue / 2), false },
                 { (short.MaxValue, short.MaxValue), false },
             };
 
@@ -1089,9 +1089,9 @@ namespace EngineTests
                 // Wait, what? Oh, right.
                 { (int.MinValue, int.MaxValue), true },
                 { (int.MaxValue, int.MinValue), false },
-                { ((int.MinValue / 2), (int.MaxValue / 2)), true },
-                { ((int.MinValue / 2), (int.MinValue / 2)), false },
-                { ((int.MaxValue / 2), (int.MaxValue / 2)), true },
+                { (int.MinValue / 2, int.MaxValue / 2), true },
+                { (int.MinValue / 2, int.MinValue / 2), false },
+                { (int.MaxValue / 2, int.MaxValue / 2), true },
                 //{ (int.MaxValue, int.MaxValue), true },
             };
 
@@ -1119,7 +1119,7 @@ namespace EngineTests
             {
                 { (uint.MinValue, uint.MaxValue), true },
                 { (uint.MaxValue, uint.MinValue), true },
-                { ((uint.MinValue), (uint.MaxValue / 2u)), true },
+                { (uint.MinValue, uint.MaxValue / 2u), true },
                 //{ ((uint.MinValue / 2u), (uint.MinValue / 2u)), true },
                 //{ ((uint.MaxValue / 2u), (uint.MaxValue / 2u)), true },
                 //{ (uint.MaxValue, uint.MaxValue), true },

@@ -40,8 +40,8 @@ namespace Engine
                 else
                     num *= -0x5aaaaad7;
                 num += hash;
-                num += (num << 10);
-                num ^= (num >> 6);
+                num += num << 10;
+                num ^= num >> 6;
                 current = num;
             }
         }
@@ -56,9 +56,9 @@ namespace Engine
             unchecked
             {
                 var num = current;
-                num += (num << 3);
-                num ^= (num >> 11);
-                num += (num << 15);
+                num += num << 3;
+                num ^= num >> 11;
+                num += num << 15;
                 return num;
             }
         }

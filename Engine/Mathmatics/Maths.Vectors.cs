@@ -172,7 +172,7 @@ namespace Engine
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
-            => ((x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2));
+            => (x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2);
 
         /// <summary>
         /// The cross product vector0.
@@ -193,7 +193,7 @@ namespace Engine
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
-            => ((x2 - x1) * (y1 - y3) - (x1 - x3) * (y2 - y1));
+            => (x2 - x1) * (y1 - y3) - (x1 - x3) * (y2 - y1);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -209,7 +209,7 @@ namespace Engine
         public static double DotProduct(
             double x1, double y1,
             double x2, double y2)
-            => ((x1 * x2) + (y1 * y2));
+            => (x1 * x2) + (y1 * y2);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -226,7 +226,7 @@ namespace Engine
         public static double DotProduct(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => ((x1 * x2) + (y1 * y2) + (z1 * z2));
+            => (x1 * x2) + (y1 * y2) + (z1 * z2);
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -279,7 +279,7 @@ namespace Engine
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
-            => (((x1 - x2) * (x3 - x2)) + ((y1 - y2) * (y3 - y2)));
+            => ((x1 - x2) * (x3 - x2)) + ((y1 - y2) * (y3 - y2));
 
         /// <summary>
         /// The mixed product.
@@ -361,8 +361,8 @@ namespace Engine
         /// </acknowledgment>
         public static (double, double) GetUnitNormal(double pt1X, double pt1Y, double pt2X, double pt2Y)
         {
-            var dx = (pt2X - pt1X);
-            var dy = (pt2Y - pt1Y);
+            var dx = pt2X - pt1X;
+            var dy = pt2Y - pt1Y;
             if ((dx == 0d) && (dy == 0d))
                 return (0d, 0d);
 
@@ -448,8 +448,8 @@ namespace Engine
             double i1, double j1,
             double i2, double j2)
             => (
-                i1 / Sqrt(((i1 * i2) + (j1 * j2))),
-                j1 / Sqrt(((i1 * i2) + (j1 * j2)))
+                i1 / Sqrt((i1 * i2) + (j1 * j2)),
+                j1 / Sqrt((i1 * i2) + (j1 * j2))
                 );
 
         /// <summary>
@@ -485,9 +485,9 @@ namespace Engine
             double i1, double j1, double k1,
             double i2, double j2, double k2)
             => (
-                i1 / Sqrt(((i1 * i2) + (j1 * j2) + (k1 * k2))),
-                j1 / Sqrt(((i1 * i2) + (j1 * j2) + (k1 * k2))),
-                k1 / Sqrt(((i1 * i2) + (j1 * j2) + (k1 * k2))));
+                i1 / Sqrt((i1 * i2) + (j1 * j2) + (k1 * k2)),
+                j1 / Sqrt((i1 * i2) + (j1 * j2) + (k1 * k2)),
+                k1 / Sqrt((i1 * i2) + (j1 * j2) + (k1 * k2)));
 
         /// <summary>
         /// Normalize a Vector.

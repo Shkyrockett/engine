@@ -65,7 +65,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOdd(int val)
-            => (val % 2 != 0);
+            => val % 2 != 0;
 
         /// <summary>
         /// Test whether an addition of two values is likely to overflow.
@@ -299,7 +299,7 @@ namespace Engine
         {
             if (a == 0 || b == 0) return true;
             // a * b would overflow
-            return (b > int.MaxValue / a);
+            return b > int.MaxValue / a;
         }
 
         /// <summary>
@@ -318,7 +318,7 @@ namespace Engine
         {
             if (a == 0 || b == 0) return true;
             // a * b would overflow
-            return (b > uint.MaxValue / a);
+            return b > uint.MaxValue / a;
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace Engine
         {
             if (a == 0 || b == 0) return true;
             // a * b would overflow
-            return (b > long.MaxValue / a);
+            return b > long.MaxValue / a;
         }
 
         /// <summary>
@@ -356,7 +356,7 @@ namespace Engine
         {
             if (a == 0 || b == 0) return true;
             // a * b would overflow
-            return (b > ulong.MaxValue / a);
+            return b > ulong.MaxValue / a;
         }
 
         /// <summary>
@@ -375,7 +375,7 @@ namespace Engine
         {
             if (a == 0 || b == 0) return true;
             // a * b would overflow
-            return (b > float.MaxValue / a);
+            return b > float.MaxValue / a;
         }
 
         /// <summary>
@@ -394,7 +394,7 @@ namespace Engine
         {
             if (a == 0 || b == 0) return true;
             // a * b would overflow
-            return (b > double.MaxValue / a);
+            return b > double.MaxValue / a;
         }
 
         /// <summary>
@@ -413,7 +413,7 @@ namespace Engine
         {
             if (a == 0 || b == 0) return true;
             // a * b would overflow
-            return (b > decimal.MaxValue / a);
+            return b > decimal.MaxValue / a;
         }
 
         /// <summary>

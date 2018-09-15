@@ -61,7 +61,7 @@ namespace Engine
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             var dictionary = value as IDictionary;
-            if (dictionary == null || dictionary.Count == 0)
+            if (dictionary is null || dictionary.Count == 0)
                 return base.GetProperties(context, value, attributes);
 
             var items = new PropertyDescriptorCollection(null);

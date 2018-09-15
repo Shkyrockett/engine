@@ -297,8 +297,7 @@ namespace Engine
             get { return new Point2D(X, Y); }
             set
             {
-                x = value.X;
-                y = value.Y;
+                (x, y) = (value.X, value.Y);
                 ClearCache();
                 OnPropertyChanged(nameof(Location));
                 update?.Invoke();
@@ -322,8 +321,7 @@ namespace Engine
             get { return new Point2D(X + width * 0.5d, Y + height * 0.5d); }
             set
             {
-                x = value.X - width * 0.5d;
-                y = value.Y - height * 0.5d;
+                (x, y) = (value.X - width * 0.5d, value.Y - height * 0.5d);
                 ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
@@ -347,8 +345,7 @@ namespace Engine
             get { return new Size2D(width, height); }
             set
             {
-                width = value.Width;
-                height = value.Height;
+                (width, height) = (value.Width, value.Height);
                 ClearCache();
                 OnPropertyChanged(nameof(Size));
                 update?.Invoke();
@@ -370,8 +367,7 @@ namespace Engine
             get { return new Point2D(Left, Top); }
             set
             {
-                Left = value.X;
-                Top = value.Y;
+                (x, y, width, height) = (value.X, value.Y, width + x - value.X, height + y - value.Y);
                 ClearCache();
                 OnPropertyChanged(nameof(TopLeft));
                 update?.Invoke();
@@ -393,8 +389,7 @@ namespace Engine
             get { return new Point2D(Right, Top); }
             set
             {
-                Right = value.X;
-                Top = value.Y;
+                (y, width, height) = (value.Y, value.X - x, height + y - value.Y);
                 ClearCache();
                 OnPropertyChanged(nameof(TopRight));
                 update?.Invoke();
@@ -416,8 +411,7 @@ namespace Engine
             get { return new Point2D(Left, Bottom); }
             set
             {
-                Left = value.X;
-                Bottom = value.Y;
+                (Left, Bottom) = (value.X, value.Y);
                 ClearCache();
                 OnPropertyChanged(nameof(BottomLeft));
                 update?.Invoke();
@@ -439,8 +433,7 @@ namespace Engine
             get { return new Point2D(Right, Bottom); }
             set
             {
-                Right = value.X;
-                Bottom = value.Y;
+                (Right, Bottom) = (value.X, value.Y);
                 ClearCache();
                 OnPropertyChanged(nameof(BottomRight));
                 update?.Invoke();
@@ -646,7 +639,7 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Rectangle2D left, Rectangle2D right)
-            => (left?.X == right?.X && left?.Y == right?.Y && left?.Width == right?.Width && left?.Height == right?.Height);
+            => left?.X == right?.X && left?.Y == right?.Y && left?.Width == right?.Width && left?.Height == right?.Height;
 
         /// <summary>
         /// Tests whether <paramref name="obj"/> is a <see cref="Rectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
@@ -856,27 +849,25 @@ namespace Engine
             var top = Min(Top, rect.Top);
 
             // We need this check so that the math does not result in NaN
-            if ((double.IsPositiveInfinity(rect.Width)) || (double.IsPositiveInfinity(Width)))
+            if (double.IsPositiveInfinity(rect.Width) || double.IsPositiveInfinity(Width))
             {
                 width = double.PositiveInfinity;
             }
             else
             {
                 //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                var maxRight = Max(Right, rect.Right);
-                width = Max(maxRight - left, 0);
+                width = Max(Max(Right, rect.Right) - left, 0);
             }
 
             // We need this check so that the math does not result in NaN
-            if ((double.IsPositiveInfinity(rect.Height)) || (double.IsPositiveInfinity(Height)))
+            if (double.IsPositiveInfinity(rect.Height) || double.IsPositiveInfinity(Height))
             {
                 height = double.PositiveInfinity;
             }
             else
             {
                 //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                var maxBottom = Max(Bottom, rect.Bottom);
-                height = Max(maxBottom - top, 0);
+                height = Max(Max(Bottom, rect.Bottom) - top, 0);
             }
 
             x = left;
@@ -897,7 +888,7 @@ namespace Engine
             var height = this.width;
 
             // We need this check so that the math does not result in NaN
-            if ((double.IsPositiveInfinity(rect.Width)) || (double.IsPositiveInfinity(Width)))
+            if (double.IsPositiveInfinity(rect.Width) || double.IsPositiveInfinity(Width))
             {
                 width = double.PositiveInfinity;
             }
@@ -909,7 +900,7 @@ namespace Engine
             }
 
             // We need this check so that the math does not result in NaN
-            if ((double.IsPositiveInfinity(rect.Height)) || (double.IsPositiveInfinity(Height)))
+            if (double.IsPositiveInfinity(rect.Height) || double.IsPositiveInfinity(Height))
             {
                 height = double.PositiveInfinity;
             }
@@ -1009,10 +1000,8 @@ namespace Engine
         ///// The Empty Rectangle2D is not affected by this call.
         ///// </summary>
         ///// <param name="matrix"> Matrix </param>
-        //public void Transform(Matrix2x3D matrix)
-        //{
-        //    Matrix2x3D.TransformRect(ref this, ref matrix);
-        //}
+        //public void Transform(Matrix3x2D matrix)
+        //    => Matrix3x2D.TransformRect(ref this, ref matrix);
         #endregion Mutators
 
         #region Methods
@@ -1091,7 +1080,7 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
+            if (this is null)
             {
                 return nameof(Rectangle2D);
             }

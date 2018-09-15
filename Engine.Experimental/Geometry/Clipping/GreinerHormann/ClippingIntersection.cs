@@ -63,6 +63,6 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="bool"/>.</returns>
         public bool Valid()
-            => (0 < ToSource && ToSource < 1) && (0 < ToClip && ToClip < 1);
+            => 0 < ToSource && ToSource < 1 && 0 < ToClip && ToClip < 1;
     }
 }

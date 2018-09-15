@@ -133,6 +133,8 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator +(Point3D value)
             => new Point3D(+value.X, +value.Y, +value.Z);
 
@@ -143,6 +145,8 @@ namespace Engine
         /// <param name="addend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator +(Point3D value, double addend)
             => new Point3D(value.X + addend, value.Y + addend, value.Z + addend);
 
@@ -153,6 +157,8 @@ namespace Engine
         /// <param name="addend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator +(Point3D value, Point3D addend)
             => new Point3D(value.X + addend.X, value.Y + addend.Y, value.Z + addend.Z);
 
@@ -161,6 +167,8 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator -(Point3D value)
             => new Point3D(-value.X, -value.Y, -value.Z);
 
@@ -171,6 +179,8 @@ namespace Engine
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator -(Point3D value, double subend)
             => new Point3D(value.X - subend, value.Y - subend, value.Z - subend);
 
@@ -181,6 +191,8 @@ namespace Engine
         /// <param name="subend"></param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator -(Point3D value, Point3D subend)
             => new Point3D(value.X - subend.X, value.Y - subend.Y, value.Z - subend.Z);
 
@@ -190,6 +202,8 @@ namespace Engine
         /// <param name="factor"></param>
         /// <param name="value"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator *(double value, Point3D factor)
             => new Point3D(value * factor.X, value * factor.Y, value * factor.Z);
 
@@ -199,6 +213,8 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="factor"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator *(Point3D value, double factor)
             => new Point3D(value.X * factor, value.Y * factor, value.Z * factor);
 
@@ -209,6 +225,8 @@ namespace Engine
         /// <param name="dividend">The amount to add.</param>
         /// <returns></returns>
         /// <remarks></remarks>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator /(Point3D divisor, double dividend)
             => new Point3D(divisor.X / dividend, divisor.Y / dividend, divisor.Z / dividend);
 
@@ -220,6 +238,8 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Point3D left, Point3D right)
             => Equals(left, right);
 
@@ -231,14 +251,36 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Point3D left, Point3D right)
             => !Equals(left, right);
+
+        /// <summary>
+        /// Explicit conversion to Vector
+        /// </summary>
+        /// <param name="point"> Point - the Point to convert to a Vector </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Vector3D(Point3D point)
+            => new Vector3D(point.X, point.Y, point.Z);
+
+        /// <summary>
+        /// Explicit conversion from Vector2D to Point2D.
+        /// </summary>
+        /// <param name="point"> Point - the Point to convert to a Vector </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Point3D(Vector3D point)
+            => new Point3D(point.I, point.J, point.K);
 
         /// <summary>
         /// Implicit conversion from tuple.
         /// </summary>
         /// <returns></returns>
         /// <param name="tuple"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Point3D((double X, double Y, double Z) tuple)
             => new Point3D(tuple);
         #endregion Operators
@@ -424,7 +466,7 @@ namespace Engine
         /// </returns>
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Point3D);
+            //if (this is null) return nameof(Point3D);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Point3D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}{sep}{nameof(Z)}={Z}}}";
             return formatable.ToString(format, provider);

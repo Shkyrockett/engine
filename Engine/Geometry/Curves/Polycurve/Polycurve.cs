@@ -63,19 +63,19 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        ///
+        /// The deconstruct.
         /// </summary>
-        /// <param name="items"></param>
+        /// <param name="items">The items.</param>
         public void Deconstruct(out List<PolycurveContour> items)
             => items = contours;
         #endregion Deconstructors
 
         #region Indexers
         /// <summary>
-        ///
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type PolycurveContour.</returns>
         public PolycurveContour this[int index]
         {
             get { return contours[index]; }
@@ -89,7 +89,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the contours.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
@@ -126,16 +126,15 @@ namespace Engine
         //}
 
         /// <summary>
-        ///
+        /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
             => contours.Count;
 
         /// <summary>
-        ///
+        /// Gets the vertices count.
         /// </summary>
-        /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int VerticesCount
         {
@@ -150,7 +149,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets the perimeter.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -159,7 +158,7 @@ namespace Engine
             => contours.Sum(p => p.Perimeter);
 
         /// <summary>
-        ///
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -229,19 +228,19 @@ namespace Engine
         //#endregion
 
         /// <summary>
-        ///
+        /// Parse the path def string.
         /// </summary>
-        /// <param name="pathDefinition"></param>
-        /// <returns></returns>
+        /// <param name="pathDefinition">The pathDefinition.</param>
+        /// <returns>The <see cref="T:List{PolycurveContour}"/>.</returns>
         public static List<PolycurveContour> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
-        ///
+        /// Parse the path def string.
         /// </summary>
-        /// <param name="pathDefinition"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="pathDefinition">The pathDefinition.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="T:List{PolycurveContour}"/>.</returns>
         public static List<PolycurveContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // These letters are valid PolyBezier commands. Split the tokens at these.
@@ -273,19 +272,19 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The to path def string.
         /// </summary>
-        /// <returns></returns>
-        private String ToPathDefString()
+        /// <returns>The <see cref="string"/>.</returns>
+        private string ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
-        ///
+        /// The to path def string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
-        private String ToPathDefString(string format, IFormatProvider provider)
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
+        private string ToPathDefString(string format, IFormatProvider provider)
         {
             var output = new StringBuilder();
 
@@ -299,9 +298,9 @@ namespace Engine
 
         #region Mutators
         /// <summary>
-        ///
+        /// Add.
         /// </summary>
-        /// <param name="contour"></param>
+        /// <param name="contour">The contour.</param>
         public void Add(PolycurveContour contour)
         {
             contours.Add(contour);
@@ -309,7 +308,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The reverse.
         /// </summary>
         public void Reverse()
         {
@@ -332,39 +331,39 @@ namespace Engine
         //    => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
-        ///
+        /// Clone.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Polycurve"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polycurve Clone()
             => new Polycurve(Contours.ToArray() as IEnumerable<PolycurveContour>);
 
         /// <summary>
-        ///
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{PolycurveContour}"/>.</returns>
         public IEnumerator<PolycurveContour> GetEnumerator()
             => contours.GetEnumerator();
 
         /// <summary>
-        ///
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
 
         /// <summary>
-        ///
+        /// Convert the to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Polycurve);
+            if (this is null) return nameof(Polycurve);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Polycurve)}{{{string.Join(sep.ToString(), Contours)}}}";
             return formatable.ToString(format, provider);

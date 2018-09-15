@@ -119,8 +119,8 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t) => new Point2D(
-            offset.X + ((2 * Sin(t)) * multiplyer.Width),
-            offset.Y + (((Cos(t) * (2 * ((2 + Cos(t)) / (3 + (Sin(t) * 2))))) * -1) * multiplyer.Height)
+            offset.X + (2 * Sin(t) * multiplyer.Width),
+            offset.Y + (Cos(t) * (2 * ((2 + Cos(t)) / (3 + (Sin(t) * 2)))) * -1 * multiplyer.Height)
         );
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Engine
         public override List<Point2D> InterpolatePoints(int count)
         {
             var points = new List<Point2D>();
-            for (var Index = (PI * -1); (Index <= PI); Index = (Index + (1d / count)))
+            for (var Index = PI * -1; Index <= PI; Index = Index + (1d / count))
                 points.Add(Interpolate(Index));
 
             return points;
@@ -152,7 +152,7 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Bicorn);
+            if (this is null) return nameof(Bicorn);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Bicorn)}{{{nameof(Offset)}={offset},{nameof(Multiplyer)}={multiplyer},{nameof(Precision)}={precision}}}";
             return formatable.ToString(format, provider);

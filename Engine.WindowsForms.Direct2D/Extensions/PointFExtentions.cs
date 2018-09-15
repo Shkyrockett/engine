@@ -18,7 +18,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The point f extentions class.
     /// </summary>
     public static class PointFExtentions
     {
@@ -269,7 +269,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Inflate(this PointF point, int factor)
-            => new PointF((point.X * factor), (point.Y * factor));
+            => new PointF(point.X * factor, point.Y * factor);
 
         /// <summary>
         /// Inflates a <see cref="PointF"/> by a given factor.
@@ -280,7 +280,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Inflate(this PointF point, float factor)
-            => new PointF((point.X * factor), (point.Y * factor));
+            => new PointF(point.X * factor, point.Y * factor);
 
         /// <summary>
         /// Inflates a <see cref="PointF"/> by a given factor.
@@ -302,7 +302,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Inflate(this PointF point, Point factors)
-            => new PointF((point.X * factors.X), (point.Y * factors.Y));
+            => new PointF(point.X * factors.X, point.Y * factors.Y);
 
         /// <summary>
         /// Inflates a <see cref="PointF"/> by a given factor.
@@ -313,7 +313,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Inflate(this PointF point, PointF factors)
-            => new PointF((point.X * factors.X), (point.Y * factors.Y));
+            => new PointF(point.X * factors.X, point.Y * factors.Y);
 
         /// <summary>
         /// Inflates a <see cref="PointF"/> by a given factor.
@@ -480,7 +480,7 @@ namespace Engine
         /// <returns>Returns a <see cref="Point"/> structure inflated by the factor provided.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Scale(float x, float y, float factor)
-            => new PointF((x * factor), (y * factor));
+            => new PointF(x * factor, y * factor);
 
         /// <summary>
         /// Inflates a <see cref="Point"/> by a given factor.
@@ -591,7 +591,7 @@ namespace Engine
         /// <returns></returns>
         /// <remarks></remarks>
         public static PointF Subtract(this PointF point, SizeF value)
-            => new PointF((point.X - value.Width), (point.Y - value.Height));
+            => new PointF(point.X - value.Width, point.Y - value.Height);
 
         /// <summary>
         /// Subtract Points

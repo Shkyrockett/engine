@@ -151,17 +151,17 @@ namespace Engine
         public Circle(Point2D PointA, Point2D PointB, Point2D PointC)
         {
             //  Calculate the slopes of the lines.
-            var slopeA = (PointA.Slope(PointB));
-            var slopeB = (PointC.Slope(PointB));
-            var f = new Vector2D(((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X))),
-                ((((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X))));
+            var slopeA = PointA.Slope(PointB);
+            var slopeB = PointC.Slope(PointB);
+            var f = new Vector2D((((PointC.X - PointB.X) * (PointC.X + PointB.X)) + ((PointC.Y - PointB.Y) * (PointC.Y + PointB.Y))) / (2 * (PointC.X - PointB.X)),
+                (((PointA.X - PointB.X) * (PointA.X + PointB.X)) + ((PointA.Y - PointB.Y) * (PointA.Y + PointB.Y))) / (2 * (PointA.X - PointB.X)));
 
             // Find the center.
             x = f.I - (slopeB * ((f.I - f.J) / (slopeB - slopeA)));
             y = (f.I - f.J) / (slopeB - slopeA);
 
             // Get the radius.
-            radius = (Center.Distance(PointA));
+            radius = Center.Distance(PointA);
         }
         #endregion Constructors
 
@@ -453,7 +453,7 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Circle);
+            if (this is null) return nameof(Circle);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Circle)}{{{nameof(X)}={x.ToString(format, provider)}{sep}{nameof(Y)}={y.ToString(format, provider)}{sep}{nameof(Radius)}={radius.ToString(format, provider)}}}";
         }

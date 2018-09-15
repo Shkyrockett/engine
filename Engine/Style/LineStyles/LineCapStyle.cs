@@ -166,7 +166,7 @@ namespace Engine
         /// A string representation of this LineStyle object.
         /// </returns>
         public string ConvertToString(string format, IFormatProvider provider)
-            //if (this == null)
+            //if (this is null)
             //    return nameof(GraphicsObject);
             => capPath.Definition;
     }

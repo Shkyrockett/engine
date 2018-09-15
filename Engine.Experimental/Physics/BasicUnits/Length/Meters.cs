@@ -359,7 +359,7 @@ namespace Engine.Physics
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
-            => (obj is ILength && Equals(this, (Meters)obj));
+            => obj is ILength && Equals(this, (Meters)obj);
 
         /// <summary>
         ///

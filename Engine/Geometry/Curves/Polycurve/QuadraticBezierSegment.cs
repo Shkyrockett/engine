@@ -36,7 +36,7 @@ namespace Engine
         /// <param name="previous"></param>
         /// <param name="relitive"></param>
         /// <param name="args"></param>
-        public QuadraticBezierSegment(CurveSegment previous, bool relitive, Double[] args)
+        public QuadraticBezierSegment(CurveSegment previous, bool relitive, double[] args)
             : this(previous, relitive, args.Length == 4 ? new Point2D[] { new Point2D(args[0], args[1]), new Point2D(args[2], args[3]) }
                 : args.Length == 2 ? new Point2D[] { new Point2D(args[0], args[1]) } : null)
         { }

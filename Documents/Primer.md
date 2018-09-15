@@ -13,7 +13,7 @@ An **equation** is a statement that sets of expressions are the same. The follow
 
 ### Solution
 
-A **Solution** is the result of an equation.
+A **Solution** is the result of a formula in an equation.
 
 ### Expression
 

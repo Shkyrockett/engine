@@ -27,41 +27,47 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// 
+        /// The x.
         /// </summary>
         private double x;
 
         /// <summary>
-        /// 
+        /// The y.
         /// </summary>
         private double y;
 
         /// <summary>
-        /// 
+        /// The h.
         /// </summary>
         private double h;
 
         /// <summary>
-        /// 
+        /// The v.
         /// </summary>
         private double v;
 
         /// <summary>
-        /// 
+        /// The r.
         /// </summary>
         private double r;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ParametricDelegateCurve"/> class.
         /// </summary>
         public ParametricDelegateCurve()
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ParametricDelegateCurve"/> class.
         /// </summary>
+        /// <param name="interpolater">The interpolater.</param>
+        /// <param name="pointIntersector">The pointIntersector.</param>
+        /// <param name="location">The location.</param>
+        /// <param name="scale">The scale.</param>
+        /// <param name="rotation">The rotation.</param>
+        /// <param name="precision">The precision.</param>
         public ParametricDelegateCurve(
             Func<double, double, double, double, double, double, Point2D> interpolater,
             Func<double, double, double, double, double, double, double, Inclusion> pointIntersector,
@@ -83,11 +89,11 @@ namespace Engine
         /// <summary>
         /// Deconstruct this <see cref="ParametricDelegateCurve"/> to a Tuple.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="h"></param>
-        /// <param name="v"></param>
-        /// <param name="r"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="r">The r.</param>
         public void Deconstruct(out double x, out double y, out double h, out double v, out double r)
         {
             x = this.x;
@@ -100,28 +106,28 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the interpolater.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         public Func<double, double, double, double, double, double, Point2D> Interpolater { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the point intersector.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         public Func<double, double, double, double, double, double, double, Inclusion> PointIntersector { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the x.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(false)]
-        public Double X
+        public double X
         {
             get { return x; }
             set
@@ -133,14 +139,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the y.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(false)]
-        public Double Y
+        public double Y
         {
             get { return y; }
             set
@@ -152,7 +158,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the location.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Adjustments")]
@@ -175,14 +181,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the width.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(false)]
-        public Double Width
+        public double Width
         {
             get { return h; }
             set
@@ -194,14 +200,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the height.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
         [Browsable(false)]
-        public Double Height
+        public double Height
         {
             get { return v; }
             set
@@ -213,7 +219,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the scale.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Adjustments")]
@@ -235,7 +241,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the rotation.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         [GeometryAngleRadians]
@@ -258,7 +264,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the precision.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         [Category("Adjustments")]
@@ -270,7 +276,7 @@ namespace Engine
         public double Precision { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -280,7 +286,7 @@ namespace Engine
         {
             get
             {
-                var points = (InterpolatePoints(100));
+                var points = InterpolatePoints(100);
                 if (points?.Count < 1)
                     return null;
 
@@ -349,59 +355,59 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => Interpolate(Interpolater, x, y, h, v, r, t);
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="function"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="w"></param>
-        /// <param name="h"></param>
-        /// <param name="a"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="function">The function.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public static Point2D Interpolate(Func<double, double, double, double, double, double, Point2D> function, double x, double y, double w, double h, double a, double t)
             => function.Invoke(x, y, w, h, a, t);
 
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
             => Contains(PointIntersector, x, y, h, v, r, point.X, point.Y) != Inclusion.Outside;
 
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="function"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="w"></param>
-        /// <param name="h"></param>
-        /// <param name="a"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
+        /// <param name="function">The function.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="pX">The pX.</param>
+        /// <param name="pY">The pY.</param>
+        /// <returns>The <see cref="Inclusion"/>.</returns>
         public static Inclusion Contains(Func<double, double, double, double, double, double, double, Inclusion> function, double x, double y, double w, double h, double a, double pX, double pY)
             => (function != null) ? function.Invoke(x, y, w, h, a, pX, pY) : Inclusion.Outside;
 
         /// <summary>
-        /// 
+        /// Convert the to string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
+            if (this is null)
                 return nameof(ParametricDelegateCurve);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(ParametricDelegateCurve)}{{{nameof(Location)}={Location},{nameof(Scale)}={Scale},{nameof(Precision)}={Precision}}}";

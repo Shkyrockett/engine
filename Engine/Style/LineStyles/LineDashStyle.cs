@@ -103,7 +103,7 @@ namespace Engine
         //    set
         //    {
         //        dashPattern = value;
-        //        if (dashPattern == null) dashStyle = DashStyle.Solid;
+        //        if (dashPattern is null) dashStyle = DashStyle.Solid;
         //        else if (dashPattern == Solid.dashPattern) dashStyle = DashStyle.Solid;
         //        else if (dashPattern == Dot.dashPattern) dashStyle = DashStyle.Dot;
         //        else if (dashPattern == Dash.dashPattern) dashStyle = DashStyle.Dash;
@@ -178,7 +178,7 @@ namespace Engine
         /// </returns>
         public string ConvertToString(string format, IFormatProvider provider)
         {
-            //if (this == null)
+            //if (this is null)
             //    return nameof(GraphicsObject);
             var output = new StringBuilder();
             foreach (var item in dashPattern)

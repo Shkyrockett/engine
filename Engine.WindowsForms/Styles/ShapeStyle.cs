@@ -76,7 +76,7 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The property changed event arguments.</param>
-        private void PropertyChanged_Event(Object sender, PropertyChangedEventArgs e)
+        private void PropertyChanged_Event(object sender, PropertyChangedEventArgs e)
             => BuildPen();
 
         #region Destructors

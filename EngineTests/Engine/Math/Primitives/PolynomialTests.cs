@@ -100,7 +100,7 @@ namespace EngineTests
 
             foreach (var test in cases)
             {
-                Assert.AreEqual(test.Value.Count, (test.Key.Trim()).Count);
+                Assert.AreEqual(test.Value.Count, test.Key.Trim().Count);
                 Assert.AreEqual(test.Value, test.Key.Trim());
             }
         }

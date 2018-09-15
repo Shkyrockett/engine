@@ -34,7 +34,7 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// 
+        /// The handles.
         /// </summary>
         private Point2D[] handles;
         #endregion Fields
@@ -111,19 +111,19 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public void Deconstruct(out Point2D[] points)
             => points = handles;
         #endregion Deconstructors
 
         #region Indexers
         /// <summary>
-        /// 
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type Point2D.</returns>
         public Point2D this[int index]
         {
             get { return handles[index]; }
@@ -153,7 +153,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the handles.
         /// </summary>
         [XmlArray]
         [RefreshProperties(RefreshProperties.All)]
@@ -171,7 +171,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the points.
         /// </summary>
         [XmlArray]
         [RefreshProperties(RefreshProperties.All)]
@@ -189,7 +189,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D? NextToEnd
@@ -203,7 +203,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Point2D? End
@@ -213,9 +213,8 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
-        /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -224,14 +223,14 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
-        /// 
+        /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length
             => (double)CachingProperty(() => this.Length());
 
         /// <summary>
-        /// 
+        /// Gets the curve x.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
@@ -245,7 +244,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the curve y.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
@@ -259,11 +258,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the degree.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
-            => (PolynomialDegree)(Handles.Length);
+            => (PolynomialDegree)Handles.Length;
         #endregion Properties
 
         //#region Serialization
@@ -326,7 +325,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(BezierSegmentX);
+            if (this is null) return nameof(BezierSegmentX);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(BezierSegmentX)}{{{string.Join(sep.ToString(), handles)}}}";
             return formatable.ToString(format, provider);

@@ -443,15 +443,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Adjoint(this Matrix3x3D source)
             => new Matrix3x3D(
-                (source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1),
-                (-(source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1)),
-                (source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1),
-                (-(source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0)),
-                (source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0),
-                (-(source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0)),
-                (source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0),
-                (-(source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0)),
-                (source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0));
+                source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1,
+                -(source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1),
+                source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1,
+                -(source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0),
+                source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0,
+                -(source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0),
+                source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0,
+                -(source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0),
+                source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0);
 
         /// <summary>
         /// Used to generate the adjoint of this matrix.
@@ -462,47 +462,47 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Adjoint(this Matrix4x4D source)
         {
-            var m22m33m32m23 = (source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3);
-            var m21m33m31m23 = (source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3);
-            var m21m32m31m22 = (source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2);
+            var m22m33m32m23 = source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3;
+            var m21m33m31m23 = source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3;
+            var m21m32m31m22 = source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2;
 
-            var m12m33m32m13 = (source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3);
-            var m11m33m31m13 = (source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3);
-            var m11m32m31m12 = (source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2);
+            var m12m33m32m13 = source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3;
+            var m11m33m31m13 = source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3;
+            var m11m32m31m12 = source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2;
 
-            var m12m23m22m13 = (source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3);
-            var m11m23m21m13 = (source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3);
-            var m11m22m21m12 = (source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2);
+            var m12m23m22m13 = source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3;
+            var m11m23m21m13 = source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3;
+            var m11m22m21m12 = source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2;
 
-            var m20m33m30m23 = (source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3);
-            var m20m32m30m22 = (source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2);
-            var m10m33m30m13 = (source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3);
+            var m20m33m30m23 = source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3;
+            var m20m32m30m22 = source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2;
+            var m10m33m30m13 = source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3;
 
-            var m10m32m30m12 = (source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2);
-            var m10m23m20m13 = (source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3);
-            var m10m22m20m12 = (source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2);
+            var m10m32m30m12 = source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2;
+            var m10m23m20m13 = source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3;
+            var m10m22m20m12 = source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2;
 
-            var m20m31m30m21 = (source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1);
-            var m10m31m30m11 = (source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1);
-            var m10m21m20m11 = (source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1);
+            var m20m31m30m21 = source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1;
+            var m10m31m30m11 = source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1;
+            var m10m21m20m11 = source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1;
 
             return new Matrix4x4D(
-                (source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22),
-                (-(source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22)),
-                (source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12),
-                (-(source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12)),
-                (-(source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22)),
-                (source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22),
-                (-(source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12)),
-                (source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12),
-                (source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21),
-                (-(source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21)),
-                (source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21),
-                (-(source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11)),
-                (-(source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21)),
-                (source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21),
-                (-(source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11)),
-                (source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11));
+                source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22,
+                -(source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22),
+                source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12,
+                -(source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12),
+                -(source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22),
+                source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22,
+                -(source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12),
+                source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12,
+                source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21,
+                -(source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21),
+                source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21,
+                -(source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11),
+                -(source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21),
+                source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21,
+                -(source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11),
+                source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11);
         }
         #endregion Adjoint
 
@@ -653,15 +653,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Cofactor(this Matrix3x3D source)
             => new Matrix3x3D(
-                (-(source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1)),
-                ((source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1)),
-                (-(source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1)),
-                ((source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0)),
-                (-(source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0)),
-                ((source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0)),
-                (-(source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0)),
-                ((source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0)),
-                (-(source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0)));
+                -(source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1),
+                source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1,
+                -(source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1),
+                source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0,
+                -(source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0),
+                source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0,
+                -(source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0),
+                source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0,
+                -(source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0));
 
         /// <summary>
         /// The cofactor.
@@ -672,46 +672,46 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Cofactor(this Matrix4x4D source)
         {
-            var m22m33m32m23 = (source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3);
-            var m21m33m31m23 = (source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3);
-            var m21m32m31m22 = (source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2);
-            var m12m33m32m13 = (source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3);
+            var m22m33m32m23 = source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3;
+            var m21m33m31m23 = source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3;
+            var m21m32m31m22 = source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2;
+            var m12m33m32m13 = source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3;
 
-            var m11m33m31m13 = (source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3);
-            var m11m32m31m12 = (source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2);
-            var m12m23m22m13 = (source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3);
-            var m11m23m21m13 = (source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3);
+            var m11m33m31m13 = source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3;
+            var m11m32m31m12 = source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2;
+            var m12m23m22m13 = source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3;
+            var m11m23m21m13 = source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3;
 
-            var m11m22m21m12 = (source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2);
-            var m20m33m30m23 = (source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3);
-            var m20m32m30m22 = (source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2);
-            var m10m33m30m13 = (source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3);
+            var m11m22m21m12 = source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2;
+            var m20m33m30m23 = source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3;
+            var m20m32m30m22 = source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2;
+            var m10m33m30m13 = source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3;
 
-            var m10m32m30m12 = (source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2);
-            var m10m23m20m13 = (source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3);
-            var m10m22m20m12 = (source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2);
-            var m20m31m30m21 = (source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1);
+            var m10m32m30m12 = source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2;
+            var m10m23m20m13 = source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3;
+            var m10m22m20m12 = source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2;
+            var m20m31m30m21 = source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1;
 
-            var m10m31m30m11 = (source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1);
-            var m10m21m20m11 = (source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1);
+            var m10m31m30m11 = source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1;
+            var m10m21m20m11 = source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1;
 
             return new Matrix4x4D(
-                (-(source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22)),
-                ((source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22)),
-                (-(source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12)),
-                ((source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12)),
-                ((source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22)),
-                (-(source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22)),
-                ((source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12)),
-                (-(source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12)),
-                (-(source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21)),
-                ((source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21)),
-                (-(source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21)),
-                ((source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11)),
-                ((source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21)),
-                (-(source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21)),
-                ((source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11)),
-                (-(source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11)));
+                -(source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22),
+                source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22,
+                -(source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12),
+                source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12,
+                source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22,
+                -(source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22),
+                source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12,
+                -(source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12),
+                -(source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21),
+                source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21,
+                -(source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21),
+                source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11,
+                source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21,
+                -(source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21),
+                source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11,
+                -(source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11));
 
         }
         #endregion Cofactor
@@ -727,10 +727,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Concatenate(this QuaternionD a, QuaternionD b)
             => new QuaternionD(
-                ((b.X * a.W) + (a.X * b.W)) + ((b.Y * a.Z) - (b.Z * a.Y)),
-                ((b.Y * a.W) + (a.Y * b.W)) + ((b.Z * a.X) - (b.X * a.Z)),
-                ((b.Z * a.W) + (a.Z * b.W)) + ((b.X * a.Y) - (b.Y * a.X)),
-                (b.W * a.W) - (((b.X * a.X) + (b.Y * a.Y)) + (b.Z * a.Z)));
+                (b.X * a.W) + (a.X * b.W) + ((b.Y * a.Z) - (b.Z * a.Y)),
+                (b.Y * a.W) + (a.Y * b.W) + ((b.Z * a.X) - (b.X * a.Z)),
+                (b.Z * a.W) + (a.Z * b.W) + ((b.X * a.Y) - (b.Y * a.X)),
+                (b.W * a.W) - ((b.X * a.X) + (b.Y * a.Y) + (b.Z * a.Z)));
         #endregion Concatenate
 
         #region Conjugate
@@ -1063,7 +1063,7 @@ namespace Engine
             var y = quaternion1.Y;
             var z = quaternion1.Z;
             var w = quaternion1.W;
-            var num14 = (((quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y)) + (quaternion2.Z * quaternion2.Z)) + (quaternion2.W * quaternion2.W);
+            var num14 = (quaternion2.X * quaternion2.X) + (quaternion2.Y * quaternion2.Y) + (quaternion2.Z * quaternion2.Z) + (quaternion2.W * quaternion2.W);
             var num5 = 1f / num14;
             var num4 = -quaternion2.X * num5;
             var num3 = -quaternion2.Y * num5;
@@ -1072,11 +1072,11 @@ namespace Engine
             var num13 = (y * num2) - (z * num3);
             var num12 = (z * num4) - (x * num2);
             var num11 = (x * num3) - (y * num4);
-            var num10 = ((x * num4) + (y * num3)) + (z * num2);
+            var num10 = (x * num4) + (y * num3) + (z * num2);
             return new QuaternionD(
-                ((x * num) + (num4 * w)) + num13,
-                ((y * num) + (num3 * w)) + num12,
-                ((z * num) + (num2 * w)) + num11,
+                (x * num) + (num4 * w) + num13,
+                (y * num) + (num3 * w) + num12,
+                (z * num) + (num2 * w) + num11,
                 (w * num) - num10);
         }
         #endregion Divide
@@ -1183,7 +1183,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this QuaternionD quaternion1, QuaternionD quaternion2)
-            => ((((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W));
+            => (quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y) + (quaternion1.Z * quaternion2.Z) + (quaternion1.W * quaternion2.W);
         #endregion Dot Product
 
         #region Exponent
@@ -1237,7 +1237,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(this Point2D point1, Point2D point2)
-            => (point1.X == point2.X && point1.Y == point2.Y);
+            => point1.X == point2.X && point1.Y == point2.Y;
 
         /// <summary>
         /// The equals.
@@ -1248,7 +1248,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(this Vector2D point1, Vector2D point2)
-            => (point1.I == point2.I && point1.J == point2.J);
+            => point1.I == point2.I && point1.J == point2.J;
         #endregion Equals
 
         #region Greater Than
@@ -1261,7 +1261,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this Point2D point1, Point2D point2)
-            => (point1.X > point2.X && point1.Y > point2.Y);
+            => point1.X > point2.X && point1.Y > point2.Y;
 
         /// <summary>
         /// The greater than.
@@ -1272,7 +1272,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThan(this Vector2D point1, Vector2D point2)
-            => (point1.I > point2.I && point1.J > point2.J);
+            => point1.I > point2.I && point1.J > point2.J;
         #endregion Greater Than
 
         #region Greater Than or Equal To
@@ -1285,7 +1285,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrEqual(this (double X, double Y) point1, (double X, double Y) point2)
-            => (point1.X >= point2.X && point1.Y >= point2.Y);
+            => point1.X >= point2.X && point1.Y >= point2.Y;
 
         /// <summary>
         /// The greater than or equal.
@@ -1296,7 +1296,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrEqual(this Point2D point1, Point2D point2)
-            => (point1.X >= point2.X && point1.Y >= point2.Y);
+            => point1.X >= point2.X && point1.Y >= point2.Y;
 
         /// <summary>
         /// The greater than o equal.
@@ -1307,7 +1307,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOEqual(this Vector2D point1, Vector2D point2)
-            => (point1.I >= point2.I && point1.J >= point2.J);
+            => point1.I >= point2.I && point1.J >= point2.J;
         #endregion Greater Than or Equal To
 
         #region Inflate
@@ -1453,7 +1453,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(float x, float y)
-            => new Vector2D((1 / x), (1 / y));
+            => new Vector2D(1 / x, 1 / y);
 
         /// <summary>
         /// Inverts a Vector.
@@ -1463,7 +1463,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(double x, double y)
-            => new Vector2D((1 / x), (1 / y));
+            => new Vector2D(1 / x, 1 / y);
 
         ///// <summary>
         ///// Inverts a Vector.
@@ -1495,7 +1495,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Invert(QuaternionD quaternion)
         {
-            var normal = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
+            var normal = (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) + (quaternion.Z * quaternion.Z) + (quaternion.W * quaternion.W);
             if (normal == 0d) return QuaternionD.Empty;
             var inverseNormal = 1f / normal;
             return new QuaternionD(
@@ -1532,18 +1532,18 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Invert(this Matrix3x3D source)
         {
-            var m11m22m12m21 = (source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1);
-            var m10m22m12m20 = (source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0);
-            var m10m21m11m20 = (source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0);
-            var detInv = 1 / (source.M0x0 * (m11m22m12m21) - source.M0x1 * (m10m22m12m20) + source.M0x2 * (m10m21m11m20));
+            var m11m22m12m21 = source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1;
+            var m10m22m12m20 = source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0;
+            var m10m21m11m20 = source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0;
+            var detInv = 1 / (source.M0x0 * m11m22m12m21 - source.M0x1 * m10m22m12m20 + source.M0x2 * m10m21m11m20);
             return new Matrix3x3D(
-                detInv * (m11m22m12m21),
+                detInv * m11m22m12m21,
                 detInv * (-(source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1)),
                 detInv * (source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1),
-                detInv * (-(m10m22m12m20)),
+                detInv * (-m10m22m12m20),
                 detInv * (source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0),
                 detInv * (-(source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0)),
-                detInv * (m10m21m11m20),
+                detInv * m10m21m11m20,
                 detInv * (-(source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0)),
                 detInv * (source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0));
         }
@@ -1557,29 +1557,29 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Invert(this Matrix4x4D source)
         {
-            var m22m33m32m23 = (source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3);
-            var m21m33m31m23 = (source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3);
-            var m21m32m31m22 = (source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2);
+            var m22m33m32m23 = source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3;
+            var m21m33m31m23 = source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3;
+            var m21m32m31m22 = source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2;
 
-            var m12m33m32m13 = (source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3);
-            var m11m33m31m13 = (source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3);
-            var m11m32m31m12 = (source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2);
+            var m12m33m32m13 = source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3;
+            var m11m33m31m13 = source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3;
+            var m11m32m31m12 = source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2;
 
-            var m12m23m22m13 = (source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3);
-            var m11m23m21m13 = (source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3);
-            var m11m22m21m12 = (source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2);
+            var m12m23m22m13 = source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3;
+            var m11m23m21m13 = source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3;
+            var m11m22m21m12 = source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2;
 
-            var m20m33m30m23 = (source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3);
-            var m20m32m30m22 = (source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2);
-            var m10m33m30m13 = (source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3);
+            var m20m33m30m23 = source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3;
+            var m20m32m30m22 = source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2;
+            var m10m33m30m13 = source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3;
 
-            var m10m32m30m12 = (source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2);
-            var m10m23m20m13 = (source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3);
-            var m10m22m20m12 = (source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2);
+            var m10m32m30m12 = source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2;
+            var m10m23m20m13 = source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3;
+            var m10m22m20m12 = source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2;
 
-            var m20m31m30m21 = (source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1);
-            var m10m31m30m11 = (source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1);
-            var m10m21m20m11 = (source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1);
+            var m20m31m30m21 = source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1;
+            var m10m31m30m11 = source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1;
+            var m10m21m20m11 = source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1;
 
 
             var detInv = 1 /
@@ -1618,7 +1618,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this Point2D point1, Point2D point2)
-            => (point1.X < point2.X && point1.Y < point2.Y);
+            => point1.X < point2.X && point1.Y < point2.Y;
 
         /// <summary>
         /// The less than.
@@ -1629,7 +1629,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this Vector2D point1, Vector2D point2)
-            => (point1.I < point2.I && point1.J < point2.J);
+            => point1.I < point2.I && point1.J < point2.J;
         #endregion Less Than
 
         #region Less Than or Equal To
@@ -1642,7 +1642,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this (double X, double Y) point1, (double X, double Y) point2)
-            => (point1.X <= point2.X && point1.Y <= point2.Y);
+            => point1.X <= point2.X && point1.Y <= point2.Y;
 
         /// <summary>
         /// The less than or equal.
@@ -1653,7 +1653,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this Point2D point1, Point2D point2)
-            => (point1.X <= point2.X && point1.Y <= point2.Y);
+            => point1.X <= point2.X && point1.Y <= point2.Y;
 
         /// <summary>
         /// The less than or equal.
@@ -1664,7 +1664,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this Vector2D point1, Vector2D point2)
-            => (point1.I <= point2.I && point1.J <= point2.J);
+            => point1.I <= point2.I && point1.J <= point2.J;
         #endregion Less Than or Equal To
 
         #region Linear Interpolation
@@ -1718,7 +1718,7 @@ namespace Engine
             var num = amount;
             var num2 = 1f - num;
             var quaternion = new QuaternionD();
-            var num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            var num5 = (quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y) + (quaternion1.Z * quaternion2.Z) + (quaternion1.W * quaternion2.W);
             if (num5 >= 0f)
             {
                 quaternion.X = (num2 * quaternion1.X) + (num * quaternion2.X);
@@ -1733,7 +1733,7 @@ namespace Engine
                 quaternion.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
                 quaternion.W = (num2 * quaternion1.W) - (num * quaternion2.W);
             }
-            var num4 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
+            var num4 = (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) + (quaternion.Z * quaternion.Z) + (quaternion.W * quaternion.W);
             var num3 = 1f / Sqrt(num4);
             quaternion.X *= num3;
             quaternion.Y *= num3;
@@ -1787,22 +1787,22 @@ namespace Engine
 
         #region Max
         /// <summary>
-        ///
+        /// The max.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Max(this Point2D point1, Point2D point2)
             => new Point2D(Math.Max(point1.X, point2.X), Math.Max(point1.Y, point2.Y));
 
         /// <summary>
-        ///
+        /// The max.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Max(this Vector2D point1, Vector2D point2)
@@ -1811,22 +1811,22 @@ namespace Engine
 
         #region Min
         /// <summary>
-        ///
+        /// The min.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Min(this Point2D point1, Point2D point2)
             => new Point2D(Math.Min(point1.X, point2.X), Math.Min(point1.Y, point2.Y));
 
         /// <summary>
-        ///
+        /// The min.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Min(this Vector2D point1, Vector2D point2)
@@ -2040,11 +2040,11 @@ namespace Engine
             var num12 = (y * num2) - (z * num3);
             var num11 = (z * num4) - (x * num2);
             var num10 = (x * num3) - (y * num4);
-            var num9 = ((x * num4) + (y * num3)) + (z * num2);
+            var num9 = (x * num4) + (y * num3) + (z * num2);
             return new QuaternionD(
-                ((x * num) + (num4 * w)) + num12,
-                ((y * num) + (num3 * w)) + num11,
-                ((z * num) + (num2 * w)) + num10,
+                (x * num) + (num4 * w) + num12,
+                (y * num) + (num3 * w) + num11,
+                (z * num) + (num2 * w) + num10,
                 (w * num) - num9);
         }
         #endregion Multiply
@@ -2159,7 +2159,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static QuaternionD Normalize(this QuaternionD quaternion)
         {
-            var num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
+            var num2 = (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) + (quaternion.Z * quaternion.Z) + (quaternion.W * quaternion.W);
             var num = 1f / Sqrt(num2);
             return new QuaternionD(
                 quaternion.X * num,
@@ -2255,7 +2255,6 @@ namespace Engine
             //        );
             //}
             => Maths.Reflect(segment.AX, segment.AY, segment.BX, segment.BY, axis.X, axis.Y);
-
         #endregion Reflect
 
         #region Remove At
@@ -2558,7 +2557,7 @@ namespace Engine
             double num2;
             double num3;
             var num = amount;
-            var num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            var num4 = (quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y) + (quaternion1.Z * quaternion2.Z) + (quaternion1.W * quaternion2.W);
             var flag = false;
             if (num4 < 0d)
             {
@@ -3058,25 +3057,31 @@ namespace Engine
         #endregion Unit
 
         /// <summary>
+        /// The cross product.
+        /// </summary>
+        /// <param name="O">The O.</param>
+        /// <param name="A">The A.</param>
+        /// <param name="B">The B.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <remarks>
         /// http://jwezorek.com/2017/09/basic-convex-hull-in-c/
         /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
-        /// </summary>
-        /// <param name="O"></param>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <returns></returns>
+        /// </remarks>
         public static double CrossProduct(Point2D O, Point2D A, Point2D B)
             => (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);
 
         /// <summary>
+        /// Get the convex hull.
+        /// </summary>
+        /// <param name="points">The points.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <remarks>
         /// http://jwezorek.com/2017/09/basic-convex-hull-in-c/
         /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
-        /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
+        /// </remarks>
         public static List<Point2D> GetConvexHull(this List<Point2D> points)
         {
-            if (points == null)
+            if (points is null)
                 return null;
 
             if (points.Count <= 1)

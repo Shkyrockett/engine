@@ -323,8 +323,8 @@ namespace Engine
         /// <summary>
         /// The to path def string.
         /// </summary>
-        /// <returns>The <see cref="String"/>.</returns>
-        private String ToPathDefString()
+        /// <returns>The <see cref="string"/>.</returns>
+        private string ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
@@ -332,8 +332,8 @@ namespace Engine
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="String"/>.</returns>
-        private String ToPathDefString(string format, IFormatProvider provider)
+        /// <returns>The <see cref="string"/>.</returns>
+        private string ToPathDefString(string format, IFormatProvider provider)
         {
             var output = new StringBuilder();
 
@@ -440,7 +440,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Polygon);
+            if (this is null) return nameof(Polygon);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Polygon)}{{{string.Join(sep.ToString(), Contours)}}}";
             return formatable.ToString(format, provider);

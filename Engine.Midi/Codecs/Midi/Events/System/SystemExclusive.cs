@@ -35,10 +35,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SystemExclusive"/> class.
         /// </summary>
-        /// <param name="exclusive"></param>
-        /// <param name="status"></param>
+        /// <param name="exclusive">The exclusive.</param>
+        /// <param name="status">The status.</param>
         public SystemExclusive(byte[] exclusive, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -51,17 +51,17 @@ namespace Engine.File
         public byte[] Exclusive { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
         /// <param name="sysExContinue">A flag indicating whether we're in a multi-segment system exclusive message.</param>
         /// <param name="sysExData">system exclusive data up to this point from a multi-segment message.</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="SystemExclusive"/>.</returns>
         internal static SystemExclusive Read(BinaryReaderExtended reader, EventStatus status, ref bool sysExContinue, ref byte[] sysExData)
         {
             var buffer = reader.ReadVariableLengthBytes();
-            if (sysExData == null) sysExData = new byte[0];
+            if (sysExData is null) sysExData = new byte[0];
             if (buffer.Length == 0)
             {
                 return null;

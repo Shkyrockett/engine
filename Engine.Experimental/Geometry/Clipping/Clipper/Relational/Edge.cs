@@ -112,11 +112,11 @@ namespace Engine.Experimental
                     e = e.NextInAEL;
                 }
 
-                if (e == null)
+                if (e is null)
                 {
                     return null;
                 }
-                if ((e.OutRec.Flag == OutrecFlag.Outer) == (e.OutRec.StartEdge == e))
+                if (e.OutRec.Flag == OutrecFlag.Outer == (e.OutRec.StartEdge == e))
                 {
                     return e.OutRec.Owner;
                 }
@@ -128,11 +128,11 @@ namespace Engine.Experimental
                 e = e.PrevInAEL;
             }
 
-            if (e == null)
+            if (e is null)
             {
                 return null;
             }
-            if ((e.OutRec.Flag == OutrecFlag.Outer) == (e.OutRec.EndEdge == e))
+            if (e.OutRec.Flag == OutrecFlag.Outer == (e.OutRec.EndEdge == e))
             {
                 return e.OutRec.Owner;
             }
@@ -144,7 +144,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <returns>The <see cref="LinkedPoint"/>.</returns>
         public LinkedPoint GetOutPt()
-            => (IsStartSide()) ? OutRec.Points : OutRec.Points.Next;
+            => IsStartSide() ? OutRec.Points : OutRec.Points.Next;
 
         /// <summary>
         /// Get the left adjacent hot edge.
@@ -235,7 +235,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <returns>The <see cref="Vertex"/>.</returns>
         public Vertex NextVertex()
-            => (WindDx > 0 ? VertTop.NextVertex : VertTop.PreviousVertex);
+            => WindDx > 0 ? VertTop.NextVertex : VertTop.PreviousVertex;
 
         /// <summary>
         /// Reset the horz direction.
@@ -277,8 +277,8 @@ namespace Engine.Experimental
         /// </summary>
         public void SetDx()
         {
-            var dy = (Top.Y - Bot.Y);
-            Dx = (dy == 0 ? horizontal : (Top.X - Bot.X) / dy);
+            var dy = Top.Y - Bot.Y;
+            Dx = dy == 0 ? horizontal : (Top.X - Bot.X) / dy;
         }
         #endregion Setters
 
@@ -379,7 +379,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <returns>The <see cref="bool"/>.</returns>
         public bool IsStartSide()
-            => (this == OutRec.StartEdge);
+            => this == OutRec.StartEdge;
 
         /// <summary>
         /// The is horizontal.
@@ -401,7 +401,7 @@ namespace Engine.Experimental
         /// <param name="e2">The e2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         public bool IsSamePathType(Edge e2)
-            => (LocalMin.ClippingRelation == e2.LocalMin.ClippingRelation);
+            => LocalMin.ClippingRelation == e2.LocalMin.ClippingRelation;
         #endregion Queries
 
         /// <summary>

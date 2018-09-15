@@ -50,7 +50,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Root(double x, double y)
-            => (x < 0d && Math.Abs(y % 2d - 1d) < Epsilon) ? -Pow(-x, (1d / y)) : Pow(x, (1d / y));
+            => (x < 0d && Math.Abs(y % 2d - 1d) < Epsilon) ? -Pow(-x, 1d / y) : Pow(x, 1d / y);
 
         /// <summary>
         /// Cube root equivalent of the sqrt function. (note that there are actually
@@ -269,7 +269,7 @@ namespace Engine
             switch (DegreeRealOrder(coefficients))
             {
                 case PolynomialDegree.Constant:
-                    if (coefficients == null)
+                    if (coefficients is null)
                     {
                         return Array.Empty<double>();
                     }
@@ -595,7 +595,7 @@ namespace Engine
             //  copy into working array
             for (var i = 0; i <= n; i++)
             {
-                a_[(a_.Count - 1) - i] = coeff[i];
+                a_[a_.Count - 1 - i] = coeff[i];
             }
 
             // initialize root counter
@@ -857,7 +857,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial CubicBezierCoefficientsStack(double a, double b, double c, double d)
-            => (Polynomial.OneMinusT * QuadraticBezierCoefficientsStack(a, b, c) + Polynomial.T * QuadraticBezierCoefficientsStack(b, c, d));
+            => Polynomial.OneMinusT * QuadraticBezierCoefficientsStack(a, b, c) + Polynomial.T * QuadraticBezierCoefficientsStack(b, c, d);
 
         /// <summary>
         /// Coefficients for a Cubic Bézier curve.
@@ -897,7 +897,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial QuarticBezierCoefficientsStack(double a, double b, double c, double d, double e)
-            => (Polynomial.OneMinusT * CubicBezierCoefficientsStack(a, b, c, d) + Polynomial.T * CubicBezierCoefficientsStack(b, c, d, e));
+            => Polynomial.OneMinusT * CubicBezierCoefficientsStack(a, b, c, d) + Polynomial.T * CubicBezierCoefficientsStack(b, c, d, e);
 
         /// <summary>
         /// Coefficients for a Quartic Bézier curve.
@@ -938,7 +938,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial QuinticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f)
-            => (Polynomial.OneMinusT * QuarticBezierCoefficientsStack(a, b, c, d, e) + Polynomial.T * QuarticBezierCoefficientsStack(b, c, d, e, f));
+            => Polynomial.OneMinusT * QuarticBezierCoefficientsStack(a, b, c, d, e) + Polynomial.T * QuarticBezierCoefficientsStack(b, c, d, e, f);
 
         /// <summary>
         /// Coefficients for a Quintic Bézier curve.
@@ -982,7 +982,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial SexticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g)
-            => (Polynomial.OneMinusT * QuinticBezierCoefficientsStack(a, b, c, d, e, f) + Polynomial.T * QuinticBezierCoefficientsStack(b, c, d, e, f, g));
+            => Polynomial.OneMinusT * QuinticBezierCoefficientsStack(a, b, c, d, e, f) + Polynomial.T * QuinticBezierCoefficientsStack(b, c, d, e, f, g);
 
         /// <summary>
         /// Coefficients for a Septic Bézier curve.
@@ -1003,7 +1003,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial SepticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h)
-            => (Polynomial.OneMinusT * SexticBezierCoefficientsStack(a, b, c, d, e, f, g) + Polynomial.T * SexticBezierCoefficientsStack(b, c, d, e, f, g, h));
+            => Polynomial.OneMinusT * SexticBezierCoefficientsStack(a, b, c, d, e, f, g) + Polynomial.T * SexticBezierCoefficientsStack(b, c, d, e, f, g, h);
 
         /// <summary>
         /// Coefficients for a Octic Bézier curve.
@@ -1025,7 +1025,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial OcticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i)
-            => (Polynomial.OneMinusT * SepticBezierCoefficientsStack(a, b, c, d, e, f, g, h) + Polynomial.T * SepticBezierCoefficientsStack(b, c, d, e, f, g, h, i));
+            => Polynomial.OneMinusT * SepticBezierCoefficientsStack(a, b, c, d, e, f, g, h) + Polynomial.T * SepticBezierCoefficientsStack(b, c, d, e, f, g, h, i);
 
         /// <summary>
         /// Coefficients for a Nonic Bézier curve.
@@ -1048,7 +1048,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial NonicBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
-            => (Polynomial.OneMinusT * OcticBezierCoefficientsStack(a, b, c, d, e, f, g, h, i) + Polynomial.T * OcticBezierCoefficientsStack(b, c, d, e, f, g, h, i, j));
+            => Polynomial.OneMinusT * OcticBezierCoefficientsStack(a, b, c, d, e, f, g, h, i) + Polynomial.T * OcticBezierCoefficientsStack(b, c, d, e, f, g, h, i, j);
 
         /// <summary>
         /// Coefficients for a Decic Bézier curve.
@@ -1072,7 +1072,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial DecicBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
-            => (Polynomial.OneMinusT * NonicBezierCoefficientsStack(a, b, c, d, e, f, g, h, i, j) + Polynomial.T * NonicBezierCoefficientsStack(b, c, d, e, f, g, h, i, j, k));
+            => Polynomial.OneMinusT * NonicBezierCoefficientsStack(a, b, c, d, e, f, g, h, i, j) + Polynomial.T * NonicBezierCoefficientsStack(b, c, d, e, f, g, h, i, j, k);
         #endregion Bézier Coefficients
 
         /// <summary>
@@ -1106,7 +1106,7 @@ namespace Engine
             var x = x0;
             const int ACCURACY = 14;
             var min_correction_factor = Pow(10, -ACCURACY);
-            var isBounded = (min != null && max != null);
+            var isBounded = min != null && max != null;
             if (isBounded)
             {
                 if (min > max)
@@ -1122,7 +1122,7 @@ namespace Engine
                 // stop if correction is too small
                 // or if correction is in simple loop
                 return (Math.Abs(x_correction) <= min_correction_factor * Math.Abs(x))
-                    || (prev_x_ef_correction == (x - x_correction) - x);
+                    || (prev_x_ef_correction == x - x_correction - x);
             }
             var i = 0;
             //var stepMethod;

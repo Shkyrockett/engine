@@ -37,7 +37,7 @@ namespace Engine
         /// <exception cref="ArgumentNullException"></exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType == null)
+            if (destinationType is null)
             {
                 throw new ArgumentNullException(nameof(destinationType));
             }
@@ -60,7 +60,7 @@ namespace Engine
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             var list = value as IList;
-            if (list == null || list.Count == 0)
+            if (list is null || list.Count == 0)
                 return base.GetProperties(context, value, attributes);
 
             var propertyDescriptors = new PropertyDescriptorCollection(null);

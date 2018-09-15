@@ -29,7 +29,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this == null) return nameof(Gear);
+            if (this is null) return nameof(Gear);
             return string.Format("{0}", nameof(Gear));
         }
     }

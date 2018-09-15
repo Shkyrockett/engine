@@ -372,8 +372,8 @@ namespace Engine
                 var bp = new List<(double x, double y)>
                 {
                     (p[1].x,  p[1].y),
-                    (((-p[0].x + 6 * p[1].x + p[2].x) / 6),  ((-p[0].y + 6 * p[1].y + p[2].y) / 6)),
-                    (((p[1].x + 6 * p[2].x - p[3].x) / 6),  ((p[1].y + 6 * p[2].y - p[3].y) / 6)),
+                    ((-p[0].x + 6 * p[1].x + p[2].x) / 6,  (-p[0].y + 6 * p[1].y + p[2].y) / 6),
+                    ((p[1].x + 6 * p[2].x - p[3].x) / 6,  (p[1].y + 6 * p[2].y - p[3].y) / 6),
                     (p[2].x,  p[2].y)
                 };
                 d.Add(new CubicBezier(bp[1].x, bp[1].y, bp[2].x, bp[2].y, bp[3].x, bp[3].y));

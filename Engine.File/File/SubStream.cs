@@ -153,7 +153,7 @@ namespace Engine.File
         /// <returns>The number of <see cref="byte"/>s read</returns>
         public override int Read(byte[] buffer, int offset, int count)
         {
-            if (buffer == null)
+            if (buffer is null)
                 throw new ArgumentNullException("The read buffer is null");
             if (offset < 0)
                 throw new ArgumentOutOfRangeException("The offset is negative");
@@ -239,9 +239,9 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Dispose.
         /// </summary>
-        /// <param name="disposing"></param>
+        /// <param name="disposing">The disposing.</param>
         protected override void Dispose(bool disposing)
         {
             //base.Dispose(disposing);
@@ -260,13 +260,14 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Check the disposed.
         /// </summary>
+        /// <exception cref="ObjectDisposedException"></exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CheckDisposed()
         {
-            if (baseStream == null) throw new ObjectDisposedException(GetType().Name);
+            if (baseStream is null) throw new ObjectDisposedException(GetType().Name);
         }
         #endregion Methods
     }

@@ -141,7 +141,7 @@ namespace Engine
         {
             var list = new List<Point2D>(
             from i in Enumerable.Range(0, count)
-            select Interpolate((1d / count) * i))
+            select Interpolate(1d / count * i))
             {
                 Interpolate(1)
             };
@@ -178,7 +178,7 @@ namespace Engine
         /// <returns>A reference to object.</returns>
         internal GraphicsObject OnUpdate(Action callback)
         {
-            if (update == null)
+            if (update is null)
                 update = callback;
             else
                 update += callback;
@@ -202,6 +202,7 @@ namespace Engine
         /// <summary>
         /// This should be run anytime a property of the item is modified.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ClearCache()
             => propertyCache.Clear();
 
@@ -213,6 +214,7 @@ namespace Engine
         /// <param name="name"></param>
         /// <returns></returns>
         /// <remarks>http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html</remarks>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
         {
             if (!propertyCache.ContainsKey(name))
@@ -285,7 +287,7 @@ namespace Engine
         /// </returns>
         public virtual string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
+            if (this is null)
                 return nameof(GraphicsObject);
             //char sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(GraphicsObject)}";

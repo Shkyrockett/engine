@@ -82,7 +82,7 @@ namespace Engine
         /// <param name="samplesPerCurve">Resolution of the curve. Values 32-256 work well. You may need more or less depending on how big the curves are.</param>
         public Spline(ICollection<CubicBezier> curves, int samplesPerCurve)
         {
-            if (curves == null)
+            if (curves is null)
                 throw new ArgumentNullException(nameof(curves));
             if (samplesPerCurve < MinimumSamplesPerCurve || samplesPerCurve > MaximumSamplesPerCurve)
                 throw new InvalidOperationException("samplesPerCurve must be between " + MinimumSamplesPerCurve + " and " + MaximumSamplesPerCurve);

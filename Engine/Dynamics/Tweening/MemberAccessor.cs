@@ -55,7 +55,7 @@ namespace Engine.Tweening
             if ((memberInfo = targetType.GetField(name, flags)) != null)
             {
                 // Capture the field member info.
-                var fieldInfo = (memberInfo as FieldInfo);
+                var fieldInfo = memberInfo as FieldInfo;
                 MemberType = fieldInfo.FieldType;
                 MemberName = fieldInfo.Name;
 
@@ -78,14 +78,14 @@ namespace Engine.Tweening
             else if ((memberInfo = targetType.GetProperty(name, flags)) != null)
             {
                 // Capture the property member info.
-                var propertyInfo = (memberInfo as PropertyInfo);
+                var propertyInfo = memberInfo as PropertyInfo;
                 MemberType = (propertyInfo as PropertyInfo).PropertyType;
                 MemberName = propertyInfo.Name;
 
                 // Set up for reading
                 var param = Expression.Parameter(typeof(object));
                 var instance = Expression.Convert(param, propertyInfo.DeclaringType);
-                var convert = Expression.TypeAs(Expression.Property(instance, (propertyInfo as PropertyInfo)), typeof(object));
+                var convert = Expression.TypeAs(Expression.Property(instance, propertyInfo as PropertyInfo), typeof(object));
                 getMethod = Expression.Lambda<Func<object, object>>(convert, param).Compile();
 
                 // Set up for writing

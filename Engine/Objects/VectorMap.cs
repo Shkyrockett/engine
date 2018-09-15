@@ -20,7 +20,7 @@ using System;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The vector map class.
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -71,58 +71,58 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsReadOnly { get; } = false;
 
         /// <summary>
-        /// 
+        /// Gets or sets the zoom.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Zoom { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the pan.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public Point2D Pan { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the visible bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Rectangle2D VisibleBounds { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the tweener.
         /// </summary>
         [XmlElement]
         public Tweener Tweener { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the items.
         /// </summary>
         [XmlArray]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<GraphicItem> Items { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the selected items.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<GraphicItem> SelectedItems { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the rubberband items.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<GraphicItem> RubberbandItems { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Count
@@ -130,16 +130,17 @@ namespace Engine
         #endregion Properties
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">The item.</param>
         public void Add(GraphicItem item)
             => Items.Add(item);
 
         /// <summary>
-        /// 
+        /// Add the item.
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="item">The item.</param>
+        /// <returns>The <see cref="VectorMap"/>.</returns>
         public VectorMap AddItem(GraphicItem item)
         {
             Items.Add(item);
@@ -147,11 +148,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
-        /// <param name="metadata"></param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
+        /// <param name="metadata">The metadata.</param>
+        /// <returns>The <see cref="VectorMap"/>.</returns>
         public VectorMap Add(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
             var graphicItem = new GraphicItem(item, style, metadata);
@@ -160,24 +162,25 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Add.
         /// </summary>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
-        /// <param name="metadata"></param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
+        /// <param name="metadata">The metadata.</param>
+        /// <returns>The <see cref="VectorMap"/>.</returns>
         public VectorMap Add(Shape item, IStyle style = null, Metadata metadata = null)
         {
-            //if (style == null) style = IStyle.DefaultStyle;
+            //if (style is null) style = IStyle.DefaultStyle;
             var graphicItem = new GraphicItem(item, style, metadata);
             Items.Add(graphicItem);
             return this;
         }
 
         /// <summary>
-        /// 
+        /// Remove.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">The item.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Remove(GraphicItem item)
         {
             var success = false;
@@ -189,7 +192,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Clear.
         /// </summary>
         public void Clear()
         {
@@ -198,16 +201,18 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Select the item.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="GraphicItem"/>.</returns>
         public GraphicItem SelectItem(Point2D point)
-            => Items?.LastOrDefault(shape => shape.Shape.Bounds != null && (shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point)));
+            => Items?.LastOrDefault(shape => shape.Shape.Bounds != null && shape.Shape.Bounds.IntersectsWith(VisibleBounds) && shape.Contains(point));
 
         /// <summary>
-        /// 
+        /// Select the items.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="T:List{GraphicItem}"/>.</returns>
         public List<GraphicItem> SelectItems(Point2D point)
             => new List<GraphicItem>(
             from shape in Items
@@ -215,32 +220,32 @@ namespace Engine
             select shape);
 
         /// <summary>
-        /// 
+        /// The contains.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">The item.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Contains(GraphicItem item)
             => Items.Contains(item);
 
         /// <summary>
-        /// 
+        /// Copy the to.
         /// </summary>
-        /// <param name="array"></param>
-        /// <param name="arrayIndex"></param>
+        /// <param name="array">The array.</param>
+        /// <param name="arrayIndex">The arrayIndex.</param>
         public void CopyTo(GraphicItem[] array, int arrayIndex)
             => Items.CopyTo(array, arrayIndex);
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{GraphicItem}"/>.</returns>
         public IEnumerator<GraphicItem> GetEnumerator()
             => Items.GetEnumerator();
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => Items.GetEnumerator();
     }

@@ -28,7 +28,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this == null) return nameof(NGonStar);
+            if (this is null) return nameof(NGonStar);
             return nameof(NGonStar);
         }
     }

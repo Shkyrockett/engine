@@ -110,8 +110,8 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t) => new Point2D(
-             offset.X + (Cos(t) * ((Exp(Cos(t)) - ((2 * Cos((4 * t))) - Pow(Sin((t / 12)), 5))) * multiplyer.Width)),
-             offset.Y + ((Sin(t) * (Exp(Cos(t)) - ((2 * Cos((4 * t))) - Pow(Sin((t / 12)), 5)))) * multiplyer.Height)
+             offset.X + (Cos(t) * ((Exp(Cos(t)) - ((2 * Cos(4 * t)) - Pow(Sin(t / 12), 5))) * multiplyer.Width)),
+             offset.Y + (Sin(t) * (Exp(Cos(t)) - ((2 * Cos(4 * t)) - Pow(Sin(t / 12), 5))) * multiplyer.Height)
          );
 
         /// <summary>
@@ -122,11 +122,11 @@ namespace Engine
         public override List<Point2D> InterpolatePoints(int count)
         {
             const double n = 10000;
-            var u = (0 * (24 * (PI / n)));
+            var u = 0 * (24 * (PI / n));
             var points = new List<Point2D>();
-            for (double Index = 1; (Index <= n); Index = (Index + (1d / count)))
+            for (double Index = 1; Index <= n; Index = Index + (1d / count))
             {
-                u = (Index * (24 * (PI / n)));
+                u = Index * (24 * (PI / n));
                 points.Add(Interpolate(u));
             }
             return points;
@@ -147,7 +147,7 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Butterfly);
+            if (this is null) return nameof(Butterfly);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Butterfly)}{{{nameof(Offset)}={offset},{nameof(Multiplyer)}={multiplyer},{nameof(Precision)}={precision}}}";
             return formatable.ToString(format, provider);

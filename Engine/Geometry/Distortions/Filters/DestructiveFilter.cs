@@ -8,6 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 
 namespace Engine
@@ -42,7 +43,7 @@ namespace Engine
         /// Process.
         /// </summary>
         /// <param name="shape">The shape.</param>
-        /// <returns>The <see cref="T"/>.</returns>
+        /// <returns>The <see cref="Type"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
         public T Process<S, T>(S shape)

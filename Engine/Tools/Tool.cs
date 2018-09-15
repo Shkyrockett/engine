@@ -71,7 +71,7 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         public bool MouseUp { get; set; }
         #endregion Properties
@@ -83,7 +83,7 @@ namespace Engine.Tools
             => Finish?.Invoke(this, tools);
 
         /// <summary>
-        /// 
+        /// Reset.
         /// </summary>
         public virtual void Reset()
         { }

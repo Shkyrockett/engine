@@ -16,17 +16,19 @@ using System.Drawing;
 namespace Engine.Imaging
 {
     /// <summary>
-    ///
+    /// The renderer class.
     /// </summary>
     public static partial class Renderer
     {
         /// <summary>
-        ///
+        /// The render.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="renderer"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
+        /// <param name="item">The item.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
+        /// <param name="style">The style.</param>
+        /// <exception cref="NullReferenceException"></exception>
+        /// <exception cref="InvalidCastException"></exception>
         public static void Render(GraphicItem item, Graphics g, IRenderer renderer, IStyle style = null)
         {
             //g.DrawRectangles(Pens.Lime, new RectangleF[] { shape.Bounds.ToRectangleF() });
@@ -134,12 +136,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// The render.
         /// </summary>
-        /// <param name="shape"></param>
-        /// <param name="g"></param>
-        /// <param name="item"></param>
-        /// <param name="style"></param>
+        /// <param name="shape">The shape.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="style">The style.</param>
         public static void Render(this Text2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;

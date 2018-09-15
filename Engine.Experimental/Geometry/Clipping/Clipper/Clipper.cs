@@ -119,7 +119,7 @@ namespace Engine.Experimental
                 outRec.Owner = null;
                 outRec.Flag = OutrecFlag.Open;
             }
-            else if (outRec.Owner == null || (outRec.Owner.Flag == OutrecFlag.Inner))
+            else if (outRec.Owner is null || (outRec.Owner.Flag == OutrecFlag.Inner))
             {
                 outRec.Flag = OutrecFlag.Outer;
             }
@@ -143,7 +143,7 @@ namespace Engine.Experimental
                 swapSideNeeded |= e1.Dx < e2.Dx;
             }
 
-            if ((outRec.Flag == OutrecFlag.Inner) == swapSideNeeded)
+            if (outRec.Flag == OutrecFlag.Inner == swapSideNeeded)
             {
                 outRec.SetOrientation(e1, e2);
             }
@@ -257,7 +257,7 @@ namespace Engine.Experimental
             ClipType = ct;
             Reset();
             double? y = null;
-            if ((y = PopScanline()) == null)
+            if ((y = PopScanline()) is null)
             {
                 return false;
             }
@@ -271,7 +271,7 @@ namespace Engine.Experimental
                     ProcessHorizontal(e);
                 }
 
-                if ((y = PopScanline()) == null)
+                if ((y = PopScanline()) is null)
                 {
                     break;   // Y is now at the top of the scan-beam
                 }
@@ -335,7 +335,7 @@ namespace Engine.Experimental
         {
             try
             {
-                if (polytree == null)
+                if (polytree is null)
                 {
                     return false;
                 }
@@ -385,7 +385,7 @@ namespace Engine.Experimental
         private void InsertScanline(double y)
         {
             // single-linked list: sorted descending, ignoring dupes.
-            if (Scanline == null)
+            if (Scanline is null)
             {
                 Scanline = new ScanLine
                 {
@@ -430,7 +430,7 @@ namespace Engine.Experimental
         /// <returns>The <see cref="double"/>.</returns>
         private double? PopScanline()
         {
-            if (Scanline == null)
+            if (Scanline is null)
             {
                 return null;
             }
@@ -724,11 +724,11 @@ namespace Engine.Experimental
                     {
                         case WindingRules.EvenOdd:
                         case WindingRules.NonZero:
-                            return (e.WindCnt2 != 0);
+                            return e.WindCnt2 != 0;
                         case WindingRules.Positive:
-                            return (e.WindCnt2 > 0);
+                            return e.WindCnt2 > 0;
                         case WindingRules.Negative:
-                            return (e.WindCnt2 < 0);
+                            return e.WindCnt2 < 0;
                     }
                     break;
                 case ClippingOperations.Union:
@@ -736,11 +736,11 @@ namespace Engine.Experimental
                     {
                         case WindingRules.EvenOdd:
                         case WindingRules.NonZero:
-                            return (e.WindCnt2 == 0);
+                            return e.WindCnt2 == 0;
                         case WindingRules.Positive:
-                            return (e.WindCnt2 <= 0);
+                            return e.WindCnt2 <= 0;
                         case WindingRules.Negative:
-                            return (e.WindCnt2 >= 0);
+                            return e.WindCnt2 >= 0;
                     }
                     break;
                 case ClippingOperations.Difference:
@@ -750,11 +750,11 @@ namespace Engine.Experimental
                         {
                             case WindingRules.EvenOdd:
                             case WindingRules.NonZero:
-                                return (e.WindCnt2 == 0);
+                                return e.WindCnt2 == 0;
                             case WindingRules.Positive:
-                                return (e.WindCnt2 <= 0);
+                                return e.WindCnt2 <= 0;
                             case WindingRules.Negative:
-                                return (e.WindCnt2 >= 0);
+                                return e.WindCnt2 >= 0;
                         }
                     }
                     else
@@ -763,11 +763,11 @@ namespace Engine.Experimental
                         {
                             case WindingRules.EvenOdd:
                             case WindingRules.NonZero:
-                                return (e.WindCnt2 != 0);
+                                return e.WindCnt2 != 0;
                             case WindingRules.Positive:
-                                return (e.WindCnt2 > 0);
+                                return e.WindCnt2 > 0;
                             case WindingRules.Negative:
-                                return (e.WindCnt2 < 0);
+                                return e.WindCnt2 < 0;
                         }
                     }; break;
                 case ClippingOperations.Xor:
@@ -788,13 +788,13 @@ namespace Engine.Experimental
             switch (clipType)
             {
                 case ClippingOperations.Intersection:
-                    return (e.WindCnt2 != 0);
+                    return e.WindCnt2 != 0;
                 case ClippingOperations.Union:
-                    return (e.WindCnt == 0 && e.WindCnt2 == 0);
+                    return e.WindCnt == 0 && e.WindCnt2 == 0;
                 case ClippingOperations.Difference:
-                    return (e.WindCnt2 == 0);
+                    return e.WindCnt2 == 0;
                 case ClippingOperations.Xor:
-                    return (e.WindCnt != 0) != (e.WindCnt2 != 0);
+                    return e.WindCnt != 0 != (e.WindCnt2 != 0);
                 case ClippingOperations.None:
                 default:
                     return false;
@@ -826,8 +826,8 @@ namespace Engine.Experimental
 
                     e2 = e2.NextInAEL;
                 }
-                e.WindCnt = (IsOdd(cnt1) ? 1 : 0);
-                e.WindCnt2 = (IsOdd(cnt2) ? 1 : 0);
+                e.WindCnt = IsOdd(cnt1) ? 1 : 0;
+                e.WindCnt2 = IsOdd(cnt2) ? 1 : 0;
             }
             else
             {
@@ -868,7 +868,7 @@ namespace Engine.Experimental
                 e = e.PrevInAEL;
             }
 
-            if (e == null)
+            if (e is null)
             {
                 leftE.WindCnt = leftE.WindDx;
                 e = ActiveEdgeLink;
@@ -905,7 +905,7 @@ namespace Engine.Experimental
                     else
                     {
                         //now outside all polys of same PathType so set own WC ...
-                        leftE.WindCnt = (leftE.IsOpen() ? 1 : leftE.WindDx);
+                        leftE.WindCnt = leftE.IsOpen() ? 1 : leftE.WindDx;
                     }
                 }
                 else
@@ -933,7 +933,7 @@ namespace Engine.Experimental
                 {
                     if (e.GetPathType() != pt && !e.IsOpen())
                     {
-                        leftE.WindCnt2 = (leftE.WindCnt2 == 0 ? 1 : 0);
+                        leftE.WindCnt2 = leftE.WindCnt2 == 0 ? 1 : 0;
                     }
 
                     e = e.NextInAEL;
@@ -961,13 +961,13 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void InsertEdgeIntoAEL(Edge edge, Edge startEdge)
         {
-            if (ActiveEdgeLink == null)
+            if (ActiveEdgeLink is null)
             {
                 edge.PrevInAEL = null;
                 edge.NextInAEL = null;
                 ActiveEdgeLink = edge;
             }
-            else if (startEdge == null && Edge.E2InsertsBeforeE1(ActiveEdgeLink, edge))
+            else if (startEdge is null && Edge.E2InsertsBeforeE1(ActiveEdgeLink, edge))
             {
                 edge.PrevInAEL = null;
                 edge.NextInAEL = ActiveEdgeLink;
@@ -976,7 +976,7 @@ namespace Engine.Experimental
             }
             else
             {
-                if (startEdge == null)
+                if (startEdge is null)
                 {
                     startEdge = ActiveEdgeLink;
                 }
@@ -1070,7 +1070,7 @@ namespace Engine.Experimental
                         Edge.SwapActives(ref leftB, ref rightB);
                     }
                 }
-                else if (leftB == null)
+                else if (leftB is null)
                 {
                     leftB = rightB;
                     rightB = null;
@@ -1145,7 +1145,7 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void PushHorz(Edge e)
         {
-            e.NextInSEL = (SelectedEdgeLink ?? null);
+            e.NextInSEL = SelectedEdgeLink ?? null;
             SelectedEdgeLink = e;
         }
 
@@ -1157,7 +1157,7 @@ namespace Engine.Experimental
         private Edge PopHorz()
         {
             var e = SelectedEdgeLink;
-            if (e == null)
+            if (e is null)
             {
                 return null;
             }
@@ -1365,7 +1365,7 @@ namespace Engine.Experimental
               (oldE2WindCnt == 0 || oldE2WindCnt == 1))
             {
                 //neither edge is currently contributing ...
-                Int64 e1Wc2, e2Wc2;
+                long e1Wc2, e2Wc2;
                 switch (FillType)
                 {
                     case WindingRules.Positive:
@@ -1433,7 +1433,7 @@ namespace Engine.Experimental
         {
             var AelPrev = e.PrevInAEL;
             var AelNext = e.NextInAEL;
-            if (AelPrev == null && AelNext == null && (e != ActiveEdgeLink))
+            if (AelPrev is null && AelNext is null && (e != ActiveEdgeLink))
             {
                 return; //already deleted
             }
@@ -1520,7 +1520,7 @@ namespace Engine.Experimental
                 e2.NextInAEL = e1;
                 e1.PrevInAEL = e2;
                 e1.NextInAEL = next;
-                if (e2.PrevInAEL == null)
+                if (e2.PrevInAEL is null)
                 {
                     reference = e2;
                 }
@@ -1543,7 +1543,7 @@ namespace Engine.Experimental
                 e1.NextInAEL = e2;
                 e2.PrevInAEL = e1;
                 e2.NextInAEL = next;
-                if (e1.PrevInAEL == null)
+                if (e1.PrevInAEL is null)
                 {
                     reference = e1;
                 }
@@ -1584,7 +1584,7 @@ namespace Engine.Experimental
                 e2.NextInSEL = e1;
                 e1.PrevInSEL = e2;
                 e1.NextInSEL = next;
-                if (e2.PrevInSEL == null)
+                if (e2.PrevInSEL is null)
                 {
                     reference = e2;
                 }
@@ -1607,7 +1607,7 @@ namespace Engine.Experimental
                 e1.NextInSEL = e2;
                 e2.PrevInSEL = e1;
                 e2.NextInSEL = next;
-                if (e1.PrevInSEL == null)
+                if (e1.PrevInSEL is null)
                 {
                     reference = e1;
                 }
@@ -1724,7 +1724,7 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void BuildIntersectList(double TopY)
         {
-            if (ActiveEdgeLink == null || ActiveEdgeLink.NextInAEL == null)
+            if (ActiveEdgeLink is null || ActiveEdgeLink.NextInAEL is null)
             {
                 return;
             }
@@ -1745,7 +1745,7 @@ namespace Engine.Experimental
                     if (mul == 1)
                     {
                         second = first.NextInSEL;
-                        if (second == null)
+                        if (second is null)
                         {
                             break;
                         }
@@ -1755,7 +1755,7 @@ namespace Engine.Experimental
                     else
                     {
                         second = first.MergeJump;
-                        if (second == null)
+                        if (second is null)
                         {
                             break;
                         }
@@ -1789,7 +1789,7 @@ namespace Engine.Experimental
 
                                 baseE = second;
                                 baseE.MergeJump = first.MergeJump;
-                                if (first.PrevInSEL == null)
+                                if (first.PrevInSEL is null)
                                 {
                                     SelectedEdgeLink = second;
                                 }
@@ -1798,7 +1798,7 @@ namespace Engine.Experimental
                             // now move the out of place edge to it's new position in SEL ...
                             Edge.Insert2Before1InSel(first, second);
                             second = tmp;
-                            if (second == null)
+                            if (second is null)
                             {
                                 break;
                             }
@@ -1814,7 +1814,7 @@ namespace Engine.Experimental
                     first = baseE.MergeJump;
                     prevBase = baseE;
                 }
-                if (SelectedEdgeLink.MergeJump == null)
+                if (SelectedEdgeLink.MergeJump is null)
                 {
                     break;
                 }
@@ -2011,7 +2011,7 @@ namespace Engine.Experimental
             {
                 UpdateEdgeIntoAEL(ref horz);
             }
-            else if (maxPair == null)      // ie open at top
+            else if (maxPair is null)      // ie open at top
             {
                 DeleteFromAEL(horz);
             }
@@ -2098,7 +2098,7 @@ namespace Engine.Experimental
             else
             {
                 eMaxPair = e.GetMaximaPair();
-                if (eMaxPair == null)
+                if (eMaxPair is null)
                 {
                     return eNext; // eMaxPair is horizontal
                 }
@@ -2132,7 +2132,7 @@ namespace Engine.Experimental
                 }
 
                 DeleteFromAEL(e);
-                return (ePrev != null ? ePrev.NextInAEL : ActiveEdgeLink);
+                return ePrev != null ? ePrev.NextInAEL : ActiveEdgeLink;
             }
             // here E.NextInAEL == ENext == EMaxPair ...
             if (e.IsHotEdge())
@@ -2142,7 +2142,7 @@ namespace Engine.Experimental
 
             DeleteFromAEL(e);
             DeleteFromAEL(eMaxPair);
-            return (ePrev != null ? ePrev.NextInAEL : ActiveEdgeLink);
+            return ePrev != null ? ePrev.NextInAEL : ActiveEdgeLink;
         }
 
         /// <summary>
@@ -2178,7 +2178,7 @@ namespace Engine.Experimental
 
                     if (outrec.Flag == OutrecFlag.Open)
                     {
-                        if (count < 2 || openPaths == null)
+                        if (count < 2 || openPaths is null)
                         {
                             continue;
                         }
@@ -2218,7 +2218,7 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void BuildResult(PolyTree polyTree, Polygon openPaths)
         {
-            if (polyTree == null)
+            if (polyTree is null)
             {
                 return;
             }

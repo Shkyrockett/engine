@@ -17,7 +17,7 @@ using SharpDX.Direct2D1;
 namespace Engine.Winforms.Direct2D
 {
     /// <summary>
-    /// 
+    /// The direct2d canvas class.
     /// </summary>
     public partial class Direct2DCanvas
         : UserControl
@@ -33,7 +33,7 @@ namespace Engine.Winforms.Direct2D
         //SharpDX.Color color = SharpDX.Color.CornflowerBlue;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Direct2DCanvas"/> class.
         /// </summary>
         public Direct2DCanvas()
         {
@@ -52,9 +52,9 @@ namespace Engine.Winforms.Direct2D
         }
 
         /// <summary>
-        /// 
+        /// The wnd proc.
         /// </summary>
-        /// <param name="m"></param>
+        /// <param name="m">The m.</param>
         protected override void WndProc(ref Message m)
         {
             //// Process other controls first.
@@ -78,10 +78,10 @@ namespace Engine.Winforms.Direct2D
         }
 
         /// <summary>
-        /// 
+        /// The direct2d canvas load.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void Direct2DCanvas_Load(object sender, EventArgs e)
         {
             //// Get the changed object.
@@ -101,10 +101,10 @@ namespace Engine.Winforms.Direct2D
         }
 
         /// <summary>
-        /// 
+        /// The direct2d canvas resize.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void Direct2DCanvas_Resize(object sender, EventArgs e)
         {
             //// Get the changed object.
@@ -118,10 +118,10 @@ namespace Engine.Winforms.Direct2D
         }
 
         /// <summary>
-        /// 
+        /// The timer tick.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void Timer_Tick(object sender, EventArgs e)
         {
             //// Process all changes to the world.
@@ -132,7 +132,7 @@ namespace Engine.Winforms.Direct2D
         }
 
         /// <summary>
-        /// 
+        /// The render.
         /// </summary>
         public void Render()
         {
@@ -163,7 +163,7 @@ namespace Engine.Winforms.Direct2D
         }
 
         /// <summary>
-        /// 
+        /// Update the world.
         /// </summary>
         private static void UpdateWorld()
         {
@@ -192,18 +192,22 @@ namespace Engine.Winforms.Direct2D
         }
 
         /// <summary>
-        /// 
+        /// The initialise target.
         /// </summary>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         private void InitialiseTarget(int width, int height)
         {
-            //if (target == null) CreateDxTarget(width, height);
+            //if (target is null) CreateDxTarget(width, height);
             //target.Resize(new Size2(width, height));
             //CreateBandBrush();
         }
 
         /// <summary>
-        /// 
+        /// Create the dx target.
         /// </summary>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         private void CreateDxTarget(int width, int height)
         {
             //var targetProperties = new RenderTargetProperties(
@@ -227,7 +231,7 @@ namespace Engine.Winforms.Direct2D
         }
 
         /// <summary>
-        /// 
+        /// Create the band brush.
         /// </summary>
         private static void CreateBandBrush()
         {

@@ -36,7 +36,7 @@ namespace Engine
                 return base.ConvertTo(context, culture, value, destinationType);
 
             var gameElements = value as List<IGameElement>;
-            if (gameElements == null)
+            if (gameElements is null)
                 return "-";
 
             return string.Join(", ", gameElements.Select(m => m.Name));

@@ -141,7 +141,7 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public uint ReadNetworkUInt24()
-            => (((((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte()) << 12) >> 12);
+            => ((((uint)ReadByte() << 16) | ((uint)ReadByte() << 8) | (uint)ReadByte()) << 12) >> 12;
 
         /// <summary>
         /// Reads a 3-byte signed integer from the current stream using big-endian
@@ -154,7 +154,7 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int ReadNetworkInt24()
-            => ((((ReadByte() << 16) | (ReadByte() << 8) | ReadByte()) << 12) >> 12);
+            => (((ReadByte() << 16) | (ReadByte() << 8) | ReadByte()) << 12) >> 12;
 
         /// <summary>
         /// Reads a 4-byte unsigned integer from the current stream using big-endian

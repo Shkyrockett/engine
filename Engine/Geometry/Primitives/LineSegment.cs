@@ -97,7 +97,7 @@ namespace Engine
         /// <param name="Radius">Ending Line Segment Length</param>
         /// <remarks></remarks>
         public LineSegment(Point2D Point, double RadAngle, double Radius)
-            : this(new Point2D(Point.X, Point.Y), new Point2D((Point.X + (Radius * Cos(RadAngle))), (Point.Y + (Radius * Sin(RadAngle)))))
+            : this(new Point2D(Point.X, Point.Y), new Point2D(Point.X + (Radius * Cos(RadAngle)), Point.Y + (Radius * Sin(RadAngle))))
         { }
 
         /// <summary>
@@ -529,7 +529,7 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(LineSegment);
+            if (this is null) return nameof(LineSegment);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(LineSegment)}{{{nameof(A)}={A.ToString(format, provider)}{sep}{nameof(B)}={B.ToString(format, provider)}}}";
         }

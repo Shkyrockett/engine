@@ -21,7 +21,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    ///
+    /// The polyline class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -32,56 +32,56 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        ///
+        /// The points.
         /// </summary>
         private List<Point2D> points;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Polyline"/> class.
         /// </summary>
         public Polyline()
             : this(new List<Point2D>())
         { }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Polyline"/> class.
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon">The polygon.</param>
         public Polyline(PolygonContour polygon)
             : this(polygon.Points)
         { }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Polyline"/> class.
         /// </summary>
-        /// <param name="polyline"></param>
+        /// <param name="polyline">The polyline.</param>
         public Polyline(Polyline polyline)
             : this(polyline.points)
         { }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Polyline"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public Polyline(params Point2D[] points)
             : this(new List<Point2D>(points))
         { }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Polyline"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public Polyline(IEnumerable<Point2D> points)
         {
             Points = points as List<Point2D>;
         }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Polyline"/> class.
         /// </summary>
-        /// <param name="polylines"></param>
+        /// <param name="polylines">The polylines.</param>
         public Polyline(IEnumerable<Polyline> polylines)
         {
             points = new List<Point2D>();
@@ -92,19 +92,19 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public void Deconstruct(out List<Point2D> points)
             => points = this.points;
         #endregion Deconstructors
 
         #region Indexers
         /// <summary>
-        ///
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type Point2D.</returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
@@ -121,7 +121,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the points.
         /// </summary>
         [XmlArray]
         [RefreshProperties(RefreshProperties.All)]
@@ -138,7 +138,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets the perimeter.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -147,7 +147,7 @@ namespace Engine
             => (double)CachingProperty(() => points.Zip(points.Skip(1), Measurements.Distance).Sum());
 
         /// <summary>
-        ///
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -157,7 +157,7 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.PolylineBounds(points));
 
         /// <summary>
-        /// 
+        /// Gets the count.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -213,9 +213,10 @@ namespace Engine
 
         #region Mutators
         /// <summary>
-        ///
+        /// Add.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Polyline"/>.</returns>
         public Polyline Add(Point2D point)
         {
             Points.Add(point);
@@ -225,8 +226,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The reverse.
         /// </summary>
+        /// <returns>The <see cref="Polyline"/>.</returns>
         public Polyline Reverse()
         {
             Points.Reverse();
@@ -237,10 +239,10 @@ namespace Engine
         #endregion Mutators
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
         {
             switch (t)
@@ -285,19 +287,19 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Translate.
         /// </summary>
-        /// <param name="delta"></param>
-        /// <returns></returns>
+        /// <param name="delta">The delta.</param>
+        /// <returns>The <see cref="Polyline"/>.</returns>
         public Polyline Translate(Point2D delta)
             => Translate(this, delta);
 
         /// <summary>
-        /// 
+        /// Translate.
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="delta"></param>
-        /// <returns></returns>
+        /// <param name="path">The path.</param>
+        /// <param name="delta">The delta.</param>
+        /// <returns>The <see cref="Polyline"/>.</returns>
         public static Polyline Translate(Polyline path, Point2D delta)
         {
             var outPath = new List<Point2D>(path.points.Count);
@@ -311,35 +313,35 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        ///
+        /// Clone.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="Polyline"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polyline Clone()
             => new Polyline(Points.ToArray());
 
         /// <summary>
-        ///
+        /// The offset.
         /// </summary>
-        /// <param name="offset"></param>
-        /// <returns></returns>
+        /// <param name="offset">The offset.</param>
+        /// <returns>The <see cref="Polyline"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polyline Offset(double offset)
             => Offsets.Offset(this, offset);
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
         public IEnumerator<Point2D> GetEnumerator()
             => points.GetEnumerator();
 
         /// <summary>
-        /// 
+        /// Get the enumerator.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
 
@@ -358,7 +360,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
+            if (this is null)
             {
                 return nameof(Polyline);
             }

@@ -37,7 +37,7 @@ namespace Engine
         /// <param name="relitive"></param>
         /// <param name="args"></param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LineCurveSegment(CurveSegment previous, bool relitive, params Double[] args)
+        public LineCurveSegment(CurveSegment previous, bool relitive, params double[] args)
             : this(previous, args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
             if (relitive)

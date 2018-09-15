@@ -11,6 +11,7 @@
     <Copyright>Copyright © 2013 - 2017 Shkyrockett</Copyright>
     <AssemblyVersion>0.0.0.1</AssemblyVersion>
     <FileVersion>0.0.0.1</FileVersion>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -21,7 +22,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
     <DocumentationFile>bin\Any CPU\Debug\netstandard2.0\Engine.xml</DocumentationFile>
     <OutputPath>bin\Any CPU\Debug\netstandard2.0\</OutputPath>
     <DefineConstants>TRACE;DEBUG;deterministic;NETSTANDARD2_0</DefineConstants>
@@ -46,9 +47,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
-    <PackageReference Include="System.Memory" Version="4.5.0-rc1" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0-rc1" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="4.5.0-rc1-26502-06" />
+    <PackageReference Include="System.Memory" Version="4.5.1" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.5.3" />
   </ItemGroup>
 
   <ItemGroup>

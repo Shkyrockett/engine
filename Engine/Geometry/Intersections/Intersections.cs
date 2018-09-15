@@ -66,7 +66,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Between(double value, double lowerLimit, double upperLimit)
-            => (value >= lowerLimit && value <= upperLimit);
+            => value >= lowerLimit && value <= upperLimit;
 
         /// <summary>
         /// Check whether the integer value is between lower and upper bounds.
@@ -79,7 +79,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Between(int value, int lowerLimit, int upperLimit)
-            => (value >= lowerLimit && value <= upperLimit);
+            => value >= lowerLimit && value <= upperLimit;
 
         /// <summary>
         /// Check whether the byte value is between lower and upper bounds.
@@ -92,7 +92,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Between(byte value, byte lowerLimit, byte upperLimit)
-            => (value >= lowerLimit && value <= upperLimit);
+            => value >= lowerLimit && value <= upperLimit;
 
         /// <summary>
         /// Check whether a vector lies between two other vectors.
@@ -2052,7 +2052,7 @@ namespace Engine
         public static bool PointInTriangle(LineSegment s, Point2D o, Point2D p, double epsilon = Epsilon)
         {
             var x = Sign(s.A, s.B, p);
-            return ((x == Sign(s.B, o, p)) && (x == Sign(o, s.A, p)));
+            return (x == Sign(s.B, o, p)) && (x == Sign(o, s.A, p));
         }
 
         /// <summary>
@@ -2081,8 +2081,8 @@ namespace Engine
                 return Inclusion.Boundary;
             }
 
-            var clockwise = ((((b - a).CrossProduct(p - b))) >= 0);
-            return !(((((c - b).CrossProduct(p - c)) >= 0) ^ clockwise) && ((((a - c).CrossProduct(p - a)) >= 0) ^ clockwise)) ? Inclusion.Inside : Inclusion.Outside;
+            var clockwise = (b - a).CrossProduct(p - b) >= 0;
+            return !((((c - b).CrossProduct(p - c) >= 0) ^ clockwise) && (((a - c).CrossProduct(p - a) >= 0) ^ clockwise)) ? Inclusion.Inside : Inclusion.Outside;
         }
 
         /// <summary>
@@ -2154,10 +2154,10 @@ namespace Engine
             var curPoint = points[0];
             for (var i = 1; i <= points.Count; ++i)
             {
-                var nextPoint = (i == points.Count ? points[0] : points[i]);
+                var nextPoint = i == points.Count ? points[0] : points[i];
 
                 // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
-                if (((curPoint.Y == pY)) && (((curPoint.X == pX)) || ((nextPoint.Y == pY) && ((curPoint.X > pX) == (nextPoint.X < pX)))))
+                if (curPoint.Y == pY && (curPoint.X == pX || ((nextPoint.Y == pY) && ((curPoint.X > pX) == (nextPoint.X < pX)))))
                 //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
                 {
                     return Inclusion.Boundary;
@@ -2300,7 +2300,7 @@ namespace Engine
                                 //if (Intersections.EllipticalArcContainsPoint(m.Center.X, m.Center.Y, m.RX, m.RY, m.CosAngle, m.SinAngle, Cos(m.StartAngle), Sin(m.StartAngle), Cos(m.SweepAngle), Sin(m.SweepAngle), point.X, point.Y, epsilon) == Inclusion.Boundary)
                                 //    return Inclusion.Boundary;
 
-                                var extreams = Measurements.EllipseExtremePoints(m.Center.X, m.Center.Y, m.RX, m.RY, m.CosAngle, m.SinAngle);
+                                var extreams = EllipseExtremePoints(m.Center.X, m.Center.Y, m.RX, m.RY, m.CosAngle, m.SinAngle);
                                 if (extreams.Contains(m.StartPoint)) inside--;
                                 if (extreams.Contains(m.EndPoint)) inside--;
 
@@ -2364,7 +2364,7 @@ namespace Engine
                     case LineCurveSegment l:
                         {
                             // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
-                            if (((l.End.Value.Y == point.Y)) && (((l.End.Value.X == point.X)) || ((l.Start.Value.Y == point.Y) && ((l.End.Value.X > point.X) == (l.Start.Value.X < point.X)))))
+                            if (l.End.Value.Y == point.Y && (l.End.Value.X == point.X || ((l.Start.Value.Y == point.Y) && ((l.End.Value.X > point.X) == (l.Start.Value.X < point.X)))))
                             //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
                             {
                                 return Inclusion.Boundary;
@@ -2448,8 +2448,8 @@ namespace Engine
 
                                 // Normalize the radius.
                                 var normalizedRadius
-                                    = ((a * a) / (t.RX * t.RX))
-                                    + ((b * b) / (t.RY * t.RY));
+                                    = (a * a / (t.RX * t.RX))
+                                    + (b * b / (t.RY * t.RY));
 
                                 if (Abs(normalizedRadius - 1d) < Epsilon)
                                 {
@@ -2626,10 +2626,10 @@ namespace Engine
             var v = pY - cY;
 
             // Apply the rotation transformation.
-            var a = (u * cosT + v * sinT);
-            var b = (u * sinT - v * cosT);
+            var a = u * cosT + v * sinT;
+            var b = u * sinT - v * cosT;
 
-            var normalizedRadius = ((a * a) / (r1 * r1)) + ((b * b) / (r2 * r2));
+            var normalizedRadius = (a * a / (r1 * r1)) + (b * b / (r2 * r2));
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < Epsilon)
@@ -2807,8 +2807,8 @@ namespace Engine
 
             // Normalize the radius.
             var normalizedRadius
-                = ((a * a) / (r1 * r1))
-                + ((b * b) / (r2 * r2));
+                = (a * a / (r1 * r1))
+                + (b * b / (r2 * r2));
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
@@ -2937,8 +2937,8 @@ namespace Engine
 
             // Normalize the radius.
             var normalizedRadius
-                = ((a * a) / (r1 * r1))
-                + ((b * b) / (r2 * r2));
+                = (a * a / (r1 * r1))
+                + (b * b / (r2 * r2));
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < Epsilon)
@@ -3081,7 +3081,7 @@ namespace Engine
         public static bool PointPointIntersects(
             double point0X, double point0Y,
             double point1X, double point1Y)
-            => (point0X == point1X && point0Y == point1Y);
+            => point0X == point1X && point0Y == point1Y;
 
         /// <summary>
         /// Check whether a point is coincident to a line segment.
@@ -3159,7 +3159,7 @@ namespace Engine
             double lI, double lJ,
             double epsilon = Epsilon)
             => ((pX == lX) && (pY == lY))
-                || ((pX == lI) && (pY == lJ))
+                || (pX == lI) && (pY == lJ)
                 && ((pX - lX) * (lJ - lY) == (pY - lY) * (lI - lX));
 
         /// <summary>
@@ -3235,10 +3235,10 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Translate lines to origin.
-            var u1 = (x1 - x0);
-            var v1 = (y1 - y0);
-            var u2 = (x3 - x2);
-            var v2 = (y3 - y2);
+            var u1 = x1 - x0;
+            var v1 = y1 - y0;
+            var u2 = x3 - x2;
+            var v2 = y3 - y2;
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (v2 * u1) - (u2 * v1);
@@ -3247,7 +3247,7 @@ namespace Engine
             if (Abs(determinant) < epsilon)
             {
                 // Return whether line segments are coincidental.
-                return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+                return PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1);
             }
 
             // Find the index where the intersection point lies on the line.
@@ -3336,10 +3336,10 @@ namespace Engine
             // ToDo: Figure out ray intersection.
 
             // Translate lines to origin.
-            var u1 = (x1 - x0);
-            var v1 = (y1 - y0);
-            var u2 = (x3 - x2);
-            var v2 = (y3 - y2);
+            var u1 = x1 - x0;
+            var v1 = y1 - y0;
+            var u2 = x3 - x2;
+            var v2 = y3 - y2;
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (v2 * u1) - (u2 * v1);
@@ -3348,7 +3348,7 @@ namespace Engine
             if (Abs(determinant) < epsilon)
             {
                 // Return whether line segments are coincidental.
-                return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+                return PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1);
             }
 
             // Find the index where the intersection point lies on the line.
@@ -3433,10 +3433,10 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Translate lines to origin.
-            var u1 = (x1 - x0);
-            var v1 = (y1 - y0);
-            var u2 = (x3 - x2);
-            var v2 = (y3 - y2);
+            var u1 = x1 - x0;
+            var v1 = y1 - y0;
+            var u2 = x3 - x2;
+            var v2 = y3 - y2;
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (v2 * u1) - (u2 * v1);
@@ -3445,7 +3445,7 @@ namespace Engine
             if (Abs(determinant) < epsilon)
             {
                 // Return whether line segments are coincidental.
-                return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+                return PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1);
             }
 
             // Find the index where the intersection point lies on the line.
@@ -3483,10 +3483,10 @@ namespace Engine
             // ToDo: Figure out Line Ray intersection.
 
             // Translate lines to origin.
-            var u1 = (x1 - x0);
-            var v1 = (y1 - y0);
-            var u2 = (x3 - x2);
-            var v2 = (y3 - y2);
+            var u1 = x1 - x0;
+            var v1 = y1 - y0;
+            var u2 = x3 - x2;
+            var v2 = y3 - y2;
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (v2 * u1) - (u2 * v1);
@@ -3495,7 +3495,7 @@ namespace Engine
             if (Abs(determinant) < epsilon)
             {
                 // Return whether line segments are coincidental.
-                return (PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1));
+                return PointLineSegmentIntersects(x2, y2, x0, y0, x1, y1) || PointLineSegmentIntersects(x3, y3, x0, y0, x1, y1);
             }
 
             // Find the index where the intersection point lies on the line.
@@ -3530,7 +3530,7 @@ namespace Engine
             double x3, double y3,
             double epsilon = Epsilon)
                 // Check if the lines are parallel. Non-parallel lines always intersect.
-                => (Abs(((y3 - y2) * (x1 - x0)) - ((x3 - x2) * (y1 - y0))) < epsilon);
+                => Abs(((y3 - y2) * (x1 - x0)) - ((x3 - x2) * (y1 - y0))) < epsilon;
 
         /// <summary>
         /// Find out whether a line and a rectangle intersects.
@@ -3904,7 +3904,7 @@ namespace Engine
             double pX, double pY,
             double lX, double lY, double i, double j,
             double epsilon = Epsilon)
-            => (PointRayIntersects(pX, pY, lX, lY, i, j, epsilon))
+            => PointRayIntersects(pX, pY, lX, lY, i, j, epsilon)
             ? new Intersection(IntersectionState.Intersection, new Point2D(pX, pY))
             : new Intersection(IntersectionState.NoIntersection);
 
@@ -3925,7 +3925,7 @@ namespace Engine
             double pX, double pY,
             double lAX, double lAY, double lBX, double lBY,
             double epsilon = Epsilon)
-            => (PointLineSegmentIntersects(pX, pY, lAX, lAY, lBX, lBY, epsilon))
+            => PointLineSegmentIntersects(pX, pY, lAX, lAY, lBX, lBY, epsilon)
             ? new Intersection(IntersectionState.Intersection, new Point2D(pX, pY))
             : new Intersection(IntersectionState.NoIntersection);
 
@@ -4665,8 +4665,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / (2 * a));
-                var t2 = ((-b - Sqrt(discriminant)) / (2 * a));
+                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 // Add the points.
                 result = new Intersection(IntersectionState.Intersection);
@@ -4753,8 +4753,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / (2 * a));
-                var t2 = ((-b - Sqrt(discriminant)) / (2 * a));
+                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 // Find the point.
                 var pX = lx + t1 * li;
@@ -4866,7 +4866,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
             var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
+            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
 
             // Calculate the discriminant.
             var discriminant = b * b - 4d * a * c;
@@ -4889,8 +4889,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
-                var t1 = (OneHalf * (-b + Sqrt(discriminant)) / a);
-                var t2 = (OneHalf * (-b - Sqrt(discriminant)) / a);
+                var t1 = OneHalf * (-b + Sqrt(discriminant)) / a;
+                var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
 
                 // Add the points.
                 result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
@@ -4984,7 +4984,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
             var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = (u0A * u0A) / (rx * rx) + (v0A * v0A) / (ry * ry) - 1d;
+            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
 
             // Calculate the discriminant of the quadratic.
             var discriminant = b * b - 4d * a * c;
@@ -5034,8 +5034,8 @@ namespace Engine
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
-                var t1 = (OneHalf * (-b + root) / a);
-                var t2 = (OneHalf * (-b - root) / a);
+                var t1 = OneHalf * (-b + root) / a;
+                var t2 = OneHalf * (-b - root) / a;
 
                 // Find the point.
                 var p = new Point2D(u0 + (u1 - u0) * t1 + cx, v0 + (v1 - v0) * t1 + cy);
@@ -5172,11 +5172,11 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Intersection cross product.
-            var ua = (r1i) * (r0y - r1y) - (r1j) * (r0x - r1x);
-            var ub = (r0i) * (r0y - r1y) - (r0j) * (r0x - r1x);
+            var ua = r1i * (r0y - r1y) - r1j * (r0x - r1x);
+            var ub = r0i * (r0y - r1y) - r0j * (r0x - r1x);
 
             // Calculate the determinant of the coefficient matrix.
-            var determinant = (r1j) * (r0i) - (r1i) * (r0j);
+            var determinant = r1j * r0i - r1i * r0j;
 
             if (Abs(determinant) < epsilon)
             {
@@ -5528,8 +5528,8 @@ namespace Engine
         {
             Intersection result;
 
-            var a = (lBi) * (lBi) + (lBj) * (lBj);
-            var b = 2 * ((lBi) * (lAX - cX) + (lBj) * (lAY - cY));
+            var a = lBi * lBi + lBj * lBj;
+            var b = 2 * (lBi * (lAX - cX) + lBj * (lAY - cY));
             var c = cX * cX + cY * cY + lAX * lAX + lAY * lAY - 2 * (cX * lAX + cY * lAY) - r * r;
 
             var determinant = b * b - 4 * a * c;
@@ -5643,7 +5643,7 @@ namespace Engine
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && (0 <= t && t <= 1))
+                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t && t <= 1)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
@@ -5652,8 +5652,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / (2 * a));
-                var t2 = ((-b - Sqrt(discriminant)) / (2 * a));
+                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 // Find the point.
                 var pX = lAX + t1 * lBI;
@@ -5663,7 +5663,7 @@ namespace Engine
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && (0 <= t1 && t1 <= 1))
+                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t1 && t1 <= 1)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
@@ -5734,15 +5734,15 @@ namespace Engine
             var v2 = y0 + j0 - cy;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = (0 + (u1 * cosA - v1 * -sinA));
-            var v1A = (0 + (u1 * -sinA + v1 * cosA));
-            var u2A = (0 + (u2 * cosA - v2 * -sinA));
-            var v2A = (0 + (u2 * -sinA + v2 * cosA));
+            var u1A = 0 + (u1 * cosA - v1 * -sinA);
+            var v1A = 0 + (u1 * -sinA + v1 * cosA);
+            var u2A = 0 + (u2 * cosA - v2 * -sinA);
+            var v2A = 0 + (u2 * -sinA + v2 * cosA);
 
             // Calculate the quadratic parameters.
             var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
             var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
+            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
 
             // Calculate the discriminant.
             var discriminant = b * b - 4d * a * c;
@@ -5769,16 +5769,16 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
-                var t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
-                var t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
+                var t1 = 0.5d * (-b + Sqrt(discriminant)) / a;
+                var t2 = 0.5d * (-b - Sqrt(discriminant)) / a;
 
                 // Add the points if they are between the end points of the line segment.
-                if ((t1 >= 0d)/* && (t1 <= 1d)*/)
+                if (t1 >= 0d/* && (t1 <= 1d)*/)
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
                 }
 
-                if ((t2 >= 0d)/* && (t2 <= 1d)*/)
+                if (t2 >= 0d/* && (t2 <= 1d)*/)
                 {
                     result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
                 }
@@ -5847,7 +5847,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
             var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = (u0A * u0A) / (rx * rx) + (v0A * v0A) / (ry * ry) - 1d;
+            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
 
             // Calculate the discriminant of the quadratic.
             var discriminant = b * b - 4d * a * c;
@@ -5901,11 +5901,11 @@ namespace Engine
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
-                var t1 = (OneHalf * (-b + root) / a);
-                var t2 = (OneHalf * (-b - root) / a);
+                var t1 = OneHalf * (-b + root) / a;
+                var t2 = OneHalf * (-b - root) / a;
 
                 // Add the points if they are between the end points of the line segment.
-                if ((t1 >= 0d) /*&& (t1 == 1d)*/)
+                if (t1 >= 0d /*&& (t1 == 1d)*/)
                 {
                     // Find the point.
                     var p = new Point2D(u0 + (u1 - u0) * t1 + cx, v0 + (v1 - v0) * t1 + cy);
@@ -5920,7 +5920,7 @@ namespace Engine
                     }
                 }
 
-                if ((t2 >= 0d) /*&& (t2 <= 1d)*/)
+                if (t2 >= 0d /*&& (t2 <= 1d)*/)
                 {
                     // Find the point.
                     var p = new Point2D(u0 + (u1 - u0) * t2 + cx, v0 + (v1 - v0) * t2 + cy);
@@ -6506,7 +6506,7 @@ namespace Engine
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && (0 <= t && t <= 1))
+                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t && t <= 1)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
@@ -6515,8 +6515,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / (2 * a));
-                var t2 = ((-b - Sqrt(discriminant)) / (2 * a));
+                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 // Find the point.
                 var pX = lAX + t1 * dx;
@@ -6526,7 +6526,7 @@ namespace Engine
                 var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && (0 <= t1 && t1 <= 1))
+                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t1 && t1 <= 1)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
@@ -6540,7 +6540,7 @@ namespace Engine
                 determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && (0 <= t2 && t2 <= 1))
+                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t2 && t2 <= 1)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
@@ -6619,15 +6619,15 @@ namespace Engine
             var v2 = y1 - cy;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = (0 + (u1 * cosA - v1 * -sinA));
-            var v1A = (0 + (u1 * -sinA + v1 * cosA));
-            var u2A = (0 + (u2 * cosA - v2 * -sinA));
-            var v2A = (0 + (u2 * -sinA + v2 * cosA));
+            var u1A = 0 + (u1 * cosA - v1 * -sinA);
+            var v1A = 0 + (u1 * -sinA + v1 * cosA);
+            var u2A = 0 + (u2 * cosA - v2 * -sinA);
+            var v2A = 0 + (u2 * -sinA + v2 * cosA);
 
             // Calculate the quadratic parameters.
             var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
             var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
+            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
 
             // Calculate the discriminant.
             var discriminant = b * b - 4d * a * c;
@@ -6654,8 +6654,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
-                var t1 = (0.5d * (-b + Sqrt(discriminant)) / a);
-                var t2 = (0.5d * (-b - Sqrt(discriminant)) / a);
+                var t1 = 0.5d * (-b + Sqrt(discriminant)) / a;
+                var t2 = 0.5d * (-b - Sqrt(discriminant)) / a;
 
                 // Add the points if they are between the end points of the line segment.
                 if ((t1 >= 0d) && (t1 <= 1d))
@@ -6757,7 +6757,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
             var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = (u0A * u0A) / (rx * rx) + (v0A * v0A) / (ry * ry) - 1d;
+            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
 
             // Calculate the discriminant of the quadratic.
             var discriminant = b * b - 4d * a * c;
@@ -6811,8 +6811,8 @@ namespace Engine
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
-                var t1 = (OneHalf * (-b + root) / a);
-                var t2 = (OneHalf * (-b - root) / a);
+                var t1 = OneHalf * (-b + root) / a;
+                var t2 = OneHalf * (-b - root) / a;
 
                 // Add the points if they are between the end points of the line segment.
                 if ((t1 >= 0d) && (t1 == 1d))
@@ -8708,19 +8708,19 @@ namespace Engine
                     // Get the points P3.
                     result = new Intersection(IntersectionState.Intersection);
                     result.AppendPoint(new Point2D(
-                        (cx2 + h * (cy1 - cy0) / dist),
-                        (cy2 - h * (cx1 - cx0) / dist)));
+                        cx2 + h * (cy1 - cy0) / dist,
+                        cy2 - h * (cx1 - cx0) / dist));
                 }
                 else
                 {
                     // Get the points P3.
                     result = new Intersection(IntersectionState.Intersection);
                     result.AppendPoint(new Point2D(
-                    (cx2 + h * (cy1 - cy0) / dist),
-                    (cy2 - h * (cx1 - cx0) / dist)));
+                    cx2 + h * (cy1 - cy0) / dist,
+                    cy2 - h * (cx1 - cx0) / dist));
                     result.AppendPoint(new Point2D(
-                    (cx2 - h * (cy1 - cy0) / dist),
-                    (cy2 + h * (cx1 - cx0) / dist)));
+                    cx2 - h * (cy1 - cy0) / dist,
+                    cy2 + h * (cx1 - cx0) / dist));
                 }
             }
 
@@ -9785,7 +9785,7 @@ namespace Engine
             var v2 = y1 - y0;
 
             var ua = u2 * (y - y0) - v2 * (x - x0);
-            var ub = (y - y0);
+            var ub = y - y0;
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = v2;
@@ -9956,7 +9956,7 @@ namespace Engine
             // Calculate the discriminant.
             var discriminant = b * b - 4 * c;
 
-            if ((discriminant < 0))
+            if (discriminant < 0)
             {
                 // No real solutions.
                 return;
@@ -9973,8 +9973,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / (2 * 1));
-                var t2 = ((-b - Sqrt(discriminant)) / (2 * 1));
+                var t1 = (-b + Sqrt(discriminant)) / (2 * 1);
+                var t2 = (-b - Sqrt(discriminant)) / (2 * 1);
 
                 // Add the points.
                 scanlist.Add(x + t1 * 1);
@@ -10045,8 +10045,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / 2d);
-                var t2 = ((-b - Sqrt(discriminant)) / 2d);
+                var t1 = (-b + Sqrt(discriminant)) / 2d;
+                var t2 = (-b - Sqrt(discriminant)) / 2d;
 
                 // Find the point.
                 var pX = x + t1 * 1;
@@ -10116,7 +10116,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
             var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
+            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
 
             // Calculate the discriminant.
             var discriminant = b * b - 4d * a * c;
@@ -10133,14 +10133,14 @@ namespace Engine
                 var t = OneHalf * -b / a;
 
                 // Add two points for either the top or bottom.
-                scanlist.Add((u1 + (u2 - u1) * t + cx));
-                scanlist.Add((u1 + (u2 - u1) * t + cx));
+                scanlist.Add(u1 + (u2 - u1) * t + cx);
+                scanlist.Add(u1 + (u2 - u1) * t + cx);
             }
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
-                var t1 = (OneHalf * (-b + Sqrt(discriminant)) / a);
-                var t2 = (OneHalf * (-b - Sqrt(discriminant)) / a);
+                var t1 = OneHalf * (-b + Sqrt(discriminant)) / a;
+                var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
 
                 // Add the points.
                 scanlist.Add(u1 + (u2 - u1) * t1 + cx);
@@ -10188,7 +10188,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
             var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = (u0A * u0A) / (rx * rx) + (v0A * v0A) / (ry * ry) - 1d;
+            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
 
             // Calculate the discriminant of the quadratic.
             var discriminant = b * b - 4d * a * c;
@@ -10239,8 +10239,8 @@ namespace Engine
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
-                var t1 = (OneHalf * (-b + root) / a);
-                var t2 = (OneHalf * (-b - root) / a);
+                var t1 = OneHalf * (-b + root) / a;
+                var t2 = OneHalf * (-b - root) / a;
 
                 // Find the point.
                 var px = u0 + (u1 - u0) * t1 + cx;
@@ -10437,7 +10437,7 @@ namespace Engine
             var v2 = y1 - y0;
 
             var ua = u2 * (y - y0) - v2 * (x - x0);
-            var ub = (y - y0);
+            var ub = y - y0;
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = v2;
@@ -10626,7 +10626,7 @@ namespace Engine
             var discriminant = b * b - 4 * c;
 
             var result = 0;
-            if ((discriminant < 0))
+            if (discriminant < 0)
             {
                 // No real solutions.
                 return 0;
@@ -10646,8 +10646,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / (2 * 1));
-                var t2 = ((-b - Sqrt(discriminant)) / (2 * 1));
+                var t1 = (-b + Sqrt(discriminant)) / (2 * 1);
+                var t2 = (-b - Sqrt(discriminant)) / (2 * 1);
 
                 // Add the points.
                 if (x + t1 * 1 <= x)
@@ -10729,8 +10729,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / 2d);
-                var t2 = ((-b - Sqrt(discriminant)) / 2d);
+                var t1 = (-b + Sqrt(discriminant)) / 2d;
+                var t2 = (-b - Sqrt(discriminant)) / 2d;
 
                 // Find the point.
                 var pX = x + t1;
@@ -10802,7 +10802,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
             var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
+            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
 
             // Calculate the discriminant.
             var discriminant = b * b - 4d * a * c;
@@ -10834,8 +10834,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
-                var t1 = (OneHalf * (-b + Sqrt(discriminant)) / a);
-                var t2 = (OneHalf * (-b - Sqrt(discriminant)) / a);
+                var t1 = OneHalf * (-b + Sqrt(discriminant)) / a;
+                var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
 
                 // Add the points.
                 if (u1 + (u2 - u1) * t1 + cx <= x)
@@ -10892,7 +10892,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
             var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = (u0A * u0A) / (rx * rx) + (v0A * v0A) / (ry * ry) - 1d;
+            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
 
             // Calculate the discriminant of the quadratic.
             var discriminant = b * b - 4d * a * c;
@@ -10944,8 +10944,8 @@ namespace Engine
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
-                var t1 = (OneHalf * (-b + root) / a);
-                var t2 = (OneHalf * (-b - root) / a);
+                var t1 = OneHalf * (-b + root) / a;
+                var t2 = OneHalf * (-b - root) / a;
 
                 // Find the point.
                 var px = u0 + (u1 - u0) * t1 + cx;
@@ -11153,7 +11153,7 @@ namespace Engine
             var v2 = y1 - y0;
 
             var ua = u2 * (y - y0) - v2 * (x - x0);
-            var ub = (y - y0);
+            var ub = y - y0;
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = v2;
@@ -11337,7 +11337,7 @@ namespace Engine
             var discriminant = b * b - 4 * c;
 
             var result = 0;
-            if ((discriminant < 0))
+            if (discriminant < 0)
             {
                 // No real solutions.
                 return 0;
@@ -11357,8 +11357,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / (2 * 1));
-                var t2 = ((-b - Sqrt(discriminant)) / (2 * 1));
+                var t1 = (-b + Sqrt(discriminant)) / (2 * 1);
+                var t2 = (-b - Sqrt(discriminant)) / (2 * 1);
 
                 // Add the points.
                 if (x + t1 * 1 >= x)
@@ -11440,8 +11440,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two possible solutions.
-                var t1 = ((-b + Sqrt(discriminant)) / 2d);
-                var t2 = ((-b - Sqrt(discriminant)) / 2d);
+                var t1 = (-b + Sqrt(discriminant)) / 2d;
+                var t2 = (-b - Sqrt(discriminant)) / 2d;
 
                 // Find the point.
                 var pX = x + t1;
@@ -11513,7 +11513,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
             var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = (u1A * u1A) / (rx * rx) + (v1A * v1A) / (ry * ry) - 1d;
+            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
 
             // Calculate the discriminant.
             var discriminant = b * b - 4d * a * c;
@@ -11545,13 +11545,13 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
-                var t1 = (OneHalf * (-b + Sqrt(discriminant)) / a);
+                var t1 = OneHalf * (-b + Sqrt(discriminant)) / a;
                 if (u1 + (u2 - u1) * t1 + cx >= x)
                 {
                     results++;
                 }
 
-                var t2 = (OneHalf * (-b - Sqrt(discriminant)) / a);
+                var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
                 if (u1 + (u2 - u1) * t2 + cx >= x)
                 {
                     results++;
@@ -11601,7 +11601,7 @@ namespace Engine
             // Calculate the quadratic parameters.
             var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
             var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = (u0A * u0A) / (rx * rx) + (v0A * v0A) / (ry * ry) - 1d;
+            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
 
             // Calculate the discriminant of the quadratic.
             var discriminant = b * b - 4d * a * c;
@@ -11654,8 +11654,8 @@ namespace Engine
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
-                var t1 = (OneHalf * (-b + root) / a);
-                var t2 = (OneHalf * (-b - root) / a);
+                var t1 = OneHalf * (-b + root) / a;
+                var t2 = OneHalf * (-b - root) / a;
 
                 // Find the point.
                 var px = u0 + (u1 - u0) * t1 + cx;

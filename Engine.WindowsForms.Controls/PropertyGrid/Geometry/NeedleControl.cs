@@ -108,7 +108,7 @@ namespace Engine
         /// 
         /// </summary>
         private bool IsTransparent
-            => (BackColor == Color.Transparent);
+            => BackColor == Color.Transparent;
 
         /// <summary>
         /// 

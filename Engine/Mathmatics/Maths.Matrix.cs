@@ -33,8 +33,8 @@ namespace Engine
         public static double Determinant(
             double m1x1, double m1x2,
             double m2x1, double m2x2)
-            => ((m1x1 * m2x2)
-              - (m1x2 * m2x1));
+            => (m1x1 * m2x2)
+              - (m1x2 * m2x1);
 
         /// <summary>
         /// Find the determinant of a 3 by 3 matrix.
@@ -58,10 +58,10 @@ namespace Engine
             double a, double b, double c,
             double d, double e, double f,
             double g, double h, double i)
-            => ((a * Determinant(e, f, h, i))
+            => (a * Determinant(e, f, h, i))
               - (b * Determinant(d, f, g, i))
               + (c * Determinant(d, e, g, h))
-            );
+            ;
 
         /// <summary>
         /// Find the determinant of a 4 by 4 matrix.
@@ -93,11 +93,11 @@ namespace Engine
             double e, double f, double g, double h,
             double i, double j, double k, double l,
             double m, double n, double o, double p)
-            => ((a * Determinant(f, g, h, j, k, l, n, o, p))
+            => (a * Determinant(f, g, h, j, k, l, n, o, p))
               - (b * Determinant(e, g, h, i, k, l, m, o, p))
               + (c * Determinant(e, f, h, i, j, l, m, n, p))
               - (d * Determinant(e, f, g, i, j, k, m, n, o))
-            );
+            ;
 
         /// <summary>
         /// Find the determinant of a 5 by 5 matrix.
@@ -135,12 +135,12 @@ namespace Engine
             double k, double l, double m, double n, double o,
             double p, double q, double r, double s, double t,
             double u, double v, double w, double x, double y)
-            => ((a * Determinant(g, h, i, j, l, m, n, o, q, r, s, t, v, w, x, y))
+            => (a * Determinant(g, h, i, j, l, m, n, o, q, r, s, t, v, w, x, y))
               - (b * Determinant(f, h, i, j, k, m, n, o, p, r, s, t, u, w, x, y))
               + (c * Determinant(f, g, i, j, k, l, n, o, p, q, s, t, u, v, x, y))
               - (d * Determinant(f, g, h, j, k, l, m, o, p, q, r, t, u, v, w, y))
               + (e * Determinant(f, g, h, i, k, l, m, n, p, q, r, s, u, v, w, x))
-            );
+            ;
 
         /// <summary>
         /// Find the determinant of a 6 by 6 matrix.
@@ -190,13 +190,13 @@ namespace Engine
             double s, double t, double u, double v, double w, double x,
             double y, double z, double aa, double bb, double cc, double dd,
             double ee, double ff, double gg, double hh, double ii, double jj)
-            => ((a * Determinant(h, i, j, k, l, n, o, p, q, r, t, u, v, w, x, z, aa, bb, cc, dd, ff, gg, hh, ii, jj))
+            => (a * Determinant(h, i, j, k, l, n, o, p, q, r, t, u, v, w, x, z, aa, bb, cc, dd, ff, gg, hh, ii, jj))
               - (b * Determinant(g, i, j, k, l, m, o, p, q, r, s, u, v, w, x, y, aa, bb, cc, dd, ee, gg, hh, ii, jj))
               + (c * Determinant(g, h, j, k, l, m, n, p, q, r, s, t, v, w, x, y, z, bb, cc, dd, ee, ff, hh, ii, jj))
               - (d * Determinant(g, h, i, k, l, m, n, o, q, r, s, t, u, w, x, y, z, aa, cc, dd, ee, ff, gg, ii, jj))
               + (e * Determinant(g, h, i, j, l, m, n, o, p, r, s, t, u, v, x, y, z, aa, bb, dd, ee, ff, gg, hh, jj))
               - (f * Determinant(g, h, i, j, k, m, n, o, p, q, s, t, u, v, w, y, z, aa, bb, cc, ee, ff, gg, hh, ii))
-            );
+            ;
 
         /// <summary>
         /// Find the inverse of the determinant of a 2 by 2 matrix.

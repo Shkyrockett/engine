@@ -317,7 +317,7 @@ namespace Engine
         /// </returns>
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(AccumulatorPoint2D);
+            //if (this is null) return nameof(AccumulatorPoint2D);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Point2D)}{{{nameof(X)}={X}{sep}{nameof(Y)}={Y}{sep}{nameof(TotalDistance)}={TotalDistance}{sep}{nameof(Previous)}={Previous}}}";
             return formatable.ToString(format, provider);

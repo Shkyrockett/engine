@@ -69,7 +69,7 @@ namespace Engine
         /// <returns>The <see cref="Point2D"/>.</returns>
         public Point2D Distort(PolycurveContour source, Point2D point)
         {
-            if (distortionPath == null)
+            if (distortionPath is null)
             {
                 BuildDistortion(source);
             }
@@ -77,7 +77,7 @@ namespace Engine
             var ScaledPoint = point;
 
             GetBoundedPoints(out Point2D UpperBoundPoint, out Point2D LowerBoundPoint, point);
-            var Y = UpperBoundPoint.Y + (((ScaledPoint.Y - sourceBounds.Top) / sourceBounds.Height) * Math.Abs(UpperBoundPoint.Y - LowerBoundPoint.Y));
+            var Y = UpperBoundPoint.Y + ((ScaledPoint.Y - sourceBounds.Top) / sourceBounds.Height * Math.Abs(UpperBoundPoint.Y - LowerBoundPoint.Y));
 
             return new Point2D(ScaledPoint.X, Y);
         }
@@ -157,8 +157,8 @@ namespace Engine
             distortionPath.AddLineSegment(upperLeft);
 
             distortionPath.AddCubicBezier(
-                new Point2D(sourceBounds.Left, sourceBounds.Top + ((sourceBounds.Height * (float)Intensity)) * -1),
-                new Point2D(sourceBounds.Right, sourceBounds.Top + ((sourceBounds.Height * (float)Intensity)) * -1),
+                new Point2D(sourceBounds.Left, sourceBounds.Top + sourceBounds.Height * (float)Intensity * -1),
+                new Point2D(sourceBounds.Right, sourceBounds.Top + sourceBounds.Height * (float)Intensity * -1),
                 upperRight);
 
             distortionPath.AddLineSegment(lowerRight);

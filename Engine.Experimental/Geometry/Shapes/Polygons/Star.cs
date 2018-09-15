@@ -166,7 +166,7 @@ namespace Engine
             var dy34 = p4.Y - p3.Y;
 
             // Solve for t1 and t2
-            var denominator = (dy12 * dx34 - dx12 * dy34);
+            var denominator = dy12 * dx34 - dx12 * dy34;
 
             float t1;
             try
@@ -191,7 +191,7 @@ namespace Engine
             intersection = new PointF(p1.X + dx12 * t1, p1.Y + dy12 * t1);
 
             // The segments intersect if t1 and t2 are between 0 and 1.
-            segments_intersect = ((t1 >= 0) && (t1 <= 1) && (t2 >= 0) && (t2 <= 1));
+            segments_intersect = (t1 >= 0) && (t1 <= 1) && (t2 >= 0) && (t2 <= 1);
 
             // Find the closest points on the segments.
             if (t1 < 0)
@@ -214,7 +214,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this == null) return nameof(Star);
+            if (this is null) return nameof(Star);
             return nameof(Star);
         }
     }

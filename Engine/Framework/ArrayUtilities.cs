@@ -64,7 +64,7 @@ namespace Engine
         /// The pop.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T"/>.</returns>
+        /// <returns>The <see cref="Type"/>.</returns>
         /// <typeparam name="T"></typeparam>
         public static T Pop<T>(this List<T> list)
         {
@@ -77,7 +77,7 @@ namespace Engine
         /// The shift.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T"/>.</returns>
+        /// <returns>The <see cref="Type"/>.</returns>
         /// <typeparam name="T"></typeparam>
         public static T Shift<T>(this List<T> list)
         {
@@ -173,7 +173,7 @@ namespace Engine
         /// <param name="list">The list.</param>
         /// <param name="func">The func.</param>
         /// <param name="acc">The acc.</param>
-        /// <returns>The <see cref="T"/>.</returns>
+        /// <returns>The <see cref="Type"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <remarks>

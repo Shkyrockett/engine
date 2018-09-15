@@ -14,7 +14,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The rectangle f extensions class.
     /// </summary>
     public static class RectangleFExtensions
     {
@@ -30,31 +30,31 @@ namespace Engine
         );
 
         /// <summary>
-        /// 
+        /// The top left.
         /// </summary>
-        /// <param name="rectangle"></param>
-        /// <returns></returns>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <returns>The <see cref="PointF"/>.</returns>
         public static PointF TopLeft(this RectangleF rectangle) => rectangle.Location;
 
         /// <summary>
-        /// 
+        /// The top right.
         /// </summary>
-        /// <param name="rectangle"></param>
-        /// <returns></returns>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <returns>The <see cref="PointF"/>.</returns>
         public static PointF TopRight(this RectangleF rectangle) => new PointF(rectangle.Right, rectangle.Top);
 
         /// <summary>
-        /// 
+        /// The bottom right.
         /// </summary>
-        /// <param name="rectangle"></param>
-        /// <returns></returns>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <returns>The <see cref="PointF"/>.</returns>
         public static PointF BottomRight(this RectangleF rectangle) => new PointF(rectangle.Right, rectangle.Bottom);
 
         /// <summary>
-        /// 
+        /// The bottom left.
         /// </summary>
-        /// <param name="rectangle"></param>
-        /// <returns></returns>
+        /// <param name="rectangle">The rectangle.</param>
+        /// <returns>The <see cref="PointF"/>.</returns>
         public static PointF BottomLeft(this RectangleF rectangle) => new PointF(rectangle.Left, rectangle.Bottom);
 
         /// <summary>
@@ -108,10 +108,10 @@ namespace Engine
             };
 
         /// <summary>
-        /// 
+        /// The round.
         /// </summary>
-        /// <param name="rect"></param>
-        /// <returns></returns>
+        /// <param name="rect">The rect.</param>
+        /// <returns>The <see cref="Rectangle"/>.</returns>
         public static Rectangle Round(this RectangleF rect) => Rectangle.Round(rect);
 
         /// <summary>
@@ -140,34 +140,33 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The wrap rectangle.
         /// </summary>
-        /// <param name="Bounds"></param>
-        /// <param name="Location"></param>
-        /// <param name="Reference"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="Bounds">The Bounds.</param>
+        /// <param name="Location">The Location.</param>
+        /// <param name="Reference">The Reference.</param>
+        /// <returns>The <see cref="Point"/>.</returns>
         public static Point WrapRectangle(Rectangle Bounds, Point Location, ref PointF Reference)
         {
             if (Location.X <= Bounds.X)
             {
-                Reference = (Reference - new Size(Bounds.X, 0));
-                return new Point((Bounds.Width - 2), Location.Y);
+                Reference = Reference - new Size(Bounds.X, 0);
+                return new Point(Bounds.Width - 2, Location.Y);
             }
             if (Location.Y <= Bounds.Y)
             {
-                Reference = (Reference - new Size(0, Bounds.Y));
-                return new Point(Location.X, (Bounds.Height - 2));
+                Reference = Reference - new Size(0, Bounds.Y);
+                return new Point(Location.X, Bounds.Height - 2);
             }
             if (Location.X >= (Bounds.Width - 1))
             {
-                Reference = (Reference + new Size(Bounds.Width, 0));
-                return new Point((Bounds.X + 2), Location.Y);
+                Reference = Reference + new Size(Bounds.Width, 0);
+                return new Point(Bounds.X + 2, Location.Y);
             }
             if (Location.Y >= (Bounds.Height - 1))
             {
-                Reference = (Reference + new Size(0, Bounds.Height));
-                return new Point(Location.X, (Bounds.Y + 2));
+                Reference = Reference + new Size(0, Bounds.Height);
+                return new Point(Location.X, Bounds.Y + 2);
             }
             return Location;
         }

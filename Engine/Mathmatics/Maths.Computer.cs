@@ -97,7 +97,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedHighWord(this IntPtr n)
-            => SignedHighWord((int)((long)n));
+            => SignedHighWord((int)(long)n);
 
         /// <summary>
         /// The low word.
@@ -127,7 +127,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int SignedLowWord(this IntPtr n)
-            => SignedLowWord((int)((long)n));
+            => SignedLowWord((int)(long)n);
 
         /// <summary>
         /// Converts a long value from host byte order to network byte order.
@@ -138,7 +138,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ulong HostToNetworkOrder(ulong host)
-            => ((ulong)((HostToNetworkOrder((uint)host) & 0xffffffffL) << 0x20) | (ulong)(HostToNetworkOrder((uint)(host >> 0x20)) & 0xffffffffL));
+            => (ulong)((HostToNetworkOrder((uint)host) & 0xffffffffL) << 0x20) | (ulong)(HostToNetworkOrder((uint)(host >> 0x20)) & 0xffffffffL);
 
         /// <summary>
         /// Converts a long value from host byte order to network byte order.
@@ -160,7 +160,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static uint HostToNetworkOrder(uint host)
-            => ((uint)((HostToNetworkOrder((ushort)host) & 0xffff) << 0x10) | (uint)(HostToNetworkOrder((ushort)(host >> 0x10)) & 0xffff));
+            => (uint)((HostToNetworkOrder((ushort)host) & 0xffff) << 0x10) | (uint)(HostToNetworkOrder((ushort)(host >> 0x10)) & 0xffff);
 
         /// <summary>
         /// Converts an integer value from host byte order to network byte order.
@@ -171,7 +171,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int HostToNetworkOrder(int host)
-            => (((HostToNetworkOrder((short)host) & 0xffff) << 0x10) | (HostToNetworkOrder((short)(host >> 0x10)) & 0xffff));
+            => ((HostToNetworkOrder((short)host) & 0xffff) << 0x10) | (HostToNetworkOrder((short)(host >> 0x10)) & 0xffff);
 
         /// <summary>
         /// Converts a short value from host byte order to network byte order.

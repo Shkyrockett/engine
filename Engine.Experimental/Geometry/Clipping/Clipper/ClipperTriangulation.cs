@@ -57,7 +57,7 @@ namespace Engine.Experimental
                 e = e2.GetRightAdjacentHotEdge();
             }
 
-            if (e == null)
+            if (e is null)
             {
                 e = e1.GetLeftAdjacentHotEdge();
             }
@@ -65,14 +65,14 @@ namespace Engine.Experimental
             LinkedPoint botLft = (e.OutRec as OutRecTri).LeftOutpt;
             var botRt = e.GetOutPt();
 
-            if (botLft == null || botRt.Pt.Y < botLft.Pt.Y)
+            if (botLft is null || botRt.Pt.Y < botLft.Pt.Y)
             {
                 botLft = botRt;
             }
 
             botRt = InsertPoint(botLft.Pt, botLft.Prev);
             var botOr = (botLft as LinkedPointTriangle).Outrec;
-            if (botOr.Points == null)
+            if (botOr.Points is null)
             {
                 botOr = botOr.Owner;
             }
@@ -131,7 +131,7 @@ namespace Engine.Experimental
             var is_outer = e1.IsStartSide() || (e1.OutRec == e2.OutRec);
             if (is_outer)
             {
-                var ort = (OutRecTri)(e1.OutRec);
+                var ort = (OutRecTri)e1.OutRec;
                 if (ort.LeftOutpt != null)
                 {
                     outrec.UpdateHelper(null);
@@ -142,7 +142,7 @@ namespace Engine.Experimental
 
             base.AddLocalMaxPoly(e1, e2, Pt);
 
-            if (outrec.Points == null)
+            if (outrec.Points is null)
             {
                 outrec = outrec.Owner;
             }
@@ -205,7 +205,7 @@ namespace Engine.Experimental
             LastOp = result;
             Triangulate(e.OutRec);
             //Triangulate() above may assign Result.OutRecRt so ...
-            if (e.IsStartSide() && opt.RightOutrec == null)
+            if (e.IsStartSide() && opt.RightOutrec is null)
             {
                 var e2 = e.GetRightAdjacentHotEdge();
                 if (e2 != null)

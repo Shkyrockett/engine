@@ -166,7 +166,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double NormalizeRadian(double angle)
         {
-            var value = (angle + PI) % (Tau);
+            var value = (angle + PI) % Tau;
             value += value > 0d ? -PI : PI;
             return value;
         }
@@ -241,7 +241,7 @@ namespace Engine
         public static double Angle(
             double x1, double y1,
             double x2, double y2)
-            => Atan2((y1 - y2), (x1 - x2));
+            => Atan2(y1 - y2, x1 - x2);
 
         /// <summary>
         /// The angle.
@@ -398,8 +398,8 @@ namespace Engine
             if (cosA > -1 && cosA < 0 || cosA > 0 && cosA < 1)
             {
                 var d = Sign(cosA);
-                return (d / Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA)),
-                        d * ((rx * sinA) / (ry * cosA * Sqrt(1 + (rx * rx * sinA * sinA) / (ry * ry * cosA * cosA)))));
+                return (d / Sqrt(1 + rx * rx * sinA * sinA / (ry * ry * cosA * cosA)),
+                        d * (rx * sinA / (ry * cosA * Sqrt(1 + rx * rx * sinA * sinA / (ry * ry * cosA * cosA)))));
             }
 
             return (cosA, sinA);
@@ -470,7 +470,7 @@ namespace Engine
 
             var rx = Cos(subtended);  /* ray from the origin */
             var ry = Sin(subtended);
-            var e = (a * b) / Sqrt(a * a * ry * ry + b * b * rx * rx);
+            var e = a * b / Sqrt(a * a * ry * ry + b * b * rx * rx);
             var ex = e * rx;  /* where ray intersects ellipse */
             var ey = e * ry;
             var parametric = Atan2(a * ey, b * ex);
@@ -497,8 +497,8 @@ namespace Engine
             var (i, j) = Delta(x1, y1, x2, y2);
             var magnatude = 0.5d * DotProduct(i, j, i, j);
             var reflection = CrossProduct(i, j, CrossProduct(x2, y2, x1, y1), DotProduct(axisX, axisY, i, j));
-            return ((magnatude * reflection - axisX),
-                    (magnatude * reflection - axisY));
+            return (magnatude * reflection - axisX,
+                    magnatude * reflection - axisY);
         }
         #endregion Reflect
 
@@ -532,8 +532,8 @@ namespace Engine
             var deltaY = y - cy;
             var angleCos = Cos(angle);
             var angleSin = Sin(angle);
-            return ((cx + (deltaX * angleCos - deltaY * angleSin)),
-                    (cy + (deltaX * angleSin + deltaY * angleCos)));
+            return (cx + (deltaX * angleCos - deltaY * angleSin),
+                    cy + (deltaX * angleSin + deltaY * angleCos));
         }
         #endregion Rotate Point
 
@@ -587,7 +587,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Unit(double i, double j)
-            => Scale2D(i, j, 1 / Sqrt(((i * i) + (j * j))));
+            => Scale2D(i, j, 1 / Sqrt((i * i) + (j * j)));
 
         /// <summary>
         /// Unit of a 3D Vector.
@@ -600,7 +600,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Unit(double i, double j, double k)
-            => Scale3D(i, j, k, 1 / Sqrt(((i * i) + (j * j) + (k * k))));
+            => Scale3D(i, j, k, 1 / Sqrt((i * i) + (j * j) + (k * k)));
 
         /// <summary>
         /// Unit of a 4D Vector.
@@ -614,7 +614,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Unit(double i, double j, double k, double l)
-            => Scale4D(i, j, k, l, 1 / Sqrt(((i * i) + (j * j) + (k * k) + (l * l))));
+            => Scale4D(i, j, k, l, 1 / Sqrt((i * i) + (j * j) + (k * k) + (l * l)));
         #endregion Unit
 
         #region Derived Equivalent Math Functions
@@ -760,7 +760,7 @@ namespace Engine
                 return PI;
             if (Math.Abs(value) < 1)
                 // Arc-sec(X)
-                return Atan(value / Sqrt(value * value - 1)) + Sin((value) - 1) * (2 * Atan(1));
+                return Atan(value / Sqrt(value * value - 1)) + Sin(value - 1) * (2 * Atan(1));
             return 0;
         }
 
@@ -801,7 +801,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCotangent(double value)
-            => (Atan(value) + (2 * Atan(1)));
+            => Atan(value) + (2 * Atan(1));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Sine
@@ -816,7 +816,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSine(double value)
-            => ((Exp(value) - Exp((value * -1))) * 0.5d);
+            => (Exp(value) - Exp(value * -1)) * 0.5d;
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Cosine
@@ -831,7 +831,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosine(double value)
-            => ((Exp(value) + Exp((value * -1))) * 0.5d);
+            => (Exp(value) + Exp(value * -1)) * 0.5d;
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Tangent
@@ -846,7 +846,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicTangent(double value)
-            => ((Exp(value) - Exp((value * -1))) / (Exp(value) + Exp((value * -1))));
+            => (Exp(value) - Exp(value * -1)) / (Exp(value) + Exp(value * -1));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Secant
@@ -861,7 +861,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSecant(double value)
-            => (0.5d * (Exp(value) + Exp((value * -1))));
+            => 0.5d * (Exp(value) + Exp(value * -1));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Co-secant
@@ -876,7 +876,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosecant(double value)
-            => (0.5d * (Exp(value) - Exp((value * -1))));
+            => 0.5d * (Exp(value) - Exp(value * -1));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Cotangent
@@ -891,7 +891,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCotangent(double value)
-            => ((Exp(value) + Exp((value * -1))) / (Exp(value) - Exp((value * -1))));
+            => (Exp(value) + Exp(value * -1)) / (Exp(value) - Exp(value * -1));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Sine
@@ -906,7 +906,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSine(double value)
-            => Log((value + Sqrt(((value * value) + 1))));
+            => Log(value + Sqrt((value * value) + 1));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Cosine
@@ -921,7 +921,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosine(double value)
-            => Log((value + Sqrt(((value * value) - 1))));
+            => Log(value + Sqrt((value * value) - 1));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Tangent
@@ -936,7 +936,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicTangent(double value)
-            => (Log(((1 + value) / (1 - value))) * 0.5d);
+            => Log((1 + value) / (1 - value)) * 0.5d;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Secant
@@ -951,7 +951,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicSecant(double value)
-            => Log(((Sqrt((((value * value) * -1) + 1)) + 1) / value));
+            => Log((Sqrt((value * value * -1) + 1) + 1) / value);
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Co-secant
@@ -966,7 +966,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCosecant(double value)
-            => Log((((Sin(value) * Sqrt(((value * value) + 1))) + 1) / value));
+            => Log(((Sin(value) * Sqrt((value * value) + 1)) + 1) / value);
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Cotangent
@@ -981,7 +981,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseHyperbolicCotangent(double value)
-            => (Log(((value + 1) / (value - 1))) * 0.5d);
+            => Log((value + 1) / (value - 1)) * 0.5d;
 
         /// <summary>
         /// Derived math functions equivalent Base N Logarithm

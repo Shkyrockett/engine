@@ -262,7 +262,7 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
+            if (this is null)
             {
                 return nameof(Triangle);
             }

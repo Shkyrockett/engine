@@ -79,13 +79,13 @@ namespace Engine.Geometry
         /// Gets a value indicating whether 
         /// </summary>
         public bool IsReal
-            => (Imaginary == 0);
+            => Imaginary == 0;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
         public bool IsImaginary
-            => (Real == 0);
+            => Real == 0;
         #endregion Properties
 
         #region Operators
@@ -213,7 +213,7 @@ namespace Engine.Geometry
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator ==(Complex a, Complex b)
-            => (a.Real == b.Real && a.Imaginary == b.Imaginary);
+            => a.Real == b.Real && a.Imaginary == b.Imaginary;
 
         /// <summary>
         /// The operator ==.
@@ -492,7 +492,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
-            => ConvertToString(String.Empty, CultureInfo.In­variantCulture);
+            => ConvertToString(string.Empty, CultureInfo.In­variantCulture);
 
         /// <summary>
         /// The to string.
@@ -508,7 +508,7 @@ namespace Engine.Geometry
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
         /// <returns>The <see cref="string"/>.</returns>
-        public string ToString(String format, IFormatProvider formatProvider)
+        public string ToString(string format, IFormatProvider formatProvider)
             => ConvertToString(format, formatProvider);
 
         /// <summary>

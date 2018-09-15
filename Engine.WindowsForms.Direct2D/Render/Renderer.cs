@@ -12,7 +12,7 @@
 namespace Engine.Direct2D
 {
     /// <summary>
-    ///
+    /// The renderer class.
     /// </summary>
     internal static partial class Renderer
     {

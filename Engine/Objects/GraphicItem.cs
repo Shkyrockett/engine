@@ -155,11 +155,11 @@ namespace Engine
             switch (Shape)
             {
                 case Ray r:
-                    return (Intersections.RayRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom));
+                    return Intersections.RayRectangleIntersects(r.Location.X, r.Location.Y, r.Location.X + r.Direction.I, r.Location.Y + r.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom);
                 case Line l:
-                    return (Intersections.LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom));
+                    return Intersections.LineRectangleIntersects(l.Location.X, l.Location.Y, l.Location.X + l.Direction.I, l.Location.Y + l.Direction.J, bounds.X, bounds.Y, bounds.Right, bounds.Bottom);
                 default:
-                    return (Shape.Bounds.IntersectsWith(bounds) || Shape.Bounds.Contains(bounds));
+                    return Shape.Bounds.IntersectsWith(bounds) || Shape.Bounds.Contains(bounds);
             }
         }
 

@@ -190,7 +190,7 @@ namespace Engine.Colorspace
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(RGBAF a, RGBAF b)
-            => (a.Red == b.Red && a.Green == b.Green && a.Blue == b.Blue && a.Alpha == b.Alpha);
+            => a.Red == b.Red && a.Green == b.Green && a.Blue == b.Blue && a.Alpha == b.Alpha;
 
         /// <summary>
         /// The equals.

@@ -125,7 +125,7 @@ namespace Engine
             else
             {
                 prev = (Vector2D)p;
-                base.points.Add(p);
+                points.Add(p);
                 arclen.Add(0);
                 return AddPointResult.NO_CHANGE; // no curves were actually added yet
             }
@@ -140,7 +140,7 @@ namespace Engine
         {
             var last = points.Count;
             Debug.Assert(last != 0); // should always have one point at least
-            base.points.Add(np);
+            points.Add(np);
             arclen.Add(totalLength = totalLength + linDist);
             if (last == 1)
             {

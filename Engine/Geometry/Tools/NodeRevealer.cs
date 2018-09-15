@@ -103,7 +103,7 @@ namespace Engine
         {
             get
             {
-                if (Points == null) return null;
+                if (Points is null) return null;
                 var boundings = Measurements.PolygonBounds(Points);
                 boundings?.Inflate(Radius, Radius);
                 return boundings;

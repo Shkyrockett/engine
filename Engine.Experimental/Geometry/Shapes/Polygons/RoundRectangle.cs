@@ -130,7 +130,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this == null)
+            if (this is null)
                 return nameof(RoundRectangle);
             return $"{nameof(RoundRectangle)}{{{nameof(bounds.Location)}={bounds.Location},{nameof(bounds.Size)}={bounds.Size},{nameof(Radius)}={radius}}}";
         }

@@ -34,7 +34,7 @@ namespace Engine.WindowsForms
         public static Bitmap DrawPalette(this Palette palette, Rectangle bounds, int selection1, int selection2, int selection3, int selection4, int selection5, int highlight = -1)
         {
             // Exit if data is not properly formated.
-            if (palette.Colors == null)
+            if (palette.Colors is null)
                 return null;
 
             if (palette.Colors.Count == 0)

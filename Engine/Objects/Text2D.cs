@@ -13,30 +13,30 @@ using System;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The text2d class.
     /// </summary>
     public class Text2D
         : GraphicsObject
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Text2D"/> class.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="location"></param>
-        /// <param name="metrics"></param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="location">The location.</param>
+        /// <param name="metrics">The metrics.</param>
         public Text2D(string text, RenderFont font, Point2D location, IPlatformTextMetrics metrics)
             : this(text, font, location, new Size2D(int.MaxValue, int.MaxValue), metrics)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Text2D"/> class.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="location"></param>
-        /// <param name="limits"></param>
-        /// <param name="metrics"></param>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="location">The location.</param>
+        /// <param name="limits">The limits.</param>
+        /// <param name="metrics">The metrics.</param>
         public Text2D(string text, RenderFont font, Point2D location, Size2D limits, IPlatformTextMetrics metrics)
         {
             Text = text;
@@ -47,41 +47,41 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the text.
         /// </summary>
         public string Text { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the font.
         /// </summary>
         public RenderFont Font { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the location.
         /// </summary>
         public Point2D Location { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the limits.
         /// </summary>
         public Size2D Limits { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         public override Rectangle2D Bounds
             => new Rectangle2D(Location, Metrics.MeasureString(Text, Font, (int)Limits.Width));
 
         /// <summary>
-        /// 
+        /// Gets or sets the metrics.
         /// </summary>
         public IPlatformTextMetrics Metrics { get; set; }
 
         /// <summary>
-        ///
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
             => Intersections.Contains(Bounds, point) != Inclusion.Outside;
 
@@ -114,7 +114,7 @@ namespace Engine.WindowsForms
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
+            if (this is null)
                 return nameof(Text2D);
             //var sep = ',';// Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Text2D)}{{{nameof(Text)}=\"{Text}\",{nameof(Font)}={Font},{nameof(Location)}={Location},{nameof(Limits)}={Limits}}}";

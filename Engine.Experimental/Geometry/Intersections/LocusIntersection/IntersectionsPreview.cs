@@ -126,15 +126,15 @@ namespace Engine
             }
 
             // Translate lines to origin as vectors.
-            var u1 = (b0X - a0X);
-            var v1 = (b0Y - a0Y);
+            var u1 = b0X - a0X;
+            var v1 = b0Y - a0Y;
 
-            var u2 = (b1X - a1X);
-            var v2 = (b1Y - a1Y);
+            var u2 = b1X - a1X;
+            var v2 = b1Y - a1Y;
 
             // Difference of the starts of the two lines
-            var u3 = (a1X - a0X);
-            var v3 = (a1Y - a0Y);
+            var u3 = a1X - a0X;
+            var v3 = a1Y - a0Y;
 
             // Calculate the determinants of the coefficient matrix.
             var det1 = (v2 * u1) - (u2 * v1);
@@ -144,7 +144,7 @@ namespace Engine
 
             // Check if the lines are parallel or coincident.
             if (det1 == 0)
-                return ((det3 == 0 || det2 == 0))
+                return (det3 == 0 || det2 == 0)
                     ? new CoincidentLineLocus()
                     : (Locus)new ParallelLocus();
 

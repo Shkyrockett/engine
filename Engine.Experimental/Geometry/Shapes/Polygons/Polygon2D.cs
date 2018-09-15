@@ -54,7 +54,7 @@ namespace Engine
                 foreach (var c in contours)
                 {
                     var cBB = c.Bounds;
-                    bb = bb == null ? cBB : bb.Union(cBB);
+                    bb = bb is null ? cBB : bb.Union(cBB);
                 }
 
                 bounds = bb;

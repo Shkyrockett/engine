@@ -123,7 +123,7 @@ namespace Engine.Tweening
         /// <returns>The tween created, for setting properties on.</returns>
         public Tween Tween<T>(T target, object dests, double duration, double delay = 0, bool overwrite = true) where T : class
         {
-            if (target == null)
+            if (target is null)
                 throw new ArgumentNullException(nameof(target));
 
             // Prevent tweening on structs if you cheat by casting target as Object
@@ -135,7 +135,7 @@ namespace Engine.Tweening
             toAdd.Add(tween);
 
             // valid in case of manual timer
-            if (dests == null)
+            if (dests is null)
                 return tween;
 
             var props = dests.GetType().GetProperties();
@@ -258,7 +258,7 @@ namespace Engine.Tweening
                 allTweens.Add(tween);
 
                 // don't sort timers by target
-                if (tween.Target == null) continue;
+                if (tween.Target is null) continue;
                 if (!tweens.TryGetValue(tween.Target, out var list))
                     tweens[tween.Target] = list = new List<Tween>();
 
@@ -270,7 +270,7 @@ namespace Engine.Tweening
                 allTweens.Remove(tween);
 
                 // don't sort timers by target
-                if (tween.Target == null)
+                if (tween.Target is null)
                     continue;
                 if (tweens.TryGetValue(tween.Target, out var list))
                 {

@@ -167,7 +167,7 @@ namespace Engine
                     prev = (pos > 0) ? S.eventSet[pos - 1] : null;
                     next = (pos < S.eventSet.Count - 1) ? S.eventSet[pos + 1] : null;
 
-                    if (prev == null)
+                    if (prev is null)
                     {
                         e.OtherInOut = e.InOut = false;
                     }
@@ -230,25 +230,25 @@ namespace Engine
                         case EdgeContributions.Normal:
                             switch (operation)
                             {
-                                case (ClippingOperations.Intersection):
+                                case ClippingOperations.Intersection:
                                     if (e.OtherEvent.OtherInOut)
                                         connector.Add(e.Segment());
                                     break;
-                                case (ClippingOperations.Union):
+                                case ClippingOperations.Union:
                                     if (!e.OtherEvent.OtherInOut)
                                         connector.Add(e.Segment());
                                     break;
-                                case (ClippingOperations.Difference):
+                                case ClippingOperations.Difference:
                                     if (((e.BelongsTo == ClippingRelations.Subject) && (!e.OtherEvent.OtherInOut)) || (e.BelongsTo == ClippingRelations.Clipping && e.OtherEvent.OtherInOut))
                                         connector.Add(e.Segment());
                                     break;
                             }
                             break;
-                        case (EdgeContributions.SameTransition):
+                        case EdgeContributions.SameTransition:
                             if (operation == ClippingOperations.Intersection || operation == ClippingOperations.Union)
                                 connector.Add(e.Segment());
                             break;
-                        case (EdgeContributions.DifferentTransition):
+                        case EdgeContributions.DifferentTransition:
                             if (operation == ClippingOperations.Difference)
                                 connector.Add(e.Segment());
                             break;
@@ -450,7 +450,7 @@ namespace Engine
             if (sortedEvents.Count == 2)
             {
                 e1.Contribution = e1.OtherEvent.Contribution = EdgeContributions.NonContributing;
-                e2.Contribution = e2.OtherEvent.Contribution = ((e1.InOut == e2.InOut) ? EdgeContributions.SameTransition : EdgeContributions.DifferentTransition);
+                e2.Contribution = e2.OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContributions.SameTransition : EdgeContributions.DifferentTransition;
                 return;
             }
 

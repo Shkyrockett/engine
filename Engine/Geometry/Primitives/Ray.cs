@@ -201,7 +201,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return $"{nameof(Ray)}";
+            if (this is null) return $"{nameof(Ray)}";
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Ray)}={{{nameof(Location)}={Location.ToString(format, provider)}{sep}{nameof(Direction)}={Direction.ToString(format, provider)}}}";
         }

@@ -129,7 +129,7 @@ namespace Engine.Experimental
         public void AddPath(PolygonContour p, LineJoins jt, LineEndType et)
         {
             PathNode? pn = new PathNode(p, jt, et);
-            if (pn.Value.Path == null)
+            if (pn.Value.Path is null)
             {
                 pn = null;
             }
@@ -167,7 +167,7 @@ namespace Engine.Experimental
             }
 
             GetLowestPolygonIdx();
-            var negate = (lowestIdx >= 0 && Measurements.PolygonArea(Nodes[lowestIdx].Path.Points) < 0);
+            var negate = lowestIdx >= 0 && Measurements.PolygonArea(Nodes[lowestIdx].Path.Points) < 0;
             // if polygon orientations are reversed, then 'negate' ...
             if (negate)
             {
@@ -252,12 +252,12 @@ namespace Engine.Experimental
             // cos(A) > 0: angles on both left and right sides > 90 degrees
 
             // cross product ...
-            sinA = (Norms[k].X * Norms[j].Y - Norms[j].X * Norms[k].Y);
+            sinA = Norms[k].X * Norms[j].Y - Norms[j].X * Norms[k].Y;
 
             if (Abs(sinA * delta) < 1d) // angle is approaching 180 or 360 deg.
             {
                 // dot product ...
-                var cosA = (Norms[k].X * Norms[j].X + Norms[j].Y * Norms[k].Y);
+                var cosA = Norms[k].X * Norms[j].X + Norms[j].Y * Norms[k].Y;
                 if (cosA > 0) // given condition above the angle is approaching 360 deg.
                 {
                     // with angles approaching 360 deg collinear (whether concave or convex),
@@ -295,7 +295,7 @@ namespace Engine.Experimental
                 switch (jointype)
                 {
                     case LineJoins.Miter:
-                        var cosA = (Norms[j].X * Norms[k].X + Norms[j].Y * Norms[k].Y);
+                        var cosA = Norms[j].X * Norms[k].X + Norms[j].Y * Norms[k].Y;
                         // see offset_triginometry3.svg
                         if (1 + cosA < miterLim)
                         {
@@ -308,7 +308,7 @@ namespace Engine.Experimental
 
                         break;
                     case LineJoins.Square:
-                        cosA = (Norms[j].X * Norms[k].X + Norms[j].Y * Norms[k].Y);
+                        cosA = Norms[j].X * Norms[k].X + Norms[j].Y * Norms[k].Y;
                         if (cosA >= 0)
                         {
                             DoMiter(j, k, 1 + cosA); // angles >= 90 deg. don't need squaring

@@ -935,7 +935,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuaternionNormal(double x, double y, double z, double w)
-            => ((((x * x) + (y * y)) + (z * z)) + (w * w));
+            => (x * x) + (y * y) + (z * z) + (w * w);
 
         /// <summary>
         /// Calculates the square of the distance between two 2-dimensional euclidean points.
@@ -1028,7 +1028,7 @@ namespace Engine
                 ? (wi * wi + wj * wj)
                 : (d == 0)
                 ? (vi * vi + vj * vj)
-                : (c * c) / d;
+                : c * c / d;
         }
 
         /// <summary>
@@ -1047,9 +1047,9 @@ namespace Engine
             double lx, double ly, double li, double lj,
             double px, double py)
         {
-            var c = (lj * px + li * py) - (lj * lx + li * ly);
+            var c = lj * px + li * py - (lj * lx + li * ly);
             var d = lj * lj + li * li;
-            return (c * c) / d;
+            return c * c / d;
         }
         #endregion Square Distance Methods
 
@@ -1269,7 +1269,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuaternionMagnitude(double x, double y, double z, double w)
-            => Sqrt((((x * x) + (y * y)) + (z * z)) + (w * w));
+            => Sqrt((x * x) + (y * y) + (z * z) + (w * w));
 
         /// <summary>
         /// Calculates the arc length of a circular arc.
@@ -1325,8 +1325,8 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipticalArcLength(double startX, double startY, double endX, double endY, double startAngle, double endAngle)
-            => (/*ChordLength*/(Sqrt(Abs(endX - startX) * Abs(endX - startX) + Abs(endY - startY) * Abs(endY - startY)))
-            / /*Middle Angle*/(2 * Sin(OneHalf * (startAngle - endAngle))))
+            => /*ChordLength*/Sqrt(Abs(endX - startX) * Abs(endX - startX) + Abs(endY - startY) * Abs(endY - startY))
+            / /*Middle Angle*/(2 * Sin(OneHalf * (startAngle - endAngle)))
             * (startAngle - endAngle);
 
         /// <summary>
@@ -1397,7 +1397,7 @@ namespace Engine
             var k3 = new Point2D(3d * (bx - ax), 3d * (by - ax));
             var k4 = new Point2D(ax, ay);
 
-            var q1 = 9d * (Sqrt(Abs(k1.X)) + Sqrt((Abs(k1.Y))));
+            var q1 = 9d * (Sqrt(Abs(k1.X)) + Sqrt(Abs(k1.Y)));
             var q2 = 12d * (k1.X * k2.X + k1.Y * k2.Y);
             var q3 = 3d * (k1.X * k3.X + k1.Y * k3.Y) + 4d * (Sqrt(Abs(k2.X)) + Sqrt(Abs(k2.Y)));
             var q4 = 4d * (k2.X * k3.X + k2.Y * k3.Y);
@@ -1419,7 +1419,7 @@ namespace Engine
             var est1 = multiplier * (endsum + 2d * asum + 4d * bsum);
             var est0 = 2d * est1;
 
-            while (n < n_limit && (Abs(est1) > 0d && Abs((est1 - est0) / est1) > TOLERANCE))
+            while (n < n_limit && Abs(est1) > 0d && Abs((est1 - est0) / est1) > TOLERANCE)
             {
                 n *= 2;
                 multiplier /= 2d;
@@ -1561,7 +1561,7 @@ namespace Engine
         public static Rectangle2D CircleBounds(
             double cX, double cY,
             double r)
-            => Rectangle2D.FromLTRB((cX - r), (cY - r), (cX + r), (cY + r));
+            => Rectangle2D.FromLTRB(cX - r, cY - r, cX + r, cY + r);
 
         /// <summary>
         /// Calculates the Axis Aligned Bounding Box (AABB) rectangle of a circular arc.
@@ -1799,8 +1799,8 @@ namespace Engine
                 );
 
             var loc = new Point2D(
-                fulcrumX + ((-width * 0.5d) * cosAngle + (-height * 0.5d) * sinAngle),
-                fulcrumY + ((-width * 0.5d) * sinAngle + (-height * 0.5d) * cosAngle)
+                fulcrumX + (-width * 0.5d * cosAngle + -height * 0.5d * sinAngle),
+                fulcrumY + (-width * 0.5d * sinAngle + -height * 0.5d * cosAngle)
                 );
 
             return new Rectangle2D(loc, size);
@@ -1815,7 +1815,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D PolygonBounds(IEnumerable<Point2D> polygonPoints)
         {
-            var points = (polygonPoints as List<Point2D>);
+            var points = polygonPoints as List<Point2D>;
             if (points?.Count < 1) return null;
 
             var left = points[0].X;
@@ -1945,7 +1945,7 @@ namespace Engine
         public static int Sign(Point2D p1, Point2D p2, Point2D o)
         {
             var det = (p1.X - o.X) * (p2.Y - o.Y) - (p2.X - o.X) * (p1.Y - o.Y);
-            return (det < 0 ? -1 : (det > 0 ? +1 : 0));
+            return det < 0 ? -1 : (det > 0 ? +1 : 0);
         }
 
         /// <summary>
@@ -2023,7 +2023,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircularArcSectorArea(double r, double sweepAngle)
-            => Abs((r * r * 0.5d) * (sweepAngle - Sin(sweepAngle)));
+            => Abs(r * r * 0.5d * (sweepAngle - Sin(sweepAngle)));
 
         /// <summary>
         /// Calculates the area of an ellipse.
@@ -2119,7 +2119,7 @@ namespace Engine
         /// <returns>Returns the aspect ratio of the horizontal an vertical components.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Aspect(double x, double y)
-            => x == 0 ? Double.PositiveInfinity : y / x;
+            => x == 0 ? double.PositiveInfinity : y / x;
 
         /// <summary>
         /// Finds the <see cref="Eccentricity"/> of the elliptical arc or rectangle.
@@ -2132,7 +2132,7 @@ namespace Engine
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Eccentricity(double rX, double rY)
-            => Sqrt(1 - ((rX / rY) * (rX / rY)));
+            => Sqrt(1 - (rX / rY * (rX / rY)));
 
         /// <summary>
         /// Finds the Focus Radius of an <see cref="Ellipse"/>.
@@ -2452,9 +2452,9 @@ namespace Engine
                 new Point2D(x -                   hypotonuseAB,
                             y - (a * a - b * b) / hypotonuseAB),
                 new Point2D(x + (d * a - b * c) / hypotonuseCD,
-                            y + (rX * rY)       / hypotonuseCD),
+                            y + rX * rY       / hypotonuseCD),
                 new Point2D(x - (d * a - b * c) / hypotonuseCD,
-                            y - (rX * rY)       / hypotonuseCD),
+                            y - rX * rY       / hypotonuseCD),
             };
         }
         #endregion Other

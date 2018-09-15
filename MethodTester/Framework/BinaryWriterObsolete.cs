@@ -201,7 +201,7 @@ namespace Engine.File
             {
                 buffer <<= 8;
                 buffer |= 0x80;
-                buffer += (value & 0x7f);
+                buffer += value & 0x7f;
             }
 
             while (true)

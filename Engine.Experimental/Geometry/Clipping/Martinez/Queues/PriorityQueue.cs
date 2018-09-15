@@ -88,7 +88,7 @@ namespace Engine
         /// <summary>
         /// The pop.
         /// </summary>
-        /// <returns>The <see cref="T"/>.</returns>
+        /// <returns>The <see cref="Type"/>.</returns>
         public T Pop()
         {
             var v = Top();
@@ -101,7 +101,7 @@ namespace Engine
         /// <summary>
         /// The top.
         /// </summary>
-        /// <returns>The <see cref="T"/>.</returns>
+        /// <returns>The <see cref="Type"/>.</returns>
         /// <exception cref="InvalidOperationException">The priority queue is empty.</exception>
         public T Top()
         {

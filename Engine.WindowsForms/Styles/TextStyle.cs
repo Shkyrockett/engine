@@ -14,36 +14,39 @@ using System.Drawing;
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    /// The text style class.
     /// </summary>
     public class TextStyle
         : IStyle, IDisposable
     {
         /// <summary>
-        /// 
+        /// The disposed.
         /// </summary>
         private bool disposed = false;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TextStyle"/> class.
         /// </summary>
         public TextStyle()
             : this(Pens.Transparent, Pens.Transparent, null)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TextStyle"/> class.
         /// </summary>
+        /// <param name="foreBrush">The foreBrush.</param>
+        /// <param name="backBrush">The backBrush.</param>
+        /// <param name="font">The font.</param>
         public TextStyle(Brush foreBrush, Brush backBrush, Font font)
             : this(new Pen(foreBrush), new Pen(backBrush), null)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TextStyle"/> class.
         /// </summary>
-        /// <param name="forePen"></param>
-        /// <param name="backPen"></param>
-        /// <param name="font"></param>
+        /// <param name="forePen">The forePen.</param>
+        /// <param name="backPen">The backPen.</param>
+        /// <param name="font">The font.</param>
         public TextStyle(Pen forePen, Pen backPen, Font font)
         {
             BackPen = backPen;
@@ -52,7 +55,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Dispose.
         /// </summary>
         public void Dispose()
         {
@@ -61,9 +64,9 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Dispose.
         /// </summary>
-        /// <param name="disposing"></param>
+        /// <param name="disposing">The disposing.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposed) return;
@@ -81,7 +84,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Finalizes an instance of the <see cref="TextStyle"/> class.
         /// </summary>
         ~TextStyle()
         {
@@ -89,17 +92,17 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the font.
         /// </summary>
         public Font Font { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the fore pen.
         /// </summary>
         public Pen ForePen { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the fore brush.
         /// </summary>
         public Brush ForeBrush
         {
@@ -108,12 +111,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the back pen.
         /// </summary>
         public Pen BackPen { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the back brush.
         /// </summary>
         public Brush BackBrush
         {
@@ -122,12 +125,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Gets the fill.
         /// </summary>
         public IFill Fill { get; }
 
         /// <summary>
-        /// 
+        /// Gets the stroke.
         /// </summary>
         public IStroke Stroke { get; }
     }

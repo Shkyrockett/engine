@@ -10,6 +10,7 @@ using Engine.Experimental;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.Maths;
@@ -55,7 +56,7 @@ namespace Engine
                 new Point2D(v1,v2/*,0*/),
                 new Point2D(x2,y2/*,0*/)
             };
-            DerivativePoints = DerivativeCoordinates(Points);
+            DerivativePoints = DerivativeCoordinates_Ported(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -79,7 +80,7 @@ namespace Engine
                 new Point2D(v3,v4/*,0*/),
                 new Point2D(x2,y2/*,0*/)
             };
-            DerivativePoints = DerivativeCoordinates(Points);
+            DerivativePoints = DerivativeCoordinates_Ported(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -107,7 +108,7 @@ namespace Engine
                 new Point2D(v4,v5/*,v6*/),
                 new Point2D(x2,y2/*,z2*/)
             };
-            DerivativePoints = DerivativeCoordinates(Points);
+            DerivativePoints = DerivativeCoordinates_Ported(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -118,7 +119,7 @@ namespace Engine
         public Bezier(List<Point2D> points)
         {
             Points = points;
-            DerivativePoints = DerivativeCoordinates(Points);
+            DerivativePoints = DerivativeCoordinates_Ported(Points);
             Direction = ComputeDirection(Points);
         }
 
@@ -195,7 +196,43 @@ namespace Engine
         /// Gets the length.
         /// </summary>
         public double Length
-            => BezierUtil.Length(Derivativate);
+            => BezierUtil.Length(Derivativate_Ported);
+
+        /// <summary>
+        /// The inflections.
+        /// </summary>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        public List<double> Inflections_Ported
+            => BezierUtil.Inflections(Points);
+
+        /// <summary>
+        /// The extrema.
+        /// </summary>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        public List<double> Extrema_Ported
+        {
+            get
+            {
+                var p = (from a in DerivativePoints[0] select a.X).ToList();
+                var result = BezierUtil.DRoots(p);
+                p = (from a in DerivativePoints[0] select a.Y).ToList();
+                result.AddRange(BezierUtil.DRoots(p));
+                p = (from a in DerivativePoints[1] select a.X).ToList();
+                result.AddRange(BezierUtil.DRoots(p));
+                p = (from a in DerivativePoints[1] select a.Y).ToList();
+                result.AddRange(BezierUtil.DRoots(p));
+
+                result = result.Where((t) => { return t >= 0 && t <= 1; }).ToList();
+                result.Sort();
+                return result;
+            }
+        }
         #endregion Properties
 
         #region Operators
@@ -300,13 +337,13 @@ namespace Engine
                 //,z: A.Z + (e1.Z - A.Z) / (1 - t)
                 );
             var v2 = new Point2D(
-                x: A.X + (e2.X - A.X) / (t),
-                y: A.Y + (e2.Y - A.Y) / (t)
+                x: A.X + (e2.X - A.X) / t,
+                y: A.Y + (e2.Y - A.Y) / t
                 //,z: A.Z + (e2.Z - A.Z) / (t)
                 );
             var nc1 = new Point2D(
-                x: S.X + (v1.X - S.X) / (t),
-                y: S.Y + (v1.Y - S.Y) / (t)
+                x: S.X + (v1.X - S.X) / t,
+                y: S.Y + (v1.Y - S.Y) / t
                 //,z: S.Y + (v1.Y - S.Y) / (t)
                 );
             var nc2 = new Point2D(
@@ -328,7 +365,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<List<Point2D>> DerivativeCoordinates(List<Point2D> Points)
+        public static List<List<Point2D>> DerivativeCoordinates_Ported(List<Point2D> Points)
         {
             // One-time compute of derivative coordinates
             var derivitivePoints = new List<List<Point2D>>();
@@ -364,8 +401,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RotationDirections ComputeDirection(List<Point2D> Points)
         {
-            var points = Points;
-            var angle = BezierUtil.Angle(points[0], points[Points.Count - 1], points[1]);
+            var angle = BezierUtil.Angle(Points[0], Points[Points.Count - 1], Points[1]);
             return angle > 0 ? RotationDirections.Clockwise : RotationDirections.CounterClockwise;
         }
 
@@ -390,7 +426,7 @@ namespace Engine
 
             for (var t = 0; t <= steps; t++)
             {
-                lut.Add(Interpolate(t / (double)steps));
+                lut.Add(Interpolate_Ported(t / (double)steps));
             }
 
             return lut;
@@ -400,14 +436,14 @@ namespace Engine
         /// Raises the  event.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <param name="error">The error.</param>
+        /// <param name="epsilon">The error.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double On(Point2D point, double error)
+        public double On(Point2D point, double epsilon)
         {
             var lut = GetLookUpTable(1000);
             var hits = new List<Point2D>();
@@ -416,7 +452,7 @@ namespace Engine
             for (var i = 0; i < lut.Count; i++)
             {
                 var c = lut[i];
-                if (Measurements.Distance(c, point) < error)
+                if (Measurements.Distance(c, point) < epsilon)
                 {
                     hits.Add(c);
                     t += i / lut.Count;
@@ -424,6 +460,150 @@ namespace Engine
             }
 
             return hits.Count == 0 ? 0 : (t /= hits.Count);
+        }
+
+        /// <summary>
+        /// The PB. https://www.geometrictools.com/Documentation/MovingAlongCurveSpecifiedSpeed.pdf
+        /// </summary>
+        /// <param name="ts">The ts.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        public double PB(double ts, double epsilon = Epsilon)
+        {
+            // The curve parameter interval[tmin , tmax].
+            var tmin = 0d;
+            var tmax = 1d;
+            var imax = 1d;
+            //double n = 1;
+            //double umin; // The curve parameter i n t e r va l [ umin , umax ] .
+            //Point2D Y(double t) { return Interpolate_Ported(ts); };
+            // The position Y( t ) , tmin <= t <= tmax. 
+            Point2D DY(double t) { return Derivativate_Ported(ts); };
+            double Length(Point2D u) { return double.NaN; }
+            //double LengthDY(double u) { return Length(DY(u)); }
+            // The derivative dY( t )/dt , tmin <= t <= tmax . 
+            double Speed(double t) { return Length(DY(t)); }
+            //double Sigma(double t) { return Speed(t); } // The user−specified speed at time t .
+            double Integral(double min, double max, double u) { return double.NaN; }
+            double ArcLength(double t) { return Integral(tmin, t, Speed(t)); }
+            var L = ArcLength(tmax);
+            // The total length of the curve.
+
+            return GetCurveParameter1(ts);
+
+            double GetCurveParameter1(double s) // 0 <= s <= L , output i s t
+            {
+                // Initial guess for Newton's method. 
+                var t = tmin + s * (tmax - tmin) / L;
+
+                // Initial root−bounding interval for bisection . 
+                double lower = tmin, upper = tmax;
+
+                for (var i = 0; i < imax; i++) // 'imax' i s application−specified 
+                {
+                    var F = ArcLength(t) - s;
+                    if (Abs(F) < epsilon) // 'epsilon' i s application−specified
+                    {
+                        // |F( t )| i s close enough to zero, report t as the time at 
+                        // which length s i s attained. 
+                        return t;
+                    }
+
+                    // Generate a candidate for Newton ’ s method . 
+                    var DF = Speed(t);
+                    var tCandidate = t - F / DF;
+
+                    // Update the root-bounding interval and test for containment of 
+                    // the candidate. 
+                    if (F > 0)
+                    {
+                        upper = t;
+                        if (tCandidate <= lower)
+                        {
+                            // Candidate i s outside the root−bounding interval. Use 
+                            // bisection instead. 
+                            t = 0.5 * (upper + lower);
+                        }
+                        else
+                        {
+                            // There i s no need to compare to 'upper' because the tangent 
+                            // line has positive slope, guaranteeing that the t−axis 
+                            // intercept i s smaller than 'upper'. 
+                            t = tCandidate;
+                        }
+                    }
+                    else
+                    {
+                        lower = t;
+                        if (tCandidate >= upper)
+                        {
+                            // Candidate i s outside the root−bounding interval. Use 
+                            // bisection instead. 
+                            t = 0.5 * (upper + lower);
+                        }
+                        else
+                        {
+                            // There is no need to compare to 'lower' because the tangent 
+                            // line has positive slope, guaranteeing that the t−axis 
+                            // intercept is larger than 'lower'.
+                            t = tCandidate;
+                        }
+                    }
+                }
+
+                // A root was not found according to the specified number of iterations 
+                // and tolerance. You might want to increase iterationsor tolerance or 
+                // integration accuracy . However , in this application itislikely that 
+                // the time values are oscillating , due to the limited numerical 
+                // precision of 32−bit floats . It is safe to use the last computed time . 
+                return t;
+            }
+
+            //double GetCurveParameter2(double s) // 0 <= s <= L , output is t
+            //{
+            //    var t = tmin; // i n i t i a l condition
+            //    var h = s / n; // step size , ‘n ’ i s application−specified
+            //    for (var i = 1; i <= n; i++)
+            //    {
+            //        // The d i v i s i o n s here might be a problem i f the d i v i s o r s are 
+            //        // nearly zero .
+            //        var k1 = h / Speed(t);
+            //        var k2 = h / Speed(t + k1 / 2);
+            //        var k3 = h / Speed(t + k2 / 2);
+            //        var k4 = h / Speed(t + k3);
+            //        t += (k1 + 2 * (k2 + k3) + k4) / 6;
+            //    }
+
+            //    return t;
+            //}
+
+            //double GetU1(double t) // tmin <= t <= tmax 
+            //{
+            //    var ell = Integral(tmin, t, Sigma(t)); // 0 <= e l l <= L
+            //    var u = GetCurveParameter2(ell); // umin <= u <= umax 
+            //    return u;
+            //}
+
+            //double GetU2(double t) // tmin <= t <= tmax 
+            //{
+            //    var h = (t - tmin) / n; // step size , ‘n ’ i s application−specified 
+            //    var u = umin; // i n i t i a l condition 
+            //    t = tmin; // i n i t i a l condition 
+            //    for (var i = 1; i <= n; i++)
+            //    {
+            //        // The d i v i s i o n s here might be a problem i f the d i v i s o r s are 
+            //        // nearly zero .
+            //        var k1 = h * Sigma(t) / LengthDY(u);
+            //        var k2 = h * Sigma(t + h / 2) / LengthDY(u + k1 / 2);
+            //        var k3 = h * Sigma(t + h / 2) / LengthDY(u + k2 / 2);
+            //        var k4 = h * Sigma(t + h) / LengthDY(u + k3);
+            //        t += h;
+            //        u += (k1 + 2 * (k2 + k3) + k4) / 6;
+            //    }
+            //    return u;
+            //}
+
+
         }
 
         /// <summary>
@@ -446,7 +626,7 @@ namespace Engine
             if (mpos == 0 || mpos == l)
             {
                 var t0 = mpos / l;
-                AccumulatorPoint2D pt = Interpolate(t0);
+                AccumulatorPoint2D pt = Interpolate_Ported(t0);
                 pt.Theta = t0;
                 pt.TotalDistance = mdist;
                 return pt;
@@ -464,7 +644,7 @@ namespace Engine
 
             for (t = t1, ft = t; t < t2 + step; t += step)
             {
-                p = Interpolate(t);
+                p = Interpolate_Ported(t);
                 d = Measurements.Distance(point, p.ToPoint());
                 if (d < mdist)
                 {
@@ -472,7 +652,7 @@ namespace Engine
                     ft = t;
                 }
             }
-            p = Interpolate(ft);
+            p = Interpolate_Ported(ft);
             p.Theta = ft;
             p.TotalDistance = mdist;
             return p;
@@ -492,43 +672,6 @@ namespace Engine
             => Points[idx];
 
         /// <summary>
-        /// The inflections.
-        /// </summary>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
-        /// <acknowledgment>
-        /// http://pomax.github.io/bezierinfo/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<double> Inflections()
-            => BezierUtil.Inflections(Points);
-
-        /// <summary>
-        /// The extrema.
-        /// </summary>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
-        /// <acknowledgment>
-        /// http://pomax.github.io/bezierinfo/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<double> Extrema()
-        {
-            var p = (from a in DerivativePoints[0] select a.X).ToList();
-            var result = BezierUtil.DRoots(p);
-            p = (from a in DerivativePoints[0] select a.Y).ToList();
-            result.AddRange(BezierUtil.DRoots(p));
-            p = (from a in DerivativePoints[1] select a.X).ToList();
-            result.AddRange(BezierUtil.DRoots(p));
-            p = (from a in DerivativePoints[1] select a.Y).ToList();
-            result.AddRange(BezierUtil.DRoots(p));
-
-            result = result.Where((t) => { return (t >= 0 && t <= 1); }).ToList();
-            result.Sort();
-            return result;
-        }
-
-        /// <summary>
         /// The Interpolate.
         /// </summary>
         /// <param name="t">The t.</param>
@@ -538,7 +681,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Interpolate(double t)
+        public Point2D Interpolate_Ported(double t)
         {
             // shortcuts
             if (t == 0) return Points[0];
@@ -616,7 +759,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Point2D Derivativate(double t)
+        public Point2D Derivativate_Ported(double t)
         {
             var ti = 1 - t;
             double a = 0;
@@ -653,9 +796,9 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2D Normal(double t)
+        public Vector2D Normal_Ported(double t)
         {
-            var d = Derivativate(t);
+            var d = Derivativate_Ported(t);
             var q = 1d / Sqrt(d.X * d.X + d.Y * d.Y);
             return new Vector2D(-d.Y * q, d.X * q);
         }
@@ -709,7 +852,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public List<Point2D> Hull(double t)
+        public List<Point2D> Hull_Ported(double t)
         {
             var p = Points;
             var _p = new List<Point2D>();
@@ -839,7 +982,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Bezier[] Split(params double[] ts)
         {
-            if (ts == null)
+            if (ts is null)
             {
                 return new[] { new Bezier(Points) };
             }
@@ -972,7 +1115,7 @@ namespace Engine
         {
             if (Linear)
             {
-                var nv = Normal(0);
+                var nv = Normal_Ported(0);
 
                 var coords = new List<Point2D>();
                 foreach (var p in Points)
@@ -1008,8 +1151,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (Point2D, Point2D, Point2D) Offset(double t, double d)
         {
-            var c = Interpolate(t);
-            var n = Normal(t);
+            var c = Interpolate_Ported(t);
+            var n = Normal_Ported(t);
             return (
                 c,
                 (Point2D)n,
@@ -1040,7 +1183,7 @@ namespace Engine
             var r2 = d;
             var v = new List<(Point2D, Point2D, Point2D)> { Offset(0, 10), Offset(1, 10) };
             var o = BezierUtil.Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
-            if (o == null)
+            if (o is null)
                 throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
 
             // move all points by distance 'd' wrt the origin 'o'
@@ -1061,7 +1204,7 @@ namespace Engine
             {
                 if (Order == 2) break;
                 var p = np[t * order];
-                var d2 = Derivativate(t);
+                var d2 = Derivativate_Ported(t);
                 var p2 = new Point2D(x: p.X + d2.X, y: p.Y + d2.Y/*, z: p.Z + d2.Z*/);
                 np[t + 1] = BezierUtil.Lli4(p, p2, o.Value, points[t + 1]).Value;
             }
@@ -1092,7 +1235,7 @@ namespace Engine
             var r2 = distanceFn(1);
             var v = new List<(Point2D, Point2D, Point2D)> { Offset(0, 10), Offset(1, 10) };
             var o = BezierUtil.Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
-            if (o == null)
+            if (o is null)
                 throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
 
             // move all points by distance 'd' wrt the origin 'o'
@@ -1220,10 +1363,7 @@ namespace Engine
             foreach (Bezier s in bcurves)
             {
                 p = s.Points;
-                if (p[3] != null)
-                    s.Points = new List<Point2D> { p[3], p[2], p[1], p[0] };
-                else
-                    s.Points = new List<Point2D> { p[2], p[1], p[0] };
+                s.Points = p[3] != null ? new List<Point2D> { p[3], p[2], p[1], p[0] } : new List<Point2D> { p[2], p[1], p[0] };
                 tcurves.Add(s);
             }
             tcurves.Reverse();
@@ -1266,8 +1406,8 @@ namespace Engine
             for (int i = 1, len = outline.Count; i < len / 2; i++)
             {
                 var shape = BezierUtil.MakeShape(outline[i], outline[len - i]);
-                shape.Startcap.Virtual = (i > 1);
-                shape.Endcap.Virtual = (i < len / 2 - 1);
+                shape.Startcap.Virtual = i > 1;
+                shape.Endcap.Virtual = i < len / 2 - 1;
                 shapes.Add(shape);
             }
             return shapes;
@@ -1315,7 +1455,7 @@ namespace Engine
                 e = 1d;
 
                 // points:
-                Point2D np1 = Interpolate(s);
+                Point2D np1 = Interpolate_Ported(s);
                 Point2D np2;
                 Point2D np3;
                 var arc = new Arc2D();
@@ -1335,12 +1475,12 @@ namespace Engine
                     m = (s + e) / 2d;
                     step++;
 
-                    np2 = Interpolate(m);
-                    np3 = Interpolate(e);
+                    np2 = Interpolate_Ported(m);
+                    np3 = Interpolate_Ported(e);
 
                     arc = BezierUtil.Getccenter(np1, np2, np3);
                     var error = Error(arc, np1, s, e);
-                    curr_good = (error <= errorThreshold);
+                    curr_good = error <= errorThreshold;
 
                     done = prev_good && !curr_good;
                     if (!done) prev_e = e;
@@ -1375,7 +1515,7 @@ namespace Engine
 
                 // console.log("[F] arc found", s, prev_e, prev_arc.x, prev_arc.y, prev_arc.s, prev_arc.e);
 
-                prev_arc = (prev_arc ?? arc);
+                prev_arc = prev_arc ?? arc;
                 circles.Add(prev_arc);
                 s = prev_e;
             }
@@ -1399,8 +1539,8 @@ namespace Engine
         public double Error(Arc2D pc, Point2D np1, double s, double e)
         {
             var q = (e - s) / 4d;
-            var c1 = Interpolate(s + q);
-            var c2 = Interpolate(e - q);
+            var c1 = Interpolate_Ported(s + q);
+            var c2 = Interpolate_Ported(e - q);
             var reff = Measurements.Distance(pc.Center, np1);
             var d1 = Measurements.Distance(pc.Center, c1);
             var d2 = Measurements.Distance(pc.Center, c2);
@@ -1454,8 +1594,8 @@ namespace Engine
                 var a2 = BezierUtil.Angle(Points[0], Points[3], Points[2]);
                 if (a1 > 0 && a2 < 0 || a1 < 0 && a2 > 0) return false;
             }
-            var n1 = Normal(0);
-            var n2 = Normal(1);
+            var n1 = Normal_Ported(0);
+            var n2 = Normal_Ported(1);
             var s = n1.I * n2.I + n1.J * n2.J/* + n1.K * n2.K*/;
             var angle = Abs(Acos(s));
             return angle < PI / 3d;
@@ -1472,7 +1612,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public BBox Bbox()
         {
-            var extrema = Extrema();
+            var extrema = Extrema_Ported;
             return new BBox(
                 BezierUtil.GetMinMax(this, 0, extrema),
                 BezierUtil.GetMinMax(this, 1, extrema),
@@ -1499,7 +1639,7 @@ namespace Engine
             var pass2 = new List<Bezier>();
 
             // first pass: split on extrema
-            var extrema = Extrema();
+            var extrema = Extrema_Ported;
             if (extrema.IndexOf(0) == -1) extrema.Insert(0, 0);
             if (extrema.IndexOf(1) == -1) extrema.Add(1);
 
@@ -1516,7 +1656,7 @@ namespace Engine
                 t1 = t2;
             }
 
-            // second pass: further reduce these segments to simple segments
+            // Second pass: further reduce these segments to simple segments
             foreach (Bezier p1 in pass1)
             {
                 t1 = 0;
@@ -1637,7 +1777,7 @@ namespace Engine
 
             return new List<bool>(
                 from t in BezierUtil.Roots(Points, line)
-                let p = self.Interpolate(t)
+                let p = self.Interpolate_Ported(t)
 
                 select Intersections.ApproximatelyBetween(p.X, mx, MX) && Intersections.ApproximatelyBetween(p.Y, my, MY));
         }
@@ -1745,7 +1885,7 @@ namespace Engine
             var pc = aligned[2].Y;
             var pd = aligned[3].Y;
             // ...to [t^3 + at^2 + bt + c] form:
-            var d = (-pa + 3 * pb - 3 * pc + pd);
+            var d = -pa + 3 * pb - 3 * pc + pd;
             var a = (3 * pa - 6 * pb + 3 * pc) / d;
             var b = (-3 * pa + 3 * pb) / d;
             var c = pa / d;
@@ -1849,6 +1989,65 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Bezier && Equals(this, (Bezier)obj);
+
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="GraphicsObject"/> inherited class.
+        /// </summary>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString()
+            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">todo: describe provider parameter on ToString</param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(null /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider)
+            => ConvertToString(format, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="CubicBezier"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ConvertToString(string format, IFormatProvider provider)
+        {
+            if (this is null) return nameof(Bezier);
+            var sep = Tokenizer.GetNumericListSeparator(provider);
+            IFormattable formatable = $"{nameof(Bezier)}={{A={Points[0]}{sep}B={Points[0]}{sep}C={Points[0]}{sep}D={Points[0]}}}";
+            return formatable.ToString(format, provider);
+        }
         #endregion Standard Methods
     }
 }

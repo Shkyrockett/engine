@@ -15,8 +15,11 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    /// http://referencesource.microsoft.com
+    /// The matrix2d converter class.
     /// </summary>
+    /// <remarks>
+    /// http://referencesource.microsoft.com
+    /// </remarks>
     public sealed class Matrix2DConverter
         : TypeConverter
     {
@@ -67,7 +70,7 @@ namespace Engine
         /// <param name="value"> The object to convert to an instance of Matrix. </param>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            if (value == null)
+            if (value is null)
                 throw GetConvertFromException(value);
 
             if (value is string source)

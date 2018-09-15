@@ -94,14 +94,14 @@ namespace Engine
         [DebuggerStepThrough]
         public Polynomial(params double[] coefficients)
         {
-            if (coefficients == null)
+            if (coefficients is null)
             {
                 throw new ArgumentNullException(nameof(coefficients));
             }
 
             // If the coefficients array is empty this is an Empty polynomial, otherwise copy the coefficients over.
             // Reverse the coefficients so they are in order of degree smallest to largest.
-            this.coefficients = (coefficients == null || coefficients.Length == 0)
+            this.coefficients = (coefficients is null || coefficients.Length == 0)
                 ? this.coefficients = new double[] { 0 }
                 : coefficients.Reverse().ToArray();
             // Not initially read only.
@@ -136,7 +136,7 @@ namespace Engine
                     return 0;
                 }
 
-                return coefficients[(coefficients.Length - 1) - index];
+                return coefficients[coefficients.Length - 1 - index];
             }
             set
             {
@@ -150,7 +150,7 @@ namespace Engine
                     throw new ArgumentOutOfRangeException();
                 }
 
-                coefficients[(coefficients.Length - 1) - index] = value;
+                coefficients[coefficients.Length - 1 - index] = value;
                 degree = null;
             }
         }
@@ -180,7 +180,7 @@ namespace Engine
                     return 0;
                 }
 
-                return coefficients[(coefficients.Length - 1) - (int)index];
+                return coefficients[coefficients.Length - 1 - (int)index];
             }
             set
             {
@@ -194,7 +194,7 @@ namespace Engine
                     throw new ArgumentOutOfRangeException();
                 }
 
-                coefficients[(coefficients.Length - 1) - (int)index] = value;
+                coefficients[coefficients.Length - 1 - (int)index] = value;
                 degree = null;
             }
         }
@@ -269,7 +269,7 @@ namespace Engine
         /// </acknowledgment>
         public bool CanSolveRealRoots
             // Set this to the highest degree currently solvable using the Roots() method.
-            => (Degree <= PolynomialDegree.Quintic);
+            => Degree <= PolynomialDegree.Quintic;
 
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="Polynomial"/> struct is read only.
@@ -368,7 +368,7 @@ namespace Engine
             var res = new double[addend.Count];
             Array.Copy(addend.coefficients, res, addend.Count);
             res[0] += value;
-            return (new Polynomial { coefficients = res, isReadonly = addend.isReadonly });
+            return new Polynomial { coefficients = res, isReadonly = addend.isReadonly };
         }
 
         /// <summary>
@@ -400,7 +400,7 @@ namespace Engine
 
                 res[i] = p;
             }
-            return (new Polynomial { coefficients = res, isReadonly = value.isReadonly | addend.isReadonly });
+            return new Polynomial { coefficients = res, isReadonly = value.isReadonly | addend.isReadonly };
         }
 
         /// <summary>
@@ -421,7 +421,7 @@ namespace Engine
                 res[i] = -value.coefficients[i];
             }
 
-            return (new Polynomial { coefficients = res, isReadonly = value.isReadonly });
+            return new Polynomial { coefficients = res, isReadonly = value.isReadonly };
         }
 
         /// <summary>
@@ -458,7 +458,7 @@ namespace Engine
             }
 
             res[0] += value;
-            return (new Polynomial { coefficients = res, isReadonly = subend.isReadonly });
+            return new Polynomial { coefficients = res, isReadonly = subend.isReadonly };
         }
 
         /// <summary>
@@ -491,7 +491,7 @@ namespace Engine
                 res[i] = p;
             }
 
-            return (new Polynomial { coefficients = res, isReadonly = value.isReadonly | subend.isReadonly });
+            return new Polynomial { coefficients = res, isReadonly = value.isReadonly | subend.isReadonly };
         }
 
         /// <summary>
@@ -527,7 +527,7 @@ namespace Engine
                 res[i] = value * factor.coefficients[i];
             }
 
-            return (new Polynomial { coefficients = res, isReadonly = factor.isReadonly });
+            return new Polynomial { coefficients = res, isReadonly = factor.isReadonly };
         }
 
         /// <summary>
@@ -553,7 +553,7 @@ namespace Engine
                 }
             }
 
-            return (new Polynomial { coefficients = res, isReadonly = value.isReadonly | factor.isReadonly });
+            return new Polynomial { coefficients = res, isReadonly = value.isReadonly | factor.isReadonly };
         }
 
         /// <summary>
@@ -575,7 +575,7 @@ namespace Engine
                 res[i] = divisor.coefficients[i] / dividend;
             }
 
-            return (new Polynomial { coefficients = res, isReadonly = divisor.isReadonly });
+            return new Polynomial { coefficients = res, isReadonly = divisor.isReadonly };
         }
 
         /// <summary>
@@ -713,7 +713,7 @@ namespace Engine
             //Contract.EndContractBlock();
 
             // If there are no coefficients then this is a Monomial of 0.
-            if (coefficients == null || coefficients.Length < 1)
+            if (coefficients is null || coefficients.Length < 1)
             {
                 return new Polynomial(0) { isReadonly = isReadonly };
             }
@@ -827,7 +827,7 @@ namespace Engine
                 throw new ArgumentOutOfRangeException($"{nameof(n)} cannot be negative.");
             }
 
-            if (Double.IsNaN(n))
+            if (double.IsNaN(n))
             {
                 throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(n)} must be a number");
             }
@@ -875,7 +875,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Evaluate(double x)
         {
-            if (Double.IsNaN(x))
+            if (double.IsNaN(x))
             {
                 throw new ArithmeticException($"{nameof(Evaluate)}: parameter {nameof(x)} must be a number");
             }
@@ -1088,7 +1088,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Interpolate(params double[] ys)
         {
-            if (ys == null || ys.Length < 2)
+            if (ys is null || ys.Length < 2)
             {
                 throw new ArgumentNullException($"{nameof(ys)}: At least 2 different points must be given");
             }
@@ -1484,7 +1484,7 @@ namespace Engine
             switch (Degree)
             {
                 case PolynomialDegree.Constant:
-                    if (coefficients == null)
+                    if (coefficients is null)
                     {
                         return Array.Empty<double>();
                     }
@@ -1539,7 +1539,7 @@ namespace Engine
         /// Serves as the default hash function. 
         /// </summary>
         /// <returns></returns>
-        public override Int32 GetHashCode()
+        public override int GetHashCode()
             => coefficients?.GetHashCode() ?? 0;
 
         /// <summary>
@@ -1565,10 +1565,10 @@ namespace Engine
         {
             var t1 = a.Trim();
             var t2 = b.Trim();
-            if (t2 == null)
-            {
-                return false;
-            }
+            //if (t2 is null)
+            //{
+            //    return false;
+            //}
 
             if (t1.Count != t2.Count)
             {

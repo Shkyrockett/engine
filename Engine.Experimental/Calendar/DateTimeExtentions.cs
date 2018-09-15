@@ -120,7 +120,7 @@ namespace Engine.Chrono
         /// <param name="date">Start date</param>
         /// <returns></returns>
         public static DateTime FirstDayOfMonth02(this DateTime date)
-            => (date.AddDays(1 - date.Day)).AtMidnight();
+            => date.AddDays(1 - date.Day).AtMidnight();
 
         /// <summary>
         /// Returns the first specified day of the week in the current month

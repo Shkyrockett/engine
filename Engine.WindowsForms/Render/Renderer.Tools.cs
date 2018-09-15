@@ -89,7 +89,7 @@ namespace Engine.Imaging
             var forePen = new Pen(Color.FromArgb(128, Color.Purple));
 
             g.FillPie(backBrush, shape.Bounds.ToRectangle(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
-            g.DrawPie(forePen, shape.Bounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)(shape.SweepAngle.ToDegrees()));
+            g.DrawPie(forePen, shape.Bounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
 
             var num = 1;
 

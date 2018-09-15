@@ -55,7 +55,7 @@ namespace Engine.Geometry
         /// <param name="coeffs"></param>
         public PolynomialX(params Complex[] coeffs)
         {
-            if (coeffs == null || coeffs.Length < 1)
+            if (coeffs is null || coeffs.Length < 1)
             {
                 Coefficients = new Complex[1];
                 Coefficients[0] = Complex.Zero;
@@ -72,7 +72,7 @@ namespace Engine.Geometry
         /// <param name="coeffs"></param>
         public PolynomialX(params double[] coeffs)
         {
-            if (coeffs == null || coeffs.Length < 1)
+            if (coeffs is null || coeffs.Length < 1)
             {
                 Coefficients = new Complex[1];
                 Coefficients[0] = Complex.Zero;
@@ -93,7 +93,7 @@ namespace Engine.Geometry
         {
             Coefficients = new Complex[1];
 
-            if (coeffs == null)
+            if (coeffs is null)
                 Coefficients[0] = Complex.Zero;
             else
                 Coefficients[0] = coeffs;
@@ -293,7 +293,7 @@ namespace Engine.Geometry
 
             for (var i = 0; i <= p.Degree; i++)
                 for (var j = 0; j <= q.Degree; j++)
-                    r += (p.Coefficients[i] * q.Coefficients[j]) * Monomial(i + j);
+                    r += p.Coefficients[i] * q.Coefficients[j] * Monomial(i + j);
 
             return r;
         }
@@ -328,7 +328,7 @@ namespace Engine.Geometry
             for (var i = 0; i < buf.Length; i++)
                 buf[i] = (i + 1) * Coefficients[i + 1];
 
-            return (new PolynomialX(buf)).Evaluate(x);
+            return new PolynomialX(buf).Evaluate(x);
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace Engine.Geometry
 
             var p = new PolynomialX(buf);
 
-            return (p.Evaluate(b) - p.Evaluate(a));
+            return p.Evaluate(b) - p.Evaluate(a);
         }
 
         /// <summary>
@@ -752,7 +752,7 @@ namespace Engine.Geometry
             Complex buf = Complex.One;
 
             for (var j = 0; j < z.Length; j++)
-                if (j != k) buf *= (z[k] - z[j]);
+                if (j != k) buf *= z[k] - z[j];
 
             return buf;
         }
@@ -1815,7 +1815,7 @@ namespace Engine.Geometry
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         public override bool Equals(object obj)
-            => (ToString() == ((Polynomial)obj).ToString());
+            => ToString() == ((Polynomial)obj).ToString();
 
         /// <summary>
         /// Get the hash code.
@@ -1830,7 +1830,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
-            => ConvertToString(String.Empty, CultureInfo.In­variantCulture);
+            => ConvertToString(string.Empty, CultureInfo.In­variantCulture);
 
         /// <summary>
         /// The to string.
@@ -1846,7 +1846,7 @@ namespace Engine.Geometry
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
         /// <returns>The <see cref="string"/>.</returns>
-        public string ToString(String format, IFormatProvider formatProvider)
+        public string ToString(string format, IFormatProvider formatProvider)
             => ConvertToString(format, formatProvider);
 
         /// <summary>

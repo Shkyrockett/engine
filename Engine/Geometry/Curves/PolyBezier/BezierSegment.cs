@@ -35,31 +35,31 @@ namespace Engine
     {
         #region Fields
         /// <summary>
-        /// 
+        /// The points.
         /// </summary>
         private Point2D[] points;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="BezierSegment"/> class.
         /// </summary>
         public BezierSegment()
             : this(new Point2D[] { })
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="BezierSegment"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public BezierSegment(IEnumerable<Point2D> points)
             : this(points.ToArray())
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="BezierSegment"/> class.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public BezierSegment(params Point2D[] points)
         {
             this.points = points ?? throw new ArgumentNullException(nameof(points));
@@ -68,19 +68,19 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="points"></param>
+        /// <param name="points">The points.</param>
         public void Deconstruct(out Point2D[] points)
             => points = this.points;
         #endregion Deconstructors
 
         #region Indexers
         /// <summary>
-        /// 
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type Point2D.</returns>
         public Point2D this[int index]
         {
             get { return points[index]; }
@@ -90,7 +90,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the points.
         /// </summary>
         [XmlArray]
         [RefreshProperties(RefreshProperties.All)]
@@ -106,15 +106,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
-        /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
             => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
-        /// 
+        /// Gets the curve x.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveX
@@ -128,7 +127,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the curve y.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Polynomial CurveY
@@ -142,7 +141,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the degree.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public PolynomialDegree Degree
@@ -209,7 +208,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(BezierSegment);
+            if (this is null) return nameof(BezierSegment);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(BezierSegment)}{{{string.Join(sep.ToString(), points)}}}";
             return formatable.ToString(format, provider);

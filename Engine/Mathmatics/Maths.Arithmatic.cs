@@ -687,7 +687,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Scale2D(double i, double j, double factor)
-            => ((i * factor), (j * factor));
+            => (i * factor, j * factor);
 
         /// <summary>
         /// Inflates a vector by a given factor.
@@ -700,7 +700,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Scale3D(double i, double j, double k, double factor)
-            => ((i * factor), (j * factor), (k * factor));
+            => (i * factor, j * factor, k * factor);
 
         /// <summary>
         /// Inflates a vector by a given factor.
@@ -714,7 +714,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Scale4D(double i, double j, double k, double l, double factor)
-            => ((i * factor), (j * factor), (k * factor), (l * factor));
+            => (i * factor, j * factor, k * factor, l * factor);
 
         /// <summary>
         /// Used to multiply a Matrix2x2 object by a scalar value.
@@ -731,7 +731,7 @@ namespace Engine
             double m0x0, double m0x1,
             double m1x0, double m1x1,
             double scalar)
-            => ((m0x0 * scalar),
+            => (m0x0 * scalar,
                 m0x1 * scalar,
                 m1x0 * scalar,
                 m1x1 * scalar);
@@ -781,7 +781,7 @@ namespace Engine
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2,
             double scalar)
-            => ((m0x0 * scalar),
+            => (m0x0 * scalar,
                 m0x1 * scalar,
                 m0x2 * scalar,
                 m1x0 * scalar,
@@ -931,7 +931,7 @@ namespace Engine
             double leftM2x0, double leftM2x1, double leftM2x2, double leftM2x3,
             double leftM3x0, double leftM3x1, double leftM3x2, double leftM3x3,
             double scalar)
-            => ((leftM0x0 * scalar),
+            => (leftM0x0 * scalar,
                 leftM0x1 * scalar,
                 leftM0x2 * scalar,
                 leftM0x3 * scalar,
@@ -1939,7 +1939,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this float val)
-            => (GreaterThanOrClose(val, 0f) && LessThanOrClose(val, 1));
+            => GreaterThanOrClose(val, 0f) && LessThanOrClose(val, 1);
 
         /// <summary>
         ///
@@ -1951,7 +1951,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsBetweenZeroAndOne(this double val)
-            => (GreaterThanOrClose(val, 0d) && LessThanOrClose(val, 1));
+            => GreaterThanOrClose(val, 0d) && LessThanOrClose(val, 1);
         #endregion Comparisons
     }
 }

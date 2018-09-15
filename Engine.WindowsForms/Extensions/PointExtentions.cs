@@ -279,7 +279,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point Inflate(this Point point, int factor)
-            => new Point((point.X * factor), (point.Y * factor));
+            => new Point(point.X * factor, point.Y * factor);
 
         /// <summary>
         /// Inflates a <see cref="Point"/> by a given factor.
@@ -312,7 +312,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point Inflate(this Point point, Point factors)
-            => new Point((point.X * factors.X), (point.Y * factors.Y));
+            => new Point(point.X * factors.X, point.Y * factors.Y);
 
         /// <summary>
         /// Inflates a <see cref="Point"/> by a given factor.

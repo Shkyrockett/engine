@@ -157,8 +157,8 @@ namespace Engine
             {
                 // ToDo: Implement flow orientation options.
                 var point = new Point2D(
-                    x + (index % Columns) * CellSize.Width,
-                    y + (index / Columns) * CellSize.Height
+                    x + index % Columns * CellSize.Width,
+                    y + index / Columns * CellSize.Height
                     );
                 return new Rectangle2D(point, CellSize);
             }
@@ -277,7 +277,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int Columns
-            => (int)CachingProperty(() => (int)Ceiling(Sqrt((width * count) / height)));
+            => (int)CachingProperty(() => (int)Ceiling(Sqrt(width * count / height)));
 
         /// <summary>
         /// Gets the calculated optimum number of rows the grid can contain for its height and width.

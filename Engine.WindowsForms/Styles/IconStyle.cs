@@ -14,37 +14,41 @@ using System.Drawing;
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    /// The icon style class.
     /// </summary>
     public class IconStyle
         : IStyle, IDisposable
     {
         /// <summary>
-        /// 
+        /// The disposed.
         /// </summary>
         private bool disposed = false;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="IconStyle"/> class.
         /// </summary>
         public IconStyle()
             : this(Pens.Transparent, Pens.Transparent, null, null)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="IconStyle"/> class.
         /// </summary>
+        /// <param name="foreBrush">The foreBrush.</param>
+        /// <param name="backBrush">The backBrush.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="icon">The icon.</param>
         public IconStyle(Brush foreBrush, Brush backBrush, Font font, Icon icon)
             : this(new Pen(foreBrush), new Pen(backBrush), null, null)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="IconStyle"/> class.
         /// </summary>
-        /// <param name="forePen"></param>
-        /// <param name="backPen"></param>
-        /// <param name="font"></param>
-        /// <param name="icon"></param>
+        /// <param name="forePen">The forePen.</param>
+        /// <param name="backPen">The backPen.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="icon">The icon.</param>
         public IconStyle(Pen forePen, Pen backPen, Font font, Icon icon)
         {
             BackPen = backPen;
@@ -54,7 +58,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Dispose.
         /// </summary>
         public void Dispose()
         {
@@ -63,9 +67,9 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Dispose.
         /// </summary>
-        /// <param name="disposing"></param>
+        /// <param name="disposing">The disposing.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposed) return;
@@ -82,7 +86,7 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Finalizes an instance of the <see cref="IconStyle"/> class.
         /// </summary>
         ~IconStyle()
         {
@@ -90,12 +94,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the fore pen.
         /// </summary>
         public Pen ForePen { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the fore brush.
         /// </summary>
         public Brush ForeBrush
         {
@@ -104,12 +108,12 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the back pen.
         /// </summary>
         public Pen BackPen { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the back brush.
         /// </summary>
         public Brush BackBrush
         {
@@ -118,22 +122,22 @@ namespace Engine.Imaging
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the font.
         /// </summary>
         public Font Font { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the icon.
         /// </summary>
         public Icon Icon { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the fill.
         /// </summary>
         public IFill Fill { get; }
 
         /// <summary>
-        /// 
+        /// Gets the stroke.
         /// </summary>
         public IStroke Stroke { get; }
     }

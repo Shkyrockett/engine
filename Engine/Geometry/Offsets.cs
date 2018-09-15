@@ -73,10 +73,10 @@ namespace Engine
             var d = Measurements.Distance(aX, aY, bX, bY);
             var dY = (bY - aY) / d;
             var dX = (bX - aX) / d;
-            return ((aX + OneHalf * -dY * distance),
-                (aY + OneHalf * dX * distance),
-                (bX + OneHalf * -dY * distance),
-                (bY + OneHalf * dX * distance));
+            return (aX + OneHalf * -dY * distance,
+                aY + OneHalf * dX * distance,
+                bX + OneHalf * -dY * distance,
+                bY + OneHalf * dX * distance);
         }
 
         /// <summary>
@@ -103,12 +103,12 @@ namespace Engine
             var dX = (bX - aX) / d;
             var dY = (bY - aY) / d;
             var dZ = (bZ - aZ) / d;
-            return ((aX + OneHalf * -dY * distanceX),
-                (aY + OneHalf * dX * distanceY),
-                (aZ + OneHalf * dZ * distanceZ),
-                (bX + OneHalf * -dY * distanceX),
-                (bY + OneHalf * dX * distanceY),
-                (bZ + OneHalf * dZ * distanceZ));
+            return (aX + OneHalf * -dY * distanceX,
+                aY + OneHalf * dX * distanceY,
+                aZ + OneHalf * dZ * distanceZ,
+                bX + OneHalf * -dY * distanceX,
+                bY + OneHalf * dX * distanceY,
+                bZ + OneHalf * dZ * distanceZ);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour Offset(this PolygonContour polygon, double offset)
         {
-            var points = (polygon.Points as List<Point2D>);
+            var points = polygon.Points as List<Point2D>;
 
             var polyline = new PolygonContour();
 

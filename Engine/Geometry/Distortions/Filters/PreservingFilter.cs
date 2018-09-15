@@ -8,6 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 
 namespace Engine
@@ -54,10 +55,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="S"/> structure with a distortion filter.
+        /// Process a <see cref="Type"/> structure with a distortion filter.
         /// </summary>
         /// <param name="shape">The shape.</param>
-        /// <returns>The <see cref="T"/>.</returns>
+        /// <returns>The <see cref="Type"/>.</returns>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="T"></typeparam>
         public T Process<S, T>(S shape)

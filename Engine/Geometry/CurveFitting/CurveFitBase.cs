@@ -358,7 +358,7 @@ namespace Engine
 
                 // Evaluate Q(t), Q'(t), and Q''(t)
                 var p0 = curve.Interpolate(t);
-                var p1 = ((ti * ti) * qp0) + ((2 * ti * t) * qp1) + ((t * t) * qp2);
+                var p1 = (ti * ti * qp0) + (2 * ti * t * qp1) + (t * t * qp2);
                 var p2 = (ti * qpp0) + (t * qpp1);
 
                 // these are the actual fitting calculations using http://en.wikipedia.org/wiki/Newton%27s_method

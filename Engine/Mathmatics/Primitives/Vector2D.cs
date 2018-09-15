@@ -132,7 +132,7 @@ namespace Engine
             && Abs(J) < Epsilon;
 
         /// <summary>
-        /// 
+        /// Gets the magnitude.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -158,10 +158,10 @@ namespace Engine
 
         #region Operators
         /// <summary>
-        /// 
+        /// The operator +.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Vector2D"/>.</returns>
         public static Vector2D operator +(Vector2D value)
             => new Vector2D(+value.I, +value.J);
 
@@ -196,10 +196,10 @@ namespace Engine
             => value.Add(addend);
 
         /// <summary>
-        /// 
+        /// The operator -.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Vector2D"/>.</returns>
         public static Vector2D operator -(Vector2D value)
             => new Vector2D(-value.I, -value.J);
 
@@ -284,21 +284,20 @@ namespace Engine
             => new Vector2D(divisor / dividend.I, divisor / dividend.I);
 
         /// <summary>
-        /// 
+        /// The operator ==.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator ==(Vector2D a, Vector2D b)
             => Equals(a, b);
 
         /// <summary>
-        /// 
+        /// The operator !=.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator !=(Vector2D a, Vector2D b)
             => !Equals(a, b);
 
@@ -471,29 +470,29 @@ namespace Engine
             => Equals(a, b);
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Vector2D && Equals(this, (Vector2D)obj);
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector2D value)
             => Equals(this, value);
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Vector2D a, Vector2D b)
             => a.I == b.I & a.J == b.J;
@@ -545,7 +544,7 @@ namespace Engine
         {
             //            // If the object hasn't been initialized yet, for example reading from reflection, return its name.
             //#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-            //            if (this == null) return nameof(Vector2D);
+            //            if (this is null) return nameof(Vector2D);
             //#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
 
             // Capture the culture's list separator character.

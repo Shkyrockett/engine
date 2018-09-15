@@ -21,77 +21,77 @@ namespace Engine.Tools
     {
         #region Callbacks
         /// <summary>
-        /// 
+        /// The keyboard key up.
         /// </summary>
         internal Action<ToolStack> keyboardKeyUp;
 
         /// <summary>
-        /// 
+        /// The keyboard key down.
         /// </summary>
         internal Action<ToolStack> keyboardKeyDown;
 
         /// <summary>
-        /// 
+        /// The mouse move.
         /// </summary>
         internal Action<ToolStack> mouseMove;
 
         /// <summary>
-        /// 
+        /// The mouse scroll.
         /// </summary>
         internal Action<ToolStack> mouseScroll;
 
         /// <summary>
-        /// 
+        /// The mouse scroll tilt.
         /// </summary>
         internal Action<ToolStack> mouseScrollTilt;
 
         /// <summary>
-        /// 
+        /// The mouse left button down.
         /// </summary>
         internal Action<ToolStack> mouseLeftButtonDown;
 
         /// <summary>
-        /// 
+        /// The mouse middle button down.
         /// </summary>
         internal Action<ToolStack> mouseMiddleButtonDown;
 
         /// <summary>
-        /// 
+        /// The mouse right button down.
         /// </summary>
         internal Action<ToolStack> mouseRightButtonDown;
 
         /// <summary>
-        /// 
+        /// The mouse back button down.
         /// </summary>
         internal Action<ToolStack> mouseBackButtonDown;
 
         /// <summary>
-        /// 
+        /// The mouse forward button down.
         /// </summary>
         internal Action<ToolStack> mouseForwardButtonDown;
 
         /// <summary>
-        /// 
+        /// The mouse left button up.
         /// </summary>
         internal Action<ToolStack> mouseLeftButtonUp;
 
         /// <summary>
-        /// 
+        /// The mouse middle button up.
         /// </summary>
         internal Action<ToolStack> mouseMiddleButtonUp;
 
         /// <summary>
-        /// 
+        /// The mouse right button up.
         /// </summary>
         internal Action<ToolStack> mouseRightButtonUp;
 
         /// <summary>
-        /// 
+        /// The mouse back button up.
         /// </summary>
         internal Action<ToolStack> mouseBackButtonUp;
 
         /// <summary>
-        /// 
+        /// The mouse forward button up.
         /// </summary>
         internal Action<ToolStack> mouseForwardButtonUp;
         #endregion Callbacks
@@ -103,25 +103,26 @@ namespace Engine.Tools
         private Dictionary<MouseButtons, Tool> tools;
 
         /// <summary>
-        /// 
+        /// The mouse location.
         /// </summary>
         private Point2D mouseLocation;
 
         /// <summary>
-        /// 
+        /// The mouse scroll tilt delta.
         /// </summary>
         private double mouseScrollTiltDelta;
 
         /// <summary>
-        /// 
+        /// The mouse vertical scroll delta.
         /// </summary>
         private double mouseVerticalScrollDelta;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ToolStack"/> class.
         /// </summary>
+        /// <param name="surface">The surface.</param>
         public ToolStack(VectorMap surface)
         {
             Surface = surface;
@@ -341,40 +342,40 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the surface.
         /// </summary>
         public VectorMap Surface { get; set; }
         #endregion Properties
 
         #region Mutators
         /// <summary>
-        /// 
+        /// The key up.
         /// </summary>
-        /// <param name="keys"></param>
+        /// <param name="keys">The keys.</param>
         public void KeyUp(Keys keys)
             => KeyboardKeyStates |= ~keys;
 
         /// <summary>
-        /// 
+        /// The key down.
         /// </summary>
-        /// <param name="keys"></param>
+        /// <param name="keys">The keys.</param>
         public void KeyDown(Keys keys)
             => KeyboardKeyStates |= keys;
 
         /// <summary>
-        /// 
+        /// The mouse move.
         /// </summary>
-        /// <param name="location"></param>
+        /// <param name="location">The location.</param>
         public void MouseMove(Point2D location)
         {
             if (mouseLocation != location) MouseLocation = location;
         }
 
         /// <summary>
-        /// 
+        /// The mouse up.
         /// </summary>
-        /// <param name="buttons"></param>
-        /// <param name="clicks"></param>
+        /// <param name="buttons">The buttons.</param>
+        /// <param name="clicks">The clicks.</param>
         public void MouseUp(MouseButtons buttons, int clicks)
         {
             if (buttons != MouseButtons.None)
@@ -388,10 +389,10 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// The mouse down.
         /// </summary>
-        /// <param name="buttons"></param>
-        /// <param name="clicks"></param>
+        /// <param name="buttons">The buttons.</param>
+        /// <param name="clicks">The clicks.</param>
         public void MouseDown(MouseButtons buttons, int clicks)
         {
             if (buttons != MouseButtons.None)
@@ -405,10 +406,10 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// The mouse scroll.
         /// </summary>
-        /// <param name="orientation"></param>
-        /// <param name="delta"></param>
+        /// <param name="orientation">The orientation.</param>
+        /// <param name="delta">The delta.</param>
         public void MouseScroll(ScrollOrientation orientation, double delta)
         {
             switch (orientation)
@@ -426,9 +427,9 @@ namespace Engine.Tools
         #endregion Mutators
 
         /// <summary>
-        /// 
+        /// Register the observer.
         /// </summary>
-        /// <param name="tool"></param>
+        /// <param name="tool">The tool.</param>
         public void RegisterObserver(Tool tool)
         {
             keyboardKeyDown += tool.KeyboardKeyDown;
@@ -449,16 +450,16 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Register the mouse move.
         /// </summary>
-        /// <param name="tool"></param>
+        /// <param name="tool">The tool.</param>
         public void RegisterMouseMove(Tool tool)
             => mouseMove += tool.MouseMoveUpdate;
 
         /// <summary>
-        /// 
+        /// Register the mouse left button.
         /// </summary>
-        /// <param name="tool"></param>
+        /// <param name="tool">The tool.</param>
         public void RegisterMouseLeftButton(Tool tool)
         {
             if (!tools.ContainsKey(MouseButtons.Left))
@@ -485,9 +486,9 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Register the mouse middle button.
         /// </summary>
-        /// <param name="tool"></param>
+        /// <param name="tool">The tool.</param>
         public void RegisterMouseMiddleButton(Tool tool)
         {
             if (!tools.ContainsKey(MouseButtons.Middle))
@@ -515,9 +516,9 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Register the mouse right button.
         /// </summary>
-        /// <param name="tool"></param>
+        /// <param name="tool">The tool.</param>
         public void RegisterMouseRightButton(Tool tool)
         {
             if (!tools.ContainsKey(MouseButtons.Right))
@@ -544,9 +545,9 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Register the mouse back button.
         /// </summary>
-        /// <param name="tool"></param>
+        /// <param name="tool">The tool.</param>
         public void RegisterMouseBackButton(Tool tool)
         {
             if (!tools.ContainsKey(MouseButtons.Back))
@@ -573,9 +574,9 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Register the mouse forward button.
         /// </summary>
-        /// <param name="tool"></param>
+        /// <param name="tool">The tool.</param>
         public void RegisterMouseForwardButton(Tool tool)
         {
             if (!tools.ContainsKey(MouseButtons.Forward))
@@ -602,9 +603,9 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Register the mouse scroll.
         /// </summary>
-        /// <param name="tool"></param>
+        /// <param name="tool">The tool.</param>
         public void RegisterMouseScroll(Tool tool)
         {
             mouseMove += tool.MouseMoveUpdate;
@@ -612,9 +613,9 @@ namespace Engine.Tools
         }
 
         /// <summary>
-        /// 
+        /// Register the mouse scroll tilt.
         /// </summary>
-        /// <param name="tool"></param>
+        /// <param name="tool">The tool.</param>
         public void RegisterMouseScrollTilt(Tool tool)
         {
             mouseMove += tool.MouseMoveUpdate;

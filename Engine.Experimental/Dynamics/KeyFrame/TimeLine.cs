@@ -44,7 +44,7 @@ namespace Engine
             get { return Actions[index]; }
             set
             {
-                if (Actions[index] == null)
+                if (Actions[index] is null)
                     Actions.Add(index, value);
                 else
                     Actions[index] = value;

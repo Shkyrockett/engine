@@ -14,25 +14,26 @@ using System.Runtime.InteropServices;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The native methods class.
     /// </summary>
     public static class NativeMethods
     {
         // define the key code
+
         /// <summary>
-        /// 
+        /// The mouse event f wheel (const). Value: 0x0800.
         /// </summary>
         public const int MouseEventF_Wheel = 0x0800;
 
         /// <summary>
-        /// 
+        /// The mouse event f h wheel (const). Value: 0x1000.
         /// </summary>
         public const int MouseEventF_HWheel = 0x1000;
 
         /// <summary>
-        /// 
+        /// The MEMBERID NIL (const). Value: (-1).
         /// </summary>
-        public const int MEMBERID_NIL = (-1),
+        public const int MEMBERID_NIL = -1,
             MAX_PATH = 260,
             MA_ACTIVATE = 0x0001,
             MA_ACTIVATEANDEAT = 0x0002,
@@ -71,49 +72,49 @@ namespace Engine.WindowsForms
             MDITILE_VERTICAL = 0x0000,
             MDITILE_HORIZONTAL = 0x0001,
             MDITILE_SKIPDISABLED = 0x0002,
-            MCM_SETMAXSELCOUNT = (0x1000 + 4),
-            MCM_SETSELRANGE = (0x1000 + 6),
-            MCM_GETMONTHRANGE = (0x1000 + 7),
-            MCM_GETMINREQRECT = (0x1000 + 9),
-            MCM_SETCOLOR = (0x1000 + 10),
-            MCM_SETTODAY = (0x1000 + 12),
-            MCM_GETTODAY = (0x1000 + 13),
-            MCM_HITTEST = (0x1000 + 14),
-            MCM_SETFIRSTDAYOFWEEK = (0x1000 + 15),
-            MCM_SETRANGE = (0x1000 + 18),
-            MCM_SETMONTHDELTA = (0x1000 + 20),
-            MCM_GETMAXTODAYWIDTH = (0x1000 + 21),
+            MCM_SETMAXSELCOUNT = 0x1000 + 4,
+            MCM_SETSELRANGE = 0x1000 + 6,
+            MCM_GETMONTHRANGE = 0x1000 + 7,
+            MCM_GETMINREQRECT = 0x1000 + 9,
+            MCM_SETCOLOR = 0x1000 + 10,
+            MCM_SETTODAY = 0x1000 + 12,
+            MCM_GETTODAY = 0x1000 + 13,
+            MCM_HITTEST = 0x1000 + 14,
+            MCM_SETFIRSTDAYOFWEEK = 0x1000 + 15,
+            MCM_SETRANGE = 0x1000 + 18,
+            MCM_SETMONTHDELTA = 0x1000 + 20,
+            MCM_GETMAXTODAYWIDTH = 0x1000 + 21,
             MCHT_TITLE = 0x00010000,
             MCHT_CALENDAR = 0x00020000,
             MCHT_TODAYLINK = 0x00030000,
-            MCHT_TITLEBK = (0x00010000),
-            MCHT_TITLEMONTH = (0x00010000 | 0x0001),
-            MCHT_TITLEYEAR = (0x00010000 | 0x0002),
-            MCHT_TITLEBTNNEXT = (0x00010000 | 0x01000000 | 0x0003),
-            MCHT_TITLEBTNPREV = (0x00010000 | 0x02000000 | 0x0003),
-            MCHT_CALENDARBK = (0x00020000),
-            MCHT_CALENDARDATE = (0x00020000 | 0x0001),
-            MCHT_CALENDARDATENEXT = ((0x00020000 | 0x0001) | 0x01000000),
-            MCHT_CALENDARDATEPREV = ((0x00020000 | 0x0001) | 0x02000000),
-            MCHT_CALENDARDAY = (0x00020000 | 0x0002),
-            MCHT_CALENDARWEEKNUM = (0x00020000 | 0x0003),
+            MCHT_TITLEBK = 0x00010000,
+            MCHT_TITLEMONTH = 0x00010000 | 0x0001,
+            MCHT_TITLEYEAR = 0x00010000 | 0x0002,
+            MCHT_TITLEBTNNEXT = 0x00010000 | 0x01000000 | 0x0003,
+            MCHT_TITLEBTNPREV = 0x00010000 | 0x02000000 | 0x0003,
+            MCHT_CALENDARBK = 0x00020000,
+            MCHT_CALENDARDATE = 0x00020000 | 0x0001,
+            MCHT_CALENDARDATENEXT = 0x00020000 | 0x0001 | 0x01000000,
+            MCHT_CALENDARDATEPREV = 0x00020000 | 0x0001 | 0x02000000,
+            MCHT_CALENDARDAY = 0x00020000 | 0x0002,
+            MCHT_CALENDARWEEKNUM = 0x00020000 | 0x0003,
             MCSC_TEXT = 1,
             MCSC_TITLEBK = 2,
             MCSC_TITLETEXT = 3,
             MCSC_MONTHBK = 4,
             MCSC_TRAILINGTEXT = 5,
-            MCN_SELCHANGE = ((0 - 750) + 1),
-            MCN_GETDAYSTATE = ((0 - 750) + 3),
-            MCN_SELECT = ((0 - 750) + 4),
+            MCN_SELCHANGE = 0 - 750 + 1,
+            MCN_GETDAYSTATE = 0 - 750 + 3,
+            MCN_SELECT = 0 - 750 + 4,
             MCS_DAYSTATE = 0x0001,
             MCS_MULTISELECT = 0x0002,
             MCS_WEEKNUMBERS = 0x0004,
             MCS_NOTODAYCIRCLE = 0x0008,
             MCS_NOTODAY = 0x0010,
-            MSAA_MENU_SIG = (unchecked((int)0xAA0DF00D));
+            MSAA_MENU_SIG = unchecked((int)0xAA0DF00D);
 
         /// <summary>
-        /// 
+        /// The NIM ADD (const). Value: 0x00000000.
         /// </summary>
         public const int NIM_ADD = 0x00000000,
             NIM_MODIFY = 0x00000001,
@@ -127,22 +128,22 @@ namespace Engine.WindowsForms
             NIIF_INFO = 0x00000001,
             NIIF_WARNING = 0x00000002,
             NIIF_ERROR = 0x00000003,
-            NIN_BALLOONSHOW = (WM_USER + 2),
-            NIN_BALLOONHIDE = (WM_USER + 3),
-            NIN_BALLOONTIMEOUT = (WM_USER + 4),
-            NIN_BALLOONUSERCLICK = (WM_USER + 5),
+            NIN_BALLOONSHOW = WM_USER + 2,
+            NIN_BALLOONHIDE = WM_USER + 3,
+            NIN_BALLOONTIMEOUT = WM_USER + 4,
+            NIN_BALLOONUSERCLICK = WM_USER + 5,
             NFR_ANSI = 1,
             NFR_UNICODE = 2,
-            NM_CLICK = ((0 - 0) - 2),
-            NM_DBLCLK = ((0 - 0) - 3),
-            NM_RCLICK = ((0 - 0) - 5),
-            NM_RDBLCLK = ((0 - 0) - 6),
-            NM_CUSTOMDRAW = ((0 - 0) - 12),
-            NM_RELEASEDCAPTURE = ((0 - 0) - 16),
+            NM_CLICK = 0 - 0 - 2,
+            NM_DBLCLK = 0 - 0 - 3,
+            NM_RCLICK = 0 - 0 - 5,
+            NM_RDBLCLK = 0 - 0 - 6,
+            NM_CUSTOMDRAW = 0 - 0 - 12,
+            NM_RELEASEDCAPTURE = 0 - 0 - 16,
             NONANTIALIASED_QUALITY = 3;
 
         /// <summary>
-        /// 
+        /// The OFN READONLY (const). Value: 0x00000001.
         /// </summary>
         public const int OFN_READONLY = 0x00000001,
             OFN_OVERWRITEPROMPT = 0x00000002,
@@ -201,7 +202,7 @@ namespace Engine.WindowsForms
             OLECLOSE_PROMPTSAVE = 2;
 
         /// <summary>
-        /// 
+        /// The PDERR SETUPFAILURE (const). Value: 0x1001.
         /// </summary>
         public const int PDERR_SETUPFAILURE = 0x1001,
             PDERR_PARSEFAILURE = 0x1002,
@@ -264,28 +265,28 @@ namespace Engine.WindowsForms
             PM_NOREMOVE = 0x0000,
             PM_REMOVE = 0x0001,
             PM_NOYIELD = 0x0002,
-            PBM_SETRANGE = (0x0400 + 1),
-            PBM_SETPOS = (0x0400 + 2),
-            PBM_SETSTEP = (0x0400 + 4),
-            PBM_SETRANGE32 = (0x0400 + 6),
-            PBM_SETBARCOLOR = (0x0400 + 9),
-            PBM_SETMARQUEE = (0x0400 + 10),
-            PBM_SETBKCOLOR = (0x2000 + 1),
-            PSM_SETTITLEA = (0x0400 + 111),
-            PSM_SETTITLEW = (0x0400 + 120),
-            PSM_SETFINISHTEXTA = (0x0400 + 115),
-            PSM_SETFINISHTEXTW = (0x0400 + 121),
+            PBM_SETRANGE = 0x0400 + 1,
+            PBM_SETPOS = 0x0400 + 2,
+            PBM_SETSTEP = 0x0400 + 4,
+            PBM_SETRANGE32 = 0x0400 + 6,
+            PBM_SETBARCOLOR = 0x0400 + 9,
+            PBM_SETMARQUEE = 0x0400 + 10,
+            PBM_SETBKCOLOR = 0x2000 + 1,
+            PSM_SETTITLEA = 0x0400 + 111,
+            PSM_SETTITLEW = 0x0400 + 120,
+            PSM_SETFINISHTEXTA = 0x0400 + 115,
+            PSM_SETFINISHTEXTW = 0x0400 + 121,
             PATCOPY = 0x00F00021,
             PATINVERT = 0x005A0049;
 
         /// <summary>
-        /// 
+        /// The PBS SMOOTH (const). Value: 0x01.
         /// </summary>
         public const int PBS_SMOOTH = 0x01,
             PBS_MARQUEE = 0x08;
 
         /// <summary>
-        /// 
+        /// The QS KEY (const). Value: 0x0001.
         /// </summary>
         public const int QS_KEY = 0x0001,
             QS_MOUSEMOVE = 0x0002,
@@ -302,37 +303,37 @@ namespace Engine.WindowsForms
             QS_ALLINPUT = QS_INPUT | QS_POSTMESSAGE | QS_TIMER | QS_PAINT | QS_HOTKEY | QS_SENDMESSAGE;
 
         /// <summary>
-        /// 
+        /// The MWMO INPUTAVAILABLE (const). Value: 0x0004.
         /// </summary>
         public const int MWMO_INPUTAVAILABLE = 0x0004;  // don't use MWMO_WAITALL, see ddb#176342
 
         /// <summary>
-        /// 
+        /// The RECO PASTE (const). Value: 0x00000000.
         /// </summary>
         public const int RECO_PASTE = 0x00000000;   // paste from clipboard
 
         /// <summary>
-        /// 
+        /// The RECO DROP (const). Value: 0x00000001.
         /// </summary>
         public const int RECO_DROP = 0x00000001;    // drop
 
         /// <summary>
-        /// 
+        /// The RECO COPY (const). Value: 0x00000002.
         /// </summary>
         public const int RECO_COPY = 0x00000002;    // copy to the clipboard
 
         /// <summary>
-        /// 
+        /// The RECO CUT (const). Value: 0x00000003.
         /// </summary>
         public const int RECO_CUT = 0x00000003;     // cut to the clipboard
 
         /// <summary>
-        /// 
+        /// The RECO DRAG (const). Value: 0x00000004.
         /// </summary>
         public const int RECO_DRAG = 0x00000004;    // drag
 
         /// <summary>
-        /// 
+        /// The RPC e CHANGED MODE (const). Value: unchecked((int)0x80010106).
         /// </summary>
         public const int RPC_E_CHANGED_MODE = unchecked((int)0x80010106),
             RPC_E_CANTCALLOUT_ININPUTSYNCCALL = unchecked((int)0x8001010D),
@@ -345,11 +346,11 @@ namespace Engine.WindowsForms
             RDW_ERASENOW = 0x0200,
             RDW_UPDATENOW = 0x0100,
             RDW_FRAME = 0x0400,
-            RB_INSERTBANDA = (0x0400 + 1),
-            RB_INSERTBANDW = (0x0400 + 10);
+            RB_INSERTBANDA = 0x0400 + 1,
+            RB_INSERTBANDW = 0x0400 + 10;
 
         /// <summary>
-        /// 
+        /// The stc4 (const). Value: 0x0443.
         /// </summary>
         public const int stc4 = 0x0443,
             SHGFP_TYPE_CURRENT = 0,
@@ -481,7 +482,7 @@ namespace Engine.WindowsForms
             SM_REMOTESESSION = 0x1000;
 
         /// <summary>
-        /// 
+        /// The HLP FILE (const). Value: 1.
         /// </summary>
         public const int HLP_FILE = 1,
             HLP_KEYWORD = 2,
@@ -489,7 +490,7 @@ namespace Engine.WindowsForms
             HLP_OBJECT = 4;
 
         /// <summary>
-        /// 
+        /// The SW SCROLLCHILDREN (const). Value: 0x0001.
         /// </summary>
         public const int SW_SCROLLCHILDREN = 0x0001,
             SW_INVALIDATE = 0x0002,
@@ -515,7 +516,7 @@ namespace Engine.WindowsForms
             SIF_PAGE = 0x0002,
             SIF_POS = 0x0004,
             SIF_TRACKPOS = 0x0010,
-            SIF_ALL = (0x0001 | 0x0002 | 0x0004 | 0x0010),
+            SIF_ALL = 0x0001 | 0x0002 | 0x0004 | 0x0010,
             SPI_GETFONTSMOOTHING = 0x004A,
             SPI_GETDROPSHADOW = 0x1024,
             SPI_GETFLATMENU = 0x1022,
@@ -562,20 +563,20 @@ namespace Engine.WindowsForms
             SPI_GETSNAPTODEFBUTTON = 95,
             SPI_GETWHEELSCROLLLINES = 104,
             SBARS_SIZEGRIP = 0x0100,
-            SB_SETTEXTA = (0x0400 + 1),
-            SB_SETTEXTW = (0x0400 + 11),
-            SB_GETTEXTA = (0x0400 + 2),
-            SB_GETTEXTW = (0x0400 + 13),
-            SB_GETTEXTLENGTHA = (0x0400 + 3),
-            SB_GETTEXTLENGTHW = (0x0400 + 12),
-            SB_SETPARTS = (0x0400 + 4),
-            SB_SIMPLE = (0x0400 + 9),
-            SB_GETRECT = (0x0400 + 10),
-            SB_SETICON = (0x0400 + 15),
-            SB_SETTIPTEXTA = (0x0400 + 16),
-            SB_SETTIPTEXTW = (0x0400 + 17),
-            SB_GETTIPTEXTA = (0x0400 + 18),
-            SB_GETTIPTEXTW = (0x0400 + 19),
+            SB_SETTEXTA = 0x0400 + 1,
+            SB_SETTEXTW = 0x0400 + 11,
+            SB_GETTEXTA = 0x0400 + 2,
+            SB_GETTEXTW = 0x0400 + 13,
+            SB_GETTEXTLENGTHA = 0x0400 + 3,
+            SB_GETTEXTLENGTHW = 0x0400 + 12,
+            SB_SETPARTS = 0x0400 + 4,
+            SB_SIMPLE = 0x0400 + 9,
+            SB_GETRECT = 0x0400 + 10,
+            SB_SETICON = 0x0400 + 15,
+            SB_SETTIPTEXTA = 0x0400 + 16,
+            SB_SETTIPTEXTW = 0x0400 + 17,
+            SB_GETTIPTEXTA = 0x0400 + 18,
+            SB_GETTIPTEXTW = 0x0400 + 19,
             SBT_OWNERDRAW = 0x1000,
             SBT_NOBORDERS = 0x0100,
             SBT_POPOUT = 0x0200,
@@ -596,17 +597,17 @@ namespace Engine.WindowsForms
             STREAM_SEEK_END = 0x2;
 
         /// <summary>
-        /// 
+        /// The s OK (const). Value: 0x00000000.
         /// </summary>
         public const int S_OK = 0x00000000;
 
         /// <summary>
-        /// 
+        /// The s FALSE (const). Value: 0x00000001.
         /// </summary>
         public const int S_FALSE = 0x00000001;
 
         /// <summary>
-        /// 
+        /// The TRANSPARENT (const). Value: 1.
         /// </summary>
         public const int TRANSPARENT = 1,
             OPAQUE = 2,
@@ -630,52 +631,52 @@ namespace Engine.WindowsForms
             TBSTYLE_FLAT = 0x0800,
             TBSTYLE_LIST = 0x1000,
             TBSTYLE_EX_DRAWDDARROWS = 0x00000001,
-            TB_ENABLEBUTTON = (0x0400 + 1),
-            TB_ISBUTTONCHECKED = (0x0400 + 10),
-            TB_ISBUTTONINDETERMINATE = (0x0400 + 13),
-            TB_ADDBUTTONSA = (0x0400 + 20),
-            TB_ADDBUTTONSW = (0x0400 + 68),
-            TB_INSERTBUTTONA = (0x0400 + 21),
-            TB_INSERTBUTTONW = (0x0400 + 67),
-            TB_DELETEBUTTON = (0x0400 + 22),
-            TB_GETBUTTON = (0x0400 + 23),
-            TB_SAVERESTOREA = (0x0400 + 26),
-            TB_SAVERESTOREW = (0x0400 + 76),
-            TB_ADDSTRINGA = (0x0400 + 28),
-            TB_ADDSTRINGW = (0x0400 + 77),
-            TB_BUTTONSTRUCTSIZE = (0x0400 + 30),
-            TB_SETBUTTONSIZE = (0x0400 + 31),
-            TB_AUTOSIZE = (0x0400 + 33),
-            TB_GETROWS = (0x0400 + 40),
-            TB_GETBUTTONTEXTA = (0x0400 + 45),
-            TB_GETBUTTONTEXTW = (0x0400 + 75),
-            TB_SETIMAGELIST = (0x0400 + 48),
-            TB_GETRECT = (0x0400 + 51),
-            TB_GETBUTTONSIZE = (0x0400 + 58),
-            TB_GETBUTTONINFOW = (0x0400 + 63),
-            TB_SETBUTTONINFOW = (0x0400 + 64),
-            TB_GETBUTTONINFOA = (0x0400 + 65),
-            TB_SETBUTTONINFOA = (0x0400 + 66),
-            TB_MAPACCELERATORA = (0x0400 + 78),
-            TB_SETEXTENDEDSTYLE = (0x0400 + 84),
-            TB_MAPACCELERATORW = (0x0400 + 90),
-            TB_GETTOOLTIPS = (0x0400 + 35),
-            TB_SETTOOLTIPS = (0x0400 + 36),
+            TB_ENABLEBUTTON = 0x0400 + 1,
+            TB_ISBUTTONCHECKED = 0x0400 + 10,
+            TB_ISBUTTONINDETERMINATE = 0x0400 + 13,
+            TB_ADDBUTTONSA = 0x0400 + 20,
+            TB_ADDBUTTONSW = 0x0400 + 68,
+            TB_INSERTBUTTONA = 0x0400 + 21,
+            TB_INSERTBUTTONW = 0x0400 + 67,
+            TB_DELETEBUTTON = 0x0400 + 22,
+            TB_GETBUTTON = 0x0400 + 23,
+            TB_SAVERESTOREA = 0x0400 + 26,
+            TB_SAVERESTOREW = 0x0400 + 76,
+            TB_ADDSTRINGA = 0x0400 + 28,
+            TB_ADDSTRINGW = 0x0400 + 77,
+            TB_BUTTONSTRUCTSIZE = 0x0400 + 30,
+            TB_SETBUTTONSIZE = 0x0400 + 31,
+            TB_AUTOSIZE = 0x0400 + 33,
+            TB_GETROWS = 0x0400 + 40,
+            TB_GETBUTTONTEXTA = 0x0400 + 45,
+            TB_GETBUTTONTEXTW = 0x0400 + 75,
+            TB_SETIMAGELIST = 0x0400 + 48,
+            TB_GETRECT = 0x0400 + 51,
+            TB_GETBUTTONSIZE = 0x0400 + 58,
+            TB_GETBUTTONINFOW = 0x0400 + 63,
+            TB_SETBUTTONINFOW = 0x0400 + 64,
+            TB_GETBUTTONINFOA = 0x0400 + 65,
+            TB_SETBUTTONINFOA = 0x0400 + 66,
+            TB_MAPACCELERATORA = 0x0400 + 78,
+            TB_SETEXTENDEDSTYLE = 0x0400 + 84,
+            TB_MAPACCELERATORW = 0x0400 + 90,
+            TB_GETTOOLTIPS = 0x0400 + 35,
+            TB_SETTOOLTIPS = 0x0400 + 36,
             TBIF_IMAGE = 0x00000001,
             TBIF_TEXT = 0x00000002,
             TBIF_STATE = 0x00000004,
             TBIF_STYLE = 0x00000008,
             TBIF_COMMAND = 0x00000020,
             TBIF_SIZE = 0x00000040,
-            TBN_GETBUTTONINFOA = ((0 - 700) - 0),
-            TBN_GETBUTTONINFOW = ((0 - 700) - 20),
-            TBN_QUERYINSERT = ((0 - 700) - 6),
-            TBN_DROPDOWN = ((0 - 700) - 10),
-            TBN_HOTITEMCHANGE = ((0 - 700) - 13),
-            TBN_GETDISPINFOA = ((0 - 700) - 16),
-            TBN_GETDISPINFOW = ((0 - 700) - 17),
-            TBN_GETINFOTIPA = ((0 - 700) - 18),
-            TBN_GETINFOTIPW = ((0 - 700) - 19),
+            TBN_GETBUTTONINFOA = 0 - 700 - 0,
+            TBN_GETBUTTONINFOW = 0 - 700 - 20,
+            TBN_QUERYINSERT = 0 - 700 - 6,
+            TBN_DROPDOWN = 0 - 700 - 10,
+            TBN_HOTITEMCHANGE = 0 - 700 - 13,
+            TBN_GETDISPINFOA = 0 - 700 - 16,
+            TBN_GETDISPINFOW = 0 - 700 - 17,
+            TBN_GETINFOTIPA = 0 - 700 - 18,
+            TBN_GETINFOTIPW = 0 - 700 - 19,
             TTS_ALWAYSTIP = 0x01,
             TTS_NOPREFIX = 0x02,
             TTS_NOANIMATE = 0x10,
@@ -696,64 +697,64 @@ namespace Engine.WindowsForms
             TTDT_RESHOW = 1,
             TTDT_AUTOPOP = 2,
             TTDT_INITIAL = 3,
-            TTM_TRACKACTIVATE = (0x0400 + 17),
-            TTM_TRACKPOSITION = (0x0400 + 18),
-            TTM_ACTIVATE = (0x0400 + 1),
-            TTM_POP = (0x0400 + 28),
-            TTM_ADJUSTRECT = (0x400 + 31),
-            TTM_SETDELAYTIME = (0x0400 + 3),
-            TTM_SETTITLEA = (WM_USER + 32),  // wParam = TTI_*, lParam = char* szTitle
-            TTM_SETTITLEW = (WM_USER + 33), // wParam = TTI_*, lParam = wchar* szTitle
-            TTM_ADDTOOLA = (0x0400 + 4),
-            TTM_ADDTOOLW = (0x0400 + 50),
-            TTM_DELTOOLA = (0x0400 + 5),
-            TTM_DELTOOLW = (0x0400 + 51),
-            TTM_NEWTOOLRECTA = (0x0400 + 6),
-            TTM_NEWTOOLRECTW = (0x0400 + 52),
-            TTM_RELAYEVENT = (0x0400 + 7),
-            TTM_GETTIPBKCOLOR = (0x0400 + 22),
-            TTM_SETTIPBKCOLOR = (0x0400 + 19),
-            TTM_SETTIPTEXTCOLOR = (0x0400 + 20),
-            TTM_GETTIPTEXTCOLOR = (0x0400 + 23),
-            TTM_GETTOOLINFOA = (0x0400 + 8),
-            TTM_GETTOOLINFOW = (0x0400 + 53),
-            TTM_SETTOOLINFOA = (0x0400 + 9),
-            TTM_SETTOOLINFOW = (0x0400 + 54),
-            TTM_HITTESTA = (0x0400 + 10),
-            TTM_HITTESTW = (0x0400 + 55),
-            TTM_GETTEXTA = (0x0400 + 11),
-            TTM_GETTEXTW = (0x0400 + 56),
-            TTM_UPDATE = (0x0400 + 29),
-            TTM_UPDATETIPTEXTA = (0x0400 + 12),
-            TTM_UPDATETIPTEXTW = (0x0400 + 57),
-            TTM_ENUMTOOLSA = (0x0400 + 14),
-            TTM_ENUMTOOLSW = (0x0400 + 58),
-            TTM_GETCURRENTTOOLA = (0x0400 + 15),
-            TTM_GETCURRENTTOOLW = (0x0400 + 59),
-            TTM_WINDOWFROMPOINT = (0x0400 + 16),
-            TTM_GETDELAYTIME = (0x0400 + 21),
-            TTM_SETMAXTIPWIDTH = (0x0400 + 24),
-            TTN_GETDISPINFOA = ((0 - 520) - 0),
-            TTN_GETDISPINFOW = ((0 - 520) - 10),
-            TTN_SHOW = ((0 - 520) - 1),
-            TTN_POP = ((0 - 520) - 2),
-            TTN_NEEDTEXTA = ((0 - 520) - 0),
-            TTN_NEEDTEXTW = ((0 - 520) - 10),
+            TTM_TRACKACTIVATE = 0x0400 + 17,
+            TTM_TRACKPOSITION = 0x0400 + 18,
+            TTM_ACTIVATE = 0x0400 + 1,
+            TTM_POP = 0x0400 + 28,
+            TTM_ADJUSTRECT = 0x400 + 31,
+            TTM_SETDELAYTIME = 0x0400 + 3,
+            TTM_SETTITLEA = WM_USER + 32,  // wParam = TTI_*, lParam = char* szTitle
+            TTM_SETTITLEW = WM_USER + 33, // wParam = TTI_*, lParam = wchar* szTitle
+            TTM_ADDTOOLA = 0x0400 + 4,
+            TTM_ADDTOOLW = 0x0400 + 50,
+            TTM_DELTOOLA = 0x0400 + 5,
+            TTM_DELTOOLW = 0x0400 + 51,
+            TTM_NEWTOOLRECTA = 0x0400 + 6,
+            TTM_NEWTOOLRECTW = 0x0400 + 52,
+            TTM_RELAYEVENT = 0x0400 + 7,
+            TTM_GETTIPBKCOLOR = 0x0400 + 22,
+            TTM_SETTIPBKCOLOR = 0x0400 + 19,
+            TTM_SETTIPTEXTCOLOR = 0x0400 + 20,
+            TTM_GETTIPTEXTCOLOR = 0x0400 + 23,
+            TTM_GETTOOLINFOA = 0x0400 + 8,
+            TTM_GETTOOLINFOW = 0x0400 + 53,
+            TTM_SETTOOLINFOA = 0x0400 + 9,
+            TTM_SETTOOLINFOW = 0x0400 + 54,
+            TTM_HITTESTA = 0x0400 + 10,
+            TTM_HITTESTW = 0x0400 + 55,
+            TTM_GETTEXTA = 0x0400 + 11,
+            TTM_GETTEXTW = 0x0400 + 56,
+            TTM_UPDATE = 0x0400 + 29,
+            TTM_UPDATETIPTEXTA = 0x0400 + 12,
+            TTM_UPDATETIPTEXTW = 0x0400 + 57,
+            TTM_ENUMTOOLSA = 0x0400 + 14,
+            TTM_ENUMTOOLSW = 0x0400 + 58,
+            TTM_GETCURRENTTOOLA = 0x0400 + 15,
+            TTM_GETCURRENTTOOLW = 0x0400 + 59,
+            TTM_WINDOWFROMPOINT = 0x0400 + 16,
+            TTM_GETDELAYTIME = 0x0400 + 21,
+            TTM_SETMAXTIPWIDTH = 0x0400 + 24,
+            TTN_GETDISPINFOA = 0 - 520 - 0,
+            TTN_GETDISPINFOW = 0 - 520 - 10,
+            TTN_SHOW = 0 - 520 - 1,
+            TTN_POP = 0 - 520 - 2,
+            TTN_NEEDTEXTA = 0 - 520 - 0,
+            TTN_NEEDTEXTW = 0 - 520 - 10,
             TBS_AUTOTICKS = 0x0001,
             TBS_VERT = 0x0002,
             TBS_TOP = 0x0004,
             TBS_BOTTOM = 0x0000,
             TBS_BOTH = 0x0008,
             TBS_NOTICKS = 0x0010,
-            TBM_GETPOS = (0x0400),
-            TBM_SETTIC = (0x0400 + 4),
-            TBM_SETPOS = (0x0400 + 5),
-            TBM_SETRANGE = (0x0400 + 6),
-            TBM_SETRANGEMIN = (0x0400 + 7),
-            TBM_SETRANGEMAX = (0x0400 + 8),
-            TBM_SETTICFREQ = (0x0400 + 20),
-            TBM_SETPAGESIZE = (0x0400 + 21),
-            TBM_SETLINESIZE = (0x0400 + 23),
+            TBM_GETPOS = 0x0400,
+            TBM_SETTIC = 0x0400 + 4,
+            TBM_SETPOS = 0x0400 + 5,
+            TBM_SETRANGE = 0x0400 + 6,
+            TBM_SETRANGEMIN = 0x0400 + 7,
+            TBM_SETRANGEMAX = 0x0400 + 8,
+            TBM_SETTICFREQ = 0x0400 + 20,
+            TBM_SETPAGESIZE = 0x0400 + 21,
+            TBM_SETLINESIZE = 0x0400 + 23,
             TB_LINEUP = 0,
             TB_LINEDOWN = 1,
             TB_PAGEUP = 2,
@@ -785,20 +786,20 @@ namespace Engine.WindowsForms
             TVIS_EXPANDED = 0x0020,
             TVIS_EXPANDEDONCE = 0x0040,
             TVIS_STATEIMAGEMASK = 0xF000,
-            TVI_ROOT = (unchecked((int)0xFFFF0000)),
-            TVI_FIRST = (unchecked((int)0xFFFF0001)),
-            TVM_INSERTITEMA = (0x1100 + 0),
-            TVM_INSERTITEMW = (0x1100 + 50),
-            TVM_DELETEITEM = (0x1100 + 1),
-            TVM_EXPAND = (0x1100 + 2),
+            TVI_ROOT = unchecked((int)0xFFFF0000),
+            TVI_FIRST = unchecked((int)0xFFFF0001),
+            TVM_INSERTITEMA = 0x1100 + 0,
+            TVM_INSERTITEMW = 0x1100 + 50,
+            TVM_DELETEITEM = 0x1100 + 1,
+            TVM_EXPAND = 0x1100 + 2,
             TVE_COLLAPSE = 0x0001,
             TVE_EXPAND = 0x0002,
-            TVM_GETITEMRECT = (0x1100 + 4),
-            TVM_GETINDENT = (0x1100 + 6),
-            TVM_SETINDENT = (0x1100 + 7),
-            TVM_GETIMAGELIST = (0x1100 + 8),
-            TVM_SETIMAGELIST = (0x1100 + 9),
-            TVM_GETNEXTITEM = (0x1100 + 10),
+            TVM_GETITEMRECT = 0x1100 + 4,
+            TVM_GETINDENT = 0x1100 + 6,
+            TVM_SETINDENT = 0x1100 + 7,
+            TVM_GETIMAGELIST = 0x1100 + 8,
+            TVM_SETIMAGELIST = 0x1100 + 9,
+            TVM_GETNEXTITEM = 0x1100 + 10,
             TVGN_NEXT = 0x0001,
             TVGN_PREVIOUS = 0x0002,
             TVGN_FIRSTVISIBLE = 0x0005,
@@ -806,47 +807,47 @@ namespace Engine.WindowsForms
             TVGN_PREVIOUSVISIBLE = 0x0007,
             TVGN_DROPHILITE = 0x0008,
             TVGN_CARET = 0x0009,
-            TVM_SELECTITEM = (0x1100 + 11),
-            TVM_GETITEMA = (0x1100 + 12),
-            TVM_GETITEMW = (0x1100 + 62),
-            TVM_SETITEMA = (0x1100 + 13),
-            TVM_SETITEMW = (0x1100 + 63),
-            TVM_EDITLABELA = (0x1100 + 14),
-            TVM_EDITLABELW = (0x1100 + 65),
-            TVM_GETEDITCONTROL = (0x1100 + 15),
-            TVM_GETVISIBLECOUNT = (0x1100 + 16),
-            TVM_HITTEST = (0x1100 + 17),
-            TVM_ENSUREVISIBLE = (0x1100 + 20),
-            TVM_ENDEDITLABELNOW = (0x1100 + 22),
-            TVM_GETISEARCHSTRINGA = (0x1100 + 23),
-            TVM_GETISEARCHSTRINGW = (0x1100 + 64),
-            TVM_SETITEMHEIGHT = (0x1100 + 27),
-            TVM_GETITEMHEIGHT = (0x1100 + 28),
-            TVN_SELCHANGINGA = ((0 - 400) - 1),
-            TVN_SELCHANGINGW = ((0 - 400) - 50),
-            TVN_GETINFOTIPA = ((0 - 400) - 13),
-            TVN_GETINFOTIPW = ((0 - 400) - 14),
-            TVN_SELCHANGEDA = ((0 - 400) - 2),
-            TVN_SELCHANGEDW = ((0 - 400) - 51),
+            TVM_SELECTITEM = 0x1100 + 11,
+            TVM_GETITEMA = 0x1100 + 12,
+            TVM_GETITEMW = 0x1100 + 62,
+            TVM_SETITEMA = 0x1100 + 13,
+            TVM_SETITEMW = 0x1100 + 63,
+            TVM_EDITLABELA = 0x1100 + 14,
+            TVM_EDITLABELW = 0x1100 + 65,
+            TVM_GETEDITCONTROL = 0x1100 + 15,
+            TVM_GETVISIBLECOUNT = 0x1100 + 16,
+            TVM_HITTEST = 0x1100 + 17,
+            TVM_ENSUREVISIBLE = 0x1100 + 20,
+            TVM_ENDEDITLABELNOW = 0x1100 + 22,
+            TVM_GETISEARCHSTRINGA = 0x1100 + 23,
+            TVM_GETISEARCHSTRINGW = 0x1100 + 64,
+            TVM_SETITEMHEIGHT = 0x1100 + 27,
+            TVM_GETITEMHEIGHT = 0x1100 + 28,
+            TVN_SELCHANGINGA = 0 - 400 - 1,
+            TVN_SELCHANGINGW = 0 - 400 - 50,
+            TVN_GETINFOTIPA = 0 - 400 - 13,
+            TVN_GETINFOTIPW = 0 - 400 - 14,
+            TVN_SELCHANGEDA = 0 - 400 - 2,
+            TVN_SELCHANGEDW = 0 - 400 - 51,
             TVC_UNKNOWN = 0x0000,
             TVC_BYMOUSE = 0x0001,
             TVC_BYKEYBOARD = 0x0002,
-            TVN_GETDISPINFOA = ((0 - 400) - 3),
-            TVN_GETDISPINFOW = ((0 - 400) - 52),
-            TVN_SETDISPINFOA = ((0 - 400) - 4),
-            TVN_SETDISPINFOW = ((0 - 400) - 53),
-            TVN_ITEMEXPANDINGA = ((0 - 400) - 5),
-            TVN_ITEMEXPANDINGW = ((0 - 400) - 54),
-            TVN_ITEMEXPANDEDA = ((0 - 400) - 6),
-            TVN_ITEMEXPANDEDW = ((0 - 400) - 55),
-            TVN_BEGINDRAGA = ((0 - 400) - 7),
-            TVN_BEGINDRAGW = ((0 - 400) - 56),
-            TVN_BEGINRDRAGA = ((0 - 400) - 8),
-            TVN_BEGINRDRAGW = ((0 - 400) - 57),
-            TVN_BEGINLABELEDITA = ((0 - 400) - 10),
-            TVN_BEGINLABELEDITW = ((0 - 400) - 59),
-            TVN_ENDLABELEDITA = ((0 - 400) - 11),
-            TVN_ENDLABELEDITW = ((0 - 400) - 60),
+            TVN_GETDISPINFOA = 0 - 400 - 3,
+            TVN_GETDISPINFOW = 0 - 400 - 52,
+            TVN_SETDISPINFOA = 0 - 400 - 4,
+            TVN_SETDISPINFOW = 0 - 400 - 53,
+            TVN_ITEMEXPANDINGA = 0 - 400 - 5,
+            TVN_ITEMEXPANDINGW = 0 - 400 - 54,
+            TVN_ITEMEXPANDEDA = 0 - 400 - 6,
+            TVN_ITEMEXPANDEDW = 0 - 400 - 55,
+            TVN_BEGINDRAGA = 0 - 400 - 7,
+            TVN_BEGINDRAGW = 0 - 400 - 56,
+            TVN_BEGINRDRAGA = 0 - 400 - 8,
+            TVN_BEGINRDRAGW = 0 - 400 - 57,
+            TVN_BEGINLABELEDITA = 0 - 400 - 10,
+            TVN_BEGINLABELEDITW = 0 - 400 - 59,
+            TVN_ENDLABELEDITA = 0 - 400 - 11,
+            TVN_ENDLABELEDITW = 0 - 400 - 60,
             TCS_BOTTOM = 0x0002,
             TCS_RIGHT = 0x0002,
             TCS_FLATBUTTONS = 0x0008,
@@ -860,46 +861,46 @@ namespace Engine.WindowsForms
             TCS_RAGGEDRIGHT = 0x0800,
             TCS_OWNERDRAWFIXED = 0x2000,
             TCS_TOOLTIPS = 0x4000,
-            TCM_SETIMAGELIST = (0x1300 + 3),
+            TCM_SETIMAGELIST = 0x1300 + 3,
             TCIF_TEXT = 0x0001,
             TCIF_IMAGE = 0x0002,
-            TCM_GETITEMA = (0x1300 + 5),
-            TCM_GETITEMW = (0x1300 + 60),
-            TCM_SETITEMA = (0x1300 + 6),
-            TCM_SETITEMW = (0x1300 + 61),
-            TCM_INSERTITEMA = (0x1300 + 7),
-            TCM_INSERTITEMW = (0x1300 + 62),
-            TCM_DELETEITEM = (0x1300 + 8),
-            TCM_DELETEALLITEMS = (0x1300 + 9),
-            TCM_GETITEMRECT = (0x1300 + 10),
-            TCM_GETCURSEL = (0x1300 + 11),
-            TCM_SETCURSEL = (0x1300 + 12),
-            TCM_ADJUSTRECT = (0x1300 + 40),
-            TCM_SETITEMSIZE = (0x1300 + 41),
-            TCM_SETPADDING = (0x1300 + 43),
-            TCM_GETROWCOUNT = (0x1300 + 44),
-            TCM_GETTOOLTIPS = (0x1300 + 45),
-            TCM_SETTOOLTIPS = (0x1300 + 46),
-            TCN_SELCHANGE = ((0 - 550) - 1),
-            TCN_SELCHANGING = ((0 - 550) - 2),
+            TCM_GETITEMA = 0x1300 + 5,
+            TCM_GETITEMW = 0x1300 + 60,
+            TCM_SETITEMA = 0x1300 + 6,
+            TCM_SETITEMW = 0x1300 + 61,
+            TCM_INSERTITEMA = 0x1300 + 7,
+            TCM_INSERTITEMW = 0x1300 + 62,
+            TCM_DELETEITEM = 0x1300 + 8,
+            TCM_DELETEALLITEMS = 0x1300 + 9,
+            TCM_GETITEMRECT = 0x1300 + 10,
+            TCM_GETCURSEL = 0x1300 + 11,
+            TCM_SETCURSEL = 0x1300 + 12,
+            TCM_ADJUSTRECT = 0x1300 + 40,
+            TCM_SETITEMSIZE = 0x1300 + 41,
+            TCM_SETPADDING = 0x1300 + 43,
+            TCM_GETROWCOUNT = 0x1300 + 44,
+            TCM_GETTOOLTIPS = 0x1300 + 45,
+            TCM_SETTOOLTIPS = 0x1300 + 46,
+            TCN_SELCHANGE = 0 - 550 - 1,
+            TCN_SELCHANGING = 0 - 550 - 2,
             TBSTYLE_WRAPPABLE = 0x0200,
-            TVM_SETBKCOLOR = (TV_FIRST + 29),
-            TVM_SETTEXTCOLOR = (TV_FIRST + 30),
+            TVM_SETBKCOLOR = TV_FIRST + 29,
+            TVM_SETTEXTCOLOR = TV_FIRST + 30,
             TYMED_NULL = 0,
-            TVM_GETLINECOLOR = (TV_FIRST + 41),
-            TVM_SETLINECOLOR = (TV_FIRST + 40),
-            TVM_SETTOOLTIPS = (TV_FIRST + 24),
+            TVM_GETLINECOLOR = TV_FIRST + 41,
+            TVM_SETLINECOLOR = TV_FIRST + 40,
+            TVM_SETTOOLTIPS = TV_FIRST + 24,
             TVSIL_STATE = 2,
-            TVM_SORTCHILDRENCB = (TV_FIRST + 21),
+            TVM_SORTCHILDRENCB = TV_FIRST + 21,
             TMPF_FIXED_PITCH = 0x01;
 
         /// <summary>
-        /// 
+        /// The TVHT NOWHERE (const). Value: 0x0001.
         /// </summary>
         public const int TVHT_NOWHERE = 0x0001,
             TVHT_ONITEMICON = 0x0002,
             TVHT_ONITEMLABEL = 0x0004,
-            TVHT_ONITEM = (TVHT_ONITEMICON | TVHT_ONITEMLABEL | TVHT_ONITEMSTATEICON),
+            TVHT_ONITEM = TVHT_ONITEMICON | TVHT_ONITEMLABEL | TVHT_ONITEMSTATEICON,
             TVHT_ONITEMINDENT = 0x0008,
             TVHT_ONITEMBUTTON = 0x0010,
             TVHT_ONITEMRIGHT = 0x0020,
@@ -910,7 +911,7 @@ namespace Engine.WindowsForms
             TVHT_TOLEFT = 0x0800;
 
         /// <summary>
-        /// 
+        /// The UIS SET (const). Value: 1.
         /// </summary>
         public const int UIS_SET = 1,
             UIS_CLEAR = 2,
@@ -923,7 +924,7 @@ namespace Engine.WindowsForms
             UOI_FLAGS = 1;
 
         /// <summary>
-        /// 
+        /// The VIEW e DRAW (const). Value: unchecked((int)0x80040140).
         /// </summary>
         public const int VIEW_E_DRAW = unchecked((int)0x80040140),
             VK_PRIOR = 0x21,
@@ -947,7 +948,7 @@ namespace Engine.WindowsForms
             VK_DELETE = 0x002E;
 
         /// <summary>
-        /// 
+        /// The WH JOURNALPLAYBACK (const). Value: 1.
         /// </summary>
         public const int WH_JOURNALPLAYBACK = 1,
             WH_GETMESSAGE = 3,
@@ -1103,7 +1104,7 @@ namespace Engine.WindowsForms
             WM_MOUSEHWHEEL = 0x020E;
 
         /// <summary>
-        /// 
+        /// The WHEEL DELTA (const). Value: 120.
         /// </summary>
         public const int WHEEL_DELTA = 120,
             WM_PARENTNOTIFY = 0x0210,
@@ -1207,12 +1208,12 @@ namespace Engine.WindowsForms
             WS_EX_LAYOUTRTL = 0x00400000,
             WS_EX_NOINHERITLAYOUT = 0x00100000,
             WPF_SETMINPOSITION = 0x0001,
-            WM_CHOOSEFONT_GETLOGFONT = (0x0400 + 1);
+            WM_CHOOSEFONT_GETLOGFONT = 0x0400 + 1;
 
         // wParam of report message WM_IME_NOTIFY (public\sdk\imm.h)
 
         /// <summary>
-        /// 
+        /// The IMN CLOSESTATUSWINDOW (const). Value: 0x0001.
         /// </summary>
         public const int
             IMN_CLOSESTATUSWINDOW = 0x0001,
@@ -1231,99 +1232,102 @@ namespace Engine.WindowsForms
             IMN_PRIVATE = 0x000E;
 
         /// <summary>
-        /// 
+        /// The PD RESULT CANCEL (const). Value: 0.
         /// </summary>
         public const int PD_RESULT_CANCEL = 0;
 
         /// <summary>
-        /// 
+        /// The PD RESULT PRINT (const). Value: 1.
         /// </summary>
         public const int PD_RESULT_PRINT = 1;
 
         /// <summary>
-        /// 
+        /// The PD RESULT APPLY (const). Value: 2.
         /// </summary>
         public const int PD_RESULT_APPLY = 2;
 
         /// <summary>
-        /// 
+        /// The XBUTTON1 (const). Value: 0x0001.
         /// </summary>
         public const int XBUTTON1 = 0x0001;
 
         /// <summary>
-        /// 
+        /// The XBUTTON2 (const). Value: 0x0002.
         /// </summary>
         public const int XBUTTON2 = 0x0002;
 
         // Ctrl key.
+
         /// <summary>
-        /// 
+        /// The KEYEVENTF EXTENDEDKEY (const). Value: 0x0001.
         /// </summary>
         public const int KEYEVENTF_EXTENDEDKEY = 0x0001;
 
         /// <summary>
-        /// 
+        /// The KEYEVENTF KEYUP (const). Value: 0x0002.
         /// </summary>
         public const int KEYEVENTF_KEYUP = 0x0002;
 
         /// <summary>
-        /// 
+        /// The mouse event.
         /// </summary>
-        /// <param name="dwFlags"></param>
-        /// <param name="dx"></param>
-        /// <param name="dy"></param>
-        /// <param name="dwData"></param>
-        /// <param name="dwExtraInfo"></param>
+        /// <param name="dwFlags">The dwFlags.</param>
+        /// <param name="dx">The dx.</param>
+        /// <param name="dy">The dy.</param>
+        /// <param name="dwData">The dwData.</param>
+        /// <param name="dwExtraInfo">The dwExtraInfo.</param>
         [DllImport("user32.dll", EntryPoint = "mouse_event", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         internal static extern void Mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
 
         /// <summary>
-        /// 
+        /// The keybd event.
         /// </summary>
-        /// <param name="vk"></param>
-        /// <param name="scan"></param>
-        /// <param name="flags"></param>
-        /// <param name="extrainfo"></param>
+        /// <param name="vk">The vk.</param>
+        /// <param name="scan">The scan.</param>
+        /// <param name="flags">The flags.</param>
+        /// <param name="extrainfo">The extrainfo.</param>
         [DllImport("user32.dll", EntryPoint = "keybd_event", CharSet = CharSet.Auto, ExactSpelling = true)]
         internal static extern void Keybd_event(byte vk, byte scan, int flags, IntPtr extrainfo);
 
         /// <summary>
-        /// 
+        /// The send message.
         /// </summary>
-        /// <param name="hWnd"></param>
-        /// <param name="msg"></param>
-        /// <param name="wParam"></param>
-        /// <param name="lParam"></param>
-        /// <returns></returns>
+        /// <param name="hWnd">The hWnd.</param>
+        /// <param name="msg">The msg.</param>
+        /// <param name="wParam">The wParam.</param>
+        /// <param name="lParam">The lParam.</param>
+        /// <returns>The <see cref="IntPtr"/>.</returns>
         [DllImport("user32.dll", SetLastError = true)]
         internal static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wParam, IntPtr lParam);
 
         //use dll method for vertical scroll and works fine
+
         /// <summary>
-        /// 
+        /// The v scroll wheel.
         /// </summary>
-        /// <param name="steps"></param>
+        /// <param name="steps">The steps.</param>
         internal static void VScrollWheel(int steps) => Mouse_event(MouseEventF_Wheel, 0, 0, (uint)steps, UIntPtr.Zero);
 
         //use dll method for horizontal scroll and no response
+
         /// <summary>
-        /// 
+        /// The h scroll wheel.
         /// </summary>
-        /// <param name="steps"></param>
+        /// <param name="steps">The steps.</param>
         internal static void HScrollWheel(int steps) => Mouse_event(MouseEventF_HWheel, 0, 0, (uint)steps, UIntPtr.Zero);
 
         /// <summary>
-        /// 
+        /// The succeeded.
         /// </summary>
-        /// <param name="hr"></param>
-        /// <returns></returns>
-        public static bool Succeeded(int hr) => (hr >= 0);
+        /// <param name="hr">The hr.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool Succeeded(int hr) => hr >= 0;
 
         /// <summary>
-        /// 
+        /// The failed.
         /// </summary>
-        /// <param name="hr"></param>
-        /// <returns></returns>
-        public static bool Failed(int hr) => (hr < 0);
+        /// <param name="hr">The hr.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public static bool Failed(int hr) => hr < 0;
     }
 }

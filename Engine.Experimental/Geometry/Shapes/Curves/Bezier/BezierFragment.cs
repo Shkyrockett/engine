@@ -62,7 +62,7 @@ namespace Engine
         /// <exception cref="ArgumentException">Bézier curve need at least 2 points (segment).</exception>
         public BezierFragment(params Point2D[] points)
         {
-            if (points == null)
+            if (points is null)
                 throw new ArgumentNullException();
             if (points.Length < 2)
                 throw new ArgumentException("Bézier curve need at least 2 points (segment).");
@@ -89,7 +89,7 @@ namespace Engine
         {
             get
             {
-                if (mCurveX == null)
+                if (mCurveX is null)
                 {
                     mCurveX = Bezier(controlPoints.Select(p => p.X).ToArray());
                     mCurveX.IsReadonly = true;
@@ -105,7 +105,7 @@ namespace Engine
         {
             get
             {
-                if (mCurveY == null)
+                if (mCurveY is null)
                 {
                     mCurveY = Bezier(controlPoints.Select(p => p.Y).ToArray());
                     mCurveY.IsReadonly = true;
@@ -168,7 +168,7 @@ namespace Engine
         {
             get
             {
-                if (roPoints == null)
+                if (roPoints is null)
                     roPoints = new ReadonlyPoints(controlPoints);
                 return roPoints;
             }
@@ -184,7 +184,7 @@ namespace Engine
         /// <exception cref="ArgumentNullException"></exception>
         public static Polynomialx Bezier(params double[] values)
         {
-            if (values == null || values.Length < 1)
+            if (values is null || values.Length < 1)
                 throw new ArgumentNullException();
             return Bezier(0, values.Length - 1, values);
         }
@@ -316,7 +316,7 @@ namespace Engine
         /// <returns>The <see cref="T:BezierFragment[]"/>.</returns>
         public BezierFragment[] Split(IEnumerable<double> ts)
         {
-            if (ts == null)
+            if (ts is null)
                 return new[] { this };
             var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)

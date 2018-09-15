@@ -131,12 +131,12 @@ namespace Editor
         /// <summary>
         /// The handle style.
         /// </summary>
-        private static readonly ShapeStyle handleStyle = new ShapeStyle(Brushes.Maroon, new Pen(Brushes.MediumPurple));
+        private static readonly ShapeStyle handleStyle = new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Maroon)), new SolidBrush(Color.FromArgb(128, Color.MediumPurple)));
 
         /// <summary>
         /// The handle style2.
         /// </summary>
-        private static readonly ShapeStyle handleStyle2 = new ShapeStyle(Brushes.Gold, new Pen(Brushes.LightYellow));
+        private static readonly ShapeStyle handleStyle2 = new ShapeStyle(new SolidBrush(Color.FromArgb(128, Color.Gold)), new SolidBrush(Color.FromArgb(128, Color.LightYellow)));
 
         /// <summary>
         /// The azure transparent.
@@ -209,108 +209,160 @@ namespace Editor
             var quadraticBezier = new Bezier((150d, 40d), (80d, 30d), (105d, 150d));
             var cubicBezier = new Bezier((100d, 25d), (10d, 90d), (110d, 100d), (150d, 195d));
 
-            var cubicCurve = new CubicBezier(cubicBezier.Points[0], cubicBezier.Points[1], cubicBezier.Points[2], cubicBezier.Points[3]);
+            var cubicCurve = new CubicBezier(cubicBezier.Points[0], cubicBezier.Points[1], cubicBezier.Points[2], cubicBezier.Points[3])
+                .ScaleDistort(new Size2D(2, 2));
+            ;
             var cubicCurveItem = new GraphicItem(cubicCurve, azureTransparent)
             {
                 Name = "Cubic Curve"
             };
 
-            var bezierExtrema = cubicCurve.Interpolate(cubicBezier.Extrema());
-            var bezierExtremaNodeItem = new GraphicItem(new NodeRevealer(bezierExtrema, 5d), handleStyle)
-            {
-                Name = "Cubic Bezier Extrema Nodes"
-            };
 
-            var curveExtrema = cubicCurve.Interpolate(cubicCurve.Extrema);
-            var curveExtremaNodeItem = new GraphicItem(new NodeRevealer(curveExtrema, 5d), handleStyle)
-            {
-                Name = "Cubic Curve Extrema Nodes"
-            };
+            //var bezierExtrema = cubicCurve.Interpolate(cubicBezier.Extrema_Ported);
+            //var bezierExtremaNodeItem = new GraphicItem(new NodeRevealer(bezierExtrema, 5d), handleStyle)
+            //{
+            //    Name = "Cubic Bezier Extrema Nodes"
+            //};
 
-            var curveInflections = cubicCurve.Inflections;
-            var curveInflectionPoints = cubicCurve.Interpolate(curveInflections);
-            var curveInflectionsNodeItem = new GraphicItem(new NodeRevealer(curveInflectionPoints, 5d), handleStyle)
-            {
-                Name = "Cubic Curve Inflections Nodes"
-            };
-            var curveInflectionsNodeNormalRayItem = new GraphicItem(new LineSegment(curveInflectionPoints[0], curveInflectionPoints[0] + cubicCurve.Normal(curveInflections[0]) * 20), intersectionRed)
-            {
-                Name = "Cubic Curve Inflections Normal Vector"
-            };
-            var curveInflectionsNodeDerivateRayItem = new GraphicItem(new LineSegment(curveInflectionPoints[0], curveInflectionPoints[0] + cubicCurve.Derivate(curveInflections[0])), intersectionBlue)
-            {
-                Name = "Cubic Curve Inflections Derivate Vector"
-            };
-            var curveInflectionsNodeTangentRayItem = new GraphicItem(new LineSegment(curveInflectionPoints[0], curveInflectionPoints[0] + cubicCurve.Tangent(curveInflections[0]) * 20), intersectionRed)
-            {
-                Name = "Cubic Curve Inflections Tangent Vector"
-            };
+            //var curveExtrema = cubicCurve.Interpolate(cubicCurve.Extrema);
+            //var curveExtremaNodeItem = new GraphicItem(new NodeRevealer(curveExtrema, 5d), handleStyle)
+            //{
+            //    Name = "Cubic Curve Extrema Nodes"
+            //};
 
-            var bezierInflections = cubicCurve.Interpolate(cubicCurve.Inflections);
-            var bezierInflectionsNodeItem = new GraphicItem(new NodeRevealer(bezierInflections, 5d), handleStyle)
-            {
-                Name = "Cubic Bezier Inflections Nodes"
-            };
+            //var curveInflections = cubicCurve.Inflections;
+            //var curveInflectionPoints = cubicCurve.Interpolate(curveInflections);
+            //var curveInflectionsNodeItem = new GraphicItem(new NodeRevealer(curveInflectionPoints, 5d), handleStyle)
+            //{
+            //    Name = "Cubic Curve Inflections Nodes"
+            //};
+            //var curveInflectionsNodeNormalRayItem = new GraphicItem(new LineSegment(curveInflectionPoints[0], curveInflectionPoints[0] + cubicCurve.Normal(curveInflections[0]) * 20), intersectionRed)
+            //{
+            //    Name = "Cubic Curve Inflections Normal Vector"
+            //};
+            //var curveInflectionsNodeDerivateRayItem = new GraphicItem(new LineSegment(curveInflectionPoints[0], curveInflectionPoints[0] + cubicCurve.Derivate(curveInflections[0])), intersectionBlue)
+            //{
+            //    Name = "Cubic Curve Inflections Derivate Vector"
+            //};
+            //var curveInflectionsNodeTangentRayItem = new GraphicItem(new LineSegment(curveInflectionPoints[0], curveInflectionPoints[0] + cubicCurve.Tangent(curveInflections[0]) * 20), intersectionRed)
+            //{
+            //    Name = "Cubic Curve Inflections Tangent Vector"
+            //};
 
-            var curveDerivativePointsList = cubicCurve.DerivativeCoordinates;
-            var curveDerivativePoints = new List<Point2D>();
-            foreach (var points in curveDerivativePointsList)
+            //var bezierInflections = cubicCurve.Interpolate(cubicCurve.Inflections);
+            //var bezierInflectionsNodeItem = new GraphicItem(new NodeRevealer(bezierInflections, 5d), handleStyle)
+            //{
+            //    Name = "Cubic Bezier Inflections Nodes"
+            //};
+
+            //var curveDerivativePointsList = cubicCurve.DerivativeCoordinates;
+            //var curveDerivativePoints = new List<Point2D>();
+            //foreach (var points in curveDerivativePointsList)
+            //{
+            //    curveDerivativePoints.AddRange(points);
+            //}
+            //var curveDerivativePointsNodeItem = new GraphicItem(new NodeRevealer(curveDerivativePoints, 5d), handleStyle)
+            //{
+            //    Name = "Cubic Curve Derivative Points Nodes"
+            //};
+
+            //var bezierDerivativePointsList = Bezier.DerivativeCoordinates_Ported(cubicBezier.Points);
+            //var bezierDerivativePoints = new List<Point2D>();
+            //foreach (var points in bezierDerivativePointsList)
+            //{
+            //    bezierDerivativePoints.AddRange(points);
+            //}
+            //var bezierDerivativePointsNodeItem = new GraphicItem(new NodeRevealer(bezierDerivativePoints, 5d), handleStyle)
+            //{
+            //    Name = "Cubic Bezier Derivative Points Nodes"
+            //};
+
+            //var hull = cubicCurve.Hull(0.5d);
+            //var hullNodeItem = new GraphicItem(new NodeRevealer(hull, 5d), handleStyle)
+            //{
+            //    Name = "Cubic Curve Hull Nodes"
+            //};
+
+            //var bounds = cubicBezier.Bbox();
+            //var rect = new Rectangle2D(bounds.X.Min, bounds.Y.Min, bounds.X.Size, bounds.Y.Size);
+            //var rectItem = new GraphicItem(rect, selectionStyle)
+            //{
+            //    Name = "Cubic Bezier Bounds"
+            //};
+
+            //var offset = cubicBezier.Offset(50d);
+            //var offsetCurve = new PolycurveContour(offset[0].Points[0]);
+            //foreach (var bez in offset)
+            //{
+            //    offsetCurve.AddCubicBezier(bez.Points[1], bez.Points[2], bez.Points[3]);
+            //}
+            //var offsetCurveItem = new GraphicItem(offsetCurve, azureTransparent)
+            //{
+            //    Name = "Offset of Cubic Curve"
+            //};
+
+            //var split = cubicCurve.Split(1d / 3d, 2d / 3d);
+            //var splitCurve = new PolycurveContour(split[0].Points[0]);
+            //foreach (var shape in split)
+            //{
+            //    splitCurve.AddCubicBezier(shape.Points[1], shape.Points[2], shape.Points[3]);
+            //    var item = new GraphicItem(shape, intersectionBlue)
+            //    {
+            //        Name = $"{shape.ToString()}"
+            //    };
+
+            //    vectorMap.Add(item);
+            //}
+            //var splitCurveItem = new GraphicItem(splitCurve, azureTransparent)
+            //{
+            //    Name = "Split Cubic Curve"
+            //};
+            //var splitNodeItem = new GraphicItem(new NodeRevealer(splitCurve.Grips, 5d), handleStyle)
+            //{
+            //    Name = "Cubic Bezier Split Nodes"
+            //};
+
+            var reduceBezier = cubicBezier.Reduce();
+            var reduceBezierCurve = new PolycurveContour(reduceBezier[0].Points[0]);
+            foreach (var shape in reduceBezier)
             {
-                curveDerivativePoints.AddRange(points);
+                reduceBezierCurve.AddCubicBezier(shape.Points[1], shape.Points[2], shape.Points[3]);
+                var bez = new CubicBezier(shape.Points[0], shape.Points[1], shape.Points[2], shape.Points[3]);
+                var item = new GraphicItem(bez, intersectionRed)
+                {
+                    Name = $"{shape.ToString()}"
+                };
+
+                vectorMap.Add(item);
             }
-            var curveDerivativePointsNodeItem = new GraphicItem(new NodeRevealer(curveDerivativePoints, 5d), handleStyle)
+            var reduceBezierCurveItem = new GraphicItem(reduceBezierCurve, azureTransparent)
             {
-                Name = "Cubic Curve Derivative Points Nodes"
+                Name = "Split Cubic Bezier Curve"
+            };
+            var reduceBezierCurveNodeItem = new GraphicItem(new NodeRevealer(reduceBezierCurve.Grips, 5d), handleStyle)
+            {
+                Name = "Cubic Bezier Split Nodes"
             };
 
-            var bezierDerivativePointsList = Bezier.DerivativeCoordinates(cubicBezier.Points);
-            var bezierDerivativePoints = new List<Point2D>();
-            foreach (var points in bezierDerivativePointsList)
-            {
-                bezierDerivativePoints.AddRange(points);
-            }
-            var bezierDerivativePointsNodeItem = new GraphicItem(new NodeRevealer(bezierDerivativePoints, 5d), handleStyle)
-            {
-                Name = "Cubic Bezier Derivative Points Nodes"
-            };
-
-            var hull = cubicCurve.Hull(0.5d);
-            var hullNodeItem = new GraphicItem(new NodeRevealer(hull, 5d), handleStyle)
-            {
-                Name = "Cubic Curve Hull Nodes"
-            };
-
-            var bounds = cubicBezier.Bbox();
-            var rect = new Rectangle2D(bounds.X.Min, bounds.Y.Min, bounds.X.Size, bounds.Y.Size);
-            var rectItem = new GraphicItem(rect, selectionStyle)
-            {
-                Name = "Cubic Bezier Bounds"
-            };
-
-            var offset = cubicBezier.Offset(50d);
-            var offsetCurve = new PolycurveContour(offset[0].Points[0]);
-            foreach (var bez in offset)
-            {
-                offsetCurve.AddCubicBezier(bez.Points[1], bez.Points[2], bez.Points[3]);
-            }
-            var offsetCurveItem = new GraphicItem(offsetCurve, azureTransparent)
-            {
-                Name = "Offset of Cubic Curve"
-            };
-
-            var reduce = cubicBezier.Reduce();
+            var reduce = cubicCurve.Reduction;
             var reduceCurve = new PolycurveContour(reduce[0].Points[0]);
-            foreach (var bez in reduce)
+            foreach (var shape in reduce)
             {
-                reduceCurve.AddCubicBezier(bez.Points[1], bez.Points[2], bez.Points[3]);
+                reduceCurve.AddCubicBezier(shape.Points[1], shape.Points[2], shape.Points[3]);
+                var item = new GraphicItem(shape, intersectionRed)
+                {
+                    Name = $"{shape.ToString()}"
+                };
+
+                vectorMap.Add(item);
             }
             var reduceCurveItem = new GraphicItem(reduceCurve, azureTransparent)
             {
-                Name = "Reduce Cubic Curve"
+                Name = "Split Cubic Curve"
             };
-            var reduceCurveNodeItem = new GraphicItem(new NodeRevealer(reduceCurve.Nodes, 5d), handleStyle)
+            var reduceCurveNodeItem = new GraphicItem(new NodeRevealer(reduceCurve.Grips, 5d), handleStyle)
             {
-                Name = "Reduced Curve Nodes"
+                Name = "Cubic Bezier Curve Split Nodes"
             };
 
             //var outline = bezier.Outline(50,50,50,50,true);
@@ -344,24 +396,29 @@ namespace Editor
             //    Name = "Arcs Degeneration of Cubic Curve"
             //};
 
-            vectorMap.Add(rectItem);
+            //vectorMap.Add(rectItem);
             vectorMap.Add(cubicCurveItem);
             //vectorMap.Add(scaleCurveItem);
-            vectorMap.Add(offsetCurveItem);
-            vectorMap.Add(reduceCurveItem);
+            //vectorMap.Add(offsetCurveItem);
+            //vectorMap.Add(reduceCurveItem);
             //vectorMap.Add(outlineCurveItem);
             //vectorMap.Add(arcsCurveItem);
-            vectorMap.Add(bezierExtremaNodeItem);
-            vectorMap.Add(curveExtremaNodeItem);
-            vectorMap.Add(bezierInflectionsNodeItem);
-            vectorMap.Add(curveInflectionsNodeItem);
-            vectorMap.Add(curveInflectionsNodeNormalRayItem);
-            vectorMap.Add(curveInflectionsNodeDerivateRayItem);
-            vectorMap.Add(curveInflectionsNodeTangentRayItem);
-            vectorMap.Add(bezierDerivativePointsNodeItem);
+            //vectorMap.Add(bezierExtremaNodeItem);
+            //vectorMap.Add(curveExtremaNodeItem);
+            //vectorMap.Add(bezierInflectionsNodeItem);
+            //vectorMap.Add(curveInflectionsNodeItem);
+            //vectorMap.Add(curveInflectionsNodeNormalRayItem);
+            //vectorMap.Add(curveInflectionsNodeDerivateRayItem);
+            //vectorMap.Add(curveInflectionsNodeTangentRayItem);
+            //vectorMap.Add(bezierDerivativePointsNodeItem);
             //vectorMap.Add(curveDerivativePointsNodeItem);
-            vectorMap.Add(hullNodeItem);
+            //vectorMap.Add(hullNodeItem);
+            vectorMap.Add(reduceCurveItem);
+            vectorMap.Add(reduceBezierCurveItem);
+            //vectorMap.Add(splitCurveItem);
             vectorMap.Add(reduceCurveNodeItem);
+            vectorMap.Add(reduceBezierCurveNodeItem);
+            //vectorMap.Add(splitNodeItem);
         }
 
         /// <summary>
@@ -2225,7 +2282,7 @@ namespace Editor
             var testAngle = ellipticArc.ExtremeAngles;
             testAngle.Sort();
 
-            var angleVisualizer = new AngleVisualizerTester(centerX, centerY, (radius1 < radius2 ? radius2 : radius1), testAngle, startAngle + angle, sweepAngle);
+            var angleVisualizer = new AngleVisualizerTester(centerX, centerY, radius1 < radius2 ? radius2 : radius1, testAngle, startAngle + angle, sweepAngle);
             var angleVisualizerItem = new GraphicItem(angleVisualizer, paperLikeStyle);
 
             vectorMap.Add(ellpticArcBoundsItem);
@@ -2356,7 +2413,7 @@ namespace Editor
             var testAngle = ellipticArc.ExtremeAngles;
             testAngle.Sort();
 
-            var angleVisualizer = new AngleVisualizerTester(centerX, centerY, (radius1 < radius2 ? radius2 : radius1), testAngle, startAngle + angle, sweepAngle);
+            var angleVisualizer = new AngleVisualizerTester(centerX, centerY, radius1 < radius2 ? radius2 : radius1, testAngle, startAngle + angle, sweepAngle);
             var angleVisualizerItem = new GraphicItem(angleVisualizer, paperLikeStyle);
 
             //vectorMap.Add(ellpticArcBoundsItem);
@@ -3922,8 +3979,8 @@ namespace Editor
         {
             var left = 0;
             var top = 50;
-            var lineAngle = (30d).ToRadians();
-            var curveAngle = (60d).ToRadians();
+            var lineAngle = 30d.ToRadians();
+            var curveAngle = 60d.ToRadians();
 
             // Horizontal line.
             var cubicLine1 = new Line(left + 20, top + 70, 1, 0).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
@@ -4062,8 +4119,8 @@ namespace Editor
         {
             var left = 0;
             var top = 50;
-            var lineAngle = -(180d).ToRadians();
-            var curveAngle = (45d).ToRadians();
+            var lineAngle = -180d.ToRadians();
+            var curveAngle = 45d.ToRadians();
 
             // Horizontal line segment.
             var cubicSegment1 = new LineSegment(left + 20, top + 70, left + 175, top + 70).RotateDistort(new Point2D(left + 100, top + 72.5), lineAngle);
@@ -4380,7 +4437,7 @@ namespace Editor
             var ellipseTweenItem = new GraphicItem(ellipseTween, solidLightBlueStyle);
 
             var parametricPointTesterSegment = new ParametricPointTester(
-                (px, py) => (Intersections.PointLineSegmentIntersects(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, px, py, Epsilon) ? Inclusion.Boundary : Inclusion.Outside),
+                (px, py) => Intersections.PointLineSegmentIntersects(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, px, py, Epsilon) ? Inclusion.Boundary : Inclusion.Outside,
                 segment.Bounds.X - 5, segment.Bounds.Y - 5, segment.Bounds.Right + 10, segment.Bounds.Bottom + 10, 5, 5);
             var parametricPointTesterSegmentItem = new GraphicItem(parametricPointTesterSegment, paperLikeStyle);
 

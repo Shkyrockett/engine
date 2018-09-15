@@ -29,39 +29,39 @@ namespace Engine
     {
         #region Implementations
         /// <summary>
-        /// 
+        /// The empty (readonly). Value: new RotatedRectangle2D().
         /// </summary>
         public static readonly RotatedRectangle2D Empty = new RotatedRectangle2D();
 
         /// <summary>
-        /// 
+        /// The unit (readonly). Value: new RotatedRectangle2D(0, 0, 1, 1, 0).
         /// </summary>
         public static readonly RotatedRectangle2D Unit = new RotatedRectangle2D(0, 0, 1, 1, 0);
         #endregion Implementations
 
         #region Fields
         /// <summary>
-        /// 
+        /// The x.
         /// </summary>
         private double x;
 
         /// <summary>
-        /// 
+        /// The y.
         /// </summary>
         private double y;
 
         /// <summary>
-        /// 
+        /// The width.
         /// </summary>
         private double width;
 
         /// <summary>
-        /// 
+        /// The height.
         /// </summary>
         private double height;
 
         /// <summary>
-        /// 
+        /// The angle.
         /// </summary>
         private double angle;
         #endregion Fields
@@ -439,11 +439,11 @@ namespace Engine
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(RotatedRectangle2D left, RotatedRectangle2D right)
-            => (left?.X == right?.X
+            => left?.X == right?.X
             && left?.Y == right?.Y
             && left?.Width == right?.Width
             && left?.Height == right?.Height
-            && Abs(left.Angle - right.Angle) < Maths.Epsilon);
+            && Abs(left.Angle - right.Angle) < Maths.Epsilon;
 
         /// <summary>
         /// Tests whether <paramref name="obj"/> is a <see cref="RotatedRectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
@@ -827,7 +827,7 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
+            if (this is null)
             {
                 return nameof(RotatedRectangle2D);
             }

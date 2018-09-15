@@ -73,7 +73,7 @@ namespace Engine.WindowsForms
             rect.Inflate(-3, -3);
             if (Value > 0)
             {
-                var clip = new Rectangle(rect.X, rect.Y, (int)Math.Round(((float)Value / Maximum) * rect.Width), rect.Height);
+                var clip = new Rectangle(rect.X, rect.Y, (int)Math.Round((float)Value / Maximum * rect.Width), rect.Height);
                 ProgressBarRenderer.DrawHorizontalChunks(g, clip);
             }
 

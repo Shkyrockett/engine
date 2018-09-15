@@ -55,7 +55,7 @@ namespace Editor
         /// <summary>
         /// The vector filename.
         /// </summary>
-        private string vectorFilename = String.Empty;
+        private string vectorFilename = string.Empty;
 
         /// <summary>
         /// 
@@ -202,7 +202,7 @@ namespace Editor
                 updatinglist = true;
                 var list = sender as ListBox;
                 vectorMap.SelectedItems?.Clear();
-                if (vectorMap.SelectedItems == null) vectorMap.SelectedItems = new List<GraphicItem>();
+                if (vectorMap.SelectedItems is null) vectorMap.SelectedItems = new List<GraphicItem>();
                 foreach (var item in list.SelectedItems)
                 {
                     vectorMap.SelectedItems.Add(item as GraphicItem);
@@ -438,7 +438,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void OpenToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.FileName = vectorFilename;
             switch (openFileDialog1.ShowDialog())
@@ -463,7 +463,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void SaveToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(vectorFilename))
             {
@@ -480,7 +480,7 @@ namespace Editor
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The event arguments.</param>
-        private void SaveAsToolStripMenuItem_Click(Object sender, EventArgs e)
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
             => SaveAs(vectorFilename);
         #endregion Events
 

@@ -26,9 +26,6 @@ namespace Engine.Physics
     public struct Radians
         : IDirection, IFormattable
     {
-        #region Fields
-        #endregion Fields
-
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Radians"/> struct.
@@ -256,7 +253,7 @@ namespace Engine.Physics
         /// </returns>
         internal string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Radians);
+            //if (this is null) return nameof(Radians);
             //return string.Format(provider, "{0:" + format + "} rad", value);
             IFormattable formatable = $"{Value} rad";
             return formatable.ToString(format, provider);

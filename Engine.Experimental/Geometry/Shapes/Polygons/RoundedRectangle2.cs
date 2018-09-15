@@ -188,7 +188,7 @@ namespace Engine
         ///// <returns></returns>
         //public override string ToString()
         //{
-        //    if (this == null) return "BadRoundRectangle";
+        //    if (this is null) return "BadRoundRectangle";
         //    return $"{"BadRoundRectangle"}{{L={bounds.Location},S={bounds.Size}}}";
         //}
     }

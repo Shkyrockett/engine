@@ -429,7 +429,7 @@ namespace Engine
         /// <returns></returns>
         public static QuaternionD FromRotationMatrix(Matrix3x3D matrix)
         {
-            var trace = (matrix.M0x0 + matrix.M1x1) + matrix.M2x2;
+            var trace = matrix.M0x0 + matrix.M1x1 + matrix.M2x2;
             var quaternion = new QuaternionD();
             if (trace > 0d)
             {
@@ -443,7 +443,7 @@ namespace Engine
             }
             if ((matrix.M0x0 >= matrix.M1x1) && (matrix.M0x0 >= matrix.M2x2))
             {
-                var root = Sqrt(((1f + matrix.M0x0) - matrix.M1x1) - matrix.M2x2);
+                var root = Sqrt(1f + matrix.M0x0 - matrix.M1x1 - matrix.M2x2);
                 var w = 0.5d / root;
                 quaternion.X = 0.5d * root;
                 quaternion.Y = (matrix.M0x1 + matrix.M1x0) * w;
@@ -453,7 +453,7 @@ namespace Engine
             }
             if (matrix.M1x1 > matrix.M2x2)
             {
-                var root = Sqrt(((1f + matrix.M1x1) - matrix.M0x0) - matrix.M2x2);
+                var root = Sqrt(1f + matrix.M1x1 - matrix.M0x0 - matrix.M2x2);
                 var w = 0.5d / root;
                 quaternion.X = (matrix.M1x0 + matrix.M0x1) * w;
                 quaternion.Y = 0.5d * root;
@@ -461,7 +461,7 @@ namespace Engine
                 quaternion.W = (matrix.M2x0 - matrix.M0x2) * w;
                 return quaternion;
             }
-            var sqrt = Sqrt(((1f + matrix.M2x2) - matrix.M0x0) - matrix.M1x1);
+            var sqrt = Sqrt(1f + matrix.M2x2 - matrix.M0x0 - matrix.M1x1);
             var ww = 0.5d / sqrt;
             quaternion.X = (matrix.M2x0 + matrix.M0x2) * ww;
             quaternion.Y = (matrix.M2x1 + matrix.M1x2) * ww;
@@ -489,10 +489,10 @@ namespace Engine
             var yawSin = Sin(halfYaw);
             var yawCos = Cos(halfYaw);
             return new QuaternionD(
-                ((yawCos * pitchSin) * rollCos) + ((yawSin * pitchCos) * rollSin),
-                ((yawSin * pitchCos) * rollCos) - ((yawCos * pitchSin) * rollSin),
-                ((yawCos * pitchCos) * rollSin) - ((yawSin * pitchSin) * rollCos),
-                ((yawCos * pitchCos) * rollCos) + ((yawSin * pitchSin) * rollSin));
+                (yawCos * pitchSin * rollCos) + (yawSin * pitchCos * rollSin),
+                (yawSin * pitchCos * rollCos) - (yawCos * pitchSin * rollSin),
+                (yawCos * pitchCos * rollSin) - (yawSin * pitchSin * rollCos),
+                (yawCos * pitchCos * rollCos) + (yawSin * pitchSin * rollSin));
         }
 
         /// <summary>

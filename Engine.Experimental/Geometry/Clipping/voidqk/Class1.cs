@@ -363,7 +363,7 @@
 
 //            var i = eps.linesIntersect(a1, a2, b1, b2);
 
-//            if (i == null)
+//            if (i is null)
 //            {
 //                // segments are parallel or coincident
 
@@ -511,7 +511,7 @@
 
 //					if (selfIntersection){
 //						var toggle; // are we a toggling edge?
-//						if (ev.seg.myFill.below == null)
+//						if (ev.seg.myFill.below is null)
 //							toggle = true;
 //						else
 //							toggle = ev.seg.myFill.above != ev.seg.myFill.below;
@@ -550,7 +550,7 @@
 //				//
 //				if (selfIntersection){
 //					var toggle; // are we a toggling edge?
-//					if (ev.seg.myFill.below == null) // if we are a new segment...
+//					if (ev.seg.myFill.below is null) // if we are a new segment...
 //						toggle = true; // then we toggle
 //					else // we are a segment that has previous knowledge from a division
 //						toggle = ev.seg.myFill.above != ev.seg.myFill.below; // calculate toggle
@@ -577,7 +577,7 @@
 //					// now we fill in any missing transition information, since we are all-knowing
 //					// at this point
 
-//					if (ev.seg.otherFill == null){
+//					if (ev.seg.otherFill is null){
 //						// if we don't have other information, then we need to figure out if we're
 //						// inside the other polygon
 //						var inside;
@@ -615,7 +615,7 @@
 //			else{
 //				var st = ev.status;
 
-//				if (st == null){
+//				if (st is null){
 //					throw new Error('PolyBool: Zero-length segment detected; your epsilon is ' +
 //						'probably too small or too large');
 //				}

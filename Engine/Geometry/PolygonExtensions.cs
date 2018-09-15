@@ -91,7 +91,7 @@ namespace Engine
                     {
                         if (polygons.PolygonSetContainsPoints(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)) == Inclusion.Inside)
                         {
-                            newDist = pointList[ti].TotalDistance + (new Point2D(pointList[ti].X, pointList[ti].Y)).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
+                            newDist = pointList[ti].TotalDistance + new Point2D(pointList[ti].X, pointList[ti].Y).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;
@@ -170,8 +170,8 @@ namespace Engine
 
             // Divide by 6 times the polygon's area.
             var polygon_area = Abs(Measurements.SignedPolygonArea(polygon.Points));
-            X /= (6 * polygon_area);
-            Y /= (6 * polygon_area);
+            X /= 6 * polygon_area;
+            Y /= 6 * polygon_area;
 
             // If the values are negative, the polygon is
             // oriented counterclockwise so reverse the signs.
@@ -767,7 +767,7 @@ namespace Engine
         public static bool IsInside(LineSegment edge, Point2D test)
         {
             var isLeft = IsLeftOf(edge, test);
-            if (isLeft == null)
+            if (isLeft is null)
             {
                 // Collinear points should be considered inside
                 return true;

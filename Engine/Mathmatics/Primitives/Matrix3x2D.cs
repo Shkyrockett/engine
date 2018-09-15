@@ -327,14 +327,14 @@ namespace Engine
         /// Tests whether or not a given transform is an identity transform
         /// </summary>
         public bool IsIdentity
-            => (type == MatrixTypes.Identity
+            => type == MatrixTypes.Identity
             || (
                 Abs(m0x0 - 1) < Epsilon
                 && Abs(m0x1) < Epsilon
                 && Abs(m1x0) < Epsilon
                 && Abs(m1x1 - 1) < Epsilon
                 && Abs(offsetX) < Epsilon
-                && Abs(offsetY) < Epsilon));
+                && Abs(offsetY) < Epsilon);
 
         /// <summary>
         /// HasInverse Property - returns true if this matrix is invert-able, false otherwise.
@@ -407,8 +407,8 @@ namespace Engine
             var matrix = new Matrix3x2D();
             var sin = Sin(angle);
             var cos = Cos(angle);
-            var dx = ((centerX * (1.0 - cos)) + (centerY * sin));
-            var dy = ((centerY * (1.0 - cos)) - (centerX * sin));
+            var dx = (centerX * (1.0 - cos)) + (centerY * sin);
+            var dy = (centerY * (1.0 - cos)) - (centerX * sin);
 
             matrix.SetMatrix(cos, sin,
                               -sin, cos,
@@ -1355,9 +1355,9 @@ namespace Engine
                         return 1.0d;
                     case MatrixTypes.Scaling:
                     case MatrixTypes.Scaling | MatrixTypes.Translation:
-                        return (m0x0 * m1x1);
+                        return m0x0 * m1x1;
                     default:
-                        return ((m0x0 * m1x1) - (m0x1 * m1x0));
+                        return (m0x0 * m1x1) - (m0x1 * m1x0);
                 }
             }
         }
@@ -1508,9 +1508,9 @@ namespace Engine
         /// </returns>
         public string ConvertToString(string format, IFormatProvider provider)
         {
-#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-            if (this == null) return nameof(Matrix3x2D);
-#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
+//#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
+//            if (this is null) return nameof(Matrix3x2D);
+//#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
             if (IsIdentity) return nameof(Identity);
             // Helper to get the numeric list separator for a given culture.
             var sep = Tokenizer.GetNumericListSeparator(provider);

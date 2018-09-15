@@ -93,7 +93,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public Double X
+        public double X
         {
             get { return x; }
             set
@@ -111,7 +111,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public Double Y
+        public double Y
         {
             get { return y; }
             set
@@ -145,7 +145,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public Double Width
+        public double Width
         {
             get { return h; }
             set
@@ -163,7 +163,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public Double Height
+        public double Height
         {
             get { return v; }
             set
@@ -240,7 +240,7 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Oval);
+            if (this is null) return nameof(Oval);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Oval)}{{{nameof(Location)}={Location}{sep}{nameof(Size)}={Size}}}";
             return formatable.ToString(format, provider);

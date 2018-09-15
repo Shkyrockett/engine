@@ -36,7 +36,7 @@ namespace Engine
         /// <returns>The <see cref="double"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Random(this double Lower, double Upper)
-            => ((RandomNumberGenerator.Next() * ((Upper - Lower) + 1)) + Lower);
+            => (RandomNumberGenerator.Next() * (Upper - Lower + 1)) + Lower;
         #endregion Random
 
         #region Array Math
@@ -139,7 +139,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(params double[] values)
-            => (values.Sum() / values.Length);
+            => values.Sum() / values.Length;
 
         /// <summary>
         /// Returns the average value of a numeric array.
@@ -150,7 +150,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this List<double> values)
-            => (values.Sum() / values.Count);
+            => values.Sum() / values.Count;
 
         /// <summary>
         /// Returns the average value of a numeric array.

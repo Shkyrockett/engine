@@ -10,9 +10,6 @@
 
 namespace Engine.WindowsForms
 {
-    /// <summary>
-    /// 
-    /// </summary>
     partial class CanvasPanel
     {
         /// <summary> 

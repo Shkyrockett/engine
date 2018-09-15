@@ -64,7 +64,7 @@ namespace Engine
                         {
                             var name = instanceCtorParamNames[index];
                             var descriptor = descriptions.Find(name, false);
-                            if (descriptor == null || descriptor.PropertyType != paraminfos[index].ParameterType)
+                            if (descriptor is null || descriptor.PropertyType != paraminfos[index].ParameterType)
                             {
                                 instanceCtor = null;
                                 break;
@@ -133,7 +133,7 @@ namespace Engine
                 {
                     return parse.Invoke(null, new object[] { value });
                 }
-                catch (TargetInvocationException ex)
+                catch (TargetInvocationException)
                 {
                     throw;// ex.InnerException;
                 }
@@ -175,7 +175,7 @@ namespace Engine
                 {
                     return instanceCtor.Invoke(GetInstanceDescriptorObjects(propertyValues));
                 }
-                catch (TargetInvocationException ex)
+                catch (TargetInvocationException)
                 {
                     throw;// ex.InnerException;
                 }

@@ -545,7 +545,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Point2D);
+            //if (this is null) return nameof(Point2D);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Point2D)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}}}";
         }

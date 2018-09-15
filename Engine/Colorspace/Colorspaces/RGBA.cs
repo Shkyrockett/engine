@@ -107,10 +107,10 @@ namespace Engine.Colorspace
         {
             this.name = name;
             value =
-                (red << RedShift
+                red << RedShift
                 | green << GreenShift
                 | blue << BlueShift
-                | alpha << AlphaShift);// & 0xffffffff;
+                | alpha << AlphaShift;// & 0xffffffff;
         }
         #endregion Constructors
 
@@ -249,7 +249,7 @@ namespace Engine.Colorspace
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(RGBA a, RGBA b)
-            => (a.value == b.value);
+            => a.value == b.value;
 
         /// <summary>
         /// The equals.

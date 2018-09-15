@@ -56,14 +56,14 @@ namespace Engine
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var str = value as string;
-            if (str == null)
+            if (str is null)
                 return base.ConvertFrom(context, culture, value);
 
             var str2 = str.Trim();
             if (str2.Length == 0)
                 return null;
 
-            if (culture == null)
+            if (culture is null)
                 culture = CultureInfo.CurrentCulture;
 
             var ch = culture.TextInfo.ListSeparator[0];
@@ -90,7 +90,7 @@ namespace Engine
         /// <exception cref="ArgumentNullException"></exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType == null)
+            if (destinationType is null)
                 throw new ArgumentNullException(nameof(destinationType));
 
             if (value is Point2D)
@@ -98,7 +98,7 @@ namespace Engine
                 if (destinationType == typeof(string))
                 {
                     var angle = (double)value;
-                    if (culture == null)
+                    if (culture is null)
                         culture = CultureInfo.CurrentCulture;
 
                     var separator = culture.TextInfo.ListSeparator + " ";

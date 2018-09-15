@@ -456,7 +456,7 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public PolycurveContour AddQuadraticBeziers(CubicBezier[] curves)
+        public PolycurveContour AddQuadraticBeziers(QuadraticBezier[] curves)
         {
             foreach (var curve in curves)
             {
@@ -476,8 +476,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public PolycurveContour AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
-            var cubic = new CubicBezierSegment(Items[Items.Count - 1], handle1, handle2, end);
-            Items.Add(cubic);
+            var cubic = new CubicBezierSegment(items[items.Count - 1], handle1, handle2, end);
+            items.Add(cubic);
             return this;
         }
 
@@ -530,7 +530,7 @@ namespace Engine
         /// Parse the path def string.
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
-        /// <returns>The <see cref="(List{CurveSegment}, bool)"/>.</returns>
+        /// <returns>The <see cref="Tuple{T1, T2}"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
@@ -542,7 +542,7 @@ namespace Engine
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="(List{CurveSegment}, bool)"/>.</returns>
+        /// <returns>The <see cref="Tuple{T1, T2}"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
         /// </remarks>
@@ -677,8 +677,8 @@ namespace Engine
         /// <summary>
         /// The to path def string.
         /// </summary>
-        /// <returns>The <see cref="String"/>.</returns>
-        private String ToPathDefString()
+        /// <returns>The <see cref="string"/>.</returns>
+        private string ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
@@ -686,8 +686,8 @@ namespace Engine
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="String"/>.</returns>
-        private String ToPathDefString(string format, IFormatProvider provider)
+        /// <returns>The <see cref="string"/>.</returns>
+        private string ToPathDefString(string format, IFormatProvider provider)
         {
             var output = new StringBuilder();
 
@@ -697,7 +697,7 @@ namespace Engine
             {
                 switch (item)
                 {
-                    case PointSegment t when (t.Previous is null):
+                    case PointSegment t when t.Previous is null:
                         // ToDo: Figure out how to separate M from Z.
                         output.Append(t.Relitive ? $"m{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} " : $"M{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} ");
                         break;
@@ -759,7 +759,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
-            => (this == null) ? nameof(PolycurveContour) : $"{nameof(PolycurveContour)}{{{ToPathDefString(format, provider)}}}";
+            => (this is null) ? nameof(PolycurveContour) : $"{nameof(PolycurveContour)}{{{ToPathDefString(format, provider)}}}";
         #endregion Methods
     }
 }

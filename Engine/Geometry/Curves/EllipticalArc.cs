@@ -227,8 +227,8 @@ namespace Engine
             var dy2 = (startY - endY) * OneHalf;
 
             // Step 1 : Compute (x1, y1).
-            var x1 = (cosAngle * dx2 + sinAngle * dy2);
-            var y1 = (-sinAngle * dx2 + cosAngle * dy2);
+            var x1 = cosAngle * dx2 + sinAngle * dy2;
+            var y1 = -sinAngle * dx2 + cosAngle * dy2;
 
             // Ensure radii are positive.
             rX = Abs(rx);
@@ -252,9 +252,9 @@ namespace Engine
             var sign = (largeArcFlag == sweepFlag) ? -1d : 1d;
             var sq = ((Prx * Pry) - (Prx * Py1) - (Pry * Px1)) / ((Prx * Py1) + (Pry * Px1));
             sq = (sq < 0) ? 0 : sq;
-            var coef = (sign * Sqrt(sq));
-            var cx1 = coef * ((rX * y1) / rY);
-            var cy1 = coef * -((rY * x1) / rX);
+            var coef = sign * Sqrt(sq);
+            var cx1 = coef * (rX * y1 / rY);
+            var cy1 = coef * -(rY * x1 / rX);
 
             // Find the center point of the Ellipse.
             var sx2 = (startX + endX) * OneHalf;
@@ -1006,10 +1006,10 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        ///
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
             => Intersections.Contains(this, point) != Inclusion.Outside;
 
@@ -1026,7 +1026,7 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
+            if (this is null)
                 return nameof(Ellipse);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(EllipticalArc)}{{{nameof(Center)}={Center},{nameof(RX)}={rX},{nameof(RY)}={rY},{nameof(Angle)}={angle},{nameof(StartAngle)}={startAngle},{SweepAngle}={sweepAngle}}}";

@@ -229,7 +229,7 @@ namespace Engine
         /// <param name="p"></param>
         /// <returns></returns>
         public bool IsBelow(Point2D p)
-            => (IsLeft) ? SignedTriangleArea(Point, OtherEvent.Point, p) > 0 : SignedTriangleArea(OtherEvent.Point, Point, p) > 0;
+            => IsLeft ? SignedTriangleArea(Point, OtherEvent.Point, p) > 0 : SignedTriangleArea(OtherEvent.Point, Point, p) > 0;
 
         /// <summary>
         /// Is the line segment (point, otherEvent.point) above point p

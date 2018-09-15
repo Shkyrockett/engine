@@ -34,7 +34,7 @@ namespace Engine
         public static List<Point2D> Interpolate0to1(Func<double, Point2D> func, int count)
             => new List<Point2D>(
             from i in Enumerable.Range(0, count)
-            select func((1d / count) * i));
+            select func(1d / count * i));
 
         #region Linear Interpolation
         /// <summary>
@@ -128,44 +128,101 @@ namespace Engine
             => new Point3D(Linear(a.X, a.Y, a.Z, b.X, b.Y, b.Z, t));
         #endregion Linear Interpolation
 
+        #region Normalized Linear Interpolation
         /// <summary>
-        /// The slerp.
+        /// The nlerp.
         /// </summary>
-        /// <param name="start">The start.</param>
-        /// <param name="end">The end.</param>
-        /// <param name="percent">The percent.</param>
+        /// <param name="aV">The start.</param>
+        /// <param name="bV">The end.</param>
+        /// <param name="t">The percent.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Slerp(Point2D start, Point2D end, float percent)
+        public static double Nlerp(double aV, double bV, double t)
+            => Normalize1D(Linear(aV, bV, t));
+
+        /// <summary>
+        /// The nlerp.
+        /// </summary>
+        /// <param name="aX">The startX.</param>
+        /// <param name="aY">The startY.</param>
+        /// <param name="bX">The endX.</param>
+        /// <param name="bY">The endY.</param>
+        /// <param name="t">The percent.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <acknowledgment>
+        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) Nlerp(double aX, double aY, double bX, double bY, double t)
         {
-            // Dot product - the cosine of the angle between 2 vectors.
-            // Clamp it to be in the range of Acos()
-            // This may be unnecessary, but floating point
-            // precision can be a fickle mistress.
-            var dot = Maths.Clamp(Primitives.DotProduct(start, end), -1d, 1d);
-
-            // Acos(dot) returns the angle between start and end,
-            // And multiplying that by percent returns the angle between
-            // start and the final result.
-            var theta = Acos(dot) * percent;
-            var RelativeVec = end - start * dot;
-
-            // Orthonormal basis
-            RelativeVec.Normalize();
-
-            // The final result.
-            return ((start * Cos(theta)) + (RelativeVec * Sin(theta)));
+            var (X, Y) = Linear(aX, aY, bX, bY, t);
+            return Normalize2D(X, Y);
         }
 
         /// <summary>
         /// The nlerp.
         /// </summary>
-        /// <param name="start">The start.</param>
-        /// <param name="end">The end.</param>
+        /// <param name="aX">The startX.</param>
+        /// <param name="aY">The startY.</param>
+        /// <param name="aZ">The startZ.</param>
+        /// <param name="bX">The endX.</param>
+        /// <param name="bY">The endY.</param>
+        /// <param name="bZ">The endZ.</param>
+        /// <param name="t">The percent.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
+        /// <acknowledgment>
+        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y, double Z) Nlerp(double aX, double aY, double aZ, double bX, double bY, double bZ, double t)
+        {
+            var (X, Y, Z) = Linear(aX, aY, aZ, bX, bY, bZ, t);
+            return Normalize3D(X, Y, Z);
+        }
+
+        /// <summary>
+        /// The nlerp.
+        /// </summary>
+        /// <param name="a">The start.</param>
+        /// <param name="b">The end.</param>
+        /// <param name="t">The percent.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D Nlerp(Point2D a, Point2D b, double t)
+            => (Point2D)((Vector2D)Linear(a, b, t)).Normalize();
+
+        /// <summary>
+        /// The nlerp.
+        /// </summary>
+        /// <param name="a">The start.</param>
+        /// <param name="b">The end.</param>
+        /// <param name="t">The percent.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Nlerp(Point3D a, Point3D b, double t)
+            => (Point3D)((Vector3D)Linear(a, b, t)).Normalize();
+        #endregion Normalized Linear Interpolation
+
+        #region Quaternian S Linear Interpolation
+        /// <summary>
+        /// The slerp.
+        /// </summary>
+        /// <param name="a">The start.</param>
+        /// <param name="b">The end.</param>
         /// <param name="percent">The percent.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
@@ -173,8 +230,60 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Nlerp(Point2D start, Point2D end, float percent)
-            => (Point2D)((Vector2D)Linear(start, end, percent)).Normalize();
+        public static Point2D Slerp(Point2D a, Point2D b, double percent)
+        {
+            // Dot product - the cosine of the angle between 2 vectors.
+            // Clamp it to be in the range of Acos()
+            // This may be unnecessary, but floating point
+            // precision can be a fickle mistress.
+            var dot = Maths.Clamp(Primitives.DotProduct(a, b), -1d, 1d);
+
+            // Acos(dot) returns the angle between start and end,
+            // And multiplying that by percent returns the angle between
+            // start and the final result.
+            var theta = Acos(dot) * percent;
+            var RelativeVec = b - a * dot;
+
+            // Orthonormal basis
+            RelativeVec.Normalize();
+
+            // The final result.
+            return (a * Cos(theta)) + (RelativeVec * Sin(theta));
+        }
+
+        /// <summary>
+        /// The slerp.
+        /// </summary>
+        /// <param name="a">The start.</param>
+        /// <param name="b">The end.</param>
+        /// <param name="percent">The percent.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
+        /// <acknowledgment>
+        /// https://keithmaggio.wordpress.com/2011/02/15/math-magician-lerp-slerp-and-nlerp/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point3D Slerp(Point3D a, Point3D b, double percent)
+        {
+            // Dot product - the cosine of the angle between 2 vectors.
+            // Clamp it to be in the range of Acos()
+            // This may be unnecessary, but floating point
+            // precision can be a fickle mistress.
+            var dot = Maths.Clamp(DotProduct(a.X, a.Y, a.Y, b.X, b.Y, b.Z), -1d, 1d);
+
+            // Acos(dot) returns the angle between start and end,
+            // And multiplying that by percent returns the angle between
+            // start and the final result.
+            var theta = Acos(dot) * percent;
+            var RelativeVec = b - a * dot;
+
+            // Orthonormal basis
+            Normalize3D(RelativeVec.X, RelativeVec.Y, RelativeVec.Z);
+
+            // The final result.
+            return (a * Cos(theta)) + (RelativeVec * Sin(theta));
+        }
+        #endregion Quaternian S Linear Interpolation
 
         #region Curve Interpolation
         /// <summary>
@@ -317,8 +426,8 @@ namespace Engine
             var t2 = t * t;
 
             return (
-                (aX * ti2 + 2d * bX * ti * t + cX * t2),
-                (aY * ti2 + 2d * bY * ti * t + cY * t2)
+                aX * ti2 + 2d * bX * ti * t + cX * t2,
+                aY * ti2 + 2d * bY * ti * t + cY * t2
                 );
         }
 
@@ -357,9 +466,9 @@ namespace Engine
             var t2 = t * t;
 
             return (
-                (x0 * ti2 + 2d * x1 * ti * t + x2 * t2),
-                (y0 * ti2 + 2d * y1 * ti * t + y2 * t2),
-                (z0 * ti2 + 2d * z1 * ti * t + z2 * t2));
+                x0 * ti2 + 2d * x1 * ti * t + x2 * t2,
+                y0 * ti2 + 2d * y1 * ti * t + y2 * t2,
+                z0 * ti2 + 2d * z1 * ti * t + z2 * t2);
         }
         #endregion Quadratic Bézier Interpolation
 
@@ -387,7 +496,7 @@ namespace Engine
         {
             var t2 = t * t;
             var a0 = dV - cV - aV + bV;
-            return (a0 * t * t2 + (aV - bV - a0) * t2 + (cV - aV) * t + bV);
+            return a0 * t * t2 + (aV - bV - a0) * t2 + (cV - aV) * t + bV;
         }
 
         /// <summary>
@@ -495,7 +604,7 @@ namespace Engine
             // The t cubed.
             var t3 = t * t * t;
 
-            return (ti3 * v0 + 3d * t * ti * ti * v1 + 3d * t * t * ti * v2 + t3 * v3);
+            return ti3 * v0 + 3d * t * ti * ti * v1 + 3d * t * t * ti * v2 + t3 * v3;
         }
 
         /// <summary>
@@ -582,9 +691,9 @@ namespace Engine
             var t3 = t * t * t;
 
             return (
-                (ti3 * x0 + 3d * t * ti * ti * x1 + 3d * t * t * ti * x2 + t3 * x3),
-                (ti3 * y0 + 3d * t * ti * ti * y1 + 3d * t * t * ti * y2 + t3 * y3),
-                (ti3 * z0 + 3d * t * ti * ti * z1 + 3d * t * t * ti * z2 + t3 * z3)
+                ti3 * x0 + 3d * t * ti * ti * x1 + 3d * t * t * ti * x2 + t3 * x3,
+                ti3 * y0 + 3d * t * ti * ti * y1 + 3d * t * t * ti * y2 + t3 * y3,
+                ti3 * z0 + 3d * t * ti * ti * z1 + 3d * t * t * ti * z2 + t3 * z3
                 );
         }
         #endregion Cubic Bézier Interpolation
@@ -622,7 +731,7 @@ namespace Engine
                 nkn = n - k;
                 blend = muk * munk;
                 muk *= t;
-                munk /= (1d - t);
+                munk /= 1d - t;
                 while (nn >= 1)
                 {
                     blend *= nn;
@@ -645,7 +754,7 @@ namespace Engine
                 );
             }
 
-            return (b);
+            return b;
         }
         #endregion N Bézier Interpolation
 
@@ -674,11 +783,11 @@ namespace Engine
         {
             var t2 = t * t;
             var t3 = t2 * t;
-            return (
+            return 
                 0.5d * (2d * bV
                 + (cV - aV) * t
                 + (2d * aV - 5d * bV + 4d * cV - dV) * t2
-                + (3d * bV - aV - 3.0d * cV + dV) * t3));
+                + (3d * bV - aV - 3.0d * cV + dV) * t3);
         }
 
         /// <summary>
@@ -845,7 +954,7 @@ namespace Engine
             var m1 = (cV - bV) * (1d + bias) * (1d - tension) * 0.5d;
             m1 += (dV - cV) * (1d - bias) * (1d - tension) * 0.5d;
 
-            return ((2d * t3 - 3d * t2 + 1d) * bV + (t3 - 2d * t2 + t) * m0 + (t3 - t2) * m1 + (-2d * t3 + 3d * t2) * cV);
+            return (2d * t3 - 3d * t2 + 1d) * bV + (t3 - 2d * t2 + t) * m0 + (t3 - t2) * m1 + (-2d * t3 + 3d * t2) * cV;
         }
 
         /// <summary>
@@ -984,7 +1093,7 @@ namespace Engine
             double r,
             double startAngle, double sweepAngle,
             double t)
-            => Circle(cX, cY, r, (startAngle + (sweepAngle * t)));
+            => Circle(cX, cY, r, startAngle + (sweepAngle * t));
 
         /// <summary>
         /// Interpolate a point on a circle, converting from unit iteration, to Pi radians.
@@ -1044,17 +1153,14 @@ namespace Engine
             var theta = phi % PI;
 
             var tanAngle = Abs(Tan(theta));
-            var x = Sqrt(((r1 * r1) * (r2 * r2)) / ((r2 * r2) + (r1 * r1) * (tanAngle * tanAngle)));
+            var x = Sqrt(r1 * r1 * (r2 * r2) / ((r2 * r2) + r1 * r1 * (tanAngle * tanAngle)));
             var y = x * tanAngle;
 
-            if ((theta >= 0d) && (theta < 90d.ToRadians()))
-                return (cX + x, cY + y);
-            else if ((theta >= 90d.ToRadians()) && (theta < 180d.ToRadians()))
-                return (cX - x, cY + y);
-            else if ((theta >= 180d.ToRadians()) && (theta < 270d.ToRadians()))
-                return (cX - x, cY - y);
-            else
-                return (cX + x, cY - y);
+            return (theta >= 0d) && (theta < 90d.ToRadians())
+                ? (cX + x, cY + y)
+                : (theta >= 90d.ToRadians()) && (theta < 180d.ToRadians())
+                ? (cX - x, cY + y)
+                : (theta >= 180d.ToRadians()) && (theta < 270d.ToRadians()) ? (cX - x, cY - y) : (cX + x, cY - y);
         }
 
         /// <summary>
@@ -1461,20 +1567,20 @@ namespace Engine
 
             // Apply the rotation transformation and translate to new center.
             points.Add(new Point2D(
-                fulcrumX + ((-width * 0.5d) * xaxis.X + (-height * 0.5d) * xaxis.Y),
-                fulcrumY + ((-width * 0.5d) * yaxis.X + (-height * 0.5d) * yaxis.Y)
+                fulcrumX + (-width * 0.5d * xaxis.X + -height * 0.5d * xaxis.Y),
+                fulcrumY + (-width * 0.5d * yaxis.X + -height * 0.5d * yaxis.Y)
                 ));
             points.Add(new Point2D(
-                fulcrumX + ((width * 0.5d) * xaxis.X + (-height * 0.5d) * xaxis.Y),
-                fulcrumY + ((width * 0.5d) * yaxis.X + (-height * 0.5d) * yaxis.Y)
+                fulcrumX + (width * 0.5d * xaxis.X + -height * 0.5d * xaxis.Y),
+                fulcrumY + (width * 0.5d * yaxis.X + -height * 0.5d * yaxis.Y)
                 ));
             points.Add(new Point2D(
-                fulcrumX + ((width * 0.5d) * xaxis.X + (height * 0.5d) * xaxis.Y),
-                fulcrumY + ((width * 0.5d) * yaxis.X + (height * 0.5d) * yaxis.Y)
+                fulcrumX + (width * 0.5d * xaxis.X + height * 0.5d * xaxis.Y),
+                fulcrumY + (width * 0.5d * yaxis.X + height * 0.5d * yaxis.Y)
                 ));
             points.Add(new Point2D(
-                fulcrumX + ((-width * 0.5d) * xaxis.X + (height * 0.5d) * xaxis.Y),
-                fulcrumY + ((-width * 0.5d) * yaxis.X + (height * 0.5d) * yaxis.Y)
+                fulcrumX + (-width * 0.5d * xaxis.X + height * 0.5d * xaxis.Y),
+                fulcrumY + (-width * 0.5d * yaxis.X + height * 0.5d * yaxis.Y)
                 ));
 
             return points;

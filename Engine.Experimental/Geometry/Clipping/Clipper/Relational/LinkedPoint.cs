@@ -38,7 +38,7 @@ namespace Engine.Experimental
         /// <returns>The <see cref="int"/>.</returns>
         public int PointCount()
         {
-            if (this == null)
+            if (this is null)
             {
                 return 0;
             }

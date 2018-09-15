@@ -91,7 +91,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the items.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
@@ -110,7 +110,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the definition.
         /// </summary>
         [Browsable(false)]
         [XmlAttribute("d"), SoapAttribute("d")]
@@ -138,7 +138,7 @@ namespace Engine
             => Items.Select(item => item.End.Value).ToList();
 
         /// <summary>
-        ///
+        /// Gets or sets a value indicating whether 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [RefreshProperties(RefreshProperties.All)]
@@ -149,7 +149,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Rectangle2D Bounds
@@ -220,13 +220,13 @@ namespace Engine
         //    // Assert("This value was set after deserialization.");
         //}
 
-        //#endregion
+        // #endregion
 
         /// <summary>
-        ///
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
         {
             if (t == 0) return Items[0].Start.Value;
@@ -262,7 +262,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The reverse.
         /// </summary>
         public static void Reverse()
         {
@@ -281,10 +281,10 @@ namespace Engine
         //    => Intersections.Contains(this, point) != Inclusion.Outside;
 
         /// <summary>
-        ///
+        /// Add the line segment.
         /// </summary>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <param name="end">The end.</param>
+        /// <returns>The <see cref="PolyBezierContour"/>.</returns>
         public PolyBezierContour AddLineSegment(Point2D end)
         {
             var segment = new BezierSegmentX(Items[Items.Count - 1], end);
@@ -310,11 +310,11 @@ namespace Engine
         //}
 
         /// <summary>
-        ///
+        /// Add the quadratic bezier.
         /// </summary>
-        /// <param name="handle"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <param name="handle">The handle.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>The <see cref="PolyBezierContour"/>.</returns>
         public PolyBezierContour AddQuadraticBezier(Point2D handle, Point2D end)
         {
             var quad = new BezierSegmentX(Items[Items.Count - 1], handle, end);
@@ -323,12 +323,12 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add the cubic bezier.
         /// </summary>
-        /// <param name="handle1"></param>
-        /// <param name="handle2"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <param name="handle1">The handle1.</param>
+        /// <param name="handle2">The handle2.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>The <see cref="PolyBezierContour"/>.</returns>
         public PolyBezierContour AddCubicBezier(Point2D handle1, Point2D handle2, Point2D end)
         {
             var cubic = new BezierSegmentX(Items[Items.Count - 1], handle1, handle2, end);
@@ -337,19 +337,19 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Parse the path def string.
         /// </summary>
-        /// <param name="pathDefinition"></param>
-        /// <returns></returns>
+        /// <param name="pathDefinition">The pathDefinition.</param>
+        /// <returns>The <see cref="T:List{BezierSegmentX}"/>.</returns>
         public static List<BezierSegmentX> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
         /// <summary>
-        ///
+        /// Parse the path def string.
         /// </summary>
-        /// <param name="pathDefinition"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="pathDefinition">The pathDefinition.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="T:List{BezierSegmentX}"/>.</returns>
         public static List<BezierSegmentX> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // These letters are valid PolyBezier commands. Split the tokens at these.
@@ -405,19 +405,19 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The to path def string.
         /// </summary>
-        /// <returns></returns>
-        private String ToPathDefString()
+        /// <returns>The <see cref="string"/>.</returns>
+        private string ToPathDefString()
             => ToPathDefString(null, CultureInfo.InvariantCulture);
 
         /// <summary>
-        ///
+        /// The to path def string.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
-        internal String ToPathDefString(string format, IFormatProvider provider)
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="string"/>.</returns>
+        internal string ToPathDefString(string format, IFormatProvider provider)
         {
             var output = new StringBuilder();
 
@@ -468,7 +468,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
-            => (this == null) ? nameof(PolyBezierContour) : $"{nameof(PolyBezierContour)}{{{ToPathDefString(format, provider)}}}";
+            => (this is null) ? nameof(PolyBezierContour) : $"{nameof(PolyBezierContour)}{{{ToPathDefString(format, provider)}}}";
         #endregion Methods
     }
 }

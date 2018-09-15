@@ -117,7 +117,7 @@ namespace Engine
         /// Gets the count.
         /// </summary>
         public int Count
-            => (Points == null) ? 0 : Points.Count;
+            => (Points is null) ? 0 : Points.Count;
         #endregion Properties
 
         #region Operators
@@ -155,7 +155,7 @@ namespace Engine
         /// <param name="point">The point.</param>
         public void AppendPoint(Point2D point)
         {
-            if (Points == null)
+            if (Points is null)
                 Points = new List<Point2D>();
             Points.Add(point);
         }
@@ -166,9 +166,9 @@ namespace Engine
         /// <param name="points">The points.</param>
         public void AppendPoints(List<Point2D> points)
         {
-            if (points == null)
+            if (points is null)
                 return;
-            if (Points == null)
+            if (Points is null)
                 Points = points;
             else
                 Points.AddRange(points);
@@ -180,7 +180,7 @@ namespace Engine
         /// <param name="points">The points.</param>
         public void AppendPoints(HashSet<Point2D> points)
         {
-            if (Points == null) Points = points.ToList();
+            if (Points is null) Points = points.ToList();
             else
                 Points.AddRange(points);
         }
@@ -288,7 +288,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
         {
-            //if (this == null) return nameof(Intersection);
+            //if (this is null) return nameof(Intersection);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Intersection)}{{{nameof(State)}: {State.ToString()}, {string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);

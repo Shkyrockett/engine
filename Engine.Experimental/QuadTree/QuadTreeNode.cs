@@ -331,17 +331,17 @@ namespace Engine.Experimental
                 {
                     n = TopLeftNode.FindItemNode(Item);
                 }
-                if (n == null &&
+                if (n is null &&
                     TopRightNode.ContainsRect(Item.Bounds))
                 {
                     n = TopRightNode.FindItemNode(Item);
                 }
-                if (n == null &&
+                if (n is null &&
                     BottomLeftNode.ContainsRect(Item.Bounds))
                 {
                     n = BottomLeftNode.FindItemNode(Item);
                 }
-                if (n == null &&
+                if (n is null &&
                     BottomRightNode.ContainsRect(Item.Bounds))
                 {
                     n = BottomRightNode.FindItemNode(Item);
@@ -461,10 +461,10 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="rect">The rectangle to test</param>
         /// <returns>Whether or not this node contains the specified rectangle</returns>
-        public bool ContainsRect(Rectangle2D rect) => (rect.TopLeft.X >= Rect.TopLeft.X &&
+        public bool ContainsRect(Rectangle2D rect) => rect.TopLeft.X >= Rect.TopLeft.X &&
                     rect.TopLeft.Y >= Rect.TopLeft.Y &&
                     rect.BottomRight.X <= Rect.BottomRight.X &&
-                    rect.BottomRight.Y <= Rect.BottomRight.Y);
+                    rect.BottomRight.Y <= Rect.BottomRight.Y;
         #endregion Helper Methods
     }
 }

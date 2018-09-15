@@ -460,7 +460,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity
-            => (Abs(m0x0 - 1) < Epsilon
+            => Abs(m0x0 - 1) < Epsilon
                 && Abs(m0x1) < Epsilon
                 && Abs(m0x2) < Epsilon
                 && Abs(m0x3) < Epsilon
@@ -475,7 +475,7 @@ namespace Engine
                 && Abs(m3x0) < Epsilon
                 && Abs(m3x1) < Epsilon
                 && Abs(m3x2) < Epsilon
-                && Abs(m3x3 - 1) < Epsilon);
+                && Abs(m3x3 - 1) < Epsilon;
         #endregion Properties
 
         #region Operators

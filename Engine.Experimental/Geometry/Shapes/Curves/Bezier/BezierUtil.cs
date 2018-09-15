@@ -51,32 +51,44 @@ namespace Engine.Experimental
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
-        public static List<double> Tvalues = new List<double>
+        public static double[] Tvalues = new double[]
         {
-          -0.0640568928626056260850430826247450385909,
-           0.0640568928626056260850430826247450385909,
-          -0.1911188674736163091586398207570696318404,
-           0.1911188674736163091586398207570696318404,
-          -0.3150426796961633743867932913198102407864,
-           0.3150426796961633743867932913198102407864,
-          -0.4337935076260451384870842319133497124524,
-           0.4337935076260451384870842319133497124524,
-          -0.5454214713888395356583756172183723700107,
-           0.5454214713888395356583756172183723700107,
-          -0.6480936519369755692524957869107476266696,
-           0.6480936519369755692524957869107476266696,
-          -0.7401241915785543642438281030999784255232,
-           0.7401241915785543642438281030999784255232,
-          -0.8200019859739029219539498726697452080761,
-           0.8200019859739029219539498726697452080761,
-          -0.8864155270044010342131543419821967550873,
-           0.8864155270044010342131543419821967550873,
-          -0.9382745520027327585236490017087214496548,
-           0.9382745520027327585236490017087214496548,
-          -0.9747285559713094981983919930081690617411,
-           0.9747285559713094981983919930081690617411,
-          -0.9951872199970213601799974097007368118745,
-           0.9951872199970213601799974097007368118745
+            // 
+            -0.0640568928626056260850430826247450385909,
+             0.0640568928626056260850430826247450385909,
+            // 
+            -0.1911188674736163091586398207570696318404,
+             0.1911188674736163091586398207570696318404,
+            //
+            -0.3150426796961633743867932913198102407864,
+             0.3150426796961633743867932913198102407864,
+            //
+            -0.4337935076260451384870842319133497124524,
+             0.4337935076260451384870842319133497124524,
+            //
+            -0.5454214713888395356583756172183723700107,
+             0.5454214713888395356583756172183723700107,
+            //
+            -0.6480936519369755692524957869107476266696,
+             0.6480936519369755692524957869107476266696,
+            //
+            -0.7401241915785543642438281030999784255232,
+             0.7401241915785543642438281030999784255232,
+            //
+            -0.8200019859739029219539498726697452080761,
+             0.8200019859739029219539498726697452080761,
+            //
+            -0.8864155270044010342131543419821967550873,
+             0.8864155270044010342131543419821967550873,
+            //
+            -0.9382745520027327585236490017087214496548,
+             0.9382745520027327585236490017087214496548,
+            //
+            -0.9747285559713094981983919930081690617411,
+             0.9747285559713094981983919930081690617411,
+            //
+            -0.9951872199970213601799974097007368118745,
+             0.9951872199970213601799974097007368118745
         };
 
         /// <summary>
@@ -85,34 +97,90 @@ namespace Engine.Experimental
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
-        public static List<double> Cvalues = new List<double>
+        public static double[] Cvalues = new double[]
         {
-            0.1279381953467521569740561652246953718517,
-            0.1279381953467521569740561652246953718517,
-            0.1258374563468282961213753825111836887264,
-            0.1258374563468282961213753825111836887264,
-            0.1216704729278033912044631534762624256070,
-            0.1216704729278033912044631534762624256070,
-            0.1155056680537256013533444839067835598622,
-            0.1155056680537256013533444839067835598622,
-            0.1074442701159656347825773424466062227946,
-            0.1074442701159656347825773424466062227946,
-            0.0976186521041138882698806644642471544279,
-            0.0976186521041138882698806644642471544279,
-            0.0861901615319532759171852029837426671850,
-            0.0861901615319532759171852029837426671850,
-            0.0733464814110803057340336152531165181193,
-            0.0733464814110803057340336152531165181193,
-            0.0592985849154367807463677585001085845412,
-            0.0592985849154367807463677585001085845412,
-            0.0442774388174198061686027482113382288593,
-            0.0442774388174198061686027482113382288593,
-            0.0285313886289336631813078159518782864491,
-            0.0285313886289336631813078159518782864491,
-            0.0123412297999871995468056670700372915759,
-            0.0123412297999871995468056670700372915759
+            //
+            0.1279381953467521569740561652246953718517d,
+            0.1279381953467521569740561652246953718517d,
+            //
+            0.1258374563468282961213753825111836887264d,
+            0.1258374563468282961213753825111836887264d,
+            //
+            0.1216704729278033912044631534762624256070d,
+            0.1216704729278033912044631534762624256070d,
+            //
+            0.1155056680537256013533444839067835598622d,
+            0.1155056680537256013533444839067835598622d,
+            //
+            0.1074442701159656347825773424466062227946d,
+            0.1074442701159656347825773424466062227946d,
+            //
+            0.0976186521041138882698806644642471544279d,
+            0.0976186521041138882698806644642471544279d,
+            //
+            0.0861901615319532759171852029837426671850d,
+            0.0861901615319532759171852029837426671850d,
+            //
+            0.0733464814110803057340336152531165181193d,
+            0.0733464814110803057340336152531165181193d,
+            //
+            0.0592985849154367807463677585001085845412d,
+            0.0592985849154367807463677585001085845412d,
+            //
+            0.0442774388174198061686027482113382288593d,
+            0.0442774388174198061686027482113382288593d,
+            //
+            0.0285313886289336631813078159518782864491d,
+            0.0285313886289336631813078159518782864491d,
+            //
+            0.0123412297999871995468056670700372915759d,
+            0.0123412297999871995468056670700372915759d
         };
         #endregion Gauss Tables
+
+        /// <summary>
+        /// The length.
+        /// </summary>
+        /// <param name="derivativeFn">The derivativeFn.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(DerivitiveMethod2D derivativeFn)
+        {
+            double z = 0.5, sum = 0, len = Tvalues.Length, t;
+            for (var i = 0; i < len; i++)
+            {
+                t = z * Tvalues[i] + z;
+                sum += Cvalues[i] * Arcfn(t, derivativeFn);
+            }
+
+            return z * sum;
+        }
+
+        /// <summary>
+        /// The length.
+        /// </summary>
+        /// <param name="derivativeFn">The derivativeFn.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <acknowledgment>
+        /// http://pomax.github.io/bezierinfo/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Length(DerivitiveMethod3D derivativeFn)
+        {
+            double z = 0.5, sum = 0, len = Tvalues.Length, t;
+            for (var i = 0; i < len; i++)
+            {
+                t = z * Tvalues[i] + z;
+                sum += Cvalues[i] * Arcfn(t, derivativeFn);
+            }
+
+            return z * sum;
+        }
 
         /// <summary>
         /// The arcfn.
@@ -148,50 +216,6 @@ namespace Engine.Experimental
             var d = derivativeFn(t);
             var l = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
             return Sqrt(l);
-        }
-
-        /// <summary>
-        /// The length.
-        /// </summary>
-        /// <param name="derivativeFn">The derivativeFn.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <acknowledgment>
-        /// http://pomax.github.io/bezierinfo/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(DerivitiveMethod3D derivativeFn)
-        {
-            double z = 0.5, sum = 0, len = Tvalues.Count, t;
-            for (var i = 0; i < len; i++)
-            {
-                t = z * Tvalues[i] + z;
-                sum += Cvalues[i] * Arcfn(t, derivativeFn);
-            }
-
-            return z * sum;
-        }
-
-        /// <summary>
-        /// The length.
-        /// </summary>
-        /// <param name="derivativeFn">The derivativeFn.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <acknowledgment>
-        /// http://pomax.github.io/bezierinfo/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(DerivitiveMethod2D derivativeFn)
-        {
-            double z = 0.5, sum = 0, len = Tvalues.Count, t;
-            for (var i = 0; i < len; i++)
-            {
-                t = z * Tvalues[i] + z;
-                sum += Cvalues[i] * Arcfn(t, derivativeFn);
-            }
-
-            return z * sum;
         }
 
         /// <summary>
@@ -449,7 +473,7 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static RangeX GetMinMax(Bezier curve, int d, List<double> list)
         {
-            if (list == null)
+            if (list is null)
                 return new RangeX(min: 0, max: 0);
             double min = 0xFFFFFFFFFFFFFFFF;
             var max = -min;
@@ -462,7 +486,7 @@ namespace Engine.Experimental
             for (int i = 0, len = list.Count; i < len; i++)
             {
                 t = list[i];
-                c = curve.Interpolate(t);
+                c = curve.Interpolate_Ported(t);
                 switch (d)
                 {
                     case 0:
@@ -504,10 +528,10 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Arc2D Getccenter(Point2D p1, Point2D p2, Point2D p3)
         {
-            var dx1 = (p2.X - p1.X);
-            var dy1 = (p2.Y - p1.Y);
-            var dx2 = (p3.X - p2.X);
-            var dy2 = (p3.Y - p2.Y);
+            var dx1 = p2.X - p1.X;
+            var dy1 = p2.Y - p1.Y;
+            var dx2 = p3.X - p2.X;
+            var dy2 = p3.Y - p2.Y;
             var dx1p = dx1 * Cos(Quart) - dy1 * Sin(Quart);
             var dy1p = dx1 * Sin(Quart) + dy1 * Cos(Quart);
             var dx2p = dx2 * Cos(Quart) - dy2 * Sin(Quart);
@@ -576,10 +600,10 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Arc3D Getccenter(Point3D p1, Point3D p2, Point3D p3)
         {
-            var dx1 = (p2.X - p1.X);
-            var dy1 = (p2.Y - p1.Y);
-            var dx2 = (p3.X - p2.X);
-            var dy2 = (p3.Y - p2.Y);
+            var dx1 = p2.X - p1.X;
+            var dy1 = p2.Y - p1.Y;
+            var dx2 = p3.X - p2.X;
+            var dy2 = p3.Y - p2.Y;
             var dx1p = dx1 * Cos(Quart) - dy1 * Sin(Quart);
             var dy1p = dx1 * Sin(Quart) + dy1 * Cos(Quart);
             var dx2p = dx2 * Cos(Quart) - dy2 * Sin(Quart);
@@ -666,7 +690,7 @@ namespace Engine.Experimental
                 ? new List<double>()
                 : new List<double>(
                 from r in new List<double> { (sq - v2) / d, -(v2 + sq) / d }
-                where (0 <= r && r <= 1)
+                where 0 <= r && r <= 1
                 select r
                 );
         }
@@ -699,12 +723,11 @@ namespace Engine.Experimental
             var sq = Sqrt(trm);
             d = 2 * v1;
 
-            if (Approximately(d, 0))
-                return new List<double>();
-
-            return new List<double>(
+            return Approximately(d, 0)
+                ? new List<double>()
+                : new List<double>(
                 from r in new List<double> { (sq - v2) / d, -(v2 + sq) / d }
-                where (0 <= r && r <= 1)
+                where 0 <= r && r <= 1
                 select r
                 );
         }
@@ -915,9 +938,7 @@ namespace Engine.Experimental
             var nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
             var ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
             var d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-            if (d == 0)
-                return null;
-            return new Point2D(nx / d, ny / d);
+            return d == 0 ? null : (Point2D?)new Point2D(nx / d, ny / d);
         }
 
         /// <summary>
@@ -946,9 +967,7 @@ namespace Engine.Experimental
             var nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
             var ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
             var d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
-            if (d == 0)
-                return null;
-            return new Point3D(nx / d, ny / d, 0);
+            return d == 0 ? null : (Point3D?)new Point3D(nx / d, ny / d, 0);
         }
 
         /// <summary>
@@ -1059,8 +1078,8 @@ namespace Engine.Experimental
         {
             var bpl = back.Points.Count;
             var fpl = forward.Points.Count;
-            var start = BezierUtil.MakeLine(back.Points[bpl - 1], forward.Points[0]);
-            var end = BezierUtil.MakeLine(forward.Points[fpl - 1], back.Points[0]);
+            var start = MakeLine(back.Points[bpl - 1], forward.Points[0]);
+            var end = MakeLine(forward.Points[fpl - 1], back.Points[0]);
             var shape = new Shape1(
                 startcap: start,
                 forward: forward,
@@ -1323,7 +1342,7 @@ namespace Engine.Experimental
             var pb = pts[1].Y;
             var pc = pts[2].Y;
             var pd = pts[3].Y;
-            d = (-pa + 3 * pb - 3 * pc + pd);
+            d = -pa + 3 * pb - 3 * pc + pd;
             a = (3 * pa - 6 * pb + 3 * pc) / d;
             b = (-3 * pa + 3 * pb) / d;
             c = pa / d;
@@ -1439,7 +1458,7 @@ namespace Engine.Experimental
             var pb = pts[1].Y;
             var pc = pts[2].Y;
             var pd = pts[3].Y;
-            d = (-pa + 3 * pb - 3 * pc + pd);
+            d = -pa + 3 * pb - 3 * pc + pd;
             a = (3 * pa - 6 * pb + 3 * pc) / d;
             b = (-3 * pa + 3 * pb) / d;
             c = pa / d;
@@ -1534,9 +1553,7 @@ namespace Engine.Experimental
             {
                 var a = p[0];
                 var b = p[1];
-                if (a != b)
-                    return new List<double> { a / (a - b) };
-                return new List<double>();
+                return a != b ? new List<double> { a / (a - b) } : new List<double>();
             }
 
             return new List<double>();

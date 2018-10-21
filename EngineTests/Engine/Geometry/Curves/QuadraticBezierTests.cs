@@ -15,7 +15,7 @@ using System;
 namespace EngineTests
 {
     /// <summary>
-    /// 
+    /// The quadratic bezier tests unit test class.
     /// </summary>
     [TestClass]
     public class QuadraticBezierTests
@@ -30,29 +30,29 @@ namespace EngineTests
 
         #region Housekeeping
         /// <summary>
-        /// 
+        /// ClassInitialize runs code before running the first test in the class.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">The context.</param>
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         { }
 
         /// <summary>
-        /// 
+        /// TestInitialize runs code before running each test.
         /// </summary>
         [TestInitialize]
         public void Initialize()
         { }
 
         /// <summary>
-        /// 
+        /// TestCleanup runs code after each test has run.
         /// </summary>
         [TestCleanup]
         public void Cleanup()
         { }
 
         /// <summary>
-        /// 
+        /// ClassCleanup runs code after all tests in a class have run.
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()
@@ -60,7 +60,7 @@ namespace EngineTests
         #endregion Housekeeping
 
         /// <summary>
-        /// 
+        /// The quadratic bezier length test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -75,8 +75,9 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The quadratic bezier arc length by integral test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -93,8 +94,9 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The quadratic bezier arc length by segments test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -111,8 +113,9 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The quadratic bezier approx arc length test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]
@@ -129,7 +132,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The quadratic bezier interpolate test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -145,8 +148,9 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The quadratic bezier interpolate points test.
         /// </summary>
+        /// <exception cref="NotImplementedException"></exception>
         [TestMethod]
         [Priority(0)]
         [Owner("Shkyrockett")]

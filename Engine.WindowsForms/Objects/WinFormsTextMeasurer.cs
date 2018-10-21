@@ -12,22 +12,22 @@ namespace Engine
         : IPlatformTextMetrics, IDisposable
     {
         /// <summary>
-        /// 
+        /// The bitmap.
         /// </summary>
         private Image bitmap;
 
         /// <summary>
-        /// 
+        /// The graphics.
         /// </summary>
         private Graphics graphics;
 
         /// <summary>
-        /// 
+        /// The disposed value.
         /// </summary>
         private bool disposedValue = false; // To detect redundant dispose calls
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="WinFormsTextMeasurer"/> class.
         /// </summary>
         public WinFormsTextMeasurer()
         {
@@ -37,23 +37,23 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The measure string.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="format"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="format">The format.</param>
+        /// <param name="width">The width.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         public Size2D MeasureString(string text, RenderFont font, TextFormat format, int width = int.MaxValue)
             => graphics.MeasureString(text, font.ToFont(), width, format.ToStringFormat()).ToSize2D();
 
         /// <summary>
-        /// 
+        /// The measure string.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="width">The width.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/1003370/measure-a-string-without-using-a-graphics-object
         /// </remarks>
@@ -61,12 +61,12 @@ namespace Engine
             => graphics.MeasureString(text, font.ToFont(), width, StringFormat.GenericDefault).ToSize2D();
 
         /// <summary>
-        /// 
+        /// The measure string close.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="font"></param>
-        /// <param name="width"></param>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="width">The width.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/1003370/measure-a-string-without-using-a-graphics-object
         /// </remarks>
@@ -75,9 +75,9 @@ namespace Engine
 
         #region IDisposable Support
         /// <summary>
-        /// 
+        /// Dispose.
         /// </summary>
-        /// <param name="disposing"></param>
+        /// <param name="disposing">The disposing.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
@@ -97,7 +97,7 @@ namespace Engine
 
         // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
         /// <summary>
-        /// 
+        /// Finalizes an instance of the <see cref="WinFormsTextMeasurer"/> class.
         /// </summary>
         ~WinFormsTextMeasurer()
         {
@@ -107,7 +107,7 @@ namespace Engine
 
         // This code added to correctly implement the disposable pattern.
         /// <summary>
-        /// 
+        /// Dispose.
         /// </summary>
         public void Dispose()
         {
@@ -117,6 +117,5 @@ namespace Engine
             GC.SuppressFinalize(this);
         }
         #endregion IDisposable Support
-
     }
 }

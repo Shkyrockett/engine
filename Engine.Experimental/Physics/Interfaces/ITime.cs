@@ -13,13 +13,14 @@ namespace Engine.Physics
     using System.ComponentModel;
 
     /// <summary>
-    /// 
+    /// The ITime interface.
     /// </summary>
     public interface ITime
     {
         /// <summary>
-        /// 
+        /// Gets the value.
         /// </summary>
+        /// <value>The <see cref="double"/>.</value>
         double Value { get; /*set;*/ }
 
         ///// <summary>
@@ -29,15 +30,17 @@ namespace Engine.Physics
         //string Name { get; }
 
         /// <summary>
-        /// 
+        /// Gets the abreviation.
         /// </summary>
+        /// <value>The <see cref="string"/>.</value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         string Abreviation { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         string ToString();
     }
 }

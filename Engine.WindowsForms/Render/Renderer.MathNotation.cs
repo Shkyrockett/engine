@@ -9,13 +9,11 @@
 // <remarks></remarks>
 
 //using Engine.MathNotation;
-using System.Drawing;
-using static System.Math;
 
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    /// The renderer class.
     /// </summary>
     public static partial class Renderer
     {

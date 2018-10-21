@@ -20,28 +20,28 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The needle control class.
     /// </summary>
     public partial class NeedleControl
         : UserControl
     {
         /// <summary>
-        /// 
+        /// The value changed event args class.
         /// </summary>
         public class ValueChangedEventArgs
             : EventArgs
         {
             /// <summary>
-            /// 
+            /// Initializes a new instance of the <see cref="ValueChangedEventArgs"/> class.
             /// </summary>
-            /// <param name="value"></param>
+            /// <param name="value">The value.</param>
             public ValueChangedEventArgs(double value)
             {
                 Value = value;
             }
 
             /// <summary>
-            /// 
+            /// Gets or sets the value.
             /// </summary>
             public double Value { get; set; }
         }
@@ -61,31 +61,31 @@ namespace Engine
         public delegate void ValueCommittedDelegate(object sender, ValueChangedEventArgs e);
 
         /// <summary>
-        /// 
+        /// The value changed event of the <see cref="ValueChangedDelegate"/>.
         /// </summary>
         [Category("Value")]
         [Description("This event is raised if the value changes.")]
         public event ValueChangedDelegate ValueChanged;
 
         /// <summary>
-        /// 
+        /// The value committed event of the <see cref="ValueCommittedDelegate"/>.
         /// </summary>
         [Category("Value")]
         [Description("This event is raised if the value is committed.")]
         public event ValueCommittedDelegate ValueCommitted;
 
         /// <summary>
-        /// 
+        /// The angle.
         /// </summary>
         private double angle;
 
         /// <summary>
-        /// 
+        /// The selecting.
         /// </summary>
         private bool selecting;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="NeedleControl"/> class.
         /// </summary>
         public NeedleControl()
         {
@@ -105,13 +105,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets a value indicating whether 
         /// </summary>
         private bool IsTransparent
             => BackColor == Color.Transparent;
 
         /// <summary>
-        /// 
+        /// Gets or sets the angle.
         /// </summary>
         [Category("Value")]
         [DefaultValue(0)]
@@ -127,17 +127,17 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The needle control mouse down.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void NeedleControl_MouseDown(object sender, MouseEventArgs e) => selecting = true;
 
         /// <summary>
-        /// 
+        /// The needle control mouse move.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void NeedleControl_MouseMove(object sender, MouseEventArgs e)
         {
             var center = Center(Bounds.Size);
@@ -150,10 +150,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The needle control mouse up.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The mouse event arguments.</param>
         private void NeedleControl_MouseUp(object sender, MouseEventArgs e)
         {
             var center = Center(Bounds.Size);
@@ -168,10 +168,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The needle control resize.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The event arguments.</param>
         private void NeedleControl_Resize(object sender, EventArgs e)
         {
             var sqr = ToSquare(new Rectangle(Point.Empty, Bounds.Size));
@@ -181,9 +181,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Raises the paint background event.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">The paint event arguments.</param>
         protected override void OnPaintBackground(PaintEventArgs e)
         {
             if (!IsTransparent) base.OnPaintBackground(e);
@@ -193,9 +193,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Raises the paint event.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">The paint event arguments.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -209,10 +209,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Fill the back.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="rect"></param>
+        /// <param name="g">The g.</param>
+        /// <param name="rect">The rect.</param>
         private static void FillBack(Graphics g, RectangleF rect)
         {
             var faceBrush = SystemBrushes.ButtonFace;
@@ -223,10 +223,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The draw border.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="rect"></param>
+        /// <param name="g">The g.</param>
+        /// <param name="rect">The rect.</param>
         private static void DrawBorder(Graphics g, RectangleF rect)
         {
             var highlightPen = new Pen(SystemBrushes.ButtonHighlight)
@@ -244,10 +244,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The draw ticks.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="rect"></param>
+        /// <param name="g">The g.</param>
+        /// <param name="rect">The rect.</param>
         private static void DrawTicks(Graphics g, RectangleF rect)
         {
             var pen = new Pen(Brushes.Black)
@@ -272,11 +272,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The draw needle.
         /// </summary>
-        /// <param name="g"></param>
-        /// <param name="rect"></param>
-        /// <param name="angle"></param>
+        /// <param name="g">The g.</param>
+        /// <param name="rect">The rect.</param>
+        /// <param name="angle">The angle.</param>
         private static void DrawNeedle(Graphics g, RectangleF rect, double angle)
         {
             var pen = new Pen(Brushes.Red)
@@ -293,10 +293,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The to square.
         /// </summary>
-        /// <param name="rect"></param>
-        /// <returns></returns>
+        /// <param name="rect">The rect.</param>
+        /// <returns>The <see cref="RectangleF"/>.</returns>
         private static RectangleF ToSquare(RectangleF rect)
         {
             var smallest = rect.Height <= rect.Width ? rect.Height : rect.Width;
@@ -334,11 +334,11 @@ namespace Engine
         );
 
         /// <summary>
-        /// 
+        /// The inflate.
         /// </summary>
-        /// <param name="size"></param>
-        /// <param name="amount"></param>
-        /// <returns></returns>
+        /// <param name="size">The size.</param>
+        /// <param name="amount">The amount.</param>
+        /// <returns>The <see cref="Size"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size Inflate(Size size, int amount)

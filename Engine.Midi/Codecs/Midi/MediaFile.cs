@@ -15,12 +15,12 @@ using System.IO;
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The media file class.
     /// </summary>
     public class MediaFile
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MediaFile"/> class.
         /// </summary>
         public MediaFile()
         {
@@ -28,16 +28,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MediaFile"/> class.
         /// </summary>
-        /// <param name="data"></param>
+        /// <param name="data">The data.</param>
         public MediaFile(IMediaContainer data)
         {
             Media = data;
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the media.
         /// </summary>
         public IMediaContainer Media { get; set; }
 
@@ -47,11 +47,11 @@ namespace Engine.File
         public string FileName { get; set; }
 
         /// <summary>
-        /// 
+        /// Load.
         /// </summary>
-        /// <param name="filename"></param>
-        /// <param name="stream"></param>
-        /// <returns></returns>
+        /// <param name="filename">The filename.</param>
+        /// <param name="stream">The stream.</param>
+        /// <returns>The <see cref="MediaFile"/>.</returns>
         public static MediaFile Load(string filename, Stream stream)
         {
             IMediaContainer media = null;

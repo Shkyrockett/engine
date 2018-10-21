@@ -15,22 +15,22 @@ using System.Drawing.Imaging;
 namespace Engine.Imaging
 {
     /// <summary>
-    /// 
+    /// The bitmap extensions class.
     /// </summary>
     public static class BitmapExtensions
     {
         /// <summary>
-        /// 
+        /// The lock bits disposable.
         /// </summary>
-        /// <param name="bitmap"></param>
-        /// <param name="rect"></param>
-        /// <param name="flags"></param>
-        /// <param name="format"></param>
-        /// <returns></returns>
+        /// <param name="bitmap">The bitmap.</param>
+        /// <param name="rect">The rect.</param>
+        /// <param name="flags">The flags.</param>
+        /// <param name="format">The format.</param>
+        /// <returns>The <see cref="DisposableImageData"/>.</returns>
         public static DisposableImageData LockBitsDisposable(this Bitmap bitmap, Rectangle rect, ImageLockMode flags, PixelFormat format) => new DisposableImageData(bitmap, rect, flags, format);
 
         /// <summary>
-        /// 
+        /// The disposable image data class.
         /// </summary>
         public class DisposableImageData
             : IDisposable
@@ -59,7 +59,7 @@ namespace Engine.Imaging
             }
 
             /// <summary>
-            /// 
+            /// Finalizes an instance of the <see cref="DisposableImageData"/> class.
             /// </summary>
             ~DisposableImageData()
             {

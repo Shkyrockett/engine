@@ -25,7 +25,6 @@ namespace Engine
         /// </summary>
         /// <param name="degrees">Angle in Degrees.</param>
         /// <returns>Angle in Radians.</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToRadians(this double degrees)
@@ -36,7 +35,6 @@ namespace Engine
         /// </summary>
         /// <param name="radiens">Angle in Radians.</param>
         /// <returns>Angle in Degrees.</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToDegrees(this double radiens)
@@ -142,7 +140,6 @@ namespace Engine
         /// </summary>
         /// <param name="angle"></param>
         /// <returns>The absolute positive angle in radians.</returns>
-        /// <remarks></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this double angle)
@@ -235,7 +232,6 @@ namespace Engine
         /// <param name="x2">Horizontal Component of Ending Point</param>
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
@@ -280,7 +276,6 @@ namespace Engine
         /// Note that the value is the opposite of what you might
         /// expect because Y coordinates increase downward.
         /// </returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </acknowledgment>
@@ -300,7 +295,6 @@ namespace Engine
         /// <param name="x2">Horizontal Component of Ending Point</param>
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>The absolute angle of a line in radians.</returns>
-        /// <remarks></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(
@@ -357,7 +351,6 @@ namespace Engine
         /// <param name="rx">The first radius of the ellipse.</param>
         /// <param name="ry">The second radius of the ellipse.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based on the answer by flup at: https://stackoverflow.com/a/17762156/7004229
         /// </acknowledgment>
@@ -386,7 +379,6 @@ namespace Engine
         /// <param name="rx">The first radius of the ellipse.</param>
         /// <param name="ry">The second radius of the ellipse.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Vectorized version of the answer by flup at: https://stackoverflow.com/a/17762156/7004229
         /// </acknowledgment>
@@ -413,7 +405,6 @@ namespace Engine
         /// <param name="rx">The first radius of the ellipse.</param>
         /// <param name="ry">The second radius of the ellipse.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based on the answer by flup at: https://stackoverflow.com/a/17762156/7004229
         /// </acknowledgment>
@@ -456,7 +447,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://mathworld.wolfram.com/Ellipse-LineIntersection.html
@@ -489,7 +479,6 @@ namespace Engine
         /// <param name="axisX"></param>
         /// <param name="axisY"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Reflect(double x1, double y1, double x2, double y2, double axisX, double axisY)
@@ -583,7 +572,6 @@ namespace Engine
         /// <param name="i">The i component of the Vector to Unitize.</param>
         /// <param name="j">The j component of the Vector to Unitize.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Unit(double i, double j)
@@ -596,7 +584,6 @@ namespace Engine
         /// <param name="j">The j component of the Vector to Unitize.</param>
         /// <param name="k">The k component of the Vector to Unitize.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Unit(double i, double j, double k)
@@ -610,7 +597,6 @@ namespace Engine
         /// <param name="k">The k component of the Vector to Unitize.</param>
         /// <param name="l">The l component of the Vector to Unitize.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Unit(double i, double j, double k, double l)
@@ -646,7 +632,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -663,7 +648,6 @@ namespace Engine
         /// </summary>
         /// <param name="Value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -680,7 +664,6 @@ namespace Engine
         /// </summary>
         /// <param name="Value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -697,7 +680,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -721,7 +703,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -745,7 +726,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -769,7 +749,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions

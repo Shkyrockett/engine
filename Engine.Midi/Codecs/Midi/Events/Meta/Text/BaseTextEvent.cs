@@ -22,10 +22,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="BaseTextEvent"/> class.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="status"></param>
+        /// <param name="text">The text.</param>
+        /// <param name="status">The status.</param>
         public BaseTextEvent(string text, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -33,7 +33,7 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the text.
         /// </summary>
         public string Text { get; set; }
     }

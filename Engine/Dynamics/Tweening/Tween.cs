@@ -10,8 +10,6 @@
 
 using System;
 using System.Collections.Generic;
-using static System.Math;
-using static Engine.Maths;
 
 namespace Engine.Tweening
 {

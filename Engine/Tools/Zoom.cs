@@ -43,7 +43,7 @@ namespace Engine.Tools
         public int Index { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         public bool MouseDown { get; set; }
 
@@ -129,17 +129,19 @@ namespace Engine.Tools
             Points = new List<Point2D>(2) { Point2D.Empty, Point2D.Empty };
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{nameof(SelectTop)}{{{Index}}}";
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The output.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         public static string Output()
         {
             var output = new StringBuilder();

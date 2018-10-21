@@ -24,10 +24,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Tempo"/> class.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="status"></param>
+        /// <param name="value">The value.</param>
+        /// <param name="status">The status.</param>
         public Tempo(int value, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -35,16 +35,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the value.
         /// </summary>
         public int Value { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="Tempo"/>.</returns>
         internal static Tempo Read(BinaryReaderExtended reader, EventStatus status)
             => new Tempo(reader.ReadNetworkInt24(), status);
     }

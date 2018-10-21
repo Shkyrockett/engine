@@ -46,9 +46,6 @@ namespace Engine.Physics
         public string Abreviation
             => "Hz";
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator Hertz(double value)
             => new Hertz(value);

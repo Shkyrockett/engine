@@ -15,13 +15,13 @@ using System.IO;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The vector graphic class.
     /// </summary>
     public class VectorGraphic
         : IBitmap
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="VectorGraphic"/> class.
         /// </summary>
         public VectorGraphic()
         {
@@ -34,44 +34,45 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the bitmap.
         /// </summary>
         public Bitmap Bitmap { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the handles.
         /// </summary>
         public List<PointF> Handles { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the filename.
         /// </summary>
         public string Filename { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the display name.
         /// </summary>
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the items.
         /// </summary>
         public List<IRenderable> Items { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the stream.
         /// </summary>
         public Stream Stream { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Clone.
+        /// </summary>
+        /// <returns>The <see cref="object"/>.</returns>
         public static object Clone() => new object();
     }
 }

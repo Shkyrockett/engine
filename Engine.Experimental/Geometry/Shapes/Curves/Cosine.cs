@@ -54,8 +54,7 @@ namespace Engine
         /// Function For cosine interpolated Line
         /// </summary>
         /// <param name="t"></param>
-        /// <returns>Returns the interpolated point of the index value.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the interpolated point of the index value.</returns>
         public override Point2D Interpolate(double t)
             => new Point2D(Interpolators.Cosine(A.X, A.Y, B.X, B.Y, t));
 

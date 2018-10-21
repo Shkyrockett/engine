@@ -13,14 +13,14 @@
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The event status class.
     /// </summary>
     [Expandable]
     public class EventStatus
         : IMidiElement
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="EventStatus"/> class.
         /// </summary>
         public EventStatus()
         {
@@ -30,11 +30,11 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="EventStatus"/> class.
         /// </summary>
-        /// <param name="deltaTime"></param>
-        /// <param name="status"></param>
-        /// <param name="channel"></param>
+        /// <param name="deltaTime">The deltaTime.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="channel">The channel.</param>
         public EventStatus(uint deltaTime, MidiStatusMessages status, byte channel)
         {
             DeltaTime = deltaTime;
@@ -43,26 +43,26 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the delta time.
         /// </summary>
         public uint DeltaTime { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the status.
         /// </summary>
         public MidiStatusMessages Status { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the channel.
         /// </summary>
         public byte Channel { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="deltaTime"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="deltaTime">The deltaTime.</param>
+        /// <returns>The <see cref="EventStatus"/>.</returns>
         internal static EventStatus Read(BinaryReaderExtended reader, uint deltaTime)
         {
             var cursor = reader.ReadByte();

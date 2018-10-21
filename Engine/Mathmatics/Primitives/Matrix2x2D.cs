@@ -45,36 +45,14 @@ namespace Engine
         public static readonly Matrix2x2D Identity = new Matrix2x2D(1, 0, 0, 1);
         #endregion Static Fields
 
-        #region Private Fields
-        /// <summary>
-        ///
-        /// </summary>
-        private double m0x0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m0x1;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m1x0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m1x1;
-        #endregion Private Fields
-
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Matrix2x2D"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">The tuple.</param>
         public Matrix2x2D((double M1x1, double M1x2, double M2x1, double M2x2) tuple)
         {
-            (m0x0, m0x1, m1x0, m1x1) = tuple;
+            (M0x0, M0x1, M1x0, M1x1) = tuple;
         }
 
         /// <summary>
@@ -85,10 +63,10 @@ namespace Engine
         /// </summary>
         public Matrix2x2D(double m0x0, double m0x1, double m1x0, double m1x1)
         {
-            this.m0x0 = m0x0;
-            this.m0x1 = m0x1;
-            this.m1x0 = m1x0;
-            this.m1x1 = m1x1;
+            M0x0 = m0x0;
+            M0x1 = m0x1;
+            M1x0 = m1x0;
+            M1x1 = m1x1;
         }
 
         /// <summary>
@@ -103,89 +81,89 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// M11
+        /// Gets or sets the m0x0.
         /// </summary>
-        public double M0x0 { get { return m0x0; } set { m0x0 = value; } }
+        public double M0x0 { get; set; }
 
         /// <summary>
-        /// M12
+        /// Gets or sets the m0x1.
         /// </summary>
-        public double M0x1 { get { return m0x1; } set { m0x1 = value; } }
+        public double M0x1 { get; set; }
 
         /// <summary>
-        /// M22
+        /// Gets or sets the m1x0.
         /// </summary>
-        public double M1x0 { get { return m1x0; } set { m1x0 = value; } }
+        public double M1x0 { get; set; }
 
         /// <summary>
-        /// M22
+        /// Gets or sets the m1x1.
         /// </summary>
-        public double M1x1 { get { return m1x1; } set { m1x1 = value; } }
+        public double M1x1 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the cx.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector2D Cx
         {
-            get { return new Vector2D(m0x0, m1x0); }
+            get { return new Vector2D(M0x0, M1x0); }
             set
             {
-                m0x0 = value.I;
-                m1x0 = value.J;
+                M0x0 = value.I;
+                M1x0 = value.J;
             }
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the cy.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector2D Cy
         {
-            get { return new Vector2D(m0x1, m1x1); }
+            get { return new Vector2D(M0x1, M1x1); }
             set
             {
-                m0x1 = value.I;
-                m1x1 = value.J;
+                M0x1 = value.I;
+                M1x1 = value.J;
             }
         }
 
         /// <summary>
-        /// The X Row or row zero.
+        /// Gets or sets the rx.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The First row of the Matrix2x2")]
         public Vector2D Rx
         {
-            get { return new Vector2D(m0x0, m0x1); }
+            get { return new Vector2D(M0x0, M0x1); }
             set
             {
-                m0x0 = value.I;
-                m0x1 = value.J;
+                M0x0 = value.I;
+                M0x1 = value.J;
             }
         }
 
         /// <summary>
-        /// The Y Row or row one.
+        /// Gets or sets the ry.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second row of the Matrix2x2")]
         public Vector2D Ry
         {
-            get { return new Vector2D(m1x0, m1x1); }
+            get { return new Vector2D(M1x0, M1x1); }
             set
             {
-                m1x0 = value.I;
-                m1x1 = value.J;
+                M1x0 = value.I;
+                M1x1 = value.J;
             }
         }
 
         /// <summary>
-        ///
+        /// Gets the determinant.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Determinant
-            => Determinant(m0x0, m0x1, m1x0, m1x1);
+            => Determinant(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Swap the rows of the matrix with the columns.
@@ -196,21 +174,21 @@ namespace Engine
             => Primitives.Transpose(this);
 
         /// <summary>
-        ///
+        /// Gets the adjoint.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Adjoint
             => Primitives.Adjoint(this);
 
         /// <summary>
-        ///
+        /// Gets the cofactor.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Cofactor
             => Primitives.Cofactor(this);
 
         /// <summary>
-        ///
+        /// Gets the inverted.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Inverted
@@ -221,10 +199,10 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity
-            => Abs(m0x0 - 1) < Epsilon
-                && Abs(m0x1) < Epsilon
-                && Abs(m1x0) < Epsilon
-                && Abs(m1x1 - 1) < Epsilon;
+            => Abs(M0x0 - 1) < Epsilon
+                && Abs(M0x1) < Epsilon
+                && Abs(M1x0) < Epsilon
+                && Abs(M1x1 - 1) < Epsilon;
         #endregion Properties
 
         #region Operators
@@ -321,8 +299,7 @@ namespace Engine
         /// Tupple to <see cref="Matrix2x2D"/>.
         /// </summary>
         /// <param name="tuple"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         [DebuggerStepThrough]
         public static implicit operator Matrix2x2D((double, double, double, double) tuple)
             => new Matrix2x2D(tuple);
@@ -330,10 +307,10 @@ namespace Engine
 
         #region Factories
         /// <summary>
-        ///
+        /// The from rotation.
         /// </summary>
-        /// <param name="radianAngle"></param>
-        /// <returns></returns>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <returns>The <see cref="Matrix2x2D"/>.</returns>
         public static Matrix2x2D FromRotation(double radianAngle)
         {
             var sin = Sin(radianAngle);
@@ -456,18 +433,17 @@ namespace Engine
         /// int - the HashCode for this Matrix
         /// </returns>
         public override int GetHashCode()
-            => m0x0.GetHashCode()
-            ^ m0x1.GetHashCode()
-            ^ m1x0.GetHashCode()
-            ^ m1x1.GetHashCode();
+            => M0x0.GetHashCode()
+            ^ M0x1.GetHashCode()
+            ^ M1x0.GetHashCode()
+            ^ M1x1.GetHashCode();
 
         /// <summary>
         /// Compares two Matrix2x3D
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Matrix2x2D a, Matrix2x2D b)
             => Equals(a, b);
@@ -528,8 +504,8 @@ namespace Engine
         public Matrix3x3D ToMatrix3x3D()
         {
             var result = Matrix3x3D.Identity;
-            result.M0x0 = m0x0; result.M0x1 = m0x1;
-            result.M1x0 = m1x0; result.M1x1 = m1x1;
+            result.M0x0 = M0x0; result.M0x1 = M0x1;
+            result.M1x0 = M1x0; result.M1x1 = M1x1;
             return result;
         }
 
@@ -578,7 +554,7 @@ namespace Engine
             if (IsIdentity) return nameof(Identity);
             // Helper to get the numeric list separator for a given culture.
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Matrix2x2D)}{{{nameof(M0x0)}={m0x0}{sep}{nameof(M0x1)}={m0x1}{sep}{nameof(M1x0)}={m1x0}{sep}{nameof(M1x1)}={m1x1}}}";
+            IFormattable formatable = $"{nameof(Matrix2x2D)}{{{nameof(M0x0)}={M0x0}{sep}{nameof(M0x1)}={M0x1}{sep}{nameof(M1x0)}={M1x0}{sep}{nameof(M1x1)}={M1x1}}}";
             return formatable.ToString(format, provider);
         }
 
@@ -589,8 +565,8 @@ namespace Engine
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
-                new List<double> { m0x0, m0x1 },
-                new List<double> { m1x0, m1x1 },
+                new List<double> { M0x0, M0x1 },
+                new List<double> { M1x0, M1x1 },
             }.GetEnumerator();
 
         /// <summary>

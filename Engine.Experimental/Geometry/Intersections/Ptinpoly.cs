@@ -23,6 +23,9 @@
 
 namespace MethodSpeedTester
 {
+    /// <summary>
+    /// The ptinpoly class.
+    /// </summary>
     internal class Ptinpoly
     {
         //# include <stdio.h>
@@ -96,7 +99,6 @@ namespace MethodSpeedTester
         //    line_flag = 0 ;
         //#endif
         //    for ( j = numverts+1 ; --j ; ) {
-
         //	yflag1 = ( vtx1[Y] >= ty ) ;
         //	/* check if endpoints straddle (are on opposite sides) of X axis
         //	 * (i.e. the Y's differ); if so, +X ray could intersect this edge.
@@ -107,7 +109,6 @@ namespace MethodSpeedTester
         //	     * are the same); if so, it's easy to test if edge hits or misses.
         //	     */
         //	    if ( xflag0 == ( vtx1[X] >= tx ) ) {
-
         //		/* if edge's X values both right of the point, must hit */
         //#ifdef	WINDING
         //		if ( xflag0 ) crossings += ( yflag0? -1 : 1 ) ;
@@ -454,7 +455,6 @@ namespace MethodSpeedTester
         //    for ( i = 0, pps = pps_return
         //	; i<numverts-2
         //	; i++ ) {
-
         //	pps_new = p_size_pair[i].pps ;
         //	for ( j = 0 ; j< 3 ; j++, pps++, pps_new++ ) {
         //	    ps_temp = * pps;
@@ -506,7 +506,6 @@ namespace MethodSpeedTester
         //#endif
 
         //    for ( ps = p_plane_set, p2 = numverts-1 ; --p2 ; ) {
-
         //	if ( ps->vx* tx + ps->vy* ty < ps->c ) {
         //    ps++ ;
         //	    if ( ps->vx * tx + ps->vy * ty < ps->c ) {
@@ -600,10 +599,8 @@ namespace MethodSpeedTester
         //    inside_flag = 0 ;
         //    pgend = pgon[numverts - 1] ;
         //    for ( pg1 = pgon[1], pg2 = pgon[2] ; pg1 != pgend ; pg1+=2, pg2+=2 ) {
-
         //	u1 = pg1[X] - vx0 ;
         //	if ( u1 == 0.0 ) {
-
         //	    /* 0 and 1 vertices have same X value */
 
         //	    /* zero area test - can be removed for convex testing */
@@ -623,7 +620,6 @@ namespace MethodSpeedTester
         //		 /* compute alpha and check bounds */
         //		 ( ( alpha = ( v0 - beta*
         //		    ( pg2[Y] - vy0 ) ) / v1 ) < 0.0 ) ) {
-
         //		/* whew! missed! */
         //		goto NextTri ;
         //	    }
@@ -648,7 +644,6 @@ namespace MethodSpeedTester
 
         //		 /* compute alpha & check bounds */
         //		 ( ( alpha = ( u0 - beta* u2 ) / u1 ) < 0.0 ) ) {
-
         //		/* whew! missed! */
         //		goto NextTri ;
         //	    }
@@ -701,7 +696,6 @@ namespace MethodSpeedTester
         //degen = 0 ;
 
         //    for ( p1 = 1, p2 = 2 ; p2<numverts ; p1++, p2++ ) {
-
         //	pv[0] = pgon[0] ;
         //	pv[1] = pgon[p1] ;
         //	pv[2] = pgon[p2] ;
@@ -804,7 +798,6 @@ namespace MethodSpeedTester
         //    inside_flag = 0 ;
 
         //    for ( pss = p_spackman_set, nr = numrec+1 ; --nr ; pss++ ) {
-
         //	if ( pss->u1_nonzero ) {
         //	    /* 0 and 2 vertices have different X value */
 
@@ -818,7 +811,6 @@ namespace MethodSpeedTester
         //		 /* compute alpha & check bounds */
         //		 ( ( alpha = ( u0 - beta* pss->u2 ) * pss->inv_u1 )
         //			< 0.0 ) ) {
-
         //		/* whew! missed! */
         //		goto NextTri ;
         //	    }
@@ -835,7 +827,6 @@ namespace MethodSpeedTester
         //		 /* compute alpha and check bounds */
         //		 ( ( alpha = ( v0 - beta* pss->v2 ) * pss->inv_v1 )
         //			< 0.0 ) ) {
-
         //		/* whew! missed! */
         //		goto NextTri ;
         //	    }
@@ -925,7 +916,6 @@ namespace MethodSpeedTester
 
         //	/* skip if Y's identical (edge has no effect) */
         //	if ( vtx0[Y] != vtx1[Y] ) {
-
         //	    if ( vtx0[Y] < vtx1[Y] ) {
         //		vtxa = vtx0 ;
         //		vtxb = vtx1 ;
@@ -1030,7 +1020,6 @@ namespace MethodSpeedTester
 
         //    /* finally, sort the bins' contents by minx */
         //    for ( i = 0 ; i<p_trap_set->bins ; i++ ) {
-
         //    qsort(p_trap_set->trapz[i].edge_set, p_trap_set->trapz[i].count,
         //		sizeof(pEdge), CompareEdges ) ;
         //    }
@@ -1089,7 +1078,6 @@ namespace MethodSpeedTester
         //	 ty >= p_trap_set->maxy ||
         //	 ( tx = point[X] ) < p_trap_set->minx ||
         //	 tx >= p_trap_set->maxx ) {
-
         //	/* outside of box */
         //	return( 0 ) ;
         //    }
@@ -1100,7 +1088,6 @@ namespace MethodSpeedTester
         //    /* find if we're inside this bin's bounds */
         //    if ( tx< (p_trap = &p_trap_set->trapz[b])->minx ||
         //	 tx > p_trap->maxx ) {
-
         //	/* outside of box */
         //	return( 0 ) ;
         //    }
@@ -1110,7 +1097,6 @@ namespace MethodSpeedTester
         //    count = p_trap->count ;
         //    for ( j = 0 ; j<count ; j++, pp_bin++ ) {
         //	if ( tx< (* pp_bin)->minx ) {
-
         //	    /* all remaining edges are to right of point, so test them */
         //	    do {
         //		if ( (* pp_bin)->full_cross ) {
@@ -1119,7 +1105,6 @@ namespace MethodSpeedTester
         //		    id = (* pp_bin)->id ;
         //		    if ( ( ty <= pgon[id][Y] ) !=
         //			    ( ty <= pgon[(id + 1) % numverts][Y] ) ) {
-
         //			/* point crosses edge in Y, so must cross */
         //			inside_flag = !inside_flag ;
         //		    }
@@ -1136,7 +1121,6 @@ namespace MethodSpeedTester
 
         //	    if ( (* pp_bin)->full_cross ||
         //		 ( ty <= vtx0[Y] ) != ( ty <= vtx1[Y] ) ) {
-
         //		/* edge crosses in Y, so have to do full crossings test */
         //		if ( (vtx0[X] -
         //		    (vtx0[Y] - ty )*
@@ -1163,7 +1147,6 @@ namespace MethodSpeedTester
         //	    count = p_trap_set->trapz[i].count ;
         //	    for ( j = 0 ; j<count ; j++ ) {
         //		if ( p_trap_set->trapz[i].edge_set[j] ) {
-
         //            free(p_trap_set->trapz[i].edge_set[j] );
         //		}
         //	    }
@@ -1264,14 +1247,12 @@ namespace MethodSpeedTester
         //    p_gs->inv_ydelta = 1.0 / p_gs->ydelta ;
 
         //    for ( i = 0, p_gl = p_gs->glx ; i<p_gs->xres ; i++ ) {
-
         //    * p_gl++ = p_gs->minx + i* p_gs->xdelta ;
         //    }
         //    /* make last grid corner precisely correct */
         //    * p_gl = p_gs->maxx;
 
         //    for ( i = 0, p_gl = p_gs->gly ; i<p_gs->yres ; i++ ) {
-
         //    * p_gl++ = p_gs->miny + i* p_gs->ydelta ;
         //    }
         //    * p_gl = p_gs->maxy;
@@ -1374,7 +1355,6 @@ namespace MethodSpeedTester
         //		y_flag = FALSE ;
 
         //	    } else {
-
         //		gcy++ ;
 
         //		tx -= ty ;
@@ -1414,9 +1394,7 @@ namespace MethodSpeedTester
         //		for ( i = 0, p_gc = p_gs->gc
         //		    ; i<p_gs->tot_cells
         //		    ; i++, p_gc++ ) {
-
         //		    if ( p_gc->gr ) {
-
         //            free(p_gc->gr );
         //		    }
         //		}
@@ -1469,7 +1447,6 @@ namespace MethodSpeedTester
         //	io_state = 0x0 ;
 
         //	for ( j = 0; j<p_gs->xres ; j++ ) {
-
         //	    if ( io_state ) {
         //		/* change cell left corners to inside */
         //		p_gc->gc_flags |= GC_TL_IN ;
@@ -1493,7 +1470,6 @@ namespace MethodSpeedTester
 
         //    p_gc = p_gs->gc ;
         //    for ( i = 0; i<p_gs->tot_cells ; i++ ) {
-
         //	/* reverse parity of edge clear (1==edge clear) */
         //	gc_clear_flags = p_gc->gc_flags ^ GC_ALL_EDGE_CLEAR ;
         //	if ( gc_clear_flags & GC_L_EDGE_CLEAR ) {
@@ -1604,11 +1580,9 @@ namespace MethodSpeedTester
         //	 ty >= p_gs->maxy ||
         //	 ( tx = point[X] ) < p_gs->minx ||
         //	 tx >= p_gs->maxx ) {
-
         //	/* outside of box */
         //	inside_flag = FALSE ;
         //    } else {
-
         //	/* what cell are we in? */
         //	ycell = ( ty - p_gs->miny ) * p_gs->inv_ydelta ;
         //	xcell = ( tx - p_gs->minx ) * p_gs->inv_xdelta ;
@@ -1722,12 +1696,10 @@ namespace MethodSpeedTester
         //		cornerx = p_gs->glx[(int)xcell] ;
         //		cornery = p_gs->gly[(int)ycell] ;
         //		for ( j = count+1 ; --j ; p_gr++ ) {
-
         //		    /* quick out test: if test point is
         //		     * less than minx & miny, edge cannot overlap.
         //		     */
         //		    if ( tx >= p_gr->minx && ty >= p_gr->miny ) {
-
         //			/* quick test failed, now check if test point and
         //			 * corner are on different sides of edge.
         //			 */
@@ -1794,9 +1766,7 @@ namespace MethodSpeedTester
         //    for ( i = 0, p_gc = p_gs->gc
         //	; i<p_gs->tot_cells
         //	; i++, p_gc++ ) {
-
         //	if ( p_gc->gr ) {
-
         //        free(p_gc->gr );
         //	}
         //    }
@@ -1863,10 +1833,8 @@ namespace MethodSpeedTester
         //    for ( i = 0, pps = pps_return
         //	; i<numverts
         //	; i++ ) {
-
         //	ind = (int)(RAN01() * numverts ) ;
         //	if ( ( ind< 0 ) || ( ind >= numverts ) ) {
-
         //        fprintf(stderr,
         //		"Yikes, the random number generator is returning values\n" );
 
@@ -1904,7 +1872,6 @@ namespace MethodSpeedTester
         //    ty = point[Y] ;
 
         //    for ( p0 = numverts+1, pps = p_ext_set ; --p0 ; pps++ ) {
-
         //	/* test if the point is outside this edge */
         //	if ( pps->vx* tx + pps->vy* ty > pps->c ) {
         //	    return( 0 ) ;
@@ -1974,7 +1941,6 @@ namespace MethodSpeedTester
         //    ay = pgon[0][Y] - qy ;
         //    len = sqrt(ax* ax + ay* ay);
         //    if ( len == 0.0 ) {
-
         //    fprintf(stderr, "sorry, polygon for inclusion test is defective\n" );
 
         //    exit(1);
@@ -1986,7 +1952,6 @@ namespace MethodSpeedTester
         //    for ( pc = p1 = 0, p2 = 1
         //	; pc <= numverts
         //	; pc++, p1 = p2, p2 = (++p2)%numverts, pis++ ) {
-
         //	/* wedge border */
         //	wx = pgon[p1][X] - qx ;
         //	wy = pgon[p1][Y] - qy ;
@@ -2128,7 +2093,6 @@ namespace MethodSpeedTester
 
         //    inside_flag = 0 ;
         //    for ( j = numverts+1 ; --j ; ) {
-
         //	yflag1 = ( vtx1[Y] >= ty ) ;
         //	/* Check if endpoints straddle (are on opposite sides) of X axis
         //	 * (i.e. the Y's differ); if so, +X ray could intersect this edge.

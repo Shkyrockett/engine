@@ -44,7 +44,7 @@ namespace Engine
         private ClippingRelations belongsTo;
 
         /// <summary>
-        /// 
+        /// The contribution.
         /// </summary>
         private EdgeContributions contribution;
 
@@ -71,41 +71,41 @@ namespace Engine
         private SweepEvent prevInResult;
 
         /// <summary>
-        /// 
+        /// The in result.
         /// </summary>
         private bool inResult;
 
         /// <summary>
-        /// 
+        /// The pos.
         /// </summary>
         private int pos;
 
         /// <summary>
-        /// 
+        /// The result in out.
         /// </summary>
         private bool resultInOut;
 
         /// <summary>
-        /// 
+        /// The contour id.
         /// </summary>
         private int contourId;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SweepEvent"/> class.
         /// </summary>
         public SweepEvent()
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SweepEvent"/> class.
         /// </summary>
-        /// <param name="b"></param>
-        /// <param name="p"></param>
-        /// <param name="other"></param>
-        /// <param name="pt"></param>
-        /// <param name="et"></param>
+        /// <param name="b">The b.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="other">The other.</param>
+        /// <param name="pt">The pt.</param>
+        /// <param name="et">The et.</param>
         public SweepEvent(bool b, Point2D p, SweepEvent other, ClippingRelations pt, EdgeContributions et = EdgeContributions.Normal)
         {
             IsLeft = b;
@@ -147,7 +147,7 @@ namespace Engine
         public SweepEvent OtherEvent { get { return otherEvent; } set { otherEvent = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the contribution.
         /// </summary>
         public EdgeContributions Contribution { get { return contribution; } set { contribution = value; } }
 
@@ -174,52 +174,52 @@ namespace Engine
         public SweepEvent PrevInResult { get { return prevInResult; } set { prevInResult = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         public bool InResult { get { return inResult; } set { inResult = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the pos.
         /// </summary>
         public int Pos { get { return pos; } set { pos = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets a value indicating whether 
         /// </summary>
         public bool ResultInOut { get { return resultInOut; } set { resultInOut = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the contour id.
         /// </summary>
         public int ContourId { get { return contourId; } set { contourId = value; } }
         #endregion Properties
 
         #region Operators
         /// <summary>
-        /// 
+        /// The operator Less than.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator <(SweepEvent a, SweepEvent b)
             => SweepEventComp(a, b) < 0;
 
         /// <summary>
-        /// 
+        /// The operator Greater than.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator >(SweepEvent a, SweepEvent b)
             => SweepEventComp(a, b) > 0;
         #endregion Operators
 
         #region Methods
         /// <summary>
-        /// 
+        /// The compare to.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="int"/>.</returns>
         public int CompareTo(SweepEvent other)
             => SweepEventComp(this, other);
 
@@ -246,10 +246,11 @@ namespace Engine
         public LineSegment Segment()
             => new LineSegment(Point, OtherEvent.Point);
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
             var oss = "";

@@ -13,7 +13,7 @@ using static System.Math;
 namespace Engine.Chrono
 {
     /// <summary>
-    ///
+    /// The lunar class.
     /// </summary>
     internal class Lunar
     {

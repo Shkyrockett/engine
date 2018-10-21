@@ -276,9 +276,8 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the circumference.
         /// </summary>
-        /// <returns></returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The distance around the circle.")]
@@ -286,7 +285,7 @@ namespace Engine
             => (double)CachingProperty(() => Measurements.CircleCircumference(radius));
 
         /// <summary>
-        /// 
+        /// Gets the perimeter.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
@@ -295,7 +294,7 @@ namespace Engine
             => Circumference;
 
         /// <summary>
-        /// 
+        /// Gets or sets the area.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]

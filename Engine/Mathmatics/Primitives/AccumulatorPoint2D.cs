@@ -16,7 +16,6 @@ using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
 using System.Runtime.Serialization;
-using System.Diagnostics;
 
 namespace Engine
 {
@@ -71,15 +70,13 @@ namespace Engine
         #region Properties
         /// <summary>
         /// X component of a <see cref="AccumulatorPoint2D"/> coordinate.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
         /// Y component of a <see cref="AccumulatorPoint2D"/> coordinate.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
 
@@ -224,8 +221,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(AccumulatorPoint2D a, AccumulatorPoint2D b)
             => Equals(a, b);

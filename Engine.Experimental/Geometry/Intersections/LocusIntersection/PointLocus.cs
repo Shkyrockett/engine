@@ -10,26 +10,26 @@
 
 namespace Engine
 {
-    /// <summary>
-    /// 
-    /// </summary>
     /// <remarks> This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178 </remarks>
+    /// <summary>
+    /// The point locus class.
+    /// </summary>
     public class PointLocus
         : Locus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointLocus"/> class.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point">The point.</param>
         public PointLocus(Point2D point)
             : this(point.X, point.Y)
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointLocus"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         public PointLocus(double x, double y)
         {
             X = x;
@@ -37,18 +37,15 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the x.
         /// </summary>
         public double X { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the y.
         /// </summary>
         public double Y { get; set; }
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="locus"></param>
         public static implicit operator Point2D(PointLocus locus)
             => new Point2D(locus.X, locus.Y);

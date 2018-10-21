@@ -11,47 +11,47 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The areas enum.
     /// </summary>
     public enum Areas
     {
         /// <summary>
-        /// 
+        /// The SquareKilometer.
         /// </summary>
         SquareKilometer,
 
         /// <summary>
-        /// 
+        /// The Hectare.
         /// </summary>
         Hectare,
 
         /// <summary>
-        /// 
+        /// The SquareMeter.
         /// </summary>
         SquareMeter,
 
         /// <summary>
-        /// 
+        /// The SquareMile.
         /// </summary>
         SquareMile,
 
         /// <summary>
-        /// 
+        /// The Acre.
         /// </summary>
         Acre,
 
         /// <summary>
-        /// 
+        /// The SquareYard.
         /// </summary>
         SquareYard,
 
         /// <summary>
-        /// 
+        /// The SquaareFoot.
         /// </summary>
         SquaareFoot,
 
         /// <summary>
-        /// 
+        /// The SquareInch.
         /// </summary>
         SquareInch
     }

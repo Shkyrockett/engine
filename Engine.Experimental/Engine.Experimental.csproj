@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>latest</LangVersion>
     <DocumentationFile>bin\Any CPU\Release\netstandard2.0\Engine.Experimental.xml</DocumentationFile>
     <OutputPath>bin\Any CPU\Release\netstandard2.0\</OutputPath>
   </PropertyGroup>

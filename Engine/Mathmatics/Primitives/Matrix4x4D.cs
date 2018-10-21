@@ -53,99 +53,17 @@ namespace Engine
             0, 0, 0, 1);
         #endregion Static Fields
 
-        #region Private Fields
-        /// <summary>
-        ///
-        /// </summary>
-        private double m0x0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m0x1;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m0x2;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m0x3;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m1x0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m1x1;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m1x2;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m1x3;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m2x0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m2x1;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m2x2;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m2x3;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m3x0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m3x1;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m3x2;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m3x3;
-        #endregion Private Fields
-
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Matrix4x4D"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">The tuple.</param>
         public Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple)
         {
-            (m0x0, m0x1, m0x2, m0x3,
-                           m1x0, m1x1, m1x2, m1x3,
-                           m2x0, m2x1, m2x2, m2x3,
-                           m3x0, m3x1, m3x2, m3x3) = tuple;
+            (M0x0, M0x1, M0x2, M0x3,
+                           M1x0, M1x1, M1x2, M1x3,
+                           M2x0, M2x1, M2x2, M2x3,
+                           M3x0, M3x1, M3x2, M3x3) = tuple;
         }
 
         /// <summary>
@@ -173,22 +91,22 @@ namespace Engine
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3)
         {
-            this.m0x0 = m0x0;
-            this.m0x1 = m0x1;
-            this.m0x2 = m0x2;
-            this.m0x3 = m0x3;
-            this.m1x0 = m1x0;
-            this.m1x1 = m1x1;
-            this.m1x2 = m1x2;
-            this.m1x3 = m1x3;
-            this.m2x0 = m2x0;
-            this.m2x1 = m2x1;
-            this.m2x2 = m2x2;
-            this.m2x3 = m2x3;
-            this.m3x0 = m3x0;
-            this.m3x1 = m3x1;
-            this.m3x2 = m3x2;
-            this.m3x3 = m3x3;
+            M0x0 = m0x0;
+            M0x1 = m0x1;
+            M0x2 = m0x2;
+            M0x3 = m0x3;
+            M1x0 = m1x0;
+            M1x1 = m1x1;
+            M1x2 = m1x2;
+            M1x3 = m1x3;
+            M2x0 = m2x0;
+            M2x1 = m2x1;
+            M2x2 = m2x2;
+            M2x3 = m2x3;
+            M3x0 = m3x0;
+            M3x1 = m3x1;
+            M3x2 = m3x2;
+            M3x3 = m3x3;
         }
 
         /// <summary>
@@ -208,274 +126,285 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the m0x0.
         /// </summary>
-        public double M0x0 { get { return m0x0; } set { m0x0 = value; } }
+        public double M0x0 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m0x1.
         /// </summary>
-        public double M0x1 { get { return m0x1; } set { m0x1 = value; } }
+        public double M0x1 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m0x2.
         /// </summary>
-        public double M0x2 { get { return m0x2; } set { m0x2 = value; } }
+        public double M0x2 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m0x3.
         /// </summary>
-        public double M0x3 { get { return m0x3; } set { m0x3 = value; } }
+        public double M0x3 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m1x0.
         /// </summary>
-        public double M1x0 { get { return m1x0; } set { m1x0 = value; } }
+        public double M1x0 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m1x1.
         /// </summary>
-        public double M1x1 { get { return m1x1; } set { m1x1 = value; } }
+        public double M1x1 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m1x2.
         /// </summary>
-        public double M1x2 { get { return m1x2; } set { m1x2 = value; } }
+        public double M1x2 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m1x3.
         /// </summary>
-        public double M1x3 { get { return m1x3; } set { m1x3 = value; } }
+        public double M1x3 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m2x0.
         /// </summary>
-        public double M2x0 { get { return m2x0; } set { m2x0 = value; } }
+        public double M2x0 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m2x1.
         /// </summary>
-        public double M2x1 { get { return m2x1; } set { m2x1 = value; } }
+        public double M2x1 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m2x2.
         /// </summary>
-        public double M2x2 { get { return m2x2; } set { m2x2 = value; } }
+        public double M2x2 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m2x3.
         /// </summary>
-        public double M2x3 { get { return m2x3; } set { m2x3 = value; } }
+        public double M2x3 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m3x0.
         /// </summary>
-        public double M3x0 { get { return m3x0; } set { m3x0 = value; } }
+        public double M3x0 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m3x1.
         /// </summary>
-        public double M3x1 { get { return m3x1; } set { m3x1 = value; } }
+        public double M3x1 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m3x2.
         /// </summary>
-        public double M3x2 { get { return m3x2; } set { m3x2 = value; } }
+        public double M3x2 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m3x3.
         /// </summary>
-        public double M3x3 { get { return m3x3; } set { m3x3 = value; } }
+        public double M3x3 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the cx.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector4D Cx
         {
-            get { return new Vector4D(m0x0, m1x0, m2x0, m3x0); }
+            get { return new Vector4D(M0x0, M1x0, M2x0, M3x0); }
             set
             {
-                m0x0 = value.I;
-                m1x0 = value.J;
-                m2x0 = value.K;
-                m3x0 = value.L;
+                M0x0 = value.I;
+                M1x0 = value.J;
+                M2x0 = value.K;
+                M3x0 = value.L;
             }
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the cy.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector4D Cy
         {
-            get { return new Vector4D(m0x1, m1x1, m2x1, m3x1); }
+            get { return new Vector4D(M0x1, M1x1, M2x1, M3x1); }
             set
             {
-                m0x1 = value.I;
-                m1x1 = value.J;
-                m2x1 = value.K;
-                m3x1 = value.L;
+                M0x1 = value.I;
+                M1x1 = value.J;
+                M2x1 = value.K;
+                M3x1 = value.L;
             }
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the cz.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector4D Cz
         {
-            get { return new Vector4D(m0x2, m1x2, m2x2, m3x2); }
+            get { return new Vector4D(M0x2, M1x2, M2x2, M3x2); }
             set
             {
-                m0x2 = value.I;
-                m1x2 = value.J;
-                m2x2 = value.K;
-                m3x2 = value.L;
+                M0x2 = value.I;
+                M1x2 = value.J;
+                M2x2 = value.K;
+                M3x2 = value.L;
             }
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the cw.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector4D Cw
         {
-            get { return new Vector4D(m0x3, m1x3, m2x3, m3x3); }
+            get { return new Vector4D(M0x3, M1x3, M2x3, M3x3); }
             set
             {
-                m0x3 = value.I;
-                m1x3 = value.J;
-                m2x3 = value.K;
-                m3x3 = value.L;
+                M0x3 = value.I;
+                M1x3 = value.J;
+                M2x3 = value.K;
+                M3x3 = value.L;
             }
         }
 
+        ///// <summary>
+        ///// The X Row or row zero.
+        ///// </summary>
         /// <summary>
-        /// The X Row or row zero.
+        /// Gets or sets the rx.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The First row of the " + nameof(Matrix4x4D))]
         public Vector4D Rx
         {
-            get { return new Vector4D(m0x0, m0x1, m0x2, m0x3); }
+            get { return new Vector4D(M0x0, M0x1, M0x2, M0x3); }
             set
             {
-                m0x0 = value.I;
-                m0x1 = value.J;
-                m0x2 = value.K;
-                m0x3 = value.L;
+                M0x0 = value.I;
+                M0x1 = value.J;
+                M0x2 = value.K;
+                M0x3 = value.L;
             }
         }
 
+        ///// <summary>
+        ///// The Y Row or row one.
+        ///// </summary>
         /// <summary>
-        /// The Y Row or row one.
+        /// Gets or sets the ry.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second row of the " + nameof(Matrix4x4D))]
         public Vector4D Ry
         {
-            get { return new Vector4D(m1x0, m1x1, m1x2, m1x3); }
+            get { return new Vector4D(M1x0, M1x1, M1x2, M1x3); }
             set
             {
-                m1x0 = value.I;
-                m1x1 = value.J;
-                m1x2 = value.K;
-                m1x3 = value.L;
+                M1x0 = value.I;
+                M1x1 = value.J;
+                M1x2 = value.K;
+                M1x3 = value.L;
             }
         }
 
+        ///// <summary>
+        ///// The Z Row or row one.
+        ///// </summary>
         /// <summary>
-        /// The Z Row or row one.
+        /// Gets or sets the rz.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Third row of the " + nameof(Matrix4x4D))]
         public Vector4D Rz
         {
-            get { return new Vector4D(m2x0, m2x1, m2x2, m2x3); }
+            get { return new Vector4D(M2x0, M2x1, M2x2, M2x3); }
             set
             {
-                m2x0 = value.I;
-                m2x1 = value.J;
-                m2x2 = value.K;
-                m2x3 = value.L;
+                M2x0 = value.I;
+                M2x1 = value.J;
+                M2x2 = value.K;
+                M2x3 = value.L;
             }
         }
 
+        ///// <summary>
+        ///// The W Row or row one.
+        ///// </summary>
         /// <summary>
-        /// The W Row or row one.
+        /// Gets or sets the rw.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Third row of the " + nameof(Matrix4x4D))]
         public Vector4D Rw
         {
-            get { return new Vector4D(m3x0, m3x1, m3x2, m3x3); }
+            get { return new Vector4D(M3x0, M3x1, M3x2, M3x3); }
             set
             {
-                m3x0 = value.I;
-                m3x1 = value.J;
-                m3x2 = value.K;
-                m3x3 = value.L;
+                M3x0 = value.I;
+                M3x1 = value.J;
+                M3x2 = value.K;
+                M3x3 = value.L;
             }
         }
 
         /// <summary>
-        ///
+        /// Gets the determinant.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Determinant
-            => Determinant(m0x0, m0x1, M0x2, M0x3, m1x0, m1x1, m1x2, m1x3, m2x0, m2x1, m2x2, m2x3, m3x0, m3x1, m3x2, m3x3);
+            => Determinant(M0x0, M0x1, M0x2, M0x3, M1x0, M1x1, M1x2, M1x3, M2x0, M2x1, M2x2, M2x3, M3x0, M3x1, M3x2, M3x3);
 
         /// <summary>
-        /// Swap the rows of the matrix with the columns.
+        /// Gets the transposed matrix where the rows of the matrix are swapped with the columns.
         /// </summary>
-        /// <returns>A transposed Matrix.</returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix4x4D Transposed
             => Primitives.Transpose(this);
 
         /// <summary>
-        ///
+        /// Gets the adjoint.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix4x4D Adjoint
             => Primitives.Adjoint(this);
 
         /// <summary>
-        ///
+        /// Gets the cofactor.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix4x4D Cofactor
             => Primitives.Cofactor(this);
 
         /// <summary>
-        ///
+        /// Gets the inverted.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix4x4D Inverted
             => Primitives.Invert(this);
 
         /// <summary>
-        /// Tests whether or not a given transform is an identity transform matrix.
+        /// Gets a value indicating whether or not a given transform is an identity transform matrix.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity
-            => Abs(m0x0 - 1) < Epsilon
-                && Abs(m0x1) < Epsilon
-                && Abs(m0x2) < Epsilon
-                && Abs(m0x3) < Epsilon
-                && Abs(m1x0) < Epsilon
-                && Abs(m1x1 - 1) < Epsilon
-                && Abs(m1x2) < Epsilon
-                && Abs(m1x3) < Epsilon
-                && Abs(m2x0) < Epsilon
-                && Abs(m2x1) < Epsilon
-                && Abs(m2x2 - 1) < Epsilon
-                && Abs(m2x3) < Epsilon
-                && Abs(m3x0) < Epsilon
-                && Abs(m3x1) < Epsilon
-                && Abs(m3x2) < Epsilon
-                && Abs(m3x3 - 1) < Epsilon;
+            => Abs(M0x0 - 1) < Epsilon
+                && Abs(M0x1) < Epsilon
+                && Abs(M0x2) < Epsilon
+                && Abs(M0x3) < Epsilon
+                && Abs(M1x0) < Epsilon
+                && Abs(M1x1 - 1) < Epsilon
+                && Abs(M1x2) < Epsilon
+                && Abs(M1x3) < Epsilon
+                && Abs(M2x0) < Epsilon
+                && Abs(M2x1) < Epsilon
+                && Abs(M2x2 - 1) < Epsilon
+                && Abs(M2x3) < Epsilon
+                && Abs(M3x0) < Epsilon
+                && Abs(M3x1) < Epsilon
+                && Abs(M3x2) < Epsilon
+                && Abs(M3x3 - 1) < Epsilon;
         #endregion Properties
 
         #region Operators
@@ -608,9 +537,6 @@ namespace Engine
         public static bool operator !=(Matrix4x4D matrix1, Matrix4x4D matrix2)
             => !Equals(matrix1, matrix2);
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="source"></param>
         [DebuggerStepThrough]
         public static explicit operator Matrix4x4D(Matrix3x3D source)
@@ -620,9 +546,6 @@ namespace Engine
                 source.M2x0, source.M2x1, source.M2x2, 0,
                 0, 0, 0, 1);
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="source"></param>
         public static explicit operator Matrix4x4D(Matrix2x2D source)
             => new Matrix4x4D(
@@ -636,7 +559,6 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         public static implicit operator Matrix4x4D((double, double, double, double, double, double, double, double, double, double, double, double, double, double, double, double) tuple)
             => new Matrix4x4D(tuple);
@@ -821,22 +743,22 @@ namespace Engine
         /// int - the HashCode for this Matrix
         /// </returns>
         public override int GetHashCode()
-            => m0x0.GetHashCode()
-            ^ m0x1.GetHashCode()
-            ^ m0x2.GetHashCode()
-            ^ m0x3.GetHashCode()
-            ^ m1x0.GetHashCode()
-            ^ m1x1.GetHashCode()
-            ^ m1x2.GetHashCode()
-            ^ m1x3.GetHashCode()
-            ^ m2x0.GetHashCode()
-            ^ m2x1.GetHashCode()
-            ^ m2x2.GetHashCode()
-            ^ m2x3.GetHashCode()
-            ^ m3x0.GetHashCode()
-            ^ m3x1.GetHashCode()
-            ^ m3x2.GetHashCode()
-            ^ m3x3.GetHashCode();
+            => M0x0.GetHashCode()
+            ^ M0x1.GetHashCode()
+            ^ M0x2.GetHashCode()
+            ^ M0x3.GetHashCode()
+            ^ M1x0.GetHashCode()
+            ^ M1x1.GetHashCode()
+            ^ M1x2.GetHashCode()
+            ^ M1x3.GetHashCode()
+            ^ M2x0.GetHashCode()
+            ^ M2x1.GetHashCode()
+            ^ M2x2.GetHashCode()
+            ^ M2x3.GetHashCode()
+            ^ M3x0.GetHashCode()
+            ^ M3x1.GetHashCode()
+            ^ M3x2.GetHashCode()
+            ^ M3x3.GetHashCode();
 
         /// <summary>
         /// Compares two Matrix2D
@@ -844,7 +766,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Matrix4x4D a, Matrix4x4D b)
             => Equals(a, b);
@@ -955,27 +876,29 @@ namespace Engine
             if (IsIdentity) return nameof(Identity);
             // Helper to get the numeric list separator for a given culture.
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Matrix4x4D)}{{{nameof(M0x0)}={m0x0}{sep}{nameof(M0x1)}={m0x1}{sep}{nameof(M0x2)}={m0x2}{sep}{nameof(M0x3)}={m0x3}{sep}{nameof(M1x0)}={m1x0}{sep}{nameof(M1x1)}={m1x1}{sep}{nameof(M1x2)}={m1x2}{sep}{nameof(M1x3)}={m1x3}{sep}{nameof(M2x0)}={m2x0}{sep}{nameof(M2x1)}={m2x1}{sep}{nameof(M2x2)}={m2x2}{sep}{nameof(M2x3)}={m2x3}{sep}{nameof(M3x0)}={m3x0}{sep}{nameof(M3x1)}={m3x1}{sep}{nameof(M3x2)}={m3x2}{sep}{nameof(M3x3)}={m3x3}}}";
+            IFormattable formatable = $"{nameof(Matrix4x4D)}{{{nameof(M0x0)}={M0x0}{sep}{nameof(M0x1)}={M0x1}{sep}{nameof(M0x2)}={M0x2}{sep}{nameof(M0x3)}={M0x3}{sep}{nameof(M1x0)}={M1x0}{sep}{nameof(M1x1)}={M1x1}{sep}{nameof(M1x2)}={M1x2}{sep}{nameof(M1x3)}={M1x3}{sep}{nameof(M2x0)}={M2x0}{sep}{nameof(M2x1)}={M2x1}{sep}{nameof(M2x2)}={M2x2}{sep}{nameof(M2x3)}={M2x3}{sep}{nameof(M3x0)}={M3x0}{sep}{nameof(M3x1)}={M3x1}{sep}{nameof(M3x2)}={M3x2}{sep}{nameof(M3x3)}={M3x3}}}";
             return formatable.ToString(format, provider);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
-                new List<double> { m0x0, m0x1, m0x2, m0x3 },
-                new List<double> { m1x0, m1x1, m1x2, m1x3 },
-                new List<double> { m2x0, m2x1, m2x2, M2x3 },
-                new List<double> { m3x0, m3x1, m3x2, M3x3 },
+                new List<double> { M0x0, M0x1, M0x2, M0x3 },
+                new List<double> { M1x0, M1x1, M1x2, M1x3 },
+                new List<double> { M2x0, M2x1, M2x2, M2x3 },
+                new List<double> { M3x0, M3x1, M3x2, M3x3 },
             }.GetEnumerator();
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
         #endregion Methods

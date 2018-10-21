@@ -15,7 +15,7 @@ using System.ComponentModel;
 namespace Engine.Tools
 {
     /// <summary>
-    /// 
+    /// The tool stack class.
     /// </summary>
     public class ToolStack
     {

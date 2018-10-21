@@ -13,7 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Engine.Tests
 {
     /// <summary>
-    /// 
+    /// The experimental tests unit test class.
     /// </summary>
     [TestClass]
     public class ExperimentalTests

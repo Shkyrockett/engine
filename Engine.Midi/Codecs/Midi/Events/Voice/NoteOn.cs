@@ -26,11 +26,11 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="NoteOn"/> class.
         /// </summary>
-        /// <param name="note"></param>
-        /// <param name="velocity"></param>
-        /// <param name="status"></param>
+        /// <param name="note">The note.</param>
+        /// <param name="velocity">The velocity.</param>
+        /// <param name="status">The status.</param>
         public NoteOn(byte note, byte velocity, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -49,11 +49,11 @@ namespace Engine.File
         public byte Velocity { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="NoteOn"/>.</returns>
         internal static NoteOn Read(BinaryReaderExtended reader, EventStatus status)
             => new NoteOn(reader.ReadByte(), reader.ReadByte(), status);
     }

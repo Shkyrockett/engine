@@ -98,10 +98,12 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public abstract double Length { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The interpolate.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public abstract Point2D Interpolate(double t);
         #endregion Properties
 
@@ -118,7 +120,7 @@ namespace Engine
         /// <param name="property"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// http://syncor.blogspot.com/2010/11/passing-getter-and-setter-of-c-property.html
         /// </acknowledgment>

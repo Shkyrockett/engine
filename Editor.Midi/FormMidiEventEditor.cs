@@ -226,7 +226,6 @@ namespace EventEditorMidi
             //}
             //catch (Exception)
             //{
-
             //    // throw;
             //}
         }

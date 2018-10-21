@@ -15,13 +15,13 @@
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The midi status messages enum.
     /// </summary>
     public enum MidiStatusMessages
         : int
     {
         /// <summary>
-        /// 
+        /// The Unknown = -1.
         /// </summary>
         Unknown = -1,
 

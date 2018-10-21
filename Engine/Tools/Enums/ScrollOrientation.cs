@@ -11,17 +11,17 @@
 namespace Engine.Tools
 {
     /// <summary>
-    /// 
+    /// The scroll orientation enum.
     /// </summary>
     public enum ScrollOrientation
     {
         /// <summary>
-        /// 
+        /// The HorizontalScroll = 0.
         /// </summary>
         HorizontalScroll = 0,
 
         /// <summary>
-        /// 
+        /// The VerticalScroll = 1.
         /// </summary>
         VerticalScroll = 1
     }

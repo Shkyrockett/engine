@@ -13,19 +13,19 @@ using System.Windows.Forms.Design;
 
 namespace Engine.WindowsForms
 {
-    /// <summary>
-    /// 
-    /// </summary>
     /// <remarks>
     /// http://www.windows-tech.info/3/7435e13b97d3160f.php
     /// http://stackoverflow.com/questions/4984143/how-add-my-imagebutton-to-toolstrip
     /// </remarks>
+    /// <summary>
+    /// The palette tool strip item class.
+    /// </summary>
     [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.All)]
     public partial class PaletteToolStripItem
         : ToolStripControlHost
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PaletteToolStripItem"/> class.
         /// </summary>
         public PaletteToolStripItem()
             : base(new PaletteControl())
@@ -34,7 +34,7 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Gets the palette control.
         /// </summary>
         public PaletteControl PaletteControl
             => Control as PaletteControl;

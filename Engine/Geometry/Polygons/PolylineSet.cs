@@ -22,8 +22,7 @@ namespace Engine
 {
     /// <summary>
     /// Set of a open Polyline structures
-    /// </summary>
-    /// <remarks></remarks>
+    /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(PolylineSet))]
@@ -33,8 +32,7 @@ namespace Engine
         #region Fields
         /// <summary>
         /// An array of Polygons representing a set.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         private List<Polyline> polylines;
         #endregion Fields
 

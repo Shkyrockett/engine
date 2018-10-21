@@ -5,7 +5,7 @@ namespace Engine
     /// <summary>
     /// The intersections experimental class.
     /// </summary>
-    class IntersectionsExperimental
+    public static partial class IntersectionsExperimental
     {
         /// <summary>
         /// public domain function by Darel Rex Finley, 2006
@@ -34,7 +34,6 @@ namespace Engine
             var start = 0;
             while (poly[i] != END)
             {
-
                 var j = i + 2;
 
                 if (poly[i] == SPLINE)

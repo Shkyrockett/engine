@@ -16,9 +16,7 @@ namespace Engine
     /// <summary>
     /// Geometry Intersection Return Structure
     /// </summary>
-    /// <structure>Engine.Geometry.Intersection</structure>
-    /// <remarks></remarks>
-    [DataContract, Serializable]
+    /// <structure>Engine.Geometry.Intersection</structure>    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Intersectionx))]
     public class Intersectionx
@@ -65,7 +63,7 @@ namespace Engine
         {
             IntersectionPoint = Locations;
             Itersecting = Intersects;
-            this.Paralell = Parallel;
+            Paralell = Parallel;
             if (Parallel)
                 Type = IntersectionState.Parallel;
         }
@@ -80,7 +78,7 @@ namespace Engine
         {
             IntersectionPoint = new Point2D[] { Locations };
             Itersecting = Intersects;
-            this.Paralell = Parallel;
+            Paralell = Parallel;
             if (Parallel)
                 Type = IntersectionState.Parallel;
         }
@@ -102,15 +100,11 @@ namespace Engine
 
         /// <summary>
         /// Return Value of whether an intersection occurred
-        /// </summary>
-        /// <remarks></remarks>
-        public bool Itersecting { get; set; }
+        /// </summary>        public bool Itersecting { get; set; }
 
         /// <summary>
         /// Returns of the point(s) of Intersection
-        /// </summary>
-        /// <remarks></remarks>
-        public Point2D[] IntersectionPoint { get; set; }
+        /// </summary>        public Point2D[] IntersectionPoint { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether 

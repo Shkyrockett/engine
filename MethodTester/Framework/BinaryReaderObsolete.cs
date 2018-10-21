@@ -80,10 +80,10 @@ namespace Engine.File
 
         #region Methods
         /// <summary>
-        /// 
+        /// Read the variable length.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <returns>The <see cref="int"/>.</returns>
         private static int ReadVariableLength(BinaryReaderExtended reader)
         {
             var value = 0;
@@ -191,7 +191,6 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        /// <remarks></remarks>
         [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -222,7 +221,6 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        /// <remarks></remarks>
         [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -255,7 +253,6 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        /// <remarks></remarks>
         [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

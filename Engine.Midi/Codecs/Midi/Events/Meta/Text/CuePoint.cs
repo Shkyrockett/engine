@@ -24,20 +24,20 @@ namespace Engine.File
         : BaseTextEvent
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CuePoint"/> class.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="status"></param>
+        /// <param name="text">The text.</param>
+        /// <param name="status">The status.</param>
         public CuePoint(string text, EventStatus status)
             : base(text, status)
         { }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="CuePoint"/>.</returns>
         internal static CuePoint Read(BinaryReaderExtended reader, EventStatus status)
             => new CuePoint(reader.ReadASCIIString(), status);
     }

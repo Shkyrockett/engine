@@ -31,9 +31,9 @@ namespace EngineTests
 
         #region Housekeeping
         /// <summary>
-        /// 
+        /// ClassInitialize runs code before running the first test in the class.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">The context.</param>
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
@@ -41,7 +41,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// TestInitialize runs code before running each test.
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -50,7 +50,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// TestCleanup runs code after each test has run.
         /// </summary>
         [TestCleanup]
         public void Cleanup()
@@ -59,7 +59,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// ClassCleanup runs code after all tests in a class have run.
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()
@@ -69,7 +69,7 @@ namespace EngineTests
         #endregion Housekeeping
 
         /// <summary>
-        /// 
+        /// Write the network u int14test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -101,7 +101,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// Write the network int14test.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -133,7 +133,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The write7bit encoded int test.
         /// </summary>
         [TestMethod]
         [Priority(0)]

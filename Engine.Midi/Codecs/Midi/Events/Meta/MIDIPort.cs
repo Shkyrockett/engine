@@ -24,10 +24,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MIDIPort"/> class.
         /// </summary>
-        /// <param name="port"></param>
-        /// <param name="status"></param>
+        /// <param name="port">The port.</param>
+        /// <param name="status">The status.</param>
         public MIDIPort(byte port, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -35,16 +35,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the port.
         /// </summary>
         public byte Port { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="MIDIPort"/>.</returns>
         internal static MIDIPort Read(BinaryReaderExtended reader, EventStatus status)
             => new MIDIPort(reader.ReadByte(), status);
     }

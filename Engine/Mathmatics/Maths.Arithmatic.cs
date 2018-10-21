@@ -422,7 +422,7 @@ namespace Engine
         /// <param name="i2"></param>
         /// <param name="j2"></param>
         /// <returns>Returns the Difference Between PointA and PointB</returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Delta(double i1, double j1, double i2, double j2)
@@ -438,7 +438,7 @@ namespace Engine
         /// <param name="j2"></param>
         /// <param name="k2"></param>
         /// <returns>Returns the Difference Between PointA and PointB</returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Delta(double i1, double j1, double k1, double i2, double j2, double k2)
@@ -456,7 +456,7 @@ namespace Engine
         /// <param name="k2"></param>
         /// <param name="l2"></param>
         /// <returns>Returns the Difference Between PointA and PointB</returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Delta(double i1, double j1, double k1, double l1, double i2, double j2, double k2, double l2)
@@ -1354,7 +1354,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
         /// </acknowledgment>
@@ -1424,14 +1424,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The max2.
         /// </summary>
-        /// <param name="w"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="w">The w.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
         /// </acknowledgment>
@@ -1441,25 +1440,25 @@ namespace Engine
             => Math.Max(w, Math.Max(x, Math.Max(y, z)));
 
         /// <summary>
-        ///
+        /// The max point.
         /// </summary>
-        /// <param name="point1X"></param>
-        /// <param name="point1Y"></param>
-        /// <param name="point2X"></param>
-        /// <param name="point2Y"></param>
-        /// <returns></returns>
+        /// <param name="point1X">The point1X.</param>
+        /// <param name="point1Y">The point1Y.</param>
+        /// <param name="point2X">The point2X.</param>
+        /// <param name="point2Y">The point2Y.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) MaxPoint(double point1X, double point1Y, double point2X, double point2Y)
             => (Math.Max(point1X, point2X), Math.Max(point1Y, point2Y));
 
         /// <summary>
-        /// 
+        /// The min max.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
-        /// <returns></returns>
+        /// <param name="x">The x.</param>
+        /// <param name="min">The min.</param>
+        /// <param name="max">The max.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double MinMax(double x, double min, double max)
@@ -1515,7 +1514,6 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
         /// </acknowledgment>
@@ -1552,7 +1550,6 @@ namespace Engine
         /// <param name="y">The third variable.</param>
         /// <param name="z">The fourth variable.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/6800838/in-c-sharp-is-there-a-method-to-find-the-max-of-3-numbers
         /// </acknowledgment>
@@ -1562,26 +1559,25 @@ namespace Engine
             => Math.Min(w, Math.Min(x, Math.Max(y, z)));
 
         /// <summary>
-        ///
+        /// The min point.
         /// </summary>
-        /// <param name="point1X"></param>
-        /// <param name="point1Y"></param>
-        /// <param name="point2X"></param>
-        /// <param name="point2Y"></param>
-        /// <returns></returns>
+        /// <param name="point1X">The point1X.</param>
+        /// <param name="point1Y">The point1Y.</param>
+        /// <param name="point2X">The point2X.</param>
+        /// <param name="point2Y">The point2Y.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) MinPoint(double point1X, double point1Y, double point2X, double point2Y)
             => (Math.Min(point1X, point2X), Math.Min(point1Y, point2Y));
 
         /// <summary>
-        ///
+        /// The approximately.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="precision"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="precision">The precision.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo
         /// </acknowledgment>
@@ -1619,8 +1615,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <remarks></remarks>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <acknowledgment>
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -1651,8 +1646,7 @@ namespace Engine
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <remarks></remarks>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <acknowledgment>
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -1853,11 +1847,11 @@ namespace Engine
             => (value1 > value2) || AreClose(value1, value2);
 
         /// <summary>
-        ///
+        /// The near zero.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -1870,7 +1864,7 @@ namespace Engine
         /// but this is faster.
         /// </summary>
         /// <param name="value"> The double to compare to 0. </param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
@@ -1886,7 +1880,7 @@ namespace Engine
         /// but this is faster.
         /// </summary>
         /// <param name="value"> The double to compare to 0. </param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
@@ -1902,7 +1896,7 @@ namespace Engine
         /// but this is faster.
         /// </summary>
         /// <param name="value"> The double to compare to 1. </param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
@@ -1918,7 +1912,7 @@ namespace Engine
         /// but this is faster.
         /// </summary>
         /// <param name="value"> The double to compare to 1. </param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>
         /// bool - the result of the AreClose comparison.
         /// </returns>
@@ -1930,10 +1924,10 @@ namespace Engine
             => Math.Abs(value - 1d) < 10d * epsilon;
 
         /// <summary>
-        ///
+        /// The is between zero and one.
         /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
+        /// <param name="val">The val.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -1942,10 +1936,10 @@ namespace Engine
             => GreaterThanOrClose(val, 0f) && LessThanOrClose(val, 1);
 
         /// <summary>
-        ///
+        /// The is between zero and one.
         /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
+        /// <param name="val">The val.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
         //[DebuggerStepThrough]

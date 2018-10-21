@@ -14,18 +14,18 @@ using System;
 namespace Engine.Chrono
 {
     /// <summary>
-    /// 
+    /// The occasion class.
     /// </summary>
     public partial class Occasion
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Occasion"/> class.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="culture"></param>
-        /// <param name="dateType"></param>
-        /// <param name="date"></param>
-        /// <param name="description"></param>
+        /// <param name="name">The name.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="dateType">The dateType.</param>
+        /// <param name="date">The date.</param>
+        /// <param name="description">The description.</param>
         public Occasion(string name, Culture culture, OccasionDateType dateType, DateTime date, string description)
         {
             Name = name;
@@ -36,14 +36,14 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Occasion"/> class.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="culture"></param>
-        /// <param name="dateType"></param>
-        /// <param name="eventType"></param>
-        /// <param name="date"></param>
-        /// <param name="description"></param>
+        /// <param name="name">The name.</param>
+        /// <param name="culture">The culture.</param>
+        /// <param name="dateType">The dateType.</param>
+        /// <param name="eventType">The eventType.</param>
+        /// <param name="date">The date.</param>
+        /// <param name="description">The description.</param>
         public Occasion(string name, Culture culture, OccasionDateType dateType, EventType eventType, DateTime? date, string description)
         {
             Name = name;
@@ -55,32 +55,32 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the culture.
         /// </summary>
         public Culture Culture { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the date type.
         /// </summary>
         public OccasionDateType DateType { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the event type.
         /// </summary>
         public EventType EventType { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the date.
         /// </summary>
         public DateTime Date { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the description.
         /// </summary>
         public string Description { get; set; }
     }

@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-
 namespace Engine.Direct2D
 {
     /// <summary>

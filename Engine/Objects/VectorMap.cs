@@ -29,16 +29,16 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="VectorMap"/> class.
         /// </summary>
         public VectorMap()
             : this(new List<GraphicItem>())
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="VectorMap"/> class.
         /// </summary>
-        /// <param name="shapes"></param>
+        /// <param name="shapes">The shapes.</param>
         public VectorMap(List<GraphicItem> shapes)
         {
             Items = shapes;
@@ -47,10 +47,10 @@ namespace Engine
 
         #region Indexers
         /// <summary>
-        /// 
+        /// The Indexer.
         /// </summary>
-        /// <param name="area"></param>
-        /// <returns></returns>
+        /// <param name="area">The index area.</param>
+        /// <returns>One element of type List{GraphicItem}.</returns>
         public List<GraphicItem> this[Rectangle2D area]
             => new List<GraphicItem>(
                 from shape in Items
@@ -58,10 +58,10 @@ namespace Engine
                 select shape);
 
         /// <summary>
-        /// 
+        /// The Indexer.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The index point.</param>
+        /// <returns>One element of type List{GraphicItem}.</returns>
         public List<GraphicItem> this[Point2D point]
             => new List<GraphicItem>(
                 from shape in Items

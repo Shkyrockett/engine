@@ -72,13 +72,13 @@ namespace Engine
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="RectangleCellGrid"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="count"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="count">The count.</param>
         public RectangleCellGrid(int x, int y, int width, int height, int count)
         {
             this.x = x;

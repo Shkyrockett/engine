@@ -100,10 +100,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="BezierSegmentX"/> class.
         /// </summary>
-        /// <param name="previous"></param>
-        /// <param name="points"></param>
+        /// <param name="previous">The previous.</param>
+        /// <param name="points">The points.</param>
         public BezierSegmentX(BezierSegmentX previous, IEnumerable<Point2D> points)
             : this(previous, points.ToArray())
         { }

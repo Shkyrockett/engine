@@ -10,9 +10,6 @@
 
 using System;
 using System.Windows.Forms;
-using SharpDX;
-using SharpDX.DXGI;
-using SharpDX.Direct2D1;
 
 namespace Engine.Winforms.Direct2D
 {

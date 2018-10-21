@@ -14,7 +14,7 @@ using System.Runtime.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The metadata class.
     /// </summary>
     [DataContract, Serializable]
     public abstract class Metadata

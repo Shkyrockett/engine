@@ -20,7 +20,7 @@ using Engine;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The engine winforms reflection class.
     /// </summary>
     public static class EngineWinformsReflection
     {
@@ -87,10 +87,10 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The list static factory constructors.
         /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
+        /// <param name="type">The type.</param>
+        /// <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
             => new List<MethodInfo>
             (
@@ -146,11 +146,11 @@ namespace Engine
             ).OrderBy(x => x.Name).ToList();
 
         /// <summary>
-        ///
+        /// Get the assembly types tagged with property attribute.
         /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="attribute"></param>
-        /// <returns></returns>
+        /// <param name="assembly">The assembly.</param>
+        /// <param name="attribute">The attribute.</param>
+        /// <returns>The <see cref="T:List{Type}"/>.</returns>
         public static List<Type> GetAssemblyTypesTaggedWithPropertyAttribute(Assembly assembly, Attribute attribute)
             => new List<Type>
             (

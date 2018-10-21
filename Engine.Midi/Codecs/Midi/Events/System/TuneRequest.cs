@@ -25,19 +25,19 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TuneRequest"/> class.
         /// </summary>
-        /// <param name="status"></param>
+        /// <param name="status">The status.</param>
         public TuneRequest(EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         { }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="TuneRequest"/>.</returns>
         internal static TuneRequest Read(BinaryReaderExtended reader, EventStatus status)
             => new TuneRequest(status);
     }

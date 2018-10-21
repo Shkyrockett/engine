@@ -10,7 +10,6 @@
 
 namespace Engine.MathNotation
 {
-
     /// <summary>
     /// The group types enum.
     /// </summary>

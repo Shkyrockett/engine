@@ -17,7 +17,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The point segment class.
     /// </summary>
     [DataContract, Serializable]
     public class PointSegment
@@ -25,17 +25,17 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSegment"/> class.
         /// </summary>
         public PointSegment()
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSegment"/> class.
         /// </summary>
-        /// <param name="previous"></param>
-        /// <param name="relitive"></param>
-        /// <param name="args"></param>
+        /// <param name="previous">The previous.</param>
+        /// <param name="relitive">The relitive.</param>
+        /// <param name="args">The args.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PointSegment(CurveSegment previous, bool relitive, double[] args)
             : this(args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
@@ -45,11 +45,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSegment"/> class.
         /// </summary>
-        /// <param name="previous"></param>
-        /// <param name="relitive"></param>
-        /// <param name="startPoint"></param>
+        /// <param name="previous">The previous.</param>
+        /// <param name="relitive">The relitive.</param>
+        /// <param name="startPoint">The startPoint.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PointSegment(CurveSegment previous, bool relitive, Point2D startPoint)
             : this(startPoint)
@@ -59,9 +59,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PointSegment"/> class.
         /// </summary>
-        /// <param name="start"></param>
+        /// <param name="start">The start.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PointSegment(Point2D? start)
         {
@@ -72,10 +72,10 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         public void Deconstruct(out double x, out double y)
         {
             x = Start.Value.X;
@@ -85,32 +85,32 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the start.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         public override Point2D? Start { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? NextToEnd { get { return Start; } set { Start = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? End { get { return Start; } set { Start = value; } }
 
         /// <summary>
-        /// 
+        /// Gets the grips.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override List<Point2D> Grips
             => new List<Point2D> { Start.Value };
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -120,7 +120,7 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Start.Value, End.Value));
 
         /// <summary>
-        /// 
+        /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
@@ -128,17 +128,18 @@ namespace Engine
         #endregion Properties
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => Start.Value;
 
         #region Methods
         /// <summary>
-        /// 
+        /// The to point2d.
         /// </summary>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public Point2D ToPoint2D()
             => Start.Value;
         #endregion Methods

@@ -27,10 +27,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ChannelPressure"/> class.
         /// </summary>
-        /// <param name="pressure"></param>
-        /// <param name="status"></param>
+        /// <param name="pressure">The pressure.</param>
+        /// <param name="status">The status.</param>
         public ChannelPressure(byte pressure, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -38,16 +38,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the pressure.
         /// </summary>
         public byte Pressure { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="ChannelPressure"/>.</returns>
         internal static ChannelPressure Read(BinaryReaderExtended reader, EventStatus status)
             => new ChannelPressure(reader.ReadByte(), status);
     }

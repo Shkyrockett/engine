@@ -104,7 +104,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WS_TABSTOP = 0x00010000,
 
-
         /// <summary>
         /// The WS_MINIMIZEBOX = 0x00020000.
         /// </summary>
@@ -114,7 +113,6 @@ namespace Engine.Winforms.Direct2D
         /// The WS_MAXIMIZEBOX = 0x00010000.
         /// </summary>
         WS_MAXIMIZEBOX = 0x00010000,
-
 
         /// <summary>
         /// The WS_CAPTION = WS_BORDER | WS_DLGFRAME.
@@ -141,7 +139,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WS_TILEDWINDOW = WS_OVERLAPPEDWINDOW,
 
-
         /// <summary>
         /// The WS_OVERLAPPEDWINDOW = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX.
         /// </summary>
@@ -158,7 +155,6 @@ namespace Engine.Winforms.Direct2D
         WS_CHILDWINDOW = WS_CHILD,
 
         //Extended Window Styles
-
 
         /// <summary>
         /// The WS_EX_DLGMODALFRAME = 0x00000001.
@@ -212,7 +208,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WS_EX_CONTEXTHELP = 0x00000400,
 
-
         /// <summary>
         /// The WS_EX_RIGHT = 0x00001000.
         /// </summary>
@@ -243,7 +238,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WS_EX_RIGHTSCROLLBAR = 0x00000000,
 
-
         /// <summary>
         /// The WS_EX_CONTROLPARENT = 0x00010000.
         /// </summary>
@@ -258,7 +252,6 @@ namespace Engine.Winforms.Direct2D
         /// The WS_EX_APPWINDOW = 0x00040000.
         /// </summary>
         WS_EX_APPWINDOW = 0x00040000,
-
 
         /// <summary>
         /// The WS_EX_OVERLAPPEDWINDOW = WS_EX_WINDOWEDGE | WS_EX_CLIENTEDGE.

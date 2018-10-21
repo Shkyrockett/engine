@@ -13,17 +13,17 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The polycurve extensions class.
     /// </summary>
     public static class PolycurveExtensions
     {
         /// <summary>
-        /// 
+        /// Add the arc.
         /// </summary>
-        /// <param name="path"></param>
-        /// <param name="pointA"></param>
-        /// <param name="pointB"></param>
-        /// <param name="pointC"></param>
+        /// <param name="path">The path.</param>
+        /// <param name="pointA">The pointA.</param>
+        /// <param name="pointB">The pointB.</param>
+        /// <param name="pointC">The pointC.</param>
         public static void AddArc(this List<Shape> path, Point2D pointA, Point2D pointB, Point2D pointC)
             => path.Add(new CircularArc(pointA, pointB, pointC));
     }

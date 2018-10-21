@@ -818,8 +818,7 @@ namespace Engine
         /// <param name="aj">The j-component of the vector of the line.</param>
         /// <param name="pX">The x-component of the test point.</param>
         /// <param name="pY">The y-component of the test point.</param>
-        /// <returns>Returns the shortest distance to the line from the point.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the shortest distance to the line from the point.</returns>
         /// <acknowledgment>
         /// From answer at: http://stackoverflow.com/a/2255848
         /// formula here: http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
@@ -1107,8 +1106,7 @@ namespace Engine
         /// <param name="a1">The ending angle of the elliptical arc.</param>
         /// <param name="pX">The x-component of the point.</param>
         /// <param name="pY">The y-component of the point.</param>
-        /// <returns>The nearest point on the elliptical arc to a point.</returns>
-        /// <remarks></remarks>
+        /// <returns>The nearest point on the elliptical arc to a point.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/36260793/algorithm-for-shortest-distance-from-a-point-to-an-elliptic-arc?rq=1
         /// </acknowledgment>
@@ -1297,8 +1295,7 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a parameter, or x radius of the ellipse.</param>
         /// <param name="b">The b parameter, or y radius of the ellipse.</param>
-        /// <returns>Returns the length of the perimeter of the ellipse.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the length of the perimeter of the ellipse.</returns>
         /// <acknowledgment>
         /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
         /// </acknowledgment>
@@ -1316,8 +1313,7 @@ namespace Engine
         /// <param name="endY">The y component of the end point of the elliptical arc.</param>
         /// <param name="startAngle">The start angle of the elliptical arc.</param>
         /// <param name="endAngle">The end angle of the elliptical arc.</param>
-        /// <returns>Returns the arc length of the elliptical arc.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the arc length of the elliptical arc.</returns>
         /// <acknowledgment>
         /// http://www.iosrjournals.org/iosr-jm/papers/Vol3-issue2/B0320813.pdf
         /// http://mathforum.org/kb/servlet/JiveServlet/download/130-2391290-7852023-766514/PERIMETER%20OF%20THE%20ELLIPTICAL%20ARC%20A%20GEOMETRIC%20METHOD.pdf
@@ -1338,8 +1334,7 @@ namespace Engine
         /// <param name="by">The middle y-coordinate for the tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="cx">The closing x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="cy">The closing y-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <returns>Returns the arc length of the Quadratic Bézier curve.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the arc length of the Quadratic Bézier curve.</returns>
         /// <acknowledgment>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
         /// </acknowledgment>
@@ -1379,8 +1374,7 @@ namespace Engine
         /// <param name="cy">The second y-coordinate for the tangent control node for the <see cref="CubicBezier"/> curve.</param>
         /// <param name="dx">The closing x-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="dy">The closing y-coordinate for the <see cref="QuadraticBezier"/> curve.</param>
-        /// <returns>Returns the arc length of the Cubic Bézier curve.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the arc length of the Cubic Bézier curve.</returns>
         /// <acknowledgment>
         /// http://steve.hollasch.net/cgindex/curves/cbezarclen.html
         /// </acknowledgment>
@@ -1450,8 +1444,7 @@ namespace Engine
         /// <param name="q3"></param>
         /// <param name="q4"></param>
         /// <param name="q5"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://steve.hollasch.net/cgindex/curves/cbezarclen.html
         /// </acknowledgment>
@@ -1624,8 +1617,7 @@ namespace Engine
         /// <param name="r1">The first radius of the Ellipse.</param>
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipseBounds(
@@ -1643,8 +1635,7 @@ namespace Engine
         /// <param name="r2">The second radius of the Ellipse.</param>
         /// <param name="cosAngle">The Cosine component of the Angle of rotation of Ellipse about it's center.</param>
         /// <param name="sinAngle">The Sine component of the Angle of rotation of Ellipse about it's center.</param>
-        /// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a Axis Aligned Bounding Box (AABB) Rectangle that is the size and location to envelop a rotated ellipse.</returns>
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -1683,8 +1674,7 @@ namespace Engine
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
         /// <param name="startAngle">The angle to start the arc.</param>
         /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
-        /// <remarks></remarks>
+        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
         /// <acknowledgment>
         /// Helpful hints on how this might be implemented came from:
         /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
@@ -1994,8 +1984,7 @@ namespace Engine
         /// <param name="cY">The y-component of the third point of the triangle.</param>
         /// <returns>
         /// Returns a positive number if point c is to the left of the line going from a to b, or negative if point is to right, and 0 if points are collinear.
-        /// </returns>
-        /// <remarks></remarks>
+        /// </returns>
         /// <acknowledgment>
         /// From FarSeer Physics Engine. https://github.com/VelcroPhysics/VelcroPhysics
         /// </acknowledgment>
@@ -2043,8 +2032,7 @@ namespace Engine
         /// <param name="rY">The vertical radius.</param>
         /// <param name="startAngle">The start angle of the arc.</param>
         /// <param name="sweepAngle">The sweep angle of the arc.</param>
-        /// <returns>Returns the area of the elliptical arc sector.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the area of the elliptical arc sector.</returns>
         /// <acknowledgment>
         /// http://math.stackexchange.com/questions/114371/deriving-the-area-of-a-sector-of-an-ellipse?rq=1
         /// </acknowledgment>
@@ -2172,8 +2160,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The line segment.</param>
         /// <param name="point">The point to test.</param>
-        /// <returns>The perpendicular distance to the line.</returns>
-        /// <remarks></remarks>
+        /// <returns>The perpendicular distance to the line.</returns>
         /// <acknowledgment>
         /// Based on: https://github.com/burningmime/curves
         /// See: http://en.wikipedia.org/wiki/Distance_from_a_point_to_a_line
@@ -2274,8 +2261,7 @@ namespace Engine
         /// <param name="rX">The horizontal radius of the ellipse.</param>
         /// <param name="rY">The vertical radius of the ellipse.</param>
         /// <param name="angle">The angle of orientation of the ellipse.</param>
-        /// <returns>Returns a list of the extreme angles of a rotated ellipse.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a list of the extreme angles of a rotated ellipse.</returns>
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -2328,8 +2314,7 @@ namespace Engine
         /// <param name="rX">The horizontal radius of the ellipse.</param>
         /// <param name="rY">The vertical radius of the ellipse.</param>
         /// <param name="angle">The angle of orientation of the ellipse.</param>
-        /// <returns>Returns a list of the extreme angles of a rotated ellipse.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a list of the extreme angles of a rotated ellipse.</returns>
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -2369,8 +2354,7 @@ namespace Engine
         /// <param name="x">The x-coordinate of the center of the circle.</param>
         /// <param name="y">The y-coordinate of the center of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
-        /// <returns>Returns a list of the points representing the extremes of a circle.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a list of the points representing the extremes of a circle.</returns>
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -2393,8 +2377,7 @@ namespace Engine
         /// <param name="rX">The horizontal radius of the ellipse.</param>
         /// <param name="rY">The vertical radius of the ellipse.</param>
         /// <param name="angle">The angle of orientation of the ellipse.</param>
-        /// <returns>Returns the points of extreme for an ellipse.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the points of extreme for an ellipse.</returns>
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -2412,8 +2395,7 @@ namespace Engine
         /// <param name="rY">The vertical radius of the ellipse.</param>
         /// <param name="cosAngle">The cosine component of the angle of orientation of the ellipse.</param>
         /// <param name="sinAngle">The sine component of the angle of orientation of the ellipse.</param>
-        /// <returns>Returns the points of extreme for an ellipse.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the points of extreme for an ellipse.</returns>
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse

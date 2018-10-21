@@ -30,34 +30,34 @@ namespace Engine
     {
         #region Implementations
         /// <summary>
-        ///
+        /// The empty (readonly). Value: new Rectangle2D().
         /// </summary>
         public static readonly Rectangle2D Empty = new Rectangle2D();
 
         /// <summary>
-        ///
+        /// The unit (readonly). Value: new Rectangle2D(0, 0, 1, 1).
         /// </summary>
         public static readonly Rectangle2D Unit = new Rectangle2D(0, 0, 1, 1);
         #endregion Implementations
 
         #region Fields
         /// <summary>
-        ///
+        /// The x.
         /// </summary>
         private double x;
 
         /// <summary>
-        ///
+        /// The y.
         /// </summary>
         private double y;
 
         /// <summary>
-        ///
+        /// The width.
         /// </summary>
         private double width;
 
         /// <summary>
-        ///
+        /// The height.
         /// </summary>
         private double height;
         #endregion Fields
@@ -157,12 +157,12 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="top"></param>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
+        /// <param name="left">The left.</param>
+        /// <param name="top">The top.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
         public void Deconstruct(out double left, out double top, out double width, out double height)
         {
             left = x;
@@ -260,7 +260,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Aspect ratio of the rectangle.
         /// </summary>
-        /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         //[DisplayName(nameof(Aspect))]
@@ -353,7 +352,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the top left.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -375,7 +374,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the top right.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -397,7 +396,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the bottom left.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -419,7 +418,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the bottom right.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -441,7 +440,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the left.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -464,7 +463,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the top.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -487,7 +486,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the right.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -509,7 +508,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the bottom.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -531,7 +530,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Gets a value indicating whether 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -555,7 +554,7 @@ namespace Engine
             => width > 0 && height > 0;
 
         /// <summary>
-        ///
+        /// Gets the area.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
@@ -626,7 +625,6 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Rectangle2D left, Rectangle2D right)
             => Equals(left, right);
@@ -1006,10 +1004,10 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        ///
+        /// The contains.
         /// </summary>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
             => Intersections.Contains(this, point) != Inclusion.Outside;
 
@@ -1030,10 +1028,10 @@ namespace Engine
             => Intersections.Intersects(this, rect);
 
         /// <summary>
-        /// 
+        /// The intersects.
         /// </summary>
-        /// <param name="shape"></param>
-        /// <returns></returns>
+        /// <param name="shape">The shape.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public bool Intersects(Shape shape)
             => Intersections.Intersects(this, shape);
 

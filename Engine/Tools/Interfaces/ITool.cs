@@ -17,7 +17,7 @@ namespace Engine.Tools
     {
         #region Callbacks
         /// <summary>
-        /// 
+        /// The finish event of the <see cref="Tool.ToolFinishEvent"/>.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
         event Tool.ToolFinishEvent Finish;
@@ -70,8 +70,9 @@ namespace Engine.Tools
         void MouseScrollUpdate(ToolStack tools);
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         string ToString();
     }
 }

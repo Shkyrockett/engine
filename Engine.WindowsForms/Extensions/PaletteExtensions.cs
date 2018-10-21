@@ -15,7 +15,7 @@ using Engine.Imaging;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The palette extensions class.
     /// </summary>
     public static class PaletteExtensions
     {

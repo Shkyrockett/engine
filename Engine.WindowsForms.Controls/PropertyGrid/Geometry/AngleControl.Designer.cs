@@ -10,9 +10,6 @@
 
 namespace Engine
 {
-    /// <summary>
-    /// 
-    /// </summary>
     partial class AngleControl
     {
         /// <summary> 

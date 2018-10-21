@@ -26,11 +26,11 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PolyphonicPressure"/> class.
         /// </summary>
-        /// <param name="note"></param>
-        /// <param name="pressure"></param>
-        /// <param name="status"></param>
+        /// <param name="note">The note.</param>
+        /// <param name="pressure">The pressure.</param>
+        /// <param name="status">The status.</param>
         public PolyphonicPressure(byte note, byte pressure, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -49,11 +49,11 @@ namespace Engine.File
         public byte Pressure { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="PolyphonicPressure"/>.</returns>
         internal static PolyphonicPressure Read(BinaryReaderExtended reader, EventStatus status)
             => new PolyphonicPressure(reader.ReadByte(), reader.ReadByte(), status);
     }

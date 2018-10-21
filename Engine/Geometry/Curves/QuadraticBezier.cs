@@ -165,7 +165,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate of the first Point of a Cubic Bezier.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute(nameof(ax))]
         [Browsable(false)]
         [Category("Elements")]
@@ -230,7 +229,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate of the second Point of a Cubic Bezier.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute(nameof(bx))]
         [Browsable(false)]
         [Category("Elements")]
@@ -273,7 +271,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate of the third Point of a Cubic Bezier.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute(nameof(cx))]
         [Browsable(false)]
         [Category("Elements")]
@@ -607,22 +604,22 @@ namespace Engine
 
         #region Operators
         /// <summary>
-        /// 
+        /// The operator ==.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(QuadraticBezier left, QuadraticBezier right)
             => left.Equals(right);
 
         /// <summary>
-        /// 
+        /// The operator !=.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(QuadraticBezier left, QuadraticBezier right)
@@ -748,7 +745,6 @@ namespace Engine
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>First derivative of curve at sampled point.</returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
         /// https://www.gamedev.net/forums/topic/419818-derivative-of-bezier-curve/
@@ -786,7 +782,6 @@ namespace Engine
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>Direction the curve is going at that point.</returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
         /// </acknowledgment>
@@ -828,10 +823,13 @@ namespace Engine
             => obj is CubicBezier && Equals((CubicBezier)obj);
 
         /// <summary>
-        /// 
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
-        /// <remarks>https://github.com/burningmime/curves</remarks>
+        /// <returns>The <see cref="int"/>.</returns>
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()

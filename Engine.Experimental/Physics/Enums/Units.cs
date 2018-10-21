@@ -11,67 +11,67 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The units enum.
     /// </summary>
     public enum Units
     {
         /// <summary>
-        /// 
+        /// The Length.
         /// </summary>
         Length,
 
         /// <summary>
-        /// 
+        /// The Mass.
         /// </summary>
         Mass,
 
         /// <summary>
-        /// 
+        /// The Temperature.
         /// </summary>
         Temperature,
 
         /// <summary>
-        /// 
+        /// The Speed.
         /// </summary>
         Speed,
 
         /// <summary>
-        /// 
+        /// The Volume.
         /// </summary>
         Volume,
 
         /// <summary>
-        /// 
+        /// The Area.
         /// </summary>
         Area,
 
         /// <summary>
-        /// 
+        /// The Time.
         /// </summary>
         Time,
 
         /// <summary>
-        /// 
+        /// The Angle.
         /// </summary>
         Angle,
 
         /// <summary>
-        /// 
+        /// The Energy.
         /// </summary>
         Energy,
 
         /// <summary>
-        /// 
+        /// The Power.
         /// </summary>
         Power,
 
         /// <summary>
-        /// 
+        /// The DigitalStorage.
         /// </summary>
         DigitalStorage,
 
         /// <summary>
-        /// 
+        /// The FuelConsumption.
         /// </summary>
         FuelConsumption,
     }

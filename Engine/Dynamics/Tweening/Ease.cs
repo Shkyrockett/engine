@@ -9,7 +9,6 @@
 // <remarks> Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
 using System;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static Engine.Maths;

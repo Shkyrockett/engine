@@ -14,15 +14,14 @@ using System.Windows.Forms.Design;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The tool strip tool strip item class.
     /// </summary>
-    /// <remarks></remarks>
     [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.All)]
     public partial class ToolStripToolStripItem
         : ToolStripControlHost
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ToolStripToolStripItem"/> class.
         /// </summary>
         public ToolStripToolStripItem()
             : base(new ToolStrip())
@@ -31,7 +30,7 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Gets the tool strip.
         /// </summary>
         public ToolStrip ToolStrip
             => Control as ToolStrip;

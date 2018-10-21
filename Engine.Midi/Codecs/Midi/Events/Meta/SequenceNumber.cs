@@ -24,10 +24,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SequenceNumber"/> class.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="status"></param>
+        /// <param name="value">The value.</param>
+        /// <param name="status">The status.</param>
         public SequenceNumber(short value, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -35,16 +35,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the value.
         /// </summary>
         public short Value { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="SequenceNumber"/>.</returns>
         internal static SequenceNumber Read(BinaryReaderExtended reader, EventStatus status)
             => new SequenceNumber(reader.ReadNetworkInt16(), status);
     }

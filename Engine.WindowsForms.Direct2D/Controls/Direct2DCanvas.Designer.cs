@@ -10,9 +10,6 @@
 
 namespace Engine.Winforms.Direct2D
 {
-    /// <summary>
-    /// 
-    /// </summary>
     partial class Direct2DCanvas
     {
         /// <summary> 

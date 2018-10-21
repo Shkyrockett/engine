@@ -15,7 +15,7 @@ using System.Windows.Forms.Design;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The tool strip month calendar class.
     /// </summary>
     /// <remarks>
     /// https://msdn.microsoft.com/library/9k5etstz.aspx
@@ -27,7 +27,7 @@ namespace Engine.WindowsForms
         : ToolStripControlHost
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ToolStripMonthCalendar"/> class.
         /// </summary>
         public ToolStripMonthCalendar()
             : base(new MonthCalendar())
@@ -36,13 +36,13 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Gets the month calendar control.
         /// </summary>
         public MonthCalendar MonthCalendarControl
             => Control as MonthCalendar;
 
         /// <summary>
-        /// 
+        /// Gets or sets the first day of week.
         /// </summary>
         public Day FirstDayOfWeek
         {
@@ -51,16 +51,16 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Add the bolded date.
         /// </summary>
-        /// <param name="dateToBold"></param>
+        /// <param name="dateToBold">The dateToBold.</param>
         public void AddBoldedDate(DateTime dateToBold)
             => MonthCalendarControl.AddBoldedDate(dateToBold);
 
         /// <summary>
-        /// 
+        /// Raises the subscribe control events event.
         /// </summary>
-        /// <param name="control"></param>
+        /// <param name="control">The control.</param>
         protected override void OnSubscribeControlEvents(Control control)
         {
             // Call the base so the base events are connected.
@@ -74,9 +74,9 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Raises the unsubscribe control events event.
         /// </summary>
-        /// <param name="control"></param>
+        /// <param name="control">The control.</param>
         protected override void OnUnsubscribeControlEvents(Control control)
         {
             // Call the base method so the basic events are unsubscripted.
@@ -90,15 +90,15 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// The date changed event of the <see cref="DateRangeEventHandler"/>.
         /// </summary>
         public event DateRangeEventHandler DateChanged;
 
         /// <summary>
-        /// 
+        /// Raises the date changed event.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The date range event arguments.</param>
         private void OnDateChanged(object sender, DateRangeEventArgs e)
             => DateChanged?.Invoke(this, e);
     }

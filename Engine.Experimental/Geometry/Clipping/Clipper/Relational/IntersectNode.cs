@@ -192,8 +192,7 @@ namespace Engine.Experimental
         /// Returns an <see cref="int"/> value less than zero if the left <see cref="IntersectNode"/> is less than the right <see cref="IntersectNode"/>,
         /// zero if the left <see cref="IntersectNode"/> is the same value as the right <see cref="IntersectNode"/>, or a value greater than zero if the left
         /// <see cref="IntersectNode"/> is greater than the right <see cref="IntersectNode"/>.
-        /// </returns>
-        /// <remarks></remarks>
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Compare(IntersectNode left, IntersectNode right)
             => right.Point.Y.CompareTo(left.Point.Y); // Soft descending sort.

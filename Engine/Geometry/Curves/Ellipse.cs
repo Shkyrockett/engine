@@ -40,20 +40,17 @@ namespace Engine
 
         /// <summary>
         /// Major Radius of <see cref="Ellipse"/>.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         private double rX;
 
         /// <summary>
         /// Minor Radius of <see cref="Ellipse"/>.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         private double rY;
 
         /// <summary>
         /// Angle of <see cref="Ellipse"/>.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         private double angle;
         #endregion Fields
 
@@ -68,8 +65,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Ellipse"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
-        /// <remarks></remarks>
+        /// <param name="tuple"></param>
         public Ellipse((double X, double Y, double RX, double RY, double Angle) tuple)
             : this(tuple.X, tuple.Y, tuple.RX, tuple.RY, tuple.Angle)
         { }
@@ -81,8 +77,7 @@ namespace Engine
         /// <param name="y">Center Point x coordinate of <see cref="Ellipse"/>.</param>
         /// <param name="rX">Major radius of <see cref="Ellipse"/>.</param>
         /// <param name="rY">Minor radius of <see cref="Ellipse"/>.</param>
-        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
-        /// <remarks></remarks>
+        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
         public Ellipse(double x, double y, double rX, double rY, double angle = 0)
         {
             this.x = x;
@@ -98,8 +93,7 @@ namespace Engine
         /// <param name="center">Center Point of <see cref="Ellipse"/>.</param>
         /// <param name="a">Major radius of <see cref="Ellipse"/>.</param>
         /// <param name="b">Minor radius of <see cref="Ellipse"/>.</param>
-        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
-        /// <remarks></remarks>
+        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
         public Ellipse(Point2D center, double a, double b, double angle = 0)
         {
             x = center.X;
@@ -114,8 +108,7 @@ namespace Engine
         /// </summary>
         /// <param name="center">Center Point of <see cref="Ellipse"/>.</param>
         /// <param name="size">Major and Minor radii of <see cref="Ellipse"/>.</param>
-        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
-        /// <remarks></remarks>
+        /// <param name="angle">Angle of <see cref="Ellipse"/>.</param>
         public Ellipse(Point2D center, Size2D size, double angle = 0)
             : this(center, size.Width, size.Height, angle)
         { }
@@ -161,8 +154,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the Center Point of <see cref="Ellipse"/>.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
@@ -186,8 +178,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the circle.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [XmlAttribute(nameof(x))]
         [Browsable(true)]
         [Category("Elements")]
@@ -231,8 +222,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the first radius of <see cref="Ellipse"/>.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [XmlAttribute("rx")]
         [Browsable(true)]
         [Category("Elements")]
@@ -252,8 +242,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the second radius of Ellipse
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [XmlAttribute("ry")]
         [Browsable(true)]
         [Category("Elements")]
@@ -273,8 +262,7 @@ namespace Engine
 
         /// <summary>
         /// Gets the Major radius of <see cref="Ellipse"/>.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
@@ -284,8 +272,7 @@ namespace Engine
 
         /// <summary>
         /// Gets the Minor radius of <see cref="Ellipse"/>.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
@@ -296,8 +283,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the Aspect ratio of <see cref="Ellipse"/>.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
@@ -318,8 +304,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the Angle of the <see cref="Ellipse"/>.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [GeometryAngleRadians]
@@ -343,8 +328,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the Angle of the <see cref="Ellipse"/> in Degrees.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [XmlAttribute(nameof(angle))]
         [Browsable(false)]
         [GeometryAngleDegrees]
@@ -366,14 +350,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the cos angle.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double CosAngle
             => (double)CachingProperty(() => Cos(angle));
 
         /// <summary>
-        /// 
+        /// Gets the sin angle.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double SinAngle
@@ -447,8 +431,7 @@ namespace Engine
 
         /// <summary>
         /// Get the points of the Cartesian extremes of a rotated ellipse.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         /// <acknowledgment>
         /// Based roughly on the principles found at:
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
@@ -502,8 +485,7 @@ namespace Engine
         /// <summary>
         /// Gets the size and location of the ellipse, in double-point pixels, relative to the parent canvas.
         /// </summary>
-        /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
-        /// <remarks></remarks>
+        /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
@@ -571,10 +553,10 @@ namespace Engine
 
         #region Interpolators
         /// <summary>
-        ///
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => Interpolators.Ellipse(x, y, rX, rY, angle, t);
         #endregion Interpolators

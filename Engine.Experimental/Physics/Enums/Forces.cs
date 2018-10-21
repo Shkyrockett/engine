@@ -11,7 +11,7 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The forces enum.
     /// </summary>
     public enum Forces
     { }

@@ -11,19 +11,21 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The IDigialStorage interface.
     /// </summary>
     public interface IDigialStorage
     {
         /// <summary>
-        /// 
+        /// Gets the value.
         /// </summary>
+        /// <value>The <see cref="double"/>.</value>
         double Value { get; /*set;*/ }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         string ToString();
     }
 }

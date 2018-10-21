@@ -401,7 +401,7 @@ namespace Engine
         /// </summary>
         /// <param name="i"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Normalize1D(double i)
@@ -413,7 +413,7 @@ namespace Engine
         /// <param name="i1"></param>
         /// <param name="i2"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Normalize1D(double i1, double i2)
@@ -425,7 +425,7 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize2D(
@@ -441,7 +441,7 @@ namespace Engine
         /// <param name="i2">The x component of the second Point.</param>
         /// <param name="j2">The y component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize2D(
@@ -459,7 +459,7 @@ namespace Engine
         /// <param name="j"></param>
         /// <param name="k"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize3D(
@@ -478,7 +478,7 @@ namespace Engine
         /// <param name="j2">The y component of the second Point.</param>
         /// <param name="k2">The z component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize3D(
@@ -497,7 +497,7 @@ namespace Engine
         /// <param name="k"></param>
         /// <param name="l"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z, double W) Normalize4D(
@@ -519,7 +519,7 @@ namespace Engine
         /// <param name="k2">The z component of the second Point.</param>
         /// <param name="l2"></param>
         /// <returns>The Normal of two Points</returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// http://www.fundza.com/vectors/normalize/
         /// </acknowledgment>

@@ -46,7 +46,7 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the exclusive.
         /// </summary>
         public byte[] Exclusive { get; set; }
 

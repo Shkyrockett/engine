@@ -36,9 +36,9 @@ namespace EngineTests
 
         #region Assembly Housekeeping
         /// <summary>
-        ///
+        /// The assembly init.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">The context.</param>
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
         {
@@ -46,7 +46,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        ///
+        /// The assembly cleanup.
         /// </summary>
         [AssemblyCleanup]
         public static void AssemblyCleanup()
@@ -57,9 +57,9 @@ namespace EngineTests
 
         #region Class Housekeeping
         /// <summary>
-        ///
+        /// ClassInitialize runs code before running the first test in the class.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">The context.</param>
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
@@ -67,7 +67,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        ///
+        /// TestInitialize runs code before running each test.
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -76,7 +76,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        ///
+        /// TestCleanup runs code after each test has run.
         /// </summary>
         [TestCleanup]
         public void Cleanup()
@@ -85,7 +85,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        ///
+        /// ClassCleanup runs code after all tests in a class have run.
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()

@@ -11,7 +11,7 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The pressures enum.
     /// </summary>
     public enum Pressures
     { }

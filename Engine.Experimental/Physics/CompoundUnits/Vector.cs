@@ -13,16 +13,16 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The vector struct.
     /// </summary>
     public struct Vector
         : IVector
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Vector"/> class.
         /// </summary>
-        /// <param name="magnitude"></param>
-        /// <param name="direction"></param>
+        /// <param name="magnitude">The magnitude.</param>
+        /// <param name="direction">The direction.</param>
         public Vector(double magnitude, double direction)
         {
             Magnitude = magnitude;
@@ -30,39 +30,40 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the magnitude.
         /// </summary>
         public double Magnitude { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the direction.
         /// </summary>
         public double Direction { get; set; }
 
         /// <summary>
-        ///
+        /// Gets the value.
         /// </summary>
         public double Value
             => Magnitude * Direction;
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Vector);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => string.Empty;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"|{Value}|";
     }

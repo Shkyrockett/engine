@@ -17,8 +17,7 @@ namespace Engine
 {
     /// <summary>
     /// Parametric Delegate Curve.
-    /// </summary>
-    /// <remarks></remarks>
+    /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(ParametricDelegateCurve))]

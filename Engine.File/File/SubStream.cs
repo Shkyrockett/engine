@@ -32,17 +32,17 @@ namespace Engine.File
     {
         #region Fields
         /// <summary>
-        /// 
+        /// The base stream (readonly).
         /// </summary>
         private readonly Stream baseStream;
 
         /// <summary>
-        /// 
+        /// The start position.
         /// </summary>
         private long startPosition;
 
         /// <summary>
-        /// 
+        /// The length.
         /// </summary>
         private long length;
         #endregion Fields

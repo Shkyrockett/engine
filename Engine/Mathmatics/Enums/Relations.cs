@@ -11,23 +11,23 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The relations enum.
     /// </summary>
     public enum Relations
         : sbyte
     {
         /// <summary>
-        /// 
+        /// The LessThan = -1.
         /// </summary>
         LessThan = -1,
 
         /// <summary>
-        /// 
+        /// The EqualTo = 0.
         /// </summary>
         EqualTo = 0,
 
         /// <summary>
-        /// 
+        /// The GreaterThan = 1.
         /// </summary>
         GreaterThan = 1,
     }

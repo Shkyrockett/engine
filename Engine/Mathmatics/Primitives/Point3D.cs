@@ -49,7 +49,6 @@ namespace Engine
         /// Initializes a new  instance of the <see cref="Point3D"/> class.
         /// </summary>
         /// <param name="point"></param>
-        /// <remarks></remarks>
         public Point3D(Point3D point)
             : this(point.X, point.Y, point.Z)
         { }
@@ -58,7 +57,6 @@ namespace Engine
         /// Initializes a new  instance of the <see cref="Point3D"/> class.
         /// </summary>
         /// <param name="tuple"></param>
-        /// <remarks></remarks>
         public Point3D((double X, double Y, double Z) tuple)
         {
             (X, Y, Z) = tuple;
@@ -70,7 +68,6 @@ namespace Engine
         /// <param name="x">The x component of the Point.</param>
         /// <param name="y">The y component of the Point.</param>
         /// <param name="z">The z component of the Point.</param>
-        /// <remarks></remarks>
         public Point3D(double x, double y, double z)
         {
             X = x;
@@ -81,11 +78,11 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
         public void Deconstruct(out double x, out double y, out double z)
         {
             x = X;
@@ -98,21 +95,18 @@ namespace Engine
         /// <summary>
         /// X component of a <see cref="Point3D"/> coordinate.
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
         /// Y component of a <see cref="Point3D"/> coordinate.
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
 
         /// <summary>
         /// Z component of a <see cref="Point3D"/> coordinate.
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Z { get; set; }
 
@@ -144,7 +138,6 @@ namespace Engine
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator +(Point3D value, double addend)
@@ -156,7 +149,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator +(Point3D value, Point3D addend)
@@ -178,7 +170,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator -(Point3D value, double subend)
@@ -190,7 +181,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator -(Point3D value, Point3D subend)
@@ -224,7 +214,6 @@ namespace Engine
         /// <param name="divisor">The original value</param>
         /// <param name="dividend">The amount to add.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D operator /(Point3D divisor, double dividend)
@@ -290,7 +279,6 @@ namespace Engine
         /// Create a Random <see cref="Point3D"/>.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Point3D Random()
             => new Point3D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 
@@ -374,10 +362,11 @@ namespace Engine
         //#endregion
 
         #region Methods
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode()
             => X.GetHashCode()
            ^ Y.GetHashCode()
@@ -389,35 +378,34 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Point3D a, Point3D b)
             => Equals(a, b);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Point3D a, Point3D b)
             => (a.X == b.X) & (a.Y == b.Y) & (a.Z == b.Z);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Point3D && Equals(this, (Point3D)obj);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Point3D value)
             => Equals(this, value);

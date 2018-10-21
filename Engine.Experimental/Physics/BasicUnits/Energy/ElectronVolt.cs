@@ -46,9 +46,6 @@ namespace Engine.Physics
         public string Abreviation
             => "eV";
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator ElectronVolt(double value)
             => new ElectronVolt(value);

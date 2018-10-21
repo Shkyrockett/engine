@@ -17,7 +17,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The cardinal segment class.
     /// </summary>
     [DataContract, Serializable]
     public class CardinalSegment
@@ -25,16 +25,16 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CardinalSegment"/> class.
         /// </summary>
         public CardinalSegment()
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CardinalSegment"/> class.
         /// </summary>
-        /// <param name="previous"></param>
-        /// <param name="points"></param>
+        /// <param name="previous">The previous.</param>
+        /// <param name="points">The points.</param>
         public CardinalSegment(CurveSegment previous, List<Point2D> points)
         {
             Previous = previous;
@@ -45,20 +45,20 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the central points.
         /// </summary>
         [XmlArray]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> CentralPoints { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the nodes.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
@@ -73,19 +73,19 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? NextToEnd { get { return Nodes[Nodes.Count - 1]; } set { Nodes[Nodes.Count - 1] = value.Value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         public override Point2D? End { get { return CentralPoints[CentralPoints.Count - 1]; } set { CentralPoints[CentralPoints.Count - 1] = value.Value; } }
 
         /// <summary>
-        /// 
+        /// Gets the grips.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
@@ -101,7 +101,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -117,10 +117,10 @@ namespace Engine
         #endregion Properties
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => throw new NotImplementedException();
     }

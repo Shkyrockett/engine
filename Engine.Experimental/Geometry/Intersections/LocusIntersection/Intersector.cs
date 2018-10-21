@@ -13,9 +13,6 @@ using System.Collections.Generic;
 
 namespace Engine
 {
-    /// <summary>
-    ///
-    /// </summary>
     /// <remarks>
     /// From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
     /// port of this JavaScript code with some changes:
@@ -23,14 +20,17 @@ namespace Engine
     /// found here:
     ///   http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/563240#563240
     /// </remarks>
+    /// <summary>
+    /// The intersector class.
+    /// </summary>
     public class Intersector
     {
         /// <summary>
-        ///
+        /// The overlap intervals.
         /// </summary>
-        /// <param name="ub1"></param>
-        /// <param name="ub2"></param>
-        /// <returns></returns>
+        /// <param name="ub1">The ub1.</param>
+        /// <param name="ub2">The ub2.</param>
+        /// <returns>The <see cref="T:double[]"/>.</returns>
         private static double[] OverlapIntervals(double ub1, double ub2)
         {
             var A = Math.Max(0, Math.Min(ub1, ub2));
@@ -43,18 +43,18 @@ namespace Engine
                 return new double[] { A, B };
         }
 
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b1"></param>
-        /// <param name="b2"></param>
-        /// <returns></returns>
         /// <remarks>
         /// IMPORTANT: a1 and a2 cannot be the same, e.g. a1--a2 is a true segment, not a point
         /// b1/b2 may be the same (b1--b2 is a point)
         /// </remarks>
+        /// <summary>
+        /// The one d intersection.
+        /// </summary>
+        /// <param name="a1">The a1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="b2">The b2.</param>
+        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
         private static Point2D[] OneD_Intersection(Point2D a1, Point2D a2, Point2D b1, Point2D b2)
         {
             var denomX = a2.X - a1.X;
@@ -80,13 +80,13 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The intersection.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b1"></param>
-        /// <param name="b2"></param>
-        /// <returns></returns>
+        /// <param name="a1">The a1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="b2">The b2.</param>
+        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
         public static Point2D[] Intersection(Point2D a1, Point2D a2, Point2D b1, Point2D b2)
         {
             // This is the general case. Really general

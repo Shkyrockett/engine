@@ -189,72 +189,42 @@ namespace Engine.Physics
         #endregion Properties
 
         #region Operators
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator Centimeters(double value)
             => new Centimeters(value);
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Centimeters(Mils value)
             => value.Centimeters;
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Centimeters(Meters value)
             => value.Centimeters;
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Centimeters(Smoots value)
             => value.Centimeters;
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Centimeters(Inches value)
             => value.Centimeters;
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Centimeters(Feet value)
             => value.Centimeters;
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Centimeters(Yards value)
             => value.Centimeters;
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Centimeters(Kilometers value)
             => value.Centimeters;
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Centimeters(Miles value)
             => value.Centimeters;
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Centimeters(NauticalMiles value)
             => value.Centimeters;

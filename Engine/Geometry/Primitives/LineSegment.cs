@@ -21,8 +21,7 @@ namespace Engine
     /// <summary>
     /// 2D Line Segment Structure
     /// </summary>
-    /// <structure>Engine.Geometry.Segment2D</structure>
-    /// <remarks></remarks>
+    /// <structure>Engine.Geometry.Segment2D</structure>
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(LineSegment))]
@@ -33,8 +32,7 @@ namespace Engine
         #region Implementations
         /// <summary>
         /// Represents a Engine.Geometry.Segment that is null.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         public static readonly LineSegment Empty = new LineSegment();
         #endregion Implementations
 
@@ -71,8 +69,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
-        /// <remarks></remarks>
+        /// <param name="tuple"></param>
         public LineSegment((double x1, double y1, double x2, double y2) tuple)
             : this(tuple.x1, tuple.y1, tuple.x2, tuple.y2)
         { }
@@ -83,8 +80,7 @@ namespace Engine
         /// <param name="x1">Horizontal component of starting point</param>
         /// <param name="y1">Vertical component of starting point</param>
         /// <param name="X2">Horizontal component of ending point</param>
-        /// <param name="Y2">Vertical component of ending point</param>
-        /// <remarks></remarks>
+        /// <param name="Y2">Vertical component of ending point</param>
         public LineSegment(double x1, double y1, double X2, double Y2)
             : this(new Point2D(x1, y1), new Point2D(X2, Y2))
         { }
@@ -94,8 +90,7 @@ namespace Engine
         /// </summary>
         /// <param name="Point">Starting Point</param>
         /// <param name="RadAngle">Ending Angle</param>
-        /// <param name="Radius">Ending Line Segment Length</param>
-        /// <remarks></remarks>
+        /// <param name="Radius">Ending Line Segment Length</param>
         public LineSegment(Point2D Point, double RadAngle, double Radius)
             : this(new Point2D(Point.X, Point.Y), new Point2D(Point.X + (Radius * Cos(RadAngle)), Point.Y + (Radius * Sin(RadAngle))))
         { }
@@ -104,8 +99,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="LineSegment"/> class.
         /// </summary>
         /// <param name="a">Starting Point</param>
-        /// <param name="b">Ending Point</param>
-        /// <remarks></remarks>
+        /// <param name="b">Ending Point</param>
         public LineSegment(Point2D a, Point2D b)
         {
             A = a;
@@ -154,8 +148,7 @@ namespace Engine
         #region Properties
         /// <summary>
         /// Get or sets an array of points representing a line segment.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
         public List<Point2D> Points
@@ -172,8 +165,7 @@ namespace Engine
 
         /// <summary>
         /// First Point of a line segment
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The first Point of a line segment")]
@@ -194,8 +186,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the X coordinate of the first Point of a line segment.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [XmlAttribute("ax")]
         [Browsable(true)]
         [Category("Elements")]
@@ -239,8 +230,7 @@ namespace Engine
 
         /// <summary>
         /// Ending Point of a Line Segment
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Category("Properties")]
         [Description("The ending Point of a Line Segment")]
@@ -262,8 +252,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the X coordinate of the second Point of a line segment.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [XmlAttribute("bx")]
         [Browsable(true)]
         [Category("Elements")]
@@ -308,8 +297,7 @@ namespace Engine
         /// <summary>
         /// Gets or the size and location of the segment, in floating-point pixels, relative to the parent canvas.
         /// </summary>
-        /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
-        /// <remarks></remarks>
+        /// <returns>A System.Drawing.RectangleF in floating-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]

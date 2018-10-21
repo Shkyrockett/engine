@@ -10,9 +10,6 @@
 
 namespace MethodSpeedTester
 {
-    /// <summary>
-    /// 
-    /// </summary>
     partial class RectanglePointTester
     {
         /// <summary>

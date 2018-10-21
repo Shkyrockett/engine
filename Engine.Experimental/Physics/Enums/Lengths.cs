@@ -11,52 +11,52 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The lengths enum.
     /// </summary>
     public enum Lengths
     {
         /// <summary>
-        /// 
+        /// The Mil.
         /// </summary>
         Mil,
 
         /// <summary>
-        /// 
+        /// The Centimeter.
         /// </summary>
         Centimeter,
 
         /// <summary>
-        /// 
+        /// The Inch.
         /// </summary>
         Inch,
 
         /// <summary>
-        /// 
+        /// The Foot.
         /// </summary>
         Foot,
 
         /// <summary>
-        /// 
+        /// The Yard.
         /// </summary>
         Yard,
 
         /// <summary>
-        /// 
+        /// The Meter.
         /// </summary>
         Meter,
 
         /// <summary>
-        /// 
+        /// The Kilometer.
         /// </summary>
         Kilometer,
 
         /// <summary>
-        /// 
+        /// The Mile.
         /// </summary>
         Mile,
 
         /// <summary>
-        /// 
+        /// The NauticalMile.
         /// </summary>
         NauticalMile
     }

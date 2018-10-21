@@ -13,50 +13,48 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The pounds struct.
     /// </summary>
     public struct Pounds
         : IMass
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Pounds"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public Pounds(double value)
         {
             Value = value;
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Pounds);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "lb";
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator Pounds(double value)
             => new Pounds(value);
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{Value} lb";
     }

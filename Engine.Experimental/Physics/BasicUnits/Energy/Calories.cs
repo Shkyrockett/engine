@@ -46,9 +46,6 @@ namespace Engine.Physics
         public string Abreviation
             => "cal";
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator Calories(double value)
             => new Calories(value);

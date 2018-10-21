@@ -13,16 +13,16 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The kinetic energy struct.
     /// </summary>
     public struct KineticEnergy
         : IEnergy
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="KineticEnergy"/> class.
         /// </summary>
-        /// <param name="mass"></param>
-        /// <param name="velocity"></param>
+        /// <param name="mass">The mass.</param>
+        /// <param name="velocity">The velocity.</param>
         public KineticEnergy(IMass mass, ISpeed velocity)
         {
             Mass = mass;
@@ -30,36 +30,37 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the mass.
         /// </summary>
         public IMass Mass { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the velocity.
         /// </summary>
         public ISpeed Velocity { get; set; }
 
         /// <summary>
-        ///
+        /// Gets the value.
         /// </summary>
-        public double Value => 0.5 * (Mass.Value * Velocity.Value * Velocity.Value);
+        public double Value => 0.5d * (Mass.Value * Velocity.Value * Velocity.Value);
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name => "Kinetic energy";
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation => "J Ke";
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString() => $"{Value} J Ke";
     }
 }

@@ -31,7 +31,6 @@
 //            //             type: type,
 //            //data: data? JSON.parse(JSON.stringify(data)) : void 0
 
-
 //            //     });
 //            return true;
 //        }
@@ -472,7 +471,6 @@
 //                buildLog.vert(ev.pt[0]);
 
 //			if (ev.isStart){
-
 //				if (buildLog)
 //                    buildLog.segmentNew(ev.seg, ev.primary);
 
@@ -707,7 +705,6 @@
 //}
 //	};
 //}
-
 
 //    /// <summary>
 //    /// The epsilon class.

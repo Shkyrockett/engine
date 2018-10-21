@@ -24,20 +24,20 @@ namespace Engine.File
         : BaseTextEvent
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MarkerText"/> class.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="status"></param>
+        /// <param name="text">The text.</param>
+        /// <param name="status">The status.</param>
         public MarkerText(string text, EventStatus status)
             : base(text, status)
         { }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="MarkerText"/>.</returns>
         internal static MarkerText Read(BinaryReaderExtended reader, EventStatus status)
             => new MarkerText(reader.ReadASCIIString(), status);
     }

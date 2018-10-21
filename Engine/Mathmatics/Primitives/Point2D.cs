@@ -48,7 +48,7 @@ namespace Engine
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
         /// </summary>
         /// <param name="point"></param>
-        /// <remarks></remarks>
+
         [DebuggerStepThrough]
         public Point2D(Point2D point)
             : this(point.X, point.Y)
@@ -58,7 +58,7 @@ namespace Engine
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
         /// </summary>
         /// <param name="tuple"></param>
-        /// <remarks></remarks>
+
         [DebuggerStepThrough]
         public Point2D((double X, double Y) tuple)
         {
@@ -70,7 +70,7 @@ namespace Engine
         /// </summary>
         /// <param name="x">The x component of the Point.</param>
         /// <param name="y">The y component of the Point.</param>
-        /// <remarks></remarks>
+
         [DebuggerStepThrough]
         public Point2D(double x, double y)
         {
@@ -81,10 +81,10 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
         public void Deconstruct(out double x, out double y)
         {
             x = X;
@@ -96,14 +96,12 @@ namespace Engine
         /// <summary>
         /// X component of a <see cref="Point2D"/> coordinate.
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
         /// Y component of a <see cref="Point2D"/> coordinate.
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
 
@@ -134,7 +132,6 @@ namespace Engine
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D value, double addend)
@@ -146,7 +143,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator +(Point2D value, Point2D addend)
@@ -158,7 +154,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Point2D value, Size2D addend)
@@ -193,7 +188,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value, double subend)
@@ -205,7 +199,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator -(Point2D value, Point2D subend)
@@ -217,7 +210,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value, Size2D subend)
@@ -229,7 +221,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Point2D value, Vector2D subend)
@@ -274,7 +265,6 @@ namespace Engine
         /// <param name="divisor">The divisor value</param>
         /// <param name="dividend">The dividend to add.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator /(Point2D divisor, double dividend)
@@ -335,9 +325,6 @@ namespace Engine
         public static explicit operator Point2D(Vector2D point)
             => new Point2D(point.I, point.J);
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="tuple"></param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -350,7 +337,6 @@ namespace Engine
         /// Create a Random <see cref="Point2D"/>.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Random()
@@ -545,7 +531,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            //if (this is null) return nameof(Point2D);
+            if (this == null) return nameof(Point2D);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Point2D)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}}}";
         }

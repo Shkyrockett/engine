@@ -83,7 +83,7 @@ Methods found online should be attributed to their original source in an acknowl
 
 ```csharp
         /// <summary>
-        /// 
+        /// The do something method.
         /// </summary>
         /// <param name="blah"></param>
         /// <acknowledgment>
@@ -375,13 +375,13 @@ If a struct/class can be generalized by a numeric tuple; please use a tuple cons
         #endregion
 
         #region Deconstructors
-        
+
         /// <summary>
-        /// 
+        /// The deconstruct method.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
+        /// <param name="a">The a parameter.</param>
+        /// <param name="b">The b parameter.</param>
+        /// <param name="c">The c parameter.</param>
         [DebuggerStepThrough]
         public void Deconstruct(out double a, out double b, out double c)
         {
@@ -394,8 +394,19 @@ If a struct/class can be generalized by a numeric tuple; please use a tuple cons
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets A.
+        /// </summary>
         public double A { get; set; }
+
+        /// <summary>
+        /// Gets or sets B.
+        /// </summary>
         public double B { get; set; }
+
+        /// <summary>
+        /// Gets or sets C.
+        /// </summary>
         public double C { get; set; }
 
         #endregion
@@ -489,7 +500,6 @@ If the Structs/Classes are also relational merge with the Relational Comparisons
         /// <param name="left">The object to comare.</param>
         /// <param name="right">The object to compare against.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(ComparableObject left, ComparableObject right)
             => Equals(left, right);
@@ -721,7 +731,6 @@ If the Structs/Classes are also relational merge with the Equality Comparisons a
         /// zero if the left <see cref="ComparableObject"/> is the same value as the right <see cref="ComparableObject"/>, or a value greater than zero if the left
         /// <see cref="ComparableObject"/> is greater than the right <see cref="ComparableObject"/>.
         /// </returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Compare(ComparableObject left, ComparableObject right)
             => right.A.CompareTo(left.A);

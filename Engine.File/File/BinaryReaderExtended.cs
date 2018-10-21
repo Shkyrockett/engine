@@ -221,10 +221,11 @@ namespace Engine.File
         public new int Read7BitEncodedInt()
             => base.Read7BitEncodedInt();
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Read the variable length int.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int ReadVariableLengthInt()

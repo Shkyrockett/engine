@@ -10,7 +10,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Security;
 
 namespace Engine.Geometry
@@ -143,7 +142,6 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator +(PolynomialX p, PolynomialX q)
         {
-
             var degree = Math.Max(p.Degree, q.Degree);
 
             var coeffs = new Complex[degree + 1];
@@ -289,7 +287,6 @@ namespace Engine.Geometry
             var degree = p.Degree + q.Degree;
 
             var r = new PolynomialX();
-
 
             for (var i = 0; i <= p.Degree; i++)
                 for (var j = 0; j <= q.Degree; j++)
@@ -488,7 +485,6 @@ namespace Engine.Geometry
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
 
-
             for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
                 for (var i = 0; i < 10; i++)
@@ -528,7 +524,6 @@ namespace Engine.Geometry
             for (var k = 0; k < q.Degree; k++)
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
-
 
             for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
@@ -653,7 +648,6 @@ namespace Engine.Geometry
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
 
-
             for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
                 for (var i = 0; i < 10; i++)
@@ -695,7 +689,6 @@ namespace Engine.Geometry
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
 
-
             for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
                 for (var i = 0; i < 10; i++)
@@ -726,7 +719,6 @@ namespace Engine.Geometry
         public static double MaxValue(PolynomialX p, Complex[] z)
         {
             double buf = 0;
-
 
             for (var i = 0; i < z.Length; i++)
             {
@@ -808,10 +800,11 @@ namespace Engine.Geometry
         }
 
         /// <summary>
-        /// 
+        /// Get the standard base.
         /// </summary>
-        /// <param name="dim"></param>
-        /// <returns></returns>
+        /// <param name="dim">The dim.</param>
+        /// <returns>The <see cref="T:PolynomialX[]"/>.</returns>
+        /// <exception cref="ArgumentException">Dimension expected to be greater than zero.</exception>
         public static PolynomialX[] GetStandardBase(int dim)
         {
             if (dim < 1)

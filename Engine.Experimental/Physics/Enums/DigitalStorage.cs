@@ -11,67 +11,67 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The digital storage enum.
     /// </summary>
     public enum DigitalStorage
     {
         /// <summary>
-        /// 
+        /// The Bit.
         /// </summary>
         Bit,
 
         /// <summary>
-        /// 
+        /// The Byte.
         /// </summary>
         Byte,
 
         /// <summary>
-        /// 
+        /// The Kilobit.
         /// </summary>
         Kilobit,
 
         /// <summary>
-        /// 
+        /// The Kilobyte.
         /// </summary>
         Kilobyte,
 
         /// <summary>
-        /// 
+        /// The Megabit.
         /// </summary>
         Megabit,
 
         /// <summary>
-        /// 
+        /// The Megabyte.
         /// </summary>
         Megabyte,
 
         /// <summary>
-        /// 
+        /// The Gigabit.
         /// </summary>
         Gigabit,
 
         /// <summary>
-        /// 
+        /// The Gigabyte.
         /// </summary>
         Gigabyte,
 
         /// <summary>
-        /// 
+        /// The Terabit.
         /// </summary>
         Terabit,
 
         /// <summary>
-        /// 
+        /// The Terabyte.
         /// </summary>
         Terabyte,
 
         /// <summary>
-        /// 
+        /// The Petabit.
         /// </summary>
         Petabit,
 
         /// <summary>
-        /// 
+        /// The Petabyte.
         /// </summary>
         Petabyte
     }

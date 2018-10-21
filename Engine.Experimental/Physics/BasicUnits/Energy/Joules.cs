@@ -46,9 +46,6 @@ namespace Engine.Physics
         public string Abreviation
             => "J";
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator Joules(double value)
             => new Joules(value);

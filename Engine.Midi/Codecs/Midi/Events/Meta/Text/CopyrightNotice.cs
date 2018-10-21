@@ -24,20 +24,20 @@ namespace Engine.File
         : BaseTextEvent
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="CopyrightNotice"/> class.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="status"></param>
+        /// <param name="text">The text.</param>
+        /// <param name="status">The status.</param>
         public CopyrightNotice(string text, EventStatus status)
             : base(text, status)
         { }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="CopyrightNotice"/>.</returns>
         internal static CopyrightNotice Read(BinaryReaderExtended reader, EventStatus status)
             => new CopyrightNotice(reader.ReadASCIIString(), status);
     }

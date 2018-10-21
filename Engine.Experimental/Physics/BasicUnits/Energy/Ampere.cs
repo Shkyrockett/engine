@@ -46,9 +46,6 @@ namespace Engine.Physics
         public string Abreviation
             => "A";
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator Ampere(double value)
         {

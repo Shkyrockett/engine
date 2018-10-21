@@ -26,10 +26,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SequencerSpecific"/> class.
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="status"></param>
+        /// <param name="data">The data.</param>
+        /// <param name="status">The status.</param>
         public SequencerSpecific(byte[] data, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -37,16 +37,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the data.
         /// </summary>
         public byte[] Data { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="SequencerSpecific"/>.</returns>
         internal static SequencerSpecific Read(BinaryReaderExtended reader, EventStatus status)
             => new SequencerSpecific(reader.ReadVariableLengthBytes(), status);
     }

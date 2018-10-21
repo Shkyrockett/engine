@@ -60,8 +60,7 @@ namespace Engine
         /// </summary>
         /// <param name="a">The original value</param>
         /// <param name="b">The amount to add.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static BoundingBbox2D operator +(BoundingBbox2D a, BoundingBbox2D b)
         {
             return new BoundingBbox2D(

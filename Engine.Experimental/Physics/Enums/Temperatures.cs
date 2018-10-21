@@ -11,22 +11,22 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The temperatures enum.
     /// </summary>
     public enum Temperatures
     {
         /// <summary>
-        /// 
+        /// The Celsius.
         /// </summary>
         Celsius,
 
         /// <summary>
-        /// 
+        /// The Fahrenheit.
         /// </summary>
         Fahrenheit,
 
         /// <summary>
-        /// 
+        /// The Kelvin.
         /// </summary>
         Kelvin
     }

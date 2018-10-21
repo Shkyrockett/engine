@@ -126,7 +126,7 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// M11
+        /// Gets or sets the m11.
         /// </summary>
         public double M11
         {
@@ -156,7 +156,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// M12
+        /// Gets or sets the m12.
         /// </summary>
         public double M12
         {
@@ -184,7 +184,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// M22
+        /// Gets or sets the m21.
         /// </summary>
         public double M21
         {
@@ -213,7 +213,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// M22
+        /// Gets or sets the m22.
         /// </summary>
         public double M22
         {
@@ -243,7 +243,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// OffsetX
+        /// Gets or sets the offset x.
         /// </summary>
         public double OffsetX
         {
@@ -273,7 +273,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// OffsetY
+        /// Gets or sets the offset y.
         /// </summary>
         public double OffsetY
         {
@@ -1392,7 +1392,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Matrix3x2D a, Matrix3x2D b)
             => Equals(a, b);
@@ -1518,10 +1517,11 @@ namespace Engine
             return formatable.ToString(format, provider);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
@@ -1529,10 +1529,11 @@ namespace Engine
                 new List<double> { m1x0, m1x1, offsetY },
             }.GetEnumerator();
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
         #endregion Methods

@@ -15,7 +15,7 @@
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The midi status enum.
     /// </summary>
     public enum MidiStatus
         : byte

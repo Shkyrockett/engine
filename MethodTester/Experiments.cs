@@ -50,7 +50,6 @@ namespace MethodSpeedTester
         /// <param name="bX">Horizontal Component of Ending Point</param>
         /// <param name="bY">Vertical Component of Ending Point</param>
         /// <returns>The absolute angle of a line in radians.</returns>
-        /// <remarks></remarks>
         public static double AbsoluteAngle0(double aX, double aY, double bX, double bY)
         {
             // Find the angle of point a and point b.
@@ -71,7 +70,6 @@ namespace MethodSpeedTester
         /// <param name="bX">Horizontal Component of Ending Point</param>
         /// <param name="bY">Vertical Component of Ending Point</param>
         /// <returns>The absolute angle of a line in radians.</returns>
-        /// <remarks></remarks>
         public static double AbsoluteAngle1(double aX, double aY, double bX, double bY)
         {
             // Find the angle of point a and point b.
@@ -158,7 +156,6 @@ namespace MethodSpeedTester
         /// <param name="i">opposite component.</param>
         /// <param name="j">adjacent component.</param>
         /// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetAngle0(double i, double j)
             => Atan2(i, -j);// * 180 / PI; // Original source method converted radians to degrees.
@@ -169,7 +166,6 @@ namespace MethodSpeedTester
         /// <param name="i">Delta Angle 1</param>
         /// <param name="j">Delta Angle 2</param>
         /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
         public static double GetAngleAtan2v2(double i, double j)
         {
             if ((Abs(i) < DoubleEpsilon) && (Abs(j) < DoubleEpsilon))
@@ -183,11 +179,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// Get the angle.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public static double GetAngle(double i, double j)
             => Tau + (j > 0.0 ? 1.0 : -1.0) * Acos(i / Sqrt(i * i + j * j)) % Tau;
         #endregion Angle of a Vector
@@ -211,7 +207,6 @@ namespace MethodSpeedTester
         /// <param name="x2">Horizontal Component of Ending Point</param>
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(
             double x1, double y1,
@@ -231,15 +226,15 @@ namespace MethodSpeedTester
            };
 
         /// <summary>
-        ///
+        /// The angle.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
         public static double Angle(
             double x1, double y1, double z1,
@@ -264,15 +259,16 @@ namespace MethodSpeedTester
            };
 
         /// <summary>
-        ///
+        /// The angle vector 0.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
         /// <returns>
+        /// The <see cref="double"/>.
         /// Return the angle ABC.
         /// Return a value between PI and -PI.
         /// Note that the value is the opposite of what you might
@@ -287,15 +283,16 @@ namespace MethodSpeedTester
             => Atan2(CrossProductVector2D_0(x1, y1, x2, y2, x3, y3), DotProductVector2D_0(x1, y1, x2, y2, x3, y3));
 
         /// <summary>
-        ///
+        /// The angle vector 1.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
         /// <returns>
+        /// The <see cref="double"/>.
         /// Return the angle ABC.
         /// Return a value between PI and -PI.
         /// Note that the value is the opposite of what you might
@@ -342,10 +339,10 @@ namespace MethodSpeedTester
           };
 
         /// <summary>
-        ///
+        /// The polygon area00.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>From http://www.angusj.com</remarks>
         public static double PolygonArea00(List<Point2D> polygon)
         {
@@ -362,10 +359,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The polygon area0.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://alienryderflex.com/polygon_area/</remarks>
         public static double PolygonArea0(IEnumerable<Point2D> polygon)
         {
@@ -381,10 +378,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The polygon area1.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://paulbourke.net/geometry/polygonmesh/source1.c</remarks>
         public static double PolygonArea1(List<Point2D> polygon)
         {
@@ -403,10 +400,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The polygon area2.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/2034540/calculating-area-of-irregular-polygon-in-c-sharp</remarks>
         public static double PolygonArea2(List<Point2D> polygon)
         {
@@ -419,10 +416,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The polygon area3.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/2034540/calculating-area-of-irregular-polygon-in-c-sharp</remarks>
         public static double PolygonArea3(List<Point2D> polygon)
         {
@@ -431,10 +428,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The polygon area4.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public static double PolygonArea4(List<Point2D> polygon)
         {
             if (polygon.Count < 3)
@@ -508,11 +505,11 @@ namespace MethodSpeedTester
 
         #region Area of The Intersection of Two Circles
         /// <summary>
-        ///
+        /// The area.
         /// </summary>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <returns></returns>
+        /// <param name="A">The A.</param>
+        /// <param name="B">The B.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.xarg.org/2016/07/calculate-the-intersection-area-of-two-circles/
         /// </remarks>
@@ -540,10 +537,11 @@ namespace MethodSpeedTester
 
         #region Array Trim
         /// <summary>
-        ///
+        /// The real order super lloyd.
         /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="coefficients">The coefficients.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="int"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -573,7 +571,6 @@ namespace MethodSpeedTester
         /// Or rather, locates where to trim off any leading zero coefficients.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
         /// and Trim and RealOrder from: https://github.com/superlloyd/Poly
@@ -644,7 +641,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -667,7 +664,7 @@ namespace MethodSpeedTester
         /// <param name="to"></param>
         /// <param name="values"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -686,7 +683,7 @@ namespace MethodSpeedTester
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
         /// http://fontforge.github.io/bezier.html
@@ -701,13 +698,13 @@ namespace MethodSpeedTester
                 a);
 
         /// <summary>
-        ///
+        /// The bezier coefficients1.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         /// <remarks>
         /// https://www.particleincell.com/2013/cubic-line-intersection/
         /// </remarks>
@@ -725,7 +722,6 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -741,7 +737,6 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -758,7 +753,6 @@ namespace MethodSpeedTester
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -776,7 +770,6 @@ namespace MethodSpeedTester
         /// <param name="d"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -795,7 +788,6 @@ namespace MethodSpeedTester
         /// <param name="e"></param>
         /// <param name="f"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -815,7 +807,6 @@ namespace MethodSpeedTester
         /// <param name="f"></param>
         /// <param name="g"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -836,7 +827,6 @@ namespace MethodSpeedTester
         /// <param name="g"></param>
         /// <param name="h"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -858,7 +848,6 @@ namespace MethodSpeedTester
         /// <param name="h"></param>
         /// <param name="i"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -870,10 +859,10 @@ namespace MethodSpeedTester
 
         #region Boundaries of Polygons
         /// <summary>
-        ///
+        /// Get the bounds.
         /// </summary>
-        /// <param name="paths"></param>
-        /// <returns></returns>
+        /// <param name="paths">The paths.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         public static Rectangle2D GetBounds(List<List<Point2D>> paths)
         {
             var i = 0;
@@ -943,10 +932,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The polygon bounds1.
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">The path.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D PolygonBounds1(List<Point2D> path)
@@ -985,14 +974,14 @@ namespace MethodSpeedTester
            };
 
         /// <summary>
-        ///
+        /// The ellipse bounding box.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="r1">The r1.</param>
+        /// <param name="r2">The r2.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
         /// </remarks>
@@ -1012,14 +1001,14 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse bounds.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="r1">The r1.</param>
+        /// <param name="r2">The r2.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Rectangle2D EllipseBounds(double x, double y, double r1, double r2, double angle)
@@ -1363,18 +1352,18 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellptic arc.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="r1"></param>
-        /// <param name="r2"></param>
-        /// <param name="angle"></param>
-        /// <param name="largeArc"></param>
-        /// <param name="sweep"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="r1">The r1.</param>
+        /// <param name="r2">The r2.</param>
+        /// <param name="angle">The angle.</param>
+        /// <param name="largeArc">The largeArc.</param>
+        /// <param name="sweep">The sweep.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         /// <remarks>
         /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html
         /// </remarks>
@@ -1520,13 +1509,13 @@ namespace MethodSpeedTester
 
         #region Boundary of Cubic Bézier
         /// <summary>
-        ///
+        /// The cubic bezier bounds.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         public static Rectangle2D CubicBezierBounds(Point2D a, Point2D b, Point2D c, Point2D d)
         {
             var sortOfCloseLength = (int)Measurements.CubicBezierArcLength(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y);
@@ -1550,13 +1539,13 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The cubic bezier bounds2.
         /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
-        /// <returns></returns>
+        /// <param name="p0">The p0.</param>
+        /// <param name="p1">The p1.</param>
+        /// <param name="p2">The p2.</param>
+        /// <param name="p3">The p3.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
         /// http://floris.briolas.nl/floris/2009/10/bounding-box-of-cubic-bezier/
@@ -1634,12 +1623,12 @@ namespace MethodSpeedTester
 
         #region Boundary of Quadratic Bézier
         /// <summary>
-        ///
+        /// The quadratic bezier bounds.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         public static Rectangle2D QuadraticBezierBounds(Point2D a, Point2D b, Point2D c)
         {
             var sortOfCloseLength = Measurements.QuadraticBezierArcLengthByIntegral(a.X, a.Y, b.X, b.Y, c.X, c.Y);
@@ -1823,15 +1812,15 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The circle bounds from points.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <returns></returns>
+        /// <param name="p1X">The p1X.</param>
+        /// <param name="p1Y">The p1Y.</param>
+        /// <param name="p2X">The p2X.</param>
+        /// <param name="p2Y">The p2Y.</param>
+        /// <param name="p3X">The p3X.</param>
+        /// <param name="p3Y">The p3Y.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
         /// </remarks>
@@ -1899,14 +1888,14 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The catmull rom spline.
         /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="v3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="v0">The v0.</param>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="v3">The v3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CatmullRomSpline(
@@ -1983,18 +1972,18 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The catmull rom spline.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) CatmullRomSpline(
@@ -2077,22 +2066,22 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The catmull rom spline.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="z0">The z0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="z3">The z3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) CatmullRomSpline(
@@ -2156,15 +2145,15 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The circle from points.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <returns></returns>
+        /// <param name="p1X">The p1X.</param>
+        /// <param name="p1Y">The p1Y.</param>
+        /// <param name="p2X">The p2X.</param>
+        /// <param name="p2Y">The p2Y.</param>
+        /// <param name="p3X">The p3X.</param>
+        /// <param name="p3Y">The p3Y.</param>
+        /// <returns>The <see cref="Circle"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
         /// </remarks>
@@ -2202,12 +2191,12 @@ namespace MethodSpeedTester
            };
 
         /// <summary>
-        ///
+        /// Set the angle.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         public static (double X, double Y) SetAngle(double i, double j, double angle)
         {
             //double rads = angle; // * (PI / 180); // Original code used degrees rather than radians.
@@ -2230,13 +2219,13 @@ namespace MethodSpeedTester
            };
 
         /// <summary>
-        ///
+        /// The complex product.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/1476497/multiply-two-point-objects
         /// </remarks>
@@ -2260,12 +2249,12 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The cosine interpolate1d.
         /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static double CosineInterpolate1D(double v1, double v2, double t)
         {
@@ -2286,14 +2275,14 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The cosine interpolate2d.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static (double X, double Y) CosineInterpolate2D(
             double x1, double y1,
@@ -2313,7 +2302,6 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        /// <remarks></remarks>
         public static Point2D Interpolate(Point2D a, Point2D b, double index)
         {
             //Single MU2 = (double)((1.0 - Cos(index * 180)) * 0.5);
@@ -2351,16 +2339,16 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The cosine interpolate3d.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static (double X, double Y, double Z) CosineInterpolate3D(
             double x1, double y1, double z1,
@@ -2427,15 +2415,15 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The closest point on line segment mv g.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="pX">The pX.</param>
+        /// <param name="pY">The pY.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
         private static Point2D ClosestPointOnLineSegmentMvG(
             double aX, double aY,
@@ -2453,15 +2441,15 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The closest point on line segment darien pardinas.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="pX">The pX.</param>
+        /// <param name="pY">The pY.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
         private static Point2D ClosestPointOnLineSegmentDarienPardinas(
             double aX, double aY,
@@ -2486,15 +2474,15 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The closest point on line darien pardinas.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <returns></returns>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="pX">The pX.</param>
+        /// <param name="pY">The pY.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
         private static Point2D ClosestPointOnLineDarienPardinas(
             double aX, double aY,
@@ -2685,11 +2673,11 @@ namespace MethodSpeedTester
 
         #region Cubic Bézier Get T
         /// <summary>
-        ///
+        /// Find the tfor coordinate.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="Lut"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="Lut">The Lut.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
         public static List<double> FindTforCoordinate(Point2D value, List<Point2D> Lut)
         {
@@ -2707,13 +2695,13 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// Build the LUT.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
         public static List<Point2D> BuildLUT(Point2D a, Point2D b, Point2D c, Point2D d)
         {
@@ -2726,13 +2714,13 @@ namespace MethodSpeedTester
 
         #region Cubic Bézier Length Approximations
         /// <summary>
-        ///
+        /// The cubic bezier arc length.
         /// </summary>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
-        /// <param name="p4"></param>
-        /// <returns></returns>
+        /// <param name="p1">The p1.</param>
+        /// <param name="p2">The p2.</param>
+        /// <param name="p3">The p3.</param>
+        /// <param name="p4">The p4.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
         private static double CubicBezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
         {
@@ -2849,14 +2837,14 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The cubic interpolate1d.
         /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="v3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="v0">The v0.</param>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="v3">The v3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static double CubicInterpolate1D(double v0, double v1, double v2, double v3, double t)
         {
@@ -2884,18 +2872,18 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The cubic interpolate2d.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static (double X, double Y) CubicInterpolate2D(
             double x0, double y0,
@@ -2931,22 +2919,22 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The cubic interpolate3d.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="z0">The z0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="z3">The z3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static (double X, double Y, double Z) CubicInterpolate3D(
             double x0, double y0, double z0,
@@ -2986,14 +2974,14 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The cubic interpolate catmull rom splines1d.
         /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="v3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="v0">The v0.</param>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="v3">The v3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static double CubicInterpolateCatmullRomSplines1D(double v0, double v1, double v2, double v3, double t)
         {
@@ -3021,18 +3009,18 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The cubic interpolate catmull rom splines2d.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static (double X, double Y) CubicInterpolateCatmullRomSplines2D(
             double x0, double y0,
@@ -3068,22 +3056,22 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The cubic interpolate catmull rom splines3d.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="z0">The z0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="z3">The z3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static (double X, double Y, double Z) CubicInterpolateCatmullRomSplines3D(
             double x0, double y0, double z0,
@@ -3113,27 +3101,27 @@ namespace MethodSpeedTester
 
         #region Cubic Bézier Derivative
         /// <summary>
-        ///
+        /// The cubic bezier derivative0.
         /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="p0">The p0.</param>
+        /// <param name="p1">The p1.</param>
+        /// <param name="p2">The p2.</param>
+        /// <param name="p3">The p3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="PointF"/>.</returns>
         /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
         private static PointF CubicBezierDerivative0(PointF p0, PointF p1, PointF p2, PointF p3, double t) => new PointF((float)(3 * Pow(1 - t, 2) * (p1.X - p0.X) + 6 * (1 - t) * t * (p2.X - p1.X) + 3 * Pow(t, 2) * (p3.X - p2.X)),
                               (float)(3 * Pow(1 - t, 2) * (p1.Y - p0.Y) + 6 * (1 - t) * t * (p2.Y - p1.Y) + 3 * Pow(t, 2) * (p3.Y - p2.Y)));
 
         /// <summary>
-        ///
+        /// The cubic bezier derivative1.
         /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="p0">The p0.</param>
+        /// <param name="p1">The p1.</param>
+        /// <param name="p2">The p2.</param>
+        /// <param name="p3">The p3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="PointF"/>.</returns>
         /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
         private static PointF CubicBezierDerivative1(PointF p0, PointF p1, PointF p2, PointF p3, double t)
         {
@@ -3187,7 +3175,6 @@ namespace MethodSpeedTester
         /// <param name="y3"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <history>
         /// </history>
         public static (double X, double Y) CubicBezierInterpolate2D_0(
@@ -3297,19 +3284,18 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The cubic bezier interpolate2d 4.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="dX">The dX.</param>
+        /// <param name="dY">The dY.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         public static (double X, double Y) CubicBezierInterpolate2D_4(
             double aX, double aY,
             double bX, double bY,
@@ -3423,14 +3409,14 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The cubic bezier curve.
         /// </summary>
-        /// <param name="p0"></param>
-        /// <param name="p1"></param>
-        /// <param name="p2"></param>
-        /// <param name="p3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="p0">The p0.</param>
+        /// <param name="p1">The p1.</param>
+        /// <param name="p2">The p2.</param>
+        /// <param name="p3">The p3.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="PointF"/>.</returns>
         /// <remarks>http://en.wikipedia.org/wiki/B%C3%A9zier_curve</remarks>
         private static PointF CubicBezierCurve(PointF p0, PointF p1, PointF p2, PointF p3, double t)
             => new PointF((float)(Pow(1 - t, 3) * p0.X + 3 * Pow(1 - t, 2) * t * p1.X
@@ -3446,17 +3432,19 @@ namespace MethodSpeedTester
         #endregion Cubic Bézier and Line Intersections
 
         #region Cubic Bézier Self Intersection
+
         /// <summary>
-        ///
+        /// The cubic bezier self intersection x.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         /// <returns>returns null if the curve is self-intersecting, or the point of intersection if it is.</returns>
         public static Point2D? CubicBezierSelfIntersectionX(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3)
             => CubicBezierSelfIntersection(
@@ -3835,11 +3823,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The distance.
         /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
+        /// <param name="point1">The point1.</param>
+        /// <param name="point2">The point2.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(Point2D point1, Point2D point2)
@@ -3850,11 +3838,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The distance.
         /// </summary>
-        /// <param name="vector1"></param>
-        /// <param name="vector2"></param>
-        /// <returns></returns>
+        /// <param name="vector1">The vector1.</param>
+        /// <param name="vector2">The vector2.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Distance(Vector2D vector1, Vector2D vector2)
@@ -3874,7 +3862,6 @@ namespace MethodSpeedTester
         /// <param name="B"></param>
         /// <param name="RetNear"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static double DistanceToSegment(Point2D p, Point2D A, Point2D B, out Point2D RetNear)
         {
             RetNear = new Point2D();
@@ -3915,15 +3902,15 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The dist to segment2.
         /// </summary>
-        /// <param name="px"></param>
-        /// <param name="py"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
+        /// <param name="px">The px.</param>
+        /// <param name="py">The py.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public static double DistToSegment2(double px, double py, double x1, double y1, double x2, double y2)
         {
             double dx;
@@ -3969,7 +3956,6 @@ namespace MethodSpeedTester
         /// <param name="x2"></param>
         /// <param name="y2"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static double DistToSegment(double px, double py, double x1, double y1, double x2, double y2)
         {
             var dx = x2 - x1;
@@ -4003,14 +3989,15 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The dist from seg.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="q0"></param>
-        /// <param name="q1"></param>
-        /// <param name="radius"></param>
-        /// <param name="u"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="q0">The q0.</param>
+        /// <param name="q1">The q1.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="u">The u.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <exception cref="Exception">Expected line segment, not point.</exception>
         /// <remarks>
         /// From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
         /// </remarks>
@@ -4237,11 +4224,11 @@ namespace MethodSpeedTester
         private static double EllipsePerimeter1(double a, double b) => 2 * PI * Sqrt(0.5 * ((b * b) + (a * a)));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter2.
         /// </summary>
         /// <param name="a">todo: describe a parameter on EllipsePerimeter2</param>
         /// <param name="b">todo: describe b parameter on EllipsePerimeter2</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://ellipse-circumference.blogspot.com/
         /// </remarks>
@@ -4254,85 +4241,85 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter kepler.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterKepler(double a, double b) => 2 * PI * Sqrt(a * b);
 
         /// <summary>
-        ///
+        /// The ellipse perimeter sipos.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterSipos(double a, double b) => 2 * PI * ((a + b) * (a + b) / ((Sqrt(a) + Sqrt(a)) * (Sqrt(b) + Sqrt(b))));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter naive.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterNaive(double a, double b) => PI * (a + b);
 
         /// <summary>
-        ///
+        /// The ellipse perimeter peano.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterPeano(double a, double b) => PI * ((3 * (a + b) / 2) - Sqrt(a * b));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter euler.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterEuler(double a, double b) => 2 * PI * Sqrt(((a * a) + (b * b)) / 2);
 
         /// <summary>
-        ///
+        /// The ellipse perimeter almkvist.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterAlmkvist(double a, double b) => 2 * PI
         * ((2 * Pow(a + b, 2) - Pow(Sqrt(a) - Sqrt(b), 4))
         / (Pow(Sqrt(a) - Sqrt(b), 2) + (2 * Sqrt(2 * (a + b)) * Pow(a * b, 1 / 4))));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter quadratic.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterQuadratic(double a, double b) => PI / 2 * Sqrt(6 * (a * a + b * b) + (4 * a * b));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter muir.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterMuir(double a, double b) => 2 * PI * Pow((Pow(a, 3 / 2) + Pow(b, 3 / 2)) / 2, 2 / 3);
 
         /// <summary>
-        ///
+        /// The ellipse perimeter lindner.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
         private static double EllipsePerimeterLindner(double a, double b)
         {
@@ -4341,18 +4328,22 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter sykora rivera cantrells particularly fruitful.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
         /// </remarks>
         private static double EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful(double a, double b) => 4 * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
 
         /// <summary>
-        ///
+        /// The ellipse perimeter YNOT.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
         /// </remarks>
@@ -4363,9 +4354,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter combined padé.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
         /// </remarks>
@@ -4381,9 +4374,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter combined padé2.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
         /// </remarks>
@@ -4399,9 +4394,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter jacobsen waadeland hudson lipka.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
         /// </remarks>
@@ -4417,9 +4414,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter2 3Jacobsen waadeland.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
         /// </remarks>
@@ -4435,9 +4434,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter3 3 3 2.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
         /// </remarks>
@@ -4454,29 +4455,29 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter ramanujan.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterRamanujan(double a, double b) => PI * (3 * (a + b) - Sqrt((3 * a + b) * (a + 3 * b)));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter selmer.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterSelmer(double a, double b) => PI / 4 * ((6 + .5 * (Pow(a - b, 2) * Pow(a - b, 2) / Pow(a + b, 2) * Pow(a + b, 2))) * (a + b) - Sqrt(2 * (a * a + 3 * a * b + b * b)));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter ramanujan2.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterRamanujan2(double a, double b)
         {
@@ -4485,11 +4486,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter padéselmer.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterPadéSelmer(double a, double b)
         {
@@ -4498,11 +4499,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter padémichon.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterPadéMichon(double a, double b)
         {
@@ -4511,11 +4512,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter padéhudson lipka bronshtein.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterPadéHudsonLipkaBronshtein(double a, double b)
         {
@@ -4537,11 +4538,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter padéjacobsen waadeland.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterPadéJacobsenWaadeland(double a, double b)
         {
@@ -4550,11 +4551,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter padé3 2.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterPadé3_2(double a, double b)
         {
@@ -4563,11 +4564,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter padé3 3.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterPadé3_3(double a, double b)
         {
@@ -4578,11 +4579,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter optimized peano.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterOptimizedPeano(double a, double b)
         {
@@ -4591,11 +4592,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter optimized quadratic1.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterOptimizedQuadratic1(double a, double b)
         {
@@ -4604,20 +4605,20 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter optimized quadratic2.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterOptimizedQuadratic2(double a, double b) => PI * Sqrt(2 * (a * a + b * b) + (a - b) * (a - b) / 2.458338);
 
         /// <summary>
-        ///
+        /// The ellipse perimeter optimized ramanujan1.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterOptimizedRamanujan1(double a, double b)
         {
@@ -4627,21 +4628,21 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter bartolomeu michon.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterBartolomeuMichon(double a, double b)
             => Abs(a - b) < DoubleEpsilon ? 2 * PI * a : PI * ((a - b) / Atan((a - b) / (a + b)));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter cantrell2.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterCantrell2(double a, double b)
         {
@@ -4652,29 +4653,29 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter takakazu seki.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterTakakazuSeki(double a, double b) => 2 * Sqrt(PI * PI * a * b + 4 * (a - b) * (a - b));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter lockwood.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterLockwood(double a, double b) => 4 * (b * b / a * Atan(a / b) + a * a / b * Atan(b / a));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter bartolomeu.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterBartolomeu(double a, double b)
         {
@@ -4683,29 +4684,29 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter rivera1.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterRivera1(double a, double b) => 4 * a + 2 * (PI - 2) * a * Pow(b / a, 1.456);
 
         /// <summary>
-        ///
+        /// The ellipse perimeter rivera2.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterRivera2(double a, double b) => 4 * ((PI * a * b + (a - b) * (a - b)) / (a + b)) - 89 / 146 * Pow((b * Sqrt(a) - a * Sqrt(b)) / (a + b), 2);
 
         /// <summary>
-        ///
+        /// The ellipse perimeter cantrell.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterCantrell(double a, double b)
         {
@@ -4714,20 +4715,20 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter sykora.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterSykora(double a, double b) => 4 * ((PI * a * b + (a - b) * (a - b)) / (a + b)) - 0.5 * (a * b / (a + b)) * ((a - b) * (a - b) / (PI * a * b + (a + b) * (a + b)));
 
         /// <summary>
-        ///
+        /// The ellipse perimeter cantrell ramanujan.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
         private static double EllipsePerimeterCantrellRamanujan(double a, double b)
         {
@@ -4736,9 +4737,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter k13.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
         /// </remarks>
@@ -4762,9 +4765,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter thomas blankenhorn8.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://ellipse-circumference3.blogspot.com/
         /// </remarks>
@@ -4779,9 +4784,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter cantrell2006.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox06.html
         /// </remarks>
@@ -4799,9 +4806,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse perimeter ahmadi2006.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox06.html
         /// </remarks>
@@ -4821,12 +4830,13 @@ namespace MethodSpeedTester
         #endregion Elliptic Arc From Points and Radii
 
         #region Elliptic Star Points
+
         /// <summary>
-        ///
+        /// The star points.
         /// </summary>
-        /// <param name="num_points"></param>
-        /// <param name="bounds"></param>
-        /// <returns>Return PointFs to define a star.</returns>
+        /// <param name="num_points">The num_points.</param>
+        /// <param name="bounds">The bounds.</param>
+        /// <returns>The <see cref="T:PointF[]"/>. Return PointFs to define a star.</returns>
         private static PointF[] StarPoints(int num_points, Rectangle bounds)
         {
             // Make room for the points.
@@ -4966,7 +4976,7 @@ namespace MethodSpeedTester
         /// <param name="coefficients"></param>
         /// <param name="x">The value to evaluate.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Horner%27s_method
         /// https://github.com/thelonious/kld-polynomial
@@ -4992,11 +5002,12 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The horner.
         /// </summary>
-        /// <param name="coefficients"></param>
-        /// <param name="x"></param>
-        /// <returns></returns>
+        /// <param name="coefficients">The coefficients.</param>
+        /// <param name="x">The x.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <exception cref="ArithmeticException"></exception>
         /// <acknowledgment>
         /// http://rosettacode.org/wiki/Horner%27s_rule_for_polynomial_evaluation
         /// </acknowledgment>
@@ -5014,12 +5025,12 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The compute.
         /// </summary>
-        /// <param name="coefficients"></param>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="coefficients">The coefficients.</param>
+        /// <param name="x">The x.</param>
+        /// <returns>The <see cref="double"/>.</returns>
+        /// <exception cref="ArithmeticException"></exception>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -5045,12 +5056,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The compute c.
         /// </summary>
-        /// <param name="coefficients"></param>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="coefficients">The coefficients.</param>
+        /// <param name="x">The x.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -5072,12 +5082,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The compute c2.
         /// </summary>
-        /// <param name="coefficients"></param>
-        /// <param name="x"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="coefficients">The coefficients.</param>
+        /// <param name="x">The x.</param>
+        /// <returns>The <see cref="Complex"/>.</returns>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Horner%27s_method
         /// https://github.com/superlloyd/Poly
@@ -5140,15 +5149,15 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The circle center from points.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <returns></returns>
+        /// <param name="p1X">The p1X.</param>
+        /// <param name="p1Y">The p1Y.</param>
+        /// <param name="p2X">The p2X.</param>
+        /// <param name="p2Y">The p2Y.</param>
+        /// <param name="p3X">The p3X.</param>
+        /// <param name="p3Y">The p3Y.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
         /// </remarks>
@@ -5202,13 +5211,13 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The forms ear.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns>Return true if the three points form an ear.</returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>The <see cref="bool"/>. Return true if the three points form an ear.</returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
         private static bool FormsEar(PolygonContour polygon, int a, int b, int c)
         {
@@ -5245,11 +5254,11 @@ namespace MethodSpeedTester
 
         #region Fit in Rectangle
         /// <summary>
-        ///
+        /// The fit rect.
         /// </summary>
-        /// <param name="size"></param>
-        /// <param name="radians"></param>
-        /// <returns></returns>
+        /// <param name="size">The size.</param>
+        /// <param name="radians">The radians.</param>
+        /// <returns>The <see cref="Size2D"/>.</returns>
         public static Size2D FitRect(Size2D size, double radians)
         {
             var angleCos = Cos(radians);
@@ -5315,9 +5324,8 @@ namespace MethodSpeedTester
                 radius, tooth_length, 10, 5, true);
         }
 
-        // Draw a gear.
         /// <summary>
-        /// The draw gear.
+        /// Draw a gear.
         /// </summary>
         /// <param name="gr">The gr.</param>
         /// <param name="axle_brush">The axle_brush.</param>
@@ -5379,9 +5387,8 @@ namespace MethodSpeedTester
         #endregion Gear Points
 
         #region Heart Interpolation
-        // The curve's parametric equations.
         /// <summary>
-        /// The heart.
+        /// The curve's parametric equations.
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
@@ -5571,16 +5578,16 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The hermite interpolate1d.
         /// </summary>
-        /// <param name="v0"></param>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="v3"></param>
-        /// <param name="s"></param>
+        /// <param name="v0">The v0.</param>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="v3">The v3.</param>
+        /// <param name="s">The s.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         private static double HermiteInterpolate1D(
             double v0,
@@ -5649,20 +5656,20 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The hermite interpolate2d.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="mu"></param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="mu">The mu.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         private static (double X, double Y) HermiteInterpolate2D(
             double x0, double y0,
@@ -5706,7 +5713,6 @@ namespace MethodSpeedTester
         /// <param name="tension"></param>
         /// <param name="bias"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Point2D Interpolate1(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension, double bias, double index)
         {
             //double mu2 = mu * mu;
@@ -5734,17 +5740,16 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The hermite interpolate.
         /// </summary>
-        /// <param name="y0"></param>
-        /// <param name="y1"></param>
-        /// <param name="y2"></param>
-        /// <param name="y3"></param>
-        /// <param name="mu"></param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="mu">The mu.</param>
         /// <param name="tension">Tension: 1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">Bias: 0 is even,</param>
-        /// <remarks>positive is towards First segment, negative towards the other</remarks>
-        /// <returns></returns>
+        /// <returns>The <see cref="double"/>. positive is towards First segment, negative towards the other</returns>
         private static double Hermite_Interpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
         {
             var m0 = (y1 - y0) * ((1 + bias) * ((1 - tension) / 2));
@@ -5761,16 +5766,16 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The hermite interpolate.
         /// </summary>
-        /// <param name="y0"></param>
-        /// <param name="y1"></param>
-        /// <param name="y2"></param>
-        /// <param name="y3"></param>
-        /// <param name="mu"></param>
-        /// <param name="tension"></param>
-        /// <param name="bias"></param>
-        /// <returns></returns>
+        /// <param name="y0">The y0.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="mu">The mu.</param>
+        /// <param name="tension">The tension.</param>
+        /// <param name="bias">The bias.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         private static double HermiteInterpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
         {
             var m0 = (y1 - y0) * ((1 + bias) * ((1 - tension) / 2));
@@ -5801,7 +5806,6 @@ namespace MethodSpeedTester
         /// <param name="tension"></param>
         /// <param name="bias"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Point2D Interpolate2(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension, double bias, double index)
         {
             var t2 = index * index;
@@ -5823,24 +5827,24 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The hermite interpolate3d.
         /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
-        /// <param name="mu"></param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="z0">The z0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="z3">The z3.</param>
+        /// <param name="mu">The mu.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
-        /// <returns></returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         private static (double X, double Y, double Z) HermiteInterpolate3D(
             double x0, double y0, double z0,
@@ -5878,22 +5882,26 @@ namespace MethodSpeedTester
 
         #region Hermite To Cubic Bézier
         /// <summary>
-        ///
+        /// The to cubic bezier.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="aTan">The aTan.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="bTan">The bTan.</param>
+        /// <returns>The <see cref="CubicBezier"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
         public static CubicBezier ToCubicBezier(Point2D a, Point2D aTan, Point2D b, Point2D bTan) => new CubicBezier(aTan, new Point2D(aTan.X - (b.X - a.X) / 6, aTan.Y - (b.Y - a.Y) / 6), new Point2D(b.X + (bTan.X - aTan.X) / 6, b.Y + (bTan.Y - aTan.Y) / 6), bTan);
         #endregion Hermite To Cubic Bézier
 
         #region Horizontal Line Segments Overlap
         /// <summary>
-        ///
+        /// The horz segments overlap.
         /// </summary>
-        /// <param name="segAX"></param>
-        /// <param name="segAY"></param>
-        /// <param name="segBX"></param>
-        /// <param name="segBY"></param>
-        /// <returns></returns>
+        /// <param name="segAX">The segAX.</param>
+        /// <param name="segAY">The segAY.</param>
+        /// <param name="segBX">The segBX.</param>
+        /// <param name="segBY">The segBY.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
         public static bool HorzSegmentsOverlap(double segAX, double segAY, double segBX, double segBY)
         {
@@ -5981,11 +5989,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The circle circle intersection.
         /// </summary>
-        /// <param name="A"></param>
-        /// <param name="B"></param>
-        /// <returns></returns>
+        /// <param name="A">The A.</param>
+        /// <param name="B">The B.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>
         /// http://www.xarg.org/2016/07/calculate-the-intersection-points-of-two-circles/
         /// </remarks>
@@ -6093,17 +6101,17 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The circle line segment intersection.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="lAX"></param>
-        /// <param name="lAY"></param>
-        /// <param name="lBX"></param>
-        /// <param name="lBY"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="lAX">The lAX.</param>
+        /// <param name="lAY">The lAY.</param>
+        /// <param name="lBX">The lBX.</param>
+        /// <param name="lBY">The lBY.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CircleLineSegmentIntersection(
@@ -6218,17 +6226,17 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The circle line intersection.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="r"></param>
-        /// <param name="lAX"></param>
-        /// <param name="lAY"></param>
-        /// <param name="lBX"></param>
-        /// <param name="lBY"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="r">The r.</param>
+        /// <param name="lAX">The lAX.</param>
+        /// <param name="lAY">The lAY.</param>
+        /// <param name="lBX">The lBX.</param>
+        /// <param name="lBY">The lBY.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
         /// </remarks>
@@ -6302,7 +6310,6 @@ namespace MethodSpeedTester
         /// <param name="ellipseA"></param>
         /// <param name="ellipseB"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static LineSegment Intersect(Ellipse ellipseA, Ellipse ellipseB)
         {
             var d = ellipseB.Center.X * ellipseB.Center.X - ellipseA.Center.X * ellipseA.Center.X - ellipseB.MajorRadius * ellipseB.MajorRadius - Pow(ellipseB.Center.Y - ellipseA.Center.Y, 2) + ellipseA.MajorRadius * ellipseA.MajorRadius;
@@ -7196,17 +7203,17 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The ellipse line segment.
         /// </summary>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="rX"></param>
-        /// <param name="rY"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="rX">The rX.</param>
+        /// <param name="rY">The rY.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>
         /// http://forums.codeguru.com/showthread.php?157823-How-to-get-ellipse-and-line-Intersection-points
         /// </remarks>
@@ -7291,7 +7298,7 @@ namespace MethodSpeedTester
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
@@ -7365,17 +7372,17 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The unrotated ellipse line segment intersection.
         /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <returns></returns>
+        /// <param name="centerX">The centerX.</param>
+        /// <param name="centerY">The centerY.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="a1X">The a1X.</param>
+        /// <param name="a1Y">The a1Y.</param>
+        /// <param name="a2X">The a2X.</param>
+        /// <param name="a2Y">The a2Y.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection UnrotatedEllipseLineSegmentIntersection(
@@ -7442,7 +7449,7 @@ namespace MethodSpeedTester
         /// <param name="y0"></param>
         /// <param name="x1"></param>
         /// <param name="y1"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
         /// <remarks>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
@@ -7535,7 +7542,6 @@ namespace MethodSpeedTester
         /// <param name="ellipse"></param>
         /// <param name="line"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (bool, (double, double)?, bool, (double, double)?) Intersect(Ellipse ellipse, LineSegment line)
         {
@@ -7557,19 +7563,19 @@ namespace MethodSpeedTester
 
         #region Intersection of Elliptical Arc and Line Segment
         /// <summary>
-        ///
+        /// The unrotated elliptical arc line segment intersection.
         /// </summary>
-        /// <param name="cx"></param>
-        /// <param name="cy"></param>
-        /// <param name="rx"></param>
-        /// <param name="ry"></param>
-        /// <param name="startAngle"></param>
-        /// <param name="sweepAngle"></param>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <returns></returns>
+        /// <param name="cx">The cx.</param>
+        /// <param name="cy">The cy.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="startAngle">The startAngle.</param>
+        /// <param name="sweepAngle">The sweepAngle.</param>
+        /// <param name="x0">The x0.</param>
+        /// <param name="y0">The y0.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection UnrotatedEllipticalArcLineSegmentIntersection(
@@ -7892,7 +7898,6 @@ namespace MethodSpeedTester
         /// SlopeMax is a large value "close to infinity" (Close to the largest value allowed for the data
         /// type). Used in the Slope of a LineSeg
         /// </summary>
-        /// <remarks></remarks>
         public const double SlopeMax = 9223372036854775807d;
 
         /// <summary>
@@ -8142,17 +8147,17 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The intersect line line.
         /// </summary>
-        /// <param name="Ax"></param>
-        /// <param name="Ay"></param>
-        /// <param name="Bx"></param>
-        /// <param name="By"></param>
-        /// <param name="Cx"></param>
-        /// <param name="Cy"></param>
-        /// <param name="Dx"></param>
-        /// <param name="Dy"></param>
-        /// <returns></returns>
+        /// <param name="Ax">The Ax.</param>
+        /// <param name="Ay">The Ay.</param>
+        /// <param name="Bx">The Bx.</param>
+        /// <param name="By">The By.</param>
+        /// <param name="Cx">The Cx.</param>
+        /// <param name="Cy">The Cy.</param>
+        /// <param name="Dx">The Dx.</param>
+        /// <param name="Dy">The Dy.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         /// <remarks>
         /// https://github.com/thelonious/kld-intersections
         /// </remarks>
@@ -8207,18 +8212,18 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The line line segment intersection0.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="cX">The cX.</param>
+        /// <param name="cY">The cY.</param>
+        /// <param name="dX">The dX.</param>
+        /// <param name="dY">The dY.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>
         /// https://www.gamedev.net/topic/488904-lineline-segment-intersection-in-2d/
         /// </remarks>
@@ -8356,20 +8361,20 @@ namespace MethodSpeedTester
 
         #region Intersection of a Line and a Quadratic Bézier
         /// <summary>
-        ///
+        /// The line quadratic bezier intersection.
         /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="a1X">The a1X.</param>
+        /// <param name="a1Y">The a1Y.</param>
+        /// <param name="a2X">The a2X.</param>
+        /// <param name="a2Y">The a2Y.</param>
+        /// <param name="p1X">The p1X.</param>
+        /// <param name="p1Y">The p1Y.</param>
+        /// <param name="p2X">The p2X.</param>
+        /// <param name="p2Y">The p2Y.</param>
+        /// <param name="p3X">The p3X.</param>
+        /// <param name="p3Y">The p3Y.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineQuadraticBezierIntersection(
@@ -8427,22 +8432,22 @@ namespace MethodSpeedTester
 
         #region Intersection of a Line and a Cubic Bézier
         /// <summary>
-        ///
+        /// The line cubic bezier intersection0.
         /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="p4X"></param>
-        /// <param name="p4Y"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="a1X">The a1X.</param>
+        /// <param name="a1Y">The a1Y.</param>
+        /// <param name="a2X">The a2X.</param>
+        /// <param name="a2Y">The a2Y.</param>
+        /// <param name="p1X">The p1X.</param>
+        /// <param name="p1Y">The p1Y.</param>
+        /// <param name="p2X">The p2X.</param>
+        /// <param name="p2Y">The p2Y.</param>
+        /// <param name="p3X">The p3X.</param>
+        /// <param name="p3Y">The p3Y.</param>
+        /// <param name="p4X">The p4X.</param>
+        /// <param name="p4Y">The p4Y.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection LineCubicBezierIntersection0(
@@ -8519,19 +8524,19 @@ namespace MethodSpeedTester
 
         #region Intersection of a Line Segment and a Quadratic Bézier
         /// <summary>
-        ///
+        /// The quadratic bezier line segment intersection1.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <returns></returns>
+        /// <param name="p1X">The p1X.</param>
+        /// <param name="p1Y">The p1Y.</param>
+        /// <param name="p2X">The p2X.</param>
+        /// <param name="p2Y">The p2Y.</param>
+        /// <param name="p3X">The p3X.</param>
+        /// <param name="p3Y">The p3Y.</param>
+        /// <param name="a1X">The a1X.</param>
+        /// <param name="a1Y">The a1Y.</param>
+        /// <param name="a2X">The a2X.</param>
+        /// <param name="a2Y">The a2Y.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/27664298/calculating-intersection-point-of-quadratic-bezier-curve
         /// </remarks>
@@ -8612,20 +8617,20 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The quadratic bezier line segment intersection.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="p1X">The p1X.</param>
+        /// <param name="p1Y">The p1Y.</param>
+        /// <param name="p2X">The p2X.</param>
+        /// <param name="p2Y">The p2Y.</param>
+        /// <param name="p3X">The p3X.</param>
+        /// <param name="p3Y">The p3Y.</param>
+        /// <param name="a1X">The a1X.</param>
+        /// <param name="a1Y">The a1Y.</param>
+        /// <param name="a2X">The a2X.</param>
+        /// <param name="a2Y">The a2Y.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection QuadraticBezierLineSegmentIntersection(
@@ -8689,21 +8694,21 @@ namespace MethodSpeedTester
 
         #region Intersection of a Line Segment and a Cubic Bézier
         /// <summary>
-        ///
+        /// The cubic bezier line segment intersection1.
         /// </summary>
-        /// <param name="p0x"></param>
-        /// <param name="p0y"></param>
-        /// <param name="p1x"></param>
-        /// <param name="p1y"></param>
-        /// <param name="p2x"></param>
-        /// <param name="p2y"></param>
-        /// <param name="p3x"></param>
-        /// <param name="p3y"></param>
-        /// <param name="l0x"></param>
-        /// <param name="l0y"></param>
-        /// <param name="l1x"></param>
-        /// <param name="l1y"></param>
-        /// <returns></returns>
+        /// <param name="p0x">The p0x.</param>
+        /// <param name="p0y">The p0y.</param>
+        /// <param name="p1x">The p1x.</param>
+        /// <param name="p1y">The p1y.</param>
+        /// <param name="p2x">The p2x.</param>
+        /// <param name="p2y">The p2y.</param>
+        /// <param name="p3x">The p3x.</param>
+        /// <param name="p3y">The p3y.</param>
+        /// <param name="l0x">The l0x.</param>
+        /// <param name="l0y">The l0y.</param>
+        /// <param name="l1x">The l1x.</param>
+        /// <param name="l1y">The l1y.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>
         /// This method has an error where it does not return an intersection with a horizontal line and the end points of the curve share the same y value, as well as the handles sharing another y value.
         /// Found at: https://www.particleincell.com/2013/cubic-line-intersection/
@@ -8765,22 +8770,22 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The cubic bezier line segment intersection.
         /// </summary>
-        /// <param name="p1X"></param>
-        /// <param name="p1Y"></param>
-        /// <param name="p2X"></param>
-        /// <param name="p2Y"></param>
-        /// <param name="p3X"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="p4X"></param>
-        /// <param name="p4Y"></param>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="p1X">The p1X.</param>
+        /// <param name="p1Y">The p1Y.</param>
+        /// <param name="p2X">The p2X.</param>
+        /// <param name="p2Y">The p2Y.</param>
+        /// <param name="p3X">The p3X.</param>
+        /// <param name="p3Y">The p3Y.</param>
+        /// <param name="p4X">The p4X.</param>
+        /// <param name="p4Y">The p4Y.</param>
+        /// <param name="a1X">The a1X.</param>
+        /// <param name="a1Y">The a1Y.</param>
+        /// <param name="a2X">The a2X.</param>
+        /// <param name="a2Y">The a2Y.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="Intersection"/>.</returns>
         /// <remarks>http://www.kevlindev.com/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Intersection CubicBezierLineSegmentIntersection(
@@ -8895,7 +8900,7 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
@@ -9013,7 +9018,7 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
@@ -9109,9 +9114,9 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
@@ -9171,7 +9176,6 @@ namespace MethodSpeedTester
                     /* C */ -v0,
                     epsilon);
             }
-
 
             //roots.Reverse();
             foreach (var s in roots)
@@ -9241,9 +9245,9 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -9339,9 +9343,9 @@ namespace MethodSpeedTester
         /// <param name="b2Y"></param>
         /// <param name="b3X"></param>
         /// <param name="b3Y"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
@@ -9451,9 +9455,9 @@ namespace MethodSpeedTester
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -9568,9 +9572,9 @@ namespace MethodSpeedTester
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
@@ -9689,9 +9693,9 @@ namespace MethodSpeedTester
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
@@ -9837,9 +9841,9 @@ namespace MethodSpeedTester
         /// <param name="b3Y"></param>
         /// <param name="b4X"></param>
         /// <param name="b4Y"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
@@ -10080,12 +10084,12 @@ namespace MethodSpeedTester
             => v1 + t * (v2 - v1);
 
         /// <summary>
-        ///
+        /// The linear interpolate1d 2.
         /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>https://en.wikipedia.org/wiki/Linear_interpolation</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -10120,7 +10124,6 @@ namespace MethodSpeedTester
         /// <param name="y2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static (double X, double Y) LinearInterpolate2D_0(
             double x1, double y1,
             double x2, double y2,
@@ -10171,15 +10174,14 @@ namespace MethodSpeedTester
                 LinearInterpolate1D_0(y1, y2, t));
 
         /// <summary>
-        ///
+        /// The linear interpolate2d 3.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) LinearInterpolate2D_3(
@@ -10219,7 +10221,6 @@ namespace MethodSpeedTester
         /// <param name="z2"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static (double X, double Y, double Z) LinearInterpolate3D_0(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -10276,17 +10277,16 @@ namespace MethodSpeedTester
                 LinearInterpolate1D_0(z1, z2, t));
 
         /// <summary>
-        ///
+        /// The linear interpolate3d 3.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) LinearInterpolate3D_3(
@@ -10301,13 +10301,13 @@ namespace MethodSpeedTester
 
         #region Linear Offset Interpolation
         /// <summary>
-        ///
+        /// The offset interpolate.
         /// </summary>
-        /// <param name="Value1"></param>
-        /// <param name="Value2"></param>
-        /// <param name="Offset"></param>
-        /// <param name="Weight"></param>
-        /// <returns></returns>
+        /// <param name="Value1">The Value1.</param>
+        /// <param name="Value2">The Value2.</param>
+        /// <param name="Offset">The Offset.</param>
+        /// <param name="Weight">The Weight.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public static Point2D OffsetInterpolate(Point2D Value1, Point2D Value2, double Offset, double Weight)
         {
             var UnitVectorAB = new Vector2D(Value1, Value2);
@@ -10482,15 +10482,15 @@ namespace MethodSpeedTester
 
         #region Line Overlap
         /// <summary>
-        ///
+        /// Get the overlap.
         /// </summary>
-        /// <param name="a1"></param>
-        /// <param name="a2"></param>
-        /// <param name="b1"></param>
-        /// <param name="b2"></param>
-        /// <param name="Left"></param>
-        /// <param name="Right"></param>
-        /// <returns></returns>
+        /// <param name="a1">The a1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="Left">The Left.</param>
+        /// <param name="Right">The Right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
         public static bool GetOverlap(double a1, double a2, double b1, double b2, out double Left, out double Right)
         {
@@ -10510,11 +10510,11 @@ namespace MethodSpeedTester
 
         #region List Interpolation Points of Cubic Bézier
         /// <summary>
-        ///
+        /// The interpolate points.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The bezier.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolatePoints(CubicBezier bezier, int count)
         {
             var ipoints = new Point2D[count + 1];
@@ -10528,22 +10528,22 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The interpolate cubic beizer points.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The bezier.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolateCubicBeizerPoints(CubicBezier bezier, int count) => InterpolateCubicBeizerPoints(bezier.A, bezier.B, bezier.C, bezier.D, count);
 
         /// <summary>
-        ///
+        /// The interpolate cubic beizer points.
         /// </summary>
         /// <param name="a">the starting point, or A in the above diagram</param>
         /// <param name="b">the first control point, or B</param>
         /// <param name="c">the second control point, or C</param>
         /// <param name="d">the end point, or D</param>
-        /// <param name="Precision"></param>
-        /// <returns></returns>
+        /// <param name="Precision">The Precision.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         private static List<Point2D> InterpolateCubicBeizerPoints(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
         {
             var BPoints = new Point2D[(int)((1 / Precision) + 2)];
@@ -10560,11 +10560,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The compute bezier interpolations.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The bezier.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> ComputeBezierInterpolations(CubicBezier bezier, int count) => ComputeBezierInterpolations(bezier.A, bezier.B, bezier.C, bezier.D, count);
 
         /// <summary>
@@ -10591,11 +10591,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The interpolate cubic beizer points0.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The bezier.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolateCubicBeizerPoints0(CubicBezier bezier, int count) => InterpolateCubicBeizerPoints0(bezier.A, bezier.B, bezier.C, bezier.D, count);
 
         /// <summary>
@@ -10625,11 +10625,11 @@ namespace MethodSpeedTester
 
         #region List Interpolation Points of Quadratic Bézier
         /// <summary>
-        ///
+        /// The interpolate quadratic bezier points.
         /// </summary>
-        /// <param name="bezier"></param>
-        /// <param name="count"></param>
-        /// <returns></returns>
+        /// <param name="bezier">The bezier.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolateQuadraticBezierPoints(QuadraticBezier bezier, int count)
         {
             var ipoints = new Point2D[count + 1];
@@ -10746,18 +10746,18 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The mixed product3d 0.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="z3"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="x3">The x3.</param>
+        /// <param name="y3">The y3.</param>
+        /// <param name="z3">The z3.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public static double MixedProduct3D_0(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -10767,7 +10767,7 @@ namespace MethodSpeedTester
 
         #region Near Zero Inquiry
         /// <summary>
-        ///
+        /// The near zero epsilon (const). Value: 1E-20.
         /// </summary>
         public const double NearZeroEpsilon = 1E-20;
 
@@ -10784,21 +10784,21 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The near zero0.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool NearZero0(double value, double epsilon = NearZeroEpsilon)
             => (value > -epsilon) && (value < -epsilon);
 
         /// <summary>
-        ///
+        /// The near zero1.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool NearZero1(double value, double epsilon = NearZeroEpsilon)
             => Abs(value) <= epsilon;
@@ -10811,7 +10811,6 @@ namespace MethodSpeedTester
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize(
             double i, double j)
@@ -10829,7 +10828,6 @@ namespace MethodSpeedTester
         /// <param name="j"></param>
         /// <param name="k"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize(
             double i, double j, double k)
@@ -10849,7 +10847,6 @@ namespace MethodSpeedTester
         /// <param name="x2">The x component of the second Point.</param>
         /// <param name="y2">The y component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize(
             double x1, double y1,
@@ -11118,21 +11115,21 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The is addition safe.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
         public static bool IsAdditionSafe(int a, int b)
             => Log2(a) < sizeof(int) && Log2(b) < sizeof(int);
 
         /// <summary>
-        ///
+        /// The is addition safe2.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
         public static bool IsAdditionSafe2(int a, int b)
         {
@@ -11228,11 +11225,11 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The is division safe.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
         public static bool IsDivisionSafe(int a, int b)
         {
@@ -11256,11 +11253,11 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The is exponentiation safe.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
         public static bool IsExponentiationSafe(int a, int b)
             => Log2(a) * b <= sizeof(int);
@@ -11287,40 +11284,40 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The is multiplication safe.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
         public static bool IsMultiplicationSafe(int a, int b)
             => Log2(a) + Log2(b) <= sizeof(int);
 
         /// <summary>
-        ///
+        /// The is multiplication safe0.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
         public static bool IsMultiplicationSafe0(uint a, uint b)
             => Log2_1(a) + Log2_1(b) <= sizeof(uint);
 
         /// <summary>
-        ///
+        /// The is multiplication safe1.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool IsMultiplicationSafe1(uint a, uint b)
             => Math.Round(Log(a, 2) + Log(b, 2), MidpointRounding.AwayFromZero) <= sizeof(uint);
 
         /// <summary>
-        ///
+        /// The is multiplication safe2.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
         public static bool IsMultiplicationSafe2(int a, int b)
         {
@@ -11330,11 +11327,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The is multiplication safe3.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
         public static bool IsMultiplicationSafe3(int a, int b)
         {
@@ -11361,11 +11358,11 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The is subtraction safe.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
         public static bool IsSubtractionSafe(int a, int b)
         {
@@ -11404,10 +11401,10 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The perimeter0.
         /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
+        /// <param name="points">The points.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         public static double Perimeter0(List<(double X, double Y)> points)
         {
             var last = points[0];
@@ -11421,10 +11418,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The perimeter1.
         /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
+        /// <param name="points">The points.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/2227828/find-the-distance-required-to-navigate-a-list-of-points-using-linq</remarks>
         public static double Perimeter1(List<(double X, double Y)> points)
             => points.Zip(points.Skip(1), Distance2D_1).Sum();
@@ -11651,7 +11648,6 @@ namespace MethodSpeedTester
         /// Find out if a Point is in a Circle.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Inclusion PointInCircle(
             double centerX, double centerY,
             double radius,
@@ -11665,7 +11661,6 @@ namespace MethodSpeedTester
         /// Find out if a Point is in a Circle.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Inclusion PointInCircleInline(
             double centerX, double centerY,
             double radius,
@@ -11676,14 +11671,14 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in circle philcolbourn.
         /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
-        /// <param name="radius"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
+        /// <param name="centerX">The centerX.</param>
+        /// <param name="centerY">The centerY.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
         public static Inclusion PointInCirclePhilcolbourn(
             double centerX,
@@ -11705,14 +11700,14 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in circle n philcolbourn.
         /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
-        /// <param name="radius"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
+        /// <param name="centerX">The centerX.</param>
+        /// <param name="centerY">The centerY.</param>
+        /// <param name="radius">The radius.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
         public static Inclusion PointInCircleNPhilcolbourn(
             double centerX,
@@ -11768,7 +11763,6 @@ namespace MethodSpeedTester
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Inclusion PointInCircleX(
             double centerX,
             double centerY,
@@ -11830,11 +11824,11 @@ namespace MethodSpeedTester
 
         #region Point in Ellipse Unrotated
         /// <summary>
-        ///
+        /// The unrotated ellipse contains point.
         /// </summary>
-        /// <param name="ellipse"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="ellipse">The ellipse.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool UnrotatedEllipseContainsPoint(Ellipse ellipse, Point2D point)
         {
             if (ellipse.RX <= 0d || ellipse.RY <= 0d)
@@ -11869,7 +11863,6 @@ namespace MethodSpeedTester
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -11902,7 +11895,6 @@ namespace MethodSpeedTester
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -11991,7 +11983,6 @@ namespace MethodSpeedTester
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -12022,7 +12013,6 @@ namespace MethodSpeedTester
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -12107,9 +12097,8 @@ namespace MethodSpeedTester
         /// <param name="sweepAngle"></param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -12140,9 +12129,8 @@ namespace MethodSpeedTester
         /// <param name="sweepSinT"></param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// https://math.stackexchange.com/a/1760296
@@ -12228,9 +12216,8 @@ namespace MethodSpeedTester
         /// <param name="sweepAngle"></param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -12261,9 +12248,8 @@ namespace MethodSpeedTester
         /// <param name="sweepSinT"></param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// https://math.stackexchange.com/a/1760296
@@ -12407,11 +12393,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour jerry knauss.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>
         /// http://paulbourke.net/geometry/polygonmesh/
         /// http://paulbourke.net/geometry/polygonmesh/contains.txt
@@ -12437,11 +12423,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour jerry knauss2.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>
         /// http://paulbourke.net/geometry/polygonmesh/
         /// http://paulbourke.net/geometry/polygonmesh/contains.txt
@@ -12621,9 +12607,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The precalc point in polygon contour patrick mullen values.
         /// </summary>
         /// <param name="polygon">coordinates of corners</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>http://alienryderflex.com/polygon/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (List<double>, List<double>)? PrecalcPointInPolygonContourPatrickMullenValues(
@@ -12814,11 +12801,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour m katz w randolph franklin.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>
         /// http://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
         /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
@@ -12859,11 +12846,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour paul bourke.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>
         /// http://paulbourke.net/geometry/polygonmesh/
         /// http://astronomy.swin.edu.au/pbourke/geometry/
@@ -12904,11 +12891,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour w randolph franklin.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourWRandolphFranklin(
@@ -12929,11 +12916,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour saeed amiri.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourSaeedAmiri(
@@ -12957,11 +12944,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour philippe reverdy.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://paulbourke.net/geometry/polygonmesh/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourPhilippeReverdy(
@@ -13011,11 +12998,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour rod stephens.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns>Return true if the point is in the polygon.</returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.Return true if the point is in the polygon.</returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointInPolygonContourRodStephens(
@@ -13147,11 +13134,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour hormann agathos expanded.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PointInPolygonContourHormannAgathosExpanded(List<PointF> polygon, PointF point)
@@ -13210,11 +13197,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour hormann agathos expanded2.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PointInPolygonContourHormannAgathosExpanded2(List<PointF> polygon, PointF point)
@@ -13277,11 +13264,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour hormann agathos simplified.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PointInPolygonContourHormannAgathosSimplified(List<PointF> polygon, PointF point)
@@ -13332,11 +13319,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point in polygon contour hormann agathos expanded3.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Inclusion"/>.</returns>
         /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion PointInPolygonContourHormannAgathosExpanded3(List<PointF> polygon, PointF point)
@@ -13405,7 +13392,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="points">The points that form the corners of the polygon.</param>
         /// <param name="p">The coordinate of the test point.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>
         /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
         /// </returns>
@@ -13535,7 +13522,6 @@ namespace MethodSpeedTester
         /// <param name="point"></param>
         /// <param name="polygons"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Inclusion PointInPolygonSetShkyrockett(List<List<PointF>> polygons, PointF point)
         {
             var returnValue = Inclusion.Outside;
@@ -13638,7 +13624,6 @@ namespace MethodSpeedTester
         /// <param name="y2"></param>
         /// <param name="close_distance"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static bool PointNearEllipse(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
         {
             var a = (Abs(x2 - x1) / 2) + close_distance;
@@ -13651,16 +13636,16 @@ namespace MethodSpeedTester
 
         #region Point Near a Line Segment
         /// <summary>
-        ///
+        /// The point near segment.
         /// </summary>
-        /// <param name="px"></param>
-        /// <param name="py"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="close_distance"></param>
-        /// <returns>Return True if (px, py) is within close_distance if the segment from (x1, y1) to (X2, y2).</returns>
+        /// <param name="px">The px.</param>
+        /// <param name="py">The py.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="close_distance">The close_distance. Return True if (px, py) is within close_distance if the segment from (x1, y1) to (X2, y2).</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool PointNearSegment(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
             => DistToSegment2(px, py, x1, y1, x2, y2) <= close_distance;
 
@@ -13675,7 +13660,6 @@ namespace MethodSpeedTester
         /// <param name="y2"></param>
         /// <param name="close_distance"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static bool PointNearSegment2(double px, double py, double x1, double y1, double x2, double y2, double close_distance)
             => DistToSegment(px, py, x1, y1, x2, y2) <= close_distance;
         #endregion Point Near a Line Segment
@@ -13697,15 +13681,15 @@ namespace MethodSpeedTester
             };
 
         /// <summary>
-        ///
+        /// The point on line segment.
         /// </summary>
-        /// <param name="segmentAX"></param>
-        /// <param name="segmentAY"></param>
-        /// <param name="segmentBX"></param>
-        /// <param name="segmentBY"></param>
-        /// <param name="pointX"></param>
-        /// <param name="pointY"></param>
-        /// <returns></returns>
+        /// <param name="segmentAX">The segmentAX.</param>
+        /// <param name="segmentAY">The segmentAY.</param>
+        /// <param name="segmentBX">The segmentBX.</param>
+        /// <param name="segmentBY">The segmentBY.</param>
+        /// <param name="pointX">The pointX.</param>
+        /// <param name="pointY">The pointY.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool PointOnLineSegment(
             double segmentAX,
             double segmentAY,
@@ -13722,15 +13706,15 @@ namespace MethodSpeedTester
             && (Abs((pointX - segmentAX) * (segmentBY - segmentAY) - (segmentBX - segmentAX) * (pointY - segmentAY)) < DoubleEpsilon));
 
         /// <summary>
-        ///
+        /// The point line segment.
         /// </summary>
-        /// <param name="segmentAX"></param>
-        /// <param name="segmentAY"></param>
-        /// <param name="segmentBX"></param>
-        /// <param name="segmentBY"></param>
-        /// <param name="pointX"></param>
-        /// <param name="pointY"></param>
-        /// <returns></returns>
+        /// <param name="segmentAX">The segmentAX.</param>
+        /// <param name="segmentAY">The segmentAY.</param>
+        /// <param name="segmentBX">The segmentBX.</param>
+        /// <param name="segmentBY">The segmentBY.</param>
+        /// <param name="pointX">The pointX.</param>
+        /// <param name="pointY">The pointY.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
         public static bool PointLineSegment(
             double segmentAX,
@@ -13747,12 +13731,12 @@ namespace MethodSpeedTester
                 (segmentBX - segmentAX) * (pointY - segmentAY)));
 
         /// <summary>
-        ///
+        /// The point line segment.
         /// </summary>
-        /// <param name="p"></param>
-        /// <param name="a1"></param>
-        /// <param name="a2"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>
         /// From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
         /// </remarks>
@@ -13764,12 +13748,11 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The point on line.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="segment"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="segment">The segment.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool PointOnLine(LineSegment segment, Point2D point)
         {
             var Length1 = point.Distance(segment.B);
@@ -13788,9 +13771,8 @@ namespace MethodSpeedTester
         /// <param name="y1"></param>
         /// <param name="x2"></param>
         /// <param name="y2"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static bool AreClose(double x1, double y1, double x2, double y2, double epsilon = DoubleEpsilon)
             => (Abs(x2 - x1) <= epsilon) && (Abs(y2 - y1) <= epsilon);
 
@@ -13801,7 +13783,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='point1'>The first point to compare</param>
         /// <param name='point2'>The second point to compare</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Whether or not the two points are equal</returns>
         public static bool AreClose(Point2D point1, Point2D point2, double epsilon = DoubleEpsilon)
             => Maths.AreClose(point1.X, point2.X, epsilon)
@@ -13814,7 +13796,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='size1'>The first size to compare</param>
         /// <param name='size2'>The second size to compare</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Whether or not the two Size instances are equal</returns>
         public static bool AreClose(Size2D size1, Size2D size2, double epsilon = DoubleEpsilon)
             => Maths.AreClose(size1.Width, size2.Width, epsilon)
@@ -13827,7 +13809,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='vector1'>The first Vector to compare</param>
         /// <param name='vector2'>The second Vector to compare</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Whether or not the two Vector instances are equal</returns>
         public static bool AreClose(Vector2D vector1, Vector2D vector2, double epsilon = DoubleEpsilon)
             => Maths.AreClose(vector1.I, vector2.I, epsilon)
@@ -13881,12 +13863,10 @@ namespace MethodSpeedTester
 
         #region Polygon Oriented Clockwise
         /// <summary>
-        ///
+        /// The polygon is oriented clockwise.
         /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns>
-        /// Return true if the polygon is oriented clockwise.
-        /// </returns>
+        /// <param name="polygon">The polygon.</param>
+        /// <returns>The <see cref="bool"/>. Return true if the polygon is oriented clockwise.</returns>
         /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
         public static bool PolygonIsOrientedClockwise(PolygonContour polygon) => SignedPolygonArea5(polygon.Points) < 0;
         #endregion Polygon Oriented Clockwise
@@ -14279,7 +14259,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name='rect1'>The first rectangle to compare</param>
         /// <param name='rect2'>The second rectangle to compare</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Whether or not the two rectangles are equal</returns>
         public static bool AreClose(Rectangle2D rect1, Rectangle2D rect2, double epsilon = DoubleEpsilon)
         {
@@ -14383,11 +14363,11 @@ namespace MethodSpeedTester
 
         #region Roots of a Linear Polynomial
         /// <summary>
-        ///
+        /// The linear roots.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <remarks>
         /// http://pomax.github.io/bezierinfo
         /// </remarks>
@@ -14403,13 +14383,13 @@ namespace MethodSpeedTester
 
         #region Roots of a Quadratic Polynomial
         /// <summary>
-        ///
+        /// The quadratic roots.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <remarks>
         /// http://pomax.github.io/bezierinfo
         /// </remarks>
@@ -14436,14 +14416,14 @@ namespace MethodSpeedTester
 
         #region Roots of a Cubic Polynomial
         /// <summary>
-        ///
+        /// The cubic roots a.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="epsilon"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="T:double[]"/>.</returns>
         /// <remarks>
         /// based on http://abecedarical.com/javascript/script_exact_cubic.html
         /// </remarks>
@@ -14504,9 +14484,14 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The cubic roots.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
         private static List<double> CubicRoots(double a, double b, double c, double d, double epsilon = Epsilon)
         {
@@ -14603,9 +14588,15 @@ namespace MethodSpeedTester
 
         #region Roots of a Quartic Polynomial
         /// <summary>
-        ///
+        /// The quartic roots.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
@@ -14695,7 +14686,6 @@ namespace MethodSpeedTester
         //    var n = (int)Degree;
         //    if (n == 4)
         //    {
-
         //        var poly = new Polynomial()
         //        {
         //            coefficients = coefficients.Slice()
@@ -14781,15 +14771,15 @@ namespace MethodSpeedTester
 
         #region Rotated Rectangle Bounds
         /// <summary>
-        ///
+        /// The rotated rectangle bounds.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="Rectangle2D"/>.</returns>
         public static Rectangle2D RotatedRectangleBounds(double x, double y, double width, double height, Point2D fulcrum, double angle)
         {
             var cosAngle = Abs(Cos(angle));
@@ -14811,15 +14801,15 @@ namespace MethodSpeedTester
 
         #region Rotated Rectangle Points
         /// <summary>
-        ///
+        /// The rotated rectangle corners.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="height"></param>
-        /// <param name="width"></param>
-        /// <param name="fulcrum"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="fulcrum">The fulcrum.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> RotatedRectangleCorners(double x, double y, double width, double height, Point2D fulcrum, double angle)
         {
             var points = new List<Point2D>();
@@ -15038,14 +15028,15 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The sin cos table.
         /// </summary>
         private static Dictionary<double, (double, double)?> sinCosTable = new Dictionary<double, (double, double)?>();
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Clear the sin cos table.
+        /// </summary>
+        /// <returns>The <see cref="double"/>.</returns>
         public static double ClearSinCosTable()
         {
             sinCosTable.Clear();
@@ -15053,28 +15044,28 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The sin cos0.
         /// </summary>
-        /// <param name="radian"></param>
-        /// <returns></returns>
+        /// <param name="radian">The radian.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         public static (double, double) SinCos0(double radian)
             // lookup, if not exists add to table and return the result.
             => sinCosTable.GetValueOrDefault(radian) ?? (sinCosTable[radian] = (Sin(radian), Cos(radian))).Value;
 
         /// <summary>
-        ///
+        /// The sin cos1.
         /// </summary>
-        /// <param name="radian"></param>
-        /// <returns></returns>
+        /// <param name="radian">The radian.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         public static (double, double) SinCos1(double radian)
             // lookup and replace with same value, or add if not exists.
             => (sinCosTable[radian] = sinCosTable.GetValueOrDefault(radian) ?? (Sin(radian), Cos(radian))).Value;
 
         /// <summary>
-        ///
+        /// The sin cos2.
         /// </summary>
-        /// <param name="radian"></param>
-        /// <returns></returns>
+        /// <param name="radian">The radian.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         private static (double, double) SinCos2(double radian)
         {
             if (!sinCosTable.ContainsKey(radian))
@@ -15083,10 +15074,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The sin cos3.
         /// </summary>
-        /// <param name="radian"></param>
-        /// <returns></returns>
+        /// <param name="radian">The radian.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         private static (double, double) SinCos3(double radian)
         {
             if (!sinCosTable.ContainsKey(radian))
@@ -15100,10 +15091,10 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The sin cos4.
         /// </summary>
-        /// <param name="radian"></param>
-        /// <returns></returns>
+        /// <param name="radian">The radian.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         private static (double, double) SinCos4(double radian)
         {
             if (!sinCosTable.ContainsKey(radian))
@@ -15117,12 +15108,12 @@ namespace MethodSpeedTester
 
         #region Sine Interpolation of 1D
         /// <summary>
-        ///
+        /// The sine.
         /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="v1">The v1.</param>
+        /// <param name="v2">The v2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </remarks>
@@ -15138,14 +15129,14 @@ namespace MethodSpeedTester
 
         #region Sine Interpolation of 2D Points
         /// <summary>
-        ///
+        /// The sine.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static (double X, double Y) Sine(
             double x1, double y1,
@@ -15163,7 +15154,6 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <param name="index"></param>
         /// <returns>Returns the interpolated point of the index value.</returns>
-        /// <remarks></remarks>
         public static Point2D InterpolateSine(Point2D a, Point2D b, double index)
         {
             //Single MU2 = (double)((1.0 - Cos(index * 180)) * 0.5);
@@ -15175,16 +15165,16 @@ namespace MethodSpeedTester
 
         #region Sine Interpolation of 3D Points
         /// <summary>
-        ///
+        /// The sine.
         /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
         public static (double X, double Y, double Z) Sine(
             double x1, double y1, double z1,
@@ -15240,13 +15230,13 @@ namespace MethodSpeedTester
 
         #region Slopes Near Collinear
         /// <summary>
-        ///
+        /// The slopes near collinear.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="distSqrd"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="distSqrd">The distSqrd.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public static bool SlopesNearCollinear(Point2D a, Point2D b, Point2D c, double distSqrd)
         {
             // this function is more accurate when the point that's GEOMETRICALLY
@@ -15275,27 +15265,27 @@ namespace MethodSpeedTester
 
         #region Slopes of Lines Equal
         /// <summary>
-        ///
+        /// The slopes equal.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="UseFullRange"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="UseFullRange">The UseFullRange.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
         public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, bool UseFullRange = false)
             => UseFullRange ? BigInteger.Multiply((BigInteger)(a.Y - b.Y), (BigInteger)(b.X - c.X)) == BigInteger.Multiply((BigInteger)(a.X - b.X), (BigInteger)(b.Y - c.Y))
             : (a.Y - b.Y) * (b.X - c.X) - (a.X - b.X) * (b.Y - c.Y) == 0;
 
         /// <summary>
-        ///
+        /// The slopes equal.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="UseFullRange"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="UseFullRange">The UseFullRange.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
         public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, Point2D d, bool UseFullRange = false)
             => UseFullRange ? BigInteger.Multiply((BigInteger)(a.Y - b.Y), (BigInteger)(b.X - c.X)) == BigInteger.Multiply((BigInteger)(a.X - b.X), (BigInteger)(b.Y - c.Y))
@@ -15857,10 +15847,12 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The swap.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <typeparam name="T"></typeparam>
         public static bool Swap<T>(ref T a, ref T b)
         {
             var swap = a;
@@ -15956,7 +15948,7 @@ namespace MethodSpeedTester
         ///// <summary>
         ///// Trim off any leading zero term coefficients from the Polynomial.
         ///// </summary>
-        ///// <param name="epsilon">The minimal value to represent a change.</param>
+        ///// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         ///// <returns>Returns a <see cref="Polynomial"/> with any leading zero term coefficients removed.</returns>
         ///// <acknowledgment>
         ///// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
@@ -15983,7 +15975,7 @@ namespace MethodSpeedTester
         ///// <summary>
         ///// Trim off empty coefficients.
         ///// </summary>
-        ///// <param name="epsilon">The minimal value to represent a change.</param>
+        ///// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         ///// <returns></returns>
         ///// <acknowledgment>
         ///// https://github.com/superlloyd/Poly
@@ -16041,8 +16033,7 @@ namespace MethodSpeedTester
         /// </returns>
         /// <param name="value1"> The first double to compare. </param>
         /// <param name="value2"> The second double to compare. </param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <remarks></remarks>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         public static bool AreClose(double value1, double value2, double epsilon = DoubleEpsilon)
         {
             // in case they are Infinities (then epsilon check does not work)
@@ -16082,15 +16073,15 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The vector between0.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="i2"></param>
-        /// <param name="j2"></param>
-        /// <param name="i3"></param>
-        /// <param name="j3"></param>
-        /// <returns></returns>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="i2">The i2.</param>
+        /// <param name="j2">The j2.</param>
+        /// <param name="i3">The i3.</param>
+        /// <param name="j3">The j3.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>
         /// http://math.stackexchange.com/questions/1698835/find-if-a-vector-is-between-2-vectors
         /// http://stackoverflow.com/questions/13640931/how-to-determine-if-a-vector-is-between-two-other-vectors
@@ -16102,15 +16093,15 @@ namespace MethodSpeedTester
             && CrossProduct(i3, j3, i, j) * CrossProduct(i3, j3, i2, j2) >= 0;
 
         /// <summary>
-        ///
+        /// The vector between1.
         /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="i2"></param>
-        /// <param name="j2"></param>
-        /// <param name="i3"></param>
-        /// <param name="j3"></param>
-        /// <returns></returns>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="i2">The i2.</param>
+        /// <param name="j2">The j2.</param>
+        /// <param name="i3">The i3.</param>
+        /// <param name="j3">The j3.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>
         /// http://math.stackexchange.com/questions/1698835/find-if-a-vector-is-between-2-vectors
         /// http://stackoverflow.com/questions/13640931/how-to-determine-if-a-vector-is-between-two-other-vectors
@@ -16209,13 +16200,12 @@ namespace MethodSpeedTester
         }
 
         /// <summary>
-        ///
+        /// The wrap point to rectangle.
         /// </summary>
-        /// <param name="bounds"></param>
-        /// <param name="point"></param>
-        /// <param name="reference"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <param name="bounds">The bounds.</param>
+        /// <param name="point">The point.</param>
+        /// <param name="reference">The reference.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public static Point2D WrapPointToRectangle(Rectangle2D bounds, Point2D point, ref Point2D reference)
         {
             if (point.X <= bounds.X)

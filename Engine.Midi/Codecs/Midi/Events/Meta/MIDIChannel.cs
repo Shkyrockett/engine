@@ -24,10 +24,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MIDIChannel"/> class.
         /// </summary>
-        /// <param name="channel"></param>
-        /// <param name="status"></param>
+        /// <param name="channel">The channel.</param>
+        /// <param name="status">The status.</param>
         public MIDIChannel(byte channel, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -35,16 +35,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the midi channel.
         /// </summary>
         public byte MidiChannel { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="MIDIChannel"/>.</returns>
         internal static MIDIChannel Read(BinaryReaderExtended reader, EventStatus status)
             => new MIDIChannel(reader.ReadByte(), status);
     }

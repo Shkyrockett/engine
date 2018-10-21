@@ -24,13 +24,13 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TimeSignature"/> class.
         /// </summary>
-        /// <param name="numerator"></param>
-        /// <param name="denominator"></param>
-        /// <param name="clocks"></param>
-        /// <param name="beats"></param>
-        /// <param name="status"></param>
+        /// <param name="numerator">The numerator.</param>
+        /// <param name="denominator">The denominator.</param>
+        /// <param name="clocks">The clocks.</param>
+        /// <param name="beats">The beats.</param>
+        /// <param name="status">The status.</param>
         public TimeSignature(byte numerator, byte denominator, byte clocks, byte beats, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -41,31 +41,31 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the numerator.
         /// </summary>
         public byte Numerator { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the denominator.
         /// </summary>
         public byte Denominator { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the clocks.
         /// </summary>
         public byte Clocks { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the beats.
         /// </summary>
         public byte Beats { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="TimeSignature"/>.</returns>
         internal static TimeSignature Read(BinaryReaderExtended reader, EventStatus status)
             => new TimeSignature(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), status);
     }

@@ -25,52 +25,52 @@ namespace Engine.Physics
     {
         #region Constants
         /// <summary>
-        ///
+        /// The mil (const). Value: MilsInFoot.
         /// </summary>
         public const double Mil = MilsInFoot; // 12000d;
 
         /// <summary>
-        ///
+        /// The centimeter (const). Value: 30.48d.
         /// </summary>
         public const double Centimeter = 30.48d;
 
         /// <summary>
-        ///
+        /// The inch (const). Value: 12d.
         /// </summary>
         public const double Inch = 12d;
 
         /// <summary>
-        ///
+        /// The foot (const). Value: 1d.
         /// </summary>
         public const double Foot = 1d;
 
         /// <summary>
-        ///
+        /// The yard (const). Value: 1d / 3d.
         /// </summary>
         public const double Yard = 1d / 3d;
 
         /// <summary>
-        ///
+        /// The meter (const). Value: 1d / 3.2808399d.
         /// </summary>
         public const double Meter = 1d / 3.2808399d;
 
         /// <summary>
-        ///
+        /// The smoot (const). Value: Inch * 67d.
         /// </summary>
         public const double Smoot = Inch * 67d;
 
         /// <summary>
-        ///
+        /// The kilometer (const). Value: 1d / 3280.8399d.
         /// </summary>
         public const double Kilometer = 1d / 3280.8399d;
 
         /// <summary>
-        ///
+        /// The mile (const). Value: 1d / 5280d.
         /// </summary>
         public const double Mile = 1d / 5280d;
 
         /// <summary>
-        ///
+        /// The nautical mile (const). Value: 1d / 6076.11549d.
         /// </summary>
         public const double NauticalMile = 1d / 6076.11549d;
         #endregion Constants
@@ -189,72 +189,42 @@ namespace Engine.Physics
         #endregion Properties
 
         #region Operators
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator Feet(double value)
             => new Feet(value);
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Feet(Mils value)
             => value.Feet;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Feet(Centimeters value)
             => value.Feet;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Feet(Meters value)
             => value.Feet;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Feet(Smoots value)
             => value.Feet;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Feet(Inches value)
             => value.Feet;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Feet(Yards value)
             => value.Feet;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Feet(Kilometers value)
             => value.Feet;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Feet(Miles value)
             => value.Feet;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Feet(NauticalMiles value)
             => value.Feet;

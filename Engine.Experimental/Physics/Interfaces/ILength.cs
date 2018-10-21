@@ -13,31 +13,35 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The ILength interface.
     /// </summary>
     public interface ILength
     {
         /// <summary>
-        ///
+        /// Gets the value.
         /// </summary>
+        /// <value>The <see cref="double"/>.</value>
         double Value { get; /*set;*/ }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
+        /// <value>The <see cref="string"/>.</value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         string Name { get; }
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
+        /// <value>The <see cref="string"/>.</value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         string Abreviation { get; }
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         string ToString();
     }
 }

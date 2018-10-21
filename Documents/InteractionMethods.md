@@ -385,8 +385,6 @@ Intersection methods in the Intersections class should be marked as public stati
 - [x] **Elliptical Arc** _Needs testing._
 - [ ] **Parametric Delegate Curve**
 
-
-
 | Method | Return Type | Description |
 |---|---|---|
 | Contains | Inclusion | Provides information regarding whether one shape contains the other. Because of this, only closed shapes can contain another shape. |

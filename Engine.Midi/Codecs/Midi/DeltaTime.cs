@@ -13,27 +13,27 @@
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The delta time class.
     /// </summary>
     public class DeltaTime
     {
         /// <summary>
-        /// 
+        /// Gets or sets the value.
         /// </summary>
         public short Value { get; set; }
 
         /// <summary>
-        /// 
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => Value.ToString();
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <returns>The <see cref="DeltaTime"/>.</returns>
         internal static DeltaTime Read(BinaryReaderExtended reader)
             => new DeltaTime
             {

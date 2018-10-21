@@ -13,52 +13,52 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The hours struct.
     /// </summary>
     public struct Hours
         : ITime
     {
         /// <summary>
-        /// 
+        /// The second (const). Value: 3600d.
         /// </summary>
         public const double Second = 3600d;
 
         /// <summary>
-        /// 
+        /// The minute (const). Value: 60d.
         /// </summary>
         public const double Minute = 60d;
 
         /// <summary>
-        /// 
+        /// The hour (const). Value: 1d.
         /// </summary>
         public const double Hour = 1d;
 
         /// <summary>
-        /// 
+        /// The day (const). Value: 24d.
         /// </summary>
         public const double Day = 24d;
 
         /// <summary>
-        /// 
+        /// The year (const). Value: 365.25d * Day.
         /// </summary>
         public const double Year = 365.25d * Day;
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="Hours"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public Hours(double value)
         {
             Value = value;
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the seconds.
         /// </summary>
         public double Seconds
         {
@@ -67,7 +67,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the minutes.
         /// </summary>
         public double Minutes
         {
@@ -76,7 +76,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the days.
         /// </summary>
         public double Days
         {
@@ -85,7 +85,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the years.
         /// </summary>
         public double Years
         {
@@ -101,23 +101,24 @@ namespace Engine.Physics
             => new Hours(value);
 
         /// <summary>
-        /// 
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Hours);
 
         /// <summary>
-        /// 
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => "h";
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{Value} h";
     }

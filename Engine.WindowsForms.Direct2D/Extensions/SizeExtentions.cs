@@ -123,8 +123,7 @@ namespace Engine
         /// Unit of a Point
         /// </summary>
         /// <param name="value">The Point to Unitize</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Size Unit(this Size value)
             => value.Inflate((float)(1 / Sqrt((value.Width * value.Width) + (value.Height * value.Height))));
     }

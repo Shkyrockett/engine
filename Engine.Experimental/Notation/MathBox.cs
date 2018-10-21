@@ -27,7 +27,7 @@ namespace Engine.MathNotation
         public Equation Equation { get; set; }
 
         /// <summary>
-        /// 
+        /// Build the table.
         /// </summary>
         public static void BuildTable()
         { }

@@ -52,7 +52,6 @@ namespace Engine
         /// <param name="pointA">First Point.</param>
         /// <param name="pointB">Second Point.</param>
         /// <returns>The absolute angle of a line in radians.</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this Point2D pointA, Point2D pointB)
@@ -63,7 +62,6 @@ namespace Engine
         /// </summary>
         /// <param name="segment">Line segment.</param>
         /// <returns>The absolute angle of a line in radians.</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this LineSegment segment)
@@ -188,7 +186,6 @@ namespace Engine
         /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Add(this Vector2D augend, int addend)
@@ -200,7 +197,6 @@ namespace Engine
         /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Add(this Vector2D augend, float addend)
@@ -212,7 +208,6 @@ namespace Engine
         /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Add(this Vector2D augend, double addend)
@@ -236,7 +231,6 @@ namespace Engine
         /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Add(this Vector2D augend, Point2D addend)
@@ -248,7 +242,6 @@ namespace Engine
         /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Add(this Vector2D augend, Vector2D addend)
@@ -260,7 +253,6 @@ namespace Engine
         /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Add(this Vector3D augend, double addend)
@@ -272,7 +264,6 @@ namespace Engine
         /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D Add(this Vector3D augend, Point3D addend)
@@ -284,7 +275,6 @@ namespace Engine
         /// <param name="augend"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Add(this Vector3D augend, Vector3D addend)
@@ -513,7 +503,6 @@ namespace Engine
         /// <param name="PointA">Starting Point</param>
         /// <param name="PointB">Ending Point</param>
         /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this Point2D PointA, Point2D PointB)
@@ -523,7 +512,6 @@ namespace Engine
         /// Returns the Angle of a line segment.
         /// </summary>
         /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this LineSegment segment)
@@ -921,7 +909,6 @@ namespace Engine
         /// <param name="value1">First Point</param>
         /// <param name="value2">Second Point</param>
         /// <returns>Returns the Difference Between PointA and PointB</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Delta(this Point2D value1, Point2D value2)
@@ -933,7 +920,6 @@ namespace Engine
         /// <param name="size">First Point</param>
         /// <param name="value">Second Point</param>
         /// <returns>Returns the Difference Between PointA and PointB</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Delta(this Size2D size, Size2D value)
@@ -945,7 +931,6 @@ namespace Engine
         /// <param name="vector">First Point</param>
         /// <param name="value">Second Point</param>
         /// <returns>Returns the Difference Between PointA and PointB</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Delta(this Vector2D vector, Vector2D value)
@@ -1449,7 +1434,6 @@ namespace Engine
         /// Inverts a Vector.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(float x, float y)
@@ -1459,7 +1443,6 @@ namespace Engine
         /// Inverts a Vector.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(double x, double y)
@@ -1480,7 +1463,6 @@ namespace Engine
         /// </summary>
         /// <param name="value">todo: describe value parameter on Invert</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(this Vector2D value)
@@ -1580,7 +1562,6 @@ namespace Engine
             var m20m31m30m21 = source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1;
             var m10m31m30m11 = source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1;
             var m10m21m20m11 = source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1;
-
 
             var detInv = 1 /
             (source.M0x0 * (source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22) -
@@ -1839,7 +1820,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulus(this Vector2D value)
@@ -2111,7 +2091,6 @@ namespace Engine
         /// <param name="point">First Point</param>
         /// <param name="value">Second Point</param>
         /// <returns>The Normal of two Points</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Normalize(this Point2D point, Size2D value)
@@ -2214,7 +2193,7 @@ namespace Engine
         /// <param name="value">Second point of line segment</param>
         /// <param name="axis">Point to Reflect</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Reflect(this Point2D point, Point2D value, Point2D axis)
@@ -2238,7 +2217,7 @@ namespace Engine
         /// <param name="segment">The line segment</param>
         /// <param name="axis">Point to reflect about</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Reflect(this LineSegment segment, Point2D axis)
@@ -2423,7 +2402,6 @@ namespace Engine
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Scale(this Vector2D value, int factor)
@@ -2435,7 +2413,6 @@ namespace Engine
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Scale(this Vector2D value, float factor)
@@ -2447,7 +2424,6 @@ namespace Engine
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Scale(this Vector2D value, double factor)
@@ -2459,7 +2435,6 @@ namespace Engine
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Scale(this Vector3D value, double factor)
@@ -2471,7 +2446,6 @@ namespace Engine
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Scale(this Vector4D value, double factor)
@@ -2613,7 +2587,7 @@ namespace Engine
         /// </summary>
         /// <param name="Line">Line to get length of</param>
         /// <returns>Returns the slope angle of a line.</returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this LineSegment Line)
@@ -2705,7 +2679,6 @@ namespace Engine
         /// <param name="subtrahendX"></param>
         /// <param name="subtrahendY"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Subtract(this Vector2D minuend, double subtrahendX, double subtrahendY)
@@ -2717,7 +2690,6 @@ namespace Engine
         /// <param name="minuend"></param>
         /// <param name="subtrahend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Subtract(this Vector2D minuend, double subtrahend)
@@ -2741,7 +2713,6 @@ namespace Engine
         /// <param name="minuend"></param>
         /// <param name="subtrahend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Subtract(this Vector2D minuend, Point2D subtrahend)
@@ -2789,7 +2760,6 @@ namespace Engine
         /// <param name="minuend"></param>
         /// <param name="subtrahend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Subtract(this Vector2D minuend, Vector2D subtrahend)
@@ -2801,7 +2771,6 @@ namespace Engine
         /// <param name="minuend"></param>
         /// <param name="subtrahend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Subtract(this Vector3D minuend, double subtrahend)
@@ -2813,7 +2782,6 @@ namespace Engine
         /// <param name="minuend"></param>
         /// <param name="subtrahend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D Subtract(this Vector3D minuend, Point3D subtrahend)
@@ -2825,7 +2793,6 @@ namespace Engine
         /// <param name="minuend"></param>
         /// <param name="subtrahend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Subtract(this Vector3D minuend, Vector3D subtrahend)
@@ -3027,7 +2994,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The Vector to Unitize</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Unit(this Vector2D value)
@@ -3038,7 +3005,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The Point to Unitize</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Unit(this Vector3D value)
@@ -3049,7 +3016,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The Point to Unitize</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Unit(this Vector4D value)

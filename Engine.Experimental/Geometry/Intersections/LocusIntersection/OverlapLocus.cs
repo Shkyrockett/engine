@@ -10,10 +10,10 @@
 
 namespace Engine
 {
-    /// <summary>
-    /// 
-    /// </summary>
     /// <remarks> http://stackoverflow.com/a/2258178 </remarks>
+    /// <summary>
+    /// The overlap locus class.
+    /// </summary>
     public class OverlapLocus
         : Locus
     { }

@@ -15,7 +15,7 @@ using System.Windows.Forms.VisualStyles;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The color track bar control class.
     /// </summary>
     /// <remarks>
     /// http://stackoverflow.com/questions/1551889/how-to-make-an-ownerdraw-trackbar-in-winforms
@@ -24,7 +24,7 @@ namespace Engine.WindowsForms
         : TrackBar
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ColorTrackBarControl"/> class.
         /// </summary>
         public ColorTrackBarControl()
         {
@@ -38,16 +38,16 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// The wnd proc.
         /// </summary>
-        /// <param name="m"></param>
+        /// <param name="m">The m.</param>
         protected override void WndProc(ref Message m)
             => base.WndProc(ref m);
 
         /// <summary>
-        /// 
+        /// Raises the paint background event.
         /// </summary>
-        /// <param name="pevent"></param>
+        /// <param name="pevent">The paint event arguments.</param>
         protected override void OnPaintBackground(PaintEventArgs pevent)
         {
             base.OnPaintBackground(pevent);
@@ -60,9 +60,9 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Raises the paint event.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">The paint event arguments.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);

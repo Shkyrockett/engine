@@ -11,13 +11,14 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The IPressure interface.
     /// </summary>
     public interface IPressure
     {
         /// <summary>
-        /// 
+        /// Gets the value.
         /// </summary>
+        /// <value>The <see cref="double"/>.</value>
         double Value { get; /*set;*/ }
 
         ///// <summary>
@@ -32,10 +33,11 @@ namespace Engine.Physics
         //[EditorBrowsable(EditorBrowsableState.Never)]
         //string Abreviation { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         string ToString();
     }
 }

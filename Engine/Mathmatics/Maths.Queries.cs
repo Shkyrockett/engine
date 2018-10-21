@@ -72,8 +72,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -92,8 +91,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -111,8 +109,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -131,8 +128,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -150,8 +146,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -170,8 +165,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -189,8 +183,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -209,8 +202,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -228,8 +220,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -248,8 +239,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -268,8 +258,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long
         /// </acknowledgment>
@@ -288,8 +277,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
         /// </acknowledgment>
@@ -307,8 +295,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
         /// </acknowledgment>
@@ -326,8 +313,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
         /// </acknowledgment>
@@ -345,8 +331,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
         /// </acknowledgment>
@@ -364,8 +349,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
         /// </acknowledgment>
@@ -383,8 +367,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
         /// </acknowledgment>
@@ -402,8 +385,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
         /// </acknowledgment>

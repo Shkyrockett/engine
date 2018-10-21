@@ -26,10 +26,11 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="EndOfTrack"/> class.
         /// </summary>
-        /// <param name="len"></param>
-        /// <param name="status"></param>
+        /// <param name="len">The len.</param>
+        /// <param name="status">The status.</param>
+        /// <exception cref="FormatException"></exception>
         public EndOfTrack(byte len, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -38,11 +39,11 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="EndOfTrack"/>.</returns>
         internal static EndOfTrack Read(BinaryReaderExtended reader, EventStatus status)
             => new EndOfTrack(reader.Position == reader.Length ? (byte)0 : reader.ReadByte(), status);
     }

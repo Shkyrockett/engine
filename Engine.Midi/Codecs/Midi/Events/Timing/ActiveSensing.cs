@@ -25,19 +25,19 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ActiveSensing"/> class.
         /// </summary>
-        /// <param name="status"></param>
+        /// <param name="status">The status.</param>
         public ActiveSensing(EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         { }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="ActiveSensing"/>.</returns>
         internal static ActiveSensing Read(BinaryReaderExtended reader, EventStatus status)
             => new ActiveSensing(status);
     }

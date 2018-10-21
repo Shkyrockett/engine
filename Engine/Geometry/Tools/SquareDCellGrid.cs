@@ -9,7 +9,6 @@
 // <remarks></remarks>
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -72,13 +71,13 @@ namespace Engine
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SquareDCellGrid"/> class.
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="count"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="count">The count.</param>
         public SquareDCellGrid(double x, double y, double width, double height, int count)
         {
             this.x = x;

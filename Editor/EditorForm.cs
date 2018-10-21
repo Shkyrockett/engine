@@ -58,7 +58,7 @@ namespace Editor
         private string vectorFilename = string.Empty;
 
         /// <summary>
-        /// 
+        /// The vector map serializer.
         /// </summary>
         private XmlSerializer vectorMapSerializer = new XmlSerializer(typeof(VectorMap));
 

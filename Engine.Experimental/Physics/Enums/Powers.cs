@@ -11,47 +11,47 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The powers enum.
     /// </summary>
     public enum Powers
     {
         /// <summary>
-        /// 
+        /// The Watt.
         /// </summary>
         Watt,
 
         /// <summary>
-        /// 
+        /// The Kilowatt.
         /// </summary>
         Kilowatt,
 
         /// <summary>
-        /// 
+        /// The Megawatt.
         /// </summary>
         Megawatt,
 
         /// <summary>
-        /// 
+        /// The Gigawatt.
         /// </summary>
         Gigawatt,
 
         /// <summary>
-        /// 
+        /// The Terawatt.
         /// </summary>
         Terawatt,
 
         /// <summary>
-        /// 
+        /// The Petawatt.
         /// </summary>
         Petawatt,
 
         /// <summary>
-        /// 
+        /// The Exawatt.
         /// </summary>
         Exawatt,
 
         /// <summary>
-        /// 
+        /// The Horsepower.
         /// </summary>
         Horsepower
     }

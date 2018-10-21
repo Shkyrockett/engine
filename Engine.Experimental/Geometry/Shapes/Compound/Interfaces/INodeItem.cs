@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Engine.Experimental
+﻿namespace Engine.Experimental
 {
     /// <summary>
     /// The INodeItem interface.

@@ -8,21 +8,21 @@ using Engine.File;
 namespace EventEditorMidi
 {
     /// <summary>
-    /// 
+    /// The music files class.
     /// </summary>
     //[ElementName(nameof(MusicFiles))]
     //[DisplayName("Music Files")]
     public class MusicFiles
     {
         /// <summary>
-        /// 
+        /// Gets or sets the midi.
         /// </summary>
         public List<MediaFile> Midi { get; set; } = new List<MediaFile>();
 
         /// <summary>
-        /// 
+        /// The list file formats.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:List{Type}"/>.</returns>
         public static List<Type> ListFileFormats()
         {
             var shapeType = typeof(IMediaContainer);
@@ -31,9 +31,9 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        /// The list event formats.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="T:List{Type}"/>.</returns>
         public static List<Type> ListEventFormats()
         {
             var shapeType = typeof(IMidiEvent);
@@ -42,11 +42,11 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        /// Get the assembly types.
         /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="classType"></param>
-        /// <returns></returns>
+        /// <param name="assembly">The assembly.</param>
+        /// <param name="classType">The classType.</param>
+        /// <returns>The <see cref="T:List{Type}"/>.</returns>
         private static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
         {
             var typeList = new List<Type>();
@@ -60,11 +60,11 @@ namespace EventEditorMidi
         }
 
         /// <summary>
-        /// 
+        /// Get the assembly interfaces.
         /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="classType"></param>
-        /// <returns></returns>
+        /// <param name="assembly">The assembly.</param>
+        /// <param name="classType">The classType.</param>
+        /// <returns>The <see cref="T:List{Type}"/>.</returns>
         private static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
         {
             var typeList = new List<Type>();

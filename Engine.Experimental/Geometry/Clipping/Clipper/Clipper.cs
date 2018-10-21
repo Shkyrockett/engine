@@ -8,7 +8,6 @@
 * License   :  http://www.boost.org/LICENSE_1_0.txt                            *
 *******************************************************************************/
 
-using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using static System.Math;
@@ -87,7 +86,7 @@ namespace Engine.Experimental
 
         #region Virtual Methods
         /// <summary>
-        ///
+        /// Clean the up.
         /// </summary>
         protected virtual void CleanUp()
         {
@@ -101,11 +100,11 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        ///
+        /// Add the local min poly.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <param name="pt"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="pt">The pt.</param>
         protected virtual void AddLocalMinPoly(Edge e1, Edge e2, Point2D pt)
         {
             var outRec = CreateOutRec();
@@ -160,11 +159,12 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        ///
+        /// Add the local max poly.
         /// </summary>
-        /// <param name="e1"></param>
-        /// <param name="e2"></param>
-        /// <param name="Pt"></param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="Pt">The Pt.</param>
+        /// <exception cref="EngineException">Error in AddLocalMaxPoly().</exception>
         protected virtual void AddLocalMaxPoly(Edge e1, Edge e2, Point2D Pt)
         {
             if (!e2.IsHotEdge())
@@ -203,11 +203,11 @@ namespace Engine.Experimental
             => new OutRec();
 
         /// <summary>
-        ///
+        /// Add the out point.
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="pt"></param>
-        /// <returns></returns>
+        /// <param name="e">The e.</param>
+        /// <param name="pt">The pt.</param>
+        /// <returns>The <see cref="LinkedPoint"/>.</returns>
         protected virtual LinkedPoint AddOutPoint(Edge e, Point2D pt)
         {
             //Outrec.Pts: a circular double-linked-list of POutPt.
@@ -241,11 +241,11 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        ///
+        /// The execute internal.
         /// </summary>
-        /// <param name="ct"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
+        /// <param name="ct">The ct.</param>
+        /// <param name="ft">The ft.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         protected virtual bool ExecuteInternal(ClippingOperations ct, WindingRules ft)
         {
             if (ct == ClippingOperations.None)
@@ -284,11 +284,11 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        ///
+        /// The execute.
         /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
+        /// <param name="clipType">The clipType.</param>
+        /// <param name="ft">The ft.</param>
+        /// <returns>The <see cref="Polygon"/>.</returns>
         public virtual Polygon Execute(ClippingOperations clipType, WindingRules ft = WindingRules.EvenOdd)
         {
             try
@@ -303,12 +303,12 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        ///
+        /// The execute.
         /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="Open"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
+        /// <param name="clipType">The clipType.</param>
+        /// <param name="Open">The Open.</param>
+        /// <param name="ft">The ft.</param>
+        /// <returns>The <see cref="Polygon"/>.</returns>
         public virtual Polygon Execute(ClippingOperations clipType, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
         {
             try
@@ -324,13 +324,13 @@ namespace Engine.Experimental
         }
 
         /// <summary>
-        ///
+        /// The execute.
         /// </summary>
-        /// <param name="clipType"></param>
-        /// <param name="polytree"></param>
-        /// <param name="Open"></param>
-        /// <param name="ft"></param>
-        /// <returns></returns>
+        /// <param name="clipType">The clipType.</param>
+        /// <param name="polytree">The polytree.</param>
+        /// <param name="Open">The Open.</param>
+        /// <param name="ft">The ft.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         public virtual bool Execute(ClippingOperations clipType, PolyTree polytree, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
         {
             try
@@ -1196,7 +1196,6 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void IntersectEdges(Edge e1, Edge e2, Point2D pt)
         {
-
             e1.Curr = pt;
             e2.Curr = pt;
 

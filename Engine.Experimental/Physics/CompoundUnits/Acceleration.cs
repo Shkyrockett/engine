@@ -13,16 +13,16 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    ///
+    /// The acceleration struct.
     /// </summary>
     public struct Acceleration
         : IAcceleration
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Acceleration"/> class.
         /// </summary>
-        /// <param name="velocityChange"></param>
-        /// <param name="timeInterval"></param>
+        /// <param name="velocityChange">The velocityChange.</param>
+        /// <param name="timeInterval">The timeInterval.</param>
         public Acceleration(IVelocity velocityChange, ITime timeInterval)
         {
             VelocityChange = velocityChange;
@@ -30,39 +30,39 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the velocity change.
         /// </summary>
         public IVelocity VelocityChange { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the time interval.
         /// </summary>
         public ITime TimeInterval { get; set; }
 
         /// <summary>
-        ///
+        /// Gets the value.
         /// </summary>
         public double Value
             => VelocityChange.Value / TimeInterval.Value;
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Acceleration);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
             => $"∆{Value}/∆{VelocityChange.Abreviation}";
 
         /// <summary>
-        ///
+        /// The to string.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{Value} {Abreviation}";
     }

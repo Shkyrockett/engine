@@ -34,11 +34,11 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="KeySignature"/> class.
         /// </summary>
-        /// <param name="keySignature"></param>
-        /// <param name="tonality"></param>
-        /// <param name="status"></param>
+        /// <param name="keySignature">The keySignature.</param>
+        /// <param name="tonality">The tonality.</param>
+        /// <param name="status">The status.</param>
         public KeySignature(MidiKeySignatures keySignature, MidiTonality tonality, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -47,21 +47,21 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the key.
         /// </summary>
         public MidiKeySignatures Key { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the tonality.
         /// </summary>
         public MidiTonality Tonality { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="KeySignature"/>.</returns>
         internal static KeySignature Read(BinaryReaderExtended reader, EventStatus status)
             => new KeySignature((MidiKeySignatures)reader.ReadByte(), (MidiTonality)reader.ReadByte(), status);
     }

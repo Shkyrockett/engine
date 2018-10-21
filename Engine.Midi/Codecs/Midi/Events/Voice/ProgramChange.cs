@@ -25,10 +25,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ProgramChange"/> class.
         /// </summary>
-        /// <param name="program"></param>
-        /// <param name="status"></param>
+        /// <param name="program">The program.</param>
+        /// <param name="status">The status.</param>
         public ProgramChange(byte program, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -36,16 +36,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the program.
         /// </summary>
         public byte Program { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="ProgramChange"/>.</returns>
         internal static ProgramChange Read(BinaryReaderExtended reader, EventStatus status)
             => new ProgramChange(reader.ReadByte(), status);
     }

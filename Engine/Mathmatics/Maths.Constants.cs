@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Collections.Generic;
 using static System.Math;
 
 namespace Engine
@@ -71,8 +70,7 @@ namespace Engine
         /// <summary>
         /// SlopeMax is a large value "close to infinity" (Close to the largest value allowed for the data
         /// type). Used in the Slope of a LineSeg
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         public const double SlopeMax = 9223372036854775807d;
 
         /// <summary>
@@ -120,10 +118,10 @@ namespace Engine
         /// <summary>
         /// Represents the value of the double inverse of Pi, or the quotient of two over pi.
         /// </summary>
-        public const double Inverse2OverPi = 2d / PI; // 3.1415926535897932384626433832795d;
+        public const double Inverse2OverPi = 2d / PI; // 0.63661977236758134307553505349006d;
 
         /// <summary>
-        /// Represents the ratio of the radius of a circle to the first eighth of that circle.
+        /// Represents the ratio of the radius of a circle to the first sixteenth of that circle.
         /// One sixteenth Tau or a eighth Pi.
         /// </summary>
         /// <remarks>PI / 8</remarks>
@@ -712,8 +710,7 @@ namespace Engine
         #region Gauss Tables
         /// <summary>
         /// Gauss abscissa table
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         /// <acknowledgment>
         /// https://code.google.com/archive/p/degrafa/source/default/source
         /// </acknowledgment>
@@ -765,8 +762,7 @@ namespace Engine
 
         /// <summary>
         /// Gauss weight table
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         /// <acknowledgment>
         /// https://code.google.com/archive/p/degrafa/source/default/source
         /// </acknowledgment>

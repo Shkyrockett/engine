@@ -45,7 +45,7 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="PolyBezierContour"/> class.
         /// </summary>
         public PolyBezierContour()
         {
@@ -53,16 +53,18 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="PolyBezierContour"/> class.
         /// </summary>
+        /// <param name="start">The start.</param>
         public PolyBezierContour(Point2D start)
         {
             items.Add(new BezierSegmentX(start));
         }
 
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="PolyBezierContour"/> class.
         /// </summary>
+        /// <param name="items">The items.</param>
         public PolyBezierContour(List<BezierSegmentX> items)
         {
             this.items = items;
@@ -71,19 +73,19 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        ///
+        /// The deconstruct.
         /// </summary>
-        /// <param name="items"></param>
+        /// <param name="items">The items.</param>
         public void Deconstruct(out List<BezierSegmentX> items)
             => items = this.items;
         #endregion Deconstructors
 
         #region Indexers
         /// <summary>
-        ///
+        /// The Indexer.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type BezierSegmentX.</returns>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public BezierSegmentX this[int index]
                 => items[index];
@@ -266,7 +268,6 @@ namespace Engine
         /// </summary>
         public static void Reverse()
         {
-
         }
 
         #region Methods

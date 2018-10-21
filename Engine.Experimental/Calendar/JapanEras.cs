@@ -14,6 +14,7 @@ using System.Collections.Generic;
 namespace Engine.Chrono
 {
     /// <summary>
+    /// The japan eras class.
     /// </summary>
     /// <remarks>
     /// http://www.japan-guide.com/e/e2126.html
@@ -25,10 +26,10 @@ namespace Engine.Chrono
     /// </remarks>
     public class JapanEras
     {
-        /// <summary>
-        /// 
-        /// </summary>
         /// <remarks>http://www.sljfaq.org/afaq/era-list.html</remarks>
+        /// <summary>
+        /// The erra.
+        /// </summary>
         public Dictionary<DateTime, string> erra = new Dictionary<DateTime, string>
         {
             //{new DateTime(498, 1, 1), "大化"}, // Taika?

@@ -26,8 +26,7 @@ namespace Engine
     /// <summary>
     /// A closed Polygon made up of sets of Contours.
     /// </summary>
-    /// <structure>Engine.Geometry.PolyGon2D</structure>
-    /// <remarks></remarks>
+    /// <structure>Engine.Geometry.PolyGon2D</structure>
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Polycurve))]
@@ -38,8 +37,7 @@ namespace Engine
         #region Private Fields
         /// <summary>
         /// An array of Polygon Contours.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         private List<PolycurveContour> contours;
         #endregion Private Fields

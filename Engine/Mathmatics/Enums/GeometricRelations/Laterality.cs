@@ -13,7 +13,7 @@ using System;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The laterality enum.
     /// </summary>
     [Flags]
     public enum Laterality

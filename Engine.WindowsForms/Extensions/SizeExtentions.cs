@@ -16,7 +16,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The size extentions class.
     /// </summary>
     public static class SizeExtentions
     {
@@ -124,7 +124,6 @@ namespace Engine
         /// </summary>
         /// <param name="value">The Point to Unitize</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Size Unit(this Size value)
             => value.Inflate((float)(1 / Sqrt((value.Width * value.Width) + (value.Height * value.Height))));
     }

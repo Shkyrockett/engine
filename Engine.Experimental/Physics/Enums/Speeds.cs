@@ -11,32 +11,32 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The speeds enum.
     /// </summary>
     public enum Speeds
     {
         /// <summary>
-        /// 
+        /// The MileHour.
         /// </summary>
         MileHour,
 
         /// <summary>
-        /// 
+        /// The KilometerHour.
         /// </summary>
         KilometerHour,
 
         /// <summary>
-        /// 
+        /// The FootSecond.
         /// </summary>
         FootSecond,
 
         /// <summary>
-        /// 
+        /// The MeterSecond.
         /// </summary>
         MeterSecond,
 
         /// <summary>
-        /// 
+        /// The Knot.
         /// </summary>
         Knot
     }

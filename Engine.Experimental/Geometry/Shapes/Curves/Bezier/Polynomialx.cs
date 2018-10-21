@@ -1047,7 +1047,7 @@ namespace Engine
         /// <summary>
         /// The trim.
         /// </summary>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
         /// https://github.com/superlloyd/Poly

@@ -152,7 +152,6 @@ namespace Engine
             upperLeft = new Point2D(sourceBounds.Left, sourceBounds.Top);
             upperRight = new Point2D(sourceBounds.Right, sourceBounds.Top);
 
-
             distortionPath = new PolycurveContour(lowerLeft);// source.FillMode);
             distortionPath.AddLineSegment(upperLeft);
 

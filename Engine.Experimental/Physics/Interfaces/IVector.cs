@@ -11,19 +11,21 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The IVector interface.
     /// </summary>
     public interface IVector
     {
         /// <summary>
-        /// 
+        /// Gets the value.
         /// </summary>
+        /// <value>The <see cref="double"/>.</value>
         double Value { get; /*set;*/ }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         string ToString();
     }
 }

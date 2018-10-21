@@ -71,7 +71,6 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Vector3D"/> class.
         /// </summary>
         /// <param name="tuple"></param>
-        /// <remarks></remarks>
         public Vector3D((double X, double Y, double Z) tuple)
         {
             (I, J, K) = tuple;
@@ -83,7 +82,6 @@ namespace Engine
         /// <param name="i">The <see cref="I"/> component of the <see cref="Vector3D"/> class.</param>
         /// <param name="j">The <see cref="J"/> component of the <see cref="Vector3D"/> class.</param>
         /// <param name="k">The <see cref="K"/> component of the <see cref="Vector3D"/> class.</param>
-        /// <remarks></remarks>
         public Vector3D(double i, double j, double k)
         {
             I = i;
@@ -100,7 +98,6 @@ namespace Engine
         /// <param name="bI"></param>
         /// <param name="bJ"></param>
         /// <param name="bK"></param>
-        /// <remarks></remarks>
         public Vector3D(double aI, double aJ, double aK, double bI, double bJ, double bK)
             : this(new Vector3D(aI, aJ, aK), new Vector3D(bI, bJ, bK))
         { }
@@ -110,7 +107,6 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <remarks></remarks>
         public Vector3D(Vector3D a, Vector3D b)
             : this(new Vector3D(a.I - b.I, a.J - b.J, a.K - b.K).Unit())
         { }
@@ -120,21 +116,18 @@ namespace Engine
         /// <summary>
         /// First Point of a 3D Vector
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Second Component of a 3D Vector
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
         /// <summary>
         /// Third Component of a 3D Vector
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double K { get; set; }
 
@@ -149,7 +142,7 @@ namespace Engine
             && Abs(K) < Epsilon;
 
         /// <summary>
-        /// 
+        /// Gets the magnitude.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -157,7 +150,7 @@ namespace Engine
             => Measurements.VectorMagnitude(I, J, K);
 
         /// <summary>
-        /// 
+        /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -165,7 +158,7 @@ namespace Engine
             => Measurements.VectorMagnitude(I, J, K);
 
         /// <summary>
-        /// 
+        /// Gets the length squared.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -188,7 +181,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector3D operator +(Vector3D value, double addend)
             => value.Add(addend);
 
@@ -198,7 +190,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Point3D operator +(Vector3D value, Point3D addend)
             => value.Add(addend);
 
@@ -208,7 +199,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector3D operator +(Vector3D value, Vector3D addend)
             => value.Add(addend);
 
@@ -226,7 +216,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector3D operator -(Vector3D value, double subend)
             => value.Subtract(subend);
 
@@ -236,7 +225,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Point3D operator -(Vector3D value, Point3D subend)
             => value.Subtract(subend);
 
@@ -246,7 +234,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector3D operator -(Vector3D value, Vector3D subend)
             => value.Subtract(subend);
 
@@ -256,7 +243,6 @@ namespace Engine
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         public static Vector3D operator *(Vector3D value, double factor)
             => new Vector3D(value.I * factor, value.J * factor, value.K * factor);
 
@@ -266,7 +252,6 @@ namespace Engine
         /// <param name="factor">The Multiplier</param>
         /// <param name="value">The Point</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         public static Vector3D operator *(double factor, Vector3D value)
             => new Vector3D(value.I * factor, value.J * factor, value.K * factor);
 
@@ -276,7 +261,6 @@ namespace Engine
         /// <param name="divisor">The Vector3D</param>
         /// <param name="divedend">The divisor</param>
         /// <returns>A Vector3D divided by the divisor</returns>
-        /// <remarks></remarks>
         public static Vector3D operator /(Vector3D divisor, double divedend)
             => new Vector3D(divisor.I / divedend, divisor.J / divedend, divisor.K / divedend);
 
@@ -286,7 +270,6 @@ namespace Engine
         /// <param name="divisor">The Vector3D</param>
         /// <param name="dividend">The divisor</param>
         /// <returns>A Vector3D divided by the divisor</returns>
-        /// <remarks></remarks>
         public static Vector3D operator /(double divisor, Vector3D dividend)
             => new Vector3D(divisor / dividend.I, divisor / dividend.I, divisor / dividend.K);
 
@@ -313,7 +296,6 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector3D((double X, double Y, double Z) tuple)
@@ -336,7 +318,6 @@ namespace Engine
         /// Create a Random <see cref="Vector3D"/>.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector3D Random()
             => new Vector3D(
                 (2 * RandomNumberGenerator.NextDouble()) - 1,
@@ -424,28 +405,28 @@ namespace Engine
 
         #region Public Methods
         /// <summary>
-        /// 
+        /// Get the hash code.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The <see cref="int"/>.</returns>
         public override int GetHashCode()
             => I.GetHashCode()
             ^ J.GetHashCode()
             ^ K.GetHashCode();
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Vector3D && Equals(this, (Vector3D)obj);
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector3D value)
             => Equals(this, value);
@@ -456,17 +437,16 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Vector3D a, Vector3D b)
             => Equals(a, b);
 
         /// <summary>
-        /// 
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Vector3D a, Vector3D b)
             => a.I == b.I & a.J == b.J & a.K == b.K;

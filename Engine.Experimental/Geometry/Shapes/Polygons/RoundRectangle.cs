@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using Engine.Imaging;
 using System;
 //using System.Drawing.Drawing2D;
 using System.Runtime.Serialization;

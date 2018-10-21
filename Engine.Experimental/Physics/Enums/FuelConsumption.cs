@@ -11,27 +11,27 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The fuel consumption enum.
     /// </summary>
     public enum FuelConsumption
     {
         /// <summary>
-        /// 
+        /// The USMPG.
         /// </summary>
         USMPG,
 
         /// <summary>
-        /// 
+        /// The KmLiter.
         /// </summary>
         KmLiter,
 
         /// <summary>
-        /// 
+        /// The ImperialMPG.
         /// </summary>
         ImperialMPG,
 
         /// <summary>
-        /// 
+        /// The Liter100Km.
         /// </summary>
         Liter100Km
     }

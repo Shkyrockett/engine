@@ -26,8 +26,7 @@ namespace Engine
         /// </summary>
         /// <param name="pointA">First Point.</param>
         /// <param name="pointB">Second Point.</param>
-        /// <returns>The absolute angle of a line in radians.</returns>
-        /// <remarks></remarks>
+        /// <returns>The absolute angle of a line in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this Point pointA, Point pointB)
             => Maths.AbsoluteAngle(pointA.X, pointA.Y, pointB.X, pointB.Y);
@@ -125,8 +124,7 @@ namespace Engine
         /// </summary>
         /// <param name="PointA">Starting Point</param>
         /// <param name="PointB">Ending Point</param>
-        /// <returns>Returns the Angle of a line.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the Angle of a line.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this Point PointA, Point PointB)
@@ -189,8 +187,7 @@ namespace Engine
         /// </summary>
         /// <param name="value1">First Point</param>
         /// <param name="value2">Second Point</param>
-        /// <returns>Returns the Difference Between PointA and PointB</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns the Difference Between PointA and PointB</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Delta(this Point value1, Point value2)
@@ -537,8 +534,7 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Point Subtract(this Point point, Size value)
             => new Point(point.X - value.Width, point.Y - value.Height);
 
@@ -547,8 +543,7 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Point Subtract(this Point point, SizeF value)
             => new Point((int)(point.X - value.Width), (int)(point.Y - value.Height));
 
@@ -557,8 +552,7 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         /// <param name="value"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Point Subtract(this Point point, Vector2D value)
             => new Point((int)(point.X - value.I), (int)(point.Y - value.J));
 
@@ -566,8 +560,7 @@ namespace Engine
         /// Unit of a Point
         /// </summary>
         /// <param name="value">The Point to Unitize</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Point Unit(this Point value)
             => value.Scale((float)(1 / Sqrt((value.X * value.X) + (value.Y * value.Y))));
     }

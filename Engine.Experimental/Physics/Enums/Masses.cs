@@ -11,7 +11,7 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The masses enum.
     /// </summary>
     public enum Masses
     { }

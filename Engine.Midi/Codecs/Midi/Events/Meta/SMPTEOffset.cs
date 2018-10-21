@@ -24,14 +24,14 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SMPTEOffset"/> class.
         /// </summary>
-        /// <param name="hours"></param>
-        /// <param name="minutes"></param>
-        /// <param name="seconds"></param>
-        /// <param name="frames"></param>
-        /// <param name="fractionalFrames"></param>
-        /// <param name="status"></param>
+        /// <param name="hours">The hours.</param>
+        /// <param name="minutes">The minutes.</param>
+        /// <param name="seconds">The seconds.</param>
+        /// <param name="frames">The frames.</param>
+        /// <param name="fractionalFrames">The fractionalFrames.</param>
+        /// <param name="status">The status.</param>
         public SMPTEOffset(byte hours, byte minutes, byte seconds, byte frames, byte fractionalFrames, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -43,36 +43,36 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the hours.
         /// </summary>
         public byte Hours { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the minutes.
         /// </summary>
         public byte Minutes { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the seconds.
         /// </summary>
         public byte Seconds { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the frames.
         /// </summary>
         public byte Frames { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the fractional frames.
         /// </summary>
         public byte FractionalFrames { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="SMPTEOffset"/>.</returns>
         internal static SMPTEOffset Read(BinaryReaderExtended reader, EventStatus status)
             => new SMPTEOffset(reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), status);
     }

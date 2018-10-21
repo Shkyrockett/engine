@@ -27,10 +27,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="SongPosition"/> class.
         /// </summary>
-        /// <param name="beats"></param>
-        /// <param name="status"></param>
+        /// <param name="beats">The beats.</param>
+        /// <param name="status">The status.</param>
         public SongPosition(short beats, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -38,16 +38,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the beats.
         /// </summary>
         public short Beats { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="SongPosition"/>.</returns>
         internal static SongPosition Read(BinaryReaderExtended reader, EventStatus status)
             => new SongPosition(reader.ReadNetworkInt14(), status);
     }

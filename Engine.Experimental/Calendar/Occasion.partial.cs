@@ -15,7 +15,7 @@ using static System.Math;
 namespace Engine.Chrono
 {
     /// <summary>
-    ///
+    /// The occasion class.
     /// </summary>
     public partial class Occasion
     {
@@ -617,7 +617,6 @@ namespace Engine.Chrono
         /// <param name="year">The year to look up.</param>
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Abraham Lincoln's Birthday.</returns>
-        /// <remarks></remarks>
         public static Occasion ElvisPresleysBirthday(int year, Culture culture = null)
             => (year <= 1935) ? null :
             new Occasion(
@@ -1056,12 +1055,12 @@ namespace Engine.Chrono
         // - Season Helpers -
 
         /// <summary>
-        ///
+        /// Calculate the equinox solstice date.
         /// </summary>
-        /// <param name="year"></param>
-        /// <param name="season"></param>
-        /// <param name="culture"></param>
-        /// <returns></returns>
+        /// <param name="year">The year.</param>
+        /// <param name="season">The season.</param>
+        /// <param name="culture">The culture.</param>
+        /// <returns>The <see cref="DateTime"/>.</returns>
         private static DateTime CalculateEquinoxSolsticeDate(int year, Season season, Culture culture)
         {
             var p = (year - 2000f) / 1000f;
@@ -1129,7 +1128,9 @@ namespace Engine.Chrono
 
             // adjust BC years
             if ((int)y <= 0)
+            {
                 y--;
+            }
 
             var hour = (int)(ut * 24);
             var minute = (int)((ut * 24 - hour) * 60);  //  Accurate to about 15 minutes c. 2000 CE.
@@ -1139,26 +1140,32 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        ///
+        /// Get the season.
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="ofSouthernHemisphere"></param>
-        /// <returns></returns>
+        /// <param name="date">The date.</param>
+        /// <param name="ofSouthernHemisphere">The ofSouthernHemisphere.</param>
+        /// <returns>The <see cref="Season"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/1579587/how-can-i-get-the-current-season-using-net-summer-winter-etc</remarks>
         private static Season GetSeason(DateTime date, bool ofSouthernHemisphere)
         {
-            var hemisphereConst = ofSouthernHemisphere ? 2 : 0;
-            Func<Season, Season> getReturn = (northern)
-                => (Season)(((int)northern + hemisphereConst) % 4);
+            switch (date.Month + (date.Day / 100f) /* <month>.<day(2 digit)> */)
+            {
+                case var v when v < 3.21 || v >= 12.22:
+                    // 3: Winter
+                    return getSeasonOffset(Season.Winter);
+                case var v when v < 6.21:
+                    // 0: Spring
+                    return getSeasonOffset(Season.Spring);
+                case var v when v < 9.23:
+                    // 1: Summer
+                    return getSeasonOffset(Season.Summer);
+                default:
+                    // 2: Autumn
+                    return getSeasonOffset(Season.Autumn);
+            }
 
-            var value = date.Month + date.Day / 100f;  // <month>.<day(2 digit)>
-            if (value < 3.21 || value >= 12.22)
-                return getReturn(Season.Winter);    // 3: Winter
-            if (value < 6.21)
-                return getReturn(Season.Spring);  // 0: Spring
-            if (value < 9.23)
-                return getReturn(Season.Summer);  // 1: Summer
-            return getReturn(Season.Autumn);    // 2: Autumn
+            Season getSeasonOffset(Season northern)
+                => (Season)(((int)northern + (ofSouthernHemisphere ? 2 : 0)) % 4);
         }
 
         // - Date Helpers -

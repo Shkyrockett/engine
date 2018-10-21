@@ -10,7 +10,6 @@ namespace Engine
     /// <remarks> http://stackoverflow.com/a/33888482 </remarks>
     public class PriorityQueue<T>
     {
-
         #region Fields
         /// <summary>
         /// The comparer.

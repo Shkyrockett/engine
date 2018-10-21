@@ -16,13 +16,13 @@ using System.IO;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The raster graphic class.
     /// </summary>
     public class RasterGraphic
         : IBitmap, IDisposable
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="RasterGraphic"/> class.
         /// </summary>
         public RasterGraphic()
         {
@@ -34,43 +34,44 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The bitmap.
         /// </summary>
         public Bitmap Bitmap;
 
         /// <summary>
-        /// 
+        /// Gets or sets the handles.
         /// </summary>
         public List<PointF> Handles { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the filename.
         /// </summary>
         public string Filename { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the display name.
         /// </summary>
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the stream.
         /// </summary>
         public Stream Stream { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Clone.
+        /// </summary>
+        /// <returns>The <see cref="object"/>.</returns>
         public static object Clone() => new object();
 
         /// <summary>
-        /// 
+        /// Finalizes an instance of the <see cref="RasterGraphic"/> class.
         /// </summary>
         ~RasterGraphic()
         {

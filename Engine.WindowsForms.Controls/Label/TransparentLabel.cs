@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The transparent label class.
     /// </summary>
     /// <remarks>
     /// http://stackoverflow.com/questions/1517179/c-overriding-onpaint-on-progressbar-not-working
@@ -39,7 +39,7 @@ namespace Engine.WindowsForms
         //}
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TransparentLabel"/> class.
         /// </summary>
         public TransparentLabel()
         {
@@ -50,7 +50,7 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Gets the create params.
         /// </summary>
         protected override CreateParams CreateParams
         {

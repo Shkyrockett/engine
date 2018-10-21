@@ -13,7 +13,7 @@
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The midi system messages enum.
     /// </summary>
     public enum MidiSystemMessages
         : byte

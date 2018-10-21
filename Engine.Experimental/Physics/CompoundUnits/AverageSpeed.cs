@@ -14,16 +14,16 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The average speed struct.
     /// </summary>
     public struct AverageSpeed
         : ISpeed
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="AverageSpeed"/> class.
         /// </summary>
-        /// <param name="speed"></param>
-        /// <param name="time"></param>
+        /// <param name="speed">The speed.</param>
+        /// <param name="time">The time.</param>
         public AverageSpeed(List<ISpeed> speed, ITime time)
         {
             Speed = speed;
@@ -31,17 +31,17 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the speed.
         /// </summary>
         public List<ISpeed> Speed { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the time.
         /// </summary>
         public ITime Time { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the value.
         /// </summary>
         public double Value
         {
@@ -56,21 +56,22 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        /// 
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name => "Average Speed";
 
         /// <summary>
-        /// 
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation => $"∆{Value}/{Speed[0].Abreviation}";
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString() => $"{Value} ∆{Speed[0].Abreviation}/{Time.Abreviation}";
     }
 }

@@ -65,10 +65,9 @@ namespace Engine.File
 
         #region Methods
         /// <summary>
-        /// 
+        /// Write the network u int14.
         /// </summary>
-        /// <param name="value"></param>
-        /// <remarks></remarks>
+        /// <param name="value">The value.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WriteNetworkUInt14(ushort value)
@@ -84,10 +83,9 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Write the network int14.
         /// </summary>
-        /// <param name="value"></param>
-        /// <remarks></remarks>
+        /// <param name="value">The value.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WriteNetworkInt14(short value)
@@ -165,9 +163,9 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Write the network u int24.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         /// <remarks>http://stackoverflow.com/questions/4918525/converting-int32-to-24-bit-signed-integer</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -183,9 +181,9 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Write the network int24.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         /// <remarks>http://stackoverflow.com/questions/4918525/converting-int32-to-24-bit-signed-integer</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

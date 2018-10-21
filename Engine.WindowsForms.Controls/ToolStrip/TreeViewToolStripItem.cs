@@ -14,9 +14,8 @@ using System.Windows.Forms.Design;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The tree view tool strip item class.
     /// </summary>
-    /// <remarks></remarks>
     [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.All)]
     public partial class TreeViewToolStripItem
         : ToolStripControlHost
@@ -27,7 +26,7 @@ namespace Engine.WindowsForms
         private TreeView tree = new TreeView();
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="TreeViewToolStripItem"/> class.
         /// </summary>
         public TreeViewToolStripItem()
             : base(new TreeView())

@@ -50,34 +50,34 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="QuaternionD"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">The tuple.</param>
         public QuaternionD((double X, double Y, double Z, double W) tuple)
         {
             (X, Y, Z, W) = tuple;
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="QuaternionD"/> class.
         /// </summary>
-        /// <param name="w"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="z"></param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="z">The z.</param>
+        /// <param name="w">The w.</param>
         public QuaternionD(double x, double y, double z, double w)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.W = w;
+            X = x;
+            Y = y;
+            Z = z;
+            W = w;
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="QuaternionD"/> class.
         /// </summary>
-        /// <param name="vector"></param>
-        /// <param name="scalar"></param>
+        /// <param name="vector">The vector.</param>
+        /// <param name="scalar">The scalar.</param>
         public QuaternionD(Vector3D vector, double scalar)
             : this(vector.I, vector.J, vector.K, scalar)
         { }
@@ -142,7 +142,6 @@ namespace Engine
             }
             get
             {
-
                 var test = X * Y + Z * W;
                 if (Abs(test) > 0.499d) // singularitY at north and south pole
                     return 0d;
@@ -256,10 +255,10 @@ namespace Engine
 
         #region Operators
         /// <summary>
-        /// 
+        /// The operator +.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         public static QuaternionD operator +(QuaternionD value)
             => new QuaternionD(+value.X, +value.Y, +value.Z, +value.W);
 
@@ -269,7 +268,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static QuaternionD operator +(QuaternionD value, double addend)
             => value.Add(addend);
 
@@ -279,15 +277,14 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static QuaternionD operator +(QuaternionD value, QuaternionD addend)
             => value.Add(addend);
 
         /// <summary>
-        /// 
+        /// The operator -.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         public static QuaternionD operator -(QuaternionD value)
             => new QuaternionD(-value.X, -value.Y, -value.Z, -value.W);
 
@@ -297,7 +294,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static QuaternionD operator -(QuaternionD value, double subend)
             => value.Subtract(subend);
 
@@ -307,7 +303,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static QuaternionD operator -(QuaternionD value, QuaternionD subend)
             => value.Subtract(subend);
 
@@ -317,7 +312,6 @@ namespace Engine
         /// <param name="value">The Point</param>
         /// <param name="scalar">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         public static QuaternionD operator *(QuaternionD value, double scalar)
             => value.Scale(scalar);
 
@@ -327,7 +321,6 @@ namespace Engine
         /// <param name="scalar">The Multiplier</param>
         /// <param name="value">The Point</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         public static QuaternionD operator *(double scalar, QuaternionD value)
             => value.Scale(scalar);
 
@@ -335,7 +328,6 @@ namespace Engine
         /// Multiply
         /// </summary>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         public static QuaternionD operator *(QuaternionD value, QuaternionD scalar)
             => value.Multiply(scalar);
 
@@ -345,7 +337,6 @@ namespace Engine
         /// <param name="divisor"></param>
         /// <param name="dividend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static QuaternionD operator /(QuaternionD divisor, QuaternionD dividend)
             => divisor.Divide(dividend);
 
@@ -388,7 +379,6 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         public static implicit operator QuaternionD((double X, double Y, double Z, double W) tuple)
             => new QuaternionD(tuple);
@@ -408,11 +398,11 @@ namespace Engine
                 XAxis.K, YAxis.K, ZAxis.K));
 
         /// <summary>
-        /// 
+        /// The from axis angle.
         /// </summary>
-        /// <param name="axis"></param>
-        /// <param name="angle"></param>
-        /// <returns></returns>
+        /// <param name="axis">The axis.</param>
+        /// <param name="angle">The angle.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         public static QuaternionD FromAxisAngle(Vector3D axis, double angle)
         {
             var halfAngle = angle * 0.5d;
@@ -423,10 +413,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The from rotation matrix.
         /// </summary>
-        /// <param name="matrix"></param>
-        /// <returns></returns>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         public static QuaternionD FromRotationMatrix(Matrix3x3D matrix)
         {
             var trace = matrix.M0x0 + matrix.M1x1 + matrix.M2x2;
@@ -471,12 +461,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// The from euler angles.
         /// </summary>
-        /// <param name="yaw"></param>
-        /// <param name="pitch"></param>
-        /// <param name="roll"></param>
-        /// <returns></returns>
+        /// <param name="roll">The roll.</param>
+        /// <param name="pitch">The pitch.</param>
+        /// <param name="yaw">The yaw.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         public static QuaternionD FromEulerAngles(double roll, double pitch, double yaw)
         {
             var halfRoll = roll * 0.5d;
@@ -496,20 +486,22 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Parse.
         /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
         [ParseMethod]
         public static QuaternionD Parse(string source)
             => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// 
+        /// Parse.
         /// </summary>
-        /// <param name="source"></param>
-        /// <param name="provider"></param>
-        /// <returns></returns>
+        /// <param name="source">The source.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>The <see cref="QuaternionD"/>.</returns>
+        /// <exception cref="FormatException"></exception>
+        /// <exception cref="FormatException">The parts of the vectors must be decimal numbers</exception>
         public static QuaternionD Parse(string source, IFormatProvider provider)
         {
             var sep = Tokenizer.GetNumericListSeparator(provider);
@@ -600,7 +592,6 @@ namespace Engine
         /// <param name="a">The object to compare.</param>
         /// <param name="b">The object to compare against.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(QuaternionD a, QuaternionD b)
             => Equals(a, b);

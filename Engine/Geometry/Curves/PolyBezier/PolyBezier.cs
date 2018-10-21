@@ -26,8 +26,7 @@ namespace Engine
     /// <summary>
     /// A closed Polygon made up of sets of Bezier Contours.
     /// </summary>
-    /// <structure>Engine.Geometry.PolyGon2D</structure>
-    /// <remarks></remarks>
+    /// <structure>Engine.Geometry.PolyGon2D</structure>
     [DataContract, Serializable]
     //[GraphicsObject]
     //[DisplayName(nameof(PolyBezier))]
@@ -38,8 +37,7 @@ namespace Engine
         #region Fields
         /// <summary>
         /// An array of Polygon Contours.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         private List<PolyBezierContour> contours;
         #endregion Fields

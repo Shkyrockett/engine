@@ -121,12 +121,12 @@ namespace Engine.Localization
         no = 0x0014,
 
         /// <summary>
-        /// 
+        /// The nb = 0x0014.
         /// </summary>
         nb = 0x0014,
 
         /// <summary>
-        /// 
+        /// The nn = 0x0014.
         /// </summary>
         nn = 0x0014,
 
@@ -156,7 +156,7 @@ namespace Engine.Localization
         ru = 0x0019,
 
         /// <summary>
-        /// 
+        /// The bs = 0x001A.
         /// </summary>
         bs = 0x001A,
 
@@ -271,12 +271,12 @@ namespace Engine.Localization
         eu = 0x002D,
 
         /// <summary>
-        /// 
+        /// The dsb = 0x002E.
         /// </summary>
         dsb = 0x002E,
 
         /// <summary>
-        /// 
+        /// The hsb = 0x002E.
         /// </summary>
         hsb = 0x002E,
 
@@ -341,7 +341,7 @@ namespace Engine.Localization
         mt = 0x003A,
 
         /// <summary>
-        ///  
+        /// The se = 0x003B.
         /// </summary>
         se = 0x003B,
 
@@ -351,7 +351,7 @@ namespace Engine.Localization
         ga = 0x003C,
 
         /// <summary>
-        ///  
+        /// The yi = 0x003D.
         /// </summary>
         yi = 0x003D,
 
@@ -366,7 +366,7 @@ namespace Engine.Localization
         kk = 0x003F,
 
         /// <summary>
-        /// 
+        /// The ky = 0x0040.
         /// </summary>
         ky = 0x0040,
 
@@ -486,7 +486,7 @@ namespace Engine.Localization
         kok = 0x0057,
 
         /// <summary>
-        /// 
+        /// The mni = 0x0058.
         /// </summary>
         mni = 0x0058,
 
@@ -496,12 +496,12 @@ namespace Engine.Localization
         sd = 0x0059,
 
         /// <summary>
-        /// 
+        /// The sy = 0x005A.
         /// </summary>
         sy = 0x005A,
 
         /// <summary>
-        /// 
+        /// The sya = 0x005A.
         /// </summary>
         sya = 0x005A,
 
@@ -511,7 +511,7 @@ namespace Engine.Localization
         si = 0x005B,
 
         /// <summary>
-        /// 
+        /// The chr = 0x005C.
         /// </summary>
         chr = 0x005C,
 
@@ -526,7 +526,7 @@ namespace Engine.Localization
         am = 0x005E,
 
         /// <summary>
-        /// 
+        /// The tzm = 0x005F.
         /// </summary>
         tzm = 0x005F,
 
@@ -551,7 +551,7 @@ namespace Engine.Localization
         ps = 0x0063,
 
         /// <summary>
-        /// 
+        /// The fil = 0x0064.
         /// </summary>
         fil = 0x0064,
 
@@ -561,17 +561,17 @@ namespace Engine.Localization
         //di = 0x65,
 
         /// <summary>
-        /// 
+        /// The dv = 0x0065.
         /// </summary>
         dv = 0x0065,
 
         /// <summary>
-        /// 
+        /// The bin = 0x0066.
         /// </summary>
         bin = 0x0066,
 
         /// <summary>
-        /// 
+        /// The ff = 0x0067.
         /// </summary>
         ff = 0x0067,
 
@@ -581,7 +581,7 @@ namespace Engine.Localization
         ha = 0x0068,
 
         /// <summary>
-        /// 
+        /// The ibb = 0x0069.
         /// </summary>
         ibb = 0x0069,
 
@@ -591,12 +591,12 @@ namespace Engine.Localization
         yo = 0x006A,
 
         /// <summary>
-        /// 
+        /// The quz = 0x006B.
         /// </summary>
         quz = 0x006B,
 
         /// <summary>
-        /// 
+        /// The nso = 0x006C.
         /// </summary>
         nso = 0x006C,
 
@@ -606,7 +606,7 @@ namespace Engine.Localization
         ba = 0x006D,
 
         /// <summary>
-        /// 
+        /// The lb = 0x006E.
         /// </summary>
         lb = 0x006E,
 
@@ -616,12 +616,12 @@ namespace Engine.Localization
         kl = 0x006F,
 
         /// <summary>
-        /// 
+        /// The ig = 0x0070.
         /// </summary>
         ig = 0x0070,
 
         /// <summary>
-        /// 
+        /// The kr = 0x0071.
         /// </summary>
         kr = 0x0071,
 
@@ -641,7 +641,7 @@ namespace Engine.Localization
         gn = 0x0074,
 
         /// <summary>
-        /// 
+        /// The haw = 0x0075.
         /// </summary>
         haw = 0x0075,
 
@@ -656,24 +656,24 @@ namespace Engine.Localization
         so = 0x0077,
 
         /// <summary>
-        /// 
+        /// The ii = 0x0078.
         /// </summary>
         ii = 0x0078,
 
         /// <summary>
-        /// 
+        /// The pap = 0x0079.
         /// </summary>
         pap = 0x0079,
 
         /// <summary>
-        /// 
+        /// The arn = 0x007A.
         /// </summary>
         arn = 0x007A,
 
         // 0x007B Neither defined nor reserved
 
         /// <summary>
-        /// 
+        /// The moh = 0x007C.
         /// </summary>
         moh = 0x007C,
 
@@ -690,7 +690,7 @@ namespace Engine.Localization
         invariant = 0x007F,
 
         /// <summary>
-        /// 
+        /// The ug = 0x0080.
         /// </summary>
         ug = 0x0080,
 
@@ -710,17 +710,17 @@ namespace Engine.Localization
         co = 0x0083,
 
         /// <summary>
-        /// 
+        /// The gsw = 0x0084.
         /// </summary>
         gsw = 0x0084,
 
         /// <summary>
-        /// 
+        /// The sah = 0x0085.
         /// </summary>
         sah = 0x0085,
 
         /// <summary>
-        /// 
+        /// The qut = 0x0086.
         /// </summary>
         qut = 0x0086,
 
@@ -741,7 +741,7 @@ namespace Engine.Localization
         // 0x008b Neither defined nor reserved
 
         /// <summary>
-        /// 
+        /// The prs = 0x008C.
         /// </summary>
         prs = 0x008C,
 
@@ -764,7 +764,7 @@ namespace Engine.Localization
         ku = 0x0092,
 
         /// <summary>
-        ///   
+        /// The quc = 0x0093.
         /// </summary>
         quc = 0x0093,
 
@@ -774,7 +774,7 @@ namespace Engine.Localization
         ji,
 
         /// <summary>
-        ///  
+        /// The jv.
         /// </summary>
         jv,
 
@@ -784,7 +784,7 @@ namespace Engine.Localization
         mg,
 
         /// <summary>
-        ///  
+        /// The ngo.
         /// </summary>
         ngo,
 
@@ -804,7 +804,7 @@ namespace Engine.Localization
         sz,
 
         /// <summary>
-        ///  
+        /// The zgh.
         /// </summary>
         zgh,
     }

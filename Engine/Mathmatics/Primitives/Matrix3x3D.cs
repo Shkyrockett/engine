@@ -51,61 +51,14 @@ namespace Engine
             0, 0, 1);
         #endregion Static Fields
 
-        #region Private Fields
-        /// <summary>
-        ///
-        /// </summary>
-        private double m0x0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m0x1;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m0x2;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m1x0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m1x1;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m1x2;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m2x0;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m2x1;
-
-        /// <summary>
-        ///
-        /// </summary>
-        private double m2x2;
-        #endregion Private Fields
-
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Matrix3x3D"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">The tuple.</param>
         public Matrix3x3D((double, double, double, double, double, double, double, double, double) tuple)
         {
-            (m0x0, m0x1, m0x2, m1x0, m1x1, m1x2, m2x0, m2x1, m2x2) = tuple;
+            (M0x0, M0x1, M0x2, M1x0, M1x1, M1x2, M2x0, M2x1, M2x2) = tuple;
         }
 
         /// <summary>
@@ -128,15 +81,15 @@ namespace Engine
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2)
         {
-            this.m0x0 = m0x0;
-            this.m0x1 = m0x1;
-            this.m0x2 = m0x2;
-            this.m1x0 = m1x0;
-            this.m1x1 = m1x1;
-            this.m1x2 = m1x2;
-            this.m2x0 = m2x0;
-            this.m2x1 = m2x1;
-            this.m2x2 = m2x2;
+            M0x0 = m0x0;
+            M0x1 = m0x1;
+            M0x2 = m0x2;
+            M1x0 = m1x0;
+            M1x1 = m1x1;
+            M1x2 = m1x2;
+            M2x0 = m2x0;
+            M2x1 = m2x1;
+            M2x2 = m2x2;
         }
 
         /// <summary>
@@ -152,193 +105,199 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the m0x0.
         /// </summary>
-        public double M0x0 { get { return m0x0; } set { m0x0 = value; } }
+        public double M0x0 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m0x1.
         /// </summary>
-        public double M0x1 { get { return m0x1; } set { m0x1 = value; } }
+        public double M0x1 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m0x2.
         /// </summary>
-        public double M0x2 { get { return m0x2; } set { m0x2 = value; } }
+        public double M0x2 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m1x0.
         /// </summary>
-        public double M1x0 { get { return m1x0; } set { m1x0 = value; } }
+        public double M1x0 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m1x1.
         /// </summary>
-        public double M1x1 { get { return m1x1; } set { m1x1 = value; } }
+        public double M1x1 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m1x2.
         /// </summary>
-        public double M1x2 { get { return m1x2; } set { m1x2 = value; } }
+        public double M1x2 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m2x0.
         /// </summary>
-        public double M2x0 { get { return m2x0; } set { m2x0 = value; } }
+        public double M2x0 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m2x1.
         /// </summary>
-        public double M2x1 { get { return m2x1; } set { m2x1 = value; } }
+        public double M2x1 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the m2x2.
         /// </summary>
-        public double M2x2 { get { return m2x2; } set { m2x2 = value; } }
+        public double M2x2 { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the cx.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D Cx
         {
-            get { return new Vector3D(m0x0, m1x0, m2x0); }
+            get { return new Vector3D(M0x0, M1x0, M2x0); }
             set
             {
-                m0x0 = value.I;
-                m1x0 = value.J;
-                m2x0 = value.K;
+                M0x0 = value.I;
+                M1x0 = value.J;
+                M2x0 = value.K;
             }
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the cy.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D Cy
         {
-            get { return new Vector3D(m0x1, m1x1, m2x1); }
+            get { return new Vector3D(M0x1, M1x1, M2x1); }
             set
             {
-                m0x1 = value.I;
-                m1x1 = value.J;
-                m2x1 = value.K;
+                M0x1 = value.I;
+                M1x1 = value.J;
+                M2x1 = value.K;
             }
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the cz.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D Cz
         {
-            get { return new Vector3D(m0x2, m1x2, m2x2); }
+            get { return new Vector3D(M0x2, M1x2, M2x2); }
             set
             {
-                m0x2 = value.I;
-                m1x2 = value.J;
-                m2x2 = value.K;
+                M0x2 = value.I;
+                M1x2 = value.J;
+                M2x2 = value.K;
             }
         }
 
         /// <summary>
-        /// The X Row or row zero.
+        /// Gets or sets the rx.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The First row of the " + nameof(Matrix3x3D))]
         public Vector3D Rx
         {
-            get { return new Vector3D(m0x0, m0x1, m0x2); }
+            get { return new Vector3D(M0x0, M0x1, M0x2); }
             set
             {
-                m0x0 = value.I;
-                m0x1 = value.J;
-                m0x2 = value.K;
+                M0x0 = value.I;
+                M0x1 = value.J;
+                M0x2 = value.K;
             }
         }
 
         /// <summary>
-        /// The Y Row or row one.
+        /// Gets or sets the ry.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second row of the " + nameof(Matrix3x3D))]
         public Vector3D Ry
         {
-            get { return new Vector3D(m1x0, m1x1, M1x2); }
+            get { return new Vector3D(M1x0, M1x1, M1x2); }
             set
             {
-                m1x0 = value.I;
-                m1x1 = value.J;
-                m1x2 = value.K;
+                M1x0 = value.I;
+                M1x1 = value.J;
+                M1x2 = value.K;
             }
         }
 
         /// <summary>
-        /// The Z Row or row one.
+        /// Gets or sets the rz.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Third row of the " + nameof(Matrix3x3D))]
         public Vector3D Rz
         {
-            get            {                return new Vector3D(m2x0, m2x1, M2x2);            }
+            get            {                return new Vector3D(M2x0, M2x1, M2x2);            }
             set
             {
-                m2x0 = value.I;
-                m2x1 = value.J;
-                m2x2 = value.K;
+                M2x0 = value.I;
+                M2x1 = value.J;
+                M2x2 = value.K;
             }
         }
 
         /// <summary>
-        ///
+        /// Gets the determinant.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Determinant
-            => Determinant(m0x0, m0x1, M0x2, m1x0, m1x1, m1x2, m2x0, m2x1, m2x2);
+            => Determinant(M0x0, M0x1, M0x2, M1x0, M1x1, M1x2, M2x0, M2x1, M2x2);
 
+        ///// <summary>
+        ///// Swap the rows of the matrix with the columns.
+        ///// </summary>
+        ///// <returns>A transposed Matrix.</returns>
         /// <summary>
-        /// Swap the rows of the matrix with the columns.
+        /// Gets the transposed.
         /// </summary>
-        /// <returns>A transposed Matrix.</returns>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix3x3D Transposed
             => Primitives.Transpose(this);
 
         /// <summary>
-        ///
+        /// Gets the adjoint.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix3x3D Adjoint
             => Primitives.Adjoint(this);
 
         /// <summary>
-        ///
+        /// Gets the cofactor.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix3x3D Cofactor
             => Primitives.Cofactor(this);
 
         /// <summary>
-        ///
+        /// Gets the inverted.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix3x3D Inverted
             => Primitives.Invert(this);
 
+        ///// <summary>
+        ///// Tests whether or not a given transform is an identity transform matrix.
+        ///// </summary>
         /// <summary>
-        /// Tests whether or not a given transform is an identity transform matrix.
+        /// Gets a value indicating whether 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity
-            => Abs(m0x0 - 1) < Epsilon
-                && Abs(m0x1) < Epsilon
-                && Abs(m0x2) < Epsilon
-                && Abs(m1x0) < Epsilon
-                && Abs(m1x1 - 1) < Epsilon
-                && Abs(m1x2) < Epsilon
-                && Abs(m2x0) < Epsilon
-                && Abs(m2x1) < Epsilon
-                && Abs(m2x2 - 1) < Epsilon;
+            => Abs(M0x0 - 1) < Epsilon
+                && Abs(M0x1) < Epsilon
+                && Abs(M0x2) < Epsilon
+                && Abs(M1x0) < Epsilon
+                && Abs(M1x1 - 1) < Epsilon
+                && Abs(M1x2) < Epsilon
+                && Abs(M2x0) < Epsilon
+                && Abs(M2x1) < Epsilon
+                && Abs(M2x2 - 1) < Epsilon;
         #endregion Properties
 
         #region Operators
@@ -451,9 +410,6 @@ namespace Engine
         public static bool operator !=(Matrix3x3D matrix1, Matrix3x3D matrix2)
             => !Equals(matrix1, matrix2);
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="source"></param>
         public static explicit operator Matrix3x3D(Matrix2x2D source)
             => new Matrix3x3D(
@@ -466,7 +422,6 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         public static implicit operator Matrix3x3D((double, double, double, double, double, double, double, double, double) tuple)
             => new Matrix3x3D(tuple);
@@ -474,10 +429,10 @@ namespace Engine
 
         #region Factories
         /// <summary>
-        ///
+        /// The from rotation x.
         /// </summary>
-        /// <param name="radianAngle"></param>
-        /// <returns></returns>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         public static Matrix3x3D FromRotationX(double radianAngle)
         {
             var sin = Sin(radianAngle);
@@ -489,10 +444,10 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The from rotation y.
         /// </summary>
-        /// <param name="radianAngle"></param>
-        /// <returns></returns>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         public static Matrix3x3D FromRotationY(double radianAngle)
         {
             var sin = Sin(radianAngle);
@@ -504,10 +459,10 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The from rotation z.
         /// </summary>
-        /// <param name="radianAngle"></param>
-        /// <returns></returns>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         public static Matrix3x3D FromRotationZ(double radianAngle)
         {
             var sin = Sin(radianAngle);
@@ -519,11 +474,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The from rotation axis using atan.
         /// </summary>
-        /// <param name="radianAngle"></param>
-        /// <param name="axis"></param>
-        /// <returns></returns>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <param name="axis">The axis.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         public static Matrix3x3D FromRotationAxisUsingAtan(double radianAngle, Vector3D axis)
         {
             double zAngle;
@@ -553,11 +508,11 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The from rotation axis.
         /// </summary>
-        /// <param name="radianAngle"></param>
-        /// <param name="axis"></param>
-        /// <returns></returns>
+        /// <param name="radianAngle">The radianAngle.</param>
+        /// <param name="axis">The axis.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         public static Matrix3x3D FromRotationAxis(double radianAngle, Vector3D axis)
         {
             var first = FromLookAt(Vector3D.Empty, axis, new Vector3D(axis.K, axis.I, axis.J));
@@ -565,12 +520,12 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The from look at.
         /// </summary>
-        /// <param name="origin"></param>
-        /// <param name="positiveZAxis"></param>
-        /// <param name="onPositiveY"></param>
-        /// <returns></returns>
+        /// <param name="origin">The origin.</param>
+        /// <param name="positiveZAxis">The positiveZAxis.</param>
+        /// <param name="onPositiveY">The onPositiveY.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         internal static Matrix3x3D FromLookAt(Vector3D origin, Vector3D positiveZAxis, Vector3D onPositiveY)
         {
             var rv = Identity;
@@ -627,10 +582,10 @@ namespace Engine
                 0, 0, scaleZ);
 
         /// <summary>
-        ///
+        /// The from translate2d.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         public static Matrix3x3D FromTranslate2D(Vector2D value)
             => new Matrix3x3D(
                 1, 0, value.I,
@@ -638,10 +593,10 @@ namespace Engine
                 0, 0, 1);
 
         /// <summary>
-        ///
+        /// The from shear3d.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
         public static Matrix3x3D FromShear3D(Vector2D value)
             => new Matrix3x3D(
                 1, 0, value.I,
@@ -753,15 +708,15 @@ namespace Engine
         /// int - the HashCode for this Matrix
         /// </returns>
         public override int GetHashCode()
-            => m0x0.GetHashCode()
-            ^ m0x1.GetHashCode()
-            ^ m0x2.GetHashCode()
-            ^ m1x0.GetHashCode()
-            ^ m1x1.GetHashCode()
-            ^ m1x2.GetHashCode()
-            ^ m2x0.GetHashCode()
-            ^ m2x1.GetHashCode()
-            ^ m2x2.GetHashCode();
+            => M0x0.GetHashCode()
+            ^ M0x1.GetHashCode()
+            ^ M0x2.GetHashCode()
+            ^ M1x0.GetHashCode()
+            ^ M1x1.GetHashCode()
+            ^ M1x2.GetHashCode()
+            ^ M2x0.GetHashCode()
+            ^ M2x1.GetHashCode()
+            ^ M2x2.GetHashCode();
 
         /// <summary>
         /// Compares two Matrix2D
@@ -769,7 +724,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Matrix3x3D a, Matrix3x3D b)
             => Equals(a, b);
@@ -873,26 +827,28 @@ namespace Engine
             if (IsIdentity) return nameof(Identity);
             // Helper to get the numeric list separator for a given culture.
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Matrix3x3D)}{{{nameof(M0x0)}={m0x0}{sep}{nameof(M0x1)}={m0x1}{sep}{nameof(M0x2)}={m0x2}{sep}{nameof(M1x0)}={m1x0}{sep}{nameof(M1x1)}={m1x1}{sep}{nameof(M1x2)}={m1x2}{sep}{nameof(M2x0)}={m2x0}{sep}{nameof(M2x1)}={m2x1}{sep}{nameof(M2x2)}={m2x2}}}";
+            IFormattable formatable = $"{nameof(Matrix3x3D)}{{{nameof(M0x0)}={M0x0}{sep}{nameof(M0x1)}={M0x1}{sep}{nameof(M0x2)}={M0x2}{sep}{nameof(M1x0)}={M1x0}{sep}{nameof(M1x1)}={M1x1}{sep}{nameof(M1x2)}={M1x2}{sep}{nameof(M2x0)}={M2x0}{sep}{nameof(M2x1)}={M2x1}{sep}{nameof(M2x2)}={M2x2}}}";
             return formatable.ToString(format, provider);
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
-                new List<double> { m0x0, m0x1, m0x2 },
-                new List<double> { m1x0, m1x1, m1x2 },
-                new List<double> { m2x0, m2x1, m2x2 },
+                new List<double> { M0x0, M0x1, M0x2 },
+                new List<double> { M1x0, M1x1, M1x2 },
+                new List<double> { M2x0, M2x1, M2x2 },
             }.GetEnumerator();
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
         IEnumerator IEnumerable.GetEnumerator()
             => GetEnumerator();
         #endregion Methods

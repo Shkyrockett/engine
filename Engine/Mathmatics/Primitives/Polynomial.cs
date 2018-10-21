@@ -699,7 +699,7 @@ namespace Engine
         /// <summary>
         /// Trim off any leading zero coefficient terms from the Polynomial.
         /// </summary>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Returns a <see cref="Polynomial"/> with any leading zero coefficient terms removed.</returns>
         /// <acknowledgment>
         /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
@@ -987,7 +987,7 @@ namespace Engine
         /// <summary>
         /// Calculates the real order or degree of the polynomial.
         /// </summary>
-        /// <param name="epsilon">The epsilon.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
         /// <remarks>Primaraly used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
         /// <acknowledgment>
@@ -1254,7 +1254,7 @@ namespace Engine
         /// </summary>
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/thelonious/kld-polynomial
@@ -1307,7 +1307,7 @@ namespace Engine
         /// <summary>
         /// Will try to solve root analytically, and if it can will use numerical approach.
         /// </summary>
-        /// <param name="epsilon">The epsilon.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:IEnumerable{double}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1326,7 +1326,7 @@ namespace Engine
         /// <summary>
         /// This method use the Durand-Kerner aka Weierstrass algorithm to find approximate root of this polynomial.
         /// </summary>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:Complex[]"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -1408,7 +1408,7 @@ namespace Engine
         /// </summary>
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:double[]"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
@@ -1472,7 +1472,7 @@ namespace Engine
         /// <summary>
         /// Find the Roots of up to Quintic degree <see cref="Polynomial"/>s.
         /// </summary>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:double[]"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/

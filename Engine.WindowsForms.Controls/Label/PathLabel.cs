@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    ///
+    /// The path label class.
     /// </summary>
     /// <remarks>
     /// http://stackoverflow.com/questions/2397860/c-sharp-winforms-smart-textbox-control-to-auto-format-path-length-based-on-tex
@@ -24,7 +24,7 @@ namespace Engine.WindowsForms
         : TransparentLabel
     {
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="PathLabel"/> class.
         /// </summary>
         public PathLabel()
         {
@@ -32,7 +32,7 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        ///
+        /// Gets or sets a value indicating whether 
         /// </summary>
         [Browsable(false)]
         public override bool AutoSize
@@ -42,9 +42,9 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        ///
+        /// Raises the paint event.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">The paint event arguments.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
             const System.Windows.Forms.TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.PathEllipsis;

@@ -15,7 +15,7 @@ using System.Windows.Forms;
 namespace Engine.WindowsForms
 {
     /// <summary>
-    /// 
+    /// The status progress bar class.
     /// </summary>
     /// <remarks>
     /// http://stackoverflow.com/questions/1517179/c-overriding-onpaint-on-progressbar-not-working
@@ -24,7 +24,7 @@ namespace Engine.WindowsForms
         : ProgressBar
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="StatusProgressBar"/> class.
         /// </summary>
         public StatusProgressBar()
         {
@@ -39,9 +39,9 @@ namespace Engine.WindowsForms
         private const int WmPaint = 0x0F;
 
         /// <summary>
-        /// 
+        /// The wnd proc.
         /// </summary>
-        /// <param name="m"></param>
+        /// <param name="m">The m.</param>
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
@@ -61,9 +61,9 @@ namespace Engine.WindowsForms
         }
 
         /// <summary>
-        /// 
+        /// Raises the paint event.
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">The paint event arguments.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
             var rect = ClientRectangle;

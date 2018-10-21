@@ -13,49 +13,48 @@ using static Engine.Maths;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The intersections preview class.
     /// </summary>
     public static class IntersectionsPreview
     {
-
         /// <summary>
-        /// 
+        /// The intersection.
         /// </summary>
-        /// <param name="point"></param>
-        /// <param name="segment"></param>
-        /// <returns></returns>
+        /// <param name="point">The point.</param>
+        /// <param name="segment">The segment.</param>
+        /// <returns>The <see cref="Locus"/>.</returns>
         public static Locus Intersection(Point2D point, LineSegment segment)
             => LineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// The intersection.
         /// </summary>
-        /// <param name="segment"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
+        /// <param name="segment">The segment.</param>
+        /// <param name="point">The point.</param>
+        /// <returns>The <see cref="Locus"/>.</returns>
         public static Locus Intersection(LineSegment segment, Point2D point)
             => LineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
 
         /// <summary>
-        /// 
+        /// The intersection.
         /// </summary>
-        /// <param name="segmentA"></param>
-        /// <param name="segmentB"></param>
-        /// <returns></returns>
+        /// <param name="segmentA">The segmentA.</param>
+        /// <param name="segmentB">The segmentB.</param>
+        /// <returns>The <see cref="Locus"/>.</returns>
         public static Locus Intersection(LineSegment segmentA, LineSegment segmentB)
             => LineSegmentLineSegment(segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY, segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
 
         /// <summary>
-        /// 
+        /// The line segment point.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="pX">The pX.</param>
+        /// <param name="pY">The pY.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="Locus"/>.</returns>
         public static Locus LineSegmentPoint(
             double aX, double aY,
             double bX, double bY,
@@ -66,16 +65,16 @@ namespace Engine
                 : (Locus)new EmptyLocus();
 
         /// <summary>
-        /// 
+        /// The line point.
         /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="pX"></param>
-        /// <param name="pY"></param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
-        /// <returns></returns>
+        /// <param name="aX">The aX.</param>
+        /// <param name="aY">The aY.</param>
+        /// <param name="bX">The bX.</param>
+        /// <param name="bY">The bY.</param>
+        /// <param name="pX">The pX.</param>
+        /// <param name="pY">The pY.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
+        /// <returns>The <see cref="Locus"/>.</returns>
         /// <remarks> http://stackoverflow.com/a/19633299 </remarks>
         public static Locus LinePoint(
             double aX, double aY,
@@ -87,17 +86,17 @@ namespace Engine
                 : (Locus)new EmptyLocus();
 
         /// <summary>
-        /// 
+        /// The line segment line segment.
         /// </summary>
-        /// <param name="a0X"></param>
-        /// <param name="a0Y"></param>
-        /// <param name="b0X"></param>
-        /// <param name="b0Y"></param>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <returns></returns>
+        /// <param name="a0X">The a0X.</param>
+        /// <param name="a0Y">The a0Y.</param>
+        /// <param name="b0X">The b0X.</param>
+        /// <param name="b0Y">The b0Y.</param>
+        /// <param name="a1X">The a1X.</param>
+        /// <param name="a1Y">The a1Y.</param>
+        /// <param name="b1X">The b1X.</param>
+        /// <param name="b1Y">The b1Y.</param>
+        /// <returns>The <see cref="Locus"/>.</returns>
         public static Locus LineSegmentLineSegment(
             double a0X, double a0Y,
             double b0X, double b0Y,

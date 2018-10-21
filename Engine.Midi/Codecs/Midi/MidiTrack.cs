@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The midi track class.
     /// </summary>
     [ElementName(nameof(MidiTrack))]
     [DisplayName("Midi Track")]
@@ -23,12 +23,12 @@ namespace Engine.File
         : IMidiElement
     {
         /// <summary>
-        /// 
+        /// The events.
         /// </summary>
         private List<EventStatus> events = new List<EventStatus>();
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MidiTrack"/> class.
         /// </summary>
         public MidiTrack()
         {
@@ -45,29 +45,29 @@ namespace Engine.File
         //    set { events[index] = value; }
         //}
 
-        /// <summary>
-        /// 
-        /// </summary>
         //new List<byte> { 0x4D, 0x54, 0x72, 0x6B };
+        /// <summary>
+        /// Gets the ID.
+        /// </summary>
         public string ID { get; } = "MTrk";
 
         /// <summary>
-        /// 
+        /// Gets or sets the track header length.
         /// </summary>
         public int TrackHeaderLength { get; set; } = 6;
 
         /// <summary>
-        /// 
+        /// Gets the items.
         /// </summary>
         public List<EventStatus> Items
             => events;
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="chunk"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="chunk">The chunk.</param>
+        /// <returns>The <see cref="MidiTrack"/>.</returns>
         internal static MidiTrack Read(BinaryReaderExtended reader, Chunk chunk)
         {
             var events = new List<EventStatus>();

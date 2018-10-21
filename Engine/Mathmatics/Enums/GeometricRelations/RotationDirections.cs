@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The rotation directions enum.
     /// </summary>
     public enum RotationDirections
         : sbyte

@@ -18,7 +18,7 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The circular segment class.
     /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -43,12 +43,12 @@ namespace Engine
         private double radius;
 
         /// <summary>
-        /// 
+        /// The start angle.
         /// </summary>
         private double startAngle;
 
         /// <summary>
-        /// 
+        /// The end angle.
         /// </summary>
         private double endAngle;
         #endregion Fields
@@ -401,45 +401,48 @@ namespace Engine
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Gets the chord length.
+        /// </summary>
         [Category("Properties")]
         [Description("The distance around the Chord.")]
         public double ChordLength
             => (double)CachingProperty(() => Abs(SweepAngle) * radius);
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// Gets the perimiter.
+        /// </summary>
         [Category("Properties")]
         [Description("The distance around the arc.")]
         public double Perimiter
             => (double)CachingProperty(() => (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius));
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
+        /// <summary>
+        /// Gets the area.
+        /// </summary>
         [Category("Properties")]
         [Description("The area of the Chord.")]
         public override double Area
             => (double)CachingProperty(() => radius * radius * 0.5d * (SweepAngle - Sin(SweepAngle)));
 
+        //return radius * (1 - Cos(SweepAngle * 0.5d));
         /// <summary>
-        /// 
+        /// Gets the sagitta.
+        /// </summary>
+        /// <summary>
+        /// Gets the sagitta.
         /// </summary>
         /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
-        //return radius * (1 - Cos(SweepAngle * 0.5d));
         [Category("Properties")]
         [Description("The sagitta of the Chord.")]
         public double Sagitta
             => (double)CachingProperty(() => radius - Sqrt(radius * radius - (SweepAngle * SweepAngle / 4)));
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [Category("Properties")]
         [Description("The tight rectangular boundaries of the Chord.")]
@@ -466,7 +469,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets the drawing bounds.
         /// </summary>
         [Category("Properties")]
         [Description("The rectangular boundaries of the circle containing the Chord.")]
@@ -533,10 +536,11 @@ namespace Engine
                 y + (Cos(theta) * radius));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The interpolate points.
+        /// </summary>
+        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
         public static List<Point2D> InterpolatePoints()
         {
             //double delta_phi = 2 * PI / ArcLength;

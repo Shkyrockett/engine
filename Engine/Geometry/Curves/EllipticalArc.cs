@@ -18,12 +18,12 @@ using static Engine.Maths;
 
 namespace Engine
 {
-    /// <summary>
-    ///
-    /// </summary>
     /// <remarks>
     /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
     /// </remarks>
+    /// <summary>
+    /// The elliptical arc class.
+    /// </summary>
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName("Elliptical Arc")]
@@ -45,35 +45,32 @@ namespace Engine
         /// <summary>
         /// Major Radius of <see cref="Ellipse"/>.
         /// </summary>
-        /// <remarks></remarks>
         private double rX;
 
         /// <summary>
         /// Minor Radius of <see cref="Ellipse"/>.
         /// </summary>
-        /// <remarks></remarks>
         private double rY;
 
         /// <summary>
         /// Angle of <see cref="Ellipse"/>.
         /// </summary>
-        /// <remarks></remarks>
         private double angle;
 
         /// <summary>
-        ///
+        /// The start angle.
         /// </summary>
         private double startAngle;
 
         /// <summary>
-        ///
+        /// The sweep angle.
         /// </summary>
         private double sweepAngle;
         #endregion Fields
 
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
         /// </summary>
         public EllipticalArc()
             : this(0, 0, 0, 0, 0, 0, 0)
@@ -88,7 +85,6 @@ namespace Engine
         /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <remarks></remarks>
         public EllipticalArc(Point2D center, double rX, double rY, double angle, double startAngle, double sweepAngle)
             : this(center.X, center.Y, rX, rY, angle, startAngle, sweepAngle)
         { }
@@ -101,7 +97,6 @@ namespace Engine
         /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <remarks></remarks>
         public EllipticalArc(Point2D center, Size2D size, double angle, double startAngle, double sweepAngle)
             : this(center.X, center.Y, size.Width, size.Height, angle, startAngle, sweepAngle)
         { }
@@ -113,7 +108,6 @@ namespace Engine
         /// <param name="angle"></param>
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
-        /// <remarks></remarks>
         public EllipticalArc(Rectangle2D rectangle, double angle, double startAngle, double endAngle)
             : this(rectangle.Center(), rectangle.Width, rectangle.Height, angle, startAngle, endAngle)
         { }
@@ -124,7 +118,6 @@ namespace Engine
         /// <param name="ellipse">The Ellipse</param>
         /// <param name="startAngle"></param>
         /// <param name="endAngle"></param>
-        /// <remarks></remarks>
         public EllipticalArc(Ellipse ellipse, double startAngle, double endAngle)
             : this(ellipse.Center, ellipse.MajorRadius, ellipse.MinorRadius, ellipse.Angle, startAngle, endAngle)
         { }
@@ -133,7 +126,6 @@ namespace Engine
         /// Initializes a new instance of the <see cref="EllipticalArc"/> class.
         /// </summary>
         /// <param name="tuple"></param>
-        /// <remarks></remarks>
         public EllipticalArc((double X, double Y, double RX, double RY, double Angle, double StartAngle, double SweepAngle) tuple)
             : this(tuple.X, tuple.Y, tuple.RX, tuple.RY, tuple.Angle, tuple.StartAngle, tuple.SweepAngle)
         { }
@@ -148,7 +140,6 @@ namespace Engine
         /// <param name="angle">Angle of <see cref="EllipticalArc"/>.</param>
         /// <param name="startAngle"></param>
         /// <param name="sweepAngle"></param>
-        /// <remarks></remarks>
         public EllipticalArc(double x, double y, double rX, double rY, double angle, double startAngle, double sweepAngle)
         {
             cx = x;
@@ -341,7 +332,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Center Point of the elliptical arc.
         /// </summary>
-        /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
@@ -388,7 +378,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the elliptical arc.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute("x")]
         [Browsable(true)]
         [Category("Elements")]
@@ -433,7 +422,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the first radius of the elliptical arc.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute("rx")]
         [Browsable(true)]
         [Category("Elements")]
@@ -456,7 +444,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the second radius of elliptical arc.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute("ry")]
         [Browsable(true)]
         [Category("Elements")]
@@ -479,7 +466,6 @@ namespace Engine
         /// <summary>
         /// Gets the Major radius of elliptical arc.
         /// </summary>
-        /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
@@ -490,7 +476,6 @@ namespace Engine
         /// <summary>
         /// Gets the Minor radius of the elliptical arc.
         /// </summary>
-        /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Elements")]
@@ -502,7 +487,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Aspect ratio of the elliptical arc.
         /// </summary>
-        /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
@@ -524,7 +508,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Angle of the elliptical arc.
         /// </summary>
-        /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [GeometryAngleRadians]
@@ -549,7 +532,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Angle of the elliptical arc in Degrees.
         /// </summary>
-        /// <remarks></remarks>
+
         [XmlAttribute(nameof(angle))]
         [Browsable(false)]
         [GeometryAngleDegrees]
@@ -928,7 +911,6 @@ namespace Engine
         /// Gets the size and location of the elliptical arc, in double-point pixels, relative to the parent canvas.
         /// </summary>
         /// <returns>A System.Drawing.RectangleF in double-point pixels relative to the parent canvas that represents the size and location of the segment.</returns>
-        /// <remarks></remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [Category("Properties")]
@@ -996,10 +978,10 @@ namespace Engine
 
         #region Interpolators
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => Interpolators.EllipticalArc(cx, cy, rX, rY, CosAngle, SinAngle, startAngle, sweepAngle, t);
         #endregion Interpolators

@@ -272,7 +272,6 @@ namespace Engine
 
         //        else if (cmd == "C")
         //        {
-
         //            // 1st cubic becomes x axis 0
         //            // 2nd cubic becomes y axis 1
         //            // 3rd cubic becomes x axis 2 and is reversed

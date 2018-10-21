@@ -110,7 +110,6 @@ namespace Engine.Physics
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Radians a, Radians b)
             => Equals(a, b);
@@ -149,22 +148,14 @@ namespace Engine.Physics
         public bool Equals(Radians value)
             => Equals(this, value);
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         public static implicit operator Radians(double value)
             => new Radians(value);
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         public static explicit operator Radians(Degrees value)
             => value.Radians;

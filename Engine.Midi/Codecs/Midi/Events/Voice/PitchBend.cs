@@ -29,10 +29,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="PitchBend"/> class.
         /// </summary>
-        /// <param name="bend"></param>
-        /// <param name="status"></param>
+        /// <param name="bend">The bend.</param>
+        /// <param name="status">The status.</param>
         public PitchBend(short bend, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -40,16 +40,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the bend.
         /// </summary>
         public short Bend { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="PitchBend"/>.</returns>
         internal static PitchBend Read(BinaryReaderExtended reader, EventStatus status)
             => new PitchBend(reader.ReadNetworkInt14(), status);
     }

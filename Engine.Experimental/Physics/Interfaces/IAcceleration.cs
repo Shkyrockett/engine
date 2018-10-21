@@ -8,36 +8,40 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.ComponentModel;
+
 namespace Engine.Physics
 {
-    using System.ComponentModel;
-
     /// <summary>
-    /// 
+    /// The IAcceleration interface.
     /// </summary>
     public interface IAcceleration
     {
         /// <summary>
-        /// 
+        /// Gets the value.
         /// </summary>
+        /// <value>The <see cref="double"/>.</value>
         double Value { get; /*set;*/ }
 
         ///// <summary>
-        ///// 
+        ///// Gets the name.
         ///// </summary>
+        ///// <value>The <see cref="string"/>.</value>
         //[EditorBrowsable(EditorBrowsableState.Never)]
         //string Name { get; }
 
         /// <summary>
-        /// 
+        /// Gets the abreviation.
         /// </summary>
+        /// <value>The <see cref="string"/>.</value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         string Abreviation { get; }
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         string ToString();
     }
 }

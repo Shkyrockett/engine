@@ -44,7 +44,8 @@ namespace Editor
 
             /* Experimental Previews */
 
-            BezierExp(vectorMap);
+            //BezierExp(vectorMap);
+            EllipseEllipseIntersection(vectorMap);
             //EnvelopeWarp(vectorMap);
             //Clipper(vectorMap);
             //ComplexPolygonClipping(vectorMap);
@@ -201,6 +202,37 @@ namespace Editor
 
         #region Experimental
         /// <summary>
+        /// The ellipse ellipse intersection testing.
+        /// </summary>
+        /// <param name="vectorMap">The vectorMap.</param>
+        private static void EllipseEllipseIntersection(VectorMap vectorMap)
+        {
+            var e0 = new Ellipse(200, 200, 100, 50, 30d.ToRadians());
+            var ellipse0Item = new GraphicItem(e0, intersectionRed)
+            {
+                Name = "Ellipse 0"
+            };
+
+            var e1 = new Ellipse(200, 200, 100, 50, -30d.ToRadians());
+            var ellipse1Item = new GraphicItem(e1, intersectionBlue)
+            {
+                Name = "Ellipse 1"
+            };
+
+            var intersects = Intersections.EllipseEllipseIntersects(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle);
+            var intersections = Intersections.EllipseEllipseIntersection(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle);
+
+            var intersectionNodeItem = new GraphicItem(new NodeRevealer(intersections.Points, 5d), handleStyle)
+            {
+                Name = "Ellipse Ellipse Intersection"
+            };
+
+            vectorMap.Add(ellipse0Item);
+            vectorMap.Add(ellipse1Item);
+            vectorMap.Add(intersectionNodeItem);
+        }
+
+        /// <summary>
         /// The bezier exp.
         /// </summary>
         /// <param name="vectorMap">The vectorMap.</param>
@@ -211,12 +243,10 @@ namespace Editor
 
             var cubicCurve = new CubicBezier(cubicBezier.Points[0], cubicBezier.Points[1], cubicBezier.Points[2], cubicBezier.Points[3])
                 .ScaleDistort(new Size2D(2, 2));
-            ;
             var cubicCurveItem = new GraphicItem(cubicCurve, azureTransparent)
             {
                 Name = "Cubic Curve"
             };
-
 
             //var bezierExtrema = cubicCurve.Interpolate(cubicBezier.Extrema_Ported);
             //var bezierExtremaNodeItem = new GraphicItem(new NodeRevealer(bezierExtrema, 5d), handleStyle)

@@ -13,7 +13,7 @@
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The IMediaContainer interface.
     /// </summary>
     public interface IMediaContainer
         : IMidiElement

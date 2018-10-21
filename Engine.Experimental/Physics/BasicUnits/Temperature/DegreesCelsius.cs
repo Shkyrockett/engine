@@ -13,34 +13,34 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The degrees celsius struct.
     /// </summary>
     public struct DegreesCelsius
         : ITemperature
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="DegreesCelsius"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public DegreesCelsius(double value)
         {
             Value = value;
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => "Degrees Celsius";
 
         /// <summary>
-        /// 
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
@@ -53,10 +53,11 @@ namespace Engine.Physics
         public static implicit operator DegreesCelsius(double value)
             => new DegreesCelsius(value);
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <returns></returns>
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
             => $"{Value} °C";
     }

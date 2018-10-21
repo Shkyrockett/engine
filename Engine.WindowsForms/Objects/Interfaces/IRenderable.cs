@@ -14,7 +14,7 @@ using System.Drawing;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The IRenderable interface.
     /// </summary>
     public interface IRenderable
     {

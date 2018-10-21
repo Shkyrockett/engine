@@ -155,7 +155,6 @@ namespace Engine
                 value is TType &&
                 destinationType == typeof(InstanceDescriptor))
             {
-
                 return new InstanceDescriptor(instanceCtor, GetInstanceDescriptorObjects(value));
             }
             return base.ConvertTo(context, culture, value, destinationType);

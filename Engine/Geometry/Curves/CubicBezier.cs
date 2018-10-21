@@ -245,7 +245,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate of the first Point of a Cubic Bézier.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute(nameof(ax))]
         [Browsable(false)]
         [Category("Elements")]
@@ -312,7 +311,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate of the second Point of a Cubic Bézier.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute(nameof(bx))]
         [Browsable(false)]
         [Category("Elements")]
@@ -379,7 +377,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate of the third Point of a Cubic Bézier.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute(nameof(cx))]
         [Browsable(false)]
         [Category("Elements")]
@@ -444,7 +441,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the X coordinate of the fourth Point of a Cubic Bézier.
         /// </summary>
-        /// <remarks></remarks>
         [XmlAttribute(nameof(dx))]
         [Browsable(false)]
         [Category("Elements")]
@@ -562,7 +558,6 @@ namespace Engine
 
                 bool isSimple()
                 {
-
                     if (Degree == PolynomialDegree.Cubic)
                     {
                         var a1 = Maths.AngleVector(Points[0].X, Points[0].Y, Points[3].X, Points[3].Y, Points[1].X, Points[1].Y);
@@ -807,22 +802,22 @@ namespace Engine
 
         #region Operators
         /// <summary>
-        /// 
+        /// The operator ==.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(CubicBezier left, CubicBezier right)
             => left.Equals(right);
 
         /// <summary>
-        /// 
+        /// The operator !=.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(CubicBezier left, CubicBezier right)
@@ -960,7 +955,7 @@ namespace Engine
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>First derivative of curve at sampled point.</returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
         /// </acknowledgment>
@@ -997,7 +992,7 @@ namespace Engine
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>Direction the curve is going at that point.</returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
         /// </acknowledgment>

@@ -13,7 +13,7 @@
 namespace Engine.File
 {
     /// <summary>
-    /// 
+    /// The IMidiEvent interface.
     /// </summary>
     public interface IMidiEvent
     {

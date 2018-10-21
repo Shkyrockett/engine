@@ -11,32 +11,32 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The energies enum.
     /// </summary>
     public enum Energies
     {
         /// <summary>
-        /// 
+        /// The Joule.
         /// </summary>
         Joule,
 
         /// <summary>
-        /// 
+        /// The Calorie.
         /// </summary>
         Calorie,
 
         /// <summary>
-        /// 
+        /// The KilowattHour.
         /// </summary>
         KilowattHour,
 
         /// <summary>
-        /// 
+        /// The ElectronVolt.
         /// </summary>
         ElectronVolt,
 
         /// <summary>
-        /// 
+        /// The BritishThermalUnit.
         /// </summary>
         BritishThermalUnit
     }

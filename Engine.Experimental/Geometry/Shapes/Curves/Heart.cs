@@ -13,7 +13,6 @@ using System.Runtime.Serialization;
 
 namespace Engine
 {
-
     /// <summary>
     /// The heart class.
     /// </summary>

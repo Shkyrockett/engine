@@ -11,7 +11,6 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.Xml.Serialization;
 
 namespace Engine

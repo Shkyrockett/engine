@@ -27,7 +27,6 @@ namespace Engine
     /// A closed Polygon made up of sets of Contours.
     /// </summary>
     /// <structure>Engine.Geometry.PolyGon2D</structure>
-    /// <remarks></remarks>
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Polygon))]
@@ -39,7 +38,6 @@ namespace Engine
         /// <summary>
         /// An array of Polygon Contours.
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         private List<PolygonContour> contours;
         #endregion Private Fields
@@ -79,7 +77,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Polygon"/> class from a parameter list.
         /// </summary>
-        /// <param name="contours"></param>
+        /// <param name="contours">The contours.</param>
         public Polygon(params IEnumerable<Point2D>[] contours)
         {
             this.contours = new List<PolygonContour>() ?? throw new ArgumentNullException(nameof(contours), "Argument must not be null.");
@@ -93,7 +91,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Polygon"/> class.
         /// </summary>
-        /// <param name="contours"></param>
+        /// <param name="contours">The contours.</param>
         public Polygon(IEnumerable<List<Point2D>> contours)
         {
             this.contours = new List<PolygonContour>() ?? throw new ArgumentNullException(nameof(contours), "Argument must not be null.");
@@ -347,9 +345,9 @@ namespace Engine
 
         #region Mutators
         /// <summary>
-        ///
+        /// Add.
         /// </summary>
-        /// <param name="contour"></param>
+        /// <param name="contour">The contour.</param>
         public void Add(PolygonContour contour)
         {
             contours.Add(contour);
@@ -357,9 +355,9 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// Add.
         /// </summary>
-        /// <param name="contour"></param>
+        /// <param name="contour">The contour.</param>
         public void Add(List<Point2D> contour)
         {
             contours.Add(new PolygonContour(contour));
@@ -385,7 +383,7 @@ namespace Engine
         }
 
         /// <summary>
-        ///
+        /// The reverse.
         /// </summary>
         public void Reverse()
         {

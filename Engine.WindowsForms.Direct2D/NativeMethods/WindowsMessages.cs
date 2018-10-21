@@ -408,10 +408,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_SYNCPAINT = 0x0088,
 
-
-
-
-
         /// <summary>
         /// The WM_NCMOUSEMOVE = 0x00A0.
         /// </summary>
@@ -477,8 +473,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_NCXBUTTONDBLCLK = 0x00AD,
 
-
-
         /// <summary>
         /// The WM_INPUT_DEVICE_CHANGE = 0x00FE.
         /// </summary>
@@ -488,8 +482,6 @@ namespace Engine.Winforms.Direct2D
         /// The WM_INPUT = 0x00FF.
         /// </summary>
         WM_INPUT = 0x00FF,
-
-
 
         /// <summary>
         /// The WM_KEYFIRST = 0x0100.
@@ -546,8 +538,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_KEYLAST = 0x0109,
 
-
-
         /// <summary>
         /// The WM_IME_STARTCOMPOSITION = 0x010D.
         /// </summary>
@@ -567,8 +557,6 @@ namespace Engine.Winforms.Direct2D
         /// The WM_IME_KEYLAST = 0x010F.
         /// </summary>
         WM_IME_KEYLAST = 0x010F,
-
-
 
         /// <summary>
         /// The WM_INITDIALOG = 0x0110.
@@ -650,8 +638,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_MENUCOMMAND = 0x0126,
 
-
-
         /// <summary>
         /// The WM_CHANGEUISTATE = 0x0127.
         /// </summary>
@@ -666,8 +652,6 @@ namespace Engine.Winforms.Direct2D
         /// The WM_QUERYUISTATE = 0x0129.
         /// </summary>
         WM_QUERYUISTATE = 0x0129,
-
-
 
         /// <summary>
         /// The WM_CTLCOLORMSGBOX = 0x0132.
@@ -708,8 +692,6 @@ namespace Engine.Winforms.Direct2D
         /// The MN_GETHMENU = 0x01E1.
         /// </summary>
         MN_GETHMENU = 0x01E1,
-
-
 
         /// <summary>
         /// The WM_MOUSEFIRST = 0x0200.
@@ -791,8 +773,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_MOUSEHWHEEL = 0x020E,
 
-
-
         /// <summary>
         /// The WM_PARENTNOTIFY = 0x0210.
         /// </summary>
@@ -807,8 +787,6 @@ namespace Engine.Winforms.Direct2D
         /// The WM_EXITMENULOOP = 0x0212.
         /// </summary>
         WM_EXITMENULOOP = 0x0212,
-
-
 
         /// <summary>
         /// The WM_NEXTMENU = 0x0213.
@@ -830,21 +808,15 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_MOVING = 0x0216,
 
-
-
         /// <summary>
         /// The WM_POWERBROADCAST = 0x0218.
         /// </summary>
         WM_POWERBROADCAST = 0x0218,
 
-
-
         /// <summary>
         /// The WM_DEVICECHANGE = 0x0219.
         /// </summary>
         WM_DEVICECHANGE = 0x0219,
-
-
 
         /// <summary>
         /// The WM_MDICREATE = 0x0220.
@@ -896,10 +868,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_MDIGETACTIVE = 0x0229,
 
-
-
-
-
         /// <summary>
         /// The WM_MDISETMENU = 0x0230.
         /// </summary>
@@ -924,8 +892,6 @@ namespace Engine.Winforms.Direct2D
         /// The WM_MDIREFRESHMENU = 0x0234.
         /// </summary>
         WM_MDIREFRESHMENU = 0x0234,
-
-
 
         /// <summary>
         /// The WM_IME_SETCONTEXT = 0x0281.
@@ -972,8 +938,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_IME_KEYUP = 0x0291,
 
-
-
         /// <summary>
         /// The WM_MOUSEHOVER = 0x02A1.
         /// </summary>
@@ -994,14 +958,10 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_NCMOUSELEAVE = 0x02A2,
 
-
-
         /// <summary>
         /// The WM_WTSSESSION_CHANGE = 0x02B1.
         /// </summary>
         WM_WTSSESSION_CHANGE = 0x02B1,
-
-
 
         /// <summary>
         /// The WM_TABLET_FIRST = 0x02c0.
@@ -1012,8 +972,6 @@ namespace Engine.Winforms.Direct2D
         /// The WM_TABLET_LAST = 0x02df.
         /// </summary>
         WM_TABLET_LAST = 0x02df,
-
-
 
         /// <summary>
         /// The WM_CUT = 0x0300.
@@ -1110,8 +1068,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_HOTKEY = 0x0312,
 
-
-
         /// <summary>
         /// The WM_PRINT = 0x0317.
         /// </summary>
@@ -1122,28 +1078,20 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_PRINTCLIENT = 0x0318,
 
-
-
         /// <summary>
         /// The WM_APPCOMMAND = 0x0319.
         /// </summary>
         WM_APPCOMMAND = 0x0319,
-
-
 
         /// <summary>
         /// The WM_THEMECHANGED = 0x031A.
         /// </summary>
         WM_THEMECHANGED = 0x031A,
 
-
-
         /// <summary>
         /// The WM_CLIPBOARDUPDATE = 0x031D.
         /// </summary>
         WM_CLIPBOARDUPDATE = 0x031D,
-
-
 
         /// <summary>
         /// The WM_DWMCOMPOSITIONCHANGED = 0x031E.
@@ -1165,14 +1113,10 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_DWMWINDOWMAXIMIZEDCHANGE = 0x0321,
 
-
-
         /// <summary>
         /// The WM_GETTITLEBARINFOEX = 0x033F.
         /// </summary>
         WM_GETTITLEBARINFOEX = 0x033F,
-
-
 
         /// <summary>
         /// The WM_HANDHELDFIRST = 0x0358.
@@ -1184,8 +1128,6 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_HANDHELDLAST = 0x035F,
 
-
-
         /// <summary>
         /// The WM_AFXFIRST = 0x0360.
         /// </summary>
@@ -1195,8 +1137,6 @@ namespace Engine.Winforms.Direct2D
         /// The WM_AFXLAST = 0x037F.
         /// </summary>
         WM_AFXLAST = 0x037F,
-
-
 
         /// <summary>
         /// The WM_PENWINFIRST = 0x0380.
@@ -1208,21 +1148,15 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         WM_PENWINLAST = 0x038F,
 
-
-
         /// <summary>
         /// The WM_APP = 0x8000.
         /// </summary>
         WM_APP = 0x8000,
 
-
-
         /// <summary>
         /// The WM_USER = 0x0400.
         /// </summary>
         WM_USER = 0x0400,
-
-
 
         /// <summary>
         /// The WM_REFLECT = WM_USER + 0x1C00.

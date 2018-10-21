@@ -93,7 +93,7 @@ namespace Engine.Physics
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the mils.
         /// </summary>
         public double Mils
         {
@@ -102,7 +102,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the centimeters.
         /// </summary>
         public double Centimeters
         {
@@ -111,7 +111,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the inches.
         /// </summary>
         public double Inches
         {
@@ -120,7 +120,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the feet.
         /// </summary>
         public double Feet
         {
@@ -129,7 +129,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the yards.
         /// </summary>
         public double Yards
         {
@@ -138,7 +138,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the smoots.
         /// </summary>
         public double Smoots
         {
@@ -147,7 +147,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the kilometers.
         /// </summary>
         public double Kilometers
         {
@@ -156,7 +156,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the miles.
         /// </summary>
         public double Miles
         {
@@ -165,7 +165,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the nautical miles.
         /// </summary>
         public double NauticalMiles
         {
@@ -174,14 +174,14 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Meters);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
@@ -190,20 +190,20 @@ namespace Engine.Physics
 
         #region Operators
         /// <summary>
-        ///
+        /// The operator +.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Meters"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator +(Meters value)
             => +value.Value;
 
         /// <summary>
-        ///
+        /// The operator -.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="Meters"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator -(Meters value)
@@ -215,7 +215,6 @@ namespace Engine.Physics
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator +(Meters value, double addend)
@@ -227,7 +226,6 @@ namespace Engine.Physics
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator +(Meters value, ILength addend)
@@ -239,7 +237,6 @@ namespace Engine.Physics
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator -(Meters value, double subend)
@@ -251,7 +248,6 @@ namespace Engine.Physics
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator -(Meters value, ILength subend)
@@ -285,7 +281,6 @@ namespace Engine.Physics
         /// <param name="divisor">The divisor value.</param>
         /// <param name="dividend">The dividend value.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator /(Meters divisor, double dividend)
@@ -297,7 +292,6 @@ namespace Engine.Physics
         /// <param name="divisor">The divisor value.</param>
         /// <param name="dividend">The dividend value.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator /(Meters divisor, ILength dividend)
@@ -334,45 +328,44 @@ namespace Engine.Physics
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Meters a, ILength b)
             => Equals(a, b);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Meters a, ILength b)
             => a.Value == ((Meters)b).Value;
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is ILength && Equals(this, (Meters)obj);
 
         /// <summary>
-        ///
+        /// The equals.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(ILength value)
             => Equals(this, value);
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]
@@ -381,7 +374,7 @@ namespace Engine.Physics
             => new Meters(value);
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]
@@ -390,7 +383,7 @@ namespace Engine.Physics
             => value.Meters;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]
@@ -399,7 +392,7 @@ namespace Engine.Physics
             => value.Meters;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]
@@ -408,7 +401,7 @@ namespace Engine.Physics
             => value.Meters;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]
@@ -417,7 +410,7 @@ namespace Engine.Physics
             => value.Meters;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]
@@ -426,7 +419,7 @@ namespace Engine.Physics
             => value.Meters;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]
@@ -435,7 +428,7 @@ namespace Engine.Physics
             => value.Meters;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]
@@ -444,7 +437,7 @@ namespace Engine.Physics
             => value.Meters;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]
@@ -453,7 +446,7 @@ namespace Engine.Physics
             => value.Meters;
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="value"></param>
         [DebuggerStepThrough]

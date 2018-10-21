@@ -11,15 +11,15 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The intersection params struct.
     /// </summary>
     public struct IntersectionParams
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="IntersectionParams"/> class.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="params"></param>
+        /// <param name="name">The name.</param>
+        /// <param name="params">The params.</param>
         public IntersectionParams(string name, string @params)
         {
             this.name = name;
@@ -27,12 +27,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the name.
         /// </summary>
         public string name { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the params.
         /// </summary>
         public string @params { get; set; }
     }

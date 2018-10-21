@@ -466,7 +466,7 @@ namespace Engine
         /// The PB. https://www.geometrictools.com/Documentation/MovingAlongCurveSpecifiedSpeed.pdf
         /// </summary>
         /// <param name="ts">The ts.</param>
-        /// <param name="epsilon">The epsilon.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="double"/>.</returns>
         public double PB(double ts, double epsilon = Epsilon)
         {
@@ -602,7 +602,6 @@ namespace Engine
             //    }
             //    return u;
             //}
-
 
         }
 

@@ -58,7 +58,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/26823024/cubic-bezier-reverse-getpoint-equation-float-for-vector-vector-for-float?answertab=active#tab-top
         /// </acknowledgment>
@@ -97,7 +96,7 @@ namespace Engine
         /// Calculates the real order or degree of the polynomial.
         /// </summary>
         /// <param name="coefficients">The coefficients.</param>
-        /// <param name="epsilon">The epsilon.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
         /// <remarks>Primaraly used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
         /// <acknowledgment>
@@ -180,7 +179,7 @@ namespace Engine
         /// The d roots.
         /// </summary>
         /// <param name="coefficients">The coefficients.</param>
-        /// <param name="epsilon">The epsilon.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:double[]"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
@@ -206,7 +205,7 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <param name="epsilon">The epsilon.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:IList{double}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
@@ -223,7 +222,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
-        /// <param name="epsilon">The epsilon.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:IList{double}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
@@ -257,7 +256,7 @@ namespace Engine
         /// Find the Roots of up to Quintic degree <see cref="Polynomial"/>s.
         /// </summary>
         /// <param name="coefficients">The coefficients.</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:double[]"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
@@ -307,7 +306,7 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <param name="epsilon">The epsilon.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
@@ -318,7 +317,10 @@ namespace Engine
         {
             var result = new HashSet<double>();
             if (!(Math.Abs(a) <= epsilon))
+            {
                 result.Add(-b / a);
+            }
+
             return result.ToList();
         }
 
@@ -347,7 +349,9 @@ namespace Engine
             var results = new HashSet<double>();
 
             if (Math.Abs(discriminant) <= epsilon)
+            {
                 discriminant = 0;
+            }
 
             if (discriminant > 0)
             {
@@ -372,9 +376,9 @@ namespace Engine
         /// <param name="b">t^2</param>
         /// <param name="c">t</param>
         /// <param name="d">1</param>
-        /// <param name="epsilon">The minimal value to represent a change.</param>
+        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// based on http://abecedarical.com/javascript/script_exact_cubic.html
         /// </acknowledgment>
@@ -398,7 +402,9 @@ namespace Engine
             var results = new HashSet<double>();
 
             if (Math.Abs(discriminant) <= epsilon)
+            {
                 discriminant = 0d;
+            }
 
             if (discriminant == 0d)
             {
@@ -487,7 +493,10 @@ namespace Engine
             var results = new HashSet<double>();
 
             if (Math.Abs(discriminant) <= epsilon)
+            {
                 discriminant = 0d;
+            }
+
             if (discriminant > 0d)
             {
                 var ee = Sqrt(discriminant);
@@ -496,9 +505,15 @@ namespace Engine
                 var plus = t1 + t2;
                 var minus = t1 - t2;
                 if (Math.Abs(plus) <= epsilon)
+                {
                     plus = 0d;
+                }
+
                 if (Math.Abs(minus) <= epsilon)
+                {
                     minus = 0d;
+                }
+
                 if (plus >= 0d)
                 {
                     var f = Sqrt(plus);
@@ -520,7 +535,11 @@ namespace Engine
                 var t2 = y * y - 4d * D;
                 if (t2 >= -epsilon)
                 {
-                    if (t2 < 0) t2 = 0d;
+                    if (t2 < 0)
+                    {
+                        t2 = 0d;
+                    }
+
                     t2 = 2d * Sqrt(t2);
                     var t1 = 3d * A * A * OneQuarter - 2d * B;
                     if (t1 + t2 >= epsilon)
@@ -636,11 +655,15 @@ namespace Engine
                     }
 
                     if (--limit < 0)
+                    {
                         // cannot solve
                         return new List<double>();
+                    }
 
                     if (Math.Abs(alfa2) < epsilon && Math.Abs(beta2) < epsilon)
+                    {
                         break;
+                    }
                 }
                 while (true);
 
@@ -689,7 +712,10 @@ namespace Engine
                     }
                 }
 
-                if (n < 2) break;
+                if (n < 2)
+                {
+                    break;
+                }
             }
             while (true);
 
@@ -711,7 +737,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) BezierCoefficients(double a, double b)
@@ -739,7 +765,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D) BezierCoefficients(double a, double b, double c, double d)
@@ -782,7 +808,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -797,7 +823,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// http://fontforge.github.io/bezier.html
         /// </acknowledgment>
@@ -814,7 +840,7 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -850,7 +876,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -867,7 +893,7 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
         /// http://fontforge.github.io/bezier.html
@@ -890,7 +916,7 @@ namespace Engine
         /// <param name="d"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -931,7 +957,7 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="f"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -975,7 +1001,7 @@ namespace Engine
         /// <param name="f"></param>
         /// <param name="g"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -996,7 +1022,7 @@ namespace Engine
         /// <param name="g"></param>
         /// <param name="h"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1018,7 +1044,7 @@ namespace Engine
         /// <param name="h"></param>
         /// <param name="i"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1041,7 +1067,7 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1065,7 +1091,7 @@ namespace Engine
         /// <param name="j"></param>
         /// <param name="k"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
+
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1110,11 +1136,16 @@ namespace Engine
             if (isBounded)
             {
                 if (min > max)
+                {
                     throw new Exception("newton root finding: min must be greater than max");
+                }
+
                 y_atmin = f(min.Value);
                 y_atmax = f(max.Value);
                 if (Sign(y_atmin) == Sign(y_atmax))
+                {
                     throw new Exception("newton root finding: y values of bounds must be of opposite sign");
+                }
             }
 
             bool isEnoughCorrection()

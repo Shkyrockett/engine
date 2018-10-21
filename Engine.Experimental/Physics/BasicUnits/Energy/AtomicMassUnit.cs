@@ -46,9 +46,6 @@ namespace Engine.Physics
         public string Abreviation
             => "amu";
 
-        /// <summary>
-        /// 
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator AtomicMassUnit(double value)
             => new AtomicMassUnit(value);

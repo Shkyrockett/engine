@@ -25,10 +25,10 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="MidiTimeCode"/> class.
         /// </summary>
-        /// <param name="timeCode"></param>
-        /// <param name="status"></param>
+        /// <param name="timeCode">The timeCode.</param>
+        /// <param name="status">The status.</param>
         public MidiTimeCode(byte timeCode, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -36,16 +36,16 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the time code.
         /// </summary>
         public byte TimeCode { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="MidiTimeCode"/>.</returns>
         internal static MidiTimeCode Read(BinaryReaderExtended reader, EventStatus status)
             => new MidiTimeCode(reader.ReadByte(), status);
     }

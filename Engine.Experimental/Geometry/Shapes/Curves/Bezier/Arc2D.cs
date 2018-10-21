@@ -8,7 +8,6 @@
 
 namespace Engine
 {
-
     /// <summary>
     /// The arc1 class.
     /// </summary>

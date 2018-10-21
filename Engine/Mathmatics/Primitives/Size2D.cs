@@ -48,8 +48,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
-        /// <param name="size"></param>
-        /// <remarks></remarks>
+        /// <param name="size"></param>
         public Size2D(Size2D size)
             : this(size.Width, size.Height)
         { }
@@ -57,8 +56,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
-        /// <param name="point"></param>
-        /// <remarks></remarks>
+        /// <param name="point"></param>
         public Size2D(Point2D point)
             : this(point.X, point.Y)
         { }
@@ -66,8 +64,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
-        /// <remarks></remarks>
+        /// <param name="tuple"></param>
         public Size2D((double X, double Y) tuple)
         {
             (Width, Height) = tuple;
@@ -77,8 +74,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
         /// <param name="width">The Width component of the Size.</param>
-        /// <param name="height">The Height component of the Size.</param>
-        /// <remarks></remarks>
+        /// <param name="height">The Height component of the Size.</param>
         public Size2D(double width, double height)
         {
             // If negative sizes are prohibited, then it would be impossible to inflate a rectangle in the negative direction to shrink it.
@@ -91,15 +87,13 @@ namespace Engine
         #region Properties
         /// <summary>
         /// Width component of a <see cref="Size2D"/> coordinate.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Width { get; set; }
 
         /// <summary>
         /// Height component of a <see cref="Size2D"/> coordinate.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Height { get; set; }
 
@@ -127,8 +121,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Size2D operator +(Size2D value, double addend)
             => value.Add(addend);
 
@@ -137,8 +130,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Size2D operator +(Size2D value, Point2D addend)
             => value.Add(addend);
 
@@ -147,8 +139,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Size2D operator +(Size2D value, Size2D addend)
             => value.Add(addend);
 
@@ -165,8 +156,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Size2D operator -(Size2D value, double subend)
             => value.Subtract(subend);
 
@@ -175,8 +165,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Size2D operator -(Size2D value, Point2D subend)
             => value.Subtract(subend);
 
@@ -185,8 +174,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Size2D operator -(Size2D value, Size2D subend)
             => value.Subtract(subend);
 
@@ -217,8 +205,7 @@ namespace Engine
         /// </summary>
         /// <param name="dividend"></param>
         /// <param name="divisor"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Size2D operator /(Size2D dividend, double divisor)
             => new Size2D(dividend.Width / divisor, dividend.Height / divisor);
 
@@ -245,12 +232,38 @@ namespace Engine
             => !Equals(left, right);
 
         /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"> Size - the Size to convert to a Vector </param>
+        public static implicit operator Size2D((double X, double Y) tuple)
+            => new Size2D(tuple);
+
+        /// <summary>
+        /// Explicit conversion to Vector.
+        /// </summary>
+        /// <returns>
+        /// Vector - A Vector equal to this Size
+        /// </returns>
+        /// <param name="size"> Size - the Size to convert to a Vector </param>
+        public static explicit operator Vector2D(Size2D size)
+            => new Vector2D(size.Width, size.Height);
+
+        /// <summary>
+        /// Converts the specified <see cref="Size2D"/> to a
+        ///    <see cref="Point2D"/>.
+        /// </summary>
+        /// <param name="size"></param>
+        public static explicit operator Point2D(Size2D size)
+            => new Point2D(size.Width, size.Height);
+        #endregion Operators
+
+        /// <summary>
         /// Compares two Vectors
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Size2D a, Size2D b)
             => Equals(a, b);
@@ -284,39 +297,11 @@ namespace Engine
         public bool Equals(Size2D value)
             => Equals(this, value);
 
-        /// <summary>
-        /// Implicit conversion from tuple.
-        /// </summary>
-        /// <returns></returns>
-        /// <param name="tuple"> Size - the Size to convert to a Vector </param>
-        public static implicit operator Size2D((double X, double Y) tuple)
-            => new Size2D(tuple);
-
-        /// <summary>
-        /// Explicit conversion to Vector.
-        /// </summary>
-        /// <returns>
-        /// Vector - A Vector equal to this Size
-        /// </returns>
-        /// <param name="size"> Size - the Size to convert to a Vector </param>
-        public static explicit operator Vector2D(Size2D size)
-            => new Vector2D(size.Width, size.Height);
-
-        /// <summary>
-        /// Converts the specified <see cref="Size2D"/> to a
-        ///    <see cref="Point2D"/>.
-        /// </summary>
-        /// <param name="size"></param>
-        public static explicit operator Point2D(Size2D size)
-            => new Point2D(size.Width, size.Height);
-        #endregion Operators
-
         #region Factories
         /// <summary>
         /// Create a Random <see cref="Size2D"/>.
         /// </summary>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         public static Size2D Random()
             => new Size2D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 

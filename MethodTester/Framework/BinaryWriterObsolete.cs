@@ -117,8 +117,7 @@ namespace Engine.File
         /// <param name="input">The Value to write.</param>
         /// <exception cref="EndOfStreamException">The end of the stream is reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
-        /// <exception cref="IOException">The stream is closed.</exception>
-        /// <remarks></remarks>
+        /// <exception cref="IOException">The stream is closed.</exception>
         [Obsolete]
         public void WriteVarLen0(uint input)
         {
@@ -153,8 +152,7 @@ namespace Engine.File
         /// <param name="input">The Value to write.</param>
         /// <exception cref="EndOfStreamException">The end of the stream is reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
-        /// <exception cref="IOException">The stream is closed.</exception>
-        /// <remarks></remarks>
+        /// <exception cref="IOException">The stream is closed.</exception>
         [Obsolete]
         public void WriteVarLen1(uint input)
         {
@@ -186,8 +184,7 @@ namespace Engine.File
         /// <param name="input">The Value to write.</param>
         /// <exception cref="EndOfStreamException">The end of the stream is reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
-        /// <exception cref="IOException">The stream is closed.</exception>
-        /// <remarks></remarks>
+        /// <exception cref="IOException">The stream is closed.</exception>
         [Obsolete]
         public void WriteVarLen2(uint input)
         {

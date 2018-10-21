@@ -43,8 +43,7 @@ namespace Engine
         /// <param name="aV">The first anchor value.</param>
         /// <param name="bV">The second anchor value.</param>
         /// <param name="t">The t index of the linear curve.</param>
-        /// <returns>Returns a <see cref="double"/> representing a point on the linear curve at the t index.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a <see cref="double"/> representing a point on the linear curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
@@ -64,8 +63,7 @@ namespace Engine
         /// <param name="bX">The second anchor point x value.</param>
         /// <param name="bY">The second anchor point y value.</param>
         /// <param name="t">The t index of the linear curve.</param>
-        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing a point on the linear curve at the t index.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing a point on the linear curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
@@ -88,8 +86,7 @@ namespace Engine
         /// <param name="bY">The second anchor point y value.</param>
         /// <param name="bZ">The second anchor point z value.</param>
         /// <param name="t">The t index of the linear curve.</param>
-        /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the linear curve at the t index.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the linear curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
@@ -581,8 +578,7 @@ namespace Engine
         /// <param name="v2">The second handle value.</param>
         /// <param name="v3">The second anchor value.</param>
         /// <param name="t">The t index of the curve.</param>
-        /// <returns>Returns a <see cref="double"/> representing a value on the Bézier curve at the t index.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a <see cref="double"/> representing a value on the Bézier curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
@@ -619,8 +615,7 @@ namespace Engine
         /// <param name="x3">The second anchor point x value.</param>
         /// <param name="y3">The second anchor point y value.</param>
         /// <param name="t">The t index of the curve.</param>
-        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing a point on the Bézier curve at the t index.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing a point on the Bézier curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// https://github.com/burningmime/curves
@@ -667,8 +662,7 @@ namespace Engine
         /// <param name="y3">The second anchor point y value.</param>
         /// <param name="z3">The second anchor point z value.</param>
         /// <param name="t">The t index of the curve.</param>
-        /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the Bézier curve at the t index.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the Bézier curve at the t index.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
@@ -767,8 +761,7 @@ namespace Engine
         /// <param name="cV">The third position in the interpolation.</param>
         /// <param name="dV">The fourth position in the interpolation.</param>
         /// <param name="t">Weighting factor.</param>
-        /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
-        /// <remarks></remarks>
+        /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <acknowledgment>
         /// http://www.mvps.org/directx/articles/catmull/
         /// </acknowledgment>
@@ -852,8 +845,7 @@ namespace Engine
         /// <param name="dY">The fourth position in the interpolation.</param>
         /// <param name="dZ">The fourth position in the interpolation.</param>
         /// <param name="t">Weighting factor.</param>
-        /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
-        /// <remarks></remarks>
+        /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
         /// <acknowledgment>
         /// http://www.mvps.org/directx/articles/catmull/
         /// </acknowledgment>
@@ -891,8 +883,7 @@ namespace Engine
         /// <param name="positionB">The positionB.</param>
         /// <param name="tangentB">The tangentB.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         /// <acknowledgment>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
         /// </acknowledgment>
@@ -931,8 +922,7 @@ namespace Engine
         /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
@@ -971,8 +961,7 @@ namespace Engine
         /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
@@ -1028,8 +1017,7 @@ namespace Engine
         /// <param name="t">The t time index parameter.</param>
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even, positive is towards first segment, negative towards the other</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
@@ -1315,8 +1303,7 @@ namespace Engine
         /// <param name="cosAngle">Horizontal rotation transform of the Ellipse.</param>
         /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
         /// <param name="t">Theta of interpolation.</param>
-        /// <returns>Interpolated point at theta.</returns>
-        /// <remarks></remarks>
+        /// <returns>Interpolated point at theta.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Ellipse(
@@ -1337,8 +1324,7 @@ namespace Engine
         /// <param name="sinAngle">Vertical rotation transform of the Ellipse.</param>
         /// <param name="cosTheta">Theta cosine of interpolation.</param>
         /// <param name="sinTheta">Theta sine of interpolation.</param>
-        /// <returns>Interpolated point at theta.</returns>
-        /// <remarks></remarks>
+        /// <returns>Interpolated point at theta.</returns>
         /// <acknowledgment>
         /// http://www.vbforums.com/showthread.php?686351-RESOLVED-Elliptical-orbit
         /// </acknowledgment>
@@ -1368,8 +1354,7 @@ namespace Engine
         /// <param name="aV">The aV.</param>
         /// <param name="bV">The bV.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="double"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
@@ -1392,8 +1377,7 @@ namespace Engine
         /// <param name="bX">The bX.</param>
         /// <param name="bY">The bY.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
@@ -1419,8 +1403,7 @@ namespace Engine
         /// <param name="bY">The bY.</param>
         /// <param name="bZ">The bZ.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks></remarks>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
@@ -1446,8 +1429,7 @@ namespace Engine
         /// <param name="v1">The first parameter.</param>
         /// <param name="v2">The second Parameter.</param>
         /// <param name="t">The time parameter.</param>
-        /// <returns>Returns a value of a Sine wave at t.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a value of a Sine wave at t.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
@@ -1470,8 +1452,7 @@ namespace Engine
         /// <param name="x2">The second x-component.</param>
         /// <param name="y2">The second y-component.</param>
         /// <param name="t">The t parameter.</param>
-        /// <returns>Returns a point interpolated of a Sine wave.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a point interpolated of a Sine wave.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>
@@ -1498,8 +1479,7 @@ namespace Engine
         /// <param name="y2">The y-component of the second parameter.</param>
         /// <param name="z2">The z-component of the second parameter.</param>
         /// <param name="t">The time parameter.</param>
-        /// <returns>Returns a point in 2 dimensional space interpolated from a sine wave.</returns>
-        /// <remarks></remarks>
+        /// <returns>Returns a point in 2 dimensional space interpolated from a sine wave.</returns>
         /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
         /// </acknowledgment>

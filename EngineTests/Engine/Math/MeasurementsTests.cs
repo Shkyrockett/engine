@@ -93,15 +93,15 @@ namespace EngineTests
 
         #region Housekeeping
         /// <summary>
-        /// 
+        /// ClassInitialize runs code before running the first test in the class.
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">The context.</param>
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         { }
 
         /// <summary>
-        /// 
+        /// TestInitialize runs code before running each test.
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -110,7 +110,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// TestCleanup runs code after each test has run.
         /// </summary>
         [TestCleanup]
         public void Cleanup()
@@ -119,7 +119,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// ClassCleanup runs code after all tests in a class have run.
         /// </summary>
         [ClassCleanup]
         public static void ClassCleanup()
@@ -130,7 +130,7 @@ namespace EngineTests
 
         #region Distance
         /// <summary>
-        /// 
+        /// The distance2d test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -156,7 +156,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The distance line segment point test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -183,7 +183,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The constrained distance line segment point test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -210,7 +210,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The square distance line segment point test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -239,7 +239,7 @@ namespace EngineTests
 
         #region Length
         /// <summary>
-        /// 
+        /// The vector magnitude test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -265,7 +265,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The vector magnitude squared test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -291,7 +291,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The arc length test.
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
@@ -314,7 +314,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The circle circumference test.
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
@@ -337,7 +337,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The ellipse perimeter test.
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
@@ -360,7 +360,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The quadratic bezier arc length by integral test.
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
@@ -385,7 +385,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The cubic bezier arc length test.
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
@@ -413,7 +413,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The polygon perimeter test.
         /// </summary>
         [TestMethod()]
         [DeploymentItem("Engine.dll")]
@@ -445,7 +445,7 @@ namespace EngineTests
 
         #region Area
         /// <summary>
-        /// 
+        /// The arc area test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -497,7 +497,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The circle area test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -528,7 +528,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The ellipse area test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -558,7 +558,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The rectangle area test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -588,7 +588,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The square area test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -619,7 +619,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The polygon area test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -655,7 +655,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The signed polygon area test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -693,7 +693,7 @@ namespace EngineTests
 
         #region Bounds
         /// <summary>
-        /// 
+        /// The line segment bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -721,7 +721,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The circle bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -748,7 +748,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The circular arc bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -777,7 +777,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The ellipse bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -804,7 +804,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The elliptical arc bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -831,7 +831,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The rotated rectangle bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -859,7 +859,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The polygon bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -887,7 +887,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The polyline bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -915,7 +915,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The quadratic bezier bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]
@@ -946,7 +946,7 @@ namespace EngineTests
         }
 
         /// <summary>
-        /// 
+        /// The cubic bezier bounds test.
         /// </summary>
         [TestMethod()]
         [Priority(0)]

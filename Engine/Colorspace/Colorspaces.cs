@@ -619,8 +619,7 @@ namespace Engine.Colorspace
         /// <param name="magenta"></param>
         /// <param name="black"></param>
         /// <param name="alpha"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
@@ -668,8 +667,7 @@ namespace Engine.Colorspace
         /// <param name="green"></param>
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
-        /// <returns></returns>
-        /// <remarks></remarks>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
@@ -832,8 +830,7 @@ namespace Engine.Colorspace
         /// <param name="saturation"></param>
         /// <param name="intensity"></param>
         /// <param name="alpha"></param>
-        /// <returns>RGB color-space converted vector.</returns>
-        /// <remarks></remarks>
+        /// <returns>RGB color-space converted vector.</returns>
         /// <acknowledgment>
         /// http://blog.saikoled.com/post/44677718712/how-to-convert-from-hsi-to-rgb-white
         /// </acknowledgment>

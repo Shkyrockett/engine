@@ -139,10 +139,10 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        ///
+        /// The last day of month.
         /// </summary>
-        /// <param name="date"></param>
-        /// <returns></returns>
+        /// <param name="date">The date.</param>
+        /// <returns>The <see cref="DateTime"/>.</returns>
         public static DateTime LastDayOfMonth(this DateTime date)
             => new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month)).AtMidnight();
 
@@ -161,11 +161,11 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        ///
+        /// The weekday count in month.
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="weekday"></param>
-        /// <returns></returns>
+        /// <param name="date">The date.</param>
+        /// <param name="weekday">The weekday.</param>
+        /// <returns>The <see cref="int"/>.</returns>
         public static int WeekdayCountInMonth(this DateTime date, DayOfWeek weekday)
             => ((LastInstanceWeekdayOfMonth(date, weekday).Day - FirstInstanceWeekdayOfMonth(date, weekday).Day) / 7) + 1;
 
@@ -187,12 +187,14 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        ///
+        /// The first instance weekday of month.
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="instance"></param>
-        /// <param name="weekday"></param>
-        /// <returns></returns>
+        /// <param name="date">The date.</param>
+        /// <param name="instance">The instance.</param>
+        /// <param name="weekday">The weekday.</param>
+        /// <returns>The <see cref="DateTime"/>.</returns>
+        /// <exception cref="ArgumentException">Instance count must be greater than zero</exception>
+        /// <exception cref="ArgumentException">Instance range exceeded, max: </exception>
         public static DateTime FirstInstanceWeekdayOfMonth(this DateTime date, int instance, DayOfWeek weekday)
         {
             if (instance <= 0)
@@ -221,7 +223,6 @@ namespace Engine.Chrono
         /// <param name="instance"></param>
         /// <param name="weekday"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static DateTime FirstInstanceWeekdayOfMonth01(this DateTime date, int instance, DayOfWeek weekday)
         {
             var firstDay = new DateTime(date.Year, date.Month, 1);
@@ -251,11 +252,11 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        ///
+        /// The first instance weekday of month.
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="weekday"></param>
-        /// <returns></returns>
+        /// <param name="date">The date.</param>
+        /// <param name="weekday">The weekday.</param>
+        /// <returns>The <see cref="DateTime"/>.</returns>
         public static DateTime FirstInstanceWeekdayOfMonth(this DateTime date, DayOfWeek weekday)
         {
             var dtFirstDay = new DateTime(date.Year, date.Month, 1);
@@ -265,11 +266,11 @@ namespace Engine.Chrono
         }
 
         /// <summary>
-        ///
+        /// The last instance weekday of month.
         /// </summary>
-        /// <param name="date"></param>
-        /// <param name="weekday"></param>
-        /// <returns></returns>
+        /// <param name="date">The date.</param>
+        /// <param name="weekday">The weekday.</param>
+        /// <returns>The <see cref="DateTime"/>.</returns>
         public static DateTime LastInstanceWeekdayOfMonth(this DateTime date, DayOfWeek weekday)
         {
             var dtLastDay = new DateTime(date.Year, date.Month, 1).AddMonths(1).AddDays(-1);

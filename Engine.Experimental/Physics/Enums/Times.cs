@@ -11,67 +11,67 @@
 namespace Engine.Physics
 {
     /// <summary>
-    /// 
+    /// The times enum.
     /// </summary>
     public enum Times
     {
         /// <summary>
-        /// 
+        /// The Nanosecond.
         /// </summary>
         Nanosecond,
 
         /// <summary>
-        /// 
+        /// The Microsecond.
         /// </summary>
         Microsecond,
 
         /// <summary>
-        /// 
+        /// The Millisecond.
         /// </summary>
         Millisecond,
 
         /// <summary>
-        /// 
+        /// The Second.
         /// </summary>
         Second,
 
         /// <summary>
-        /// 
+        /// The Minute.
         /// </summary>
         Minute,
 
         /// <summary>
-        /// 
+        /// The Hour.
         /// </summary>
         Hour,
 
         /// <summary>
-        /// 
+        /// The Day.
         /// </summary>
         Day,
 
         /// <summary>
-        /// 
+        /// The Week.
         /// </summary>
         Week,
 
         /// <summary>
-        /// 
+        /// The Month.
         /// </summary>
         Month,
 
         /// <summary>
-        /// 
+        /// The Year.
         /// </summary>
         Year,
 
         /// <summary>
-        /// 
+        /// The Decade.
         /// </summary>
         Decade,
 
         /// <summary>
-        /// 
+        /// The Century.
         /// </summary>
         Century
     }

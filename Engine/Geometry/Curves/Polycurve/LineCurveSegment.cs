@@ -17,7 +17,7 @@ using System.Xml.Serialization;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The line curve segment class.
     /// </summary>
     [DataContract, Serializable]
     public class LineCurveSegment
@@ -25,17 +25,17 @@ namespace Engine
     {
         #region Constructors
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="LineCurveSegment"/> class.
         /// </summary>
         public LineCurveSegment()
         { }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="LineCurveSegment"/> class.
         /// </summary>
-        /// <param name="previous"></param>
-        /// <param name="relitive"></param>
-        /// <param name="args"></param>
+        /// <param name="previous">The previous.</param>
+        /// <param name="relitive">The relitive.</param>
+        /// <param name="args">The args.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LineCurveSegment(CurveSegment previous, bool relitive, params double[] args)
             : this(previous, args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
@@ -45,10 +45,10 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="LineCurveSegment"/> class.
         /// </summary>
-        /// <param name="previous"></param>
-        /// <param name="end"></param>
+        /// <param name="previous">The previous.</param>
+        /// <param name="end">The end.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LineCurveSegment(CurveSegment previous, Point2D? end)
         {
@@ -60,12 +60,12 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// 
+        /// The deconstruct.
         /// </summary>
-        /// <param name="ax"></param>
-        /// <param name="ay"></param>
-        /// <param name="bx"></param>
-        /// <param name="by"></param>
+        /// <param name="ax">The ax.</param>
+        /// <param name="ay">The ay.</param>
+        /// <param name="bx">The bx.</param>
+        /// <param name="by">The by.</param>
         public void Deconstruct(out double ax, out double ay, out double bx, out double by)
         {
             ax = Start.Value.X;
@@ -77,25 +77,25 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// 
+        /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the next to end.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override Point2D? NextToEnd { get { return Start; } set { Start = value; } }
 
         /// <summary>
-        /// 
+        /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
         public override Point2D? End { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets the grips.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [TypeConverter(typeof(ExpandableCollectionConverter))]
@@ -103,7 +103,7 @@ namespace Engine
             => new List<Point2D> { Start.Value, End.Value };
 
         /// <summary>
-        /// 
+        /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
@@ -113,7 +113,7 @@ namespace Engine
             => (Rectangle2D)CachingProperty(() => Measurements.LineSegmentBounds(Start.Value.X, Start.Value.Y, End.Value.X, End.Value.Y));
 
         /// <summary>
-        /// 
+        /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public override double Length
@@ -121,17 +121,18 @@ namespace Engine
         #endregion Properties
 
         /// <summary>
-        /// 
+        /// The interpolate.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The t.</param>
+        /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
             => ToLineSegment().Interpolate(t);
 
         #region Methods
         /// <summary>
-        /// 
+        /// The to line segment.
         /// </summary>
+        /// <returns>The <see cref="LineSegment"/>.</returns>
         public LineSegment ToLineSegment()
             => new LineSegment(Start.Value, End.Value);
         #endregion Methods

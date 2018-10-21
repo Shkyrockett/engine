@@ -25,61 +25,61 @@ namespace Engine.Physics
     {
         #region Constants
         /// <summary>
-        ///
+        /// The mil (const). Value: MilsInYard.
         /// </summary>
         public const double Mil = MilsInYard; // 36000d;
 
         /// <summary>
-        ///
+        /// The centimeter (const). Value: 91.44d.
         /// </summary>
         public const double Centimeter = 91.44d;
 
         /// <summary>
-        ///
+        /// The inch (const). Value: 36d.
         /// </summary>
         public const double Inch = 36d;
 
         /// <summary>
-        ///
+        /// The foot (const). Value: 3d.
         /// </summary>
         public const double Foot = 3d;
 
         /// <summary>
-        ///
+        /// The yard (const). Value: 1d.
         /// </summary>
         public const double Yard = 1d;
 
         /// <summary>
-        ///
+        /// The meter (const). Value: 1d / 1.0936133d.
         /// </summary>
         public const double Meter = 1d / 1.0936133d;
 
         /// <summary>
-        ///
+        /// The smoot (const). Value: Inch * 67d.
         /// </summary>
         public const double Smoot = Inch * 67d;
 
         /// <summary>
-        ///
+        /// The kilometer (const). Value: 1d / 1093.6133d.
         /// </summary>
         public const double Kilometer = 1d / 1093.6133d;
 
         /// <summary>
-        ///
+        /// The mile (const). Value: 1d / 1760d.
         /// </summary>
         public const double Mile = 1d / 1760d;
 
         /// <summary>
-        ///
+        /// The nautical mile (const). Value: 1d / 2025.37183d.
         /// </summary>
         public const double NauticalMile = 1d / 2025.37183d;
         #endregion Constants
 
         #region Constructors
         /// <summary>
-        ///
+        /// Initializes a new instance of the <see cref="Yards"/> class.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public Yards(double value)
         {
             Value = value;
@@ -88,12 +88,12 @@ namespace Engine.Physics
 
         #region Properties
         /// <summary>
-        ///
+        /// Gets or sets the value.
         /// </summary>
         public double Value { get; set; }
 
         /// <summary>
-        ///
+        /// Gets or sets the mils.
         /// </summary>
         public double Mils
         {
@@ -102,7 +102,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the centimeters.
         /// </summary>
         public double Centimeters
         {
@@ -111,7 +111,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the inches.
         /// </summary>
         public double Inches
         {
@@ -120,7 +120,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the feet.
         /// </summary>
         public double Feet
         {
@@ -129,7 +129,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the meters.
         /// </summary>
         public double Meters
         {
@@ -138,7 +138,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the smoots.
         /// </summary>
         public double Smoots
         {
@@ -147,7 +147,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the kilometers.
         /// </summary>
         public double Kilometers
         {
@@ -156,7 +156,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the miles.
         /// </summary>
         public double Miles
         {
@@ -165,7 +165,7 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets or sets the nautical miles.
         /// </summary>
         public double NauticalMiles
         {
@@ -174,14 +174,14 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        ///
+        /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Yards);
 
         /// <summary>
-        ///
+        /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abreviation
@@ -189,72 +189,42 @@ namespace Engine.Physics
         #endregion Properties
 
         #region Operators
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static implicit operator Yards(double value)
             => new Yards(value);
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Yards(Mils value)
             => value.Yards;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Yards(Centimeters value)
             => value.Yards;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Yards(Meters value)
             => value.Yards;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Yards(Smoots value)
             => value.Yards;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Yards(Inches value)
             => value.Yards;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Yards (Feet value)
             => value.Yards;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Yards(Kilometers value)
             => value.Feet;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Yards(Miles value)
             => value.Yards;
 
-        /// <summary>
-        ///
-        /// </summary>
         /// <param name="value"></param>
         public static explicit operator Yards(NauticalMiles value)
             => value.Yards;

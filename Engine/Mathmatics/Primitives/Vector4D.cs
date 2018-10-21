@@ -76,7 +76,6 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Vector4D"/> class.
         /// </summary>
         /// <param name="tuple">The X, Y, Z and W values in tupple form.</param>
-        /// <remarks></remarks>
         public Vector4D((double X, double Y, double Z, double W) tuple)
         {
             (I, J, K, L) = tuple;
@@ -89,7 +88,6 @@ namespace Engine
         /// <param name="j">The <see cref="J"/> component of the <see cref="Vector4D"/> class.</param>
         /// <param name="k">The <see cref="K"/> component of the <see cref="Vector4D"/> class.</param>
         /// <param name="l">The <see cref="L"/> component of the <see cref="Vector4D"/> class.</param>
-        /// <remarks></remarks>
         public Vector4D(double i, double j, double k, double l)
         {
             I = i;
@@ -109,7 +107,6 @@ namespace Engine
         /// <param name="bJ"></param>
         /// <param name="bK"></param>
         /// <param name="bL"></param>
-        /// <remarks></remarks>
         public Vector4D(double aI, double aJ, double aK, double aL, double bI, double bJ, double bK, double bL)
             : this(new Vector4D(aI, aJ, aK, aL), new Vector4D(bI, bJ, bK, bL))
         { }
@@ -119,7 +116,6 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <remarks></remarks>
         public Vector4D(Vector4D a, Vector4D b)
             : this(new Vector4D(a.I - b.I, a.J - b.J, a.K - b.K, a.L - b.L).Unit())
         { }
@@ -129,28 +125,24 @@ namespace Engine
         /// <summary>
         /// First Point of a 4D Vector
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Second Component of a 4D Vector
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
         /// <summary>
         /// Third Component of a 4D Vector
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double K { get; set; }
 
         /// <summary>
         /// Fourth Component of a 4D Vector
         /// </summary>
-        /// <remarks></remarks>
         [DataMember, XmlAttribute, SoapAttribute]
         public double L { get; set; }
 
@@ -166,7 +158,7 @@ namespace Engine
             && Abs(L) < Epsilon;
 
         /// <summary>
-        /// 
+        /// Gets the magnitude.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -174,7 +166,7 @@ namespace Engine
             => Measurements.VectorMagnitude(I, J, K, L);
 
         /// <summary>
-        /// 
+        /// Gets the length.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -182,7 +174,7 @@ namespace Engine
             => Measurements.VectorMagnitude(I, J, K, L);
 
         /// <summary>
-        /// 
+        /// Gets the length squared.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
@@ -205,7 +197,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector4D operator +(Vector4D value, double addend)
             => value.Add(addend);
 
@@ -215,7 +206,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="addend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector4D operator +(Vector4D value, Vector4D addend)
             => value.Add(addend);
 
@@ -233,7 +223,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector4D operator -(Vector4D value, double subend)
             => value.Subtract(subend);
 
@@ -243,7 +232,6 @@ namespace Engine
         /// <param name="value"></param>
         /// <param name="subend"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector4D operator -(Vector4D value, Vector4D subend)
             => value.Subtract(subend);
 
@@ -253,7 +241,6 @@ namespace Engine
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         public static Vector4D operator *(Vector4D value, double factor)
             => value.Scale(factor);
 
@@ -263,7 +250,6 @@ namespace Engine
         /// <param name="factor">The Multiplier</param>
         /// <param name="value">The Point</param>
         /// <returns>A Point Multiplied by the Multiplier</returns>
-        /// <remarks></remarks>
         public static Vector4D operator *(double factor, Vector4D value)
             => value.Scale(factor);
 
@@ -273,7 +259,6 @@ namespace Engine
         /// <param name="divisor">The Vector4D</param>
         /// <param name="divedend">The divisor</param>
         /// <returns>A Vector4D divided by the divisor</returns>
-        /// <remarks></remarks>
         public static Vector4D operator /(Vector4D divisor, double divedend)
             => Divide4D1D(divisor.I, divisor.J, divisor.K, divisor.L, divedend);
 
@@ -283,7 +268,6 @@ namespace Engine
         /// <param name="divisor">The Vector4D</param>
         /// <param name="dividend">The divisor</param>
         /// <returns>A Vector4D divided by the divisor</returns>
-        /// <remarks></remarks>
         public static Vector4D operator /(double divisor, Vector4D dividend)
             => new Vector4D(divisor / dividend.I, divisor / dividend.I, divisor / dividend.K, divisor / dividend.L);
 
@@ -310,7 +294,6 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [DebuggerStepThrough]
         public static implicit operator Vector4D((double X, double Y, double Z, double W) value)
             => new Vector4D(value);
@@ -321,7 +304,6 @@ namespace Engine
         /// Create a Random <see cref="Vector4D"/>.
         /// </summary>
         /// <returns></returns>
-        /// <remarks></remarks>
         public static Vector4D Random()
             => new Vector4D(
                 (2 * RandomNumberGenerator.NextDouble()) - 1,
@@ -426,7 +408,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Vector4D a, Vector4D b)
             => Equals(a, b);

@@ -29,11 +29,11 @@ namespace Engine.File
         : EventStatus
     {
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="ControllerChange"/> class.
         /// </summary>
-        /// <param name="controller"></param>
-        /// <param name="value"></param>
-        /// <param name="status"></param>
+        /// <param name="controller">The controller.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="status">The status.</param>
         public ControllerChange(byte controller, byte value, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
@@ -42,21 +42,21 @@ namespace Engine.File
         }
 
         /// <summary>
-        /// 
+        /// Gets or sets the controller.
         /// </summary>
         public byte Controller { get; set; }
 
         /// <summary>
-        /// 
+        /// Gets or sets the value.
         /// </summary>
         public byte Value { get; set; }
 
         /// <summary>
-        /// 
+        /// Read.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="status"></param>
-        /// <returns></returns>
+        /// <param name="reader">The reader.</param>
+        /// <param name="status">The status.</param>
+        /// <returns>The <see cref="ControllerChange"/>.</returns>
         internal static ControllerChange Read(BinaryReaderExtended reader, EventStatus status)
             => new ControllerChange(reader.ReadByte(), reader.ReadByte(), status);
     }

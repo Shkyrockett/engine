@@ -206,8 +206,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the first radius of the elliptical arc.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [XmlAttribute("rx")]
         [Browsable(true)]
         [Category("Elements")]
@@ -227,8 +226,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the second radius of elliptical arc.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [XmlAttribute("ry")]
         [Browsable(true)]
         [Category("Elements")]
@@ -248,8 +246,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the Angle of the elliptical arc.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [GeometryAngleRadians]
@@ -271,8 +268,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the Angle of the elliptical arc in Degrees.
-        /// </summary>
-        /// <remarks></remarks>
+        /// </summary>
         [XmlAttribute(nameof(angle))]
         [Browsable(false)]
         [GeometryAngleDegrees]

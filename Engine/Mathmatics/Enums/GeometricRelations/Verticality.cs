@@ -13,7 +13,7 @@ using System;
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The verticality enum.
     /// </summary>
     [Flags]
     public enum Verticality

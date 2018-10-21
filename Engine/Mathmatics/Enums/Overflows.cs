@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// 
+    /// The overflows enum.
     /// </summary>
     public enum Overflows
     {

@@ -85,6 +85,8 @@ namespace Engine
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out double x, out double y)
         {
             x = X;
@@ -299,7 +301,7 @@ namespace Engine
         /// <summary>
         /// Explicit conversion to <see cref="Size2D"/>.
         /// Note that since Size cannot contain negative values,
-        /// the resulting size will contains the absolute values of X and Y
+        /// the resulting size will contain the absolute values of X and Y
         /// </summary>
         /// <param name="point"> Point - the Point to convert to a Size </param>
         [DebuggerStepThrough]

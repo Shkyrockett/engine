@@ -38,27 +38,6 @@ namespace Engine
     public static partial class IntersectionsBobLyon
     {
         /// <summary>
-        /// The mode enum.
-        /// </summary>
-        public enum Mode
-        {
-            /// <summary>
-            /// The CORNERS.
-            /// </summary>
-            CORNERS,
-
-            /// <summary>
-            /// The CENTER.
-            /// </summary>
-            CENTER,
-        }
-
-        /// <summary>
-        /// Gets or sets the rectangle mode.
-        /// </summary>
-        public static Mode RectangleMode { get; set; }
-
-        /// <summary>
         /// The ellipse ellipse intersects.
         /// </summary>
         /// <param name="cx0">The cx0.</param>
@@ -141,69 +120,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Compute absolute vertices of the rotated rectangle.
-        /// The first four parameters describe the rectangle.
-        /// The rectangle.mode affects rects's origin.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="w">The w.</param>
-        /// <param name="h">The h.</param>
-        /// <param name="theta">The theta.</param>
-        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y)[] Rect2Points(double x, double y, double w, double h, double theta)
-        {
-            var p = new (double x, double y)[] { };
-            if (RectangleMode == Mode.CORNERS)
-            {
-                w -= x;
-                h -= y;
-            }
-            if (theta != 0)
-            {
-                var cosine = Cos(-theta);  /* Compute once... */
-                var sine = Sin(-theta);  /* ... use often. */
-                if (RectangleMode == Mode.CENTER)
-                {
-                    /* Rotate four corners around the center, (x, y) */
-                    w /= 2;
-                    h /= 2;
-                    p = new (double x, double y)[] {
-                        RotatePoint(-w, -h, cosine, sine),
-                        RotatePoint(+w, -h, cosine, sine),
-                        RotatePoint(+w, +h, cosine, sine),
-                        RotatePoint(-w, +h, cosine, sine) };
-                }
-                else
-                {
-                    /* Default CORNER mode. Rotate around corner (x, y) */
-                    p = new (double x, double y)[] { (x: 0, y: 0), RotatePoint(w, 0, cosine, sine), RotatePoint(w, h, cosine, sine), RotatePoint(0, h, cosine, sine) };
-                }
-                /* Renormalize rotated points */
-                for (var i = 0; i < p.Length; i++)
-                {
-                    p[i].x += x;
-                    p[i].y += y;
-                }
-            }
-            else if (RectangleMode == Mode.CENTER)
-            {
-                /* No rotation. (x, y) is the center of the rect. */
-                w /= 2;
-                h /= 2;
-                p = Coords2Points(x - w, y - h, x + w, y - h, x + w, y + h, x - w, y + h);
-            }
-            else
-            {
-                /* No rotation. Default CORNER mode. */
-                p = Coords2Points(x, y, x + w, y, x + w, y + h, x, y + h);
-            }
-            return p;
-        }
-
-        /// <summary>
         /// Return true iff the point (x, y) is in the line
         /// segment (x1, y1) to (x2, y2).
         /// </summary>
@@ -216,7 +132,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInLine(double x, double y, double x1, double y1, double x2, double y2)
+        public static bool IsInLine(
+            double x, double y,
+            double x1, double y1, double x2, double y2)
             => (y2 - y1) / (x2 - x1) == (y - y1) / (x - x1) && IsBetween(x, x1, x2);
 
         /// <summary>
@@ -233,7 +151,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInPolygon(double x, double y, (double x, double y)[] poly)
+        public static bool IsInPolygon(
+            double x, double y,
+            (double x, double y)[] poly)
         {
             var isIn = false;
             for (int i = 0, j = poly.Length - 1; i < poly.Length; j = i++)
@@ -266,7 +186,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInTriangle(double x, double y, double x1, double y1, double x2, double y2, double x3, double y3)
+        public static bool IsInTriangle(
+            double x, double y,
+            double x1, double y1, double x2, double y2, double x3, double y3)
         {
             var tri = Coords2Points(x1, y1, x2, y2, x3, y3);
             return IsInPolygon(x, y, tri);
@@ -286,10 +208,13 @@ namespace Engine
         /// <param name="w">The w.</param>
         /// <param name="h">The h.</param>
         /// <param name="theta">The theta.</param>
+        /// <param name="rectangleMode"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInRect(double x, double y, double rx, double ry, double w, double h, double theta)
+        public static bool IsInRect(
+            double x, double y,
+            double rx, double ry, double w, double h, double theta, Mode rectangleMode)
         {
             if (theta != 0)
             {
@@ -298,12 +223,12 @@ namespace Engine
                 x = p.x + rx;
                 y = p.y + ry;
             }
-            if (RectangleMode == Mode.CORNERS)
+            if (rectangleMode == Mode.CORNERS)
             {
                 w -= rx;
                 h -= ry;
             }
-            else if (RectangleMode == Mode.CENTER)
+            else if (rectangleMode == Mode.CENTER)
             {
                 rx -= w / 2;
                 ry -= h / 2;
@@ -328,7 +253,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInQuad(double x, double y, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
+        public static bool IsInQuad(
+            double x, double y,
+            double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
         {
             var quad = Coords2Points(x1, y1, x2, y2, x3, y3, x4, y4);
             return IsInPolygon(x, y, quad);
@@ -346,7 +273,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInCircle(double x, double y, double cx, double cy, double diam)
+        public static bool IsInCircle(
+            double x, double y,
+            double cx, double cy, double diam)
         {
             var dx = x - cx;
             var dy = y - cy;
@@ -369,7 +298,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInEllipse(double x, double y, double ex, double ey, double w, double h)
+        public static bool IsInEllipse(
+            double x, double y,
+            double ex, double ey, double w, double h)
             => IsInEllipse(x, y, ex, ey, w, h, Cos(0), Sin(0));
 
         /// <summary>
@@ -389,7 +320,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInEllipse(double x, double y, double ex, double ey, double w, double h, double theta)
+        public static bool IsInEllipse(
+            double x, double y,
+            double ex, double ey, double w, double h, double theta)
             => IsInEllipse(x, y, ex, ey, w, h, Cos(theta), Sin(theta));
 
         /// <summary>
@@ -410,7 +343,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInEllipse(double x, double y, double ex, double ey, double w, double h, double cosine, double sine)
+        public static bool IsInEllipse(
+            double x, double y,
+            double ex, double ey, double w, double h, double cosine, double sine)
         {
             /* Normalize wrt the ellipse center */
             x -= ex;
@@ -442,7 +377,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInArc(double x, double y, double ex, double ey, double w, double h, double start, double stop)
+        public static bool IsInArc(
+            double x, double y,
+            double ex, double ey, double w, double h, double start, double stop)
         {
             var heading = Atan2(y - ey, x - ex);
             heading += Subtended2parametric(w / 2, h / 2, heading);
@@ -465,7 +402,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineLineCollide(double ax1, double ay1, double ax2, double ay2, double bx1, double by1, double bx2, double by2)
+        public static bool LineLineCollide(
+            double ax1, double ay1, double ax2, double ay2,
+            double bx1, double by1, double bx2, double by2)
         {
             var denom = (ax1 - ax2) * (by1 - by2) - (ay1 - ay2) * (bx1 - bx2);
             if (denom == 0)
@@ -512,7 +451,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LinePolygonCollide(double x1, double y1, double x2, double y2, (double x, double y)[] poly)
+        public static bool LinePolygonCollide(
+            double x1, double y1, double x2, double y2,
+            (double x, double y)[] poly)
         {
             var collide = IsInPolygon(x1, y1, poly);
             for (int j = poly.Length - 1, i = 0; (!collide) && (i < poly.Length); j = i, i++)
@@ -540,7 +481,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineTriangleCollide(double x1, double y1, double x2, double y2, double tx1, double ty1, double tx2, double ty2, double tx3, double ty3)
+        public static bool LineTriangleCollide(
+            double x1, double y1, double x2, double y2,
+            double tx1, double ty1, double tx2, double ty2, double tx3, double ty3)
         {
             var tri = Coords2Points(tx1, ty1, tx2, ty2, tx3, ty3);
             return LinePolygonCollide(x1, y1, x2, y2, tri);
@@ -561,12 +504,15 @@ namespace Engine
         /// <param name="w">The w.</param>
         /// <param name="h">The h.</param>
         /// <param name="theta">The theta.</param>
+        /// <param name="rectangleMode"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineRectCollide(double x1, double y1, double x2, double y2, double x, double y, double w, double h, double theta)
+        public static bool LineRectCollide(
+            double x1, double y1, double x2, double y2,
+            double x, double y, double w, double h, double theta, Mode rectangleMode)
         {
-            var rect = Rect2Points(x, y, w, h, theta);
+            var rect = Rect2Points(x, y, w, h, theta, rectangleMode);
             return LinePolygonCollide(x1, y1, x2, y2, rect);
         }
 
@@ -590,7 +536,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineQuadCollide(double x1, double y1, double x2, double y2, double qx1, double qy1, double qx2, double qy2, double qx3, double qy3, double qx4, double qy4)
+        public static bool LineQuadCollide(
+            double x1, double y1, double x2, double y2,
+            double qx1, double qy1, double qx2, double qy2, double qx3, double qy3, double qx4, double qy4)
         {
             var quad = Coords2Points(qx1, qy1, qx2, qy2, qx3, qy3, qx4, qy4);
             return LinePolygonCollide(x1, y1, x2, y2, quad);
@@ -612,7 +560,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineCircleCollide(double x1, double y1, double x2, double y2, double cx, double cy, double diam)
+        public static bool LineCircleCollide(
+            double x1, double y1, double x2, double y2,
+            double cx, double cy, double diam)
         {
             var m = (y2 - y1) / (x2 - x1);  /* slope */
             if (Abs(m) > 1024)
@@ -662,7 +612,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool LineEllipseCollide(double x1, double y1, double x2, double y2, double ex, double ey, double w, double h, double theta = 0)
+        public static bool LineEllipseCollide(
+            double x1, double y1, double x2, double y2,
+            double ex, double ey, double w, double h, double theta = 0)
         {
             var cosine = 1d;
             var sine = 0d;
@@ -729,7 +681,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool CircleCircleCollide(double x1, double y1, double diam1, double x2, double y2, double diam2)
+        public static bool CircleCircleCollide(
+            double x1, double y1, double diam1,
+            double x2, double y2, double diam2)
         {
             var dx = x1 - x2;
             var dy = y1 - y2;
@@ -754,7 +708,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PolygonEllipseCollide((double x, double y)[] poly, double ex, double ey, double w, double h, double theta)
+        public static bool PolygonEllipseCollide(
+            (double x, double y)[] poly,
+            double ex, double ey, double w, double h, double theta)
         {
             var collide = IsInPolygon(ex, ey, poly);
             for (int i = 0, j = poly.Length - 1; (!collide) && (i < poly.Length); j = i, i++)
@@ -779,12 +735,16 @@ namespace Engine
         /// <param name="ew">The ew.</param>
         /// <param name="eh">The eh.</param>
         /// <param name="eTheta">The eTheta.</param>
+        /// <param name="rectangleMode"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool RectEllipseCollide(double rx, double ry, double rw, double rh, double rTheta, double ex, double ey, double ew, double eh, double eTheta)
+        public static bool RectEllipseCollide(
+            double rx, double ry, double rw, double rh, double rTheta,
+            double ex, double ey, double ew, double eh, double eTheta,
+            Mode rectangleMode)
         {
-            var rect = Rect2Points(rx, ry, rw, rh, rTheta);
+            var rect = Rect2Points(rx, ry, rw, rh, rTheta, rectangleMode);
             return PolygonEllipseCollide(rect, ex, ey, ew, eh, eTheta);
         }
 
@@ -801,7 +761,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PolygonCircleCollide((double x, double y)[] poly, double cx, double cy, double diam)
+        public static bool PolygonCircleCollide(
+            (double x, double y)[] poly,
+            double cx, double cy, double diam)
         {
             var collide = IsInPolygon(cx, cy, poly);
             for (int i = 0, j = poly.Length - 1; (!collide) && (i < poly.Length); j = i, i++)
@@ -824,10 +786,13 @@ namespace Engine
         /// <param name="cx">The cx.</param>
         /// <param name="cy">The cy.</param>
         /// <param name="diam">The diam.</param>
+        /// <param name="rectangleMode"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool RectCircleCollide(double rx, double ry, double w, double h, double theta, double cx, double cy, double diam)
+        public static bool RectCircleCollide(
+            double rx, double ry, double w, double h, double theta,
+            double cx, double cy, double diam, Mode rectangleMode)
         {
             if (theta != 0)
             {
@@ -836,16 +801,17 @@ namespace Engine
                 cx = r.x + rx;
                 cy = r.y + ry;
             }
-            if (RectangleMode == Mode.CORNERS)
+            if (rectangleMode == Mode.CORNERS)
             {
                 w -= rx;
                 h -= ry;
             }
-            else if (RectangleMode == Mode.CENTER)
+            else if (rectangleMode == Mode.CENTER)
             {
                 rx -= w / 2;
                 ry -= h / 2;
             }
+
             /* See Cygon at http://stackoverflow.com/questions/401847/ */
             var closestX = Constrain(cx, rx, rx + w);
             var closestY = Constrain(cy, ry, ry + h);
@@ -862,7 +828,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PolygonPolygonCollide((double x, double y)[] poly1, (double x, double y)[] poly2)
+        public static bool PolygonPolygonCollide(
+            (double x, double y)[] poly1,
+            (double x, double y)[] poly2)
         {
             var polys = poly1.Concat(poly2).ToArray();
 
@@ -938,21 +906,25 @@ namespace Engine
         /// <param name="w2">The w2.</param>
         /// <param name="h2">The h2.</param>
         /// <param name="theta2">The theta2.</param>
+        /// <param name="rectangleMode"></param>
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool RectRectCollide(double x1, double y1, double w1, double h1, double theta1, double x2, double y2, double w2, double h2, double theta2)
+        public static bool RectRectCollide(
+            double x1, double y1, double w1, double h1, double theta1,
+            double x2, double y2, double w2, double h2, double theta2,
+            Mode rectangleMode)
         {
             if (theta1 == 0 && theta2 == 0)
             {
-                if (RectangleMode == Mode.CORNERS)
+                if (rectangleMode == Mode.CORNERS)
                 {
                     w1 -= x1;
                     h1 -= y1;
                     w2 -= x2;
                     h2 -= y2;
                 }
-                else if (RectangleMode == Mode.CENTER)
+                else if (rectangleMode == Mode.CENTER)
                 {
                     x1 -= w1 / 2;
                     y1 -= h1 / 2;
@@ -964,8 +936,8 @@ namespace Engine
             else
             {
                 return PolygonPolygonCollide(
-                    Rect2Points(x1, y1, w1, h1, theta1),
-                    Rect2Points(x2, y2, w2, h2, theta2));
+                    Rect2Points(x1, y1, w1, h1, theta1, rectangleMode),
+                    Rect2Points(x2, y2, w2, h2, theta2, rectangleMode));
             }
         }
 
@@ -988,8 +960,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TriangleTriangleCollide(double ax1, double ay1, double ax2, double ay2, double ax3, double ay3,
-                double bx1, double by1, double bx2, double by2, double bx3, double by3)
+        public static bool TriangleTriangleCollide(
+            double ax1, double ay1, double ax2, double ay2, double ax3, double ay3,
+            double bx1, double by1, double bx2, double by2, double bx3, double by3)
         {
             var triA = Coords2Points(ax1, ay1, ax2, ay2, ax3, ay3);
             var triB = Coords2Points(bx1, by1, bx2, by2, bx3, by3);
@@ -1019,8 +992,9 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool QuadQuadCollide(double ax1, double ay1, double ax2, double ay2, double ax3, double ay3, double ax4, double ay4,
-                double bx1, double by1, double bx2, double by2, double bx3, double by3, double bx4, double by4)
+        public static bool QuadQuadCollide(
+            double ax1, double ay1, double ax2, double ay2, double ax3, double ay3, double ax4, double ay4,
+            double bx1, double by1, double bx2, double by2, double bx3, double by3, double bx4, double by4)
         {
             var quadA = Coords2Points(ax1, ay1, ax2, ay2, ax3, ay3, ax4, ay4);
             var quadB = Coords2Points(bx1, by1, bx2, by2, bx3, by3, bx4, by4);
@@ -1046,151 +1020,13 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool EllipseEllipseCollide(double x1, double y1, double w1, double h1, double theta1, double x2, double y2, double w2, double h2, double theta2)
+        public static bool EllipseEllipseCollide(
+            double x1, double y1, double w1, double h1, double theta1,
+            double x2, double y2, double w2, double h2, double theta2)
         {
-            /*
-             * Does the quartic function described by
-             * y = z4*x©ù + z3*x©ø + z2*x©÷ + z1*x + z0 have *any*
-             * real solutions?  See
-             * http://en.wikipedia.org/wiki/Quartic_function
-             * Thanks to Dr. David Goldberg for the convertion to
-             * a depressed quartic!
-             */
-            bool realRoot(double z4, double z3, double z2, double z1, double z0)
-            {
-                /* First trivial checks for z0 or z4 being zero */
-                if (z0 == 0)
-                {
-                    return true;  /* zero is a root! */
-                }
-                if (z4 == 0)
-                {
-                    if (z3 != 0)
-                    {
-                        return true;  /* cubics always have roots */
-                    }
-                    if (z2 != 0)
-                    {
-                        return (z1 * z1 - 4 * z2 * z0) >= 0; /* quadratic */
-                    }
-                    return z1 != 0;  /* sloped lines have one root */
-                }
-                var a = z3 / z4;
-                var b = z2 / z4;
-                var c = z1 / z4;
-                var d = z0 / z4;
-                var p = (8 * b - 3 * a * a) / 8;
-                var q = (a * a * a - 4 * a * b + 8 * c) / 8;
-                var r = (-3 * a * a * a * a + 256 * d - 64 * c * a + 16 * a * a * b) / 256;
-                /*
-                 *   x©ù +        p*x©÷ + q*x + r
-                 * a*x©ù + b*x©ø + c*x©÷ + d*x + e
-                 * so a=1  b=0  c=p  d=q  e=r
-                 * That is, we have a depessed quartic.
-                 */
-                var discrim = 256 * r * r * r - 128 * p * p * r * r + 144 * p * q * q * r -
-                    27 * q * q * q * q + 16 * p * p * p * p * r - 4 * p * p * p * q * q;
-                var P = 8 * p;
-                var D = 64 * r - 16 * p * p;
-
-                return discrim < 0 || (discrim > 0 && P < 0 && D < 0) ||
-                    (discrim == 0 && (D != 0 || P <= 0));
-            };
-
-            /*
-             * Is the Y coordinate(s) of the intersection of two conic
-             * sections real? They are in their bivariate form,
-             * ax©÷  + bxy  + cx©÷  + dx  + ey  + f = 0
-             * For now, a and a1 cannot be zero.
-             */
-            bool yIntersect(double a, double b, double c, double d, double e, double f, double a1, double b1, double c1, double d1, double e1, double f1)
-            {
-                /*
-                 * Normalize the conics by their first coefficient, a.
-                 * Then get the differnce of the two equations.
-                 */
-                var deltaB = (b1 /= a1) - (b /= a);
-                var deltaC = (c1 /= a1) - (c /= a);
-                var deltaD = (d1 /= a1) - (d /= a);
-                var deltaE = (e1 /= a1) - (e /= a);
-                var deltaF = (f1 /= a1) - (f /= a);
-
-                /* Special case for b's and d's being equal */
-                if (deltaB == 0 && deltaD == 0)
-                {
-                    return realRoot(0, 0, deltaC, deltaE, deltaF);
-                }
-
-                var a3 = b * c1 - b1 * c;
-                var a2 = b * e1 + d * c1 - b1 * e - d1 * c;
-                var aa1 = b * f1 + d * e1 - b1 * f - d1 * e;
-                var a0 = d * f1 - d1 * f;
-
-                var A = deltaC * deltaC - a3 * deltaB;
-                var B = 2 * deltaC * deltaE - deltaB * a2 - deltaD * a3;
-                var C = deltaE * deltaE +
-                            2 * deltaC * deltaF - deltaB * aa1 - deltaD * a2;
-                var D = 2 * deltaE * deltaF - deltaD * aa1 - deltaB * a0;
-                var E = deltaF * deltaF - deltaD * a0;
-                return realRoot(A, B, C, D, E);
-            };
-
-            /*
-             * Do two conics sections el and el1 intersect? Each are in
-             * bivariate form, ax©÷  + bxy  + cx©÷  + dx  + ey  + f = 0
-             * Solve by constructing a quartic that must have a real
-             * solution if they intersect.  This checks for real Y
-             * intersects, then flips the parameters around to check
-             * for real X intersects.
-             */
-            bool conicsIntersect((double a, double b, double c, double d, double e, double f) el, (double a, double b, double c, double d, double e, double f) el1)
-            {
-                /* check for real y intersects, then real x intersects */
-                return yIntersect(el.a, el.b, el.c, el.d, el.e, el.f,
-                        el1.a, el1.b, el1.c, el1.d, el1.e, el1.f) &&
-                    yIntersect(el.c, el.b, el.a, el.e, el.d, el.f,
-                        el1.c, el1.b, el1.a, el1.e, el1.d, el1.f);
-            };
-
-            /*
-             * Express the traditional KA ellipse, rotated by an angle
-             * whose cosine and sine are A and B, in terms of a "bivariate"
-             * polynomial that sums to zero.  See
-             * http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
-             */
-            (double a, double b, double c, double d, double e, double f) bivariateForm(double x, double y, double width, double height, double A, double B)
-            {
-                /*
-                 * Start by rotating the ellipse center by the OPPOSITE
-                 * of the desired angle.  That way when the bivariate
-                 * computation transforms it back, it WILL be at the
-                 * correct (and original) coordinates.
-                 */
-                var r = RotatePoint(x, y, A, B);
-                var a = r.x;
-                var c = r.y;
-
-                /*
-                 * Now let the bivariate computation
-                 * rotate in the opposite direction.
-                 */
-                B = -B;  /* A = cos(-rot); B = sin(-rot); */
-                var b = width * width / 4;
-                var d = height * height / 4;
-                return (
-                    a: (A * A / b) + (B * B / d),  /* x©÷ coefficient */
-                    b: (-2 * A * B / b) + (2 * A * B / d),  /* xy coeff */
-                    c: (B * B / b) + (A * A / d),  /* y©÷ coeff */
-                    d: (-2 * a * A / b) - (2 * c * B / d),  /* x coeff */
-                    e: (2 * a * B / b) - (2 * c * A / d),  /* y coeff */
-                    f: (a * a / b) + (c * c / d) - 1  /* constant */
-                                                      /* So, ax©÷ + bxy + cy©÷ + dx + ey + f = 0 */
-                );
-            };
-
             if (!CircleCircleCollide(x1, y1, (w1 > h1) ? w1 : h1, x2, y2, (w2 > h2) ? w2 : h2))
             {
-                /* If they were circles, they're too far apart! */
+                // If they were circles, they're too far apart! 
                 return false;
             }
 
@@ -1198,22 +1034,22 @@ namespace Engine
             var sine1 = Sin(theta1);
             var cosine2 = Cos(theta2);
             var sine2 = Sin(theta2);
-            /* Is the center of one inside the other? */
+
+            // Is the center of one inside the other? 
             if (IsInEllipse(x2, y2, x1, y1, w1, h1, cosine1, sine1) ||
                 IsInEllipse(x1, y1, x2, y2, w2, h2, cosine2, sine2))
             {
                 return true;
             }
 
-            /* Ok, do the hard work */
-            var elps1 = bivariateForm(x1, y1, w1, h1, cosine1, sine1);
-            var elps2 = bivariateForm(x2, y2, w2, h2, cosine2, sine2);
-            /*
-             * Now, ask your good friend with a PhD in Mathematics how he
-             * would do it; then translate his R code.  See
-             * https://docs.google.com/file/d/0B7wsEy6bpVePSEt2Ql9hY0hFdjA/
-             */
-            return conicsIntersect(elps1, elps2);
+            // Ok, do the hard work
+            var elps1 = BivariateForm(x1, y1, w1, h1, cosine1, sine1);
+            var elps2 = BivariateForm(x2, y2, w2, h2, cosine2, sine2);
+
+            // Now, ask your good friend with a PhD in Mathematics how he
+            // would do it; then translate his R code.  See
+            // https://docs.google.com/file/d/0B7wsEy6bpVePSEt2Ql9hY0hFdjA/
+            return DoConicsIntersect(elps1, elps2);
         }
     }
 }

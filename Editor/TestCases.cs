@@ -45,7 +45,7 @@ namespace Editor
             /* Experimental Previews */
 
             //BezierExp(vectorMap);
-            EllipseEllipseIntersection(vectorMap);
+            //EllipseEllipseIntersection(vectorMap);
             //EnvelopeWarp(vectorMap);
             //Clipper(vectorMap);
             //ComplexPolygonClipping(vectorMap);
@@ -93,7 +93,7 @@ namespace Editor
             //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
-            //IntersectionsCubicBezierCubicBezier(vectorMap);
+            IntersectionsCubicBezierCubicBezier(vectorMap);
             //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
@@ -3597,101 +3597,138 @@ namespace Editor
             var axis = new Point2D(150, 150);
             var angle = 0d.ToRadians();
 
-            var cubic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top)
-                .ToCubicBezier()
-                .ScaleDistort(scale)
-                .RotateDistort(axis, angle);
-            var cubic1Item = new GraphicItem(cubic1, intersectionBlue)
-            {
-                Name = "Cubic Bézier 1"
-            };
-            var cubic1BoundsItem = new GraphicItem(cubic1.Bounds, selectionStyle)
-            {
-                Name = "Cubic Bézier 1 Bounds"
-            };
-            var cubic1Handles = new GraphicItem(new NodeRevealer(cubic1.Points, 5d), handleStyle2)
-            {
-                Name = "Cubic Bézier 1 Handles"
-            };
+            //var cubic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top)
+            //    .ToCubicBezier()
+            //    .ScaleDistort(scale)
+            //    .RotateDistort(axis, angle);
+            //var cubic1Item = new GraphicItem(cubic1, intersectionBlue)
+            //{
+            //    Name = "Cubic Bézier 1"
+            //};
+            //var cubic1BoundsItem = new GraphicItem(cubic1.Bounds, selectionStyle)
+            //{
+            //    Name = "Cubic Bézier 1 Bounds"
+            //};
+            //var cubic1Handles = new GraphicItem(new NodeRevealer(cubic1.Points, 5d), handleStyle2)
+            //{
+            //    Name = "Cubic Bézier 1 Handles"
+            //};
 
-            top -= 5;
+            //top -= 5;
 
-            var cubc2 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10)
-                .ToCubicBezier()
-                .ScaleDistort(scale)
-                .RotateDistort(axis, angle);
-            var cubic2Item = new GraphicItem(cubc2, intersectionRed)
-            {
-                Name = "Cubic Bézier 2"
-            };
-            var cubic2BoundsItem = new GraphicItem(cubc2.Bounds, selectionStyle)
-            {
-                Name = "Cubic Bézier 2 Bounds"
-            };
-            var cubic2Handles = new GraphicItem(new NodeRevealer(cubc2.Points, 5d), handleStyle2)
-            {
-                Name = "Cubic Bézier 2 Handles"
-            };
+            //var cubc2 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10)
+            //    .ToCubicBezier()
+            //    .ScaleDistort(scale)
+            //    .RotateDistort(axis, angle);
+            //var cubic2Item = new GraphicItem(cubc2, intersectionRed)
+            //{
+            //    Name = "Cubic Bézier 2"
+            //};
+            //var cubic2BoundsItem = new GraphicItem(cubc2.Bounds, selectionStyle)
+            //{
+            //    Name = "Cubic Bézier 2 Bounds"
+            //};
+            //var cubic2Handles = new GraphicItem(new NodeRevealer(cubc2.Points, 5d), handleStyle2)
+            //{
+            //    Name = "Cubic Bézier 2 Handles"
+            //};
 
-            var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(cubc2).Points, 5d), handleStyle);
+            //var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(cubc2).Points, 5d), handleStyle);
 
-            top += 20;
-            left += 0;
-            axis = new Point2D(150, 170);
-            angle = 0d.ToRadians();
+            //top += 20;
+            //left += 0;
+            //axis = new Point2D(150, 170);
+            //angle = 0d.ToRadians();
 
-            var cubic3 = new QuadraticBezier(left + 5, top, left + 10, top + 10, left + 20, top)
-                .ToCubicBezier()
-                .ScaleDistort(scale)
-                .RotateDistort(axis, angle);
-            var cubic3Item = new GraphicItem(cubic3, intersectionBlue)
-            {
-                Name = "Cubic Bézier 3"
-            };
-            var cubic3BoundsItem = new GraphicItem(cubic3.Bounds, selectionStyle)
-            {
-                Name = "Cubic Bézier 3 Bounds"
-            };
-            var cubic3Handles = new GraphicItem(new NodeRevealer(cubic3.Points, 5d), handleStyle2)
-            {
-                Name = "Cubic Bézier 3 Handles"
-            };
+            //var cubic3 = new QuadraticBezier(left + 5, top, left + 10, top + 10, left + 20, top)
+            //    .ToCubicBezier()
+            //    .ScaleDistort(scale)
+            //    .RotateDistort(axis, angle);
+            //var cubic3Item = new GraphicItem(cubic3, intersectionBlue)
+            //{
+            //    Name = "Cubic Bézier 3"
+            //};
+            //var cubic3BoundsItem = new GraphicItem(cubic3.Bounds, selectionStyle)
+            //{
+            //    Name = "Cubic Bézier 3 Bounds"
+            //};
+            //var cubic3Handles = new GraphicItem(new NodeRevealer(cubic3.Points, 5d), handleStyle2)
+            //{
+            //    Name = "Cubic Bézier 3 Handles"
+            //};
 
-            top -= 5;
+            //top -= 5;
 
-            var cubic4 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10)
-                .ToCubicBezier()
-                .ScaleDistort(scale)
-                .RotateDistort(axis, angle);
-            var cubic4Item = new GraphicItem(cubic4, intersectionRed)
-            {
-                Name = "Cubic Bézier 4"
-            };
-            var cubic4BoundsItem = new GraphicItem(cubic4.Bounds, selectionStyle)
-            {
-                Name = "Cubic Bézier 4 Bounds"
-            };
-            var cubic4Handles = new GraphicItem(new NodeRevealer(cubic4.Points, 5d), handleStyle2)
-            {
-                Name = "Cubic Bézier 4 Handles"
-            };
+            //var cubic4 = new QuadraticBezier(left, top + 10, left + 10, top, left + 20, top + 10)
+            //    .ToCubicBezier()
+            //    .ScaleDistort(scale)
+            //    .RotateDistort(axis, angle);
+            //var cubic4Item = new GraphicItem(cubic4, intersectionRed)
+            //{
+            //    Name = "Cubic Bézier 4"
+            //};
+            //var cubic4BoundsItem = new GraphicItem(cubic4.Bounds, selectionStyle)
+            //{
+            //    Name = "Cubic Bézier 4 Bounds"
+            //};
+            //var cubic4Handles = new GraphicItem(new NodeRevealer(cubic4.Points, 5d), handleStyle2)
+            //{
+            //    Name = "Cubic Bézier 4 Handles"
+            //};
 
-            var intersectionNode2Item = new GraphicItem(new NodeRevealer(cubic3.Intersection(cubic4).Points, 5d), handleStyle);
+            //var intersectionNode2Item = new GraphicItem(new NodeRevealer(cubic3.Intersection(cubic4).Points, 5d), handleStyle);
 
-            vectorMap.Add(cubic1BoundsItem);
-            vectorMap.Add(cubic2BoundsItem);
-            vectorMap.Add(cubic3BoundsItem);
-            vectorMap.Add(cubic4BoundsItem);
-            vectorMap.Add(cubic1Item);
-            vectorMap.Add(cubic2Item);
-            vectorMap.Add(cubic3Item);
-            vectorMap.Add(cubic4Item);
-            vectorMap.Add(intersectionNode1Item);
-            vectorMap.Add(intersectionNode2Item);
-            vectorMap.Add(cubic1Handles);
-            vectorMap.Add(cubic2Handles);
-            vectorMap.Add(cubic3Handles);
-            vectorMap.Add(cubic4Handles);
+            top = 0;
+            left = 0;
+            var cubic5 = new CubicBezier(left + 0d, top + 5d, left + 10d, top + 15d, left + 20d, top + 15d, left + 30d, top + 5d).ScaleDistort(scale);
+            var cubic5Item = new GraphicItem(cubic5, intersectionRed)
+            {
+                Name = "Cubic Bézier 5"
+            };
+            var cubic5BoundsItem = new GraphicItem(cubic5.Bounds, selectionStyle)
+            {
+                Name = "Cubic Bézier 5 Bounds"
+            };
+            var cubic5Handles = new GraphicItem(new NodeRevealer(cubic5.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic Bézier 5 Handles"
+            };
+            var cubic6 = new CubicBezier(left + 0d, top + 5d, left + 10d, top + -5d, left + 20d, top + 10d, left + 30d, top + 5d).ScaleDistort(scale);
+            var cubic6Item = new GraphicItem(cubic6, intersectionRed)
+            {
+                Name = "Cubic Bézier 6"
+            };
+            var cubic6BoundsItem = new GraphicItem(cubic6.Bounds, selectionStyle)
+            {
+                Name = "Cubic Bézier 6 Bounds"
+            };
+            var cubic6Handles = new GraphicItem(new NodeRevealer(cubic6.Points, 5d), handleStyle2)
+            {
+                Name = "Cubic Bézier 6 Handles"
+            };
+            //var intersectionNode3Item = new GraphicItem(new NodeRevealer(cubic5.Intersection(cubic5).Points, 5d), handleStyle);
+
+            //vectorMap.Add(cubic1BoundsItem);
+            //vectorMap.Add(cubic2BoundsItem);
+            //vectorMap.Add(cubic3BoundsItem);
+            //vectorMap.Add(cubic4BoundsItem);
+            //vectorMap.Add(cubic5BoundsItem);
+            //vectorMap.Add(cubic6BoundsItem);
+            //vectorMap.Add(cubic1Item);
+            //vectorMap.Add(cubic2Item);
+            //vectorMap.Add(cubic3Item);
+            //vectorMap.Add(cubic4Item);
+            vectorMap.Add(cubic5Item);
+            vectorMap.Add(cubic6Item);
+            //vectorMap.Add(intersectionNode1Item);
+            //vectorMap.Add(intersectionNode2Item);
+            //vectorMap.Add(intersectionNode3Item);
+            //vectorMap.Add(cubic1Handles);
+            //vectorMap.Add(cubic2Handles);
+            //vectorMap.Add(cubic3Handles);
+            //vectorMap.Add(cubic4Handles);
+            //vectorMap.Add(cubic5Handles);
+            //vectorMap.Add(cubic6Handles);
         }
 
         /// <summary>

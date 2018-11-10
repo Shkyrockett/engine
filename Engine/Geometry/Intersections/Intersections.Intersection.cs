@@ -5,7 +5,6 @@
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-
 // <copyright company="kevlindev" >
 //     Many of the Intersections methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/.
 //     Copyright © 2000 - 2003 Kevin Lindsey. All rights reserved.
@@ -14,7 +13,6 @@
 // <license>
 //     Licensed under the BSD-3-Clause https://github.com/thelonious/kld-intersections/blob/development/LICENSE
 // </license>
-
 // <copyright company="angusj" >
 //     The Point in Polygon method is from the Clipper Library.
 //     Copyright © 2010 - 2014 Angus Johnson. All rights reserved.
@@ -23,7 +21,6 @@
 // <license id="Boost">
 //     Licensed under the Boost Software License (http://www.boost.org/LICENSE_1_0.txt).
 // </license>
-
 // <copyright company="vb-helper" >
 //     Some of the methods came from Rod Stephens excellent blogs vb-helper(http://vb-helper.com), and csharphelper (http://csharphelper.com), as well as from his books.
 //     Copyright © Rod Stephens.
@@ -34,7 +31,6 @@
 //     I also recommend (but again don’t require) that you put the URL where you found the code in a comment inside your code in case you need to look it up later.
 //     So really no restrictions. (http://csharphelper.com/blog/rod/)
 // </license>
-
 // <summary></summary>
 // <remarks></remarks>
 
@@ -7104,7 +7100,8 @@ namespace Engine
         /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
         /// His code along with many other excellent examples formerly available
         /// at his site but the latest version now at: https://www.geometrictools.com/
-        /// </acknowledgment>
+        /// </acknowledgment>
+
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Bezout(

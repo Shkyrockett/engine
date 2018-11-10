@@ -40,7 +40,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y)[] IntersectEE(((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse1, ((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse2, double epsilon = Epsilon)
         {
-            var v = new (double x, double y)[0];
+            var v = new List<(double x, double y)>();
             if ((ellipse1.radiusX == ellipse2.radiusY) && (ellipse2.radiusX == ellipse2.radiusY))
             {
                 // Special case: Two circles
@@ -53,7 +53,7 @@ namespace Engine
                 var l = GetLine(ellipse1.angle, ellipse1.radiusX, ellipse1.radiusY, ellipse1.origin, ellipse2.origin);
                 return IntersectLE(l, ellipse1);
             }
-            else if (((Abs(ellipse1.angle - ellipse2.angle) == PI / 2) || Abs(ellipse1.angle - ellipse2.angle) == PI * 3d / 2d) &&
+            else if (((Abs(ellipse1.angle - ellipse2.angle) == PI / 2d) || Abs(ellipse1.angle - ellipse2.angle) == PI * 3d / 2d) &&
               // Special cases congruent ellipses incl. rotation but one is 90 rotated and the radius sizes are swapped
               // There are at max two intersection points: We can construct a line that runs through these points
               (ellipse1.radiusX == ellipse2.radiusY) && (ellipse1.radiusY == ellipse2.radiusX))
@@ -74,7 +74,7 @@ namespace Engine
 
                 if ((mPI1 == 0) || (mPI2 == 0))
                 {
-                    corr = 0.05f;
+                    corr = 0.05d;
                 }
 
                 (double a, double b, double c, double d, double e, double f) e1, e2;
@@ -92,18 +92,18 @@ namespace Engine
                 var q = GetQuartic(e1, e2);
                 var y = QuarticRoots(q);
 
-                v = CalculatePoints(y, e1, e2);
+                v.AddRange(CalculatePoints(y, e1, e2));
 
                 if (corr != 0d)
                 {
-                    for (var i = 0; i < v.Length; i++)
+                    for (var i = 0; i < v.Count; i++)
                     {
                         v[i] = RotateVector(v[i], -corr, ellipse1.origin);
                     }
                 }
             }
 
-            return v;
+            return v.ToArray();
         }
 
         /// <summary>

@@ -578,6 +578,8 @@ namespace Engine
         /// <param name="bounds">The bounding box of the shape.</param>
         /// <param name="point">The point to warp.</param>
         /// <returns>The returned point in normalized percentage form.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D NormalizePoint(Rectangle2D bounds, Point2D point)
             => new Point2D((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
 
@@ -591,6 +593,7 @@ namespace Engine
         /// <returns>List of equally-spaced points on the path.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> Linearize(List<Point2D> source, double distance, double epsilon = Epsilon)
         {
@@ -665,6 +668,7 @@ namespace Engine
         /// The Wiki article: http://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm
         /// Based on:  http://www.codeproject.com/Articles/18936/A-Csharp-Implementation-of-Douglas-Peucker-Line-Ap
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RamerDouglasPeukerReduce(List<Point2D> points, double error = 4)
         {
@@ -699,6 +703,7 @@ namespace Engine
         /// <param name="first">The first.</param>
         /// <param name="last">The last.</param>
         /// <param name="keepIndex">The keepIndex.</param>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void RecursiveRamerDouglasPeukerReduce(List<Point2D> pts, double error, int first, int last, ref List<int> keepIndex)
         {
@@ -740,6 +745,7 @@ namespace Engine
         /// <returns>Either points (if no duplicates were found), or a new list containing points with duplicates removed.</returns>
         /// <acknowledgment>
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> RemoveDuplicates(List<Point2D> points)
         {
@@ -793,6 +799,7 @@ namespace Engine
         /// </summary>
         /// <param name="contour">The contour.</param>
         /// <returns>The <see cref="PolygonContour"/>.</returns>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PolygonContour AddPointsToSides(PolygonContour contour)
         {
@@ -822,6 +829,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Point2D Bilinear(Point2D[] point, double u, double v)
         {
@@ -850,6 +858,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static Point2D Perspective(Point2D[] points, (double a, double b, double d, double e, double g, double h) c, double u, double v)
         {
@@ -866,6 +875,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://www.codeproject.com/articles/674433/perspective-projection-of-a-rectangle-homography
         /// </acknowledgment>
+        //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double a, double b, double d, double e, double g, double h) SolvePerspective(Point2D[] points)
         {

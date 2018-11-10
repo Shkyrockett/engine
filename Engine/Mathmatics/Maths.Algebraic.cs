@@ -79,20 +79,6 @@ namespace Engine
             => 1d / Crt(number);
 
         /// <summary>
-        /// The quadratic equation.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double S) QuadraticEquation(double a, double b, double c)
-            => (
-            (-b + Sqrt(b * b - (4 * a * c))) / (2 * a),
-            (-b - Sqrt(b * b - (4 * a * c))) / (2 * a));
-
-        /// <summary>
         /// Calculates the real order or degree of the polynomial.
         /// </summary>
         /// <param name="coefficients">The coefficients.</param>
@@ -378,7 +364,6 @@ namespace Engine
         /// <param name="d">1</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// based on http://abecedarical.com/javascript/script_exact_cubic.html
         /// </acknowledgment>
@@ -808,7 +793,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -823,7 +807,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// http://fontforge.github.io/bezier.html
         /// </acknowledgment>
@@ -840,7 +823,6 @@ namespace Engine
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -876,7 +858,6 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -893,7 +874,6 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
         /// http://fontforge.github.io/bezier.html
@@ -916,7 +896,6 @@ namespace Engine
         /// <param name="d"></param>
         /// <param name="e"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -957,7 +936,6 @@ namespace Engine
         /// <param name="e"></param>
         /// <param name="f"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1001,7 +979,6 @@ namespace Engine
         /// <param name="f"></param>
         /// <param name="g"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1022,7 +999,6 @@ namespace Engine
         /// <param name="g"></param>
         /// <param name="h"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1044,7 +1020,6 @@ namespace Engine
         /// <param name="h"></param>
         /// <param name="i"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1067,7 +1042,6 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1091,7 +1065,6 @@ namespace Engine
         /// <param name="j"></param>
         /// <param name="k"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>

@@ -47,7 +47,8 @@ namespace Engine
         /// Arcs greater than 90° are split into multiple arcs.
         /// </summary>
         /// <param name="ellipse"></param>
-        /// <returns>Returns a list of Cubic Bézier curves that approximate an elliptical arc.</returns>
+        /// <returns>Returns a list of Cubic Bézier curves that approximate an elliptical arc.</returns>
+
         /// <acknowledgment>
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://www.spaceroots.org/documents/ellipse/node22.html
@@ -128,7 +129,8 @@ namespace Engine
         /// <param name="ry">Y radius</param>
         /// <param name="startAngle">The start angle.</param>
         /// <param name="sweepAngle">The sweep angle.</param>
-        /// <returns>Returns a list of Cubic Bézier curves that approximate a circular arc.</returns>
+        /// <returns>Returns a list of Cubic Bézier curves that approximate a circular arc.</returns>
+
         /// <acknowledgment>
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://www.spaceroots.org/documents/ellipse/node22.html
@@ -326,7 +328,8 @@ namespace Engine
         /// Converts a list of points on a Catmull Rom Curve to a list of Cubic Bézier curves.
         /// </summary>
         /// <param name="points">The list of points.</param>
-        /// <returns>Returns a list of Cubic Bézier curves from a list of points on a Catmull Rom curve.</returns>
+        /// <returns>Returns a list of Cubic Bézier curves from a list of points on a Catmull Rom curve.</returns>
+
         /// <acknowledgment>
         /// https://github.com/ariutta/catmullrom2bezier/blob/master/catmullrom2bezier.js
         /// </acknowledgment>

@@ -29,7 +29,8 @@ namespace Engine.Colorspace
         /// <summary>
         /// Initializes a new instance of the <see cref="HSIA"/> class.
         /// </summary>
-        /// <param name="color"></param>
+        /// <param name="color"></param>
+
         public HSIA(RGBA color)
         {
             (Hue, Saturation, Intensity, Alpha) = Colorspaces.RGBAColorToHSIAColor(color.Red, color.Green, color.Blue, color.Alpha);

@@ -48,7 +48,8 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
-        /// <param name="size"></param>
+        /// <param name="size"></param>
+
         public Size2D(Size2D size)
             : this(size.Width, size.Height)
         { }
@@ -56,7 +57,8 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
-        /// <param name="point"></param>
+        /// <param name="point"></param>
+
         public Size2D(Point2D point)
             : this(point.X, point.Y)
         { }
@@ -64,7 +66,8 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple"></param>
+
         public Size2D((double X, double Y) tuple)
         {
             (Width, Height) = tuple;
@@ -74,7 +77,8 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
         /// <param name="width">The Width component of the Size.</param>
-        /// <param name="height">The Height component of the Size.</param>
+        /// <param name="height">The Height component of the Size.</param>
+
         public Size2D(double width, double height)
         {
             // If negative sizes are prohibited, then it would be impossible to inflate a rectangle in the negative direction to shrink it.
@@ -87,13 +91,15 @@ namespace Engine
         #region Properties
         /// <summary>
         /// Width component of a <see cref="Size2D"/> coordinate.
-        /// </summary>
+        /// </summary>
+
         [DataMember, XmlAttribute, SoapAttribute]
         public double Width { get; set; }
 
         /// <summary>
         /// Height component of a <see cref="Size2D"/> coordinate.
-        /// </summary>
+        /// </summary>
+
         [DataMember, XmlAttribute, SoapAttribute]
         public double Height { get; set; }
 
@@ -113,6 +119,8 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Size2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D operator +(Size2D value)
             => new Size2D(+value.Width, +value.Height);
 
@@ -121,7 +129,9 @@ namespace Engine
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D operator +(Size2D value, double addend)
             => value.Add(addend);
 
@@ -130,7 +140,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D operator +(Size2D value, Point2D addend)
             => value.Add(addend);
 
@@ -139,7 +151,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D operator +(Size2D value, Size2D addend)
             => value.Add(addend);
 
@@ -148,6 +162,8 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Size2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D operator -(Size2D value)
             => new Size2D(-value.Width, -value.Height);
 
@@ -156,7 +172,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D operator -(Size2D value, double subend)
             => value.Subtract(subend);
 
@@ -165,7 +183,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D operator -(Size2D value, Point2D subend)
             => value.Subtract(subend);
 
@@ -174,7 +194,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D operator -(Size2D value, Size2D subend)
             => value.Subtract(subend);
 
@@ -205,7 +227,9 @@ namespace Engine
         /// </summary>
         /// <param name="dividend"></param>
         /// <param name="divisor"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D operator /(Size2D dividend, double divisor)
             => new Size2D(dividend.Width / divisor, dividend.Height / divisor);
 
@@ -217,6 +241,8 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Size2D left, Size2D right)
             => Equals(left, right);
 
@@ -228,6 +254,8 @@ namespace Engine
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Size2D left, Size2D right)
             => !Equals(left, right);
 
@@ -236,6 +264,8 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         /// <param name="tuple"> Size - the Size to convert to a Vector </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Size2D((double X, double Y) tuple)
             => new Size2D(tuple);
 
@@ -246,6 +276,8 @@ namespace Engine
         /// Vector - A Vector equal to this Size
         /// </returns>
         /// <param name="size"> Size - the Size to convert to a Vector </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Vector2D(Size2D size)
             => new Vector2D(size.Width, size.Height);
 
@@ -254,6 +286,8 @@ namespace Engine
         ///    <see cref="Point2D"/>.
         /// </summary>
         /// <param name="size"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Point2D(Size2D size)
             => new Point2D(size.Width, size.Height);
         #endregion Operators
@@ -263,7 +297,8 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Size2D a, Size2D b)
             => Equals(a, b);
@@ -274,6 +309,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Size2D a, Size2D b)
             => (a.Width == b.Width) & (a.Height == b.Height);
@@ -284,6 +320,7 @@ namespace Engine
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
             => obj is Size2D && Equals(this, (Size2D)obj);
@@ -293,6 +330,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Size2D value)
             => Equals(this, value);
@@ -301,7 +339,8 @@ namespace Engine
         /// <summary>
         /// Create a Random <see cref="Size2D"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>
+
         public static Size2D Random()
             => new Size2D((2 * RandomNumberGenerator.NextDouble()) - 1, (2 * RandomNumberGenerator.NextDouble()) - 1);
 

@@ -70,7 +70,8 @@ namespace Engine
         /// <summary>
         /// SlopeMax is a large value "close to infinity" (Close to the largest value allowed for the data
         /// type). Used in the Slope of a LineSeg
-        /// </summary>
+        /// </summary>
+
         public const double SlopeMax = 9223372036854775807d;
 
         /// <summary>
@@ -710,7 +711,8 @@ namespace Engine
         #region Gauss Tables
         /// <summary>
         /// Gauss abscissa table
-        /// </summary>
+        /// </summary>
+
         /// <acknowledgment>
         /// https://code.google.com/archive/p/degrafa/source/default/source
         /// </acknowledgment>
@@ -762,7 +764,8 @@ namespace Engine
 
         /// <summary>
         /// Gauss weight table
-        /// </summary>
+        /// </summary>
+
         /// <acknowledgment>
         /// https://code.google.com/archive/p/degrafa/source/default/source
         /// </acknowledgment>

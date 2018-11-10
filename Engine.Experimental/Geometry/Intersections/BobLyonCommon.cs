@@ -20,45 +20,237 @@ using static Engine.Maths;
 namespace Engine
 {
     /// <summary>
+    /// The mode enum.
+    /// </summary>
+    public enum Mode
+    {
+        /// <summary>
+        /// The CORNERS.
+        /// </summary>
+        CORNERS,
+
+        /// <summary>
+        /// The CENTER.
+        /// </summary>
+        CENTER,
+    }
+
+    /// <summary>
     /// The bob lyon common class.
     /// </summary>
     public static class BobLyonCommon
     {
+        /// <summary>
+        /// Does the quartic function described by y = z4* x⁴ + z3* x³ + z2* x² + z1* x + z0 have *any* real solutions?
+        /// </summary>
+        /// <param name="z4">The z4.</param>
+        /// <param name="z3">The z3.</param>
+        /// <param name="z2">The z2.</param>
+        /// <param name="z1">The z1.</param>
+        /// <param name="z0">The z0.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
+        /// Thanks to Dr.David Goldberg for the convertion to a depressed quartic!
+        /// See http://en.wikipedia.org/wiki/Quartic_function
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasAzero(double z4, double z3, double z2, double z1, double z0)
+        {
+            // First trivial checks for z0 or z4 being zero.
+            if (z0 == 0d)
+            {
+                // zero is a root!
+                return true;
+            }
+            if (z4 == 0d)
+            {
+                if (z3 != 0d)
+                {
+                    // cubics always have roots
+                    return true;
+                }
+                if (z2 != 0d)
+                {
+                    // quadratic
+                    return ((z1 * z1) - 4d * z2 * z0) >= 0d;
+                }
+
+                // sloped lines have one root
+                return z1 != 0d;
+            }
+            var a = z3 / z4;
+            var b = z2 / z4;
+            var c = z1 / z4;
+            var d = z0 / z4;
+            var p = (8d * b - 3d * a * a) / 8d;
+            var q = (a * a * a - 4d * a * b + 8d * c) / 8d;
+            var r = (-3d * a * a * a * a + 256d * d - 64d * c * a + 16d * a * a * b) / 256d;
+
+            //  x⁴ +        p*x² + q*x + r
+            // a*x⁴ + b*x³ + c*x² + d*x + e
+            // so a=1  b=0  c=p  d=q  e=r
+            // That is, we have a depessed quartic.
+            var discrim = 256d * r * r * r - 128d * p * p * r * r + 144d * p * q * q * r
+                - 27d * q * q * q * q + 16d * p * p * p * p * r - 4d * p * p * p * q * q;
+            var P = 8d * p;
+            var D = 64d * r - 16d * p * p;
+
+            return discrim < 0d || (discrim > 0d && P < 0 && D < 0d) || (discrim == 0d && (D != 0d || P <= 0d));
+        }
+
+        /// <summary>
+        /// Does the quartic function described by z have *any* real solutions?
+        /// </summary>
+        /// <param name="z">The z.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
+        /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
+        /// Thanks to Dr. David Goldberg for the convertion to a depressed quartic!
+        /// See http://en.wikipedia.org/wiki/Quartic_function
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool HasAzero((double a, double b, double c, double d, double e) z)
+        {
+            // First trivial checks for z0 or z4 being zero
+            if (z.a == 0d)
+            {
+                // zero is a root!
+                return true;
+            }
+            if (z.e == 0d)
+            {
+                if (z.d != 0d)
+                {
+                    // cubics always have roots
+                    return true;
+                }
+                if (z.c != 0d)
+                {
+                    // quadratic
+                    return ((z.b * z.b) - 4d * z.c * z.a) >= 0d;
+                }
+
+                // sloped lines have one root
+                return z.b != 0d;
+            }
+            var a = z.d / z.e;
+            var b = z.c / z.e;
+            var c = z.b / z.e;
+            var d = z.a / z.e;
+            var p = (8d * b - 3d * a * a) / 8d;
+            var q = (a * a * a - 4d * a * b + 8d * c) / 8d;
+            var r = (-3d * a * a * a * a + 256d * d - 64d * c * a + 16d * a * a * b) / 256d;
+
+            //  x⁴ +        p*x² + q*x + r
+            // a*x⁴ + b*x³ + c*x² + d*x + e
+            // so a=1  b=0  c=p  d=q  e=r
+            // That is, we have a depessed quartic.
+            var descrim = 256d * r * r * r - 128d * p * p * r * r + 144d * p * q * q * r
+                - 27d * q * q * q * q + 16d * p * p * p * p * r - 4d * p * p * p * q * q;
+            var P = 8d * p;
+            var D = 64d * r - 16d * p * p;
+
+            return descrim < 0d || (descrim > 0d && P < 0d && D < 0d) || (descrim == 0d && (D != 0d || P <= 0d));
+        }
+
+        /// <summary>
+        /// Is the Y coordinate(s) of the intersection of two conic
+        /// sections real? They are in their bivariate form,
+        /// ax²  + bxy  + cx²  + dx  + ey  + f = 0
+        /// For now, a and a1 cannot be zero.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="c">The c.</param>
+        /// <param name="d">The d.</param>
+        /// <param name="e">The e.</param>
+        /// <param name="f">The f.</param>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="f1">The f1.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DoConicsYIntersect(
+            double a, double b, double c, double d, double e, double f,
+            double a1, double b1, double c1, double d1, double e1, double f1)
+        {
+            // Normalize the conics by their first coefficient, a.
+            // Then get the differnce of the two equations.
+            var deltaB = (b1 /= a1) - (b /= a);
+            var deltaC = (c1 /= a1) - (c /= a);
+            var deltaD = (d1 /= a1) - (d /= a);
+            var deltaE = (e1 /= a1) - (e /= a);
+            var deltaF = (f1 /= a1) - (f /= a);
+
+            // Special case for b's and d's being equal
+            if (deltaB == 0 && deltaD == 0)
+            {
+                return HasAzero(0, 0, deltaC, deltaE, deltaF);
+            }
+
+            var a3 = b * c1 - b1 * c;
+            var a2 = b * e1 + d * c1 - b1 * e - d1 * c;
+            var aa1 = b * f1 + d * e1 - b1 * f - d1 * e;
+            var a0 = d * f1 - d1 * f;
+
+            var A = deltaC * deltaC - a3 * deltaB;
+            var B = 2 * deltaC * deltaE - deltaB * a2 - deltaD * a3;
+            var C = deltaE * deltaE + 2 * deltaC * deltaF - deltaB * aa1 - deltaD * a2;
+            var D = 2 * deltaE * deltaF - deltaD * aa1 - deltaB * a0;
+            var E = deltaF * deltaF - deltaD * a0;
+            return HasAzero(A, B, C, D, E);
+        }
+
+        /// <summary>
+        /// Do two conics sections el and el1 intersect? Each are in
+        /// bivariate form, ax²  + bxy  + cx²  + dx  + ey  + f = 0
+        /// Solve by constructing a quartic that must have a real
+        /// solution if they intersect.  This checks for real Y
+        /// intersects, then flips the parameters around to check
+        /// for real X intersects.
+        /// </summary>
+        /// <param name="el">The el.</param>
+        /// <param name="el1">The el1.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
+        /// https://docs.google.com/file/d/0B7wsEy6bpVePSEt2Ql9hY0hFdjA/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool DoConicsIntersect(
+            (double a, double b, double c, double d, double e, double f) el,
+            (double a, double b, double c, double d, double e, double f) el1)
+        {
+            // Check for real y intersects, then real x intersects.
+            return DoConicsYIntersect(el.a, el.b, el.c, el.d, el.e, el.f, el1.a, el1.b, el1.c, el1.d, el1.e, el1.f) &&
+                DoConicsYIntersect(el.c, el.b, el.a, el.e, el.d, el.f, el1.c, el1.b, el1.a, el1.e, el1.d, el1.f);
+        }
+
         /// <summary>
         /// Calculate the coefficient of the quartic.
         /// The solution to intersecting ellipses are the solutions to f(y), a quartic function where f(y) = z0 + z1 * y + z2 * y^2 + z3 * y^3 + z4 * y^4  = 0
         /// getQuartic generates the coefficients z0 .. z4 given the two ellipses el and el1 in "bivariate" form.
         /// See http://www.math.niu.edu/~rusin/known-math/99/2ellipses
         /// </summary>
-        /// <param name="el">The el.</param>
-        /// <param name="el1">The el1.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
-        /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e)
-            GetQuartic(
-            (double a, double b, double c, double d, double e, double f) el,
-            (double a, double b, double c, double d, double e, double f) el1)
-            => (
-                a: el.f * el.a * el1.d * el1.d + el.a * el.a * el1.f * el1.f - el.d * el.a * el1.d * el1.f + el1.a * el1.a * el.f * el.f - 2 * el.a * el1.f * el1.a * el.f - el.d * el1.d * el1.a * el.f + el1.a * el.d * el.d * el1.f,
-                b: el1.e * el.d * el.d * el1.a - el1.f * el1.d * el.a * el.b - 2 * el.a * el1.f * el1.a * el.e - el.f * el1.a * el1.b * el.d + 2 * el1.d * el1.b * el.a * el.f + 2 * el1.e * el1.f * el.a * el.a + el1.d * el1.d * el.a * el.e - el1.e * el1.d * el.a * el.d - 2 * el.a * el1.e * el1.a * el.f - el.f * el1.a * el1.d * el.b + 2 * el.f * el.e * el1.a * el1.a - el1.f * el1.b * el.a * el.d - el.e * el1.a * el1.d * el.d + 2 * el1.f * el.b * el1.a * el.d,
-                c: el1.e * el1.e * el.a * el.a + 2 * el1.c * el1.f * el.a * el.a - el.e * el1.a * el1.d * el.b + el1.f * el1.a * el.b * el.b - el.e * el1.a * el1.b * el.d - el1.f * el1.b * el.a * el.b - 2 * el.a * el1.e * el1.a * el.e + 2 * el1.d * el1.b * el.a * el.e - el1.c * el1.d * el.a * el.d - 2 * el.a * el1.c * el1.a * el.f + el1.b * el1.b * el.a * el.f + 2 * el1.e * el.b * el1.a * el.d + el.e * el.e * el1.a * el1.a - el.c * el1.a * el1.d * el.d - el1.e * el1.b * el.a * el.d + 2 * el.f * el.c * el1.a * el1.a - el.f * el1.a * el1.b * el.b + el1.c * el.d * el.d * el1.a + el1.d * el1.d * el.a * el.c - el1.e * el1.d * el.a * el.b - 2 * el.a * el1.f * el1.a * el.c,
-                d: -2 * el.a * el1.a * el.c * el1.e + el1.e * el1.a * el.b * el.b + 2 * el1.c * el.b * el1.a * el.d - el.c * el1.a * el1.b * el.d + el1.b * el1.b * el.a * el.e - el1.e * el1.b * el.a * el.b - 2 * el.a * el1.c * el1.a * el.e - el.e * el1.a * el1.b * el.b - el1.c * el1.b * el.a * el.d + 2 * el1.e * el1.c * el.a * el.a + 2 * el.e * el.c * el1.a * el1.a - el.c * el1.a * el1.d * el.b + 2 * el1.d * el1.b * el.a * el.c - el1.c * el1.d * el.a * el.b,
-                e: el.a * el.a * el1.c * el1.c - 2 * el.a * el1.c * el1.a * el.c + el1.a * el1.a * el.c * el.c - el.b * el.a * el1.b * el1.c - el.b * el1.b * el1.a * el.c + el.b * el.b * el1.a * el1.c + el.c * el.a * el1.b * el1.b
-            );
-
-        /// <summary>
-        /// Calculate the coefficient of the quartic.
-        /// </summary>
         /// <param name="el1">The el1.</param>
         /// <param name="el2">The el2.</param>
         /// <param name="epsilon"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
         /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
+        /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
         /// https://www.khanacademy.org/computer-programming/c/5567955982876672
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>
@@ -75,60 +267,6 @@ namespace Engine
                 d: -2 * el1.a * el2.a * el1.c * el2.e + el2.e * el2.a * el1.b * el1.b + 2 * el2.c * el1.b * el2.a * el1.d - el1.c * el2.a * el2.b * el1.d + el2.b * el2.b * el1.a * el1.e - el2.e * el2.b * el1.a * el1.b - 2 * el1.a * el2.c * el2.a * el1.e - el1.e * el2.a * el2.b * el1.b - el2.c * el2.b * el1.a * el1.d + 2 * el2.e * el2.c * el1.a * el1.a + 2 * el1.e * el1.c * el2.a * el2.a - el1.c * el2.a * el2.d * el1.b + 2 * el2.d * el2.b * el1.a * el1.c - el2.c * el2.d * el1.a * el1.b,
                 e: el1.a * el1.a * el2.c * el2.c - 2 * el1.a * el2.c * el2.a * el1.c + el2.a * el2.a * el1.c * el1.c - el1.b * el1.a * el2.b * el2.c - el1.b * el2.b * el2.a * el1.c + el1.b * el1.b * el2.a * el2.c + el1.c * el1.a * el2.b * el2.b
             );
-
-        /// <summary>
-        /// Does the quartic function described by z have *any* real solutions?
-        /// See http://en.wikipedia.org/wiki/Quartic_function
-        /// Thanks to Dr. David Goldberg for the convertion to a depressed quartic!
-        /// </summary>
-        /// <param name="z">The z.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HasAzero((double a, double b, double c, double d, double e) z)
-        {
-            // First trivial checks for z0 or z4 being zero
-            if (z.a == 0)
-            {
-                // zero is a root!
-                return true;
-            }
-            if (z.e == 0)
-            {
-                if (z.d != 0)
-                {
-                    // cubics always have roots
-                    return true;
-                }
-                if (z.c != 0)
-                {
-                    // quad
-                    return ((z.b * z.b) - 4 * z.c * z.a) >= 0;
-                }
-                // sloped lines have one root
-                return z.b != 0;
-            }
-            var a = z.d / z.e;
-            var b = z.c / z.e;
-            var c = z.b / z.e;
-            var d = z.a / z.e;
-            var p = (8 * b - 3 * a * a) / 8d;
-            var q = (a * a * a - 4 * a * b + 8 * c) / 8d;
-            var r = (-3 * a * a * a * a + 256 * d - 64 * c * a + 16 * a * a * b) / 256d;
-
-            // x ^ 4 + p * x ^ 2 + q * x + r
-            // a * x ^ 4 + b * x ^ 3 + c * x ^ 2 + d * x + e
-            // so a = 1  b = 0  c = p  d = q  e = r
-            // That is, we have a depessed quartic.
-            var descrim = 256d * r * r * r - 128d * p * p * r * r + 144d * p * q * q * r - 27d * q * q * q * q + 16d * p * p * p * p * r - 4d * p * p * p * q * q;
-            var P = 8d * p;
-            var D = 64d * r - 16d * p * p;
-
-            return descrim < 0 || (descrim > 0d && P < 0d && D < 0d) || (descrim == 0d && (D != 0 || P <= 0));
-        }
 
         /// <summary>
         /// Create a general quadratic function for the ellipse a x^2 + b x y + c y^2 + d x + e y + c = 0
@@ -203,7 +341,6 @@ namespace Engine
 
         /// <summary>
         /// Express the traditional KA ellipse rotated by rot in terms of a "bivariate" polynomial that sums to zero.
-        /// See http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
         /// </summary>
         /// <param name="cx">The cx.</param>
         /// <param name="cy">The cy.</param>
@@ -213,6 +350,7 @@ namespace Engine
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
+        /// See http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -222,7 +360,6 @@ namespace Engine
 
         /// <summary>
         /// Express the traditional KA ellipse rotated by rot in terms of a "bivariate" polynomial that sums to zero.
-        /// See http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
         /// </summary>
         /// <param name="cx">The cx.</param>
         /// <param name="cy">The cy.</param>
@@ -233,6 +370,7 @@ namespace Engine
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
+        /// See http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -262,6 +400,48 @@ namespace Engine
                 /*        constant */ f: (a * a / b) + (c * c / d) - 1d
                 /* So, a*x^2 + b*x*y + c*y^2 + d*x + e*y + f = 0 */
                 );
+        }
+
+        /// <summary>
+        /// Express the traditional KA ellipse, rotated by an angle
+        /// whose cosine and sine are A and B, in terms of a "bivariate"
+        /// polynomial that sums to zero.  See
+        /// http://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="A">The A.</param>
+        /// <param name="B">The B.</param>
+        /// <returns>The <see cref="T:(double a, double b, double c, double d, double e, double f)"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double a, double b, double c, double d, double e, double f)
+            BivariateForm2(double x, double y, double width, double height, double A, double B)
+        {
+            // Start by rotating the ellipse center by the OPPOSITE
+            // of the desired angle.  That way when the bivariate
+            // computation transforms it back, it WILL be at the
+            // correct (and original) coordinates.
+            var r = RotatePoint(x, y, A, B);
+            var a = r.x;
+            var c = r.y;
+
+            // Now let the bivariate computation
+            // rotate in the opposite direction.
+            B = -B;  /* A = cos(-rot); B = sin(-rot); */
+            var b = width * width / 4;
+            var d = height * height / 4;
+            return (
+                a: (A * A / b) + (B * B / d),  /* x©÷ coefficient */
+                b: (-2 * A * B / b) + (2 * A * B / d),  /* xy coeff */
+                c: (B * B / b) + (A * A / d),  /* y©÷ coeff */
+                d: (-2 * a * A / b) - (2 * c * B / d),  /* x coeff */
+                e: (2 * a * B / b) - (2 * c * A / d),  /* y coeff */
+                f: (a * a / b) + (c * c / d) - 1  /* constant */
+                                                  /* So, ax©÷ + bxy + cy©÷ + dx + ey + f = 0 */
+            );
         }
 
         /// <summary>
@@ -582,6 +762,70 @@ namespace Engine
                 }
             }
             return true;
+        }
+
+        /// <summary>
+        /// Compute absolute vertices of the rotated rectangle.
+        /// The first four parameters describe the rectangle.
+        /// The rectangle.mode affects rects's origin.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="w">The w.</param>
+        /// <param name="h">The h.</param>
+        /// <param name="theta">The theta.</param>
+        /// <param name="rectangleMode"></param>
+        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double x, double y)[] Rect2Points(double x, double y, double w, double h, double theta, Mode rectangleMode)
+        {
+            var p = new (double x, double y)[] { };
+            if (rectangleMode == Mode.CORNERS)
+            {
+                w -= x;
+                h -= y;
+            }
+            if (theta != 0)
+            {
+                var cosine = Cos(-theta);  /* Compute once... */
+                var sine = Sin(-theta);  /* ... use often. */
+                if (rectangleMode == Mode.CENTER)
+                {
+                    /* Rotate four corners around the center, (x, y) */
+                    w /= 2;
+                    h /= 2;
+                    p = new (double x, double y)[] {
+                        RotatePoint(-w, -h, cosine, sine),
+                        RotatePoint(+w, -h, cosine, sine),
+                        RotatePoint(+w, +h, cosine, sine),
+                        RotatePoint(-w, +h, cosine, sine) };
+                }
+                else
+                {
+                    /* Default CORNER mode. Rotate around corner (x, y) */
+                    p = new (double x, double y)[] { (x: 0, y: 0), RotatePoint(w, 0, cosine, sine), RotatePoint(w, h, cosine, sine), RotatePoint(0, h, cosine, sine) };
+                }
+                /* Renormalize rotated points */
+                for (var i = 0; i < p.Length; i++)
+                {
+                    p[i].x += x;
+                    p[i].y += y;
+                }
+            }
+            else if (rectangleMode == Mode.CENTER)
+            {
+                /* No rotation. (x, y) is the center of the rect. */
+                w /= 2;
+                h /= 2;
+                p = Coords2Points(x - w, y - h, x + w, y - h, x + w, y + h, x - w, y + h);
+            }
+            else
+            {
+                /* No rotation. Default CORNER mode. */
+                p = Coords2Points(x, y, x + w, y, x + w, y + h, x, y + h);
+            }
+            return p;
         }
     }
 }

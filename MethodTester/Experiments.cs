@@ -6,7 +6,7 @@
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
 // <summary></summary>
-// <remarks></remarks>
+// <acknowledgment></acknowledgment>
 
 using Engine;
 using Engine.Imaging;
@@ -29,834 +29,6 @@ namespace MethodSpeedTester
     /// </summary>
     public static partial class Experiments
     {
-        #region Absolute Angle
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the absolute angle of Two 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(AbsoluteAngleTests))]
-        public static List<SpeedTester> AbsoluteAngleTests() => new List<SpeedTester> {
-                new SpeedTester(() => AbsoluteAngle0(0, 0, 1, 1),
-                $"{nameof(Experiments.AbsoluteAngle0)}(0, 0, 1, 1)"),
-                 new SpeedTester(() => AbsoluteAngle1(0, 0, 1, 1),
-                $"{nameof(Experiments.AbsoluteAngle1)}(0, 0,, 1, 1)")
-           };
-
-        /// <summary>
-        /// Find the absolute positive value of a radian angle from two points.
-        /// </summary>
-        /// <param name="aX">Horizontal Component of Point Starting Point</param>
-        /// <param name="aY">Vertical Component of Point Starting Point</param>
-        /// <param name="bX">Horizontal Component of Ending Point</param>
-        /// <param name="bY">Vertical Component of Ending Point</param>
-        /// <returns>The absolute angle of a line in radians.</returns>
-        public static double AbsoluteAngle0(double aX, double aY, double bX, double bY)
-        {
-            // Find the angle of point a and point b.
-            var test = -Angle(aX, aY, bX, bY) % PI;
-
-            // This should only loop once using the modulus of pi.
-            while (test < 0)
-                test += PI;
-
-            return test;
-        }
-
-        /// <summary>
-        /// Find the absolute positive value of a radian angle from two points.
-        /// </summary>
-        /// <param name="aX">Horizontal Component of Point Starting Point</param>
-        /// <param name="aY">Vertical Component of Point Starting Point</param>
-        /// <param name="bX">Horizontal Component of Ending Point</param>
-        /// <param name="bY">Vertical Component of Ending Point</param>
-        /// <returns>The absolute angle of a line in radians.</returns>
-        public static double AbsoluteAngle1(double aX, double aY, double bX, double bY)
-        {
-            // Find the angle of point a and point b.
-            var test = -Angle(aX, aY, bX, bY) % PI;
-            return test < 0 ? test += PI : test;
-        }
-        #endregion Absolute Angle
-
-        #region Angle Between Two 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle between Two 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(AngleBetweenTests))]
-        public static List<SpeedTester> AngleBetweenTests() => new List<SpeedTester> {
-                new SpeedTester(() => AngleBetween(0, 0, 1, 1),
-                $"{nameof(Experiments.AngleBetween)}(0, 0, 1, 1)")
-           };
-
-        /// <summary>
-        /// Finds the angle between two vectors.
-        /// </summary>
-        /// <param name="uX"></param>
-        /// <param name="uY"></param>
-        /// <param name="vX"></param>
-        /// <param name="vY"></param>
-        /// <returns></returns>
-        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AngleBetween(
-            double uX, double uY,
-            double vX, double vY)
-            => Acos((uX * vX + uY * vY) / Sqrt((uX * uX + uY * uY) * (vX * vX + vY * vY)));
-        #endregion Angle Between Two 2D Points
-
-        #region Angle Between Two 3D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(AngleBetween3DTests))]
-        public static List<SpeedTester> AngleBetween3DTests() => new List<SpeedTester> {
-                new SpeedTester(() => AngleBetween(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.AngleBetween)}(0, 0, 0, 1, 1, 1)")
-           };
-
-        /// <summary>
-        /// Finds the angle between two vectors.
-        /// </summary>
-        /// <param name="uX"></param>
-        /// <param name="uY"></param>
-        /// <param name="uZ"></param>
-        /// <param name="vX"></param>
-        /// <param name="vY"></param>
-        /// <param name="vZ"></param>
-        /// <returns></returns>
-        /// <remarks>http://james-ramsden.com/angle-between-two-vectors/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AngleBetween(
-            double uX, double uY, double uZ,
-            double vX, double vY, double vZ)
-            => Acos((uX * vX + uY * vY + uZ * vZ) / Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
-        #endregion Angle Between Two 3D Points
-
-        #region Angle of a Vector
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(AngleofVectorTests))]
-        public static List<SpeedTester> AngleofVectorTests()
-            => new List<SpeedTester> {
-                new SpeedTester(() => GetAngle0(0, 1),
-                $"{nameof(Experiments.GetAngle0)}(0, 1)"),
-                new SpeedTester(() => GetAngleAtan2v2(0, 1),
-                $"{nameof(Experiments.GetAngleAtan2v2)}(0, 1)"),
-                new SpeedTester(() => GetAngle(0, 1),
-                $"{nameof(Experiments.GetAngle)}(0, 1)")
-           };
-
-        /// <summary>
-        /// Angle with tangent opp/hyp
-        /// </summary>
-        /// <param name="i">opposite component.</param>
-        /// <param name="j">adjacent component.</param>
-        /// <returns>Return the angle with tangent opp/hyp. The returned value is between PI and -PI.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double GetAngle0(double i, double j)
-            => Atan2(i, -j);// * 180 / PI; // Original source method converted radians to degrees.
-
-        /// <summary>
-        /// Returns the Angle of two deltas.
-        /// </summary>
-        /// <param name="i">Delta Angle 1</param>
-        /// <param name="j">Delta Angle 2</param>
-        /// <returns>Returns the Angle of a line.</returns>
-        public static double GetAngleAtan2v2(double i, double j)
-        {
-            if ((Abs(i) < DoubleEpsilon) && (Abs(j) < DoubleEpsilon))
-                return 0;
-            var Value = Asin(i / Sqrt(i * i + j * j));
-            if (j < 0)
-                Value = PI - Value;
-            if (Value < 0)
-                Value = Value + (2 * PI);
-            return Value;
-        }
-
-        /// <summary>
-        /// Get the angle.
-        /// </summary>
-        /// <param name="i">The i.</param>
-        /// <param name="j">The j.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        public static double GetAngle(double i, double j)
-            => Tau + (j > 0.0 ? 1.0 : -1.0) * Acos(i / Sqrt(i * i + j * j)) % Tau;
-        #endregion Angle of a Vector
-
-        #region Angle of Two 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle of Two 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(Angle2DTests))]
-        public static List<SpeedTester> Angle2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => Angle(0, 0, 1, 1),
-                $"{nameof(Experiments.Angle)}(0, 0, 1, 1)")
-           };
-
-        /// <summary>
-        /// Returns the Angle of a line.
-        /// </summary>
-        /// <param name="x1">Horizontal Component of Point Starting Point</param>
-        /// <param name="y1">Vertical Component of Point Starting Point</param>
-        /// <param name="x2">Horizontal Component of Ending Point</param>
-        /// <param name="y2">Vertical Component of Ending Point</param>
-        /// <returns>Returns the Angle of a line.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Angle(
-            double x1, double y1,
-            double x2, double y2)
-            => Atan2(y1 - y2, x1 - x2);
-        #endregion Angle of Two 2D Points
-
-        #region Angle of Two 3D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle of Two 3D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(Angle3DTests))]
-        public static List<SpeedTester> Angle3DTests() => new List<SpeedTester> {
-                new SpeedTester(() => Angle(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.Angle)}(0, 0, 0, 1, 1, 1)")
-           };
-
-        /// <summary>
-        /// The angle.
-        /// </summary>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="z1">The z1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="z2">The z2.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.codeproject.com/Articles/17425/A-Vector-Type-for-C</remarks>
-        public static double Angle(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2)
-            => (Abs(x1 - x2) < DoubleEpsilon
-            && Abs(y1 - y2) < DoubleEpsilon
-            && Abs(z1 - z2) < DoubleEpsilon)
-            ? 0 : Acos(Min(1.0d, DotProduct(Normalize(x1, y1, z1), Normalize(x2, y2, z2))));
-        #endregion Angle of Two 3D Points
-
-        #region Angle of The Vector of Three 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle of three 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(Angle3Points2DTests))]
-        public static List<SpeedTester> Angle3Points2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => AngleVector_0(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.AngleVector_0)}(0, 0, 1, 0, 1, 1)"),
-                 new SpeedTester(() => AngleVector_1(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.AngleVector_1)}(0, 0, 1, 0, 1, 1)")
-           };
-
-        /// <summary>
-        /// The angle vector 0.
-        /// </summary>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="x3">The x3.</param>
-        /// <param name="y3">The y3.</param>
-        /// <returns>
-        /// The <see cref="double"/>.
-        /// Return the angle ABC.
-        /// Return a value between PI and -PI.
-        /// Note that the value is the opposite of what you might
-        /// expect because Y coordinates increase downward.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double AngleVector_0(
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3)
-            => Atan2(CrossProductVector2D_0(x1, y1, x2, y2, x3, y3), DotProductVector2D_0(x1, y1, x2, y2, x3, y3));
-
-        /// <summary>
-        /// The angle vector 1.
-        /// </summary>
-        /// <param name="aX">The aX.</param>
-        /// <param name="aY">The aY.</param>
-        /// <param name="bX">The bX.</param>
-        /// <param name="bY">The bY.</param>
-        /// <param name="cX">The cX.</param>
-        /// <param name="cY">The cY.</param>
-        /// <returns>
-        /// The <see cref="double"/>.
-        /// Return the angle ABC.
-        /// Return a value between PI and -PI.
-        /// Note that the value is the opposite of what you might
-        /// expect because Y coordinates increase downward.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static double AngleVector_1(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY)
-        {
-            // Get the dot product.
-            var dotProduct = DotProductVector2D_0(aX, aY, bX, bY, cX, cY);
-
-            // Get the cross product.
-            var crossProduct = CrossProductVector2D_0(aX, aY, bX, bY, cX, cY);
-
-            // Calculate the angle.
-            return Atan2(crossProduct, dotProduct);
-        }
-        #endregion Angle of The Vector of Three 2D Points
-
-        #region Area of Polygon
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the area of a polygon.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(PolygonAreaTests))]
-        public static List<SpeedTester> PolygonAreaTests() => new List<SpeedTester> {
-                new SpeedTester(() => PolygonArea00(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
-                $"{nameof(Experiments.PolygonArea00)}(new List<Point2D> {{ new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }})"),
-                new SpeedTester(() => PolygonArea0(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
-                $"{nameof(Experiments.PolygonArea0)}(new List<Point2D> {{ new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }})"),
-                new SpeedTester(() => PolygonArea1(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
-                $"{nameof(Experiments.PolygonArea1)}(new List<Point2D> {{ new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }})"),
-                new SpeedTester(() => PolygonArea2(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
-                $"{nameof(Experiments.PolygonArea2)}(new List<Point2D> {{ new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }})"),
-                new SpeedTester(() => PolygonArea3(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
-                $"{nameof(Experiments.PolygonArea3)}(new List<Point2D> {{ new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }})"),
-                new SpeedTester(() => PolygonArea4(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
-                $"{nameof(Experiments.PolygonArea4)}(new List<Point2D> {{ new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }})"),
-                new SpeedTester(() => PolygonArea5(new List<Point2D> { new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }),
-                $"{nameof(Experiments.PolygonArea5)}(new List<Point2D> {{ new Point2D(0, 0), new Point2D(1, 0), new Point2D(1, 1) }})")
-          };
-
-        /// <summary>
-        /// The polygon area00.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>From http://www.angusj.com</remarks>
-        public static double PolygonArea00(List<Point2D> polygon)
-        {
-            var cnt = polygon.Count;
-            if (cnt < 3) return 0;
-            double area = 0;
-            for (int i = 0, j = cnt - 1; i < cnt; ++i)
-            {
-                area += (polygon[j].X + polygon[i].X) * (polygon[j].Y - polygon[i].Y);
-                j = i;
-            }
-
-            return -area * 0.5;
-        }
-
-        /// <summary>
-        /// The polygon area0.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://alienryderflex.com/polygon_area/</remarks>
-        public static double PolygonArea0(IEnumerable<Point2D> polygon)
-        {
-            var points = polygon as List<Point2D>;
-            var j = points.Count - 1;
-            var area = 0d;
-            for (var i = 0; i < points.Count; i++)
-            {
-                area += (points[j].X + points[i].X) * (points[j].Y - points[i].Y); j = i;
-            }
-
-            return area * 0.5d;
-        }
-
-        /// <summary>
-        /// The polygon area1.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://paulbourke.net/geometry/polygonmesh/source1.c</remarks>
-        public static double PolygonArea1(List<Point2D> polygon)
-        {
-            int i, j;
-            double area = 0;
-
-            for (i = 0; i < polygon.Count; i++)
-            {
-                j = (i + 1) % polygon.Count;
-                area += polygon[i].X * polygon[j].Y;
-                area -= polygon[i].Y * polygon[j].X;
-            }
-
-            area /= 2;
-            return area < 0 ? -area : area;
-        }
-
-        /// <summary>
-        /// The polygon area2.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/2034540/calculating-area-of-irregular-polygon-in-c-sharp</remarks>
-        public static double PolygonArea2(List<Point2D> polygon)
-        {
-            var points = polygon;
-
-            points.Add(points[0]);
-            return Abs(points.Take(points.Count - 1)
-               .Select((p, i) => (points[i + 1].X - p.X) * (points[i + 1].Y + p.Y))
-               .Sum() / 2);
-        }
-
-        /// <summary>
-        /// The polygon area3.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/2034540/calculating-area-of-irregular-polygon-in-c-sharp</remarks>
-        public static double PolygonArea3(List<Point2D> polygon)
-        {
-            polygon.Add(polygon[0]);
-            return Abs(polygon.Take(polygon.Count - 1).Select((p, i) => (p.X * polygon[i + 1].Y) - (p.Y * polygon[i + 1].X)).Sum() / 2);
-        }
-
-        /// <summary>
-        /// The polygon area4.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        public static double PolygonArea4(List<Point2D> polygon)
-        {
-            if (polygon.Count < 3)
-            {
-                return 0;
-            }
-            var area = Determinant(polygon[polygon.Count - 1].X, polygon[polygon.Count - 1].Y, polygon[0].X, polygon[0].Y);
-            for (var i = 1; i < polygon.Count; i++)
-            {
-                area += Determinant(polygon[i - 1].X, polygon[i - 1].Y, polygon[i].X, polygon[i].Y);
-            }
-            return area / 2;
-        }
-
-        /// <summary>
-        /// Return the polygon's area in "square units."
-        /// Add the areas of the trapezoids defined by the
-        /// polygon's edges dropped to the X-axis. When the
-        /// program considers a bottom edge of a polygon, the
-        /// calculation gives a negative area so the space
-        /// between the polygon and the axis is subtracted,
-        /// leaving the polygon's area. This method gives odd
-        /// results for non-simple polygons.
-        /// </summary>
-        /// <param name="polygon">todo: describe polygon parameter on PolygonArea5</param>
-        /// <returns>
-        /// Return the absolute value of the signed area.
-        /// The signed area is negative if the polygon is
-        /// oriented clockwise.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static double PolygonArea5(IEnumerable<Point2D> polygon)
-            => Abs(SignedPolygonArea5(polygon as List<Point2D>));
-
-        /// <summary>
-        /// Return the polygon's area in "square units."
-        /// Add the areas of the trapezoids defined by the
-        /// polygon's edges dropped to the X-axis. When the
-        /// program considers a bottom edge of a polygon, the
-        /// calculation gives a negative area so the space
-        /// between the polygon and the axis is subtracted,
-        /// leaving the polygon's area. This method gives odd
-        /// results for non-simple polygons.
-        /// The value will be negative if the polygon is
-        /// oriented clockwise.
-        /// </summary>
-        /// <param name="polygon">todo: describe polygon parameter on PolygonArea5</param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static double SignedPolygonArea5(List<Point2D> polygon)
-        {
-            // Add the first point to the end.
-            var num_points = polygon.Count;
-            var pts = new Point2D[num_points + 1];
-            polygon.CopyTo(pts, 0);
-            pts[num_points] = polygon[0];
-
-            // Get the areas.
-            double area = 0;
-            for (var i = 0; i < num_points; i++)
-            {
-                area +=
-                    (pts[i + 1].X - pts[i].X)
-                    * (pts[i + 1].Y + pts[i].Y) / 2;
-            }
-
-            // Return the result.
-            return area;
-        }
-        #endregion Area of Polygon
-
-        #region Area of The Intersection of Two Circles
-        /// <summary>
-        /// The area.
-        /// </summary>
-        /// <param name="A">The A.</param>
-        /// <param name="B">The B.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.xarg.org/2016/07/calculate-the-intersection-area-of-two-circles/
-        /// </remarks>
-        public static double Area(Circle A, Circle B)
-        {
-            var d = Sqrt(Pow(B.X - A.X, 2) + Pow(B.Y - A.Y, 2));
-            if (d < A.Radius + B.Radius)
-            {
-                var a = A.Radius * A.Radius;
-                var b = B.Radius * B.Radius;
-                var x = (a - b + d * d) / (2 * d);
-                var z = x * x;
-                var y = Sqrt(a - z);
-                if (d < Abs(B.Radius - A.Radius))
-                {
-                    return PI * Min(a, b);
-                }
-
-                return a * Asin(y / A.Radius) + b * Asin(y / B.Radius) - y * (x + Sqrt(z + b - a));
-            }
-
-            return 0;
-        }
-        #endregion Area of The Intersection of Two Circles
-
-        #region Array Trim
-        /// <summary>
-        /// The real order super lloyd.
-        /// </summary>
-        /// <param name="coefficients">The coefficients.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="int"/>.</returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int RealOrderSuperLloyd(double[] coefficients, double epsilon = Epsilon)
-        {
-            if (coefficients is null)
-            {
-                return 0;
-            }
-
-            var order = 0;
-            for (var i = 0; i < coefficients.Length; i++)
-            {
-                if (Abs(coefficients[i]) > Epsilon)
-                {
-                    order = i;
-                }
-            }
-
-            return order;
-        }
-
-        /// <summary>
-        /// Calculates the real order or degree of the polynomial.
-        /// Or rather, locates where to trim off any leading zero coefficients.
-        /// </summary>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
-        /// and Trim and RealOrder from: https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static PolynomialDegree RealOrder(double[] coefficients, double epsilon = Epsilon)
-        {
-            var pos = 1;
-            var count = coefficients.Length;
-
-            // Monomial can be a zero constant, skip them and check the rest.
-            if (count > 1)
-            {
-                // Count the number of leading zeros. Because the coefficients array is reversed, start at the end.
-                for (var i = count - 1; i >= 1 /* Monomials can be 0. */; i--)
-                {
-                    // Check if coefficient is a leading zero.
-                    if (Abs(coefficients[i]) <= epsilon)
-                    {
-                        pos++;
-                    }
-                    else
-                    {
-                        // Break early if a non zero value was found. This indicates the end of any leading zeros.
-                        break;
-                    }
-                }
-            }
-
-            return (PolynomialDegree)(coefficients?.Length - pos ?? 0);
-        }
-        #endregion Array Trim
-
-        #region Barycentric
-        /// <summary>
-        /// Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.
-        /// </summary>
-        /// <param name="value1">The coordinate on one axis of vertex 1 of the defining triangle.</param>
-        /// <param name="value2">The coordinate on the same axis of vertex 2 of the defining triangle.</param>
-        /// <param name="value3">The coordinate on the same axis of vertex 3 of the defining triangle.</param>
-        /// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
-        /// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
-        /// <returns>Cartesian coordinate of the specified point with respect to the axis being used.</returns>
-        public static double Barycentric(float value1, double value2, double value3, double amount1, double amount2)
-                => value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
-        #endregion Barycentric
-
-        #region Bézier Coefficients
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the Polynomial Bezier Coefficients.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(PolynomialBezierCoefficients))]
-        public static List<SpeedTester> PolynomialBezierCoefficients() => new List<SpeedTester> {
-                new SpeedTester(() => BezierCoefficientsRecursive(1, 2, 3, 4),
-                $"{nameof(Experiments.BezierCoefficientsRecursive)}(1, 2, 3, 4)"),
-                new SpeedTester(() => (Polynomial)BezierCoefficients0(1, 2, 3, 4),
-                $"{nameof(Experiments.BezierCoefficients0)}(1, 2, 3, 4)"),
-                new SpeedTester(() => (Polynomial)BezierCoefficients1(1, 2, 3, 4),
-                $"{nameof(Experiments.BezierCoefficients1)}(1, 2, 3, 4)"),
-                new SpeedTester(() => Cubic(1, 2, 3, 4),
-                $"{nameof(Experiments.Cubic)}(1, 2, 3, 4)"),
-          };
-
-        /// <summary>
-        /// Recursive method for calculating the Bezier Polynomial.
-        /// </summary>
-        /// <param name="values"></param>
-        /// <returns></returns>
-
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial BezierCoefficientsRecursive(params double[] values)
-        {
-            if (values is null || values.Length < 1)
-            {
-                throw new ArgumentNullException(nameof(values), "At least 2 different points must be given");
-            }
-
-            return BezierCoefficientsRecursive(0, values.Length - 1, values);
-        }
-
-        /// <summary>
-        /// Internal Recursive method for calculating the Bezier Polynomial.
-        /// </summary>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <param name="values"></param>
-        /// <returns></returns>
-
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Polynomial BezierCoefficientsRecursive(int from, int to, double[] values)
-            => (from == to)
-            ? new Polynomial(values[from])
-            : Polynomial.OneMinusT * BezierCoefficientsRecursive(from, to - 1, values) + Polynomial.T * BezierCoefficientsRecursive(from + 1, to, values);
-
-        /// <summary>
-        /// Coefficients for a Cubic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
-
-        /// <acknowledgment>
-        /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
-        /// http://fontforge.github.io/bezier.html
-        /// http://idav.ucdavis.edu/education/CAGDNotes/Matrix-Cubic-Bezier-Curve/Matrix-Cubic-Bezier-Curve.html
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) BezierCoefficients0(double a, double b, double c, double d)
-            => (d - (3d * c) + (3d * b) - a,
-                (3d * c) - (6d * b) + (3d * a),
-                3d * (b - a),
-                a);
-
-        /// <summary>
-        /// The bezier coefficients1.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
-        /// <remarks>
-        /// https://www.particleincell.com/2013/cubic-line-intersection/
-        /// </remarks>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) BezierCoefficients1(double a, double b, double c, double d)
-            => (-a + 3d * b + -3d * c + d,
-                3d * a - 6d * b + 3d * c,
-                -3d * a + 3d * b,
-                a);
-
-        /// <summary>
-        /// Interpolate the polynomial of a Linear Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Linear(double a, double b)
-            => Polynomial.OneMinusT * a + Polynomial.T * b;
-
-        /// <summary>
-        /// Interpolate the polynomial of a Quadratic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Quadratic(double a, double b, double c)
-            => Polynomial.OneMinusT * Linear(a, b) + Polynomial.T * Linear(b, c);
-
-        /// <summary>
-        /// Interpolate the polynomial of a Cubic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Cubic(double a, double b, double c, double d)
-            => Polynomial.OneMinusT * Quadratic(a, b, c) + Polynomial.T * Quadratic(b, c, d);
-
-        /// <summary>
-        /// Interpolate the polynomial of a Quartic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Quartic(double a, double b, double c, double d, double e)
-            => Polynomial.OneMinusT * Cubic(a, b, c, d) + Polynomial.T * Cubic(b, c, d, e);
-
-        /// <summary>
-        /// Interpolate the polynomial of a Quintic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Quintic(double a, double b, double c, double d, double e, double f)
-            => Polynomial.OneMinusT * Quartic(a, b, c, d, e) + Polynomial.T * Quartic(b, c, d, e, f);
-
-        /// <summary>
-        /// Interpolate the polynomial of a Sextic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Sextic(double a, double b, double c, double d, double e, double f, double g)
-            => Polynomial.OneMinusT * Quintic(a, b, c, d, e, f) + Polynomial.T * Quintic(b, c, d, e, f, g);
-
-        /// <summary>
-        /// Interpolate the polynomial of a Septic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Septic(double a, double b, double c, double d, double e, double f, double g, double h)
-            => Polynomial.OneMinusT * Sextic(a, b, c, d, e, f, g) + Polynomial.T * Sextic(b, c, d, e, f, g, h);
-
-        /// <summary>
-        /// Interpolate the polynomial of a Octic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <param name="g"></param>
-        /// <param name="h"></param>
-        /// <param name="i"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// https://github.com/superlloyd/Poly
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Polynomial Octic(double a, double b, double c, double d, double e, double f, double g, double h, double i)
-            => Polynomial.OneMinusT * Septic(a, b, c, d, e, f, g, h) + Polynomial.T * Septic(b, c, d, e, f, g, h, i);
-        #endregion Bézier Coefficients
-
         #region Boundaries of Polygons
         /// <summary>
         /// Get the bounds.
@@ -867,8 +39,16 @@ namespace MethodSpeedTester
         {
             var i = 0;
             var cnt = paths.Count;
-            while (i < cnt && paths[i].Count == 0) i++;
-            if (i == cnt) return new Rectangle2D(0, 0, 0, 0);
+            while (i < cnt && paths[i].Count == 0)
+            {
+                i++;
+            }
+
+            if (i == cnt)
+            {
+                return new Rectangle2D(0, 0, 0, 0);
+            }
+
             var result = new Rectangle2D
             {
                 Left = paths[i][0].X
@@ -877,13 +57,29 @@ namespace MethodSpeedTester
             result.Top = paths[i][0].Y;
             result.Bottom = result.Top;
             for (; i < cnt; i++)
+            {
                 for (var j = 0; j < paths[i].Count; j++)
                 {
-                    if (paths[i][j].X < result.Left) result.Left = paths[i][j].X;
-                    else if (paths[i][j].X > result.Right) result.Right = paths[i][j].X;
-                    if (paths[i][j].Y < result.Top) result.Top = paths[i][j].Y;
-                    else if (paths[i][j].Y > result.Bottom) result.Bottom = paths[i][j].Y;
+                    if (paths[i][j].X < result.Left)
+                    {
+                        result.Left = paths[i][j].X;
+                    }
+                    else if (paths[i][j].X > result.Right)
+                    {
+                        result.Right = paths[i][j].X;
+                    }
+
+                    if (paths[i][j].Y < result.Top)
+                    {
+                        result.Top = paths[i][j].Y;
+                    }
+                    else if (paths[i][j].Y > result.Bottom)
+                    {
+                        result.Bottom = paths[i][j].Y;
+                    }
                 }
+            }
+
             return result;
         }
         #endregion Boundaries of Polygons
@@ -912,7 +108,10 @@ namespace MethodSpeedTester
         public static Rectangle2D PolygonBounds0(IEnumerable<Point2D> polygon)
         {
             var points = polygon as List<Point2D>;
-            if (points?.Count < 1) return null;
+            if (points?.Count < 1)
+            {
+                return null;
+            }
 
             var left = points[0].X;
             var top = points[0].Y;
@@ -950,562 +149,28 @@ namespace MethodSpeedTester
 
             for (var i = 0; i < path.Count; i++)
             {
-                if (path[i].X < result.Left) result.Left = path[i].X;
-                else if (path[i].X > result.Right) result.Right = path[i].X;
-                if (path[i].Y < result.Top) result.Top = path[i].Y;
-                else if (path[i].Y > result.Bottom) result.Bottom = path[i].Y;
+                if (path[i].X < result.Left)
+                {
+                    result.Left = path[i].X;
+                }
+                else if (path[i].X > result.Right)
+                {
+                    result.Right = path[i].X;
+                }
+
+                if (path[i].Y < result.Top)
+                {
+                    result.Top = path[i].Y;
+                }
+                else if (path[i].Y > result.Bottom)
+                {
+                    result.Bottom = path[i].Y;
+                }
             }
 
             return result;
         }
         #endregion Boundaries of Polygons
-
-        #region Boundary of Rotated Ellipse
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle of three 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(BoundsOfRotatedEllipseTests))]
-        public static List<SpeedTester> BoundsOfRotatedEllipseTests() => new List<SpeedTester> {
-                new SpeedTester(() => EllipseBoundingBox(5, 5, 5, 4, 45d.ToRadians()),
-                $"{nameof(Experiments.EllipseBoundingBox)}(5, 5, 5, 4, {45d.ToRadians()})"),
-                 new SpeedTester(() => EllipseBounds(5, 5, 5, 4, 45d.ToRadians()),
-                $"{nameof(Experiments.EllipseBounds)}(5, 5, 5, 4, {45d.ToRadians()})")
-           };
-
-        /// <summary>
-        /// The ellipse bounding box.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="r1">The r1.</param>
-        /// <param name="r2">The r2.</param>
-        /// <param name="angle">The angle.</param>
-        /// <returns>The <see cref="Rectangle2D"/>.</returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Rectangle2D EllipseBoundingBox(double x, double y, int r1, int r2, double angle)
-        {
-            var a = r1 * Cos(angle);
-            var b = r2 * Sin(angle);
-            var c = r1 * Sin(angle);
-            var d = r2 * Cos(angle);
-            var width = Sqrt((a * a) + (b * b)) * 2;
-            var height = Sqrt((c * c) + (d * d)) * 2;
-            var x2 = x - width * 0.5;
-            var y2 = y - height * 0.5;
-            return new Rectangle2D(x2, y2, width, height);
-        }
-
-        /// <summary>
-        /// The ellipse bounds.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="r1">The r1.</param>
-        /// <param name="r2">The r2.</param>
-        /// <param name="angle">The angle.</param>
-        /// <returns>The <see cref="Rectangle2D"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D EllipseBounds(double x, double y, double r1, double r2, double angle)
-        {
-            var phi = angle;
-            var aspect = r2 / r1;
-            var ux = r1 * Cos(phi);
-            var uy = r1 * Sin(phi);
-            var vx = r1 * aspect * Cos(phi + PI / 2);
-            var vy = r1 * aspect * Sin(phi + PI / 2);
-
-            var bbox_halfwidth = Sqrt(ux * ux + vx * vx);
-            var bbox_halfheight = Sqrt(uy * uy + vy * vy);
-
-            return Rectangle2D.FromLTRB(
-                x - bbox_halfwidth,
-                y - bbox_halfheight,
-                x + bbox_halfwidth,
-                y + bbox_halfheight
-                );
-        }
-        #endregion Boundary of Rotated Ellipse
-
-        #region Boundary of Rotated Elliptical Arc
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle of three 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(BoundsOfRotatedEllipticalArcTests))]
-        public static List<SpeedTester> BoundsOfRotatedEllipticalArcTests() => new List<SpeedTester> {
-                new SpeedTester(() => Measurements.EllipticalArcBounds(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
-                $"{nameof(Measurements.EllipticalArcBounds)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
-                new SpeedTester(() => EllipticalArc0(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
-                $"{nameof(Experiments.EllipticalArc0)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
-                 new SpeedTester(() => EllipticalArc1(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
-                $"{nameof(Experiments.EllipticalArc1)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
-                 new SpeedTester(() => EllipticalArc2(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
-                $"{nameof(Experiments.EllipticalArc2)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})"),
-                 new SpeedTester(() => EllipticalArc3(200, 200, 100, 200, 30d.ToRadians(), -30d.ToRadians(), 90d.ToRadians()),
-                $"{nameof(Experiments.EllipticalArc3)}(200, 200, 100, 200, {30d.ToRadians()}, {-30d.ToRadians()}, {90d.ToRadians()})")
-           };
-
-        /// <summary>
-        /// Find the close fitting rectangular bounding box of a rotated ellipse elliptical arc.
-        /// </summary>
-        /// <param name="cX">Center x-coordinate.</param>
-        /// <param name="cY">Center y-coordinate.</param>
-        /// <param name="r1">The first radius of the Ellipse.</param>
-        /// <param name="r2">The second radius of the Ellipse.</param>
-        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startAngle">The angle to start the arc.</param>
-        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
-        /// <remarks>
-        /// Helpful hints on how this might be implemented came from:
-        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
-        /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
-        /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D EllipticalArc0(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double startAngle, double sweepAngle)
-        {
-            // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(angle);
-
-            var i = (r1 - r2) * (r1 + r2) * sinT * cosT;
-
-            // Find the angles of the Cartesian extremes.
-            var angles = new double[4] {
-                Atan2(i, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
-                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, i),
-                Atan2(i, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT) + PI,
-                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, i) + PI };
-
-            // Sort the angles so that like sides are consistently at the same index.
-            Array.Sort(angles);
-
-            // Get the start and end angles adjusted to polar coordinates.
-            var t0 = EllipticalPolarAngle(startAngle, r1, r2);
-            var t1 = EllipticalPolarAngle(startAngle + sweepAngle, r1, r2);
-
-            // Interpolate the ratios of height and width of the chord.
-            var sinT0 = Sin(t0);
-            var cosT0 = Cos(t0);
-            var sinT1 = Sin(t1);
-            var cosT1 = Cos(t1);
-
-            // Get the end points of the chord.
-            var bounds = new Rectangle2D(
-                // Apply the rotation transformation and translate to new center.
-                new Point2D(
-                    cX + (r1 * cosT0 * cosT - r2 * sinT0 * sinT),
-                    cY + (r1 * cosT0 * sinT + r2 * sinT0 * cosT)),
-                // Apply the rotation transformation and translate to new center.
-                new Point2D(
-                    cX + (r1 * cosT1 * cosT - r2 * sinT1 * sinT),
-                    cY + (r1 * cosT1 * sinT + r2 * sinT1 * cosT)));
-
-            // Find the parent ellipse's horizontal and vertical radii extremes.
-            var halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
-            var halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
-
-            // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
-                bounds.Right = cX + halfWidth;
-            if (Intersections.Within(angles[1], angle + startAngle, sweepAngle))
-                bounds.Bottom = cY + halfHeight;
-            if (Intersections.Within(angles[2], angle + startAngle, sweepAngle))
-                bounds.Left = cX - halfWidth;
-            if (Intersections.Within(angles[3], angle + startAngle, sweepAngle))
-                bounds.Top = cY - halfHeight;
-
-            // Return the points of the Cartesian extremes of the rotated elliptical arc.
-            return bounds;
-        }
-
-        /// <summary>
-        /// Find the close fitting rectangular bounding box of a rotated ellipse elliptical arc.
-        /// </summary>
-        /// <param name="cX">Center x-coordinate.</param>
-        /// <param name="cY">Center y-coordinate.</param>
-        /// <param name="r1">The first radius of the Ellipse.</param>
-        /// <param name="r2">The second radius of the Ellipse.</param>
-        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startAngle">The angle to start the arc.</param>
-        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
-        /// <remarks>
-        /// Helpful hints on how this might be implemented came from:
-        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
-        /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
-        /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D EllipticalArc1(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double startAngle, double sweepAngle)
-        {
-            // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(angle);
-
-            // Find the angles of the Cartesian extremes.
-            var angles = new double[4] {
-                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
-                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT),
-                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT) + PI,
-                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT) + PI };
-
-            // Sort the angles so that like sides are consistently at the same index.
-            Array.Sort(angles);
-
-            // Get the start and end angles adjusted to polar coordinates.
-            var t0 = EllipticalPolarAngle(startAngle, r1, r2);
-            var t1 = EllipticalPolarAngle(startAngle + sweepAngle, r1, r2);
-
-            // Interpolate the ratios of height and width of the chord.
-            var sinT0 = Sin(t0);
-            var cosT0 = Cos(t0);
-            var sinT1 = Sin(t1);
-            var cosT1 = Cos(t1);
-
-            // Get the end points of the chord.
-            var bounds = new Rectangle2D(
-                // Apply the rotation transformation and translate to new center.
-                new Point2D(
-                    cX + (r1 * cosT0 * cosT - r2 * sinT0 * sinT),
-                    cY + (r1 * cosT0 * sinT + r2 * sinT0 * cosT)),
-                // Apply the rotation transformation and translate to new center.
-                new Point2D(
-                    cX + (r1 * cosT1 * cosT - r2 * sinT1 * sinT),
-                    cY + (r1 * cosT1 * sinT + r2 * sinT1 * cosT)));
-
-            // Find the parent ellipse's horizontal and vertical radii extremes.
-            var halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
-            var halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
-
-            // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
-                bounds.Right = cX + halfWidth;
-            if (Intersections.Within(angles[1], angle + startAngle, sweepAngle))
-                bounds.Bottom = cY + halfHeight;
-            if (Intersections.Within(angles[2], angle + startAngle, sweepAngle))
-                bounds.Left = cX - halfWidth;
-            if (Intersections.Within(angles[3], angle + startAngle, sweepAngle))
-                bounds.Top = cY - halfHeight;
-
-            // Return the points of the Cartesian extremes of the rotated elliptical arc.
-            return bounds;
-        }
-
-        /// <summary>
-        /// Find the close fitting rectangular bounding box of a rotated ellipse elliptical arc.
-        /// </summary>
-        /// <param name="cX">Center x-coordinate.</param>
-        /// <param name="cY">Center y-coordinate.</param>
-        /// <param name="r1">The first radius of the Ellipse.</param>
-        /// <param name="r2">The second radius of the Ellipse.</param>
-        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startAngle">The angle to start the arc.</param>
-        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
-        /// <remarks>
-        /// Helpful hints on how this might be implemented came from:
-        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
-        /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
-        /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D EllipticalArc2(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double startAngle, double sweepAngle)
-        {
-            // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(angle);
-
-            // Find the angles of the Cartesian extremes.
-            var angles = new List<double>(4) {
-                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
-                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT),
-                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT) + PI,
-                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT) + PI };
-
-            // Sort the angles so that like sides are consistently at the same index.
-            angles.Sort();
-
-            // Calculate the radii of the angle of rotation.
-            var a = r1 * cosT;
-            var b = r2 * sinT;
-            var c = r1 * sinT;
-            var d = r2 * cosT;
-
-            // Find the parent ellipse's horizontal and vertical radii extremes.
-            var halfWidth = Sqrt((a * a) + (b * b));
-            var halfHeight = Sqrt((c * c) + (d * d));
-
-            // Get the end points of the chord.
-            var bounds = new Rectangle2D(
-                Interpolators.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 0),
-                Interpolators.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
-
-            // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
-                bounds.Right = cX + halfWidth;
-            if (Intersections.Within(angles[1], angle + startAngle, sweepAngle))
-                bounds.Bottom = cY + halfHeight;
-            if (Intersections.Within(angles[2], angle + startAngle, sweepAngle))
-                bounds.Left = cX - halfWidth;
-            if (Intersections.Within(angles[3], angle + startAngle, sweepAngle))
-                bounds.Top = cY - halfHeight;
-
-            // Return the points of the Cartesian extremes of the rotated elliptical arc.
-            return bounds;
-        }
-
-        /// <summary>
-        /// Find the close fitting rectangular bounding box of a rotated ellipse elliptical arc.
-        /// </summary>
-        /// <param name="cX">Center x-coordinate.</param>
-        /// <param name="cY">Center y-coordinate.</param>
-        /// <param name="r1">The first radius of the Ellipse.</param>
-        /// <param name="r2">The second radius of the Ellipse.</param>
-        /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
-        /// <param name="startAngle">The angle to start the arc.</param>
-        /// <param name="sweepAngle">The difference of the angle to where the arc should end.</param>
-        /// <returns>The close bounding box of a rotated elliptical arc.</returns>
-        /// <remarks>
-        /// Helpful hints on how this might be implemented came from:
-        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html,
-        /// http://bazaar.launchpad.net/~inkscape.dev/inkscape/trunk/view/head:/src/2geom/elliptical-arc.cpp
-        /// and http://stackoverflow.com/questions/87734/how-do-you-calculate-the-axis-aligned-bounding-box-of-an-ellipse
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D EllipticalArc3(
-            double cX, double cY,
-            double r1, double r2,
-            double angle,
-            double startAngle, double sweepAngle)
-        {
-            // Get the ellipse rotation transform.
-            var cosT = Cos(angle);
-            var sinT = Sin(angle);
-
-            // Calculate the radii of the angle of rotation.
-            var a = r1 * cosT;
-            var b = r2 * sinT;
-            var c = r1 * sinT;
-            var d = r2 * cosT;
-
-            // Calculate the vectors of the Cartesian extremes.
-            var u1 = r1 * Cos(Atan2(d, c));
-            var v1 = -(r2 * Sin(Atan2(d, c)));
-            var u2 = r1 * Cos(Atan2(-b, a));
-            var v2 = -(r2 * Sin(Atan2(-b, a)));
-
-            // Find the angles of the Cartesian extremes.
-            var angles = new List<double>(4) {
-                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
-                Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
-                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI,
-                Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI };
-
-            // Sort the angles so that like sides are consistently at the same index.
-            angles.Sort();
-
-            // Find the parent ellipse's horizontal and vertical radii extremes.
-            var halfWidth = Sqrt((a * a) + (b * b));
-            var halfHeight = Sqrt((c * c) + (d * d));
-
-            // Get the end points of the chord.
-            var bounds = new Rectangle2D(
-                Interpolators.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 0),
-                Interpolators.EllipticalArc(cX, cY, r1, r2, angle, startAngle, sweepAngle, 1));
-
-            // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
-                bounds.Right = cX + halfWidth;
-            if (Intersections.Within(angles[1], angle + startAngle, sweepAngle))
-                bounds.Bottom = cY + halfHeight;
-            if (Intersections.Within(angles[2], angle + startAngle, sweepAngle))
-                bounds.Left = cX - halfWidth;
-            if (Intersections.Within(angles[3], angle + startAngle, sweepAngle))
-                bounds.Top = cY - halfHeight;
-
-            // Return the points of the Cartesian extremes of the rotated elliptical arc.
-            return bounds;
-        }
-
-        /// <summary>
-        /// The ellptic arc.
-        /// </summary>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="r1">The r1.</param>
-        /// <param name="r2">The r2.</param>
-        /// <param name="angle">The angle.</param>
-        /// <param name="largeArc">The largeArc.</param>
-        /// <param name="sweep">The sweep.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <returns>The <see cref="Rectangle2D"/>.</returns>
-        /// <remarks>
-        /// http://fridrich.blogspot.com/2011/06/bounding-box-of-svg-elliptical-arc.html
-        /// </remarks>
-        public static Rectangle2D EllpticArc(
-            double x1, double y1,
-            double r1, double r2,
-            double angle,
-            bool largeArc, bool sweep,
-            double x2, double y2)
-        {
-            double xmin;
-            double ymin;
-            double xmax;
-            double ymax;
-
-            if (r1 < 0d)
-                r1 *= -1d;
-            if (r2 < 0d)
-                r2 *= -1d;
-
-            if (r1 == 0d || r2 == 0d)
-            {
-                xmin = x1 < x2 ? x1 : x2;
-                xmax = x1 > x2 ? x1 : x2;
-                ymin = y1 < y2 ? y1 : y2;
-                ymax = y1 > y2 ? y1 : y2;
-                return Rectangle2D.FromLTRB(xmin, ymin, xmax, ymax);
-            }
-
-            var x1prime = Cos(angle) * (x1 - x2) / 2 + Sin(angle) * (y1 - y2) / 2;
-            var y1prime = -Sin(angle) * (x1 - x2) / 2 + Cos(angle) * (y1 - y2) / 2;
-
-            var radicant = r1 * r1 * r2 * r2 - r1 * r1 * y1prime * y1prime - r2 * r2 * x1prime * x1prime;
-            radicant /= r1 * r1 * y1prime * y1prime + r2 * r2 * x1prime * x1prime;
-            var cxprime = 0d;
-            var cyprime = 0d;
-            if (radicant < 0d)
-            {
-                var ratio = r1 / r2;
-                radicant = y1prime * y1prime + x1prime * x1prime / (ratio * ratio);
-                if (radicant < 0d)
-                {
-                    xmin = x1 < x2 ? x1 : x2;
-                    xmax = x1 > x2 ? x1 : x2;
-                    ymin = y1 < y2 ? y1 : y2;
-                    ymax = y1 > y2 ? y1 : y2;
-                    return Rectangle2D.FromLTRB(xmin, ymin, xmax, ymax);
-                }
-                r2 = Sqrt(radicant);
-                r1 = ratio * r2;
-            }
-            else
-            {
-                var factor = (largeArc == sweep ? -1.0 : 1.0) * Sqrt(radicant);
-
-                cxprime = factor * r1 * y1prime / r2;
-                cyprime = -factor * r2 * x1prime / r1;
-            }
-
-            var cx = cxprime * Cos(angle) - cyprime * Sin(angle) + (x1 + x2) / 2;
-            var cy = cxprime * Sin(angle) + cyprime * Cos(angle) + (y1 + y2) / 2;
-
-            double txmin, txmax, tymin, tymax;
-
-            if (angle == 0 || angle == PI)
-            {
-                xmin = cx - r1;
-                txmin = GetAngle(-r1, 0);
-                xmax = cx + r1;
-                txmax = GetAngle(r1, 0);
-                ymin = cy - r2;
-                tymin = GetAngle(0, -r2);
-                ymax = cy + r2;
-                tymax = GetAngle(0, r2);
-            }
-            else if (angle == PI / 2.0 || angle == 3.0 * PI / 2.0)
-            {
-                xmin = cx - r2;
-                txmin = GetAngle(-r2, 0);
-                xmax = cx + r2;
-                txmax = GetAngle(r2, 0);
-                ymin = cy - r1;
-                tymin = GetAngle(0, -r1);
-                ymax = cy + r1;
-                tymax = GetAngle(0, r1);
-            }
-            else
-            {
-                txmin = -Atan(r2 * Tan(angle) / r1);
-                txmax = PI - Atan(r2 * Tan(angle) / r1);
-                xmin = cx + r1 * Cos(txmin) * Cos(angle) - r2 * Sin(txmin) * Sin(angle);
-                xmax = cx + r1 * Cos(txmax) * Cos(angle) - r2 * Sin(txmax) * Sin(angle);
-                if (xmin > xmax)
-                {
-                    Swap(ref xmin, ref xmax);
-                    Swap(ref txmin, ref txmax);
-                }
-                var tmpY = cy + r1 * Cos(txmin) * Sin(angle) + r2 * Sin(txmin) * Cos(angle);
-                txmin = GetAngle(xmin - cx, tmpY - cy);
-                tmpY = cy + r1 * Cos(txmax) * Sin(angle) + r2 * Sin(txmax) * Cos(angle);
-                txmax = GetAngle(xmax - cx, tmpY - cy);
-
-                tymin = Atan(r2 / (Tan(angle) * r1));
-                tymax = Atan(r2 / (Tan(angle) * r1)) + PI;
-                ymin = cy + r1 * Cos(tymin) * Sin(angle) + r2 * Sin(tymin) * Cos(angle);
-                ymax = cy + r1 * Cos(tymax) * Sin(angle) + r2 * Sin(tymax) * Cos(angle);
-                if (ymin > ymax)
-                {
-                    Swap(ref ymin, ref ymax);
-                    Swap(ref tymin, ref tymax);
-                }
-                var tmpX = cx + r1 * Cos(tymin) * Cos(angle) - r2 * Sin(tymin) * Sin(angle);
-                tymin = GetAngle(tmpX - cx, ymin - cy);
-                tmpX = cx + r1 * Cos(tymax) * Cos(angle) - r2 * Sin(tymax) * Sin(angle);
-                tymax = GetAngle(tmpX - cx, ymax - cy);
-            }
-
-            var angle1 = GetAngle(x1 - cx, y1 - cy);
-            var angle2 = GetAngle(x2 - cx, y2 - cy);
-
-            if (!sweep)
-                Swap(ref angle1, ref angle2);
-
-            var otherArc = false;
-            if (angle1 > angle2)
-            {
-                Swap(ref angle1, ref angle2);
-                otherArc = true;
-            }
-
-            if ((!otherArc && (angle1 > txmin || angle2 < txmin)) || (otherArc && !(angle1 > txmin || angle2 < txmin)))
-                xmin = x1 < x2 ? x1 : x2;
-            if ((!otherArc && (angle1 > txmax || angle2 < txmax)) || (otherArc && !(angle1 > txmax || angle2 < txmax)))
-                xmax = x1 > x2 ? x1 : x2;
-            if ((!otherArc && (angle1 > tymin || angle2 < tymin)) || (otherArc && !(angle1 > tymin || angle2 < tymin)))
-                ymin = y1 < y2 ? y1 : y2;
-            if ((!otherArc && (angle1 > tymax || angle2 < tymax)) || (otherArc && !(angle1 > tymax || angle2 < tymax)))
-                ymax = y1 > y2 ? y1 : y2;
-
-            return Rectangle2D.FromLTRB(xmin, ymin, xmax, ymax);
-        }
-        #endregion Boundary of Rotated Elliptical Arc
 
         #region Boundary of Cubic Bézier
         /// <summary>
@@ -1546,11 +211,11 @@ namespace MethodSpeedTester
         /// <param name="p2">The p2.</param>
         /// <param name="p3">The p3.</param>
         /// <returns>The <see cref="Rectangle2D"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
         /// http://floris.briolas.nl/floris/2009/10/bounding-box-of-cubic-bezier/
         /// http://jsfiddle.net/SalixAlba/QQnvm/4/
-        /// </remarks>
+        /// </acknowledgment>
         public static Rectangle2D CubicBezierBounds2(Point2D p0, Point2D p1, Point2D p2, Point2D p3)
         {
             var a = 3 * p3.X - 9 * p2.X + 9 * p1.X - 3 * p0.X;
@@ -1560,8 +225,16 @@ namespace MethodSpeedTester
             var disc = b * b - 4 * a * c;
             var xl = p0.X;
             var xh = p0.X;
-            if (p3.X < xl) xl = p3.X;
-            if (p3.X > xh) xh = p3.X;
+            if (p3.X < xl)
+            {
+                xl = p3.X;
+            }
+
+            if (p3.X > xh)
+            {
+                xh = p3.X;
+            }
+
             if (disc >= 0)
             {
                 var t1 = (-b + Sqrt(disc)) / (2 * a);
@@ -1569,8 +242,15 @@ namespace MethodSpeedTester
                 if (t1 > 0 && t1 < 1)
                 {
                     var x1 = Interpolators.Cubic(p0.X, p1.X, p2.X, p3.X, t1);
-                    if (x1 < xl) xl = x1;
-                    if (x1 > xh) xh = x1;
+                    if (x1 < xl)
+                    {
+                        xl = x1;
+                    }
+
+                    if (x1 > xh)
+                    {
+                        xh = x1;
+                    }
                 }
 
                 var t2 = (-b - Sqrt(disc)) / (2 * a);
@@ -1578,8 +258,15 @@ namespace MethodSpeedTester
                 if (t2 > 0 && t2 < 1)
                 {
                     var x2 = Interpolators.Cubic(p0.X, p1.X, p2.X, p3.X, t2);
-                    if (x2 < xl) xl = x2;
-                    if (x2 > xh) xh = x2;
+                    if (x2 < xl)
+                    {
+                        xl = x2;
+                    }
+
+                    if (x2 > xh)
+                    {
+                        xh = x2;
+                    }
                 }
             }
 
@@ -1589,8 +276,16 @@ namespace MethodSpeedTester
             disc = b * b - 4 * a * c;
             var yl = p0.Y;
             var yh = p0.Y;
-            if (p3.Y < yl) yl = p3.Y;
-            if (p3.Y > yh) yh = p3.Y;
+            if (p3.Y < yl)
+            {
+                yl = p3.Y;
+            }
+
+            if (p3.Y > yh)
+            {
+                yh = p3.Y;
+            }
+
             if (disc >= 0)
             {
                 var t1 = (-b + Sqrt(disc)) / (2 * a);
@@ -1598,8 +293,15 @@ namespace MethodSpeedTester
                 if (t1 > 0 && t1 < 1)
                 {
                     var y1 = Interpolators.Cubic(p0.Y, p1.Y, p2.Y, p3.Y, t1);
-                    if (y1 < yl) yl = y1;
-                    if (y1 > yh) yh = y1;
+                    if (y1 < yl)
+                    {
+                        yl = y1;
+                    }
+
+                    if (y1 > yh)
+                    {
+                        yh = y1;
+                    }
                 }
 
                 var t2 = (-b - Sqrt(disc)) / (2 * a);
@@ -1607,15 +309,22 @@ namespace MethodSpeedTester
                 if (t2 > 0 && t2 < 1)
                 {
                     var y2 = Interpolators.Cubic(p0.Y, p1.Y, p2.Y, p3.Y, t2);
-                    if (y2 < yl) yl = y2;
-                    if (y2 > yh) yh = y2;
+                    if (y2 < yl)
+                    {
+                        yl = y2;
+                    }
+
+                    if (y2 > yh)
+                    {
+                        yh = y2;
+                    }
                 }
             }
 
             return new Rectangle2D(xl, xh, yl, yh);
         }
 
-        //private static double evalBez(double p0, double p1, double p2, double p3, double t)
+        //public static double evalBez(double p0, double p1, double p2, double p3, double t)
         //{
         //    return p0 * (1 - t) * (1 - t) * (1 - t) + 3 * p1 * t * (1 - t) * (1 - t) + 3 * p2 * t * t * (1 - t) + p3 * t * t * t;
         //}
@@ -1663,7 +372,7 @@ namespace MethodSpeedTester
         ///// <param name="cx">The x-component of the end point.</param>
         ///// <param name="cy">The y-component of the end point.</param>
         ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Quadratic Bézier curve.</returns>
-        ///// <remarks></remarks>
+        ///// <acknowledgment></acknowledgment>
         ///// <acknowledgment>
         ///// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
         ///// http://jsfiddle.net/SalixAlba/QQnvm/4/
@@ -1691,9 +400,9 @@ namespace MethodSpeedTester
         ///// <param name="dx">The x-component of the end point.</param>
         ///// <param name="dy">The y-component of the end point.</param>
         ///// <returns>Returns an Axis Aligned Bounding Box (AABB) rectangle that bounds the Cubic Bézier curve.</returns>
-        ///// <remarks>
+        ///// <acknowledgment>
         ///// This method has an error where if the end nodes are horizontal to each other, while the handles are also horizontal to each other the bounds are not correctly calculated.
-        ///// </remarks>
+        ///// </acknowledgment>
         ///// <acknowledgment>
         ///// Method created using the following resources.
         ///// http://stackoverflow.com/questions/24809978/calculating-the-bounding-box-of-cubic-bezier-curve
@@ -1777,75 +486,6 @@ namespace MethodSpeedTester
         //    return new Rectangle2D(xlow, xhigh, yl, yh);
         //}
 
-        #region Calculate Rectangular Boundaries of a Circle Defined By Three Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(CircleBoundsFromThreePointsTests))]
-        public static List<SpeedTester> CircleBoundsFromThreePointsTests() => new List<SpeedTester> {
-                new SpeedTester(() => TripointCircleBounds(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.TripointCircleBounds)}(0, 0, 0, 1, 1, 1)"),
-                new SpeedTester(() => CircleBoundsFromPoints(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.CircleBoundsFromPoints)}(0, 0, 0, 1, 1, 1)")
-           };
-
-        /// <summary>
-        /// Find the Bounds of A Circle from Three Points
-        /// </summary>
-        /// <param name="PointAX">First Point on the Ellipse</param>
-        /// <param name="PointAY">First Point on the Ellipse</param>
-        /// <param name="PointBX">Second Point on the Ellipse</param>
-        /// <param name="PointBY">Second Point on the Ellipse</param>
-        /// <param name="PointCX">Last Point on the Ellipse</param>
-        /// <param name="PointCY">Last Point on the Ellipse</param>
-        /// <returns>A Rectangle Representing the bounds of A Circle Defined from three
-        /// Points</returns>
-        public static Rectangle2D TripointCircleBounds(
-            double PointAX, double PointAY,
-            double PointBX, double PointBY,
-            double PointCX, double PointCY)
-        {
-            (var X, var Y) = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
-            var Radius = Distance2D_0(X, Y, PointAX, PointAY);
-            return Rectangle2D.FromLTRB(X - Radius, Y - Radius, X + Radius, Y + Radius);
-        }
-
-        /// <summary>
-        /// The circle bounds from points.
-        /// </summary>
-        /// <param name="p1X">The p1X.</param>
-        /// <param name="p1Y">The p1Y.</param>
-        /// <param name="p2X">The p2X.</param>
-        /// <param name="p2Y">The p2Y.</param>
-        /// <param name="p3X">The p3X.</param>
-        /// <param name="p3Y">The p3Y.</param>
-        /// <returns>The <see cref="Rectangle2D"/>.</returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
-        /// </remarks>
-        public static Rectangle2D CircleBoundsFromPoints(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y)
-        {
-            var offset = (p2X * p2X) + (p2Y * p2Y);
-            var bc = ((p1X * p1X) + (p1Y * p1Y) - offset) * 0.5d;
-            var cd = (offset - (p3X * p3X) - (p3Y * p3Y)) * 0.5d;
-            var determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
-
-            if (Abs(determinant) < DoubleEpsilon)
-                return null;
-
-            var centerx = (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant;
-            var centery = (cd * (p1X - p2X) - bc * (p2X - p3X)) / determinant;
-
-            var radius = Sqrt(((p2X - centerx) * (p2X - centerx)) + ((p2Y - centery) * (p2Y - centery)));
-
-            return Rectangle2D.FromLTRB(centerx - radius, centery - radius, centerx + radius, centery + radius);
-        }
-        #endregion Calculate Rectangular Boundaries of a Circle Defined By Three Points
-
         #region Catmull-Rom 1D Spline Interpolation
         /// <summary>
         /// Set of tests to run testing methods that calculate the angle between Two 3D points.
@@ -1870,7 +510,9 @@ namespace MethodSpeedTester
         /// <param name="v4">The fourth position in the interpolation.</param>
         /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
-        /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
+        /// <acknowledgment>
+        /// http://www.mvps.org/directx/articles/catmull/
+        /// </acknowledgment>
         public static double CatmullRom(
             double v1,
             double v2,
@@ -1896,7 +538,9 @@ namespace MethodSpeedTester
         /// <param name="v3">The v3.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CatmullRomSpline(
             double v0,
@@ -1947,10 +591,10 @@ namespace MethodSpeedTester
         /// <returns>
         /// Calculated Spline Point
         /// </returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// Points calculated exist on the spline between points two and three.
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
-        /// </remarks>
+        /// </acknowledgment>
         public static (double X, double Y) InterpolateCatmullRom(
             double t0X, double t0Y,
             double p1X, double p1Y,
@@ -1984,7 +628,9 @@ namespace MethodSpeedTester
         /// <param name="y3">The y3.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) CatmullRomSpline(
             double x0, double y0,
@@ -2040,7 +686,9 @@ namespace MethodSpeedTester
         /// <param name="z4"></param>
         /// <param name="t">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
-        /// <remarks>http://www.mvps.org/directx/articles/catmull/</remarks>
+        /// <acknowledgment>
+        /// http://www.mvps.org/directx/articles/catmull/
+        /// </acknowledgment>
         public static (double X, double Y, double Z) CatmullRom(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -2082,7 +730,9 @@ namespace MethodSpeedTester
         /// <param name="z3">The z3.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) CatmullRomSpline(
             double x0, double y0, double z0,
@@ -2109,75 +759,6 @@ namespace MethodSpeedTester
                 aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
         }
         #endregion Catmull-Rom 3D Spline Interpolation
-
-        #region Circle from Three Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(CircleFromThreePointsTests))]
-        public static List<SpeedTester> CircleFromThreePointsTests() => new List<SpeedTester> {
-                new SpeedTester(() => TripointCircle(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.TripointCircle)}(0, 0, 0, 1, 1, 1)"),
-                new SpeedTester(() => CircleFromPoints(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.CircleFromPoints)}(0, 0, 0, 1, 1, 1)")
-           };
-
-        /// <summary>
-        /// Find the Bounds of A Circle from Three Points
-        /// </summary>
-        /// <param name="PointAX">First Point on the Ellipse</param>
-        /// <param name="PointAY">First Point on the Ellipse</param>
-        /// <param name="PointBX">Second Point on the Ellipse</param>
-        /// <param name="PointBY">Second Point on the Ellipse</param>
-        /// <param name="PointCX">Last Point on the Ellipse</param>
-        /// <param name="PointCY">Last Point on the Ellipse</param>
-        /// <returns>A Rectangle Representing the bounds of A Circle Defined from three
-        /// Points</returns>
-        public static Circle TripointCircle(
-            double PointAX, double PointAY,
-            double PointBX, double PointBY,
-            double PointCX, double PointCY)
-        {
-            (var X, var Y) = TripointCircleCenter(PointAX, PointAY, PointBX, PointBY, PointCX, PointCY);
-            var radius = Distance2D_0(X, Y, PointAX, PointAY);
-            return new Circle(new Point2D(X, Y), radius);
-        }
-
-        /// <summary>
-        /// The circle from points.
-        /// </summary>
-        /// <param name="p1X">The p1X.</param>
-        /// <param name="p1Y">The p1Y.</param>
-        /// <param name="p2X">The p2X.</param>
-        /// <param name="p2Y">The p2Y.</param>
-        /// <param name="p3X">The p3X.</param>
-        /// <param name="p3Y">The p3Y.</param>
-        /// <returns>The <see cref="Circle"/>.</returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
-        /// </remarks>
-        public static Circle CircleFromPoints(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y)
-        {
-            var offset = (p2X * p2X) + (p2Y * p2Y);
-            var bc = ((p1X * p1X) + (p1Y * p1Y) - offset) * 0.5d;
-            var cd = (offset - (p3X * p3X) - (p3Y * p3Y)) * 0.5d;
-            var determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
-
-            if (Abs(determinant) < DoubleEpsilon)
-                return null;
-
-            var centerx = (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant;
-            var centery = (cd * (p1X - p2X) - bc * (p2X - p3X)) / determinant;
-
-            var radius = Sqrt(((p2X - centerx) * (p2X - centerx)) + ((p2Y - centery) * (p2Y - centery)));
-
-            return new Circle(new Point2D(centerx, centery), radius);
-        }
-        #endregion Circle from Three Points
 
         #region Change The Angle of a Vector
         /// <summary>
@@ -2226,9 +807,9 @@ namespace MethodSpeedTester
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/1476497/multiply-two-point-objects
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) ComplexProduct(
@@ -2255,7 +836,9 @@ namespace MethodSpeedTester
         /// <param name="v2">The v2.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         public static double CosineInterpolate1D(double v1, double v2, double t)
         {
             var mu2 = (1 - Cos(t * PI)) / 2;
@@ -2283,7 +866,9 @@ namespace MethodSpeedTester
         /// <param name="y2">The y2.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         public static (double X, double Y) CosineInterpolate2D(
             double x1, double y1,
             double x2, double y2,
@@ -2349,7 +934,9 @@ namespace MethodSpeedTester
         /// <param name="z2">The z2.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         public static (double X, double Y, double Z) CosineInterpolate3D(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -2424,8 +1011,10 @@ namespace MethodSpeedTester
         /// <param name="pX">The pX.</param>
         /// <param name="pY">The pY.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        private static Point2D ClosestPointOnLineSegmentMvG(
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line
+        /// </acknowledgment>
+        public static Point2D ClosestPointOnLineSegmentMvG(
             double aX, double aY,
             double bX, double bY,
             double pX, double pY)
@@ -2450,8 +1039,9 @@ namespace MethodSpeedTester
         /// <param name="pX">The pX.</param>
         /// <param name="pY">The pY.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        private static Point2D ClosestPointOnLineSegmentDarienPardinas(
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</acknowledgment>
+        public static Point2D ClosestPointOnLineSegmentDarienPardinas(
             double aX, double aY,
             double bX, double bY,
             double pX, double pY)
@@ -2466,11 +1056,17 @@ namespace MethodSpeedTester
             //  # The normalized "distance" from a to the closest point
             var dist = dotABAP / dotAB;
             if (dist < 0)
+            {
                 return new Point2D(aX, aY);
+            }
             else if (dist > dotABAP)
+            {
                 return new Point2D(bX, bY);
+            }
             else
+            {
                 return new Point2D(aX + diffAB.X * dist, aY + diffAB.Y * dist);
+            }
         }
 
         /// <summary>
@@ -2483,8 +1079,10 @@ namespace MethodSpeedTester
         /// <param name="pX">The pX.</param>
         /// <param name="pY">The pY.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line</remarks>
-        private static Point2D ClosestPointOnLineDarienPardinas(
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/3120357/get-closest-point-to-a-line
+        /// </acknowledgment>
+        public static Point2D ClosestPointOnLineDarienPardinas(
             double aX, double aY,
             double bX, double bY,
             double pX, double pY)
@@ -2521,7 +1119,9 @@ namespace MethodSpeedTester
         /// <param name="x2">Second Point X component.</param>
         /// <param name="y2">Second Point Y component.</param>
         /// <returns>the cross product AB · BC.</returns>
-        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
+        /// <acknowledgment>
+        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct2Points2D_0(
@@ -2551,7 +1151,9 @@ namespace MethodSpeedTester
         /// <param name="y2">Second Point Y component.</param>
         /// <param name="z2"></param>
         /// <returns>the cross product AB · BC.</returns>
-        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
+        /// <acknowledgment>
+        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) CrossProduct2Points3D_0(
@@ -2564,113 +1166,6 @@ namespace MethodSpeedTester
                 );
         #endregion Cross Product of Two 3D Points
 
-        #region Cross Product of The Vector of Three 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the cross product of three 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(CrossProductVector2DTests))]
-        public static List<SpeedTester> CrossProductVector2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => CrossProductVector2D_0(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.CrossProductVector2D_0)}(0, 0, 1, 0, 1, 1)"),
-                new SpeedTester(() => CrossProductVector2D_1(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.CrossProductVector2D_1)}(0, 0, 1, 0, 1, 1)"),
-                new SpeedTester(() => CrossProductVector2D_2(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.CrossProductVector2D_2)}(0, 0, 1, 0, 1, 1)")
-            };
-
-        /// <summary>
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <returns>
-        /// Return the cross product AB x BC.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProductVector2D_0(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY)
-            => (aX - bX) * (cY - bY) - (aY - bY) * (cX - bX);
-
-        /// <summary>
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <returns>
-        /// Return the cross product AB x BC.
-        /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        public static double CrossProductVector2D_1(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY)
-        {
-            // Get the vectors' coordinates.
-            var BAx = aX - bX;
-            var BAy = aY - bY;
-            var BCx = cX - bX;
-            var BCy = cY - bY;
-
-            // Calculate the Z coordinate of the cross product.
-            return BAx * BCy - BAy * BCx;
-        }
-
-        /// <summary>
-        /// Return the cross product AB x BC.
-        /// The cross product is a vector perpendicular to AB
-        /// and BC having length |AB| * |BC| * Sin(theta) and
-        /// with direction given by the right-hand rule.
-        /// For two vectors in the X-Y plane, the result is a
-        /// vector with X and Y components 0 so the Z component
-        /// gives the vector's length and direction.
-        /// </summary>
-        /// <param name="Ax"></param>
-        /// <param name="Ay"></param>
-        /// <param name="Bx"></param>
-        /// <param name="By"></param>
-        /// <param name="Cx"></param>
-        /// <param name="Cy"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        public static double CrossProductVector2D_2(
-            double Ax, double Ay,
-            double Bx, double By,
-            double Cx, double Cy)
-        {
-            // Get the vectors' coordinates.
-            var BAx = Ax - Bx;
-            var BAy = Ay - By;
-            var BCx = Cx - Bx;
-            var BCy = Cy - By;
-
-            // Calculate the Z coordinate of the cross product.
-            return BAx * BCy - BAy * BCx;
-        }
-        #endregion Cross Product of The Vector of Three 2D Points
-
         #region Cubic Bézier Get T
         /// <summary>
         /// Find the tfor coordinate.
@@ -2678,7 +1173,9 @@ namespace MethodSpeedTester
         /// <param name="value">The value.</param>
         /// <param name="Lut">The Lut.</param>
         /// <returns>The <see cref="T:List{double}"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218
+        /// </acknowledgment>
         public static List<double> FindTforCoordinate(Point2D value, List<Point2D> Lut)
         {
             var point = new Point2D();
@@ -2689,7 +1186,9 @@ namespace MethodSpeedTester
                 point.X = Lut[i].X;
                 point.Y = Lut[i].Y;
                 if (Abs(value.X - point.X) < DoubleEpsilon && Abs(value.Y - point.Y) < DoubleEpsilon)
+                {
                     found.Add(i / len);
+                }
             }
             return found;
         }
@@ -2702,12 +1201,17 @@ namespace MethodSpeedTester
         /// <param name="c">The c.</param>
         /// <param name="d">The d.</param>
         /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/27053888/how-to-get-time-value-from-bezier-curve-given-length/27071218#27071218
+        /// </acknowledgment>
         public static List<Point2D> BuildLUT(Point2D a, Point2D b, Point2D c, Point2D d)
         {
             var Lut = new List<Point2D>(100);
             for (double t = 0; t <= 1; t += 0.01)
+            {
                 Lut[(int)(t * 100)] = new Point2D(Interpolators.CubicBezier(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y, t));
+            }
+
             return Lut;
         }
         #endregion Cubic Bézier Get T
@@ -2721,8 +1225,10 @@ namespace MethodSpeedTester
         /// <param name="p3">The p3.</param>
         /// <param name="p4">The p4.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
-        private static double CubicBezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
+        /// <acknowledgment>
+        /// http://steve.hollasch.net/cgindex/curves/cbezarclen.html
+        /// </acknowledgment>
+        public static double CubicBezierArcLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4)
         {
             var k1 = (Point2D)(-p1 + 3 * (p2 - p3) + p4);
             var k2 = 3 * (p1 + p3) - 6 * p2;
@@ -2783,8 +1289,10 @@ namespace MethodSpeedTester
         /// <param name="q4"></param>
         /// <param name="q5"></param>
         /// <returns></returns>
-        /// <remarks>http://steve.hollasch.net/cgindex/curves/cbezarclen.html</remarks>
-        private static double CubicBezierArcLengthHelper(ref double q1, ref double q2, ref double q3, ref double q4, ref double q5, double t)
+        /// <acknowledgment>
+        /// http://steve.hollasch.net/cgindex/curves/cbezarclen.html
+        /// </acknowledgment>
+        public static double CubicBezierArcLengthHelper(ref double q1, ref double q2, ref double q3, ref double q4, ref double q5, double t)
         {
             var result = q5 + t * (q4 + t * (q3 + t * (q2 + t * q1)));
             result = Sqrt(Abs(result));
@@ -2802,8 +1310,10 @@ namespace MethodSpeedTester
         /// <param name="p4"></param>
         /// <param name="steps"></param>
         /// <returns></returns>
-        /// <remarks>http://www.lemoda.net/maths/bezier-length/index.html</remarks>
-        private static double CubicBezierLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4, int steps = 10)
+        /// <acknowledgment>
+        /// http://www.lemoda.net/maths/bezier-length/index.html
+        /// </acknowledgment>
+        public static double CubicBezierLength(Point2D p1, Point2D p2, Point2D p3, Point2D p4, int steps = 10)
         {
             double t;
             Point2D dot;
@@ -2825,143 +1335,6 @@ namespace MethodSpeedTester
         }
         #endregion Cubic Bézier Length Approximations
 
-        #region Cubic Interpolation of 1D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(CubicInterpolate1DTests))]
-        public static List<SpeedTester> CubicInterpolate1DTests() => new List<SpeedTester> {
-                new SpeedTester(() => CubicInterpolate1D(0, 1, 2, 3, 0.5d),
-                $"{nameof(Experiments.CubicInterpolate1D)}(0, 1, 2, 3, 0.5d)")
-            };
-
-        /// <summary>
-        /// The cubic interpolate1d.
-        /// </summary>
-        /// <param name="v0">The v0.</param>
-        /// <param name="v1">The v1.</param>
-        /// <param name="v2">The v2.</param>
-        /// <param name="v3">The v3.</param>
-        /// <param name="t">The t.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        public static double CubicInterpolate1D(double v0, double v1, double v2, double v3, double t)
-        {
-            double a0, a1, a2, a3, mu2;
-
-            mu2 = t * t;
-            a0 = v3 - v2 - v0 + v1;
-            a1 = v0 - v1 - a0;
-            a2 = v2 - v0;
-            a3 = v1;
-
-            return a0 * t * mu2 + a1 * mu2 + a2 * t + a3;
-        }
-        #endregion Cubic Interpolation of 1D Points
-
-        #region Cubic Interpolation of 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(CubicInterpolate2DTests))]
-        public static List<SpeedTester> CubicInterpolate2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => CubicInterpolate2D(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicInterpolate2D)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)")
-            };
-
-        /// <summary>
-        /// The cubic interpolate2d.
-        /// </summary>
-        /// <param name="x0">The x0.</param>
-        /// <param name="y0">The y0.</param>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="x3">The x3.</param>
-        /// <param name="y3">The y3.</param>
-        /// <param name="t">The t.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        public static (double X, double Y) CubicInterpolate2D(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double t)
-        {
-            var mu2 = t * t;
-
-            var aX0 = x3 - x2 - x0 + x1;
-            var aY0 = y3 - y2 - y0 + y1;
-            var aX1 = x0 - x1 - aX0;
-            var aY1 = y0 - y1 - aY0;
-            var aX2 = x2 - x0;
-            var aY2 = y2 - y0;
-
-            return (
-                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
-                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1);
-        }
-        #endregion Cubic Interpolation of 2D Points
-
-        #region Cubic Interpolation of 3D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the 3D cubic interpolation of a point.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(CubicInterpolate3DTests))]
-        public static List<SpeedTester> CubicInterpolate3DTests() => new List<SpeedTester> {
-                new SpeedTester(() => CubicInterpolate3D(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d),
-                $"{nameof(Experiments.CubicInterpolate3D)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0.5d)")
-            };
-
-        /// <summary>
-        /// The cubic interpolate3d.
-        /// </summary>
-        /// <param name="x0">The x0.</param>
-        /// <param name="y0">The y0.</param>
-        /// <param name="z0">The z0.</param>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="z1">The z1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="z2">The z2.</param>
-        /// <param name="x3">The x3.</param>
-        /// <param name="y3">The y3.</param>
-        /// <param name="z3">The z3.</param>
-        /// <param name="t">The t.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        public static (double X, double Y, double Z) CubicInterpolate3D(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double x3, double y3, double z3,
-            double t)
-        {
-            var mu2 = t * t;
-
-            var aX0 = x3 - x2 - x0 + x1;
-            var aY0 = y3 - y2 - y0 + y1;
-            var aZ0 = z3 - z2 - z0 + z1;
-            var aX1 = x0 - x1 - aX0;
-            var aY1 = y0 - y1 - aY0;
-            var aZ1 = z0 - z1 - aZ0;
-            var aX2 = x2 - x0;
-            var aY2 = y2 - y0;
-            var aZ2 = z2 - z0;
-
-            return (
-                aX0 * t * mu2 + aX1 * mu2 + aX2 * t + x1,
-                aY0 * t * mu2 + aY1 * mu2 + aY2 * t + y1,
-                aZ0 * t * mu2 + aZ1 * mu2 + aZ2 * t + z1);
-        }
-        #endregion Cubic Interpolation of 3D Points
-
         #region Cubic CatmulRom Spline Interpolation of 1D Points
         /// <summary>
         /// Set of tests to run testing methods that calculate the 1D Catmull Rom Spline interpolation of a point.
@@ -2982,7 +1355,9 @@ namespace MethodSpeedTester
         /// <param name="v3">The v3.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         public static double CubicInterpolateCatmullRomSplines1D(double v0, double v1, double v2, double v3, double t)
         {
             double a0, a1, a2, a3, mu2;
@@ -3021,7 +1396,9 @@ namespace MethodSpeedTester
         /// <param name="y3">The y3.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         public static (double X, double Y) CubicInterpolateCatmullRomSplines2D(
             double x0, double y0,
             double x1, double y1,
@@ -3072,7 +1449,9 @@ namespace MethodSpeedTester
         /// <param name="z3">The z3.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         public static (double X, double Y, double Z) CubicInterpolateCatmullRomSplines3D(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
@@ -3109,8 +1488,10 @@ namespace MethodSpeedTester
         /// <param name="p3">The p3.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="PointF"/>.</returns>
-        /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
-        private static PointF CubicBezierDerivative0(PointF p0, PointF p1, PointF p2, PointF p3, double t) => new PointF((float)(3 * Pow(1 - t, 2) * (p1.X - p0.X) + 6 * (1 - t) * t * (p2.X - p1.X) + 3 * Pow(t, 2) * (p3.X - p2.X)),
+        /// <acknowledgment>
+        /// http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html
+        /// </acknowledgment>
+        public static PointF CubicBezierDerivative0(PointF p0, PointF p1, PointF p2, PointF p3, double t) => new PointF((float)(3 * Pow(1 - t, 2) * (p1.X - p0.X) + 6 * (1 - t) * t * (p2.X - p1.X) + 3 * Pow(t, 2) * (p3.X - p2.X)),
                               (float)(3 * Pow(1 - t, 2) * (p1.Y - p0.Y) + 6 * (1 - t) * t * (p2.Y - p1.Y) + 3 * Pow(t, 2) * (p3.Y - p2.Y)));
 
         /// <summary>
@@ -3122,8 +1503,10 @@ namespace MethodSpeedTester
         /// <param name="p3">The p3.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="PointF"/>.</returns>
-        /// <remarks>http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html</remarks>
-        private static PointF CubicBezierDerivative1(PointF p0, PointF p1, PointF p2, PointF p3, double t)
+        /// <acknowledgment>
+        /// http://www.cs.mtu.edu/~shene/COURSES/cs3621/NOTES/spline/Bezier/bezier-der.html
+        /// </acknowledgment>
+        public static PointF CubicBezierDerivative1(PointF p0, PointF p1, PointF p2, PointF p3, double t)
         {
             var mu1 = 1 - t;
             var mu12 = mu1 * mu1;
@@ -3136,303 +1519,7 @@ namespace MethodSpeedTester
         }
         #endregion Cubic Bézier Derivative
 
-        #region Cubic Bézier Interpolation of 1D Points
-        #endregion Cubic Bézier Interpolation of 1D Points
-
-        #region Cubic Bézier Interpolation of 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(CubicBezierInterpolate2DTests))]
-        public static List<SpeedTester> CubicBezierInterpolate2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => CubicBezierInterpolate2D_0(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicBezierInterpolate2D_0)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
-                new SpeedTester(() => CubicBezierInterpolate2D_1(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicBezierInterpolate2D_1)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
-                new SpeedTester(() => CubicBezierInterpolate2D_3(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicBezierInterpolate2D_3)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
-                new SpeedTester(() => CubicBezierInterpolate2D_4(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicBezierInterpolate2D_4)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
-                new SpeedTester(() => CubicBezierInterpolate2D_5(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicBezierInterpolate2D_5)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
-                new SpeedTester(() => InterpolateCubic(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.InterpolateCubic)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)"),
-                new SpeedTester(() => CubicBezierInterpolate2D_6(0, 1, 2, 3, 4, 5, 6, 7, 0.5d),
-                $"{nameof(Experiments.CubicBezierInterpolate2D_6)}(0, 1, 2, 3, 4, 5, 6, 7, 0.5d)")
-            };
-
-        /// <summary>
-        /// Four control point Bezier interpolation mu ranges from 0 to 1, start to end of curve.
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <history>
-        /// </history>
-        public static (double X, double Y) CubicBezierInterpolate2D_0(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double t)
-        {
-            var mum1 = 1 - t;
-            var mum13 = mum1 * mum1 * mum1;
-            var mu3 = t * t * t;
-
-            return (
-                mum13 * x0 + 3 * t * mum1 * mum1 * x1 + 3 * t * t * mum1 * x2 + mu3 * x3,
-                mum13 * y0 + 3 * t * mum1 * mum1 * y1 + 3 * t * t * mum1 * y2 + mu3 * y3
-                );
-        }
-
-        /// <summary>
-        /// Calculate parametric value of x or y given t and the four point
-        /// coordinates of a cubic bezier curve. This is a separate function
-        /// because we need it for both x and y values.
-        /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.lemoda.net/maths/bezier-length/index.html</remarks>
-        // Formula from Wikipedia article on Bézier curves.
-        public static (double X, double Y) CubicBezierInterpolate2D_1(
-        double aX, double aY,
-        double bX, double bY,
-        double cX, double cY,
-        double dX, double dY,
-        double t)
-            => (
-            aX * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bX * (1.0 - t) * (1.0 - t) * t + 3.0 * cX * (1.0 - t) * t * t + dX * t * t * t,
-            aY * (1.0 - t) * (1.0 - t) * (1.0 - t) + 3.0 * bY * (1.0 - t) * (1.0 - t) * t + 3.0 * cY * (1.0 - t) * t * t + dY * t * t * t);
-
-        /// <summary>
-        /// evaluate a point on a bezier-curve. t goes from 0 to 1.0
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        public static (double X, double Y) CubicBezierInterpolate2D_2(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3,
-            double t)
-        {
-            // point between a and b
-            (var abX, var abY) = LinearInterpolate2D_0(x0, y0, x1, y1, t);
-            // point between b and c
-            (var bcX, var bcY) = LinearInterpolate2D_0(x1, y1, x2, y2, t);
-            // point between c and d
-            (var cdX, var cdY) = LinearInterpolate2D_0(x2, y2, x3, y3, t);
-            // point between ab and bc
-            (var abbcX, var abbcY) = LinearInterpolate2D_0(abX, abY, bcX, bcY, t);
-            // point between bc and cd
-            (var bccdX, var bccdY) = LinearInterpolate2D_0(bcX, bcY, cdX, cdY, t);
-            // point on the bezier-curve
-            return LinearInterpolate2D_0(abbcX, abbcY, bccdX, bccdY, t);
-        }
-
-        /// <summary>
-        /// Function to Plot a Cubic Bezier
-        /// </summary>
-        /// <param name="aX">the starting point, or A in the above diagram</param>
-        /// <param name="aY">the starting point, or A in the above diagram</param>
-        /// <param name="bX">the first control point, or B</param>
-        /// <param name="bY">the first control point, or B</param>
-        /// <param name="cX">the second control point, or C</param>
-        /// <param name="cY">the second control point, or C</param>
-        /// <param name="dX">the end point, or D</param>
-        /// <param name="dY">the end point, or D</param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static (double X, double Y) CubicBezierInterpolate2D_3(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double t)
-        {
-            var V1 = t;
-            var V2 = 1 - t;
-            return (
-                (aX * V2 * V2 * V2) + (3 * bX * V1 * V2 * V2) + (3 * cX * V1 * V1 * V2) + (dX * V2 * V2 * V2),
-                (aY * V2 * V2 * V2) + (3 * bY * V1 * V2 * V2) + (3 * cY * V1 * V1 * V2) + (dY * V2 * V2 * V2));
-        }
-
-        /// <summary>
-        /// The cubic bezier interpolate2d 4.
-        /// </summary>
-        /// <param name="aX">The aX.</param>
-        /// <param name="aY">The aY.</param>
-        /// <param name="bX">The bX.</param>
-        /// <param name="bY">The bY.</param>
-        /// <param name="cX">The cX.</param>
-        /// <param name="cY">The cY.</param>
-        /// <param name="dX">The dX.</param>
-        /// <param name="dY">The dY.</param>
-        /// <param name="t">The t.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        public static (double X, double Y) CubicBezierInterpolate2D_4(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double t)
-        {
-            //(double X, double Y) P = (v3 - v2) - (v0 - v1);
-            //(double X, double Y) Q = (v0 - v1) - P;
-            //(double X, double Y) R = v2 - v0;
-            //(double X, double Y) S = v1;
-            //(double X, double Y) P * Pow(x, 3) + Q * Pow(x, 2) + R * x + S;
-            var PX = dX - cX - (aX - bX);
-            var PY = dY - cY - (aY - bY);
-            var QX = aX - bX - PX;
-            var QY = aY - bY - PY;
-            var RX = cX - aX;
-            var RY = cY - aY;
-            var SX = bX;
-            var SY = bY;
-            return (
-                PX * (t * t * t) + QX * (t * t) + RX * t + SX,
-                PY * (t * t * t) + QY * (t * t) + RY * t + SY);
-        }
-
-        /// <summary>
-        ///  Code to generate a cubic Bézier curve
-        /// </summary>
-        /// <param name="aX">the starting point, or A in the above diagram</param>
-        /// <param name="aY">the starting point, or A in the above diagram</param>
-        /// <param name="bX">the first control point, or B</param>
-        /// <param name="bY">the first control point, or B</param>
-        /// <param name="cX">the second control point, or C</param>
-        /// <param name="cY">the second control point, or C</param>
-        /// <param name="dX">the end point, or D</param>
-        /// <param name="dY">the end point, or D</param>
-        /// <param name="t">
-        ///  t is the parameter value, 0 less than or equal to t less than or equal to 1
-        /// </param>
-        /// <returns></returns>
-        /// <remarks>
-        ///  Warning - untested code
-        /// </remarks>
-        public static (double X, double Y) CubicBezierInterpolate2D_5(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double t)
-        {
-            // calculate the curve point at parameter value t
-            var tSquared = t * t;
-            var tCubed = tSquared * t;
-
-            // calculate the polynomial coefficients
-            var cC = (3 * (bX - aX), 3 * (bY - aY));
-            var cB = ((3 * (cX - bX)) - cC.Item1, (3 * (cY - bY)) - cC.Item2);
-            var cA = (dX - (aX - (cC.Item1 - cB.Item1)), dY - (aY - (cC.Item2 - cB.Item2)));
-            return ((cA.Item1 * tCubed) + ((cB.Item1 * tSquared) + ((cC.Item1 * t) + aX)), (cA.Item2 * tCubed) + ((cB.Item2 * tSquared) + ((cC.Item2 * t) + aY)));
-        }
-
-        /// <summary>
-        /// Function to Interpolate a Cubic Bezier Spline
-        /// </summary>
-        /// <param name="aX"></param>
-        /// <param name="aY"></param>
-        /// <param name="bX"></param>
-        /// <param name="bY"></param>
-        /// <param name="cX"></param>
-        /// <param name="cY"></param>
-        /// <param name="dX"></param>
-        /// <param name="dY"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static (double X, double Y) CubicBezierInterpolate2D_6(
-            double aX, double aY,
-            double bX, double bY,
-            double cX, double cY,
-            double dX, double dY,
-            double t)
-        {
-            var c1 = (dX - cX - (aX - bX), dY - cY - (aY - bY));
-            var c2 = (aX - bX - aX, aY - bY - aY);
-            var c3 = (cX - aX, cY - aY);
-            var c4 = (aX, aY);
-            return (
-                c1.Item1 * t * t * t + c2.Item1 * t * t * t + c3.Item1 * t + c4.aX,
-                c1.Item2 * t * t * t + c2.Item2 * t * t * t + c3.Item2 * t + c4.aY);
-        }
-
-        /// <summary>
-        /// https://groups.google.com/d/msg/comp.graphics.algorithms/SRm97nRWlw4/R1Rn38ep8n0J
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static Point2D InterpolateCubic(double x0, double y0, double x1, double y1, double x2, double y2, double x3, double y3, double t)
-        {
-            var x = -(t * t * t) * (x0 - 3 * x1 + 3 * x2 - x3)
-                + 3 * t * t * (x0 - 2 * x1 + x2) + 3 * t * (x1 - x0) + x0;
-            var y = -(t * t * t) * (y0 - 3 * y1 + 3 * y2 - y3)
-                + 3 * t * t * (y0 - 2 * y1 + y2) + 3 * t * (y1 - y0) + y0;
-            return new Point2D(x, y);
-        }
-
-        /// <summary>
-        /// The cubic bezier curve.
-        /// </summary>
-        /// <param name="p0">The p0.</param>
-        /// <param name="p1">The p1.</param>
-        /// <param name="p2">The p2.</param>
-        /// <param name="p3">The p3.</param>
-        /// <param name="t">The t.</param>
-        /// <returns>The <see cref="PointF"/>.</returns>
-        /// <remarks>http://en.wikipedia.org/wiki/B%C3%A9zier_curve</remarks>
-        private static PointF CubicBezierCurve(PointF p0, PointF p1, PointF p2, PointF p3, double t)
-            => new PointF((float)(Pow(1 - t, 3) * p0.X + 3 * Pow(1 - t, 2) * t * p1.X
-                        + 3 * (1 - t) * Pow(t, 2) * p2.X + Pow(t, 3) * p3.X),
-                (float)(Pow(1 - t, 3) * p0.Y + 3 * Pow(1 - t, 2) * t * p1.Y
-                        + 3 * (1 - t) * Pow(t, 2) * p2.Y + Pow(t, 3) * p3.Y));
-        #endregion Cubic Bézier Interpolation of 2D Points
-
-        #region Cubic Bézier Interpolation of 3D Points
-        #endregion Cubic Bézier Interpolation of 3D Points
-
-        #region Cubic Bézier and Line Intersections
-        #endregion Cubic Bézier and Line Intersections
-
         #region Cubic Bézier Self Intersection
-
         /// <summary>
         /// The cubic bezier self intersection x.
         /// </summary>
@@ -3463,7 +1550,10 @@ namespace MethodSpeedTester
             (var p, var q) = (yCurve[0] == 0d) ? (yCurve[1], yCurve[2]) : (yCurve[1] / yCurve[0], yCurve[2] / yCurve[0]);
 
             if (a == p || q == b)
+            {
                 return null;
+            }
+
             var k = (q - b) / (a - p);
 
             var poly = new Polynomial(
@@ -3474,7 +1564,9 @@ namespace MethodSpeedTester
 
             var r = poly.Roots().OrderByDescending(c => c).ToArray();
             if (r.Length != 3)
+            {
                 return null;
+            }
 
             if (r[0] >= 0.0 && r[0] <= 1.0 && r[2] >= 0.0 && r[2] <= 1.0)
             {
@@ -3507,7 +1599,10 @@ namespace MethodSpeedTester
             (var p, var q) = (yCurveD == 0d) ? (yCurveC, yCurveB) : (yCurveC / yCurveD, yCurveB / yCurveD);
 
             if (a == p || q == b)
+            {
                 return null;
+            }
+
             var k = (q - b) / (a - p);
 
             var poly = new double[]
@@ -3521,10 +1616,14 @@ namespace MethodSpeedTester
             var roots = CubicRoots(poly[3], poly[2], poly[1], poly[0])
                 .OrderByDescending(c => c).ToArray();
             if (roots.Length != 3)
+            {
                 return null;
+            }
 
             if (roots[0] >= 0d && roots[0] <= 1d && roots[2] >= 0d && roots[2] <= 1d)
+            {
                 return Interpolators.CubicBezier(x0, y0, x1, y1, x2, y2, x3, y3, roots[0]);
+            }
 
             return null;
         }
@@ -3740,119 +1839,6 @@ namespace MethodSpeedTester
         }
         #endregion Distance Between Two 3D Points
 
-        #region Distance Between Two 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the distance between two 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(Distance2DTests))]
-        public static List<SpeedTester> Distance2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => Distance2D_0(0, 0, 1, 0),
-                $"{nameof(Experiments.Distance2D_0)}(0, 0, 1, 0)"),
-                new SpeedTester(() => Distance2D_1((0, 0), (1, 0)),
-                $"{nameof(Experiments.Distance2D_1)}((0, 0), (1, 0))"),
-                new SpeedTester(() => Distance2D_2(0, 0, 1, 0),
-                $"{nameof(Experiments.Distance2D_2)}(0, 0, 1, 0)"),
-                new SpeedTester(() => Distance2D_3(0, 0, 1, 0),
-                $"{nameof(Experiments.Distance2D_3)}(0, 0, 1, 0)")
-            };
-
-        /// <summary>
-        /// Distance between two 2D points.
-        /// </summary>
-        /// <param name="x1">First X component.</param>
-        /// <param name="y1">First Y component.</param>
-        /// <param name="x2">Second X component.</param>
-        /// <param name="y2">Second Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance2D_0(
-            double x1, double y1,
-            double x2, double y2)
-            => Sqrt((x2 - x1) * (x2 - x1)
-                + (y2 - y1) * (y2 - y1));
-
-        /// <summary>
-        /// Distance between two 2D points.
-        /// </summary>
-        /// <param name="a">First component.</param>
-        /// <param name="b">Second component.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance2D_1(
-            (double X, double Y) a,
-            (double X, double Y) b)
-            => Sqrt((b.X - a.X) * (b.X - a.X)
-                + (b.Y - a.Y) * (b.X - a.Y));
-
-        /// <summary>
-        /// Distance between two 2D points.
-        /// </summary>
-        /// <param name="x1">First X component.</param>
-        /// <param name="y1">First Y component.</param>
-        /// <param name="x2">Second X component.</param>
-        /// <param name="y2">Second Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance2D_2(
-            double x1, double y1,
-            double x2, double y2)
-                => Sqrt((x2 - x1) * (x2 - x1)
-                + (y2 - y1) * (y2 - y1));
-
-        /// <summary>
-        /// Distance between two 2D points.
-        /// </summary>
-        /// <param name="x1">First X component.</param>
-        /// <param name="y1">First Y component.</param>
-        /// <param name="x2">Second X component.</param>
-        /// <param name="y2">Second Y component.</param>
-        /// <returns>The distance between two points.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance2D_3(
-            double x1, double y1,
-            double x2, double y2)
-        {
-            var x = x2 - x1;
-            var y = y2 - y1;
-            return Sqrt(x * x + y * y);
-        }
-
-        /// <summary>
-        /// The distance.
-        /// </summary>
-        /// <param name="point1">The point1.</param>
-        /// <param name="point2">The point2.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(Point2D point1, Point2D point2)
-        {
-            var dx = point1.X - point2.X;
-            var dy = point1.Y - point2.Y;
-            return Sqrt(dx * dx + dy * dy);
-        }
-
-        /// <summary>
-        /// The distance.
-        /// </summary>
-        /// <param name="vector1">The vector1.</param>
-        /// <param name="vector2">The vector2.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Distance(Vector2D vector1, Vector2D vector2)
-        {
-            var dx = vector1.I - vector2.I;
-            var dy = vector1.J - vector2.J;
-            return Sqrt(dx * dx + dy * dy);
-        }
-        #endregion Distance Between Two 2D Points
-
         #region Distance of Point To Line Segment
         /// <summary>
         /// Calculate the distance between the point and the segment.
@@ -3998,10 +1984,10 @@ namespace MethodSpeedTester
         /// <param name="u">The u.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <exception cref="Exception">Expected line segment, not point.</exception>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
-        /// </remarks>
-        private static double DistFromSeg(Point2D p, Point2D q0, Point2D q1, double radius, ref double u)
+        /// </acknowledgment>
+        public static double DistFromSeg(Point2D p, Point2D q0, Point2D q1, double radius, ref double u)
         {
             // formula here:
             // http://mathworld.wolfram.com/Point-LineDistance2-Dimensional.html
@@ -4014,830 +2000,24 @@ namespace MethodSpeedTester
             var dy10 = q0.Y - p.Y;
             var segLength = Sqrt(dx21 * dx21 + dy21 * dy21);
             if (segLength < Epsilon)
+            {
                 throw new Exception("Expected line segment, not point.");
+            }
+
             var num = Abs(dx21 * dy10 - dx10 * dy21);
             var d = num / segLength;
             return d;
         }
         #endregion Distance of Point To Line Segment
 
-        #region Dot Product of Two 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the dot product of two 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(DotProduct2Points2DTests))]
-        public static List<SpeedTester> DotProduct2Points2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => DotProduct2Points2D_0(0, 0, 1, 0),
-                $"{nameof(Experiments.DotProduct2Points2D_0)}(0, 0, 1, 0)"),
-                new SpeedTester(() => DotProduct2Points2D_1(0, 0, 1, 0),
-                $"{nameof(Experiments.DotProduct2Points2D_1)}(0, 0, 1, 0)")
-            };
-
-        /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector.
-        /// </summary>
-        /// <param name="x1">First Point X component.</param>
-        /// <param name="y1">First Point Y component.</param>
-        /// <param name="x2">Second Point X component.</param>
-        /// <param name="y2">Second Point Y component.</param>
-        /// <returns>The Dot Product.</returns>
-        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct2Points2D_0(
-            double x1, double y1,
-            double x2, double y2)
-            => (x1 * x2) + (y1 * y2);
-
-        /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector.
-        /// </summary>
-        /// <param name="x1">First Point X component.</param>
-        /// <param name="y1">First Point Y component.</param>
-        /// <param name="x2">Second Point X component.</param>
-        /// <param name="y2">Second Point Y component.</param>
-        /// <returns>The Dot Product.</returns>
-        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct2Points2D_1(
-        double x1, double y1,
-        double x2, double y2) => (x1 * x2) + (y1 * y2);
-        #endregion Dot Product of Two 2D Points
-
-        #region Dot Product of Two 3D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the dot product for two 3D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(DotProduct3D_0Tests))]
-        public static List<SpeedTester> DotProduct3D_0Tests() => new List<SpeedTester> {
-                new SpeedTester(() => DotProduct(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.DotProduct)}(0, 0, 0, 1, 1, 1)"),
-                new SpeedTester(() => DotProduct((0, 0, 0), 1, 1, 1),
-                $"{nameof(Experiments.DotProduct)}((0, 0, 0), 1, 1, 1)"),
-                new SpeedTester(() => DotProduct((0, 0, 0), (1, 1, 1)),
-                $"{nameof(Experiments.DotProduct)}((0, 0, 0), (1, 1, 1))")
-            };
-
-        /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector.
-        /// </summary>
-        /// <param name="x1">First Point X component.</param>
-        /// <param name="y1">First Point Y component.</param>
-        /// <param name="z1">First Point Z component.</param>
-        /// <param name="x2">Second Point X component.</param>
-        /// <param name="y2">Second Point Y component.</param>
-        /// <param name="z2">Second Point Z component.</param>
-        /// <returns>The Dot Product.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2)
-            => (x1 * x2) + (y1 * y2) + (z1 * z2);
-
-        /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector.
-        /// </summary>
-        /// <param name="tuple">X, Y, Z components in tuple form.</param>
-        /// <param name="x2">Second Point X component.</param>
-        /// <param name="y2">Second Point Y component.</param>
-        /// <param name="z2">Second Point Z component.</param>
-        /// <returns>The Dot Product.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct(
-            (double X, double Y, double Z) tuple,
-            double x2, double y2, double z2)
-            => DotProduct(tuple.X, tuple.Y, tuple.Z, x2, y2, z2);
-
-        /// <summary>
-        /// Calculates the dot Aka. scalar or inner product of a vector.
-        /// </summary>
-        /// <param name="tuple1">First set of X, Y, Z components in tuple form.</param>
-        /// <param name="tuple2">Second set of X, Y, Z components in tuple form.</param>
-        /// <returns>The Dot Product.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProduct(
-            (double X, double Y, double Z) tuple1,
-            (double X, double Y, double Z) tuple2)
-            => DotProduct(
-                tuple1.X, tuple1.Y, tuple1.Z,
-                tuple2.X, tuple2.Y, tuple2.Z
-                );
-        #endregion Dot Product of Two 3D Points
-
-        #region Dot Product of The Vector of Three 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the dot product of three 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(DotProductVector2DTests))]
-        public static List<SpeedTester> DotProductVector2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => DotProductVector2D_0(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.DotProductVector2D_0)}(0, 0, 1, 0, 1, 1)"),
-                new SpeedTester(() => DotProductVector2D_1(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.DotProductVector2D_1)}(0, 0, 1, 0, 1, 1)"),
-                new SpeedTester(() => DotProductVector2D_2(0, 0, 1, 0, 1, 1),
-                $"{nameof(Experiments.DotProductVector2D_2)}(0, 0, 1, 0, 1, 1)")
-            };
-
-        /// <summary>
-        /// Return the dot product AB · BC.
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProductVector2D_0(
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3)
-            => (x1 - x2) * (x3 - x2)
-            + (y1 - y2) * (y3 - y2);
-
-        /// <summary>
-        /// Return the dot product AB · BC.
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double DotProductVector2D_1(
-        double x1, double y1,
-        double x2, double y2,
-        double x3, double y3) => (x1 - x2) * (x3 - x2)
-        + (y1 - y2) * (y3 - y2);
-
-        /// <summary>
-        /// Return the dot product AB · BC.
-        /// Note that AB · BC = |AB| * |BC| * Cos(theta).
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="x3"></param>
-        /// <param name="y3"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        [DebuggerStepThrough]
-        public static double DotProductVector2D_2(
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3)
-        {
-            // Get the vectors' coordinates.
-            var BAx = x1 - x2;
-            var BAy = y1 - y2;
-            var BCx = x3 - x2;
-            var BCy = y3 - y2;
-
-            // Calculate the dot product.
-            return BAx * BCx + BAy * BCy;
-        }
-        #endregion Dot Product of The Vector of Three 2D Points
-
-        #region Ellipse Perimeter Length
-        /// <summary>
-        /// This approximation is within about 5% of the true value, so long as a is not more than 3 times longer than b (in other words, the ellipse is not too "squashed"):
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeter1(double a, double b) => 2 * PI * Sqrt(0.5 * ((b * b) + (a * a)));
-
-        /// <summary>
-        /// The ellipse perimeter2.
-        /// </summary>
-        /// <param name="a">todo: describe a parameter on EllipsePerimeter2</param>
-        /// <param name="b">todo: describe b parameter on EllipsePerimeter2</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://ellipse-circumference.blogspot.com/
-        /// </remarks>
-        private static double EllipsePerimeter2(double a, double b)
-        {
-            var h = (b - a) * (b - a) / ((b + a) * (b + a));
-            var H2 = 4 - 3 * h;
-            var d = (11 * PI / (44 - 14 * PI)) + 24100 - 24100 * h;
-            return PI * (b + a) * (1 + 3 * h / (10 + Pow(H2, 0.5)) + (1.5 * Pow(h, 6) - .5 * Pow(h, 12)) / d);
-        }
-
-        /// <summary>
-        /// The ellipse perimeter kepler.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterKepler(double a, double b) => 2 * PI * Sqrt(a * b);
-
-        /// <summary>
-        /// The ellipse perimeter sipos.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterSipos(double a, double b) => 2 * PI * ((a + b) * (a + b) / ((Sqrt(a) + Sqrt(a)) * (Sqrt(b) + Sqrt(b))));
-
-        /// <summary>
-        /// The ellipse perimeter naive.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterNaive(double a, double b) => PI * (a + b);
-
-        /// <summary>
-        /// The ellipse perimeter peano.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterPeano(double a, double b) => PI * ((3 * (a + b) / 2) - Sqrt(a * b));
-
-        /// <summary>
-        /// The ellipse perimeter euler.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterEuler(double a, double b) => 2 * PI * Sqrt(((a * a) + (b * b)) / 2);
-
-        /// <summary>
-        /// The ellipse perimeter almkvist.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterAlmkvist(double a, double b) => 2 * PI
-        * ((2 * Pow(a + b, 2) - Pow(Sqrt(a) - Sqrt(b), 4))
-        / (Pow(Sqrt(a) - Sqrt(b), 2) + (2 * Sqrt(2 * (a + b)) * Pow(a * b, 1 / 4))));
-
-        /// <summary>
-        /// The ellipse perimeter quadratic.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterQuadratic(double a, double b) => PI / 2 * Sqrt(6 * (a * a + b * b) + (4 * a * b));
-
-        /// <summary>
-        /// The ellipse perimeter muir.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterMuir(double a, double b) => 2 * PI * Pow((Pow(a, 3 / 2) + Pow(b, 3 / 2)) / 2, 2 / 3);
-
-        /// <summary>
-        /// The ellipse perimeter lindner.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox05.html</remarks>
-        private static double EllipsePerimeterLindner(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b) * Sqrt(1 + (h / 8));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter sykora rivera cantrells particularly fruitful.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math05a/EllipseCircumference05.html
-        /// </remarks>
-        private static double EllipsePerimeterSykoraRiveraCantrellsParticularlyFruitful(double a, double b) => 4 * ((PI * a * b) + ((a - b) * (a - b))) / (a + b);
-
-        /// <summary>
-        /// The ellipse perimeter YNOT.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
-        /// </remarks>
-        private static double EllipsePerimeterYNOT(double a, double b)
-        {
-            var s = Log(2, E) / Log(PI / 2, E);
-            return 4 * Pow(Pow(a, s) + Pow(b, s), 1 / s);
-        }
-
-        /// <summary>
-        /// The ellipse perimeter combined padé.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
-        /// </remarks>
-        private static double EllipsePerimeterCombinedPadé(double a, double b)
-        {
-            const double d1 = PI / 4 * (19 / 15) - 1;
-            const double d2 = PI / 4 * (80 / 63) - 1;
-            const double p = d1 / (d1 - d2);
-            const double h = 1;
-            return PI * (a + b) * (p * ((64 + 16 * h)
-                / (64 - h * h))
-                + (1 - p) * ((16 + 3 * h) / (16 - h)));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter combined padé2.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
-        /// </remarks>
-        private static double EllipsePerimeterCombinedPadé2(double a, double b)
-        {
-            const double d1 = PI / 4 * (81 / 64) - 1;
-            const double d2 = PI / 4 * (19 / 15) - 1;
-            const double p = d1 / (d1 - d2);
-            const double h = 1;
-            return PI * (a + b) * (p * ((16 - 3 * h)
-                / (16 - h))
-                + (1 - p) * Pow(1 + h / 8, 2));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter jacobsen waadeland hudson lipka.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
-        /// </remarks>
-        private static double EllipsePerimeterJacobsenWaadelandHudsonLipka(double a, double b)
-        {
-            const double d1 = PI / 4 * (61 / 48) - 1;
-            const double d2 = PI / 4 * (187 / 147) - 1;
-            const double p = d1 / (d1 - d2);
-            const double h = 1;
-            return PI * (a + b) * (p * ((256 - 48 * h - 21 * h * h)
-                / (256 - 112 * h + 3 * h * h))
-                + (1 - p) * ((64 - 3 * h * h) / (64 - 16 * h)));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter2 3Jacobsen waadeland.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
-        /// </remarks>
-        private static double EllipsePerimeter2_3JacobsenWaadeland(double a, double b)
-        {
-            const double d1 = PI / 4 * (61 / 48) - 1;
-            const double d2 = PI / 4 * (187 / 147) - 1;
-            const double p = d1 / (d1 - d2);
-            const double h = 1;
-            return PI * (a + b) * (p * ((3072 - 1280 * h - 252 * h * h + 33 * h * h * h)
-                / (3072 - 2048 * h + 212 * h * h))
-                + (1 - p) * ((256 - 48 * h - 21 * h * h) / (256 - 112 * h + 3 * h * h)));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter3 3 3 2.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
-        /// </remarks>
-        private static double EllipsePerimeter3_3_3_2(double a, double b)
-        {
-            const double d1 = PI / 4 * (61 / 48) - 1;
-            const double d2 = PI / 4 * (187 / 147) - 1;
-            const double p = d1 / (d1 - d2);
-            const double h = 1;
-            return PI * (a + b) * (p * ((135168 - 85760 * h - 5568 * h * h + 3867 * h * h * h)
-                / (135168 - 119552 * h + 22208 * h * h - 345 * h * h * h))
-                + (1 - p) * ((3072 - 1280 * h - 252 * h * h + 33 * h * h * h)
-                / (3072 - 2048 * h + 212 * h * h)));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter ramanujan.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterRamanujan(double a, double b) => PI * (3 * (a + b) - Sqrt((3 * a + b) * (a + 3 * b)));
-
-        /// <summary>
-        /// The ellipse perimeter selmer.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterSelmer(double a, double b) => PI / 4 * ((6 + .5 * (Pow(a - b, 2) * Pow(a - b, 2) / Pow(a + b, 2) * Pow(a + b, 2))) * (a + b) - Sqrt(2 * (a * a + 3 * a * b + b * b)));
-
-        /// <summary>
-        /// The ellipse perimeter ramanujan2.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterRamanujan2(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b) * (1 + (3 * h / (10 + Sqrt(4 - 3 * h))));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter padéselmer.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterPadéSelmer(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b) * ((16 + (3 * h)) / (16 - h));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter padémichon.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterPadéMichon(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b) * ((64 + (16 * h)) / (64 - (h * h)));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter padéhudson lipka bronshtein.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterPadéHudsonLipkaBronshtein(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b) * ((64 + (3 * h * h)) / (64 - (16 * h)));
-        }
-
-        /// <summary>
-        /// Not correct.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterCombinedPadéHudsonLipkaMichon(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b) * ((64 + (3 * h * h)) / (64 - (16 * h)));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter padéjacobsen waadeland.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterPadéJacobsenWaadeland(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b) * ((256 - (48 * h) - (21 * h * h)) / (256 - (112 * h) + 3 * h * h));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter padé3 2.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterPadé3_2(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b) * ((3072 - (1280 * h) - (252 * h * h) + (33 * h * h * h)) / (3072 - (2048 * h) + 212 * h * h));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter padé3 3.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterPadé3_3(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b)
-                * ((135168 - (85760 * h) - (5568 * h * h) + (3867 * h * h * h))
-                / (135168 - (119552 * h) + (22208 * h * h) - (345 * h * h * h)));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter optimized peano.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterOptimizedPeano(double a, double b)
-        {
-            const double p = 1.32;
-            return 2 * PI * (p * ((a + b) / 2) + (1 - p) * Sqrt(a * b));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter optimized quadratic1.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterOptimizedQuadratic1(double a, double b)
-        {
-            const double w = 0.7966106;
-            return 2 * PI * Sqrt(w * ((a * a + b * b) / 2) + (1 - w) * a * b);
-        }
-
-        /// <summary>
-        /// The ellipse perimeter optimized quadratic2.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterOptimizedQuadratic2(double a, double b) => PI * Sqrt(2 * (a * a + b * b) + (a - b) * (a - b) / 2.458338);
-
-        /// <summary>
-        /// The ellipse perimeter optimized ramanujan1.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterOptimizedRamanujan1(double a, double b)
-        {
-            const double p = 3.0273;
-            const double w = 3;
-            return 2 * PI * (p * ((a + b) / 2) + (1 - p) * Sqrt((a + w * b) * (w * a + b)) / (1 + w));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter bartolomeu michon.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterBartolomeuMichon(double a, double b)
-            => Abs(a - b) < DoubleEpsilon ? 2 * PI * a : PI * ((a - b) / Atan((a - b) / (a + b)));
-
-        /// <summary>
-        /// The ellipse perimeter cantrell2.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterCantrell2(double a, double b)
-        {
-            const double p = 0.410117;
-            const double w = 74;
-            return 4 * (a + b) - (8 - 2 * PI) * a * b
-                / (p * (a + b) + (1 - 2 * p) * (Sqrt((a + w * b) * (w * a + b)) / (1 + w)));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter takakazu seki.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterTakakazuSeki(double a, double b) => 2 * Sqrt(PI * PI * a * b + 4 * (a - b) * (a - b));
-
-        /// <summary>
-        /// The ellipse perimeter lockwood.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterLockwood(double a, double b) => 4 * (b * b / a * Atan(a / b) + a * a / b * Atan(b / a));
-
-        /// <summary>
-        /// The ellipse perimeter bartolomeu.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterBartolomeu(double a, double b)
-        {
-            var t = PI / 4 * ((a - b) / b);
-            return PI * Sqrt(2 * (a * a + b * b)) * (Sin(t) / t);
-        }
-
-        /// <summary>
-        /// The ellipse perimeter rivera1.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterRivera1(double a, double b) => 4 * a + 2 * (PI - 2) * a * Pow(b / a, 1.456);
-
-        /// <summary>
-        /// The ellipse perimeter rivera2.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterRivera2(double a, double b) => 4 * ((PI * a * b + (a - b) * (a - b)) / (a + b)) - 89 / 146 * Pow((b * Sqrt(a) - a * Sqrt(b)) / (a + b), 2);
-
-        /// <summary>
-        /// The ellipse perimeter cantrell.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterCantrell(double a, double b)
-        {
-            var s = Log(2) / Log(2 / (4 - PI));
-            return 4 * (a + b) - (2 * (4 - PI) * a * b / Pow(Pow(a, s) + Pow(b, s), 1 / s));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter sykora.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterSykora(double a, double b) => 4 * ((PI * a * b + (a - b) * (a - b)) / (a + b)) - 0.5 * (a * b / (a + b)) * ((a - b) * (a - b) / (PI * a * b + (a + b) * (a + b)));
-
-        /// <summary>
-        /// The ellipse perimeter cantrell ramanujan.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://www.mathsisfun.com/geometry/ellipse-perimeter.html</remarks>
-        private static double EllipsePerimeterCantrellRamanujan(double a, double b)
-        {
-            var h = (a - b) * (a - b) / ((a + b) * (a + b));
-            return PI * (a + b) * (1 + (3 * h / (10 + Sqrt(4 - 3 * h))) + ((4 / PI) - (14 / 11)) * Pow(h, 12));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter k13.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math07/EllipsePerimeterApprox07add.html
-        /// </remarks>
-        private static double EllipsePerimeterK13(double a, double b) => PI * (((a + b) / 2) + Sqrt((a * a + b * b) / 2));
-
-        /// <summary>
-        /// This one is not as good with a circle.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <remarks>http://ellipse-circumference2.blogspot.com/2011/12/accurate-online-ellipse-circumference.html</remarks>
-        private static double EllipsePerimeterThomasBlankenhorn1(double a, double b)
-        {
-            var X1 = a;
-            var X2 = b;
-            var HMX = Max(X1, X2);
-            var HMN = Min(X1, X2);
-            var H1 = HMN / HMX;
-            return 2 * PI * HMX * ((2 / PI) + 0.0000122 * Pow(H1, 0.6125) - 0.0021973 * Pow(H1, 1.225) + 0.919315 * Pow(H1, 1.8375) - 1.0359227 * Pow(H1, 2.45) + 0.861913 * Pow(H1, 3.0625) - 0.7274398 * Pow(H1, 3.675) + 0.6352295 * Pow(H1, 4.2875) - 0.436051 * Pow(H1, 4.9) + 0.1818904 * Pow(H1, 5.5125) - 0.0333691 * Pow(H1, 6.125));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter thomas blankenhorn8.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://ellipse-circumference3.blogspot.com/
-        /// </remarks>
-        private static double EllipsePerimeterThomasBlankenhorn8(double a, double b)
-        {
-            var X1 = a;
-            var X2 = b;
-            var HMX = Max(X1, X2);
-            var HMN = Min(X1, X2);
-            var H1 = HMN / HMX;
-            return HMX * (4 + (3929 * Pow(H1, 1.5) + 1639157 * Pow(H1, 2) + 19407215 * Pow(H1, 2.5) + 24302653 * Pow(H1, 3) + 12892432 * Pow(H1, 3.5)) / (86251 + 1924742 * Pow(H1, 0.5) + 6612384 * Pow(H1, 1) + 7291509 * Pow(H1, 1.5) + 6436977 * Pow(H1, 2) + 3158719 * Pow(H1, 2.5)));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter cantrell2006.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox06.html
-        /// </remarks>
-        private static double EllipsePerimeterCantrell2006(double a, double b)
-        {
-            const double p = 3.982901;
-            const double q = 66.71674;
-            const double s = 18.31287;
-            const double t = 23.39728;
-            const double r = 4 * ((4 - PI) * (4 * s + t + 16) - (4 * p + q));
-            return 4 * (a + b)
-                - a * b / (a + b)
-                * ((p * (a + b) * (a + b) + q * a * b + r * (a * b / (a + b)) * (a * b / (a + b)))
-                / ((a + b) * (a + b) + s * a * b + t * (a * b / (a + b)) * (a * b / (a + b))));
-        }
-
-        /// <summary>
-        /// The ellipse perimeter ahmadi2006.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
-        /// http://www.ebyte.it/library/docs/math05a/EllipsePerimeterApprox06.html
-        /// </remarks>
-        private static double EllipsePerimeterAhmadi2006(double a, double b)
-        {
-            const double c1 = PI - 3;
-            const double c2 = PI;
-            const double c3 = 0.5;
-            const double c4 = (PI + 1) / 2;
-            const double c5 = 4;
-            var k = 1 - (c1 * a * b / (a * a + b * b + c2 * Sqrt(c3 * a * b * a * b + a * b * Sqrt(a * b * (c4 * (a * a + b * b) + c5 * a * b)))));
-            return 4 * ((PI * a * b + k * (a - b) * (a - b)) / (a + b));
-        }
-        #endregion Ellipse Perimeter Length
-
-        #region Elliptic Arc From Points and Radii
-        #endregion Elliptic Arc From Points and Radii
-
         #region Elliptic Star Points
-
         /// <summary>
         /// The star points.
         /// </summary>
         /// <param name="num_points">The num_points.</param>
         /// <param name="bounds">The bounds.</param>
         /// <returns>The <see cref="T:PointF[]"/>. Return PointFs to define a star.</returns>
-        private static PointF[] StarPoints(int num_points, Rectangle bounds)
+        public static PointF[] StarPoints(int num_points, Rectangle bounds)
         {
             // Make room for the points.
             var pts = new PointF[num_points];
@@ -4861,95 +2041,6 @@ namespace MethodSpeedTester
             return pts;
         }
         #endregion Elliptic Star Points
-
-        #region Envelope Distort
-        /// <summary>
-        /// Warp the shape using Envelope distortion.
-        /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="bounds">The bounds.</param>
-        /// <param name="topLeft">The topLeft.</param>
-        /// <param name="topLeftH">The topLeftH.</param>
-        /// <param name="topLeftV">The topLeftV.</param>
-        /// <param name="topRight">The topRight.</param>
-        /// <param name="topRightH">The topRightH.</param>
-        /// <param name="topRightV">The topRightV.</param>
-        /// <param name="bottomRight">The bottomRight.</param>
-        /// <param name="bottomRightH">The bottomRightH.</param>
-        /// <param name="bottomRightV">The bottomRightV.</param>
-        /// <param name="bottomLeft">The bottomLeft.</param>
-        /// <param name="bottomLeftH">The bottomLeftH.</param>
-        /// <param name="bottomLeftV">The bottomLeftV.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Envelope1(
-            Point2D point,
-            Rectangle2D bounds,
-            Point2D topLeft, Point2D topLeftH, Point2D topLeftV,
-            Point2D topRight, Point2D topRightH, Point2D topRightV,
-            Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
-            Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
-        {
-            var norm = Distortions.NormalizePoint(bounds, point);
-            var left = Interpolators.CubicBezier(topLeft.X, topLeftV.X, bottomLeftV.X, bottomLeft.X, norm.Y);
-            var right = Interpolators.CubicBezier(topRight.X, topRightV.X, bottomRightV.X, bottomRight.X, norm.Y);
-            var top = Interpolators.CubicBezier(topLeft.Y, topLeftH.Y, topRightH.Y, topRight.Y, norm.X);
-            var bottom = Interpolators.CubicBezier(bottomLeft.Y, bottomLeftH.Y, bottomRightH.Y, bottomRight.Y, norm.X);
-            var x = Interpolators.Linear(left, right, norm.X);
-            var y = Interpolators.Linear(top, bottom, norm.Y);
-            return new Point2D(x, y);
-        }
-
-        /// <summary>
-        /// Warp the shape using Envelope distortion.
-        /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="bounds">The bounds.</param>
-        /// <param name="topLeft">The topLeft.</param>
-        /// <param name="topLeftH">The topLeftH.</param>
-        /// <param name="topLeftV">The topLeftV.</param>
-        /// <param name="topRight">The topRight.</param>
-        /// <param name="topRightH">The topRightH.</param>
-        /// <param name="topRightV">The topRightV.</param>
-        /// <param name="bottomRight">The bottomRight.</param>
-        /// <param name="bottomRightH">The bottomRightH.</param>
-        /// <param name="bottomRightV">The bottomRightV.</param>
-        /// <param name="bottomLeft">The bottomLeft.</param>
-        /// <param name="bottomLeftH">The bottomLeftH.</param>
-        /// <param name="bottomLeftV">The bottomLeftV.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Envelope2(
-            Point2D point,
-            Rectangle2D bounds,
-            Point2D topLeft, Point2D topLeftH, Point2D topLeftV,
-            Point2D topRight, Point2D topRightH, Point2D topRightV,
-            Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
-            Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
-        {
-            // Normalize the point to the bounding box.
-            var (normX, normY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
-
-            // Set up Interpolation variables.
-            var (minusNormX, minusNormY) = (1d - normX, 1d - normY);
-            var (minusNormXSquared, minusNormYSquared) = (minusNormX * minusNormX, minusNormY * minusNormY);
-            var (minusNormXCubed, minusNormYCubed) = (minusNormXSquared * minusNormX, minusNormYSquared * minusNormY);
-            var (normXSquared, normYSquared) = (normX * normX, normY * normY);
-            var (normXCubed, normYCubed) = (normXSquared * normX, normYSquared * normY);
-
-            // Interpolate the normalized point along the Cubic Bézier curves
-            var left = minusNormYCubed * topLeft.X + 3d * normY * minusNormYSquared * topLeftV.X + 3d * normYSquared * minusNormY * bottomLeftV.X + normYCubed * bottomLeft.X;
-            var right = minusNormYCubed * topRight.X + 3d * normY * minusNormYSquared * topRightV.X + 3d * normYSquared * minusNormY * bottomRightV.X + normYCubed * bottomRight.X;
-            var top = minusNormXCubed * topLeft.Y + 3d * normX * minusNormXSquared * topLeftH.Y + 3d * normXSquared * minusNormX * topRightH.Y + normXCubed * topRight.Y;
-            var bottom = minusNormXCubed * bottomLeft.Y + 3d * normX * minusNormXSquared * bottomLeftH.Y + 3d * normXSquared * minusNormX * bottomRightH.Y + normXCubed * bottomRight.Y;
-
-            // Linearly interpolate the point between the Bézier curves.
-            return new Point2D(
-                minusNormX * left + normX * right,
-                minusNormY * top + normY * bottom
-                );
-        }
-        #endregion Envelope Distort
 
         #region Evaluate a Polynomial
         /// <summary>
@@ -5108,78 +2199,6 @@ namespace MethodSpeedTester
         }
         #endregion Evaluate a Polynomial
 
-        #region Find Center of a Circle From Three Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the angle between Two 3D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(CircleCenterFromThreePointsTests))]
-        public static List<SpeedTester> CircleCenterFromThreePointsTests() => new List<SpeedTester> {
-                new SpeedTester(() => TripointCircleCenter(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.TripointCircleCenter)}(0, 0, 0, 1, 1, 1)"),
-                new SpeedTester(() => CircleCenterFromPoints(0, 0, 0, 1, 1, 1),
-                $"{nameof(Experiments.CircleCenterFromPoints)}(0, 0, 0, 1, 1, 1)")
-           };
-
-        /// <summary>
-        /// Find the Center of A Circle from Three Points
-        /// </summary>
-        /// <param name="pointAX">First Point on the Ellipse</param>
-        /// <param name="pointAY">First Point on the Ellipse</param>
-        /// <param name="pointBX">Second Point on the Ellipse</param>
-        /// <param name="pointBY">Second Point on the Ellipse</param>
-        /// <param name="pointCX">Last Point on the Ellipse</param>
-        /// <param name="pointCY">Last Point on the Ellipse</param>
-        /// <returns>Returns the Center point of a Circle defined by three points</returns>
-        /// <remarks>
-        /// </remarks>
-        public static (double X, double Y) TripointCircleCenter(
-            double pointAX, double pointAY,
-            double pointBX, double pointBY,
-            double pointCX, double pointCY)
-        {
-            //  Calculate the slopes of the lines.
-            var slopeA = Slope(pointAX, pointAY, pointBX, pointBY);
-            var slopeB = Slope(pointCX, pointCY, pointBX, pointBY);
-            var fY = (((pointAX - pointBX) * (pointAX + pointBX)) + ((pointAY - pointBY) * (pointAY + pointBY))) / (2 * (pointAX - pointBX));
-            var fX = (((pointCX - pointBX) * (pointCX + pointBX)) + ((pointCY - pointBY) * (pointCY + pointBY))) / (2 * (pointCX - pointBX));
-            var newY = (fX - fY) / (slopeB - slopeA);
-            var newX = fX - (slopeB * newY);
-            return (newX, newY);
-        }
-
-        /// <summary>
-        /// The circle center from points.
-        /// </summary>
-        /// <param name="p1X">The p1X.</param>
-        /// <param name="p1Y">The p1Y.</param>
-        /// <param name="p2X">The p2X.</param>
-        /// <param name="p2Y">The p2Y.</param>
-        /// <param name="p3X">The p3X.</param>
-        /// <param name="p3Y">The p3Y.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
-        /// </remarks>
-        public static (double X, double Y)? CircleCenterFromPoints(
-            double p1X, double p1Y,
-            double p2X, double p2Y,
-            double p3X, double p3Y)
-        {
-            var offset = (p2X * p2X) + (p2Y * p2Y);
-            var bc = ((p1X * p1X) + (p1Y * p1Y) - offset) * 0.5d;
-            var cd = (offset - (p3X * p3X) - (p3Y * p3Y)) * 0.5d;
-            var determinant = (p1X - p2X) * (p2Y - p3Y) - (p2X - p3X) * (p1Y - p2Y);
-
-            if (Abs(determinant) < DoubleEpsilon)
-                return null;
-
-            return (
-                (bc * (p2Y - p3Y) - cd * (p1Y - p2Y)) / determinant,
-                (cd * (p1X - p2X) - bc * (p2X - p3X)) / determinant);
-        }
-        #endregion Find Center of a Circle From Three Points
-
         #region Find Polygon Ear
         /// <summary>
         /// Find the indexes of three points that form an "ear."
@@ -5189,7 +2208,9 @@ namespace MethodSpeedTester
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/
+        /// </acknowledgment>
         public static Triangle FindEar(PolygonContour polygon, ref int a, ref int b, ref int c)
         {
             var num_points = polygon.Points.Count;
@@ -5200,7 +2221,9 @@ namespace MethodSpeedTester
                 c = (b + 1) % num_points;
 
                 if (FormsEar(polygon, a, b, c))
+                {
                     return new Triangle(polygon.Points[a], polygon.Points[b], polygon.Points[c]);
+                }
             }
 
             // We should never get here because there should
@@ -5218,8 +2241,10 @@ namespace MethodSpeedTester
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
         /// <returns>The <see cref="bool"/>. Return true if the three points form an ear.</returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        private static bool FormsEar(PolygonContour polygon, int a, int b, int c)
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/
+        /// </acknowledgment>
+        public static bool FormsEar(PolygonContour polygon, int a, int b, int c)
         {
             // See if the angle ABC is concave.
             if (AngleVector(
@@ -5303,7 +2328,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="e">The paint event arguments.</param>
         /// <param name="bounds">The bounds.</param>
-        private static void PicGears_Paint(PaintEventArgs e, Rectangle bounds)
+        public static void PicGears_Paint(PaintEventArgs e, Rectangle bounds)
         {
             // Draw smoothly.
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
@@ -5337,7 +2362,7 @@ namespace MethodSpeedTester
         /// <param name="num_teeth">The num_teeth.</param>
         /// <param name="axle_radius">The axle_radius.</param>
         /// <param name="start_with_tooth">The start_with_tooth.</param>
-        private static void DrawGear(Graphics gr, Brush axle_brush, Brush gear_brush, Pen gear_pen, Point2D center, double radius, double tooth_length, int num_teeth, double axle_radius, bool start_with_tooth)
+        public static void DrawGear(Graphics gr, Brush axle_brush, Brush gear_brush, Pen gear_pen, Point2D center, double radius, double tooth_length, int num_teeth, double axle_radius, bool start_with_tooth)
         {
             var dtheta = PI / num_teeth;
             var dtheta_degrees = dtheta * 180 / PI; // dtheta in degrees.
@@ -5392,7 +2417,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        private static Point2D Heart(double t)
+        public static Point2D Heart(double t)
         {
             var sin_t = Sin(t);
             return new Point2D(16 * sin_t * sin_t * sin_t,
@@ -5409,7 +2434,7 @@ namespace MethodSpeedTester
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns>The <see cref="Bitmap"/>.</returns>
-        private static Bitmap DrawHeart(int width, int height)
+        public static Bitmap DrawHeart(int width, int height)
         {
             var bm = new Bitmap(width, height);
             using (var gr = Graphics.FromImage(bm))
@@ -5421,7 +2446,9 @@ namespace MethodSpeedTester
                 var points = new List<Point2D>();
                 const double dt = 2 * PI / num_points;
                 for (double t = 0; t <= 2 * PI; t += dt)
+                {
                     points.Add(new Point2D(Heart(t).X, Heart(t).Y));
+                }
 
                 // Get the coordinate bounds.
                 var wxmin = points[0].X;
@@ -5431,13 +2458,24 @@ namespace MethodSpeedTester
                 foreach (Point2D point in points)
                 {
                     if (wxmin > point.X)
+                    {
                         wxmin = point.X;
+                    }
+
                     if (wxmax < point.X)
+                    {
                         wxmax = point.X;
+                    }
+
                     if (wymin > point.Y)
+                    {
                         wymin = point.Y;
+                    }
+
                     if (wymax < point.Y)
+                    {
                         wymax = point.Y;
+                    }
                 }
 
                 // Make the world coordinate rectangle.
@@ -5488,7 +2526,7 @@ namespace MethodSpeedTester
         /// <param name="device_rect">The device_rect.</param>
         /// <param name="invert_x">The invert_x.</param>
         /// <param name="invert_y">The invert_y.</param>
-        private static void SetTransformationWithoutDisortion(Graphics gr,
+        public static void SetTransformationWithoutDisortion(Graphics gr,
             Rectangle2D world_rect, Rectangle2D device_rect,
             bool invert_x, bool invert_y)
         {
@@ -5535,7 +2573,7 @@ namespace MethodSpeedTester
         /// <param name="device_rect">The device_rect.</param>
         /// <param name="invert_x">The invert_x.</param>
         /// <param name="invert_y">The invert_y.</param>
-        private static void SetTransformation(Graphics gr,
+        public static void SetTransformation(Graphics gr,
             Rectangle2D world_rect, Rectangle2D device_rect,
             bool invert_x, bool invert_y)
         {
@@ -5588,8 +2626,10 @@ namespace MethodSpeedTester
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        private static double HermiteInterpolate1D(
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
+        public static double HermiteInterpolate1D(
             double v0,
             double v1,
             double v2,
@@ -5634,10 +2674,13 @@ namespace MethodSpeedTester
             {
                 result = v1;
             }
-            else result = s == 1f ? v2 : (2 * v1 - 2 * v2 + t2 + t1) * sCubed
+            else
+            {
+                result = s == 1f ? v2 : (2 * v1 - 2 * v2 + t2 + t1) * sCubed
                    + (3 * v2 - 3 * v1 - 2 * t1 - t2) * sSquared
                    + t1 * s
                    + v1;
+            }
 
             return result;
         }
@@ -5670,8 +2713,10 @@ namespace MethodSpeedTester
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        private static (double X, double Y) HermiteInterpolate2D(
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
+        public static (double X, double Y) HermiteInterpolate2D(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -5750,7 +2795,7 @@ namespace MethodSpeedTester
         /// <param name="tension">Tension: 1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">Bias: 0 is even,</param>
         /// <returns>The <see cref="double"/>. positive is towards First segment, negative towards the other</returns>
-        private static double Hermite_Interpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
+        public static double Hermite_Interpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
         {
             var m0 = (y1 - y0) * ((1 + bias) * ((1 - tension) / 2));
             m0 += (y2 - y1) * ((1 - bias) * ((1 - tension) / 2));
@@ -5776,7 +2821,7 @@ namespace MethodSpeedTester
         /// <param name="tension">The tension.</param>
         /// <param name="bias">The bias.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        private static double HermiteInterpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
+        public static double HermiteInterpolate(double y0, double y1, double y2, double y3, double mu, double tension, double bias)
         {
             var m0 = (y1 - y0) * ((1 + bias) * ((1 - tension) / 2));
             m0 += (y2 - y1) * ((1 - bias) * ((1 - tension) / 2));
@@ -5845,8 +2890,10 @@ namespace MethodSpeedTester
         /// <param name="tension">1 is high, 0 normal, -1 is low</param>
         /// <param name="bias">0 is even,positive is towards first segment, negative towards the other</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
-        private static (double X, double Y, double Z) HermiteInterpolate3D(
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
+        public static (double X, double Y, double Z) HermiteInterpolate3D(
             double x0, double y0, double z0,
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -5889,7 +2936,9 @@ namespace MethodSpeedTester
         /// <param name="b">The b.</param>
         /// <param name="bTan">The bTan.</param>
         /// <returns>The <see cref="CubicBezier"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681
+        /// </acknowledgment>
         public static CubicBezier ToCubicBezier(Point2D a, Point2D aTan, Point2D b, Point2D bTan) => new CubicBezier(aTan, new Point2D(aTan.X - (b.X - a.X) / 6, aTan.Y - (b.Y - a.Y) / 6), new Point2D(b.X + (bTan.X - aTan.X) / 6, b.Y + (bTan.Y - aTan.Y) / 6), bTan);
         #endregion Hermite To Cubic Bézier
 
@@ -5902,11 +2951,21 @@ namespace MethodSpeedTester
         /// <param name="segBX">The segBX.</param>
         /// <param name="segBY">The segBY.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        /// <acknowledgment>
+        /// http://www.angusj.com/delphi/clipper.php
+        /// </acknowledgment>
         public static bool HorzSegmentsOverlap(double segAX, double segAY, double segBX, double segBY)
         {
-            if (segAX > segAY) Maths.Swap(ref segAX, ref segAY);
-            if (segBX > segBY) Maths.Swap(ref segBX, ref segBY);
+            if (segAX > segAY)
+            {
+                Maths.Swap(ref segAX, ref segAY);
+            }
+
+            if (segBX > segBY)
+            {
+                Maths.Swap(ref segBX, ref segBY);
+            }
+
             return (segAX < segBY) && (segBX < segAY);
         }
         #endregion Horizontal Line Segments Overlap
@@ -5922,7 +2981,9 @@ namespace MethodSpeedTester
         /// <param name="cy1"></param>
         /// <param name="radius1"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/</remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/09/determine-where-two-circles-intersect-in-c/
+        /// </acknowledgment>
         public static (int, (double X, double Y), (double X, double Y)) FindCircleCircleIntersections(
             double cx0,
             double cy0,
@@ -5982,7 +3043,9 @@ namespace MethodSpeedTester
 
                 // See if we have 1 or 2 solutions.
                 if (Abs(dist - radius0 + radius1) < DoubleEpsilon)
+                {
                     return (1, intersection1, intersection2);
+                }
 
                 return (2, intersection1, intersection2);
             }
@@ -5994,9 +3057,9 @@ namespace MethodSpeedTester
         /// <param name="A">The A.</param>
         /// <param name="B">The B.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://www.xarg.org/2016/07/calculate-the-intersection-points-of-two-circles/
-        /// </remarks>
+        /// </acknowledgment>
         public static (int, (double X, double Y), (double X, double Y))? CircleCircleIntersection(Circle A, Circle B)
         {
             var d = Sqrt(Pow(B.X - A.X, 2) + Pow(B.Y - A.Y, 2));
@@ -6040,11 +3103,11 @@ namespace MethodSpeedTester
         /// <param name="lBX"></param>
         /// <param name="lBY"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleLineSegmentIntersection1(
+        public static Intersection CircleLineSegmentIntersection1(
             double cX, double cY,
             double r,
             double lAX, double lAY,
@@ -6054,7 +3117,9 @@ namespace MethodSpeedTester
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lAX == lBX) && (lAY == lBY)))
+            {
                 return result;
+            }
 
             var dx = lBX - lAX;
             var dy = lBY - lAY;
@@ -6092,9 +3157,14 @@ namespace MethodSpeedTester
                 // Add the points if they are between the end points of the line segment.
                 result = new Intersection(IntersectionState.Intersection);
                 if ((t1 >= 0d) && (t1 <= 1d))
+                {
                     result.AppendPoint(new Point2D(lAX + t1 * dx, lAY + t1 * dy));
+                }
+
                 if ((t2 >= 0d) && (t2 <= 1d))
+                {
                     result.AppendPoint(new Point2D(lAX + t2 * dx, lAY + t2 * dy));
+                }
             }
 
             return result;
@@ -6112,9 +3182,11 @@ namespace MethodSpeedTester
         /// <param name="lBY">The lBY.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>http://www.kevlindev.com/</remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleLineSegmentIntersection(
+        public static Intersection CircleLineSegmentIntersection(
             double cX, double cY,
             double r,
             double lAX, double lAY,
@@ -6144,7 +3216,9 @@ namespace MethodSpeedTester
                 {
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
+                    {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u1));
+                    }
                 }
             }
             else
@@ -6160,9 +3234,14 @@ namespace MethodSpeedTester
                 {
                     result = new Intersection(IntersectionState.Intersection);
                     if (0 <= u1 && u1 <= 1)
+                    {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u1));
+                    }
+
                     if (0 <= u2 && u2 <= 1)
+                    {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u2));
+                    }
                 }
             }
             return result;
@@ -6178,9 +3257,11 @@ namespace MethodSpeedTester
         /// <param name="point1"></param>
         /// <param name="point2"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/</remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (int, (double X, double Y), (double X, double Y)) LineCircle(
+        public static (int, (double X, double Y), (double X, double Y)) LineCircle(
             (double X, double Y) center,
             double radius,
             (double X, double Y) point1,
@@ -6237,11 +3318,11 @@ namespace MethodSpeedTester
         /// <param name="lBY">The lBY.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/09/determine-where-a-line-intersects-a-circle-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CircleLineIntersection(
+        public static Intersection CircleLineIntersection(
             double cX, double cY,
             double r,
             double lAX, double lAY,
@@ -6252,7 +3333,9 @@ namespace MethodSpeedTester
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lAX == lBX) && (lAY == lBY)))
+            {
                 return result;
+            }
 
             var dx = lBX - lAX;
             var dy = lBY - lAY;
@@ -6327,11 +3410,20 @@ namespace MethodSpeedTester
             var g = XB - ellipseB.Center.X + Pow(YC - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius;
             var H = XB - ellipseB.Center.X + Pow(YD - ellipseB.Center.Y, 2) - ellipseB.MajorRadius * ellipseB.MajorRadius;
             if (Abs(F) < Abs(e))
+            {
                 YA = YB;
+            }
+
             if (Abs(H) < Abs(g))
+            {
                 YC = YD;
+            }
+
             if (Abs(ellipseA.Center.Y - ellipseB.Center.Y) < DoubleEpsilon)
+            {
                 YC = 2 * ellipseA.Center.Y - YA;
+            }
+
             return new LineSegment(XA, YA, XB, YC);
         }
 
@@ -6341,15 +3433,19 @@ namespace MethodSpeedTester
         /// <param name="xmin"></param>
         /// <param name="xmax"></param>
         /// <param name="eis"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static void FindPointsOfIntersectionNewtonsMethod(double xmin, double xmax, EllipseIntersectStuff eis)
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static void FindPointsOfIntersectionNewtonsMethod(double xmin, double xmax, EllipseIntersectStuff eis)
         {
             eis.Roots = new List<Point2D>();
             eis.RootSign1 = new List<double>();
             eis.RootSign2 = new List<double>();
 
             if (!eis.GotEllipse1 || !eis.GotEllipse2)
+            {
                 return;
+            }
 
             // Find roots for each of the difference equations.
             double[] signs = { +1f, -1f };
@@ -6392,15 +3488,19 @@ namespace MethodSpeedTester
         /// <param name="xmin"></param>
         /// <param name="xmax"></param>
         /// <param name="eis"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/</remarks>
-        private static void FindPointsOfIntersectionUsingBinaryDivision(double xmin, double xmax, EllipseIntersectStuff eis)
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
+        /// </acknowledgment>
+        public static void FindPointsOfIntersectionUsingBinaryDivision(double xmin, double xmax, EllipseIntersectStuff eis)
         {
             eis.Roots = new List<Point2D>();
             eis.RootSign1 = new List<double>();
             eis.RootSign2 = new List<double>();
 
             if (!eis.GotEllipse1 || !eis.GotEllipse2)
+            {
                 return;
+            }
 
             // Find roots for each of the difference equations.
             double[] signs = { +1f, -1f };
@@ -6457,8 +3557,10 @@ namespace MethodSpeedTester
         /// <param name="F2"></param>
         /// <param name="sign2"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static List<Point2D> FindRootsUsingNewtonsMethod(double xmin, double xmax,
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static List<Point2D> FindRootsUsingNewtonsMethod(double xmin, double xmax,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
         {
@@ -6495,7 +3597,9 @@ namespace MethodSpeedTester
 
                         // If we've found two roots, we won't find any more.
                         if (roots.Count > 1)
+                        {
                             return roots;
+                        }
                     }
                 }
 
@@ -6525,8 +3629,10 @@ namespace MethodSpeedTester
         /// <param name="F2"></param>
         /// <param name="sign2"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/</remarks>
-        private static List<Point2D> FindRootsUsingBinaryDivision(double xmin, double xmax,
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
+        /// </acknowledgment>
+        public static List<Point2D> FindRootsUsingBinaryDivision(double xmin, double xmax,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
         {
@@ -6563,7 +3669,9 @@ namespace MethodSpeedTester
 
                         // If we've found two roots, we won't find any more.
                         if (roots.Count > 1)
+                        {
                             return roots;
+                        }
                     }
                 }
 
@@ -6593,8 +3701,10 @@ namespace MethodSpeedTester
         /// <param name="E2"></param>
         /// <param name="F2"></param>
         /// <param name="sign2"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static void UseNewtonsMethod(double x0, out double x, out double y,
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static void UseNewtonsMethod(double x0, out double x, out double y,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
         {
@@ -6659,8 +3769,10 @@ namespace MethodSpeedTester
         /// <param name="E2"></param>
         /// <param name="F2"></param>
         /// <param name="sign2"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/</remarks>
-        private static void UseBinaryDivision(double x0, double delta_x,
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-4/
+        /// </acknowledgment>
+        public static void UseBinaryDivision(double x0, double delta_x,
             out double x, out double y,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
@@ -6719,7 +3831,9 @@ namespace MethodSpeedTester
 
                 // If sgn_mid is 0, gxmid is 0 so this is the root.
                 if (sgn_mid == 0)
+                {
                     break;
+                }
 
                 // See which half contains the root.
                 if (sgn_mid == sgn_min)
@@ -6797,8 +3911,10 @@ namespace MethodSpeedTester
         /// <param name="e"></param>
         /// <param name="f"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static List<Point2D> GetPointsFromEquation(double xmin, double xmax,
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static List<Point2D> GetPointsFromEquation(double xmin, double xmax,
             double a, double b, double c, double d, double e, double f)
         {
             var points = new List<Point2D>();
@@ -6806,13 +3922,17 @@ namespace MethodSpeedTester
             {
                 var y = G1(a, b, c, d, e, f, x, +1f);
                 if (IsNumber(y))
+                {
                     points.Add(new Point2D(x, y));
+                }
             }
             for (var x = xmax; x >= xmin; x--)
             {
                 var y = G1(a, b, c, d, e, f, x, -1f);
                 if (IsNumber(y))
+                {
                     points.Add(new Point2D(x, y));
+                }
             }
             return points;
         }
@@ -6837,8 +3957,10 @@ namespace MethodSpeedTester
         /// <param name="E2"></param>
         /// <param name="F2"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static List<List<Point2D>> GetDifferencePoints(
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static List<List<Point2D>> GetDifferencePoints(
             double xmin1, double xmax1,
             double xmin2, double xmax2,
             double A1, double B1, double C1, double D1, double E1, double F1,
@@ -6862,7 +3984,9 @@ namespace MethodSpeedTester
                         {
                             var y2 = G1(A2, B2, C2, D2, E2, F2, x, sign2);
                             if (IsNumber(y2))
+                            {
                                 points.Add(new Point2D(x, y1 - y2));
+                            }
                         }
                     }
                 }
@@ -6875,15 +3999,19 @@ namespace MethodSpeedTester
         /// Find tangents to the difference functions.
         /// </summary>
         /// <param name="eis"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static void FindDifferenceTangents(EllipseIntersectStuff eis)
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static void FindDifferenceTangents(EllipseIntersectStuff eis)
         {
             eis.TangentCenters = new List<Point2D>();
             eis.TangentP1 = new List<Point2D>();
             eis.TangentP2 = new List<Point2D>();
 
             if (!eis.GotEllipse1 || !eis.GotEllipse2)
+            {
                 return;
+            }
 
             const double tangent_length = 50;
 
@@ -6978,8 +4106,10 @@ namespace MethodSpeedTester
         /// <param name="d"></param>
         /// <param name="e"></param>
         /// <param name="f"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static void GetEllipseFormula(Rectangle2D rect,
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static void GetEllipseFormula(Rectangle2D rect,
             out double Dx, out double Dy, out double Rx, out double Ry,
             out double a, out double b, out double c, out double d,
             out double e, out double f)
@@ -7017,8 +4147,10 @@ namespace MethodSpeedTester
         /// <param name="f"></param>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static void VerifyEquation(double a, double b, double c, double d, double e, double f, double x, double y)
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static void VerifyEquation(double a, double b, double c, double d, double e, double f, double x, double y)
         {
             var total = a * x * x + b * x * y + c * y * y + d * x + e * y + f;
             Console.WriteLine($"VerifyEquation ({x}, {y}) = {total}");
@@ -7037,8 +4169,10 @@ namespace MethodSpeedTester
         /// <param name="f"></param>
         /// <param name="root_sign"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static double G1(double x, double a, double b, double c, double d, double e, double f, double root_sign)
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static double G1(double x, double a, double b, double c, double d, double e, double f, double root_sign)
         {
             var result = b * x + e;
             result *= result;
@@ -7062,8 +4196,10 @@ namespace MethodSpeedTester
         /// <param name="f"></param>
         /// <param name="root_sign"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static double G1Prime(double x, double a, double b, double c, double d, double e, double f, double root_sign)
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static double G1Prime(double x, double a, double b, double c, double d, double e, double f, double root_sign)
         {
             var numerator = 2 * (b * x + e) * b - 4 * c * (2 * a * x + d);
             var denominator = 2 * Sqrt((b * x + e) * (b * x + e) - 4 * c * (a * x * x + d * x + f));
@@ -7091,8 +4227,10 @@ namespace MethodSpeedTester
         /// <param name="F2"></param>
         /// <param name="sign2"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static double G(double x,
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static double G(double x,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
             => G1(x, A1, B1, C1, D1, E1, F1, sign1)
@@ -7117,8 +4255,10 @@ namespace MethodSpeedTester
         /// <param name="F2"></param>
         /// <param name="sign2"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static double GPrime(double x,
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static double GPrime(double x,
             double A1, double B1, double C1, double D1, double E1, double F1, double sign1,
             double A2, double B2, double C2, double D2, double E2, double F2, double sign2)
             => G1Prime(x, A1, B1, C1, D1, E1, F1, sign1)
@@ -7129,8 +4269,10 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="number"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/</remarks>
-        private static bool IsNumber(double number)
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/11/see-where-two-ellipses-intersect-in-c-part-1/
+        /// </acknowledgment>
+        public static bool IsNumber(double number)
             => !(double.IsNaN(number) || double.IsInfinity(number));
         #endregion Intersection of Ellipse and Ellipse
 
@@ -7147,9 +4289,9 @@ namespace MethodSpeedTester
         /// <param name="x1"></param>
         /// <param name="y1"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (bool, (double, double)?, bool, (double, double)?) FindEllipseSegmentIntersections(
             double cx, double cy,
@@ -7160,7 +4302,9 @@ namespace MethodSpeedTester
             // If the ellipse or line segment are empty, return no intersections.
             if ((cx == 0d) || (cy == 0d) ||
                 ((x0 == x1) && (y0 == y1)))
+            {
                 return (false, null, false, null);
+            }
 
             // Translate lines to meet the ellipse translated centered at the origin.
             var p1X = x0 - cx;
@@ -7214,9 +4358,9 @@ namespace MethodSpeedTester
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://forums.codeguru.com/showthread.php?157823-How-to-get-ellipse-and-line-Intersection-points
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (bool, (double, double)?, bool, (double, double)?) EllipseLineSegment(
             double cX, double cY,
@@ -7300,11 +4444,11 @@ namespace MethodSpeedTester
         /// <param name="y1"></param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection UnrotatedEllipseLineSegmentIntersection2(
+        public static Intersection UnrotatedEllipseLineSegmentIntersection2(
             double cx, double cy,
             double rx, double ry,
             double x0, double y0,
@@ -7316,7 +4460,9 @@ namespace MethodSpeedTester
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
                 ((x0 == x1) && (y0 == y1)))
+            {
                 return result;
+            }
 
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x0 - cx;
@@ -7383,7 +4529,9 @@ namespace MethodSpeedTester
         /// <param name="a2X">The a2X.</param>
         /// <param name="a2Y">The a2Y.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>http://www.kevlindev.com/</remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection UnrotatedEllipseLineSegmentIntersection(
             double centerX, double centerY,
@@ -7417,8 +4565,15 @@ namespace MethodSpeedTester
                 else
                 {
                     result = new Intersection(IntersectionState.Intersection);
-                    if (0 <= t_a && t_a <= 1) result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t_a));
-                    if (0 <= t_b && t_b <= 1) result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t_b));
+                    if (0 <= t_a && t_a <= 1)
+                    {
+                        result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t_a));
+                    }
+
+                    if (0 <= t_b && t_b <= 1)
+                    {
+                        result.AppendPoint(Lerp(a1X, a1Y, a2X, a2Y, t_b));
+                    }
                 }
             }
             else
@@ -7451,11 +4606,11 @@ namespace MethodSpeedTester
         /// <param name="y1"></param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2012/09/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection EllipseLineSegmentIntersection(
+        public static Intersection EllipseLineSegmentIntersection(
             double cx, double cy,
             double rx, double ry,
             double angle,
@@ -7468,7 +4623,9 @@ namespace MethodSpeedTester
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
                 ((x0 == x1) && (y0 == y1)))
+            {
                 return result;
+            }
 
             // Get the Sine and Cosine of the angle.
             var sinA = Sin(angle);
@@ -7576,7 +4733,9 @@ namespace MethodSpeedTester
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>http://www.kevlindev.com/</remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Intersection UnrotatedEllipticalArcLineSegmentIntersection(
             double cx, double cy,
@@ -7647,13 +4806,17 @@ namespace MethodSpeedTester
 
                     // Check whether the point is on the side of the chord as the center.
                     if (0 <= t1 && t1 <= 1 && (Sign(determinant) != Sign(sweepAngle)))
+                    {
                         result.AppendPoint(p);
+                    }
 
                     p = Lerp(x0, y0, x1, y1, t2);
                     // Find the determinant of the chord.
                     determinant = (sX - p.X) * (eY - p.Y) - (eX - p.X) * (sY - p.Y);
                     if (0 <= t2 && t2 <= 1 && (Sign(determinant) != Sign(sweepAngle)))
+                    {
                         result.AppendPoint(p);
+                    }
                 }
             }
             else // discriminant == 0.
@@ -7669,14 +4832,21 @@ namespace MethodSpeedTester
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Sign(determinant) != Sign(sweepAngle))
+                    {
                         result.AppendPoint(Lerp(x0, y0, x1, y1, t));
+                    }
                 }
                 else
+                {
                     result = new Intersection(IntersectionState.Outside);
+                }
             }
 
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
         #endregion Intersection of Elliptical Arc and Line Segment
@@ -7685,7 +4855,7 @@ namespace MethodSpeedTester
         //http://csharphelper.com/blog/2014/11/see-where-a-parabola-and-hyperbola-intersect-in-c/
         #endregion Intersection of Parabola and Hyperbola
 
-        #region Intersection of two Line Segments
+        #region Intersection Of Two Line Segments
         /// <summary>
         /// Set of tests to run testing methods that calculate the 3D Hermite interpolation of points.
         /// </summary>
@@ -7741,7 +4911,9 @@ namespace MethodSpeedTester
 
             //  If the segments are parallel return false.
             if (Abs((deltaDCI * deltaBAJ) - (deltaDCJ * deltaBAI)) < DoubleEpsilon)
+            {
                 return (false, null);
+            }
 
             // Find the index where the intersection point lies on the line.
             var s = ((deltaBAI * deltaCAJ) + (deltaBAJ * -deltaCAI)) / ((deltaDCI * deltaBAJ) - (deltaDCJ * deltaBAI));
@@ -7766,7 +4938,9 @@ namespace MethodSpeedTester
         /// <param name="x4">The x component of the second point of the second line.</param>
         /// <param name="y4">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/</remarks>
+        /// <acknowledgment>
+        /// https://www.topcoder.com/community/data-science/data-science-tutorials/geometry-concepts-line-intersection-and-its-applications/
+        /// </acknowledgment>
         public static (bool, (double X, double Y)?) Intersection1(
             double x1, double y1,
             double x2, double y2,
@@ -7784,7 +4958,9 @@ namespace MethodSpeedTester
 
             // Check if the lines are parallel.
             if (Abs(determinant) < DoubleEpsilon)
+            {
                 return (false, null);
+            }
 
             // Find the index where the intersection point lies on the line.
             var s = (deltaAJ * x1 + deltaAI * y1) / -determinant;
@@ -7810,7 +4986,9 @@ namespace MethodSpeedTester
         /// <param name="x4">The x component of the second point of the second line.</param>
         /// <param name="y4">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        /// <acknowledgment>
+        /// http://www.vb-helper.com/howto_segments_intersect.html
+        /// </acknowledgment>
         public static (bool, (double X, double Y)?) Intersection2(
             double x1, double y1,
             double x2, double y2,
@@ -7828,7 +5006,9 @@ namespace MethodSpeedTester
 
             // Check if the line are parallel.
             if (Abs(determinant) < DoubleEpsilon)
+            {
                 return (false, null);
+            }
 
             // Find the index where the intersection point lies on the line.
             var s = ((x1 - x3) * deltaAJ + (y3 - y1) * deltaAI) / -determinant;
@@ -7853,7 +5033,9 @@ namespace MethodSpeedTester
         /// <param name="x4">The x component of the second point of the second line.</param>
         /// <param name="y4">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://csharphelper.com/blog/2014/08/determine-where-two-lines-intersect-in-c/</remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/08/determine-where-two-lines-intersect-in-c/
+        /// </acknowledgment>
         public static (bool, (double X, double Y)?) Intersection3(
             double x1, double y1,
             double x2, double y2,
@@ -7871,7 +5053,9 @@ namespace MethodSpeedTester
 
             // Check if the lines are parallel.
             if (Abs(determinant) < DoubleEpsilon)
+            {
                 return (false, null);
+            }
 
             // Find the index where the intersection point lies on the line.
             var s = ((x3 - x1) * deltaAJ + (y1 - y3) * deltaAI) / -determinant;
@@ -7912,7 +5096,9 @@ namespace MethodSpeedTester
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.gamedev.net/page/resources/_/technical/math-and-physics/fast-2d-line-intersection-algorithm-r423</remarks>
+        /// <acknowledgment>
+        /// http://www.gamedev.net/page/resources/_/technical/math-and-physics/fast-2d-line-intersection-algorithm-r423
+        /// </acknowledgment>
         public static (bool, (double X, double Y)?) Intersection4(
             double x0, double y0,
             double x1, double y1,
@@ -7925,7 +5111,9 @@ namespace MethodSpeedTester
 
             // Check if the lines are parallel.
             if (Abs(m1 - m2) < DoubleEpsilon)
+            {
                 return (false, null);
+            }
 
             // Compute the determinate of the coefficient matrix.
             var determinate = m2 - m1;
@@ -7942,11 +5130,11 @@ namespace MethodSpeedTester
         /// <summary>
         /// Returns the intersection of the two lines (line segments are passed in, but they are treated like infinite lines)
         /// </summary>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://rosettacode.org/wiki/Sutherland-Hodgman_polygon_clipping#C.23
         /// Got this here:
         /// http://stackoverflow.com/questions/14480124/how-do-i-detect-triangle-and-rectangle-intersection
-        /// </remarks>
+        /// </acknowledgment>
         public static (bool, (double X, double Y)?) Intersection5(
             double x0, double y0,
             double x1, double y1,
@@ -7962,11 +5150,15 @@ namespace MethodSpeedTester
 
             // Check if the lines are parallel.
             if (Abs(dotPerp) < DoubleEpsilon)
+            {
                 return (false, null);
+            }
 
             // If it's 0, it means the lines are parallel so have infinite intersection points
             if (NearZero0(dotPerp))
+            {
                 return (false, null);
+            }
 
             var cI = x2 - x0;
             var cJ = y2 - y0;
@@ -7996,8 +5188,10 @@ namespace MethodSpeedTester
         /// <param name="A2"></param>
         /// <param name="B2"></param>
         /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/</remarks>
-        private static (bool, (double X, double Y)?) FindIntersection(
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
+        /// </acknowledgment>
+        public static (bool, (double X, double Y)?) FindIntersection(
             double X1, double Y1,
             double X2, double Y2,
             double A1, double B1,
@@ -8010,7 +5204,9 @@ namespace MethodSpeedTester
 
             // If the segments are parallel, return False.
             if (Abs(da * dy - db * dx) < Epsilon)
+            {
                 return (false, null);
+            }
 
             // Find the point of intersection.
             var s = (dx * (B1 - Y1) + dy * (X1 - A1)) / (da * dy - db * dx);
@@ -8036,9 +5232,9 @@ namespace MethodSpeedTester
         /// <param name="Dx"></param>
         /// <param name="Dy"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://alienryderflex.com/intersect/
-        /// </remarks>
+        /// </acknowledgment>
         public static (bool, (double X, double Y)?) LineIntersection(
             double Ax, double Ay,
             double Bx, double By,
@@ -8048,7 +5244,10 @@ namespace MethodSpeedTester
             double distAB, theCos, theSin, newX, ABpos;
 
             //  Fail if either line is undefined.
-            if (Ax == Bx && Ay == By || Cx == Dx && Cy == Dy) return (false, null);
+            if (Ax == Bx && Ay == By || Cx == Dx && Cy == Dy)
+            {
+                return (false, null);
+            }
 
             //  (1) Translate the system so that point A is on the origin.
             Bx -= Ax; By -= Ay;
@@ -8067,7 +5266,10 @@ namespace MethodSpeedTester
             Dy = Dy * theCos - Dx * theSin; Dx = newX;
 
             //  Fail if the lines are parallel.
-            if (Cy == Dy) return (false, null);
+            if (Cy == Dy)
+            {
+                return (false, null);
+            }
 
             //  (3) Discover the position of the intersection point along line A-B.
             ABpos = Dx + (Cx - Dx) * Dy / (Dy - Cy);
@@ -8094,10 +5296,10 @@ namespace MethodSpeedTester
         /// <param name="Dx"></param>
         /// <param name="Dy"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         ///  public domain function by Darel Rex Finley, 2006
         ///  http://alienryderflex.com/intersect/
-        /// </remarks>
+        /// </acknowledgment>
         public static (bool, (double X, double Y)?) LineSegmentIntersection(
             double Ax, double Ay,
             double Bx, double By,
@@ -8107,7 +5309,10 @@ namespace MethodSpeedTester
             double distAB, theCos, theSin, newX, ABpos;
 
             //  Fail if either line segment is zero-length.
-            if (Ax == Bx && Ay == By || Cx == Dx && Cy == Dy) return (false, null);
+            if (Ax == Bx && Ay == By || Cx == Dx && Cy == Dy)
+            {
+                return (false, null);
+            }
 
             //  Fail if the segments share an end-point.
             if (Ax == Cx && Ay == Cy || Bx == Cx && By == Cy
@@ -8133,13 +5338,19 @@ namespace MethodSpeedTester
             Dy = Dy * theCos - Dx * theSin; Dx = newX;
 
             //  Fail if segment C-D doesn't cross line A-B.
-            if (Cy < 0d && Dy < 0d || Cy >= 0d && Dy >= 0d) return (false, null);
+            if (Cy < 0d && Dy < 0d || Cy >= 0d && Dy >= 0d)
+            {
+                return (false, null);
+            }
 
             //  (3) Discover the position of the intersection point along line A-B.
             ABpos = Dx + (Cx - Dx) * Dy / (Dy - Cy);
 
             //  Fail if segment C-D crosses line A-B outside of segment A-B.
-            if (ABpos < 0d || ABpos > distAB) return (false, (Ax + ABpos * theCos, Ay + ABpos * theSin));
+            if (ABpos < 0d || ABpos > distAB)
+            {
+                return (false, (Ax + ABpos * theCos, Ay + ABpos * theSin));
+            }
 
             //  Success.
             //  (4) Apply the discovered position to line A-B in the original coordinate system.
@@ -8158,9 +5369,9 @@ namespace MethodSpeedTester
         /// <param name="Dx">The Dx.</param>
         /// <param name="Dy">The Dy.</param>
         /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// https://github.com/thelonious/kld-intersections
-        /// </remarks>
+        /// </acknowledgment>
         public static List<Point2D> IntersectLineLine(
             double Ax, double Ay,
             double Bx, double By,
@@ -8193,7 +5404,7 @@ namespace MethodSpeedTester
 
             return result;
         }
-        #endregion Intersection of two Line Segments
+        #endregion Intersection Of Two Line Segments
 
         #region Intersection of a Line and a Line Segment
         /// <summary>
@@ -8224,10 +5435,10 @@ namespace MethodSpeedTester
         /// <param name="dY">The dY.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// https://www.gamedev.net/topic/488904-lineline-segment-intersection-in-2d/
-        /// </remarks>
-        private static Intersection LineLineSegmentIntersection0(
+        /// </acknowledgment>
+        public static Intersection LineLineSegmentIntersection0(
             double aX, double aY,
             double bX, double bY, //Line
             double cX, double cY,
@@ -8237,12 +5448,16 @@ namespace MethodSpeedTester
             //test for parallel case
             var denom = (dY - cY) * (bX - aX) - (dX - cX) * (bY - aY);
             if (Abs(denom) < epsilon)
+            {
                 return new Intersection(IntersectionState.NoIntersection);
+            }
 
             //calculate segment parameter and ensure its within bounds
             var t = ((bX - aX) * (aY - cY) - (bY - aY) * (aX - cX)) / denom;
             if (t < 0d || t > 1d)
+            {
                 return new Intersection(IntersectionState.NoIntersection);
+            }
 
             //store actual intersection
             var result = new Intersection(IntersectionState.Intersection);
@@ -8263,9 +5478,11 @@ namespace MethodSpeedTester
         /// <param name="b2X"></param>
         /// <param name="b2Y"></param>
         /// <returns></returns>
-        /// <remarks>http://www.kevlindev.com/</remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineLineSegmentIntersection1(
+        public static Intersection LineLineSegmentIntersection1(
                 double a1X, double a1Y,
                 double a2X, double a2Y,
                 double b1X, double b1Y,
@@ -8321,9 +5538,11 @@ namespace MethodSpeedTester
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <returns>Returns the point of intersection.</returns>
-        /// <remarks>http://www.vb-helper.com/howto_segments_intersect.html</remarks>
+        /// <acknowledgment>
+        /// http://www.vb-helper.com/howto_segments_intersect.html
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineLineSegmentIntersection2(
+        public static Intersection LineLineSegmentIntersection2(
             double x0, double y0,
             double x1, double y1,
             double x2, double y2,
@@ -8342,7 +5561,9 @@ namespace MethodSpeedTester
 
             // Check if the lines are parallel or coincident.
             if (Abs(determinant) < Epsilon)
+            {
                 return result;
+            }
 
             // Find the index where the intersection point lies on the line.
             //var s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
@@ -8375,9 +5596,11 @@ namespace MethodSpeedTester
         /// <param name="p3Y">The p3Y.</param>
         /// <param name="epsilon">The epsilon.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>http://www.kevlindev.com/</remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineQuadraticBezierIntersection(
+        public static Intersection LineQuadraticBezierIntersection(
             double a1X, double a1Y,
             double a2X, double a2Y,
             double p1X, double p1Y,
@@ -8425,7 +5648,10 @@ namespace MethodSpeedTester
             }
 
             if (result.Count > 0)
+            {
                 result.State |= IntersectionState.Intersection;
+            }
+
             return result;
         }
         #endregion Intersection of a Line and a Quadratic Bézier
@@ -8448,9 +5674,11 @@ namespace MethodSpeedTester
         /// <param name="p4Y">The p4Y.</param>
         /// <param name="epsilon">The epsilon.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>http://www.kevlindev.com/</remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection LineCubicBezierIntersection0(
+        public static Intersection LineCubicBezierIntersection0(
             double a1X, double a1Y,
             double a2X, double a2Y,
             double p1X, double p1Y,
@@ -8537,11 +5765,11 @@ namespace MethodSpeedTester
         /// <param name="a2X">The a2X.</param>
         /// <param name="a2Y">The a2Y.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/27664298/calculating-intersection-point-of-quadratic-bezier-curve
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierLineSegmentIntersection1(
+        public static Intersection QuadraticBezierLineSegmentIntersection1(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
@@ -8631,9 +5859,11 @@ namespace MethodSpeedTester
         /// <param name="a2Y">The a2Y.</param>
         /// <param name="epsilon">The epsilon.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>http://www.kevlindev.com/</remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierLineSegmentIntersection(
+        public static Intersection QuadraticBezierLineSegmentIntersection(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
@@ -8709,13 +5939,13 @@ namespace MethodSpeedTester
         /// <param name="l1x">The l1x.</param>
         /// <param name="l1y">The l1y.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// This method has an error where it does not return an intersection with a horizontal line and the end points of the curve share the same y value, as well as the handles sharing another y value.
         /// Found at: https://www.particleincell.com/2013/cubic-line-intersection/
         /// Based on code now found at: http://www.abecedarical.com/javascript/script_cubic.html
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierLineSegmentIntersection1(
+        public static Intersection CubicBezierLineSegmentIntersection1(
             double p0x, double p0y,
             double p1x, double p1y,
             double p2x, double p2y,
@@ -8786,9 +6016,11 @@ namespace MethodSpeedTester
         /// <param name="a2Y">The a2Y.</param>
         /// <param name="epsilon">The epsilon.</param>
         /// <returns>The <see cref="Intersection"/>.</returns>
-        /// <remarks>http://www.kevlindev.com/</remarks>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierLineSegmentIntersection(
+        public static Intersection CubicBezierLineSegmentIntersection(
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
@@ -8865,565 +6097,6 @@ namespace MethodSpeedTester
         }
         #endregion Intersection of a Line Segment and a Cubic Bézier
 
-        #region Intersection of a Quadratic Bézier and a Quadratic Bézier
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the Intersection of two Quadratic Bézier curves.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(IntersectionQuadraticBezierQuadraticBezier))]
-        public static List<SpeedTester> IntersectionQuadraticBezierQuadraticBezier()
-            => new List<SpeedTester> {
-                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
-                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
-                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection0(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
-                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection0)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
-                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection1(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
-                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection1)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
-                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection2(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
-                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection2)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
-                new SpeedTester(() => QuadraticBezierSegmentQuadraticBezierSegmentIntersection3(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon),
-                $"{nameof(Experiments.QuadraticBezierSegmentQuadraticBezierSegmentIntersection3)}(0, 5, 10, 15, 20, 5,  0, 5, 10, -5, 20, 5, Epsilon)"),
-            };
-
-        /// <summary>
-        /// Find the intersection between two quadratic beziers.
-        /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
-        /// and the intersections methods at: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
-        {
-            // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            // ToDo: Break early if the AABB of the ends and handles do not intersect.
-            // ToDo: Break early if the AABB of the curve does not intersect.
-
-            // Parametric matrix form of the Bézier curve
-            var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
-            var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
-            var xCoeffB = QuadraticBezierCoefficients(b1X, b2X, b3X);
-            var yCoeffB = QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
-
-            var roots = new List<double>();
-
-            if (yCoeffA.C == 0)
-            {
-                var v0 = xCoeffA.C * (yCoeffA.A - yCoeffB.A);
-                var v1 = v0 - xCoeffA.B * yCoeffA.B;
-                var v2 = v0 + v1;
-                var v3 = yCoeffA.B * yCoeffA.B;
-
-                roots = QuarticRoots(
-                    /* t^4 */ xCoeffA.C * yCoeffB.C * yCoeffB.C,
-                    /* t^3 */ 2 * xCoeffA.C * yCoeffB.B * yCoeffB.C,
-                    /* t^2 */ xCoeffA.C * yCoeffB.B * yCoeffB.B - xCoeffB.C * v3 - yCoeffB.C * v0 - yCoeffB.C * v1,
-                    /* t^1 */ -xCoeffB.B * v3 - yCoeffB.B * v0 - yCoeffB.B * v1,
-                    /* C^0 */ (xCoeffA.A - xCoeffB.A) * v3 + (yCoeffA.A - yCoeffB.A) * v1,
-                    epsilon);
-            }
-            else
-            {
-                var v0 = xCoeffA.C * yCoeffB.C - yCoeffA.C * xCoeffB.C;
-                var v1 = xCoeffA.C * yCoeffB.B - xCoeffB.B * yCoeffA.C;
-                var v2 = xCoeffA.B * yCoeffA.C - yCoeffA.B * xCoeffA.C;
-                var v3 = yCoeffA.A - yCoeffB.A;
-                var v4 = yCoeffA.C * (xCoeffA.A - xCoeffB.A) - xCoeffA.C * v3;
-                var v5 = -yCoeffA.B * v2 + yCoeffA.C * v4;
-                var v6 = v2 * v2;
-                roots = QuarticRoots(
-                    /* t^4 */ v0 * v0,
-                    /* t^3 */ 2 * v0 * v1,
-                    /* t^2 */ (-yCoeffB.C * v6 + yCoeffA.C * v1 * v1 + yCoeffA.C * v0 * v4 + v0 * v5) / yCoeffA.C,
-                    /* t^1 */ (-yCoeffB.B * v6 + yCoeffA.C * v1 * v4 + v1 * v5) / yCoeffA.C,
-                    /* C^0 */ (v3 * v6 + v4 * v5) / yCoeffA.C,
-                    epsilon);
-            }
-
-            foreach (var s in roots)
-            {
-                var point = new Point2D(
-                    xCoeffB.C * s * s + xCoeffB.B * s + xCoeffB.A,
-                    yCoeffB.C * s * s + yCoeffB.B * s + yCoeffB.A);
-                if (s >= 0 && s <= 1)
-                {
-                    var xRoots = QuadraticRoots(
-                        /* t^2 */ -xCoeffA.C,
-                        /* t^1 */ -xCoeffA.B,
-                        /* C^0 */ -xCoeffA.A + point.X,
-                        epsilon);
-                    var yRoots = QuadraticRoots(
-                        /* t^2 */ -yCoeffA.C,
-                        /* t^1 */ -yCoeffA.B,
-                        /* C^0 */ -yCoeffA.A + point.Y,
-                        epsilon);
-
-                    if (xRoots.Count > 0 && yRoots.Count > 0)
-                    {
-                        // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
-                        foreach (var xRoot in xRoots)
-                        {
-                            if (xRoot >= 0 && xRoot <= 1)
-                            {
-                                foreach (var yRoot in yRoots)
-                                {
-                                    var t = xRoot - yRoot;
-                                    if ((t >= 0 ? t : -t) < epsilon)
-                                    {
-                                        result.AppendPoint(point);
-                                        goto checkRoots; // Break through two levels of foreach loops to exit early. Using goto for performance.
-                                    }
-                                }
-                            }
-                        }
-                        checkRoots:;
-                    }
-                }
-            }
-
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// Find the intersection between two quadratic beziers.
-        /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// A combination of the method ideas found at: https://www.particleincell.com/2013/cubic-line-intersection/
-        /// and the intersections methods at: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection0(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
-        {
-            // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            var xCoeffA = QuadraticBezierCoefficients(a1X, a2X, a3X);
-            var yCoeffA = QuadraticBezierCoefficients(a1Y, a2Y, a3Y);
-            var xCoeffB = QuadraticBezierCoefficients(b1X, b2X, b3X);
-            var yCoeffB = QuadraticBezierCoefficients(b1Y, b2Y, b3Y);
-
-            var a = xCoeffA.C * yCoeffA.B - xCoeffA.B * yCoeffA.C;
-            var b = xCoeffB.C * yCoeffA.B - xCoeffA.B * yCoeffB.C;
-
-            var c = xCoeffB.B * yCoeffA.B - xCoeffA.B * yCoeffB.B;
-            var d = xCoeffA.B * (yCoeffA.A - yCoeffB.A) - yCoeffA.B * (xCoeffB.A - xCoeffA.A);
-            var e = xCoeffB.C * yCoeffA.C - xCoeffA.C * yCoeffB.C;
-            var f = xCoeffB.B * yCoeffA.C - xCoeffA.C * yCoeffB.B;
-            var g = xCoeffA.C * (yCoeffA.A - yCoeffB.A) - yCoeffA.C * (yCoeffB.A - xCoeffA.A);
-
-            var roots = QuarticRoots(
-                    /* t^4 */ e * e,
-                    /* t^3 */ 2 * e * f,
-                    /* t^2 */ -a * b + f * f + 2 * e * g,
-                    /* t^1 */ -a * c + 2 * f * g,
-                    /* C */ -a * d + g * g,
-                    epsilon);
-
-            foreach (var s in roots)
-            {
-                var point = new Point2D(
-                    xCoeffB.C * s * s + xCoeffB.B * s + xCoeffB.A,
-                    yCoeffB.C * s * s + yCoeffB.B * s + yCoeffB.A);
-                if (s >= 0 && s <= 1)
-                {
-                    var xRoots = QuadraticRoots(
-                        /* t^2 */ -xCoeffA.C,
-                        /* t^1 */ -xCoeffA.B,
-                        /* C */ -xCoeffA.A + point.X,
-                        epsilon);
-                    var yRoots = QuadraticRoots(
-                        /* t^2 */ -yCoeffA.C,
-                        /* t^1 */ -yCoeffA.B,
-                        /* C */ -yCoeffA.A + point.Y,
-                        epsilon);
-
-                    if (xRoots.Count > 0 && yRoots.Count > 0)
-                    {
-                        // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
-                        foreach (var xRoot in xRoots)
-                        {
-                            if (xRoot >= 0 && xRoot <= 1)
-                            {
-                                foreach (var yRoot in yRoots)
-                                {
-                                    var t = xRoot - yRoot;
-                                    if ((t >= 0 ? t : -t) < 0.06) // ToDo: Find the error and replace 0.06 with epsilon.
-                                    {
-                                        result.AppendPoint(point);
-                                        goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
-                                    }
-                                }
-                            }
-                        }
-                        checkRoots:;
-                    }
-                }
-            }
-
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// Find the intersection between two quadratic beziers.
-        /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
-
-        /// <acknowledgment>
-        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection1(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
-        {
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            // ToDo: Break early if the AABB bounding box of the curve does not intersect.
-            // ToDo: Figure out if the following can be broken out of the vector structs.
-
-            var c12 = new Vector2D(a1X - (a2X * 2) + a3X, a1Y - (a2Y * 2) + a3Y);
-            var c11 = new Vector2D(2 * (a2X - a1X), 2 * (a2Y - a1Y));
-            // c10 is a1X and a1Y
-
-            var c22 = new Vector2D(b1X - (b2X * 2) + b3X, b1Y - (b2Y * 2) + b3Y);
-            var c21 = new Vector2D(2 * (b2X - b1X), 2 * (b2Y - b1Y));
-            // c20 is b1X and b1Y
-
-            var a = c12.I * c11.J - c11.I * c12.J;
-
-            var b = c22.I * c11.J - c11.I * c22.J;
-            var c = c21.I * c11.J - c11.I * c21.J;
-            var d = c11.I * (a1Y - b1Y) - c11.J * (b1X - a1X);
-
-            var e = -c22.I * c12.J - c12.I * c22.J;
-            var f = c21.I * c12.J - c12.I * c21.J;
-            var g = c12.I * (a1Y - b1Y) - c12.J * (b1X - a1X);
-
-            var roots = new List<double>();
-            if (a * d - g * g == 0)
-            {
-                var v0 = a * c - 2 * f * g;
-                var v1 = a * b - f * f - 2 * e * g;
-                var v2 = -2 * e * f;
-                var v3 = -e * e;
-                roots = CubicRoots(
-                    /* t^3 */ -v3,
-                    /* t^2 */ -v2,
-                    /* t^1 */ -v1,
-                    /* C */ -v0,
-                    epsilon);
-            }
-            else
-            {
-                var v0 = a * d - g * g;
-                var v1 = a * c - 2 * f * g;
-                var v2 = a * b - f * f - 2 * e * g;
-                var v3 = -2 * e * f;
-                var v4 = -e * e;
-                roots = QuarticRoots(
-                    /* t^4 */ -v4,
-                    /* t^3 */ -v3,
-                    /* t^2 */ -v2,
-                    /* t^1 */ -v1,
-                    /* C */ -v0,
-                    epsilon);
-            }
-
-            //roots.Reverse();
-            foreach (var s in roots)
-            {
-                var point = new Point2D(
-                    c22.I * s * s + c21.I * s + b1X,
-                    c22.J * s * s + c21.J * s + b1Y);
-                if (s >= 0 && s <= 1)
-                {
-                    var v0 = a1X - point.X;
-                    var v1 = c11.I;
-                    var v2 = c12.I;
-                    var xRoots = QuadraticRoots(
-                        /* t^2 */ -v2,
-                        /* t^1 */ -v1,
-                        /* C */ -v0,
-                        epsilon);
-                    v0 = a1Y - point.Y;
-                    v1 = c11.J;
-                    v2 = c12.J;
-                    var yRoots = QuadraticRoots(
-                        /* t^2 */ -v2,
-                        /* t^1 */ -v1,
-                        /* C */ -v0,
-                        epsilon);
-
-                    if (xRoots.Count > 0 && yRoots.Count > 0)
-                    {
-                        // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
-                        foreach (var xRoot in xRoots)
-                        {
-                            if (xRoot >= 0 && xRoot <= 1)
-                            {
-                                foreach (var yRoot in yRoots)
-                                {
-                                    var t = xRoot - yRoot;
-                                    if ((t >= 0 ? t : -t) < 0.1)
-                                    {
-                                        result.AppendPoint(point);
-                                        goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
-                                    }
-                                }
-                            }
-                        }
-                        checkRoots:;
-                    }
-                }
-            }
-
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// Find the intersection between two quadratic beziers.
-        /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
-
-        /// <acknowledgment>
-        /// http://www.kevlindev.com/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection2(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
-        {
-            var va = new Vector2D(a2X, a2Y) * -2;
-            var c12 = new Vector2D(a1X, a1Y) + va + new Vector2D(a3X, a3Y);
-            va = new Vector2D(a1X, a1Y) * -2;
-            var vb = new Vector2D(a2X, a2Y) * 2;
-            var c11 = va + vb;
-            var c10 = new Vector2D(a1X, a1Y);
-            va = new Vector2D(b2X, b2Y) * -2;
-            var c22 = new Vector2D(b1X, b1Y) + va + new Vector2D(b3X, b3Y);
-            va = new Vector2D(b1X, b1Y) * -2;
-            vb = new Vector2D(b2X, b2Y) * 2;
-            var c21 = va + vb;
-            var c20 = new Vector2D(b1X, b1Y);
-
-            var a = c12.I * c11.J - c11.I * c12.J;
-            var b = c22.I * c11.J - c11.I * c22.J;
-            var c = c21.I * c11.J - c11.I * c21.J;
-            var d = c11.I * (c10.J - c20.J) + c11.J * (-c10.I + c20.I);
-            var e = c22.I * c12.J - c12.I * c22.J;
-            var f = c21.I * c12.J - c12.I * c21.J;
-            var g = c12.I * (c10.J - c20.J) + c12.J * (-c10.I + c20.I);
-
-            var roots = QuarticRoots(
-                -e * e,
-                -2 * e * f,
-                a * b - f * f - 2 * e * g,
-                a * c - 2 * f * g,
-                a * d - g * g,
-                epsilon);
-
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            for (var i = 0; i < roots.Count; i++)
-            {
-                var s = roots[i];
-                if (0 <= s && s <= 1)
-                {
-                    var xRoots = QuadraticRoots(
-                        -c12.I,
-                        -c11.I,
-                        -c10.I + c20.I + s * c21.I + s * s * c22.I,
-                        epsilon);
-                    var yRoots = QuadraticRoots(
-                        -c12.J,
-                        -c11.J,
-                        -c10.J + c20.J + s * c21.J + s * s * c22.J,
-                        epsilon);
-                    if (xRoots.Count > 0 && yRoots.Count > 0)
-                    {
-                        for (var j = 0; j < xRoots.Count; j++)
-                        {
-                            var xRoot = xRoots[j];
-                            if (0 <= xRoot && xRoot <= 1)
-                            {
-                                for (var k = 0; k < yRoots.Count; k++)
-                                {
-                                    if (Abs(xRoot - yRoots[k]) < epsilon)
-                                    {
-                                        result.Points.Add((Point2D)c22 * s * s + (c21 * s + c20));
-                                        goto checkRoots;
-                                    }
-                                }
-                            }
-                        }
-                        checkRoots:;
-                    }
-                }
-            }
-
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// Find the intersection between two quadratic beziers.
-        /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
-
-        /// <acknowledgment>
-        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Intersection QuadraticBezierSegmentQuadraticBezierSegmentIntersection3(double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double epsilon = Epsilon)
-        {
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            // ToDo: Break early if the AABB bounding box of the curve does not intersect.
-
-            var c12 = new Vector2D(a1X - (a2X * 2) + a3X, a1Y - (a2Y * 2) + a3Y);
-            var c11 = new Vector2D(2 * (a2X - a1X), 2 * (a2Y - a1Y));
-            var c22 = new Vector2D(b1X - (b2X * 2) + b3X, b1Y - (b2Y * 2) + b3Y);
-            var c21 = new Vector2D(2 * (b2X - b1X), 2 * (b2Y - b1Y));
-
-            var a = c12.I * c11.J - c11.I * c12.J;
-            var b = c22.I * c11.J - c11.I * c22.J;
-            var c = c21.I * c11.J - c11.I * c21.J;
-            var d = c11.I * (a1Y - b1Y) + c11.J * (b1X - a1X);
-
-            var e = c22.I * c12.J - c12.I * c22.J;
-            var f = c21.I * c12.J - c12.I * c21.J;
-            var g = c12.I * (a1Y - b1Y) + c12.J * (b1X - a1X);
-
-            var roots = QuarticRoots(
-                /* C */ -e * e,
-                /* t^1 */ -2 * e * f,
-                /* t^2 */ a * b - f * f - 2 * e * g,
-                /* t^3 */ a * c - 2 * f * g,
-                /* t^4 */ a * d - g * g,
-                epsilon);
-
-            foreach (var s in roots)
-            {
-                var point = new Point2D(c22.I * s * s + c21.I * s + b1X, c22.J * s * s + c21.J * s + b1Y);
-                if (0 <= s && s <= 1)
-                {
-                    var xRoots = QuadraticRoots(
-                        /* C */ -c12.I,
-                        /* t^1 */ -c11.I,
-                        /* t^2 */ -a1X + point.X,
-                        epsilon);
-                    var yRoots = QuadraticRoots(
-                        /* C */ -c12.J,
-                        /* t^1 */ -c11.J,
-                        /* t^2 */ -a1Y + point.Y,
-                        epsilon);
-
-                    if (xRoots.Count > 0 && yRoots.Count > 0)
-                    {
-                        // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
-                        foreach (var xRoot in xRoots)
-                        {
-                            if (xRoot >= 0 && xRoot <= 1)
-                            {
-                                foreach (var yRoot in yRoots)
-                                {
-                                    var t = xRoot - yRoot;
-                                    if ((t >= 0 ? t : -t) < epsilon)
-                                    {
-                                        result.Points.Add(point);
-                                        goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
-                                    }
-                                }
-                            }
-                        }
-                        checkRoots:;
-                    }
-                }
-            }
-
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
-        #endregion Intersection of a Quadratic Bézier and a Quadratic Bézier
-
         #region Intersection of a Quadratic Bézier and a Cubic Bézier
         /// <summary>
         /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bézier curves.
@@ -9457,13 +6130,12 @@ namespace MethodSpeedTester
         /// <param name="b4Y"></param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// http://www.kevlindev.com/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(
+        public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
         {
@@ -9551,7 +6223,10 @@ namespace MethodSpeedTester
             }
 
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
 
@@ -9574,13 +6249,12 @@ namespace MethodSpeedTester
         /// <param name="b4Y"></param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection2(
+        public static Intersection QuadraticBezierSegmentCubicBezierSegmentIntersection2(
             double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y,
             double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
         {
@@ -9655,302 +6329,15 @@ namespace MethodSpeedTester
             }
 
             if (result.Points.Count > 0)
+            {
                 result.State = IntersectionState.Intersection;
+            }
+
             return result;
         }
         #endregion Intersection of a Quadratic Bézier and a Cubic Bézier
 
         #region Intersection of a Cubic Bézier and a Cubic Bézier
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the Intersection of two Cubic Bézier curves.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(IntersectionCubicBezierCubicBezier))]
-        public static List<SpeedTester> IntersectionCubicBezierCubicBezier()
-            => new List<SpeedTester> {
-                new SpeedTester(() => CubicBezierSegmentCubicBezierSegmentIntersection(0, 5, 10, 15, 20, 15, 30, 5, 0, 5, 10, -5, 20, 10, 30, 5, Epsilon),
-                $"{nameof(Experiments.CubicBezierSegmentCubicBezierSegmentIntersection)}(0, 5, 10, 15, 20, 15, 30, 5, 0, 5, 10, -5, 20, 10, 30, 5, Epsilon)"),
-                new SpeedTester(() => CubicBezierSegmentCubicBezierSegmentIntersection2(0, 5, 10, 15, 20, 15, 30, 5, 0, 5, 10, -5, 20, 10, 30, 5, Epsilon),
-                $"{nameof(Experiments.CubicBezierSegmentCubicBezierSegmentIntersection2)}(0, 5, 10, 15, 20, 15, 30, 5, 0, 5, 10, -5, 20, 10, 30, 5, Epsilon)"),
-            };
-
-        /// <summary>
-        /// Find the intersection between two cubic beziers.
-        /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="a4X"></param>
-        /// <param name="a4Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="b4X"></param>
-        /// <param name="b4Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
-
-        /// <acknowledgment>
-        /// http://www.kevlindev.com/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierSegmentCubicBezierSegmentIntersection(
-            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
-            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
-        {
-            var a = new Vector2D(a1X, a1Y) * -1;
-            var b = new Vector2D(a2X, a2Y) * 3;
-            var c = new Vector2D(a3X, a3Y) * -3;
-            var d = a + b + c + new Vector2D(a4X, a4Y);
-            var c13 = new Vector2D(d.I, d.J);
-            a = new Vector2D(a1X, a1Y) * 3;
-            b = new Vector2D(a2X, a2Y) * -6;
-            c = new Vector2D(a3X, a3Y) * 3;
-            d = a + b + c;
-            var c12 = new Vector2D(d.I, d.J);
-            a = new Vector2D(a1X, a1Y) * -3;
-            b = new Vector2D(a2X, a2Y) * 3;
-            c = a + b;
-            var c11 = new Vector2D(c.I, c.J);
-            var c10 = new Vector2D(a1X, a1Y);
-            a = new Vector2D(b1X, b1Y) * -1;
-            b = new Vector2D(b2X, b2Y) * 3;
-            c = new Vector2D(b3X, b3Y) * -3;
-            d = a + b + c + new Vector2D(b4X, b4Y);
-            var c23 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y) * 3;
-            b = new Vector2D(b2X, b2Y) * -6;
-            c = new Vector2D(b3X, b3Y) * 3;
-            d = a + b + c;
-            var c22 = new Vector2D(d.I, d.J);
-            a = new Vector2D(b1X, b1Y) * -3;
-            b = new Vector2D(b2X, b2Y) * 3;
-            c = a + b;
-            var c21 = new Vector2D(c.I, c.J);
-            var c20 = new Vector2D(b1X, b1Y);
-
-            var c10x2 = c10.I * c10.I;
-            var c10x3 = c10.I * c10.I * c10.I;
-            var c10y2 = c10.J * c10.J;
-            var c10y3 = c10.J * c10.J * c10.J;
-            var c11x2 = c11.I * c11.I;
-            var c11x3 = c11.I * c11.I * c11.I;
-            var c11y2 = c11.J * c11.J;
-            var c11y3 = c11.J * c11.J * c11.J;
-            var c12x2 = c12.I * c12.I;
-            var c12x3 = c12.I * c12.I * c12.I;
-            var c12y2 = c12.J * c12.J;
-            var c12y3 = c12.J * c12.J * c12.J;
-            var c13x2 = c13.I * c13.I;
-            var c13x3 = c13.I * c13.I * c13.I;
-            var c13y2 = c13.J * c13.J;
-            var c13y3 = c13.J * c13.J * c13.J;
-            var c20x2 = c20.I * c20.I;
-            var c20x3 = c20.I * c20.I * c20.I;
-            var c20y2 = c20.J * c20.J;
-            var c20y3 = c20.J * c20.J * c20.J;
-            var c21x2 = c21.I * c21.I;
-            var c21x3 = c21.I * c21.I * c21.I;
-            var c21y2 = c21.J * c21.J;
-            var c22x2 = c22.I * c22.I;
-            var c22x3 = c22.I * c22.I * c22.I;
-            var c22y2 = c22.J * c22.J;
-            var c23x2 = c23.I * c23.I;
-            var c23x3 = c23.I * c23.I * c23.I;
-            var c23y2 = c23.J * c23.J;
-            var c23y3 = c23.J * c23.J * c23.J;
-
-            var roots = new Polynomial(
-                /* t^9 */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * c13.I * c13y2 * c23x2 * c23.J + 3 * c13x2 * c13.J * c23.I * c23y2,
-                /* t^8 */ -6 * c13.I * c22.I * c13y2 * c23.I * c23.J + 6 * c13x2 * c13.J * c22.J * c23.I * c23.J + 3 * c22.I * c13y3 * c23x2 - 3 * c13x3 * c22.J * c23y2 - 3 * c13.I * c13y2 * c22.J * c23x2 + 3 * c13x2 * c22.I * c13.J * c23y2,
-                /* t^7 */ -6 * c21.I * c13.I * c13y2 * c23.I * c23.J - 6 * c13.I * c22.I * c13y2 * c22.J * c23.I + 6 * c13x2 * c22.I * c13.J * c22.J * c23.J + 3 * c21.I * c13y3 * c23x2 + 3 * c22x2 * c13y3 * c23.I + 3 * c21.I * c13x2 * c13.J * c23y2 - 3 * c13.I * c21.J * c13y2 * c23x2 - 3 * c13.I * c22x2 * c13y2 * c23.J + c13x2 * c13.J * c23.I * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-c21.J * c23y2 - 2 * c22y2 * c23.J - c23.J * (2 * c21.J * c23.J + c22y2)),
-                /* t^6 */ c11.I * c12.J * c13.I * c13.J * c23.I * c23.J - c11.J * c12.I * c13.I * c13.J * c23.I * c23.J + 6 * c21.I * c22.I * c13y3 * c23.I + 3 * c11.I * c12.I * c13.I * c13.J * c23y2 + 6 * c10.I * c13.I * c13y2 * c23.I * c23.J - 3 * c11.I * c12.I * c13y2 * c23.I * c23.J - 3 * c11.J * c12.J * c13.I * c13.J * c23x2 - 6 * c10.J * c13x2 * c13.J * c23.I * c23.J - 6 * c20.I * c13.I * c13y2 * c23.I * c23.J + 3 * c11.J * c12.J * c13x2 * c23.I * c23.J - 2 * c12.I * c12y2 * c13.I * c23.I * c23.J - 6 * c21.I * c13.I * c22.I * c13y2 * c23.J - 6 * c21.I * c13.I * c13y2 * c22.J * c23.I - 6 * c13.I * c21.J * c22.I * c13y2 * c23.I + 6 * c21.I * c13x2 * c13.J * c22.J * c23.J + 2 * c12x2 * c12.J * c13.J * c23.I * c23.J + c22x3 * c13y3 - 3 * c10.I * c13y3 * c23x2 + 3 * c10.J * c13x3 * c23y2 + 3 * c20.I * c13y3 * c23x2 + c12y3 * c13.I * c23x2 - c12x3 * c13.J * c23y2 - 3 * c10.I * c13x2 * c13.J * c23y2 + 3 * c10.J * c13.I * c13y2 * c23x2 - 2 * c11.I * c12.J * c13x2 * c23y2 + c11.I * c12.J * c13y2 * c23x2 - c11.J * c12.I * c13x2 * c23y2 + 2 * c11.J * c12.I * c13y2 * c23x2 + 3 * c20.I * c13x2 * c13.J * c23y2 - c12.I * c12y2 * c13.J * c23x2 - 3 * c20.J * c13.I * c13y2 * c23x2 + c12x2 * c12.J * c13.I * c23y2 - 3 * c13.I * c22x2 * c13y2 * c22.J + c13x2 * c13.J * c23.I * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c13x2 * c22.I * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * c21.J * c22.J * c23.J - c20.J * c23y2 - c22.J * (2 * c21.J * c23.J + c22y2) - c23.J * (2 * c20.J * c23.J + 2 * c21.J * c22.J)),
-                /* t^5 */ 6 * c11.I * c12.I * c13.I * c13.J * c22.J * c23.J + c11.I * c12.J * c13.I * c22.I * c13.J * c23.J + c11.I * c12.J * c13.I * c13.J * c22.J * c23.I - c11.J * c12.I * c13.I * c22.I * c13.J * c23.J - c11.J * c12.I * c13.I * c13.J * c22.J * c23.I - 6 * c11.J * c12.J * c13.I * c22.I * c13.J * c23.I - 6 * c10.I * c22.I * c13y3 * c23.I + 6 * c20.I * c22.I * c13y3 * c23.I + 6 * c10.J * c13x3 * c22.J * c23.J + 2 * c12y3 * c13.I * c22.I * c23.I - 2 * c12x3 * c13.J * c22.J * c23.J + 6 * c10.I * c13.I * c22.I * c13y2 * c23.J + 6 * c10.I * c13.I * c13y2 * c22.J * c23.I + 6 * c10.J * c13.I * c22.I * c13y2 * c23.I - 3 * c11.I * c12.I * c22.I * c13y2 * c23.J - 3 * c11.I * c12.I * c13y2 * c22.J * c23.I + 2 * c11.I * c12.J * c22.I * c13y2 * c23.I + 4 * c11.J * c12.I * c22.I * c13y2 * c23.I - 6 * c10.I * c13x2 * c13.J * c22.J * c23.J - 6 * c10.J * c13x2 * c22.I * c13.J * c23.J - 6 * c10.J * c13x2 * c13.J * c22.J * c23.I - 4 * c11.I * c12.J * c13x2 * c22.J * c23.J - 6 * c20.I * c13.I * c22.I * c13y2 * c23.J - 6 * c20.I * c13.I * c13y2 * c22.J * c23.I - 2 * c11.J * c12.I * c13x2 * c22.J * c23.J + 3 * c11.J * c12.J * c13x2 * c22.I * c23.J + 3 * c11.J * c12.J * c13x2 * c22.J * c23.I - 2 * c12.I * c12y2 * c13.I * c22.I * c23.J - 2 * c12.I * c12y2 * c13.I * c22.J * c23.I - 2 * c12.I * c12y2 * c22.I * c13.J * c23.I - 6 * c20.J * c13.I * c22.I * c13y2 * c23.I - 6 * c21.I * c13.I * c21.J * c13y2 * c23.I - 6 * c21.I * c13.I * c22.I * c13y2 * c22.J + 6 * c20.I * c13x2 * c13.J * c22.J * c23.J + 2 * c12x2 * c12.J * c13.I * c22.J * c23.J + 2 * c12x2 * c12.J * c22.I * c13.J * c23.J + 2 * c12x2 * c12.J * c13.J * c22.J * c23.I + 3 * c21.I * c22x2 * c13y3 + 3 * c21x2 * c13y3 * c23.I - 3 * c13.I * c21.J * c22x2 * c13y2 - 3 * c21x2 * c13.I * c13y2 * c23.J + c13x2 * c22.I * c13.J * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c13x2 * c13.J * c23.I * (6 * c20.J * c22.J + 3 * c21y2) + c21.I * c13x2 * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * c20.J * c22.J * c23.J - c23.J * (2 * c20.J * c22.J + c21y2) - c21.J * (2 * c21.J * c23.J + c22y2) - c22.J * (2 * c20.J * c23.J + 2 * c21.J * c22.J)),
-                /* t^4 */ c11.I * c21.I * c12.J * c13.I * c13.J * c23.J + c11.I * c12.J * c13.I * c21.J * c13.J * c23.I + c11.I * c12.J * c13.I * c22.I * c13.J * c22.J - c11.J * c12.I * c21.I * c13.I * c13.J * c23.J - c11.J * c12.I * c13.I * c21.J * c13.J * c23.I - c11.J * c12.I * c13.I * c22.I * c13.J * c22.J - 6 * c11.J * c21.I * c12.J * c13.I * c13.J * c23.I - 6 * c10.I * c21.I * c13y3 * c23.I + 6 * c20.I * c21.I * c13y3 * c23.I + 2 * c21.I * c12y3 * c13.I * c23.I + 6 * c10.I * c21.I * c13.I * c13y2 * c23.J + 6 * c10.I * c13.I * c21.J * c13y2 * c23.I + 6 * c10.I * c13.I * c22.I * c13y2 * c22.J + 6 * c10.J * c21.I * c13.I * c13y2 * c23.I - 3 * c11.I * c12.I * c21.I * c13y2 * c23.J - 3 * c11.I * c12.I * c21.J * c13y2 * c23.I - 3 * c11.I * c12.I * c22.I * c13y2 * c22.J + 2 * c11.I * c21.I * c12.J * c13y2 * c23.I + 4 * c11.J * c12.I * c21.I * c13y2 * c23.I - 6 * c10.J * c21.I * c13x2 * c13.J * c23.J - 6 * c10.J * c13x2 * c21.J * c13.J * c23.I - 6 * c10.J * c13x2 * c22.I * c13.J * c22.J - 6 * c20.I * c21.I * c13.I * c13y2 * c23.J - 6 * c20.I * c13.I * c21.J * c13y2 * c23.I - 6 * c20.I * c13.I * c22.I * c13y2 * c22.J + 3 * c11.J * c21.I * c12.J * c13x2 * c23.J - 3 * c11.J * c12.J * c13.I * c22x2 * c13.J + 3 * c11.J * c12.J * c13x2 * c21.J * c23.I + 3 * c11.J * c12.J * c13x2 * c22.I * c22.J - 2 * c12.I * c21.I * c12y2 * c13.I * c23.J - 2 * c12.I * c21.I * c12y2 * c13.J * c23.I - 2 * c12.I * c12y2 * c13.I * c21.J * c23.I - 2 * c12.I * c12y2 * c13.I * c22.I * c22.J - 6 * c20.J * c21.I * c13.I * c13y2 * c23.I - 6 * c21.I * c13.I * c21.J * c22.I * c13y2 + 6 * c20.J * c13x2 * c21.J * c13.J * c23.I + 2 * c12x2 * c21.I * c12.J * c13.J * c23.J + 2 * c12x2 * c12.J * c21.J * c13.J * c23.I + 2 * c12x2 * c12.J * c22.I * c13.J * c22.J - 3 * c10.I * c22x2 * c13y3 + 3 * c20.I * c22x2 * c13y3 + 3 * c21x2 * c22.I * c13y3 + c12y3 * c13.I * c22x2 + 3 * c10.J * c13.I * c22x2 * c13y2 + c11.I * c12.J * c22x2 * c13y2 + 2 * c11.J * c12.I * c22x2 * c13y2 - c12.I * c12y2 * c22x2 * c13.J - 3 * c20.J * c13.I * c22x2 * c13y2 - 3 * c21x2 * c13.I * c13y2 * c22.J + c12x2 * c12.J * c13.I * (2 * c21.J * c23.J + c22y2) + c11.I * c12.I * c13.I * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c21.I * c13x2 * c13.J * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c12x3 * c13.J * (-2 * c21.J * c23.J - c22y2) + c10.J * c13x3 * (6 * c21.J * c23.J + 3 * c22y2) + c11.J * c12.I * c13x2 * (-2 * c21.J * c23.J - c22y2) + c11.I * c12.J * c13x2 * (-4 * c21.J * c23.J - 2 * c22y2) + c10.I * c13x2 * c13.J * (-6 * c21.J * c23.J - 3 * c22y2) + c13x2 * c22.I * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c20.I * c13x2 * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * c20.J * c21.J * c23.J - c22.J * (2 * c20.J * c22.J + c21y2) - c20.J * (2 * c21.J * c23.J + c22y2) - c21.J * (2 * c20.J * c23.J + 2 * c21.J * c22.J)),
-                /* t^3 */ -c10.I * c11.I * c12.J * c13.I * c13.J * c23.J + c10.I * c11.J * c12.I * c13.I * c13.J * c23.J + 6 * c10.I * c11.J * c12.J * c13.I * c13.J * c23.I - 6 * c10.J * c11.I * c12.I * c13.I * c13.J * c23.J - c10.J * c11.I * c12.J * c13.I * c13.J * c23.I + c10.J * c11.J * c12.I * c13.I * c13.J * c23.I + c11.I * c11.J * c12.I * c12.J * c13.I * c23.J - c11.I * c11.J * c12.I * c12.J * c13.J * c23.I + c11.I * c20.I * c12.J * c13.I * c13.J * c23.J + c11.I * c20.J * c12.J * c13.I * c13.J * c23.I + c11.I * c21.I * c12.J * c13.I * c13.J * c22.J + c11.I * c12.J * c13.I * c21.J * c22.I * c13.J - c20.I * c11.J * c12.I * c13.I * c13.J * c23.J - 6 * c20.I * c11.J * c12.J * c13.I * c13.J * c23.I - c11.J * c12.I * c20.J * c13.I * c13.J * c23.I - c11.J * c12.I * c21.I * c13.I * c13.J * c22.J - c11.J * c12.I * c13.I * c21.J * c22.I * c13.J - 6 * c11.J * c21.I * c12.J * c13.I * c22.I * c13.J - 6 * c10.I * c20.I * c13y3 * c23.I - 6 * c10.I * c21.I * c22.I * c13y3 - 2 * c10.I * c12y3 * c13.I * c23.I + 6 * c20.I * c21.I * c22.I * c13y3 + 2 * c20.I * c12y3 * c13.I * c23.I + 2 * c21.I * c12y3 * c13.I * c22.I + 2 * c10.J * c12x3 * c13.J * c23.J - 6 * c10.I * c10.J * c13.I * c13y2 * c23.I + 3 * c10.I * c11.I * c12.I * c13y2 * c23.J - 2 * c10.I * c11.I * c12.J * c13y2 * c23.I - 4 * c10.I * c11.J * c12.I * c13y2 * c23.I + 3 * c10.J * c11.I * c12.I * c13y2 * c23.I + 6 * c10.I * c10.J * c13x2 * c13.J * c23.J + 6 * c10.I * c20.I * c13.I * c13y2 * c23.J - 3 * c10.I * c11.J * c12.J * c13x2 * c23.J + 2 * c10.I * c12.I * c12y2 * c13.I * c23.J + 2 * c10.I * c12.I * c12y2 * c13.J * c23.I + 6 * c10.I * c20.J * c13.I * c13y2 * c23.I + 6 * c10.I * c21.I * c13.I * c13y2 * c22.J + 6 * c10.I * c13.I * c21.J * c22.I * c13y2 + 4 * c10.J * c11.I * c12.J * c13x2 * c23.J + 6 * c10.J * c20.I * c13.I * c13y2 * c23.I + 2 * c10.J * c11.J * c12.I * c13x2 * c23.J - 3 * c10.J * c11.J * c12.J * c13x2 * c23.I + 2 * c10.J * c12.I * c12y2 * c13.I * c23.I + 6 * c10.J * c21.I * c13.I * c22.I * c13y2 - 3 * c11.I * c20.I * c12.I * c13y2 * c23.J + 2 * c11.I * c20.I * c12.J * c13y2 * c23.I + c11.I * c11.J * c12y2 * c13.I * c23.I - 3 * c11.I * c12.I * c20.J * c13y2 * c23.I - 3 * c11.I * c12.I * c21.I * c13y2 * c22.J - 3 * c11.I * c12.I * c21.J * c22.I * c13y2 + 2 * c11.I * c21.I * c12.J * c22.I * c13y2 + 4 * c20.I * c11.J * c12.I * c13y2 * c23.I + 4 * c11.J * c12.I * c21.I * c22.I * c13y2 - 2 * c10.I * c12x2 * c12.J * c13.J * c23.J - 6 * c10.J * c20.I * c13x2 * c13.J * c23.J - 6 * c10.J * c20.J * c13x2 * c13.J * c23.I - 6 * c10.J * c21.I * c13x2 * c13.J * c22.J - 2 * c10.J * c12x2 * c12.J * c13.I * c23.J - 2 * c10.J * c12x2 * c12.J * c13.J * c23.I - 6 * c10.J * c13x2 * c21.J * c22.I * c13.J - c11.I * c11.J * c12x2 * c13.J * c23.J - 2 * c11.I * c11y2 * c13.I * c13.J * c23.I + 3 * c20.I * c11.J * c12.J * c13x2 * c23.J - 2 * c20.I * c12.I * c12y2 * c13.I * c23.J - 2 * c20.I * c12.I * c12y2 * c13.J * c23.I - 6 * c20.I * c20.J * c13.I * c13y2 * c23.I - 6 * c20.I * c21.I * c13.I * c13y2 * c22.J - 6 * c20.I * c13.I * c21.J * c22.I * c13y2 + 3 * c11.J * c20.J * c12.J * c13x2 * c23.I + 3 * c11.J * c21.I * c12.J * c13x2 * c22.J + 3 * c11.J * c12.J * c13x2 * c21.J * c22.I - 2 * c12.I * c20.J * c12y2 * c13.I * c23.I - 2 * c12.I * c21.I * c12y2 * c13.I * c22.J - 2 * c12.I * c21.I * c12y2 * c22.I * c13.J - 2 * c12.I * c12y2 * c13.I * c21.J * c22.I - 6 * c20.J * c21.I * c13.I * c22.I * c13y2 - c11y2 * c12.I * c12.J * c13.I * c23.I + 2 * c20.I * c12x2 * c12.J * c13.J * c23.J + 6 * c20.J * c13x2 * c21.J * c22.I * c13.J + 2 * c11x2 * c11.J * c13.I * c13.J * c23.J + c11x2 * c12.I * c12.J * c13.J * c23.J + 2 * c12x2 * c20.J * c12.J * c13.J * c23.I + 2 * c12x2 * c21.I * c12.J * c13.J * c22.J + 2 * c12x2 * c12.J * c21.J * c22.I * c13.J + c21x3 * c13y3 + 3 * c10x2 * c13y3 * c23.I - 3 * c10y2 * c13x3 * c23.J + 3 * c20x2 * c13y3 * c23.I + c11y3 * c13x2 * c23.I - c11x3 * c13y2 * c23.J - c11.I * c11y2 * c13x2 * c23.J + c11x2 * c11.J * c13y2 * c23.I - 3 * c10x2 * c13.I * c13y2 * c23.J + 3 * c10y2 * c13x2 * c13.J * c23.I - c11x2 * c12y2 * c13.I * c23.J + c11y2 * c12x2 * c13.J * c23.I - 3 * c21x2 * c13.I * c21.J * c13y2 - 3 * c20x2 * c13.I * c13y2 * c23.J + 3 * c20y2 * c13x2 * c13.J * c23.I + c11.I * c12.I * c13.I * c13.J * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c12x3 * c13.J * (-2 * c20.J * c23.J - 2 * c21.J * c22.J) + c10.J * c13x3 * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c11.J * c12.I * c13x2 * (-2 * c20.J * c23.J - 2 * c21.J * c22.J) + c12x2 * c12.J * c13.I * (2 * c20.J * c23.J + 2 * c21.J * c22.J) + c11.I * c12.J * c13x2 * (-4 * c20.J * c23.J - 4 * c21.J * c22.J) + c10.I * c13x2 * c13.J * (-6 * c20.J * c23.J - 6 * c21.J * c22.J) + c20.I * c13x2 * c13.J * (6 * c20.J * c23.J + 6 * c21.J * c22.J) + c21.I * c13x2 * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c13x3 * (-2 * c20.J * c21.J * c22.J - c20y2 * c23.J - c21.J * (2 * c20.J * c22.J + c21y2) - c20.J * (2 * c20.J * c23.J + 2 * c21.J * c22.J)),
-                /* t^2 */ -c10.I * c11.I * c12.J * c13.I * c13.J * c22.J + c10.I * c11.J * c12.I * c13.I * c13.J * c22.J + 6 * c10.I * c11.J * c12.J * c13.I * c22.I * c13.J - 6 * c10.J * c11.I * c12.I * c13.I * c13.J * c22.J - c10.J * c11.I * c12.J * c13.I * c22.I * c13.J + c10.J * c11.J * c12.I * c13.I * c22.I * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c22.J - c11.I * c11.J * c12.I * c12.J * c22.I * c13.J + c11.I * c20.I * c12.J * c13.I * c13.J * c22.J + c11.I * c20.J * c12.J * c13.I * c22.I * c13.J + c11.I * c21.I * c12.J * c13.I * c21.J * c13.J - c20.I * c11.J * c12.I * c13.I * c13.J * c22.J - 6 * c20.I * c11.J * c12.J * c13.I * c22.I * c13.J - c11.J * c12.I * c20.J * c13.I * c22.I * c13.J - c11.J * c12.I * c21.I * c13.I * c21.J * c13.J - 6 * c10.I * c20.I * c22.I * c13y3 - 2 * c10.I * c12y3 * c13.I * c22.I + 2 * c20.I * c12y3 * c13.I * c22.I + 2 * c10.J * c12x3 * c13.J * c22.J - 6 * c10.I * c10.J * c13.I * c22.I * c13y2 + 3 * c10.I * c11.I * c12.I * c13y2 * c22.J - 2 * c10.I * c11.I * c12.J * c22.I * c13y2 - 4 * c10.I * c11.J * c12.I * c22.I * c13y2 + 3 * c10.J * c11.I * c12.I * c22.I * c13y2 + 6 * c10.I * c10.J * c13x2 * c13.J * c22.J + 6 * c10.I * c20.I * c13.I * c13y2 * c22.J - 3 * c10.I * c11.J * c12.J * c13x2 * c22.J + 2 * c10.I * c12.I * c12y2 * c13.I * c22.J + 2 * c10.I * c12.I * c12y2 * c22.I * c13.J + 6 * c10.I * c20.J * c13.I * c22.I * c13y2 + 6 * c10.I * c21.I * c13.I * c21.J * c13y2 + 4 * c10.J * c11.I * c12.J * c13x2 * c22.J + 6 * c10.J * c20.I * c13.I * c22.I * c13y2 + 2 * c10.J * c11.J * c12.I * c13x2 * c22.J - 3 * c10.J * c11.J * c12.J * c13x2 * c22.I + 2 * c10.J * c12.I * c12y2 * c13.I * c22.I - 3 * c11.I * c20.I * c12.I * c13y2 * c22.J + 2 * c11.I * c20.I * c12.J * c22.I * c13y2 + c11.I * c11.J * c12y2 * c13.I * c22.I - 3 * c11.I * c12.I * c20.J * c22.I * c13y2 - 3 * c11.I * c12.I * c21.I * c21.J * c13y2 + 4 * c20.I * c11.J * c12.I * c22.I * c13y2 - 2 * c10.I * c12x2 * c12.J * c13.J * c22.J - 6 * c10.J * c20.I * c13x2 * c13.J * c22.J - 6 * c10.J * c20.J * c13x2 * c22.I * c13.J - 6 * c10.J * c21.I * c13x2 * c21.J * c13.J - 2 * c10.J * c12x2 * c12.J * c13.I * c22.J - 2 * c10.J * c12x2 * c12.J * c22.I * c13.J - c11.I * c11.J * c12x2 * c13.J * c22.J - 2 * c11.I * c11y2 * c13.I * c22.I * c13.J + 3 * c20.I * c11.J * c12.J * c13x2 * c22.J - 2 * c20.I * c12.I * c12y2 * c13.I * c22.J - 2 * c20.I * c12.I * c12y2 * c22.I * c13.J - 6 * c20.I * c20.J * c13.I * c22.I * c13y2 - 6 * c20.I * c21.I * c13.I * c21.J * c13y2 + 3 * c11.J * c20.J * c12.J * c13x2 * c22.I + 3 * c11.J * c21.I * c12.J * c13x2 * c21.J - 2 * c12.I * c20.J * c12y2 * c13.I * c22.I - 2 * c12.I * c21.I * c12y2 * c13.I * c21.J - c11y2 * c12.I * c12.J * c13.I * c22.I + 2 * c20.I * c12x2 * c12.J * c13.J * c22.J - 3 * c11.J * c21x2 * c12.J * c13.I * c13.J + 6 * c20.J * c21.I * c13x2 * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c13.J * c22.J + c11x2 * c12.I * c12.J * c13.J * c22.J + 2 * c12x2 * c20.J * c12.J * c22.I * c13.J + 2 * c12x2 * c21.I * c12.J * c21.J * c13.J - 3 * c10.I * c21x2 * c13y3 + 3 * c20.I * c21x2 * c13y3 + 3 * c10x2 * c22.I * c13y3 - 3 * c10y2 * c13x3 * c22.J + 3 * c20x2 * c22.I * c13y3 + c21x2 * c12y3 * c13.I + c11y3 * c13x2 * c22.I - c11x3 * c13y2 * c22.J + 3 * c10.J * c21x2 * c13.I * c13y2 - c11.I * c11y2 * c13x2 * c22.J + c11.I * c21x2 * c12.J * c13y2 + 2 * c11.J * c12.I * c21x2 * c13y2 + c11x2 * c11.J * c22.I * c13y2 - c12.I * c21x2 * c12y2 * c13.J - 3 * c20.J * c21x2 * c13.I * c13y2 - 3 * c10x2 * c13.I * c13y2 * c22.J + 3 * c10y2 * c13x2 * c22.I * c13.J - c11x2 * c12y2 * c13.I * c22.J + c11y2 * c12x2 * c22.I * c13.J - 3 * c20x2 * c13.I * c13y2 * c22.J + 3 * c20y2 * c13x2 * c22.I * c13.J + c12x2 * c12.J * c13.I * (2 * c20.J * c22.J + c21y2) + c11.I * c12.I * c13.I * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c12x3 * c13.J * (-2 * c20.J * c22.J - c21y2) + c10.J * c13x3 * (6 * c20.J * c22.J + 3 * c21y2) + c11.J * c12.I * c13x2 * (-2 * c20.J * c22.J - c21y2) + c11.I * c12.J * c13x2 * (-4 * c20.J * c22.J - 2 * c21y2) + c10.I * c13x2 * c13.J * (-6 * c20.J * c22.J - 3 * c21y2) + c20.I * c13x2 * c13.J * (6 * c20.J * c22.J + 3 * c21y2) + c13x3 * (-2 * c20.J * c21y2 - c20y2 * c22.J - c20.J * (2 * c20.J * c22.J + c21y2)),
-                /* t^1 */ -c10.I * c11.I * c12.J * c13.I * c21.J * c13.J + c10.I * c11.J * c12.I * c13.I * c21.J * c13.J + 6 * c10.I * c11.J * c21.I * c12.J * c13.I * c13.J - 6 * c10.J * c11.I * c12.I * c13.I * c21.J * c13.J - c10.J * c11.I * c21.I * c12.J * c13.I * c13.J + c10.J * c11.J * c12.I * c21.I * c13.I * c13.J - c11.I * c11.J * c12.I * c21.I * c12.J * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c21.J + c11.I * c20.I * c12.J * c13.I * c21.J * c13.J + 6 * c11.I * c12.I * c20.J * c13.I * c21.J * c13.J + c11.I * c20.J * c21.I * c12.J * c13.I * c13.J - c20.I * c11.J * c12.I * c13.I * c21.J * c13.J - 6 * c20.I * c11.J * c21.I * c12.J * c13.I * c13.J - c11.J * c12.I * c20.J * c21.I * c13.I * c13.J - 6 * c10.I * c20.I * c21.I * c13y3 - 2 * c10.I * c21.I * c12y3 * c13.I + 6 * c10.J * c20.J * c13x3 * c21.J + 2 * c20.I * c21.I * c12y3 * c13.I + 2 * c10.J * c12x3 * c21.J * c13.J - 2 * c12x3 * c20.J * c21.J * c13.J - 6 * c10.I * c10.J * c21.I * c13.I * c13y2 + 3 * c10.I * c11.I * c12.I * c21.J * c13y2 - 2 * c10.I * c11.I * c21.I * c12.J * c13y2 - 4 * c10.I * c11.J * c12.I * c21.I * c13y2 + 3 * c10.J * c11.I * c12.I * c21.I * c13y2 + 6 * c10.I * c10.J * c13x2 * c21.J * c13.J + 6 * c10.I * c20.I * c13.I * c21.J * c13y2 - 3 * c10.I * c11.J * c12.J * c13x2 * c21.J + 2 * c10.I * c12.I * c21.I * c12y2 * c13.J + 2 * c10.I * c12.I * c12y2 * c13.I * c21.J + 6 * c10.I * c20.J * c21.I * c13.I * c13y2 + 4 * c10.J * c11.I * c12.J * c13x2 * c21.J + 6 * c10.J * c20.I * c21.I * c13.I * c13y2 + 2 * c10.J * c11.J * c12.I * c13x2 * c21.J - 3 * c10.J * c11.J * c21.I * c12.J * c13x2 + 2 * c10.J * c12.I * c21.I * c12y2 * c13.I - 3 * c11.I * c20.I * c12.I * c21.J * c13y2 + 2 * c11.I * c20.I * c21.I * c12.J * c13y2 + c11.I * c11.J * c21.I * c12y2 * c13.I - 3 * c11.I * c12.I * c20.J * c21.I * c13y2 + 4 * c20.I * c11.J * c12.I * c21.I * c13y2 - 6 * c10.I * c20.J * c13x2 * c21.J * c13.J - 2 * c10.I * c12x2 * c12.J * c21.J * c13.J - 6 * c10.J * c20.I * c13x2 * c21.J * c13.J - 6 * c10.J * c20.J * c21.I * c13x2 * c13.J - 2 * c10.J * c12x2 * c21.I * c12.J * c13.J - 2 * c10.J * c12x2 * c12.J * c13.I * c21.J - c11.I * c11.J * c12x2 * c21.J * c13.J - 4 * c11.I * c20.J * c12.J * c13x2 * c21.J - 2 * c11.I * c11y2 * c21.I * c13.I * c13.J + 3 * c20.I * c11.J * c12.J * c13x2 * c21.J - 2 * c20.I * c12.I * c21.I * c12y2 * c13.J - 2 * c20.I * c12.I * c12y2 * c13.I * c21.J - 6 * c20.I * c20.J * c21.I * c13.I * c13y2 - 2 * c11.J * c12.I * c20.J * c13x2 * c21.J + 3 * c11.J * c20.J * c21.I * c12.J * c13x2 - 2 * c12.I * c20.J * c21.I * c12y2 * c13.I - c11y2 * c12.I * c21.I * c12.J * c13.I + 6 * c20.I * c20.J * c13x2 * c21.J * c13.J + 2 * c20.I * c12x2 * c12.J * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c21.J * c13.J + c11x2 * c12.I * c12.J * c21.J * c13.J + 2 * c12x2 * c20.J * c21.I * c12.J * c13.J + 2 * c12x2 * c20.J * c12.J * c13.I * c21.J + 3 * c10x2 * c21.I * c13y3 - 3 * c10y2 * c13x3 * c21.J + 3 * c20x2 * c21.I * c13y3 + c11y3 * c21.I * c13x2 - c11x3 * c21.J * c13y2 - 3 * c20y2 * c13x3 * c21.J - c11.I * c11y2 * c13x2 * c21.J + c11x2 * c11.J * c21.I * c13y2 - 3 * c10x2 * c13.I * c21.J * c13y2 + 3 * c10y2 * c21.I * c13x2 * c13.J - c11x2 * c12y2 * c13.I * c21.J + c11y2 * c12x2 * c21.I * c13.J - 3 * c20x2 * c13.I * c21.J * c13y2 + 3 * c20y2 * c21.I * c13x2 * c13.J,
-                /* t^0 */ c10.I * c10.J * c11.I * c12.J * c13.I * c13.J - c10.I * c10.J * c11.J * c12.I * c13.I * c13.J + c10.I * c11.I * c11.J * c12.I * c12.J * c13.J - c10.J * c11.I * c11.J * c12.I * c12.J * c13.I - c10.I * c11.I * c20.J * c12.J * c13.I * c13.J + 6 * c10.I * c20.I * c11.J * c12.J * c13.I * c13.J + c10.I * c11.J * c12.I * c20.J * c13.I * c13.J - c10.J * c11.I * c20.I * c12.J * c13.I * c13.J - 6 * c10.J * c11.I * c12.I * c20.J * c13.I * c13.J + c10.J * c20.I * c11.J * c12.I * c13.I * c13.J - c11.I * c20.I * c11.J * c12.I * c12.J * c13.J + c11.I * c11.J * c12.I * c20.J * c12.J * c13.I + c11.I * c20.I * c20.J * c12.J * c13.I * c13.J - c20.I * c11.J * c12.I * c20.J * c13.I * c13.J - 2 * c10.I * c20.I * c12y3 * c13.I + 2 * c10.J * c12x3 * c20.J * c13.J - 3 * c10.I * c10.J * c11.I * c12.I * c13y2 - 6 * c10.I * c10.J * c20.I * c13.I * c13y2 + 3 * c10.I * c10.J * c11.J * c12.J * c13x2 - 2 * c10.I * c10.J * c12.I * c12y2 * c13.I - 2 * c10.I * c11.I * c20.I * c12.J * c13y2 - c10.I * c11.I * c11.J * c12y2 * c13.I + 3 * c10.I * c11.I * c12.I * c20.J * c13y2 - 4 * c10.I * c20.I * c11.J * c12.I * c13y2 + 3 * c10.J * c11.I * c20.I * c12.I * c13y2 + 6 * c10.I * c10.J * c20.J * c13x2 * c13.J + 2 * c10.I * c10.J * c12x2 * c12.J * c13.J + 2 * c10.I * c11.I * c11y2 * c13.I * c13.J + 2 * c10.I * c20.I * c12.I * c12y2 * c13.J + 6 * c10.I * c20.I * c20.J * c13.I * c13y2 - 3 * c10.I * c11.J * c20.J * c12.J * c13x2 + 2 * c10.I * c12.I * c20.J * c12y2 * c13.I + c10.I * c11y2 * c12.I * c12.J * c13.I + c10.J * c11.I * c11.J * c12x2 * c13.J + 4 * c10.J * c11.I * c20.J * c12.J * c13x2 - 3 * c10.J * c20.I * c11.J * c12.J * c13x2 + 2 * c10.J * c20.I * c12.I * c12y2 * c13.I + 2 * c10.J * c11.J * c12.I * c20.J * c13x2 + c11.I * c20.I * c11.J * c12y2 * c13.I - 3 * c11.I * c20.I * c12.I * c20.J * c13y2 - 2 * c10.I * c12x2 * c20.J * c12.J * c13.J - 6 * c10.J * c20.I * c20.J * c13x2 * c13.J - 2 * c10.J * c20.I * c12x2 * c12.J * c13.J - 2 * c10.J * c11x2 * c11.J * c13.I * c13.J - c10.J * c11x2 * c12.I * c12.J * c13.J - 2 * c10.J * c12x2 * c20.J * c12.J * c13.I - 2 * c11.I * c20.I * c11y2 * c13.I * c13.J - c11.I * c11.J * c12x2 * c20.J * c13.J + 3 * c20.I * c11.J * c20.J * c12.J * c13x2 - 2 * c20.I * c12.I * c20.J * c12y2 * c13.I - c20.I * c11y2 * c12.I * c12.J * c13.I + 3 * c10y2 * c11.I * c12.I * c13.I * c13.J + 3 * c11.I * c12.I * c20y2 * c13.I * c13.J + 2 * c20.I * c12x2 * c20.J * c12.J * c13.J - 3 * c10x2 * c11.J * c12.J * c13.I * c13.J + 2 * c11x2 * c11.J * c20.J * c13.I * c13.J + c11x2 * c12.I * c20.J * c12.J * c13.J - 3 * c20x2 * c11.J * c12.J * c13.I * c13.J - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * c10.I * c20x2 * c13y3 - c10.I * c11y3 * c13x2 + 3 * c10x2 * c20.I * c13y3 + c10.J * c11x3 * c13y2 + 3 * c10.J * c20y2 * c13x3 + c20.I * c11y3 * c13x2 + c10x2 * c12y3 * c13.I - 3 * c10y2 * c20.J * c13x3 - c10y2 * c12x3 * c13.J + c20x2 * c12y3 * c13.I - c11x3 * c20.J * c13y2 - c12x3 * c20y2 * c13.J - c10.I * c11x2 * c11.J * c13y2 + c10.J * c11.I * c11y2 * c13x2 - 3 * c10.I * c10y2 * c13x2 * c13.J - c10.I * c11y2 * c12x2 * c13.J + c10.J * c11x2 * c12y2 * c13.I - c11.I * c11y2 * c20.J * c13x2 + 3 * c10x2 * c10.J * c13.I * c13y2 + c10x2 * c11.I * c12.J * c13y2 + 2 * c10x2 * c11.J * c12.I * c13y2 - 2 * c10y2 * c11.I * c12.J * c13x2 - c10y2 * c11.J * c12.I * c13x2 + c11x2 * c20.I * c11.J * c13y2 - 3 * c10.I * c20y2 * c13x2 * c13.J + 3 * c10.J * c20x2 * c13.I * c13y2 + c11.I * c20x2 * c12.J * c13y2 - 2 * c11.I * c20y2 * c12.J * c13x2 + c20.I * c11y2 * c12x2 * c13.J - c11.J * c12.I * c20y2 * c13x2 - c10x2 * c12.I * c12y2 * c13.J - 3 * c10x2 * c20.J * c13.I * c13y2 + 3 * c10y2 * c20.I * c13x2 * c13.J + c10y2 * c12x2 * c12.J * c13.I - c11x2 * c20.J * c12y2 * c13.I + 2 * c20x2 * c11.J * c12.I * c13y2 + 3 * c20.I * c20y2 * c13x2 * c13.J - c20x2 * c12.I * c12y2 * c13.J - 3 * c20x2 * c20.J * c13.I * c13y2 + c12x2 * c20y2 * c12.J * c13.I
-                ).RootsInInterval();
-
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            for (var i = 0; i < roots.Length; i++)
-            {
-                var s = roots[i];
-                var xRoots = CubicRoots(
-                    c13.I,
-                    c12.I,
-                    c11.I,
-                    c10.I - c20.I - s * c21.I - s * s * c22.I - s * s * s * c23.I,
-                    epsilon);
-                var yRoots = CubicRoots(
-                    c13.J,
-                    c12.J,
-                    c11.J,
-                    c10.J - c20.J - s * c21.J - s * s * c22.J - s * s * s * c23.J,
-                    epsilon);
-                if (xRoots.Count > 0 && yRoots.Count > 0)
-                {
-                    for (var j = 0; j < xRoots.Count; j++)
-                    {
-                        var xRoot = xRoots[j];
-                        if (0 <= xRoot && xRoot <= 1)
-                        {
-                            for (var k = 0; k < yRoots.Count; k++)
-                            {
-                                if (Abs(xRoot - yRoots[k]) < epsilon)
-                                {
-                                    result.Points.Add((Point2D)c23 * (s * s * s) + (c22 * s * s + (c21 * s + c20)));
-                                    goto checkRoots;
-                                }
-                            }
-                        }
-                    }
-                    checkRoots:;
-                }
-            }
-
-            if (result.Points.Count > 0) result.State = IntersectionState.Intersection;
-            return result;
-        }
-
-        /// <summary>
-        /// Find the intersection between two cubic beziers.
-        /// </summary>
-        /// <param name="a1X"></param>
-        /// <param name="a1Y"></param>
-        /// <param name="a2X"></param>
-        /// <param name="a2Y"></param>
-        /// <param name="a3X"></param>
-        /// <param name="a3Y"></param>
-        /// <param name="a4X"></param>
-        /// <param name="a4Y"></param>
-        /// <param name="b1X"></param>
-        /// <param name="b1Y"></param>
-        /// <param name="b2X"></param>
-        /// <param name="b2Y"></param>
-        /// <param name="b3X"></param>
-        /// <param name="b3Y"></param>
-        /// <param name="b4X"></param>
-        /// <param name="b4Y"></param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns></returns>
-
-        /// <acknowledgment>
-        /// This is a performance improved rewrite of a method ported from: http://www.kevlindev.com/ also found at: https://github.com/thelonious/kld-intersections/
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Intersection CubicBezierSegmentCubicBezierSegmentIntersection2(
-            double a1X, double a1Y, double a2X, double a2Y, double a3X, double a3Y, double a4X, double a4Y,
-            double b1X, double b1Y, double b2X, double b2Y, double b3X, double b3Y, double b4X, double b4Y, double epsilon = Epsilon)
-        {
-            var result = new Intersection(IntersectionState.NoIntersection);
-
-            // ToDo: Break early if the AABB bounding box of the curve does not intersect.
-
-            var c13 = new Vector2D(a4X - a3X * 3 + a2X * 3 - a1X, a4Y - a3Y * 3 + a2Y * 3 - a1Y);
-            var c12 = new Vector2D(3 * (a3X - a2X * 2 + a1X), 3 * (a3Y - a2Y * 2 + a1Y));
-            var c11 = new Vector2D(3 * (a2X - a1X), 3 * (a2Y - a1Y));
-            var c23 = new Vector2D(b4X - b3X * 3 + b2X * 3 - b1X * 1, b4Y - b3Y * 3 + b2Y * 3 - b1Y * 1);
-            var c22 = new Vector2D(3 * (b3X - b2X * 2 + b1X), 3 * (b3Y - b2Y * 2 + b1Y));
-            var c21 = new Vector2D(3 * (b2X - b1X), 3 * (b2Y - b1Y));
-
-            var c10x2 = a1X * a1X;
-            var c10x3 = a1X * a1X * a1X;
-            var c10y2 = a1Y * a1Y;
-            var c10y3 = a1Y * a1Y * a1Y;
-            var c11x2 = c11.I * c11.I;
-            var c11x3 = c11.I * c11.I * c11.I;
-            var c11y2 = c11.J * c11.J;
-            var c11y3 = c11.J * c11.J * c11.J;
-            var c12x2 = c12.I * c12.I;
-            var c12x3 = c12.I * c12.I * c12.I;
-            var c12y2 = c12.J * c12.J;
-            var c12y3 = c12.J * c12.J * c12.J;
-            var c13x2 = c13.I * c13.I;
-            var c13x3 = c13.I * c13.I * c13.I;
-            var c13y2 = c13.J * c13.J;
-            var c13y3 = c13.J * c13.J * c13.J;
-
-            var c20x2 = b1X * b1X;
-            var c20x3 = b1X * b1X * b1X;
-            var c20y2 = b1Y * b1Y;
-            var c20y3 = b1Y * b1Y * b1Y;
-            var c21x2 = c21.I * c21.I;
-            var c21x3 = c21.I * c21.I * c21.I;
-            var c21y2 = c21.J * c21.J;
-            var c22x2 = c22.I * c22.I;
-            var c22x3 = c22.I * c22.I * c22.I;
-            var c22y2 = c22.J * c22.J;
-            var c23x2 = c23.I * c23.I;
-            var c23x3 = c23.I * c23.I * c23.I;
-            var c23y2 = c23.J * c23.J;
-            var c23y3 = c23.J * c23.J * c23.J;
-
-            var poly = new Polynomial(
-                /* t^0 */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * c13.I * c13y2 * c23x2 * c23.J + 3 * c13x2 * c13.J * c23.I * c23y2,
-                /* t^1 */ -6 * c13.I * c22.I * c13y2 * c23.I * c23.J + 6 * c13x2 * c13.J * c22.J * c23.I * c23.J + 3 * c22.I * c13y3 * c23x2 - 3 * c13x3 * c22.J * c23y2 - 3 * c13.I * c13y2 * c22.J * c23x2 + 3 * c13x2 * c22.I * c13.J * c23y2,
-                /* t^2 */ -6 * c21.I * c13.I * c13y2 * c23.I * c23.J - 6 * c13.I * c22.I * c13y2 * c22.J * c23.I + 6 * c13x2 * c22.I * c13.J * c22.J * c23.J + 3 * c21.I * c13y3 * c23x2 + 3 * c22x2 * c13y3 * c23.I + 3 * c21.I * c13x2 * c13.J * c23y2 - 3 * c13.I * c21.J * c13y2 * c23x2 - 3 * c13.I * c22x2 * c13y2 * c23.J + c13x2 * c13.J * c23.I * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-c21.J * c23y2 - 2 * c22y2 * c23.J - c23.J * (2 * c21.J * c23.J + c22y2)),
-                /* t^3 */ c11.I * c12.J * c13.I * c13.J * c23.I * c23.J - c11.J * c12.I * c13.I * c13.J * c23.I * c23.J + 6 * c21.I * c22.I * c13y3 * c23.I + 3 * c11.I * c12.I * c13.I * c13.J * c23y2 + 6 * a1X * c13.I * c13y2 * c23.I * c23.J - 3 * c11.I * c12.I * c13y2 * c23.I * c23.J - 3 * c11.J * c12.J * c13.I * c13.J * c23x2 - 6 * a1Y * c13x2 * c13.J * c23.I * c23.J - 6 * b1X * c13.I * c13y2 * c23.I * c23.J + 3 * c11.J * c12.J * c13x2 * c23.I * c23.J - 2 * c12.I * c12y2 * c13.I * c23.I * c23.J - 6 * c21.I * c13.I * c22.I * c13y2 * c23.J - 6 * c21.I * c13.I * c13y2 * c22.J * c23.I - 6 * c13.I * c21.J * c22.I * c13y2 * c23.I + 6 * c21.I * c13x2 * c13.J * c22.J * c23.J + 2 * c12x2 * c12.J * c13.J * c23.I * c23.J + c22x3 * c13y3 - 3 * a1X * c13y3 * c23x2 + 3 * a1Y * c13x3 * c23y2 + 3 * b1X * c13y3 * c23x2 + c12y3 * c13.I * c23x2 - c12x3 * c13.J * c23y2 - 3 * a1X * c13x2 * c13.J * c23y2 + 3 * a1Y * c13.I * c13y2 * c23x2 - 2 * c11.I * c12.J * c13x2 * c23y2 + c11.I * c12.J * c13y2 * c23x2 - c11.J * c12.I * c13x2 * c23y2 + 2 * c11.J * c12.I * c13y2 * c23x2 + 3 * b1X * c13x2 * c13.J * c23y2 - c12.I * c12y2 * c13.J * c23x2 - 3 * b1Y * c13.I * c13y2 * c23x2 + c12x2 * c12.J * c13.I * c23y2 - 3 * c13.I * c22x2 * c13y2 * c22.J + c13x2 * c13.J * c23.I * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c13x2 * c22.I * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * c21.J * c22.J * c23.J - b1Y * c23y2 - c22.J * (2 * c21.J * c23.J + c22y2) - c23.J * (2 * b1Y * c23.J + 2 * c21.J * c22.J)),
-                /* t^4 */ 6 * c11.I * c12.I * c13.I * c13.J * c22.J * c23.J + c11.I * c12.J * c13.I * c22.I * c13.J * c23.J + c11.I * c12.J * c13.I * c13.J * c22.J * c23.I - c11.J * c12.I * c13.I * c22.I * c13.J * c23.J - c11.J * c12.I * c13.I * c13.J * c22.J * c23.I - 6 * c11.J * c12.J * c13.I * c22.I * c13.J * c23.I - 6 * a1X * c22.I * c13y3 * c23.I + 6 * b1X * c22.I * c13y3 * c23.I + 6 * a1Y * c13x3 * c22.J * c23.J + 2 * c12y3 * c13.I * c22.I * c23.I - 2 * c12x3 * c13.J * c22.J * c23.J + 6 * a1X * c13.I * c22.I * c13y2 * c23.J + 6 * a1X * c13.I * c13y2 * c22.J * c23.I + 6 * a1Y * c13.I * c22.I * c13y2 * c23.I - 3 * c11.I * c12.I * c22.I * c13y2 * c23.J - 3 * c11.I * c12.I * c13y2 * c22.J * c23.I + 2 * c11.I * c12.J * c22.I * c13y2 * c23.I + 4 * c11.J * c12.I * c22.I * c13y2 * c23.I - 6 * a1X * c13x2 * c13.J * c22.J * c23.J - 6 * a1Y * c13x2 * c22.I * c13.J * c23.J - 6 * a1Y * c13x2 * c13.J * c22.J * c23.I - 4 * c11.I * c12.J * c13x2 * c22.J * c23.J - 6 * b1X * c13.I * c22.I * c13y2 * c23.J - 6 * b1X * c13.I * c13y2 * c22.J * c23.I - 2 * c11.J * c12.I * c13x2 * c22.J * c23.J + 3 * c11.J * c12.J * c13x2 * c22.I * c23.J + 3 * c11.J * c12.J * c13x2 * c22.J * c23.I - 2 * c12.I * c12y2 * c13.I * c22.I * c23.J - 2 * c12.I * c12y2 * c13.I * c22.J * c23.I - 2 * c12.I * c12y2 * c22.I * c13.J * c23.I - 6 * b1Y * c13.I * c22.I * c13y2 * c23.I - 6 * c21.I * c13.I * c21.J * c13y2 * c23.I - 6 * c21.I * c13.I * c22.I * c13y2 * c22.J + 6 * b1X * c13x2 * c13.J * c22.J * c23.J + 2 * c12x2 * c12.J * c13.I * c22.J * c23.J + 2 * c12x2 * c12.J * c22.I * c13.J * c23.J + 2 * c12x2 * c12.J * c13.J * c22.J * c23.I + 3 * c21.I * c22x2 * c13y3 + 3 * c21x2 * c13y3 * c23.I - 3 * c13.I * c21.J * c22x2 * c13y2 - 3 * c21x2 * c13.I * c13y2 * c23.J + c13x2 * c22.I * c13.J * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c13x2 * c13.J * c23.I * (6 * b1Y * c22.J + 3 * c21y2) + c21.I * c13x2 * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * b1Y * c22.J * c23.J - c23.J * (2 * b1Y * c22.J + c21y2) - c21.J * (2 * c21.J * c23.J + c22y2) - c22.J * (2 * b1Y * c23.J + 2 * c21.J * c22.J)),
-                /* t^5 */ c11.I * c21.I * c12.J * c13.I * c13.J * c23.J + c11.I * c12.J * c13.I * c21.J * c13.J * c23.I + c11.I * c12.J * c13.I * c22.I * c13.J * c22.J - c11.J * c12.I * c21.I * c13.I * c13.J * c23.J - c11.J * c12.I * c13.I * c21.J * c13.J * c23.I - c11.J * c12.I * c13.I * c22.I * c13.J * c22.J - 6 * c11.J * c21.I * c12.J * c13.I * c13.J * c23.I - 6 * a1X * c21.I * c13y3 * c23.I + 6 * b1X * c21.I * c13y3 * c23.I + 2 * c21.I * c12y3 * c13.I * c23.I + 6 * a1X * c21.I * c13.I * c13y2 * c23.J + 6 * a1X * c13.I * c21.J * c13y2 * c23.I + 6 * a1X * c13.I * c22.I * c13y2 * c22.J + 6 * a1Y * c21.I * c13.I * c13y2 * c23.I - 3 * c11.I * c12.I * c21.I * c13y2 * c23.J - 3 * c11.I * c12.I * c21.J * c13y2 * c23.I - 3 * c11.I * c12.I * c22.I * c13y2 * c22.J + 2 * c11.I * c21.I * c12.J * c13y2 * c23.I + 4 * c11.J * c12.I * c21.I * c13y2 * c23.I - 6 * a1Y * c21.I * c13x2 * c13.J * c23.J - 6 * a1Y * c13x2 * c21.J * c13.J * c23.I - 6 * a1Y * c13x2 * c22.I * c13.J * c22.J - 6 * b1X * c21.I * c13.I * c13y2 * c23.J - 6 * b1X * c13.I * c21.J * c13y2 * c23.I - 6 * b1X * c13.I * c22.I * c13y2 * c22.J + 3 * c11.J * c21.I * c12.J * c13x2 * c23.J - 3 * c11.J * c12.J * c13.I * c22x2 * c13.J + 3 * c11.J * c12.J * c13x2 * c21.J * c23.I + 3 * c11.J * c12.J * c13x2 * c22.I * c22.J - 2 * c12.I * c21.I * c12y2 * c13.I * c23.J - 2 * c12.I * c21.I * c12y2 * c13.J * c23.I - 2 * c12.I * c12y2 * c13.I * c21.J * c23.I - 2 * c12.I * c12y2 * c13.I * c22.I * c22.J - 6 * b1Y * c21.I * c13.I * c13y2 * c23.I - 6 * c21.I * c13.I * c21.J * c22.I * c13y2 + 6 * b1Y * c13x2 * c21.J * c13.J * c23.I + 2 * c12x2 * c21.I * c12.J * c13.J * c23.J + 2 * c12x2 * c12.J * c21.J * c13.J * c23.I + 2 * c12x2 * c12.J * c22.I * c13.J * c22.J - 3 * a1X * c22x2 * c13y3 + 3 * b1X * c22x2 * c13y3 + 3 * c21x2 * c22.I * c13y3 + c12y3 * c13.I * c22x2 + 3 * a1Y * c13.I * c22x2 * c13y2 + c11.I * c12.J * c22x2 * c13y2 + 2 * c11.J * c12.I * c22x2 * c13y2 - c12.I * c12y2 * c22x2 * c13.J - 3 * b1Y * c13.I * c22x2 * c13y2 - 3 * c21x2 * c13.I * c13y2 * c22.J + c12x2 * c12.J * c13.I * (2 * c21.J * c23.J + c22y2) + c11.I * c12.I * c13.I * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c21.I * c13x2 * c13.J * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c12x3 * c13.J * (-2 * c21.J * c23.J - c22y2) + a1Y * c13x3 * (6 * c21.J * c23.J + 3 * c22y2) + c11.J * c12.I * c13x2 * (-2 * c21.J * c23.J - c22y2) + c11.I * c12.J * c13x2 * (-4 * c21.J * c23.J - 2 * c22y2) + a1X * c13x2 * c13.J * (-6 * c21.J * c23.J - 3 * c22y2) + c13x2 * c22.I * c13.J * (6 * b1Y * c22.J + 3 * c21y2) + b1X * c13x2 * c13.J * (6 * c21.J * c23.J + 3 * c22y2) + c13x3 * (-2 * b1Y * c21.J * c23.J - c22.J * (2 * b1Y * c22.J + c21y2) - b1Y * (2 * c21.J * c23.J + c22y2) - c21.J * (2 * b1Y * c23.J + 2 * c21.J * c22.J)),
-                /* t^6 */ -a1X * c11.I * c12.J * c13.I * c13.J * c23.J + a1X * c11.J * c12.I * c13.I * c13.J * c23.J + 6 * a1X * c11.J * c12.J * c13.I * c13.J * c23.I - 6 * a1Y * c11.I * c12.I * c13.I * c13.J * c23.J - a1Y * c11.I * c12.J * c13.I * c13.J * c23.I + a1Y * c11.J * c12.I * c13.I * c13.J * c23.I + c11.I * c11.J * c12.I * c12.J * c13.I * c23.J - c11.I * c11.J * c12.I * c12.J * c13.J * c23.I + c11.I * b1X * c12.J * c13.I * c13.J * c23.J + c11.I * b1Y * c12.J * c13.I * c13.J * c23.I + c11.I * c21.I * c12.J * c13.I * c13.J * c22.J + c11.I * c12.J * c13.I * c21.J * c22.I * c13.J - b1X * c11.J * c12.I * c13.I * c13.J * c23.J - 6 * b1X * c11.J * c12.J * c13.I * c13.J * c23.I - c11.J * c12.I * b1Y * c13.I * c13.J * c23.I - c11.J * c12.I * c21.I * c13.I * c13.J * c22.J - c11.J * c12.I * c13.I * c21.J * c22.I * c13.J - 6 * c11.J * c21.I * c12.J * c13.I * c22.I * c13.J - 6 * a1X * b1X * c13y3 * c23.I - 6 * a1X * c21.I * c22.I * c13y3 - 2 * a1X * c12y3 * c13.I * c23.I + 6 * b1X * c21.I * c22.I * c13y3 + 2 * b1X * c12y3 * c13.I * c23.I + 2 * c21.I * c12y3 * c13.I * c22.I + 2 * a1Y * c12x3 * c13.J * c23.J - 6 * a1X * a1Y * c13.I * c13y2 * c23.I + 3 * a1X * c11.I * c12.I * c13y2 * c23.J - 2 * a1X * c11.I * c12.J * c13y2 * c23.I - 4 * a1X * c11.J * c12.I * c13y2 * c23.I + 3 * a1Y * c11.I * c12.I * c13y2 * c23.I + 6 * a1X * a1Y * c13x2 * c13.J * c23.J + 6 * a1X * b1X * c13.I * c13y2 * c23.J - 3 * a1X * c11.J * c12.J * c13x2 * c23.J + 2 * a1X * c12.I * c12y2 * c13.I * c23.J + 2 * a1X * c12.I * c12y2 * c13.J * c23.I + 6 * a1X * b1Y * c13.I * c13y2 * c23.I + 6 * a1X * c21.I * c13.I * c13y2 * c22.J + 6 * a1X * c13.I * c21.J * c22.I * c13y2 + 4 * a1Y * c11.I * c12.J * c13x2 * c23.J + 6 * a1Y * b1X * c13.I * c13y2 * c23.I + 2 * a1Y * c11.J * c12.I * c13x2 * c23.J - 3 * a1Y * c11.J * c12.J * c13x2 * c23.I + 2 * a1Y * c12.I * c12y2 * c13.I * c23.I + 6 * a1Y * c21.I * c13.I * c22.I * c13y2 - 3 * c11.I * b1X * c12.I * c13y2 * c23.J + 2 * c11.I * b1X * c12.J * c13y2 * c23.I + c11.I * c11.J * c12y2 * c13.I * c23.I - 3 * c11.I * c12.I * b1Y * c13y2 * c23.I - 3 * c11.I * c12.I * c21.I * c13y2 * c22.J - 3 * c11.I * c12.I * c21.J * c22.I * c13y2 + 2 * c11.I * c21.I * c12.J * c22.I * c13y2 + 4 * b1X * c11.J * c12.I * c13y2 * c23.I + 4 * c11.J * c12.I * c21.I * c22.I * c13y2 - 2 * a1X * c12x2 * c12.J * c13.J * c23.J - 6 * a1Y * b1X * c13x2 * c13.J * c23.J - 6 * a1Y * b1Y * c13x2 * c13.J * c23.I - 6 * a1Y * c21.I * c13x2 * c13.J * c22.J - 2 * a1Y * c12x2 * c12.J * c13.I * c23.J - 2 * a1Y * c12x2 * c12.J * c13.J * c23.I - 6 * a1Y * c13x2 * c21.J * c22.I * c13.J - c11.I * c11.J * c12x2 * c13.J * c23.J - 2 * c11.I * c11y2 * c13.I * c13.J * c23.I + 3 * b1X * c11.J * c12.J * c13x2 * c23.J - 2 * b1X * c12.I * c12y2 * c13.I * c23.J - 2 * b1X * c12.I * c12y2 * c13.J * c23.I - 6 * b1X * b1Y * c13.I * c13y2 * c23.I - 6 * b1X * c21.I * c13.I * c13y2 * c22.J - 6 * b1X * c13.I * c21.J * c22.I * c13y2 + 3 * c11.J * b1Y * c12.J * c13x2 * c23.I + 3 * c11.J * c21.I * c12.J * c13x2 * c22.J + 3 * c11.J * c12.J * c13x2 * c21.J * c22.I - 2 * c12.I * b1Y * c12y2 * c13.I * c23.I - 2 * c12.I * c21.I * c12y2 * c13.I * c22.J - 2 * c12.I * c21.I * c12y2 * c22.I * c13.J - 2 * c12.I * c12y2 * c13.I * c21.J * c22.I - 6 * b1Y * c21.I * c13.I * c22.I * c13y2 - c11y2 * c12.I * c12.J * c13.I * c23.I + 2 * b1X * c12x2 * c12.J * c13.J * c23.J + 6 * b1Y * c13x2 * c21.J * c22.I * c13.J + 2 * c11x2 * c11.J * c13.I * c13.J * c23.J + c11x2 * c12.I * c12.J * c13.J * c23.J + 2 * c12x2 * b1Y * c12.J * c13.J * c23.I + 2 * c12x2 * c21.I * c12.J * c13.J * c22.J + 2 * c12x2 * c12.J * c21.J * c22.I * c13.J + c21x3 * c13y3 + 3 * c10x2 * c13y3 * c23.I - 3 * c10y2 * c13x3 * c23.J + 3 * c20x2 * c13y3 * c23.I + c11y3 * c13x2 * c23.I - c11x3 * c13y2 * c23.J - c11.I * c11y2 * c13x2 * c23.J + c11x2 * c11.J * c13y2 * c23.I - 3 * c10x2 * c13.I * c13y2 * c23.J + 3 * c10y2 * c13x2 * c13.J * c23.I - c11x2 * c12y2 * c13.I * c23.J + c11y2 * c12x2 * c13.J * c23.I - 3 * c21x2 * c13.I * c21.J * c13y2 - 3 * c20x2 * c13.I * c13y2 * c23.J + 3 * c20y2 * c13x2 * c13.J * c23.I + c11.I * c12.I * c13.I * c13.J * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c12x3 * c13.J * (-2 * b1Y * c23.J - 2 * c21.J * c22.J) + a1Y * c13x3 * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c11.J * c12.I * c13x2 * (-2 * b1Y * c23.J - 2 * c21.J * c22.J) + c12x2 * c12.J * c13.I * (2 * b1Y * c23.J + 2 * c21.J * c22.J) + c11.I * c12.J * c13x2 * (-4 * b1Y * c23.J - 4 * c21.J * c22.J) + a1X * c13x2 * c13.J * (-6 * b1Y * c23.J - 6 * c21.J * c22.J) + b1X * c13x2 * c13.J * (6 * b1Y * c23.J + 6 * c21.J * c22.J) + c21.I * c13x2 * c13.J * (6 * b1Y * c22.J + 3 * c21y2) + c13x3 * (-2 * b1Y * c21.J * c22.J - c20y2 * c23.J - c21.J * (2 * b1Y * c22.J + c21y2) - b1Y * (2 * b1Y * c23.J + 2 * c21.J * c22.J)),
-                /* t^7 */ -a1X * c11.I * c12.J * c13.I * c13.J * c22.J + a1X * c11.J * c12.I * c13.I * c13.J * c22.J + 6 * a1X * c11.J * c12.J * c13.I * c22.I * c13.J - 6 * a1Y * c11.I * c12.I * c13.I * c13.J * c22.J - a1Y * c11.I * c12.J * c13.I * c22.I * c13.J + a1Y * c11.J * c12.I * c13.I * c22.I * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c22.J - c11.I * c11.J * c12.I * c12.J * c22.I * c13.J + c11.I * b1X * c12.J * c13.I * c13.J * c22.J + c11.I * b1Y * c12.J * c13.I * c22.I * c13.J + c11.I * c21.I * c12.J * c13.I * c21.J * c13.J - b1X * c11.J * c12.I * c13.I * c13.J * c22.J - 6 * b1X * c11.J * c12.J * c13.I * c22.I * c13.J - c11.J * c12.I * b1Y * c13.I * c22.I * c13.J - c11.J * c12.I * c21.I * c13.I * c21.J * c13.J - 6 * a1X * b1X * c22.I * c13y3 - 2 * a1X * c12y3 * c13.I * c22.I + 2 * b1X * c12y3 * c13.I * c22.I + 2 * a1Y * c12x3 * c13.J * c22.J - 6 * a1X * a1Y * c13.I * c22.I * c13y2 + 3 * a1X * c11.I * c12.I * c13y2 * c22.J - 2 * a1X * c11.I * c12.J * c22.I * c13y2 - 4 * a1X * c11.J * c12.I * c22.I * c13y2 + 3 * a1Y * c11.I * c12.I * c22.I * c13y2 + 6 * a1X * a1Y * c13x2 * c13.J * c22.J + 6 * a1X * b1X * c13.I * c13y2 * c22.J - 3 * a1X * c11.J * c12.J * c13x2 * c22.J + 2 * a1X * c12.I * c12y2 * c13.I * c22.J + 2 * a1X * c12.I * c12y2 * c22.I * c13.J + 6 * a1X * b1Y * c13.I * c22.I * c13y2 + 6 * a1X * c21.I * c13.I * c21.J * c13y2 + 4 * a1Y * c11.I * c12.J * c13x2 * c22.J + 6 * a1Y * b1X * c13.I * c22.I * c13y2 + 2 * a1Y * c11.J * c12.I * c13x2 * c22.J - 3 * a1Y * c11.J * c12.J * c13x2 * c22.I + 2 * a1Y * c12.I * c12y2 * c13.I * c22.I - 3 * c11.I * b1X * c12.I * c13y2 * c22.J + 2 * c11.I * b1X * c12.J * c22.I * c13y2 + c11.I * c11.J * c12y2 * c13.I * c22.I - 3 * c11.I * c12.I * b1Y * c22.I * c13y2 - 3 * c11.I * c12.I * c21.I * c21.J * c13y2 + 4 * b1X * c11.J * c12.I * c22.I * c13y2 - 2 * a1X * c12x2 * c12.J * c13.J * c22.J - 6 * a1Y * b1X * c13x2 * c13.J * c22.J - 6 * a1Y * b1Y * c13x2 * c22.I * c13.J - 6 * a1Y * c21.I * c13x2 * c21.J * c13.J - 2 * a1Y * c12x2 * c12.J * c13.I * c22.J - 2 * a1Y * c12x2 * c12.J * c22.I * c13.J - c11.I * c11.J * c12x2 * c13.J * c22.J - 2 * c11.I * c11y2 * c13.I * c22.I * c13.J + 3 * b1X * c11.J * c12.J * c13x2 * c22.J - 2 * b1X * c12.I * c12y2 * c13.I * c22.J - 2 * b1X * c12.I * c12y2 * c22.I * c13.J - 6 * b1X * b1Y * c13.I * c22.I * c13y2 - 6 * b1X * c21.I * c13.I * c21.J * c13y2 + 3 * c11.J * b1Y * c12.J * c13x2 * c22.I + 3 * c11.J * c21.I * c12.J * c13x2 * c21.J - 2 * c12.I * b1Y * c12y2 * c13.I * c22.I - 2 * c12.I * c21.I * c12y2 * c13.I * c21.J - c11y2 * c12.I * c12.J * c13.I * c22.I + 2 * b1X * c12x2 * c12.J * c13.J * c22.J - 3 * c11.J * c21x2 * c12.J * c13.I * c13.J + 6 * b1Y * c21.I * c13x2 * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c13.J * c22.J + c11x2 * c12.I * c12.J * c13.J * c22.J + 2 * c12x2 * b1Y * c12.J * c22.I * c13.J + 2 * c12x2 * c21.I * c12.J * c21.J * c13.J - 3 * a1X * c21x2 * c13y3 + 3 * b1X * c21x2 * c13y3 + 3 * c10x2 * c22.I * c13y3 - 3 * c10y2 * c13x3 * c22.J + 3 * c20x2 * c22.I * c13y3 + c21x2 * c12y3 * c13.I + c11y3 * c13x2 * c22.I - c11x3 * c13y2 * c22.J + 3 * a1Y * c21x2 * c13.I * c13y2 - c11.I * c11y2 * c13x2 * c22.J + c11.I * c21x2 * c12.J * c13y2 + 2 * c11.J * c12.I * c21x2 * c13y2 + c11x2 * c11.J * c22.I * c13y2 - c12.I * c21x2 * c12y2 * c13.J - 3 * b1Y * c21x2 * c13.I * c13y2 - 3 * c10x2 * c13.I * c13y2 * c22.J + 3 * c10y2 * c13x2 * c22.I * c13.J - c11x2 * c12y2 * c13.I * c22.J + c11y2 * c12x2 * c22.I * c13.J - 3 * c20x2 * c13.I * c13y2 * c22.J + 3 * c20y2 * c13x2 * c22.I * c13.J + c12x2 * c12.J * c13.I * (2 * b1Y * c22.J + c21y2) + c11.I * c12.I * c13.I * c13.J * (6 * b1Y * c22.J + 3 * c21y2) + c12x3 * c13.J * (-2 * b1Y * c22.J - c21y2) + a1Y * c13x3 * (6 * b1Y * c22.J + 3 * c21y2) + c11.J * c12.I * c13x2 * (-2 * b1Y * c22.J - c21y2) + c11.I * c12.J * c13x2 * (-4 * b1Y * c22.J - 2 * c21y2) + a1X * c13x2 * c13.J * (-6 * b1Y * c22.J - 3 * c21y2) + b1X * c13x2 * c13.J * (6 * b1Y * c22.J + 3 * c21y2) + c13x3 * (-2 * b1Y * c21y2 - c20y2 * c22.J - b1Y * (2 * b1Y * c22.J + c21y2)),
-                /* t^8 */ -a1X * c11.I * c12.J * c13.I * c21.J * c13.J + a1X * c11.J * c12.I * c13.I * c21.J * c13.J + 6 * a1X * c11.J * c21.I * c12.J * c13.I * c13.J - 6 * a1Y * c11.I * c12.I * c13.I * c21.J * c13.J - a1Y * c11.I * c21.I * c12.J * c13.I * c13.J + a1Y * c11.J * c12.I * c21.I * c13.I * c13.J - c11.I * c11.J * c12.I * c21.I * c12.J * c13.J + c11.I * c11.J * c12.I * c12.J * c13.I * c21.J + c11.I * b1X * c12.J * c13.I * c21.J * c13.J + 6 * c11.I * c12.I * b1Y * c13.I * c21.J * c13.J + c11.I * b1Y * c21.I * c12.J * c13.I * c13.J - b1X * c11.J * c12.I * c13.I * c21.J * c13.J - 6 * b1X * c11.J * c21.I * c12.J * c13.I * c13.J - c11.J * c12.I * b1Y * c21.I * c13.I * c13.J - 6 * a1X * b1X * c21.I * c13y3 - 2 * a1X * c21.I * c12y3 * c13.I + 6 * a1Y * b1Y * c13x3 * c21.J + 2 * b1X * c21.I * c12y3 * c13.I + 2 * a1Y * c12x3 * c21.J * c13.J - 2 * c12x3 * b1Y * c21.J * c13.J - 6 * a1X * a1Y * c21.I * c13.I * c13y2 + 3 * a1X * c11.I * c12.I * c21.J * c13y2 - 2 * a1X * c11.I * c21.I * c12.J * c13y2 - 4 * a1X * c11.J * c12.I * c21.I * c13y2 + 3 * a1Y * c11.I * c12.I * c21.I * c13y2 + 6 * a1X * a1Y * c13x2 * c21.J * c13.J + 6 * a1X * b1X * c13.I * c21.J * c13y2 - 3 * a1X * c11.J * c12.J * c13x2 * c21.J + 2 * a1X * c12.I * c21.I * c12y2 * c13.J + 2 * a1X * c12.I * c12y2 * c13.I * c21.J + 6 * a1X * b1Y * c21.I * c13.I * c13y2 + 4 * a1Y * c11.I * c12.J * c13x2 * c21.J + 6 * a1Y * b1X * c21.I * c13.I * c13y2 + 2 * a1Y * c11.J * c12.I * c13x2 * c21.J - 3 * a1Y * c11.J * c21.I * c12.J * c13x2 + 2 * a1Y * c12.I * c21.I * c12y2 * c13.I - 3 * c11.I * b1X * c12.I * c21.J * c13y2 + 2 * c11.I * b1X * c21.I * c12.J * c13y2 + c11.I * c11.J * c21.I * c12y2 * c13.I - 3 * c11.I * c12.I * b1Y * c21.I * c13y2 + 4 * b1X * c11.J * c12.I * c21.I * c13y2 - 6 * a1X * b1Y * c13x2 * c21.J * c13.J - 2 * a1X * c12x2 * c12.J * c21.J * c13.J - 6 * a1Y * b1X * c13x2 * c21.J * c13.J - 6 * a1Y * b1Y * c21.I * c13x2 * c13.J - 2 * a1Y * c12x2 * c21.I * c12.J * c13.J - 2 * a1Y * c12x2 * c12.J * c13.I * c21.J - c11.I * c11.J * c12x2 * c21.J * c13.J - 4 * c11.I * b1Y * c12.J * c13x2 * c21.J - 2 * c11.I * c11y2 * c21.I * c13.I * c13.J + 3 * b1X * c11.J * c12.J * c13x2 * c21.J - 2 * b1X * c12.I * c21.I * c12y2 * c13.J - 2 * b1X * c12.I * c12y2 * c13.I * c21.J - 6 * b1X * b1Y * c21.I * c13.I * c13y2 - 2 * c11.J * c12.I * b1Y * c13x2 * c21.J + 3 * c11.J * b1Y * c21.I * c12.J * c13x2 - 2 * c12.I * b1Y * c21.I * c12y2 * c13.I - c11y2 * c12.I * c21.I * c12.J * c13.I + 6 * b1X * b1Y * c13x2 * c21.J * c13.J + 2 * b1X * c12x2 * c12.J * c21.J * c13.J + 2 * c11x2 * c11.J * c13.I * c21.J * c13.J + c11x2 * c12.I * c12.J * c21.J * c13.J + 2 * c12x2 * b1Y * c21.I * c12.J * c13.J + 2 * c12x2 * b1Y * c12.J * c13.I * c21.J + 3 * c10x2 * c21.I * c13y3 - 3 * c10y2 * c13x3 * c21.J + 3 * c20x2 * c21.I * c13y3 + c11y3 * c21.I * c13x2 - c11x3 * c21.J * c13y2 - 3 * c20y2 * c13x3 * c21.J - c11.I * c11y2 * c13x2 * c21.J + c11x2 * c11.J * c21.I * c13y2 - 3 * c10x2 * c13.I * c21.J * c13y2 + 3 * c10y2 * c21.I * c13x2 * c13.J - c11x2 * c12y2 * c13.I * c21.J + c11y2 * c12x2 * c21.I * c13.J - 3 * c20x2 * c13.I * c21.J * c13y2 + 3 * c20y2 * c21.I * c13x2 * c13.J,
-                /* t^9 */ a1X * a1Y * c11.I * c12.J * c13.I * c13.J - a1X * a1Y * c11.J * c12.I * c13.I * c13.J + a1X * c11.I * c11.J * c12.I * c12.J * c13.J - a1Y * c11.I * c11.J * c12.I * c12.J * c13.I - a1X * c11.I * b1Y * c12.J * c13.I * c13.J + 6 * a1X * b1X * c11.J * c12.J * c13.I * c13.J + a1X * c11.J * c12.I * b1Y * c13.I * c13.J - a1Y * c11.I * b1X * c12.J * c13.I * c13.J - 6 * a1Y * c11.I * c12.I * b1Y * c13.I * c13.J + a1Y * b1X * c11.J * c12.I * c13.I * c13.J - c11.I * b1X * c11.J * c12.I * c12.J * c13.J + c11.I * c11.J * c12.I * b1Y * c12.J * c13.I + c11.I * b1X * b1Y * c12.J * c13.I * c13.J - b1X * c11.J * c12.I * b1Y * c13.I * c13.J - 2 * a1X * b1X * c12y3 * c13.I + 2 * a1Y * c12x3 * b1Y * c13.J - 3 * a1X * a1Y * c11.I * c12.I * c13y2 - 6 * a1X * a1Y * b1X * c13.I * c13y2 + 3 * a1X * a1Y * c11.J * c12.J * c13x2 - 2 * a1X * a1Y * c12.I * c12y2 * c13.I - 2 * a1X * c11.I * b1X * c12.J * c13y2 - a1X * c11.I * c11.J * c12y2 * c13.I + 3 * a1X * c11.I * c12.I * b1Y * c13y2 - 4 * a1X * b1X * c11.J * c12.I * c13y2 + 3 * a1Y * c11.I * b1X * c12.I * c13y2 + 6 * a1X * a1Y * b1Y * c13x2 * c13.J + 2 * a1X * a1Y * c12x2 * c12.J * c13.J + 2 * a1X * c11.I * c11y2 * c13.I * c13.J + 2 * a1X * b1X * c12.I * c12y2 * c13.J + 6 * a1X * b1X * b1Y * c13.I * c13y2 - 3 * a1X * c11.J * b1Y * c12.J * c13x2 + 2 * a1X * c12.I * b1Y * c12y2 * c13.I + a1X * c11y2 * c12.I * c12.J * c13.I + a1Y * c11.I * c11.J * c12x2 * c13.J + 4 * a1Y * c11.I * b1Y * c12.J * c13x2 - 3 * a1Y * b1X * c11.J * c12.J * c13x2 + 2 * a1Y * b1X * c12.I * c12y2 * c13.I + 2 * a1Y * c11.J * c12.I * b1Y * c13x2 + c11.I * b1X * c11.J * c12y2 * c13.I - 3 * c11.I * b1X * c12.I * b1Y * c13y2 - 2 * a1X * c12x2 * b1Y * c12.J * c13.J - 6 * a1Y * b1X * b1Y * c13x2 * c13.J - 2 * a1Y * b1X * c12x2 * c12.J * c13.J - 2 * a1Y * c11x2 * c11.J * c13.I * c13.J - a1Y * c11x2 * c12.I * c12.J * c13.J - 2 * a1Y * c12x2 * b1Y * c12.J * c13.I - 2 * c11.I * b1X * c11y2 * c13.I * c13.J - c11.I * c11.J * c12x2 * b1Y * c13.J + 3 * b1X * c11.J * b1Y * c12.J * c13x2 - 2 * b1X * c12.I * b1Y * c12y2 * c13.I - b1X * c11y2 * c12.I * c12.J * c13.I + 3 * c10y2 * c11.I * c12.I * c13.I * c13.J + 3 * c11.I * c12.I * c20y2 * c13.I * c13.J + 2 * b1X * c12x2 * b1Y * c12.J * c13.J - 3 * c10x2 * c11.J * c12.J * c13.I * c13.J + 2 * c11x2 * c11.J * b1Y * c13.I * c13.J + c11x2 * c12.I * b1Y * c12.J * c13.J - 3 * c20x2 * c11.J * c12.J * c13.I * c13.J - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * a1X * c20x2 * c13y3 - a1X * c11y3 * c13x2 + 3 * c10x2 * b1X * c13y3 + a1Y * c11x3 * c13y2 + 3 * a1Y * c20y2 * c13x3 + b1X * c11y3 * c13x2 + c10x2 * c12y3 * c13.I - 3 * c10y2 * b1Y * c13x3 - c10y2 * c12x3 * c13.J + c20x2 * c12y3 * c13.I - c11x3 * b1Y * c13y2 - c12x3 * c20y2 * c13.J - a1X * c11x2 * c11.J * c13y2 + a1Y * c11.I * c11y2 * c13x2 - 3 * a1X * c10y2 * c13x2 * c13.J - a1X * c11y2 * c12x2 * c13.J + a1Y * c11x2 * c12y2 * c13.I - c11.I * c11y2 * b1Y * c13x2 + 3 * c10x2 * a1Y * c13.I * c13y2 + c10x2 * c11.I * c12.J * c13y2 + 2 * c10x2 * c11.J * c12.I * c13y2 - 2 * c10y2 * c11.I * c12.J * c13x2 - c10y2 * c11.J * c12.I * c13x2 + c11x2 * b1X * c11.J * c13y2 - 3 * a1X * c20y2 * c13x2 * c13.J + 3 * a1Y * c20x2 * c13.I * c13y2 + c11.I * c20x2 * c12.J * c13y2 - 2 * c11.I * c20y2 * c12.J * c13x2 + b1X * c11y2 * c12x2 * c13.J - c11.J * c12.I * c20y2 * c13x2 - c10x2 * c12.I * c12y2 * c13.J - 3 * c10x2 * b1Y * c13.I * c13y2 + 3 * c10y2 * b1X * c13x2 * c13.J + c10y2 * c12x2 * c12.J * c13.I - c11x2 * b1Y * c12y2 * c13.I + 2 * c20x2 * c11.J * c12.I * c13y2 + 3 * b1X * c20y2 * c13x2 * c13.J - c20x2 * c12.I * c12y2 * c13.J - 3 * c20x2 * b1Y * c13.I * c13y2 + c12x2 * c20y2 * c12.J * c13.I
-                );
-            var roots = poly.RootsInInterval();
-
-            foreach (var s in roots)
-            {
-                var point = new Point2D(c23.I * s * s * s + c22.I * s * s + c21.I * s + b1X, c23.J * s * s * s + c22.J * s * s + c21.J * s + b1Y);
-                var xRoots = CubicRoots(
-                    /* t^0 */ c13.I,
-                    /* t^1 */ c12.I,
-                    /* t^2 */ c11.I,
-                    /* t^3 */ a1X - point.X,
-                    epsilon);
-                var yRoots = CubicRoots(
-                    /* t^0 */ c13.J,
-                    /* t^1 */ c12.J,
-                    /* t^2 */ c11.J,
-                    /* t^3 */ a1Y - point.Y,
-                    epsilon);
-                if (xRoots.Count > 0 && yRoots.Count > 0)
-                {
-                    // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
-                    foreach (var xRoot in xRoots)
-                    {
-                        if (0 <= xRoot && xRoot <= 1)
-                        {
-                            foreach (var yRoot in yRoots)
-                            {
-                                var t = xRoot - yRoot;
-                                if ((t >= 0 ? t : -t) < epsilon)
-                                {
-                                    result.Points.Add(point);
-                                    goto checkRoots; // Break through two levels of foreach loops. Using goto for performance.
-                                }
-                            }
-                        }
-                    }
-                    checkRoots:;
-                }
-            }
-
-            if (result.Points.Count > 0)
-                result.State = IntersectionState.Intersection;
-            return result;
-        }
         #endregion Intersection of a Cubic Bézier and a Cubic Bézier
 
         #region Is Convex
@@ -9965,7 +6352,9 @@ namespace MethodSpeedTester
         /// <returns>
         /// Return true if the polygon is convex.
         /// </returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-polygon-is-convex-in-c/</remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/determine-whether-a-polygon-is-convex-in-c/
+        /// </acknowledgment>
         public static bool IsConvex(PolygonContour polygon)
         {
             var got_negative = false;
@@ -9982,11 +6371,18 @@ namespace MethodSpeedTester
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);
                 if (cross_product < 0)
+                {
                     got_negative = true;
+                }
                 else
+                {
                     got_positive |= cross_product > 0;
+                }
+
                 if (got_negative && got_positive)
+                {
                     return false;
+                }
             }
 
             // If we got this far, the polygon is convex.
@@ -10039,266 +6435,6 @@ namespace MethodSpeedTester
         }
         #endregion Is Valid
 
-        #region Linear Interpolation of Two 1D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(LinearInterpolate1DTests))]
-        public static List<SpeedTester> LinearInterpolate1DTests() => new List<SpeedTester> {
-                new SpeedTester(() => LinearInterpolate1D_0(0, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate1D_0)}(0, 1, 0.5d)"),
-                new SpeedTester(() => LinearInterpolate1D_1(0, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate1D_1)}(0, 1, 0.5d)"),
-                new SpeedTester(() => LinearInterpolate1D_2(0, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate1D_2)}(0, 1, 0.5d)")
-            };
-
-        /// <summary>
-        /// Precise method which guarantees v = v1 when t = 1.
-        /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>https://en.wikipedia.org/wiki/Linear_interpolation</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LinearInterpolate1D_0(
-            double v1, double v2, double t)
-            => (1 - t) * v1 + t * v2;
-
-        /// <summary>
-        /// Imprecise method which does not guarantee v = v1 when t = 1, due to floating-point arithmetic error.
-        /// This form may be used when the hardware has a native Fused Multiply-Add instruction.
-        /// </summary>
-        /// <param name="v1"></param>
-        /// <param name="v2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>https://en.wikipedia.org/wiki/Linear_interpolation</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LinearInterpolate1D_1(
-            double v1, double v2, double t)
-            => v1 + t * (v2 - v1);
-
-        /// <summary>
-        /// The linear interpolate1d 2.
-        /// </summary>
-        /// <param name="v1">The v1.</param>
-        /// <param name="v2">The v2.</param>
-        /// <param name="t">The t.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://en.wikipedia.org/wiki/Linear_interpolation</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LinearInterpolate1D_2(
-            double v1, double v2, double t)
-            => (Abs(v1 - v2) < DoubleEpsilon) ? 0 : v1 - (1 / (v1 - v2) * t);
-        #endregion Linear Interpolation of Two 1D Points
-
-        #region Linear Interpolation of Two 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(LinearInterpolate2DTests))]
-        public static List<SpeedTester> LinearInterpolate2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => LinearInterpolate2D_0(0, 0, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate2D_0)}(0, 0, 1, 1, 0.5d)"),
-                new SpeedTester(() => LinearInterpolate2D_1(0, 0, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate2D_1)}(0, 0, 1, 1, 0.5d)"),
-                new SpeedTester(() => LinearInterpolate2D_2(0, 0, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate2D_2)}(0, 0, 1, 1, 0.5d)"),
-                new SpeedTester(() => LinearInterpolate2D_3(0, 0, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate2D_3)}(0, 0, 1, 1, 0.5d)")
-            };
-
-        /// <summary>
-        /// Precise method which guarantees v = v1 when t = 1.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static (double X, double Y) LinearInterpolate2D_0(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
-            => (
-                (1 - t) * x1 + t * x2,
-                (1 - t) * y1 + t * y2);
-
-        /// <summary>
-        /// Imprecise method which does not guarantee v = v1 when t = 1, due to floating-point arithmetic error.
-        /// This form may be used when the hardware has a native Fused Multiply-Add instruction.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double X, double Y) LinearInterpolate2D_1(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
-            => (
-                x1 + t * (x2 - x1),
-                y1 + t * (y2 - y1));
-
-        /// <summary>
-        /// simple linear interpolation between two points
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double X, double Y) LinearInterpolate2D_2(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
-            => (
-                LinearInterpolate1D_0(x1, x2, t),
-                LinearInterpolate1D_0(y1, y2, t));
-
-        /// <summary>
-        /// The linear interpolate2d 3.
-        /// </summary>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="t">The t.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) LinearInterpolate2D_3(
-            double x1, double y1,
-            double x2, double y2,
-            double t)
-            => (
-                (Abs(x1 - x2) < DoubleEpsilon) ? 0 : x1 - (1 / (x1 - x2) * t),
-                (Abs(y1 - y2) < DoubleEpsilon) ? 0 : y1 - (1 / (y1 - y2) * t));
-        #endregion Linear Interpolation of Two 2D Points
-
-        #region Linear Interpolation of Two 3D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the linear interpolation point for a value between two 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(LinearInterpolate3DTests))]
-        public static List<SpeedTester> LinearInterpolate3DTests() => new List<SpeedTester> {
-                new SpeedTester(() => LinearInterpolate3D_0(0, 0, 0, 1, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate3D_0)}(0, 0, 0, 1, 1, 1, 0.5d)"),
-                new SpeedTester(() => LinearInterpolate3D_1(0, 0, 0, 1, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate3D_1)}(0, 0, 0, 1, 1, 1, 0.5d)"),
-                new SpeedTester(() => LinearInterpolate3D_2(0, 0, 0, 1, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate3D_2)}(0, 0, 0, 1, 1, 1, 0.5d)"),
-                new SpeedTester(() => LinearInterpolate3D_3(0, 0, 0, 1, 1, 1, 0.5d),
-                $"{nameof(Experiments.LinearInterpolate3D_3)}(0, 0, 0, 1, 1, 1, 0.5d)")
-            };
-
-        /// <summary>
-        /// Precise method which guarantees v = v1 when t = 1.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        public static (double X, double Y, double Z) LinearInterpolate3D_0(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double t)
-            => ((1 - t) * x1 + t * x2,
-                (1 - t) * y1 + t * y2,
-                (1 - t) * z1 + t * z2);
-
-        /// <summary>
-        /// Imprecise method which does not guarantee v = v1 when t = 1, due to floating-point arithmetic error.
-        /// This form may be used when the hardware has a native Fused Multiply-Add instruction.
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double X, double Y, double Z) LinearInterpolate3D_1(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double t)
-            => (
-                x1 + t * (x2 - x1),
-                y1 + t * (y2 - y1),
-                z1 + t * (z2 - z1));
-
-        /// <summary>
-        /// simple linear interpolation between two points
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double X, double Y, double Z) LinearInterpolate3D_2(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double t)
-            => (
-                LinearInterpolate1D_0(x1, x2, t),
-                LinearInterpolate1D_0(y1, y2, t),
-                LinearInterpolate1D_0(z1, z2, t));
-
-        /// <summary>
-        /// The linear interpolate3d 3.
-        /// </summary>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="z1">The z1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="z2">The z2.</param>
-        /// <param name="t">The t.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) LinearInterpolate3D_3(
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double t)
-            => (
-                (Abs(x1 - x2) < DoubleEpsilon) ? 0 : x1 - (1 / (x1 - x2) * t),
-                (Abs(y1 - y2) < DoubleEpsilon) ? 0 : y1 - (1 / (y1 - y2) * t),
-                (Abs(z1 - z2) < DoubleEpsilon) ? 0 : z1 - (1 / (z1 - z2) * t));
-        #endregion Linear Interpolation of Two 3D Points
-
         #region Linear Offset Interpolation
         /// <summary>
         /// The offset interpolate.
@@ -10316,170 +6452,6 @@ namespace MethodSpeedTester
         }
         #endregion Linear Offset Interpolation
 
-        #region Line in Polyline
-        /// <summary>
-        /// This function should be called with the full set of *all* relevant polygons.
-        /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
-        /// Note:  As much as possible, this algorithm tries to return YES when the
-        /// test line-segment is exactly on the border of the polygon, particularly
-        /// if the test line-segment *is* a side of a polygon.
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Public-domain code by Darel Rex Finley, 2006.
-        /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
-        public static bool LineInPolygon(Point2D start, Point2D end, PolygonContour polygon)
-        {
-            int i;
-            int j;
-            double sX;
-            double sY;
-            double eX;
-            double eY;
-            double rotSX;
-            double rotSY;
-            double rotEX;
-            double rotEY;
-            double crossX;
-
-            end.X -= start.X;
-            end.Y -= start.Y;
-            var dist = Sqrt(end.X * end.X + end.Y * end.Y);
-            var theCos = end.X / dist;
-            var theSin = end.Y / dist;
-            for (i = 0; i < polygon.Points.Count; i++)
-            {
-                j = i + 1;
-                if (j == polygon.Points.Count)
-                    j = 0;
-
-                sX = polygon.Points[i].X - start.X;
-                sY = polygon.Points[i].Y - start.Y;
-                eX = polygon.Points[j].X - start.X;
-                eY = polygon.Points[j].Y - start.Y;
-                if (Abs(sX) < DoubleEpsilon
-                    && Abs(sY) < DoubleEpsilon
-                    && Abs(eX - end.X) < DoubleEpsilon
-                    && Abs(eY - end.Y) < DoubleEpsilon
-                    || Abs(eX) < DoubleEpsilon
-                    && Abs(eY) < DoubleEpsilon
-                    && Abs(sX - end.X) < DoubleEpsilon
-                    && Abs(sY - end.Y) < DoubleEpsilon)
-                {
-                    return true;
-                }
-
-                rotSX = sX * theCos + sY * theSin;
-                rotSY = sY * theCos - sX * theSin;
-                rotEX = eX * theCos + eY * theSin;
-                rotEY = eY * theCos - eX * theSin;
-                if (rotSY < 0d && rotEY > 0d
-                || rotEY < 0d && rotSY > 0d)
-                {
-                    crossX = rotSX + (rotEX - rotSX) * (0d - rotSY) / (rotEY - rotSY);
-                    if (crossX >= 0.0 && crossX <= dist)
-                        return false;
-                }
-
-                if (Abs(rotSY) < DoubleEpsilon
-                    && Abs(rotEY) < DoubleEpsilon
-                    && (rotSX >= 0d || rotEX >= 0d)
-                    && (rotSX <= dist || rotEX <= dist)
-                    && (rotSX < 0d || rotEX < 0d
-                    || rotSX > dist || rotEX > dist))
-                {
-                    return false;
-                }
-            }
-
-            return polygon.Contains(new Point2D(start.X + end.X * 0.5d, start.Y + end.Y * 0.5d));
-        }
-        #endregion Line in Polyline
-
-        #region Line in Polyline Set
-        /// <summary>
-        /// This function should be called with the full set of *all* relevant polygons.
-        /// (The algorithm automatically knows that enclosed polygons are “no-go” areas.)
-        /// Note:  As much as possible, this algorithm tries to return YES when the
-        /// test line-segment is exactly on the border of the polygon, particularly
-        /// if the test line-segment *is* a side of a polygon.
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="allPolys"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Public-domain code by Darel Rex Finley, 2006.
-        /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
-        public static bool LineInPolygonSet(Polygon allPolys, Point2D start, Point2D end)
-        {
-            double theCos, theSin, dist, sX, sY, eX, eY, rotSX, rotSY, rotEX, rotEY, crossX;
-            int i, j, polyI;
-
-            end.X -= start.X;
-            end.Y -= start.Y;
-            dist = Sqrt(end.X * end.X + end.Y * end.Y);
-            theCos = end.X / dist;
-            theSin = end.Y / dist;
-
-            for (polyI = 0; polyI < allPolys.Count; polyI++)
-            {
-                for (i = 0; i < allPolys.Contours[polyI].Points.Count; i++)
-                {
-                    j = i + 1;
-                    if (j == allPolys.Contours[polyI].Points.Count)
-                        j = 0;
-
-                    sX = allPolys.Contours[polyI].Points[i].X - start.X;
-                    sY = allPolys.Contours[polyI].Points[i].Y - start.Y;
-                    eX = allPolys.Contours[polyI].Points[j].X - start.X;
-                    eY = allPolys.Contours[polyI].Points[j].Y - start.Y;
-                    if (Abs(sX) < DoubleEpsilon
-                        && Abs(sY) < DoubleEpsilon
-                        && Abs(eX - end.X) < DoubleEpsilon
-                        && Abs(eY - end.Y) < DoubleEpsilon
-                        || Abs(eX) < DoubleEpsilon
-                        && Abs(eY) < DoubleEpsilon
-                        && Abs(sX - end.X) < DoubleEpsilon
-                        && Abs(sY - end.Y) < DoubleEpsilon)
-                    {
-                        return true;
-                    }
-
-                    rotSX = sX * theCos + sY * theSin;
-                    rotSY = sY * theCos - sX * theSin;
-                    rotEX = eX * theCos + eY * theSin;
-                    rotEY = eY * theCos - eX * theSin;
-                    if (rotSY < 0d && rotEY > 0d
-
-                    || rotEY < 0d && rotSY > 0d)
-                    {
-                        crossX = rotSX + (rotEX - rotSX) * (0d - rotSY) / (rotEY - rotSY);
-                        if (crossX >= 0d && crossX <= dist)
-                            return false;
-                    }
-
-                    if (Abs(rotSY) < DoubleEpsilon
-                        && Abs(rotEY) < DoubleEpsilon
-                        && (rotSX >= 0d || rotEX >= 0d)
-                        && (rotSX <= dist || rotEX <= dist)
-                        && (rotSX < 0d || rotEX < 0d
-                        || rotSX > dist || rotEX > dist))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return allPolys.Contains(new Point2D(start.X + end.X * 0.5d, start.Y + end.Y * 0.5d));
-        }
-        #endregion Line in Polyline Set
-
         #region Line Overlap
         /// <summary>
         /// Get the overlap.
@@ -10491,7 +6463,9 @@ namespace MethodSpeedTester
         /// <param name="Left">The Left.</param>
         /// <param name="Right">The Right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        /// <acknowledgment>
+        /// http://www.angusj.com/delphi/clipper.php
+        /// </acknowledgment>
         public static bool GetOverlap(double a1, double a2, double b1, double b2, out double Left, out double Right)
         {
             if (a1 < a2)
@@ -10544,7 +6518,7 @@ namespace MethodSpeedTester
         /// <param name="d">the end point, or D</param>
         /// <param name="Precision">The Precision.</param>
         /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
-        private static List<Point2D> InterpolateCubicBeizerPoints(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
+        public static List<Point2D> InterpolateCubicBeizerPoints(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
         {
             var BPoints = new Point2D[(int)((1 / Precision) + 2)];
             BPoints[0] = a;
@@ -10577,7 +6551,7 @@ namespace MethodSpeedTester
         /// <param name="c">the second control point, or C</param>
         /// <param name="d">the end point, or D</param>
         /// <param name="numberOfPoints"></param>
-        private static List<Point2D> ComputeBezierInterpolations(Point2D a, Point2D b, Point2D c, Point2D d, int numberOfPoints)
+        public static List<Point2D> ComputeBezierInterpolations(Point2D a, Point2D b, Point2D c, Point2D d, int numberOfPoints)
         {
             var curve = new List<Point2D>();
             double t = 0;
@@ -10607,7 +6581,7 @@ namespace MethodSpeedTester
         /// <param name="d">the end point, or D</param>
         /// <param name="Precision"></param>
         /// <returns></returns>
-        private static List<Point2D> InterpolateCubicBeizerPoints0(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
+        public static List<Point2D> InterpolateCubicBeizerPoints0(Point2D a, Point2D b, Point2D c, Point2D d, double Precision)
         {
             var BPoints = new Point2D[(int)((1 / Precision) + 2)];
             BPoints[0] = a;
@@ -10664,7 +6638,9 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="a"></param>
         /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte Log2(int a)
         {
@@ -10677,11 +6653,13 @@ namespace MethodSpeedTester
             return bits;
         }
 
-        // Source: http://graphics.stanford.edu/~seander/bithacks.html
         /// <summary>
         /// The multiply de bruijn bit position (readonly). Value: new byte[32] { 0, 9, 1, 10, 13, 21, 2, 29, 11, 14, 16, 18, 22, 25, 3, 30, 8, 12, 20, 28, 15, 17, 24, 7, 19, 27, 23, 6, 26, 5, 4, 31 }.
         /// </summary>
-        private static readonly byte[] multiplyDeBruijnBitPosition = new byte[32]
+        /// <acknowledgment>
+        /// http://graphics.stanford.edu/~seander/bithacks.html
+        /// </acknowledgment>
+        public static readonly byte[] multiplyDeBruijnBitPosition = new byte[32]
         {
             0, 9, 1, 10, 13, 21, 2, 29, 11, 14, 16, 18, 22, 25, 3, 30,
             8, 12, 20, 28, 15, 17, 24, 7, 19, 27, 23, 6, 26, 5, 4, 31
@@ -10693,8 +6671,15 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Log2_1(int x)
         {
-            if (x <= 0) throw new ArgumentOutOfRangeException(nameof(x), "must be positive");
-            if (x == 1) return 0;
+            if (x <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(x), "must be positive");
+            }
+
+            if (x == 1)
+            {
+                return 0;
+            }
 
             // Locate the highest set bit.
             var v = unchecked((uint)x);
@@ -10716,8 +6701,15 @@ namespace MethodSpeedTester
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Log2_1(uint x)
         {
-            if (x <= 0) throw new ArgumentOutOfRangeException(nameof(x), "must be positive");
-            if (x == 1) return 0;
+            if (x <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(x), "must be positive");
+            }
+
+            if (x == 1)
+            {
+                return 0;
+            }
 
             // Locate the highest set bit.
             var v = unchecked(x);
@@ -10800,43 +6792,9 @@ namespace MethodSpeedTester
         /// <param name="epsilon">The epsilon.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool NearZero1(double value, double epsilon = NearZeroEpsilon)
+        public static bool NearZero1(double value, double epsilon = NearZeroEpsilon)
             => Abs(value) <= epsilon;
         #endregion Near Zero Inquiry
-
-        #region Normalize a 2D Vector
-        /// <summary>
-        /// Normalize a Vector.
-        /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y) Normalize(
-            double i, double j)
-            => (
-                i / Sqrt((i * i) + (j * j)),
-                j / Sqrt((i * i) + (j * j))
-                );
-        #endregion Normalize a 2D Vector
-
-        #region Normalize a 3D Vector
-        /// <summary>
-        /// Normalize a Vector.
-        /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <param name="k"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double X, double Y, double Z) Normalize(
-            double i, double j, double k)
-            => (
-                i / Sqrt((i * i) + (j * j) + (k * k)),
-                j / Sqrt((i * i) + (j * j) + (k * k)),
-                k / Sqrt((i * i) + (j * j) + (k * k))
-                );
-        #endregion Normalize a 3D Vector
 
         #region Normalize The Vector Between Two 2D Points
         /// <summary>
@@ -10868,7 +6826,9 @@ namespace MethodSpeedTester
         /// <param name="y2">The y component of the second Point.</param>
         /// <param name="z2">The z component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
-        /// <remarks>http://www.fundza.com/vectors/normalize/</remarks>
+        /// <acknowledgment>
+        /// http://www.fundza.com/vectors/normalize/
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize(
             double x1, double y1, double z1,
@@ -10890,10 +6850,12 @@ namespace MethodSpeedTester
         /// <param name="bounds">The bounds.</param>
         /// <param name="chkHalfOnly">The chkHalfOnly.</param>
         /// <param name="chkRelPrimeOnly">The chkRelPrimeOnly.</param>
-        private static void PicCanvas_Paint(PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
+        public static void PicCanvas_Paint(PaintEventArgs e, int NumPoints, Rectangle bounds, bool chkHalfOnly, bool chkRelPrimeOnly)
         {
             if (NumPoints < 3)
+            {
                 return;
+            }
 
             // Get the radii.
             int r1, r2, r3;
@@ -10923,7 +6885,10 @@ namespace MethodSpeedTester
             // Draw stars.
             var max = NumPoints - 1;
             if (chkHalfOnly)
+            {
                 max = NumPoints / 2;
+            }
+
             for (var skip = 1; skip <= max; skip++)
             {
                 // See if they are relatively prime.
@@ -10950,7 +6915,7 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="long"/>.</returns>
-        private static long GCD(long a, long b)
+        public static long GCD(long a, long b)
         {
             long remainder;
 
@@ -10959,7 +6924,10 @@ namespace MethodSpeedTester
             {
                 remainder = a % b;
                 if (remainder == 0)
+                {
                     break;
+                }
+
                 a = b;
                 b = remainder;
             }
@@ -10977,12 +6945,14 @@ namespace MethodSpeedTester
         /// <param name="orig_pts">The orig_pts.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="NumPoints">The NumPoints.</param>
-        private static void DrawStar(Graphics gr, int x, int y, PointF[] orig_pts, int skip, int NumPoints)
+        public static void DrawStar(Graphics gr, int x, int y, PointF[] orig_pts, int skip, int NumPoints)
         {
             // Make a PointF array with the points in the proper order.
             var pts = new PointF[NumPoints];
             for (var i = 0; i < NumPoints; i++)
+            {
                 pts[i] = orig_pts[i * skip % NumPoints];
+            }
 
             // Draw the star.
             gr.TranslateTransform(x, y);
@@ -10999,7 +6969,7 @@ namespace MethodSpeedTester
         /// <param name="num_points">The num_points.</param>
         /// <param name="bounds">The bounds.</param>
         /// <returns>The <see cref="T:PointF[]"/>.</returns>
-        private static PointF[] NonIntersectingStarPoints(int num_points, Rectangle bounds)
+        public static PointF[] NonIntersectingStarPoints(int num_points, Rectangle bounds)
         {
             // Make room for the points.
             var pts = new PointF[2 * num_points];
@@ -11041,7 +7011,7 @@ namespace MethodSpeedTester
         /// <param name="pointD">Second reference point.</param>
         /// <param name="offsetDistance">Offset Distance</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// Suppose you have 4 points; A, B C, and D. With Lines AB, BC, and CD.<BR/>
         ///<BR/>
         ///                 B1         BC1       C1<BR/>
@@ -11054,7 +7024,8 @@ namespace MethodSpeedTester
         ///                   | | |          | | |<BR/>
         ///                   | | |          | | |<BR/>
         ///               A1  A  A2      D2  D  D1<BR/>
-        ///</remarks>
+        ///
+        /// </acknowledgment>
         public static Point2D[] CenteredOffsetLinePoints(Point2D pointA, Point2D pointB, Point2D pointC, Point2D pointD, double offsetDistance)
         {
             // To get the vectors of the angles at each corner B and C, Normalize the Unit Delta Vectors along AB, BC, and CD.
@@ -11120,7 +7091,9 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         public static bool IsAdditionSafe(int a, int b)
             => Log2(a) < sizeof(int) && Log2(b) < sizeof(int);
 
@@ -11130,7 +7103,9 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         public static bool IsAdditionSafe2(int a, int b)
         {
             var L_Mask = int.MaxValue;
@@ -11149,14 +7124,22 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe3(int a, int b)
         {
-            if (a > 0) return b > (int.MaxValue - a);
-            if (a < 0) return b > (int.MinValue + a);
+            if (a > 0)
+            {
+                return b > (int.MaxValue - a);
+            }
+
+            if (a < 0)
+            {
+                return b > (int.MinValue + a);
+            }
+
             return true;
         }
 
@@ -11166,9 +7149,9 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe4(int a, int b)
             => a < 0 != b < 0 || (a < 0
@@ -11181,15 +7164,27 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/15920639/how-to-check-if-ab-exceed-long-long-both-a-and-b-is-long-long?noredirect=1
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe5(int a, int b)
         {
-            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
-            if (a < 0) return b >= (int.MinValue - a);
-            if (a > 0) return b <= (int.MaxValue - a);
+            if (a == 0 || b == 0 || a == -0 || b == -0)
+            {
+                return true;
+            }
+
+            if (a < 0)
+            {
+                return b >= (int.MinValue - a);
+            }
+
+            if (a > 0)
+            {
+                return b <= (int.MaxValue - a);
+            }
+
             return true;
         }
 
@@ -11199,15 +7194,27 @@ namespace MethodSpeedTester
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1
-        /// </remarks>
+        /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsAdditionSafe6(int a, int b)
         {
-            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
-            if (b > 0) return a > int.MaxValue - b;
-            if (b < 0) return a < int.MinValue - b;
+            if (a == 0 || b == 0 || a == -0 || b == -0)
+            {
+                return true;
+            }
+
+            if (b > 0)
+            {
+                return a > int.MaxValue - b;
+            }
+
+            if (b < 0)
+            {
+                return a < int.MinValue - b;
+            }
+
             return true;
         }
         #endregion Operation Addition Safe
@@ -11230,12 +7237,21 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1
+        /// </acknowledgment>
         public static bool IsDivisionSafe(int a, int b)
         {
-            if (b == 0) return false;
+            if (b == 0)
+            {
+                return false;
+            }
             //for division(except for the INT_MIN and - 1 special case) there is no possibility of going over INT_MIN or INT_MAX.
-            if (a == int.MinValue && b == -1) return false;
+            if (a == int.MinValue && b == -1)
+            {
+                return false;
+            }
+
             return true;
         }
         #endregion Operation Division Safe
@@ -11258,7 +7274,9 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         public static bool IsExponentiationSafe(int a, int b)
             => Log2(a) * b <= sizeof(int);
         #endregion Operation Exponentiation Safe
@@ -11289,7 +7307,9 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         public static bool IsMultiplicationSafe(int a, int b)
             => Log2(a) + Log2(b) <= sizeof(int);
 
@@ -11299,7 +7319,9 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         public static bool IsMultiplicationSafe0(uint a, uint b)
             => Log2_1(a) + Log2_1(b) <= sizeof(uint);
 
@@ -11318,10 +7340,15 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c
+        /// </acknowledgment>
         public static bool IsMultiplicationSafe2(int a, int b)
         {
-            if (a == 0) return true;
+            if (a == 0)
+            {
+                return true;
+            }
             // a * b would overflow
             return b > int.MaxValue / a;
         }
@@ -11332,15 +7359,36 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1
+        /// </acknowledgment>
         public static bool IsMultiplicationSafe3(int a, int b)
         {
-            if (a == 0) return true;
-            if (a > int.MaxValue / b) return false /* `a * x` would overflow */;
-            if (a < int.MinValue / b) return false /* `a * x` would underflow */;
+            if (a == 0)
+            {
+                return true;
+            }
+
+            if (a > int.MaxValue / b)
+            {
+                return false /* `a * x` would overflow */;
+            }
+
+            if (a < int.MinValue / b)
+            {
+                return false /* `a * x` would underflow */;
+            }
             // there may be need to check for -1 for two's complement machines
-            if ((a == -1) && (b == int.MinValue)) return false /* `a * x` can overflow */;
-            if ((b == -1) && (a == int.MinValue)) return false /* `a * x` (or `a / x`) can overflow */;
+            if ((a == -1) && (b == int.MinValue))
+            {
+                return false /* `a * x` can overflow */;
+            }
+
+            if ((b == -1) && (a == int.MinValue))
+            {
+                return false /* `a * x` (or `a / x`) can overflow */;
+            }
+
             return true;
         }
         #endregion Operation Multiplication Safe
@@ -11363,12 +7411,26 @@ namespace MethodSpeedTester
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1</remarks>
+        /// <acknowledgment>
+        /// http://stackoverflow.com/questions/199333/how-to-detect-integer-overflow-in-c-c?rq=1
+        /// </acknowledgment>
         public static bool IsSubtractionSafe(int a, int b)
         {
-            if (a == 0 || b == 0 || a == -0 || b == -0) return true;
-            if (b < 0) return a > int.MaxValue + b;
-            if (b > 0) return a < int.MinValue + b;
+            if (a == 0 || b == 0 || a == -0 || b == -0)
+            {
+                return true;
+            }
+
+            if (b < 0)
+            {
+                return a > int.MaxValue + b;
+            }
+
+            if (b > 0)
+            {
+                return a < int.MinValue + b;
+            }
+
             return true;
         }
         #endregion Operation Subtraction Safe
@@ -11379,53 +7441,17 @@ namespace MethodSpeedTester
         /// reverse the order of its points.
         /// </summary>
         /// <param name="polygon"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/
+        /// </acknowledgment>
         public static void OrientPolygonClockwise(PolygonContour polygon)
         {
             if (polygon.Orientation == RotationDirections.CounterClockwise)
+            {
                 polygon.Points.Reverse();
+            }
         }
         #endregion Orient Polygon Clockwise
-
-        #region Perimeter of a Polygon
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the cross product of three 2D points.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(Perimeter2DTests))]
-        public static List<SpeedTester> Perimeter2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => Perimeter0(new List<(double X, double Y)> {(0,0), (1,0), (0,1)}),
-                $"{nameof(Experiments.Perimeter0)}((x, y){{(0,0),(1,0),(0,1)}})"),
-                new SpeedTester(() => Perimeter1(new List<(double X, double Y)> {(0,0), (1,0), (0,1)}),
-                $"{nameof(Experiments.Perimeter1)}((x, y){{(0,0),(1,0),(0,1)}})")
-            };
-
-        /// <summary>
-        /// The perimeter0.
-        /// </summary>
-        /// <param name="points">The points.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        public static double Perimeter0(List<(double X, double Y)> points)
-        {
-            var last = points[0];
-            double dist = 0;
-            foreach (var cur in points.Skip(1))
-            {
-                dist += Distance2D_0(last.X, last.Y, cur.X, cur.Y);
-                last = cur;
-            }
-            return dist;
-        }
-
-        /// <summary>
-        /// The perimeter1.
-        /// </summary>
-        /// <param name="points">The points.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/2227828/find-the-distance-required-to-navigate-a-list-of-points-using-linq</remarks>
-        public static double Perimeter1(List<(double X, double Y)> points)
-            => points.Zip(points.Skip(1), Distance2D_1).Sum();
-        #endregion Perimeter of a Polygon
 
         #region Perimeter Polygon of a Polygon
         /// <summary>
@@ -11438,8 +7464,14 @@ namespace MethodSpeedTester
         public static double AngleOf(double x, double y)
         {
             var dist = Sqrt(x * x + y * y);
-            if (y >= 0d) return Acos(x / dist);
-            else return Acos(-x / dist) + PI;
+            if (y >= 0d)
+            {
+                return Acos(x / dist);
+            }
+            else
+            {
+                return Acos(-x / dist) + PI;
+            }
         }
 
         /// <summary>
@@ -11448,9 +7480,9 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="points"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://alienryderflex.com/polygon_perimeter/
-        /// </remarks>
+        /// </acknowledgment>
         public static List<(double X, double Y)> PolygonPerimeter(List<(double X, double Y)> points)
         {
             var corners = points.Count;
@@ -11467,7 +7499,10 @@ namespace MethodSpeedTester
             var j = corners - 1;
             var segs = 0;
 
-            if (corners > MAX_SEGS) return null;
+            if (corners > MAX_SEGS)
+            {
+                return null;
+            }
 
             //  1,3.  Reformulate the polygon as a set of line segments, and choose a
             //        starting point that must be on the perimeter.
@@ -11485,7 +7520,10 @@ namespace MethodSpeedTester
                     start.Y = points[i].Y;
                 }
             }
-            if (segs == 0) return null;
+            if (segs == 0)
+            {
+                return null;
+            }
 
             //  2.  Break the segments up at their intersection points.
             for (var i = 0; i < segs - 1; i++)
@@ -11501,7 +7539,11 @@ namespace MethodSpeedTester
                         if ((intersect?.X != segS[i].X || intersect?.Y != segS[i].Y)
                         && (intersect?.X != segE[i].X || intersect?.Y != segE[i].Y))
                         {
-                            if (segs == MAX_SEGS) return null;
+                            if (segs == MAX_SEGS)
+                            {
+                                return null;
+                            }
+
                             segS[segs] = (segS[i].X, segS[i].Y);
                             segE[segs] = ((double)intersect?.X, (double)intersect?.Y);
                             segS[i] = ((double)intersect?.X, (double)intersect?.Y);
@@ -11509,7 +7551,11 @@ namespace MethodSpeedTester
                         if ((intersect?.X != segS[j].X || intersect?.Y != segS[j].Y)
                         && (intersect?.X != segE[j].X || intersect?.Y != segE[j].Y))
                         {
-                            if (segs == MAX_SEGS) return null;
+                            if (segs == MAX_SEGS)
+                            {
+                                return null;
+                            }
+
                             segS[segs] = (segS[j].X, segS[j].Y);
                             segE[segs] = ((double)intersect?.X, (double)intersect?.Y);
                             segS[j] = ((double)intersect?.X, (double)intersect?.Y);
@@ -11520,7 +7566,9 @@ namespace MethodSpeedTester
 
             //  Calculate the angle of each segment.
             for (var i = 0; i < segs; i++)
+            {
                 segAngle[i] = AngleOf(segE[i].X - segS[i].X, segE[i].Y - segS[i].Y);
+            }
 
             //  4.  Build the perimeter polygon.
             var c = start.X;
@@ -11543,8 +7591,16 @@ namespace MethodSpeedTester
                     if (segS[i].X == c && segS[i].Y == d && (segE[i].X != a || segE[i].Y != b))
                     {
                         angleDif = lastAngle - segAngle[i];
-                        while (angleDif >= Tau) angleDif -= Tau;
-                        while (angleDif < 0) angleDif += Tau;
+                        while (angleDif >= Tau)
+                        {
+                            angleDif -= Tau;
+                        }
+
+                        while (angleDif < 0)
+                        {
+                            angleDif += Tau;
+                        }
+
                         if (angleDif < bestAngleDif)
                         {
                             bestAngleDif = angleDif; e = segE[i].X; f = segE[i].Y;
@@ -11553,8 +7609,16 @@ namespace MethodSpeedTester
                     if (segE[i].X == c && segE[i].Y == d && (segS[i].X != a || segS[i].Y != b))
                     {
                         angleDif = lastAngle - segAngle[i] + .5 * Tau;
-                        while (angleDif >= Tau) angleDif -= Tau;
-                        while (angleDif < 0) angleDif += Tau;
+                        while (angleDif >= Tau)
+                        {
+                            angleDif -= Tau;
+                        }
+
+                        while (angleDif < 0)
+                        {
+                            angleDif += Tau;
+                        }
+
                         if (angleDif < bestAngleDif)
                         {
                             bestAngleDif = angleDif;
@@ -11572,7 +7636,11 @@ namespace MethodSpeedTester
                     corners--;
                     return segRet;
                 }
-                if (bestAngleDif == Tau || corners == MAX_SEGS) return null;
+                if (bestAngleDif == Tau || corners == MAX_SEGS)
+                {
+                    return null;
+                }
+
                 lastAngle -= bestAngleDif + .5 * Tau;
                 segRet[corners++] = (e, f);
                 a = c;
@@ -11590,7 +7658,9 @@ namespace MethodSpeedTester
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        /// <acknowledgment>
+        /// To get the perpendicular vector in two dimensions use I = -J, J = I
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularClockwise(double i, double j)
@@ -11604,188 +7674,14 @@ namespace MethodSpeedTester
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        /// <acknowledgment>
+        /// To get the perpendicular vector in two dimensions use I = -J, J = I
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularCounterClockwise(double i, double j)
             => (j, -i);
         #endregion Perpendicular Vector in The Counter Clockwise Direction
-
-        #region Point in Circle
-        /// <summary>
-        /// Set of tests to run testing methods that calculate whether a point is within a circle.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(PointInCircle2DTests))]
-        public static List<SpeedTester> PointInCircle2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => PointInCircle(0, 0, 2, 1, 1),
-                $"{nameof(Experiments.PointInCircle)}(0, 0, 2, 1, 1)"),
-                new SpeedTester(() => PointInCircle(0, 0, 2, 3, 3),
-                $"{nameof(Experiments.PointInCircle)}(0, 0, 2, 3, 3)"),
-                new SpeedTester(() => PointInCircleInline(0, 0, 2, 1, 1),
-                $"{nameof(Experiments.PointInCircleInline)}(0, 0, 2, 1, 1)"),
-                new SpeedTester(() => PointInCircleInline(0, 0, 2, 3, 3),
-                $"{nameof(Experiments.PointInCircleInline)}(0, 0, 2, 3, 3)"),
-                new SpeedTester(() => PointInCirclePhilcolbourn(0, 0, 2, 1, 1),
-                $"{nameof(Experiments.PointInCirclePhilcolbourn)}(0, 0, 2, 1, 1)"),
-                new SpeedTester(() => PointInCirclePhilcolbourn(0, 0, 2, 3, 3),
-                $"{nameof(Experiments.PointInCirclePhilcolbourn)}(0, 0, 2, 3, 3)"),
-                new SpeedTester(() => PointInCircleNPhilcolbourn(0, 0, 2, 1, 1),
-                $"{nameof(Experiments.PointInCircleNPhilcolbourn)}(0, 0, 2, 1, 1)"),
-                new SpeedTester(() => PointInCircleNPhilcolbourn(0, 0, 2, 3, 3),
-                $"{nameof(Experiments.PointInCircleNPhilcolbourn)}(0, 0, 2, 3, 3)"),
-                new SpeedTester(() => PointInCircleWilliamMorrison(0, 0, 2, 1, 1),
-                $"{nameof(Experiments.PointInCircleWilliamMorrison)}(0, 0, 2, 1, 1)"),
-                new SpeedTester(() => PointInCircleWilliamMorrison(0, 0, 2, 3, 3),
-                $"{nameof(Experiments.PointInCircleWilliamMorrison)}(0, 0, 2, 3, 3)"),
-                new SpeedTester(() => PointInCircleX(0, 0, 2, 1, 1),
-                $"{nameof(Experiments.PointInCircleX)}(0, 0, 2, 1, 1)"),
-                new SpeedTester(() => PointInCircleX(0, 0, 2, 3, 3),
-                $"{nameof(Experiments.PointInCircleX)}(0, 0, 2, 3, 3)")
-            };
-
-        /// <summary>
-        /// Find out if a Point is in a Circle.
-        /// </summary>
-        /// <returns></returns>
-        public static Inclusion PointInCircle(
-            double centerX, double centerY,
-            double radius,
-            double x, double y)
-        {
-            var distance = Distance2D_0(centerX, centerY, x, y);
-            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
-        }
-
-        /// <summary>
-        /// Find out if a Point is in a Circle.
-        /// </summary>
-        /// <returns></returns>
-        public static Inclusion PointInCircleInline(
-            double centerX, double centerY,
-            double radius,
-            double x, double y)
-        {
-            var distance = Sqrt((x - centerX) * (x - centerX) + (y - centerY) * (y - centerY));
-            return (radius >= distance) ? ((Abs(radius - distance) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
-        }
-
-        /// <summary>
-        /// The point in circle philcolbourn.
-        /// </summary>
-        /// <param name="centerX">The centerX.</param>
-        /// <param name="centerY">The centerY.</param>
-        /// <param name="radius">The radius.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
-        public static Inclusion PointInCirclePhilcolbourn(
-            double centerX,
-            double centerY,
-            double radius,
-            double x,
-            double y)
-        {
-            var dx = Abs(x - centerX);
-            if (dx > radius)
-                return Inclusion.Outside;
-            var dy = Abs(y - centerY);
-            if (dy > radius)
-                return Inclusion.Outside;
-            //if (dx + dy <= radius) return InsideOutside.Inside;
-            var distanceSquared = dx * dx + dy * dy;
-            var radiusSquared = radius * radius;
-            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
-        }
-
-        /// <summary>
-        /// The point in circle n philcolbourn.
-        /// </summary>
-        /// <param name="centerX">The centerX.</param>
-        /// <param name="centerY">The centerY.</param>
-        /// <param name="radius">The radius.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
-        public static Inclusion PointInCircleNPhilcolbourn(
-            double centerX,
-            double centerY,
-            double radius,
-            double x,
-            double y)
-        {
-            var dx = Abs(x - centerX);
-            var dy = Abs(y - centerY);
-            var distanceSquared = dx * dx + dy * dy;
-            var radiusSquared = radius * radius;
-            return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
-        }
-
-        /// <summary>
-        /// test if coordinate (x, y) is within a radius from coordinate (centerX, centerY)
-        /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
-        /// <param name="radius"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        /// <remarks>http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle</remarks>
-        public static Inclusion PointInCircleWilliamMorrison(
-            double centerX,
-            double centerY,
-            double radius,
-            double x,
-            double y)
-        {
-            if (x >= centerX - radius && x <= centerX + radius
-                && y >= centerY - radius && y <= centerY + radius)
-            {
-                var dx = centerX - x;
-                var dy = centerY - y;
-                dx *= dx;
-                dy *= dy;
-                var distanceSquared = dx + dy;
-                var radiusSquared = radius * radius;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
-            }
-            return Inclusion.Outside;
-        }
-
-        /// <summary>
-        /// test if coordinate (x, y) is within a radius from coordinate (centerX, centerY)
-        /// </summary>
-        /// <param name="centerX"></param>
-        /// <param name="centerY"></param>
-        /// <param name="radius"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public static Inclusion PointInCircleX(
-            double centerX,
-            double centerY,
-            double radius,
-            double x,
-            double y)
-        {
-            if (x >= centerX - radius && x <= centerX + radius
-                && y >= centerY - radius && y <= centerY + radius)
-            {
-                var dx = (centerX > x) ? (x - centerX) : (centerX - x);
-                var dy = (centerY > y) ? (y - centerY) : (centerY - y);
-                if (dx > radius || dy > radius)
-                    return Inclusion.Outside;
-                dx *= dx;
-                dy *= dy;
-                var distanceSquared = dx + dy;
-                var radiusSquared = radius * radius;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < DoubleEpsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
-            }
-            return Inclusion.Outside;
-        }
-        #endregion Point in Circle
 
         #region Point in Ellipse
         /// <summary>
@@ -11794,14 +7690,16 @@ namespace MethodSpeedTester
         /// <param name="ellipse"></param>
         /// <param name="point"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
-        /// </remarks>
+        /// </acknowledgment>
         [DebuggerStepThrough]
         public static Inclusion PointInEllipse(Ellipse ellipse, Point2D point)
         {
             if (ellipse.RX <= 0d || ellipse.RY <= 0d)
+            {
                 return Inclusion.Outside;
+            }
 
             var cosT = Cos(-ellipse.Angle);
             var sinT = Sin(-ellipse.Angle);
@@ -11832,7 +7730,9 @@ namespace MethodSpeedTester
         public static bool UnrotatedEllipseContainsPoint(Ellipse ellipse, Point2D point)
         {
             if (ellipse.RX <= 0d || ellipse.RY <= 0d)
+            {
                 return false;
+            }
 
             var u = point.X - ellipse.Center.X;
             var v = point.Y - ellipse.Center.Y;
@@ -12328,1219 +8228,6 @@ namespace MethodSpeedTester
         }
         #endregion Point in Elliptical Arc Sector
 
-        #region Point in Polygon Contour
-        /// <summary>
-        /// Set of tests to run testing methods that test whether a point is contained in a polygon contour.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(PointInPolygonContourTests))]
-        public static List<SpeedTester> PointInPolygonContourTests()
-        {
-            var polygon = new List<PointF> {
-                new PointF(0, 0),
-                new PointF(2, 0),
-                new PointF(0, 2) };
-            var PatrickMullenValues = PrecalcPointInPolygonContourPatrickMullenValues(polygon);
-            var point = new PointF(1, 1);
-            return new List<SpeedTester> {
-                //new SpeedTester(() => PointInPolygonContourDarelRexFinley(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourDarelRexFinley)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourNathanMercer(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourNathanMercer)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourLaschaLagidse(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourLaschaLagidse)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourPatrickMullen(polygon, point, PatrickMullenValues.Value.Item1, PatrickMullenValues.Value.Item2),
-                //$"{nameof(Experiments.PointInPolygonContourPatrickMullen)}(polygon, {point}, constant, multiple)"),
-                //new SpeedTester(() => PointInPolygonContourMeowNET(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourMeowNET)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourAlienRyderFlex(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourAlienRyderFlex)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourLaschaLagidse2(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourLaschaLagidse2)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourGilKr(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourGilKr)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourMKatzWRandolphFranklin(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourMKatzWRandolphFranklin)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourRodStephens(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourRodStephens)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourSaeedAmiri(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourSaeedAmiri)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourKeith(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourKeith)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourJerryKnauss(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourJerryKnauss)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourJerryKnauss2(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourJerryKnauss2)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourPaulBourke(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourPaulBourke)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourWRandolphFranklin(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourWRandolphFranklin)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourPhilippeReverdy(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourPhilippeReverdy)}(polygon, {point})"),
-                //new SpeedTester(() => PointInPolygonContourBobStein(polygon, point),
-                //$"{nameof(Experiments.PointInPolygonContourBobStein)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonContourHormannAgathosSimplified(polygon, point),
-                $"{nameof(Experiments.PointInPolygonContourHormannAgathosSimplified)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonContourHormannAgathosExpanded3(polygon, point),
-                $"{nameof(Experiments.PointInPolygonContourHormannAgathosExpanded3)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonContourHormannAgathosExpanded(polygon, point),
-                $"{nameof(Experiments.PointInPolygonContourHormannAgathosExpanded)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonContourHormannAgathosExpanded2(polygon, point),
-                $"{nameof(Experiments.PointInPolygonContourHormannAgathosExpanded2)}(polygon, {point})"),
-                new SpeedTester(() => PointInPolygonContourHormannAgathosNewFor(polygon, point),
-                $"{nameof(Experiments.PointInPolygonContourHormannAgathosNewFor)}(polygon, {point})"),
-            };
-        }
-
-        /// <summary>
-        /// The point in polygon contour jerry knauss.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>
-        /// http://paulbourke.net/geometry/polygonmesh/
-        /// http://paulbourke.net/geometry/polygonmesh/contains.txt
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourJerryKnauss(
-            List<PointF> polygon, PointF point)
-        {
-            var result = false;
-
-            for (var i = 0; i < polygon.Count - 1; i++)
-            {
-                if ((((polygon[i + 1].Y < point.Y) && (point.Y < polygon[i].Y))
-                    || ((polygon[i].Y < point.Y) && (point.Y < polygon[i + 1].Y)))
-                    && (point.X < (polygon[i].X - polygon[i + 1].X)
-                    * (point.Y - polygon[i + 1].Y)
-                    / (polygon[i].Y - polygon[i + 1].Y) + polygon[i + 1].X))
-                {
-                    result = !result;
-                }
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// The point in polygon contour jerry knauss2.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>
-        /// http://paulbourke.net/geometry/polygonmesh/
-        /// http://paulbourke.net/geometry/polygonmesh/contains.txt
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourJerryKnauss2(
-            List<PointF> polygon, PointF point)
-        {
-            var j = polygon.Count - 1;
-            var result = false;
-
-            for (var i = 0; i < polygon.Count; i++)
-            {
-                if (((
-                    (polygon[j].Y < point.Y)
-                    && (point.Y < polygon[i].Y))
-                    || ((polygon[i].Y < point.Y)
-                    && (point.Y < polygon[j].Y)))
-                    && (point.X < (polygon[i].X - polygon[j].X)
-                    * (point.Y - polygon[j].Y)
-                    / (polygon[i].Y - polygon[j].Y) + polygon[j].X))
-                {
-                    result = !result;
-                }
-
-                j = i;
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// The function will return true if the point x,y is inside the polygon, or
-        /// false if it is not.  If the point is exactly on the edge of the polygon,
-        /// then the function may return true or false.
-        /// </summary>
-        /// <param name="point">point to be tested</param>
-        /// <param name="polygon">coordinates of corners</param>
-        /// <returns></returns>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourDarelRexFinley(
-            List<PointF> polygon, PointF point)
-        {
-            var j = polygon.Count - 1;
-            var oddNodes = false;
-
-            for (var i = 0; i < polygon.Count; i++)
-            {
-                if (
-                    polygon[i].Y < point.Y
-                    && polygon[j].Y >= point.Y
-                    || polygon[j].Y < point.Y
-                    && polygon[i].Y >= point.Y)
-                {
-                    if (polygon[i].X + (point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X) < point.X)
-                    {
-                        oddNodes = !oddNodes;
-                    }
-                }
-                j = i;
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        /// The function will return true if the point x,y is inside the polygon, or
-        /// false if it is not.  If the point is exactly on the edge of the polygon,
-        /// then the function may return true or false.
-        /// </summary>
-        /// <param name="point">point to be tested</param>
-        /// <param name="polygon">coordinates of corners</param>
-        /// <returns></returns>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourNathanMercer(
-            List<PointF> polygon, PointF point)
-        {
-            var j = polygon.Count - 1;
-            var oddNodes = false;
-
-            for (var i = 0; i < polygon.Count; i++)
-            {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y
-                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
-                {
-                    if (polygon[i].X + (point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y) * (polygon[j].X - polygon[i].X) < point.X)
-                    {
-                        oddNodes = !oddNodes;
-                    }
-                }
-
-                j = i;
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        ///  The function will return YES if the point x,y is inside the polygon, or
-        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
-        ///  then the function may return YES or NO.
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourLaschaLagidse(
-            List<PointF> polygon, PointF point)
-        {
-            int i;
-            var j = polygon.Count - 1;
-            var oddNodes = false;
-
-            for (i = 0; i < polygon.Count; i++)
-            {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
-                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
-                {
-                    oddNodes ^= polygon[i].X + (point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X) < point.X;
-                }
-
-                j = i;
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        ///  USAGE:
-        ///  Call precalc_values() to initialize the constant[] and multiple[] arrays,
-        ///  then call pointInPolygon(x, y) to determine if the point is in the polygon.
-        ///
-        ///  The function will return YES if the point x,y is inside the polygon, or
-        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
-        ///  then the function may return YES or NO.
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygon">coordinates of corners</param>
-        /// <param name="constant">storage for pre-calculated constants (same size as polyX)</param>
-        /// <param name="multiple">storage for pre-calculated multipliers (same size as polyX)</param>
-        /// <returns></returns>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourPatrickMullen(
-            List<PointF> polygon, PointF point,
-            List<double> constant, List<double> multiple)
-        {
-            int i, j = polygon.Count - 1;
-            var oddNodes = false;
-
-            for (i = 0; i < polygon.Count; i++)
-            {
-                //  Note that division by zero is avoided because the division is protected
-                //  by the "if" clause which surrounds it.
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
-                {
-                    oddNodes ^= point.Y * multiple[i] + constant[i] < point.X;
-                }
-                j = i;
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        /// The precalc point in polygon contour patrick mullen values.
-        /// </summary>
-        /// <param name="polygon">coordinates of corners</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>http://alienryderflex.com/polygon/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (List<double>, List<double>)? PrecalcPointInPolygonContourPatrickMullenValues(
-            List<PointF> polygon)
-        {
-            if (polygon is null)
-                return null;
-
-            var constant = new double[polygon.Count];
-            var multiple = new double[polygon.Count];
-
-            int i, j = polygon.Count - 1;
-
-            for (i = 0; i < polygon.Count; i++)
-            {
-                if (Abs(polygon[j].Y - polygon[i].Y) < DoubleEpsilon)
-                {
-                    constant[i] = polygon[i].X;
-                    multiple[i] = 0;
-                }
-                else
-                {
-                    constant[i] = polygon[i].X - polygon[i].Y * polygon[j].X
-                        / (polygon[j].Y - polygon[i].Y) + polygon[i].Y * polygon[i].X
-                        / (polygon[j].Y - polygon[i].Y);
-                    multiple[i] = (polygon[j].X - polygon[i].X) / (polygon[j].Y - polygon[i].Y);
-                }
-                j = i;
-            }
-
-            return (new List<double>(constant), new List<double>(multiple));
-        }
-
-        /// <summary>
-        /// Determines if the given point is inside the polygon contour.
-        /// </summary>
-        /// <param name="polygon">the vertices of polygon</param>
-        /// <param name="point">the given point</param>
-        /// <returns>true if the point is inside the polygon; otherwise, false</returns>
-        /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourMeowNET(
-            List<PointF> polygon, PointF point)
-        {
-            var result = false;
-            var j = polygon.Count - 1;
-            for (var i = 0; i < polygon.Count; i++)
-            {
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
-                {
-                    if (polygon[i].X + (point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X) < point.X)
-                    {
-                        result = !result;
-                    }
-                }
-                j = i;
-            }
-            return result;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://alienryderflex.com/polygon/
-        ///  Globals which should be set before calling this function:
-        ///
-        ///  int    polygon.Count  =  how many corners the polygon has (no repeats)
-        ///  double  polyX[]      =  horizontal coordinates of corners
-        ///  double  polyY[]      =  vertical coordinates of corners
-        ///  double  x, y         =  point to be tested
-        ///
-        ///  (Globals are used in this example for purposes of speed.  Change as
-        ///  desired.)
-        ///
-        ///  The function will return YES if the point x,y is inside the polygon, or
-        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
-        ///  then the function may return YES or NO.
-        ///
-        ///  Note that division by zero is avoided because the division is protected
-        ///  by the "if" clause which surrounds it.
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourAlienRyderFlex(
-            List<PointF> polygon, PointF point)
-        {
-            int i;
-            var j = polygon.Count - 1;
-            var oddNodes = false;
-
-            for (i = 0; i < polygon.Count; i++)
-            {
-                if (polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
-                {
-                    if (polygon[i].X + (point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X) < point.X)
-                    {
-                        oddNodes = !oddNodes;
-                    }
-                }
-                j = i;
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://alienryderflex.com/polygon/
-        ///  Globals which should be set before calling this function:
-        ///
-        ///  int    polygon.Count  =  how many corners the polygon has (no repeats)
-        ///  double  polyX[]      =  horizontal coordinates of corners
-        ///  double  polyY[]      =  vertical coordinates of corners
-        ///  double  x, y         =  point to be tested
-        ///
-        ///  (Globals are used in this example for purposes of speed.  Change as
-        ///  desired.)
-        ///
-        ///  The function will return YES if the point x,y is inside the polygon, or
-        ///  NO if it is not.  If the point is exactly on the edge of the polygon,
-        ///  then the function may return YES or NO.
-        ///
-        ///  Note that division by zero is avoided because the division is protected
-        ///  by the "if" clause which surrounds it.
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourLaschaLagidse2(
-            List<PointF> polygon, PointF point)
-        {
-            int i;
-            var j = polygon.Count - 1;
-            var oddNodes = false;
-
-            for (i = 0; i < polygon.Count; i++)
-            {
-                if ((polygon[i].Y < point.Y && polygon[j].Y >= point.Y
-                || polygon[j].Y < point.Y && polygon[i].Y >= point.Y)
-                && (polygon[i].X <= point.X || polygon[j].X <= point.X))
-                {
-                    oddNodes ^= polygon[i].X + (point.Y - polygon[i].Y)
-                        / (polygon[j].Y - polygon[i].Y)
-                        * (polygon[j].X - polygon[i].X) < point.X;
-                }
-                j = i;
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
-        /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
-        /// http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourGilKr(
-            List<PointF> polygon, PointF point)
-        {
-            var nvert = polygon.Count;
-            var c = false;
-            for (int i = 0, j = nvert - 1; i < nvert; j = i++)
-            {
-                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y))
-                 && (point.X < (polygon[j].X - polygon[i].X)
-                 * (point.Y - polygon[i].Y)
-                 / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
-                {
-                    c = !c;
-                }
-            }
-            return c;
-        }
-
-        /// <summary>
-        /// The point in polygon contour m katz w randolph franklin.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
-        /// http://stackoverflow.com/questions/217578/point-in-polygon-aka-hit-test
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourMKatzWRandolphFranklin(
-            List<PointF> polygon, PointF point)
-        {
-            double minX = polygon[0].X;
-            double maxX = polygon[0].X;
-            double minY = polygon[0].Y;
-            double maxY = polygon[0].Y;
-            for (var i = 1; i < polygon.Count; i++)
-            {
-                var q = polygon[i];
-                minX = Min(q.X, minX);
-                maxX = Max(q.X, maxX);
-                minY = Min(q.Y, minY);
-                maxY = Max(q.Y, maxY);
-            }
-
-            if (point.X < minX || point.X > maxX || point.Y < minY || point.Y > maxY)
-                return false;
-
-            // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
-            var inside = false;
-            for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
-            {
-                if ((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y)
-                     && point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
-                     / (polygon[j].Y - polygon[i].Y) + polygon[i].X)
-                {
-                    inside = !inside;
-                }
-            }
-
-            return inside;
-        }
-
-        /// <summary>
-        /// The point in polygon contour paul bourke.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>
-        /// http://paulbourke.net/geometry/polygonmesh/
-        /// http://astronomy.swin.edu.au/pbourke/geometry/
-        /// http://www.eecs.umich.edu/courses/eecs380/HANDOUTS/PROJ2/InsidePoly.html
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourPaulBourke(
-            List<PointF> polygon, PointF point)
-        {
-            PointF p1, p2;
-            var counter = 0;
-            int i;
-            var N = polygon.Count;
-            double xinters;
-            p1 = polygon[0];
-            for (i = 1; i <= N; i++)
-            {
-                p2 = polygon[i % N];
-                if (point.Y > Min(p1.Y, p2.Y))
-                {
-                    if (point.Y <= Max(p1.Y, p2.Y))
-                    {
-                        if (point.X <= Max(p1.X, p2.X))
-                        {
-                            if (Abs(p1.Y - p2.Y) > DoubleEpsilon)
-                            {
-                                xinters = (point.Y - p1.Y) * (p2.X - p1.X) / (p2.Y - p1.Y) + p1.X;
-                                if (Abs(p1.X - p2.X) < DoubleEpsilon || point.X <= xinters)
-                                    counter++;
-                            }
-                        }
-                    }
-                }
-                p1 = p2;
-            }
-
-            return counter % 2 != 0;
-        }
-
-        /// <summary>
-        /// The point in polygon contour w randolph franklin.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourWRandolphFranklin(
-            List<PointF> polygon, PointF point)
-        {
-            var inside = false;
-            var nvert = polygon.Count;
-            for (int i = 0, j = nvert - 1; i < nvert; j = i++)
-            {
-                if (((polygon[i].Y > point.Y) != (polygon[j].Y > point.Y))
-                 && (point.X < (polygon[j].X - polygon[i].X) * (point.Y - polygon[i].Y)
-                 / (polygon[j].Y - polygon[i].Y) + polygon[i].X))
-                {
-                    inside = !inside;
-                }
-            }
-            return inside;
-        }
-
-        /// <summary>
-        /// The point in polygon contour saeed amiri.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourSaeedAmiri(
-            List<PointF> polygon, PointF point)
-        {
-            var coef = polygon.Skip(1).Select((p, i) =>
-                  (p.X - polygon[i].X) * (point.Y - polygon[i].Y)
-                - (p.Y - polygon[i].Y) * (point.X - polygon[i].X)
-                ).ToList();
-
-            if (coef.Any(p => Abs(p) < DoubleEpsilon))
-                return true;
-
-            for (var i = 1; i < coef.Count; i++)
-            {
-                if (coef[i] * coef[i - 1] < 0)
-                    return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// The point in polygon contour philippe reverdy.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://paulbourke.net/geometry/polygonmesh/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourPhilippeReverdy(
-            List<PointF> polygon, PointF point)
-        {
-            int i;
-            double angle = 0;
-            var p1 = new PointF();
-            var p2 = new PointF();
-            var n = polygon.Count;
-            for (i = 0; i < n; i++)
-            {
-                p1.X = polygon[i].X - point.X;
-                p1.Y = polygon[i].Y - point.Y;
-                p2.X = polygon[(i + 1) % n].X - point.X;
-                p2.Y = polygon[(i + 1) % n].Y - point.Y;
-                angle += Angle2D(p1.X, p1.Y, p2.X, p2.Y);
-            }
-
-            return !(Abs(angle) < PI);
-        }
-
-        /// <summary>
-        /// Return the angle between two vectors on a plane
-        /// The angle is from vector 1 to vector 2, positive anticlockwise
-        /// The result is between -pi -> pi
-        /// </summary>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Angle2D(double x1, double y1, double x2, double y2)
-        {
-            double dtheta, theta1, theta2;
-
-            theta1 = Atan2(y1, x1);
-            theta2 = Atan2(y2, x2);
-            dtheta = theta2 - theta1;
-            while (dtheta > PI)
-                dtheta -= PI * 2;
-            while (dtheta < -PI)
-                dtheta += PI * 2;
-
-            return dtheta;
-        }
-
-        /// <summary>
-        /// The point in polygon contour rod stephens.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="bool"/>.Return true if the point is in the polygon.</returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourRodStephens(
-            List<PointF> polygon, PointF point)
-        {
-            // Get the angle between the point and the
-            // first and last vertices.
-            var max_point = polygon.Count - 1;
-            var total_angle = AngleVector_0(
-                polygon[max_point].X, polygon[max_point].Y,
-                point.X, point.Y,
-                polygon[0].X, polygon[0].Y);
-
-            // Add the angles from the point
-            // to each other pair of vertices.
-            for (var i = 0; i < max_point; i++)
-            {
-                total_angle += AngleVector_0(
-                    polygon[i].X, polygon[i].Y,
-                    point.X, point.Y,
-                    polygon[i + 1].X, polygon[i + 1].Y);
-            }
-
-            // The total angle should be 2 * PI or -2 * PI if
-            // the point is in the polygon and close to zero
-            // if the point is outside the polygon.
-            return Abs(total_angle) > 0.000001;
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <param name="point"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// http://stackoverflow.com/questions/4243042/c-sharp-point-in-polygon
-        /// https://social.msdn.microsoft.com/Forums/windows/en-US/95055cdc-60f8-4c22-8270-ab5f9870270a/determine-if-the-point-is-in-the-polygon-c?forum=winforms
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourKeith(
-            List<PointF> polygon, PointF point)
-        {
-            PointF p1, p2;
-
-            var inside = false;
-
-            if (polygon.Count < 3)
-                return inside;
-
-            var oldPoint = polygon[polygon.Count - 1];
-
-            for (var i = 0; i < polygon.Count; i++)
-            {
-                var newPoint = polygon[i];
-
-                if (newPoint.X > oldPoint.X)
-                {
-                    p1 = oldPoint;
-                    p2 = newPoint;
-                }
-                else
-                {
-                    p1 = newPoint;
-                    p2 = oldPoint;
-                }
-
-                if ((newPoint.X < point.X) == (point.X <= oldPoint.X)
-                    && (point.Y - (long)p1.Y) * (p2.X - p1.X)
-                    < (p2.Y - (long)p1.Y) * (point.X - p1.X))
-                {
-                    inside = !inside;
-                }
-
-                oldPoint = newPoint;
-            }
-
-            return inside;
-        }
-
-        /// <summary>
-        /// is target point inside a 2D polygon?
-        /// </summary>
-        /// <param name="polygon">polygon points</param>
-        /// <param name="point">target point</param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool PointInPolygonContourBobStein(
-            List<PointF> polygon, PointF point)
-        {
-            double xnew, ynew;
-            double xold, yold;
-            double x1, y1;
-            double x2, y2;
-            int i;
-            var inside = false;
-            var npoints = polygon.Count;
-            if (npoints < 3)
-                return false;
-            xold = polygon[npoints - 1].X;
-            yold = polygon[npoints - 1].Y;
-            for (i = 0; i < npoints; i++)
-            {
-                xnew = polygon[i].X;
-                ynew = polygon[i].Y;
-                if (xnew > xold)
-                {
-                    x1 = xold;
-                    x2 = xnew;
-                    y1 = yold;
-                    y2 = ynew;
-                }
-                else
-                {
-                    x1 = xnew;
-                    x2 = xold;
-                    y1 = ynew;
-                    y2 = yold;
-                }
-                if ((xnew < point.X) == (point.X <= xold)          /* edge "open" at one end */
-                 && ((long)point.Y - (long)y1) * (long)(x2 - x1)
-                  < ((long)point.Y - (long)y1) * (long)(point.X - x1))
-                {
-                    inside = !inside;
-                }
-                xold = xnew;
-                yold = ynew;
-            }
-            return inside;
-        }
-
-        /// <summary>
-        /// The point in polygon contour hormann agathos expanded.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosExpanded(List<PointF> polygon, PointF point)
-        {
-            // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
-            // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
-            // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            var result = Inclusion.Outside;
-
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
-            if (polygon.Count < 3)
-                return Inclusion.Outside;
-            var curPoint = polygon[0];
-            for (var i = 1; i <= polygon.Count; ++i)
-            {
-                var nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
-                if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
-                {
-                    if ((Abs(nextPoint.X - point.X) < DoubleEpsilon) || (Abs(curPoint.Y - point.Y) < DoubleEpsilon && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
-                    {
-                        return Inclusion.Boundary;
-                    }
-                }
-
-                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
-                {
-                    if (curPoint.X >= point.X)
-                    {
-                        if (nextPoint.X > point.X)
-                        {
-                            result = 1 - result;
-                        }
-                        else
-                        {
-                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                            if (Abs(determinant) < DoubleEpsilon)
-                                return Inclusion.Boundary;
-                            if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
-                                result = 1 - result;
-                        }
-                    }
-                    else if (nextPoint.X > point.X)
-                    {
-                        double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                        if (Abs(determinant) < DoubleEpsilon)
-                            return Inclusion.Boundary;
-                        if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
-                            result = 1 - result;
-                    }
-                }
-
-                curPoint = nextPoint;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// The point in polygon contour hormann agathos expanded2.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosExpanded2(List<PointF> polygon, PointF point)
-        {
-            // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
-            // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
-            // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            var result = Inclusion.Outside;
-
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
-            if (polygon.Count < 3)
-                return Inclusion.Outside;
-            var curPoint = polygon[0];
-            for (var i = 1; i <= polygon.Count; ++i)
-            {
-                var nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
-                // Horizontal line special case.
-                // Is end point horizontal to test point?
-                if ((Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
-                    // And is end point vertical to test point?
-                    && ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
-                    // Or is start point horizontal to test point?
-                    // And is test point between end and start
-                    || (Abs(curPoint.Y - point.Y) < DoubleEpsilon && ((nextPoint.X > point.X) == (curPoint.X < point.X)))))
-                {
-                    return Inclusion.Boundary;
-                }
-
-                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
-                {
-                    if (curPoint.X >= point.X)
-                    {
-                        if (nextPoint.X > point.X)
-                        {
-                            result = 1 - result;
-                        }
-                        else
-                        {
-                            double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                            if (Abs(determinant) < DoubleEpsilon)
-                                return Inclusion.Boundary;
-                            if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
-                                result = 1 - result;
-                        }
-                    }
-                    else if (nextPoint.X > point.X)
-                    {
-                        double determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                        if (Abs(determinant) < DoubleEpsilon)
-                            return Inclusion.Boundary;
-                        if ((determinant > 0d) == (nextPoint.Y > curPoint.Y))
-                            result = 1 - result;
-                    }
-                }
-
-                curPoint = nextPoint;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// The point in polygon contour hormann agathos simplified.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosSimplified(List<PointF> polygon, PointF point)
-        {
-            // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
-            // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
-            // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            var result = Inclusion.Outside;
-
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
-            if (polygon.Count < 3)
-                return Inclusion.Outside;
-            var curPoint = polygon[0];
-            var nextPoint = polygon[1];
-            for (var i = 1; i <= polygon.Count; ++i)
-            {
-                nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
-                if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
-                {
-                    if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
-                        || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
-                        && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
-                    {
-                        return Inclusion.Boundary;
-                    }
-                }
-
-                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
-                {
-                    if (curPoint.X >= point.X && nextPoint.X > point.X)
-                    {
-                        result = 1 - result;
-                    }
-                    else if (curPoint.X >= point.X && nextPoint.X <= point.X || curPoint.X < point.X && nextPoint.X > point.X)
-                    {
-                        var determinant = (curPoint.X - point.X) * (nextPoint.Y - point.Y) - (nextPoint.X - point.X) * (curPoint.Y - point.Y);
-                        if (Abs(determinant) < Epsilon)
-                            return Inclusion.Boundary;
-                        else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
-                            result = 1 - result;
-                    }
-                }
-
-                curPoint = nextPoint;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// The point in polygon contour hormann agathos expanded3.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        /// <remarks>http://angusj.com/delphi/clipper.php</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosExpanded3(List<PointF> polygon, PointF point)
-        {
-            // returns 0 if false, +1 if true, -1 if pt ON polygon boundary
-            // See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann & Agathos
-            // http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-            var result = Inclusion.Outside;
-
-            // If the polygon has 2 or fewer points, it is a line or point and has no interior.
-            if (polygon.Count < 3)
-                return Inclusion.Outside;
-            var curPoint = polygon[0];
-            for (var i = 1; i <= polygon.Count; ++i)
-            {
-                var nextPoint = i == polygon.Count ? polygon[0] : polygon[i];
-                if (Abs(nextPoint.Y - point.Y) < DoubleEpsilon)
-                {
-                    if ((Abs(nextPoint.X - point.X) < DoubleEpsilon)
-                        || (Abs(curPoint.Y - point.Y) < DoubleEpsilon
-                        && ((nextPoint.X > point.X) == (curPoint.X < point.X))))
-                    {
-                        return Inclusion.Boundary;
-                    }
-                }
-
-                if ((curPoint.Y < point.Y) != (nextPoint.Y < point.Y))
-                {
-                    if (curPoint.X >= point.X)
-                    {
-                        if (nextPoint.X > point.X)
-                        {
-                            result = 1 - result;
-                        }
-                        else
-                        {
-                            result = process(nextPoint.X, nextPoint.Y);
-                            if (result == Inclusion.Boundary) return result;
-                        }
-                    }
-                    else if (nextPoint.X > point.X)
-                    {
-                        result = process(nextPoint.X, nextPoint.Y);
-                        if (result == Inclusion.Boundary) return result;
-                    }
-                }
-
-                curPoint = nextPoint;
-            }
-
-            Inclusion process(double nextPointX, double nextPointY)
-            {
-                var determinant = (curPoint.X - point.X) * (nextPointY - point.Y) - (nextPointX - point.X) * (curPoint.Y - point.Y);
-                if (Abs(determinant) < DoubleEpsilon)
-                    return Inclusion.Boundary;
-                if ((determinant > 0d) == (nextPointY > curPoint.Y))
-                    return 1 - result;
-                return result;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour"/>.
-        /// </summary>
-        /// <param name="points">The points that form the corners of the polygon.</param>
-        /// <param name="p">The coordinate of the test point.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>
-        /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
-        /// </returns>
-        /// <remarks>
-        /// Adapted from Clipper library: http://www.angusj.com/delphi/clipper.php
-        /// See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann and Agathos
-        /// http://www.inf.usi.ch/hormann/papers/Hormann.2001.TPI.pdf
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PointInPolygonContourHormannAgathosNewFor(
-            List<PointF> points,
-            PointF p,
-            double epsilon = Epsilon)
-        {
-            // Default value is no inclusion.
-            var result = Inclusion.Outside;
-
-            // Special cases for points and line segments.
-            if (points.Count < 3)
-                if (points.Count == 1)
-                    // If the polygon has 1 point, it is a point and has no interior, but a point can intersect a point.
-                    return (p.X == points[0].X && p.Y == points[0].Y) ? Inclusion.Boundary : Inclusion.Outside;
-                else if (points.Count == 2)
-                    // If the polygon has 2 points, it is a line and has no interior, but a point can intersect a line.
-                    return ((p.X == points[0].X) && (p.Y == points[0].Y))
-                        || ((p.X == points[1].X) && (p.Y == points[1].Y))
-                        || (((p.X > points[0].X) == (p.X < points[1].X))
-                        && ((p.Y > points[0].Y) == (p.Y < points[1].Y))
-                        && ((p.X - points[0].X) * (points[1].Y - points[0].Y) == (p.Y - points[0].Y) * (points[1].X - points[0].X))) ? Inclusion.Boundary : Inclusion.Outside;
-                else
-                    // Empty geometry.
-                    return Inclusion.Outside;
-
-            // Loop through each line segment.
-            PointF curPoint;
-            PointF nextPoint;
-            for (int i = points.Count - 1, j = 0; j < points.Count; i = j++)
-            {
-                curPoint = points[i];
-                nextPoint = points[j];
-                // Special case for horizontal lines. Check whether the point is on one of the ends, or whether the point is on the segment, if the line is horizontal.
-                if (nextPoint.Y == p.Y && (nextPoint.X == p.X || ((curPoint.Y == p.Y) && ((nextPoint.X > p.X) == (curPoint.X < p.X)))))
-                //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
-                {
-                    return Inclusion.Boundary;
-                }
-
-                // If Point between start and end points horizontally.
-                //if ((curPoint.Y < pY) == (nextPoint.Y >= pY))
-                if ((curPoint.Y < p.Y) != (nextPoint.Y < p.Y))
-                {
-                    // If point between start and end points vertically.
-                    if (curPoint.X >= p.X)
-                    {
-                        if (nextPoint.X > p.X)
-                        {
-                            result = 1 - result;
-                        }
-                        else
-                        {
-                            var determinant = (curPoint.X - p.X) * (nextPoint.Y - p.Y) - (nextPoint.X - p.X) * (curPoint.Y - p.Y);
-                            if (Abs(determinant) < epsilon)
-                                return Inclusion.Boundary;
-                            else if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
-                                result = 1 - result;
-                        }
-                    }
-                    else if (nextPoint.X > p.X)
-                    {
-                        var determinant = (curPoint.X - p.X) * (nextPoint.Y - p.Y) - (nextPoint.X - p.X) * (curPoint.Y - p.Y);
-                        if (Abs(determinant) < epsilon)
-                            return Inclusion.Boundary;
-                        if ((determinant > 0) == (nextPoint.Y > curPoint.Y))
-                            result = 1 - result;
-                    }
-                }
-            }
-
-            return result;
-        }
-        #endregion Point in Polygon Contour
-
-        #region Point in Polygon Set
-        /// <summary>
-        /// This function automatically knows that enclosed polygons are "no-go" areas.
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygons"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Public-domain code by Darel Rex Finley, 2006.
-        /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
-        public static bool PointInPolygonSet(Polygon polygons, Point2D point)
-        {
-            var oddNodes = false;
-            int j;
-
-            for (var polyI = 0; polyI < polygons.Count; polyI++)
-            {
-                for (var i = 0; i < polygons.Contours[polyI].Points.Count; i++)
-                {
-                    j = i + 1;
-                    if (j == polygons.Contours[polyI].Points.Count)
-                        j = 0;
-                    if (polygons.Contours[polyI].Points[i].Y < point.Y
-                    && polygons.Contours[polyI].Points[j].Y >= point.Y
-                    || polygons.Contours[polyI].Points[j].Y < point.Y
-                    && polygons.Contours[polyI].Points[i].Y >= point.Y)
-                    {
-                        if (polygons.Contours[polyI].Points[i].X + (point.Y - polygons.Contours[polyI].Points[i].Y)
-                        / (polygons.Contours[polyI].Points[j].Y - polygons.Contours[polyI].Points[i].Y)
-                        * (polygons.Contours[polyI].Points[j].X - polygons.Contours[polyI].Points[i].X) < point.X)
-                        {
-                            oddNodes = !oddNodes;
-                        }
-                    }
-                }
-            }
-
-            return oddNodes;
-        }
-
-        /// <summary>
-        /// This function automatically knows that enclosed polygons are "no-go" areas.
-        /// </summary>
-        /// <param name="point"></param>
-        /// <param name="polygons"></param>
-        /// <returns></returns>
-        public static Inclusion PointInPolygonSetShkyrockett(List<List<PointF>> polygons, PointF point)
-        {
-            var returnValue = Inclusion.Outside;
-
-            foreach (List<PointF> poly in polygons)
-            {
-                // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
-                // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
-                returnValue ^= PointInPolygonContourHormannAgathosExpanded(poly, point);
-
-                // Any point on any boundary is on a boundary.
-                if (returnValue == Inclusion.Boundary)
-                    return Inclusion.Boundary;
-            }
-
-            return returnValue;
-        }
-        #endregion Point in Polygon Set
-
         #region Point in Rectangle
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
@@ -13715,7 +8402,9 @@ namespace MethodSpeedTester
         /// <param name="pointX">The pointX.</param>
         /// <param name="pointY">The pointY.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        /// <acknowledgment>
+        /// http://www.angusj.com/delphi/clipper.php
+        /// </acknowledgment>
         public static bool PointLineSegment(
             double segmentAX,
             double segmentAY,
@@ -13737,10 +8426,10 @@ namespace MethodSpeedTester
         /// <param name="a1">The a1.</param>
         /// <param name="a2">The a2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
-        /// </remarks>
-        private static bool PointLineSegment(Point2D p, Point2D a1, Point2D a2)
+        /// </acknowledgment>
+        public static bool PointLineSegment(Point2D p, Point2D a1, Point2D a2)
         {
             var dummyU = 0.0d;
             var d = DistFromSeg(p, a1, a2, Epsilon, ref dummyU);
@@ -13816,61 +8505,6 @@ namespace MethodSpeedTester
             && Maths.AreClose(vector1.J, vector2.J, epsilon);
         #endregion Points Are Close
 
-        #region Polygon Centroid
-        /// <summary>
-        /// Find the polygon's centroid.
-        /// </summary>
-        /// <param name="polygon"></param>
-        /// <returns></returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/find-the-centroid-of-a-polygon-in-c/</remarks>
-        public static Point2D Centroid(PolygonContour polygon)
-        {
-            // Add the first point at the end of the array.
-            var num_points = polygon.Points.Count;
-            var pts = new Point2D[num_points + 1];
-            polygon.Points.CopyTo(pts, 0);
-            pts[num_points] = polygon.Points[0];
-
-            // Find the centroid.
-            double X = 0;
-            double Y = 0;
-            double second_factor;
-            for (var i = 0; i < num_points; i++)
-            {
-                second_factor =
-                    pts[i].X * pts[i + 1].Y
-                    - pts[i + 1].X * pts[i].Y;
-                X += (pts[i].X + pts[i + 1].X) * second_factor;
-                Y += (pts[i].Y + pts[i + 1].Y) * second_factor;
-            }
-
-            // Divide by 6 times the polygon's area.
-            var polygon_area = PolygonArea5(polygon.Points);
-            X /= 6 * polygon_area;
-            Y /= 6 * polygon_area;
-
-            // If the values are negative, the polygon is
-            // oriented counterclockwise so reverse the signs.
-            if (X < 0)
-            {
-                X = -X;
-                Y = -Y;
-            }
-
-            return new Point2D(X, Y);
-        }
-        #endregion Polygon Centroid
-
-        #region Polygon Oriented Clockwise
-        /// <summary>
-        /// The polygon is oriented clockwise.
-        /// </summary>
-        /// <param name="polygon">The polygon.</param>
-        /// <returns>The <see cref="bool"/>. Return true if the polygon is oriented clockwise.</returns>
-        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
-        public static bool PolygonIsOrientedClockwise(PolygonContour polygon) => SignedPolygonArea5(polygon.Points) < 0;
-        #endregion Polygon Oriented Clockwise
-
         #region Power of Two
         /// <summary>
         /// Determines if value is powered by two.
@@ -13881,204 +8515,6 @@ namespace MethodSpeedTester
             => (value > 0) && ((value & (value - 1)) == 0);
         #endregion Power of Two
 
-        #region Quadratic Bézier Interpolation of 1D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the 1D cubic interpolation of a point.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(QuadraticBezierInterpolate1DTests))]
-        public static List<SpeedTester> QuadraticBezierInterpolate1DTests() => new List<SpeedTester> {
-                new SpeedTester(() => QuadraticBezierInterpolate1D_0(0, 1, 2, 0.5d),
-                $"{nameof(Experiments.QuadraticBezierInterpolate1D_0)}(0, 1, 2, 0.5d)"),
-                new SpeedTester(() => QuadraticBezierInterpolate1D_1(0, 1, 2, 0.5d),
-                $"{nameof(Experiments.QuadraticBezierInterpolate1D_1)}(0, 1, 2, 0.5d)")
-            };
-
-        /// <summary>
-        /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="x1"></param>
-        /// <param name="x2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        private static double QuadraticBezierInterpolate1D_0(
-            double x0,
-            double x1,
-            double x2,
-            double t)
-        {
-            var mu1 = 1 - t;
-            var mu12 = mu1 * mu1;
-            var mu2 = t * t;
-
-            return x0 * mu12 + 2 * x1 * mu1 * t + x2 * mu2;
-        }
-
-        /// <summary>
-        /// Evaluate a point on a Bézier-curve. t goes from 0 to 1.0
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="x1"></param>
-        /// <param name="x2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        private static double QuadraticBezierInterpolate1D_1(
-            double x0,
-            double x1,
-            double x2,
-            double t)
-        {
-            // point between a and b
-            var ab = LinearInterpolate1D_0(x0, x1, t);
-            // point between b and c
-            var bc = LinearInterpolate1D_0(x1, x2, t);
-            // point on the bezier-curve
-            return LinearInterpolate1D_0(ab, bc, t);
-        }
-        #endregion Quadratic Bézier Interpolation of 1D Points
-
-        #region Quadratic Bézier Interpolation of 2D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the 2D cubic interpolation of a point.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(QuadraticBezierInterpolate2DTests))]
-        public static List<SpeedTester> QuadraticBezierInterpolate2DTests() => new List<SpeedTester> {
-                new SpeedTester(() => QuadraticBezierInterpolate2D_0(0, 1, 2, 3, 4, 5, 0.5d),
-                $"{nameof(Experiments.QuadraticBezierInterpolate2D_0)}(0, 1, 2, 3, 4, 5, 0.5d)"),
-                new SpeedTester(() => QuadraticBezierInterpolate2D_1(0, 1, 2, 3, 4, 5, 0.5d),
-                $"{nameof(Experiments.QuadraticBezierInterpolate2D_1)}(0, 1, 2, 3, 4, 5, 0.5d)")
-            };
-
-        /// <summary>
-        /// Three control point Bézier interpolation mu ranges from 0 to 1, start to end of the curve.
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        private static (double X, double Y) QuadraticBezierInterpolate2D_0(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double t)
-        {
-            var mu1 = 1 - t;
-            var mu12 = mu1 * mu1;
-            var mu2 = t * t;
-
-            return (
-                x0 * mu12 + 2 * x1 * mu1 * t + x2 * mu2,
-                y0 * mu12 + 2 * y1 * mu1 * t + y2 * mu2
-                );
-        }
-
-        /// <summary>
-        /// Evaluate a point on a Bézier-curve. t goes from 0 to 1.0
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        private static (double X, double Y) QuadraticBezierInterpolate2D_1(
-            double x0, double y0,
-            double x1, double y1,
-            double x2, double y2,
-            double t)
-        {
-            // point between a and b
-            var ab = LinearInterpolate2D_0(x0, y0, x1, y1, t);
-            // point between b and c
-            var bc = LinearInterpolate2D_0(x1, y1, x2, y2, t);
-            // point on the bezier-curve
-            return LinearInterpolate2D_0(ab.X, ab.Y, bc.X, bc.Y, t);
-        }
-        #endregion Quadratic Bézier Interpolation of 2D Points
-
-        #region Quadratic Bézier Interpolation of 3D Points
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the 3D cubic interpolation of a point.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(QuadraticBezierInterpolate3DTests))]
-        public static List<SpeedTester> QuadraticBezierInterpolate3DTests() => new List<SpeedTester> {
-                new SpeedTester(() => QuadraticBezierInterpolate3D_0(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d),
-                $"{nameof(Experiments.QuadraticBezierInterpolate3D_0)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d)"),
-                new SpeedTester(() => QuadraticBezierInterpolate3D_1(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d),
-                $"{nameof(Experiments.QuadraticBezierInterpolate3D_1)}(0, 1, 2, 3, 4, 5, 6, 7, 8, 0.5d)")
-            };
-
-        /// <summary>
-        /// Three control point Bezier interpolation mu ranges from 0 to 1, start to end of the curve.
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        private static (double X, double Y, double Z) QuadraticBezierInterpolate3D_0(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double t)
-        {
-            var mu1 = 1 - t;
-            var mu12 = mu1 * mu1;
-            var mu2 = t * t;
-
-            return (
-                x0 * mu12 + 2 * x1 * mu1 * t + x2 * mu2,
-                y0 * mu12 + 2 * y1 * mu1 * t + y2 * mu2,
-                z0 * mu12 + 2 * z1 * mu1 * t + z2 * mu2);
-        }
-
-        /// <summary>
-        /// Evaluate a point on a Bézier-curve. t goes from 0 to 1.0
-        /// </summary>
-        /// <param name="x0"></param>
-        /// <param name="y0"></param>
-        /// <param name="z0"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="z1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="z2"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        /// <remarks>http://www.cubic.org/docs/bezier.htm</remarks>
-        private static (double X, double Y, double Z) QuadraticBezierInterpolate3D_1(
-            double x0, double y0, double z0,
-            double x1, double y1, double z1,
-            double x2, double y2, double z2,
-            double t)
-        {
-            // point between a and b
-            var ab = LinearInterpolate3D_0(x0, y0, z0, x1, y1, z1, t);
-            // point between b and c
-            var bc = LinearInterpolate3D_0(x1, y1, z1, x2, y2, z2, t);
-            // point on the bezier-curve
-            return LinearInterpolate3D_0(ab.X, ab.Y, ab.Z, bc.X, bc.Y, bc.Z, t);
-        }
-        #endregion Quadratic Bézier Interpolation of 3D Points
-
         #region Quadratic Bézier Length Approximations
         /// <summary>
         /// Closed-form solution to elliptic integral for arc length.
@@ -14087,9 +8523,9 @@ namespace MethodSpeedTester
         /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
-        /// </remarks>
+        /// </acknowledgment>
         public static double QuadraticBezierArcLengthByIntegral(Point2D pointA, Point2D pointB, Point2D pointC)
         {
             var ax = pointA.X - 2 * pointB.X + pointC.X;
@@ -14117,10 +8553,10 @@ namespace MethodSpeedTester
         /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
-        /// </remarks>
-        private static double QuadraticBezierArcLengthBySegments(Point2D pointA, Point2D pointB, Point2D pointC)
+        /// </acknowledgment>
+        public static double QuadraticBezierArcLengthBySegments(Point2D pointA, Point2D pointB, Point2D pointC)
         {
             double length = 0;
             var p = new Point2D(Interpolators.QuadraticBezier(pointA.X, pointA.Y, pointB.X, pointB.Y, pointC.X, pointC.Y, 0));
@@ -14148,11 +8584,11 @@ namespace MethodSpeedTester
         /// <param name="pointB">The middle tangent control node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <param name="pointC">The closing node for the <see cref="QuadraticBezier"/> curve.</param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// https://algorithmist.wordpress.com/2009/01/05/quadratic-bezier-arc-length/
         /// https://code.google.com/archive/p/degrafa/source/default/source
-        /// </remarks>
-        private static double QuadraticBezierApproxArcLength(Point2D pointA, Point2D pointB, Point2D pointC)
+        /// </acknowledgment>
+        public static double QuadraticBezierApproxArcLength(Point2D pointA, Point2D pointB, Point2D pointC)
         {
             double sum = 0;
 
@@ -14204,7 +8640,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="rectangle">The <see cref="RectangleF"/> of which you want the center.</param>
         /// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
-        /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        /// <acknowledgment>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.
+        /// </acknowledgment>
         public static PointF Center0(RectangleF rectangle) => new PointF(
             rectangle.Left + (rectangle.Right - rectangle.Left) * 0.5f,
             rectangle.Top + (rectangle.Bottom - rectangle.Top) * 0.5f
@@ -14215,7 +8652,8 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="rectangle">The <see cref="RectangleF"/> of which you want the center.</param>
         /// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
-        /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        /// <acknowledgment>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.
+        /// </acknowledgment>
         public static PointF Center1(RectangleF rectangle) => new PointF(
             (rectangle.Left + rectangle.Right) * 0.5f,
             (rectangle.Top + rectangle.Bottom) * 0.5f
@@ -14228,7 +8666,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="rect">The rect.</param>
         /// <returns>The <see cref="Rectangle2D"/>.</returns>
-        private static Rectangle2D ToSquare(Rectangle2D rect)
+        public static Rectangle2D ToSquare(Rectangle2D rect)
         {
             var smallest = rect.Height <= rect.Width ? rect.Height : rect.Width;
             return new Rectangle2D(
@@ -14265,7 +8703,9 @@ namespace MethodSpeedTester
         {
             // If they're both empty, don't bother with the double logic.
             if (rect1.IsEmpty)
+            {
                 return rect2.IsEmpty;
+            }
 
             // At this point, rect1 isn't empty, so the first thing we can test is
             // rect2.IsEmpty, followed by property-wise compares.
@@ -14283,7 +8723,9 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="polygon"></param>
         /// <param name="target"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/
+        /// </acknowledgment>
         public static void RemovePoint(PolygonContour polygon, int target)
             => polygon.Points.RemoveAt(target);
 
@@ -14292,7 +8734,9 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="polygon"></param>
         /// <param name="target"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/
+        /// </acknowledgment>
         public static void RemovePoint1(PolygonContour polygon, int target)
         {
             var points = new Point2D[polygon.Points.Count - 1];
@@ -14308,7 +8752,9 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="polygon"></param>
         /// <param name="triangles"></param>
-        /// <remarks>http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/</remarks>
+        /// <acknowledgment>
+        /// http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/
+        /// </acknowledgment>
         public static void RemoveEar(PolygonContour polygon, List<Triangle> triangles)
         {
             // Find an ear.
@@ -14330,7 +8776,9 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="ResourceName"></param>
         /// <returns></returns>
-        /// <remarks>BE SURE (embedded).cur HAS BUILD ACTION IN PROPERTIES SET TO EMBEDDED RESOURCE!!</remarks>
+        /// <acknowledgment>
+        /// BE SURE (embedded).cur HAS BUILD ACTION IN PROPERTIES SET TO EMBEDDED RESOURCE!!
+        /// </acknowledgment>
         public static Cursor RetriveCursorResource(string ResourceName)
         {
             //  Get the namespace
@@ -14355,419 +8803,15 @@ namespace MethodSpeedTester
             }
             //  Return the Resource as a cursor
             if (ResourceStream.CanRead)
+            {
                 return new Cursor(ResourceStream);
+            }
             else
+            {
                 return Cursors.Default;
+            }
         }
         #endregion Retrieve Cursor Resource
-
-        #region Roots of a Linear Polynomial
-        /// <summary>
-        /// The linear roots.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
-        /// <remarks>
-        /// http://pomax.github.io/bezierinfo
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> LinearRoots(double a, double b)
-        {
-            if (a != b)
-                return new List<double> { a / (a - b) };
-            return new List<double>();
-        }
-        #endregion Roots of a Linear Polynomial
-
-        #region Roots of a Quadratic Polynomial
-        /// <summary>
-        /// The quadratic roots.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
-        /// <remarks>
-        /// http://pomax.github.io/bezierinfo
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> QuadraticRoots(double a, double b, double c, double epsilon = Epsilon)
-        {
-            var d = a - 2 * b + c;
-            if (d != 0)
-            {
-                var m1 = -Sqrt(b * b - a * c);
-                var m2 = -a + b;
-                var v1 = -(m1 + m2) / d;
-                var v2 = -(-m1 + m2) / d;
-                return new List<double> { v1, v2 };
-            }
-            else if (b != c && d == 0)
-            {
-                return new List<double> { (2 * b - c) / (2 * (b - c)) };
-            }
-            return new List<double>();
-        }
-        #endregion Roots of a Quadratic Polynomial
-
-        #region Roots of a Cubic Polynomial
-        /// <summary>
-        /// The cubic roots a.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
-        /// <remarks>
-        /// based on http://abecedarical.com/javascript/script_exact_cubic.html
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[] CubicRootsA(double a, double b, double c, double d, double epsilon = Epsilon)
-        {
-            // The horizontal line issue seems to be somewhere in here.
-            var A = b / a;
-            var B = c / a;
-            var C = d / a;
-
-            double S, T, Im;
-
-            var Q = (3 * B - Pow(A, 2)) / 9;
-            var R = (9 * A * B - 27 * C - 2 * Pow(A, 3)) / 54;
-            var D = Pow(Q, 3) + Pow(R, 2);    // polynomial discriminant
-
-            var t = new double[3];
-
-            if (D >= 0)                                 // complex or duplicate roots
-            {
-                S = Sign(R + Sqrt(D)) * Pow(Abs(R + Sqrt(D)), 1 / 3);
-                T = Sign(R - Sqrt(D)) * Pow(Abs(R - Sqrt(D)), 1 / 3);
-
-                t[0] = -A / 3 + (S + T);                    // real root
-                t[1] = -A / 3 - (S + T) / 2;                  // real part of complex root
-                t[2] = -A / 3 - (S + T) / 2;                  // real part of complex root
-                Im = Abs(Sqrt(3) * (S - T) / 2);    // complex part of root pair
-
-                /*discard complex roots*/
-                if (Im != 0)
-                {
-                    t[1] = -1;
-                    t[2] = -1;
-                }
-
-            }
-            else                                          // distinct real roots
-            {
-                var th = Acos(R / Sqrt(-Pow(Q, 3)));
-
-                t[0] = 2 * Sqrt(-Q) * Cos(th / 3) - A / 3;
-                t[1] = 2 * Sqrt(-Q) * Cos((th + Tau) / 3) - A / 3;
-                t[2] = 2 * Sqrt(-Q) * Cos((th + 4 * PI) / 3) - A / 3;
-                Im = 0.0;
-            }
-
-            /*discard out of spec roots*/
-            for (var i = 0; i < 3; i++)
-                if (t[i] < 0 || t[i] > 1.0) t[i] = -1;
-
-            /*sort but place -1 at the end*/
-            t = SortSpecial(t);
-
-            //Console.log(t[0] + " " + t[1] + " " + t[2]);
-            return t;
-        }
-
-        /// <summary>
-        /// The cubic roots.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
-        /// <param name="epsilon">The epsilon.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
-        /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
-        private static List<double> CubicRoots(double a, double b, double c, double d, double epsilon = Epsilon)
-        {
-            var results = new List<double>();
-            var c2 = b / a;
-            var c1 = c / a;
-            var c0 = d / a;
-
-            var Q = (3 * c1 - c2 * c2) * OneThird;
-            var R = (2 * c2 * c2 * c2 - 9 * c1 * c2 + 27 * c0) * OneTwentySeventh;
-
-            var offset = c2 * OneThird;
-            var discriminant = R * R * OneQuarter + Q * Q * Q * OneTwentySeventh;
-
-            var halfB = OneHalf * R;
-            //var ZEROepsilon = ZeroErrorEstimate();
-
-            if (Abs(discriminant) <= epsilon)//ZEROepsilon)
-                discriminant = 0;
-
-            if (discriminant > 0)
-            {
-                var e = Sqrt(discriminant);
-                var tmp = -halfB + e;
-                double root;
-                root = tmp >= 0 ? Pow(tmp, OneThird) : -Pow(-tmp, OneThird);
-                tmp = -halfB - e;
-                if (tmp >= 0)
-                    root += Pow(tmp, OneThird);
-                else
-                    root -= Pow(-tmp, OneThird);
-                results.Add(root - offset);
-            }
-            else if (discriminant < 0)
-            {
-                var distance = Sqrt(-Q * OneThird);
-                var angle = Atan2(Sqrt(-discriminant), -halfB) * OneThird;
-                var cos = Cos(angle);
-                var sin = Sin(angle);
-                results.Add(2 * distance * cos - offset);
-                results.Add(-distance * (cos + Sqrt3 * sin) - offset);
-                results.Add(-distance * (cos - Sqrt3 * sin) - offset);
-            }
-            else
-            {
-                double tmp;
-                tmp = halfB >= 0 ? -Pow(halfB, OneThird) : Pow(-halfB, OneThird);
-                results.Add(2 * tmp - offset);
-                // really should return next root twice, but we return only one
-                results.Add(-tmp - offset);
-            }
-            return results;
-        }
-
-        /// <summary>
-        /// Solve ax^3+bx^2+cx+d=0 for x.
-        /// Calculation of the 3 roots of a cubic equation according to
-        /// http://en.wikipedia.org/wiki/Cubic_function#General_formula_for_roots
-        /// Using the complex struct from System.Numerics
-        /// Visual Studio 2010, .NET version 4.0
-        /// https://www.daniweb.com/programming/software-development/code/454493/solving-the-cubic-equation-using-the-complex-struct
-        /// </summary>
-        /// <param name="a">real coefficient of x to the 3th power</param>
-        /// <param name="b">real coefficient of x to the 2nd power</param>
-        /// <param name="c">real coefficient of x to the 1th power</param>
-        /// <param name="d">real coefficient of x to the zeroth power</param>
-        /// <param name="epsilon"></param>
-        /// <returns>A list of 3 complex numbers</returns>
-        public static List<Complex> SolveCubic(double a, double b, double c, double d, double epsilon = Epsilon)
-        {
-            const int NRoots = 3;
-
-            var SquareRootof3 = Sqrt(3);
-            // the 3 cubic roots of 1
-            var CubicUnity = new List<Complex>(NRoots)
-                        { new Complex(1, 0), new Complex(-0.5, -SquareRootof3 / 2.0), new Complex(-0.5, SquareRootof3 / 2.0) };
-            // intermediate calculations
-            var DELTA = 18 * a * b * c * d - 4 * b * b * b * d + b * b * c * c - 4 * a * c * c * c - 27 * a * a * d * d;
-            var DELTA0 = b * b - 3 * a * c;
-            var DELTA1 = 2 * b * b * b - 9 * a * b * c + 27 * a * a * d;
-            Complex DELTA2 = -27 * a * a * DELTA;
-            var C = Complex.Pow((DELTA1 + Complex.Pow(DELTA2, 0.5)) / 2, 1 / 3.0); //Phew...
-
-            var R = new List<Complex>(NRoots);
-            for (var i = 0; i < NRoots; i++)
-            {
-                var M = CubicUnity[i] * C;
-                var Root = -1.0 / (3 * a) * (b + M + DELTA0 / M);
-                R.Add(Root);
-            }
-            return R;
-        }
-        #endregion Roots of a Cubic Polynomial
-
-        #region Roots of a Quartic Polynomial
-        /// <summary>
-        /// The quartic roots.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="c">The c.</param>
-        /// <param name="d">The d.</param>
-        /// <param name="e">The e.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
-        /// <remarks>http://www.kevlindev.com/geometry/2D/intersections/</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = Epsilon)
-        {
-            var results = new List<double>();
-            var A = b / a;
-            var B = c / a;
-            var C = d / a;
-            var D = e / a;
-            var resolveRoots = new Polynomial(
-                -A * A * D + 4 * B * D - C * C,
-                A * C - 4d * D,
-                -B,
-                1
-                ).Roots();
-            var y = resolveRoots[0];
-            var discriminant = A * A * OneQuarter - B + y;
-            if (Abs(discriminant) <= epsilon)
-                discriminant = 0d;
-            if (discriminant > 0)
-            {
-                var ee = Sqrt(discriminant);
-                var t1 = 3 * A * A * OneQuarter - ee * ee - 2 * B;
-                var t2 = (4 * A * B - 8 * C - A * A * A) / (4 * ee);
-                var plus = t1 + t2;
-                var minus = t1 - t2;
-                if (Abs(plus) <= epsilon)
-                    plus = 0;
-                if (Abs(minus) <= epsilon)
-                    minus = 0;
-                if (plus >= 0)
-                {
-                    var f = Sqrt(plus);
-                    results.Add(-A * OneQuarter + (ee + f) * OneHalf);
-                    results.Add(-A * OneQuarter + (ee - f) * OneHalf);
-                }
-                if (minus >= 0)
-                {
-                    var f = Sqrt(minus);
-                    results.Add(-A * OneQuarter + (f - ee) * OneHalf);
-                    results.Add(-A * OneQuarter - (f + ee) * OneHalf);
-                }
-            }
-            else if (discriminant < 0)
-            {
-            }
-            else
-            {
-                var t2 = y * y - 4 * D;
-                if (t2 >= -epsilon)
-                {
-                    if (t2 < 0) t2 = 0;
-                    t2 = 2d * Sqrt(t2);
-                    var t1 = 3 * A * A * OneQuarter - 2d * B;
-                    if (t1 + t2 >= epsilon)
-                    {
-                        var d0 = Sqrt(t1 + t2);
-                        results.Add(-A * OneQuarter + d0 * OneHalf);
-                        results.Add(-A * OneQuarter - d0 * OneHalf);
-                    }
-                    if (t1 - t2 >= epsilon)
-                    {
-                        var d1 = Sqrt(t1 - t2);
-                        results.Add(-A * OneQuarter + d1 * OneHalf);
-                        results.Add(-A * OneQuarter - d1 * OneHalf);
-                    }
-                }
-            }
-
-            return results;
-        }
-
-        //**
-        //    Calculates roots of quartic polynomial. <br/>
-        //    First, derivative roots are found, then used to split quartic polynomial
-        //    into segments, each containing one root of quartic polynomial.
-        //    Segments are then passed to newton's method to find roots.
-
-        //    @returns {Array<Number>} roots
-        //*/
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
-        //private List<double> QuarticRoots0(, double epsilon = Epsilon)
-        //{
-        //    var coefficients = new List<double>();
-        //    var results = new List<double>();
-
-        //    var n = (int)Degree;
-        //    if (n == 4)
-        //    {
-        //        var poly = new Polynomial()
-        //        {
-        //            coefficients = coefficients.Slice()
-        //        };
-        //        poly.Divide(poly.coefficients[n]);
-        //        var ERRF = 1e-15;
-        //        if (Abs(poly.coefficients[0]) < 10 * ERRF * Abs(poly.coefficients[3]))
-        //            poly.coefficients[0] = 0;
-        //        var poly_d = poly.Derivate();
-        //        List<double> derrt = poly_d.Roots();
-        //        derrt.Sort((a, b) => (int)(a - b));
-        //        var dery = new List<double>();
-        //        var nr = derrt.Count - 1;
-        //        var i = 0;
-        //        var rb = Bounds();
-        //        var maxabsX = Max(Abs(rb.minX), Abs(rb.maxX));
-        //        var ZEROepsilon = ZeroErrorEstimate(maxabsX);
-
-        //        for (i = 0; i <= nr; i++)
-        //        {
-        //            dery.Add(poly.Evaluate(derrt[i]));
-        //        }
-
-        //        for (i = 0; i <= nr; i++)
-        //        {
-        //            if (Abs(dery[i]) < ZEROepsilon)
-        //                dery[i] = 0;
-        //        }
-
-        //        i = 0;
-        //        var dx = Max(0.1 * (rb.maxX - rb.minX) / n, ERRF);
-        //        var guesses = new List<double>();
-        //        var minmax = new List<(double, double)>();
-        //        if (nr > -1)
-        //        {
-        //            if (dery[0] != 0)
-        //            {
-        //                if (Sign(dery[0]) != Sign(poly.Evaluate(derrt[0] - dx) - dery[0]))
-        //                {
-        //                    guesses.Add(derrt[0] - dx);
-        //                    minmax.Add((rb.minX, derrt[0]));
-        //                }
-        //            }
-        //            else
-        //            {
-        //                results.AddRange(new[] { derrt[0], derrt[0] });
-        //                i++;
-        //            }
-
-        //            for (; i < nr; i++)
-        //            {
-        //                if (dery[i + 1] == 0)
-        //                {
-        //                    results.AddRange(new[] { derrt[i + 1], derrt[i + 1] });
-        //                    i++;
-        //                }
-        //                else if (Sign(dery[i]) != Sign(dery[i + 1]))
-        //                {
-        //                    guesses.Add((derrt[i] + derrt[i + 1]) / 2);
-        //                    minmax.Add((derrt[i], derrt[i + 1]));
-        //                }
-        //            }
-        //            if (dery[nr] != 0 && Sign(dery[nr]) != Sign(poly.Evaluate(derrt[nr] + dx) - dery[nr]))
-        //            {
-        //                guesses.Add(derrt[nr] + dx);
-        //                minmax.Add((derrt[nr], rb.maxX));
-        //            }
-        //        }
-
-        //        if (guesses.Count > 0)
-        //        {
-        //            for (i = 0; i < guesses.Count; i++)
-        //            {
-        //                guesses[i] = Newton_secant_bisection(guesses[i], (x) => poly.Evaluate(x), (x) => poly_d.Evaluate(x), 32, minmax[i].Item1, minmax[i].Item2);
-        //            }
-        //        }
-
-        //        results = results.Concat(guesses).ToList();
-        //    }
-        //    return results;
-        //}
-        #endregion Roots of a Quartic Polynomial
 
         #region Rotated Rectangle Bounds
         /// <summary>
@@ -14936,14 +8980,13 @@ namespace MethodSpeedTester
         #endregion Self Intersecting Bézier
 
         #region Sign
-
         // sign of number
         /// <summary>
         /// The sign0.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        private static double Sign0(double x)
+        public static double Sign0(double x)
             => (x < 0d) ? -1 : 1;
         #endregion Sign
 
@@ -14974,7 +9017,9 @@ namespace MethodSpeedTester
         /// Positive number if point is left, negative if point is right,
         /// and 0 if points are collinear.
         /// </returns>
-        /// <remarks>From Farseer Physics Engine.</remarks>
+        /// <acknowledgment>
+        /// From Farseer Physics Engine.
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangleArea(double aX, double aY, double bX, double bY, double cX, double cY)
@@ -14993,15 +9038,14 @@ namespace MethodSpeedTester
         /// Positive number if point is left, negative if point is right,
         /// and 0 if points are collinear.
         /// </returns>
-        /// <remarks>w8r</remarks>
+        /// <acknowledgment>
+        /// w8r
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangleAreaW8R(double aX, double aY, double bX, double bY, double cX, double cY)
             => (aX - cX) * (bY - cY) - (bX - cX) * (aY - cY);
         #endregion Signed Triangle Area
-
-        #region Sine
-        #endregion Sine
 
         #region Sine Cosine Lookup
         /// <summary>
@@ -15030,7 +9074,7 @@ namespace MethodSpeedTester
         /// <summary>
         /// The sin cos table.
         /// </summary>
-        private static Dictionary<double, (double, double)?> sinCosTable = new Dictionary<double, (double, double)?>();
+        public static Dictionary<double, (double, double)?> sinCosTable = new Dictionary<double, (double, double)?>();
 
         /// <returns></returns>
         /// <summary>
@@ -15066,10 +9110,13 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="radian">The radian.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        private static (double, double) SinCos2(double radian)
+        public static (double, double) SinCos2(double radian)
         {
             if (!sinCosTable.ContainsKey(radian))
+            {
                 sinCosTable.Add(radian, (Sin(radian), Cos(radian)));
+            }
+
             return sinCosTable[radian].Value;
         }
 
@@ -15078,7 +9125,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="radian">The radian.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        private static (double, double) SinCos3(double radian)
+        public static (double, double) SinCos3(double radian)
         {
             if (!sinCosTable.ContainsKey(radian))
             {
@@ -15095,7 +9142,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="radian">The radian.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        private static (double, double) SinCos4(double radian)
+        public static (double, double) SinCos4(double radian)
         {
             if (!sinCosTable.ContainsKey(radian))
             {
@@ -15114,9 +9161,9 @@ namespace MethodSpeedTester
         /// <param name="v2">The v2.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://paulbourke.net/miscellaneous/interpolation/
-        /// </remarks>
+        /// </acknowledgment>
         public static double Sine(
             double v1,
             double v2,
@@ -15137,7 +9184,9 @@ namespace MethodSpeedTester
         /// <param name="y2">The y2.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         public static (double X, double Y) Sine(
             double x1, double y1,
             double x2, double y2,
@@ -15175,7 +9224,9 @@ namespace MethodSpeedTester
         /// <param name="z2">The z2.</param>
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>http://paulbourke.net/miscellaneous/interpolation/</remarks>
+        /// <acknowledgment>
+        /// http://paulbourke.net/miscellaneous/interpolation/
+        /// </acknowledgment>
         public static (double X, double Y, double Z) Sine(
             double x1, double y1, double z1,
             double x2, double y2, double z2,
@@ -15188,45 +9239,6 @@ namespace MethodSpeedTester
                 z1 * (1 - mu2) + z2 * mu2);
         }
         #endregion Sine Interpolation of 3D Points
-
-        #region Slope of a 2D Vector
-        /// <summary>
-        /// Calculates the Slope of a vector.
-        /// </summary>
-        /// <param name="i"></param>
-        /// <param name="j"></param>
-        /// <returns>Returns the slope angle of a vector.</returns>
-        /// <remarks>
-        /// The slope is calculated with Slope = Y / X or rise over run
-        /// If the line is vertical, return something close to infinity
-        /// (Close to the largest value allowed for the data type).
-        /// Otherwise calculate and return the slope.
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Slope(double i, double j)
-            => Abs(i) < DoubleEpsilon ? SlopeMax : (j / i);
-        #endregion Slope of a 2D Vector
-
-        #region Slope of a 2D Line
-        /// <summary>
-        /// Returns the slope angle of a line.
-        /// </summary>
-        /// <param name="x1">Horizontal Component of Point Starting Point</param>
-        /// <param name="y1">Vertical Component of Point Starting Point</param>
-        /// <param name="x2">Horizontal Component of Ending Point</param>
-        /// <param name="y2">Vertical Component of Ending Point</param>
-        /// <returns>Returns the slope angle of a line.</returns>
-        /// <remarks>
-        /// If the Line is Vertical return something close to infinity (Close to
-        /// the largest value allowed for the data type).
-        /// Otherwise calculate and return the slope.
-        /// </remarks>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Slope(
-            double x1, double y1,
-            double x2, double y2)
-            => (Abs(x1 - x2) < DoubleEpsilon) ? SlopeMax : ((y2 - y1) / (x2 - x1));
-        #endregion Slope of a 2D Line
 
         #region Slopes Near Collinear
         /// <summary>
@@ -15245,20 +9257,32 @@ namespace MethodSpeedTester
             if (Abs(a.X - b.X) > Abs(a.Y - b.Y))
             {
                 if ((a.X > b.X) == (a.X < c.X))
+                {
                     return SquareDistanceToLine(a.X, a.Y, b.X, b.Y, c.X, c.Y) < distSqrd;
+                }
                 else if ((b.X > a.X) == (b.X < c.X))
+                {
                     return SquareDistanceToLine(b.X, b.Y, a.X, a.Y, c.X, c.Y) < distSqrd;
+                }
                 else
+                {
                     return SquareDistanceToLine(c.X, c.Y, a.X, a.Y, b.X, b.Y) < distSqrd;
+                }
             }
             else
             {
                 if ((a.Y > b.Y) == (a.Y < c.Y))
+                {
                     return SquareDistanceToLine(a.X, a.Y, b.X, b.Y, c.X, c.Y) < distSqrd;
+                }
                 else if ((b.Y > a.Y) == (b.Y < c.Y))
+                {
                     return SquareDistanceToLine(b.X, b.Y, a.X, a.Y, c.X, c.Y) < distSqrd;
+                }
                 else
+                {
                     return SquareDistanceToLine(c.X, c.Y, a.X, a.Y, b.X, b.Y) < distSqrd;
+                }
             }
         }
         #endregion Slopes Near Collinear
@@ -15272,7 +9296,9 @@ namespace MethodSpeedTester
         /// <param name="c">The c.</param>
         /// <param name="UseFullRange">The UseFullRange.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        /// <acknowledgment>
+        /// http://www.angusj.com/delphi/clipper.php
+        /// </acknowledgment>
         public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, bool UseFullRange = false)
             => UseFullRange ? BigInteger.Multiply((BigInteger)(a.Y - b.Y), (BigInteger)(b.X - c.X)) == BigInteger.Multiply((BigInteger)(a.X - b.X), (BigInteger)(b.Y - c.Y))
             : (a.Y - b.Y) * (b.X - c.X) - (a.X - b.X) * (b.Y - c.Y) == 0;
@@ -15286,7 +9312,9 @@ namespace MethodSpeedTester
         /// <param name="d">The d.</param>
         /// <param name="UseFullRange">The UseFullRange.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>http://www.angusj.com/delphi/clipper.php</remarks>
+        /// <acknowledgment>
+        /// http://www.angusj.com/delphi/clipper.php
+        /// </acknowledgment>
         public static bool SlopesEqual(Point2D a, Point2D b, Point2D c, Point2D d, bool UseFullRange = false)
             => UseFullRange ? BigInteger.Multiply((BigInteger)(a.Y - b.Y), (BigInteger)(b.X - c.X)) == BigInteger.Multiply((BigInteger)(a.X - b.X), (BigInteger)(b.Y - c.Y))
             : (int)(a.Y - b.Y) * (c.X - d.X) - (int)(a.X - b.X) * (c.Y - d.Y) == 0;
@@ -15311,41 +9339,6 @@ namespace MethodSpeedTester
             return result;
         }
         #endregion Smooth Step
-
-        #region Sorting Special
-        /// <summary>
-        /// Special sorting routine designed to place negitive values at the back.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// based on http://abecedarical.com/javascript/script_exact_cubic.html
-        /// </remarks>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double[] SortSpecial(double[] a)
-        {
-            bool flip;
-            double temp;
-
-            do
-            {
-                flip = false;
-                for (var i = 0; i < a.Length - 1; i++)
-                {
-                    if ((a[i + 1] >= 0 && a[i] > a[i + 1]) ||
-                        (a[i] < 0 && a[i + 1] >= 0))
-                    {
-                        flip = true;
-                        temp = a[i];
-                        a[i] = a[i + 1];
-                        a[i + 1] = temp;
-                    }
-                }
-            } while (flip);
-            return a;
-        }
-        #endregion Sorting Special
 
         #region Split RGB
         /// <summary>
@@ -15415,453 +9408,6 @@ namespace MethodSpeedTester
         }
         #endregion Squared Distance To a Line
 
-        #region Shortest Path
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the wrapped angle of an angle.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(ShortestPathTests))]
-        public static List<SpeedTester> ShortestPathTests()
-        {
-            var set = new Polygon(
-                new List<PolygonContour>(
-                    new List<PolygonContour> {
-                        new PolygonContour( // Boundary
-                            new List<Point2D> {
-                                new Point2D(10, 10),
-                                new Point2D(300, 10),
-                                new Point2D(300, 300),
-                                new Point2D(10, 300),
-                                // Cut out
-                                new Point2D(10, 200),
-                                new Point2D(200, 80),
-                                new Point2D(10, 150)
-                            }
-                        ),
-                        new PolygonContour( // First inner triangle
-                            new List<Point2D> {
-                                new Point2D(20, 100),
-                                new Point2D(175, 60),
-                                new Point2D(40, 30)
-                            }
-                        ),
-                        new PolygonContour( // Second inner triangle
-                            new List<Point2D> {
-                                new Point2D(250, 150),
-                                new Point2D(150, 150),
-                                new Point2D(250, 200)
-                            }
-                        )
-                    }
-                )
-            );
-            return new List<SpeedTester> {
-                new SpeedTester(() => ShortestPath0(set,new Point2D(20, 20), new Point2D(200, 200)),
-                $"{nameof(Experiments.ShortestPath0)}(set,new Point2D(20, 20), new Point2D(200, 200))"),
-                new SpeedTester(() => ShortestPath1(set,new Point2D(20, 20), new Point2D(200, 200)),
-                $"{nameof(Experiments.ShortestPath1)}(set,new Point2D(20, 20), new Point2D(200, 200))"),
-                new SpeedTester(() => ShortestPath2(set,new Point2D(20, 20), new Point2D(200, 200)),
-                $"{nameof(Experiments.ShortestPath2)}(set,new Point2D(20, 20), new Point2D(200, 200))"),
-           };
-        }
-
-        /// <summary>
-        /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
-        /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
-        ///  to accommodate all the corners of your polygon set (although it is
-        /// unlikely that anywhere near that many elements will ever be needed).
-        /// Returns YES if the optimal solution was found, or NO if there is no solution.
-        /// If a solution was found, solutionX and solutionY will contain the coordinates
-        /// of the intermediate nodes of the path, in order.  (The start point and endpoint
-        /// are assumed, and will not be included in the solution.)
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="polygons"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Public-domain code by Darel Rex Finley, 2006.
-        /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
-        public static Polyline ShortestPath0(Polygon polygons, Point2D start, Point2D end)
-        {
-            // (larger than total solution dist could ever be)
-            const double maxLength = double.MaxValue;// 9999999.0;
-
-            var pointList = new List<AccumulatorPoint2D>();
-            var solution = new List<Point2D>();
-
-            int pointCount, solutionNodes;
-
-            int treeCount, polyI, i, j, bestI = 0, bestJ;
-            double bestDist, newDist;
-
-            //  Fail if either the start point or endpoint is outside the polygon set.
-            if (!polygons.Contains(start)
-            || !polygons.Contains(end))
-            {
-                return null;
-            }
-
-            //  If there is a straight-line solution, return with it immediately.
-            if (LineInPolygonSet(polygons, start, end))
-                return new Polyline(new List<Point2D> { start, end });
-
-            //  Build a point list that refers to the corners of the
-            //  polygons, as well as to the start point and endpoint.
-            pointList.Add(start);
-            pointCount = 1;
-            for (polyI = 0; polyI < polygons.Count; polyI++)
-            {
-                for (i = 0; i < polygons.Contours[polyI].Points.Count; i++)
-                {
-                    pointList.Add(polygons.Contours[polyI].Points[i]);
-                    pointCount++;
-                }
-            }
-
-            pointList.Add(end);
-            pointCount++;
-
-            //  Initialize the shortest-path tree to include just the start point.
-            treeCount = 1;
-            pointList[0] = new AccumulatorPoint2D(pointList[0].X, pointList[0].Y) { TotalDistance = 0d };
-
-            //  Iteratively grow the shortest-path tree until it reaches the endpoint
-            //  -- or until it becomes unable to grow, in which case exit with failure.
-            bestJ = 0;
-            while (bestJ < pointCount - 1)
-            {
-                bestDist = maxLength;
-                for (i = 0; i < treeCount; i++)
-                {
-                    for (j = treeCount; j < pointCount; j++)
-                    {
-                        if (LineInPolygonSet(polygons, (Point2D)pointList[i], (Point2D)pointList[j]))
-                        {
-                            newDist = pointList[i].TotalDistance + Distance((Point2D)pointList[i], (Point2D)pointList[j]);
-                            if (newDist < bestDist)
-                            {
-                                bestDist = newDist;
-                                bestI = i;
-                                bestJ = j;
-                            }
-                        }
-                    }
-                }
-
-                if (Abs(bestDist - maxLength) < DoubleEpsilon)
-                    return null;   //  (no solution)
-                pointList[bestJ] = new AccumulatorPoint2D(pointList[bestJ].X, pointList[bestJ].Y) { Previous = bestI, TotalDistance = bestDist };
-
-                // Swap
-                var temp = pointList[bestJ];
-                pointList[bestJ] = pointList[treeCount];
-                pointList[treeCount] = temp;
-
-                treeCount++;
-            }
-
-            //  Load the solution arrays.
-            solution.Add(start);
-            solutionNodes = -1;
-            i = treeCount - 1;
-            while (i > 0)
-            {
-                i = pointList[i].Previous;
-                solutionNodes++;
-            }
-            j = solutionNodes - 1;
-            i = treeCount - 1;
-            while (j >= 0)
-            {
-                i = pointList[i].Previous;
-                solution.Insert(1, (Point2D)pointList[i]);
-                j--;
-            }
-            solution.Add(end);
-
-            //  Success.
-            return new Polyline(solution);
-        }
-
-        /// <summary>
-        /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
-        /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
-        ///  to accommodate all the corners of your polygon set (although it is
-        /// unlikely that anywhere near that many elements will ever be needed).
-        /// Returns YES if the optimal solution was found, or NO if there is no solution.
-        /// If a solution was found, solutionX and solutionY will contain the coordinates
-        /// of the intermediate nodes of the path, in order.  (The start point and endpoint
-        /// are assumed, and will not be included in the solution.)
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="polygons"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Public-domain code by Darel Rex Finley, 2006.
-        /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
-        public static Polyline ShortestPath1(Polygon polygons, Point2D start, Point2D end)
-        {
-            // (larger than total solution dist could ever be)
-            const double maxLength = double.MaxValue;
-
-            var pointList = new List<AccumulatorPoint2D>();
-            var solution = new List<Point2D>();
-
-            int pointCount;
-            int solutionNodes;
-
-            int treeCount;
-            var bestI = 0;
-            int bestJ;
-            double bestDist;
-            double newDist;
-
-            //  Fail if either the start point or endpoint is outside the polygon set.
-            if (!polygons.Contains(start)
-            || !polygons.Contains(end))
-            {
-                return null;
-            }
-
-            //  If there is a straight-line solution, return with it immediately.
-            if (polygons.PolygonSetContainsPoints(start, end) == Inclusion.Inside)
-                return new Polyline(new List<Point2D> { start, end });
-
-            //  Build a point list that refers to the corners of the
-            //  polygons, as well as to the start point and endpoint.
-            pointList.Add(start);
-            pointCount = 1;
-            foreach (PolygonContour poly in polygons.Contours)
-            {
-                foreach (Point2D point in poly.Points)
-                {
-                    pointList.Add(point);
-                    pointCount++;
-                }
-            }
-
-            pointList.Add(end);
-            pointCount++;
-
-            //  Initialize the shortest-path tree to include just the start point.
-            treeCount = 1;
-            pointList[0] = new AccumulatorPoint2D(pointList[0]) { TotalDistance = 0d };
-
-            //  Iteratively grow the shortest-path tree until it reaches the endpoint
-            //  -- or until it becomes unable to grow, in which case exit with failure.
-            bestJ = 0;
-            while (bestJ < pointCount - 1)
-            {
-                bestDist = maxLength;
-                for (var ti = 0; ti < treeCount; ti++)
-                {
-                    for (var tj = treeCount; tj < pointCount; tj++)
-                    {
-                        if (polygons.PolygonSetContainsPoints((Point2D)pointList[ti], (Point2D)pointList[tj]) == Inclusion.Inside)
-                        {
-                            newDist = pointList[ti].TotalDistance + Distance((Point2D)pointList[ti], (Point2D)pointList[tj]);
-                            if (newDist < bestDist)
-                            {
-                                bestDist = newDist;
-                                bestI = ti;
-                                bestJ = tj;
-                            }
-                        }
-                    }
-                }
-
-                if (Abs(bestDist - maxLength) < DoubleEpsilon)
-                    return null;   //  (no solution)
-                pointList[bestJ] = new AccumulatorPoint2D(pointList[bestJ]) { TotalDistance = bestDist, Previous = bestI, };
-
-                // Swap
-                var temp = pointList[bestJ];
-                pointList[bestJ] = pointList[treeCount];
-                pointList[treeCount] = temp;
-
-                treeCount++;
-            }
-
-            //  Load the solution arrays.
-            solution.Add(start);
-            solutionNodes = -1;
-            var i = treeCount - 1;
-            while (i > 0)
-            {
-                i = pointList[i].Previous;
-                solutionNodes++;
-            }
-            var j = solutionNodes - 1;
-            i = treeCount - 1;
-            while (j >= 0)
-            {
-                i = pointList[i].Previous;
-                solution.Insert(1, (Point2D)pointList[i]);
-                j--;
-            }
-            solution.Add(end);
-
-            //  Success.
-            return new Polyline(solution);
-        }
-
-        /// <summary>
-        /// Finds the shortest path from sX,sY to eX,eY that stays within the polygon set.
-        /// Note:  To be safe, the solutionX and solutionY arrays should be large enough
-        ///  to accommodate all the corners of your polygon set (although it is
-        /// unlikely that anywhere near that many elements will ever be needed).
-        /// Returns YES if the optimal solution was found, or NO if there is no solution.
-        /// If a solution was found, solutionX and solutionY will contain the coordinates
-        /// of the intermediate nodes of the path, in order.  (The start point and endpoint
-        /// are assumed, and will not be included in the solution.)
-        /// </summary>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <param name="polygons"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Public-domain code by Darel Rex Finley, 2006.
-        /// http://alienryderflex.com/shortest_path/
-        /// </remarks>
-        public static Polyline ShortestPath2(Polygon polygons, Point2D start, Point2D end)
-        {
-            // Fail if either the start point or endpoint is outside the polygon set.
-            if (!polygons.Contains(start)
-            || !polygons.Contains(end))
-            {
-                return null;
-            }
-
-            // If there is a straight-line solution, return with it immediately.
-            if (polygons.PolygonSetContainsPoints(start, end) == Inclusion.Inside)
-                return new Polyline(new List<Point2D> { start, end });
-
-            // (larger than total solution dist could ever be)
-            const double maxLength = double.MaxValue;
-
-            var pointList = new List<(double X, double Y, double TotalDistance, int Previous)>();
-            var solution = new List<Point2D>();
-
-            int solutionNodes;
-
-            int treeCount;
-            var bestI = 0;
-            int bestJ;
-            double bestDist;
-            double newDist;
-
-            // Build a point list that refers to the corners of the
-            // polygons, as well as to the start point and endpoint.
-            pointList.Add((start.X, start.Y, 0, 0));
-            foreach (PolygonContour poly in polygons.Contours)
-            {
-                foreach (Point2D point in poly.Points)
-                    pointList.Add((point.X, point.Y, 0, 0));
-            }
-
-            pointList.Add((end.X, end.Y, 0, 0));
-
-            // Initialize the shortest-path tree to include just the start point.
-            treeCount = 1;
-            //pointList[0].TotalDistance = 0d;
-
-            // Iteratively grow the shortest-path tree until it reaches the endpoint
-            // or until it becomes unable to grow, in which case exit with failure.
-            bestJ = 0;
-            while (bestJ < pointList.Count - 1)
-            {
-                bestDist = maxLength;
-                for (var ti = 0; ti < treeCount; ti++)
-                {
-                    for (var tj = treeCount; tj < pointList.Count; tj++)
-                    {
-                        if (polygons.PolygonSetContainsPoints(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)) == Inclusion.Inside)
-                        {
-                            newDist = pointList[ti].TotalDistance + new Point2D(pointList[ti].X, pointList[ti].Y).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
-                            if (newDist < bestDist)
-                            {
-                                bestDist = newDist;
-                                bestI = ti;
-                                bestJ = tj;
-                            }
-                        }
-                    }
-                }
-
-                if (bestDist == maxLength)
-                    return null; // (no solution)
-                pointList[bestJ] = (pointList[bestJ].X, pointList[bestJ].Y, bestDist, bestI);
-
-                // Swap
-                var temp = pointList[bestJ];
-                pointList[bestJ] = pointList[treeCount];
-                pointList[treeCount] = temp;
-
-                treeCount++;
-            }
-
-            // Load the solution arrays.
-            solution.Add(start);
-            solutionNodes = -1;
-            var i = treeCount - 1;
-            while (i > 0)
-            {
-                i = pointList[i].Previous;
-                solutionNodes++;
-            }
-
-            var j = solutionNodes - 1;
-            i = treeCount - 1;
-            while (j >= 0)
-            {
-                i = pointList[i].Previous;
-                solution.Insert(1, new Point2D(pointList[i].X, pointList[i].Y));
-                j--;
-            }
-
-            solution.Add(end);
-
-            // Success.
-            return new Polyline(solution);
-        }
-        #endregion Shortest Path
-
-        #region Swap Two Values
-        /// <summary>
-        /// Set of tests to run testing methods that swap values.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(SwapTests))]
-        public static List<SpeedTester> SwapTests()
-        {
-            double a = 0;
-            double b = 100;
-            return new List<SpeedTester> {
-                new SpeedTester(() => Swap(ref a,ref b),
-                $"{nameof(Experiments.Swap)}(ref a,ref b)"),
-           };
-        }
-
-        /// <summary>
-        /// The swap.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <typeparam name="T"></typeparam>
-        public static bool Swap<T>(ref T a, ref T b)
-        {
-            var swap = a;
-            a = b;
-            b = swap;
-            return true;
-        }
-        #endregion Swap Two Values
-
         #region Triangulate a Polygon
         /// <summary>
         /// Set of tests to run testing methods that get the triangles of a polygon.
@@ -15879,12 +9425,12 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="polygon"></param>
         /// <returns></returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/triangulate-a-polygon-in-c/
         /// For a nice, detailed explanation of this method,
         /// see Ian Garton's Web page:
         /// http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian/cutting_ears.html
-        /// </remarks>
+        /// </acknowledgment>
         public static List<Triangle> Triangulate(PolygonContour polygon)
         {
             // Copy the points into a scratch array.
@@ -15920,10 +9466,10 @@ namespace MethodSpeedTester
         ///// </summary>
         ///// <param name="epsilon">The minimal difference for comparison.</param>
         ///// <returns>Returns a new instance of the <see cref="Polynomial"/> struct with the near zero terms removed.</returns>
-        ///// <remarks>
+        ///// <acknowledgment>
         ///// This is intended to be used in situations where the polynomial should be reduced. For instance in intersection calculations.
         ///// Simplifying a polynomial before GetMinMax will fail to appropriately get the min, max.
-        ///// </remarks>
+        ///// </acknowledgment>
         ///// <acknowledgment>
         ///// http://www.kevlindev.com/
         ///// </acknowledgment>
@@ -16038,7 +9584,9 @@ namespace MethodSpeedTester
         {
             // in case they are Infinities (then epsilon check does not work)
             if (Abs(value1 - value2) < DoubleEpsilon)
+            {
                 return true;
+            }
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             var eps = (Abs(value1) + Abs(value2) + 10d) * epsilon;
             var delta = value1 - value2;
@@ -16082,12 +9630,12 @@ namespace MethodSpeedTester
         /// <param name="i3">The i3.</param>
         /// <param name="j3">The j3.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://math.stackexchange.com/questions/1698835/find-if-a-vector-is-between-2-vectors
         /// http://stackoverflow.com/questions/13640931/how-to-determine-if-a-vector-is-between-two-other-vectors
         /// http://gamedev.stackexchange.com/questions/22392/what-is-a-good-way-to-determine-if-a-vector-is-between-two-other-vectors-in-2d
         /// http://math.stackexchange.com/questions/169998/figure-out-if-a-fourth-point-resides-within-an-angle-created-by-three-other-poin
-        /// </remarks>
+        /// </acknowledgment>
         public static bool VectorBetween0(double i, double j, double i2, double j2, double i3, double j3)
             => CrossProduct(i2, j2, i, j) * CrossProduct(i2, j2, i3, j3) >= 0
             && CrossProduct(i3, j3, i, j) * CrossProduct(i3, j3, i2, j2) >= 0;
@@ -16102,87 +9650,16 @@ namespace MethodSpeedTester
         /// <param name="i3">The i3.</param>
         /// <param name="j3">The j3.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>
+        /// <acknowledgment>
         /// http://math.stackexchange.com/questions/1698835/find-if-a-vector-is-between-2-vectors
         /// http://stackoverflow.com/questions/13640931/how-to-determine-if-a-vector-is-between-two-other-vectors
         /// http://gamedev.stackexchange.com/questions/22392/what-is-a-good-way-to-determine-if-a-vector-is-between-two-other-vectors-in-2d
         /// http://math.stackexchange.com/questions/169998/figure-out-if-a-fourth-point-resides-within-an-angle-created-by-three-other-poin
-        /// </remarks>
+        /// </acknowledgment>
         public static bool VectorBetween1(double i, double j, double i2, double j2, double i3, double j3)
             => ((i2 * j) - (j2 * i)) * ((i2 * j3) - (j2 * i3)) >= 0
             && ((i3 * j) - (j3 * i)) * ((i3 * j2) - (j3 * i2)) >= 0;
         #endregion Vector Between Vectors
-
-        #region Wrap Angle
-        /// <summary>
-        /// Set of tests to run testing methods that calculate the wrapped angle of an angle.
-        /// </summary>
-        /// <returns></returns>
-        [System.ComponentModel.DisplayName(nameof(WrapAngleTests))]
-        public static List<SpeedTester> WrapAngleTests()
-            => new List<SpeedTester> {
-                new SpeedTester(() => WrapAngle0(45d.ToRadians()),
-                $"{nameof(Experiments.WrapAngle0)}(45d.ToRadians())"),
-                new SpeedTester(() => WrapAngle1(45d.ToRadians()),
-                $"{nameof(Experiments.WrapAngle1)}(45d.ToRadians())"),
-                new SpeedTester(() => WrapAngle2(45d.ToRadians()),
-                $"{nameof(Experiments.WrapAngle2)}(45d.ToRadians())"),
-                new SpeedTester(() => WrapAngle3(45d.ToRadians()),
-                $"{nameof(Experiments.WrapAngle3)}(45d.ToRadians())")
-           };
-
-        /// <summary>
-        /// Reduces a given angle to a value between π and -π.
-        /// </summary>
-        /// <param name="angle">The angle to reduce, in radians.</param>
-        /// <returns>The new angle, in radians.</returns>
-        public static double WrapAngle0(double angle)
-        {
-            // The IEEERemainder method works better than the % modulus operator in this case, even if it is slower.
-            var value = IEEERemainder(angle, Tau);
-            return (value <= -PI) ? value + Tau : value - Tau;
-        }
-
-        /// <summary>
-        /// Reduces a given angle to a value between 2π and -2π.
-        /// </summary>
-        /// <param name="angle">The angle to reduce, in radians.</param>
-        /// <returns>The new angle, in radians.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double WrapAngle1(double angle)
-        {
-            // The active ingredient of the IEEERemainder method.
-            var value = angle - (Tau * Math.Round(angle * InverseTau));
-            return (value <= -PI) ? value + Tau : value - Tau;
-        }
-
-        /// <summary>
-        /// Reduces a given angle to a value between π and -π.
-        /// </summary>
-        /// <param name="angle">The angle to reduce, in radians.</param>
-        /// <returns>The new angle, in radians.</returns>
-        public static double WrapAngle2(double angle)
-        {
-            var test = IEEERemainder(angle, Tau);
-            if (test <= -PI)
-                test += Tau;
-            else if (test > PI)
-                test -= Tau;
-            return test;
-        }
-
-        /// <summary>
-        /// Reduces a given angle to a value between π and -π.
-        /// </summary>
-        /// <param name="angle">The angle to reduce, in radians.</param>
-        /// <returns>The new angle, in radians.</returns>
-        public static double WrapAngle3(double angle)
-        {
-            var test = angle % Tau;
-            return (test <= -PI) ? test + Tau : test - Tau;
-        }
-        #endregion Wrap Angle
 
         #region Wrap Point On Rectangle Bounds
         /// <summary>
@@ -16241,7 +9718,7 @@ namespace MethodSpeedTester
         /// <param name="ellipse">The ellipse.</param>
         /// <param name="phi">The phi.</param>
         /// <param name="rect">The rect.</param>
-        private static void Draw_rect_at_ellipse(Graphics g, double theta, Rectangle2D ellipse, double phi, Rectangle2D rect)
+        public static void Draw_rect_at_ellipse(Graphics g, double theta, Rectangle2D ellipse, double phi, Rectangle2D rect)
         {
             var xaxis = new Point2D(Cos(theta), Sin(theta));
             var yaxis = new Point2D(-Sin(theta), Cos(theta));
@@ -16265,11 +9742,11 @@ namespace MethodSpeedTester
         /// <param name="Precision"></param>
         /// <param name="Offset"></param>
         /// <param name="Multiplyer"></param>
-        /// <remarks>
+        /// <acknowledgment>
         ///  Also known as the "cocked hat", it was first documented by Sylvester around
         ///  1864 and Cayley in 1867.
-        /// </remarks>
-        private static void DrawBowCurve2D(Graphics g, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
+        /// </acknowledgment>
+        public static void DrawBowCurve2D(Graphics g, Pen DPen, double Precision, Size2D Offset, Size2D Multiplyer)
         {
             var NewPoint = new Point2D(
                 (1 - (Tan(PI * -1) * 2)) * Cos(PI * -1) * Multiplyer.Width,
@@ -16298,7 +9775,7 @@ namespace MethodSpeedTester
         /// <param name="Precision"></param>
         /// <param name="Offset"></param>
         /// <param name="Multiplyer"></param>
-        private static void DrawButterflyCurve2D(Graphics g, Pen DPen, double Precision, SizeF Offset, SizeF Multiplyer)
+        public static void DrawButterflyCurve2D(Graphics g, Pen DPen, double Precision, SizeF Offset, SizeF Multiplyer)
         {
             const double N = 10000;
             var U = 0 * (24 * (PI / N));

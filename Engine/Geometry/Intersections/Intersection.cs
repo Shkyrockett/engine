@@ -197,16 +197,16 @@ namespace Engine
             => State.GetHashCode()
             ^ Points.GetHashCode();
 
-        /// <summary>
-        /// Compares two Intersections.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Point2D a, Point2D b)
-            => Equals(a, b);
+        ///// <summary>
+        ///// Compares two Intersections.
+        ///// </summary>
+        ///// <param name="a">The a.</param>
+        ///// <param name="b">The b.</param>
+        ///// <returns>The <see cref="bool"/>.</returns>
+        //[DebuggerStepThrough]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //public static bool Compare(Point2D a, Point2D b)
+        //    => Equals(a, b);
 
         /// <summary>
         /// The equals.

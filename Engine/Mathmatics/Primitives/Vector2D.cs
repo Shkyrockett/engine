@@ -57,7 +57,8 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple"></param>
+
         public Vector2D((double X, double Y) tuple)
         {
             (I, J) = tuple;
@@ -75,7 +76,8 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="i">The <see cref="I"/> component of the <see cref="Vector2D"/> class.</param>
-        /// <param name="j">The <see cref="J"/> component of the <see cref="Vector2D"/> class.</param>
+        /// <param name="j">The <see cref="J"/> component of the <see cref="Vector2D"/> class.</param>
+
         public Vector2D(double i, double j)
         {
             I = i;
@@ -88,7 +90,8 @@ namespace Engine
         /// <param name="aI"></param>
         /// <param name="aJ"></param>
         /// <param name="bI"></param>
-        /// <param name="bJ"></param>
+        /// <param name="bJ"></param>
+
         public Vector2D(double aI, double aJ, double bI, double bJ)
             : this(new Point2D(aI, aJ), new Point2D(bI, bJ))
         { }
@@ -97,22 +100,40 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="b"></param>
+
         public Vector2D(Point2D a, Point2D b)
             : this(a.Delta(b).Unit())
         { }
         #endregion Constructors
 
+        #region Deconstructors
+        /// <summary>
+        /// The deconstruct.
+        /// </summary>
+        /// <param name="i">The i.</param>
+        /// <param name="j">The j.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Deconstruct(out double i, out double j)
+        {
+            i = I;
+            j = J;
+        }
+        #endregion Deconstructors
+
         #region Properties
         /// <summary>
         /// First Point of a 2D Vector
-        /// </summary>
+        /// </summary>
+
         [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Second Component of a 2D Vector
-        /// </summary>
+        /// </summary>
+
         [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
@@ -156,6 +177,8 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Vector2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator +(Vector2D value)
             => new Vector2D(+value.I, +value.J);
 
@@ -164,7 +187,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator +(Vector2D value, double addend)
             => value.Add(addend);
 
@@ -173,7 +198,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator +(Vector2D value, Point2D addend)
             => value.Add(addend);
 
@@ -182,7 +209,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator +(Vector2D value, Vector2D addend)
             => value.Add(addend);
 
@@ -191,6 +220,8 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Vector2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator -(Vector2D value)
             => new Vector2D(-value.I, -value.J);
 
@@ -199,7 +230,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator -(Vector2D value, double subend)
             => value.Subtract(subend);
 
@@ -208,7 +241,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D operator -(Vector2D value, Point2D subend)
             => value.Subtract(subend);
 
@@ -217,7 +252,9 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator -(Vector2D value, Vector2D subend)
             => value.Subtract(subend);
 
@@ -226,7 +263,9 @@ namespace Engine
         /// </summary>
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator *(Vector2D value, double factor)
             => new Vector2D(value.I * factor, value.J * factor);
 
@@ -235,7 +274,9 @@ namespace Engine
         /// </summary>
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator *(Vector2D value, Size2D factor)
             => new Vector2D(value.I * factor.Width, value.J * factor.Height);
 
@@ -244,7 +285,9 @@ namespace Engine
         /// </summary>
         /// <param name="factor">The Multiplier</param>
         /// <param name="value">The Point</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator *(double factor, Vector2D value)
             => new Vector2D(value.I * factor, value.J * factor);
 
@@ -253,7 +296,9 @@ namespace Engine
         /// </summary>
         /// <param name="divisor">The Vector2D</param>
         /// <param name="divedend">The divisor</param>
-        /// <returns>A Vector2D divided by the divisor</returns>
+        /// <returns>A Vector2D divided by the divisor</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator /(Vector2D divisor, double divedend)
             => new Vector2D(divisor.I / divedend, divisor.J / divedend);
 
@@ -262,7 +307,9 @@ namespace Engine
         /// </summary>
         /// <param name="divisor">The Vector2D</param>
         /// <param name="dividend">The divisor</param>
-        /// <returns>A Vector2D divided by the divisor</returns>
+        /// <returns>A Vector2D divided by the divisor</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D operator /(double divisor, Vector2D dividend)
             => new Vector2D(divisor / dividend.I, divisor / dividend.I);
 
@@ -272,6 +319,8 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Vector2D a, Vector2D b)
             => Equals(a, b);
 
@@ -281,6 +330,8 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Vector2D a, Vector2D b)
             => !Equals(a, b);
 
@@ -288,8 +339,9 @@ namespace Engine
         /// Tuple to <see cref="Vector2D"/>.
         /// </summary>
         /// <param name="tuple"></param>
-        /// <returns></returns>
+        /// <returns></returns>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector2D((double X, double Y) tuple)
             => new Vector2D(tuple);
 
@@ -348,7 +400,7 @@ namespace Engine
         /// <summary>
         /// Create a Random <see cref="Vector2D"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns></returns>
         public static Vector2D Random()
             => new Vector2D(
                 (2 * RandomNumberGenerator.NextDouble()) - 1,
@@ -444,7 +496,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
-        /// <returns></returns>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Vector2D a, Vector2D b)
             => Equals(a, b);

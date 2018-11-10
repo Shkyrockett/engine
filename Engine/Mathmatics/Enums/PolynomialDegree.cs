@@ -32,7 +32,7 @@ namespace Engine
         Linear = 1,
 
         /// <summary>
-        /// The polynomial or curve is <see cref="Quadragintic"/>, having two terms.
+        /// The polynomial or curve is <see cref="Quadratic"/>, having two terms.
         /// </summary>
         Quadratic = 2,
 

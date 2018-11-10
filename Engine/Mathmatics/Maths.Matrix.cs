@@ -24,7 +24,7 @@ namespace Engine
         /// <param name="m1x2"></param>
         /// <param name="m2x1"></param>
         /// <param name="m2x2"></param>
-        /// <returns></returns>
+        /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
@@ -47,7 +47,7 @@ namespace Engine
         /// <param name="g"></param>
         /// <param name="h"></param>
         /// <param name="i"></param>
-        /// <returns></returns>
+        /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
@@ -80,7 +80,7 @@ namespace Engine
         /// <param name="n"></param>
         /// <param name="o"></param>
         /// <param name="p"></param>
-        /// <returns></returns>
+        /// <returns></returns>
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
@@ -223,7 +223,8 @@ namespace Engine
         /// <param name="g"></param>
         /// <param name="h"></param>
         /// <param name="i"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
@@ -256,7 +257,8 @@ namespace Engine
         /// <param name="n"></param>
         /// <param name="o"></param>
         /// <param name="p"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>

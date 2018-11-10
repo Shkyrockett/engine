@@ -21,8 +21,7 @@ namespace Engine
     /// <summary>
     /// 2D Line Segment Structure
     /// </summary>
-    /// <structure>Engine.Geometry.Segment2D</structure>
-    [DataContract, Serializable]
+    /// <structure>Engine.Geometry.Segment2D</structure>    [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(LineSegment))]
     [XmlType(TypeName = "line-segment")]

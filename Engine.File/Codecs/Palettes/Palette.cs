@@ -90,7 +90,9 @@ namespace Engine.File.Palettes
             if (format != PaletteFileExtensions.unknown)
             {
                 using (Stream paletteStream = new FileStream(FileName, FileMode.Open))
+                {
                     Load(paletteStream, format);
+                }
             }
         }
 
@@ -101,7 +103,10 @@ namespace Engine.File.Palettes
         /// <param name="format">The extension format of the file opened.</param>
         public void Load(Stream stream, PaletteFileExtensions format)
         {
-            if (stream == Stream.Null) return;
+            if (stream == Stream.Null)
+            {
+                return;
+            }
 
             // If we have a stream, the file should have successfully opened. Clear the colors list.
             Colors = new List<RGBA>();
@@ -347,7 +352,10 @@ namespace Engine.File.Palettes
                         Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
                         var stringLen2 = binaryReader.ReadByte();
                         var colorName = binaryReader.ReadString16(stringLen2 * 2);
-                        if (Colors.Count == entryCount) break;
+                        if (Colors.Count == entryCount)
+                        {
+                            break;
+                        }
                     }
                     //while (stream.Position < stream.Length)
                     //{
@@ -508,9 +516,13 @@ namespace Engine.File.Palettes
                 {
                     var ReadStr = StrReader.ReadLine().Split(new char[] { ' ' });
                     if (ReadStr.Length == 3)
+                    {
                         Colors.Add(new RGBA(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2])));
+                    }
                     else if (ReadStr.Length == 4)
+                    {
                         Colors.Add(new RGBA(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2]), byte.Parse(ReadStr[3])));
+                    }
                 }
             }
         }
@@ -541,16 +553,24 @@ namespace Engine.File.Palettes
                         if (line.Contains(" ") || line.Contains(","))
                         {
                             if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(" "))
+                            {
                                 PaletteMimeFormat = PaletteMimeFormats.SpaceDelimiated;
+                            }
                             else if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(","))
+                            {
                                 PaletteMimeFormat = PaletteMimeFormats.ComaDelimiated;
+                            }
 
                             argb = line.Split(new char[] { ' ', ',' });
 
                             if (argb.Length == 3)
+                            {
                                 color = new RGBA(byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]));
+                            }
                             else if (argb.Length == 4)
+                            {
                                 color = new RGBA(byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]), byte.Parse(argb[3]));
+                            }
                         }
                         else
                         {
@@ -618,7 +638,9 @@ namespace Engine.File.Palettes
 
                 // Colors
                 foreach (RGBA color in Colors)
+                {
                     bw.WriteLine(color.Red + " " + color.Green + " " + color.Blue + " " + color.Alpha);
+                }
             }
         }
 
@@ -642,7 +664,9 @@ namespace Engine.File.Palettes
 
                 // Colors
                 foreach (RGBA color in Colors)
+                {
                     bw.WriteLine("{0:X2}{1:X2}{2:X2}{3:X2}", color.Alpha, color.Red, color.Green, color.Blue);
+                }
             }
         }
 
@@ -687,7 +711,10 @@ namespace Engine.File.Palettes
                         select key)
                         .FirstOrDefault();
             if (known != default)
+            {
                 return known;
+            }
+
             return testColor;
         }
     }

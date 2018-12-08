@@ -41,6 +41,11 @@ namespace Engine
         /// A Unit <see cref="Point2D"/>.
         /// </summary>
         public static readonly Point2D Unit = new Point2D(1, 1);
+
+        /// <summary>
+        /// A Unit <see cref="Point2D"/>.
+        /// </summary>
+        public static readonly Point2D NaN = new Point2D(double.NaN, double.NaN);
         #endregion Implementations
 
         #region Constructors
@@ -488,7 +493,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Point2D"/> struct based on the IFormatProvider
@@ -500,7 +505,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Point2D"/> class based on the format string
@@ -508,8 +513,8 @@ namespace Engine
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -524,16 +529,20 @@ namespace Engine
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
-        /// A string representation of this object.
+        /// A <see cref="string"/> representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null) return nameof(Point2D);
+            if (this == null)
+            {
+                return nameof(Point2D);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Point2D)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}}}";
         }

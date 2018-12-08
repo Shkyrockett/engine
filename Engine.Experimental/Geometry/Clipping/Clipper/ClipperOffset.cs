@@ -90,7 +90,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="MiterLimit">The MiterLimit.</param>
         /// <param name="ArcTolerance">The ArcTolerance.</param>
-        public ClipperOffset(double MiterLimit = 2.0, double ArcTolerance = 0)
+        public ClipperOffset(double MiterLimit = 2d, double ArcTolerance = 0d)
         {
             this.MiterLimit = MiterLimit;
             this.ArcTolerance = ArcTolerance;

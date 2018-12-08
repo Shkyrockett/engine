@@ -35,7 +35,9 @@ namespace Engine.File
             : base(status.DeltaTime, status.Status, status.Channel)
         {
             if (len != 0)
+            {
                 throw new FormatException($"{nameof(EndOfTrack)} Malformed");
+            }
         }
 
         /// <summary>

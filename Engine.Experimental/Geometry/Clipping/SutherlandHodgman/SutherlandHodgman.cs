@@ -35,14 +35,18 @@ namespace Engine
         public static List<Point2D> PolygonPolygon(List<Point2D> subjectPoly, List<Point2D> clipPoly)
         {
             if (subjectPoly.Count < 3 || clipPoly.Count < 3)
+            {
                 throw new ArgumentException($"The polygons passed in must have at least 3 points: subject={subjectPoly.Count}, clip={clipPoly.Count}");
+            }
 
             // Clone it
             var outputList = subjectPoly.ToList();
 
             // Make sure it's clockwise
             if (!PolygonExtensions.IsClockwise(subjectPoly))
+            {
                 outputList.Reverse();
+            }
 
             // Walk around the clip polygon clockwise
             foreach (LineSegment clipEdge in PolygonExtensions.IterateEdgesClockwise(clipPoly))
@@ -54,7 +58,9 @@ namespace Engine
                 // Sometimes when the polygons don't intersect, this list goes to zero.
                 // Jump out to avoid an index out of range exception
                 if (inputList.Count == 0)
+                {
                     break;
+                }
 
                 var S = inputList[inputList.Count - 1];
 

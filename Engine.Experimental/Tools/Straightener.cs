@@ -99,7 +99,10 @@ namespace Engine.Tools
             {
                 if (Started)
                 {
-                    if (mouseDown) Index = 1;
+                    if (mouseDown)
+                    {
+                        Index = 1;
+                    }
 
                     Line.B = tools.MouseLocation;
 

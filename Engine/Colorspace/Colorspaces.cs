@@ -46,12 +46,26 @@ namespace Engine.Colorspace
             var b = blue / 255d;
 
             var max = r;
-            if (g > max) max = g;
-            if (b > max) max = b;
+            if (g > max)
+            {
+                max = g;
+            }
+
+            if (b > max)
+            {
+                max = b;
+            }
 
             var min = r;
-            if (g < min) min = g;
-            if (b < min) min = b;
+            if (g < min)
+            {
+                min = g;
+            }
+
+            if (b < min)
+            {
+                min = b;
+            }
 
             return (max + min) / 2d;
         }
@@ -67,12 +81,26 @@ namespace Engine.Colorspace
         public static double GetLuminance(double red, double green, double blue)
         {
             var max = red;
-            if (green > max) max = green;
-            if (blue > max) max = blue;
+            if (green > max)
+            {
+                max = green;
+            }
+
+            if (blue > max)
+            {
+                max = blue;
+            }
 
             var min = red;
-            if (green < min) min = green;
-            if (blue < min) min = blue;
+            if (green < min)
+            {
+                min = green;
+            }
+
+            if (blue < min)
+            {
+                min = blue;
+            }
 
             return (max + min) / 2d;
         }
@@ -88,7 +116,9 @@ namespace Engine.Colorspace
         public static double GetHue(byte red, byte green, byte blue)
         {
             if (red == green && green == blue)
+            {
                 return 0; // 0 makes as good an UNDEFINED value as any
+            }
 
             var r = red / 255d;
             var g = green / 255d;
@@ -99,11 +129,25 @@ namespace Engine.Colorspace
             var max = r;
             var min = r;
 
-            if (g > max) max = g;
-            if (b > max) max = b;
+            if (g > max)
+            {
+                max = g;
+            }
 
-            if (g < min) min = g;
-            if (b < min) min = b;
+            if (b > max)
+            {
+                max = b;
+            }
+
+            if (g < min)
+            {
+                min = g;
+            }
+
+            if (b < min)
+            {
+                min = b;
+            }
 
             var delta = max - min;
 
@@ -139,18 +183,34 @@ namespace Engine.Colorspace
         public static double GetHue(double red, double green, double blue)
         {
             if (red == green && green == blue)
+            {
                 return 0; // 0 makes as good an UNDEFINED value as any
+            }
 
             var hue = 0d;
 
             var max = red;
             var min = red;
 
-            if (green > max) max = green;
-            if (blue > max) max = blue;
+            if (green > max)
+            {
+                max = green;
+            }
 
-            if (green < min) min = green;
-            if (blue < min) min = blue;
+            if (blue > max)
+            {
+                max = blue;
+            }
+
+            if (green < min)
+            {
+                min = green;
+            }
+
+            if (blue < min)
+            {
+                min = blue;
+            }
 
             var delta = max - min;
 
@@ -195,11 +255,25 @@ namespace Engine.Colorspace
             var max = r;
             var min = r;
 
-            if (g > max) max = g;
-            if (b > max) max = b;
+            if (g > max)
+            {
+                max = g;
+            }
 
-            if (g < min) min = g;
-            if (b < min) min = b;
+            if (b > max)
+            {
+                max = b;
+            }
+
+            if (g < min)
+            {
+                min = g;
+            }
+
+            if (b < min)
+            {
+                min = b;
+            }
 
             // if max == min, then there is no color and
             // the saturation is zero.
@@ -226,12 +300,26 @@ namespace Engine.Colorspace
             var s = 0d;
 
             var max = red;
-            if (green > max) max = green;
-            if (blue > max) max = blue;
+            if (green > max)
+            {
+                max = green;
+            }
+
+            if (blue > max)
+            {
+                max = blue;
+            }
 
             var min = red;
-            if (green < min) min = green;
-            if (blue < min) min = blue;
+            if (green < min)
+            {
+                min = green;
+            }
+
+            if (blue < min)
+            {
+                min = blue;
+            }
 
             // if max == min, then there is no color and
             // the saturation is zero.
@@ -500,7 +588,10 @@ namespace Engine.Colorspace
         public static (double red, double green, double blue, double alpha) RGBAColorToRGBAFColor(byte red, byte green, byte blue, byte alpha)
         {
             if (!ValidateRGBA(red, green, blue, alpha))
+            {
                 throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            }
+
             var d = 1d / RGBMax;
             return (
                 red: red * d,
@@ -535,7 +626,10 @@ namespace Engine.Colorspace
         public static (byte red, byte green, byte blue, byte alpha) RGBAFColorToRGBAColor(double red, double green, double blue, double alpha)
         {
             if (!ValidateRGBAF(red, green, blue, alpha))
+            {
                 throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            }
+
             var d = RGBMax + 0.5d;
             return (
                 red: (byte)(red * d),
@@ -555,7 +649,10 @@ namespace Engine.Colorspace
         public static (byte red, byte green, byte blue, byte alpha) RGBAFColorToRGBAColor((double red, double green, double blue, double alpha) tuple)
         {
             if (!ValidateRGBAF(tuple.red, tuple.green, tuple.blue, tuple.alpha))
+            {
                 throw new ArgumentOutOfRangeException(nameof(tuple), "A parameter is out of range.");
+            }
+
             var d = RGBMax + 0.5d;
             return (
                 red: (byte)(tuple.red * d),
@@ -681,7 +778,9 @@ namespace Engine.Colorspace
 
             var K = r < g ? r : g;
             if (b < K)
+            {
                 K = b;
+            }
 
             var c = (r - K) / (1d - K);
             var m = (g - K) / (1d - K);
@@ -751,7 +850,10 @@ namespace Engine.Colorspace
         public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor(double hue, double saturation, double intensity, double alpha)
         {
             if (!ValidateHSIA(hue, saturation, intensity, alpha))
+            {
                 throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            }
+
             var x = intensity * (1 - saturation);
             if (hue < 2 * PI / 3d)
             {
@@ -960,17 +1062,31 @@ namespace Engine.Colorspace
                     for (var i = 0; i < 3; i++)
                     {
                         if (t3[i] < 0)
+                        {
                             t3[i] += 1d;
+                        }
+
                         if (t3[i] > 1)
+                        {
                             t3[i] -= 1d;
+                        }
+
                         if (6d * t3[i] < 1d)
+                        {
                             clr[i] = temp1 + (temp2 - temp1) * t3[i] * 6d;
+                        }
                         else if (2d * t3[i] < 1d)
+                        {
                             clr[i] = temp2;
+                        }
                         else if (3d * t3[i] < 2d)
+                        {
                             clr[i] = temp1 + (temp2 - temp1) * ((2d / 3d) - t3[i]) * 6d;
+                        }
                         else
+                        {
                             clr[i] = temp1;
+                        }
                     }
 
                     red = clr[0];
@@ -1019,17 +1135,31 @@ namespace Engine.Colorspace
                     for (var i = 0; i < 3; i++)
                     {
                         if (t3[i] < 0)
+                        {
                             t3[i] += 1.0;
+                        }
+
                         if (t3[i] > 1)
+                        {
                             t3[i] -= 1.0;
+                        }
+
                         if (6.0 * t3[i] < 1.0)
+                        {
                             clr[i] = temp1 + (temp2 - temp1) * t3[i] * 6.0;
+                        }
                         else if (2.0 * t3[i] < 1.0)
+                        {
                             clr[i] = temp2;
+                        }
                         else if (3.0 * t3[i] < 2.0)
+                        {
                             clr[i] = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - t3[i]) * 6.0;
+                        }
                         else
+                        {
                             clr[i] = temp1;
+                        }
                     }
 
                     red = clr[0];
@@ -1387,7 +1517,10 @@ namespace Engine.Colorspace
         public static (double red, double green, double blue, double alpha) YIQAColorToRGBAFColor(double y, double i, double q, double alpha)
         {
             if (!ValidateYIQA(y, i, q, alpha))
+            {
                 throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            }
+
             return (
                 red: y + 0.9563d * i + 0.6210d * q,
                 green: y - 0.2721d * i - 0.6474d * q,
@@ -1408,7 +1541,10 @@ namespace Engine.Colorspace
         public static (double red, double green, double blue, double alpha) YUVAColorToRGBAFColor(double y, double u, double v, double alpha)
         {
             if (!ValidateYUVA(y, u, v, alpha))
+            {
                 throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            }
+
             return (
                 red: y + 1.140d * v,
                 green: y - 0.395d * u - 0.581d * v,
@@ -1506,11 +1642,18 @@ namespace Engine.Colorspace
             else
             {
                 if (M == red)
+                {
                     h = IEEERemainder((green - blue) / c, 6d);
+                }
                 else if (M == green)
+                {
                     h = (blue - red) / c + 2d;
+                }
                 else if (M == blue)
+                {
                     h = (red - green) / c + 4d;
+                }
+
                 h *= 60d;
                 s = 1d - (m / i);
             }
@@ -1606,21 +1749,32 @@ namespace Engine.Colorspace
             var min = Min(Min(r, g), b);
             l = (min + vertex) / 2d;
             if (l <= 0d)
+            {
                 return (h, s, l, a);
+            }
 
             vertexMin = vertex - min;
             s = vertexMin;
             if (s > 0d)
+            {
                 s /= (l <= 0.5d) ? (vertex + min) : (2d - vertex - min);
+            }
             else
+            {
                 return (h, s, l, a);
+            }
 
             var red2 = (vertex - r) / vertexMin;
             var green2 = (vertex - g) / vertexMin;
             var blue2 = (vertex - b) / vertexMin;
             if (r == vertex)
+            {
                 h = g == min ? 5d + blue2 : 1d - green2;
-            else h = g == vertex ? b == min ? 1d + red2 : 3d - blue2 : r == min ? 3d + green2 : 5d - red2;
+            }
+            else
+            {
+                h = g == vertex ? b == min ? 1d + red2 : 3d - blue2 : r == min ? 3d + green2 : 5d - red2;
+            }
 
             h /= 6d;
             return (h, s, l, a);
@@ -1733,11 +1887,20 @@ namespace Engine.Colorspace
             }
 
             if (r == max)
+            {
                 h = (g - b) / delta;       // between yellow & magenta
-            else h = g == max ? 2 + (b - r) / delta : 4 + (r - g) / delta;   // between magenta & cyan
+            }
+            else
+            {
+                h = g == max ? 2 + (b - r) / delta : 4 + (r - g) / delta;   // between magenta & cyan
+            }
+
             h *= 60;               // degrees
             if (h < 0)
+            {
                 h += 360;
+            }
+
             return (h, s, v, a);
         }
 
@@ -1757,7 +1920,10 @@ namespace Engine.Colorspace
         public static (double y, double i, double q, double alpha) RGBAFColorToYIQAColor(double red, double green, double blue, double alpha)
         {
             if (!ValidateRGBAF(red, green, blue, alpha))
+            {
                 throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            }
+
             return (
                 y: 0.299900d * red + 0.587000d * green + 0.114000d * blue,
                 i: 0.595716d * red - 0.274453d * green - 0.321264d * blue,
@@ -1782,7 +1948,10 @@ namespace Engine.Colorspace
         public static (double y, double u, double v, double alpha) RGBAFColorToYUVAColor(double red, double green, double blue, double alpha)
         {
             if (!ValidateRGBAF(red, green, blue, alpha))
+            {
                 throw new ArgumentOutOfRangeException("A parameter is out of range.");
+            }
+
             var y = 0.299d * red + 0.587d * green + 0.114d * blue;
             return (
                 y,

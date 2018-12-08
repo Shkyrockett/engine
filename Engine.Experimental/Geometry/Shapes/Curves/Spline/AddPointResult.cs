@@ -40,7 +40,10 @@ namespace Engine
         public AddPointResult(int firstChangedIndex, bool curveAdded)
         {
             if (firstChangedIndex < 0 || firstChangedIndex == int.MaxValue)
+            {
                 throw new InvalidOperationException("firstChangedIndex must be greater than zero");
+            }
+
             data = (firstChangedIndex + 1) * (curveAdded ? -1 : 1);
         }
         #endregion Constructors

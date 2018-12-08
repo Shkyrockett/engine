@@ -67,7 +67,9 @@ namespace Engine
             foreach (PolygonContour poly in polygons.Contours)
             {
                 foreach (Point2D point in poly.Points)
+                {
                     pointList.Add((point.X, point.Y, 0d, 0));
+                }
             }
 
             pointList.Add((end.X, end.Y, 0d, 0));
@@ -102,7 +104,9 @@ namespace Engine
                 }
 
                 if (Abs(bestDist - maxLength) < Epsilon)
+                {
                     return null; // (no solution)
+                }
 
                 // Swap
                 var temp = (pointList[bestJ].X, pointList[bestJ].Y, bestDist, bestI);
@@ -191,13 +195,16 @@ namespace Engine
         /// </acknowledgment>
         private static void OrientPolygonClockwise(this PolygonContour polygon)
         {
-            if (polygon.Orientation == RotationDirections.CounterClockwise) polygon.Points.Reverse();
+            if (polygon.Orientation == RotationDirections.CounterClockwise)
+            {
+                polygon.Points.Reverse();
+            }
         }
 
         /// <summary>
         /// Return true if the polygon is convex.
         /// </summary>
-        /// <param name="polygon">todo: describe polygon parameter on PolygonIsConvex</param>
+        /// <param name="polygon">ToDo: describe polygon parameter on PolygonIsConvex</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
@@ -224,11 +231,18 @@ namespace Engine
                         polygon.Points[B].X, polygon.Points[B].Y,
                         polygon.Points[C].X, polygon.Points[C].Y);
                 if (cross_product < 0)
+                {
                     got_negative = true;
+                }
                 else
+                {
                     got_positive |= cross_product > 0;
+                }
+
                 if (got_negative && got_positive)
+                {
                     return false;
+                }
             }
 
             // If we got this far, the polygon is convex.
@@ -254,7 +268,9 @@ namespace Engine
                 C = (B + 1) % num_points;
 
                 if (FormsEar(polygon.Points.ToArray(), A, B, C))
+                {
                     return (A, B, C);
+                }
             }
 
             // We should never get here because there should
@@ -343,7 +359,7 @@ namespace Engine
         /// <summary>
         /// Triangulate the polygon.
         /// </summary>
-        /// <param name="polygon">todo: describe polygon parameter on Triangulate</param>
+        /// <param name="polygon">ToDo: describe polygon parameter on Triangulate</param>
         /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/

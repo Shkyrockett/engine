@@ -58,7 +58,10 @@ namespace Engine
         /// <param name="start">The start.</param>
         public PolyBezierContour(Point2D start)
         {
-            items.Add(new BezierSegmentX(start));
+            items = new List<BezierSegmentX>
+            {
+                new BezierSegmentX(start)
+            };
         }
 
         /// <summary>
@@ -164,7 +167,10 @@ namespace Engine
                 {
                     var box = contour.items[0].Bounds;
                     foreach (var item in contour.items)
+                    {
                         box = box.Union(item.Bounds);
+                    }
+
                     return box;
                 }
             }
@@ -231,8 +237,15 @@ namespace Engine
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
         {
-            if (t == 0) return Items[0].Start.Value;
-            if (t == 1) return Items[Items.Count - 1].End.Value;
+            if (t == 0)
+            {
+                return Items[0].Start.Value;
+            }
+
+            if (t == 1)
+            {
+                return Items[Items.Count - 1].End.Value;
+            }
 
             var weights = new(double length, double accumulated)[Items.Count];
             var cursor = Items[0].End.Value;
@@ -410,7 +423,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
         private string ToPathDefString()
-            => ToPathDefString(null, CultureInfo.InvariantCulture);
+            => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The to path def string.

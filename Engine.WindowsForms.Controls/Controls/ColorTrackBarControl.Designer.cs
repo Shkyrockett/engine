@@ -27,6 +27,7 @@ namespace Engine.WindowsForms
             {
                 components.Dispose();
             }
+
             base.Dispose(disposing);
         }
 

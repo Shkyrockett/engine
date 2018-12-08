@@ -125,7 +125,9 @@ namespace Engine
             {
                 // Check whether the point is inside the grid.
                 if (!InnerBounds.Contains(location))
+                {
                     return -1;
+                }
 
                 // Find the horizontal and vertical integer indexes.
                 (var dx, var dy) = ((int)((location.X - x) / CellSize.Width), (int)((location.Y - y) / CellSize.Height));
@@ -134,7 +136,9 @@ namespace Engine
 
                 // Omit any rows or columns that are out of range.
                 if (dx < 0 || dx >= columns || dy < 0 || dy >= rows)
+                {
                     return -1;
+                }
 
                 // Calculate the index of the item under the point location.
                 var value = dy * columns + dx;

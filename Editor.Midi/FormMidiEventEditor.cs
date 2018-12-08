@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -19,7 +18,7 @@ namespace EventEditorMidi
         /// <summary>
         /// The music files.
         /// </summary>
-        private MusicFiles musicFiles = new MusicFiles();
+        private readonly MusicFiles musicFiles = new MusicFiles();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormMidiEventEditor"/> class.
@@ -83,7 +82,9 @@ namespace EventEditorMidi
             };
             tree.Nodes.Add(node);
             foreach (MediaFile item in items)
+            {
                 AddNode(node, item);
+            }
         }
 
         /// <summary>
@@ -93,7 +94,11 @@ namespace EventEditorMidi
         /// <param name="item">The item.</param>
         private void AddNode(TreeNode tree, MediaFile item)
         {
-            if (item is null) return;
+            if (item is null)
+            {
+                return;
+            }
+
             var typeString = item?.Media.GetType().Name;
             var filename = string.IsNullOrWhiteSpace(item?.FileName) ? $"New {typeString} File*" : Path.GetFileName(item.FileName);
             var node = new TreeNode(filename)
@@ -111,7 +116,11 @@ namespace EventEditorMidi
         /// <param name="item">The item.</param>
         private void AddNode(TreeNode tree, IMidiElement item)
         {
-            if (item is null) return;
+            if (item is null)
+            {
+                return;
+            }
+
             string nodeName = null;
             var attributeDisplayName = (Engine.DisplayNameAttribute)Attribute.GetCustomAttribute(item?.GetType(), typeof(Engine.DisplayNameAttribute));
             nodeName = attributeDisplayName != null ? attributeDisplayName.DisplayName : item?.ToString();
@@ -157,7 +166,9 @@ namespace EventEditorMidi
                         if (prop.PropertyType.IsGenericType)
                         {
                             foreach (IMidiElement subProp in (IEnumerable)child.Tag)
+                            {
                                 AddNode(child, subProp);
+                            }
                         }
                     }
                 }
@@ -174,7 +185,10 @@ namespace EventEditorMidi
             var type = (Type)toolStripComboBoxFileFormat.SelectedItem;
             var item = (IMediaContainer)Activator.CreateInstance(type);
             if (item is Riff)
+            {
                 ((Riff)item).Contents = new List<IMediaContainer> { new Midi() };
+            }
+
             var musicFile = new MediaFile(item);
             musicFiles.Midi.Add(musicFile);
             AddNode(treeView.TopNode, musicFile);
@@ -220,7 +234,10 @@ namespace EventEditorMidi
             //try
             //{
             using (Stream stream = File.OpenRead(fileName))
+            {
                 musicFile = MediaFile.Load(fileName, stream);
+            }
+
             musicFiles.Midi.Add(musicFile);
             AddNode(treeView.TopNode, musicFile);
             //}

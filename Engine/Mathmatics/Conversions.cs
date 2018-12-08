@@ -130,7 +130,6 @@ namespace Engine
         /// <param name="startAngle">The start angle.</param>
         /// <param name="sweepAngle">The sweep angle.</param>
         /// <returns>Returns a list of Cubic Bézier curves that approximate a circular arc.</returns>
-
         /// <acknowledgment>
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://www.spaceroots.org/documents/ellipse/node22.html
@@ -323,64 +322,6 @@ namespace Engine
                 aX + TwoThirds * (bX - aX), aY + TwoThirds * (bY - aY),
                 cX + TwoThirds * (bX - cX), cY + TwoThirds * (bY - cY),
                 cX, cY);
-
-        /// <summary>
-        /// Converts a list of points on a Catmull Rom Curve to a list of Cubic Bézier curves.
-        /// </summary>
-        /// <param name="points">The list of points.</param>
-        /// <returns>Returns a list of Cubic Bézier curves from a list of points on a Catmull Rom curve.</returns>
-
-        /// <acknowledgment>
-        /// https://github.com/ariutta/catmullrom2bezier/blob/master/catmullrom2bezier.js
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static List<CubicBezier> CatmullRomToBezier(
-            Point2D[] points)
-        {
-            var d = new List<CubicBezier>();
-            for (int i = 0, iLen = points.Length; iLen - 1 > i; i++)
-            {
-                var p = new List<(double x, double y)>();
-                if (0 == i)
-                {
-                    p.Add((points[i].X, points[i].Y));
-                    p.Add((points[i].X, points[i].Y));
-                    p.Add((points[i + 1].X, points[i + 1].Y));
-                    p.Add((points[i + 2].X, points[i + 2].Y));
-                }
-                else if (iLen - 4 == i)
-                {
-                    p.Add((points[i - 1].X, points[i - 1].Y));
-                    p.Add((points[i].X, points[i].Y));
-                    p.Add((points[i + 1].X, points[i + 1].Y));
-                    p.Add((points[i + 2].X, points[i + 2].Y));
-                }
-                else
-                {
-                    p.Add((points[i - 1].X, points[i - 1].Y));
-                    p.Add((points[i].X, points[i].Y));
-                    p.Add((points[i + 1].X, points[i + 1].Y));
-                    p.Add((points[i + 2].X, points[i + 2].Y));
-                }
-
-                // Catmull-Rom to Cubic Bezier conversion matrix 
-                //    0       1       0       0
-                //  -1/6      1      1/6      0
-                //    0      1/6      1     -1/6
-                //    0       0       1       0
-                var bp = new List<(double x, double y)>
-                {
-                    (p[1].x,  p[1].y),
-                    ((-p[0].x + 6 * p[1].x + p[2].x) / 6,  (-p[0].y + 6 * p[1].y + p[2].y) / 6),
-                    ((p[1].x + 6 * p[2].x - p[3].x) / 6,  (p[1].y + 6 * p[2].y - p[3].y) / 6),
-                    (p[2].x,  p[2].y)
-                };
-                d.Add(new CubicBezier(bp[1].x, bp[1].y, bp[2].x, bp[2].y, bp[3].x, bp[3].y));
-            }
-
-            return d;
-        }
         #endregion Conversion Implementations
     }
 }

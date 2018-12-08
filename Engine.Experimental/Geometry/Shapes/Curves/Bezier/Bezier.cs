@@ -152,7 +152,7 @@ namespace Engine
         public List<Point2D> Points { get; set; }
 
         /// <summary>
-        /// Gets or sets the dpoints.
+        /// Gets or sets the Derivative Points.
         /// </summary>
         public List<List<Point2D>> DerivativePoints { get; set; }
 
@@ -273,10 +273,14 @@ namespace Engine
         {
             // shortcuts, although they're really dumb
             if (t == 0)
+            {
                 return new Bezier(p2, p2, p3);
+            }
 
             if (t == 1)
+            {
                 return new Bezier(p1, p2, p2);
+            }
 
             // real fitting.
             var abc = BezierUtil.GetABC(2, p1, p2, p3, t);
@@ -303,7 +307,9 @@ namespace Engine
             var abc = BezierUtil.GetABC(3, S, B, E, t);
 
             if (d1 == 0)
+            {
                 d1 = Measurements.Distance(B, abc.Item3);
+            }
 
             var d2 = d1 * (1 - t) / t;
 
@@ -683,8 +689,16 @@ namespace Engine
         public Point2D Interpolate_Ported(double t)
         {
             // shortcuts
-            if (t == 0) return Points[0];
-            if (t == 1) return Points[Order];
+            if (t == 0)
+            {
+                return Points[0];
+            }
+
+            if (t == 1)
+            {
+                return Points[Order];
+            }
+
             var p = Points;
             var mt = 1 - t;
 
@@ -867,8 +881,10 @@ namespace Engine
             //q[idx++] = p[2];
             q.Add(p[2]);
             if (Order == 3)
+            {
                 //q[idx++] = p[3];
                 q.Add(p[3]);
+            }
             // we lerp between all points at each iteration, until we have 1 point left.
             while (p.Count > 1)
             {
@@ -1183,7 +1199,9 @@ namespace Engine
             var v = new List<(Point2D, Point2D, Point2D)> { Offset(0, 10), Offset(1, 10) };
             var o = BezierUtil.Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o is null)
+            {
                 throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
+            }
 
             // move all points by distance 'd' wrt the origin 'o'
             var points = Points;
@@ -1201,7 +1219,11 @@ namespace Engine
             // derivative vector, and the origin-through-control vector
             foreach (var t in new List<int> { 0, 1 })
             {
-                if (Order == 2) break;
+                if (Order == 2)
+                {
+                    break;
+                }
+
                 var p = np[t * order];
                 var d2 = Derivativate_Ported(t);
                 var p2 = new Point2D(x: p.X + d2.X, y: p.Y + d2.Y/*, z: p.Z + d2.Z*/);
@@ -1226,16 +1248,20 @@ namespace Engine
         {
             var order = Order;
             if (order == 2)
+            {
                 return Raise().Scale(distanceFn);
+            }
 
-            // TODO: add special handling for degenerate (=linear) curves.
+            // ToDo: add special handling for degenerate (=linear) curves.
             var direction = Direction;
             var r1 = distanceFn(0);
             var r2 = distanceFn(1);
             var v = new List<(Point2D, Point2D, Point2D)> { Offset(0, 10), Offset(1, 10) };
             var o = BezierUtil.Lli4(v[0].Item3, v[0].Item1, v[1].Item3, v[1].Item1);
             if (o is null)
+            {
                 throw new NullReferenceException("cannot scale this curve. Try reducing it first.");
+            }
 
             // move all points by distance 'd' wrt the origin 'o'
             var points = Points;
@@ -1253,14 +1279,22 @@ namespace Engine
             // ensure the correct tangent to endpoint".
             foreach (var t in new List<int> { 0, 1 })
             {
-                if (Order == 2) break;
+                if (Order == 2)
+                {
+                    break;
+                }
+
                 var p = points[t + 1];
                 var ov = new Point2D(
                         x: p.X - o.Value.X,
                         y: p.Y - o.Value.Y
                         /*,z: p.Z - o.Z*/);
                 var rc = distanceFn((t + 1) / order);
-                if (direction != RotationDirections.Clockwise) rc = -rc;
+                if (direction != RotationDirections.Clockwise)
+                {
+                    rc = -rc;
+                }
+
                 var m = Sqrt(ov.X * ov.X + ov.Y * ov.Y);
                 ov.X /= m;
                 ov.Y /= m;
@@ -1482,7 +1516,10 @@ namespace Engine
                     curr_good = error <= errorThreshold;
 
                     done = prev_good && !curr_good;
-                    if (!done) prev_e = e;
+                    if (!done)
+                    {
+                        prev_e = e;
+                    }
 
                     // this arc is fine: we can move 'e' up to see if we can find a wider arc
                     if (curr_good)
@@ -1591,7 +1628,10 @@ namespace Engine
             {
                 var a1 = BezierUtil.Angle(Points[0], Points[3], Points[1]);
                 var a2 = BezierUtil.Angle(Points[0], Points[3], Points[2]);
-                if (a1 > 0 && a2 < 0 || a1 < 0 && a2 > 0) return false;
+                if (a1 > 0 && a2 < 0 || a1 < 0 && a2 > 0)
+                {
+                    return false;
+                }
             }
             var n1 = Normal_Ported(0);
             var n2 = Normal_Ported(1);
@@ -1639,8 +1679,15 @@ namespace Engine
 
             // first pass: split on extrema
             var extrema = Extrema_Ported;
-            if (extrema.IndexOf(0) == -1) extrema.Insert(0, 0);
-            if (extrema.IndexOf(1) == -1) extrema.Add(1);
+            if (extrema.IndexOf(0) == -1)
+            {
+                extrema.Insert(0, 0);
+            }
+
+            if (extrema.IndexOf(1) == -1)
+            {
+                extrema.Add(1);
+            }
 
             //extrema.Sort();
             extrema.Reverse();
@@ -1830,7 +1877,9 @@ namespace Engine
                 foreach (Bezier r in c2)
                 {
                     if (l.Overlaps(r))
+                    {
                         pairs.Add(new Pair(left: l, right: r));
+                    }
                 }
             }
 
@@ -1840,7 +1889,9 @@ namespace Engine
             {
                 var result = BezierUtil.Pairiteration(pair.Left, pair.Right);
                 if (result.Count > 0)
+                {
                     intersections.AddRange(result);
+                }
             }
             return intersections;
         }
@@ -1966,14 +2017,21 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Bezier left, Bezier right)
         {
-            if (left.Points.Count != right.Points.Count) return false;
+            if (left.Points.Count != right.Points.Count)
+            {
+                return false;
+            }
+
             var equals = false;
             for (var i = 0; i < left.Points.Count; i++)
             {
                 equals &= left.Points[i].X == right.Points[i].X;
                 equals &= left.Points[i].Y == right.Points[i].Y;
                 //equals &= left.Points[i].Z == right.Points[i].Z;
-                if (!equals) break;
+                if (!equals)
+                {
+                    break;
+                }
             }
 
             return equals;
@@ -2002,7 +2060,7 @@ namespace Engine
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">todo: describe provider parameter on ToString</param>
+        /// <param name="provider">ToDo: describe provider parameter on ToString</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -2042,7 +2100,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(Bezier);
+            if (this is null)
+            {
+                return nameof(Bezier);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Bezier)}={{A={Points[0]}{sep}B={Points[0]}{sep}C={Points[0]}{sep}D={Points[0]}}}";
             return formatable.ToString(format, provider);

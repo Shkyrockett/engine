@@ -61,7 +61,11 @@ namespace Engine.File
         internal static SystemExclusive Read(BinaryReaderExtended reader, EventStatus status, ref bool sysExContinue, ref byte[] sysExData)
         {
             var buffer = reader.ReadVariableLengthBytes();
-            if (sysExData is null) sysExData = new byte[0];
+            if (sysExData is null)
+            {
+                sysExData = new byte[0];
+            }
+
             if (buffer.Length == 0)
             {
                 return null;
@@ -78,7 +82,11 @@ namespace Engine.File
                 // It's multi-segment, so add the new data to the previously acquired data
                 // Add to previously acquired sys ex data
                 var newSysExData = new byte[sysExData.Length + buffer.Length];
-                if (sysExData != null) sysExData.CopyTo(newSysExData, 0);
+                if (sysExData != null)
+                {
+                    sysExData.CopyTo(newSysExData, 0);
+                }
+
                 Array.Copy(buffer, 0, newSysExData, sysExData.Length, buffer.Length);
                 sysExData = newSysExData;
                 sysExContinue = true;

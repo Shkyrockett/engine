@@ -224,7 +224,9 @@ namespace Engine
                 {
                     // use newton's method to find better parameters (except on first run, since we don't have a curve yet)
                     if (i != 0)
+                    {
                         Reparameterize(first, last, curve);
+                    }
 
                     // generate the curve itself
                     curve = GenerateCubicBezier(first, last, tanL, tanR);
@@ -234,7 +236,9 @@ namespace Engine
 
                     // if we're within error tolerance, awesome!
                     if (error < squaredError)
+                    {
                         return true;
+                    }
                 }
                 return false;
             }
@@ -270,7 +274,10 @@ namespace Engine
             var nPts = last - first;
             u.Add(0);
             for (var i = 1; i < nPts; i++)
+            {
                 u.Add((arclen[first + i] - start) / diff);
+            }
+
             u.Add(1);
         }
 
@@ -366,7 +373,9 @@ namespace Engine
                 var den = (p1.I * p1.I) + (p1.J * p1.J) + ((p0.X - p.X) * p2.I) + ((p0.Y - p.Y) * p2.J);
                 var newU = t - num / den;
                 if (Abs(den) > Epsilon && newU >= 0 && newU <= 1)
+                {
                     u[i] = newU;
+                }
             }
         }
 
@@ -393,9 +402,14 @@ namespace Engine
             // split at point of maximum error
             split = s + first;
             if (split <= first)
+            {
                 split = first + 1;
+            }
+
             if (split >= last)
+            {
                 split = last - 1;
+            }
 
             return max;
         }

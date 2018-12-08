@@ -86,7 +86,9 @@ namespace MethodSpeedTester
             g.FillRectangle(Brushes.White, rectangle.Bounds.ToRectangleF());
             g.DrawRectangle(Pens.Black, rectangle.Bounds.ToRectangle());
             foreach (Point2D point in points)
+            {
                 DrawHitPoint(g, point, method.Invoke(rectangle, point));
+            }
         }
 
         /// <summary>
@@ -150,9 +152,11 @@ namespace MethodSpeedTester
         /// <param name="sender">The sender.</param>
         /// <param name="e">The paint event arguments.</param>
         private void PictureBox1_Paint(object sender, PaintEventArgs e)
-            => DrawRectangles(e.Graphics, Font, rectangle, points,
-                Experiments.Contains,
-                nameof(Experiments.Contains));
+        {
+            //DrawRectangles(e.Graphics, Font, rectangle, points,
+            //               Experiments.Contains,
+            //               nameof(Experiments.Contains));
+        }
 
         /// <summary>
         /// The picture box2 paint.
@@ -160,9 +164,11 @@ namespace MethodSpeedTester
         /// <param name="sender">The sender.</param>
         /// <param name="e">The paint event arguments.</param>
         private void PictureBox2_Paint(object sender, PaintEventArgs e)
-            => DrawRectangles(e.Graphics, Font, rectangle, points,
-                Experiments.Contains2,
-                nameof(Experiments.Contains2));
+        {
+            //DrawRectangles(e.Graphics, Font, rectangle, points,
+            //               Experiments.Contains2,
+            //               nameof(Experiments.Contains2));
+        }
 
         /// <summary>
         /// The picture box3 paint.
@@ -170,9 +176,11 @@ namespace MethodSpeedTester
         /// <param name="sender">The sender.</param>
         /// <param name="e">The paint event arguments.</param>
         private void PictureBox3_Paint(object sender, PaintEventArgs e)
-            => DrawRectangles(e.Graphics, Font, rectangle, points,
-                Experiments.PointOnRectangleX,
-                nameof(Experiments.PointOnRectangleX));
+        {
+            //DrawRectangles(e.Graphics, Font, rectangle, points,
+            //               Experiments.PointOnRectangleX,
+            //               nameof(Experiments.PointOnRectangleX));
+        }
 
         /// <summary>
         /// The picture box4 paint.

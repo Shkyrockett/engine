@@ -77,7 +77,10 @@ namespace Engine.File
         public override int GetBytes(char[] chars, int charIndex, int charCount, byte[] bytes, int byteIndex)
         {
             for (var i = 0; i < charCount; i++)
+            {
                 bytes[byteIndex + i] = (byte)chars[charIndex + i];
+            }
+
             return charCount;
         }
 
@@ -103,7 +106,10 @@ namespace Engine.File
         public override int GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex)
         {
             for (var i = 0; i < byteCount; i++)
+            {
                 chars[charIndex + i] = (char)bytes[byteIndex + i];
+            }
+
             return byteCount;
         }
     }

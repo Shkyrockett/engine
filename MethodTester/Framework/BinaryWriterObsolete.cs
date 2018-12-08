@@ -76,7 +76,10 @@ namespace Engine.File
         [Obsolete]
         public void WriteVarLen(uint input)
         {
-            if (input < 0) throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+            if (input < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+            }
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("value", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
             // Allocate a value buffer with room for bit shifting.  
@@ -97,16 +100,23 @@ namespace Engine.File
             }
             while (value > 0);
 
-            if (len != index) Debug.Assert(len == index, "Length = " + len + " index = " + index);
+            if (len != index)
+            {
+                Debug.Assert(len == index, "Length = " + len + " index = " + index);
+            }
 
             // Write to file.
             while (index > 0)
             {
                 index--;
                 if (index > 0)
+                {
                     Write((byte)(buffer[index] | 0x80));
+                }
                 else
+                {
                     Write(buffer[index]);
+                }
             }
         }
 
@@ -121,7 +131,10 @@ namespace Engine.File
         [Obsolete]
         public void WriteVarLen0(uint input)
         {
-            if (input < 0) throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+            if (input < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+            }
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("input", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
             var value = input;
@@ -140,7 +153,11 @@ namespace Engine.File
                 // Write the buffer as a truncated byte to the file
                 Write((byte)buffer);
                 // Shift to get the next byte. 
-                if ((buffer & 0x80) == 0) break;
+                if ((buffer & 0x80) == 0)
+                {
+                    break;
+                }
+
                 buffer >>= 8;
             }
         }
@@ -156,7 +173,10 @@ namespace Engine.File
         [Obsolete]
         public void WriteVarLen1(uint input)
         {
-            if (input < 0) throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+            if (input < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+            }
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("value", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
             var value = (uint)input;
@@ -172,7 +192,11 @@ namespace Engine.File
             while (true)
             {
                 Write((byte)(buffer & 0xFF));
-                if ((buffer & 0x80) == 0) break;
+                if ((buffer & 0x80) == 0)
+                {
+                    break;
+                }
+
                 buffer >>= 8;
             }
         }
@@ -188,7 +212,10 @@ namespace Engine.File
         [Obsolete]
         public void WriteVarLen2(uint input)
         {
-            if (input < 0) throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+            if (input < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+            }
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("input", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
             var value = input;
@@ -204,7 +231,11 @@ namespace Engine.File
             while (true)
             {
                 Write((byte)(buffer & 0xFF));
-                if ((buffer & 0x80) == 0) break;
+                if ((buffer & 0x80) == 0)
+                {
+                    break;
+                }
+
                 buffer >>= 8;
             }
         }

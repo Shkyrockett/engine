@@ -101,7 +101,9 @@ namespace Engine.File
         public override bool Equals(object obj)
         {
             if (obj is PackedNibble)
+            {
                 return Equals((PackedNibble)obj);
+            }
 
             return false;
         }

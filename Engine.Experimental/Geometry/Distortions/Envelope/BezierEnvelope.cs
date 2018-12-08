@@ -55,7 +55,7 @@ namespace Engine
     // Finally, after all of the letter's points have been recalculated in this manner,
     // the resulting path is taken and replaces the letter's original path.
     //
-    // TODO:
+    // ToDo:
     // * Some points of the letter appear outside the envelope, apparently because the bounding box
     // calculated by simpletransform.py is only a rough estimate. -> Calculate the real bbox,
     // perhaps uSing other existing extensions, or py2geom.

@@ -106,7 +106,10 @@ namespace Engine
         public override string ToString()
         {
             if (this is null)
+            {
                 return nameof(Hermite);
+            }
+
             return $"{nameof(Hermite)}{{{nameof(A)}={A},{nameof(ATan)}={ATan},{nameof(B)}={B},{nameof(BTan)}={BTan},{nameof(Tension)}={Tension},{nameof(Bias)}={Bias}}}";
         }
     }

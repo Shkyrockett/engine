@@ -1587,7 +1587,7 @@ namespace Engine
         /// <param name="key2">The second cubic Bézier key.</param>
         /// <param name="t">The t index.</param>
         /// <returns>The <see cref="T:Point2D[]"/>.</returns>
-        private static CubicBezier TweenCubic(CubicBezier key1, CubicBezier key2, double t)
+        public static CubicBezier TweenCubic(CubicBezier key1, CubicBezier key2, double t)
             => new CubicBezier(
                  key1.A + t * (key2.A - key1.A),
                  key1.B + t * (key2.B - key1.B),

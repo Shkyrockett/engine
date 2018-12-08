@@ -66,30 +66,38 @@ namespace Engine
         public static CubicBezier[] Fit(List<Point2D> points, double maxError)
         {
             if (maxError < Epsilon)
+            {
                 throw new InvalidOperationException("maxError cannot be negative/zero/less than epsilon value");
+            }
+
             if (points is null)
+            {
                 throw new ArgumentNullException(nameof(points));
+            }
+
             if (points.Count < 2)
-                return ZeroCurves; // need at least 2 points to do anything
+            {
+                return ZeroCurves; // need at least 2 points to do anything.
+            }
 
             var instance = GetInstance();
             try
             {
-                // should be cleared after each run
+                // Should be cleared after each run.
                 Debug.Assert(instance.points.Count == 0 && instance.result.Count == 0 &&
                     instance.u.Count == 0 && instance.arclen.Count == 0);
 
-                // initialize arrays
+                // Initialize arrays.
                 instance.points.AddRange(points);
                 instance.InitializeArcLengths();
                 instance.squaredError = maxError * maxError;
 
-                // Find tangents at ends
+                // Find tangents at ends.
                 var last = points.Count - 1;
                 var tanL = instance.GetLeftTangent(last);
                 var tanR = instance.GetRightTangent(0);
 
-                // do the actual fit
+                // Do the actual fit.
                 instance.FitRecursive(0, last, tanL, tanR);
                 return instance.result.ToArray();
             }
@@ -121,9 +129,14 @@ namespace Engine
                 // our end tangents might be based on points outside the new curve (this is possible for mid tangents too
                 // but since we need to maintain C1 continuity, it's too late to do anything about it)
                 if (first == 0 && split < EndTangentNPoints)
+                {
                     tanL = GetLeftTangent(split);
+                }
+
                 if (last == points.Count - 1 && split > (points.Count - (EndTangentNPoints + 1)))
+                {
                     tanR = GetRightTangent(split);
+                }
 
                 // do actual recursion
                 FitRecursive(first, split, tanL, tanM1);

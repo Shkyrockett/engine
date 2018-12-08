@@ -521,8 +521,15 @@ namespace Engine
 
                     // first pass: split on extrema
                     var extrema = Extrema;
-                    if (extrema.IndexOf(0) == -1) extrema.Insert(0, 0);
-                    if (extrema.IndexOf(1) == -1) extrema.Add(1);
+                    if (extrema.IndexOf(0) == -1)
+                    {
+                        extrema.Insert(0, 0);
+                    }
+
+                    if (extrema.IndexOf(1) == -1)
+                    {
+                        extrema.Add(1);
+                    }
 
                     //extrema.Sort();
                     extrema.Reverse();
@@ -860,7 +867,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(QuadraticBezier);
+            if (this is null)
+            {
+                return nameof(QuadraticBezier);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(QuadraticBezier)}={{{nameof(A)}={A}{sep}{nameof(B)}={B}{sep}{nameof(C)}={C}}}";
             return formatable.ToString(format, provider);

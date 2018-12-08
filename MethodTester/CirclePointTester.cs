@@ -86,7 +86,9 @@ namespace MethodSpeedTester
             g.FillEllipse(Brushes.White, circle.Bounds.ToRectangleF());
             g.DrawEllipse(Pens.Black, circle.Bounds.ToRectangleF());
             foreach (PointF point in points)
+            {
                 DrawHitPoint(g, point, method.Invoke(circle, point));
+            }
         }
 
         /// <summary>
@@ -150,9 +152,11 @@ namespace MethodSpeedTester
         /// <param name="sender">The sender.</param>
         /// <param name="e">The paint event arguments.</param>
         private void PictureBox1_Paint(object sender, PaintEventArgs e)
-			=> DrawCircles(e.Graphics, Font, circle, points,
-                (s, p) => Experiments.PointInCircle(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
-                nameof(Experiments.PointInCircle));
+        {
+            //DrawCircles(e.Graphics, Font, circle, points,
+            //               (s, p) => Experiments.PointInCircle(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
+            //               nameof(Experiments.PointInCircle));
+        }
 
         /// <summary>
         /// The picture box2 paint.
@@ -160,9 +164,11 @@ namespace MethodSpeedTester
         /// <param name="sender">The sender.</param>
         /// <param name="e">The paint event arguments.</param>
         private void PictureBox2_Paint(object sender, PaintEventArgs e)
-			=> DrawCircles(e.Graphics, Font, circle, points,
-                (s, p) => Experiments.PointInCircleInline(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
-                nameof(Experiments.PointInCircleInline));
+        {
+            //DrawCircles(e.Graphics, Font, circle, points,
+            //               (s, p) => Experiments.PointInCircleInline(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
+            //               nameof(Experiments.PointInCircleInline));
+        }
 
         /// <summary>
         /// The picture box3 paint.
@@ -170,9 +176,11 @@ namespace MethodSpeedTester
         /// <param name="sender">The sender.</param>
         /// <param name="e">The paint event arguments.</param>
         private void PictureBox3_Paint(object sender, PaintEventArgs e)
-			=> DrawCircles(e.Graphics, Font, circle, points,
-                (s, p) => Experiments.PointInCirclePhilcolbourn(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
-                nameof(Experiments.PointInCirclePhilcolbourn));
+        {
+            //DrawCircles(e.Graphics, Font, circle, points,
+            //               (s, p) => Experiments.PointInCirclePhilcolbourn(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
+            //               nameof(Experiments.PointInCirclePhilcolbourn));
+        }
 
         /// <summary>
         /// The picture box4 paint.
@@ -180,9 +188,11 @@ namespace MethodSpeedTester
         /// <param name="sender">The sender.</param>
         /// <param name="e">The paint event arguments.</param>
         private void PictureBox4_Paint(object sender, PaintEventArgs e)
-			=> DrawCircles(e.Graphics, Font, circle, points,
-                (s, p) => Experiments.PointInCircleNPhilcolbourn(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
-                nameof(Experiments.PointInCircleNPhilcolbourn));
+        {
+            //DrawCircles(e.Graphics, Font, circle, points,
+            //               (s, p) => Experiments.PointInCircleNPhilcolbourn(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
+            //               nameof(Experiments.PointInCircleNPhilcolbourn));
+        }
 
         /// <summary>
         /// The picture box5 paint.
@@ -190,9 +200,11 @@ namespace MethodSpeedTester
         /// <param name="sender">The sender.</param>
         /// <param name="e">The paint event arguments.</param>
         private void PictureBox5_Paint(object sender, PaintEventArgs e)
-			=> DrawCircles(e.Graphics, Font, circle, points,
-                (s, p) => Experiments.PointInCircleWilliamMorrison(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
-                nameof(Experiments.PointInCircleWilliamMorrison));
+        {
+            //DrawCircles(e.Graphics, Font, circle, points,
+            //               (s, p) => Experiments.PointInCircleWilliamMorrison(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
+            //               nameof(Experiments.PointInCircleWilliamMorrison));
+        }
 
         /// <summary>
         /// The picture box6 paint.
@@ -200,9 +212,11 @@ namespace MethodSpeedTester
         /// <param name="sender">The sender.</param>
         /// <param name="e">The paint event arguments.</param>
         private void PictureBox6_Paint(object sender, PaintEventArgs e)
-			=> DrawCircles(e.Graphics, Font, circle, points,
-                (s, p) => Experiments.PointInCircleX(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
-                nameof(Experiments.PointInCircleX));
+        {
+            //DrawCircles(e.Graphics, Font, circle, points,
+            //               (s, p) => Experiments.PointInCircleX(s.Center.X, s.Center.Y, s.Radius, p.X, p.Y),
+            //               nameof(Experiments.PointInCircleX));
+        }
 
         /// <summary>
         /// The picture box7 paint.

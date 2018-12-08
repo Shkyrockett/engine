@@ -51,7 +51,10 @@ namespace Engine
                     //  STRAIGHT LINE
                     if (poly[i + 1] < Y && poly[j + 1] >= Y || poly[j + 1] < Y && poly[i + 1] >= Y)
                     {
-                        if (poly[i] + (Y - poly[i + 1]) / (poly[j + 1] - poly[i + 1]) * (poly[j] - poly[i]) < X) oddNodes = !oddNodes;
+                        if (poly[i] + (Y - poly[i + 1]) / (poly[j + 1] - poly[i + 1]) * (poly[j] - poly[i]) < X)
+                        {
+                            oddNodes = !oddNodes;
+                        }
                     }
                 }
 

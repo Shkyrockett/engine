@@ -198,7 +198,9 @@ namespace Engine.Chrono
         public static DateTime FirstInstanceWeekdayOfMonth(this DateTime date, int instance, DayOfWeek weekday)
         {
             if (instance <= 0)
+            {
                 throw new ArgumentException("Instance count must be greater than zero", nameof(instance));
+            }
 
             DateTime returnDate;
             var firstDay = FirstInstanceWeekdayOfMonth(date, weekday);
@@ -228,7 +230,11 @@ namespace Engine.Chrono
             var firstDay = new DateTime(date.Year, date.Month, 1);
             var fOc = firstDay.DayOfWeek == weekday ? firstDay : firstDay.AddDays(weekday - firstDay.DayOfWeek);
             // CurDate = 2011.10.1 Occurrence = 1, Day = Friday >> 2011.09.30 FIX.
-            if (fOc.Month < date.Month) instance += 1;
+            if (fOc.Month < date.Month)
+            {
+                instance += 1;
+            }
+
             return fOc.AddDays(7 * (instance - 1));
         }
 

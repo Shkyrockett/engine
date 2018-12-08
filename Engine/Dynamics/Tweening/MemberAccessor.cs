@@ -15,7 +15,7 @@ using System.Reflection;
 namespace Engine.Tweening
 {
     /// <summary>
-    /// The member accessor class.
+    /// The member accessors class.
     /// </summary>
     public class MemberAccessor
     {

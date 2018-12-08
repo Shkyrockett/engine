@@ -69,7 +69,10 @@ namespace Engine
             var c = Curves;
             var bbox = c[0].Bbox();
             for (var i = 1; i < c.Count; i++)
+            {
                 Expandbox(bbox, c[i].Bbox());
+            }
+
             return bbox;
         }
 
@@ -91,7 +94,9 @@ namespace Engine
             var offset = new List<Bezier>();
 
             foreach(Bezier v in Curves)
+            {
                 offset.AddRange(v.Offset(d));
+            }
 
             return offset;
         }

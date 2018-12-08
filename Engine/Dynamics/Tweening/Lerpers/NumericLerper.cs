@@ -53,10 +53,14 @@ namespace Engine.Tweening
             {
                 var angle = from;
                 if (behavior.HasFlag(LerpBehavior.RotationRadians))
+                {
                     angle *= Degree;
+                }
 
                 if (angle < 0d)
+                {
                     angle = 360d + angle;
+                }
 
                 var r = angle + range;
                 var d = r - angle;
@@ -79,19 +83,27 @@ namespace Engine.Tweening
             if (behavior.HasFlag(LerpBehavior.Rotation))
             {
                 if (behavior.HasFlag(LerpBehavior.RotationRadians))
+                {
                     value *= Degree;
+                }
 
                 value %= 360d;
 
                 if (value < 0)
+                {
                     value += 360d;
+                }
 
                 if (behavior.HasFlag(LerpBehavior.RotationRadians))
+                {
                     value *= Radian;
+                }
             }
 
             if (behavior.HasFlag(LerpBehavior.Round))
+            {
                 value = Round(value);
+            }
 
             var type = currentValue.GetType();
             return Convert.ChangeType(value, type);

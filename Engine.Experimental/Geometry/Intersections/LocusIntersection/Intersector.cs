@@ -36,11 +36,17 @@ namespace Engine
             var A = Math.Max(0, Math.Min(ub1, ub2));
             var B = Math.Min(1, Math.Max(ub1, ub2));
             if (A > B) // No intersection
+            {
                 return new double[] { };
+            }
             else if (A == B)
+            {
                 return new double[] { A };
+            }
             else // if (A < B)
+            {
                 return new double[] { A, B };
+            }
         }
 
         /// <remarks>
@@ -94,23 +100,35 @@ namespace Engine
             {
                 // Both "segments" are points, return either point
                 if (a1.Equals(b1))
+                {
                     return new Point2D[] { a1 };
+                }
                 else // Both "segments" are different points, return empty set
+                {
                     return new Point2D[] { };
+                }
             }
             else if (b1.Equals(b2)) // b is a point, a is a segment
             {
                 if (Intersections.PointLineSegmentIntersects(b1.X, b1.Y, a1.X, a1.Y, a2.X, a2.Y))
+                {
                     return new Point2D[] { b1 };
+                }
                 else
+                {
                     return new Point2D[] { };
+                }
             }
             else if (a1.Equals(a2)) // a is a point, b is a segment
             {
                 if (Intersections.PointLineSegmentIntersects(a1.X, a1.Y, b1.X, b1.Y, b2.X, b2.Y))
+                {
                     return new Point2D[] { a1 };
+                }
                 else
+                {
                     return new Point2D[] { };
+                }
             }
 
             // At this point we know both a and b are actual segments
@@ -145,9 +163,13 @@ namespace Engine
                    || (-Maths.Epsilon < ub_t && ub_t < Maths.Epsilon))
                 {
                     if (a1.Equals(a2)) // danger!
+                    {
                         return OneD_Intersection(b1, b2, a1, a2);
+                    }
                     else // safe
+                    {
                         return OneD_Intersection(a1, a2, b1, b2);
+                    }
                 }
                 else
                 {

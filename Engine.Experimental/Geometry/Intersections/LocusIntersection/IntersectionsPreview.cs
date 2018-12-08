@@ -105,10 +105,12 @@ namespace Engine
         {
             // Check whether lines are points.
             if (a0X == b0X && a0Y == b0Y && a1X == b1X && a1Y == b1Y)
+            {
                 // Check whether the points are the same.
                 return (a0X == a1X && a0Y == a1Y)
                     // Points are the same any point will do.
                     ? new PointLocus(a0X, a0Y) : (Locus)new EmptyLocus();
+            }
             else if (a0X == b0X && a0Y == b0Y)
             {
                 // Check for intersection.
@@ -143,9 +145,11 @@ namespace Engine
 
             // Check if the lines are parallel or coincident.
             if (det1 == 0)
+            {
                 return (det3 == 0 || det2 == 0)
                     ? new CoincidentLineLocus()
                     : (Locus)new ParallelLocus();
+            }
 
             // Find the index where the intersection point lies on the line.
             var start = det2 / det1;

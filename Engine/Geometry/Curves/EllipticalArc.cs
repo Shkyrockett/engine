@@ -272,9 +272,13 @@ namespace Engine
             sweepAngle = sign * Acos(p / n);
 
             if (!sweepFlag && sweepAngle > 0)
+            {
                 sweepAngle -= Tau;
+            }
             else if (sweepFlag && sweepAngle < 0)
+            {
                 sweepAngle += Tau;
+            }
 
             sweepAngle %= Tau;
             startAngle %= Tau;
@@ -1009,7 +1013,10 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this is null)
+            {
                 return nameof(Ellipse);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(EllipticalArc)}{{{nameof(Center)}={Center},{nameof(RX)}={rX},{nameof(RY)}={rY},{nameof(Angle)}={angle},{nameof(StartAngle)}={startAngle},{SweepAngle}={sweepAngle}}}";
             return formatable.ToString(format, provider);

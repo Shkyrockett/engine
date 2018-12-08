@@ -43,7 +43,11 @@ namespace Engine.Chrono
 
             yy = y - (12 - m) / 10;
             mm = m + 9;
-            if (mm >= 12) mm -= 12;
+            if (mm >= 12)
+            {
+                mm -= 12;
+            }
+
             k1 = (int)(365.25 * (yy + 4712));
             k2 = (int)(30.6001 * mm + 0.5);
             k3 = (int)(((yy / 100) + 49) * 0.75) - 38;

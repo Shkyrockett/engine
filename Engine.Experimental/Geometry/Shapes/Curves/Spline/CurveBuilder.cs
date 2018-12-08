@@ -185,7 +185,9 @@ namespace Engine
                     // our left tangent might be based on points outside the new curve (this is possible for mid tangents too
                     // but since we need to maintain C1 continuity, it's too late to do anything about it)
                     if (first == 0 && split < EndTangentNPoints)
+                    {
                         tanL = GetLeftTangent(split);
+                    }
 
                     // do a final pass on the first half of the curve
                     FitCurve(first, split, tanL, tanM1, out curve, out var unused);

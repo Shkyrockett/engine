@@ -53,7 +53,11 @@ namespace Engine
 
             // ----- Prepare the interface to the drop-down control.
             useService = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
-            if (uiDisplay is null) uiDisplay = new AngleControl();
+            if (uiDisplay is null)
+            {
+                uiDisplay = new AngleControl();
+            }
+
             uiDisplay.EditorService = useService;
             uiDisplay.Angle = (double)value;
 
@@ -78,16 +82,20 @@ namespace Engine
             if (!disposedValue)
             {
                 if (disposing)
+                {
                     if (uiDisplay != null)
+                    {
                         uiDisplay.Dispose();
+                    }
+                }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
+                // ToDo: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // ToDo: set large fields to null.
                 disposedValue = true;
             }
         }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ToDo: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
         // ~AngleEditor() {
         //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
         //   Dispose(false);
@@ -102,7 +110,7 @@ namespace Engine
             const bool v = true;
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(v);
-            // TODO: uncomment the following line if the finalizer is overridden above.
+            // ToDo: uncomment the following line if the finalizer is overridden above.
             //GC.SuppressFinalize(this);
         }
         #endregion IDisposable Support

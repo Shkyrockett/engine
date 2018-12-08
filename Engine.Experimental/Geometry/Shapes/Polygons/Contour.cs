@@ -41,7 +41,9 @@ namespace Engine
             get
             {
                 if (bounds != null)
+                {
                     return bounds;
+                }
 
                 var minX = double.PositiveInfinity;
                 var minY = double.PositiveInfinity;
@@ -51,13 +53,24 @@ namespace Engine
                 foreach (var p in points)
                 {
                     if (p.X > maxX)
+                    {
                         maxX = p.X;
+                    }
+
                     if (p.X < minX)
+                    {
                         minX = p.X;
+                    }
+
                     if (p.Y > maxY)
+                    {
                         maxY = p.Y;
+                    }
+
                     if (p.Y < minY)
+                    {
                         minY = p.Y;
+                    }
                 }
 
                 return bounds = new Rectangle2D(minX, minY, maxX - minX, maxY - minY);
@@ -72,7 +85,9 @@ namespace Engine
         public LineSegment GetSegment(int index)
         {
             if (index == points.Count - 1)
+            {
                 return new LineSegment(points[points.Count - 1], points[0]);
+            }
 
             return new LineSegment(points[index], points[index + 1]);
         }
@@ -102,15 +117,21 @@ namespace Engine
                         // Find where the line intersects...
                         var xInt = (p.Y - curr.Y) * (next.X - curr.X) / (next.Y - curr.Y) + curr.X;
                         if (curr.X == next.X || p.X <= xInt)
+                        {
                             intersections++;
+                        }
                     }
                 }
             }
 
             if (intersections % 2 == 0)
+            {
                 return false;
+            }
             else
+            {
                 return true;
+            }
         }
     }
 }

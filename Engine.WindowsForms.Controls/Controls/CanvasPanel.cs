@@ -110,7 +110,11 @@ namespace Engine.WindowsForms
         /// <param name="m">The m.</param>
         private void WmKeyChar(ref Message m)
         {
-            if (ProcessKeyMessage(ref m)) return;
+            if (ProcessKeyMessage(ref m))
+            {
+                return;
+            }
+
             DefWndProc(ref m);
         }
 
@@ -128,7 +132,10 @@ namespace Engine.WindowsForms
             OnMouseWheel(e);
             m.Result = (IntPtr)(e.Handled ? 0 : 1);
             // Forwarding the message to the parent window
-            if (!e.Handled) DefWndProc(ref m);
+            if (!e.Handled)
+            {
+                DefWndProc(ref m);
+            }
         }
 
         /// <summary>
@@ -145,7 +152,10 @@ namespace Engine.WindowsForms
             OnMouseWheelTilt(e);
             m.Result = (IntPtr)(e.Handled ? 0 : 1);
             // Forwarding the message to the parent window
-            if (!e.Handled) DefWndProc(ref m);
+            if (!e.Handled)
+            {
+                DefWndProc(ref m);
+            }
         }
 
         /// <summary>

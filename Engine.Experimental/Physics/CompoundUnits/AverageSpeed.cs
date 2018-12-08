@@ -49,7 +49,9 @@ namespace Engine.Physics
             {
                 double rSpeed = 0;
                 foreach (ISpeed cSpeed in Speed)
+                {
                     rSpeed += cSpeed.Value;
+                }
 
                 return rSpeed / Time.Value;
             }

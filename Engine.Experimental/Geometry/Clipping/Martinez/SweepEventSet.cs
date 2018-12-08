@@ -39,7 +39,9 @@ namespace Engine
         {
             var keyIndex = eventSet.IndexOf(key);
             if (keyIndex == -1)
+            {
                 return;
+            }
 
             eventSet.Splice(keyIndex, 1);
         }

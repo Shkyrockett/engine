@@ -257,10 +257,10 @@ namespace Engine
         /// Divide a Vector4D
         /// </summary>
         /// <param name="divisor">The Vector4D</param>
-        /// <param name="divedend">The divisor</param>
+        /// <param name="dividend">The divisor</param>
         /// <returns>A Vector4D divided by the divisor</returns>
-        public static Vector4D operator /(Vector4D divisor, double divedend)
-            => Divide4D1D(divisor.I, divisor.J, divisor.K, divisor.L, divedend);
+        public static Vector4D operator /(Vector4D divisor, double dividend)
+            => Divide4D1D(divisor.I, divisor.J, divisor.K, divisor.L, dividend);
 
         /// <summary>
         /// Divide a Vector4D
@@ -445,7 +445,19 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => ConvertToString(null, CultureInfo.InvariantCulture);
+            => ConvertToString(string.Empty, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Vector4D"/> struct based on the IFormatProvider
+        /// passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>
+        /// A string representation of this instance as specified by provider.
+        /// </returns>
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector4D"/> struct based on the format string

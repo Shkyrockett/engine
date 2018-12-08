@@ -157,7 +157,10 @@ namespace Engine
         {
             var points = new List<Point2D>();
             foreach (var item in range)
+            {
                 points.Add(Interpolate(item));
+            }
+
             return points;
         }
         #endregion Interpolation
@@ -179,9 +182,14 @@ namespace Engine
         internal GraphicsObject OnUpdate(Action callback)
         {
             if (update is null)
+            {
                 update = callback;
+            }
             else
+            {
                 update += callback;
+            }
+
             return this;
         }
 
@@ -243,20 +251,20 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">todo: describe provider parameter on ToString</param>
+        /// <param name="provider">ToDo: describe provider parameter on ToString</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
@@ -288,7 +296,9 @@ namespace Engine
         public virtual string ConvertToString(string format, IFormatProvider provider)
         {
             if (this is null)
+            {
                 return nameof(GraphicsObject);
+            }
             //char sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(GraphicsObject)}";
             return formatable.ToString(format, provider);

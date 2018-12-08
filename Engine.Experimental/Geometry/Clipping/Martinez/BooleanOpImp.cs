@@ -509,13 +509,20 @@ namespace Engine
             while (newPos < resultEvents.Count && resultEvents[newPos].Point == resultEvents[pos].Point)
             {
                 if (!processed[newPos])
+                {
                     return newPos;
+                }
                 else
+                {
                     ++newPos;
+                }
             }
             newPos = pos - 1;
             while (processed[newPos])
+            {
                 --newPos;
+            }
+
             return newPos;
         }
 

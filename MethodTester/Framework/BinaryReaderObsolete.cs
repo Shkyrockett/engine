@@ -114,7 +114,10 @@ namespace Engine.File
                 buffer = ReadByte();
                 value <<= 7;
                 value += buffer & (uint)0x7F;
-                if ((buffer & 0x80) == 0) return value;
+                if ((buffer & 0x80) == 0)
+                {
+                    return value;
+                }
             }
 
             throw new FormatException("Invalid Var Int");
@@ -267,7 +270,9 @@ namespace Engine.File
                 value <<= 7;
                 value += buffer & 0x7F;
                 if ((buffer & 0x80) == 0)
+                {
                     return value;
+                }
             }
 
             throw new FormatException("Invalid Var Int");

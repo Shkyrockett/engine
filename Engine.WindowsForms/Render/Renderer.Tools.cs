@@ -117,7 +117,9 @@ namespace Engine.Imaging
             var dashPen = new Pen(Color.DarkGray, 1f) { DashPattern = new float[] { 3f, 3f } };
 
             if (shape?.Points.Count > 1 && shape.ConnectPoints)
+            {
                 g.DrawLines(dashPen, shape?.Points.ToPointFArray());
+            }
 
             foreach (var point in shape?.Points)
             {

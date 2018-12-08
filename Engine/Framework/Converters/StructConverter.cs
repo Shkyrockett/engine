@@ -205,6 +205,11 @@ namespace Engine
         /// <returns>The <see cref="T:object[]"/>.</returns>
         private object[] GetInstanceDescriptorObjects(IDictionary propertyValues)
         {
+            if (instanceCtorParamNames is null)
+            {
+                return null;
+            }
+
             var rv = new object[instanceCtorParamNames.Length];
             for (var index = 0; index < instanceCtorParamNames.Length; ++index)
             {

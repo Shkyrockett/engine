@@ -63,7 +63,9 @@ namespace Engine.Tweening
                 };
 
             foreach (Type numericType in numericTypes)
+            {
                 RegisterLerper<NumericLerper>(numericType);
+            }
 
             // Adding custom Lerpers. Normally these would be added to project initializer, but I want these global.
             RegisterLerper<Point2DLerper>(typeof(Point2D));
@@ -124,19 +126,25 @@ namespace Engine.Tweening
         public Tween Tween<T>(T target, object dests, double duration, double delay = 0, bool overwrite = true) where T : class
         {
             if (target is null)
+            {
                 throw new ArgumentNullException(nameof(target));
+            }
 
             // Prevent tweening on structs if you cheat by casting target as Object
             var targetType = target.GetType();
             if (targetType.IsValueType)
+            {
                 throw new Exception("Target of tween cannot be a struct!");
+            }
 
             var tween = new Tween(target, duration, delay, this);
             toAdd.Add(tween);
 
             // valid in case of manual timer
             if (dests is null)
+            {
                 return tween;
+            }
 
             var props = dests.GetType().GetProperties();
             for (var i = 0; i < props.Length; ++i)
@@ -144,7 +152,9 @@ namespace Engine.Tweening
                 if (overwrite && tweens.TryGetValue(target, out var library))
                 {
                     for (var j = 0; j < library.Count; j++)
+                    {
                         library[j].Cancel(props[i].Name);
+                    }
                 }
 
                 var property = props[i];
@@ -185,7 +195,9 @@ namespace Engine.Tweening
         public void CancelAndComplete()
         {
             foreach (Tween tween in allTweens)
+            {
                 tween.CancelAndComplete();
+            }
         }
 
         /// <summary>
@@ -194,7 +206,9 @@ namespace Engine.Tweening
         public void Pause()
         {
             foreach (var tween in allTweens)
+            {
                 tween.Pause();
+            }
         }
 
         /// <summary>
@@ -203,7 +217,9 @@ namespace Engine.Tweening
         public void PauseToggle()
         {
             foreach (var tween in allTweens)
+            {
                 tween.PauseToggle();
+            }
         }
 
         /// <summary>
@@ -212,7 +228,9 @@ namespace Engine.Tweening
         public void Resume()
         {
             foreach (var tween in allTweens)
+            {
                 tween.Resume();
+            }
         }
 
         /// <summary>
@@ -222,7 +240,9 @@ namespace Engine.Tweening
         public void Update(double ticksElapsed)
         {
             foreach (var tween in allTweens)
+            {
                 tween.Update(ticksElapsed);
+            }
 
             AddAndRemove();
         }
@@ -236,7 +256,9 @@ namespace Engine.Tweening
         private static MemberLerper CreateLerper(Type propertyType)
         {
             if (!RegisteredLerpers.TryGetValue(propertyType, out var lerper))
+            {
                 throw new Exception($"No {nameof(MemberLerper)} found for type {propertyType.FullName}.");
+            }
 
             return lerper.Invoke(null) as MemberLerper;
         }
@@ -258,9 +280,15 @@ namespace Engine.Tweening
                 allTweens.Add(tween);
 
                 // don't sort timers by target
-                if (tween.Target is null) continue;
+                if (tween.Target is null)
+                {
+                    continue;
+                }
+
                 if (!tweens.TryGetValue(tween.Target, out var list))
+                {
                     tweens[tween.Target] = list = new List<Tween>();
+                }
 
                 list.Add(tween);
             }
@@ -271,12 +299,17 @@ namespace Engine.Tweening
 
                 // don't sort timers by target
                 if (tween.Target is null)
+                {
                     continue;
+                }
+
                 if (tweens.TryGetValue(tween.Target, out var list))
                 {
                     list.Remove(tween);
                     if (list.Count == 0)
+                    {
                         tweens.Remove(tween.Target);
+                    }
                 }
 
                 allTweens.Remove(tween);
@@ -296,7 +329,9 @@ namespace Engine.Tweening
             if (tweens.TryGetValue(target, out var list))
             {
                 foreach (Tween tween in list)
+                {
                     tween.Cancel();
+                }
             }
         }
 
@@ -310,7 +345,9 @@ namespace Engine.Tweening
             if (tweens.TryGetValue(target, out var list))
             {
                 foreach (var tween in list)
+                {
                     tween.Cancel(properties);
+                }
             }
         }
 
@@ -323,7 +360,9 @@ namespace Engine.Tweening
             if (tweens.TryGetValue(target, out var list))
             {
                 foreach (var tween in list)
+                {
                     tween.CancelAndComplete();
+                }
             }
         }
 
@@ -336,7 +375,9 @@ namespace Engine.Tweening
             if (tweens.TryGetValue(target, out var list))
             {
                 foreach (var tween in list)
+                {
                     tween.Pause();
+                }
             }
         }
 
@@ -349,7 +390,9 @@ namespace Engine.Tweening
             if (tweens.TryGetValue(target, out var list))
             {
                 foreach (var tween in list)
+                {
                     tween.PauseToggle();
+                }
             }
         }
 
@@ -362,7 +405,9 @@ namespace Engine.Tweening
             if (tweens.TryGetValue(target, out var list))
             {
                 foreach (var tween in list)
+                {
                     tween.Resume();
+                }
             }
         }
         #endregion Target Control

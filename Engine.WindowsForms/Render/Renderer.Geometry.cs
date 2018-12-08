@@ -202,7 +202,9 @@ namespace Engine.Imaging
             // Start the Path object.
             var path = new GraphicsPath();
             foreach (PolygonContour shape in set.Contours)
+            {
                 path.AddPolygon(shape.Points.ToPointFArray());
+            }
 
             g.FillPath(itemStyle.BackBrush, path);
             g.DrawPath(itemStyle.ForePen, path);
@@ -259,7 +261,10 @@ namespace Engine.Imaging
             }
 
             // Close the path.
-            if (shape.Closed) path.CloseFigure();
+            if (shape.Closed)
+            {
+                path.CloseFigure();
+            }
 
             //  Draw the path.
             g.FillPath(itemStyle.BackBrush, path);
@@ -319,7 +324,10 @@ namespace Engine.Imaging
                 }
 
                 // Close the path.
-                if (shape.Closed) path.CloseFigure();
+                if (shape.Closed)
+                {
+                    path.CloseFigure();
+                }
             }
 
             //  Draw the path.

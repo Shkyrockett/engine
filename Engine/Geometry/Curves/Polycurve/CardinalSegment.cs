@@ -48,7 +48,21 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
+        public override Point2D? Start
+        {
+            get { return Previous?.End; }
+            set
+            {
+                if (Previous is null)
+                {
+                    Previous = new PointSegment(value);
+                }
+                else
+                {
+                    Previous.End = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the central points.
@@ -82,7 +96,21 @@ namespace Engine
         /// Gets or sets the end.
         /// </summary>
         [DataMember, XmlElement, SoapElement]
-        public override Point2D? End { get { return CentralPoints[CentralPoints.Count - 1]; } set { CentralPoints[CentralPoints.Count - 1] = value.Value; } }
+        public override Point2D? End
+        {
+            get { return CentralPoints?[CentralPoints.Count - 1]; }
+            set
+            {
+                if (CentralPoints is null)
+                {
+                    CentralPoints = new List<Point2D> { value.Value };
+                }
+                else
+                {
+                    CentralPoints[CentralPoints.Count - 1] = value.Value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets the grips.
@@ -93,7 +121,7 @@ namespace Engine
         {
             get
             {
-                var result = new List<Point2D> { Start.Value  };
+                var result = new List<Point2D> { Start.Value };
                 result.AddRange(CentralPoints);
                 result.Add(End.Value);
                 return result;

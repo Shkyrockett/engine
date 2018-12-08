@@ -15,7 +15,18 @@ namespace Engine.Experimental
     /// </summary>
     public class LinkedPoint
     {
-        #region Properties
+        public LinkedPoint()
+        {
+        }
+
+        public LinkedPoint(Point2D pt, LinkedPoint next, LinkedPoint prev)
+        {
+            Pt = pt;
+            Next = next;
+            Prev = prev;
+        }
+ 
+       #region Properties
         /// <summary>
         /// The pt.
         /// </summary>

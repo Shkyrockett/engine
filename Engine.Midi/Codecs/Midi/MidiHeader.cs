@@ -65,7 +65,10 @@ namespace Engine.File
         internal static MidiHeader Read(BinaryReaderExtended reader, Chunk chunk)
         {
             //string id = reader.ReadASCIIBytes(4);
-            if (string.IsNullOrWhiteSpace(chunk.Id)) return null;
+            if (string.IsNullOrWhiteSpace(chunk.Id))
+            {
+                return null;
+            }
 
             var header = new MidiHeader
             {
@@ -74,7 +77,10 @@ namespace Engine.File
                 TrackCount = (ushort)reader.ReadNetworkInt16(),
                 DeltaTime = DeltaTime.Read(reader)
             };
-            if (chunk.Id != header.ID) return null;
+            if (chunk.Id != header.ID)
+            {
+                return null;
+            }
 
             return header;
         }

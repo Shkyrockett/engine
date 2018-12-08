@@ -57,7 +57,7 @@ namespace Engine
         /// </summary>
         public PolylineSet(IEnumerable<Polyline> polylines)
         {
-            this.polylines = polylines as List<Polyline>;
+            this.polylines = polylines as List<Polyline> ?? new List<Polyline>();
         }
 
         /// <summary>
@@ -124,7 +124,9 @@ namespace Engine
                 var bounds = polylines[0].Bounds;
 
                 foreach (Polyline polyline in polylines)
+                {
                     bounds.UnionMutate(polyline.Bounds);
+                }
 
                 return bounds;
             }
@@ -209,7 +211,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(PolylineSet);
+            if (this is null)
+            {
+                return nameof(PolylineSet);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(PolylineSet)}{{{string.Join(sep.ToString(), Polylines)}}}";
             return formatable.ToString(format, provider);

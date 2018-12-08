@@ -90,7 +90,9 @@ namespace Engine.Experimental
                 var count = 0;
 
                 foreach (BoundsQuadTreeNode<T> node in nodes)
+                {
                     count += node.Count;
+                }
 
                 count += Contents.Count;
 
@@ -108,7 +110,9 @@ namespace Engine.Experimental
                 var results = new List<T>();
 
                 foreach (BoundsQuadTreeNode<T> node in nodes)
+                {
                     results.AddRange(node.SubTreeContents);
+                }
 
                 results.AddRange(Contents);
                 return results;
@@ -139,13 +143,17 @@ namespace Engine.Experimental
             foreach (T item in Contents)
             {
                 if (queryArea.IntersectsWith(item.Bounds))
+                {
                     results.Add(item);
+                }
             }
 
             foreach (BoundsQuadTreeNode<T> node in nodes)
             {
                 if (node.IsEmpty)
+                {
                     continue;
+                }
 
                 // Case 1: search area completely contained by sub-quad
                 // if a node completely contains the query area, go down that branch
@@ -195,7 +203,9 @@ namespace Engine.Experimental
             // if the sub-nodes are null create them. may not be successful: see below
             // we may be at the smallest allowed size in which case the sub-nodes will not be created
             if (nodes.Count == 0)
+            {
                 CreateSubNodes();
+            }
 
             // for each sub-node:
             // if the node contains the item, add the item to that node and return
@@ -226,7 +236,9 @@ namespace Engine.Experimental
 
             // draw the child quads
             foreach (BoundsQuadTreeNode<T> node in nodes)
+            {
                 node.ForEach(action);
+            }
         }
 
         /// <summary>
@@ -236,7 +248,9 @@ namespace Engine.Experimental
         {
             // the smallest sub-node has an area 
             if ((bounds.Height * bounds.Width) <= 10)
+            {
                 return;
+            }
 
             var halfWidth = bounds.Width * OneHalf;
             var halfHeight = bounds.Height * OneHalf;
@@ -254,7 +268,11 @@ namespace Engine.Experimental
         /// <param name="funFind">The funFind.</param>
         public void EchoSubTreeContents(BoundsQuadTree<T>.Find funFind)
         {
-            foreach (BoundsQuadTreeNode<T> node in nodes) node.EchoSubTreeContents(funFind);
+            foreach (BoundsQuadTreeNode<T> node in nodes)
+            {
+                node.EchoSubTreeContents(funFind);
+            }
+
             for (var i = 0; i < Contents.Count; i++)
             {
                 if (funFind(Contents[i]))
@@ -276,12 +294,18 @@ namespace Engine.Experimental
             {
                 foreach (T item in Contents)
                 {
-                    if (queryArea.IntersectsWith(item.Bounds) && funFind(item)) Contents.Remove(item);
+                    if (queryArea.IntersectsWith(item.Bounds) && funFind(item))
+                    {
+                        Contents.Remove(item);
+                    }
                 }
             }
             foreach (BoundsQuadTreeNode<T> node in nodes)
             {
-                if (node.IsEmpty) continue;
+                if (node.IsEmpty)
+                {
+                    continue;
+                }
 
                 if (node.Bounds.Contains(queryArea))
                 {

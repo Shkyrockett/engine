@@ -186,7 +186,10 @@ namespace Engine
                 {
                     case PointSegment p:
                         if (p != result[0])
+                        {
                             result.Add(Process(p.Start.Value));
+                        }
+
                         continue;
                     case LineCurveSegment l:
                         {

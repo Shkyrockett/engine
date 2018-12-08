@@ -36,9 +36,14 @@ namespace Engine
             {
                 var num = current;
                 if (num == 0)
+                {
                     num = 0x7e53a269;
+                }
                 else
+                {
                     num *= -0x5aaaaad7;
+                }
+
                 num += hash;
                 num += num << 10;
                 num ^= num >> 6;

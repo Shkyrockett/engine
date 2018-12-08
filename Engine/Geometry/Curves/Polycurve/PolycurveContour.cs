@@ -54,7 +54,7 @@ namespace Engine
         /// </summary>
         public PolycurveContour()
         {
-            Items = new List<CurveSegment>();
+            items = new List<CurveSegment>();
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Engine
         /// <param name="start">The start.</param>
         public PolycurveContour(Point2D start)
         {
-            Items = new List<CurveSegment>
+            items = new List<CurveSegment>
             {
                 new PointSegment(start)
             };
@@ -75,9 +75,9 @@ namespace Engine
         /// <param name="polygon">The polygon.</param>
         public PolycurveContour(PolygonContour polygon)
         {
-            Items = new List<CurveSegment>();
+            items = new List<CurveSegment>();
             CurveSegment cursor = new PointSegment(polygon[0]);
-            Items.Add(cursor);
+            items.Add(cursor);
             for (var i = 1; i < polygon.Count; i++)
             {
                 cursor = new LineCurveSegment(cursor, polygon[i]);
@@ -91,7 +91,7 @@ namespace Engine
         /// <param name="items">The items.</param>
         public PolycurveContour(List<CurveSegment> items)
         {
-            Items = items;
+            this.items = items;
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Engine
         /// <param name="curves">The curves.</param>
         public PolycurveContour(CubicBezier[] curves)
         {
-            Items = new List<CurveSegment> { new PointSegment(curves[0].A) };
+            items = new List<CurveSegment> { new PointSegment(curves[0].A) };
             foreach (var curve in curves)
             {
                 AddCubicBezier(curve.B, curve.C, curve.D);
@@ -280,10 +280,17 @@ namespace Engine
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
         {
-            if (t == 0) return Items[0].Start.Value;
-            if (t == 1) return Items[Items.Count - 1].End.Value;
+            if (t == 0)
+            {
+                return Items[0].Start.Value;
+            }
 
-            var weights = new(double length, double accumulated)[Items.Count];
+            if (t == 1)
+            {
+                return Items[Items.Count - 1].End.Value;
+            }
+
+            var weights = new (double length, double accumulated)[Items.Count];
             var cursor = Items[0].End.Value;
             double accumulatedLength = 0;
 
@@ -355,9 +362,13 @@ namespace Engine
                     break;
                 case LineSegment p:
                     if (p.A == Items[Items.Count - 1].End)
+                    {
                         AddLineSegment(p.B);
+                    }
                     else if (p.B == Items[Items.Count - 1].End)
+                    {
                         AddLineSegment(p.A);
+                    }
                     else
                     {
                         AddLineSegment(p.A);
@@ -679,7 +690,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
         private string ToPathDefString()
-            => ToPathDefString(null, CultureInfo.InvariantCulture);
+            => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The to path def string.

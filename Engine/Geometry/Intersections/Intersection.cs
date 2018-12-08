@@ -156,7 +156,10 @@ namespace Engine
         public void AppendPoint(Point2D point)
         {
             if (Points is null)
+            {
                 Points = new List<Point2D>();
+            }
+
             Points.Add(point);
         }
 
@@ -167,11 +170,18 @@ namespace Engine
         public void AppendPoints(List<Point2D> points)
         {
             if (points is null)
+            {
                 return;
+            }
+
             if (Points is null)
+            {
                 Points = points;
+            }
             else
+            {
                 Points.AddRange(points);
+            }
         }
 
         /// <summary>
@@ -180,9 +190,14 @@ namespace Engine
         /// <param name="points">The points.</param>
         public void AppendPoints(HashSet<Point2D> points)
         {
-            if (Points is null) Points = points.ToList();
+            if (Points is null)
+            {
+                Points = points.ToList();
+            }
             else
+            {
                 Points.AddRange(points);
+            }
         }
         #endregion Mutators
 
@@ -246,7 +261,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Intersection"/> struct based on the IFormatProvider
@@ -257,7 +272,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// The to string.

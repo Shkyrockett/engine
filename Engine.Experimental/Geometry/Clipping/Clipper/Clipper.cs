@@ -128,7 +128,7 @@ namespace Engine.Experimental
             }
 
             //now set orientation ...
-            var swapSideNeeded = false;    //todo: recheck this with open paths
+            var swapSideNeeded = false;    //ToDo: recheck this with open paths
             if (e1.IsHorizontal())
             {
                 swapSideNeeded |= e1.Top.X > e1.Bot.X;

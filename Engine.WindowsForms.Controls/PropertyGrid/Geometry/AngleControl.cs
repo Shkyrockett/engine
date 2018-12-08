@@ -101,8 +101,15 @@ namespace Engine
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             var tabControl = sender as TabControl;
-            if (tabControl.SelectedIndex == 0) method = Angles.Degree;
-            else if (tabControl.SelectedIndex == 1) method = Angles.Radian;
+            if (tabControl.SelectedIndex == 0)
+            {
+                method = Angles.Degree;
+            }
+            else if (tabControl.SelectedIndex == 1)
+            {
+                method = Angles.Radian;
+            }
+
             switch (method)
             {
                 case Angles.Degree:
@@ -177,7 +184,9 @@ namespace Engine
         private void NumericUpDown_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
+            {
                 EditorService.CloseDropDown();
+            }
         }
 
         /// <summary>

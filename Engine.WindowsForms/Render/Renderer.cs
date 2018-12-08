@@ -145,7 +145,11 @@ namespace Engine.Imaging
         public static void Render(this Text2D shape, Graphics g, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
-            g.DrawString(shape.Text, shape.Font.ToFont(), itemStyle.ForeBrush, shape.Bounds.ToRectangleF());
+            var layoutRectangle = shape?.Bounds?.ToRectangleF();
+            if (!(layoutRectangle is null))
+            {
+                g.DrawString(shape.Text, shape.Font.ToFont(), itemStyle.ForeBrush, layoutRectangle.Value);
+            }
         }
     }
 }

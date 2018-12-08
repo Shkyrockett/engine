@@ -67,11 +67,19 @@ namespace Engine.Colorspace
             }
 
             if (red == max)
+            {
                 h = (green - blue) / delta;       // between yellow & magenta
-            else h = green == max ? 2 + (blue - red) / delta : 4 + (red - green) / delta;   // between magenta & cyan
+            }
+            else
+            {
+                h = green == max ? 2 + (blue - red) / delta : 4 + (red - green) / delta;   // between magenta & cyan
+            }
+
             h *= 60;               // degrees
             if (h < 0)
+            {
                 h += 360;
+            }
 
             Alpha = color.Alpha;
             Hue = h;

@@ -103,7 +103,11 @@ namespace Engine
         {
             get
             {
-                if (Points is null) return null;
+                if (Points is null)
+                {
+                    return null;
+                }
+
                 var boundings = Measurements.PolygonBounds(Points);
                 boundings?.Inflate(Radius, Radius);
                 return boundings;
@@ -121,7 +125,10 @@ namespace Engine
         {
             foreach (var pt in Points)
             {
-                if (Intersections.CircleContainsPoint(pt.X, pt.Y, Radius, point.X, point.Y) != Inclusion.Outside) return true;
+                if (Intersections.CircleContainsPoint(pt.X, pt.Y, Radius, point.X, point.Y) != Inclusion.Outside)
+                {
+                    return true;
+                }
             }
 
             return false;

@@ -41,7 +41,9 @@ namespace Engine
             : this(args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
             if (relitive)
+            {
                 Start = (Point2D)(Start + previous.End);
+            }
         }
 
         /// <summary>
@@ -55,7 +57,9 @@ namespace Engine
             : this(startPoint)
         {
             if (relitive)
+            {
                 Start = (Point2D)(Start + previous.End);
+            }
         }
 
         /// <summary>

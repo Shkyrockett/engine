@@ -66,7 +66,9 @@ namespace Engine
             Itersecting = Intersects;
             Paralell = Parallel;
             if (Parallel)
+            {
                 Type = IntersectionState.Parallel;
+            }
         }
 
         /// <summary>
@@ -81,7 +83,9 @@ namespace Engine
             Itersecting = Intersects;
             Paralell = Parallel;
             if (Parallel)
+            {
                 Type = IntersectionState.Parallel;
+            }
         }
 
         /// <summary>

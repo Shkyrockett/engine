@@ -61,7 +61,9 @@ namespace Engine
         {
             var list = value as IList;
             if (list is null || list.Count == 0)
+            {
                 return base.GetProperties(context, value, attributes);
+            }
 
             var propertyDescriptors = new PropertyDescriptorCollection(null);
 

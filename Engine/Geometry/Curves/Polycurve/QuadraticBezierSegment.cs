@@ -100,7 +100,21 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
+        public override Point2D? Start
+		{
+		    get { return Previous.End; }
+			set
+			{
+			    if (Previous is null)
+				{
+				    Previous = new PointSegment(value);
+                }
+                else
+                {
+                    Previous.End = value;
+				}
+			}
+		}
 
         /// <summary>
         /// Gets or sets the handle.

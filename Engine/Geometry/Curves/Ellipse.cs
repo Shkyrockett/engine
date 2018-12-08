@@ -464,7 +464,10 @@ namespace Engine
                 var bounds1 = Bounds;
                 var aspect = Aspect;
                 var bounds2 = value;
-                var locDif = bounds2.Location - bounds1.Location;
+
+                var locDif = bounds1 is null
+                    ? bounds2 is null ? Vector2D.Empty : (Vector2D)bounds2.Location
+                    : bounds2 is null ? (Vector2D)bounds1.Location : bounds2.Location - bounds1.Location;
                 var scaleDif = bounds2.Size - bounds1.Size;
                 Center += locDif;
                 if (aspect > 1)
@@ -584,7 +587,10 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this is null)
+            {
                 return nameof(Ellipse);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Ellipse)}{{{nameof(Center)}={Center},{nameof(RX)}={rX},{nameof(RY)}={rY},{nameof(Angle)}={angle}}}";
             return formatable.ToString(format, provider);

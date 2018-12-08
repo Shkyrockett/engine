@@ -71,7 +71,7 @@ namespace Engine
         /// </summary>
         public Polygon(IEnumerable<PolygonContour> contours)
         {
-            this.contours = contours as List<PolygonContour>;
+            this.contours = contours as List<PolygonContour> ?? new List<PolygonContour>();
         }
 
         /// <summary>
@@ -185,7 +185,9 @@ namespace Engine
             {
                 var verticesCount = 0;
                 foreach (var c in contours)
+                {
                     verticesCount += c.Points.Count;
+                }
 
                 return verticesCount;
             }
@@ -216,12 +218,16 @@ namespace Engine
                 Rectangle2D bounds(List<PolygonContour> contours)
                 {
                     if (contours.Count == 0)
+                    {
                         return Rectangle2D.Empty;
+                    }
 
                     var bb = contours[0]?.Bounds;
 
                     foreach (PolygonContour c in contours)
+                    {
                         bb = bb.Union(c.Bounds);
+                    }
 
                     return bb;
                 }
@@ -323,7 +329,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
         private string ToPathDefString()
-            => ToPathDefString(null, CultureInfo.InvariantCulture);
+            => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The to path def string.
@@ -438,7 +444,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(Polygon);
+            if (this is null)
+            {
+                return nameof(Polygon);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Polygon)}{{{string.Join(sep.ToString(), Contours)}}}";
             return formatable.ToString(format, provider);

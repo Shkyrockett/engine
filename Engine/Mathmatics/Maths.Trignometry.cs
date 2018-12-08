@@ -41,7 +41,7 @@ namespace Engine
             => radiens * Degree;
 
         /// <summary>
-        /// The polar to cartesian.
+        /// The polar to Cartesian.
         /// </summary>
         /// <param name="centerX">The centerX.</param>
         /// <param name="centerY">The centerY.</param>
@@ -67,7 +67,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// The cartesian to polar.
+        /// The Cartesian to polar.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -127,11 +127,20 @@ namespace Engine
             }
 
             if (quat.Pitch <= Epsilon)
+            {
                 quat.Pitch = 0d;
+            }
+
             if (quat.Yaw <= Epsilon)
+            {
                 quat.Yaw = 0d;
+            }
+
             if (quat.Roll <= Epsilon)
+            {
                 quat.Roll = 0d;
+            }
+
             return quat;
         }
 
@@ -145,7 +154,9 @@ namespace Engine
         public static double AbsoluteAngle(this double angle)
         {
             if (double.IsNaN(angle))
+            {
                 return angle;
+            }
             // ToDo: Need to do some testing to figure out which method is more appropriate.
             //double value = angle % Tau;
             //double value = IEEERemainder(angle, Tau);
@@ -178,7 +189,10 @@ namespace Engine
         public static double WrapAngleModulus(this double angle)
         {
             if (double.IsNaN(angle))
+            {
                 return angle;
+            }
+
             var value = angle % Tau;
             return (value <= -PI) ? value + Tau : value - Tau;
         }
@@ -193,7 +207,9 @@ namespace Engine
         public static double WrapAngle(this double angle)
         {
             if (double.IsNaN(angle))
+            {
                 return angle;
+            }
             // The IEEERemainder method works better than the % modulus operator in this case, even if it is slower.
             //double value = IEEERemainder(angle, Tau);
             // The active ingredient of the IEEERemainder method is extracted here for performance reasons.
@@ -363,11 +379,20 @@ namespace Engine
 
             // Find the elliptical t that matches the circular angle.
             if (Math.Abs(theta) == HalfPi || Math.Abs(theta) == Pau)
+            {
                 return angle;
+            }
+
             if (theta > HalfPi && theta < Pau)
+            {
                 return Atan(rx * Tan(theta) / ry) + PI;
+            }
+
             if (theta < -HalfPi && theta > -Pau)
+            {
                 return Atan(rx * Tan(theta) / ry) - PI;
+            }
+
             return Atan(rx * Tan(theta) / ry);
         }
 
@@ -398,48 +423,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the elliptical (cos(t), sin(t)) that matches the coordinates of a circular angle.
-        /// </summary>
-        /// <param name="cosA"></param>
-        /// <param name="sinA"></param>
-        /// <param name="rx">The first radius of the ellipse.</param>
-        /// <param name="ry">The second radius of the ellipse.</param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// Based on the answer by flup at: https://stackoverflow.com/a/17762156/7004229
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double cosT, double sinT) EllipticalPolarAngleVector0(double cosA, double sinA, double rx, double ry)
-        {
-            // Get angle.
-            var angle = Atan2(sinA, cosA);
-
-            // Wrap the angle between -2PI and 2PI.
-            var theta = angle % Tau;
-
-            // Find the elliptical t that matches the circular angle.
-            if (cosA == 1d)
-            {
-                return (cosA, sinA);
-            }
-            if (cosA < 0)
-            {
-                var t = Atan(rx * Tan(theta) / ry) + PI;
-                return (Cos(t), Sin(t));
-            }
-            if (cosA > 0)
-            {
-                var t = Atan(rx * Tan(theta) / ry) - PI;
-                return (Cos(t), Sin(t));
-            }
-            {
-                var t = Atan(rx * Tan(theta) / ry);
-                return (Cos(t), Sin(t));
-            }
-        }
-
-        /// <summary>
         /// Return a "correction" angle that converts a subtended angle to a parametric angle for an
         /// ellipse with radii a and b.
         /// </summary>
@@ -456,7 +439,9 @@ namespace Engine
         public static double SubtendedToParametric(double subtended, double a, double b)
         {
             if (a == b)
+            {
                 return 0;  /* circle needs no correction */
+            }
 
             var rx = Cos(subtended);  /* ray from the origin */
             var ry = Sin(subtended);
@@ -689,12 +674,21 @@ namespace Engine
         public static double InverseSine(double value)
         {
             if (value == 1)
+            {
                 return HalfPi;
+            }
+
             if (value == -1)
+            {
                 return -HalfPi;
+            }
+
             if (Math.Abs(value) < 1)
+            {
                 // Arc-sin(X)
                 return Atan(value / Sqrt(-value * value + 1));
+            }
+
             return 0;
         }
 
@@ -712,12 +706,21 @@ namespace Engine
         public static double InverseCosine(double value)
         {
             if (value == 1)
+            {
                 return 0;
+            }
+
             if (value == -1)
+            {
                 return PI;
+            }
+
             if (Math.Abs(value) < 1)
+            {
                 // Arc-cos(X)
                 return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
+            }
+
             return 0;
         }
 
@@ -735,12 +738,21 @@ namespace Engine
         public static double InverseSecant(double value)
         {
             if (value == 1)
+            {
                 return 0;
+            }
+
             if (value == -1)
+            {
                 return PI;
+            }
+
             if (Math.Abs(value) < 1)
+            {
                 // Arc-sec(X)
                 return Atan(value / Sqrt(value * value - 1)) + Sin(value - 1) * (2 * Atan(1));
+            }
+
             return 0;
         }
 
@@ -758,12 +770,21 @@ namespace Engine
         public static double InverseCosecant(double value)
         {
             if (value == 1)
+            {
                 return HalfPi;
+            }
+
             if (value == -1)
+            {
                 return -HalfPi;
+            }
+
             if (Math.Abs(value) < 1)
+            {
                 // Arc-co-sec(X)
                 return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
+            }
+
             return 0;
         }
 

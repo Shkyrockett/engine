@@ -78,7 +78,11 @@ namespace Engine
         /// <param name="v">The v.</param>
         public void Push(T v)
         {
-            if (Count >= heap.Length) Array.Resize(ref heap, Count * 2);
+            if (Count >= heap.Length)
+            {
+                Array.Resize(ref heap, Count * 2);
+            }
+
             heap[Count] = v;
             SiftUp(Count);
             //SiftUp(Count++);
@@ -93,7 +97,11 @@ namespace Engine
             var v = Top();
             heap[0] = heap[Count];
             //heap[0] = heap[--Count];
-            if (Count > 0) SiftDown(0);
+            if (Count > 0)
+            {
+                SiftDown(0);
+            }
+
             return v;
         }
 
@@ -104,7 +112,11 @@ namespace Engine
         /// <exception cref="InvalidOperationException">The priority queue is empty.</exception>
         public T Top()
         {
-            if (Count > 0) return heap[0];
+            if (Count > 0)
+            {
+                return heap[0];
+            }
+
             throw new InvalidOperationException("The priority queue is empty.");
         }
 
@@ -116,7 +128,10 @@ namespace Engine
         {
             var v = heap[n];
             for (var n2 = n / 2; n > 0 && comparer.Compare(v, heap[n2]) > 0; n = n2, n2 /= 2)
+            {
                 heap[n] = heap[n2];
+            }
+
             heap[n] = v;
         }
 
@@ -129,8 +144,16 @@ namespace Engine
             var v = heap[n];
             for (var n2 = n * 2; n2 < Count; n = n2, n2 *= 2)
             {
-                if (n2 + 1 < Count && comparer.Compare(heap[n2 + 1], heap[n2]) > 0) n2++;
-                if (comparer.Compare(v, heap[n2]) >= 0) break;
+                if (n2 + 1 < Count && comparer.Compare(heap[n2 + 1], heap[n2]) > 0)
+                {
+                    n2++;
+                }
+
+                if (comparer.Compare(v, heap[n2]) >= 0)
+                {
+                    break;
+                }
+
                 heap[n] = heap[n2];
             }
             heap[n] = v;

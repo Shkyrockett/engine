@@ -144,7 +144,10 @@ namespace Engine
             {
                 var test = X * Y + Z * W;
                 if (Abs(test) > 0.499d) // singularitY at north and south pole
+                {
                     return 0d;
+                }
+
                 return Atan2(2d * X * W - 2d * Y * Z, 1d - 2d * X * X - 2d * Z * Z);
             }
         }
@@ -164,7 +167,10 @@ namespace Engine
             {
                 var test = X * Y + Z * W;
                 if (Abs(test) > 0.499d) // singularitY at north and south pole
+                {
                     return Sign(test) * 2d * Atan2(X, W);
+                }
+
                 return Atan2(2d * Y * W - 2d * X * Z, 1d - 2d * Y * Y - 2d * Z * Z);
             }
         }
@@ -184,7 +190,10 @@ namespace Engine
             {
                 var test = X * Y + Z * W;
                 if (Abs(test) > 0.499d) // singularitY at north and south pole
+                {
                     return Sign(test) * HalfPi;
+                }
+
                 return Asin(2d * test);
             }
         }
@@ -658,7 +667,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="QuaternionD"/> struct based on the IFormatProvider
@@ -670,7 +679,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="QuaternionD"/> class based on the format string

@@ -115,7 +115,9 @@ namespace Engine.WindowsForms
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this is null)
+            {
                 return nameof(Text2D);
+            }
             //var sep = ',';// Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Text2D)}{{{nameof(Text)}=\"{Text}\",{nameof(Font)}={Font},{nameof(Location)}={Location},{nameof(Limits)}={Limits}}}";
             return formatable.ToString(format, provider);

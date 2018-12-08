@@ -838,7 +838,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the IFormatProvider
@@ -848,7 +848,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the format string
@@ -873,7 +873,10 @@ namespace Engine
         /// </returns>
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            if (IsIdentity) return nameof(Identity);
+            if (IsIdentity)
+            {
+                return nameof(Identity);
+            }
             // Helper to get the numeric list separator for a given culture.
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Matrix4x4D)}{{{nameof(M0x0)}={M0x0}{sep}{nameof(M0x1)}={M0x1}{sep}{nameof(M0x2)}={M0x2}{sep}{nameof(M0x3)}={M0x3}{sep}{nameof(M1x0)}={M1x0}{sep}{nameof(M1x1)}={M1x1}{sep}{nameof(M1x2)}={M1x2}{sep}{nameof(M1x3)}={M1x3}{sep}{nameof(M2x0)}={M2x0}{sep}{nameof(M2x1)}={M2x1}{sep}{nameof(M2x2)}={M2x2}{sep}{nameof(M2x3)}={M2x3}{sep}{nameof(M3x0)}={M3x0}{sep}{nameof(M3x1)}={M3x1}{sep}{nameof(M3x2)}={M3x2}{sep}{nameof(M3x3)}={M3x3}}}";

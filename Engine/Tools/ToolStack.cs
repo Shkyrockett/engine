@@ -368,7 +368,10 @@ namespace Engine.Tools
         /// <param name="location">The location.</param>
         public void MouseMove(Point2D location)
         {
-            if (mouseLocation != location) MouseLocation = location;
+            if (mouseLocation != location)
+            {
+                MouseLocation = location;
+            }
         }
 
         /// <summary>
@@ -380,11 +383,30 @@ namespace Engine.Tools
         {
             if (buttons != MouseButtons.None)
             {
-                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != Verticality.Up) MouseLeftButtonStatus = Verticality.Up;
-                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != Verticality.Up) MouseMiddleButtonStatus = Verticality.Up;
-                if (buttons == MouseButtons.Right && MouseRightButtonStatus != Verticality.Up) MouseRightButtonStatus = Verticality.Up;
-                if (buttons == MouseButtons.Back && MouseBackButtonStatus != Verticality.Up) MouseBackButtonStatus = Verticality.Up;
-                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != Verticality.Up) MouseForwardButtonStatus = Verticality.Up;
+                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != Verticality.Up)
+                {
+                    MouseLeftButtonStatus = Verticality.Up;
+                }
+
+                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != Verticality.Up)
+                {
+                    MouseMiddleButtonStatus = Verticality.Up;
+                }
+
+                if (buttons == MouseButtons.Right && MouseRightButtonStatus != Verticality.Up)
+                {
+                    MouseRightButtonStatus = Verticality.Up;
+                }
+
+                if (buttons == MouseButtons.Back && MouseBackButtonStatus != Verticality.Up)
+                {
+                    MouseBackButtonStatus = Verticality.Up;
+                }
+
+                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != Verticality.Up)
+                {
+                    MouseForwardButtonStatus = Verticality.Up;
+                }
             }
         }
 
@@ -397,11 +419,30 @@ namespace Engine.Tools
         {
             if (buttons != MouseButtons.None)
             {
-                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != Verticality.Down) MouseLeftButtonStatus = Verticality.Down;
-                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != Verticality.Down) MouseMiddleButtonStatus = Verticality.Down;
-                if (buttons == MouseButtons.Right && MouseRightButtonStatus != Verticality.Down) MouseRightButtonStatus = Verticality.Down;
-                if (buttons == MouseButtons.Back && MouseBackButtonStatus != Verticality.Down) MouseBackButtonStatus = Verticality.Down;
-                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != Verticality.Down) MouseForwardButtonStatus = Verticality.Down;
+                if (buttons == MouseButtons.Left && MouseLeftButtonStatus != Verticality.Down)
+                {
+                    MouseLeftButtonStatus = Verticality.Down;
+                }
+
+                if (buttons == MouseButtons.Middle && MouseMiddleButtonStatus != Verticality.Down)
+                {
+                    MouseMiddleButtonStatus = Verticality.Down;
+                }
+
+                if (buttons == MouseButtons.Right && MouseRightButtonStatus != Verticality.Down)
+                {
+                    MouseRightButtonStatus = Verticality.Down;
+                }
+
+                if (buttons == MouseButtons.Back && MouseBackButtonStatus != Verticality.Down)
+                {
+                    MouseBackButtonStatus = Verticality.Down;
+                }
+
+                if (buttons == MouseButtons.Forward && MouseForwardButtonStatus != Verticality.Down)
+                {
+                    MouseForwardButtonStatus = Verticality.Down;
+                }
             }
         }
 

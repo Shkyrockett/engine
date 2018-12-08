@@ -26,11 +26,15 @@ namespace Engine
         {
             //Check whether the compared objects reference the same data.
             if (ReferenceEquals(x, y))
+            {
                 return true;
+            }
 
             //Check whether any of the compared objects is null.
             if (x is null || y is null)
+            {
                 return false;
+            }
 
             //Check whether the products' properties are equal.
             return x == y && x == y;
@@ -46,7 +50,9 @@ namespace Engine
         {
             //Check whether the object is null
             if (pair is null)
+            {
                 return 0;
+            }
 
             //Calculate the hash code for the product.
             return pair.GetHashCode();

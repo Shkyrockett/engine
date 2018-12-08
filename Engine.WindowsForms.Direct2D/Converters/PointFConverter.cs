@@ -27,7 +27,9 @@ namespace Engine
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
+            {
                 return true;
+            }
 
             return base.CanConvertFrom(context, sourceType);
         }
@@ -41,7 +43,9 @@ namespace Engine
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
+            {
                 return true;
+            }
 
             return base.CanConvertTo(context, destinationType);
         }
@@ -53,24 +57,34 @@ namespace Engine
         {
             var str = value as string;
             if (str is null)
+            {
                 return base.ConvertFrom(context, culture, value);
+            }
 
             var str2 = str.Trim();
             if (str2.Length == 0)
+            {
                 return null;
+            }
 
             if (culture is null)
+            {
                 culture = CultureInfo.CurrentCulture;
+            }
 
             var ch = culture.TextInfo.ListSeparator[0];
             var strArray = str2.Split(new char[] { ch });
             var numArray = new float[strArray.Length];
             var converter = TypeDescriptor.GetConverter(typeof(float));
             for (var i = 0; i < numArray.Length; i++)
+            {
                 numArray[i] = (float)converter.ConvertFromString(context, culture, strArray[i]);
+            }
 
             if (numArray.Length != 2)
+            {
                 throw new ArgumentException("Parse failed.");
+            }
 
             return new PointF(numArray[0], numArray[1]);
         }
@@ -81,7 +95,9 @@ namespace Engine
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType is null)
+            {
                 throw new ArgumentNullException(nameof(destinationType));
+            }
 
             if (value is PointF)
             {
@@ -89,7 +105,9 @@ namespace Engine
                 {
                     var point = (PointF)value;
                     if (culture is null)
+                    {
                         culture = CultureInfo.CurrentCulture;
+                    }
 
                     var separator = culture.TextInfo.ListSeparator + " ";
                     var converter = TypeDescriptor.GetConverter(typeof(float));
@@ -104,7 +122,9 @@ namespace Engine
                     var point2 = (PointF)value;
                     var constructor = typeof(PointF).GetConstructor(new Type[] { typeof(float), typeof(float) });
                     if (constructor != null)
+                    {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { point2.X, point2.Y });
+                    }
                 }
             }
 
@@ -127,9 +147,13 @@ namespace Engine
         public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)
         {
             if (propertyValues != null)
+            {
                 return new PointF((float)propertyValues["X"], (float)propertyValues["Y"]);
+            }
             else
+            {
                 return null;
+            }
         }
     }
 }

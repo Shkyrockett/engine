@@ -61,21 +61,21 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="ParametricDelegateCurve"/> class.
         /// </summary>
-        /// <param name="interpolater">The interpolater.</param>
+        /// <param name="interpolator">The interpolator.</param>
         /// <param name="pointIntersector">The pointIntersector.</param>
         /// <param name="location">The location.</param>
         /// <param name="scale">The scale.</param>
         /// <param name="rotation">The rotation.</param>
         /// <param name="precision">The precision.</param>
         public ParametricDelegateCurve(
-            Func<double, double, double, double, double, double, Point2D> interpolater,
+            Func<double, double, double, double, double, double, Point2D> interpolator,
             Func<double, double, double, double, double, double, double, Inclusion> pointIntersector,
             Point2D location,
             Size2D scale,
             double rotation = 0d,
             double precision = 0.1d)
         {
-            Interpolater = interpolater;
+            Interpolator = interpolator;
             PointIntersector = pointIntersector;
             Location = location;
             Scale = scale;
@@ -105,11 +105,11 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// Gets or sets the interpolater.
+        /// Gets or sets the interpolator.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
-        public Func<double, double, double, double, double, double, Point2D> Interpolater { get; set; }
+        public Func<double, double, double, double, double, double, Point2D> Interpolator { get; set; }
 
         /// <summary>
         /// Gets or sets the point intersector.
@@ -287,7 +287,9 @@ namespace Engine
             {
                 var points = InterpolatePoints(100);
                 if (points?.Count < 1)
+                {
                     return null;
+                }
 
                 var left = points[0].X;
                 var top = points[0].Y;
@@ -359,7 +361,7 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
-            => Interpolate(Interpolater, x, y, h, v, r, t);
+            => Interpolate(Interpolator, x, y, h, v, r, t);
 
         /// <summary>
         /// The interpolate.
@@ -407,7 +409,10 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this is null)
+            {
                 return nameof(ParametricDelegateCurve);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(ParametricDelegateCurve)}{{{nameof(Location)}={Location},{nameof(Scale)}={Scale},{nameof(Precision)}={Precision}}}";
             return formatable.ToString(format, provider);

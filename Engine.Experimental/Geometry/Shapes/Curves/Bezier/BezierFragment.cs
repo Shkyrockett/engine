@@ -63,9 +63,15 @@ namespace Engine
         public BezierFragment(params Point2D[] points)
         {
             if (points is null)
+            {
                 throw new ArgumentNullException();
+            }
+
             if (points.Length < 2)
+            {
                 throw new ArgumentException("Bézier curve need at least 2 points (segment).");
+            }
+
             controlPoints = points;
         }
 
@@ -169,7 +175,10 @@ namespace Engine
             get
             {
                 if (roPoints is null)
+                {
                     roPoints = new ReadonlyPoints(controlPoints);
+                }
+
                 return roPoints;
             }
         }
@@ -185,7 +194,10 @@ namespace Engine
         public static Polynomialx Bezier(params double[] values)
         {
             if (values is null || values.Length < 1)
+            {
                 throw new ArgumentNullException();
+            }
+
             return Bezier(0, values.Length - 1, values);
         }
 
@@ -199,7 +211,10 @@ namespace Engine
         private static Polynomialx Bezier(int from, int to, double[] values)
         {
             if (from == to)
+            {
                 return new Polynomialx(values[from]);
+            }
+
             return OneMinusT * Bezier(from, to - 1, values) + T * Bezier(from + 1, to, values);
         }
 
@@ -278,7 +293,9 @@ namespace Engine
         public BezierFragment[] Split(double t)
         {
             if (t < 0 || t > 1)
+            {
                 throw new ArgumentOutOfRangeException();
+            }
             // http://pomax.github.io/bezierinfo/#decasteljau
             var r0 = new List<Point2D>();
             var r1 = new List<Point2D>();
@@ -317,10 +334,15 @@ namespace Engine
         public BezierFragment[] Split(IEnumerable<double> ts)
         {
             if (ts is null)
+            {
                 return new[] { this };
+            }
+
             var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
+            {
                 return new[] { this };
+            }
 
             var tLast = 0.0;
             var start = this;

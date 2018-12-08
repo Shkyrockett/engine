@@ -32,7 +32,9 @@ namespace Engine
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
+            {
                 return true;
+            }
 
             return base.CanConvertFrom(context, sourceType);
         }
@@ -48,7 +50,9 @@ namespace Engine
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
+            {
                 return true;
+            }
 
             return base.CanConvertTo(context, destinationType);
         }
@@ -69,10 +73,14 @@ namespace Engine
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (value is null)
+            {
                 throw GetConvertFromException(value);
+            }
 
             if (value is string source)
+            {
                 return QuaternionD.Parse(source);
+            }
 
             return base.ConvertFrom(context, culture, value);
         }
@@ -100,7 +108,7 @@ namespace Engine
                 if (destinationType == typeof(string))
                 {
                     // Delegate to the formatting/culture-aware ConvertToString method.
-                    return instance.ConvertToString(null, culture);
+                    return instance.ConvertToString(string.Empty, culture);
                 }
             }
 

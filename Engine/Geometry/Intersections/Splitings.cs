@@ -182,7 +182,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment[] Split(this LineSegment segment, double t)
         {
-            if (t < 0 || t > 1) throw new ArgumentOutOfRangeException();
+            if (t < 0 || t > 1)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             return new[] {
                 new LineSegment(segment.A, segment.Interpolate(t)),
                 new LineSegment(segment.Interpolate(t), segment.B)
@@ -246,7 +250,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc Split(this Circle circle, double t)
         {
-            if (t < 0 || t > 1) throw new ArgumentOutOfRangeException();
+            if (t < 0 || t > 1)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             return new CircularArc(circle.Center, circle.Radius, Tau * t, Tau);
         }
 
@@ -261,10 +269,15 @@ namespace Engine
         public static CircularArc[] Split(this Circle circle, params double[] ts)
         {
             if (ts is null)
+            {
                 return new[] { Split(circle, 0) };
+            }
+
             var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
+            {
                 return new[] { Split(circle, 0) };
+            }
 
             var arc = Split(circle, filtered[0]);
             var tLast = 0d;
@@ -305,7 +318,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc[] Split(this CircularArc arc, double t)
         {
-            if (t < 0 || t > 1) throw new ArgumentOutOfRangeException();
+            if (t < 0 || t > 1)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             return new[] {
                 new CircularArc(arc.Center, arc.Radius, arc.StartAngle, arc.SweepAngle * t),
                 new CircularArc(arc.Center, arc.Radius, arc.StartAngle + (arc.SweepAngle * t), arc.SweepAngle - (arc.SweepAngle * t))
@@ -323,10 +340,15 @@ namespace Engine
         public static CircularArc[] Split(this CircularArc arc, params double[] ts)
         {
             if (ts is null)
+            {
                 return new[] { arc };
+            }
+
             var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
+            {
                 return new[] { arc };
+            }
 
             var tLast = 0d;
             var start = arc;
@@ -366,7 +388,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EllipticalArc Split(this Ellipse ellipse, double t)
         {
-            if (t < 0 || t > 1) throw new ArgumentOutOfRangeException();
+            if (t < 0 || t > 1)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
             return new EllipticalArc(ellipse.Center, ellipse.RX, ellipse.RY, ellipse.Angle, Tau * t, Tau);
         }
 
@@ -511,10 +537,15 @@ namespace Engine
         public static BezierSegment[] Split(this BezierSegment bezier, params double[] ts)
         {
             if (ts is null)
+            {
                 return new[] { bezier };
+            }
+
             var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
+            {
                 return new[] { bezier };
+            }
 
             var tLast = 0d;
             var start = bezier;

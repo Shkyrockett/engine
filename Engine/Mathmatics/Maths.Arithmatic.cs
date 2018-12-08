@@ -1244,8 +1244,8 @@ namespace Engine
         /// The divide1d2d.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="dividendI">The divedendI.</param>
-        /// <param name="dividendJ">The divedendJ.</param>
+        /// <param name="dividendI">The dividendI.</param>
+        /// <param name="dividendJ">The dividendJ.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1269,9 +1269,9 @@ namespace Engine
         /// The divide1d3d.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="dividendI">The divedendI.</param>
-        /// <param name="dividendJ">The divedendJ.</param>
-        /// <param name="dividendK">The divedendK.</param>
+        /// <param name="dividendI">The dividendI.</param>
+        /// <param name="dividendJ">The dividendJ.</param>
+        /// <param name="dividendK">The dividendK.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1296,10 +1296,10 @@ namespace Engine
         /// The divide1d4d.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="dividendI">The divedendI.</param>
-        /// <param name="dividendJ">The divedendJ.</param>
-        /// <param name="dividendK">The divedendK.</param>
-        /// <param name="dividendL">The divedendL.</param>
+        /// <param name="dividendI">The dividendI.</param>
+        /// <param name="dividendJ">The dividendJ.</param>
+        /// <param name="dividendK">The dividendK.</param>
+        /// <param name="dividendL">The dividendL.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1377,9 +1377,21 @@ namespace Engine
         public static double Max(double w, double x, double y, double z)
         {
             var t = w;
-            if (x > w) t = x;
-            if (y > w) t = y;
-            if (z > w) t = z;
+            if (x > w)
+            {
+                t = x;
+            }
+
+            if (y > w)
+            {
+                t = y;
+            }
+
+            if (z > w)
+            {
+                t = z;
+            }
+
             return t;
         }
 
@@ -1397,9 +1409,21 @@ namespace Engine
         public static int Max(int w, int x, int y, int z)
         {
             var t = w;
-            if (x > w) t = x;
-            if (y > w) t = y;
-            if (z > w) t = z;
+            if (x > w)
+            {
+                t = x;
+            }
+
+            if (y > w)
+            {
+                t = y;
+            }
+
+            if (z > w)
+            {
+                t = z;
+            }
+
             return t;
         }
 
@@ -1417,9 +1441,21 @@ namespace Engine
         public static byte Max(byte w, byte x, byte y, byte z)
         {
             var t = w;
-            if (x > w) t = x;
-            if (y > w) t = y;
-            if (z > w) t = z;
+            if (x > w)
+            {
+                t = x;
+            }
+
+            if (y > w)
+            {
+                t = y;
+            }
+
+            if (z > w)
+            {
+                t = z;
+            }
+
             return t;
         }
 
@@ -1447,6 +1483,9 @@ namespace Engine
         /// <param name="point2X">The point2X.</param>
         /// <param name="point2Y">The point2Y.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) MaxPoint(double point1X, double point1Y, double point2X, double point2Y)
@@ -1536,9 +1575,21 @@ namespace Engine
         public static double Min(double w, double x, double y, double z)
         {
             var t = w;
-            if (x < t) t = x;
-            if (y < t) t = y;
-            if (z < t) t = z;
+            if (x < t)
+            {
+                t = x;
+            }
+
+            if (y < t)
+            {
+                t = y;
+            }
+
+            if (z < t)
+            {
+                t = z;
+            }
+
             return t;
         }
 
@@ -1566,6 +1617,9 @@ namespace Engine
         /// <param name="point2X">The point2X.</param>
         /// <param name="point2Y">The point2Y.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) MinPoint(double point1X, double point1Y, double point2X, double point2Y)
@@ -1624,7 +1678,9 @@ namespace Engine
         {
             // In case they are Infinities (then epsilon check does not work)
             if (Math.Abs(value1 - value2) < Epsilon)
+            {
                 return true;
+            }
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             var eps = (Math.Abs(value1) + Math.Abs(value2) + 10f) * epsilon;
             var delta = value1 - value2;
@@ -1655,7 +1711,9 @@ namespace Engine
         {
             // in case they are Infinities (then epsilon check does not work)
             if (Math.Abs(value1 - value2) < Epsilon)
+            {
                 return true;
+            }
             // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
             var eps = (Math.Abs(value1) + Math.Abs(value2) + 10d) * epsilon;
             var delta = value1 - value2;

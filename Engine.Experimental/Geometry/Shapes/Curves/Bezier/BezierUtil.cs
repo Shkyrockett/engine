@@ -362,11 +362,19 @@ namespace Engine.Experimental
         {
             // see u(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
+            {
                 return double.NaN;
+            }
+
             if (t == 0.5d)
+            {
                 t = 0.5d;
+            }
             else if (t == 0 || t == 1)
+            {
                 return t;
+            }
+
             var top = Pow(1 - t, n);
             var bottom = Pow(t, n) + top;
             return top / bottom;
@@ -387,11 +395,19 @@ namespace Engine.Experimental
         {
             // see ratio(t) note on http://pomax.github.io/bezierinfo/#abc
             if (n != 2 && n != 3)
+            {
                 return double.NaN;
+            }
+
             if (t == 0.5d)
+            {
                 t = 0.5;
+            }
             else if (t == 0 || t == 1)
+            {
                 return t;
+            }
+
             var bottom = Pow(t, n) + Pow(1 - t, n);
             var top = bottom - 1;
             return Abs(top / bottom);
@@ -474,15 +490,24 @@ namespace Engine.Experimental
         public static RangeX GetMinMax(Bezier curve, int d, List<double> list)
         {
             if (list is null)
+            {
                 return new RangeX(min: 0, max: 0);
+            }
+
             double min = 0xFFFFFFFFFFFFFFFF;
             var max = -min;
             double t;
             Point2D c;
             if (list.IndexOf(0) == -1)
+            {
                 list.Insert(0, 0);
+            }
+
             if (list.IndexOf(1) == -1)
+            {
                 list.Add(1);
+            }
+
             for (int i = 0, len = list.Count; i < len; i++)
             {
                 t = list[i];
@@ -491,15 +516,27 @@ namespace Engine.Experimental
                 {
                     case 0:
                         if (c.X < min)
+                        {
                             min = c.X;
+                        }
+
                         if (c.X > max)
+                        {
                             max = c.X;
+                        }
+
                         break;
                     case 1:
                         if (c.Y < min)
+                        {
                             min = c.Y;
+                        }
+
                         if (c.Y > max)
+                        {
                             max = c.Y;
+                        }
+
                         break;
                     //case 2:
                     //    if (c.Z < min)
@@ -561,7 +598,10 @@ namespace Engine.Experimental
                 // if m<s<e, arc(e, s + tau)
                 // if s<e<m, arc(e, s + tau)
                 if (s > m || m > e)
+                {
                     s += Tau;
+                }
+
                 if (s > e)
                 { _ = e; e = s; s = _; }
             }
@@ -633,7 +673,10 @@ namespace Engine.Experimental
                 // if m<s<e, arc(e, s + tau)
                 // if s<e<m, arc(e, s + tau)
                 if (s > m || m > e)
+                {
                     s += Tau;
+                }
+
                 if (s > e)
                 { _ = e; e = s; s = _; }
             }
@@ -680,7 +723,9 @@ namespace Engine.Experimental
             var v3 = 18 * (c - a);
 
             if (Approximately(v1, 0))
+            {
                 return new List<double>();
+            }
 
             var descriminant = v2 * v2 - 4 * v1 * v3;
             var sq = Sqrt(descriminant);
@@ -717,7 +762,9 @@ namespace Engine.Experimental
             var v3 = 18 * (c - a);
 
             if (Approximately(v1, 0))
+            {
                 return new List<double>();
+            }
 
             var trm = v2 * v2 - 4 * v1 * v3;
             var sq = Sqrt(trm);
@@ -1114,13 +1161,24 @@ namespace Engine.Experimental
             {
                 var bbox = s.Bbox();
                 if (mx > bbox.X.Min)
+                {
                     mx = bbox.X.Min;
+                }
+
                 if (my > bbox.Y.Min)
+                {
                     my = bbox.Y.Min;
+                }
+
                 if (MX < bbox.X.Max)
+                {
                     MX = bbox.X.Max;
+                }
+
                 if (MY < bbox.Y.Max)
+                {
                     MY = bbox.Y.Max;
+                }
             }
 
             return new BBox(
@@ -1151,7 +1209,10 @@ namespace Engine.Experimental
             t = b2.X.Mid;
             d = (b1.X.Size + b2.X.Size) / 2;
             if (Abs(l - t) >= d)
+            {
                 return false;
+            }
+
             l = b1.Y.Mid;
             t = b2.Y.Mid;
             d = (b1.Y.Size + b2.Y.Size) / 2;
@@ -1171,25 +1232,48 @@ namespace Engine.Experimental
         public static void Expandbox(BBox bbox, BBox _bbox)
         {
             if (_bbox.X.Min < bbox.X.Min)
+            {
                 bbox.X.Min = _bbox.X.Min;
+            }
+
             if (_bbox.Y.Min < bbox.Y.Min)
+            {
                 bbox.Y.Min = _bbox.Y.Min;
+            }
+
             if (_bbox.Z != null && _bbox.Z.Min < bbox.Z.Min)
+            {
                 bbox.Z.Min = _bbox.Z.Min;
+            }
+
             if (_bbox.X.Max > bbox.X.Max)
+            {
                 bbox.X.Max = _bbox.X.Max;
+            }
+
             if (_bbox.Y.Max > bbox.Y.Max)
+            {
                 bbox.Y.Max = _bbox.Y.Max;
+            }
+
             if (_bbox.Z != null && _bbox.Z.Max > bbox.Z.Max)
+            {
                 bbox.Z.Max = _bbox.Z.Max;
+            }
+
             bbox.X.Mid = (bbox.X.Min + bbox.X.Max) / 2;
             bbox.Y.Mid = (bbox.Y.Min + bbox.Y.Max) / 2;
             if (bbox.Z != null)
+            {
                 bbox.Z.Mid = (bbox.Z.Min + bbox.Z.Max) / 2;
+            }
+
             bbox.X.Size = bbox.X.Max - bbox.X.Min;
             bbox.Y.Size = bbox.Y.Max - bbox.Y.Min;
             if (bbox.Z != null)
+            {
                 bbox.Z.Size = bbox.Z.Max - bbox.Z.Min;
+            }
         }
 
         /// <summary>
@@ -1253,18 +1337,27 @@ namespace Engine.Experimental
         public static List<Pair> ShapeIntersections(Shape1 s1, BBox bbox1, Shape1 s2, BBox bbox2)
         {
             if (!Bboxoverlap(bbox1, bbox2))
+            {
                 return new List<Pair>();
+            }
+
             var intersections = new List<Pair>();
             var a1 = new List<Bezier> { s1.Startcap, s1.Forward, s1.Back, s1.Endcap };
             var a2 = new List<Bezier> { s2.Startcap, s2.Forward, s2.Back, s2.Endcap };
             foreach (Bezier l1 in a1)
             {
                 if (l1.Virtual)
+                {
                     return new List<Pair>();
+                }
+
                 foreach (Bezier l2 in a2)
                 {
                     if (l2.Virtual)
+                    {
                         return new List<Pair>();
+                    }
+
                     var iss = l1.Intersects(l2);
                     foreach (Pair i in iss)
                     {

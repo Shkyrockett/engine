@@ -130,7 +130,10 @@ namespace Engine
         public override string ToString()
         {
             if (this is null)
+            {
                 return nameof(RoundRectangle);
+            }
+
             return $"{nameof(RoundRectangle)}{{{nameof(bounds.Location)}={bounds.Location},{nameof(bounds.Size)}={bounds.Size},{nameof(Radius)}={radius}}}";
         }
     }

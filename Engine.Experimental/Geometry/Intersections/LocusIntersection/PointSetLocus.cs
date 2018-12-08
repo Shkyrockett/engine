@@ -52,7 +52,9 @@ namespace Engine
         {
             Points = new List<Point2D>();
             foreach (var set in polys)
+            {
                 Points.Concat(set);
+            }
         }
 
         /// <summary>

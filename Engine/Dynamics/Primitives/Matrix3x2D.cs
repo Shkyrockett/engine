@@ -82,13 +82,14 @@ namespace Engine
         private double offsetY;
 
 #pragma warning disable CS0414
-
+#pragma warning disable IDE0052
         /// <summary>
         /// This field is only used by unmanaged code which isn't detected by the compiler.
         /// Matrix in blt'd to unmanaged code, so this is padding
         /// to align structure.
         /// </summary>
-        private int padding;
+        private readonly int padding;
+#pragma warning restore IDE0052
 #pragma warning restore CS0414
         #endregion Private Fields
 
@@ -133,9 +134,13 @@ namespace Engine
             get
             {
                 if (type == MatrixTypes.Identity)
+                {
                     return 1.0f;
+                }
                 else
+                {
                     return m0x0;
+                }
             }
             set
             {
@@ -150,7 +155,9 @@ namespace Engine
                 {
                     m0x0 = value;
                     if (type != MatrixTypes.Unknown)
+                    {
                         type |= MatrixTypes.Scaling;
+                    }
                 }
             }
         }
@@ -163,7 +170,10 @@ namespace Engine
             get
             {
                 if (type == MatrixTypes.Identity)
+                {
                     return 0;
+                }
+
                 return m0x1;
             }
             set
@@ -191,9 +201,13 @@ namespace Engine
             get
             {
                 if (type == MatrixTypes.Identity)
+                {
                     return 0;
+                }
                 else
+                {
                     return m1x0;
+                }
             }
             set
             {
@@ -220,9 +234,13 @@ namespace Engine
             get
             {
                 if (type == MatrixTypes.Identity)
+                {
                     return 1.0f;
+                }
                 else
+                {
                     return m1x1;
+                }
             }
             set
             {
@@ -237,7 +255,9 @@ namespace Engine
                 {
                     m1x1 = value;
                     if (type != MatrixTypes.Unknown)
+                    {
                         type |= MatrixTypes.Scaling;
+                    }
                 }
             }
         }
@@ -250,9 +270,13 @@ namespace Engine
             get
             {
                 if (type == MatrixTypes.Identity)
+                {
                     return 0;
+                }
                 else
+                {
                     return offsetX;
+                }
             }
             set
             {
@@ -267,7 +291,9 @@ namespace Engine
                 {
                     offsetX = value;
                     if (type != MatrixTypes.Unknown)
+                    {
                         type |= MatrixTypes.Translation;
+                    }
                 }
             }
         }
@@ -280,9 +306,13 @@ namespace Engine
             get
             {
                 if (type == MatrixTypes.Identity)
+                {
                     return 0;
+                }
                 else
+                {
                     return offsetY;
+                }
             }
             set
             {
@@ -297,7 +327,9 @@ namespace Engine
                 {
                     offsetY = value;
                     if (type != MatrixTypes.Unknown)
+                    {
                         type |= MatrixTypes.Translation;
+                    }
                 }
             }
         }
@@ -567,13 +599,17 @@ namespace Engine
         internal static void TransformRect(ref Rectangle2D rect, ref Matrix3x2D matrix)
         {
             if (rect.IsEmpty)
+            {
                 return;
+            }
 
             var matrixType = matrix.type;
 
             // If the matrix is identity, don't worry.
             if (matrixType == MatrixTypes.Identity)
+            {
                 return;
+            }
 
             // Scaling
             if (0 != (matrixType & MatrixTypes.Scaling))
@@ -643,7 +679,9 @@ namespace Engine
 
             // If the second is identities, we can just return
             if (type2 == MatrixTypes.Identity)
+            {
                 return;
+            }
 
             // If the first is identities, we can just copy the memory across.
             if (type1 == MatrixTypes.Identity)
@@ -661,7 +699,9 @@ namespace Engine
 
                 // If matrix 1 wasn't unknown we added a translation
                 if (type1 != MatrixTypes.Unknown)
+                {
                     matrix1.type |= MatrixTypes.Translation;
+                }
 
                 return;
             }
@@ -680,9 +720,14 @@ namespace Engine
                 matrix1.offsetY = (float)(offsetX * matrix2.m0x1 + offsetY * matrix2.m1x1 + matrix2.offsetY);
 
                 if (type2 == MatrixTypes.Unknown)
+                {
                     matrix1.type = MatrixTypes.Unknown;
+                }
                 else
+                {
                     matrix1.type = MatrixTypes.Scaling | MatrixTypes.Translation;
+                }
+
                 return;
             }
 
@@ -764,11 +809,15 @@ namespace Engine
 
             // If the second is identities, we can just return
             if (type2 == MatrixTypes.Identity)
+            {
                 return matrix1;
+            }
 
             // If the first is identities, we can just copy the memory across.
             if (type1 == MatrixTypes.Identity)
+            {
                 return matrix2;
+            }
 
             // Optimize for translate case, where the second is a translate
             if (type2 == MatrixTypes.Translation)
@@ -779,7 +828,9 @@ namespace Engine
 
                 // If matrix 1 wasn't unknown we added a translation
                 if (type1 != MatrixTypes.Unknown)
+                {
                     matrix1.type |= MatrixTypes.Translation;
+                }
 
                 return matrix1;
             }
@@ -798,9 +849,14 @@ namespace Engine
                 matrix1.offsetY = (float)(offsetX * matrix2.m0x1 + offsetY * matrix2.m1x1 + matrix2.offsetY);
 
                 if (type2 == MatrixTypes.Unknown)
+                {
                     matrix1.type = MatrixTypes.Unknown;
+                }
                 else
+                {
                     matrix1.type = MatrixTypes.Scaling | MatrixTypes.Translation;
+                }
+
                 return matrix1;
             }
 
@@ -898,7 +954,9 @@ namespace Engine
                 // It just gained a translate if was a scale transform. Identity transform is handled above.
                 Debug.Assert(matrix.type != MatrixTypes.Identity);
                 if (matrix.type != MatrixTypes.Unknown)
+                {
                     matrix.type |= MatrixTypes.Translation;
+                }
             }
         }
 
@@ -1073,7 +1131,9 @@ namespace Engine
             if (vectors != null)
             {
                 for (var i = 0; i < vectors.Length; i++)
+                {
                     MultiplyVector(ref vectors[i]);
+                }
             }
         }
 
@@ -1086,7 +1146,9 @@ namespace Engine
             if (points != null)
             {
                 for (var i = 0; i < points.Length; i++)
+                {
                     MultiplyPoint(ref points[i]);
+                }
             }
         }
 
@@ -1298,10 +1360,14 @@ namespace Engine
             }
 
             if (!(Abs(m0x0 - 1) < Epsilon && Abs(m1x1 - 1) < Epsilon))
+            {
                 type = MatrixTypes.Scaling;
+            }
 
             if (!(Abs(offsetX) < Epsilon && Abs(offsetY) < Epsilon))
+            {
                 type |= MatrixTypes.Translation;
+            }
 
             if (0 == (type & (MatrixTypes.Translation | MatrixTypes.Scaling)))
             {
@@ -1472,7 +1538,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the IFormatProvider
@@ -1482,7 +1548,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the format string
@@ -1507,10 +1573,13 @@ namespace Engine
         /// </returns>
         public string ConvertToString(string format, IFormatProvider provider)
         {
-//#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-//            if (this is null) return nameof(Matrix3x2D);
-//#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
-            if (IsIdentity) return nameof(Identity);
+            //#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
+            //            if (this is null) return nameof(Matrix3x2D);
+            //#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
+            if (IsIdentity)
+            {
+                return nameof(Identity);
+            }
             // Helper to get the numeric list separator for a given culture.
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Matrix3x2D)}{{{nameof(M11)}={m0x0}{sep}{nameof(M12)}={m0x1}{sep}{nameof(M21)}={m1x0}{sep}{nameof(M22)}={m1x1}{sep}{nameof(OffsetX)}={offsetX}{sep}{nameof(OffsetY)}={offsetY}}}";

@@ -457,12 +457,36 @@ namespace Engine
                     var bounds = new Rectangle2D(StartPoint, EndPoint);
                     var angleEnd = endAngle;
                     // check that angle2 > angle1
-                    if (angleEnd < startAngle) angleEnd += 2 * PI;
-                    if ((angleEnd >= 0) && (startAngle <= 0)) bounds.Right = x + radius;
-                    if ((angleEnd >= Maths.HalfPi) && (startAngle <= Maths.HalfPi)) bounds.Top = y - radius;
-                    if ((angleEnd >= PI) && (startAngle <= PI)) bounds.Left = x - radius;
-                    if ((angleEnd >= Maths.Pau) && (startAngle <= Maths.Pau)) bounds.Bottom = y + radius;
-                    if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau)) bounds.Right = x + radius;
+                    if (angleEnd < startAngle)
+                    {
+                        angleEnd += 2 * PI;
+                    }
+
+                    if ((angleEnd >= 0) && (startAngle <= 0))
+                    {
+                        bounds.Right = x + radius;
+                    }
+
+                    if ((angleEnd >= Maths.HalfPi) && (startAngle <= Maths.HalfPi))
+                    {
+                        bounds.Top = y - radius;
+                    }
+
+                    if ((angleEnd >= PI) && (startAngle <= PI))
+                    {
+                        bounds.Left = x - radius;
+                    }
+
+                    if ((angleEnd >= Maths.Pau) && (startAngle <= Maths.Pau))
+                    {
+                        bounds.Bottom = y + radius;
+                    }
+
+                    if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau))
+                    {
+                        bounds.Right = x + radius;
+                    }
+
                     return bounds;
                 }
             }
@@ -568,7 +592,11 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(CircularSegment);
+            if (this is null)
+            {
+                return nameof(CircularSegment);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(CircularSegment)}{{{nameof(Center)}={Center},{nameof(Radius)}={radius},{nameof(StartAngle)}={startAngle},{nameof(EndAngle)}={endAngle}}}";
             return formatable.ToString(format, provider);

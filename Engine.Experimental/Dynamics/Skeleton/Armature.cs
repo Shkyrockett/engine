@@ -17,6 +17,11 @@ namespace Engine
     /// </summary>
     public class Armature
     {
+        public Armature(List<Bone> bones)
+        {
+            Bones = bones ?? new List<Bone>();
+        }
+
         /// <summary>
         /// Gets or sets the bones.
         /// </summary>

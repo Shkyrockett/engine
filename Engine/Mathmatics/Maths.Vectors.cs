@@ -364,7 +364,9 @@ namespace Engine
             var dx = pt2X - pt1X;
             var dy = pt2Y - pt1Y;
             if ((dx == 0d) && (dy == 0d))
+            {
                 return (0d, 0d);
+            }
 
             var f = 1d / Sqrt(dx * dx + dy * dy);
             dx *= f;
@@ -627,7 +629,9 @@ namespace Engine
         {
             // if v2 has a right angle to vector, return -vector and stop
             if (Math.Abs(Math.Abs(Angle(i1, j1, k1, i2, j2, k2)) - PI / 2) < double.Epsilon)
+            {
                 return (-i1, -j1, -k1);
+            }
 
             (var x, var y, var z) = Projection(i1, j1, k1, i2, j2, k2);
             return (

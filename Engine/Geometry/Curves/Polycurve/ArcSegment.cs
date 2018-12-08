@@ -151,7 +151,15 @@ namespace Engine
             get { return Previous.End; }
             set
             {
-                Previous.End = value;
+                if (Previous is null)
+                {
+                    Previous = new PointSegment(value);
+                }
+                else
+                {
+                    Previous.End = value;
+                }
+
                 ClearCache();
             }
         }

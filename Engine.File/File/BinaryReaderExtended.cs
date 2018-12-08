@@ -345,7 +345,9 @@ namespace Engine.File
         public byte PeekByte()
         {
             if (!BaseStream.CanSeek)
+            {
                 return 0; // -1;
+            }
 
             var temp = ReadByte();
             BaseStream.Position -= sizeof(byte);
@@ -366,7 +368,9 @@ namespace Engine.File
         public short PeekInt16()
         {
             if (!BaseStream.CanSeek)
+            {
                 return -1;
+            }
 
             var temp = ReadInt16();
             BaseStream.Position -= sizeof(short);
@@ -387,7 +391,9 @@ namespace Engine.File
         public short PeekNetworkInt16()
         {
             if (!BaseStream.CanSeek)
+            {
                 return -1;
+            }
 
             var temp = ReadNetworkInt16();
             BaseStream.Position -= sizeof(short);
@@ -408,7 +414,9 @@ namespace Engine.File
         public int PeekInt32()
         {
             if (!BaseStream.CanSeek)
+            {
                 return -1;
+            }
 
             var temp = ReadInt32();
             BaseStream.Position -= sizeof(int);
@@ -429,7 +437,9 @@ namespace Engine.File
         public int PeekNetworkInt32()
         {
             if (!BaseStream.CanSeek)
+            {
                 return -1;
+            }
 
             var temp = ReadNetworkInt32();
             BaseStream.Position -= sizeof(int);
@@ -450,7 +460,9 @@ namespace Engine.File
         public long PeekInt64()
         {
             if (!BaseStream.CanSeek)
+            {
                 return -1;
+            }
 
             var temp = ReadInt64();
             BaseStream.Position -= sizeof(long);
@@ -471,7 +483,9 @@ namespace Engine.File
         public long PeekNetworkInt64()
         {
             if (!BaseStream.CanSeek)
+            {
                 return -1;
+            }
 
             var temp = ReadNetworkInt64();
             BaseStream.Position -= sizeof(long);

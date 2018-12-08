@@ -736,13 +736,19 @@ namespace Engine.Tweening
         public static double ExpoInOut(double t, double b, double c, double d)
         {
             if (t == 0)
+            {
                 return b;
+            }
 
             if (t == d)
+            {
                 return b + c;
+            }
 
             if ((t /= d / 2) < 1)
+            {
                 return c / 2 * Pow(2, 10 * (t - 1)) + b;
+            }
 
             return c / 2 * (-Pow(2, -10 * --t) + 2) + b;
         }
@@ -1068,7 +1074,9 @@ namespace Engine.Tweening
         public static double ElasticIn(double t, double b, double c, double d)
         {
             if ((t /= d) == 1)
+            {
                 return b + c;
+            }
 
             var p = d * .3;
             var s = p / 4;
@@ -1106,7 +1114,9 @@ namespace Engine.Tweening
         public static double ElasticOut(double t, double b, double c, double d)
         {
             if ((t /= d) == 1)
+            {
                 return b + c;
+            }
 
             var p = d * 0.3;
             var s = p / 4;
@@ -1144,13 +1154,18 @@ namespace Engine.Tweening
         public static double ElasticInOut(double t, double b, double c, double d)
         {
             if ((t /= d / 2) == 2)
+            {
                 return b + c;
+            }
 
             var p = d * (0.3 * 1.5);
             var s = p / 4;
 
             if (t < 1)
+            {
                 return -.5 * (c * Pow(2, 10 * (t -= 1d)) * Sin((t * d - s) * (2d * PI) / p)) + b;
+            }
+
             return c * Pow(2, -10 * (t -= 1)) * Sin((t * d - s) * (2d * PI) / p) * 0.5d + c + b;
         }
 
@@ -1233,11 +1248,20 @@ namespace Engine.Tweening
         {
             t = 1d - t;
             if (t < BounceKey1)
+            {
                 return 1d - 7.5625d * t * t;
+            }
+
             if (t < BounceKey2)
+            {
                 return 1d - (7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75d);
+            }
+
             if (t < BounceKey4)
+            {
                 return 1d - (7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375d);
+            }
+
             return 1d - (7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d);
         }
 
@@ -1258,13 +1282,21 @@ namespace Engine.Tweening
         public static double BounceOut(double t, double b, double c, double d)
         {
             if ((t /= d) < (1 / 2.75))
+            {
                 return c * (7.5625 * t * t) + b;
+            }
             else if (t < (2 / 2.75))
+            {
                 return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+            }
             else if (t < (2.5 / 2.75))
+            {
                 return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+            }
             else
+            {
                 return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+            }
         }
 
         /// <summary>
@@ -1280,11 +1312,20 @@ namespace Engine.Tweening
         public static double BounceOut(double t)
         {
             if (t < BounceKey1)
+            {
                 return 7.5625d * t * t;
+            }
+
             if (t < BounceKey2)
+            {
                 return 7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75d;
+            }
+
             if (t < BounceKey4)
+            {
                 return 7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375d;
+            }
+
             return 7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d;
         }
 
@@ -1305,9 +1346,13 @@ namespace Engine.Tweening
         public static double BounceEaseInOut(double t, double b, double c, double d)
         {
             if (t < d / 2)
+            {
                 return BounceIn(t * 2, 0, c, d) * .5 + b;
+            }
             else
+            {
                 return BounceOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+            }
         }
 
         /// <summary>
@@ -1326,21 +1371,39 @@ namespace Engine.Tweening
             {
                 t = 1d - t * 2d;
                 if (t < BounceKey1)
+                {
                     return (1d - 7.5625d * t * t) * 0.5d;
+                }
+
                 if (t < BounceKey2)
+                {
                     return (1d - (7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75)) * 0.5d;
+                }
+
                 if (t < BounceKey4)
+                {
                     return (1d - (7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375)) * 0.5d;
+                }
+
                 return (1d - (7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d)) * 0.5d;
             }
 
             t = t * 2d - 1d;
             if (t < BounceKey1)
+            {
                 return 7.5625d * t * t * 0.5d + 0.5d;
+            }
+
             if (t < BounceKey2)
+            {
                 return (7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75d) * 0.5d + 0.5d;
+            }
+
             if (t < BounceKey4)
+            {
                 return (7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375d) * 0.5d + 0.5d;
+            }
+
             return (7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d) * 0.5d + 0.5d;
         }
 
@@ -1471,7 +1534,10 @@ namespace Engine.Tweening
         {
             t *= 2d;
             if (t < 1d)
+            {
                 return t * t * (2.70158d * t - 1.70158d) * 0.5d;
+            }
+
             t--;
             return (1d - (--t) * t * (-2.70158d * t - 1.70158d)) * 0.5d + 0.5d;
         }

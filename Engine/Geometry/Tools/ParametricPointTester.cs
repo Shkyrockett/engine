@@ -34,16 +34,16 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="ParametricPointTester"/> class.
         /// </summary>
-        /// <param name="intersecter">The intersecter.</param>
+        /// <param name="intersector">The intersector.</param>
         /// <param name="minX">The minX.</param>
         /// <param name="minY">The minY.</param>
         /// <param name="maxX">The maxX.</param>
         /// <param name="maxY">The maxY.</param>
         /// <param name="stepX">The stepX.</param>
         /// <param name="stepY">The stepY.</param>
-        public ParametricPointTester(Func<double, double, Inclusion> intersecter, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
+        public ParametricPointTester(Func<double, double, Inclusion> intersector, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
         {
-            Intersecter = intersecter;
+            Intersector = intersector;
             MinX = minX;
             MinY = minY;
             MaxX = maxX;
@@ -55,18 +55,18 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// The deconstruct.
+        /// The deconstructor.
         /// </summary>
-        /// <param name="intersecter">The intersecter.</param>
+        /// <param name="intersector">The intersector.</param>
         /// <param name="minX">The minX.</param>
         /// <param name="minY">The minY.</param>
         /// <param name="maxX">The maxX.</param>
         /// <param name="maxY">The maxY.</param>
         /// <param name="stepX">The stepX.</param>
         /// <param name="stepY">The stepY.</param>
-        public void Deconstruct(out Func<double, double, Inclusion> intersecter, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
+        public void Deconstruct(out Func<double, double, Inclusion> intersector, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
         {
-            intersecter = Intersecter;
+            intersector = Intersector;
             minX = MinX;
             minY = MinY;
             maxX = MaxX;
@@ -78,11 +78,11 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// Gets or sets the intersecter.
+        /// Gets or sets the intersector.
         /// </summary>
         [Browsable(true)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Func<double, double, Inclusion> Intersecter { get; set; }
+        public Func<double, double, Inclusion> Intersector { get; set; }
 
         /// <summary>
         /// Gets or sets the min x.
@@ -176,7 +176,7 @@ namespace Engine
             var outside = new List<Point2D>();
             foreach (Point2D point in Grid())
             {
-                var value = Intersecter.Invoke(point.X, point.Y);
+                var value = Intersector.Invoke(point.X, point.Y);
                 switch (value)
                 {
                     case Inclusion.Outside:
@@ -190,7 +190,7 @@ namespace Engine
                         break;
                 }
             }
-            
+
             return (boundary, inside, outside);
         }
         #endregion Methods

@@ -43,12 +43,15 @@ namespace Engine
 
             // Replace all expandable types.
             foreach (Type item in ListTypesTaggedWithPropertyAttribute(lookupExpandableAttribute))
+            {
                 ReplacePropertyAttribute(item, lookupExpandableAttribute, expandableAttribute);
+            }
 
             // Replace all expandable list types.
             foreach (Type item in ListTypesTaggedWithPropertyAttribute(lookupExpandableListAttribute))
+            {
                 ReplacePropertyAttribute(item, lookupExpandableListAttribute, expandableListAttribute);
-
+            }
         }
 
         /// <summary>

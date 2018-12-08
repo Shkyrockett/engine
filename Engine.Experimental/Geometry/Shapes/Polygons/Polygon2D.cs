@@ -34,7 +34,9 @@ namespace Engine
             {
                 var verticesCount = 0;
                 foreach (var c in contours)
+                {
                     verticesCount += c.Points.Count;
+                }
 
                 return verticesCount;
             }
@@ -48,7 +50,9 @@ namespace Engine
             get
             {
                 if (bounds != null)
+                {
                     return bounds;
+                }
 
                 Rectangle2D bb = null;
                 foreach (var c in contours)
@@ -80,7 +84,9 @@ namespace Engine
             {
                 var c = new PolygonContour();
                 foreach (var p in cont.Points)
+                {
                     c.Add( new Point2D(p));
+                }
 
                 poly.Add(c);
 

@@ -47,7 +47,6 @@ namespace Engine
         /// <param name="item">The item.</param>
         /// <param name="relitive">The relitive.</param>
         /// <param name="args">The args.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CubicBezierSegment(CurveSegment item, bool relitive, Point2D[] args)
             : this(item, args.Length == 3 ? (Point2D?)args[0] : null, args.Length == 3 ? args[1] : args[0], args.Length == 3 ? args[1] : args[2])
         {
@@ -70,7 +69,7 @@ namespace Engine
         {
             Previous = previous;
             previous.Next = this;
-            Handle1 = handle1 ?? (Point2D)(2 * previous.End - previous.NextToEnd);
+            Handle1 = handle1 ?? (Point2D)(2d * previous.End - previous.NextToEnd);
             Handle2 = handle2;
             End = end;
         }
@@ -106,7 +105,19 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
+        public override Point2D? Start
+        {
+            get { return Previous?.End; }
+            set
+            {
+                if (Previous is null)
+                {
+                    Previous = new PointSegment(value);
+                }
+                else
+                { Previous.End = value; }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the handle1.

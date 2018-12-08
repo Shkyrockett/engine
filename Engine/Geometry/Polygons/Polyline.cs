@@ -75,7 +75,7 @@ namespace Engine
         /// <param name="points">The points.</param>
         public Polyline(IEnumerable<Point2D> points)
         {
-            Points = points as List<Point2D>;
+            this.points = points as List<Point2D> ?? new List<Point2D>();
         }
 
         /// <summary>
@@ -86,7 +86,9 @@ namespace Engine
         {
             points = new List<Point2D>();
             foreach (Polyline polyline in polylines)
+            {
                 points.AddRange(polyline.Points);
+            }
         }
         #endregion Constructors
 
@@ -255,7 +257,7 @@ namespace Engine
                     break;
             }
 
-            var weights = new(double length, double accumulated)[points.Count];
+            var weights = new (double length, double accumulated)[points.Count];
             weights[0] = (0, 0);
             var cursor = points[0];
             double accumulatedLength = 0;

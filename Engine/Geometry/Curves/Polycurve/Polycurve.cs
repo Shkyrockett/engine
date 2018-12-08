@@ -55,7 +55,7 @@ namespace Engine
         /// </summary>
         public Polycurve(IEnumerable<PolycurveContour> contours)
         {
-            this.contours = contours as List<PolycurveContour>;
+            this.contours = contours as List<PolycurveContour> ?? new List<PolycurveContour>();
         }
         #endregion Constructors
 
@@ -140,7 +140,9 @@ namespace Engine
             {
                 var verticesCount = 0;
                 foreach (var c in contours)
+                {
                     verticesCount += c.Nodes.Count;
+                }
 
                 return verticesCount;
             }
@@ -173,7 +175,9 @@ namespace Engine
                     var bb = contours[0].Bounds;
 
                     foreach (var c in contours)
+                    {
                         bb = bb.Union(c.Bounds);
+                    }
 
                     return bb;
                 }
@@ -273,8 +277,8 @@ namespace Engine
         /// The to path def string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        private string ToPathDefString()
-            => ToPathDefString(null, CultureInfo.InvariantCulture);
+        public string ToPathDefString()
+            => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The to path def string.
@@ -282,7 +286,7 @@ namespace Engine
         /// <param name="format">The format.</param>
         /// <param name="provider">The provider.</param>
         /// <returns>The <see cref="string"/>.</returns>
-        private string ToPathDefString(string format, IFormatProvider provider)
+        public string ToPathDefString(string format, IFormatProvider provider)
         {
             var output = new StringBuilder();
 
@@ -361,7 +365,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(Polycurve);
+            if (this is null)
+            {
+                return nameof(Polycurve);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Polycurve)}{{{string.Join(sep.ToString(), Contours)}}}";
             return formatable.ToString(format, provider);

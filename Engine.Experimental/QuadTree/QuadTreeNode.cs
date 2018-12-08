@@ -166,18 +166,31 @@ namespace Engine.Experimental
         /// <returns>Whether or not the insert succeeded</returns>
         protected bool InsertInChild(QuadTreePositionItem<T> item)
         {
-            if (!IsPartitioned) return false;
+            if (!IsPartitioned)
+            {
+                return false;
+            }
 
             if (TopLeftNode.ContainsRect(item.Bounds))
+            {
                 TopLeftNode.Insert(item);
+            }
             else if (TopRightNode.ContainsRect(item.Bounds))
+            {
                 TopRightNode.Insert(item);
+            }
             else if (BottomLeftNode.ContainsRect(item.Bounds))
+            {
                 BottomLeftNode.Insert(item);
+            }
             else if (BottomRightNode.ContainsRect(item.Bounds))
+            {
                 BottomRightNode.Insert(item);
-
-            else return false; // insert in child failed
+            }
+            else
+            {
+                return false; // insert in child failed
+            }
 
             return true;
         }
@@ -195,7 +208,10 @@ namespace Engine.Experimental
                 return true;
             }
 
-            else return false;
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -252,7 +268,10 @@ namespace Engine.Experimental
                 // test the point in each item
                 foreach (QuadTreePositionItem<T> Item in Items)
                 {
-                    if (Item.Bounds.Contains(Point)) ItemsFound.Add(Item);
+                    if (Item.Bounds.Contains(Point))
+                    {
+                        ItemsFound.Add(Item);
+                    }
                 }
 
                 // query all subtrees
@@ -280,7 +299,10 @@ namespace Engine.Experimental
                 // test the point in each item
                 foreach (QuadTreePositionItem<T> Item in Items)
                 {
-                    if (Item.Bounds.Intersects(Rect)) ItemsFound.Add(Item);
+                    if (Item.Bounds.Intersects(Rect))
+                    {
+                        ItemsFound.Add(Item);
+                    }
                 }
 
                 // query all subtrees
@@ -320,8 +342,10 @@ namespace Engine.Experimental
         /// <returns>The node containing the item</returns>
         public QuadTreeNode<T> FindItemNode(QuadTreePositionItem<T> Item)
         {
-            if (Items.Contains(Item)) return this;
-
+            if (Items.Contains(Item))
+            {
+                return this;
+            }
             else if (IsPartitioned)
             {
                 QuadTreeNode<T> n = null;
@@ -350,7 +374,10 @@ namespace Engine.Experimental
                 return n;
             }
 
-            else return null;
+            else
+            {
+                return null;
+            }
         }
         #endregion Query Methods
 

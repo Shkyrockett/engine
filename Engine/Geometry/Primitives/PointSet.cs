@@ -90,7 +90,7 @@ namespace Engine
         /// <param name="points">The points.</param>
         public PointSet(IEnumerable<Point2D> points)
         {
-            this.points = points as List<Point2D>;
+            this.points = points as List<Point2D> ?? new List<Point2D>();
         }
 
         /// <summary>
@@ -101,7 +101,9 @@ namespace Engine
         {
             points = new List<Point2D>();
             foreach (var polyline in polylines)
+            {
                 points.Concat(polyline.Points);
+            }
         }
 
         /// <summary>
@@ -112,7 +114,9 @@ namespace Engine
         {
             points = new List<Point2D>();
             foreach (var polygon in polygons)
+            {
                 points.Concat(polygon.Points);
+            }
         }
         #endregion Constructors
 
@@ -278,7 +282,10 @@ namespace Engine
         {
             var outPath = new List<Point2D>(path.points.Count);
             for (var i = 0; i < path.points.Count; i++)
+            {
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
+            }
+
             return new PointSet(outPath);
         }
         #endregion Mutators
@@ -355,7 +362,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(PointSet);
+            if (this is null)
+            {
+                return nameof(PointSet);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(PointSet)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);

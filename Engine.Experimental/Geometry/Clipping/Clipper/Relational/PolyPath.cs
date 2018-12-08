@@ -17,6 +17,17 @@ namespace Engine.Experimental
     /// </summary>
     public class PolyPath
     {
+        public PolyPath()
+        {
+        }
+
+        public PolyPath(PolyPath parent, List<PolyPath> children, PolygonContour path)
+        {
+            Parent = parent;
+            Children = children;
+            Path = path;
+        }
+
         #region Properties
         /// <summary>
         /// Gets the parent.
@@ -47,7 +58,7 @@ namespace Engine.Experimental
         /// <returns>The <see cref="PolyPath"/>.</returns>
         public PolyPath AddChild(PolygonContour p)
         {
-            var child = new PolyPath
+            var child = new PolyPath()
             {
                 Parent = this,
                 Path = p

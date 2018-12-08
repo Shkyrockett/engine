@@ -106,7 +106,10 @@ namespace Engine
 
                 var c = new PolygonContour();
                 foreach (var p in pointChain.PointList)
+                {
                     c.Add(p);
+                }
+
                 polygon.Add(c);
 
             }

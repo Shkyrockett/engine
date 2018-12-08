@@ -5,7 +5,6 @@
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.
 // </license>
-
 // <copyright company="kevlindev" >
 //     Many of the Intersections methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/.
 //     Copyright © 2000 - 2003 Kevin Lindsey. All rights reserved.
@@ -14,7 +13,6 @@
 // <license>
 //     Licensed under the BSD-3-Clause https://github.com/thelonious/kld-intersections/blob/development/LICENSE
 // </license>
-
 // <copyright company="angusj" >
 //     The Point in Polygon method is from the Clipper Library.
 //     Copyright © 2010 - 2014 Angus Johnson. All rights reserved.
@@ -23,7 +21,6 @@
 // <license id="Boost">
 //     Licensed under the Boost Software License (http://www.boost.org/LICENSE_1_0.txt).
 // </license>
-
 // <copyright company="vb-helper" >
 //     Some of the methods came from Rod Stephens excellent blogs vb-helper(http://vb-helper.com), and csharphelper (http://csharphelper.com), as well as from his books.
 //     Copyright © Rod Stephens.
@@ -34,7 +31,6 @@
 //     I also recommend (but again don’t require) that you put the URL where you found the code in a comment inside your code in case you need to look it up later.
 //     So really no restrictions. (http://csharphelper.com/blog/rod/)
 // </license>
-
 // <summary></summary>
 // <remarks></remarks>
 
@@ -140,7 +136,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion Contains(this Ellipse ellipse, Point2D point)
-            => EllipseContainsPoint(ellipse.Center.X, ellipse.Center.Y, ellipse.RX, ellipse.RY, ellipse.SinAngle, ellipse.CosAngle, point.X, point.Y);
+            => EllipseContainsPoint(ellipse.Center.X, ellipse.Center.Y, ellipse.RX, ellipse.RY, ellipse.CosAngle, ellipse.SinAngle, point.X, point.Y);
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
@@ -259,7 +255,6 @@ namespace Engine
         /// <returns>
         /// Returns Outside (0) if false, Inside (+1) if true, Boundary (-1) if the point is on a polygon boundary.
         /// </returns>
-
         /// <acknowledgment>
         /// Adapted from Clipper library: http://www.angusj.com/delphi/clipper.php
         /// See "The Point in Polygon Problem for Arbitrary Polygons" by Hormann and Agathos
@@ -450,8 +445,15 @@ namespace Engine
                                 //    return Inclusion.Boundary;
 
                                 var extreams = EllipseExtremePoints(m.Center.X, m.Center.Y, m.RX, m.RY, m.CosAngle, m.SinAngle);
-                                if (extreams.Contains(m.StartPoint)) inside--;
-                                if (extreams.Contains(m.EndPoint)) inside--;
+                                if (extreams.Contains(m.StartPoint))
+                                {
+                                    inside--;
+                                }
+
+                                if (extreams.Contains(m.EndPoint))
+                                {
+                                    inside--;
+                                }
 
                                 //if ((m.StartPoint.Y > point.Y != m.EndPoint.Y > point.Y))
                                 inside += ScanbeamPointsToRightEllipticalArc(point.X, point.Y, m.Center.X, m.Center.Y, m.RX, m.RY, m.CosAngle, m.SinAngle, m.StartAngle, m.SweepAngle, epsilon);
@@ -490,7 +492,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             var result = Inclusion.Outside;
-            const Inclusion boundary = Inclusion.Outside;
+            //const Inclusion boundary = Inclusion.Outside;
 
             if (path.Count < 2)
             {
@@ -653,11 +655,11 @@ namespace Engine
                         break;
                 }
 
-                if (boundary == Inclusion.Boundary)
-                {
-                    result = boundary;
-                    return result;
-                }
+                //if (boundary == Inclusion.Boundary)
+                //{
+                //    result = boundary;
+                //    return result;
+                //}
             }
             return result;
         }
@@ -705,7 +707,6 @@ namespace Engine
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
         /// </acknowledgment>
@@ -751,7 +752,7 @@ namespace Engine
             double cX, double cY, double rx, double ry, double angle,
             double pX, double pY/*,*/
             /*double epsilon = Epsilon*/)
-            => EllipseContainsPoint(cX, cY, rx, ry, Sin(angle), Cos(angle), pX, pY/*, epsilon*/);
+            => EllipseContainsPoint(cX, cY, rx, ry, Cos(angle), Sin(angle), pX, pY/*, epsilon*/);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
@@ -760,20 +761,19 @@ namespace Engine
         /// <param name="cY">Center y-coordinate.</param>
         /// <param name="rx">The first radius of the Ellipse.</param>
         /// <param name="ry">The second radius of the Ellipse.</param>
-        /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
         /// <param name="cosT">The cosine of the angle of rotation of Ellipse about it's center.</param>
+        /// <param name="sinT">The sine of the angle of rotation of Ellipse about it's center.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipseContainsPoint(
-            double cX, double cY, double rx, double ry, double sinT, double cosT,
+            double cX, double cY, double rx, double ry, double cosT, double sinT,
             double pX, double pY,
             double epsilon = Epsilon)
         {
@@ -798,50 +798,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Is point (x, y) inside of the ellipse centered at (ex, ey) with diameters width and height, rotated by angle rot? 
-        /// Return true iff it's so.
-        /// See www.khanacademy.org/math/trigonometry/conics_precalc/ellipses-precalc/v/conic-sections--intro-to-ellipses
-        /// From https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
-        /// </summary>
-        /// <param name="cx">The cx.</param>
-        /// <param name="cy">The cy.</param>
-        /// <param name="rx">The rx.</param>
-        /// <param name="ry">The ry.</param>
-        /// <param name="cosT">The cosT.</param>
-        /// <param name="sinT">The sinT.</param>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        public static Inclusion EllipseContainsPoint2(
-            double cx, double cy, double rx, double ry, double cosT, double sinT,
-            double x, double y,
-            double epsilon = Epsilon)
-        {
-            if (rx <= 0d || ry <= 0d)
-            {
-                return Inclusion.Outside;
-            }
-
-            // Translate point to origin.
-            var u = x - cx;
-            var v = y - cy;
-
-            // Apply the rotation transformation.
-            var a = cosT * u + sinT * v;
-            var b = sinT * u - cosT * v;
-
-            // sqrt x/y terms
-            var termX = 2 * a / rx;
-            var termY = 2 * b / ry;
-
-            var normalizedRadius = (termX * termX) + (termY * termY);
-            return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
-        }
-
-        /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="Circle"/>.
         /// </summary>
         /// <param name="x">Center x-coordinate.</param>
@@ -853,7 +809,6 @@ namespace Engine
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/481144/equation-for-testing-if-a-point-is-inside-a-circle
         /// </acknowledgment>
@@ -874,11 +829,11 @@ namespace Engine
                 && pY >= y - r && pY <= y + r)
             {
                 // Find the points of the chord.
-                var startPoint = Interpolators.CircularArc(x, y, r, startAngle, sweepAngle, 0);
-                var endPoint = Interpolators.CircularArc(x, y, r, startAngle, sweepAngle, 1);
+                var (startPointX, startPointY) = Interpolators.CircularArc(x, y, r, startAngle, sweepAngle, 0);
+                var (endPointX, endPointY) = Interpolators.CircularArc(x, y, r, startAngle, sweepAngle, 1);
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = (startPointX - pX) * (endPointY - pY) - (endPointX - pX) * (startPointY - pY);
 
                 // Check if the point is on the chord.
                 if (Abs(determinant) < Epsilon)
@@ -917,7 +872,6 @@ namespace Engine
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -951,7 +905,6 @@ namespace Engine
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// https://math.stackexchange.com/a/1760296
@@ -978,7 +931,7 @@ namespace Engine
             //if (Abs(sweepCosT - 1d) < epsilon && Abs(sweepSinT) < epsilon)
             if (Abs(sweepAngle) >= Tau)
             {
-                return EllipseContainsPoint(cX, cY, r1, r2, sinT, cosT, pX, pY);
+                return EllipseContainsPoint(cX, cY, r1, r2, cosT, sinT, pX, pY);
             }
 
             // Find the start and end angles.
@@ -1038,7 +991,6 @@ namespace Engine
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -1072,7 +1024,6 @@ namespace Engine
         /// <param name="pY">The y-coordinate of the test point.</param>
         /// <param name="epsilon"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -1097,7 +1048,7 @@ namespace Engine
             // If the Sweep angle is Tau, the EllipticalArc must be an Ellipse.
             if (Abs(sweepAngle) >= Tau)
             {
-                return EllipseContainsPoint(cX, cY, r1, r2, sinT, cosT, pX, pY);
+                return EllipseContainsPoint(cX, cY, r1, r2, cosT, sinT, pX, pY);
             }
 
             //var endSinT = sweepSinT * startCosT + sweepCosT * startSinT;

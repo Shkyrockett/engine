@@ -236,7 +236,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(ScreenPoint);
+            if (this is null)
+            {
+                return nameof(ScreenPoint);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(ScreenPoint)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}}}";
         }

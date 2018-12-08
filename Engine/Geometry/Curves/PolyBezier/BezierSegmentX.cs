@@ -197,8 +197,14 @@ namespace Engine
             get { return (handles.Length >= 2) ? handles[handles.Length - 2] : Start; }
             set
             {
-                if (handles.Length >= 2) handles[handles.Length - 2] = value.Value;
-                else Start = value.Value;
+                if (handles.Length >= 2)
+                {
+                    handles[handles.Length - 2] = value.Value;
+                }
+                else
+                {
+                    Start = value.Value;
+                }
             }
         }
 
@@ -325,7 +331,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(BezierSegmentX);
+            if (this is null)
+            {
+                return nameof(BezierSegmentX);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(BezierSegmentX)}{{{string.Join(sep.ToString(), handles)}}}";
             return formatable.ToString(format, provider);

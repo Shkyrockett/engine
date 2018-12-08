@@ -562,7 +562,10 @@ namespace Engine
                     {
                         var a1 = Maths.AngleVector(Points[0].X, Points[0].Y, Points[3].X, Points[3].Y, Points[1].X, Points[1].Y);
                         var a2 = Maths.AngleVector(Points[0].X, Points[0].Y, Points[3].X, Points[3].Y, Points[2].X, Points[2].Y);
-                        if (a1 > 0 && a2 < 0 || a1 < 0 && a2 > 0) return false;
+                        if (a1 > 0 && a2 < 0 || a1 < 0 && a2 > 0)
+                        {
+                            return false;
+                        }
                     }
                     var n1 = Normal(0);
                     var n2 = Normal(1);
@@ -671,7 +674,9 @@ namespace Engine
                     var v3 = 18 * (c - a);
 
                     if (Maths.Approximately(v1, 0))
+                    {
                         return new double[] { };
+                    }
 
                     var descriminant = v2 * v2 - 4 * v1 * v3;
                     var sq = Math.Sqrt(descriminant);
@@ -713,8 +718,15 @@ namespace Engine
 
                     // first pass: split on extrema
                     var extrema = Extrema.ToList();
-                    if (extrema.IndexOf(0) == -1) extrema.Insert(0, 0);
-                    if (extrema.IndexOf(1) == -1) extrema.Add(1);
+                    if (extrema.IndexOf(0) == -1)
+                    {
+                        extrema.Insert(0, 0);
+                    }
+
+                    if (extrema.IndexOf(1) == -1)
+                    {
+                        extrema.Add(1);
+                    }
 
                     t1 = extrema[0];
                     for (i = 1; i < extrema.Count; i++)
@@ -1069,7 +1081,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(CubicBezier);
+            if (this is null)
+            {
+                return nameof(CubicBezier);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(CubicBezier)}={{{nameof(A)}={A}{sep}{nameof(B)}={B}{sep}{nameof(C)}={C}{sep}{nameof(D)}={D}}}";
             return formatable.ToString(format, provider);

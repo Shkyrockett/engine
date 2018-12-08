@@ -33,11 +33,15 @@ namespace Engine
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType != typeof(string))
+            {
                 return base.ConvertTo(context, culture, value, destinationType);
+            }
 
             var gameElements = value as List<IGameElement>;
             if (gameElements is null)
+            {
                 return "-";
+            }
 
             return string.Join(", ", gameElements.Select(m => m.Name));
         }
@@ -64,7 +68,9 @@ namespace Engine
                 foreach (IGameElement gameElement in gameElements)
                 {
                     if (gameElement.Name != null)
+                    {
                         list.Add(new GameElementDescriptor(gameElement, list.Count));
+                    }
                 }
             }
 

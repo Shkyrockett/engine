@@ -32,7 +32,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="AdvBrowsableAttribute"/> class.
         /// </summary>
         public AdvBrowsableAttribute()
-            : this(null)
+            : this(string.Empty)
         { }
 
         /// <summary>

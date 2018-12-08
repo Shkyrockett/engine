@@ -417,13 +417,18 @@ namespace Engine.Geometry
             if (a.Real < 0)
             {
                 if (a.Imaginary < 0)
+                {
                     return Math.Atan(a.Imaginary / a.Real) - Math.PI;
+                }
                 else
+                {
                     return Math.PI - Math.Atan(-a.Imaginary / a.Real);
+                }
             }
             else
+            {
                 return Math.Atan(a.Imaginary / a.Real);
-
+            }
         }
 
         /// <summary>
@@ -519,9 +524,18 @@ namespace Engine.Geometry
         /// <returns>The <see cref="string"/>.</returns>
         public string ConvertToString(string format, IFormatProvider formatProvider)
         {
-            if (this == Zero) return "0";
-            else if (double.IsInfinity(Real) || double.IsInfinity(Imaginary)) return "oo";
-            else if (double.IsNaN(Real) || double.IsNaN(Imaginary)) return "?";
+            if (this == Zero)
+            {
+                return "0";
+            }
+            else if (double.IsInfinity(Real) || double.IsInfinity(Imaginary))
+            {
+                return "oo";
+            }
+            else if (double.IsNaN(Real) || double.IsNaN(Imaginary))
+            {
+                return "?";
+            }
 
             string re, im, sign;
 
@@ -529,12 +543,21 @@ namespace Engine.Geometry
             {
                 sign = Real == 0 ? "-" : " - ";
             }
-            else sign = Imaginary > 0 && Real != 0 ? " + " : "";
+            else
+            {
+                sign = Imaginary > 0 && Real != 0 ? " + " : "";
+            }
 
             re = Real == 0 ? "" : Real.ToString(format, formatProvider);
 
-            if (Imaginary == 0) im = "";
-            else im = Imaginary == -1 || Imaginary == 1 ? "i" : Math.Abs(Imaginary).ToString(format, formatProvider) + "i";
+            if (Imaginary == 0)
+            {
+                im = "";
+            }
+            else
+            {
+                im = Imaginary == -1 || Imaginary == 1 ? "i" : Math.Abs(Imaginary).ToString(format, formatProvider) + "i";
+            }
 
             return re + sign + im;
         }

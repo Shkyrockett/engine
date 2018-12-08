@@ -64,7 +64,11 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this is null) return nameof(Sine);
+            if (this is null)
+            {
+                return nameof(Sine);
+            }
+
             return $"{nameof(Sine)}{{{nameof(A)}={A},{nameof(B)}={B}}}";
         }
     }

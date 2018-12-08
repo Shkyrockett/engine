@@ -38,7 +38,9 @@ namespace Engine.WindowsForms
             Attribute lookupAttribute = new GeometryAngleRadiansAttribute();
 
             foreach (Type item in ListTypesTaggedWithPropertyAttribute(lookupAttribute))
+            {
                 ReplacePropertyAttribute(item, lookupAttribute, angleEditorAttribute);
+            }
         }
 
         /// <summary>

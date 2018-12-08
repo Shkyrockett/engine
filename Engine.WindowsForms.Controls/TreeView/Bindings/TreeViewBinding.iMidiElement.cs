@@ -187,7 +187,11 @@ namespace Engine
         {
             var treeNode = e.Node;
             // Skip, if the TreeNode belongs to a foreign collection.
-            if (treeNode.Parent != parentTreeNode) return;
+            if (treeNode.Parent != parentTreeNode)
+            {
+                return;
+            }
+
             bindingSource.Position = treeNode.Index;
         }
 
@@ -200,7 +204,11 @@ namespace Engine
             {
                 var dataItem = getDataItemFunc(listItem);
                 var treeNode = addTreeNodeFunc(dataItem);
-                if (treeNode is null) continue;
+                if (treeNode is null)
+                {
+                    continue;
+                }
+
                 updateTreeNodeAction(dataItem, treeNode);
                 treeNodeCollection.Add(treeNode);
             }
@@ -216,7 +224,11 @@ namespace Engine
             if (currentAddItem is null)
             {
                 var treeNode = addTreeNodeFunc(dataItem);
-                if (treeNode is null) return;
+                if (treeNode is null)
+                {
+                    return;
+                }
+
                 treeNodeCollection.Insert(newIndex, treeNode);
                 currentAddItem = treeNode;
                 return;
@@ -231,7 +243,10 @@ namespace Engine
         public void UpdateItem()
         {
             if (bindingSource.Current is null)
+            {
                 return;
+            }
+
             var dataItem = getDataItemFunc(bindingSource.Current);
             var treeNode = treeNodeCollection[bindingSource.Position];
             updateTreeNodeAction(dataItem, treeNode);
@@ -265,9 +280,15 @@ namespace Engine
         private void SelectItem()
         {
             if (bindingSource.Position < 0)
+            {
                 return;
+            }
+
             if (treeNodeCollection.Count <= bindingSource.Position)
+            {
                 return;
+            }
+
             var treeNode = treeNodeCollection[bindingSource.Position];
             treeNode.EnsureVisible();
             treeView.SelectedNode = treeNode;

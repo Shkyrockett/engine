@@ -72,7 +72,9 @@ namespace Engine.File
             Validate(chunk);
 
             if (chunk.Length > reader.BaseStream.Length - reader.BaseStream.Position)
+            {
                 throw new ArgumentOutOfRangeException("Chunk length larger than remaining stream length.");
+            }
 
             // Isolate a chunk of the stream as a sub-stream to try to prevent over-reading. 
             chunk.SubStream = new SubStream(reader.BaseStream, reader.Position, chunk.Length);

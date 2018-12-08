@@ -60,13 +60,24 @@ namespace Engine.File
             baseStream = source ?? throw new ArgumentNullException("The source stream can not be null");
 
             if (!source.CanRead)
+            {
                 throw new ArgumentException("Can't read base stream");
+            }
+
             if (start < 0)
+            {
                 throw new ArgumentOutOfRangeException("The start position of a SubStream can not be negative");
+            }
+
             if (length < 0)
+            {
                 throw new ArgumentOutOfRangeException("The count of a SubStream can not be negative");
+            }
+
             if (start + length > source.Length)
+            {
                 throw new ArgumentOutOfRangeException("The sub-chunk exceeds beyond the end of the source stream");
+            }
 
             startPosition = start;
             this.length = length;
@@ -154,18 +165,31 @@ namespace Engine.File
         public override int Read(byte[] buffer, int offset, int count)
         {
             if (buffer is null)
+            {
                 throw new ArgumentNullException("The read buffer is null");
+            }
+
             if (offset < 0)
+            {
                 throw new ArgumentOutOfRangeException("The offset is negative");
+            }
+
             if (count < 0)
+            {
                 throw new ArgumentOutOfRangeException("The count is negative");
+            }
+
             if (offset + count > buffer.Length)
+            {
                 throw new ArgumentException("The buffer is too small");
+            }
 
             CheckDisposed();
 
             if (count <= 0)
+            {
                 return 0;
+            }
             else if (count >= Length - Position)
             {
                 count = (int)(Length - Position);
@@ -267,7 +291,10 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CheckDisposed()
         {
-            if (baseStream is null) throw new ObjectDisposedException(GetType().Name);
+            if (baseStream is null)
+            {
+                throw new ObjectDisposedException(GetType().Name);
+            }
         }
         #endregion Methods
     }

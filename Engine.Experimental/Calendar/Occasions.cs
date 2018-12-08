@@ -2138,7 +2138,10 @@ namespace Engine.Chrono
                 select h
                 );
 
-            if (occasions.Count > 0) return (true, occasions);
+            if (occasions.Count > 0)
+            {
+                return (true, occasions);
+            }
 
             return (false, null);
         }

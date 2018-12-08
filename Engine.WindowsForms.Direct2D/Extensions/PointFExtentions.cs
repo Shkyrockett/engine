@@ -449,7 +449,9 @@ namespace Engine
         public static void RotatePoints(this PointF[] points, double angle)
         {
             for (var i = 0; i < points.Length; i++)
+            {
                 points[i] = RotatePoint(points[i], angle);
+            }
         }
 
         /// <summary>
@@ -461,7 +463,9 @@ namespace Engine
         public static void RotatePoints(this PointF[] points, PointF fulcrum, double angle)
         {
             for (var i = 0; i < points.Length; i++)
+            {
                 points[i] = RotatePoint(points[i], fulcrum, angle);
+            }
         }
 
         /// <summary>

@@ -54,7 +54,7 @@ namespace Engine
         public List<GraphicItem> this[Rectangle2D area]
             => new List<GraphicItem>(
                 from shape in Items
-                where (shape?.Shape?.Bounds != null) && shape.VisibleTest(area)
+                where !(shape?.Shape?.Bounds is null) && shape.VisibleTest(area)
                 select shape);
 
         /// <summary>
@@ -185,9 +185,15 @@ namespace Engine
         {
             var success = false;
             if (SelectedItems.Contains(item))
+            {
                 success |= SelectedItems.Remove(item);
+            }
+
             if (Items.Contains(item))
+            {
                 success |= Items.Remove(item);
+            }
+
             return success;
         }
 

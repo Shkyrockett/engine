@@ -26,7 +26,9 @@ namespace Engine
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             if (sourceType == typeof(string))
+            {
                 return true;
+            }
 
             return base.CanConvertFrom(context, sourceType);
         }
@@ -40,7 +42,9 @@ namespace Engine
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
+            {
                 return true;
+            }
 
             return base.CanConvertTo(context, destinationType);
         }
@@ -57,24 +61,34 @@ namespace Engine
         {
             var str = value as string;
             if (str is null)
+            {
                 return base.ConvertFrom(context, culture, value);
+            }
 
             var str2 = str.Trim();
             if (str2.Length == 0)
+            {
                 return null;
+            }
 
             if (culture is null)
+            {
                 culture = CultureInfo.CurrentCulture;
+            }
 
             var ch = culture.TextInfo.ListSeparator[0];
             var strArray = str2.Split(new char[] { ch });
             var numArray = new double[strArray.Length];
             var converter = TypeDescriptor.GetConverter(typeof(double));
             for (var i = 0; i < numArray.Length; i++)
+            {
                 numArray[i] = (double)converter.ConvertFromString(context, culture, strArray[i]);
+            }
 
             if (numArray.Length != 2)
+            {
                 throw new ArgumentException("Parse failed.");
+            }
 
             return new Size2D(numArray[0], numArray[1]);
         }
@@ -91,7 +105,9 @@ namespace Engine
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType is null)
+            {
                 throw new ArgumentNullException(nameof(destinationType));
+            }
 
             if (value is Size2D)
             {
@@ -99,7 +115,9 @@ namespace Engine
                 {
                     var size2D = (Size2D)value;
                     if (culture is null)
+                    {
                         culture = CultureInfo.CurrentCulture;
+                    }
 
                     var separator = culture.TextInfo.ListSeparator + " ";
                     var converter = TypeDescriptor.GetConverter(typeof(double));
@@ -114,7 +132,9 @@ namespace Engine
                     var size22D = (Size2D)value;
                     var constructor = typeof(Size2D).GetConstructor(new Type[] { typeof(double), typeof(double) });
                     if (constructor != null)
+                    {
                         return new System.ComponentModel.Design.Serialization.InstanceDescriptor(constructor, new object[] { size22D.Width, size22D.Height });
+                    }
                 }
             }
 
@@ -137,9 +157,13 @@ namespace Engine
         public override object CreateInstance(ITypeDescriptorContext context, System.Collections.IDictionary propertyValues)
         {
             if (propertyValues != null)
+            {
                 return new Size2D((double)propertyValues["Width"], (double)propertyValues["Height"]);
+            }
             else
+            {
                 return null;
+            }
         }
     }
 }

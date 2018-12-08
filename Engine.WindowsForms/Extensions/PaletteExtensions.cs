@@ -35,10 +35,14 @@ namespace Engine.WindowsForms
         {
             // Exit if data is not properly formated.
             if (palette.Colors is null)
+            {
                 return null;
+            }
 
             if (palette.Colors.Count == 0)
+            {
                 return null;
+            }
 
             var grid = new RectangleCellGrid(new Rectangle2D(bounds.Location.ToPoint2D(), new Size2D(bounds.Size.Width - 1, bounds.Size.Height - 1)), palette.Colors.Count);
             //RectangleCellGrid grid = new RectangleCellGrid(bounds, this.colors.Count);

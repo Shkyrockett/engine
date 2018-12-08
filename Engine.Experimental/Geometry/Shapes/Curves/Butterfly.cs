@@ -147,7 +147,11 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(Butterfly);
+            if (this is null)
+            {
+                return nameof(Butterfly);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Butterfly)}{{{nameof(Offset)}={offset},{nameof(Multiplyer)}={multiplyer},{nameof(Precision)}={precision}}}";
             return formatable.ToString(format, provider);

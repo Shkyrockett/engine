@@ -136,7 +136,9 @@ namespace Engine
         public RotatedRectangle2D(double x, double y, double width, double height, double angle)
         {
             if (width < 0 || height < 0)
+            {
                 throw new ArgumentException("Width and Height cannot be Negative.");
+            }
 
             this.x = x;
             this.y = y;

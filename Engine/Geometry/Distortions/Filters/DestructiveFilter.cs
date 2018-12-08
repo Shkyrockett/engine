@@ -89,14 +89,13 @@ namespace Engine
         {
             var result = new PolycurveContour(Process(line.Points[0]));
 
-            List<Point2D> side = null;
-            List<CubicBezier> curves = null;
-            side = new List<Point2D>();
-            for (double j = 0; j < 1; j = j + 1d / (line.Length * SampleDistance))
+            var side = new List<Point2D>();
+            for (double j = 0; j < 1; j = j + (1d / (line.Length * SampleDistance)))
             {
                 side.Add(Process(Interpolators.Linear(line.A, line.B, j)));
             }
-            curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
+
+            var curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
             foreach (var curve in curves)
             {
                 result.AddCubicBezier(curve.B, curve.C, curve.D);
@@ -241,6 +240,7 @@ namespace Engine
             List<Point2D> side = null;
             List<CubicBezier> curves = null;
             if (contour.Count > 1)
+            {
                 for (var i = 1; i < contour.Count; i++)
                 {
                     side = new List<Point2D>();
@@ -254,6 +254,7 @@ namespace Engine
                         result.AddCubicBezier(curve.B, curve.C, curve.D);
                     }
                 }
+            }
 
             return result;
         }

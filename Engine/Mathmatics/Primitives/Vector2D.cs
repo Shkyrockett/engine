@@ -295,12 +295,12 @@ namespace Engine
         /// Divide a Vector2D
         /// </summary>
         /// <param name="divisor">The Vector2D</param>
-        /// <param name="divedend">The divisor</param>
+        /// <param name="dividend">The divisor</param>
         /// <returns>A Vector2D divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(Vector2D divisor, double divedend)
-            => new Vector2D(divisor.I / divedend, divisor.J / divedend);
+        public static Vector2D operator /(Vector2D divisor, double dividend)
+            => new Vector2D(divisor.I / dividend, divisor.J / dividend);
 
         /// <summary>
         /// Divide a Vector2D
@@ -534,7 +534,7 @@ namespace Engine
         /// </summary>
         /// <returns>A string representation of this instance.</returns>
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector2D"/> struct based on the IFormatProvider
@@ -546,7 +546,7 @@ namespace Engine
         /// A string representation of this instance as specified by provider.
         /// </returns>
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector2D"/> struct based on the format string

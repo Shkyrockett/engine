@@ -148,10 +148,10 @@ namespace Engine
         /// The operator /.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="divedend">The divedend.</param>
+        /// <param name="dividend">The dividend.</param>
         /// <returns>The <see cref="Orientation"/>.</returns>
-        public static Orientation operator /(Orientation divisor, double divedend)
-            => Divide3D1D(divisor.Roll, divisor.Pitch, divisor.Yaw, divedend);
+        public static Orientation operator /(Orientation divisor, double dividend)
+            => Divide3D1D(divisor.Roll, divisor.Pitch, divisor.Yaw, dividend);
 
         /// <summary>
         /// The operator /.
@@ -287,7 +287,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => ConvertToString(null, CultureInfo.InvariantCulture);
+            => ConvertToString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector3D"/> struct based on the format string

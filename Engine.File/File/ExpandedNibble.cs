@@ -83,7 +83,9 @@ namespace Engine.File
         public override bool Equals(object obj)
         {
             if (obj is ExpandedNibble)
+            {
                 return Equals((ExpandedNibble)obj);
+            }
 
             return false;
         }

@@ -61,10 +61,12 @@ namespace Engine
             watch.Start();
 
             for (var z = 0; z < trials; z++)
+            {
                 for (var i = 1; i < points.Length; i++)
                 {
                     result = ProcessSegment(points[i - 1], points[i]);
                 }
+            }
 
             watch.Stop();
             //GCSettings.LatencyMode = oldMode;
@@ -83,10 +85,12 @@ namespace Engine
             watch.Start();
 
             for (var z = 0; z < trials; z++)
+            {
                 for (var i = 0; i < points.Length; i++)
                 {
                     result = ProcessSegment(points[i], points[(i + 1) % points.Length]);
                 }
+            }
 
             watch.Stop();
             //GCSettings.LatencyMode = oldMode;
@@ -105,10 +109,12 @@ namespace Engine
             watch.Start();
 
             for (var z = 0; z < trials; z++)
+            {
                 for (var i = 0; i < points.Length; i++)
                 {
                     result = (i < points.Length - 1) ? ProcessSegment(points[i], points[i + 1]) : ProcessSegment(points[i], points[(i + 1) % points.Length]);
                 }
+            }
 
             watch.Stop();
             //GCSettings.LatencyMode = oldMode;
@@ -127,10 +133,12 @@ namespace Engine
             watch.Start();
 
             for (var z = 0; z < trials; z++)
+            {
                 for (var i = 0; i < points.Length; i++)
                 {
                     result = i < points.Length - 1 ? ProcessSegment(points[i], points[i + 1]) : ProcessSegment(points[i], points[(i + 1) % points.Length]);
                 }
+            }
 
             watch.Stop();
             //GCSettings.LatencyMode = oldMode;
@@ -149,10 +157,13 @@ namespace Engine
             watch.Start();
 
             for (var z = 0; z < trials; z++)
+            {
                 for (var i = 0; i < points.Length - 1; i++)
                 {
                     result = ProcessSegment(points[i], points[i + 1]);
                 }
+            }
+
             result = ProcessSegment(points[points.Length - 1], points[0]);
 
             watch.Stop();
@@ -172,10 +183,13 @@ namespace Engine
             watch.Start();
 
             for (var z = 0; z < trials; z++)
+            {
                 for (var i = 1; i < points.Length; i++)
                 {
                     result = ProcessSegment(points[i - 1], points[i]);
                 }
+            }
+
             result = ProcessSegment(points[points.Length - 1], points[0]);
 
             watch.Stop();
@@ -195,10 +209,12 @@ namespace Engine
             watch.Start();
 
             for (var z = 0; z < trials; z++)
+            {
                 for (int i = points.Length - 1, j = 0; j < points.Length; i = j++)
                 {
                     result = ProcessSegment(points[i], points[j]);
                 }
+            }
 
             watch.Stop();
             //GCSettings.LatencyMode = oldMode;

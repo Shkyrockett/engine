@@ -716,7 +716,9 @@ namespace Engine
             var y2 = Min(a.Y + a.Height, b.Y + b.Height);
 
             if (x2 >= x1 && y2 >= y1)
+            {
                 return new Rectangle2D(x1, y1, x2 - x1, y2 - y1);
+            }
 
             return Empty;
         }
@@ -843,29 +845,32 @@ namespace Engine
         /// <returns></returns>
         public void UnionMutate(Rectangle2D rect)
         {
-            var left = Min(Left, rect.Left);
-            var top = Min(Top, rect.Top);
+            var left = rect is null ? Left : Min(Left, rect.Left);
+            var top = rect is null ? Top : Min(Top, rect.Top);
 
-            // We need this check so that the math does not result in NaN
-            if (double.IsPositiveInfinity(rect.Width) || double.IsPositiveInfinity(Width))
+            if (!(rect is null))
             {
-                width = double.PositiveInfinity;
-            }
-            else
-            {
-                //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                width = Max(Max(Right, rect.Right) - left, 0);
-            }
+                // We need this check so that the math does not result in NaN
+                if (double.IsPositiveInfinity(rect.Width) || double.IsPositiveInfinity(Width))
+                {
+                    width = double.PositiveInfinity;
+                }
+                else
+                {
+                    //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
+                    width = Max(Max(Right, rect.Right) - left, 0);
+                }
 
-            // We need this check so that the math does not result in NaN
-            if (double.IsPositiveInfinity(rect.Height) || double.IsPositiveInfinity(Height))
-            {
-                height = double.PositiveInfinity;
-            }
-            else
-            {
-                //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                height = Max(Max(Bottom, rect.Bottom) - top, 0);
+                // We need this check so that the math does not result in NaN
+                if (double.IsPositiveInfinity(rect.Height) || double.IsPositiveInfinity(Height))
+                {
+                    height = double.PositiveInfinity;
+                }
+                else
+                {
+                    //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
+                    height = Max(Max(Bottom, rect.Bottom) - top, 0);
+                }
             }
 
             x = left;
@@ -880,33 +885,36 @@ namespace Engine
         /// <returns></returns>
         public Rectangle2D Union(Rectangle2D rect)
         {
-            var left = Min(Left, rect.Left);
-            var top = Min(Top, rect.Top);
+            var left = rect is null ? Left : Min(Left, rect!!.Left);
+            var top = rect is null ? Top : Min(Top, rect!!.Top);
             var width = this.width;
             var height = this.width;
 
-            // We need this check so that the math does not result in NaN
-            if (double.IsPositiveInfinity(rect.Width) || double.IsPositiveInfinity(Width))
+            if (!(rect is null))
             {
-                width = double.PositiveInfinity;
-            }
-            else
-            {
-                //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                var maxRight = Max(Right, rect.Right);
-                width = Max(maxRight - left, 0);
-            }
+                // We need this check so that the math does not result in NaN
+                if (double.IsPositiveInfinity(rect.Width) || double.IsPositiveInfinity(Width))
+                {
+                    width = double.PositiveInfinity;
+                }
+                else
+                {
+                    //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
+                    var maxRight = Max(Right, rect.Right);
+                    width = Max(maxRight - left, 0);
+                }
 
-            // We need this check so that the math does not result in NaN
-            if (double.IsPositiveInfinity(rect.Height) || double.IsPositiveInfinity(Height))
-            {
-                height = double.PositiveInfinity;
-            }
-            else
-            {
-                //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-                var maxBottom = Max(Bottom, rect.Bottom);
-                height = Max(maxBottom - top, 0);
+                // We need this check so that the math does not result in NaN
+                if (rect is null || double.IsPositiveInfinity(rect.Height) || double.IsPositiveInfinity(Height))
+                {
+                    height = double.PositiveInfinity;
+                }
+                else
+                {
+                    //  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
+                    var maxBottom = Max(Bottom, rect.Bottom);
+                    height = Max(maxBottom - top, 0);
+                }
             }
 
             return new Rectangle2D(left, top, width, height);

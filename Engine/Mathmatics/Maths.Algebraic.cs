@@ -84,7 +84,7 @@ namespace Engine
         /// <param name="coefficients">The coefficients.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
-        /// <remarks>Primaraly used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
+        /// <remarks>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
         /// <acknowledgment>
         /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
         /// as well as Trim and RealOrder from: https://github.com/superlloyd/Poly

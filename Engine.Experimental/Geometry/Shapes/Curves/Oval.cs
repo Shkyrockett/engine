@@ -240,7 +240,11 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(Oval);
+            if (this is null)
+            {
+                return nameof(Oval);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(Oval)}{{{nameof(Location)}={Location}{sep}{nameof(Size)}={Size}}}";
             return formatable.ToString(format, provider);

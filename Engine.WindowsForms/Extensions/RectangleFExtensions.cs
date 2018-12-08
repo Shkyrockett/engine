@@ -79,14 +79,22 @@ namespace Engine
             for (var i = 1; i < points.Length; i++)
             {
                 if (points[i].X < left)
+                {
                     left = points[i].X;
+                }
                 else if (points[i].X > right)
+                {
                     right = points[i].X;
+                }
 
                 if (points[i].Y < top)
+                {
                     top = points[i].Y;
+                }
                 else if (points[i].Y > bottom)
+                {
                     bottom = points[i].Y;
+                }
             }
 
             return new RectangleF(left, top,

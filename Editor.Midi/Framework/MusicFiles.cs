@@ -53,7 +53,9 @@ namespace EventEditorMidi
             foreach (Type type in assembly.GetTypes().ToArray())
             {
                 if (type.BaseType == classType)
+                {
                     typeList.Add(type);
+                }
             }
 
             return typeList;
@@ -69,7 +71,9 @@ namespace EventEditorMidi
         {
             var typeList = new List<Type>();
             foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(classType)).ToArray())
+            {
                 typeList.Add(type);
+            }
 
             return typeList;
         }

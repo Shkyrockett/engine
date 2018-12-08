@@ -68,7 +68,10 @@ namespace Engine
         public Spline(int samplesPerCurve)
         {
             if (samplesPerCurve < MinimumSamplesPerCurve || samplesPerCurve > MaximumSamplesPerCurve)
+            {
                 throw new InvalidOperationException("samplesPerCurve must be between " + MinimumSamplesPerCurve + " and " + MaximumSamplesPerCurve);
+            }
+
             this.samplesPerCurve = samplesPerCurve;
             curves = new List<CubicBezier>(16);
             curvesView = new ReadOnlyCollection<CubicBezier>(curves);
@@ -83,15 +86,23 @@ namespace Engine
         public Spline(ICollection<CubicBezier> curves, int samplesPerCurve)
         {
             if (curves is null)
+            {
                 throw new ArgumentNullException(nameof(curves));
+            }
+
             if (samplesPerCurve < MinimumSamplesPerCurve || samplesPerCurve > MaximumSamplesPerCurve)
+            {
                 throw new InvalidOperationException("samplesPerCurve must be between " + MinimumSamplesPerCurve + " and " + MaximumSamplesPerCurve);
+            }
+
             this.samplesPerCurve = samplesPerCurve;
             this.curves = new List<CubicBezier>(curves.Count);
             curvesView = new ReadOnlyCollection<CubicBezier>(this.curves);
             arclen = new List<double>(this.curves.Count * samplesPerCurve);
             foreach (CubicBezier curve in curves)
+            {
                 Add(curve);
+            }
         }
         #endregion Constructors
 
@@ -123,10 +134,16 @@ namespace Engine
         public void Add(CubicBezier curve)
         {
             if (curves.Count > 0 && !Primitives.EqualsOrClose(curves[curves.Count - 1].D, curve.A))
+            {
                 throw new InvalidOperationException("The new curve does at index " + curves.Count + " does not connect with the previous curve at index " + (curves.Count - 1));
+            }
+
             curves.Add(curve);
             for (var i = 0; i < samplesPerCurve; i++) // expand the array since updateArcLengths expects these values to be there
+            {
                 arclen.Add(0);
+            }
+
             UpdateArcLengths(curves.Count - 1);
         }
 
@@ -142,16 +159,30 @@ namespace Engine
         public void Update(int index, CubicBezier curve)
         {
             if (index < 0)
+            {
                 throw new IndexOutOfRangeException("Negative index");
+            }
+
             if (index >= curves.Count)
+            {
                 throw new IndexOutOfRangeException("Curve index " + index + " is out of range (there are " + curves.Count + " curves in the spline)");
+            }
+
             if (index > 0 && !Primitives.EqualsOrClose(curves[index - 1].D, curve.A))
+            {
                 throw new InvalidOperationException("The updated curve at index " + index + " does not connect with the previous curve at index " + (index - 1));
+            }
+
             if (index < curves.Count - 1 && !Primitives.EqualsOrClose(curves[index + 1].A, curve.D))
+            {
                 throw new InvalidOperationException("The updated curve at index " + index + " does not connect with the next curve at index " + (index + 1));
+            }
+
             curves[index] = curve;
             for (var i = index; i < curves.Count; i++)
+            {
                 UpdateArcLengths(i);
+            }
         }
 
         /// <summary>
@@ -185,11 +216,19 @@ namespace Engine
         public SamplePosition GetSamplePosition(double t)
         {
             if (curves.Count == 0)
+            {
                 throw new InvalidOperationException("No curves have been added to the spline");
+            }
+
             if (t < 0)
+            {
                 return new SamplePosition(0, 0);
+            }
+
             if (t > 1)
+            {
                 return new SamplePosition(curves.Count - 1, 1);
+            }
 
             var total = Length;
             var target = t * total;
@@ -205,18 +244,26 @@ namespace Engine
                 index = (low + high) / 2;
                 found = arclen[index];
                 if (found < target)
+                {
                     low = index + 1;
+                }
                 else
+                {
                     high = index;
+                }
             }
 
             // this should be a rather rare scenario: we're past the end, but this wasn't picked up by the test for u >= 1
             if (index >= arclen.Count - 1)
+            {
                 return new SamplePosition(curves.Count - 1, 1);
+            }
 
             // this can happen because the binary search can give us either index or index + 1
             if (found > target)
+            {
                 index--;
+            }
 
             if (index < 0)
             {

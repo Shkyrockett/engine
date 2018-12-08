@@ -56,17 +56,34 @@ namespace Engine
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var str = value as string;
-            if (str is null) return base.ConvertFrom(context, culture, value);
+            if (str is null)
+            {
+                return base.ConvertFrom(context, culture, value);
+            }
+
             var str2 = str.Trim();
-            if (str2.Length == 0) return null;
-            if (culture is null) culture = CultureInfo.CurrentCulture;
+            if (str2.Length == 0)
+            {
+                return null;
+            }
+
+            if (culture is null)
+            {
+                culture = CultureInfo.CurrentCulture;
+            }
+
             var strArray = str2.Split(new char[] { culture.TextInfo.ListSeparator[0] });
             var numArray = new double[strArray.Length];
             var converter = TypeDescriptor.GetConverter(typeof(double));
             for (var i = 0; i < numArray.Length; i++)
+            {
                 numArray[i] = (double)converter.ConvertFromString(context, culture, strArray[i].Trim());
+            }
 
-            if (numArray.Length != 4) throw new ArgumentException("Parse failed.");
+            if (numArray.Length != 4)
+            {
+                throw new ArgumentException("Parse failed.");
+            }
 
             return new Rectangle2D(numArray[0], numArray[1], numArray[2], numArray[3]);
         }
@@ -82,7 +99,9 @@ namespace Engine
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType is null)
+            {
                 throw new ArgumentNullException(nameof(destinationType));
+            }
 
             if (value is Rectangle2D)
             {
@@ -90,7 +109,9 @@ namespace Engine
                 {
                     var rectangle2D = (Rectangle2D)value;
                     if (culture is null)
+                    {
                         culture = CultureInfo.CurrentCulture;
+                    }
 
                     var separator = culture.TextInfo.ListSeparator + " ";
                     var converter = TypeDescriptor.GetConverter(typeof(double));
@@ -107,7 +128,9 @@ namespace Engine
                     var rectangle2 = (Rectangle2D)value;
                     var constructor = typeof(Rectangle2D).GetConstructor(new Type[] { typeof(double), typeof(double), typeof(double), typeof(double) });
                     if (constructor != null)
+                    {
                         return new InstanceDescriptor(constructor, new object[] { rectangle2.X, rectangle2.Y, rectangle2.Width, rectangle2.Height });
+                    }
                 }
             }
 

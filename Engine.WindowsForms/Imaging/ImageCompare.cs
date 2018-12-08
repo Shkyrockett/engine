@@ -38,9 +38,18 @@ namespace Engine.Imaging
         /// <remarks>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp </remarks>
         public unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
         {
-            if (a is null || b is null) return null;
-            else if (a is null) return b;
-            else if (b is null) return a;
+            if (a is null || b is null)
+            {
+                return null;
+            }
+            else if (a is null)
+            {
+                return b;
+            }
+            else if (b is null)
+            {
+                return a;
+            }
 
             var aRect = new Rectangle(Point.Empty, a.Size);
             var bRect = new Rectangle(Point.Empty, b.Size);
@@ -107,9 +116,18 @@ namespace Engine.Imaging
         /// <remarks>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp </remarks>
         public unsafe Bitmap PixelDiff1(Bitmap a, Bitmap b)
         {
-            if (a is null || b is null) return null;
-            else if (a is null) return b;
-            else if (b is null) return a;
+            if (a is null || b is null)
+            {
+                return null;
+            }
+            else if (a is null)
+            {
+                return b;
+            }
+            else if (b is null)
+            {
+                return a;
+            }
 
             var aRect = new Rectangle(Point.Empty, a.Size);
             var bRect = new Rectangle(Point.Empty, b.Size);

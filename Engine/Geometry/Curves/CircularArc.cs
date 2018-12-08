@@ -581,7 +581,10 @@ namespace Engine
         public override string ConvertToString(string format, IFormatProvider provider)
         {
             if (this is null)
+            {
                 return nameof(CircularArc);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(CircularArc)}{{{nameof(Center)}={Center}{sep}{nameof(Radius)}={radius}{sep}{nameof(StartAngle)}={startAngle}{sep}{nameof(EndAngle)}={sweepAngle}}}";
             return formatable.ToString(format, provider);

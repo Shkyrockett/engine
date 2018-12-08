@@ -63,10 +63,17 @@ namespace Engine.Experimental
         /// <param name="name">The name.</param>
         private Codecs(string name)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-            if (name.Length == 0) throw new ArgumentException("Empty String is not an acceptable codec name.", nameof(name));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
 
-            this.Name = name;
+            if (name.Length == 0)
+            {
+                throw new ArgumentException("Empty String is not an acceptable codec name.", nameof(name));
+            }
+
+            Name = name;
         }
 
         /// <summary>

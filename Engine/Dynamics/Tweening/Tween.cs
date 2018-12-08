@@ -59,7 +59,7 @@ namespace Engine.Tweening
         /// <summary>
         /// The duration.
         /// </summary>
-        private double duration;
+        private readonly double duration;
 
         /// <summary>
         /// The time.
@@ -91,37 +91,37 @@ namespace Engine.Tweening
         /// <summary>
         /// The vars.
         /// </summary>
-        private List<MemberAccessor> vars;
+        private readonly List<MemberAccessor> vars;
 
         /// <summary>
         /// The lerpers.
         /// </summary>
-        private List<MemberLerper> lerpers;
+        private readonly List<MemberLerper> lerpers;
 
         /// <summary>
         /// The start.
         /// </summary>
-        private List<object> start;
+        private readonly List<object> start;
 
         /// <summary>
         /// The end.
         /// </summary>
-        private List<object> end;
+        private readonly List<object> end;
 
         /// <summary>
         /// The var hash.
         /// </summary>
-        private Dictionary<string, int> varHash;
+        private readonly Dictionary<string, int> varHash;
 
         /// <summary>
         /// The parent.
         /// </summary>
-        private Tweener Parent;
+        private readonly Tweener Parent;
 
         /// <summary>
         /// The remover.
         /// </summary>
-        private Tweener Remover;
+        private readonly Tweener Remover;
         #endregion Fields
 
         #region Constructors
@@ -212,22 +212,30 @@ namespace Engine.Tweening
 
                 var i = vars.Count;
                 while (i-- > 0)
+                {
                     lerpers[i]?.Initialize(start[i], end[i], behavior);
+                }
             }
             else
             {
                 if (Paused)
+                {
                     return;
+                }
 
                 if (delay > 0)
                 {
                     delay -= elapsed;
                     if (delay > 0)
+                    {
                         return;
+                    }
                 }
 
                 if (time == 0 && timesRepeated == 0 && begin != null)
+                {
                     begin();
+                }
 
                 time += elapsed;
                 var setTimeTo = time;
@@ -243,7 +251,9 @@ namespace Engine.Tweening
                         timesRepeated++;
 
                         if (repeatCount > 0)
+                        {
                             --repeatCount;
+                        }
 
                         doComplete |= repeatCount < 0;
                     }
@@ -257,13 +267,17 @@ namespace Engine.Tweening
                 }
 
                 if (ease != null)
+                {
                     t = ease(t);
+                }
 
                 var i = vars.Count;
                 while (i-- > 0)
                 {
                     if (vars[i] != null)
+                    {
                         vars[i].Value = lerpers[i]?.Interpolate(t, vars[i]?.Value, behavior);
+                    }
                 }
 
                 time = setTimeTo;
@@ -271,12 +285,16 @@ namespace Engine.Tweening
                 //	If the timer is zero here, we just restarted.
                 //	If reflect mode is on, flip start to end
                 if (time == 0 && behavior.HasFlag(LerpBehavior.Reflect))
+                {
                     Reverse();
+                }
 
                 update?.Invoke();
 
                 if (doComplete && complete != null)
+                {
                     complete();
+                }
             }
         }
 
@@ -469,7 +487,9 @@ namespace Engine.Tweening
             for (var i = 0; i < properties.Length; ++i)
             {
                 if (!varHash.TryGetValue(properties[i], out var index))
+                {
                     continue;
+                }
 
                 varHash.Remove(properties[i]);
                 vars[index] = null;
@@ -481,7 +501,9 @@ namespace Engine.Tweening
             }
 
             if (canceled == vars.Count)
+            {
                 Cancel();
+            }
         }
 
         /// <summary>

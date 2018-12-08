@@ -217,14 +217,20 @@ namespace Engine
             {
                 var points = new List<Point2D>();
                 foreach (var angle in TestAngles)
+                {
                     points.Add(Interpolators.Circle(X, Y, Radius, angle));
+                }
+
                 return points;
             }
             set
             {
                 var angles = new List<double>();
                 foreach (Point2D point in value)
+                {
                     angles.Add(Maths.Angle(X, Y, point.X, point.Y));
+                }
+
                 TestAngles = angles;
                 update?.Invoke();
             }

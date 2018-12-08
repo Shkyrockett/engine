@@ -16,6 +16,21 @@ namespace Engine.Experimental
     /// </summary>
     public class OutRec
     {
+        public OutRec()
+        {
+        }
+
+        public OutRec(int dx, OutRec owner, Edge startEdge, Edge endEdge, LinkedPoint points, PolyPath polyPath, OutrecFlag flag)
+        {
+            IDx = dx;
+            Owner = owner;
+            StartEdge = startEdge;
+            EndEdge = endEdge;
+            Points = points;
+            PolyPath = polyPath;
+            Flag = flag;
+        }
+
         #region Properties
         /// <summary>
         /// Gets or sets the Idx.

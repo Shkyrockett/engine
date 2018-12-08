@@ -73,7 +73,7 @@ namespace Engine
         /// <summary>
         /// The in result.
         /// </summary>
-        private bool inResult;
+        private bool inResult = false;
 
         /// <summary>
         /// The pos.
@@ -234,7 +234,7 @@ namespace Engine
         /// <summary>
         /// Is the line segment (point, otherEvent.point) above point p
         /// </summary>
-        /// <param name="p">todo: describe p parameter on IsAbove</param>
+        /// <param name="p">ToDo: describe p parameter on IsAbove</param>
         /// <returns></returns>
         public bool IsAbove(Point2D p)
             => !IsBelow(p);

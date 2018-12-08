@@ -15,6 +15,11 @@ namespace Engine
     /// </summary>
     public class Pose
     {
+        public Pose(Bone[] bones)
+        {
+            Bones = bones ?? new Bone[] { };
+        }
+
         /// <summary>
         /// Gets or sets the bones.
         /// </summary>

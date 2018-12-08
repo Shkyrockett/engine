@@ -87,9 +87,14 @@ namespace Engine
             set
             {
                 if (IsReadonly)
+                {
                     return;
+                }
+
                 if (value)
+                {
                     isReadonly = true;
+                }
             }
         }
         #endregion Properties
@@ -130,7 +135,11 @@ namespace Engine
         public static Polynomialx operator +(double a, Polynomialx b)
         {
             var res = new double[b.Coefficients.Count];
-            for (var i = 0; i < res.Length; i++) res[i] = b.Coefficients[i];
+            for (var i = 0; i < res.Length; i++)
+            {
+                res[i] = b.Coefficients[i];
+            }
+
             res[0] += a;
             return new Polynomialx(res);
         }
@@ -150,8 +159,16 @@ namespace Engine
             for (var i = 0; i < res.Length; i++)
             {
                 double p = 0;
-                if (i < a.Coefficients.Count) p += a.Coefficients[i];
-                if (i < b.Coefficients.Count) p += b.Coefficients[i];
+                if (i < a.Coefficients.Count)
+                {
+                    p += a.Coefficients[i];
+                }
+
+                if (i < b.Coefficients.Count)
+                {
+                    p += b.Coefficients[i];
+                }
+
                 res[i] = p;
             }
             return new Polynomialx(res);
@@ -169,7 +186,10 @@ namespace Engine
         {
             var res = new double[a.Coefficients.Count];
             for (var i = 0; i < res.Length; i++)
+            {
                 res[i] = -a.Coefficients[i];
+            }
+
             return new Polynomialx(res);
         }
 
@@ -197,7 +217,11 @@ namespace Engine
         public static Polynomialx operator -(double b, Polynomialx a)
         {
             var res = new double[a.Coefficients.Count];
-            for (var i = 0; i < res.Length; i++) res[i] = -a.Coefficients[i];
+            for (var i = 0; i < res.Length; i++)
+            {
+                res[i] = -a.Coefficients[i];
+            }
+
             res[0] += b;
             return new Polynomialx(res);
         }
@@ -217,8 +241,16 @@ namespace Engine
             for (var i = 0; i < res.Length; i++)
             {
                 double p = 0;
-                if (i < a.Coefficients.Count) p += a.Coefficients[i];
-                if (i < b.Coefficients.Count) p -= b.Coefficients[i];
+                if (i < a.Coefficients.Count)
+                {
+                    p += a.Coefficients[i];
+                }
+
+                if (i < b.Coefficients.Count)
+                {
+                    p -= b.Coefficients[i];
+                }
+
                 res[i] = p;
             }
             return new Polynomialx(res);
@@ -249,7 +281,10 @@ namespace Engine
         {
             var res = new double[p.Coefficients.Count];
             for (var i = 0; i < res.Length; i++)
+            {
                 res[i] = m * p.Coefficients[i];
+            }
+
             return new Polynomialx(res);
         }
 
@@ -266,11 +301,14 @@ namespace Engine
         {
             var res = new double[a.Coefficients.Count + b.Coefficients.Count - 1];
             for (var i = 0; i < a.Coefficients.Count; i++)
+            {
                 for (var j = 0; j < b.Coefficients.Count; j++)
                 {
                     var mul = a.Coefficients[i] * b.Coefficients[j];
                     res[i + j] += mul;
                 }
+            }
+
             return new Polynomialx(res);
         }
 
@@ -287,7 +325,10 @@ namespace Engine
         {
             var res = new double[p.Coefficients.Count];
             for (var i = 0; i < res.Length; i++)
+            {
                 res[i] = p.Coefficients[i] / m;
+            }
+
             return new Polynomialx(res);
         }
         #endregion Operators
@@ -307,7 +348,10 @@ namespace Engine
         public static Polynomialx Term(int power, double coefficient = 1)
         {
             if (power < 0)
+            {
                 throw new ArgumentOutOfRangeException();
+            }
+
             var res = new double[power + 1];
             res[power] = coefficient;
             return new Polynomialx(res);
@@ -323,7 +367,9 @@ namespace Engine
         public static Polynomialx Interpolate(params double[] ys)
         {
             if (ys is null || ys.Length < 2)
+            {
                 throw new ArgumentNullException("At least 2 different points must be given");
+            }
 
             var res = new Polynomialx();
             for (var i = 0; i < ys.Length; i++)
@@ -332,7 +378,10 @@ namespace Engine
                 for (var j = 0; j < ys.Length; j++)
                 {
                     if (j == i)
+                    {
                         continue;
+                    }
+
                     e *= new Polynomialx(-j, 1) / (i - j);
                 }
                 res += ys[i] * e;
@@ -500,7 +549,10 @@ namespace Engine
         {
             var res = new double[Max(1, Coefficients.Count - 1)];
             for (var i = 1; i < Coefficients.Count; i++)
+            {
                 res[i - 1] = i * Coefficients[i];
+            }
+
             return new Polynomialx(res);
         }
 
@@ -518,7 +570,10 @@ namespace Engine
             var res = new double[Coefficients.Count + 1];
             res[0] = term0;
             for (var i = 0; i < Coefficients.Count; i++)
+            {
                 res[i + 1] = Coefficients[i] / (i + 1);
+            }
+
             return new Polynomialx(res);
         }
 
@@ -535,7 +590,10 @@ namespace Engine
         public Polynomialx Pow(int n)
         {
             if (n < 0)
+            {
                 throw new ArgumentOutOfRangeException();
+            }
+
             var order = Coefficients.Count - 1;
             var res = new double[order * n + 1];
             var tmp = new double[order * n + 1];
@@ -544,11 +602,14 @@ namespace Engine
             {
                 var porder = pow * order;
                 for (var i = 0; i <= order; i++)
+                {
                     for (var j = 0; j <= porder; j++)
                     {
                         var mul = Coefficients[i] * res[j];
                         tmp[i + j] += mul;
                     }
+                }
+
                 for (var i = 0; i <= porder + order; i++)
                 {
                     res[i] = tmp[i];
@@ -568,12 +629,16 @@ namespace Engine
         public double Evaluate(double x)
         {
             if (double.IsNaN(x))
+            {
                 throw new Exception("Polynomial.Eval: parameter must be a number");
+            }
 
             var result = 0d;
 
             for (var i = Degree; i >= 0; i--)
+            {
                 result = result * x + Coefficients[i];
+            }
 
             return result;
         }
@@ -634,9 +699,13 @@ namespace Engine
             double? result = null;
 
             if (Abs(minValue) <= Tolerance)
+            {
                 result = min;
+            }
             else if (Abs(maxValue) <= Tolerance)
+            {
                 result = max;
+            }
             else if (minValue * maxValue <= 0)
             {
                 var tmp1 = Log(max - min);
@@ -692,7 +761,10 @@ namespace Engine
         public static int RealOrder(params double[] coefficients)
         {
             if (coefficients is null)
+            {
                 return 0;
+            }
+
             var order = 0;
             for (var i = 0; i < coefficients.Length; i++)
             {
@@ -733,9 +805,14 @@ namespace Engine
                 else
                 {
                     if (y < minY)
+                    {
                         minY = y;
+                    }
+
                     if (y > maxY)
+                    {
                         maxY = y;
+                    }
                 }
             }
         }
@@ -780,11 +857,16 @@ namespace Engine
                     {
                         var descriminant = coefficients[1] * coefficients[1] - 4 * coefficients[2] * coefficients[0];
                         if (descriminant < 0)
+                        {
                             yield break;
+                        }
+
                         var sd = Sqrt(descriminant);
                         yield return (-coefficients[1] - sd) / 2 / coefficients[2];
                         if (sd > Epsilon)
+                        {
                             yield return (-coefficients[1] + sd) / 2 / coefficients[2];
+                        }
                     }
                     break;
                 case 3:
@@ -889,7 +971,9 @@ namespace Engine
                         var poly1 = SolveRealRoots(p + m - q / 2 / sqrt, sqrt, 1);
                         var poly2 = SolveRealRoots(p + m + q / 2 / sqrt, -sqrt, 1);
                         foreach (var y in poly1.Concat(poly2))
+                        {
                             yield return y - b / 4;
+                        }
                     }
                     break;
                 case 0:
@@ -909,7 +993,10 @@ namespace Engine
         public Complex[] FindRoots()
         {
             var p = Normalize();
-            if (p.Coefficients.Count == 1) return new Complex[0];
+            if (p.Coefficients.Count == 1)
+            {
+                return new Complex[0];
+            }
 
             Complex x0 = 1;
             var xMul = 0.4 + 0.9 * Complex.ImaginaryOne;
@@ -926,7 +1013,11 @@ namespace Engine
                 Complex div = 1;
                 for (var j = 0; j < R0.Length; j++)
                 {
-                    if (j == i) continue;
+                    if (j == i)
+                    {
+                        continue;
+                    }
+
                     div *= R0[i] - R0[j];
                 }
                 return div;
@@ -943,7 +1034,10 @@ namespace Engine
                 for (var i = 0; i < R0.Length; i++)
                 {
                     var c = R0[i] - R1[i];
-                    if (Abs(c.Real) > Epsilon || Abs(c.Imaginary) > Epsilon) return false;
+                    if (Abs(c.Real) > Epsilon || Abs(c.Imaginary) > Epsilon)
+                    {
+                        return false;
+                    }
                 }
                 return true;
             }
@@ -976,7 +1070,10 @@ namespace Engine
             if (Degree == 1)
             {
                 root = Bisection(min, max);
-                if (root != null) roots.Add(root.Value);
+                if (root != null)
+                {
+                    roots.Add(root.Value);
+                }
             }
             else
             {
@@ -988,24 +1085,36 @@ namespace Engine
                 {
                     // find root on [min, droots[0]]
                     root = Bisection(min, droots[0]);
-                    if (root != null) roots.Add(root.Value);
+                    if (root != null)
+                    {
+                        roots.Add(root.Value);
+                    }
 
                     // find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
                     for (var i = 0; i <= droots.Count - 2; i++)
                     {
                         root = Bisection(droots[i], droots[i + 1]);
-                        if (root != null) roots.Add(root.Value);
+                        if (root != null)
+                        {
+                            roots.Add(root.Value);
+                        }
                     }
 
                     // find root on [droots[count-1],xmax]
                     root = Bisection(droots[droots.Count - 1], max);
-                    if (root != null) roots.Add(root.Value);
+                    if (root != null)
+                    {
+                        roots.Add(root.Value);
+                    }
                 }
                 else
                 {
                     // polynomial is monotone on [min,max], has at most one root
                     root = Bisection(min, max);
-                    if (root != null) roots.Add(root.Value);
+                    if (root != null)
+                    {
+                        roots.Add(root.Value);
+                    }
                 }
             }
 
@@ -1083,12 +1192,30 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(obj, this))
+            {
+                return true;
+            }
+
             var p = obj as Polynomialx;
-            if (p is null) return false;
-            if (Coefficients.Count != p.Coefficients.Count) return false;
+            if (p is null)
+            {
+                return false;
+            }
+
+            if (Coefficients.Count != p.Coefficients.Count)
+            {
+                return false;
+            }
+
             for (var i = 0; i < Coefficients.Count; i++)
-                if (Abs(Coefficients[i] - p.Coefficients[i]) > Epsilon) return false;
+            {
+                if (Abs(Coefficients[i] - p.Coefficients[i]) > Epsilon)
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -1106,7 +1233,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polynomialx"/> inherited class based on the IFormatProvider
@@ -1118,7 +1245,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polynomialx"/> inherited class based on the format string
@@ -1154,25 +1281,41 @@ namespace Engine
             {
                 var val = Coefficients[i];
                 if (Abs(val) < Epsilon)
+                {
                     continue;
+                }
+
                 if (val > 0 && sb.Length > 0)
+                {
                     sb.Append('+');
+                }
+
                 if (i > 0 && (Abs(val) - 1) < Epsilon)
                 {
                     if (val < 0)
+                    {
                         sb.Append('-');
+                    }
                 }
                 else
                 {
                     sb.Append(val);
                 }
                 if (i > 0)
+                {
                     sb.Append('x');
+                }
+
                 if (i > 1)
+                {
                     sb.Append('^').Append(i);
+                }
             }
             if (sb.Length == 0)
+            {
                 sb.Append('0');
+            }
+
             return sb.ToString();
         }
         #endregion Standard Methods

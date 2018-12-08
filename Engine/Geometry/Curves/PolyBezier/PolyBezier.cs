@@ -79,7 +79,7 @@ namespace Engine
         /// </summary>
         public PolyBezier(IEnumerable<PolyBezierContour> contours)
         {
-            this.contours = contours as List<PolyBezierContour>;
+            this.contours = contours as List<PolyBezierContour> ?? new List<PolyBezierContour>();
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Engine
             }
         }
         #endregion Indexers
-
+        
         #region Properties
         /// <summary>
         /// Gets or sets the contours.
@@ -188,7 +188,10 @@ namespace Engine
             {
                 var verticesCount = 0;
                 foreach (var contour in contours)
+                {
                     verticesCount += contour.Nodes.Count;
+                }
+
                 return verticesCount;
             }
         }
@@ -219,7 +222,10 @@ namespace Engine
                 {
                     var box = contours[0].Bounds;
                     foreach (PolyBezierContour contour in contours)
+                    {
                         box = box.Union(contour.Bounds);
+                    }
+
                     return box;
                 }
             }
@@ -378,7 +384,10 @@ namespace Engine
                         break;
                 }
 
-                if (!newContour) poly.Add(contour);
+                if (!newContour)
+                {
+                    poly.Add(contour);
+                }
             }
 
             return poly;
@@ -389,7 +398,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
         private string ToPathDefString()
-            => ToPathDefString(null, CultureInfo.InvariantCulture);
+            => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The to path def string.
@@ -453,7 +462,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(PolyBezier);
+            if (this is null)
+            {
+                return nameof(PolyBezier);
+            }
+
             return $"{nameof(PolyBezier)}{{{ToPathDefString(format, provider)}}}";
         }
         #endregion Methods

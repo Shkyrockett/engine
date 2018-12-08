@@ -63,7 +63,9 @@ namespace Engine
         {
             var res = builder.AddPoint(p);
             if (!res.WasChanged)
+            {
                 return false;
+            }
 
             // update spline
             var curves = builder.Curves;
@@ -78,7 +80,9 @@ namespace Engine
                 // split
                 spline.Update(spline.Curves.Count - 1, curves[res.FirstChangedIndex]);
                 for (var i = res.FirstChangedIndex + 1; i < curves.Count; i++)
+                {
                     spline.Add(curves[i]);
+                }
             }
             else
             {

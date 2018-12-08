@@ -328,8 +328,15 @@ namespace Engine
 
             var skewX = Atan(-matrix.M21 / matrix.M22);
             var skewY = Atan(matrix.M12 / matrix.M11);
-            if (double.IsNaN(skewX)) skewX = 0d;
-            if (double.IsNaN(skewY)) skewY = 0d;
+            if (double.IsNaN(skewX))
+            {
+                skewX = 0d;
+            }
+
+            if (double.IsNaN(skewY))
+            {
+                skewY = 0d;
+            }
 
             var scaleY = (skewX > -Quart && skewX < Quart) ? matrix.M22 / Cos(skewX) : -matrix.M21 / Sin(skewX);
             var scaleX = (skewY > -Quart && skewY < Quart) ? matrix.M11 / Cos(skewY) : matrix.M12 / Sin(skewY);
@@ -413,7 +420,7 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => ConvertToString(null, CultureInfo.InvariantCulture);
+            => ConvertToString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector4D"/> struct based on the format string

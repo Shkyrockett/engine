@@ -41,7 +41,9 @@ namespace Engine
             : this(previous, args.Length == 2 ? (Point2D?)new Point2D(args[0], args[1]) : null)
         {
             if (relitive)
+            {
                 End = (Point2D)(End + previous.End);
+            }
         }
 
         /// <summary>
@@ -80,7 +82,21 @@ namespace Engine
         /// Gets or sets the start.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Point2D? Start { get { return Previous.End; } set { Previous.End = value; } }
+        public override Point2D? Start
+        {
+            get { return Previous?.End; }
+            set
+            {
+                if (Previous is null)
+                {
+                    Previous = new PointSegment(value);
+                }
+                else
+                {
+                    Previous.End = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Gets or sets the next to end.

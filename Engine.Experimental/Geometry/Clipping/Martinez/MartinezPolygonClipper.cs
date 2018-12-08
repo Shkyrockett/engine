@@ -24,12 +24,12 @@ namespace Engine
         /// <summary>
         /// The subject.
         /// </summary>
-        private Polygon subject;
+        private readonly Polygon subject;
 
         /// <summary>
         /// The clipping.
         /// </summary>
-        private Polygon clipping;
+        private readonly Polygon clipping;
 
         /// <summary>
         /// The event queue.
@@ -85,7 +85,7 @@ namespace Engine
             var clippingBB = clipping.Bounds;
 
             // Test 2 for trivial result case
-            if (!subjectBB.IntersectsWith(clippingBB))
+            if (!(subjectBB?.IntersectsWith(clippingBB) ?? false))
             {
                 // the bounding boxes do not overlap
                 switch (operation)
@@ -135,7 +135,7 @@ namespace Engine
             SweepEvent e;
             var minMaxX = Math.Min(subjectBB.Right, clippingBB.Right);
 
-            SweepEvent prev= null, next = null;
+            SweepEvent prev = null, next = null;
 
             while (!eventQueue.IsEmpty)
             {
@@ -143,18 +143,24 @@ namespace Engine
 
                 // Optimization 2
                 if ((operation == ClippingOperations.Intersection && (e.Point.X > minMaxX)) || (operation == ClippingOperations.Difference && e.Point.X > subjectBB.Right))
+                {
                     return connector.ToPolygon();
+                }
 
                 if (operation == ClippingOperations.Union && (e.Point.X > minMaxX))
                 {
                     if (!e.IsLeft)
+                    {
                         connector.Add(e.Segment());
+                    }
 
                     while (!eventQueue.IsEmpty)
                     {
                         e = eventQueue.Dequeue();
                         if (!e.IsLeft)
+                        {
                             connector.Add(e.Segment());
+                        }
                     }
 
                     return connector.ToPolygon();
@@ -179,9 +185,13 @@ namespace Engine
                             // from the C++ implementation this looks like how it should be handled.
                             e.OtherInOut = e.InOut = false;
                             if (prev.BelongsTo != e.BelongsTo)
+                            {
                                 e.OtherInOut = true;
+                            }
                             else
+                            {
                                 e.InOut = true;
+                            }
                         }
                         else
                         {
@@ -210,10 +220,14 @@ namespace Engine
                     }
 
                     if (next != null)
+                    {
                         PossibleIntersection(e, next);
+                    }
 
                     if (prev != null)
+                    {
                         PossibleIntersection(e, prev);
+                    }
                 }
                 else
                 {
@@ -232,32 +246,52 @@ namespace Engine
                             {
                                 case ClippingOperations.Intersection:
                                     if (e.OtherEvent.OtherInOut)
+                                    {
                                         connector.Add(e.Segment());
+                                    }
+
                                     break;
                                 case ClippingOperations.Union:
                                     if (!e.OtherEvent.OtherInOut)
+                                    {
                                         connector.Add(e.Segment());
+                                    }
+
                                     break;
                                 case ClippingOperations.Difference:
                                     if (((e.BelongsTo == ClippingRelations.Subject) && (!e.OtherEvent.OtherInOut)) || (e.BelongsTo == ClippingRelations.Clipping && e.OtherEvent.OtherInOut))
+                                    {
                                         connector.Add(e.Segment());
+                                    }
+
                                     break;
                             }
                             break;
                         case EdgeContributions.SameTransition:
                             if (operation == ClippingOperations.Intersection || operation == ClippingOperations.Union)
+                            {
                                 connector.Add(e.Segment());
+                            }
+
                             break;
                         case EdgeContributions.DifferentTransition:
                             if (operation == ClippingOperations.Difference)
+                            {
                                 connector.Add(e.Segment());
+                            }
+
                             break;
                     }
 
                     if (otherPos != -1)
+                    {
                         S.Remove(S.eventSet[otherPos]);
+                    }
+
                     if (next != null && prev != null)
+                    {
                         PossibleIntersection(next, prev);
+                    }
                 }
             }
 
@@ -360,7 +394,10 @@ namespace Engine
         {
             var w = new double[2];
             if ((u1 < v0) || (u0 > v1))
+            {
                 return (0, w);
+            }
+
             if (u1 > v0)
             {
                 if (u0 < v1)
@@ -399,20 +436,32 @@ namespace Engine
             var ip2 = ip[1];
 
             if (numIntersections == 0)
+            {
                 return;
+            }
 
             if ((numIntersections == 1) && (e1.Point.Equals(e2.Point) || e1.OtherEvent.Point.Equals(e2.OtherEvent.Point)))
+            {
                 return;
+            }
 
             if (numIntersections == 2 && e1.Point.Equals(e2.Point))
+            {
                 return;
+            }
 
             if (numIntersections == 1)
             {
                 if (!e1.Point.Equals(ip1) && !e1.OtherEvent.Point.Equals(ip1))
+                {
                     DivideSegment(e1, ip1);
+                }
+
                 if (!e2.Point.Equals(ip1) && !e2.OtherEvent.Point.Equals(ip1))
+                {
                     DivideSegment(e2, ip1);
+                }
+
                 return;
             }
 
@@ -458,9 +507,13 @@ namespace Engine
             {
                 sortedEvents[1].Contribution = sortedEvents[1].OtherEvent.Contribution = EdgeContributions.NonContributing;
                 if (sortedEvents[0] != null)         // is the right endpoint the shared point?
+                {
                     sortedEvents[0].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContributions.SameTransition : EdgeContributions.DifferentTransition;
+                }
                 else                                // the shared point is the left endpoint
+                {
                     sortedEvents[2].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContributions.SameTransition : EdgeContributions.DifferentTransition;
+                }
 
                 DivideSegment(sortedEvents[0] ?? sortedEvents[2].OtherEvent, sortedEvents[1].Point);
                 return;
@@ -516,7 +569,9 @@ namespace Engine
         private void ProcessSegment(LineSegment segment, ClippingRelations polyType)
         {
             if (segment.A.Equals(segment.B)) // Possible degenerate condition.
+            {
                 return;
+            }
 
             var e1 = new SweepEvent(true, segment.A, null, polyType);
             var e2 = new SweepEvent(true, segment.B, e1, polyType);

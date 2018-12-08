@@ -84,11 +84,18 @@ namespace Engine.File
                 var test = reader.PeekByte();
 #pragma warning restore CS0612 // Type or member is obsolete
                 if (test == 0)
+                {
                     break; // throw new System.Exception("Invalid file.");
+                }
+
                 if ((test & 0x80) != 0)
+                {
                     status = EventStatus.Read(reader, deltaTime);
+                }
                 else
+                {
                     reader.ReadByte();
+                }
 
                 switch (status.Status)
                 {

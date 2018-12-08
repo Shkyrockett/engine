@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27128.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28315.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor", "Editor\Editor.csproj", "{B263858B-B22F-4F1E-A326-7F79ACE09156}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor.WindowsForms", "Editor.WindowsForms\Editor.WindowsForms.csproj", "{B263858B-B22F-4F1E-A326-7F79ACE09156}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine", "Engine\Engine.csproj", "{32553305-DDB2-4FD1-B359-8EBD8587BD6F}"
 EndProject

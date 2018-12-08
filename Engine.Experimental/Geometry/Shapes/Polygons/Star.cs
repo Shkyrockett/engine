@@ -107,7 +107,10 @@ namespace Engine
         private static double CalculateConcaveRadius(int num_points, int skip)
         {
             // For really small numbers of points.
-            if (num_points < 5) return 0.33f;
+            if (num_points < 5)
+            {
+                return 0.33f;
+            }
 
             // Calculate angles to key points.
             var dtheta = 2 * PI / num_points;
@@ -195,14 +198,22 @@ namespace Engine
 
             // Find the closest points on the segments.
             if (t1 < 0)
+            {
                 t1 = 0;
+            }
             else if (t1 > 1)
+            {
                 t1 = 1;
+            }
 
             if (t2 < 0)
+            {
                 t2 = 0;
+            }
             else if (t2 > 1)
+            {
                 t2 = 1;
+            }
 
             close_p1 = new PointF(p1.X + dx12 * t1, p1.Y + dy12 * t1);
             close_p2 = new PointF(p3.X + dx34 * t2, p3.Y + dy34 * t2);
@@ -214,7 +225,11 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this is null) return nameof(Star);
+            if (this is null)
+            {
+                return nameof(Star);
+            }
+
             return nameof(Star);
         }
     }

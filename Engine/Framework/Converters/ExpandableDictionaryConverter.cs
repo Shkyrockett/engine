@@ -62,7 +62,9 @@ namespace Engine
         {
             var dictionary = value as IDictionary;
             if (dictionary is null || dictionary.Count == 0)
+            {
                 return base.GetProperties(context, value, attributes);
+            }
 
             var items = new PropertyDescriptorCollection(null);
 

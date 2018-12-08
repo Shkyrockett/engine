@@ -58,7 +58,9 @@ namespace Engine.Tools
             {
                 Points[Index] = tools.MouseLocation;
                 if (!Started)
+                {
                     Points[1] = tools.MouseLocation;
+                }
 
                 Started = true;
             }
@@ -76,11 +78,18 @@ namespace Engine.Tools
                 {
                     if (Measurements.Distance(Points[0], tools.MouseLocation) > 8)
                     {
-                        if (MouseDown) Index = 1;
+                        if (MouseDown)
+                        {
+                            Index = 1;
+                        }
+
                         Points[Index] = tools.MouseLocation;
                     }
 
-                    if (Index == 0) Points[1] = tools.MouseLocation;
+                    if (Index == 0)
+                    {
+                        Points[1] = tools.MouseLocation;
+                    }
                 }
             }
         }

@@ -15,6 +15,16 @@ namespace Engine.Experimental
     /// </summary>
     public class ScanLine
     {
+        public ScanLine()
+        {
+        }
+
+        public ScanLine(double y, ScanLine nextScanLine)
+        {
+            Y = y;
+            NextScanLine = nextScanLine;
+        }
+
         /// <summary>
         /// The y intercept.
         /// </summary>

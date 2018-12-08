@@ -51,7 +51,9 @@ namespace Engine.File
         public static Midi Load(Stream stream)
         {
             using (var reader = new BinaryReaderExtended(stream))
+            {
                 return Read(reader);
+            }
         }
 
         /// <summary>
@@ -87,7 +89,9 @@ namespace Engine.File
                 }
 
                 if (reader.Position != trackEnd)
+                {
                     reader.Position = trackEnd;
+                }
             }
 
             midi = new Midi

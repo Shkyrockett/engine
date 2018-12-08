@@ -806,7 +806,11 @@ namespace Engine
         public static (double Angle, Vector3D Axis) ToAngleAxis(this QuaternionD quaternion)
         {
             var sqrLength = quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z;
-            if (sqrLength == 0d) return (0d, new Vector3D(1d, 0d, 0d));
+            if (sqrLength == 0d)
+            {
+                return (0d, new Vector3D(1d, 0d, 0d));
+            }
+
             var inverseLength = InverseSqrt(sqrLength);
             return (2d * Acos(quaternion.W), new Vector3D(quaternion.X * inverseLength, quaternion.Y * inverseLength, quaternion.Z * inverseLength));
         }
@@ -983,56 +987,56 @@ namespace Engine
         /// The divide.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="divedend">The divedend.</param>
+        /// <param name="dividend">The dividend.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Divide(this Point2D divisor, double divedend)
-            => Divide2D1D(divisor.X, divisor.Y, divedend);
+        public static Point2D Divide(this Point2D divisor, double dividend)
+            => Divide2D1D(divisor.X, divisor.Y, dividend);
 
         /// <summary>
         /// The divide.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="divedend">The divedend.</param>
+        /// <param name="dividend">The dividend.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Divide(this Size2D divisor, double divedend)
-            => Divide2D1D(divisor.Width, divisor.Height, divedend);
+        public static Point2D Divide(this Size2D divisor, double dividend)
+            => Divide2D1D(divisor.Width, divisor.Height, dividend);
 
         /// <summary>
         /// The divide.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="divedend">The divedend.</param>
+        /// <param name="dividend">The dividend.</param>
         /// <returns>The <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D Divide(this Vector2D divisor, double divedend)
-            => Divide2D1D(divisor.I, divisor.J, divedend);
+        public static Vector2D Divide(this Vector2D divisor, double dividend)
+            => Divide2D1D(divisor.I, divisor.J, dividend);
 
         /// <summary>
         /// The divide.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="divedend">The divedend.</param>
+        /// <param name="dividend">The dividend.</param>
         /// <returns>The <see cref="Vector3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector3D Divide(this Vector3D divisor, double divedend)
-            => Divide3D1D(divisor.I, divisor.J, divisor.K, divedend);
+        public static Vector3D Divide(this Vector3D divisor, double dividend)
+            => Divide3D1D(divisor.I, divisor.J, divisor.K, dividend);
 
         /// <summary>
         /// The divide.
         /// </summary>
         /// <param name="divisor">The divisor.</param>
-        /// <param name="divedend">The divedend.</param>
+        /// <param name="dividend">The dividend.</param>
         /// <returns>The <see cref="Vector4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector4D Divide(this Vector4D divisor, double divedend)
-            => Divide4D1D(divisor.I, divisor.J, divisor.K, divisor.L, divedend);
+        public static Vector4D Divide(this Vector4D divisor, double dividend)
+            => Divide4D1D(divisor.I, divisor.J, divisor.K, divisor.L, dividend);
 
         /// <summary>
         /// The divide.
@@ -1175,7 +1179,7 @@ namespace Engine
         /// <summary>
         /// Calculates the Exponent of a Quaternion.
         /// </summary>
-        /// <param name="source">todo: describe source parameter on Exponent</param>
+        /// <param name="source">ToDo: describe source parameter on Exponent</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1188,7 +1192,7 @@ namespace Engine
             var angle = Sqrt(source.X * source.X + source.Y * source.Y + source.Z * source.Z);
             var sin = Sin(angle);
 
-            // start off With a Zero quat
+            // start off With a Zero Quaternion
             var returnvalue = QuaternionD.Empty;
 
             returnvalue.W = Cos(angle);
@@ -1267,6 +1271,9 @@ namespace Engine
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrEqual(this (double X, double Y) point1, (double X, double Y) point2)
@@ -1278,6 +1285,9 @@ namespace Engine
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOrEqual(this Point2D point1, Point2D point2)
@@ -1289,6 +1299,9 @@ namespace Engine
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool GreaterThanOEqual(this Vector2D point1, Vector2D point2)
@@ -1446,7 +1459,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(double x, double y)
-            => new Vector2D(1 / x, 1 / y);
+            => new Vector2D(1d / x, 1d / y);
 
         ///// <summary>
         ///// Inverts a Vector.
@@ -1461,7 +1474,7 @@ namespace Engine
         /// <summary>
         /// Inverts a Vector
         /// </summary>
-        /// <param name="value">todo: describe value parameter on Invert</param>
+        /// <param name="value">ToDo: describe value parameter on Invert</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1478,7 +1491,11 @@ namespace Engine
         public static QuaternionD Invert(QuaternionD quaternion)
         {
             var normal = (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) + (quaternion.Z * quaternion.Z) + (quaternion.W * quaternion.W);
-            if (normal == 0d) return QuaternionD.Empty;
+            if (normal == 0d)
+            {
+                return QuaternionD.Empty;
+            }
+
             var inverseNormal = 1f / normal;
             return new QuaternionD(
                 -quaternion.X * inverseNormal,
@@ -1596,6 +1613,9 @@ namespace Engine
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this Point2D point1, Point2D point2)
@@ -1607,6 +1627,9 @@ namespace Engine
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThan(this Vector2D point1, Vector2D point2)
@@ -1620,6 +1643,9 @@ namespace Engine
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this (double X, double Y) point1, (double X, double Y) point2)
@@ -1631,6 +1657,9 @@ namespace Engine
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this Point2D point1, Point2D point2)
@@ -1642,6 +1671,9 @@ namespace Engine
         /// <param name="point1">The point1.</param>
         /// <param name="point2">The point2.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool LessThanOrEqual(this Vector2D point1, Vector2D point2)
@@ -1739,7 +1771,7 @@ namespace Engine
             // log(q) = A*(X*i+Y*j+Z*k).  If sin(A) is near Zero, use log(q) =
             // sin(A)*(X*i+Y*j+Z*k) since sin(A)/A has limit 1.
 
-            // start off With a Zero quat
+            // start off With a Zero Quaternion
             var returnvalue = QuaternionD.Empty;
 
             if (Abs(source.W) < 1d)
@@ -2366,7 +2398,9 @@ namespace Engine
         public static void RotatePoints(this Point2D[] points, double angle)
         {
             for (var i = 0; i < points.Length; i++)
+            {
                 points[i] = RotatePoint(points[i], angle);
+            }
         }
 
         /// <summary>
@@ -2380,7 +2414,9 @@ namespace Engine
         public static void RotatePoints(this Point2D[] points, Point2D fulcrum, double angle)
         {
             for (var i = 0; i < points.Length; i++)
+            {
                 points[i] = RotatePoint(points[i], fulcrum, angle);
+            }
         }
         #endregion Rotate Points
 
@@ -3049,10 +3085,14 @@ namespace Engine
         public static List<Point2D> GetConvexHull(this List<Point2D> points)
         {
             if (points is null)
+            {
                 return null;
+            }
 
             if (points.Count <= 1)
+            {
                 return points;
+            }
 
             var n = points.Count;
             var k = 0;
@@ -3065,7 +3105,10 @@ namespace Engine
             for (var i = 0; i < n; ++i)
             {
                 while (k >= 2 && CrossProduct(H[k - 2], H[k - 1], points[i]) <= 0)
+                {
                     k--;
+                }
+
                 H[k++] = points[i];
             }
 
@@ -3073,7 +3116,10 @@ namespace Engine
             for (int i = n - 2, t = k + 1; i >= 0; i--)
             {
                 while (k >= t && CrossProduct(H[k - 2], H[k - 1], points[i]) <= 0)
+                {
                     k--;
+                }
+
                 H[k++] = points[i];
             }
 

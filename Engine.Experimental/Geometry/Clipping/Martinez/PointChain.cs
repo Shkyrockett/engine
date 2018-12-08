@@ -61,36 +61,52 @@ namespace Engine
             if (s.A.Equals(front))
             {
                 if (s.B.Equals(back))
+                {
                     Closed = true;
+                }
                 else
+                {
                     PointList.Insert(0, s.B);//unshift
+                }
 
                 return true;
             }
             else if (s.B.Equals(back))
             {
                 if (s.A.Equals(front))
+                {
                     Closed = true;
+                }
                 else
+                {
                     PointList.Add(s.A);
+                }
 
                 return true;
             }
             else if (s.B.Equals(front))
             {
                 if (s.A.Equals(back))
+                {
                     Closed = true;
+                }
                 else
+                {
                     PointList.Insert(0, s.A);//unshift
+                }
 
                 return true;
             }
             else if (s.A.Equals(back))
             {
                 if (s.B.Equals(front))
+                {
                     Closed = true;
+                }
                 else
+                {
                     PointList.Add(s.B);
+                }
 
                 return true;
             }

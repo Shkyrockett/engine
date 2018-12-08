@@ -43,7 +43,10 @@ namespace Engine
         public static void RemoveAt<T>(ref T[] array, int index)
         {
             if (index < array.Length - 1)
+            {
                 Array.Copy(array, index + 1, array, index, array.Length - index - 1);
+            }
+
             Array.Resize(ref array, array.Length - 1);
         }
 
@@ -164,7 +167,9 @@ namespace Engine
         public static IEnumerable<TResult> Map<T, TResult>(this IEnumerable<T> list, Func<T, TResult> func)
         {
             foreach (var i in list)
+            {
                 yield return func(i);
+            }
         }
 
         /// <summary>
@@ -182,7 +187,9 @@ namespace Engine
         public static T Reduce<T, U>(this IEnumerable<U> list, Func<U, T, T> func, T acc)
         {
             foreach (var i in list)
+            {
                 acc = func(i, acc);
+            }
 
             return acc;
         }

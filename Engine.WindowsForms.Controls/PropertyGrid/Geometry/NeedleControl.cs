@@ -186,7 +186,11 @@ namespace Engine
         /// <param name="e">The paint event arguments.</param>
         protected override void OnPaintBackground(PaintEventArgs e)
         {
-            if (!IsTransparent) base.OnPaintBackground(e);
+            if (!IsTransparent)
+            {
+                base.OnPaintBackground(e);
+            }
+
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
             var sqr = ToSquare(ClientRectangle);
             FillBack(e.Graphics, sqr);

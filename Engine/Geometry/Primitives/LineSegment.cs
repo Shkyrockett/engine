@@ -516,7 +516,11 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(LineSegment);
+            if (this is null)
+            {
+                return nameof(LineSegment);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(LineSegment)}{{{nameof(A)}={A.ToString(format, provider)}{sep}{nameof(B)}={B.ToString(format, provider)}}}";
         }

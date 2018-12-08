@@ -452,7 +452,11 @@ namespace Engine
         /// </returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(Circle);
+            if (this is null)
+            {
+                return nameof(Circle);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Circle)}{{{nameof(X)}={x.ToString(format, provider)}{sep}{nameof(Y)}={y.ToString(format, provider)}{sep}{nameof(Radius)}={radius.ToString(format, provider)}}}";
         }

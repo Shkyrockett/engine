@@ -28,7 +28,11 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this is null) return "ElipticStar";
+            if (this is null)
+            {
+                return "ElipticStar";
+            }
+
             return nameof(Star);
         }
     }

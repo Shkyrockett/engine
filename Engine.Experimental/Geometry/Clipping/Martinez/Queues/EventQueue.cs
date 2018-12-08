@@ -58,7 +58,9 @@ namespace Engine
             {
                 var length = heap.Count;
                 if (length == 0)
+                {
                     heap.Add(obj);
+                }
 
                 heap.Add(null); // Expand the Vector by one.
 
@@ -99,7 +101,11 @@ namespace Engine
         /// <exception cref="InvalidOperationException">The priority queue is empty.</exception>
         public SweepEvent Top()
         {
-            if (Count > 0) return heap[0];
+            if (Count > 0)
+            {
+                return heap[0];
+            }
+
             throw new InvalidOperationException("The priority queue is empty.");
         }
     }

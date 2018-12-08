@@ -224,7 +224,6 @@ namespace Engine
         /// <param name="h"></param>
         /// <param name="i"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>
@@ -258,7 +257,6 @@ namespace Engine
         /// <param name="o"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// https://github.com/onlyuser/Legacy/blob/master/msvb/Dex3d/Math.bas
         /// </acknowledgment>

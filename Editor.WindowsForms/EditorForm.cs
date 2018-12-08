@@ -92,25 +92,33 @@ namespace Editor
             toolStripComboBoxTools.ComboBox.DataSource = tools;
             toolStripComboBoxTools.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxTools.ComboBox.Items.Count > 0)
+            {
                 toolStripComboBoxTools.ComboBox.SelectedItem = typeof(SelectTop);
+            }
 
             var fileTypes = EngineReflection.ListFileObjects();
             toolStripComboBoxFiles.ComboBox.DataSource = fileTypes;
             toolStripComboBoxFiles.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxFiles.ComboBox.Items.Count > 0)
+            {
                 toolStripComboBoxFiles.ComboBox.SelectedItem = toolStripComboBoxFiles.ComboBox.Items[0];
+            }
 
             var graphicsTypes = EngineReflection.ListGraphicsObjects();
             toolStripComboBoxObjects.ComboBox.DataSource = graphicsTypes;
             toolStripComboBoxObjects.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxObjects.ComboBox.Items.Count > 0)
+            {
                 toolStripComboBoxObjects.ComboBox.SelectedItem = toolStripComboBoxObjects.ComboBox.Items[0];
+            }
 
             var brushTypes = EngineReflection.ListBrushes();
             comboBox1.DataSource = brushTypes;
             comboBox1.ValueMember = "Name";
             if (comboBox1.Items.Count > 0)
+            {
                 comboBox1.SelectedItem = typeof(SolidBrush);
+            }
 
             //propertyGrid1.SelectedObject = toolStack;
         }
@@ -202,7 +210,11 @@ namespace Editor
                 updatinglist = true;
                 var list = sender as ListBox;
                 vectorMap.SelectedItems?.Clear();
-                if (vectorMap.SelectedItems is null) vectorMap.SelectedItems = new List<GraphicItem>();
+                if (vectorMap.SelectedItems is null)
+                {
+                    vectorMap.SelectedItems = new List<GraphicItem>();
+                }
+
                 foreach (var item in list.SelectedItems)
                 {
                     vectorMap.SelectedItems.Add(item as GraphicItem);
@@ -247,9 +259,13 @@ namespace Editor
             toolStripComboBoxFactories.ComboBox.DataSource = constructors;
             toolStripComboBoxFactories.ComboBox.ValueMember = "Name";
             if (toolStripComboBoxFactories.ComboBox.Items.Count > 0)
+            {
                 toolStripComboBoxFactories.ComboBox.SelectedItem = toolStripComboBoxFactories.ComboBox.Items[0];
+            }
             else
+            {
                 toolStripComboBoxFactories.ComboBox.Text = string.Empty;
+            }
         }
 
         /// <summary>
@@ -275,18 +291,24 @@ namespace Editor
             foreach (GraphicItem item in vectorMap[vectorMap.VisibleBounds])
             {
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
+                {
                     // Render selected items with selection style
                     Renderer.Render(item, e.Graphics, renderer, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
+                }
                 else
+                {
                     // Render items according to their set style.
                     Renderer.Render(item, e.Graphics, renderer);
+                }
             }
 
             if (vectorMap?.RubberbandItems != null)
             {
                 foreach (GraphicItem item in vectorMap?.RubberbandItems)
+                {
                     // Render temporary rubber band tools shapes.
                     Renderer.Render(item, e.Graphics, renderer, new ShapeStyle(Brushes.Red, Brushes.Red));
+                }
             }
         }
 

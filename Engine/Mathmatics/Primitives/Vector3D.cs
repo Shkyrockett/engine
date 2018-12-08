@@ -259,10 +259,10 @@ namespace Engine
         /// Divide a Vector3D
         /// </summary>
         /// <param name="divisor">The Vector3D</param>
-        /// <param name="divedend">The divisor</param>
+        /// <param name="dividend">The divisor</param>
         /// <returns>A Vector3D divided by the divisor</returns>
-        public static Vector3D operator /(Vector3D divisor, double divedend)
-            => new Vector3D(divisor.I / divedend, divisor.J / divedend, divisor.K / divedend);
+        public static Vector3D operator /(Vector3D divisor, double dividend)
+            => new Vector3D(divisor.I / dividend, divisor.J / dividend, divisor.K / dividend);
 
         /// <summary>
         /// Divide a Vector3D
@@ -456,7 +456,19 @@ namespace Engine
         /// </summary>
         /// <returns></returns>
         public override string ToString()
-            => ConvertToString(null, CultureInfo.InvariantCulture);
+            => ConvertToString(string.Empty, CultureInfo.InvariantCulture);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Vector3D"/> struct based on the IFormatProvider
+        /// passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
+        /// <returns>
+        /// A string representation of this instance as specified by provider.
+        /// </returns>
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector3D"/> struct based on the format string

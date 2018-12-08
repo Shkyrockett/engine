@@ -45,9 +45,13 @@ namespace Engine
             set
             {
                 if (Actions[index] is null)
+                {
                     Actions.Add(index, value);
+                }
                 else
+                {
                     Actions[index] = value;
+                }
             }
         }
 

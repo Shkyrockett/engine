@@ -146,7 +146,9 @@ namespace Engine
         IEnumerator IEnumerable.GetEnumerator()
         {
             for (var i = Min; i < Max; i += Step)
+            {
                 yield return this[i];
+            }
         }
 
         /// <summary>
@@ -156,7 +158,9 @@ namespace Engine
         IEnumerator<double> IEnumerable<double>.GetEnumerator()
         {
             for (var i = Min; i < Max; i += Step)
+            {
                 yield return this[i];
+            }
         }
         #endregion Methods
     }

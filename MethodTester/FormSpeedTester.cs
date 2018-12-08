@@ -77,7 +77,10 @@ namespace MethodSpeedTester
         private static void DataGridView1_Resize(object sender, EventArgs e)
         {
             var dgv = sender as DataGridView;
-            if (dgv.Rows.Count == 0) dgv.Invalidate();
+            if (dgv.Rows.Count == 0)
+            {
+                dgv.Invalidate();
+            }
         }
 
         /// <summary>

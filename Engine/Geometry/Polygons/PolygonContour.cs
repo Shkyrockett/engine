@@ -78,7 +78,7 @@ namespace Engine
         /// <param name="points">The points.</param>
         public PolygonContour(IEnumerable<Point2D> points)
         {
-            this.points = points as List<Point2D>;
+            this.points = points as List<Point2D> ?? new List<Point2D>();
         }
 
         /// <summary>
@@ -89,7 +89,9 @@ namespace Engine
         {
             points = new List<Point2D>();
             foreach (Polyline polyline in polylines)
+            {
                 points.Concat(polyline.Points);
+            }
         }
         #endregion Constructors
 
@@ -312,7 +314,10 @@ namespace Engine
         {
             var outPath = new List<Point2D>(path.points.Count);
             for (var i = 0; i < path.points.Count; i++)
+            {
                 outPath.Add((path[i].X + delta.X, path[i].Y + delta.Y));
+            }
+
             return new PolygonContour(outPath);
         }
         #endregion Mutators
@@ -331,7 +336,7 @@ namespace Engine
                 return points[0];
             }
 
-            var weights = new(double length, double accumulated)[points.Count + 1];
+            var weights = new (double length, double accumulated)[points.Count + 1];
             weights[0] = (0, 0);
             var cursor = points[0];
             var accumulatedLength = 0d;
@@ -441,7 +446,10 @@ namespace Engine
             // Split the definition string into shape tokens.
             var list = Regex.Split(pathDefinition, separators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg)).ToArray();
 
-            if (list.Length % 2 != 0) throw new Exception("Polygon definitions must be in sets of two numbers.");
+            if (list.Length % 2 != 0)
+            {
+                throw new Exception("Polygon definitions must be in sets of two numbers.");
+            }
 
             for (var i = 0; i < list.Length - 1; i = i = 2)
             {
@@ -456,7 +464,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
         private string ToPathDefString()
-            => ToPathDefString(null, CultureInfo.InvariantCulture);
+            => ToPathDefString(string.Empty, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The to path def string.
@@ -497,7 +505,11 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null) return nameof(PolygonContour);
+            if (this is null)
+            {
+                return nameof(PolygonContour);
+            }
+
             var sep = Tokenizer.GetNumericListSeparator(provider);
             IFormattable formatable = $"{nameof(PolygonContour)}{{{string.Join(sep.ToString(), Points)}}}";
             return formatable.ToString(format, provider);

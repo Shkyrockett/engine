@@ -80,7 +80,9 @@ namespace Engine.Geometry
             {
                 Coefficients = new Complex[coeffs.Length];
                 for (var i = 0; i < coeffs.Length; i++)
+                {
                     Coefficients[i] = new Complex(coeffs[i]);
+                }
             }
         }
 
@@ -93,9 +95,13 @@ namespace Engine.Geometry
             Coefficients = new Complex[1];
 
             if (coeffs is null)
+            {
                 Coefficients[0] = Complex.Zero;
+            }
             else
+            {
                 Coefficients[0] = coeffs;
+            }
         }
 
         /// <summary>
@@ -126,7 +132,12 @@ namespace Engine.Geometry
             get
             {
                 for (var i = 0; i < Coefficients.Length; i++)
-                    if (Coefficients[i] != 0) return false;
+                {
+                    if (Coefficients[i] != 0)
+                    {
+                        return false;
+                    }
+                }
 
                 return true;
             }
@@ -148,9 +159,18 @@ namespace Engine.Geometry
 
             for (var i = 0; i <= degree; i++)
             {
-                if (i > p.Degree) coeffs[i] = q.Coefficients[i];
-                else if (i > q.Degree) coeffs[i] = p.Coefficients[i];
-                else coeffs[i] = p.Coefficients[i] + q.Coefficients[i];
+                if (i > p.Degree)
+                {
+                    coeffs[i] = q.Coefficients[i];
+                }
+                else if (i > q.Degree)
+                {
+                    coeffs[i] = p.Coefficients[i];
+                }
+                else
+                {
+                    coeffs[i] = p.Coefficients[i] + q.Coefficients[i];
+                }
             }
 
             return new PolynomialX(coeffs);
@@ -175,7 +195,9 @@ namespace Engine.Geometry
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
+            {
                 coeffs[i] = -p.Coefficients[i];
+            }
 
             return new PolynomialX(coeffs);
         }
@@ -191,7 +213,9 @@ namespace Engine.Geometry
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
+            {
                 coeffs[i] = d * p.Coefficients[i];
+            }
 
             return new PolynomialX(coeffs);
         }
@@ -207,7 +231,9 @@ namespace Engine.Geometry
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
+            {
                 coeffs[i] = d * p.Coefficients[i];
+            }
 
             return new PolynomialX(coeffs);
         }
@@ -223,7 +249,9 @@ namespace Engine.Geometry
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
+            {
                 coeffs[i] = d * p.Coefficients[i];
+            }
 
             return new PolynomialX(coeffs);
         }
@@ -239,7 +267,9 @@ namespace Engine.Geometry
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
+            {
                 coeffs[i] = d * p.Coefficients[i];
+            }
 
             return new PolynomialX(coeffs);
         }
@@ -255,7 +285,9 @@ namespace Engine.Geometry
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
+            {
                 coeffs[i] = p.Coefficients[i] / d;
+            }
 
             return new PolynomialX(coeffs);
         }
@@ -271,7 +303,9 @@ namespace Engine.Geometry
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
+            {
                 coeffs[i] = p.Coefficients[i] / d;
+            }
 
             return new PolynomialX(coeffs);
         }
@@ -289,8 +323,12 @@ namespace Engine.Geometry
             var r = new PolynomialX();
 
             for (var i = 0; i <= p.Degree; i++)
+            {
                 for (var j = 0; j <= q.Degree; j++)
+                {
                     r += p.Coefficients[i] * q.Coefficients[j] * Monomial(i + j);
+                }
+            }
 
             return r;
         }
@@ -304,11 +342,17 @@ namespace Engine.Geometry
         public static PolynomialX operator ^(PolynomialX p, uint k)
         {
             if (k == 0)
+            {
                 return Monomial(0);
+            }
             else if (k == 1)
+            {
                 return p;
+            }
             else
+            {
                 return p * (p ^ (k - 1));
+            }
         }
         #endregion Operators
 
@@ -323,7 +367,9 @@ namespace Engine.Geometry
             var buf = new Complex[Degree];
 
             for (var i = 0; i < buf.Length; i++)
+            {
                 buf[i] = (i + 1) * Coefficients[i + 1];
+            }
 
             return new PolynomialX(buf).Evaluate(x);
         }
@@ -340,7 +386,9 @@ namespace Engine.Geometry
             buf[0] = Complex.Zero; // this value can be arbitrary, in fact
 
             for (var i = 1; i < buf.Length; i++)
+            {
                 buf[i] = Coefficients[i - 1] / i;
+            }
 
             var p = new PolynomialX(buf);
 
@@ -373,8 +421,12 @@ namespace Engine.Geometry
             Clean();
 
             if (Coefficients[Degree] != Complex.One)
+            {
                 for (var k = 0; k <= Degree; k++)
+                {
                     Coefficients[k] /= Coefficients[Degree];
+                }
+            }
         }
 
         /// <summary>
@@ -390,7 +442,9 @@ namespace Engine.Geometry
             var coeffs = new Complex[i + 1];
 
             for (var k = 0; k <= i; k++)
+            {
                 coeffs[k] = Coefficients[k];
+            }
 
             Coefficients = (Complex[])coeffs.Clone();
         }
@@ -482,19 +536,27 @@ namespace Engine.Geometry
 
             // init z
             for (var k = 0; k < q.Degree; k++)
+            {
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
+            }
 
             for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
+            {
                 for (var i = 0; i < 10; i++)
                 {
                     for (var k = 0; k < q.Degree; k++)
+                    {
                         w[k] = q.Evaluate(z[k]) / WeierNull(z, k);
+                    }
 
                     for (var k = 0; k < q.Degree; k++)
+                    {
                         z[k] -= w[k];
+                    }
                 }
+            }
 
             // clean...
             for (var k = 0; k < q.Degree; k++)
@@ -522,19 +584,27 @@ namespace Engine.Geometry
 
             // init z
             for (var k = 0; k < q.Degree; k++)
+            {
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
+            }
 
             for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
+            {
                 for (var i = 0; i < 10; i++)
                 {
                     for (var k = 0; k < q.Degree; k++)
+                    {
                         w[k] = q.Evaluate(z[k]) / WeierNull(z, k);
+                    }
 
                     for (var k = 0; k < q.Degree; k++)
+                    {
                         z[k] -= w[k];
+                    }
                 }
+            }
 
             // clean...
             for (var k = 0; k < q.Degree; k++)
@@ -560,7 +630,9 @@ namespace Engine.Geometry
             for (var i = 0; i < p.Factor.Length; i++)
             {
                 for (var j = 0; j < p.Power[i]; j++)
+                {
                     q *= p.Factor[i];
+                }
 
                 q.Clean();
             }
@@ -602,12 +674,17 @@ namespace Engine.Geometry
         {
             int i;
 
-            for (i = p.Degree; i >= 0 && p.Coefficients[i] == 0; i--) ;
+            for (i = p.Degree; i >= 0 && p.Coefficients[i] == 0; i--)
+            {
+                ;
+            }
 
             var coeffs = new Complex[i + 1];
 
             for (var k = 0; k <= i; k++)
+            {
                 coeffs[k] = p.Coefficients[k];
+            }
 
             return new PolynomialX(coeffs);
         }
@@ -621,8 +698,12 @@ namespace Engine.Geometry
             PolynomialX q = Clean(p);
 
             if (q.Coefficients[q.Degree] != Complex.One)
+            {
                 for (var k = 0; k <= q.Degree; k++)
+                {
                     q.Coefficients[k] /= q.Coefficients[q.Degree];
+                }
+            }
 
             return q;
         }
@@ -645,19 +726,27 @@ namespace Engine.Geometry
 
             // init z
             for (var k = 0; k < q.Degree; k++)
+            {
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
+            }
 
             for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
+            {
                 for (var i = 0; i < 10; i++)
                 {
                     for (var k = 0; k < q.Degree; k++)
+                    {
                         w[k] = q.Evaluate(z[k]) / WeierNull(z, k);
+                    }
 
                     for (var k = 0; k < q.Degree; k++)
+                    {
                         z[k] -= w[k];
+                    }
                 }
+            }
 
             // clean...
             for (var k = 0; k < q.Degree; k++)
@@ -686,19 +775,27 @@ namespace Engine.Geometry
 
             // init z
             for (var k = 0; k < q.Degree; k++)
+            {
                 //z[k] = (new Complex(.4, .9)) ^ k;
                 z[k] = Complex.Exp(2 * Math.PI * Complex.I * k / q.Degree);
+            }
 
             for (var iter = 0; iter < max_iterations
                 && MaxValue(q, z) > tolerance; iter++)
+            {
                 for (var i = 0; i < 10; i++)
                 {
                     for (var k = 0; k < q.Degree; k++)
+                    {
                         w[k] = q.Evaluate(z[k]) / WeierNull(z, k);
+                    }
 
                     for (var k = 0; k < q.Degree; k++)
+                    {
                         z[k] -= w[k];
+                    }
                 }
+            }
 
             // clean...
             for (var k = 0; k < q.Degree; k++)
@@ -723,7 +820,9 @@ namespace Engine.Geometry
             for (var i = 0; i < z.Length; i++)
             {
                 if (Complex.Abs(p.Evaluate(z[i])) > buf)
+                {
                     buf = Complex.Abs(p.Evaluate(z[i]));
+                }
             }
 
             return buf;
@@ -739,12 +838,19 @@ namespace Engine.Geometry
         private static Complex WeierNull(Complex[] z, int k)
         {
             if (k < 0 || k >= z.Length)
+            {
                 throw new ArgumentOutOfRangeException();
+            }
 
             Complex buf = Complex.One;
 
             for (var j = 0; j < z.Length; j++)
-                if (j != k) buf *= z[k] - z[j];
+            {
+                if (j != k)
+                {
+                    buf *= z[k] - z[j];
+                }
+            }
 
             return buf;
         }
@@ -759,7 +865,9 @@ namespace Engine.Geometry
             var buf = new Complex[p.Degree];
 
             for (var i = 0; i < buf.Length; i++)
+            {
                 buf[i] = (i + 1) * p.Coefficients[i + 1];
+            }
 
             return new PolynomialX(buf);
         }
@@ -775,7 +883,9 @@ namespace Engine.Geometry
             buf[0] = Complex.Zero; // this value can be arbitrary, in fact
 
             for (var i = 1; i < buf.Length; i++)
+            {
                 buf[i] = p.Coefficients[i - 1] / i;
+            }
 
             return new PolynomialX(buf);
         }
@@ -787,12 +897,17 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static PolynomialX Monomial(int degree)
         {
-            if (degree == 0) return new PolynomialX(1);
+            if (degree == 0)
+            {
+                return new PolynomialX(1);
+            }
 
             var coeffs = new Complex[degree + 1];
 
             for (var i = 0; i < degree; i++)
+            {
                 coeffs[i] = Complex.Zero;
+            }
 
             coeffs[degree] = Complex.One;
 
@@ -808,12 +923,16 @@ namespace Engine.Geometry
         public static PolynomialX[] GetStandardBase(int dim)
         {
             if (dim < 1)
+            {
                 throw new ArgumentException("Dimension expected to be greater than zero.");
+            }
 
             var buf = new PolynomialX[dim];
 
             for (var i = 0; i < dim; i++)
+            {
                 buf[i] = Monomial(i);
+            }
 
             return buf;
         }
@@ -836,9 +955,14 @@ namespace Engine.Geometry
         public static (Complex y, Complex dy) Interpolate(Complex[] xs, Complex[] ys, int n, int offset, double x)
         {
             if (!(xs is Array) || !(ys is Array))
+            {
                 throw new Exception("Polynomial.interpolate: xs and ys must be arrays");
+            }
+
             if (double.IsNaN(n) || double.IsNaN(offset) || double.IsNaN(x))
+            {
                 throw new Exception("Polynomial.interpolate: n, offset, and x must be numbers");
+            }
 
             Complex y = 0d;
             Complex dy = 0d;
@@ -900,12 +1024,16 @@ namespace Engine.Geometry
         public Complex Eval(Complex x)
         {
             if (double.IsNaN(x.Real))
+            {
                 throw new Exception("Polynomial.eval: parameter must be a number");
+            }
 
             Complex result = Complex.Zero;
 
             for (var i = Coefficients.Length - 1; i >= 0; i--)
+            {
                 result = result * x + Coefficients[i];
+            }
 
             return result;
         }
@@ -944,13 +1072,19 @@ namespace Engine.Geometry
             var lst = new List<Complex>(that.Coefficients);
 
             for (var i = 0; i <= GetDegree() + that.GetDegree(); i++)
+            {
                 lst.Add(0);
+            }
 
             result.Coefficients = lst.ToArray();
 
             for (var i = 0; i <= GetDegree(); i++)
+            {
                 for (var j = 0; j <= that.GetDegree(); j++)
+                {
                     result.Coefficients[i + j] += Coefficients[i] * that.Coefficients[j];
+                }
+            }
 
             return result;
         }
@@ -963,7 +1097,10 @@ namespace Engine.Geometry
         public PolynomialX Divide(double scalar)
         {
             for (var i = 0; i < Coefficients.Length; i++)
+            {
                 Coefficients[i] /= scalar;
+            }
+
             return this;
         }
 
@@ -982,7 +1119,9 @@ namespace Engine.Geometry
                     Coefficients = temp.ToArray();
                 }
                 else
+                {
                     break;
+                }
             }
         }
 
@@ -999,9 +1138,13 @@ namespace Engine.Geometry
             Complex result = 0;
 
             if (Math.Abs(minValue.Real) <= TOLERANCE)
+            {
                 result = min;
+            }
             else if (Math.Abs(maxValue.Real) <= TOLERANCE)
+            {
                 result = max;
+            }
             else if (minValue.Real * maxValue.Real <= 0)
             {
                 var tmp1 = Math.Log(max.Real - min.Real);
@@ -1046,7 +1189,9 @@ namespace Engine.Geometry
         public Complex Trapezoid(Complex min, Complex max, int n)
         {
             if (double.IsNaN(min.Real) || double.IsNaN(max.Real) || double.IsNaN(n))
+            {
                 throw new Exception("Polynomial.trapezoid: parameters must be numbers");
+            }
 
             var range = max - min;
             Complex _s = 0;
@@ -1072,7 +1217,9 @@ namespace Engine.Geometry
             }
 
             if (double.IsNaN(_s.Real))
+            {
                 throw new Exception("Polynomial.trapezoid: this._s is NaN");
+            }
 
             return _s;
         }
@@ -1087,7 +1234,9 @@ namespace Engine.Geometry
         public Complex Simpson(Complex min, Complex max)
         {
             if (double.IsNaN(min.Real) || double.IsNaN(max.Real))
+            {
                 throw new Exception("Polynomial.simpson: parameters must be numbers");
+            }
 
             var range = max - min;
             var st = 0.5 * range * (Eval(min) + Eval(max));
@@ -1115,7 +1264,9 @@ namespace Engine.Geometry
                 s = (4.0 * st - ost) / 3.0;
 
                 if (Math.Abs(s.Real - os.Real) < TOLERANCE * Math.Abs(os.Real))
+                {
                     break;
+                }
 
                 os = s;
                 ost = st;
@@ -1135,7 +1286,9 @@ namespace Engine.Geometry
         public Complex Romberg(Complex min, Complex max)
         {
             if (double.IsNaN(min.Real) || double.IsNaN(max.Real))
+            {
                 throw new Exception("Polynomial.romberg: parameters must be numbers");
+            }
 
             var MAX = 20;
             var K = 3;
@@ -1151,7 +1304,10 @@ namespace Engine.Geometry
                 if (j >= K)
                 {
                     result = Interpolate(h, s, K, j - K, 0.0);
-                    if (Math.Abs(result.dy.Real) <= TOLERANCE * result.y.Real) break;
+                    if (Math.Abs(result.dy.Real) <= TOLERANCE * result.y.Real)
+                    {
+                        break;
+                    }
                 }
                 s[j] = s[j - 1];
                 h[j] = 0.25 * h[j - 1];
@@ -1235,7 +1391,10 @@ namespace Engine.Geometry
             if (GetDegree() == 1)
             {
                 root = Bisection(min, max);
-                if (root != null) roots.Add(root);
+                if (root != null)
+                {
+                    roots.Add(root);
+                }
             }
             else
             {
@@ -1247,24 +1406,36 @@ namespace Engine.Geometry
                 {
                     // find root on [min, droots[0]]
                     root = Bisection(min, droots[0].Real);
-                    if (root != null) roots.Add(root);
+                    if (root != null)
+                    {
+                        roots.Add(root);
+                    }
 
                     // find root on [droots[i],droots[i+1]] for 0 <= i <= count-2
                     for (var i = 0; i <= droots.Length - 2; i++)
                     {
                         root = Bisection(droots[i].Real, droots[i + 1].Real);
-                        if (root != null) roots.Add(root);
+                        if (root != null)
+                        {
+                            roots.Add(root);
+                        }
                     }
 
                     // find root on [droots[count-1],xmax]
                     root = Bisection(droots[droots.Length - 1].Real, max);
-                    if (root != null) roots.Add(root);
+                    if (root != null)
+                    {
+                        roots.Add(root);
+                    }
                 }
                 else
                 {
                     // polynomial is monotone on [min,max], has at most one root
                     root = Bisection(min, max);
-                    if (root != null) roots.Add(root);
+                    if (root != null)
+                    {
+                        roots.Add(root);
+                    }
                 }
             }
 
@@ -1281,7 +1452,9 @@ namespace Engine.Geometry
             var a = Coefficients[1];
 
             if (a != 0)
+            {
                 result.Add(-Coefficients[0] / a);
+            }
 
             return result.ToArray();
         }
@@ -1662,7 +1835,7 @@ namespace Engine.Geometry
         //                rb.minX = rb.maxX = 0;
         //            }
         //            return rb;
-        //            // TODO: if sure that there are no complex roots 
+        //            // ToDo: if sure that there are no complex roots 
         //            // (maybe by using Sturm's theorem) use:
         //            //return this.bounds_Real_Laguerre();
         //        }
@@ -1850,7 +2023,10 @@ namespace Engine.Geometry
         /// <returns>The <see cref="string"/>.</returns>
         public string ConvertToString(string format, IFormatProvider formatProvider)
         {
-            if (IsZero) return "0";
+            if (IsZero)
+            {
+                return "0";
+            }
             else
             {
                 var s = "";
@@ -1860,26 +2036,39 @@ namespace Engine.Geometry
                     if (Coefficients[i] != Complex.Zero)
                     {
                         if (Coefficients[i] == Complex.I)
+                        {
                             s += "i";
+                        }
                         else if (Coefficients[i] != Complex.One)
                         {
                             if (Coefficients[i].IsReal && Coefficients[i].Real > 0)
+                            {
                                 s += Coefficients[i].ToString(format, formatProvider);
+                            }
                             else
+                            {
                                 s += "(" + Coefficients[i].ToString(format, formatProvider) + ")";
-
+                            }
                         }
                         else if (/*Coefficients[i] == Complex.One && */i == 0)
+                        {
                             s += 1;
+                        }
 
                         if (i == 1)
+                        {
                             s += "x";
+                        }
                         else if (i > 1)
+                        {
                             s += "x^" + i.ToString(format, formatProvider);
+                        }
                     }
 
                     if (i < Degree && Coefficients[i + 1] != 0 && s.Length > 0)
+                    {
                         s += " + ";
+                    }
                 }
 
                 return s;

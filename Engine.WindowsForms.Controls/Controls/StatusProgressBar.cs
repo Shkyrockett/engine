@@ -54,8 +54,11 @@ namespace Engine.WindowsForms
                         var textSize = graphics.MeasureString(Text, Font);
 
                         using (var textBrush = new SolidBrush(ForeColor))
+                        {
                             graphics.DrawString(Text, Font, textBrush, (Width / 2) - (textSize.Width / 2), (Height / 2) - (textSize.Height / 2));
+                        }
                     }
+
                     break;
             }
         }

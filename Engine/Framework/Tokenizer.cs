@@ -74,7 +74,7 @@ namespace Engine
         public Tokenizer(string str, IFormatProvider formatProvider)
         {
             var numberSeparator = GetNumericListSeparator(formatProvider);
-
+            this.str = str;
             Initialize(str, '\'', numberSeparator);
         }
 
@@ -87,6 +87,7 @@ namespace Engine
         /// <param name="separator"> The list separator. </param>
         public Tokenizer(string str, char quoteChar, char separator)
         {
+            this.str = str;
             Initialize(str, quoteChar, separator);
         }
 
@@ -117,7 +118,9 @@ namespace Engine
             while (charIndex < strLen)
             {
                 if (!char.IsWhiteSpace(this.str, charIndex))
+                {
                     break;
+                }
 
                 ++charIndex;
             }
@@ -131,7 +134,9 @@ namespace Engine
         {
             // if no current token, return null
             if (currentTokenIndex < 0)
-                return null;
+            {
+                return string.Empty;
+            }
 
             return str.Substring(currentTokenIndex, currentTokenLength);
         }
@@ -205,7 +210,9 @@ namespace Engine
 
             // If we're at end of the string, just return false.
             if (charIndex >= strLen)
+            {
                 return false;
+            }
 
             var currentChar = str[charIndex];
 
@@ -366,7 +373,9 @@ namespace Engine
             // Is the decimal separator the same as the list separator?
             // If so, we use the ";".
             if ((numberFormat.NumberDecimalSeparator.Length > 0) && (numericSeparator == numberFormat.NumberDecimalSeparator[0]))
+            {
                 numericSeparator = ';';
+            }
 
             return numericSeparator;
         }

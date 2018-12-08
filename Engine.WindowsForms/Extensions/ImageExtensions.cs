@@ -35,7 +35,10 @@ namespace Engine.Imaging
         /// <returns>A copy of the original image in the requested Pixel format.</returns>
         public static Image ConvertToFormat(this Image canvas, PixelFormat format)
         {
-            if (canvas is null) return canvas;
+            if (canvas is null)
+            {
+                return canvas;
+            }
 
             var NewRect = new Rectangle(Point.Empty, canvas.Size);
             var New_Bmp = new Bitmap(canvas.Width, canvas.Height, format);
@@ -189,25 +192,29 @@ namespace Engine.Imaging
             var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(strNameSpace + "." + ResourceName);
             if (ResourceStream is null)
             {
-                // TODO: #If Then ... Warning!!! not translated
+                // ToDo: #If Then ... Warning!!! not translated
                 MessageBox.Show("Unable to find: "
                                 + ResourceName + "\r\n" + "Be Sure "
                                 + ResourceName + " Property Build Action is set to Embedded Resource" + "\r\n" + "Another reason can be that the Project Root Namespace is not the same as the Assembly Name");
-                // TODO: # ... Warning!!! not translated
+                // ToDo: # ... Warning!!! not translated
             }
             else
             {
                 //  ToDo: Report the Error message in a nicer fashion since this in game.
                 //  Perhaps on Exit provide a message errors were encountered and
                 //  ignored would you like to send an error report?
-                // TODO: #End If ... Warning!!! not translated
+                // ToDo: #End If ... Warning!!! not translated
                 return Cursors.Default;
             }
             //  Return the Resource as a cursor
             if (ResourceStream.CanRead)
+            {
                 return new Cursor(ResourceStream);
+            }
             else
+            {
                 return Cursors.Default;
+            }
         }
     }
 }

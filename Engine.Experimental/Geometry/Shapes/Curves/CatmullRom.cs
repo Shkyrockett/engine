@@ -158,7 +158,11 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
         {
-            if (this is null) return nameof(CatmullRom);
+            if (this is null)
+            {
+                return nameof(CatmullRom);
+            }
+
             return $"{nameof(CatmullRom)}{{{nameof(TangentA)}={tangentA},{nameof(PositionA)}={positionA},{nameof(TangentB)}={tangentB},{nameof(PositionB)}={positionB},{nameof(Precision)}={Precision}}}";
         }
     }

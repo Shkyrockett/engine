@@ -16,6 +16,21 @@ namespace Engine
     public class Bone
         : Shape
     {
+        public Bone(Transform2D transform, Bone parent, Bone iK, double length, double weight, uint chain, int chainIndex, bool inheritTranslation, bool inheritRotation, bool inheritScale, bool bendPositive)
+        {
+            Transform = transform;
+            Parent = parent;
+            IK = iK;
+            Length = length;
+            Weight = weight;
+            Chain = chain;
+            ChainIndex = chainIndex;
+            InheritTranslation = inheritTranslation;
+            InheritRotation = inheritRotation;
+            InheritScale = inheritScale;
+            BendPositive = bendPositive;
+        }
+
         /// <summary>
         /// Gets or sets the transform.
         /// </summary>

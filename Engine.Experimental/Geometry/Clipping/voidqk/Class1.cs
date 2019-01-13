@@ -147,10 +147,10 @@
 //    }
 
 //    /// <summary>
-//    /// The intersector class.
+//    /// The Intersector class.
 //    /// this is the core work-horse
 //    /// </summary>
-//    public class intersector
+//    public class Intersector
 //    {
 //        /// <summary>
 //        /// The self intersection.

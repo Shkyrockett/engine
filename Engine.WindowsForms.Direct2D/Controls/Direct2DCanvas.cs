@@ -8,8 +8,13 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using SharpDX;
+using SharpDX.Direct2D1;
+using SharpDX.DXGI;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using static System.Math;
 
 namespace Engine.Winforms.Direct2D
 {
@@ -19,33 +24,56 @@ namespace Engine.Winforms.Direct2D
     public partial class Direct2DCanvas
         : UserControl
     {
-        ///// <summary>
-        ///// Window Render target.
-        ///// </summary>
-        //private WindowRenderTarget target;
+        /// <summary>
+        /// Window Render target.
+        /// </summary>
+        private WindowRenderTarget target;
 
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        //SharpDX.Color color = SharpDX.Color.CornflowerBlue;
+        /// <summary>
+        /// 
+        /// </summary>
+        Color color = Color.CornflowerBlue;
+
+        private float[] bands;
+
+        private float gap;
+
+        private static int frequency;
+
+        /// <summary>
+        /// The band brush.
+        /// </summary>
+        private LinearGradientBrush bandBrush;
+
+        /// <summary>
+        /// The random.
+        /// </summary>
+        private Random random;
+
+        /// <summary>
+        /// The cycle count.
+        /// </summary>
+        private int cycleCount = 0;
+
+        private int bandCount;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Direct2DCanvas"/> class.
         /// </summary>
         public Direct2DCanvas()
         {
-            //SetStyle(
-            //    ControlStyles.AllPaintingInWmPaint
-            //    | ControlStyles.Selectable
-            //    , true);
-            //SetStyle(
-            //    ControlStyles.UserPaint // We will be doing all of our own painting.
-            //    | ControlStyles.SupportsTransparentBackColor
-            //    | ControlStyles.OptimizedDoubleBuffer
-            //    | ControlStyles.ResizeRedraw // We are doing our own repainting when the control is resized.
-            //    | ControlStyles.Opaque  // Let's let the parent paint, so we can have transparencies if needed.
-            //    , false);
-            //InitializeComponent();
+            SetStyle(
+                ControlStyles.AllPaintingInWmPaint
+                | ControlStyles.Selectable
+                , true);
+            SetStyle(
+                ControlStyles.UserPaint // We will be doing all of our own painting.
+                | ControlStyles.SupportsTransparentBackColor
+                | ControlStyles.OptimizedDoubleBuffer
+                | ControlStyles.ResizeRedraw // We are doing our own repainting when the control is resized.
+                | ControlStyles.Opaque  // Let's let the parent paint, so we can have transparencies if needed.
+                , false);
+            InitializeComponent();
         }
 
         /// <summary>
@@ -54,24 +82,24 @@ namespace Engine.Winforms.Direct2D
         /// <param name="m">The m.</param>
         protected override void WndProc(ref Message m)
         {
-            //// Process other controls first.
-            //base.WndProc(ref m);
+            // Process other controls first.
+            base.WndProc(ref m);
 
-            //// Handle messages we want to customize.
-            //switch ((WindowsMessages)m.Msg)
-            //{
-            //    case WindowsMessages.WM_PAINT:
-            //        // We are doing our own painting.
-            //        Render();
-            //        m.Result = (IntPtr)1;
-            //        break;
-            //    case WindowsMessages.WM_ERASEBKGND:
-            //        // We are ignoring EraseBackground since we are drawing it all ourselves.
-            //        m.Result = (IntPtr)1;
-            //        break;
-            //    default:
-            //        break;
-            //}
+            // Handle messages we want to customize.
+            switch ((WindowsMessages)m.Msg)
+            {
+                case WindowsMessages.WM_PAINT:
+                    // We are doing our own painting.
+                    Render();
+                    m.Result = (IntPtr)1;
+                    break;
+                case WindowsMessages.WM_ERASEBKGND:
+                    // We are ignoring EraseBackground since we are drawing it all ourselves.
+                    m.Result = (IntPtr)1;
+                    break;
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -81,20 +109,20 @@ namespace Engine.Winforms.Direct2D
         /// <param name="e">The event arguments.</param>
         private void Direct2DCanvas_Load(object sender, EventArgs e)
         {
-            //// Get the changed object.
-            //var panel = sender as Direct2DCanvas;
+            // Get the changed object.
+            var panel = sender as Direct2DCanvas;
 
-            //// Create DirectX target
-            //InitialiseTarget(panel.Width, panel.Height);
+            // Create DirectX target
+            InitializeTarget(panel.Width, panel.Height);
 
-            //// Initialize the world.
-            //UpdateWorld();
+            // Initialize the world.
+            UpdateWorld();
 
-            //// Set the number of ticks to refresh the world.
-            //timer.Interval = 50;
+            // Set the number of ticks to refresh the world.
+            timer.Interval = 50;
 
-            //// Start the world update timer if it isn't in design mode.
-            //if (!DesignMode) timer.Start();
+            // Start the world update timer if it isn't in design mode.
+            if (!DesignMode) timer.Start();
         }
 
         /// <summary>
@@ -104,14 +132,14 @@ namespace Engine.Winforms.Direct2D
         /// <param name="e">The event arguments.</param>
         private void Direct2DCanvas_Resize(object sender, EventArgs e)
         {
-            //// Get the changed object.
-            //var panel = sender as Direct2DCanvas;
+            // Get the changed object.
+            var panel = sender as Direct2DCanvas;
 
-            //// Update the resolution.
-            //InitialiseTarget(panel.Width, panel.Height);
+            // Update the resolution.
+            InitializeTarget(panel.Width, panel.Height);
 
-            ////Invalidate and redraw the form http://stackoverflow.com/a/9827091
-            //Update();
+            //Invalidate and redraw the form http://stackoverflow.com/a/9827091
+            Update();
         }
 
         /// <summary>
@@ -121,11 +149,11 @@ namespace Engine.Winforms.Direct2D
         /// <param name="e">The event arguments.</param>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            //// Process all changes to the world.
-            //UpdateWorld();
+            // Process all changes to the world.
+            UpdateWorld();
 
-            //// Now that the world has been updated it needs to be redrawn.
-            //Invalidate();
+            // Now that the world has been updated it needs to be redrawn.
+            Invalidate();
         }
 
         /// <summary>
@@ -133,71 +161,65 @@ namespace Engine.Winforms.Direct2D
         /// </summary>
         public void Render()
         {
-            //target?.BeginDraw();
+            target?.BeginDraw();
 
-            //target?.Clear(color);
+            target?.Clear(color);
 
-            ////int bandCount = bands.Length;
+            var bandCount = bands.Length;
 
-            ////float bandWidth = (target.Size.Width + gap) / bandCount;
+            var bandWidth = (target.Size.Width + gap) / bandCount;
 
-            ////int i = 0;
-            ////foreach (var bandPercentage in bands)
-            ////{
-            ////    target.FillRectangle(new RectangleF()
-            ////    {
-            ////        Top = target.Size.Height * bandPercentage / 100,
-            ////        Left = i * bandWidth,
-            ////        Width = bandWidth - gap,
-            ////        Bottom = target.Size.Height
-            ////    }, bandBrush);
-            ////    i++;
-            ////}
+            var i = 0;
+            foreach (var bandPercentage in bands)
+            {
+                target.FillRectangle(new RectangleF(i * bandWidth, target.Size.Height * bandPercentage / 100, bandWidth - gap, target.Size.Height - (target.Size.Height * bandPercentage / 100)), bandBrush);
+                i++;
+            }
 
-            ////target.DrawText("", TextFormat,)
+            //target.DrawText("Testing",  TextFormat,);
 
-            //target?.EndDraw();
+            target?.EndDraw();
         }
 
         /// <summary>
         /// Update the world.
         /// </summary>
-        private static void UpdateWorld()
+        private void UpdateWorld()
         {
-            //int phase = 0;
-            //int center = 100; // 200; // 128;
-            //int width = 55; // 127;
+            var phase = 0;
+            var center = 100; // 200; // 128;
+            var width = 55; // 127;
 
-            //if (cycleCount > 0xff)
-            //{
-            //    cycleCount = 0;
-            //}
+            if (cycleCount > 0xff)
+            {
+                cycleCount = 0;
+            }
 
-            //cycleCount++;
+            cycleCount++;
 
-            //color = new Color(
-            //    (int)Floor(Sin(frequency * cycleCount + 0 + phase) * width + center),
-            //    (int)Floor(Sin(frequency * cycleCount + 2 + phase) * width + center),
-            //    (int)Floor(Sin(frequency * cycleCount + 4 + phase) * width + center),
-            //    0xff);
+            color = new Color(
+                (int)Floor(Sin(frequency * cycleCount + 0 + phase) * width + center),
+                (int)Floor(Sin(frequency * cycleCount + 2 + phase) * width + center),
+                (int)Floor(Sin(frequency * cycleCount + 4 + phase) * width + center),
+                0xff);
 
-            //bands = new float[bandCount];
-            //for (int i = 0; i < bandCount; i++)
-            //{
-            //    bands[i] = random.Next(0, 100);
-            //}
+            bands = new float[bandCount];
+            for (var i = 0; i < bandCount; i++)
+            {
+                bands[i] = random.Next(0, 100);
+            }
         }
 
         /// <summary>
-        /// The initialise target.
+        /// The initialize target.
         /// </summary>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        private void InitialiseTarget(int width, int height)
+        private void InitializeTarget(int width, int height)
         {
-            //if (target is null) CreateDxTarget(width, height);
-            //target.Resize(new Size2(width, height));
-            //CreateBandBrush();
+            if (target is null) CreateDxTarget(width, height);
+            target.Resize(new Size2(width, height));
+            CreateBandBrush();
         }
 
         /// <summary>
@@ -207,44 +229,44 @@ namespace Engine.Winforms.Direct2D
         /// <param name="height">The height.</param>
         private void CreateDxTarget(int width, int height)
         {
-            //var targetProperties = new RenderTargetProperties(
-            //    RenderTargetType.Default,
-            //    new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
-            //    0, 0,
-            //    RenderTargetUsage.None,
-            //    FeatureLevel.Level_10);
+            var targetProperties = new RenderTargetProperties(
+                RenderTargetType.Default,
+                new PixelFormat(Format.B8G8R8A8_UNorm, SharpDX.Direct2D1.AlphaMode.Premultiplied),
+                0, 0,
+                RenderTargetUsage.None,
+                FeatureLevel.Level_10);
 
-            //var windowProperties = new HwndRenderTargetProperties
-            //{
-            //    Hwnd = Handle,
-            //    PixelSize = new Size2(width, height),
-            //    PresentOptions = PresentOptions.None
-            //};
+            var windowProperties = new HwndRenderTargetProperties
+            {
+                Hwnd = Handle,
+                PixelSize = new Size2(width, height),
+                PresentOptions = PresentOptions.None
+            };
 
-            //using (var factory = new SharpDX.Direct2D1.Factory())
-            //{
-            //    target = new WindowRenderTarget(factory, targetProperties, windowProperties);
-            //}
+            using (var factory = new SharpDX.Direct2D1.Factory())
+            {
+                target = new WindowRenderTarget(factory, targetProperties, windowProperties);
+            }
         }
 
         /// <summary>
         /// Create the band brush.
         /// </summary>
-        private static void CreateBandBrush()
+        private void CreateBandBrush()
         {
-            //LinearGradientBrushProperties properties = new LinearGradientBrushProperties()
-            //{
-            //    StartPoint = new Vector2(0, target.Size.Height),
-            //    EndPoint = new Vector2(0, 0)
-            //};
+            var properties = new LinearGradientBrushProperties()
+            {
+                StartPoint = new Vector2(0, target.Size.Height),
+                EndPoint = new Vector2(0, 0)
+            };
 
-            //var points = new GradientStopCollection(target, new GradientStop[] {
-            //    new GradientStop() {Color=Color.Green, Position=0F},
-            //    new GradientStop() {Color=Color.Yellow, Position=0.8F},
-            //    new GradientStop() {Color=Color.Red, Position=1F}
-            //}, ExtendMode.Clamp);
+            var points = new GradientStopCollection(target, new GradientStop[] {
+                new GradientStop() {Color=Color.Green, Position=0F},
+                new GradientStop() {Color=Color.Yellow, Position=0.8F},
+                new GradientStop() {Color=Color.Red, Position=1F}
+            }, ExtendMode.Clamp);
 
-            //bandBrush = new LinearGradientBrush(target, properties, points);
+            bandBrush = new LinearGradientBrush(target, properties, points);
         }
     }
 }

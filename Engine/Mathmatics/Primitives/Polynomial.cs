@@ -693,6 +693,16 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) tuple)
             => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i, tuple.j);
+
+        /// <summary>
+        /// Implicit conversion from a decomial tuple to a polynomial.
+        /// </summary>
+        /// <param name="tuple">A tuple form of the polynomial.</param>
+        /// <returns>The <see cref="Polynomial"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k) tuple)
+            => new Polynomial(tuple.a, tuple.b, tuple.c, tuple.d, tuple.e, tuple.f, tuple.g, tuple.h, tuple.i, tuple.j, tuple.k);
         #endregion Operators
 
         #region Operations
@@ -1166,20 +1176,15 @@ namespace Engine
                 case 5:
                     return QuinticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5]);
                 case 6:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return SexticBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
+                    return SexticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
                 case 7:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return SepticBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
+                    return SepticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
                 case 8:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return OcticBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
+                    return OcticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
                 case 9:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return NonicBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
+                    return NonicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
                 case 10:
-                    // We don't have a hand optimized Method for this Polynomial. Use the stacked method.
-                    return DecicBezierCoefficientsStack(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
+                    return DecicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
                 default:
                     // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
                     return Bezier(0, values.Length - 1, values);

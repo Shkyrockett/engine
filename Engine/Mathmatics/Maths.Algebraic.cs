@@ -7,7 +7,6 @@
 // </license>
 // <summary></summary>
 // <remarks></remarks>
-
 // <copyright company="kevlindev" >
 //     Many of the Roots methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/.
 //     Copyright © 2000 - 2003 Kevin Lindsey. All rights reserved.
@@ -221,7 +220,7 @@ namespace Engine
             var det = a - 2 * b + c;
             if (det != 0)
             {
-                // Negitive square root descriminant. Missing the 4?
+                // Negative square root discriminant. Missing the 4?
                 var sqrtd = -Sqrt(b * b - a * c);
                 var m2 = b - a;
                 var v1 = -(m2 + sqrtd) / det;
@@ -722,7 +721,6 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B) BezierCoefficients(double a, double b)
@@ -750,10 +748,9 @@ namespace Engine
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <returns></returns>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) BezierCoefficients(double a, double b, double c, double d)
+        public static (double A, double B, double C, double D) BezierFormulaCoefficients(double a, double b, double c, double d)
             => CubicBezierCoefficients(a, b, c, d);
 
         /// <summary>
@@ -767,7 +764,7 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E) BezierCoefficients0(double a, double b, double c, double d, double e)
+        public static (double A, double B, double C, double D, double E) BezierFormulaCoefficients(double a, double b, double c, double d, double e)
             => QuarticBezierCoefficients(a, b, c, d, e);
 
         /// <summary>
@@ -782,11 +779,101 @@ namespace Engine
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F) BezierCoefficients(double a, double b, double c, double d, double e, double f)
+        public static (double A, double B, double C, double D, double E, double F) BezierFormulaCoefficients(double a, double b, double c, double d, double e, double f)
             => QuinticBezierCoefficients(a, b, c, d, e, f);
+
+        /// <summary>
+        /// Coefficients for a Sextic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G) BezierFormulaCoefficients(double a, double b, double c, double d, double e, double f, double g)
+            => SexticBezierCoefficients(a, b, c, d, e, f, g);
+
+        /// <summary>
+        /// Coefficients for a Sextic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G, double H) BezierFormulaCoefficients(double a, double b, double c, double d, double e, double f, double g, double h)
+            => SepticBezierCoefficients(a, b, c, d, e, f, g, h);
+
+        /// <summary>
+        /// Coefficients for a Octic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) BezierFormulaCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i)
+            => OcticBezierCoefficients(a, b, c, d, e, f, g, h, i);
+
+        /// <summary>
+        /// Coefficients for a Nonic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) BezierFormulaCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
+            => NonicBezierCoefficients(a, b, c, d, e, f, g, h, i, j);
+
+        /// <summary>
+        /// Coefficients for a Decic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) BezierFormulaCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
+            => DecicBezierCoefficients(a, b, c, d, e, f, g, h, i, j, k);
         #endregion Bézier Coefficients Overloads
 
-        #region Bézier Coefficients
+        #region Bézier Coefficients Stack
         /// <summary>
         /// Coefficients for a Linear Bézier curve.
         /// </summary>
@@ -800,21 +887,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial LinearBezierCoefficientsStack(double a, double b)
             => Polynomial.OneMinusT * a + Polynomial.T * b;
-
-        /// <summary>
-        /// Coefficients for a Linear Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// http://fontforge.github.io/bezier.html
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B) LinearBezierCoefficients(double a, double b)
-            => (b - a,
-                a);
 
         /// <summary>
         /// Coefficients for a Quadratic Bézier curve.
@@ -832,25 +904,6 @@ namespace Engine
             => Polynomial.OneMinusT * LinearBezierCoefficientsStack(a, b) + Polynomial.T * LinearBezierCoefficientsStack(b, c);
 
         /// <summary>
-        /// Coefficients for a Quadratic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// </remarks>
-        /// <acknowledgment>
-        /// http://fontforge.github.io/bezier.html
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C) QuadraticBezierCoefficients(double a, double b, double c)
-            => (c - (2d * b) + a,
-                2d * (b - a),
-                a);
-
-        /// <summary>
         /// Coefficients for a Cubic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
@@ -865,27 +918,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial CubicBezierCoefficientsStack(double a, double b, double c, double d)
             => Polynomial.OneMinusT * QuadraticBezierCoefficientsStack(a, b, c) + Polynomial.T * QuadraticBezierCoefficientsStack(b, c, d);
-
-        /// <summary>
-        /// Coefficients for a Cubic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
-        /// http://fontforge.github.io/bezier.html
-        /// http://idav.ucdavis.edu/education/CAGDNotes/Matrix-Cubic-Bezier-Curve/Matrix-Cubic-Bezier-Curve.html
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D) CubicBezierCoefficients(double a, double b, double c, double d)
-            => (d - (3d * c) + (3d * b) - a,
-                (3d * c) - (6d * b) + (3d * a),
-                3d * (b - a),
-                a);
 
         /// <summary>
         /// Coefficients for a Quartic Bézier curve.
@@ -905,28 +937,6 @@ namespace Engine
             => Polynomial.OneMinusT * CubicBezierCoefficientsStack(a, b, c, d) + Polynomial.T * CubicBezierCoefficientsStack(b, c, d, e);
 
         /// <summary>
-        /// Coefficients for a Quartic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// Coefficient calculation found in the matrix representation at:
-        /// http://www.dglr.de/publikationen/2016/420062.pdf
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E) QuarticBezierCoefficients(double a, double b, double c, double d, double e)
-            => (e - (4d * d) + (6d * c) - (4d * b) + a,
-                (4d * d) - (12d * c) + (12d * b) - (4d * a),
-                (6d * c) - (12d * b) + (6d * a),
-                4d * (b - a),
-                a);
-
-        /// <summary>
         /// Coefficients for a Quintic Bézier curve.
         /// </summary>
         /// <param name="a"></param>
@@ -943,30 +953,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial QuinticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f)
             => Polynomial.OneMinusT * QuarticBezierCoefficientsStack(a, b, c, d, e) + Polynomial.T * QuarticBezierCoefficientsStack(b, c, d, e, f);
-
-        /// <summary>
-        /// Coefficients for a Quintic Bézier curve.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <param name="c"></param>
-        /// <param name="d"></param>
-        /// <param name="e"></param>
-        /// <param name="f"></param>
-        /// <returns></returns>
-        /// <acknowledgment>
-        /// Based off of pseudo-code for the matrix found at:
-        /// https://simtk.org/api_docs/opensim/api_docs/classOpenSim_1_1SegmentedQuinticBezierToolkit.html
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double A, double B, double C, double D, double E, double F) QuinticBezierCoefficients(double a, double b, double c, double d, double e, double f)
-            => (f - (5d * e) + (10d * d) - (10d * c) + (5d * b) - a,
-                (5d * e) - (20d * d) + (30d * c) - (20d * b) + (5 * a),
-                (10d * d) - (30d * c) + (30d * b) - (10d * a),
-                (10d * c) - (20d * b) + (10d * a),
-                5d * (b - a),
-                a);
 
         /// <summary>
         /// Coefficients for a Sextic Bézier curve.
@@ -1072,6 +1058,249 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial DecicBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
             => Polynomial.OneMinusT * NonicBezierCoefficientsStack(a, b, c, d, e, f, g, h, i, j) + Polynomial.T * NonicBezierCoefficientsStack(b, c, d, e, f, g, h, i, j, k);
+        #endregion Bézier Coefficients Stack
+
+        #region Bézier Coefficients
+        /// <summary>
+        /// Coefficients for a Linear Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://fontforge.github.io/bezier.html
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B) LinearBezierCoefficients(double a, double b)
+            => (b - a,
+                a);
+
+        /// <summary>
+        /// Coefficients for a Quadratic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        /// <remarks>
+        /// </remarks>
+        /// <acknowledgment>
+        /// http://fontforge.github.io/bezier.html
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C) QuadraticBezierCoefficients(double a, double b, double c)
+            => (c - (2d * b) + a,
+                2d * (b - a),
+                a);
+
+        /// <summary>
+        /// Coefficients for a Cubic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// http://www.gamedev.net/topic/643117-coefficients-for-bezier-curves/
+        /// http://fontforge.github.io/bezier.html
+        /// http://idav.ucdavis.edu/education/CAGDNotes/Matrix-Cubic-Bezier-Curve/Matrix-Cubic-Bezier-Curve.html
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D) CubicBezierCoefficients(double a, double b, double c, double d)
+            => (d - (3d * c) + (3d * b) - a,
+                (3d * c) - (6d * b) + (3d * a),
+                3d * (b - a),
+                a);
+
+        /// <summary>
+        /// Coefficients for a Quartic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// Coefficient calculation found in the matrix representation at:
+        /// http://www.dglr.de/publikationen/2016/420062.pdf
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E) QuarticBezierCoefficients(double a, double b, double c, double d, double e)
+            => (e - (4d * d) + (6d * c) - (4d * b) + a,
+                (4d * d) - (12d * c) + (12d * b) - (4d * a),
+                (6d * c) - (12d * b) + (6d * a),
+                4d * (b - a),
+                a);
+
+        /// <summary>
+        /// Coefficients for a Quintic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <returns></returns>
+        /// <acknowledgment>
+        /// Based off of pseudo-code for the matrix found at:
+        /// https://simtk.org/api_docs/opensim/api_docs/classOpenSim_1_1SegmentedQuinticBezierToolkit.html
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F) QuinticBezierCoefficients(double a, double b, double c, double d, double e, double f)
+            => (f - (5d * e) + (10d * d) - (10d * c) + (5d * b) - a,
+                (5d * e) - (20d * d) + (30d * c) - (20d * b) + (5d * a),
+                (10d * d) - (30d * c) + (30d * b) - (10d * a),
+                (10d * c) - (20d * b) + (10d * a),
+                5d * (b - a),
+                a);
+
+        /// <summary>
+        /// Coefficients for a Sextic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G) SexticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g)
+        {
+            return (g - (6d * f) + (15d * e) - (20d * d) + (15d * c) - (6d * b) + a,
+                    (6d * f) - (30d * e) + (60d * d) - (60d * c) + (30d * b) - (6d * a),
+                    (15d * e) - (60d * d) + (90d * c) - (60d * b) + (15d * a),
+                    (20d * d) - (60d * c) + (60d * b) - (20d * a),
+                    (15d * c) - (30d * b) + (15d * a),
+                    (6d * b) - (6d * a),
+                    a);
+        }
+
+        /// <summary>
+        /// Coefficients for a Septic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G, double H) SepticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h)
+        {
+            return (h - (7d * g) + (21d * f) - (35d * e) + (35d * d) - (21d * c) + (7d * b) - a,
+                    (7d * g) - (42d * f) + (105d * e) - (140d * d) + (105d * c) - (42d * b) + (7d * a),
+                    (21d * f) - (105d * e) + (210d * d) - (210d * c) + (105d * b) - (21d * a),
+                    (35d * e) - (140d * d) + (210d * c) - (140d * b) + (35d * a),
+                    (35d * d) - (105d * c) + (105d * b) - (35d * a),
+                    (21d * c) - (42d * b) + (21d * a),
+                    (7d * b) - (7d * a),
+                    a);
+        }
+
+        /// <summary>
+        /// Coefficients for a Octic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) OcticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i)
+        {
+            return (i - (8d * h) + (28d * g) - (56d * f) + (70d * e) - (56d * d) + (28d * c) - (8d * b) + a,
+                    (8d * h) - (56d * g) + (168d * f) - (280d * e) + (280d * d) - (168d * c) + (56d * b) - (8d * a),
+                    (28d * g) - (168d * f) + (420d * e) - (560d * d) + (420d * c) - (168d * b) + (28d * a),
+                    (56d * f) - (280d * e) + (560d * d) - (560d * c) + (280d * b) - (56d * a),
+                    (70d * e) - (280d * d) + (420d * c) - (280d * b) + (70d * a),
+                    (56d * d) - (168d * c) + (168d * b) - (56d * a),
+                    (28d * c) - (56d * b) + (28d * a),
+                    (8d * b) - (8d * a),
+                    a);
+        }
+
+        /// <summary>
+        /// Coefficients for a Nonic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
+        {
+            return (j - (9d * i) + (36d * h) - (84d * g) + (126d * f) - (126d * e) + (84d * d) - (36d * c) + (9d * b) - a,
+                    (9d * i) - (72d * h) + (252d * g) - (504d * f) + (630d * e) - (504d * d) + (252d * c) - (72d * b) + (9d * a),
+                    (36d * h) - (252d * g) + (756d * f) - (1260d * e) + (1260d * d) - (756d * c) + (252 * b) - (36 * a),
+                    (84d * g) - (504 * f) + (1260d * e) - (1680d * d) + (1260d * c) - (504d * b) + (84d * a),
+                    (126d * f) - (630d * e) + (1260d * d) - (1260d * c) + (630d * b) - (126d * a),
+                    (126d * e) - (504d * d) + (756d * c) - (504d * b) + (126d * a),
+                    (84d * d) - (252d * c) + (252d * b) - (84d * a),
+                    (36d * c) - (72d * b) + (36d * a),
+                    (9d * b) - (9d * a),
+                    a);
+        }
+
+        /// <summary>
+        /// Coefficients for a Decic Bézier curve.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
+        /// <param name="f"></param>
+        /// <param name="g"></param>
+        /// <param name="h"></param>
+        /// <param name="i"></param>
+        /// <param name="j"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
+        {
+            return (k - (10 * j) + (45 * i) - (120 * h) + (210 * g) - (252 * f) + (210 * e) - (120 * d) + (45 * c) - (10 * b) + a,
+                    (10 * j) - (90d * i) + (360d * h) - (840d * g) + (1260d * f) - (1260d * e) + (840d * d) - (360d * c) + (90d * b) - (10 * a),
+                    (45d * i) - (360d * h) + (1260d * g) - (2520d * f) + (3150d * e) - (2520d * d) + (1260d * c) - (360d * b) + (45d * a),
+                    (120d * h) - (840d * g) + (2520d * f) - (4200d * e) + (4200d * d) - (2520d * c) + (840d * b) - (120d * a),
+                    (210d * g) - (1260d * f) + (3150d * e) - (4200d * d) + (3150d * c) - (1260d * b) + (210d * a),
+                    (252d * f) - (1260d * e) + (2520d * d) - (2520d * c) + (1260d * b) - (252d * a),
+                    (210d * e) - (840d * d) + (1260d * c) - (840d * b) + (210d * a),
+                    (120d * d) - (360d * c) + (360d * b) - (120d * a),
+                    (45d * c) - (90d * b) + (45d * a),
+                    (10d * b) - (10d * a),
+                    a);
+        }
         #endregion Bézier Coefficients
 
         /// <summary>

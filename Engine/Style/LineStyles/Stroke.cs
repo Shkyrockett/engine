@@ -175,6 +175,8 @@ namespace Engine
         [NotifyParentProperty(true)]
         public IFill Fill { get; set; }
 
+        public float[]? DashPattern { get; set; }
+
         /// <summary>
         /// Raises the property changing event.
         /// </summary>

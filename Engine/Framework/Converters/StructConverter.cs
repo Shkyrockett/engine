@@ -27,12 +27,12 @@ namespace Engine
         /// <summary>
         /// The instance ctor.
         /// </summary>
-        private ConstructorInfo instanceCtor;
+        private readonly ConstructorInfo instanceCtor;
 
         /// <summary>
         /// The parse.
         /// </summary>
-        private MethodInfo parse;
+        private readonly MethodInfo parse;
 
         /// <summary>
         /// The descriptions.

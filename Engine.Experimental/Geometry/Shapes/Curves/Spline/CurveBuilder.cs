@@ -111,7 +111,7 @@ namespace Engine
                     var dir = ((Vector2D)(p - prev)).Normalize();
                     do
                     {
-                        var np = prev + dir * md;
+                        var np = prev + (dir * md);
                         var res = AddInternal((Point2D)np);
                         first = Math.Min(first, res.FirstChangedIndex);
                         add |= res.WasAdded;
@@ -141,7 +141,7 @@ namespace Engine
             var last = points.Count;
             Debug.Assert(last != 0); // should always have one point at least
             points.Add(np);
-            arclen.Add(totalLength = totalLength + linDist);
+            arclen.Add(totalLength += linDist);
             if (last == 1)
             {
                 // This is the second point
@@ -190,11 +190,11 @@ namespace Engine
                     }
 
                     // do a final pass on the first half of the curve
-                    FitCurve(first, split, tanL, tanM1, out curve, out var unused);
+                    FitCurve(first, split, tanL, tanM1, out curve, out var _);
                     result[lastCurve] = curve;
 
                     // prepare to fit the second half
-                    FitCurve(split, last, tanM2, tanR, out curve, out unused);
+                    FitCurve(split, last, tanM2, tanR, out curve, out _);
                     result.Add(curve);
                     this.first = split;
                     this.tanL = tanM2;

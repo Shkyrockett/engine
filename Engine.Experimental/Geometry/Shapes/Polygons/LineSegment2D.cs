@@ -65,13 +65,13 @@
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        private bool Degenerate
+        public bool Degenerate
             => a == b;
 
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        private bool IsVertical
+        public bool IsVertical
             => a.X == b.X;
 
         /// <summary>

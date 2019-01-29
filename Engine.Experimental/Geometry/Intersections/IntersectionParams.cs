@@ -22,18 +22,18 @@ namespace Engine
         /// <param name="params">The params.</param>
         public IntersectionParams(string name, string @params)
         {
-            this.name = name;
-            this.@params = @params;
+            this.Name = name;
+            this.Params = @params;
         }
 
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
-        public string name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the params.
         /// </summary>
-        public string @params { get; set; }
+        public string Params { get; set; }
     }
 }

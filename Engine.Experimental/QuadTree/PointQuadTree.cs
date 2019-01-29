@@ -40,12 +40,12 @@ namespace Engine.Experimental
         /// <summary>
         /// The root QuadTreeNode
         /// </summary>
-        private PointQuadTreeNode<T> root;
+        private readonly PointQuadTreeNode<T> root;
 
         /// <summary>
         /// The bounds of this QuadTree
         /// </summary>
-        private Rectangle2D rectangle;
+        private readonly Rectangle2D rectangle;
         #endregion Fields
 
         #region Delegates

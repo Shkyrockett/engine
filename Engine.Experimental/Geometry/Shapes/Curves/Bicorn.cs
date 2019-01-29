@@ -131,7 +131,7 @@ namespace Engine
         public override List<Point2D> InterpolatePoints(int count)
         {
             var points = new List<Point2D>();
-            for (var Index = PI * -1; Index <= PI; Index = Index + (1d / count))
+            for (var Index = PI * -1; Index <= PI; Index += (1d / count))
             {
                 points.Add(Interpolate(Index));
             }
@@ -160,7 +160,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Bicorn)}{{{nameof(Offset)}={offset},{nameof(Multiplyer)}={multiplyer},{nameof(Precision)}={precision}}}";
+            IFormattable formatable = $"{nameof(Bicorn)}{{{nameof(Offset)}={offset}{sep}{nameof(Multiplyer)}={multiplyer}{sep}{nameof(Precision)}={precision}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

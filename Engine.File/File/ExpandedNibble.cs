@@ -49,7 +49,7 @@ namespace Engine.File
         /// </summary>
         private byte PackedValue
         {
-            get { return (byte)((HighNibble & 0xF0 << 4) | (LowNibble & 0x0F)); }
+            get { return (byte)((HighNibble & (0xF0 << 4)) | (LowNibble & 0x0F)); }
             set
             {
                 HighNibble = (byte)(value >> 4);

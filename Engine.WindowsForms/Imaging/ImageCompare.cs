@@ -77,7 +77,7 @@ namespace Engine.Imaging
 
                 for (var cCur = 0; cCur < cLen; cCur++)
                 {
-                    cCol = cCur % cData.Stride + 1;
+                    cCol = (cCur % cData.Stride) + 1;
                     aCol = cCol > aData.Stride ? aCol : cCol;
                     bCol = cCol > bData.Stride ? bCol : cCol;
 
@@ -155,7 +155,7 @@ namespace Engine.Imaging
 
                 for (var cCur = 0; cCur < cLen; cCur++)
                 {
-                    cCol = cCur % cData.Stride + 1;
+                    cCol = (cCur % cData.Stride) + 1;
                     aCol = cCol > aData.Stride ? aCol : cCol;
                     bCol = cCol > bData.Stride ? bCol : cCol;
 
@@ -210,6 +210,6 @@ namespace Engine.Imaging
         /// Based on http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
         /// </remarks>
         private unsafe static void Compare1(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
-            => *cPtr = (byte)(aPtr + bPtr - 2 * Min(aPtr, bPtr));
+            => *cPtr = (byte)(aPtr + bPtr - (2 * Min(aPtr, bPtr)));
     }
 }

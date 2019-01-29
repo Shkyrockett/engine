@@ -47,7 +47,7 @@ namespace EventEditorMidi
         /// <param name="assembly">The assembly.</param>
         /// <param name="classType">The classType.</param>
         /// <returns>The <see cref="T:List{Type}"/>.</returns>
-        private static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
+        public static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
         {
             var typeList = new List<Type>();
             foreach (Type type in assembly.GetTypes().ToArray())

@@ -182,7 +182,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment[] Split(this LineSegment segment, double t)
         {
-            if (t < 0 || t > 1)
+            if (t < 0d || t > 1d)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -208,7 +208,7 @@ namespace Engine
                 return new[] { segment };
             }
 
-            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToArray();
+            var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToArray();
             if (filtered.Length == 0)
             {
                 return new[] { segment };
@@ -250,7 +250,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc Split(this Circle circle, double t)
         {
-            if (t < 0 || t > 1)
+            if (t < 0d || t > 1d)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -270,13 +270,13 @@ namespace Engine
         {
             if (ts is null)
             {
-                return new[] { Split(circle, 0) };
+                return new[] { Split(circle, 0d) };
             }
 
-            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
+            var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
             {
-                return new[] { Split(circle, 0) };
+                return new[] { Split(circle, 0d) };
             }
 
             var arc = Split(circle, filtered[0]);
@@ -285,7 +285,7 @@ namespace Engine
             var list = new List<CircularArc>(filtered.Count + 1);
             foreach (var t in filtered)
             {
-                var relT = 1 - (1 - t) / (1 - tLast);
+                var relT = 1d - ((1d - t) / (1d - tLast));
                 tLast = t;
                 var cut = Split(arc, relT);
                 list.Add(cut[0]);
@@ -318,7 +318,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc[] Split(this CircularArc arc, double t)
         {
-            if (t < 0 || t > 1)
+            if (t < 0d || t > 1d)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -344,7 +344,7 @@ namespace Engine
                 return new[] { arc };
             }
 
-            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
+            var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
             {
                 return new[] { arc };
@@ -355,7 +355,7 @@ namespace Engine
             var list = new List<CircularArc>(filtered.Count + 1);
             foreach (var t in filtered)
             {
-                var relT = 1 - (1 - t) / (1 - tLast);
+                var relT = 1d - ((1d - t) / (1d - tLast));
                 tLast = t;
                 var cut = Split(arc, relT);
                 list.Add(cut[0]);
@@ -388,7 +388,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EllipticalArc Split(this Ellipse ellipse, double t)
         {
-            if (t < 0 || t > 1)
+            if (t < 0d || t > 1d)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -408,13 +408,13 @@ namespace Engine
         {
             if (ts is null)
             {
-                return new[] { Split(ellipse, 0) };
+                return new[] { Split(ellipse, 0d) };
             }
 
-            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
+            var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
             {
-                return new[] { Split(ellipse, 0) };
+                return new[] { Split(ellipse, 0d) };
             }
 
             var arc = Split(ellipse, filtered[0]);
@@ -423,7 +423,7 @@ namespace Engine
             var list = new List<EllipticalArc>(filtered.Count + 1);
             foreach (var t in filtered)
             {
-                var relT = 1 - (1 - t) / (1 - tLast);
+                var relT = 1d - ((1d - t) / (1d - tLast));
                 tLast = t;
                 var cut = Split(arc, relT);
                 list.Add(cut[0]);
@@ -456,7 +456,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EllipticalArc[] Split(this EllipticalArc arc, double t)
         {
-            if (t < 0 || t > 1)
+            if (t < 0d || t > 1d)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -482,7 +482,7 @@ namespace Engine
                 return new[] { arc };
             }
 
-            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
+            var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
             {
                 return new[] { arc };
@@ -493,7 +493,7 @@ namespace Engine
             var list = new List<EllipticalArc>(filtered.Count + 1);
             foreach (var t in filtered)
             {
-                var relT = 1 - (1 - t) / (1 - tLast);
+                var relT = 1d - ((1d - t) / (1d - tLast));
                 tLast = t;
                 var cut = Split(arc, relT);
                 list.Add(cut[0]);
@@ -541,7 +541,7 @@ namespace Engine
                 return new[] { bezier };
             }
 
-            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
+            var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
             {
                 return new[] { bezier };
@@ -552,7 +552,7 @@ namespace Engine
             var list = new List<BezierSegment>(filtered.Count + 1);
             foreach (var t in filtered)
             {
-                var relT = 1 - (1 - t) / (1 - tLast);
+                var relT = 1d - ((1d - t) / (1d - tLast));
                 tLast = t;
                 var cut = SplitBezier(bezier.Points, relT);
                 list.Add(cut[0]);
@@ -599,7 +599,7 @@ namespace Engine
                 return new[] { new BezierSegment(bezier.Points) };
             }
 
-            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
+            var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
             if (filtered.Count == 0)
             {
                 return new[] { new BezierSegment(bezier.Points) };
@@ -610,7 +610,7 @@ namespace Engine
             var list = new List<BezierSegment>(filtered.Count + 1);
             foreach (var t in filtered)
             {
-                var relT = (1 - t) / (1 - tLast);
+                var relT = (1d - t) / (1d - tLast);
                 tLast = t;
                 var cut = SplitBezier(start.Points, relT);
                 list.Add(cut[1]);
@@ -658,7 +658,7 @@ namespace Engine
                 return new[] { new BezierSegment(bezier.Points) };
             }
 
-            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
+            var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
 
             if (filtered.Count == 0)
             {
@@ -670,7 +670,7 @@ namespace Engine
             var list = new List<BezierSegment>(filtered.Count + 1);
             foreach (var t in filtered)
             {
-                var relT = (1 - t) / (1 - tLast);
+                var relT = (1d - t) / (1d - tLast);
                 tLast = t;
                 var cut = SplitBezier(prev.Points, relT);
                 list.Add(cut[1]);
@@ -707,7 +707,7 @@ namespace Engine
                 return new[] { new BezierSegment(points) };
             }
 
-            var filtered = ts.Where(t => t >= 0 && t <= 1).Distinct().OrderBy(t => t).ToList();
+            var filtered = ts.Where(t => t >= 0d && t <= 1d).Distinct().OrderBy(t => t).ToList();
 
             if (filtered.Count == 0)
             {
@@ -719,7 +719,7 @@ namespace Engine
             var list = new List<BezierSegment>(filtered.Count + 1);
             foreach (var t in filtered)
             {
-                var relT = (1 - t) / (1 - tLast);
+                var relT = (1d - t) / (1d - tLast);
                 tLast = t;
                 var cut = SplitBezier(prev.Points, relT);
                 list.Add(cut[1]);
@@ -746,7 +746,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] SplitBezier(IEnumerable<Point2D> points, double t)
         {
-            if (t < 0 || t > 1)
+            if (t < 0d || t > 1d)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -764,7 +764,7 @@ namespace Engine
                 {
                     var p0 = lp[i];
                     var p1 = lp[i + 1];
-                    next.Add(new Point2D((p0.X * (1 - t) + t * p1.X, p0.Y * (1 - t) + t * p1.Y)));
+                    next.Add(new Point2D(((p0.X * (1d - t)) + (t * p1.X), (p0.Y * (1d - t)) + (t * p1.Y))));
                 }
 
                 lp = next;

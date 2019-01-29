@@ -231,6 +231,6 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="float"/>.</returns>
-        public static float ProcessSegment(PointF a, PointF b) => a.X * b.X - a.Y * b.Y;
+        public static float ProcessSegment(PointF a, PointF b) => (a.X * b.X) - (a.Y * b.Y);
     }
 }

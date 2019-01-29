@@ -142,7 +142,7 @@ namespace Engine
                 }
 
                 // Calculate the index of the item under the point location.
-                var value = dy * columns + dx;
+                var value = (dy * columns) + dx;
 
                 // Return only valid cells.
                 return (value < count) ? value : -1;
@@ -161,8 +161,8 @@ namespace Engine
             {
                 // ToDo: Implement flow orientation options.
                 var point = new Point2D(
-                    x + index % Columns * CellSize.Width,
-                    y + index / Columns * CellSize.Height
+                    x + (index % Columns * CellSize.Width),
+                    y + (index / Columns * CellSize.Height)
                     );
                 return new Rectangle2D(point, CellSize);
             }

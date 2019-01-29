@@ -728,7 +728,7 @@ namespace Engine
         public static double Distance(
             double x1, double y1,
             double x2, double y2)
-            => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+            => Sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
 
         /// <summary>
         /// Calculates the distance between two points in 3-dimensional euclidean space.
@@ -745,7 +745,7 @@ namespace Engine
         public static double Distance(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
+            => Sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) + ((z2 - z1) * (z2 - z1)));
 
         /// <summary>
         /// Calculates the distance between two points in 4-dimensional space.
@@ -764,7 +764,7 @@ namespace Engine
         public static double Distance(
             double x1, double y1, double z1, double w1,
             double x2, double y2, double z2, double w2)
-            => Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1) + (w2 - w1) * (w2 - w1));
+            => Sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) + ((z2 - z1) * (z2 - z1)) + ((w2 - w1) * (w2 - w1)));
 
         /// <summary>
         /// Calculates the distance between a point and a line segment, constrained to the area perpendicular to the line segment.
@@ -789,7 +789,7 @@ namespace Engine
             (var vi, var vj) = (aX - pX, aY - pY);
 
             // Get the determinant or squared length of the line segment.
-            var d = ui * ui + uj * uj;
+            var d = (ui * ui) + (uj * uj);
 
             // Get the length of the line segment.
             var length = Sqrt(d);
@@ -801,7 +801,7 @@ namespace Engine
             }
 
             // Find the interpolation value.
-            var t = -(vi * ui + vj * uj) / d;
+            var t = -((vi * ui) + (vj * uj)) / d;
 
             // Check whether the closest point falls on the line segment.
             if (t < 0d || t > 1d)
@@ -811,8 +811,8 @@ namespace Engine
 
             // Return the length to the nearest point on the line segment.
             return (length == 0)
-                ? Sqrt(vi * vi + vj * vj)
-                : Abs(ui * vj - vi * uj) / length;
+                ? Sqrt((vi * vi) + (vj * vj))
+                : Abs((ui * vj) - (vi * uj)) / length;
         }
 
         /// <summary>
@@ -840,12 +840,12 @@ namespace Engine
             (var vi, var vj) = (aX - pX, aY - pY);
 
             // Get the length of the line segment.
-            var length = Sqrt(ai * ai + aj * aj);
+            var length = Sqrt((ai * ai) + (aj * aj));
 
             // Return the length to the nearest point on the line.
             return (length == 0)
-                ? Sqrt(vi * vi + vj * vj)
-                : Abs(ai * vj - vi * aj) / length;
+                ? Sqrt((vi * vi) + (vj * vj))
+                : Abs((ai * vj) - (vi * aj)) / length;
         }
 
         /// <summary>
@@ -874,22 +874,22 @@ namespace Engine
             (var wi, var wj) = (bX - pX, bY - pY);
 
             // Get the determinant or squared length of the line segment.
-            var d = ui * ui + uj * uj;
+            var d = (ui * ui) + (uj * uj);
 
             // Get the length of the line segment.
             var length = Sqrt(d);
 
             // Find the interpolation value.
-            var t = -(vi * ui + vj * uj) / d;
+            var t = -((vi * ui) + (vj * uj)) / d;
 
             // Return the distance to the nearest point on the line segment.
             return (t < 0d) /* Check whether the closest point falls between the ends of line segment. */
-                ? Sqrt(vi * vi + vj * vj)
+                ? Sqrt((vi * vi) + (vj * vj))
                 : (t > 1d)
-                ? Sqrt(wi * wi + wj * wj)
+                ? Sqrt((wi * wi) + (wj * wj))
                 : (length == 0)
-                ? Sqrt(vi * vi + vj * vj)
-                : Abs(ui * vj - vi * uj) / length;
+                ? Sqrt((vi * vi) + (vj * vj))
+                : Abs((ui * vj) - (vi * uj)) / length;
         }
         #endregion Distance Methods
 
@@ -903,7 +903,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double VectorMagnitudeSquared(double i, double j)
-            => i * i + j * j;
+            => (i * i) + (j * j);
 
         /// <summary>
         /// Calculates the Magnitude or squared length of a vector.
@@ -915,7 +915,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double VectorMagnitudeSquared(double i, double j, double k)
-            => i * i + j * j + k * k;
+            => (i * i) + (j * j) + (k * k);
 
         /// <summary>
         /// Calculates the Magnitude or squared length of a vector.
@@ -928,7 +928,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double VectorMagnitudeSquared(double i, double j, double k, double l)
-            => i * i + j * j + k * k + l * l;
+            => (i * i) + (j * j) + (k * k) + (l * l);
 
         /// <summary>
         /// Calculates the normal or squared length of a Quaternion.
@@ -956,7 +956,7 @@ namespace Engine
         public static double SquareDistance(
             double x1, double y1,
             double x2, double y2)
-            => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
+            => ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1));
 
         /// <summary>
         /// Calculates the square of the distance between two 3-dimensional euclidean points.
@@ -973,7 +973,7 @@ namespace Engine
         public static double SquareDistance(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
-            => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1);
+            => ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) + ((z2 - z1) * (z2 - z1));
 
         /// <summary>
         /// Calculates the square of the distance between two 4-dimensional points.
@@ -992,7 +992,7 @@ namespace Engine
         public static double SquareDistance(
             double x1, double y1, double z1, double w1,
             double x2, double y2, double z2, double w2)
-            => (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1) + (w2 - z1) * (w2 - w1);
+            => ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)) + ((z2 - z1) * (z2 - z1)) + ((w2 - z1) * (w2 - w1));
 
         /// <summary>
         /// Calculates the square of the distance of a point from a line.
@@ -1019,21 +1019,21 @@ namespace Engine
             // Vector b->p
             (var wi, var wj) = (bx - px, by - py);
 
-            var c = ui * vj - vi * uj;
+            var c = (ui * vj) - (vi * uj);
 
             // Get the determinant or squared length of the line segment.
-            var d = ui * ui + uj * uj;
+            var d = (ui * ui) + (uj * uj);
 
             // Find the interpolation value.
-            var t = -(vi * ui + vj * uj) / d;
+            var t = -((vi * ui) + (vj * uj)) / d;
 
             // Return the distance to the nearest point on the line segment.
             return (t < 0d) /* Check whether the closest point falls between the ends of line segment. */
-                ? (vi * vi + vj * vj)
+                ? ((vi * vi) + (vj * vj))
                 : (t > 1d)
-                ? (wi * wi + wj * wj)
+                ? ((wi * wi) + (wj * wj))
                 : (d == 0)
-                ? (vi * vi + vj * vj)
+                ? ((vi * vi) + (vj * vj))
                 : c * c / d;
         }
 
@@ -1053,8 +1053,8 @@ namespace Engine
             double lx, double ly, double li, double lj,
             double px, double py)
         {
-            var c = lj * px + li * py - (lj * lx + li * ly);
-            var d = lj * lj + li * li;
+            var c = (lj * px) + (li * py) - ((lj * lx) + (li * ly));
+            var d = (lj * lj) + (li * li);
             return c * c / d;
         }
         #endregion Square Distance Methods
@@ -1086,10 +1086,10 @@ namespace Engine
             (var vi, var vj) = (pX - aX, pY - aY);
 
             // Get the determinant or squared length of the line segment.
-            var d = ui * ui + uj * uj;
+            var d = (ui * ui) + (uj * uj);
 
             // The dot product of the u and v vectors.
-            var a = vi * ui + vj * uj;
+            var a = (vi * ui) + (vj * uj);
 
             // Find the interpolation value, the normalized "distance" from a to the closest point
             var t = d == 0 ? a : a / d;
@@ -1099,7 +1099,7 @@ namespace Engine
                 ? (aX, aY)
                 : (t > 1d)
                 ? (bX, bY)
-                : (aX + ui * t, aY + uj * t);
+                : (aX + (ui * t), aY + (uj * t));
         }
 
         /// <summary>
@@ -1152,8 +1152,8 @@ namespace Engine
                     if (a >= b1) { a = b1; e = 0; }
 
                     // Elliptic arc sampled point
-                    x = cX + rX * Cos(a);
-                    y = cY - rY * Sin(a); // The y axis is in reverse order therefore - distance^2 to x_in,y_in
+                    x = cX + (rX * Cos(a));
+                    y = cY - (rY * Sin(a)); // The y axis is in reverse order therefore - distance^2 to x_in,y_in
                     x -= pX;
                     x *= x;
                     y -= pY;
@@ -1187,7 +1187,7 @@ namespace Engine
             }
 
             // Mine y axis is in reverse order therefore -
-            return (cX + rX * Cos(aa), cY - rY * Sin(aa));
+            return (cX + (rX * Cos(aa)), cY - (rY * Sin(aa)));
         }
 
         /// <summary>
@@ -1248,7 +1248,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double VectorMagnitude(double i, double j)
-            => Sqrt(i * i + j * j);
+            => Sqrt((i * i) + (j * j));
 
         /// <summary>
         /// Calculates the magnitude or length of a vector.
@@ -1260,7 +1260,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double VectorMagnitude(double i, double j, double k)
-            => Sqrt(i * i + j * j + k * k);
+            => Sqrt((i * i) + (j * j) + (k * k));
 
         /// <summary>
         /// Calculates the magnitude or length of a vector.
@@ -1273,7 +1273,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double VectorMagnitude(double i, double j, double k, double l)
-            => Sqrt(i * i + j * j + k * k + l * l);
+            => Sqrt((i * i) + (j * j) + (k * k) + (l * l));
 
         /// <summary>
         /// Calculates the length or magnitude of a Quaternion.
@@ -1340,7 +1340,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double EllipticalArcLength(double startX, double startY, double endX, double endY, double startAngle, double endAngle)
-            => /*ChordLength*/Sqrt(Abs(endX - startX) * Abs(endX - startX) + Abs(endY - startY) * Abs(endY - startY))
+            => /*ChordLength*/Sqrt((Abs(endX - startX) * Abs(endX - startX)) + (Abs(endY - startY) * Abs(endY - startY)))
             / /*Middle Angle*/(2 * Sin(OneHalf * (startAngle - endAngle)))
             * (startAngle - endAngle);
 
@@ -1364,14 +1364,14 @@ namespace Engine
             double bx, double by,
             double cx, double cy)
         {
-            var _ax = ax - 2d * bx + cx;
-            var _ay = ay - 2d * by + cy;
-            var _bx = 2d * bx - 2d * ax;
-            var _by = 2d * by - 2d * ay;
+            var _ax = ax - (2d * bx) + cx;
+            var _ay = ay - (2d * by) + cy;
+            var _bx = (2d * bx) - (2d * ax);
+            var _by = (2d * by) - (2d * ay);
 
-            var a = 4d * (_ax * _ax + _ay * _ay);
-            var b = 4d * (_ax * _bx + _ay * _by);
-            var c = _bx * _bx + _by * _by;
+            var a = 4d * ((_ax * _ax) + (_ay * _ay));
+            var b = 4d * ((_ax * _bx) + (_ay * _by));
+            var c = (_bx * _bx) + (_by * _by);
 
             var abc = 2d * Sqrt(a + b + c);
             var a2 = Sqrt(a);
@@ -1379,7 +1379,7 @@ namespace Engine
             var c2 = 2d * Sqrt(c);
             var ba = b / a2;
 
-            return (a32 * abc + a2 * b * (abc - c2) + (4d * c * a - b * b) * Log((2d * a2 + ba + abc) / (ba + c2))) / (4d * a32);
+            return ((a32 * abc) + (a2 * b * (abc - c2)) + (((4d * c * a) - (b * b)) * Log(((2d * a2) + ba + abc) / (ba + c2)))) / (4d * a32);
         }
 
         /// <summary>
@@ -1405,15 +1405,15 @@ namespace Engine
             double cx, double cy,
             double dx, double dy)
         {
-            var k1 = new Point2D(-ax + 3d * (bx - cx) + dx, -ay + 3d * (by - cy) + dy);
-            var k2 = new Point2D(3d * (ax + cx) - 6d * bx, 3d * (ay + cy) - 6d * by);
+            var k1 = new Point2D(-ax + (3d * (bx - cx)) + dx, -ay + (3d * (by - cy)) + dy);
+            var k2 = new Point2D((3d * (ax + cx)) - (6d * bx), (3d * (ay + cy)) - (6d * by));
             var k3 = new Point2D(3d * (bx - ax), 3d * (by - ax));
             var k4 = new Point2D(ax, ay);
 
             var q1 = 9d * (Sqrt(Abs(k1.X)) + Sqrt(Abs(k1.Y)));
-            var q2 = 12d * (k1.X * k2.X + k1.Y * k2.Y);
-            var q3 = 3d * (k1.X * k3.X + k1.Y * k3.Y) + 4d * (Sqrt(Abs(k2.X)) + Sqrt(Abs(k2.Y)));
-            var q4 = 4d * (k2.X * k3.X + k2.Y * k3.Y);
+            var q2 = 12d * ((k1.X * k2.X) + (k1.Y * k2.Y));
+            var q3 = (3d * ((k1.X * k3.X) + (k1.Y * k3.Y))) + (4d * (Sqrt(Abs(k2.X)) + Sqrt(Abs(k2.Y))));
+            var q4 = 4d * ((k2.X * k3.X) + (k2.Y * k3.Y));
             var q5 = Sqrt(Abs(k3.X)) + Sqrt(Abs(k3.Y));
 
             // Approximation algorithm based on Simpson.
@@ -1429,7 +1429,7 @@ namespace Engine
             var interval = (b - a) * 0.5d;
             var asum = 0d;
             var bsum = CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, a + interval);
-            var est1 = multiplier * (endsum + 2d * asum + 4d * bsum);
+            var est1 = multiplier * (endsum + (2d * asum) + (4d * bsum));
             var est0 = 2d * est1;
 
             while (n < n_limit && Abs(est1) > 0d && Abs((est1 - est0) / est1) > TOLERANCE)
@@ -1444,11 +1444,11 @@ namespace Engine
 
                 for (var i = 1; i < 2 * n; i += 2)
                 {
-                    var t = a + i * interval_div_2n;
+                    var t = a + (i * interval_div_2n);
                     bsum += CubicBezierArcLengthHelper(ref q1, ref q2, ref q3, ref q4, ref q5, t);
                 }
 
-                est1 = multiplier * (endsum + 2d * asum + 4d * bsum);
+                est1 = multiplier * (endsum + (2d * asum) + (4d * bsum));
             }
 
             return est1 * 10d;
@@ -1477,7 +1477,7 @@ namespace Engine
             ref double q5,
             double t)
         {
-            var result = q5 + t * (q4 + t * (q3 + t * (q2 + t * q1)));
+            var result = q5 + (t * (q4 + (t * (q3 + (t * (q2 + (t * q1)))))));
             result = Sqrt(Abs(result));
             return result;
         }
@@ -1597,8 +1597,8 @@ namespace Engine
             var end = (start + sweepAngle).WrapAngle();
 
             var bounds = new Rectangle2D(
-                new Point2D(cX + r * Cos(startAngle), cY + r * Sin(startAngle)),
-                new Point2D(cX + r * Cos(end), cY + r * Sin(end)));
+                new Point2D(cX + (r * Cos(startAngle)), cY + (r * Sin(startAngle))),
+                new Point2D(cX + (r * Cos(end)), cY + (r * Sin(end))));
 
             // Expand the boundaries if any of the extreme angles fall within the sweep angle.
             if (Intersections.Within(0, start, sweepAngle))
@@ -1689,8 +1689,8 @@ namespace Engine
             var height = Sqrt((c * c) + (d * d)) * 2;
 
             // Get the location point.
-            var x2 = cX - width * 0.5d;
-            var y2 = cY - height * 0.5d;
+            var x2 = cX - (width * 0.5d);
+            var y2 = cY - (height * 0.5d);
 
             // Return the bounding rectangle.
             return new Rectangle2D(x2, y2, width, height);
@@ -1733,10 +1733,10 @@ namespace Engine
 
             // Find the angles of the Cartesian extremes.
             var angles = new double[4] {
-                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
-                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT),
-                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT) + PI,
-                Atan2(r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT) + PI };
+                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, (r2 * r2 * sinT * sinT) + (r1 * r1 * cosT * cosT)),
+                Atan2((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT), (r1 - r2) * (r1 + r2) * sinT * cosT),
+                Atan2((r1 - r2) * (r1 + r2) * sinT * cosT, (r2 * r2 * sinT * sinT) + (r1 * r1 * cosT * cosT)) + PI,
+                Atan2((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT), (r1 - r2) * (r1 + r2) * sinT * cosT) + PI };
             //var vectors = new (double X, double Y)[4] {
             //    ((r1 - r2) * (r1 + r2) * sinT * cosT, r2 * r2 * sinT * sinT + r1 * r1 * cosT * cosT),
             //    (r1 * r1 * sinT * sinT + r2 * r2 * cosT * cosT, (r1 - r2) * (r1 + r2) * sinT * cosT),
@@ -1760,12 +1760,12 @@ namespace Engine
             var bounds = new Rectangle2D(
                 // Apply the rotation transformation and translate to new center.
                 new Point2D(
-                    cX + (r1 * cosT0 * cosT - r2 * sinT0 * sinT),
-                    cY + (r1 * cosT0 * sinT + r2 * sinT0 * cosT)),
+                    cX + ((r1 * cosT0 * cosT) - (r2 * sinT0 * sinT)),
+                    cY + ((r1 * cosT0 * sinT) + (r2 * sinT0 * cosT))),
                 // Apply the rotation transformation and translate to new center.
                 new Point2D(
-                    cX + (r1 * cosT1 * cosT - r2 * sinT1 * sinT),
-                    cY + (r1 * cosT1 * sinT + r2 * sinT1 * cosT)));
+                    cX + ((r1 * cosT1 * cosT) - (r2 * sinT1 * sinT)),
+                    cY + ((r1 * cosT1 * sinT) + (r2 * sinT1 * cosT))));
 
             // Find the parent ellipse's horizontal and vertical radii extremes.
             var halfWidth = Sqrt((r1 * r1 * cosT * cosT) + (r2 * r2 * sinT * sinT));
@@ -1835,8 +1835,8 @@ namespace Engine
                 );
 
             var loc = new Point2D(
-                fulcrumX + (-width * 0.5d * cosAngle + -height * 0.5d * sinAngle),
-                fulcrumY + (-width * 0.5d * sinAngle + -height * 0.5d * cosAngle)
+                fulcrumX + ((-width * 0.5d * cosAngle) + (-height * 0.5d * sinAngle)),
+                fulcrumY + ((-width * 0.5d * sinAngle) + (-height * 0.5d * cosAngle))
                 );
 
             return new Rectangle2D(loc, size);
@@ -1985,7 +1985,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Sign(Point2D p1, Point2D p2, Point2D o)
         {
-            var det = (p1.X - o.X) * (p2.Y - o.Y) - (p2.X - o.X) * (p1.Y - o.Y);
+            var det = ((p1.X - o.X) * (p2.Y - o.Y)) - ((p2.X - o.X) * (p1.Y - o.Y));
             return det < 0 ? -1 : (det > 0 ? +1 : 0);
         }
 
@@ -1998,7 +1998,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedArea(Point2D p1, Point2D p2)
-            => -p2.X * (p1.Y - p2.Y) - -p2.Y * (p1.X - p2.X);
+            => (-p2.X * (p1.Y - p2.Y)) - (-p2.Y * (p1.X - p2.X));
 
         /// <summary>
         /// Calculates the signed area of a triangle.
@@ -2022,7 +2022,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangleArea2(Point2D p0, Point2D p1, Point2D p2)
-            => (p0.X - p2.X) * (p1.Y - p2.Y) - (p1.X - p2.X) * (p0.Y - p2.Y);
+            => ((p0.X - p2.X) * (p1.Y - p2.Y)) - ((p1.X - p2.X) * (p0.Y - p2.Y));
 
         /// <summary>
         /// Calculates the signed area of a triangle.
@@ -2042,7 +2042,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SignedTriangleArea(double aX, double aY, double bX, double bY, double cX, double cY)
-            => aX * (bY - cY) + bX * (cY - aY) + cX * (aY - bY);
+            => (aX * (bY - cY)) + (bX * (cY - aY)) + (cX * (aY - bY));
 
         /// <summary>
         /// Calculates the area of a circle.
@@ -2224,7 +2224,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PerpendicularDistance(LineSegment segment, Point2D point)
         {
-            var area = Abs(segment.CrossProduct + segment.BX * point.Y + point.X * segment.A.Y - point.X * segment.B.Y - segment.A.X * point.Y);
+            var area = Abs(segment.CrossProduct + (segment.BX * point.Y) + (point.X * segment.A.Y) - (point.X * segment.B.Y) - (segment.A.X * point.Y));
             var height = area / segment.Length;
             return height;
         }
@@ -2262,7 +2262,7 @@ namespace Engine
         {
             var vx = curveX - point.X;
             var vy = curveY - point.Y;
-            return vx * vx + vy * vy;
+            return (vx * vx) + (vy * vy);
         }
 
         /// <summary>
@@ -2345,10 +2345,10 @@ namespace Engine
             // Return the list of angles.
             return new List<double>
             {
-                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
-                Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
-                Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI,
-                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI
+                Atan2((u1 * sinT) - (v1 * cosT), (u1 * cosT) + (v1 * sinT)),
+                Atan2((u2 * sinT) - (v2 * cosT), (u2 * cosT) + (v2 * sinT)),
+                Atan2((u2 * sinT) - (v2 * cosT), (u2 * cosT) + (v2 * sinT)) + PI,
+                Atan2((u1 * sinT) - (v1 * cosT), (u1 * cosT) + (v1 * sinT)) + PI
             };
         }
 
@@ -2399,10 +2399,10 @@ namespace Engine
             // Return the list of angles.
             return new List<double>
             {
-                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT),
+                Atan2((u1 * sinT) - (v1 * cosT), (u1 * cosT) + (v1 * sinT)),
                 //Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT),
                 //Atan2(u2 * sinT - v2 * cosT, u2 * cosT + v2 * sinT) + PI,
-                Atan2(u1 * sinT - v1 * cosT, u1 * cosT + v1 * sinT) + PI
+                Atan2((u1 * sinT) - (v1 * cosT), (u1 * cosT) + (v1 * sinT)) + PI
             };
         }
 
@@ -2486,18 +2486,18 @@ namespace Engine
             //};
 
             // ToDo: Replace the previous two sections with this return and profile to see if there is a performance improvement, and check for accuracy.
-            var hypotonuseAB = Sqrt(a * a + b * b);
-            var hypotonuseCD = Sqrt(c * c + d * d);
+            var hypotonuseAB = Sqrt((a * a) + (b * b));
+            var hypotonuseCD = Sqrt((c * c) + (d * d));
             return new List<Point2D>
             {
                 new Point2D(x +                   hypotonuseAB,
-                            y + (a * a - b * b) / hypotonuseAB),
+                            y + (((a * a) - (b * b)) / hypotonuseAB)),
                 new Point2D(x -                   hypotonuseAB,
-                            y - (a * a - b * b) / hypotonuseAB),
-                new Point2D(x + (d * a - b * c) / hypotonuseCD,
-                            y + rX * rY       / hypotonuseCD),
-                new Point2D(x - (d * a - b * c) / hypotonuseCD,
-                            y - rX * rY       / hypotonuseCD),
+                            y - (((a * a) - (b * b)) / hypotonuseAB)),
+                new Point2D(x + (((d * a) - (b * c)) / hypotonuseCD),
+                            y + (rX * rY       / hypotonuseCD)),
+                new Point2D(x - (((d * a) - (b * c)) / hypotonuseCD),
+                            y - (rX * rY       / hypotonuseCD)),
             };
         }
         #endregion Other

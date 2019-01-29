@@ -71,7 +71,7 @@ namespace Engine.File
             if (cursor != 0xff)
             {
                 status &= 0x0F; // >> 4;
-                channel = (byte)(cursor & 0x0F >> 4);
+                channel = (byte)(cursor & (0x0F >> 4));
             }
 
             if (cursor >= 0x0F)

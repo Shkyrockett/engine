@@ -89,10 +89,10 @@ namespace Engine
         /// <param name="yAxis">The Sine and Cosine of the angle on the y-axis.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Rotate(Point2D point, Point2D fulcrum, Point2D xAxis, Point2D yAxis)
+        public static Point2D Rotate(Point2D point, Point2D fulcrum, Vector2D xAxis, Vector2D yAxis)
             => new Point2D(
-                fulcrum.X + ((point.X - fulcrum.X) * xAxis.X + (point.Y - fulcrum.Y) * xAxis.Y),
-                fulcrum.Y + ((point.X - fulcrum.X) * yAxis.X + (point.Y - fulcrum.Y) * yAxis.Y));
+                fulcrum.X + (((point.X - fulcrum.X) * xAxis.I) + ((point.Y - fulcrum.Y) * xAxis.J)),
+                fulcrum.Y + (((point.X - fulcrum.X) * yAxis.I) + ((point.Y - fulcrum.Y) * yAxis.J)));
 
         /// <summary>
         /// Rotate all the coordinates in-place around the center point (cx, cy) by angle theta.
@@ -112,7 +112,7 @@ namespace Engine
                 {
                     var x = p[j].X - cx;
                     var y = p[j].Y - cy;
-                    p[j] = new Point2D(cosine * x - sine * y + cx, sine * x + cosine * y + cy);
+                    p[j] = new Point2D((cosine * x) - (sine * y) + cx, (sine * x) + (cosine * y) + cy);
                 }
             }
         }
@@ -264,86 +264,29 @@ namespace Engine
 
             // Cubic interpolate the left anchor node.
             var leftAnchor = (
-                X: topLeft.X * reverseNormalCubed.Y + 3d * topLeftV.X * normal.Y * reverseNormalSquared.Y + 3d * bottomLeftV.X * normalSquared.Y * reverseNormal.Y + bottomLeft.X * normalCubed.Y,
-                Y: topLeft.Y * reverseNormalCubed.Y + 3d * topLeftV.Y * normal.Y * reverseNormalSquared.Y + 3d * bottomLeftV.Y * normalSquared.Y * reverseNormal.Y + bottomLeft.Y * normalCubed.Y
+                X: (topLeft.X * reverseNormalCubed.Y) + (3d * topLeftV.X * normal.Y * reverseNormalSquared.Y) + (3d * bottomLeftV.X * normalSquared.Y * reverseNormal.Y) + (bottomLeft.X * normalCubed.Y),
+                Y: (topLeft.Y * reverseNormalCubed.Y) + (3d * topLeftV.Y * normal.Y * reverseNormalSquared.Y) + (3d * bottomLeftV.Y * normalSquared.Y * reverseNormal.Y) + (bottomLeft.Y * normalCubed.Y)
                 );
             // Linear interpolate the left handle node.
             var leftHandle = (
-                X: topLeftH.X * reverseNormal.Y + bottomLeftH.X * normal.Y,
-                Y: topLeftH.Y * reverseNormal.Y + bottomLeftH.Y * normal.Y
+                X: (topLeftH.X * reverseNormal.Y) + (bottomLeftH.X * normal.Y),
+                Y: (topLeftH.Y * reverseNormal.Y) + (bottomLeftH.Y * normal.Y)
                 );
             // Linear interpolate the right handle node.
             var rightHandle = (
-                X: topRightH.X * reverseNormal.Y + bottomRightH.X * normal.Y,
-                Y: topRightH.Y * reverseNormal.Y + bottomRightH.Y * normal.Y
+                X: (topRightH.X * reverseNormal.Y) + (bottomRightH.X * normal.Y),
+                Y: (topRightH.Y * reverseNormal.Y) + (bottomRightH.Y * normal.Y)
                 );
             // Cubic interpolate the right anchor node.
             var rightAnchor = (
-                X: topRight.X * reverseNormalCubed.Y + 3d * topRightV.X * normal.Y * reverseNormalSquared.Y + 3d * bottomRightV.X * normalSquared.Y * reverseNormal.Y + bottomRight.X * normalCubed.Y,
-                Y: topRight.Y * reverseNormalCubed.Y + 3d * topRightV.Y * normal.Y * reverseNormalSquared.Y + 3d * bottomRightV.Y * normalSquared.Y * reverseNormal.Y + bottomRight.Y * normalCubed.Y
+                X: (topRight.X * reverseNormalCubed.Y) + (3d * topRightV.X * normal.Y * reverseNormalSquared.Y) + (3d * bottomRightV.X * normalSquared.Y * reverseNormal.Y) + (bottomRight.X * normalCubed.Y),
+                Y: (topRight.Y * reverseNormalCubed.Y) + (3d * topRightV.Y * normal.Y * reverseNormalSquared.Y) + (3d * bottomRightV.Y * normalSquared.Y * reverseNormal.Y) + (bottomRight.Y * normalCubed.Y)
                 );
             // Cubic interpolate the final result.
             return (
-                X: leftAnchor.X * reverseNormalCubed.X + 3d * leftHandle.X * normal.X * reverseNormalSquared.X + 3d * rightHandle.X * normalSquared.X * reverseNormal.X + rightAnchor.X * normalCubed.X,
-                Y: leftAnchor.Y * reverseNormalCubed.X + 3d * leftHandle.Y * normal.X * reverseNormalSquared.X + 3d * rightHandle.Y * normalSquared.X * reverseNormal.X + rightAnchor.Y * normalCubed.X
+                X: (leftAnchor.X * reverseNormalCubed.X) + (3d * leftHandle.X * normal.X * reverseNormalSquared.X) + (3d * rightHandle.X * normalSquared.X * reverseNormal.X) + (rightAnchor.X * normalCubed.X),
+                Y: (leftAnchor.Y * reverseNormalCubed.X) + (3d * leftHandle.Y * normal.X * reverseNormalSquared.X) + (3d * rightHandle.Y * normalSquared.X * reverseNormal.X) + (rightAnchor.Y * normalCubed.X)
                 );
-        }
-
-        /// <summary>
-        /// Warp the shape using Cubic Bézier envelope distortion.
-        /// </summary>
-        /// <param name="point">The point to move.</param>
-        /// <param name="bounds">The bounds of the shape.</param>
-        /// <param name="topLeft">The top left anchor point of the envelope.</param>
-        /// <param name="topLeftH">The top left horizontal point of the envelope.</param>
-        /// <param name="topLeftV">The top left vertical point of the envelope.</param>
-        /// <param name="topRight">The top right anchor point of the envelope.</param>
-        /// <param name="topRightH">The top right horizontal point of the envelope.</param>
-        /// <param name="topRightV">The top right vertical point of the envelope.</param>
-        /// <param name="bottomRight">The bottom right anchor point of the envelope.</param>
-        /// <param name="bottomRightH">The bottom right horizontal point of the envelope.</param>
-        /// <param name="bottomRightV">The bottom right vertical point of the envelope.</param>
-        /// <param name="bottomLeft">The bottom left anchor point of the envelope.</param>
-        /// <param name="bottomLeftH">The bottom left horizontal point of the envelope.</param>
-        /// <param name="bottomLeftV">The bottom left vertical point of the envelope.</param>
-        /// <returns>Returns a <see cref="Point2D"/> shifted by the envelope.</returns>
-        /// <acknowledgment>
-        /// Based roughly on the ideas presented in: https://web.archive.org/web/20160825211055/http://www.neuroproductions.be:80/experiments/envelope-distort-with-actionscript/
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D CubicBezierEnvelope0(
-            Point2D point,
-            Rectangle2D bounds,
-            Point2D topLeft, Point2D topLeftH, Point2D topLeftV,
-            Point2D topRight, Point2D topRightH, Point2D topRightV,
-            Point2D bottomRight, Point2D bottomRightH, Point2D bottomRightV,
-            Point2D bottomLeft, Point2D bottomLeftH, Point2D bottomLeftV)
-        {
-            // topLeft                             topRight
-            //   0--------0                 0----------0
-            //   |   topLeftH             topRightH    |
-            //   |                                     |
-            //   |                                     |
-            //   0 topLeftV                  topRightV 0
-            //   
-            //   
-            //   
-            //   0 bottomLeftV            bottomRightV 0
-            //   |                                     |
-            //   |                                     |
-            //   |  bottomLeftH         bottomRightH   |
-            //   0--------0                 0----------0
-            // bottomLeft                       bottomRight
-            // 
-            // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
-
-            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
-            var leftAnchor = Interpolators.CubicBezier(topLeft.X, topLeft.Y, topLeftV.X, topLeftV.Y, bottomLeftV.X, bottomLeftV.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
-            var leftHandle = Interpolators.Linear(topLeftH.X, topLeftH.Y, bottomLeftH.X, bottomLeftH.Y, normal.Y);
-            var rightHandle = Interpolators.Linear(topRightH.X, topRightH.Y, bottomRightH.X, bottomRightH.Y, normal.Y);
-            var rightAnchor = Interpolators.CubicBezier(topRight.X, topRight.Y, topRightV.X, topRightV.Y, bottomRightV.X, bottomRightV.Y, bottomRight.X, bottomRight.Y, normal.Y);
-            return Interpolators.CubicBezier(leftAnchor.X, leftAnchor.Y, leftHandle.X, leftHandle.Y, rightHandle.X, rightHandle.Y, rightAnchor.X, rightAnchor.Y, normal.X);
         }
 
         /// <summary>
@@ -363,7 +306,7 @@ namespace Engine
 
             var dx = point.X - fulcrum.X;
             var dy = point.Y - fulcrum.Y;
-            var distanceSquared = dx * dx + dy * dy;
+            var distanceSquared = (dx * dx) + (dy * dy);
             var sx = point.X;
             var sy = point.Y;
             var distance = Sqrt(distanceSquared);
@@ -372,8 +315,8 @@ namespace Engine
                 var r = distance;
                 var a = Atan2(dy, dx); // Might this be simplified by finding the unit of the vector?
                 var rn = Pow(r, strength) * distance;
-                var newX = rn * Cos(a) + fulcrum.X;
-                var newY = rn * Sin(a) + fulcrum.Y;
+                var newX = (rn * Cos(a)) + fulcrum.X;
+                var newY = (rn * Sin(a)) + fulcrum.Y;
                 sx += newX - point.X;
                 sy += newY - point.Y;
             }
@@ -408,7 +351,7 @@ namespace Engine
 
             var dx = point.X - fulcrum.X;
             var dy = point.Y - fulcrum.Y;
-            var distanceSquared = dx * dx + dy * dy;
+            var distanceSquared = (dx * dx) + (dy * dy);
             var sx = point.X;
             var sy = point.Y;
             if (distanceSquared < radius * radius)
@@ -419,8 +362,8 @@ namespace Engine
                     var r = distance / radius;
                     var a = Atan2(dy, dx); // Might this be simplified by finding the unit of the vector?
                     var rn = Pow(r, strength) * distance;
-                    var newX = rn * Cos(a) + fulcrum.X;
-                    var newY = rn * Sin(a) + fulcrum.Y;
+                    var newX = (rn * Cos(a)) + fulcrum.X;
+                    var newY = (rn * Sin(a)) + fulcrum.Y;
                     sx += newX - point.X;
                     sy += newY - point.Y;
                 }
@@ -433,77 +376,6 @@ namespace Engine
                     sx -= distortionFactor * dirX;
                     sy -= distortionFactor * dirY;
                 }
-            }
-
-            return new Point2D(sx, sy);
-        }
-
-        /// <summary>
-        /// The pinch1 distortion.
-        /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="fulcrum">The fulcrum.</param>
-        /// <param name="radius">The radius.</param>
-        /// <param name="strength">The strength.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Pinch1(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
-        {
-            if (fulcrum == point)
-            {
-                return point;
-            }
-
-            var dx = point.X - fulcrum.X;
-            var dy = point.Y - fulcrum.Y;
-            var distanceSquared = dx * dx + dy * dy;
-            var sx = point.X;
-            var sy = point.Y;
-            if (distanceSquared < radius * radius)
-            {
-                var distance = Sqrt(distanceSquared);
-                var r = distance / radius;
-                var a = Atan2(dy, dx); // Might this be simplified by finding the unit of the vector?
-                var rn = Pow(r, strength) * distance;
-                var newX = rn * Cos(a) + fulcrum.X;
-                var newY = rn * Sin(a) + fulcrum.Y;
-                sx += newX - point.X;
-                sy += newY - point.Y;
-            }
-
-            return new Point2D(sx, sy);
-        }
-
-        /// <summary>
-        /// The pinch2 distortion.
-        /// </summary>
-        /// <param name="point">The point.</param>
-        /// <param name="fulcrum">The fulcrum.</param>
-        /// <param name="radius">The radius.</param>
-        /// <param name="strength">The strength.</param>
-        /// <returns>The <see cref="Point2D"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Pinch2(Point2D point, Point2D fulcrum, double radius, double strength = OneHalf)
-        {
-            if (fulcrum == point)
-            {
-                return point;
-            }
-
-            var dx = point.X - fulcrum.X;
-            var dy = point.Y - fulcrum.Y;
-            var distanceSquared = dx * dx + dy * dy;
-            var sx = point.X;
-            var sy = point.Y;
-            if (distanceSquared < radius * radius)
-            {
-                var distance = Sqrt(distanceSquared);
-                var dirX = dx / distance;
-                var dirY = dy / distance;
-                var alpha = distance / radius;
-                var distortionFactor = distance * Pow(1d - alpha, 1d / strength);
-                sx -= distortionFactor * dirX;
-                sy -= distortionFactor * dirY;
             }
 
             return new Point2D(sx, sy);
@@ -527,9 +399,9 @@ namespace Engine
             var dX = point.X - fulcrum.X;
             var dY = point.Y - fulcrum.Y;
             var theta = Atan2(dY, dX);
-            var radius = Sqrt(dX * dX + dY * dY);
-            var newX = fulcrum.X + (radius * Cos(theta + degree * radius));
-            var newY = fulcrum.Y + (radius * Sin(theta + degree * radius));
+            var radius = Sqrt((dX * dX) + (dY * dY));
+            var newX = fulcrum.X + (radius * Cos(theta + (degree * radius)));
+            var newY = fulcrum.Y + (radius * Sin(theta + (degree * radius)));
             return new Point2D(newX, newY);
         }
 
@@ -546,7 +418,7 @@ namespace Engine
             var dX = point.X - fulcrum.X;
             var dY = point.Y - fulcrum.Y;
             var theta = Atan2(dY, dX); // Might this be simplified by finding the unit of the vector?
-            var radius = Sqrt(dX * dX + dY * dY);
+            var radius = Sqrt((dX * dX) + (dY * dY));
             var newRadius = Sqrt(radius) * factor;
             var newX = fulcrum.X + (newRadius * Cos(theta));
             var newY = fulcrum.Y + (newRadius * Sin(theta));
@@ -806,12 +678,12 @@ namespace Engine
             var result = new PolygonContour();
             for (var i = 1; i < contour.Count; i++)
             {
-                for (double j = 0; j < 1; j = j + 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
+                for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
                 {
                     result.Add(Interpolators.Linear(contour[i - 1], contour[i], j));
                 }
             }
-            for (double j = 0; j < 1; j = j + 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
+            for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
             {
                 result.Add(Interpolators.Linear(contour[contour.Count - 1], contour[0], j));
             }
@@ -835,16 +707,16 @@ namespace Engine
         {
             // Evaluate the bilinear transform
             var r = new Point2D(
-                (1 - u) * point[0].X + u * point[1].X,
-                (1 - u) * point[0].Y + u * point[1].Y);
+                ((1 - u) * point[0].X) + (u * point[1].X),
+                ((1 - u) * point[0].Y) + (u * point[1].Y));
 
             var s = new Point2D(
-                (1 - u) * point[3].X + u * point[2].X,
-                (1 - u) * point[3].Y + u * point[2].Y);
+                ((1 - u) * point[3].X) + (u * point[2].X),
+                ((1 - u) * point[3].Y) + (u * point[2].Y));
 
             return new Point2D(
-                (1 - v) * r.X + v * s.X,
-                (1 - v) * r.Y + v * s.Y);
+                ((1 - v) * r.X) + (v * s.X),
+                ((1 - v) * r.Y) + (v * s.Y));
         }
 
         /// <summary>
@@ -863,8 +735,8 @@ namespace Engine
         private static Point2D Perspective(Point2D[] points, (double a, double b, double d, double e, double g, double h) c, double u, double v)
         {
             // Evaluate the homographic transform
-            var T = c.g * u + c.h * v + 1;
-            return new Point2D((c.a * u + c.b * v) / T + points[0].X, (c.d * u + c.e * v) / T + points[0].Y);
+            var T = (c.g * u) + (c.h * v) + 1;
+            return new Point2D((((c.a * u) + (c.b * v)) / T) + points[0].X, (((c.d * u) + (c.e * v)) / T) + points[0].Y);
         }
 
         /// <summary>
@@ -880,10 +752,10 @@ namespace Engine
         private static (double a, double b, double d, double e, double g, double h) SolvePerspective(Point2D[] points)
         {
             // Compute the transform coefficients
-            var t = (points[2].X - points[1].X) * (points[2].Y - points[3].Y) - (points[2].X - points[3].X) * (points[2].Y - points[1].Y);
+            var t = ((points[2].X - points[1].X) * (points[2].Y - points[3].Y)) - ((points[2].X - points[3].X) * (points[2].Y - points[1].Y));
 
-            var g = ((points[2].X - points[0].X) * (points[2].Y - points[3].Y) - (points[2].X - points[3].X) * (points[2].Y - points[0].Y)) / t;
-            var h = ((points[2].X - points[1].X) * (points[2].Y - points[0].Y) - (points[2].X - points[0].X) * (points[2].Y - points[1].Y)) / t;
+            var g = (((points[2].X - points[0].X) * (points[2].Y - points[3].Y)) - ((points[2].X - points[3].X) * (points[2].Y - points[0].Y))) / t;
+            var h = (((points[2].X - points[1].X) * (points[2].Y - points[0].Y)) - ((points[2].X - points[0].X) * (points[2].Y - points[1].Y))) / t;
 
             var a = g * (points[1].X - points[0].X);
             var d = g * (points[1].Y - points[0].Y);

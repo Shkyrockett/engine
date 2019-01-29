@@ -113,8 +113,8 @@
     <Compile Include="Converters\PointFConverter.cs" />
     <Compile Include="Converters\RectangleFConverter.cs" />
     <Compile Include="Converters\SizeFConverter.cs" />
-    <Compile Include="Extensions\PointExtentions.cs" />
-    <Compile Include="Extensions\PointFExtentions.cs" />
+    <Compile Include="Extensions\PointExtensions.cs" />
+    <Compile Include="Extensions\PointFExtensions.cs" />
     <Compile Include="Extensions\RectangleExtensions.cs" />
     <Compile Include="Extensions\RectangleFExtensions.cs" />
     <Compile Include="Extensions\SizeExtentions.cs" />

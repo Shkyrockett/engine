@@ -72,7 +72,7 @@ namespace Engine.Colorspace
             }
             else
             {
-                h = green == max ? 2 + (blue - red) / delta : 4 + (red - green) / delta;   // between magenta & cyan
+                h = green == max ? 2 + ((blue - red) / delta) : 4 + ((red - green) / delta);   // between magenta & cyan
             }
 
             h *= 60;               // degrees

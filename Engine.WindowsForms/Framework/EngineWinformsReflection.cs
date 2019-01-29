@@ -109,7 +109,7 @@ namespace Engine
         /// <param name="assembly">The assembly to look in.</param>
         /// <param name="classType">The type to look for.</param>
         /// <returns></returns>
-        private static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
+        public static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
             => new List<Type>
             (
                 from type in assembly.GetTypes()
@@ -123,7 +123,7 @@ namespace Engine
         /// <param name="assembly">The assembly to look in.</param>
         /// <param name="classType">The interface type to look for.</param>
         /// <returns></returns>
-        private static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
+        public static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
             => new List<Type>
             (
                 from type in assembly.GetTypes()
@@ -140,7 +140,7 @@ namespace Engine
         /// <remarks>
         /// http://stackoverflow.com/questions/4852879/get-all-types-in-assembly-with-custom-attribute
         /// </remarks>
-        private static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
+        public static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
             => new List<Type>
             (
                 from type in assembly.GetTypes()

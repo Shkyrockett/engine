@@ -54,7 +54,7 @@ namespace Engine.File
         /// <returns>The <see cref="MediaFile"/>.</returns>
         public static MediaFile Load(string filename, Stream stream)
         {
-            IMediaContainer media = null;
+            IMediaContainer media;
 
             // http://stackoverflow.com/questions/9033/hidden-features-of-c/12137#12137
             switch (Path.GetExtension(filename).ToUpperInvariant())

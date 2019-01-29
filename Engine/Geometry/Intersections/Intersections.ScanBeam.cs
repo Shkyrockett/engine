@@ -66,7 +66,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamPoint(ref List<double> scanlist, double x, double y, double px, double py, double epsilon = Epsilon)
         {
-            if ((y - py) / (x - px) == 1)
+            if ((y - py) / (x - px) == 1d)
             {
                 scanlist.Add(x);
             }
@@ -89,11 +89,11 @@ namespace Engine
         public static void ScanbeamLine(ref List<double> scanlist, double x, double y, double x0, double y0, double i, double j, double epsilon = Epsilon)
         {
             // Translate lines to origin.
-            var u1 = 1 - x;
-            var v1 = 0 - y;
+            var u1 = 1d - x;
+            var v1 = 0d - y;
 
-            var ua = i * (y - y0) - j * (x - x0);
-            var ub = u1 * (y - y0) - v1 * (x - x0);
+            var ua = (i * (y - y0)) - (j * (x - x0));
+            var ub = (u1 * (y - y0)) - (v1 * (x - x0));
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (j * u1) - (i * v1);
@@ -101,7 +101,7 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     // Line segment is coincident to the Line. There are an infinite number of intersections.
                     scanlist.Add(double.NegativeInfinity);
@@ -114,7 +114,7 @@ namespace Engine
                 var ta = ua / determinant;
 
                 // One intersection.
-                scanlist.Add(x0 + ta * u1);
+                scanlist.Add(x0 + (ta * u1));
             }
         }
 
@@ -137,7 +137,7 @@ namespace Engine
             var u2 = x1 - x0;
             var v2 = y1 - y0;
 
-            var ua = u2 * (y - y0) - v2 * (x - x0);
+            var ua = (u2 * (y - y0)) - (v2 * (x - x0));
             var ub = y - y0;
 
             // Calculate the determinant of the coefficient matrix.
@@ -146,7 +146,7 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     // Line segment is coincident to the scan-beam. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
                     scanlist.Add(x0);
@@ -159,10 +159,10 @@ namespace Engine
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (tb >= 0 && tb <= 1)
+                if (tb >= 0d && tb <= 1d)
                 {
                     // One intersection.
-                    scanlist.Add(x + ta * 1);
+                    scanlist.Add(x + (ta * 1d));
                 }
             }
         }
@@ -211,14 +211,14 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
-            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
             foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(s < 0 || s > 1d))
+                if (!(s < 0d || s > 1d))
                 {
-                    scanlist.Add(xCurve[0] * s * s + xCurve[1] * s + xCurve[2]);
+                    scanlist.Add((xCurve[0] * s * s) + (xCurve[1] * s) + xCurve[2]);
                 }
             }
         }
@@ -270,14 +270,14 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Translate the line to the origin.
-            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
             foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(s < 0 || s > 1d))
+                if (!(s < 0d || s > 1d))
                 {
-                    scanlist.Add(xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3]);
+                    scanlist.Add((xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3]);
                 }
             }
         }
@@ -297,41 +297,41 @@ namespace Engine
         public static void ScanbeamCircle(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double epsilon = Epsilon)
         {
             // If the circle or line segment are empty, return no intersections.
-            if ((r == 0d) || ((x == x + 1) && (y == x + 0)))
+            if ((r == 0d) || ((x == x + 1d) && (y == x + 0d)))
             {
                 return;
             }
 
             // Calculate the quadratic parameters.
-            var b = 2 * (x - cX);
-            var c = (x - cX) * (x - cX) + (y - cY) * (y - cY) - r * r;
+            var b = 2d * (x - cX);
+            var c = ((x - cX) * (x - cX)) + ((y - cY) * (y - cY)) - (r * r);
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * c;
+            var discriminant = (b * b) - (4d * c);
 
-            if (discriminant < 0)
+            if (discriminant < 0d)
             {
                 // No real solutions.
                 return;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
                 var t = -b / 2d;
 
                 // Add two points for top or bottom of the circle.
-                scanlist.Add(x + t * 1);
-                scanlist.Add(x + t * 1);
+                scanlist.Add(x + (t * 1d));
+                scanlist.Add(x + (t * 1d));
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
-                var t1 = (-b + Sqrt(discriminant)) / (2 * 1);
-                var t2 = (-b - Sqrt(discriminant)) / (2 * 1);
+                var t1 = (-b + Sqrt(discriminant)) / (2d * 1d);
+                var t2 = (-b - Sqrt(discriminant)) / (2d * 1d);
 
                 // Add the points.
-                scanlist.Add(x + t1 * 1);
-                scanlist.Add(x + t2 * 1);
+                scanlist.Add(x + (t1 * 1d));
+                scanlist.Add(x + (t2 * 1d));
             }
         }
 
@@ -359,23 +359,23 @@ namespace Engine
             }
 
             // Calculate the quadratic parameters.
-            var b = 2 * (x - cX);
-            var c = (x - cX) * (x - cX) + (y - cY) * (y - cY) - r * r;
+            var b = 2d * (x - cX);
+            var c = ((x - cX) * (x - cX)) + ((y - cY) * (y - cY)) - (r * r);
 
             // Find the points of the chord.
             var startPoint = new Point2D(cX + (Cos(angle + startAngle) * r), cY + (Sin(angle + startAngle) * r));
             var endPoint = new Point2D(cX + (Cos(angle + startAngle + sweepAngle) * r), cY + (Sin(angle + startAngle + sweepAngle) * r));
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * c;
+            var discriminant = (b * b) - (4d * c);
 
             // Check for intersections.
-            if ((1 <= epsilon) || (discriminant < 0))
+            if ((1d <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
                 var t = -b / 2d;
@@ -385,7 +385,7 @@ namespace Engine
                 var pY = y + t;
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle))
@@ -395,18 +395,18 @@ namespace Engine
                     scanlist.Add(pX);
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
                 var t1 = (-b + Sqrt(discriminant)) / 2d;
                 var t2 = (-b - Sqrt(discriminant)) / 2d;
 
                 // Find the point.
-                var pX = x + t1 * 1;
+                var pX = x + (t1 * 1d);
                 var pY = y + t1;
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle))
@@ -416,11 +416,11 @@ namespace Engine
                 }
 
                 // Find the point.
-                pX = x + t2 * 1;
+                pX = x + (t2 * 1d);
                 pY = y + t2;
 
                 // Find the determinant of the chord and point.
-                determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle))
@@ -457,47 +457,47 @@ namespace Engine
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x - cx;
             var v1 = y - cy;
-            var u2 = x - cx + 1;
-            var v2 = y - cy + 0;
+            var u2 = x - cx + 1d;
+            var v2 = y - cy + 0d;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
-            var u2A = u2 * cosA - v2 * -sinA;
-            var v2A = u2 * -sinA + v2 * cosA;
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
+            var u2A = (u2 * cosA) - (v2 * -sinA);
+            var v2A = (u2 * -sinA) + (v2 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
+            var a = ((u2A - u1A) * (u2A - u1A) / (rx * rx)) + ((v2A - v1A) * (v2A - v1A) / (ry * ry));
+            var b = (2d * u1A * (u2A - u1A) / (rx * rx)) + (2d * v1A * (v2A - v1A) / (ry * ry));
+            var c = (u1A * u1A / (rx * rx)) + (v1A * v1A / (ry * ry)) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
 
                 // Add two points for either the top or bottom.
-                scanlist.Add(u1 + (u2 - u1) * t + cx);
-                scanlist.Add(u1 + (u2 - u1) * t + cx);
+                scanlist.Add(u1 + ((u2 - u1) * t) + cx);
+                scanlist.Add(u1 + ((u2 - u1) * t) + cx);
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var t1 = OneHalf * (-b + Sqrt(discriminant)) / a;
                 var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
 
                 // Add the points.
-                scanlist.Add(u1 + (u2 - u1) * t1 + cx);
-                scanlist.Add(u1 + (u2 - u1) * t2 + cx);
+                scanlist.Add(u1 + ((u2 - u1) * t1) + cx);
+                scanlist.Add(u1 + ((u2 - u1) * t2) + cx);
             }
         }
 
@@ -529,25 +529,25 @@ namespace Engine
             // Translate the line to put it at the ellipse centered at the origin.
             var u0 = x - cx;
             var v0 = y - cy;
-            var u1 = x - cx + 1;
+            var u1 = x - cx + 1d;
             var v1 = y - cy;
 
             // Apply the rotation transformation to line at the origin.
-            var u0A = u0 * cosA - v0 * -sinA;
-            var v0A = u0 * -sinA + v0 * cosA;
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
+            var u0A = (u0 * cosA) - (v0 * -sinA);
+            var v0A = (u0 * -sinA) + (v0 * cosA);
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
-            var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
+            var a = ((u1A - u0A) * (u1A - u0A) / (rx * rx)) + ((v1A - v0A) * (v1A - v0A) / (ry * ry));
+            var b = (2d * u0A * (u1A - u0A) / (rx * rx)) + (2d * v0A * (v1A - v0A) / (ry * ry));
+            var c = (u0A * u0A / (rx * rx)) + (v0A * v0A / (ry * ry)) - 1d;
 
             // Calculate the discriminant of the quadratic.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return;
@@ -564,22 +564,22 @@ namespace Engine
             var vea = -(ry * Sin(ea));
 
             // Apply the rotation and translation transformations to find the chord points.
-            var sx = cx + (usa * cosA + vsa * sinA);
-            var sy = cy + (usa * sinA - vsa * cosA);
-            var ex = cx + (uea * cosA + vea * sinA);
-            var ey = cy + (uea * sinA - vea * cosA);
+            var sx = cx + ((usa * cosA) + (vsa * sinA));
+            var sy = cy + ((usa * sinA) - (vsa * cosA));
+            var ex = cx + ((uea * cosA) + (vea * sinA));
+            var ey = cy + ((uea * sinA) - (vea * cosA));
 
-            if (discriminant == 0)
+            if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
 
                 // Find the point.
-                var px = u0 + (u1 - u0) * t + cx;
-                var py = v0 + (v1 - v0) * t + cy;
+                var px = u0 + ((u1 - u0) * t) + cx;
+                var py = v0 + ((v1 - v0) * t) + cy;
 
                 // Find the determinant of the matrix representing the chord.
-                var determinant = (sx - px) * (ey - py) - (ex - px) * (sy - py);
+                var determinant = ((sx - px) * (ey - py)) - ((ex - px) * (sy - py));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -588,7 +588,7 @@ namespace Engine
                     scanlist.Add(px);
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
@@ -596,11 +596,11 @@ namespace Engine
                 var t2 = OneHalf * (-b - root) / a;
 
                 // Find the point.
-                var px = u0 + (u1 - u0) * t1 + cx;
-                var py = v0 + (v1 - v0) * t1 + cy;
+                var px = u0 + ((u1 - u0) * t1) + cx;
+                var py = v0 + ((v1 - v0) * t1) + cy;
 
                 // Find the determinant of the matrix representing the chord.
-                var determinant = (sx - px) * (ey - py) - (ex - px) * (sy - py);
+                var determinant = ((sx - px) * (ey - py)) - ((ex - px) * (sy - py));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -609,11 +609,11 @@ namespace Engine
                 }
 
                 // Find the point.
-                px = u0 + (u1 - u0) * t2 + cx;
-                py = v0 + (v1 - v0) * t2 + cy;
+                px = u0 + ((u1 - u0) * t2) + cx;
+                py = v0 + ((v1 - v0) * t2) + cy;
 
                 // Find the determinant of the matrix representing the chord.
-                determinant = (sx - px) * (ey - py) - (ex - px) * (sy - py);
+                determinant = ((sx - px) * (ey - py)) - ((ex - px) * (sy - py));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -737,11 +737,11 @@ namespace Engine
         public static int ScanbeamPointsToLeftLine(double x, double y, double x0, double y0, double i, double j, double epsilon = Epsilon)
         {
             // Translate lines to origin.
-            var u1 = 1 - x;
-            var v1 = 0 - y;
+            var u1 = 1d - x;
+            var v1 = 0d - y;
 
-            var ua = i * (y - y0) - j * (x - x0);
-            var ub = u1 * (y - y0) - v1 * (x - x0);
+            var ua = (i * (y - y0)) - (j * (x - x0));
+            var ub = (u1 * (y - y0)) - (v1 * (x - x0));
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (j * u1) - (i * v1);
@@ -749,7 +749,7 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     // Line segment is coincident to the Line. There are an infinite number of intersections.
                     return 1;
@@ -761,7 +761,7 @@ namespace Engine
                 var ta = ua / determinant;
 
                 // One intersection.
-                if (x0 + ta * u1 <= x)
+                if (x0 + (ta * u1) <= x)
                 {
                     return 1;
                 }
@@ -789,7 +789,7 @@ namespace Engine
             var u2 = x1 - x0;
             var v2 = y1 - y0;
 
-            var ua = u2 * (y - y0) - v2 * (x - x0);
+            var ua = (u2 * (y - y0)) - (v2 * (x - x0));
             var ub = y - y0;
 
             // Calculate the determinant of the coefficient matrix.
@@ -800,7 +800,7 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     // Line segment is coincident to the scan-beam. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
                     if (x0 <= x)
@@ -820,7 +820,7 @@ namespace Engine
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (tb >= 0 && tb <= 1)
+                if (tb >= 0d && tb <= 1d)
                 {
                     // One intersection.
                     if (x0 + ta <= x)
@@ -874,13 +874,13 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
-            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
             var result = 0;
             foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(s < 0 || s > 1d) && (xCurve[0] * s * s + xCurve[1] * s + xCurve[2] <= x))
+                if (!(s < 0d || s > 1d) && ((xCurve[0] * s * s) + (xCurve[1] * s) + xCurve[2] <= x))
                 {
                     result++;
                 }
@@ -933,13 +933,13 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Translate the line to the origin.
-            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
             var results = 0;
             foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(s < 0 || s > 1d) && (xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3]) <= x)
+                if (!(s < 0d || s > 1d) && ((xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3]) <= x)
                 {
                     results++;
                 }
@@ -966,49 +966,49 @@ namespace Engine
         public static int ScanbeamPointsToLeftCircle(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
         {
             // If the circle or line segment are empty, return no intersections.
-            if ((r == 0d) || ((x == x + 1) && (y == x + 0)))
+            if ((r == 0d) || ((x == x + 1d) && (y == x + 0d)))
             {
                 return 0;
             }
 
             // Calculate the quadratic parameters.
-            var b = 2 * (x - cX);
-            var c = (x - cX) * (x - cX) + (y - cY) * (y - cY) - r * r;
+            var b = 2d * (x - cX);
+            var c = ((x - cX) * (x - cX)) + ((y - cY) * (y - cY)) - (r * r);
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * c;
+            var discriminant = (b * b) - (4d * c);
 
             var result = 0;
-            if (discriminant < 0)
+            if (discriminant < 0d)
             {
                 // No real solutions.
                 return 0;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
                 var t = -b / 2d;
 
                 // Add two points for top or bottom of the circle.
-                if (x + t * 1 <= x)
+                if (x + (t * 1) <= x)
                 {
                     result++;
                     result++;
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
-                var t1 = (-b + Sqrt(discriminant)) / (2 * 1);
-                var t2 = (-b - Sqrt(discriminant)) / (2 * 1);
+                var t1 = (-b + Sqrt(discriminant)) / (2d * 1d);
+                var t2 = (-b - Sqrt(discriminant)) / (2d * 1d);
 
                 // Add the points.
-                if (x + t1 * 1 <= x)
+                if (x + (t1 * 1d) <= x)
                 {
                     result++;
                 }
 
-                if (x + t2 * 1 <= x)
+                if (x + (t2 * 1d) <= x)
                 {
                     result++;
                 }
@@ -1041,15 +1041,15 @@ namespace Engine
             }
 
             // Calculate the quadratic parameters.
-            var b = 2 * (x - cX);
-            var c = (x - cX) * (x - cX) + (y - cY) * (y - cY) - r * r;
+            var b = 2d * (x - cX);
+            var c = ((x - cX) * (x - cX)) + ((y - cY) * (y - cY)) - (r * r);
 
             // Find the points of the chord.
             var startPoint = new Point2D(cX + (Cos(angle + startAngle) * r), cY + (Sin(angle + startAngle) * r));
             var endPoint = new Point2D(cX + (Cos(angle + startAngle + sweepAngle) * r), cY + (Sin(angle + startAngle + sweepAngle) * r));
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * c;
+            var discriminant = (b * b) - (4d * c);
 
             var results = 0;
 
@@ -1059,7 +1059,7 @@ namespace Engine
                 // No real solutions.
                 return 0;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
                 var t = -b / 2d;
@@ -1069,7 +1069,7 @@ namespace Engine
                 var pY = y + t;
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle) && pX <= x)
@@ -1079,7 +1079,7 @@ namespace Engine
                     results++;
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
                 var t1 = (-b + Sqrt(discriminant)) / 2d;
@@ -1090,7 +1090,7 @@ namespace Engine
                 var pY = y + t1;
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle) && pX <= x)
@@ -1104,7 +1104,7 @@ namespace Engine
                 pY = y + t2;
 
                 // Find the determinant of the chord and point.
-                determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle) && pX <= x)
@@ -1143,60 +1143,60 @@ namespace Engine
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x - cx;
             var v1 = y - cy;
-            var u2 = x - cx + 1;
-            var v2 = y - cy + 0;
+            var u2 = x - cx + 1d;
+            var v2 = y - cy + 0d;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
-            var u2A = u2 * cosA - v2 * -sinA;
-            var v2A = u2 * -sinA + v2 * cosA;
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
+            var u2A = (u2 * cosA) - (v2 * -sinA);
+            var v2A = (u2 * -sinA) + (v2 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
+            var a = ((u2A - u1A) * (u2A - u1A) / (rx * rx)) + ((v2A - v1A) * (v2A - v1A) / (ry * ry));
+            var b = (2d * u1A * (u2A - u1A) / (rx * rx)) + (2d * v1A * (v2A - v1A) / (ry * ry));
+            var c = (u1A * u1A / (rx * rx)) + (v1A * v1A / (ry * ry)) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             var results = 0;
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
 
                 // Add two points for either the top or bottom.
-                if ((u1 + (u2 - u1) * t + cx) <= x)
+                if ((u1 + ((u2 - u1) * t) + cx) <= x)
                 {
                     results++;
                 }
 
-                if ((u1 + (u2 - u1) * t + cx) <= x)
+                if ((u1 + ((u2 - u1) * t) + cx) <= x)
                 {
                     results++;
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var t1 = OneHalf * (-b + Sqrt(discriminant)) / a;
                 var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
 
                 // Add the points.
-                if (u1 + (u2 - u1) * t1 + cx <= x)
+                if (u1 + ((u2 - u1) * t1) + cx <= x)
                 {
                     results++;
                 }
 
-                if (u1 + (u2 - u1) * t2 + cx <= x)
+                if (u1 + ((u2 - u1) * t2) + cx <= x)
                 {
                     results++;
                 }
@@ -1233,25 +1233,25 @@ namespace Engine
             // Translate the line to put it at the ellipse centered at the origin.
             var u0 = x - cx;
             var v0 = y - cy;
-            var u1 = x - cx + 1;
+            var u1 = x - cx + 1d;
             var v1 = y - cy;
 
             // Apply the rotation transformation to line at the origin.
-            var u0A = u0 * cosA - v0 * -sinA;
-            var v0A = u0 * -sinA + v0 * cosA;
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
+            var u0A = (u0 * cosA) - (v0 * -sinA);
+            var v0A = (u0 * -sinA) + (v0 * cosA);
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
-            var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
+            var a = ((u1A - u0A) * (u1A - u0A) / (rx * rx)) + ((v1A - v0A) * (v1A - v0A) / (ry * ry));
+            var b = (2d * u0A * (u1A - u0A) / (rx * rx)) + (2d * v0A * (v1A - v0A) / (ry * ry));
+            var c = (u0A * u0A / (rx * rx)) + (v0A * v0A / (ry * ry)) - 1d;
 
             // Calculate the discriminant of the quadratic.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
@@ -1268,23 +1268,23 @@ namespace Engine
             var vea = -(ry * Sin(ea));
 
             // Apply the rotation and translation transformations to find the chord points.
-            var sx = cx + (usa * cosA + vsa * sinA);
-            var sy = cy + (usa * sinA - vsa * cosA);
-            var ex = cx + (uea * cosA + vea * sinA);
-            var ey = cy + (uea * sinA - vea * cosA);
+            var sx = cx + ((usa * cosA) + (vsa * sinA));
+            var sy = cy + ((usa * sinA) - (vsa * cosA));
+            var ex = cx + ((uea * cosA) + (vea * sinA));
+            var ey = cy + ((uea * sinA) - (vea * cosA));
 
             var results = 0;
-            if (discriminant == 0)
+            if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
 
                 // Find the point.
-                var px = u0 + (u1 - u0) * t + cx;
-                var py = v0 + (v1 - v0) * t + cy;
+                var px = u0 + ((u1 - u0) * t) + cx;
+                var py = v0 + ((v1 - v0) * t) + cy;
 
                 // Find the determinant of the matrix representing the chord.
-                var determinant = (sx - px) * (ey - py) - (ex - px) * (sy - py);
+                var determinant = ((sx - px) * (ey - py)) - ((ex - px) * (sy - py));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px <= x)
@@ -1293,7 +1293,7 @@ namespace Engine
                     results++;
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
@@ -1301,11 +1301,11 @@ namespace Engine
                 var t2 = OneHalf * (-b - root) / a;
 
                 // Find the point.
-                var px = u0 + (u1 - u0) * t1 + cx;
-                var py = v0 + (v1 - v0) * t1 + cy;
+                var px = u0 + ((u1 - u0) * t1) + cx;
+                var py = v0 + ((v1 - v0) * t1) + cy;
 
                 // Find the determinant of the matrix representing the chord.
-                var determinant = (sx - px) * (ey - py) - (ex - px) * (sy - py);
+                var determinant = ((sx - px) * (ey - py)) - ((ex - px) * (sy - py));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px <= x)
@@ -1314,11 +1314,11 @@ namespace Engine
                 }
 
                 // Find the point.
-                px = u0 + (u1 - u0) * t2 + cx;
-                py = v0 + (v1 - v0) * t2 + cy;
+                px = u0 + ((u1 - u0) * t2) + cx;
+                py = v0 + ((v1 - v0) * t2) + cy;
 
                 // Find the determinant of the matrix representing the chord.
-                determinant = (sx - px) * (ey - py) - (ex - px) * (sy - py);
+                determinant = ((sx - px) * (ey - py)) - ((ex - px) * (sy - py));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px <= x)
@@ -1453,11 +1453,11 @@ namespace Engine
         public static int ScanbeamPointsToRightLine(double x, double y, double x0, double y0, double i, double j, double epsilon = Epsilon)
         {
             // Translate lines to origin.
-            var u1 = 1 - x;
-            var v1 = 0 - y;
+            var u1 = 1d - x;
+            var v1 = 0d - y;
 
-            var ua = i * (y - y0) - j * (x - x0);
-            var ub = u1 * (y - y0) - v1 * (x - x0);
+            var ua = (i * (y - y0)) - (j * (x - x0));
+            var ub = (u1 * (y - y0)) - (v1 * (x - x0));
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (j * u1) - (i * v1);
@@ -1465,7 +1465,7 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     // Line segment is coincident to the Line. There are an infinite number of intersections.
                     return 1;
@@ -1477,7 +1477,7 @@ namespace Engine
                 var ta = ua / determinant;
 
                 // One intersection.
-                if (x0 + ta * u1 >= x)
+                if (x0 + (ta * u1) >= x)
                 {
                     return 1;
                 }
@@ -1505,7 +1505,7 @@ namespace Engine
             var u2 = x1 - x0;
             var v2 = y1 - y0;
 
-            var ua = u2 * (y - y0) - v2 * (x - x0);
+            var ua = (u2 * (y - y0)) - (v2 * (x - x0));
             var ub = y - y0;
 
             // Calculate the determinant of the coefficient matrix.
@@ -1516,7 +1516,7 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                //if (ua == 0 || ub == 0)
+                //if (ua == 0d || ub == 0d)
                 //{
                 //    // Line segment is coincident to the scan-beam. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
                 //    if (x0 >= x)
@@ -1531,7 +1531,7 @@ namespace Engine
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (tb >= 0 && tb <= 1)
+                if (tb >= 0d && tb <= 1d)
                 {
                     // One intersection.
                     if (x0 + ta >= x)
@@ -1585,13 +1585,13 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
-            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
             var result = 0;
             foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(s < 0 || s > 1d) && ((xCurve[0] * s * s + xCurve[1] * s + xCurve[2]) >= x))
+                if (!(s < 0 || s > 1d) && (((xCurve[0] * s * s) + (xCurve[1] * s) + xCurve[2]) >= x))
                 {
                     result++;
                 }
@@ -1644,13 +1644,13 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Translate the line to the origin.
-            var c = x * (y - (y + 0)) + y * (x + 1 - x);
+            var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
             var results = 0;
             foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(s < 0 || s > 1d) && (xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3]) >= x)
+                if (!(s < 0d || s > 1d) && ((xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3]) >= x)
                 {
                     results++;
                 }
@@ -1677,49 +1677,49 @@ namespace Engine
         public static int ScanbeamPointsToRightCircle(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
         {
             // If the circle or line segment are empty, return no intersections.
-            if ((r == 0d) || ((x == x + 1) && (y == x + 0)))
+            if ((r == 0d) || ((x == x + 1d) && (y == x + 0d)))
             {
                 return 0;
             }
 
             // Calculate the quadratic parameters.
-            var b = 2 * (x - cX);
-            var c = (x - cX) * (x - cX) + (y - cY) * (y - cY) - r * r;
+            var b = 2d * (x - cX);
+            var c = ((x - cX) * (x - cX)) + ((y - cY) * (y - cY)) - (r * r);
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * c;
+            var discriminant = (b * b) - (4d * c);
 
             var result = 0;
-            if (discriminant < 0)
+            if (discriminant < 0d)
             {
                 // No real solutions.
                 return 0;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
                 var t = -b / 2d;
 
                 // Add two points for top or bottom of the circle.
-                if (x + t * 1 >= x)
+                if (x + (t * 1) >= x)
                 {
                     result++;
                     result++;
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
-                var t1 = (-b + Sqrt(discriminant)) / (2 * 1);
-                var t2 = (-b - Sqrt(discriminant)) / (2 * 1);
+                var t1 = (-b + Sqrt(discriminant)) / (2d * 1d);
+                var t2 = (-b - Sqrt(discriminant)) / (2d * 1d);
 
                 // Add the points.
-                if (x + t1 * 1 >= x)
+                if (x + (t1 * 1d) >= x)
                 {
                     result++;
                 }
 
-                if (x + t2 * 1 >= x)
+                if (x + (t2 * 1d) >= x)
                 {
                     result++;
                 }
@@ -1752,25 +1752,25 @@ namespace Engine
             }
 
             // Calculate the quadratic parameters.
-            var b = 2 * (x - cX);
-            var c = (x - cX) * (x - cX) + (y - cY) * (y - cY) - r * r;
+            var b = 2d * (x - cX);
+            var c = ((x - cX) * (x - cX)) + ((y - cY) * (y - cY)) - (r * r);
 
             // Find the points of the chord.
             var startPoint = new Point2D(cX + (Cos(angle + startAngle) * r), cY + (Sin(angle + startAngle) * r));
             var endPoint = new Point2D(cX + (Cos(angle + startAngle + sweepAngle) * r), cY + (Sin(angle + startAngle + sweepAngle) * r));
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * c;
+            var discriminant = (b * b) - (4d * c);
 
             var results = 0;
 
             // Check for intersections.
-            if ((1 <= epsilon) || (discriminant < 0))
+            if ((1d <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
                 var t = -b / 2d;
@@ -1780,7 +1780,7 @@ namespace Engine
                 var pY = y + t;
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle) && pX >= x)
@@ -1790,7 +1790,7 @@ namespace Engine
                     results++;
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
                 var t1 = (-b + Sqrt(discriminant)) / 2d;
@@ -1801,7 +1801,7 @@ namespace Engine
                 var pY = y + t1;
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle) && pX >= x)
@@ -1815,7 +1815,7 @@ namespace Engine
                 pY = y + t2;
 
                 // Find the determinant of the chord and point.
-                determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle) && pX >= x)
@@ -1854,58 +1854,58 @@ namespace Engine
             // Translate the line to put the ellipse centered at the origin.
             var u1 = x - cx;
             var v1 = y - cy;
-            var u2 = x - cx + 1;
-            var v2 = y - cy + 0;
+            var u2 = x - cx + 1d;
+            var v2 = y - cy + 0d;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
-            var u2A = u2 * cosA - v2 * -sinA;
-            var v2A = u2 * -sinA + v2 * cosA;
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
+            var u2A = (u2 * cosA) - (v2 * -sinA);
+            var v2A = (u2 * -sinA) + (v2 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
+            var a = ((u2A - u1A) * (u2A - u1A) / (rx * rx)) + ((v2A - v1A) * (v2A - v1A) / (ry * ry));
+            var b = (2d * u1A * (u2A - u1A) / (rx * rx)) + (2d * v1A * (v2A - v1A) / (ry * ry));
+            var c = (u1A * u1A / (rx * rx)) + (v1A * v1A / (ry * ry)) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             var results = 0;
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 return 0;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
 
                 // Add two points for either the top or bottom.
-                if ((u1 + (u2 - u1) * t + cx) >= x)
+                if ((u1 + ((u2 - u1) * t) + cx) >= x)
                 {
                     results++;
                 }
 
-                if ((u1 + (u2 - u1) * t + cx) >= x)
+                if ((u1 + ((u2 - u1) * t) + cx) >= x)
                 {
                     results++;
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var t1 = OneHalf * (-b + Sqrt(discriminant)) / a;
-                if (u1 + (u2 - u1) * t1 + cx >= x)
+                if (u1 + ((u2 - u1) * t1) + cx >= x)
                 {
                     results++;
                 }
 
                 var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
-                if (u1 + (u2 - u1) * t2 + cx >= x)
+                if (u1 + ((u2 - u1) * t2) + cx >= x)
                 {
                     results++;
                 }
@@ -1946,18 +1946,18 @@ namespace Engine
             var v1 = y - cy;
 
             // Apply the rotation transformation to line at the origin.
-            var u0A = u0 * cosA - v0 * -sinA;
-            var v0A = u0 * -sinA + v0 * cosA;
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
+            var u0A = (u0 * cosA) - (v0 * -sinA);
+            var v0A = (u0 * -sinA) + (v0 * cosA);
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
-            var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
+            var a = ((u1A - u0A) * (u1A - u0A) / (rx * rx)) + ((v1A - v0A) * (v1A - v0A) / (ry * ry));
+            var b = (2d * u0A * (u1A - u0A) / (rx * rx)) + (2d * v0A * (v1A - v0A) / (ry * ry));
+            var c = (u0A * u0A / (rx * rx)) + (v0A * v0A / (ry * ry)) - 1d;
 
             // Calculate the discriminant of the quadratic.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
             if ((a <= epsilon) || (discriminant < 0))
@@ -1977,23 +1977,23 @@ namespace Engine
             var vea = -(ry * Sin(ea));
 
             // Apply the rotation and translation transformations to find the chord points.
-            var sx = cx + (usa * cosA + vsa * sinA);
-            var sy = cy + (usa * sinA - vsa * cosA);
-            var ex = cx + (uea * cosA + vea * sinA);
-            var ey = cy + (uea * sinA - vea * cosA);
+            var sx = cx + ((usa * cosA) + (vsa * sinA));
+            var sy = cy + ((usa * sinA) - (vsa * cosA));
+            var ex = cx + ((uea * cosA) + (vea * sinA));
+            var ey = cy + ((uea * sinA) - (vea * cosA));
 
             var results = 0;
-            if (discriminant == 0)
+            if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
 
                 // Find the point.
-                var px = u0 + (u1 - u0) * t + cx;
-                var py = v0 + (v1 - v0) * t + cy;
+                var px = u0 + ((u1 - u0) * t) + cx;
+                var py = v0 + ((v1 - v0) * t) + cy;
 
                 // Find the determinant of the matrix representing the chord.
-                var determinant = (sx - px) * (ey - py) - (ex - px) * (sy - py);
+                var determinant = ((sx - px) * (ey - py)) - ((ex - px) * (sy - py));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px >= x)
@@ -2003,7 +2003,7 @@ namespace Engine
                     results++;
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
@@ -2011,11 +2011,11 @@ namespace Engine
                 var t2 = OneHalf * (-b - root) / a;
 
                 // Find the point.
-                var px = u0 + (u1 - u0) * t1 + cx;
-                var py = v0 + (v1 - v0) * t1 + cy;
+                var px = u0 + ((u1 - u0) * t1) + cx;
+                var py = v0 + ((v1 - v0) * t1) + cy;
 
                 // Find the determinant of the matrix representing the chord.
-                var determinant = (sx - px) * (ey - py) - (ex - px) * (sy - py);
+                var determinant = ((sx - px) * (ey - py)) - ((ex - px) * (sy - py));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px >= x)
@@ -2024,11 +2024,11 @@ namespace Engine
                 }
 
                 // Find the point.
-                px = u0 + (u1 - u0) * t2 + cx;
-                py = v0 + (v1 - v0) * t2 + cy;
+                px = u0 + ((u1 - u0) * t2) + cx;
+                py = v0 + ((v1 - v0) * t2) + cy;
 
                 // Find the determinant of the matrix representing the chord.
-                determinant = (sx - px) * (ey - py) - (ex - px) * (sy - py);
+                determinant = ((sx - px) * (ey - py)) - ((ex - px) * (sy - py));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle) && px >= x)

@@ -317,10 +317,10 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         public Point2D Center
         {
-            get { return new Point2D(X + width * 0.5d, Y + height * 0.5d); }
+            get { return new Point2D(X + (width * 0.5d), Y + (height * 0.5d)); }
             set
             {
-                (x, y) = (value.X - width * 0.5d, value.Y - height * 0.5d);
+                (x, y) = (value.X - (width * 0.5d), value.Y - (height * 0.5d));
                 ClearCache();
                 OnPropertyChanged(nameof(Center));
                 update?.Invoke();
@@ -757,15 +757,15 @@ namespace Engine
             return r;
         }
 
-        ///// <summary>
-        ///// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
-        ///// If this is Empty, this method is illegal.
-        ///// </summary>
-        //public static Rectangle2D Inflate(Rectangle2D rect, Size size)
-        //{
-        //    rect.Inflate(size.Width, size.Height);
-        //    return rect;
-        //}
+        /// <summary>
+        /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
+        /// If this is Empty, this method is illegal.
+        /// </summary>
+        public static Rectangle2D Inflate(Rectangle2D rect, Size2D size)
+        {
+            rect.Inflate(size.Width, size.Height);
+            return rect;
+        }
 
         /// <summary>
         /// Inflate - return the result of inflating Rectangle2D by the size provided, in all directions
@@ -885,8 +885,8 @@ namespace Engine
         /// <returns></returns>
         public Rectangle2D Union(Rectangle2D rect)
         {
-            var left = rect is null ? Left : Min(Left, rect!!.Left);
-            var top = rect is null ? Top : Min(Top, rect!!.Top);
+            var left = rect is null ? Left : Min(Left, rect.Left);
+            var top = rect is null ? Top : Min(Top, rect.Top);
             var width = this.width;
             var height = this.width;
 
@@ -1092,7 +1092,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Rectangle2D)}{{{nameof(X)}={x.ToString(format, provider)},{nameof(Y)}={y.ToString(format, provider)},{nameof(Width)}={width.ToString(format, provider)},{nameof(Height)}={height.ToString(format, provider)}}}";
+            return $"{nameof(Rectangle2D)}{{{nameof(X)}={x.ToString(format, provider)}{sep}{nameof(Y)}={y.ToString(format, provider)}{sep}{nameof(Width)}={width.ToString(format, provider)}{sep}{nameof(Height)}={height.ToString(format, provider)}}}";
         }
         #endregion Methods
     }

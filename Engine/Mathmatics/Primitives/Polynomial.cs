@@ -62,7 +62,7 @@ namespace Engine
         /// <summary>
         /// One minus the T Identity polynomial.
         /// </summary>
-        public static readonly Polynomial OneMinusT = 1 - T;
+        public static readonly Polynomial OneMinusT = 1d - T;
         #endregion Implementations
 
         #region Fields
@@ -112,7 +112,7 @@ namespace Engine
 
         #region Indexers
         /// <summary>
-        /// Gets or sets the coeficient at the given index.
+        /// Gets or sets the coefficient at the given index.
         /// </summary>
         /// <param name="index">The index of the coefficient to retrieve.</param>
         /// <returns></returns>
@@ -251,7 +251,7 @@ namespace Engine
         /// <returns></returns>
         public PolynomialDegree Degree
             // If degree uninitialized look up the real order then cache it and return.
-            => (degree = degree ?? RealOrder(Epsilon)).Value;
+            => (degree ??= RealOrder(Epsilon)).Value;
 
         /// <summary>
         /// Gets the raw number of coefficients found in the polynomial, including any leading zero coefficients.
@@ -319,7 +319,8 @@ namespace Engine
         /// <summary>
         /// Gets a debug string that represents the text version of the <see cref="Polynomial"/>.
         /// </summary>
-        public string Text => ToString();
+        public string Text
+            => ToString();
 
 #endif
         #endregion Properties
@@ -729,7 +730,7 @@ namespace Engine
             }
 
             // Get the real degree to skip any leading zero coefficients.
-            var order = (int)(degree = degree ?? RealOrder(epsilon)).Value + 1; /*Warning! Side effect!*/
+            var order = (int)(degree ??= RealOrder(epsilon)).Value + 1; /*Warning! Side effect!*/
 
             // Copy the remaining coefficients to a new array and return it.
             var coeffs = new double[order];
@@ -846,8 +847,8 @@ namespace Engine
             //Contract.EndContractBlock();
 
             var order = (int)Degree; /* Get the real degree to skip any leading zero coefficients. */
-            var res = new double[order * n + 1];
-            var tmp = new double[order * n + 1];
+            var res = new double[(order * n) + 1];
+            var tmp = new double[(order * n) + 1];
             res[0] = 1;
             for (var pow = 0; pow < n; pow++)
             {
@@ -895,7 +896,7 @@ namespace Engine
 
             for (var i = order; i >= 0; i--)
             {
-                result = result * x + coefficients[i];
+                result = (result * x) + coefficients[i];
             }
 
             return result;
@@ -920,7 +921,7 @@ namespace Engine
 
             for (var i = (int)Degree; i >= 0; i--)
             {
-                result = result * x + coefficients[i];
+                result = (result * x) + coefficients[i];
             }
 
             return result;
@@ -999,7 +1000,7 @@ namespace Engine
         /// </summary>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
-        /// <remarks>Primaraly used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
+        /// <remarks>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
         /// <acknowledgment>
         /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
         /// as well as Trim and RealOrder from: https://github.com/superlloyd/Poly
@@ -1206,7 +1207,7 @@ namespace Engine
         private static Polynomial Bezier(int from, int to, double[] values)
             => (from == to)
             ? new Polynomial(values[from])
-            : OneMinusT * Bezier(from, to - 1, values) + T * Bezier(from + 1, to, values);
+            : (OneMinusT * Bezier(from, to - 1, values)) + (T * Bezier(from + 1, to, values));
         #endregion Factories
 
         //#region Serialization
@@ -1349,7 +1350,7 @@ namespace Engine
 
             var order = (int)poly.Degree;
             Complex x0 = 1;
-            var xMul = 0.4d + 0.9d * Complex.ImaginaryOne;
+            var xMul = 0.4d + (0.9d * Complex.ImaginaryOne);
             var R0 = new Complex[order];
             for (var i = 0; i < R0.Length; i++)
             {
@@ -1358,7 +1359,7 @@ namespace Engine
             }
 
             var R1 = new Complex[order];
-            var close = false;
+            bool close;
             do
             {
                 step();
@@ -1390,7 +1391,7 @@ namespace Engine
             {
                 for (var i = 0; i < R0.Length; i++)
                 {
-                    R1[i] = R0[i] - poly.Evaluate(R0[i]) / divider(i);
+                    R1[i] = R0[i] - (poly.Evaluate(R0[i]) / divider(i));
                 }
             }
 
@@ -1525,16 +1526,15 @@ namespace Engine
 
         #region Standard Methods
         /// <summary>
-        /// Clears the coefficients of the polinomial.
+        /// Clears the coefficients of the polynomial.
         /// </summary>
         public void Clear()
         {
             var size = coefficients.Length;
             if (size > 0)
             {
-                // Clear the elements of the array so that the garbage colector can reclaim the references.
+                // Clear the elements of the array so that the garbage collector can reclaim the references.
                 Array.Clear(coefficients, 0, size);
-                size = 0;
             }
 
             degree = null;
@@ -1632,7 +1632,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polynomial"/> struct based on the IFormatProvider
@@ -1644,7 +1644,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
+            => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polynomial"/> struct based on the format string
@@ -1667,7 +1667,6 @@ namespace Engine
             for (var i = (coefficients?.Length ?? 0) - 1; i >= 0; i--)
             {
                 var value = coefficients[i];
-                var valueString = value.ToString();
                 var powStr = i.ToString();
                 powStr = powStr.Replace("1", "¹");
                 powStr = powStr.Replace("2", "²");
@@ -1683,7 +1682,7 @@ namespace Engine
                 {
                     var sign = (value < 0) ? " - " : " + ";
                     value = Abs(value);
-                    valueString = value.ToString();
+                    var valueString = value.ToString(format, provider);
                     if (i > 0)
                     {
                         if (value == 1)

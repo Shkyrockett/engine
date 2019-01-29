@@ -142,13 +142,13 @@ namespace Engine
             }
             get
             {
-                var test = X * Y + Z * W;
+                var test = (X * Y) + (Z * W);
                 if (Abs(test) > 0.499d) // singularitY at north and south pole
                 {
                     return 0d;
                 }
 
-                return Atan2(2d * X * W - 2d * Y * Z, 1d - 2d * X * X - 2d * Z * Z);
+                return Atan2((2d * X * W) - (2d * Y * Z), 1d - (2d * X * X) - (2d * Z * Z));
             }
         }
 
@@ -165,13 +165,13 @@ namespace Engine
             }
             get
             {
-                var test = X * Y + Z * W;
+                var test = (X * Y) + (Z * W);
                 if (Abs(test) > 0.499d) // singularitY at north and south pole
                 {
                     return Sign(test) * 2d * Atan2(X, W);
                 }
 
-                return Atan2(2d * Y * W - 2d * X * Z, 1d - 2d * Y * Y - 2d * Z * Z);
+                return Atan2((2d * Y * W) - (2d * X * Z), 1d - (2d * Y * Y) - (2d * Z * Z));
             }
         }
 
@@ -188,7 +188,7 @@ namespace Engine
             }
             get
             {
-                var test = X * Y + Z * W;
+                var test = (X * Y) + (Z * W);
                 if (Abs(test) > 0.499d) // singularitY at north and south pole
                 {
                     return Sign(test) * HalfPi;
@@ -695,7 +695,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
+            => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="QuaternionD"/> class based on the format string

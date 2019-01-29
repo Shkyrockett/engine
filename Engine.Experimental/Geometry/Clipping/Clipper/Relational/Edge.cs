@@ -599,7 +599,7 @@ namespace Engine.Experimental
                 else
                 {
                     b2 = edge2.Bot.Y - (edge2.Bot.X / edge2.Dx);
-                    ip.Y = Round(ip.X / edge2.Dx + b2);
+                    ip.Y = Round((ip.X / edge2.Dx) + b2);
                 }
             }
             else if (edge2.Dx == 0)
@@ -612,22 +612,22 @@ namespace Engine.Experimental
                 else
                 {
                     b1 = edge1.Bot.Y - (edge1.Bot.X / edge1.Dx);
-                    ip.Y = Round(ip.X / edge1.Dx + b1);
+                    ip.Y = Round((ip.X / edge1.Dx) + b1);
                 }
             }
             else
             {
-                b1 = edge1.Bot.X - edge1.Bot.Y * edge1.Dx;
-                b2 = edge2.Bot.X - edge2.Bot.Y * edge2.Dx;
+                b1 = edge1.Bot.X - (edge1.Bot.Y * edge1.Dx);
+                b2 = edge2.Bot.X - (edge2.Bot.Y * edge2.Dx);
                 var q = (b2 - b1) / (edge1.Dx - edge2.Dx);
                 ip.Y = Round(q);
                 if (Abs(edge1.Dx) < Abs(edge2.Dx))
                 {
-                    ip.X = Round(edge1.Dx * q + b1);
+                    ip.X = Round((edge1.Dx * q) + b1);
                 }
                 else
                 {
-                    ip.X = Round(edge2.Dx * q + b2);
+                    ip.X = Round((edge2.Dx * q) + b2);
                 }
             }
             return ip;

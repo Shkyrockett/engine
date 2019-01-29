@@ -29,7 +29,7 @@ namespace MethodSpeedTester
         /// <summary>
         /// List of tests to run.
         /// </summary>
-        private List<SpeedTester> tests = new List<SpeedTester>();
+        private readonly List<SpeedTester> tests = new List<SpeedTester>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FormSpeedTester"/> class.

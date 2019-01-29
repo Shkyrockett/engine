@@ -93,7 +93,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Wrap(this double value, double min, double max)
-            => (value < min) ? max - (min - value) % (max - min) : min + (value - min) % (max - min);
+            => (value < min) ? max - ((min - value) % (max - min)) : min + ((value - min) % (max - min));
         #endregion Wrapping
 
         #region Negate
@@ -755,10 +755,10 @@ namespace Engine
             double leftM1x0, double leftM1x1,
             double rightM0x0, double rightM0x1,
             double rightM1x0, double rightM1x1)
-            => (leftM0x0 * rightM0x0 + leftM0x1 * rightM1x0,
-            leftM0x0 * rightM0x1 + leftM0x1 * rightM1x1,
-            leftM1x0 * rightM0x0 + leftM1x1 * rightM1x0,
-            leftM1x0 * rightM0x1 + leftM1x1 * rightM1x1);
+            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0),
+            (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1),
+            (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0),
+            (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1));
 
         /// <summary>
         /// Used to multiply a Matrix3x3 object by a scalar value.
@@ -816,14 +816,14 @@ namespace Engine
             double leftM2x0, double leftM2x1, double leftM2x2,
             double rightM0x0, double rightM0x1,
             double rightM1x0, double rightM1x1)
-            => (leftM0x0 * rightM0x0 + leftM0x1 * rightM1x0,
-                leftM0x0 * rightM0x1 + leftM0x1 * rightM1x1,
+            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0),
+                (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1),
                 leftM0x2,
-                leftM1x0 * rightM0x0 + leftM1x1 * rightM1x0,
-                leftM1x0 * rightM0x1 + leftM1x1 * rightM1x1,
+                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0),
+                (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1),
                 leftM1x2,
-                leftM2x0 * rightM0x0 + leftM2x1 * rightM1x0,
-                leftM2x0 * rightM0x1 + leftM2x1 * rightM1x1,
+                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0),
+                (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1),
                 leftM2x2);
 
         /// <summary>
@@ -851,12 +851,12 @@ namespace Engine
             double rightM0x0, double rightM0x1, double rightM0x2,
             double rightM1x0, double rightM1x1, double rightM1x2,
             double rightM2x0, double rightM2x1, double rightM2x2)
-            => (leftM0x0 * rightM0x0 + leftM0x1 * rightM1x0,
-                leftM0x0 * rightM0x1 + leftM0x1 * rightM1x1,
-                leftM0x0 * rightM0x2 + leftM0x1 * rightM1x2,
-                leftM1x0 * rightM0x0 + leftM1x1 * rightM1x0,
-                leftM1x0 * rightM0x1 + leftM1x1 * rightM1x1,
-                leftM1x0 * rightM0x2 + leftM1x1 * rightM1x2,
+            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0),
+                (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1),
+                (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2),
+                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0),
+                (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1),
+                (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2),
                 rightM2x0,
                 rightM2x1,
                 rightM2x2);
@@ -892,15 +892,15 @@ namespace Engine
             double rightM0x0, double rightM0x1, double rightM0x2,
             double rightM1x0, double rightM1x1, double rightM1x2,
             double rightM2x0, double rightM2x1, double rightM2x2)
-            => (leftM0x0 * rightM0x0 + leftM0x1 * rightM1x0 + leftM0x2 * rightM2x0,
-                leftM0x0 * rightM0x1 + leftM0x1 * rightM1x1 + leftM0x2 * rightM2x1,
-                leftM0x0 * rightM0x2 + leftM0x1 * rightM1x2 + leftM0x2 * rightM2x2,
-                leftM1x0 * rightM0x0 + leftM1x1 * rightM1x0 + leftM1x2 * rightM2x0,
-                leftM1x0 * rightM0x1 + leftM1x1 * rightM1x1 + leftM1x2 * rightM2x1,
-                leftM1x0 * rightM0x2 + leftM1x1 * rightM1x2 + leftM1x2 * rightM2x2,
-                leftM2x0 * rightM0x0 + leftM2x1 * rightM1x0 + leftM2x2 * rightM2x0,
-                leftM2x0 * rightM0x1 + leftM2x1 * rightM1x1 + leftM2x2 * rightM2x1,
-                leftM2x0 * rightM0x2 + leftM2x1 * rightM1x2 + leftM2x2 * rightM2x2);
+            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0) + (leftM0x2 * rightM2x0),
+                (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1) + (leftM0x2 * rightM2x1),
+                (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2) + (leftM0x2 * rightM2x2),
+                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0) + (leftM1x2 * rightM2x0),
+                (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1) + (leftM1x2 * rightM2x1),
+                (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2) + (leftM1x2 * rightM2x2),
+                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0) + (leftM2x2 * rightM2x0),
+                (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1) + (leftM2x2 * rightM2x1),
+                (leftM2x0 * rightM0x2) + (leftM2x1 * rightM1x2) + (leftM2x2 * rightM2x2));
 
         /// <summary>
         /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
@@ -981,14 +981,14 @@ namespace Engine
             double rightM1x0, double rightM1x1, double rightM1x2, double rightM1x3,
             double rightM2x0, double rightM2x1, double rightM2x2, double rightM2x3,
             double rightM3x0, double rightM3x1, double rightM3x2, double rightM3x3)
-            => (leftM0x0 * rightM0x0 + leftM0x1 * rightM1x0,
-                leftM0x0 * rightM0x1 + leftM0x1 * rightM1x1,
-                leftM0x0 * rightM0x2 + leftM0x1 * rightM1x2,
-                leftM0x0 * rightM0x3 + leftM0x1 * rightM1x3,
-                leftM1x0 * rightM0x0 + leftM1x1 * rightM1x0,
-                leftM1x0 * rightM0x1 + leftM1x1 * rightM1x1,
-                leftM1x0 * rightM0x2 + leftM1x1 * rightM1x2,
-                leftM1x0 * rightM0x3 + leftM1x1 * rightM1x3,
+            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0),
+                (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1),
+                (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2),
+                (leftM0x0 * rightM0x3) + (leftM0x1 * rightM1x3),
+                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0),
+                (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1),
+                (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2),
+                (leftM1x0 * rightM0x3) + (leftM1x1 * rightM1x3),
                 rightM2x0,
                 rightM2x1,
                 rightM2x2,
@@ -1037,18 +1037,18 @@ namespace Engine
             double rightM1x0, double rightM1x1, double rightM1x2, double rightM1x3,
             double rightM2x0, double rightM2x1, double rightM2x2, double rightM2x3,
             double rightM3x0, double rightM3x1, double rightM3x2, double rightM3x3)
-            => (leftM0x0 * rightM0x0 + leftM0x1 * rightM1x0 + leftM0x2 * rightM2x0,
-                leftM0x0 * rightM0x1 + leftM0x1 * rightM1x1 + leftM0x2 * rightM2x1,
-                leftM0x0 * rightM0x2 + leftM0x1 * rightM1x2 + leftM0x2 * rightM2x2,
-                leftM0x0 * rightM0x3 + leftM0x1 * rightM1x3 + leftM0x2 * rightM2x3,
-                leftM1x0 * rightM0x0 + leftM1x1 * rightM1x0 + leftM1x2 * rightM2x0,
-                leftM1x0 * rightM0x1 + leftM1x1 * rightM1x1 + leftM1x2 * rightM2x1,
-                leftM1x0 * rightM0x2 + leftM1x1 * rightM1x2 + leftM1x2 * rightM2x2,
-                leftM1x0 * rightM0x3 + leftM1x1 * rightM1x3 + leftM1x2 * rightM2x3,
-                leftM2x0 * rightM0x0 + leftM2x1 * rightM1x0 + leftM2x2 * rightM2x0,
-                leftM2x0 * rightM0x1 + leftM2x1 * rightM1x1 + leftM2x2 * rightM2x1,
-                leftM2x0 * rightM0x2 + leftM2x1 * rightM1x2 + leftM2x2 * rightM2x2,
-                leftM2x0 * rightM0x3 + leftM2x1 * rightM1x3 + leftM2x2 * rightM2x3,
+            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0) + (leftM0x2 * rightM2x0),
+                (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1) + (leftM0x2 * rightM2x1),
+                (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2) + (leftM0x2 * rightM2x2),
+                (leftM0x0 * rightM0x3) + (leftM0x1 * rightM1x3) + (leftM0x2 * rightM2x3),
+                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0) + (leftM1x2 * rightM2x0),
+                (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1) + (leftM1x2 * rightM2x1),
+                (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2) + (leftM1x2 * rightM2x2),
+                (leftM1x0 * rightM0x3) + (leftM1x1 * rightM1x3) + (leftM1x2 * rightM2x3),
+                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0) + (leftM2x2 * rightM2x0),
+                (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1) + (leftM2x2 * rightM2x1),
+                (leftM2x0 * rightM0x2) + (leftM2x1 * rightM1x2) + (leftM2x2 * rightM2x2),
+                (leftM2x0 * rightM0x3) + (leftM2x1 * rightM1x3) + (leftM2x2 * rightM2x3),
                 rightM3x0,
                 rightM3x1,
                 rightM3x2,
@@ -1087,20 +1087,20 @@ namespace Engine
             double leftM3x0, double leftM3x1, double leftM3x2, double leftM3x3,
             double rightM0x0, double rightM0x1,
             double rightM1x0, double rightM1x1)
-            => (leftM0x0 * rightM0x0 + leftM0x1 * rightM1x0,
-                leftM0x0 * rightM0x1 + leftM0x1 * rightM1x1,
+            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0),
+                (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1),
                 leftM0x2,
                 leftM0x3,
-                leftM1x0 * rightM0x0 + leftM1x1 * rightM1x0,
-                leftM1x0 * rightM0x1 + leftM1x1 * rightM1x1,
+                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0),
+                (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1),
                 leftM1x2,
                 leftM1x3,
-                leftM2x0 * rightM0x0 + leftM2x1 * rightM1x0,
-                leftM2x0 * rightM0x1 + leftM2x1 * rightM1x1,
+                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0),
+                (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1),
                 leftM2x2,
                 leftM2x3,
-                leftM3x0 * rightM0x0 + leftM3x1 * rightM1x0,
-                leftM3x0 * rightM0x1 + leftM3x1 * rightM1x1,
+                (leftM3x0 * rightM0x0) + (leftM3x1 * rightM1x0),
+                (leftM3x0 * rightM0x1) + (leftM3x1 * rightM1x1),
                 leftM3x2,
                 leftM3x3);
 
@@ -1144,21 +1144,21 @@ namespace Engine
             double rightM1x0, double rightM1x1, double rightM1x2,
             double rightM2x0, double rightM2x1, double rightM2x2)
             => (
-                leftM0x0 * rightM0x0 + leftM0x1 * rightM1x0 + leftM0x2 * rightM2x0,
-                leftM0x0 * rightM0x1 + leftM0x1 * rightM1x1 + leftM0x2 * rightM2x1,
-                leftM0x0 * rightM0x2 + leftM0x1 * rightM1x2 + leftM0x2 * rightM2x2,
+                (leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0) + (leftM0x2 * rightM2x0),
+                (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1) + (leftM0x2 * rightM2x1),
+                (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2) + (leftM0x2 * rightM2x2),
                 leftM0x3,
-                leftM1x0 * rightM0x0 + leftM1x1 * rightM1x0 + leftM1x2 * rightM2x0,
-                leftM1x0 * rightM0x1 + leftM1x1 * rightM1x1 + leftM1x2 * rightM2x1,
-                leftM1x0 * rightM0x2 + leftM1x1 * rightM1x2 + leftM1x2 * rightM2x2,
+                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0) + (leftM1x2 * rightM2x0),
+                (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1) + (leftM1x2 * rightM2x1),
+                (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2) + (leftM1x2 * rightM2x2),
                 leftM1x3,
-                leftM2x0 * rightM0x0 + leftM2x1 * rightM1x0 + leftM2x2 * rightM2x0,
-                leftM2x0 * rightM0x1 + leftM2x1 * rightM1x1 + leftM2x2 * rightM2x1,
-                leftM2x0 * rightM0x2 + leftM2x1 * rightM1x2 + leftM2x2 * rightM2x2,
+                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0) + (leftM2x2 * rightM2x0),
+                (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1) + (leftM2x2 * rightM2x1),
+                (leftM2x0 * rightM0x2) + (leftM2x1 * rightM1x2) + (leftM2x2 * rightM2x2),
                 leftM2x3,
-                leftM3x0 * rightM0x0 + leftM3x1 * rightM1x0 + leftM3x2 * rightM2x0,
-                leftM3x0 * rightM0x1 + leftM3x1 * rightM1x1 + leftM3x2 * rightM2x1,
-                leftM3x0 * rightM0x2 + leftM3x1 * rightM1x2 + leftM3x2 * rightM2x2,
+                (leftM3x0 * rightM0x0) + (leftM3x1 * rightM1x0) + (leftM3x2 * rightM2x0),
+                (leftM3x0 * rightM0x1) + (leftM3x1 * rightM1x1) + (leftM3x2 * rightM2x1),
+                (leftM3x0 * rightM0x2) + (leftM3x1 * rightM1x2) + (leftM3x2 * rightM2x2),
                 leftM3x3
             );
 
@@ -1209,22 +1209,22 @@ namespace Engine
             double rightM1x0, double rightM1x1, double rightM1x2, double rightM1x3,
             double rightM2x0, double rightM2x1, double rightM2x2, double rightM2x3,
             double rightM3x0, double rightM3x1, double rightM3x2, double rightM3x3)
-            => (leftM0x0 * rightM0x0 + leftM0x1 * rightM1x0 + leftM0x2 * rightM2x0 + leftM0x3 * rightM3x0,
-                leftM0x0 * rightM0x1 + leftM0x1 * rightM1x1 + leftM0x2 * rightM2x1 + leftM0x3 * rightM3x1,
-                leftM0x0 * rightM0x2 + leftM0x1 * rightM1x2 + leftM0x2 * rightM2x2 + leftM0x3 * rightM3x2,
-                leftM0x0 * rightM0x3 + leftM0x1 * rightM1x3 + leftM0x2 * rightM2x3 + leftM0x3 * rightM3x3,
-                leftM1x0 * rightM0x0 + leftM1x1 * rightM1x0 + leftM1x2 * rightM2x0 + leftM1x3 * rightM3x0,
-                leftM1x0 * rightM0x1 + leftM1x1 * rightM1x1 + leftM1x2 * rightM2x1 + leftM1x3 * rightM3x1,
-                leftM1x0 * rightM0x2 + leftM1x1 * rightM1x2 + leftM1x2 * rightM2x2 + leftM1x3 * rightM3x2,
-                leftM1x0 * rightM0x3 + leftM1x1 * rightM1x3 + leftM1x2 * rightM2x3 + leftM1x3 * rightM3x3,
-                leftM2x0 * rightM0x0 + leftM2x1 * rightM1x0 + leftM2x2 * rightM2x0 + leftM2x3 * rightM3x0,
-                leftM2x0 * rightM0x1 + leftM2x1 * rightM1x1 + leftM2x2 * rightM2x1 + leftM2x3 * rightM3x1,
-                leftM2x0 * rightM0x2 + leftM2x1 * rightM1x2 + leftM2x2 * rightM2x2 + leftM2x3 * rightM3x2,
-                leftM2x0 * rightM0x3 + leftM2x1 * rightM1x3 + leftM2x2 * rightM2x3 + leftM2x3 * rightM3x3,
-                leftM3x0 * rightM0x0 + leftM3x1 * rightM1x0 + leftM3x2 * rightM2x0 + leftM3x3 * rightM3x0,
-                leftM3x0 * rightM0x1 + leftM3x1 * rightM1x1 + leftM3x2 * rightM2x1 + leftM3x3 * rightM3x1,
-                leftM3x0 * rightM0x2 + leftM3x1 * rightM1x2 + leftM3x2 * rightM2x2 + leftM3x3 * rightM3x2,
-                leftM3x0 * rightM0x3 + leftM3x1 * rightM1x3 + leftM3x2 * rightM2x3 + leftM3x3 * rightM3x3);
+            => ((leftM0x0 * rightM0x0) + (leftM0x1 * rightM1x0) + (leftM0x2 * rightM2x0) + (leftM0x3 * rightM3x0),
+                (leftM0x0 * rightM0x1) + (leftM0x1 * rightM1x1) + (leftM0x2 * rightM2x1) + (leftM0x3 * rightM3x1),
+                (leftM0x0 * rightM0x2) + (leftM0x1 * rightM1x2) + (leftM0x2 * rightM2x2) + (leftM0x3 * rightM3x2),
+                (leftM0x0 * rightM0x3) + (leftM0x1 * rightM1x3) + (leftM0x2 * rightM2x3) + (leftM0x3 * rightM3x3),
+                (leftM1x0 * rightM0x0) + (leftM1x1 * rightM1x0) + (leftM1x2 * rightM2x0) + (leftM1x3 * rightM3x0),
+                (leftM1x0 * rightM0x1) + (leftM1x1 * rightM1x1) + (leftM1x2 * rightM2x1) + (leftM1x3 * rightM3x1),
+                (leftM1x0 * rightM0x2) + (leftM1x1 * rightM1x2) + (leftM1x2 * rightM2x2) + (leftM1x3 * rightM3x2),
+                (leftM1x0 * rightM0x3) + (leftM1x1 * rightM1x3) + (leftM1x2 * rightM2x3) + (leftM1x3 * rightM3x3),
+                (leftM2x0 * rightM0x0) + (leftM2x1 * rightM1x0) + (leftM2x2 * rightM2x0) + (leftM2x3 * rightM3x0),
+                (leftM2x0 * rightM0x1) + (leftM2x1 * rightM1x1) + (leftM2x2 * rightM2x1) + (leftM2x3 * rightM3x1),
+                (leftM2x0 * rightM0x2) + (leftM2x1 * rightM1x2) + (leftM2x2 * rightM2x2) + (leftM2x3 * rightM3x2),
+                (leftM2x0 * rightM0x3) + (leftM2x1 * rightM1x3) + (leftM2x2 * rightM2x3) + (leftM2x3 * rightM3x3),
+                (leftM3x0 * rightM0x0) + (leftM3x1 * rightM1x0) + (leftM3x2 * rightM2x0) + (leftM3x3 * rightM3x0),
+                (leftM3x0 * rightM0x1) + (leftM3x1 * rightM1x1) + (leftM3x2 * rightM2x1) + (leftM3x3 * rightM3x1),
+                (leftM3x0 * rightM0x2) + (leftM3x1 * rightM1x2) + (leftM3x2 * rightM2x2) + (leftM3x3 * rightM3x2),
+                (leftM3x0 * rightM0x3) + (leftM3x1 * rightM1x3) + (leftM3x2 * rightM2x3) + (leftM3x3 * rightM3x3));
         #endregion Multiplication
 
         #region Division

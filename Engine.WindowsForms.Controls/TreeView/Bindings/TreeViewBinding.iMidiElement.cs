@@ -52,17 +52,17 @@ namespace Engine
         /// <summary>
         /// The get data item func.
         /// </summary>
-        private Func<object, iMidiElement> getDataItemFunc;
+        private readonly Func<object, iMidiElement> getDataItemFunc;
 
         /// <summary>
         /// The add tree node func.
         /// </summary>
-        private Func<iMidiElement, TreeNode> addTreeNodeFunc;
+        private readonly Func<iMidiElement, TreeNode> addTreeNodeFunc;
 
         /// <summary>
         /// The update tree node action.
         /// </summary>
-        private Action<iMidiElement, TreeNode> updateTreeNodeAction;
+        private readonly Action<iMidiElement, TreeNode> updateTreeNodeAction;
 
         /// <summary>
         /// The current add item.
@@ -72,7 +72,7 @@ namespace Engine
         /// <summary>
         /// The parent tree node.
         /// </summary>
-        private TreeNode parentTreeNode;
+        private readonly TreeNode parentTreeNode;
         #endregion Fields
 
         #region Constructors

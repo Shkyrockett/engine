@@ -710,15 +710,15 @@ namespace Engine
                 {
                     case PointSegment t when t.Previous is null:
                         // ToDo: Figure out how to separate M from Z.
-                        output.Append(t.Relitive ? $"m{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} " : $"M{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"m{t.Start.Value.X.ToString(format, provider)}{sep}{t.Start.Value.Y.ToString(format, provider)} " : $"M{t.Start.Value.X.ToString(format, provider)}{sep}{t.Start.Value.Y.ToString(format, provider)} ");
                         break;
                     case PointSegment t:
-                        output.Append(t.Relitive ? $"z{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} " : $"Z{t.Start.Value.X.ToString(format, provider)},{t.Start.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"z{t.Start.Value.X.ToString(format, provider)}{sep}{t.Start.Value.Y.ToString(format, provider)} " : $"Z{t.Start.Value.X.ToString(format, provider)}{sep}{t.Start.Value.Y.ToString(format, provider)} ");
                         break;
                     case LineCurveSegment t:
                         // L is a general line.
                         var l = t.Relitive ? 'l' : 'L';
-                        var coords = $"{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)}";
+                        var coords = $"{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)}";
                         if (t.Start.Value.X == t.End.Value.X)
                         {
                             // H is a horizontal line, so the x-coordinate can be omitted.
@@ -735,17 +735,17 @@ namespace Engine
                         break;
                     case CubicBezierSegment t:
                         // ToDo: Figure out how to tell if a point can be omitted for the smooth version.
-                        output.Append(t.Relitive ? $"c{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)},{t.Handle2.Value.X.ToString(format, provider)},{t.Handle2.Value.Y.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"C{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)},{t.Handle2.Value.X.ToString(format, provider)},{t.Handle2.Value.Y.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"c{t.Handle1.X.ToString(format, provider)}{sep}{t.Handle1.Y.ToString(format, provider)}{sep}{t.Handle2.Value.X.ToString(format, provider)}{sep}{t.Handle2.Value.Y.ToString(format, provider)}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} " : $"C{t.Handle1.X.ToString(format, provider)},{t.Handle1.Y.ToString(format, provider)}v{t.Handle2.Value.X.ToString(format, provider)}{sep}{t.Handle2.Value.Y.ToString(format, provider)}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} ");
                         break;
                     case QuadraticBezierSegment t:
                         // ToDo: Figure out how to tell if a point can be omitted for the smooth version.
-                        output.Append(t.Relitive ? $"q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"Q{t.Handle.Value.X.ToString(format, provider)},{t.Handle.Value.X.ToString(format, provider)},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"q{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Handle.Value.X.ToString(format, provider)}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} " : $"Q{t.Handle.Value.X.ToString(format, provider)}{sep}{t.Handle.Value.X.ToString(format, provider)}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} ");
                         break;
                     case ArcSegment t:
                         // Arc definition.
                         var largearc = t.LargeArc ? 1 : 0;
                         var sweep = t.Sweep ? 1 : 0;
-                        output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)},{t.RY.ToString(format, provider)},{t.Angle.ToString(format, provider)},{largearc},{sweep},{t.End.Value.X.ToString(format, provider)},{t.End.Value.Y.ToString(format, provider)} ");
+                        output.Append(t.Relitive ? $"a{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} " : $"A{t.RX.ToString(format, provider)}{sep}{t.RY.ToString(format, provider)}{sep}{t.Angle.ToString(format, provider)}{sep}{largearc}{sep}{sweep}{sep}{t.End.Value.X.ToString(format, provider)}{sep}{t.End.Value.Y.ToString(format, provider)} ");
                         break;
                     default:
                         break;

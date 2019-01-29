@@ -69,7 +69,7 @@ namespace Engine
         {
             Previous = previous;
             previous.Next = this;
-            Handle = handle ?? (Point2D)(2 * previous.End - previous.NextToEnd);
+            Handle = handle ?? (Point2D)((2 * previous.End) - previous.NextToEnd);
             End = end;
         }
         #endregion Constructors

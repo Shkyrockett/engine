@@ -153,7 +153,7 @@ namespace Engine.Experimental
             double z = 0.5, sum = 0, len = Tvalues.Length, t;
             for (var i = 0; i < len; i++)
             {
-                t = z * Tvalues[i] + z;
+                t = (z * Tvalues[i]) + z;
                 sum += Cvalues[i] * Arcfn(t, derivativeFn);
             }
 
@@ -175,7 +175,7 @@ namespace Engine.Experimental
             double z = 0.5, sum = 0, len = Tvalues.Length, t;
             for (var i = 0; i < len; i++)
             {
-                t = z * Tvalues[i] + z;
+                t = (z * Tvalues[i]) + z;
                 sum += Cvalues[i] * Arcfn(t, derivativeFn);
             }
 
@@ -196,7 +196,7 @@ namespace Engine.Experimental
         public static double Arcfn(double t, DerivitiveMethod2D derivativeFn)
         {
             var d = derivativeFn(t);
-            var l = d.X * d.X + d.Y * d.Y;
+            var l = (d.X * d.X) + (d.Y * d.Y);
             return Sqrt(l);
         }
 
@@ -214,7 +214,7 @@ namespace Engine.Experimental
         public static double Arcfn(double t, DerivitiveMethod3D derivativeFn)
         {
             var d = derivativeFn(t);
-            var l = d.X * d.X + d.Y * d.Y + d.Z * d.Z;
+            var l = (d.X * d.X) + (d.Y * d.Y) + (d.Z * d.Z);
             return Sqrt(l);
         }
 
@@ -240,8 +240,8 @@ namespace Engine.Experimental
             foreach (Point2D point in points)
             {
                 results.Add(new Point2D(
-                    (point.X - line.P1.X) * cosA - (point.Y - line.P1.Y) * sinA,
-                    (point.X - line.P1.X) * sinA + (point.Y - line.P1.Y) * cosA)
+                    ((point.X - line.P1.X) * cosA) - ((point.Y - line.P1.Y) * sinA),
+                    ((point.X - line.P1.X) * sinA) + ((point.Y - line.P1.Y) * cosA))
                     );
             }
 
@@ -270,8 +270,8 @@ namespace Engine.Experimental
             foreach (Point3D point in points)
             {
                 results.Add(new Point3D(
-                    (point.X - line.P1.X) * cosA - (point.Y - line.P1.Y) * sinA,
-                    (point.X - line.P1.X) * sinA + (point.Y - line.P1.Y) * cosA,
+                    ((point.X - line.P1.X) * cosA) - ((point.Y - line.P1.Y) * sinA),
+                    ((point.X - line.P1.X) * sinA) + ((point.Y - line.P1.Y) * cosA),
                     0)
                     );
             }
@@ -298,17 +298,17 @@ namespace Engine.Experimental
             var dx2 = v2.X - o.X;
             var dy2 = v2.Y - o.Y;
 
-            var cross = dx1 * dy2 - dy1 * dx2;
+            var cross = (dx1 * dy2) - (dy1 * dx2);
 
-            var m1 = Sqrt(dx1 * dx1 + dy1 * dy1);
-            var m2 = Sqrt(dx2 * dx2 + dy2 * dy2);
+            var m1 = Sqrt((dx1 * dx1) + (dy1 * dy1));
+            var m2 = Sqrt((dx2 * dx2) + (dy2 * dy2));
 
             dx1 /= m1;
             dy1 /= m1;
             dx2 /= m2;
             dy2 /= m2;
 
-            var dot = dx1 * dx2 + dy1 * dy2;
+            var dot = (dx1 * dx2) + (dy1 * dy2);
 
             return Atan2(cross, dot);
         }
@@ -332,17 +332,17 @@ namespace Engine.Experimental
             var dx2 = v2.X - o.X;
             var dy2 = v2.Y - o.Y;
 
-            var cross = dx1 * dy2 - dy1 * dx2;
+            var cross = (dx1 * dy2) - (dy1 * dx2);
 
-            var m1 = Sqrt(dx1 * dx1 + dy1 * dy1);
-            var m2 = Sqrt(dx2 * dx2 + dy2 * dy2);
+            var m1 = Sqrt((dx1 * dx1) + (dy1 * dy1));
+            var m2 = Sqrt((dx2 * dx2) + (dy2 * dy2));
 
             dx1 /= m1;
             dy1 /= m1;
             dx2 /= m2;
             dy2 /= m2;
 
-            var dot = dx1 * dx2 + dy1 * dy2;
+            var dot = (dx1 * dx2) + (dy1 * dy2);
 
             return Atan2(cross, dot);
         }
@@ -432,13 +432,13 @@ namespace Engine.Experimental
             var u = ProjectionRatio(t, n);
             var um = 1 - u;
             var C = new Point2D(
-                x: u * S.X + um * E.X,
-                y: u * S.Y + um * E.Y
+                x: (u * S.X) + (um * E.X),
+                y: (u * S.Y) + (um * E.Y)
             );
             var s = AbcRatio(t, n);
             var A = new Point2D(
-                x: B.X + (B.X - C.X) / s,
-                y: B.Y + (B.Y - C.Y) / s
+                x: B.X + ((B.X - C.X) / s),
+                y: B.Y + ((B.Y - C.Y) / s)
             );
             return (A, B, C);
         }
@@ -462,15 +462,15 @@ namespace Engine.Experimental
             var u = ProjectionRatio(t, n);
             var um = 1 - u;
             var C = new Point3D(
-                x: u * S.X + um * E.X,
-                y: u * S.Y + um * E.Y,
-                z: u * S.Z + um * E.Z
+                x: (u * S.X) + (um * E.X),
+                y: (u * S.Y) + (um * E.Y),
+                z: (u * S.Z) + (um * E.Z)
             );
             var s = AbcRatio(t, n);
             var A = new Point3D(
-                x: B.X + (B.X - C.X) / s,
-                y: B.Y + (B.Y - C.Y) / s,
-                z: B.Z + (B.Z - C.Z) / s
+                x: B.X + ((B.X - C.X) / s),
+                y: B.Y + ((B.Y - C.Y) / s),
+                z: B.Z + ((B.Z - C.Z) / s)
             );
             return (A, B, C);
         }
@@ -569,10 +569,10 @@ namespace Engine.Experimental
             var dy1 = p2.Y - p1.Y;
             var dx2 = p3.X - p2.X;
             var dy2 = p3.Y - p2.Y;
-            var dx1p = dx1 * Cos(Quart) - dy1 * Sin(Quart);
-            var dy1p = dx1 * Sin(Quart) + dy1 * Cos(Quart);
-            var dx2p = dx2 * Cos(Quart) - dy2 * Sin(Quart);
-            var dy2p = dx2 * Sin(Quart) + dy2 * Cos(Quart);
+            var dx1p = (dx1 * Cos(Quart)) - (dy1 * Sin(Quart));
+            var dy1p = (dx1 * Sin(Quart)) + (dy1 * Cos(Quart));
+            var dx2p = (dx2 * Cos(Quart)) - (dy2 * Sin(Quart));
+            var dy2p = (dx2 * Sin(Quart)) + (dy2 * Cos(Quart));
             // chord midpoints
             var mx1 = (p1.X + p2.X) * 0.5d;
             var my1 = (p1.Y + p2.Y) * 0.5d;
@@ -644,10 +644,10 @@ namespace Engine.Experimental
             var dy1 = p2.Y - p1.Y;
             var dx2 = p3.X - p2.X;
             var dy2 = p3.Y - p2.Y;
-            var dx1p = dx1 * Cos(Quart) - dy1 * Sin(Quart);
-            var dy1p = dx1 * Sin(Quart) + dy1 * Cos(Quart);
-            var dx2p = dx2 * Cos(Quart) - dy2 * Sin(Quart);
-            var dy2p = dx2 * Sin(Quart) + dy2 * Cos(Quart);
+            var dx1p = (dx1 * Cos(Quart)) - (dy1 * Sin(Quart));
+            var dy1p = (dx1 * Sin(Quart)) + (dy1 * Cos(Quart));
+            var dx2p = (dx2 * Cos(Quart)) - (dy2 * Sin(Quart));
+            var dy2p = (dx2 * Sin(Quart)) + (dy2 * Cos(Quart));
             // chord midpoints
             var mx1 = (p1.X + p2.X) * 0.5d;
             var my1 = (p1.Y + p2.Y) * 0.5d;
@@ -718,8 +718,8 @@ namespace Engine.Experimental
             var b = p[3].X * p[1].Y;
             var c = p[1].X * p[2].Y;
             var d = p[3].X * p[2].Y;
-            var v1 = 18 * (-3 * a + 2 * b + 3 * c - d);
-            var v2 = 18 * (3 * a - b - 3 * c);
+            var v1 = 18 * ((-3 * a) + (2 * b) + (3 * c) - d);
+            var v2 = 18 * ((3 * a) - b - (3 * c));
             var v3 = 18 * (c - a);
 
             if (Approximately(v1, 0))
@@ -727,7 +727,7 @@ namespace Engine.Experimental
                 return new List<double>();
             }
 
-            var descriminant = v2 * v2 - 4 * v1 * v3;
+            var descriminant = (v2 * v2) - (4 * v1 * v3);
             var sq = Sqrt(descriminant);
             d = 2 * v1;
 
@@ -757,8 +757,8 @@ namespace Engine.Experimental
             var b = p[3].X * p[1].Y;
             var c = p[1].X * p[2].Y;
             var d = p[3].X * p[2].Y;
-            var v1 = 18 * (-3 * a + 2 * b + 3 * c - d);
-            var v2 = 18 * (3 * a - b - 3 * c);
+            var v1 = 18 * ((-3 * a) + (2 * b) + (3 * c) - d);
+            var v2 = 18 * ((3 * a) - b - (3 * c));
             var v3 = 18 * (c - a);
 
             if (Approximately(v1, 0))
@@ -766,7 +766,7 @@ namespace Engine.Experimental
                 return new List<double>();
             }
 
-            var trm = v2 * v2 - 4 * v1 * v3;
+            var trm = (v2 * v2) - (4 * v1 * v3);
             var sq = Sqrt(trm);
             d = 2 * v1;
 
@@ -852,7 +852,7 @@ namespace Engine.Experimental
         public static double ComputeBezier(double a, double b, double c, double d, double t)
         {
             var ti = 1 - t;
-            return a * ti * ti * ti + 3 * b * ti * ti * t + 3 * c * (1 - t) * t * t + d * t * t * t;
+            return (a * ti * ti * ti) + (3 * b * ti * ti * t) + (3 * c * (1 - t) * t * t) + (d * t * t * t);
         }
 
         /// <summary>
@@ -875,7 +875,7 @@ namespace Engine.Experimental
             a = 3d * (b - a);
             b = 3d * (c - b);
             c = 3d * (d - c);
-            return a * ti * ti + 2d * b * ti * t + 3d * c * t * t;
+            return (a * ti * ti) + (2d * b * ti * t) + (3d * c * t * t);
         }
 
         /// <summary>
@@ -898,7 +898,7 @@ namespace Engine.Experimental
             var f1 = alen / tlen;
             var f2 = (alen + slen) / tlen;
             var d = e - s;
-            return Map(v, 0, 1, s + f1 * d, s + f2 * d);
+            return Map(v, 0, 1, s + (f1 * d), s + (f2 * d));
         }
 
         /// <summary>
@@ -982,9 +982,9 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D? Lli8(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
         {
-            var nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
-            var ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
-            var d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+            var nx = (((x1 * y2) - (y1 * x2)) * (x3 - x4)) - ((x1 - x2) * ((x3 * y4) - (y3 * x4)));
+            var ny = (((x1 * y2) - (y1 * x2)) * (y3 - y4)) - ((y1 - y2) * ((x3 * y4) - (y3 * x4)));
+            var d = ((x1 - x2) * (y3 - y4)) - ((y1 - y2) * (x3 - x4));
             return d == 0 ? null : (Point2D?)new Point2D(nx / d, ny / d);
         }
 
@@ -1011,9 +1011,9 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D? Lli8(double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3, double x4, double y4, double z4)
         {
-            var nx = (x1 * y2 - y1 * x2) * (x3 - x4) - (x1 - x2) * (x3 * y4 - y3 * x4);
-            var ny = (x1 * y2 - y1 * x2) * (y3 - y4) - (y1 - y2) * (x3 * y4 - y3 * x4);
-            var d = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
+            var nx = (((x1 * y2) - (y1 * x2)) * (x3 - x4)) - ((x1 - x2) * ((x3 * y4) - (y3 * x4)));
+            var ny = (((x1 * y2) - (y1 * x2)) * (y3 - y4)) - ((y1 - y2) * ((x3 * y4) - (y3 * x4)));
+            var d = ((x1 - x2) * (y3 - y4)) - ((y1 - y2) * (x3 - x4));
             return d == 0 ? null : (Point3D?)new Point3D(nx / d, ny / d, 0);
         }
 
@@ -1037,7 +1037,7 @@ namespace Engine.Experimental
             var d2 = te - ts;
             var v2 = v - ds;
             var r = v2 / d1;
-            return ts + d2 * r;
+            return ts + (d2 * r);
         }
 
         /// <summary>
@@ -1085,7 +1085,7 @@ namespace Engine.Experimental
             var y2 = p2.Y;
             var dx = (x2 - x1) / 3;
             var dy = (y2 - y1) / 3;
-            return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + 2 * dx, y1 + 2 * dy, x2, y2);
+            return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + (2 * dx), y1 + (2 * dy), x2, y2);
         }
 
         /// <summary>
@@ -1107,7 +1107,7 @@ namespace Engine.Experimental
             var y2 = p2.Y;
             var dx = (x2 - x1) / 3;
             var dy = (y2 - y1) / 3;
-            return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + 2 * dx, y1 + 2 * dy, x2, y2);
+            return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + (2 * dx), y1 + (2 * dy), x2, y2);
         }
 
         /// <summary>
@@ -1405,10 +1405,10 @@ namespace Engine.Experimental
                 a = pts[0].Y;
                 b = pts[1].Y;
                 c = pts[2].Y;
-                d = a - 2 * b + c;
+                d = a - (2 * b) + c;
                 if (d != 0)
                 {
-                    m1 = -Sqrt(b * b - a * c);
+                    m1 = -Sqrt((b * b) - (a * c));
                     m2 = -a + b;
                     var v1_ = -(m1 + m2) / d;
                     var v2_ = -(-m1 + m2) / d;
@@ -1422,7 +1422,7 @@ namespace Engine.Experimental
                 else if (b != c && d == 0)
                 {
                     return new List<double>(
-                        from t1 in new List<double> { (2 * b - c) / 2 * (b - c) }
+                        from t1 in new List<double> { ((2 * b) - c) / 2 * (b - c) }
                         where 0 <= t1 && t1 <= 1
                         select t1
                     );
@@ -1435,15 +1435,15 @@ namespace Engine.Experimental
             var pb = pts[1].Y;
             var pc = pts[2].Y;
             var pd = pts[3].Y;
-            d = -pa + 3 * pb - 3 * pc + pd;
-            a = (3 * pa - 6 * pb + 3 * pc) / d;
-            b = (-3 * pa + 3 * pb) / d;
+            d = -pa + (3 * pb) - (3 * pc) + pd;
+            a = ((3 * pa) - (6 * pb) + (3 * pc)) / d;
+            b = ((-3 * pa) + (3 * pb)) / d;
             c = pa / d;
-            var p_ = (3 * b - a * a) / 3;
+            var p_ = ((3 * b) - (a * a)) / 3;
             var p3 = p_ / 3;
-            var q = (2 * a * a * a - 9 * a * b + 27 * c) / 27;
+            var q = ((2 * a * a * a) - (9 * a * b) + (27 * c)) / 27;
             var q2 = q / 2;
-            var discriminant = q2 * q2 + p3 * p3 * p3;
+            var discriminant = (q2 * q2) + (p3 * p3 * p3);
             double u1, v1, x1, x2, x3;
             if (discriminant < 0)
             {
@@ -1455,9 +1455,9 @@ namespace Engine.Experimental
                 var phi = Acos(cosphi);
                 var crtr = Crt(r);
                 var t1 = 2 * crtr;
-                x1 = t1 * Cos(phi / 3) - a / 3;
-                x2 = t1 * Cos((phi + Tau) / 3) - a / 3;
-                x3 = t1 * Cos((phi + 2 * Tau) / 3) - a / 3;
+                x1 = (t1 * Cos(phi / 3)) - (a / 3);
+                x2 = (t1 * Cos((phi + Tau) / 3)) - (a / 3);
+                x3 = (t1 * Cos((phi + (2 * Tau)) / 3)) - (a / 3);
 
                 return new List<double>(
                     from t2 in new List<double> { x1, x2, x3 }
@@ -1468,8 +1468,8 @@ namespace Engine.Experimental
             else if (discriminant == 0)
             {
                 u1 = q2 < 0 ? Crt(-q2) : -Crt(q2);
-                x1 = 2 * u1 - a / 3;
-                x2 = -u1 - a / 3;
+                x1 = (2 * u1) - (a / 3);
+                x2 = -u1 - (a / 3);
 
                 return new List<double>(
                     from t3 in new List<double> { x1, x2 }
@@ -1484,7 +1484,7 @@ namespace Engine.Experimental
                 v1 = Crt(q2 + sd);
 
                 return new List<double>(
-                    from t4 in new List<double> { u1 - v1 - a / 3 }
+                    from t4 in new List<double> { u1 - v1 - (a / 3) }
                     where 0 <= t4 && t4 <= 1
                     select t4
                 );
@@ -1521,10 +1521,10 @@ namespace Engine.Experimental
                 a = pts[0].Y;
                 b = pts[1].Y;
                 c = pts[2].Y;
-                d = a - 2 * b + c;
+                d = a - (2 * b) + c;
                 if (d != 0)
                 {
-                    m1 = -Sqrt(b * b - a * c);
+                    m1 = -Sqrt((b * b) - (a * c));
                     m2 = -a + b;
                     var v1_ = -(m1 + m2) / d;
                     var v2_ = -(-m1 + m2) / d;
@@ -1538,7 +1538,7 @@ namespace Engine.Experimental
                 else if (b != c && d == 0)
                 {
                     return new List<double>(
-                        from t1 in new List<double> { (2 * b - c) / 2 * (b - c) }
+                        from t1 in new List<double> { ((2 * b) - c) / 2 * (b - c) }
                         where 0 <= t1 && t1 <= 1
                         select t1
                     );
@@ -1551,15 +1551,15 @@ namespace Engine.Experimental
             var pb = pts[1].Y;
             var pc = pts[2].Y;
             var pd = pts[3].Y;
-            d = -pa + 3 * pb - 3 * pc + pd;
-            a = (3 * pa - 6 * pb + 3 * pc) / d;
-            b = (-3 * pa + 3 * pb) / d;
+            d = -pa + (3 * pb) - (3 * pc) + pd;
+            a = ((3 * pa) - (6 * pb) + (3 * pc)) / d;
+            b = ((-3 * pa) + (3 * pb)) / d;
             c = pa / d;
-            var p_ = (3 * b - a * a) / 3;
+            var p_ = ((3 * b) - (a * a)) / 3;
             var p3 = p_ / 3;
-            var q = (2 * a * a * a - 9 * a * b + 27 * c) / 27;
+            var q = ((2 * a * a * a) - (9 * a * b) + (27 * c)) / 27;
             var q2 = q / 2;
-            var discriminant = q2 * q2 + p3 * p3 * p3;
+            var discriminant = (q2 * q2) + (p3 * p3 * p3);
             double u1, v1, x1, x2, x3;
             if (discriminant < 0)
             {
@@ -1571,9 +1571,9 @@ namespace Engine.Experimental
                 var phi = Acos(cosphi);
                 var crtr = Crt(r);
                 var t1 = 2 * crtr;
-                x1 = t1 * Cos(phi / 3) - a / 3;
-                x2 = t1 * Cos((phi + Tau) / 3) - a / 3;
-                x3 = t1 * Cos((phi + 2 * Tau) / 3) - a / 3;
+                x1 = (t1 * Cos(phi / 3)) - (a / 3);
+                x2 = (t1 * Cos((phi + Tau) / 3)) - (a / 3);
+                x3 = (t1 * Cos((phi + (2 * Tau)) / 3)) - (a / 3);
 
                 return new List<double>(
                     from t2 in new List<double> { x1, x2, x3 }
@@ -1584,8 +1584,8 @@ namespace Engine.Experimental
             else if (discriminant == 0)
             {
                 u1 = q2 < 0 ? Crt(-q2) : -Crt(q2);
-                x1 = 2 * u1 - a / 3;
-                x2 = -u1 - a / 3;
+                x1 = (2 * u1) - (a / 3);
+                x2 = -u1 - (a / 3);
 
                 return new List<double>(
                     from t3 in new List<double> { x1, x2 }
@@ -1600,7 +1600,7 @@ namespace Engine.Experimental
                 v1 = Crt(q2 + sd);
 
                 return new List<double>(
-                    from t4 in new List<double> { u1 - v1 - a / 3 }
+                    from t4 in new List<double> { u1 - v1 - (a / 3) }
                     where 0 <= t4 && t4 <= 1
                     select t4
                 );
@@ -1625,10 +1625,10 @@ namespace Engine.Experimental
                 var a = p[0];
                 var b = p[1];
                 var c = p[2];
-                var d = a - 2 * b + c;
+                var d = a - (2 * b) + c;
                 if (d != 0)
                 {
-                    var m1 = -Sqrt(b * b - a * c);
+                    var m1 = -Sqrt((b * b) - (a * c));
                     var m2 = -a + b;
                     var v1 = -(m1 + m2) / d;
                     var v2 = -(-m1 + m2) / d;
@@ -1636,7 +1636,7 @@ namespace Engine.Experimental
                 }
                 else if (b != c && d == 0)
                 {
-                    return new List<double> { (2 * b - c) / (2 * (b - c)) };
+                    return new List<double> { ((2 * b) - c) / (2 * (b - c)) };
                 }
                 return new List<double>();
             }

@@ -24,7 +24,7 @@ namespace Engine
         /// <summary>
         /// The control points.
         /// </summary>
-        private Point2D[] controlPoints;
+        private readonly Point2D[] controlPoints;
 
         /// <summary>
         /// The ro points.
@@ -131,7 +131,7 @@ namespace Engine
             /// <summary>
             /// The values.
             /// </summary>
-            private Point2D[] values;
+            private readonly Point2D[] values;
 
             /// <summary>
             /// Initializes a new instance of the <see cref="ReadonlyPoints"/> class.
@@ -215,7 +215,7 @@ namespace Engine
                 return new Polynomialx(values[from]);
             }
 
-            return OneMinusT * Bezier(from, to - 1, values) + T * Bezier(from + 1, to, values);
+            return (OneMinusT * Bezier(from, to - 1, values)) + (T * Bezier(from + 1, to, values));
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace Engine
         public static Polynomialx Line(double p0, double p1)
         {
             var T = new Polynomialx(0, 1);
-            return (1 - T) * p0 + T * p1;
+            return ((1 - T) * p0) + (T * p1);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace Engine
         public static Polynomialx Quadratic(double p0, double p1, double p2)
         {
             var T = new Polynomialx(0, 1);
-            return (1 - T) * Line(p0, p1) + T * Line(p1, p2);
+            return ((1 - T) * Line(p0, p1)) + (T * Line(p1, p2));
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace Engine
         public static Polynomialx Cubic(double p0, double p1, double p2, double p3)
         {
             var T = new Polynomialx(0, 1);
-            return (1 - T) * Quadratic(p0, p1, p2) + T * Quadratic(p1, p2, p3);
+            return ((1 - T) * Quadratic(p0, p1, p2)) + (T * Quadratic(p1, p2, p3));
         }
         #endregion Basic Static Operations
 
@@ -309,8 +309,8 @@ namespace Engine
                 {
                     var p0 = lp[i];
                     var p1 = lp[i + 1];
-                    var x = p0.X * (1 - t) + t * p1.X;
-                    var y = p0.Y * (1 - t) + t * p1.Y;
+                    var x = (p0.X * (1 - t)) + (t * p1.X);
+                    var y = (p0.Y * (1 - t)) + (t * p1.Y);
                     next.Add(new Point2D(x, y));
                 }
                 lp = next;
@@ -349,7 +349,7 @@ namespace Engine
             var list = new List<BezierFragment>(filtered.Count + 1);
             foreach (var t in filtered)
             {
-                var relT = 1 - (1 - t) / (1 - tLast);
+                var relT = 1 - ((1 - t) / (1 - tLast));
                 tLast = t;
                 var cut = start.Split(relT);
                 list.Add(cut[0]);
@@ -370,7 +370,7 @@ namespace Engine
         {
             var vx = CurveX - p.X;
             var vy = CurveY - p.Y;
-            return vx * vx + vy * vy;
+            return (vx * vx) + (vy * vy);
         }
 
         /// <summary>

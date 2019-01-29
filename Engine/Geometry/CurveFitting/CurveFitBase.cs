@@ -318,9 +318,9 @@ namespace Engine
             }
 
             // determinants of X and C matrices
-            var det_C0_C1 = c00 * c11 - c01 * c01;
-            var det_C0_X = c00 * x1 - c01 * x0;
-            var det_X_C1 = x0 * c11 - x1 * c01;
+            var det_C0_C1 = (c00 * c11) - (c01 * c01);
+            var det_C0_X = (c00 * x1) - (c01 * x0);
+            var det_X_C1 = (x0 * c11) - (x1 * c01);
             var alphaL = det_X_C1 / det_C0_C1;
             var alphaR = det_C0_X / det_C0_C1;
 
@@ -371,7 +371,7 @@ namespace Engine
                 // these are the actual fitting calculations using http://en.wikipedia.org/wiki/Newton%27s_method
                 var num = ((p0.X - p.X) * p1.I) + ((p0.Y - p.Y) * p1.J);
                 var den = (p1.I * p1.I) + (p1.J * p1.J) + ((p0.X - p.X) * p2.I) + ((p0.Y - p.Y) * p2.J);
-                var newU = t - num / den;
+                var newU = t - (num / den);
                 if (Abs(den) > Epsilon && newU >= 0 && newU <= 1)
                 {
                     u[i] = newU;

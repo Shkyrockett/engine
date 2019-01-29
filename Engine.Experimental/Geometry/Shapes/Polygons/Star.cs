@@ -53,7 +53,7 @@ namespace Engine
         /// <param name="skip">The skip.</param>
         /// <param name="rect">The rect.</param>
         /// <returns>The <see cref="T:PointF[]"/>.</returns>
-        private static PointF[] MakeStarPoints(double start_theta, int num_points, int skip, Rectangle rect)
+        public static PointF[] MakeStarPoints(double start_theta, int num_points, int skip, Rectangle rect)
         {
             double theta, dtheta;
             PointF[] result;
@@ -69,8 +69,8 @@ namespace Engine
                 for (var i = 0; i < num_points; i++)
                 {
                     result[i] = new PointF(
-                        (float)(cx + cx * Cos(theta)),
-                        (float)(cy + cy * Sin(theta)));
+                        (float)(cx + (cx * Cos(theta))),
+                        (float)(cy + (cy * Sin(theta))));
                     theta += dtheta;
                 }
                 return result;
@@ -86,12 +86,12 @@ namespace Engine
             for (var i = 0; i < num_points; i++)
             {
                 result[2 * i] = new PointF(
-                    (float)(cx + cx * Cos(theta)),
-                    (float)(cy + cy * Sin(theta)));
+                    (float)(cx + (cx * Cos(theta))),
+                    (float)(cy + (cy * Sin(theta))));
                 theta += dtheta;
-                result[2 * i + 1] = new PointF(
-                    (float)(cx + cx * Cos(theta) * concave_radius),
-                    (float)(cy + cy * Sin(theta) * concave_radius));
+                result[(2 * i) + 1] = new PointF(
+                    (float)(cx + (cx * Cos(theta) * concave_radius)),
+                    (float)(cy + (cy * Sin(theta) * concave_radius)));
                 theta += dtheta;
             }
             return result;
@@ -109,39 +109,29 @@ namespace Engine
             // For really small numbers of points.
             if (num_points < 5)
             {
-                return 0.33f;
+                return 0.33d;
             }
 
             // Calculate angles to key points.
-            var dtheta = 2 * PI / num_points;
-            const double theta00 = -PI / 2;
-            var theta01 = theta00 + dtheta * skip;
+            var dtheta = 2d * PI / num_points;
+            var theta00 = -PI / 2d;
+            var theta01 = theta00 + (dtheta * skip);
             var theta10 = theta00 + dtheta;
-            var theta11 = theta10 - dtheta * skip;
+            var theta11 = theta10 - (dtheta * skip);
 
             // Find the key points.
-            var pt00 = new PointF(
-                (float)Cos(theta00),
-                (float)Sin(theta00));
-            var pt01 = new PointF(
-                (float)Cos(theta01),
-                (float)Sin(theta01));
-            var pt10 = new PointF(
-                (float)Cos(theta10),
-                (float)Sin(theta10));
-            var pt11 = new PointF(
-                (float)Cos(theta11),
-                (float)Sin(theta11));
+            var pt00 = new Point2D((float)Cos(theta00), (float)Sin(theta00));
+            var pt01 = new Point2D((float)Cos(theta01), (float)Sin(theta01));
+            var pt10 = new Point2D((float)Cos(theta10), (float)Sin(theta10));
+            var pt11 = new Point2D((float)Cos(theta11), (float)Sin(theta11));
             // See where the segments connecting the points intersect.
-            FindIntersection(pt00, pt01, pt10, pt11,
-                out var lines_intersect, out var segments_intersect,
-                out var intersection, out var close_p1, out var close_p2);
+            FindIntersection(pt00, pt01, pt10, pt11, out _, out _, out var intersection, out _, out _);
 
             // Calculate the distance between the
             // point of intersection and the center.
             return Sqrt(
-                intersection.X * intersection.X
-                + intersection.Y * intersection.Y);
+                (intersection.X * intersection.X)
+                + (intersection.Y * intersection.Y));
         }
 
         // Find the point of intersection between
@@ -158,9 +148,9 @@ namespace Engine
         /// <param name="intersection">The intersection.</param>
         /// <param name="close_p1">The close_p1.</param>
         /// <param name="close_p2">The close_p2.</param>
-        private static void FindIntersection(PointF p1, PointF p2, PointF p3, PointF p4,
+        private static void FindIntersection(Point2D p1, Point2D p2, Point2D p3, Point2D p4,
             out bool lines_intersect, out bool segments_intersect,
-            out PointF intersection, out PointF close_p1, out PointF close_p2)
+            out Point2D intersection, out Point2D close_p1, out Point2D close_p2)
         {
             // Get the segments' parameters.
             var dx12 = p2.X - p1.X;
@@ -169,54 +159,54 @@ namespace Engine
             var dy34 = p4.Y - p3.Y;
 
             // Solve for t1 and t2
-            var denominator = dy12 * dx34 - dx12 * dy34;
+            var denominator = (dy12 * dx34) - (dx12 * dy34);
 
-            float t1;
+            double t1;
             try
             {
-                t1 = ((p1.X - p3.X) * dy34 + (p3.Y - p1.Y) * dx34) / denominator;
+                t1 = (((p1.X - p3.X) * dy34) + ((p3.Y - p1.Y) * dx34)) / denominator;
             }
             catch
             {
                 // The lines are parallel (or close enough to it).
                 lines_intersect = false;
                 segments_intersect = false;
-                intersection = new PointF(float.NaN, float.NaN);
-                close_p1 = new PointF(float.NaN, float.NaN);
-                close_p2 = new PointF(float.NaN, float.NaN);
+                intersection = new Point2D(float.NaN, float.NaN);
+                close_p1 = new Point2D(float.NaN, float.NaN);
+                close_p2 = new Point2D(float.NaN, float.NaN);
                 return;
             }
             lines_intersect = true;
 
-            var t2 = ((p3.X - p1.X) * dy12 + (p1.Y - p3.Y) * dx12) / -denominator;
+            var t2 = (((p3.X - p1.X) * dy12) + ((p1.Y - p3.Y) * dx12)) / -denominator;
 
             // Find the point of intersection.
-            intersection = new PointF(p1.X + dx12 * t1, p1.Y + dy12 * t1);
+            intersection = new Point2D(p1.X + (dx12 * t1), p1.Y + (dy12 * t1));
 
             // The segments intersect if t1 and t2 are between 0 and 1.
-            segments_intersect = (t1 >= 0) && (t1 <= 1) && (t2 >= 0) && (t2 <= 1);
+            segments_intersect = (t1 >= 0d) && (t1 <= 1d) && (t2 >= 0d) && (t2 <= 1d);
 
             // Find the closest points on the segments.
-            if (t1 < 0)
+            if (t1 < 0d)
             {
-                t1 = 0;
+                t1 = 0d;
             }
-            else if (t1 > 1)
+            else if (t1 > 1d)
             {
-                t1 = 1;
-            }
-
-            if (t2 < 0)
-            {
-                t2 = 0;
-            }
-            else if (t2 > 1)
-            {
-                t2 = 1;
+                t1 = 1d;
             }
 
-            close_p1 = new PointF(p1.X + dx12 * t1, p1.Y + dy12 * t1);
-            close_p2 = new PointF(p3.X + dx34 * t2, p3.Y + dy34 * t2);
+            if (t2 < 0d)
+            {
+                t2 = 0d;
+            }
+            else if (t2 > 1d)
+            {
+                t2 = 1d;
+            }
+
+            close_p1 = new Point2D(p1.X + (dx12 * t1), p1.Y + (dy12 * t1));
+            close_p2 = new Point2D(p3.X + (dx34 * t2), p3.Y + (dy34 * t2));
         }
 
         /// <summary>

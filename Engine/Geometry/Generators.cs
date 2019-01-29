@@ -83,14 +83,14 @@ namespace Engine
             var points = new List<Point2D>();
 
             // Execution of calculation
-            for (var t = tmin; t <= tmax; t = t + dt) // the phase angle [radian]
+            for (var t = tmin; t <= tmax; t += dt) // the phase angle [radian]
             {
                 // The moving radius of a Cardioid after some conversion
                 var r = 0d;
 
                 // The phase angle [radian] of a Cardioid after some conversion
-                var z = 0d;
 
+                double z;
                 if (t > (tmax - dt) && t < (tmax + dt))
                 {
                     z = tmin;
@@ -102,14 +102,14 @@ namespace Engine
                 else
                 {
                     var sinT = Sin(t); // Optimization to reduce the number of times sin() is called
-                    r = a * Sqrt((5d - 3d * sinT) * (1d + sinT));
+                    r = a * Sqrt((5d - (3d * sinT)) * (1d + sinT));
                     z = Asin(a * (1d - sinT) * Cos(t) / r);
                 }
 
                 // The phase angle [radian] of a Cardioid after the final conversion into a horned one
-                var f = -alpha * z / PI + PI * OneHalf;
+                var f = (-alpha * z / PI) + (PI * OneHalf);
 
-                points.Add(new Point2D(-(r * Cos(f)) * scale + x, -(beta * r * Sin(f)) * scale + y + radius));
+                points.Add(new Point2D((-(r * Cos(f)) * scale) + x, (-(beta * r * Sin(f)) * scale) + y + radius));
             }
 
             return points;

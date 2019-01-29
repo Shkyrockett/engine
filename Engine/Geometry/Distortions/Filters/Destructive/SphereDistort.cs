@@ -28,7 +28,7 @@ namespace Engine
         public SphereDistort(Rectangle2D rect, double strength = 0.5)
         {
             Center = rect.Center;
-            Radius = Math.Sqrt(rect.Width * rect.Width + rect.Height * rect.Height) * 0.5;
+            Radius = Math.Sqrt((rect.Width * rect.Width) + (rect.Height * rect.Height)) * 0.5;
             Strength = strength;
         }
 

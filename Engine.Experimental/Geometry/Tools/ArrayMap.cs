@@ -139,7 +139,7 @@ namespace Engine.Experimental
                 return -1;
             }
 
-            return (int)(y * Size.Width + x);
+            return (int)((y * Size.Width) + x);
         }
 
         /// <summary>

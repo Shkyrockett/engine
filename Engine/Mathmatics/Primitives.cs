@@ -433,15 +433,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Adjoint(this Matrix3x3D source)
             => new Matrix3x3D(
-                source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1,
-                -(source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1),
-                source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1,
-                -(source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0),
-                source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0,
-                -(source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0),
-                source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0,
-                -(source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0),
-                source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0);
+                (source.M1x1 * source.M2x2) - (source.M1x2 * source.M2x1),
+                -((source.M0x1 * source.M2x2) - (source.M0x2 * source.M2x1)),
+                (source.M0x1 * source.M1x2) - (source.M0x2 * source.M1x1),
+                -((source.M1x0 * source.M2x2) - (source.M1x2 * source.M2x0)),
+                (source.M0x0 * source.M2x2) - (source.M0x2 * source.M2x0),
+                -((source.M0x0 * source.M1x2) - (source.M0x2 * source.M1x0)),
+                (source.M1x0 * source.M2x1) - (source.M1x1 * source.M2x0),
+                -((source.M0x0 * source.M2x1) - (source.M0x1 * source.M2x0)),
+                (source.M0x0 * source.M1x1) - (source.M0x1 * source.M1x0));
 
         /// <summary>
         /// Used to generate the adjoint of this matrix.
@@ -452,47 +452,47 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Adjoint(this Matrix4x4D source)
         {
-            var m22m33m32m23 = source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3;
-            var m21m33m31m23 = source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3;
-            var m21m32m31m22 = source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2;
+            var m22m33m32m23 = (source.M2x2 * source.M3x3) - (source.M3x2 * source.M2x3);
+            var m21m33m31m23 = (source.M2x1 * source.M3x3) - (source.M3x1 * source.M2x3);
+            var m21m32m31m22 = (source.M2x1 * source.M3x2) - (source.M3x1 * source.M2x2);
 
-            var m12m33m32m13 = source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3;
-            var m11m33m31m13 = source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3;
-            var m11m32m31m12 = source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2;
+            var m12m33m32m13 = (source.M1x2 * source.M3x3) - (source.M3x2 * source.M1x3);
+            var m11m33m31m13 = (source.M1x1 * source.M3x3) - (source.M3x1 * source.M1x3);
+            var m11m32m31m12 = (source.M1x1 * source.M3x2) - (source.M3x1 * source.M1x2);
 
-            var m12m23m22m13 = source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3;
-            var m11m23m21m13 = source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3;
-            var m11m22m21m12 = source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2;
+            var m12m23m22m13 = (source.M1x2 * source.M2x3) - (source.M2x2 * source.M1x3);
+            var m11m23m21m13 = (source.M1x1 * source.M2x3) - (source.M2x1 * source.M1x3);
+            var m11m22m21m12 = (source.M1x1 * source.M2x2) - (source.M2x1 * source.M1x2);
 
-            var m20m33m30m23 = source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3;
-            var m20m32m30m22 = source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2;
-            var m10m33m30m13 = source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3;
+            var m20m33m30m23 = (source.M2x0 * source.M3x3) - (source.M3x0 * source.M2x3);
+            var m20m32m30m22 = (source.M2x0 * source.M3x2) - (source.M3x0 * source.M2x2);
+            var m10m33m30m13 = (source.M1x0 * source.M3x3) - (source.M3x0 * source.M1x3);
 
-            var m10m32m30m12 = source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2;
-            var m10m23m20m13 = source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3;
-            var m10m22m20m12 = source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2;
+            var m10m32m30m12 = (source.M1x0 * source.M3x2) - (source.M3x0 * source.M1x2);
+            var m10m23m20m13 = (source.M1x0 * source.M2x3) - (source.M2x0 * source.M1x3);
+            var m10m22m20m12 = (source.M1x0 * source.M2x2) - (source.M2x0 * source.M1x2);
 
-            var m20m31m30m21 = source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1;
-            var m10m31m30m11 = source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1;
-            var m10m21m20m11 = source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1;
+            var m20m31m30m21 = (source.M2x0 * source.M3x1) - (source.M3x0 * source.M2x1);
+            var m10m31m30m11 = (source.M1x0 * source.M3x1) - (source.M3x0 * source.M1x1);
+            var m10m21m20m11 = (source.M1x0 * source.M2x1) - (source.M2x0 * source.M1x1);
 
             return new Matrix4x4D(
-                source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22,
-                -(source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22),
-                source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12,
-                -(source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12),
-                -(source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22),
-                source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22,
-                -(source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12),
-                source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12,
-                source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21,
-                -(source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21),
-                source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21,
-                -(source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11),
-                -(source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21),
-                source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21,
-                -(source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11),
-                source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11);
+                (source.M1x1 * m22m33m32m23) - (source.M1x2 * m21m33m31m23) + (source.M1x3 * m21m32m31m22),
+                -((source.M0x1 * m22m33m32m23) - (source.M0x2 * m21m33m31m23) + (source.M0x3 * m21m32m31m22)),
+                (source.M0x1 * m12m33m32m13) - (source.M0x2 * m11m33m31m13) + (source.M0x3 * m11m32m31m12),
+                -((source.M0x1 * m12m23m22m13) - (source.M0x2 * m11m23m21m13) + (source.M0x3 * m11m22m21m12)),
+                -((source.M1x0 * m22m33m32m23) - (source.M1x2 * m20m33m30m23) + (source.M1x3 * m20m32m30m22)),
+                (source.M0x0 * m22m33m32m23) - (source.M0x2 * m20m33m30m23) + (source.M0x3 * m20m32m30m22),
+                -((source.M0x0 * m12m33m32m13) - (source.M0x2 * m10m33m30m13) + (source.M0x3 * m10m32m30m12)),
+                (source.M0x0 * m12m23m22m13) - (source.M0x2 * m10m23m20m13) + (source.M0x3 * m10m22m20m12),
+                (source.M1x0 * m21m33m31m23) - (source.M1x1 * m20m33m30m23) + (source.M1x3 * m20m31m30m21),
+                -((source.M0x0 * m21m33m31m23) - (source.M0x1 * m20m33m30m23) + (source.M0x3 * m20m31m30m21)),
+                (source.M0x0 * m11m33m31m13) - (source.M0x1 * m10m33m30m13) + (source.M0x3 * m20m31m30m21),
+                -((source.M0x0 * m11m23m21m13) - (source.M0x1 * m10m23m20m13) + (source.M0x3 * m10m21m20m11)),
+                -((source.M1x0 * m21m32m31m22) - (source.M1x1 * m20m32m30m22) + (source.M1x2 * m20m31m30m21)),
+                (source.M0x0 * m21m32m31m22) - (source.M0x1 * m20m32m30m22) + (source.M0x2 * m20m31m30m21),
+                -((source.M0x0 * m11m32m31m12) - (source.M0x1 * m10m32m30m12) + (source.M0x2 * m10m31m30m11)),
+                (source.M0x0 * m11m22m21m12) - (source.M0x1 * m10m22m20m12) + (source.M0x2 * m10m21m20m11));
         }
         #endregion Adjoint
 
@@ -641,15 +641,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Cofactor(this Matrix3x3D source)
             => new Matrix3x3D(
-                -(source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1),
-                source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1,
-                -(source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1),
-                source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0,
-                -(source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0),
-                source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0,
-                -(source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0),
-                source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0,
-                -(source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0));
+                -((source.M1x1 * source.M2x2) - (source.M1x2 * source.M2x1)),
+                (source.M0x1 * source.M2x2) - (source.M0x2 * source.M2x1),
+                -((source.M0x1 * source.M1x2) - (source.M0x2 * source.M1x1)),
+                (source.M1x0 * source.M2x2) - (source.M1x2 * source.M2x0),
+                -((source.M0x0 * source.M2x2) - (source.M0x2 * source.M2x0)),
+                (source.M0x0 * source.M1x2) - (source.M0x2 * source.M1x0),
+                -((source.M1x0 * source.M2x1) - (source.M1x1 * source.M2x0)),
+                (source.M0x0 * source.M2x1) - (source.M0x1 * source.M2x0),
+                -((source.M0x0 * source.M1x1) - (source.M0x1 * source.M1x0)));
 
         /// <summary>
         /// The cofactor.
@@ -660,46 +660,46 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Cofactor(this Matrix4x4D source)
         {
-            var m22m33m32m23 = source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3;
-            var m21m33m31m23 = source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3;
-            var m21m32m31m22 = source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2;
-            var m12m33m32m13 = source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3;
+            var m22m33m32m23 = (source.M2x2 * source.M3x3) - (source.M3x2 * source.M2x3);
+            var m21m33m31m23 = (source.M2x1 * source.M3x3) - (source.M3x1 * source.M2x3);
+            var m21m32m31m22 = (source.M2x1 * source.M3x2) - (source.M3x1 * source.M2x2);
+            var m12m33m32m13 = (source.M1x2 * source.M3x3) - (source.M3x2 * source.M1x3);
 
-            var m11m33m31m13 = source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3;
-            var m11m32m31m12 = source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2;
-            var m12m23m22m13 = source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3;
-            var m11m23m21m13 = source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3;
+            var m11m33m31m13 = (source.M1x1 * source.M3x3) - (source.M3x1 * source.M1x3);
+            var m11m32m31m12 = (source.M1x1 * source.M3x2) - (source.M3x1 * source.M1x2);
+            var m12m23m22m13 = (source.M1x2 * source.M2x3) - (source.M2x2 * source.M1x3);
+            var m11m23m21m13 = (source.M1x1 * source.M2x3) - (source.M2x1 * source.M1x3);
 
-            var m11m22m21m12 = source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2;
-            var m20m33m30m23 = source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3;
-            var m20m32m30m22 = source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2;
-            var m10m33m30m13 = source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3;
+            var m11m22m21m12 = (source.M1x1 * source.M2x2) - (source.M2x1 * source.M1x2);
+            var m20m33m30m23 = (source.M2x0 * source.M3x3) - (source.M3x0 * source.M2x3);
+            var m20m32m30m22 = (source.M2x0 * source.M3x2) - (source.M3x0 * source.M2x2);
+            var m10m33m30m13 = (source.M1x0 * source.M3x3) - (source.M3x0 * source.M1x3);
 
-            var m10m32m30m12 = source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2;
-            var m10m23m20m13 = source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3;
-            var m10m22m20m12 = source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2;
-            var m20m31m30m21 = source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1;
+            var m10m32m30m12 = (source.M1x0 * source.M3x2) - (source.M3x0 * source.M1x2);
+            var m10m23m20m13 = (source.M1x0 * source.M2x3) - (source.M2x0 * source.M1x3);
+            var m10m22m20m12 = (source.M1x0 * source.M2x2) - (source.M2x0 * source.M1x2);
+            var m20m31m30m21 = (source.M2x0 * source.M3x1) - (source.M3x0 * source.M2x1);
 
-            var m10m31m30m11 = source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1;
-            var m10m21m20m11 = source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1;
+            var m10m31m30m11 = (source.M1x0 * source.M3x1) - (source.M3x0 * source.M1x1);
+            var m10m21m20m11 = (source.M1x0 * source.M2x1) - (source.M2x0 * source.M1x1);
 
             return new Matrix4x4D(
-                -(source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22),
-                source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22,
-                -(source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12),
-                source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12,
-                source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22,
-                -(source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22),
-                source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12,
-                -(source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12),
-                -(source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21),
-                source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21,
-                -(source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21),
-                source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11,
-                source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21,
-                -(source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21),
-                source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11,
-                -(source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11));
+                -((source.M1x1 * m22m33m32m23) - (source.M1x2 * m21m33m31m23) + (source.M1x3 * m21m32m31m22)),
+                (source.M0x1 * m22m33m32m23) - (source.M0x2 * m21m33m31m23) + (source.M0x3 * m21m32m31m22),
+                -((source.M0x1 * m12m33m32m13) - (source.M0x2 * m11m33m31m13) + (source.M0x3 * m11m32m31m12)),
+                (source.M0x1 * m12m23m22m13) - (source.M0x2 * m11m23m21m13) + (source.M0x3 * m11m22m21m12),
+                (source.M1x0 * m22m33m32m23) - (source.M1x2 * m20m33m30m23) + (source.M1x3 * m20m32m30m22),
+                -((source.M0x0 * m22m33m32m23) - (source.M0x2 * m20m33m30m23) + (source.M0x3 * m20m32m30m22)),
+                (source.M0x0 * m12m33m32m13) - (source.M0x2 * m10m33m30m13) + (source.M0x3 * m10m32m30m12),
+                -((source.M0x0 * m12m23m22m13) - (source.M0x2 * m10m23m20m13) + (source.M0x3 * m10m22m20m12)),
+                -((source.M1x0 * m21m33m31m23) - (source.M1x1 * m20m33m30m23) + (source.M1x3 * m20m31m30m21)),
+                (source.M0x0 * m21m33m31m23) - (source.M0x1 * m20m33m30m23) + (source.M0x3 * m20m31m30m21),
+                -((source.M0x0 * m11m33m31m13) - (source.M0x1 * m10m33m30m13) + (source.M0x3 * m20m31m30m21)),
+                (source.M0x0 * m11m23m21m13) - (source.M0x1 * m10m23m20m13) + (source.M0x3 * m10m21m20m11),
+                (source.M1x0 * m21m32m31m22) - (source.M1x1 * m20m32m30m22) + (source.M1x2 * m20m31m30m21),
+                -((source.M0x0 * m21m32m31m22) - (source.M0x1 * m20m32m30m22) + (source.M0x2 * m20m31m30m21)),
+                (source.M0x0 * m11m32m31m12) - (source.M0x1 * m10m32m30m12) + (source.M0x2 * m10m31m30m11),
+                -((source.M0x0 * m11m22m21m12) - (source.M0x1 * m10m22m20m12) + (source.M0x2 * m10m21m20m11)));
 
         }
         #endregion Cofactor
@@ -743,15 +743,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D ToRotationMatrix(this QuaternionD quaternion)
             => new Matrix3x3D(
-                1d - 2d * (quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z),
-                2d * quaternion.Y * quaternion.X - 2d * quaternion.Z * quaternion.W,
-                2d * quaternion.Z * quaternion.X + 2d * quaternion.Y * quaternion.W,
-                2d * quaternion.Y * quaternion.X + 2d * quaternion.Z * quaternion.W,
-                1d - 2d * (quaternion.X * quaternion.X + quaternion.Z * quaternion.Z),
-                2d * quaternion.Z * quaternion.Y - 2d * quaternion.X * quaternion.W,
-                2d * quaternion.Z * quaternion.X - 2d * quaternion.Y * quaternion.W,
-                2d * quaternion.Z * quaternion.Y + 2d * quaternion.X * quaternion.W,
-                1d - 2d * (quaternion.X * quaternion.X + quaternion.Y * quaternion.Y));
+                1d - (2d * ((quaternion.Y * quaternion.Y) + (quaternion.Z * quaternion.Z))),
+                (2d * quaternion.Y * quaternion.X) - (2d * quaternion.Z * quaternion.W),
+                (2d * quaternion.Z * quaternion.X) + (2d * quaternion.Y * quaternion.W),
+                (2d * quaternion.Y * quaternion.X) + (2d * quaternion.Z * quaternion.W),
+                1d - (2d * ((quaternion.X * quaternion.X) + (quaternion.Z * quaternion.Z))),
+                (2d * quaternion.Z * quaternion.Y) - (2d * quaternion.X * quaternion.W),
+                (2d * quaternion.Z * quaternion.X) - (2d * quaternion.Y * quaternion.W),
+                (2d * quaternion.Z * quaternion.Y) + (2d * quaternion.X * quaternion.W),
+                1d - (2d * ((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y))));
 
         /// <summary>
         /// Gets a 4x4 matrix from this Quaternion.
@@ -765,21 +765,21 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D ToMatrix(this QuaternionD quaternion)
             => new Matrix4x4D(
-                1d - 2d * (quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z),
-                2d * (quaternion.X * quaternion.Y - quaternion.W * quaternion.Z),
-                2d * (quaternion.X * quaternion.Z + quaternion.W * quaternion.Y),
+                1d - (2d * ((quaternion.Y * quaternion.Y) + (quaternion.Z * quaternion.Z))),
+                2d * ((quaternion.X * quaternion.Y) - (quaternion.W * quaternion.Z)),
+                2d * ((quaternion.X * quaternion.Z) + (quaternion.W * quaternion.Y)),
                 0d,
-                2d * (quaternion.X * quaternion.Y + quaternion.W * quaternion.Z),
-                1d - 2d * (quaternion.X * quaternion.X + quaternion.Z * quaternion.Z),
-                2d * (quaternion.Y * quaternion.Z - quaternion.W * quaternion.X),
+                2d * ((quaternion.X * quaternion.Y) + (quaternion.W * quaternion.Z)),
+                1d - (2d * ((quaternion.X * quaternion.X) + (quaternion.Z * quaternion.Z))),
+                2d * ((quaternion.Y * quaternion.Z) - (quaternion.W * quaternion.X)),
                 0d,
-                2d * (quaternion.X * quaternion.Z - quaternion.W * quaternion.Y),
-                2d * (quaternion.Y * quaternion.Z + quaternion.W * quaternion.X),
-                1d - 2d * (quaternion.X * quaternion.X + quaternion.Y * quaternion.Y),
+                2d * ((quaternion.X * quaternion.Z) - (quaternion.W * quaternion.Y)),
+                2d * ((quaternion.Y * quaternion.Z) + (quaternion.W * quaternion.X)),
+                1d - (2d * ((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y))),
                 0d,
-                2d * (quaternion.X * quaternion.Z - quaternion.W * quaternion.Y),
-                2d * (quaternion.Y * quaternion.Z + quaternion.W * quaternion.X),
-                1d - 2d * (quaternion.X * quaternion.X + quaternion.Y * quaternion.Y),
+                2d * ((quaternion.X * quaternion.Z) - (quaternion.W * quaternion.Y)),
+                2d * ((quaternion.Y * quaternion.Z) + (quaternion.W * quaternion.X)),
+                1d - (2d * ((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y))),
                 0d);
 
         /// <summary>
@@ -805,7 +805,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double Angle, Vector3D Axis) ToAngleAxis(this QuaternionD quaternion)
         {
-            var sqrLength = quaternion.X * quaternion.X + quaternion.Y * quaternion.Y + quaternion.Z * quaternion.Z;
+            var sqrLength = (quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y) + (quaternion.Z * quaternion.Z);
             if (sqrLength == 0d)
             {
                 return (0d, new Vector3D(1d, 0d, 0d));
@@ -1189,7 +1189,7 @@ namespace Engine
             // eXp(q) = cos(A)+sin(A)*(X*i+Y*j+Z*k).  If sin(A) is near Zero,
             // use eXp(q) = cos(A)+A*(X*i+Y*j+Z*k) since A/sin(A) has limit 1.
 
-            var angle = Sqrt(source.X * source.X + source.Y * source.Y + source.Z * source.Z);
+            var angle = Sqrt((source.X * source.X) + (source.Y * source.Y) + (source.Z * source.Z));
             var sin = Sin(angle);
 
             // start off With a Zero Quaternion
@@ -1514,7 +1514,7 @@ namespace Engine
         public static Matrix2x2D Invert(this Matrix2x2D source)
         {
             var m11 = source.M1x1;
-            var detInv = 1 / (source.M0x0 * m11 - source.M0x1 * source.M1x0);
+            var detInv = 1 / ((source.M0x0 * m11) - (source.M0x1 * source.M1x0));
             return new Matrix2x2D(
                 detInv * m11,
                 detInv * -source.M0x1,
@@ -1531,20 +1531,20 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Invert(this Matrix3x3D source)
         {
-            var m11m22m12m21 = source.M1x1 * source.M2x2 - source.M1x2 * source.M2x1;
-            var m10m22m12m20 = source.M1x0 * source.M2x2 - source.M1x2 * source.M2x0;
-            var m10m21m11m20 = source.M1x0 * source.M2x1 - source.M1x1 * source.M2x0;
-            var detInv = 1 / (source.M0x0 * m11m22m12m21 - source.M0x1 * m10m22m12m20 + source.M0x2 * m10m21m11m20);
+            var m11m22m12m21 = (source.M1x1 * source.M2x2) - (source.M1x2 * source.M2x1);
+            var m10m22m12m20 = (source.M1x0 * source.M2x2) - (source.M1x2 * source.M2x0);
+            var m10m21m11m20 = (source.M1x0 * source.M2x1) - (source.M1x1 * source.M2x0);
+            var detInv = 1 / ((source.M0x0 * m11m22m12m21) - (source.M0x1 * m10m22m12m20) + (source.M0x2 * m10m21m11m20));
             return new Matrix3x3D(
                 detInv * m11m22m12m21,
-                detInv * (-(source.M0x1 * source.M2x2 - source.M0x2 * source.M2x1)),
-                detInv * (source.M0x1 * source.M1x2 - source.M0x2 * source.M1x1),
+                detInv * (-((source.M0x1 * source.M2x2) - (source.M0x2 * source.M2x1))),
+                detInv * ((source.M0x1 * source.M1x2) - (source.M0x2 * source.M1x1)),
                 detInv * (-m10m22m12m20),
-                detInv * (source.M0x0 * source.M2x2 - source.M0x2 * source.M2x0),
-                detInv * (-(source.M0x0 * source.M1x2 - source.M0x2 * source.M1x0)),
+                detInv * ((source.M0x0 * source.M2x2) - (source.M0x2 * source.M2x0)),
+                detInv * (-((source.M0x0 * source.M1x2) - (source.M0x2 * source.M1x0))),
                 detInv * m10m21m11m20,
-                detInv * (-(source.M0x0 * source.M2x1 - source.M0x1 * source.M2x0)),
-                detInv * (source.M0x0 * source.M1x1 - source.M0x1 * source.M1x0));
+                detInv * (-((source.M0x0 * source.M2x1) - (source.M0x1 * source.M2x0))),
+                detInv * ((source.M0x0 * source.M1x1) - (source.M0x1 * source.M1x0)));
         }
 
         /// <summary>
@@ -1556,53 +1556,53 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Invert(this Matrix4x4D source)
         {
-            var m22m33m32m23 = source.M2x2 * source.M3x3 - source.M3x2 * source.M2x3;
-            var m21m33m31m23 = source.M2x1 * source.M3x3 - source.M3x1 * source.M2x3;
-            var m21m32m31m22 = source.M2x1 * source.M3x2 - source.M3x1 * source.M2x2;
+            var m22m33m32m23 = (source.M2x2 * source.M3x3) - (source.M3x2 * source.M2x3);
+            var m21m33m31m23 = (source.M2x1 * source.M3x3) - (source.M3x1 * source.M2x3);
+            var m21m32m31m22 = (source.M2x1 * source.M3x2) - (source.M3x1 * source.M2x2);
 
-            var m12m33m32m13 = source.M1x2 * source.M3x3 - source.M3x2 * source.M1x3;
-            var m11m33m31m13 = source.M1x1 * source.M3x3 - source.M3x1 * source.M1x3;
-            var m11m32m31m12 = source.M1x1 * source.M3x2 - source.M3x1 * source.M1x2;
+            var m12m33m32m13 = (source.M1x2 * source.M3x3) - (source.M3x2 * source.M1x3);
+            var m11m33m31m13 = (source.M1x1 * source.M3x3) - (source.M3x1 * source.M1x3);
+            var m11m32m31m12 = (source.M1x1 * source.M3x2) - (source.M3x1 * source.M1x2);
 
-            var m12m23m22m13 = source.M1x2 * source.M2x3 - source.M2x2 * source.M1x3;
-            var m11m23m21m13 = source.M1x1 * source.M2x3 - source.M2x1 * source.M1x3;
-            var m11m22m21m12 = source.M1x1 * source.M2x2 - source.M2x1 * source.M1x2;
+            var m12m23m22m13 = (source.M1x2 * source.M2x3) - (source.M2x2 * source.M1x3);
+            var m11m23m21m13 = (source.M1x1 * source.M2x3) - (source.M2x1 * source.M1x3);
+            var m11m22m21m12 = (source.M1x1 * source.M2x2) - (source.M2x1 * source.M1x2);
 
-            var m20m33m30m23 = source.M2x0 * source.M3x3 - source.M3x0 * source.M2x3;
-            var m20m32m30m22 = source.M2x0 * source.M3x2 - source.M3x0 * source.M2x2;
-            var m10m33m30m13 = source.M1x0 * source.M3x3 - source.M3x0 * source.M1x3;
+            var m20m33m30m23 = (source.M2x0 * source.M3x3) - (source.M3x0 * source.M2x3);
+            var m20m32m30m22 = (source.M2x0 * source.M3x2) - (source.M3x0 * source.M2x2);
+            var m10m33m30m13 = (source.M1x0 * source.M3x3) - (source.M3x0 * source.M1x3);
 
-            var m10m32m30m12 = source.M1x0 * source.M3x2 - source.M3x0 * source.M1x2;
-            var m10m23m20m13 = source.M1x0 * source.M2x3 - source.M2x0 * source.M1x3;
-            var m10m22m20m12 = source.M1x0 * source.M2x2 - source.M2x0 * source.M1x2;
+            var m10m32m30m12 = (source.M1x0 * source.M3x2) - (source.M3x0 * source.M1x2);
+            var m10m23m20m13 = (source.M1x0 * source.M2x3) - (source.M2x0 * source.M1x3);
+            var m10m22m20m12 = (source.M1x0 * source.M2x2) - (source.M2x0 * source.M1x2);
 
-            var m20m31m30m21 = source.M2x0 * source.M3x1 - source.M3x0 * source.M2x1;
-            var m10m31m30m11 = source.M1x0 * source.M3x1 - source.M3x0 * source.M1x1;
-            var m10m21m20m11 = source.M1x0 * source.M2x1 - source.M2x0 * source.M1x1;
+            var m20m31m30m21 = (source.M2x0 * source.M3x1) - (source.M3x0 * source.M2x1);
+            var m10m31m30m11 = (source.M1x0 * source.M3x1) - (source.M3x0 * source.M1x1);
+            var m10m21m20m11 = (source.M1x0 * source.M2x1) - (source.M2x0 * source.M1x1);
 
             var detInv = 1 /
-            (source.M0x0 * (source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22) -
-            source.M0x1 * (source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22) +
-            source.M0x2 * (source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21) -
-            source.M0x3 * (source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21));
+            ((source.M0x0 * ((source.M1x1 * m22m33m32m23) - (source.M1x2 * m21m33m31m23) + (source.M1x3 * m21m32m31m22))) -
+            (source.M0x1 * ((source.M1x0 * m22m33m32m23) - (source.M1x2 * m20m33m30m23) + (source.M1x3 * m20m32m30m22))) +
+            (source.M0x2 * ((source.M1x0 * m21m33m31m23) - (source.M1x1 * m20m33m30m23) + (source.M1x3 * m20m31m30m21))) -
+            (source.M0x3 * ((source.M1x0 * m21m32m31m22) - (source.M1x1 * m20m32m30m22) + (source.M1x2 * m20m31m30m21))));
 
             return new Matrix4x4D(
-                detInv * (source.M1x1 * m22m33m32m23 - source.M1x2 * m21m33m31m23 + source.M1x3 * m21m32m31m22),
-                detInv * (-(source.M0x1 * m22m33m32m23 - source.M0x2 * m21m33m31m23 + source.M0x3 * m21m32m31m22)),
-                detInv * (source.M0x1 * m12m33m32m13 - source.M0x2 * m11m33m31m13 + source.M0x3 * m11m32m31m12),
-                detInv * (-(source.M0x1 * m12m23m22m13 - source.M0x2 * m11m23m21m13 + source.M0x3 * m11m22m21m12)),
-                detInv * (-(source.M1x0 * m22m33m32m23 - source.M1x2 * m20m33m30m23 + source.M1x3 * m20m32m30m22)),
-                detInv * (source.M0x0 * m22m33m32m23 - source.M0x2 * m20m33m30m23 + source.M0x3 * m20m32m30m22),
-                detInv * (-(source.M0x0 * m12m33m32m13 - source.M0x2 * m10m33m30m13 + source.M0x3 * m10m32m30m12)),
-                detInv * (source.M0x0 * m12m23m22m13 - source.M0x2 * m10m23m20m13 + source.M0x3 * m10m22m20m12),
-                detInv * (source.M1x0 * m21m33m31m23 - source.M1x1 * m20m33m30m23 + source.M1x3 * m20m31m30m21),
-                detInv * (-(source.M0x0 * m21m33m31m23 - source.M0x1 * m20m33m30m23 + source.M0x3 * m20m31m30m21)),
-                detInv * (source.M0x0 * m11m33m31m13 - source.M0x1 * m10m33m30m13 + source.M0x3 * m20m31m30m21),
-                detInv * (-(source.M0x0 * m11m23m21m13 - source.M0x1 * m10m23m20m13 + source.M0x3 * m10m21m20m11)),
-                detInv * (-(source.M1x0 * m21m32m31m22 - source.M1x1 * m20m32m30m22 + source.M1x2 * m20m31m30m21)),
-                detInv * (source.M0x0 * m21m32m31m22 - source.M0x1 * m20m32m30m22 + source.M0x2 * m20m31m30m21),
-                detInv * (-(source.M0x0 * m11m32m31m12 - source.M0x1 * m10m32m30m12 + source.M0x2 * m10m31m30m11)),
-                detInv * (source.M0x0 * m11m22m21m12 - source.M0x1 * m10m22m20m12 + source.M0x2 * m10m21m20m11));
+                detInv * ((source.M1x1 * m22m33m32m23) - (source.M1x2 * m21m33m31m23) + (source.M1x3 * m21m32m31m22)),
+                detInv * (-((source.M0x1 * m22m33m32m23) - (source.M0x2 * m21m33m31m23) + (source.M0x3 * m21m32m31m22))),
+                detInv * ((source.M0x1 * m12m33m32m13) - (source.M0x2 * m11m33m31m13) + (source.M0x3 * m11m32m31m12)),
+                detInv * (-((source.M0x1 * m12m23m22m13) - (source.M0x2 * m11m23m21m13) + (source.M0x3 * m11m22m21m12))),
+                detInv * (-((source.M1x0 * m22m33m32m23) - (source.M1x2 * m20m33m30m23) + (source.M1x3 * m20m32m30m22))),
+                detInv * ((source.M0x0 * m22m33m32m23) - (source.M0x2 * m20m33m30m23) + (source.M0x3 * m20m32m30m22)),
+                detInv * (-((source.M0x0 * m12m33m32m13) - (source.M0x2 * m10m33m30m13) + (source.M0x3 * m10m32m30m12))),
+                detInv * ((source.M0x0 * m12m23m22m13) - (source.M0x2 * m10m23m20m13) + (source.M0x3 * m10m22m20m12)),
+                detInv * ((source.M1x0 * m21m33m31m23) - (source.M1x1 * m20m33m30m23) + (source.M1x3 * m20m31m30m21)),
+                detInv * (-((source.M0x0 * m21m33m31m23) - (source.M0x1 * m20m33m30m23) + (source.M0x3 * m20m31m30m21))),
+                detInv * ((source.M0x0 * m11m33m31m13) - (source.M0x1 * m10m33m30m13) + (source.M0x3 * m20m31m30m21)),
+                detInv * (-((source.M0x0 * m11m23m21m13) - (source.M0x1 * m10m23m20m13) + (source.M0x3 * m10m21m20m11))),
+                detInv * (-((source.M1x0 * m21m32m31m22) - (source.M1x1 * m20m32m30m22) + (source.M1x2 * m20m31m30m21))),
+                detInv * ((source.M0x0 * m21m32m31m22) - (source.M0x1 * m20m32m30m22) + (source.M0x2 * m20m31m30m21)),
+                detInv * (-((source.M0x0 * m11m32m31m12) - (source.M0x1 * m10m32m30m12) + (source.M0x2 * m10m31m30m11))),
+                detInv * ((source.M0x0 * m11m22m21m12) - (source.M0x1 * m10m22m20m12) + (source.M0x2 * m10m21m20m11)));
         }
         #endregion Invert
 
@@ -1691,7 +1691,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Lerp(this Point2D point1, Point2D point2, double t)
-            => new Point2D(point1.X + (point2.X - point1.X) * t, point1.Y + (point2.Y - point1.Y) * t);
+            => new Point2D(point1.X + ((point2.X - point1.X) * t), point1.Y + ((point2.Y - point1.Y) * t));
 
         /// <summary>
         /// The lerp.
@@ -1703,7 +1703,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Lerp(this Vector2D point1, Vector2D point2, double t)
-            => new Vector2D(point1.I + (point2.I - point1.I) * t, point1.J + (point2.J - point1.J) * t);
+            => new Vector2D(point1.I + ((point2.I - point1.I) * t), point1.J + ((point2.J - point1.J) * t));
 
         /// <summary>
         /// The lerp.
@@ -1715,7 +1715,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Size2D Lerp(this Size2D point1, Size2D point2, double t)
-            => new Size2D(point1.Width + (point2.Width - point1.Width) * t, point1.Height + (point2.Height - point1.Height) * t);
+            => new Size2D(point1.Width + ((point2.Width - point1.Width) * t), point1.Height + ((point2.Height - point1.Height) * t));
 
         /// <summary>
         /// The lerp.
@@ -1877,10 +1877,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D Multiply(this Matrix2x2D left, Matrix2x2D right)
             => new Matrix2x2D(
-            left.M0x0 * right.M0x0 + left.M0x1 * right.M1x0,
-            left.M0x0 * right.M0x1 + left.M0x1 * right.M1x1,
-            left.M1x0 * right.M0x0 + left.M1x1 * right.M1x0,
-            left.M1x0 * right.M0x1 + left.M1x1 * right.M1x1);
+            (left.M0x0 * right.M0x0) + (left.M0x1 * right.M1x0),
+            (left.M0x0 * right.M0x1) + (left.M0x1 * right.M1x1),
+            (left.M1x0 * right.M0x0) + (left.M1x1 * right.M1x0),
+            (left.M1x0 * right.M0x1) + (left.M1x1 * right.M1x1));
 
         /// <summary>
         /// Used to multiply (concatenate) two Matrix3x3s.
@@ -1892,14 +1892,14 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Multiply(this Matrix3x3D left, Matrix2x2D right)
             => new Matrix3x3D(
-                left.M0x0 * right.M0x0 + left.M0x1 * right.M1x0,
-                left.M0x0 * right.M0x1 + left.M0x1 * right.M1x1,
+                (left.M0x0 * right.M0x0) + (left.M0x1 * right.M1x0),
+                (left.M0x0 * right.M0x1) + (left.M0x1 * right.M1x1),
                 left.M0x2,
-                left.M1x0 * right.M0x0 + left.M1x1 * right.M1x0,
-                left.M1x0 * right.M0x1 + left.M1x1 * right.M1x1,
+                (left.M1x0 * right.M0x0) + (left.M1x1 * right.M1x0),
+                (left.M1x0 * right.M0x1) + (left.M1x1 * right.M1x1),
                 left.M1x2,
-                left.M2x0 * right.M0x0 + left.M2x1 * right.M1x0,
-                left.M2x0 * right.M0x1 + left.M2x1 * right.M1x1,
+                (left.M2x0 * right.M0x0) + (left.M2x1 * right.M1x0),
+                (left.M2x0 * right.M0x1) + (left.M2x1 * right.M1x1),
                 left.M2x2);
 
         /// <summary>
@@ -1912,12 +1912,12 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Multiply(this Matrix2x2D left, Matrix3x3D right)
             => new Matrix3x3D(
-                left.M0x0 * right.M0x0 + left.M0x1 * right.M1x0,
-                left.M0x0 * right.M0x1 + left.M0x1 * right.M1x1,
-                left.M0x0 * right.M0x2 + left.M0x1 * right.M1x2,
-                left.M1x0 * right.M0x0 + left.M1x1 * right.M1x0,
-                left.M1x0 * right.M0x1 + left.M1x1 * right.M1x1,
-                left.M1x0 * right.M0x2 + left.M1x1 * right.M1x2,
+                (left.M0x0 * right.M0x0) + (left.M0x1 * right.M1x0),
+                (left.M0x0 * right.M0x1) + (left.M0x1 * right.M1x1),
+                (left.M0x0 * right.M0x2) + (left.M0x1 * right.M1x2),
+                (left.M1x0 * right.M0x0) + (left.M1x1 * right.M1x0),
+                (left.M1x0 * right.M0x1) + (left.M1x1 * right.M1x1),
+                (left.M1x0 * right.M0x2) + (left.M1x1 * right.M1x2),
                 right.M2x0,
                 right.M2x1,
                 right.M2x2);
@@ -1932,15 +1932,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Multiply(this Matrix3x3D left, Matrix3x3D right)
             => new Matrix3x3D(
-                left.M0x0 * right.M0x0 + left.M0x1 * right.M1x0 + left.M0x2 * right.M2x0,
-                left.M0x0 * right.M0x1 + left.M0x1 * right.M1x1 + left.M0x2 * right.M2x1,
-                left.M0x0 * right.M0x2 + left.M0x1 * right.M1x2 + left.M0x2 * right.M2x2,
-                left.M1x0 * right.M0x0 + left.M1x1 * right.M1x0 + left.M1x2 * right.M2x0,
-                left.M1x0 * right.M0x1 + left.M1x1 * right.M1x1 + left.M1x2 * right.M2x1,
-                left.M1x0 * right.M0x2 + left.M1x1 * right.M1x2 + left.M1x2 * right.M2x2,
-                left.M2x0 * right.M0x0 + left.M2x1 * right.M1x0 + left.M2x2 * right.M2x0,
-                left.M2x0 * right.M0x1 + left.M2x1 * right.M1x1 + left.M2x2 * right.M2x1,
-                left.M2x0 * right.M0x2 + left.M2x1 * right.M1x2 + left.M2x2 * right.M2x2);
+                (left.M0x0 * right.M0x0) + (left.M0x1 * right.M1x0) + (left.M0x2 * right.M2x0),
+                (left.M0x0 * right.M0x1) + (left.M0x1 * right.M1x1) + (left.M0x2 * right.M2x1),
+                (left.M0x0 * right.M0x2) + (left.M0x1 * right.M1x2) + (left.M0x2 * right.M2x2),
+                (left.M1x0 * right.M0x0) + (left.M1x1 * right.M1x0) + (left.M1x2 * right.M2x0),
+                (left.M1x0 * right.M0x1) + (left.M1x1 * right.M1x1) + (left.M1x2 * right.M2x1),
+                (left.M1x0 * right.M0x2) + (left.M1x1 * right.M1x2) + (left.M1x2 * right.M2x2),
+                (left.M2x0 * right.M0x0) + (left.M2x1 * right.M1x0) + (left.M2x2 * right.M2x0),
+                (left.M2x0 * right.M0x1) + (left.M2x1 * right.M1x1) + (left.M2x2 * right.M2x1),
+                (left.M2x0 * right.M0x2) + (left.M2x1 * right.M1x2) + (left.M2x2 * right.M2x2));
 
         /// <summary>
         /// Used to multiply (concatenate) two <see cref="Matrix4x4D"/>s.
@@ -3071,7 +3071,7 @@ namespace Engine
         /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
         /// </remarks>
         public static double CrossProduct(Point2D O, Point2D A, Point2D B)
-            => (A.X - O.X) * (B.Y - O.Y) - (A.Y - O.Y) * (B.X - O.X);
+            => ((A.X - O.X) * (B.Y - O.Y)) - ((A.Y - O.Y) * (B.X - O.X));
 
         /// <summary>
         /// Get the convex hull.

@@ -11,7 +11,7 @@
 namespace Engine
 {
     /// <summary>
-    /// Term identifiers for polinomials.
+    /// Term identifiers for polynomials.
     /// </summary>
     public enum PolynomialTerm
         : sbyte

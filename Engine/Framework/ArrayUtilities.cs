@@ -226,12 +226,10 @@ namespace Engine
             var randomList = new List<T>();
 
             var r = new Random();
-            var randomIndex = 0;
-
             while (inputList.Count > 0)
             {
                 //Choose a random object in the list
-                randomIndex = r.Next(0, inputList.Count);
+                var randomIndex = r.Next(0, inputList.Count);
 
                 //add it to the new, random list
                 randomList.Add(inputList[randomIndex]);

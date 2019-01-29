@@ -321,7 +321,7 @@ namespace Engine
                         }
                         else
                         {
-                            var determinant = (nextPoint.X - pX) * (curPoint.Y - pY) - (curPoint.X - pX) * (nextPoint.Y - pY);
+                            var determinant = ((nextPoint.X - pX) * (curPoint.Y - pY)) - ((curPoint.X - pX) * (nextPoint.Y - pY));
                             if (Abs(determinant) < epsilon)
                             {
                                 return Inclusion.Boundary;
@@ -334,7 +334,7 @@ namespace Engine
                     }
                     else if (curPoint.X > pX)
                     {
-                        var determinant = (nextPoint.X - pX) * (curPoint.Y - pY) - (curPoint.X - pX) * (nextPoint.Y - pY);
+                        var determinant = ((nextPoint.X - pX) * (curPoint.Y - pY)) - ((curPoint.X - pX) * (nextPoint.Y - pY));
                         if (Abs(determinant) < epsilon)
                         {
                             return Inclusion.Boundary;
@@ -407,7 +407,7 @@ namespace Engine
                                     }
                                     else
                                     {
-                                        var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
+                                        var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
                                         if (Abs(determinant) < epsilon)
                                         {
                                             return Inclusion.Boundary;
@@ -420,7 +420,7 @@ namespace Engine
                                 }
                                 else if (l.End.Value.X > point.X)
                                 {
-                                    var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
+                                    var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
                                     if (Abs(determinant) < epsilon)
                                     {
                                         return Inclusion.Boundary;
@@ -534,7 +534,7 @@ namespace Engine
                                     }
                                     else
                                     {
-                                        var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
+                                        var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
                                         if (Abs(determinant) < epsilon)
                                         {
                                             return Inclusion.Boundary;
@@ -547,7 +547,7 @@ namespace Engine
                                 }
                                 else if (l.End.Value.X > point.X)
                                 {
-                                    var determinant = (l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y) - (l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y);
+                                    var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
                                     if (Abs(determinant) < epsilon)
                                     {
                                         return Inclusion.Boundary;
@@ -578,13 +578,13 @@ namespace Engine
                             var v2 = -(t.RY * Sin(ea));
 
                             // Find the points of the chord.
-                            var sX = t.Center.X + (u1 * cosT + v1 * sinT);
-                            var sY = t.Center.Y + (u1 * sinT - v1 * cosT);
-                            var eX = t.Center.X + (u2 * cosT + v2 * sinT);
-                            var eY = t.Center.Y + (u2 * sinT - v2 * cosT);
+                            var sX = t.Center.X + ((u1 * cosT) + (v1 * sinT));
+                            var sY = t.Center.Y + ((u1 * sinT) - (v1 * cosT));
+                            var eX = t.Center.X + ((u2 * cosT) + (v2 * sinT));
+                            var eY = t.Center.Y + ((u2 * sinT) - (v2 * cosT));
 
                             // Find the determinant of the chord.
-                            var determinant = (sX - point.X) * (eY - point.Y) - (eX - point.X) * (sY - point.Y);
+                            var determinant = ((sX - point.X) * (eY - point.Y)) - ((eX - point.X) * (sY - point.Y));
 
                             // Check whether the point is on the side of the chord as the center.
                             if (Sign(-determinant) == Sign(t.SweepAngle))
@@ -594,15 +594,15 @@ namespace Engine
                                 var v0 = point.Y - t.Center.Y;
 
                                 // Apply the rotation transformation.
-                                var a = u0 * cosT + v0 * sinT;
-                                var b = u0 * sinT - v0 * cosT;
+                                var a = (u0 * cosT) + (v0 * sinT);
+                                var b = (u0 * sinT) - (v0 * cosT);
 
                                 // Normalize the radius.
                                 var normalizedRadius
                                     = (a * a / (t.RX * t.RX))
                                     + (b * b / (t.RY * t.RY));
 
-                                if (Abs(normalizedRadius - 1d) < Epsilon)
+                                if (Abs(normalizedRadius - 1d) < epsilon)
                                 {
                                     return Inclusion.Boundary;
                                 }
@@ -626,7 +626,7 @@ namespace Engine
                                     }
                                     else
                                     {
-                                        var determinant2 = (t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y) - (t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y);
+                                        var determinant2 = ((t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y)) - ((t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y));
                                         if ((determinant2 > 0) == (t.End.Value.Y > t.Start.Value.Y))
                                         {
                                             result = 1 - result;
@@ -635,7 +635,7 @@ namespace Engine
                                 }
                                 else if (t.End.Value.X > point.X)
                                 {
-                                    var determinant2 = (t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y) - (t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y);
+                                    var determinant2 = ((t.Start.Value.X - point.X) * (t.End.Value.Y - point.Y)) - ((t.End.Value.X - point.X) * (t.Start.Value.Y - point.Y));
                                     if ((determinant2 > 0) == (t.End.Value.Y > t.Start.Value.Y))
                                     {
                                         result = 1 - result;
@@ -685,7 +685,7 @@ namespace Engine
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
-                returnValue ^= PolygonContourContainsPoint(poly.Points, pX, pY);
+                returnValue ^= PolygonContourContainsPoint(poly.Points, pX, pY, epsilon);
 
                 // Any point on any boundary is on a boundary.
                 if (returnValue == Inclusion.Boundary)
@@ -727,7 +727,7 @@ namespace Engine
                 dy *= dy;
                 var distanceSquared = dx + dy;
                 var radiusSquared = r * r;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < Epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
 
             return Inclusion.Outside;
@@ -743,6 +743,7 @@ namespace Engine
         /// <param name="angle">Angle of rotation of Ellipse about it's center.</param>
         /// <param name="pX">The x-coordinate of the test point.</param>
         /// <param name="pY">The y-coordinate of the test point.</param>
+        /// <param name="epsilon"></param>
         /// <acknowledgment>
         /// Based off of: http://stackoverflow.com/questions/7946187/point-and-ellipse-rotated-position-test-algorithm
         /// </acknowledgment>
@@ -750,9 +751,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusion EllipseContainsPoint(
             double cX, double cY, double rx, double ry, double angle,
-            double pX, double pY/*,*/
-            /*double epsilon = Epsilon*/)
-            => EllipseContainsPoint(cX, cY, rx, ry, Cos(angle), Sin(angle), pX, pY/*, epsilon*/);
+            double pX, double pY,
+            double epsilon = Epsilon)
+            => EllipseContainsPoint(cX, cY, rx, ry, Cos(angle), Sin(angle), pX, pY, epsilon);
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="Ellipse"/>.
@@ -787,13 +788,13 @@ namespace Engine
             var v = pY - cY;
 
             // Apply the rotation transformation.
-            var a = u * cosT + v * sinT;
-            var b = u * sinT - v * cosT;
+            var a = (u * cosT) + (v * sinT);
+            var b = (u * sinT) - (v * cosT);
 
             var normalizedRadius = (a * a / (rx * rx)) + (b * b / (ry * ry));
 
             return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? ((Abs(normalizedRadius - 1d) < epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
@@ -833,10 +834,10 @@ namespace Engine
                 var (endPointX, endPointY) = Interpolators.CircularArc(x, y, r, startAngle, sweepAngle, 1);
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPointX - pX) * (endPointY - pY) - (endPointX - pX) * (startPointY - pY);
+                var determinant = ((startPointX - pX) * (endPointY - pY)) - ((endPointX - pX) * (startPointY - pY));
 
                 // Check if the point is on the chord.
-                if (Abs(determinant) < Epsilon)
+                if (Abs(determinant) < epsilon)
                 {
                     return Inclusion.Boundary;
                 }
@@ -852,7 +853,7 @@ namespace Engine
                 dy *= dy;
                 var distanceSquared = dx + dy;
                 var radiusSquared = r * r;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < Epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
             }
 
             return Inclusion.Outside;
@@ -945,13 +946,13 @@ namespace Engine
             var v2 = -(r2 * ea.sinT);
 
             // Find the points of the chord.
-            var sX = cX + (u1 * cosT + v1 * sinT);
-            var sY = cY + (u1 * sinT - v1 * cosT);
-            var eX = cX + (u2 * cosT + v2 * sinT);
-            var eY = cY + (u2 * sinT - v2 * cosT);
+            var sX = cX + ((u1 * cosT) + (v1 * sinT));
+            var sY = cY + ((u1 * sinT) - (v1 * cosT));
+            var eX = cX + ((u2 * cosT) + (v2 * sinT));
+            var eY = cY + ((u2 * sinT) - (v2 * cosT));
 
             // Find the determinant of the chord.
-            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+            var determinant = ((sX - pX) * (eY - pY)) - ((eX - pX) * (sY - pY));
 
             // Check whether the point is on the same side of the chord as the center.
             if (Sign(determinant) == Sign(sweepAngle))
@@ -964,8 +965,8 @@ namespace Engine
             var v0 = pY - cY;
 
             // Apply the rotation transformation to the point at the origin.
-            var a = u0 * cosT + v0 * sinT;
-            var b = u0 * sinT - v0 * cosT;
+            var a = (u0 * cosT) + (v0 * sinT);
+            var b = (u0 * sinT) - (v0 * cosT);
 
             // Normalize the radius.
             var normalizedRadius
@@ -1065,13 +1066,13 @@ namespace Engine
             var v2 = -(r2 * ea.sinT);
 
             // Find the points of the chord.
-            var sX = cX + (u1 * cosT + v1 * sinT);
-            var sY = cY + (u1 * sinT - v1 * cosT);
-            var eX = cX + (u2 * cosT + v2 * sinT);
-            var eY = cY + (u2 * sinT - v2 * cosT);
+            var sX = cX + ((u1 * cosT) + (v1 * sinT));
+            var sY = cY + ((u1 * sinT) - (v1 * cosT));
+            var eX = cX + ((u2 * cosT) + (v2 * sinT));
+            var eY = cY + ((u2 * sinT) - (v2 * cosT));
 
             // Find the determinant of the chord.
-            var determinant = (sX - pX) * (eY - pY) - (eX - pX) * (sY - pY);
+            var determinant = ((sX - pX) * (eY - pY)) - ((eX - pX) * (sY - pY));
 
             // Check if the point is on the chord.
             if (Abs(determinant) <= epsilon)
@@ -1092,8 +1093,8 @@ namespace Engine
             var v0 = pY - cY;
 
             // Apply the rotation transformation.
-            var a = u0 * cosT + v0 * sinT;
-            var b = u0 * sinT - v0 * cosT;
+            var a = (u0 * cosT) + (v0 * sinT);
+            var b = (u0 * sinT) - (v0 * cosT);
 
             // Normalize the radius.
             var normalizedRadius
@@ -1101,7 +1102,7 @@ namespace Engine
                 + (b * b / (r2 * r2));
 
             return (normalizedRadius <= 1d)
-                ? ((Abs(normalizedRadius - 1d) < Epsilon)
+                ? ((Abs(normalizedRadius - 1d) < epsilon)
                 ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
         }
 
@@ -1129,20 +1130,9 @@ namespace Engine
             Point2D start, Point2D end,
             double epsilon = Epsilon)
         {
-            int j;
-            double sX;
-            double sY;
-            double eX;
-            double eY;
-            double rotSX;
-            double rotSY;
-            double rotEX;
-            double rotEY;
-            double crossX;
-
             end.X -= start.X;
             end.Y -= start.Y;
-            var dist = Sqrt(end.X * end.X + end.Y * end.Y);
+            var dist = Sqrt((end.X * end.X) + (end.Y * end.Y));
             var theCos = end.X / dist;
             var theSin = end.Y / dist;
 
@@ -1150,16 +1140,16 @@ namespace Engine
             {
                 for (var i = 0; i < poly.Points.Count; i++)
                 {
-                    j = i + 1;
+                    var j = i + 1;
                     if (j == poly.Points.Count)
                     {
                         j = 0;
                     }
 
-                    sX = poly.Points[i].X - start.X;
-                    sY = poly.Points[i].Y - start.Y;
-                    eX = poly.Points[j].X - start.X;
-                    eY = poly.Points[j].Y - start.Y;
+                    var sX = poly.Points[i].X - start.X;
+                    var sY = poly.Points[i].Y - start.Y;
+                    var eX = poly.Points[j].X - start.X;
+                    var eY = poly.Points[j].Y - start.Y;
 
                     if (Abs(sX) < epsilon && Abs(sY) < epsilon
                         && Abs(eX - end.X) < epsilon && Abs(eY - end.Y) < epsilon
@@ -1170,15 +1160,15 @@ namespace Engine
                         return Inclusion.Inside;
                     }
 
-                    rotSX = sX * theCos + sY * theSin;
-                    rotSY = sY * theCos - sX * theSin;
-                    rotEX = eX * theCos + eY * theSin;
-                    rotEY = eY * theCos - eX * theSin;
+                    var rotSX = (sX * theCos) + (sY * theSin);
+                    var rotSY = (sY * theCos) - (sX * theSin);
+                    var rotEX = (eX * theCos) + (eY * theSin);
+                    var rotEY = (eY * theCos) - (eX * theSin);
 
                     if (rotSY < 0.0 && rotEY > 0.0
                     || rotEY < 0.0 && rotSY > 0.0)
                     {
-                        crossX = rotSX + (rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY);
+                        var crossX = rotSX + ((rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY));
                         if (crossX >= 0.0 && crossX <= dist)
                         {
                             return Inclusion.Outside;
@@ -1197,7 +1187,7 @@ namespace Engine
                 }
             }
 
-            return PolygonContainsPoint(polygons.Contours, start.X + end.X / 2.0, start.Y + end.Y / 2.0);
+            return PolygonContainsPoint(polygons.Contours, start.X + (end.X / 2.0), start.Y + (end.Y / 2.0));
         }
 
         /// <summary>

@@ -37,7 +37,7 @@ namespace MethodSpeedTester
         /// <summary>
         /// The circles.
         /// </summary>
-        private List<(string, Circle)> circles = new List<(string, Circle)>();
+        private readonly List<(string, Circle)> circles = new List<(string, Circle)>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CirclePointTester"/> class.

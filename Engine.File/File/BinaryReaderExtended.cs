@@ -89,7 +89,7 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public short ReadNetworkInt14()
-            => (short)(ReadByte() << 7 | ReadByte());
+            => (short)((ReadByte() << 7) | ReadByte());
 
         /// <summary>
         /// Reads a 2-byte unsigned 14-bit integer from the current stream using Big-endian
@@ -102,7 +102,7 @@ namespace Engine.File
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ushort ReadNetworkUInt14()
-            => (ushort)(ReadByte() << 7 | ReadByte());
+            => (ushort)((ReadByte() << 7) | ReadByte());
 
         /// <summary>
         /// Reads a 2-byte signed integer from the current stream using Big-endian
@@ -235,8 +235,8 @@ namespace Engine.File
             do
             {
                 next = ReadByte();
-                value = value << 0x07;
-                value = value | (next & 0x7F);
+                value <<= 0x07;
+                value |= (next & 0x7F);
             } while ((next & 0x80) == 0x80);
             return value;
         }

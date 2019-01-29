@@ -7,6 +7,7 @@
 // </license>
 // <summary></summary>
 // <remarks></remarks>
+
 // <copyright company="kevlindev" >
 //     Many of the Roots methods were adapted from Kevin Lindsey's site http://www.kevlindev.com/gui/math/intersection/.
 //     Copyright © 2000 - 2003 Kevin Lindsey. All rights reserved.
@@ -49,7 +50,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Root(double x, double y)
-            => (x < 0d && Math.Abs(y % 2d - 1d) < Epsilon) ? -Pow(-x, 1d / y) : Pow(x, 1d / y);
+            => (x < 0d && Math.Abs((y % 2d) - 1d) < Epsilon) ? -Pow(-x, 1d / y) : Pow(x, 1d / y);
 
         /// <summary>
         /// Cube root equivalent of the sqrt function. (note that there are actually
@@ -141,7 +142,7 @@ namespace Engine
             // Atan2, Sin and Cos are kind of slow. In theory this should be faster.
             var dx = x2 - x1;
             var dy = y2 - y1;
-            var det = dx * dx + dy * dy;
+            var det = (dx * dx) + (dy * dy);
             // I believe det should only be 0 if the line is a point.
             var sinA = det == 0 ? 0 : -dy / det;
             var cosA = det == 0 ? 1 : -dx / det;
@@ -151,8 +152,8 @@ namespace Engine
             foreach (Point2D point in points)
             {
                 results.Add(new Point2D(
-                    (point.X - x1) * cosA - (point.Y - y1) * sinA,
-                    (point.X - x1) * sinA + (point.Y - y1) * cosA)
+                    ((point.X - x1) * cosA) - ((point.Y - y1) * sinA),
+                    ((point.X - x1) * sinA) + ((point.Y - y1) * cosA))
                     );
             }
 
@@ -217,11 +218,11 @@ namespace Engine
         public static IList<double> QuadraticDRoots(double a, double b, double c, double epsilon = Epsilon)
         {
             // ToDo: What are DRoots?
-            var det = a - 2 * b + c;
+            var det = a - (2 * b) + c;
             if (det != 0)
             {
                 // Negative square root discriminant. Missing the 4?
-                var sqrtd = -Sqrt(b * b - a * c);
+                var sqrtd = -Sqrt((b * b) - (a * c));
                 var m2 = b - a;
                 var v1 = -(m2 + sqrtd) / det;
                 var v2 = -(m2 - sqrtd) / det;
@@ -229,7 +230,7 @@ namespace Engine
             }
             else if (b != c && det == 0)
             {
-                return new double[] { (2 * b - c) / (2 * (b - c)) };
+                return new double[] { ((2 * b) - c) / (2 * (b - c)) };
             }
 
             return new double[] { };
@@ -328,7 +329,7 @@ namespace Engine
             var c_ = c / a;
 
             // Polynomial discriminant
-            var discriminant = b_ * b_ - 4d * c_;
+            var discriminant = (b_ * b_) - (4d * c_);
 
             // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
@@ -380,7 +381,7 @@ namespace Engine
             var offset = A * OneThird;
 
             // Polynomial discriminant
-            var discriminant = R * R + Q * Q * Q;
+            var discriminant = (R * R) + (Q * Q * Q);
 
             // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
@@ -398,7 +399,7 @@ namespace Engine
                 results.Add(-offset + (t + t));
 
                 // Real part of complex root.
-                results.Add(-offset - (t + t) * OneHalf);
+                results.Add(-offset - ((t + t) * OneHalf));
             }
             if (discriminant > 0)
             {
@@ -413,7 +414,7 @@ namespace Engine
                 if (Im == 0d)
                 {
                     // Real part of complex root.
-                    results.Add(-offset - (s + t) * OneHalf);
+                    results.Add(-offset - ((s + t) * OneHalf));
                 }
             }
             else if (discriminant < 0)
@@ -421,9 +422,9 @@ namespace Engine
                 // Distinct real roots.
                 var th = Acos(R / Sqrt(-Q * Q * Q));
 
-                results.Add(2d * Sqrt(-Q) * Cos(th * OneThird) - offset);
-                results.Add(2d * Sqrt(-Q) * Cos((th + Tau) * OneThird) - offset);
-                results.Add(2d * Sqrt(-Q) * Cos((th + 4d * PI) * OneThird) - offset);
+                results.Add((2d * Sqrt(-Q) * Cos(th * OneThird)) - offset);
+                results.Add((2d * Sqrt(-Q) * Cos((th + Tau) * OneThird)) - offset);
+                results.Add((2d * Sqrt(-Q) * Cos((th + (4d * PI)) * OneThird)) - offset);
             }
 
             return results.ToList();
@@ -467,11 +468,11 @@ namespace Engine
             var resolveRoots = CubicRoots(
                 1d,
                 -B,
-                A * C - 4d * D,
-                -A * A * D + 4d * B * D - C * C,
+                (A * C) - (4d * D),
+                (-A * A * D) + (4d * B * D) - (C * C),
                 epsilon);
             var y = resolveRoots[0];
-            var discriminant = A * A * OneQuarter - B + y;
+            var discriminant = (A * A * OneQuarter) - B + y;
 
             // ToDo: May need to switch from a hash set to a list for scan-beams.
             var results = new HashSet<double>();
@@ -484,8 +485,8 @@ namespace Engine
             if (discriminant > 0d)
             {
                 var ee = Sqrt(discriminant);
-                var t1 = 3d * A * A * OneQuarter - ee * ee - 2d * B;
-                var t2 = (4d * A * B - 8d * C - A * A * A) / (4d * ee);
+                var t1 = (3d * A * A * OneQuarter) - (ee * ee) - (2d * B);
+                var t2 = ((4d * A * B) - (8d * C) - (A * A * A)) / (4d * ee);
                 var plus = t1 + t2;
                 var minus = t1 - t2;
                 if (Math.Abs(plus) <= epsilon)
@@ -501,14 +502,14 @@ namespace Engine
                 if (plus >= 0d)
                 {
                     var f = Sqrt(plus);
-                    results.Add(-A * OneQuarter + (ee + f) * OneHalf);
-                    results.Add(-A * OneQuarter + (ee - f) * OneHalf);
+                    results.Add((-A * OneQuarter) + ((ee + f) * OneHalf));
+                    results.Add((-A * OneQuarter) + ((ee - f) * OneHalf));
                 }
                 if (minus >= 0d)
                 {
                     var f = Sqrt(minus);
-                    results.Add(-A * OneQuarter + (f - ee) * OneHalf);
-                    results.Add(-A * OneQuarter - (f + ee) * OneHalf);
+                    results.Add((-A * OneQuarter) + ((f - ee) * OneHalf));
+                    results.Add((-A * OneQuarter) - ((f + ee) * OneHalf));
                 }
             }
             else if (discriminant < 0d)
@@ -516,7 +517,7 @@ namespace Engine
             }
             else
             {
-                var t2 = y * y - 4d * D;
+                var t2 = (y * y) - (4d * D);
                 if (t2 >= -epsilon)
                 {
                     if (t2 < 0)
@@ -525,18 +526,18 @@ namespace Engine
                     }
 
                     t2 = 2d * Sqrt(t2);
-                    var t1 = 3d * A * A * OneQuarter - 2d * B;
+                    var t1 = (3d * A * A * OneQuarter) - (2d * B);
                     if (t1 + t2 >= epsilon)
                     {
                         var d0 = Sqrt(t1 + t2);
-                        results.Add(-A * OneQuarter + d0 * OneHalf);
-                        results.Add(-A * OneQuarter - d0 * OneHalf);
+                        results.Add((-A * OneQuarter) + (d0 * OneHalf));
+                        results.Add((-A * OneQuarter) - (d0 * OneHalf));
                     }
                     if (t1 - t2 >= epsilon)
                     {
                         var d1 = Sqrt(t1 - t2);
-                        results.Add(-A * OneQuarter + d1 * OneHalf);
-                        results.Add(-A * OneQuarter - d1 * OneHalf);
+                        results.Add((-A * OneQuarter) + (d1 * OneHalf));
+                        results.Add((-A * OneQuarter) - (d1 * OneHalf));
                     }
                 }
             }
@@ -609,7 +610,6 @@ namespace Engine
             {
                 // initialize the counter and guesses for the coefficients of quadratic factor: p(x) = x^2 + alfa1*x + beta1
                 var alfa1 = Random(OneHalf, 1d);
-                var alfa2 = 0d;
                 var beta1 = Random(OneHalf, 1d);
                 var limit = 1000;
 
@@ -622,20 +622,21 @@ namespace Engine
 
                     for (int i = 2, j = 1, k = 0; i < a_.Count; i++)
                     {
-                        b_[i] = a_[i] - alfa1 * b_[j] - beta1 * b_[k];
-                        d_[i] = b_[i] - alfa1 * d_[j] - beta1 * d_[k];
-                        j = j + 1;
-                        k = k + 1;
+                        b_[i] = a_[i] - (alfa1 * b_[j]) - (beta1 * b_[k]);
+                        d_[i] = b_[i] - (alfa1 * d_[j]) - (beta1 * d_[k]);
+                        j += 1;
+                        k += 1;
                     }
 
+                    double alfa2;
                     {
                         var j = n - 1;
                         var k = n - 2;
-                        delta1 = d_[j] * d_[j] - (d_[n] - b_[n]) * d_[k];
-                        alfa2 = (b_[n] * d_[j] - b_[n1] * d_[k]) / delta1;
-                        beta2 = (b_[n1] * d_[j] - (d_[n] - b_[n]) * b_[n]) / delta1;
-                        alfa1 = alfa1 + alfa2;
-                        beta1 = beta1 + beta2;
+                        delta1 = (d_[j] * d_[j]) - ((d_[n] - b_[n]) * d_[k]);
+                        alfa2 = ((b_[n] * d_[j]) - (b_[n1] * d_[k])) / delta1;
+                        beta2 = ((b_[n1] * d_[j]) - ((d_[n] - b_[n]) * b_[n])) / delta1;
+                        alfa1 += alfa2;
+                        beta1 += beta2;
                     }
 
                     if (--limit < 0)
@@ -651,7 +652,7 @@ namespace Engine
                 }
                 while (true);
 
-                delta1 = alfa1 * alfa1 - 4d * beta1;
+                delta1 = (alfa1 * alfa1) - (4d * beta1);
 
                 // imaginary roots
                 if (delta1 < 0)
@@ -679,12 +680,12 @@ namespace Engine
                 }
 
                 // update root counter
-                count = count + 2;
+                count += 2;
 
                 // reduce polynomial order
-                n = n - 2;
-                n1 = n1 - 2;
-                n2 = n2 - 2;
+                n -= 2;
+                n1 -= 2;
+                n2 -= 2;
 
                 // for n >= 2 calculate coefficients of
                 //  the new polynomial
@@ -886,7 +887,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial LinearBezierCoefficientsStack(double a, double b)
-            => Polynomial.OneMinusT * a + Polynomial.T * b;
+            => (Polynomial.OneMinusT * a) + (Polynomial.T * b);
 
         /// <summary>
         /// Coefficients for a Quadratic Bézier curve.
@@ -901,7 +902,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial QuadraticBezierCoefficientsStack(double a, double b, double c)
-            => Polynomial.OneMinusT * LinearBezierCoefficientsStack(a, b) + Polynomial.T * LinearBezierCoefficientsStack(b, c);
+            => (Polynomial.OneMinusT * LinearBezierCoefficientsStack(a, b)) + (Polynomial.T * LinearBezierCoefficientsStack(b, c));
 
         /// <summary>
         /// Coefficients for a Cubic Bézier curve.
@@ -917,7 +918,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial CubicBezierCoefficientsStack(double a, double b, double c, double d)
-            => Polynomial.OneMinusT * QuadraticBezierCoefficientsStack(a, b, c) + Polynomial.T * QuadraticBezierCoefficientsStack(b, c, d);
+            => (Polynomial.OneMinusT * QuadraticBezierCoefficientsStack(a, b, c)) + (Polynomial.T * QuadraticBezierCoefficientsStack(b, c, d));
 
         /// <summary>
         /// Coefficients for a Quartic Bézier curve.
@@ -934,7 +935,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial QuarticBezierCoefficientsStack(double a, double b, double c, double d, double e)
-            => Polynomial.OneMinusT * CubicBezierCoefficientsStack(a, b, c, d) + Polynomial.T * CubicBezierCoefficientsStack(b, c, d, e);
+            => (Polynomial.OneMinusT * CubicBezierCoefficientsStack(a, b, c, d)) + (Polynomial.T * CubicBezierCoefficientsStack(b, c, d, e));
 
         /// <summary>
         /// Coefficients for a Quintic Bézier curve.
@@ -952,7 +953,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial QuinticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f)
-            => Polynomial.OneMinusT * QuarticBezierCoefficientsStack(a, b, c, d, e) + Polynomial.T * QuarticBezierCoefficientsStack(b, c, d, e, f);
+            => (Polynomial.OneMinusT * QuarticBezierCoefficientsStack(a, b, c, d, e)) + (Polynomial.T * QuarticBezierCoefficientsStack(b, c, d, e, f));
 
         /// <summary>
         /// Coefficients for a Sextic Bézier curve.
@@ -971,7 +972,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial SexticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g)
-            => Polynomial.OneMinusT * QuinticBezierCoefficientsStack(a, b, c, d, e, f) + Polynomial.T * QuinticBezierCoefficientsStack(b, c, d, e, f, g);
+            => (Polynomial.OneMinusT * QuinticBezierCoefficientsStack(a, b, c, d, e, f)) + (Polynomial.T * QuinticBezierCoefficientsStack(b, c, d, e, f, g));
 
         /// <summary>
         /// Coefficients for a Septic Bézier curve.
@@ -991,7 +992,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial SepticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h)
-            => Polynomial.OneMinusT * SexticBezierCoefficientsStack(a, b, c, d, e, f, g) + Polynomial.T * SexticBezierCoefficientsStack(b, c, d, e, f, g, h);
+            => (Polynomial.OneMinusT * SexticBezierCoefficientsStack(a, b, c, d, e, f, g)) + (Polynomial.T * SexticBezierCoefficientsStack(b, c, d, e, f, g, h));
 
         /// <summary>
         /// Coefficients for a Octic Bézier curve.
@@ -1012,7 +1013,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial OcticBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i)
-            => Polynomial.OneMinusT * SepticBezierCoefficientsStack(a, b, c, d, e, f, g, h) + Polynomial.T * SepticBezierCoefficientsStack(b, c, d, e, f, g, h, i);
+            => (Polynomial.OneMinusT * SepticBezierCoefficientsStack(a, b, c, d, e, f, g, h)) + (Polynomial.T * SepticBezierCoefficientsStack(b, c, d, e, f, g, h, i));
 
         /// <summary>
         /// Coefficients for a Nonic Bézier curve.
@@ -1034,7 +1035,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial NonicBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
-            => Polynomial.OneMinusT * OcticBezierCoefficientsStack(a, b, c, d, e, f, g, h, i) + Polynomial.T * OcticBezierCoefficientsStack(b, c, d, e, f, g, h, i, j);
+            => (Polynomial.OneMinusT * OcticBezierCoefficientsStack(a, b, c, d, e, f, g, h, i)) + (Polynomial.T * OcticBezierCoefficientsStack(b, c, d, e, f, g, h, i, j));
 
         /// <summary>
         /// Coefficients for a Decic Bézier curve.
@@ -1057,7 +1058,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial DecicBezierCoefficientsStack(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
-            => Polynomial.OneMinusT * NonicBezierCoefficientsStack(a, b, c, d, e, f, g, h, i, j) + Polynomial.T * NonicBezierCoefficientsStack(b, c, d, e, f, g, h, i, j, k);
+            => (Polynomial.OneMinusT * NonicBezierCoefficientsStack(a, b, c, d, e, f, g, h, i, j)) + (Polynomial.T * NonicBezierCoefficientsStack(b, c, d, e, f, g, h, i, j, k));
         #endregion Bézier Coefficients Stack
 
         #region Bézier Coefficients
@@ -1173,18 +1174,19 @@ namespace Engine
         /// <param name="f"></param>
         /// <param name="g"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G) SexticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g)
-        {
-            return (g - (6d * f) + (15d * e) - (20d * d) + (15d * c) - (6d * b) + a,
+            => (g - (6d * f) + (15d * e) - (20d * d) + (15d * c) - (6d * b) + a,
                     (6d * f) - (30d * e) + (60d * d) - (60d * c) + (30d * b) - (6d * a),
                     (15d * e) - (60d * d) + (90d * c) - (60d * b) + (15d * a),
                     (20d * d) - (60d * c) + (60d * b) - (20d * a),
                     (15d * c) - (30d * b) + (15d * a),
                     (6d * b) - (6d * a),
                     a);
-        }
 
         /// <summary>
         /// Coefficients for a Septic Bézier curve.
@@ -1198,11 +1200,13 @@ namespace Engine
         /// <param name="g"></param>
         /// <param name="h"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H) SepticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h)
-        {
-            return (h - (7d * g) + (21d * f) - (35d * e) + (35d * d) - (21d * c) + (7d * b) - a,
+            => (h - (7d * g) + (21d * f) - (35d * e) + (35d * d) - (21d * c) + (7d * b) - a,
                     (7d * g) - (42d * f) + (105d * e) - (140d * d) + (105d * c) - (42d * b) + (7d * a),
                     (21d * f) - (105d * e) + (210d * d) - (210d * c) + (105d * b) - (21d * a),
                     (35d * e) - (140d * d) + (210d * c) - (140d * b) + (35d * a),
@@ -1210,7 +1214,6 @@ namespace Engine
                     (21d * c) - (42d * b) + (21d * a),
                     (7d * b) - (7d * a),
                     a);
-        }
 
         /// <summary>
         /// Coefficients for a Octic Bézier curve.
@@ -1225,11 +1228,13 @@ namespace Engine
         /// <param name="h"></param>
         /// <param name="i"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) OcticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i)
-        {
-            return (i - (8d * h) + (28d * g) - (56d * f) + (70d * e) - (56d * d) + (28d * c) - (8d * b) + a,
+            => (i - (8d * h) + (28d * g) - (56d * f) + (70d * e) - (56d * d) + (28d * c) - (8d * b) + a,
                     (8d * h) - (56d * g) + (168d * f) - (280d * e) + (280d * d) - (168d * c) + (56d * b) - (8d * a),
                     (28d * g) - (168d * f) + (420d * e) - (560d * d) + (420d * c) - (168d * b) + (28d * a),
                     (56d * f) - (280d * e) + (560d * d) - (560d * c) + (280d * b) - (56d * a),
@@ -1238,7 +1243,6 @@ namespace Engine
                     (28d * c) - (56d * b) + (28d * a),
                     (8d * b) - (8d * a),
                     a);
-        }
 
         /// <summary>
         /// Coefficients for a Nonic Bézier curve.
@@ -1254,11 +1258,13 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
-        {
-            return (j - (9d * i) + (36d * h) - (84d * g) + (126d * f) - (126d * e) + (84d * d) - (36d * c) + (9d * b) - a,
+            => (j - (9d * i) + (36d * h) - (84d * g) + (126d * f) - (126d * e) + (84d * d) - (36d * c) + (9d * b) - a,
                     (9d * i) - (72d * h) + (252d * g) - (504d * f) + (630d * e) - (504d * d) + (252d * c) - (72d * b) + (9d * a),
                     (36d * h) - (252d * g) + (756d * f) - (1260d * e) + (1260d * d) - (756d * c) + (252 * b) - (36 * a),
                     (84d * g) - (504 * f) + (1260d * e) - (1680d * d) + (1260d * c) - (504d * b) + (84d * a),
@@ -1268,7 +1274,6 @@ namespace Engine
                     (36d * c) - (72d * b) + (36d * a),
                     (9d * b) - (9d * a),
                     a);
-        }
 
         /// <summary>
         /// Coefficients for a Decic Bézier curve.
@@ -1285,11 +1290,13 @@ namespace Engine
         /// <param name="j"></param>
         /// <param name="k"></param>
         /// <returns></returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
-        {
-            return (k - (10 * j) + (45 * i) - (120 * h) + (210 * g) - (252 * f) + (210 * e) - (120 * d) + (45 * c) - (10 * b) + a,
+            => (k - (10 * j) + (45 * i) - (120 * h) + (210 * g) - (252 * f) + (210 * e) - (120 * d) + (45 * c) - (10 * b) + a,
                     (10 * j) - (90d * i) + (360d * h) - (840d * g) + (1260d * f) - (1260d * e) + (840d * d) - (360d * c) + (90d * b) - (10 * a),
                     (45d * i) - (360d * h) + (1260d * g) - (2520d * f) + (3150d * e) - (2520d * d) + (1260d * c) - (360d * b) + (45d * a),
                     (120d * h) - (840d * g) + (2520d * f) - (4200d * e) + (4200d * d) - (2520d * c) + (840d * b) - (120d * a),
@@ -1300,7 +1307,6 @@ namespace Engine
                     (45d * c) - (90d * b) + (45d * a),
                     (10d * b) - (10d * a),
                     a);
-        }
         #endregion Bézier Coefficients
 
         /// <summary>
@@ -1326,9 +1332,7 @@ namespace Engine
         public static double Newton_secant_bisection(double x0, Func<double, double> f, Func<double, double> df, int max_iterations, double? min = null, double? max = null)
         {
             var prev_dfx = 0d;
-            var dfx = 0d;
             var prev_x_ef_correction = 0d;
-            var x_correction = 0d;
             var y_atmin = 0d;
             var y_atmax = 0d;
             var x = x0;
@@ -1350,6 +1354,7 @@ namespace Engine
                 }
             }
 
+            double x_correction;
             bool isEnoughCorrection()
             {
                 // stop if correction is too small
@@ -1357,12 +1362,12 @@ namespace Engine
                 return (Math.Abs(x_correction) <= min_correction_factor * Math.Abs(x))
                     || (prev_x_ef_correction == x - x_correction - x);
             }
-            var i = 0;
+
             //var stepMethod;
             //var details = [];
-            for (i = 0; i < max_iterations; i++)
+            for (var i = 0; i < max_iterations; i++)
             {
-                dfx = df(x);
+                var dfx = df(x);
                 if (dfx == 0)
                 {
                     if (prev_dfx == 0)
@@ -1420,7 +1425,7 @@ namespace Engine
                         var dy = y_atmax - y_atmin;
                         var dx = max - min;
 
-                        x_correction = dy == 0 ? x - (min.Value + dx.Value * 0.5) : Math.Abs(dy / Min(y_atmin, y_atmax)) > RATIO_LIMIT ? x - (min.Value + dx.Value * (0.5 + (Math.Abs(y_atmin) < Math.Abs(y_atmax) ? -AIMED_BISECT_OFFSET : AIMED_BISECT_OFFSET))) : x - (min.Value - y_atmin / dy * dx.Value);
+                        x_correction = dy == 0 ? x - (min.Value + (dx.Value * 0.5)) : Math.Abs(dy / Min(y_atmin, y_atmax)) > RATIO_LIMIT ? x - (min.Value + (dx.Value * (0.5 + (Math.Abs(y_atmin) < Math.Abs(y_atmax) ? -AIMED_BISECT_OFFSET : AIMED_BISECT_OFFSET)))) : x - (min.Value - (y_atmin / dy * dx.Value));
                         x_new = x - x_correction;
 
                         if (isEnoughCorrection())

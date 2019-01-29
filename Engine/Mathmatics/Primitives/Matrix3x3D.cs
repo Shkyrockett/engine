@@ -498,7 +498,7 @@ namespace Engine
             else
             {
                 zAngle = Atan(axis.J / axis.I);
-                yAngle = Atan(axis.K / Sqrt(axis.I * axis.I + axis.J * axis.J));
+                yAngle = Atan(axis.K / Sqrt((axis.I * axis.I) + (axis.J * axis.J)));
             }
             return FromRotationZ(-zAngle) *
             FromRotationY(-yAngle) *
@@ -811,7 +811,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
+            => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the format string

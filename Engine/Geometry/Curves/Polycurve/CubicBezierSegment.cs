@@ -69,7 +69,7 @@ namespace Engine
         {
             Previous = previous;
             previous.Next = this;
-            Handle1 = handle1 ?? (Point2D)(2d * previous.End - previous.NextToEnd);
+            Handle1 = handle1 ?? (Point2D)((2d * previous.End) - previous.NextToEnd);
             Handle2 = handle2;
             End = end;
         }

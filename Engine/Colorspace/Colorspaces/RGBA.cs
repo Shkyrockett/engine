@@ -107,11 +107,14 @@ namespace Engine.Colorspace
         {
             this.name = name;
             value =
-                red << RedShift
-                | green << GreenShift
-                | blue << BlueShift
-                | alpha << AlphaShift;// & 0xffffffff;
+                (red << RedShift)
+                | (green << GreenShift)
+                | (blue << BlueShift)
+                | (alpha << AlphaShift);// & 0xffffffff;
         }
+
+        public static RGBA FromRGBA(RGBA color, byte alpha)
+            => new RGBA(color.Red, color.Green, color.Blue, alpha);
         #endregion Constructors
 
         #region Properties
@@ -180,7 +183,7 @@ namespace Engine.Colorspace
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(RGBA left, RGBA right)
+        public static bool operator == (RGBA left, RGBA right)
             => Equals(left, right);
 
         /// <summary>
@@ -192,7 +195,7 @@ namespace Engine.Colorspace
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(RGBA left, RGBA right)
+        public static bool operator != (RGBA left, RGBA right)
             => !Equals(left, right);
         #endregion Operators
 

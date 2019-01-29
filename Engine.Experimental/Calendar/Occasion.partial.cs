@@ -1069,16 +1069,16 @@ namespace Engine.Chrono
             switch (season)
             {
                 case Season.Spring:
-                    val = (float)(2451623.80984 + 365242.37404 * p + 0.05169 * p * p - 0.00411 * p * p * p - 0.00057 * p * p * p * p);
+                    val = (float)(2451623.80984 + (365242.37404 * p) + (0.05169 * p * p) - (0.00411 * p * p * p) - (0.00057 * p * p * p * p));
                     break;
                 case Season.Summer:
-                    val = (float)(2451716.56767 + 365241.62603 * p + 0.00325 * p * p + 0.00888 * p * p * p - 0.00030 * p * p * p * p);
+                    val = (float)(2451716.56767 + (365241.62603 * p) + (0.00325 * p * p) + (0.00888 * p * p * p) - (0.00030 * p * p * p * p));
                     break;
                 case Season.Autumn:
-                    val = (float)(2451810.21715 + 365242.01767 * p - 0.11575 * p * p + 0.00337 * p * p * p + 0.00078 * p * p * p * p);
+                    val = (float)(2451810.21715 + (365242.01767 * p) - (0.11575 * p * p) + (0.00337 * p * p * p) + (0.00078 * p * p * p * p));
                     break;
                 case Season.Winter:
-                    val = (float)(2451900.05952 + 365242.74049 * p - 0.06223 * p * p - 0.00823 * p * p * p + 0.00032 * p * p * p * p);
+                    val = (float)(2451900.05952 + (365242.74049 * p) - (0.06223 * p * p) - (0.00823 * p * p * p) + (0.00032 * p * p * p * p));
                     break;
             }
             //  Convert astronomical JDN to chronological
@@ -1117,14 +1117,14 @@ namespace Engine.Chrono
             }
 
             var z = 4f * x / daysPer400Years;
-            x -= (daysPer400Years * z + 3f) / 4f;
+            x -= ((daysPer400Years * z) + 3f) / 4f;
             double y = 4000f * (x + 1f) / fudgedDaysPer4000Years;
-            x = (float)(x - 1461f * y / 4f + 31f);
+            x = (float)(x - (1461f * y / 4f) + 31f);
             var month = 80f * x / 2447f;
-            var day = x - 2447f * month / 80f;
+            var day = x - (2447f * month / 80f);
             x = month / 11f;
-            month = month + 2f - 12f * x;
-            y = 100f * (z - 49f) + y + x;
+            month = month + 2f - (12f * x);
+            y = (100f * (z - 49f)) + y + x;
 
             // adjust BC years
             if ((int)y <= 0)
@@ -1133,8 +1133,8 @@ namespace Engine.Chrono
             }
 
             var hour = (int)(ut * 24);
-            var minute = (int)((ut * 24 - hour) * 60);  //  Accurate to about 15 minutes c. 2000 CE.
-            var second = (int)((((ut * 24 - hour) * 60) - minute) * 60);
+            var minute = (int)(((ut * 24) - hour) * 60);  //  Accurate to about 15 minutes c. 2000 CE.
+            var second = (int)(((((ut * 24) - hour) * 60) - minute) * 60);
 
             return new DateTime((int)y, (int)month, (int)day, hour, minute, second);
         }
@@ -1189,7 +1189,7 @@ namespace Engine.Chrono
         /// <remarks>
         /// http://stackoverflow.com/questions/2510383/how-can-i-calculate-what-date-good-friday-falls-on-given-a-year
         /// </remarks>
-        private static DateTime GoodFriday01(int year)
+        public static DateTime GoodFriday01(int year)
         {
             var a = year % 19;
             var b = year / 100;
@@ -1198,7 +1198,7 @@ namespace Engine.Chrono
             var e = b % 4;
             var i = c / 4;
             var k = c % 4;
-            var g = (8 * b + 13) / 25;
+            var g = ((8 * b) + 13) / 25;
             var h = ((19 * a) + b - d - g + 15) % 30;
             var l = ((2 * e) + (2 * i) - k + 32 - h) % 7;
             var m = (a + (11 * h) + (19 * l)) / 433;
@@ -1229,18 +1229,16 @@ namespace Engine.Chrono
         /// </remarks>
         private static DateTime EasterSunday(int year)
         {
-            var month = 0;
-            var day = 0;
             var g = year % 19;
             var c = year / 100;
-            var h = (c - c / 4 - (8 * c + 13) / 25
-                                                + 19 * g + 15) % 30;
-            var i = h - h / 28 * (1 - h / 28
-                        * (29 / (h + 1)) * ((21 - g) / 11));
+            var h = (c - (c / 4) - (((8 * c) + 13) / 25)
+                                                + (19 * g) + 15) % 30;
+            var i = h - (h / 28 * (1 - (h / 28
+                        * (29 / (h + 1)) * ((21 - g) / 11))));
 
-            day = i - ((year + year / 4
-                          + i + 2 - c + c / 4) % 7) + 28;
-            month = 3;
+            var day = i - ((year + (year / 4)
+                          + i + 2 - c + (c / 4)) % 7) + 28;
+            var month = 3;
 
             if (day > 31)
             {
@@ -1259,18 +1257,15 @@ namespace Engine.Chrono
         /// <remarks>
         /// http://www.codeproject.com/Articles/1595/Calculating-Easter-Sunday
         /// </remarks>
-        private static DateTime EasterSunday01(int year)
+        public static DateTime EasterSunday01(int year)
         {
-            var day = 0;
-            var month = 0;
-
             var g = year % 19;
             var c = year / 100;
-            var h = (c - c / 4 - (8 * c + 13) / 25 + 19 * g + 15) % 30;
-            var i = h - h / 28 * (1 - h / 28 * (29 / (h + 1)) * ((21 - g) / 11));
+            var h = (c - (c / 4) - (((8 * c) + 13) / 25) + (19 * g) + 15) % 30;
+            var i = h - (h / 28 * (1 - (h / 28 * (29 / (h + 1)) * ((21 - g) / 11))));
 
-            day = i - ((year + year / 4 + i + 2 - c + c / 4) % 7) + 28;
-            month = 3;
+            var day = i - ((year + (year / 4) + i + 2 - c + (c / 4)) % 7) + 28;
+            var month = 3;
 
             if (day > 31)
             {
@@ -1289,7 +1284,7 @@ namespace Engine.Chrono
         /// <remarks>
         /// http://www.geekpedia.com/code68_Find-Easter-Sunday-of-any-year.html
         /// </remarks>
-        private static DateTime EasterSunday02(int year)
+        public static DateTime EasterSunday02(int year)
         {
             var a = year % 19;
             var b = year / 100;
@@ -1298,14 +1293,14 @@ namespace Engine.Chrono
             var e = b % 4;
             var f = (b + 8) / 25;
             var g = (b - f + 1) / 3;
-            var h = (19 * a + b - d - g + 15) % 30;
+            var h = ((19 * a) + b - d - g + 15) % 30;
             var i = c / 4;
             var k = c % 4;
-            var L = (32 + 2 * e + 2 * i - h - k) % 7;
-            var m = (a + 11 * h + 22 * L) / 451;
+            var L = (32 + (2 * e) + (2 * i) - h - k) % 7;
+            var m = (a + (11 * h) + (22 * L)) / 451;
 
-            var month = (h + L - 7 * m + 114) / 31;
-            var day = ((h + L - 7 * m + 114) % 31) + 1;
+            var month = (h + L - (7 * m) + 114) / 31;
+            var day = ((h + L - (7 * m) + 114) % 31) + 1;
             return new DateTime(year, month, day);
         }
 

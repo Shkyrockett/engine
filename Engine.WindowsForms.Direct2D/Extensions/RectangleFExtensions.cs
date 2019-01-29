@@ -25,8 +25,8 @@ namespace Engine
         /// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
         /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
         public static PointF Center(this RectangleF rectangle) => new PointF(
-            rectangle.Left + (rectangle.Right - rectangle.Left) * 0.5f,
-            rectangle.Top + (rectangle.Bottom - rectangle.Top) * 0.5f
+            rectangle.Left + ((rectangle.Right - rectangle.Left) * 0.5f),
+            rectangle.Top + ((rectangle.Bottom - rectangle.Top) * 0.5f)
         );
 
         /// <summary>
@@ -158,22 +158,22 @@ namespace Engine
         {
             if (Location.X <= Bounds.X)
             {
-                Reference = Reference - new Size(Bounds.X, 0);
+                Reference -= new Size(Bounds.X, 0);
                 return new Point(Bounds.Width - 2, Location.Y);
             }
             if (Location.Y <= Bounds.Y)
             {
-                Reference = Reference - new Size(0, Bounds.Y);
+                Reference -= new Size(0, Bounds.Y);
                 return new Point(Location.X, Bounds.Height - 2);
             }
             if (Location.X >= (Bounds.Width - 1))
             {
-                Reference = Reference + new Size(Bounds.Width, 0);
+                Reference += new Size(Bounds.Width, 0);
                 return new Point(Bounds.X + 2, Location.Y);
             }
             if (Location.Y >= (Bounds.Height - 1))
             {
-                Reference = Reference + new Size(0, Bounds.Height);
+                Reference += new Size(0, Bounds.Height);
                 return new Point(Location.X, Bounds.Y + 2);
             }
             return Location;

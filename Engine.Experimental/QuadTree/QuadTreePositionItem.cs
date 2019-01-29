@@ -44,13 +44,13 @@ namespace Engine.Experimental
         /// <summary>
         /// The rectangle containing this item
         /// </summary>
-        private Rectangle2D bounds;
+        private readonly Rectangle2D bounds;
 
         /// <summary>
         /// The parent of this item
         /// </summary>
         /// <remarks>The Parent accessor is used to gain access to the item controlling this position item</remarks>
-        private T parent;
+        private readonly T parent;
         #endregion Fields
 
         #region Delegates

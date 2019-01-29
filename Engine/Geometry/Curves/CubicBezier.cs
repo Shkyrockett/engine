@@ -122,14 +122,14 @@ namespace Engine
         public CubicBezier(double ax, double ay, double bx, double by, double cx, double cy)
         {
             var nodes = Conversions.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
-            ax = nodes[0].X;
-            ay = nodes[0].Y;
-            bx = nodes[1].X;
-            by = nodes[1].Y;
-            cx = nodes[2].X;
-            cy = nodes[2].Y;
-            dx = nodes[3].X;
-            dy = nodes[3].Y;
+            this.ax = nodes[0].X;
+            this.ay = nodes[0].Y;
+            this.bx = nodes[1].X;
+            this.by = nodes[1].Y;
+            this.cx = nodes[2].X;
+            this.cy = nodes[2].Y;
+            this.dx = nodes[3].X;
+            this.dy = nodes[3].Y;
         }
 
         /// <summary>
@@ -569,7 +569,7 @@ namespace Engine
                     }
                     var n1 = Normal(0);
                     var n2 = Normal(1);
-                    var s = n1.I * n2.I + n1.J * n2.J;
+                    var s = (n1.I * n2.I) + (n1.J * n2.J);
                     var angle = Math.Abs(Math.Acos(s));
                     return angle < Math.PI / 3d;
                 }
@@ -669,8 +669,8 @@ namespace Engine
                     var b = p[3].X * p[1].Y;
                     var c = p[1].X * p[2].Y;
                     var d = p[3].X * p[2].Y;
-                    var v1 = 18 * (-3 * a + 2 * b + 3 * c - d);
-                    var v2 = 18 * (3 * a - b - 3 * c);
+                    var v1 = 18 * ((-3 * a) + (2 * b) + (3 * c) - d);
+                    var v2 = 18 * ((3 * a) - b - (3 * c));
                     var v3 = 18 * (c - a);
 
                     if (Maths.Approximately(v1, 0))
@@ -678,7 +678,7 @@ namespace Engine
                         return new double[] { };
                     }
 
-                    var descriminant = v2 * v2 - 4 * v1 * v3;
+                    var descriminant = (v2 * v2) - (4 * v1 * v3);
                     var sq = Math.Sqrt(descriminant);
                     d = 2 * v1;
 
@@ -995,7 +995,7 @@ namespace Engine
         public Vector2D Normal(double t)
         {
             var d = Derivate(t);
-            var q = 1d / Math.Sqrt(d.I * d.I + d.J * d.J);
+            var q = 1d / Math.Sqrt((d.I * d.I) + (d.J * d.J));
             return new Vector2D(-d.J * q, d.I * q);
         }
 

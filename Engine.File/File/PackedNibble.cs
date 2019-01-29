@@ -75,6 +75,17 @@ namespace Engine.File
             set { packedValue = (byte)((packedValue & 0xF0) | (value & 0x0F)); }
         }
 
+        public static byte PackNibbles(byte lowNibble, byte highNibble)
+        {
+            byte packedValue = 0;
+            packedValue = (byte)((packedValue & 0xF0) | (lowNibble & 0x0F));
+            packedValue = (byte)((packedValue & 0x0F) | (highNibble << 0x04));
+            return packedValue;
+        }
+
+        public static (byte LowNibble, byte HighNibble) UnpackNibbles(byte packedValue)
+            => ((byte)(packedValue & 0x0F), (byte)(packedValue >> 0x04));
+
         /// <summary>
         /// The operator ==.
         /// </summary>

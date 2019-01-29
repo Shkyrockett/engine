@@ -28,7 +28,7 @@ namespace Engine
         /// <summary>
         /// The collection.
         /// </summary>
-        private IList collection;
+        private readonly IList collection;
 
         /// <summary>
         /// The index (readonly). Value: -1.

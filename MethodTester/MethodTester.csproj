@@ -122,6 +122,12 @@
       <DependentUpon>CirclePointTester.cs</DependentUpon>
     </Compile>
     <Compile Include="Experiments.cs" />
+    <Compile Include="FlowVisualValidator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FlowVisualValidator.Designer.cs">
+      <DependentUpon>FlowVisualValidator.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSpeedTester.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,9 @@
     </Compile>
     <EmbeddedResource Include="CirclePointTester.resx">
       <DependentUpon>CirclePointTester.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FlowVisualValidator.resx">
+      <DependentUpon>FlowVisualValidator.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormSpeedTester.resx">
       <DependentUpon>FormSpeedTester.cs</DependentUpon>

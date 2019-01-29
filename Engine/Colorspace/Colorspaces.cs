@@ -157,11 +157,11 @@ namespace Engine.Colorspace
             }
             else if (g == max)
             {
-                hue = 2d + (b - r) / delta;
+                hue = 2d + ((b - r) / delta);
             }
             else if (b == max)
             {
-                hue = 4d + (r - g) / delta;
+                hue = 4d + ((r - g) / delta);
             }
             hue *= 60d;
 
@@ -220,11 +220,11 @@ namespace Engine.Colorspace
             }
             else if (green == max)
             {
-                hue = 2 + (blue - red) / delta;
+                hue = 2 + ((blue - red) / delta);
             }
             else if (blue == max)
             {
-                hue = 4 + (red - green) / delta;
+                hue = 4 + ((red - green) / delta);
             }
             hue *= 60d;
 
@@ -248,10 +248,6 @@ namespace Engine.Colorspace
             var r = red / 255d;
             var g = green / 255d;
             var b = blue / 255d;
-
-            var l = 0d;
-            var s = 0d;
-
             var max = r;
             var min = r;
 
@@ -275,11 +271,12 @@ namespace Engine.Colorspace
                 min = b;
             }
 
+            var s = 0d;
             // if max == min, then there is no color and
             // the saturation is zero.
             if (max != min)
             {
-                l = (max + min) * 0.5d;
+                var l = (max + min) * 0.5d;
 
                 s = l <= 0.5d ? (max - min) / (max + min) : (max - min) / (2d - max - min);
             }
@@ -296,9 +293,6 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetSaturation(double red, double green, double blue)
         {
-            var l = 0d;
-            var s = 0d;
-
             var max = red;
             if (green > max)
             {
@@ -321,11 +315,12 @@ namespace Engine.Colorspace
                 min = blue;
             }
 
+            var s = 0d;
             // if max == min, then there is no color and
             // the saturation is zero.
             if (max != min)
             {
-                l = (max + min) / 2d;
+                var l = (max + min) / 2d;
                 s = l <= 0.5d ? (max - min) / (max + min) : (max - min) / (2d - max - min);
             }
             return s;
@@ -692,16 +687,16 @@ namespace Engine.Colorspace
             var y = yellow * d;
             var k = black * d;
 
-            a = a * (1d - k) + k;
-            var r = c * (1d - k) + k;
-            var g = m * (1d - k) + k;
-            var b = y * (1d - k) + k;
+            a = (a * (1d - k)) + k;
+            var r = (c * (1d - k)) + k;
+            var g = (m * (1d - k)) + k;
+            var b = (y * (1d - k)) + k;
 
             return (
-                red: (byte)((1d - r) * 255d + 0.5d),
-                green: (byte)((1d - g) * 255d + 0.5d),
-                blue: (byte)((1d - b) * 255d + 0.5d),
-                alpha: (byte)((1d - a) * 255d + 0.5d)
+                red: (byte)(((1d - r) * 255d) + 0.5d),
+                green: (byte)(((1d - g) * 255d) + 0.5d),
+                blue: (byte)(((1d - b) * 255d) + 0.5d),
+                alpha: (byte)(((1d - a) * 255d) + 0.5d)
                 );
         }
 
@@ -729,14 +724,14 @@ namespace Engine.Colorspace
             var y = yellow / 100d; //255d;
             var k = black / 100d; //255d;
 
-            var r = c * (1d - k) + k;
-            var g = m * (1d - k) + k;
-            var b = y * (1d - k) + k;
-            var a = alpha / 100d * 255d + 0.5d;
+            var r = (c * (1d - k)) + k;
+            var g = (m * (1d - k)) + k;
+            var b = (y * (1d - k)) + k;
+            var a = (alpha / 100d * 255d) + 0.5d;
 
-            r = (1d - r) * 255d + 0.5d;
-            g = (1d - g) * 255d + 0.5d;
-            b = (1d - b) * 255d + 0.5d;
+            r = ((1d - r) * 255d) + 0.5d;
+            g = ((1d - g) * 255d) + 0.5d;
+            b = ((1d - b) * 255d) + 0.5d;
 
             return ((byte)r, (byte)g, (byte)b, a);
         }
@@ -854,23 +849,23 @@ namespace Engine.Colorspace
                 throw new ArgumentOutOfRangeException("A parameter is out of range.");
             }
 
-            var x = intensity * (1 - saturation);
-            if (hue < 2 * PI / 3d)
+            var x = intensity * (1d - saturation);
+            if (hue < 2d * PI / 3d)
             {
-                var y = intensity * (1d + saturation * Cos(hue) / Cos(PI / 3d - hue));
-                var z = 3d * intensity - (x + y);
+                var y = intensity * (1d + (saturation * Cos(hue) / Cos((PI / 3d) - hue)));
+                var z = (3d * intensity) - (x + y);
                 return (red: y, green: z, blue: x, alpha);
             }
-            else if (hue < 4 * PI / 3d)
+            else if (hue < 4d * PI / 3d)
             {
-                var y = intensity * (1d + saturation * Cos(hue - 2d * PI / 3d) / Cos(PI / 3d - (hue - 2d * PI / 3d)));
-                var z = 3d * intensity - (x + y);
+                var y = intensity * (1d + (saturation * Cos(hue - (2d * PI / 3d)) / Cos((PI / 3d) - (hue - (2d * PI / 3d)))));
+                var z = (3d * intensity) - (x + y);
                 return (red: x, green: y, blue: z, alpha);
             }
             else
             {
-                var y = intensity * (1d + saturation * Cos(hue - 4d * PI / 3d) / Cos(PI / 3d - (hue - 4d * PI / 3d)));
-                var z = 3 * intensity - (x + y);
+                var y = intensity * (1d + (saturation * Cos(hue - (4d * PI / 3d)) / Cos((PI / 3d) - (hue - (4d * PI / 3d)))));
+                var z = (3 * intensity) - (x + y);
                 return (red: z, green: x, blue: y, alpha);
             }
         }
@@ -891,13 +886,12 @@ namespace Engine.Colorspace
         public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor2(double hue, double saturation, double intensity, double alpha)
         {
             const double HueUpperLimit = 360d;
-            var r = 0d;
-            var g = 0d;
-            var b = 0d;
             var h = hue;
             var s = saturation;
             var i = intensity;
-
+            double r;
+            double g;
+            double b;
             if (h >= 0d && h <= (HueUpperLimit / 3d))
             {
                 b = i * (1d - s) / 3d;
@@ -953,22 +947,22 @@ namespace Engine.Colorspace
             // Math! Thanks in part to Kyle Miller.
             if (h < 2.09439d)
             {
-                r = (byte)(255d * i / 3d * (1d + s * Cos(h) / Cos(1.047196667d - h)));
-                g = (byte)(255d * i / 3d * (1d + s * (1d - Cos(h) / Cos(1.047196667d - h))));
+                r = (byte)(255d * i / 3d * (1d + (s * Cos(h) / Cos(1.047196667d - h))));
+                g = (byte)(255d * i / 3d * (1d + (s * (1d - (Cos(h) / Cos(1.047196667d - h))))));
                 b = (byte)(255d * i / 3d * (1d - s));
             }
             else if (h < 4.188787d)
             {
                 h -= 2.09439d;
-                g = (byte)(255d * i / 3d * (1 + s * Cos(h) / Cos(1.047196667d - h)));
-                b = (byte)(255d * i / 3d * (1 + s * (1 - Cos(h) / Cos(1.047196667d - h))));
+                g = (byte)(255d * i / 3d * (1 + (s * Cos(h) / Cos(1.047196667d - h))));
+                b = (byte)(255d * i / 3d * (1 + (s * (1 - (Cos(h) / Cos(1.047196667d - h))))));
                 r = (byte)(255d * i / 3d * (1 - s));
             }
             else
             {
                 h -= 4.188787d;
-                b = (byte)(255d * i / 3d * (1d + s * Cos(h) / Cos(1.047196667d - h)));
-                r = (byte)(255d * i / 3d * (1d + s * (1d - Cos(h) / Cos(1.047196667d - h))));
+                b = (byte)(255d * i / 3d * (1d + (s * Cos(h) / Cos(1.047196667d - h))));
+                r = (byte)(255d * i / 3d * (1d + (s * (1d - (Cos(h) / Cos(1.047196667d - h))))));
                 g = (byte)(255d * i / 3d * (1d - s));
             }
 
@@ -990,8 +984,8 @@ namespace Engine.Colorspace
             (double red, double green, double blue, double alpha) color = (0d, 0d, 0d, alpha);
             if (ValidateHSLA(hue, saturation, luminance, alpha) == true)
             {
-                var c = (1d - Abs(2d * luminance - 1d)) * saturation;
-                var m = 1d * (luminance - 0.5d * c);
+                var c = (1d - Abs((2d * luminance) - 1d)) * saturation;
+                var m = 1d * (luminance - (0.5d * c));
                 var x = c * (1d - Abs(IEEERemainder(hue / 60d, 2) - 1d));
                 if (hue >= 0d && hue < (HueMax / 6d))
                 {
@@ -1037,12 +1031,9 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (byte red, byte green, byte blue, byte alpha) HSLAColorToRGBAColor3(double hue, double saturation, double luminance, double alpha)
         {
-            var red = 0d;
-            var green = 0d;
-            var blue = 0d;
-            var temp1 = 0d;
-            var temp2 = 0d;
-
+            double red;
+            double green;
+            double blue;
             if (luminance == 0d)
             {
                 red = green = blue = 0d;
@@ -1055,9 +1046,9 @@ namespace Engine.Colorspace
                 }
                 else
                 {
-                    temp2 = (luminance <= 0.5d) ? luminance * (1d + saturation) : luminance + saturation - (luminance * saturation);
-                    temp1 = 2d * luminance - temp2;
-                    var t3 = new double[] { hue + 1d / 3d, hue, hue - 1d / 3d };
+                    var temp2 = (luminance <= 0.5d) ? luminance * (1d + saturation) : luminance + saturation - (luminance * saturation);
+                    var temp1 = (2d * luminance) - temp2;
+                    var t3 = new double[] { hue + (1d / 3d), hue, hue - (1d / 3d) };
                     var clr = new double[] { 0, 0, 0 };
                     for (var i = 0; i < 3; i++)
                     {
@@ -1073,7 +1064,7 @@ namespace Engine.Colorspace
 
                         if (6d * t3[i] < 1d)
                         {
-                            clr[i] = temp1 + (temp2 - temp1) * t3[i] * 6d;
+                            clr[i] = temp1 + ((temp2 - temp1) * t3[i] * 6d);
                         }
                         else if (2d * t3[i] < 1d)
                         {
@@ -1081,7 +1072,7 @@ namespace Engine.Colorspace
                         }
                         else if (3d * t3[i] < 2d)
                         {
-                            clr[i] = temp1 + (temp2 - temp1) * ((2d / 3d) - t3[i]) * 6d;
+                            clr[i] = temp1 + ((temp2 - temp1) * ((2d / 3d) - t3[i]) * 6d);
                         }
                         else
                         {
@@ -1110,51 +1101,48 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (byte red, byte green, byte blue, byte alpha) HSLAColorToRGBAColor2(double hue, double saturation, double luminance, double alpha)
         {
-            double red = 0;
-            double green = 0;
-            double blue = 0;
-            double temp1;
-            double temp2;
-
-            if (luminance == 0)
+            double red;
+            double green;
+            double blue;
+            if (luminance == 0d)
             {
-                red = green = blue = 0;
+                red = green = blue = 0d;
             }
             else
             {
-                if (saturation == 0)
+                if (saturation == 0d)
                 {
                     red = green = blue = luminance;
                 }
                 else
                 {
-                    temp2 = (luminance <= 0.5) ? luminance * (1.0 + saturation) : luminance + saturation - (luminance * saturation);
-                    temp1 = 2.0 * luminance - temp2;
-                    var t3 = new double[] { hue + 1.0 / 3.0, hue, hue - 1.0 / 3.0 };
+                    var temp2 = (luminance <= 0.5d) ? luminance * (1d + saturation) : luminance + saturation - (luminance * saturation);
+                    var temp1 = 2d * luminance - temp2;
+                    var t3 = new double[] { hue + 1d / 3d, hue, hue - 1d / 3d };
                     var clr = new double[] { 0, 0, 0 };
                     for (var i = 0; i < 3; i++)
                     {
-                        if (t3[i] < 0)
+                        if (t3[i] < 0d)
                         {
-                            t3[i] += 1.0;
+                            t3[i] += 1d;
                         }
 
-                        if (t3[i] > 1)
+                        if (t3[i] > 1d)
                         {
-                            t3[i] -= 1.0;
+                            t3[i] -= 1d;
                         }
 
-                        if (6.0 * t3[i] < 1.0)
+                        if (6d * t3[i] < 1d)
                         {
-                            clr[i] = temp1 + (temp2 - temp1) * t3[i] * 6.0;
+                            clr[i] = temp1 + (temp2 - temp1) * t3[i] * 6d;
                         }
-                        else if (2.0 * t3[i] < 1.0)
+                        else if (2d * t3[i] < 1d)
                         {
                             clr[i] = temp2;
                         }
-                        else if (3.0 * t3[i] < 2.0)
+                        else if (3d * t3[i] < 2d)
                         {
-                            clr[i] = temp1 + (temp2 - temp1) * ((2.0 / 3.0) - t3[i]) * 6.0;
+                            clr[i] = temp1 + (temp2 - temp1) * ((2d / 3d) - t3[i]) * 6d;
                         }
                         else
                         {
@@ -1320,10 +1308,10 @@ namespace Engine.Colorspace
                 // achromatic (gray)
                 r = g = b = value;
 
-                a = (1.0 - alpha) * 255.0 + 0.5;
-                r = (1.0 - r) * 255.0 + 0.5;
-                g = (1.0 - g) * 255.0 + 0.5;
-                b = (1.0 - b) * 255.0 + 0.5;
+                a = ((1d - alpha) * 255d) + 0.5d;
+                r = ((1d - r) * 255d) + 0.5d;
+                g = ((1d - g) * 255d) + 0.5d;
+                b = ((1d - b) * 255d) + 0.5d;
 
                 return ((byte)r, (byte)g, (byte)b, (byte)a);
             }
@@ -1331,9 +1319,9 @@ namespace Engine.Colorspace
             hue /= 60;            // sector 0 to 5
             i = (int)Floor(hue);
             f = hue - i;          // factorial part of h
-            p = value * (1 - saturation);
-            q = value * (1 - saturation * f);
-            t = value * (1 - saturation * (1 - f));
+            p = value * (1d - saturation);
+            q = value * (1d - (saturation * f));
+            t = value * (1d - (saturation * (1d - f)));
             switch (i)
             {
                 case 0:
@@ -1369,10 +1357,10 @@ namespace Engine.Colorspace
                     break;
             }
 
-            a = (1.0 - alpha) * 255.0 + 0.5;
-            r = (1.0 - r) * 255.0d + 0.5d;
-            g = (1.0 - g) * 255.0d + 0.5d;
-            b = (1.0 - b) * 255.0d + 0.5d;
+            a = ((1d - alpha) * 255d) + 0.5d;
+            r = ((1d - r) * 255d) + 0.5d;
+            g = ((1d - g) * 255d) + 0.5d;
+            b = ((1d - b) * 255d) + 0.5d;
 
             return ((byte)r, (byte)g, (byte)b, (byte)a);
         }
@@ -1392,14 +1380,14 @@ namespace Engine.Colorspace
         public static (byte red, byte green, byte blue, byte alpha) HSVAColorToRGBAColor2(double hue, double saturation, double value, double alpha)
         {
             var hi = Convert.ToInt32(Floor(hue / 60)) % 6;
-            var f = hue / 60 - Floor(hue / 60);
+            var f = (hue / 60d) - Floor(hue / 60d);
 
-            value *= 255;
+            value *= 255d;
             var v = Convert.ToByte(value);
-            var p = Convert.ToByte(value * (1 - saturation));
-            var q = Convert.ToByte(value * (1 - f * saturation));
-            var t = Convert.ToByte(value * (1 - (1 - f) * saturation));
-            var a = Convert.ToByte((1d - alpha) * 255d + 0.5d);
+            var p = Convert.ToByte(value * (1d - saturation));
+            var q = Convert.ToByte(value * (1d - (f * saturation)));
+            var t = Convert.ToByte(value * (1d - ((1d - f) * saturation)));
+            var a = Convert.ToByte(((1d - alpha) * 255d) + 0.5d);
 
             switch (hi)
             {
@@ -1446,10 +1434,10 @@ namespace Engine.Colorspace
                 // achromatic (gray)
                 r = g = b = value;
 
-                a = (1d - alpha) * 255d + 0.5d;
-                r = (1d - r) * 255d + 0.5d;
-                g = (1d - g) * 255d + 0.5d;
-                b = (1d - b) * 255d + 0.5d;
+                a = ((1d - alpha) * 255d) + 0.5d;
+                r = ((1d - r) * 255d) + 0.5d;
+                g = ((1d - g) * 255d) + 0.5d;
+                b = ((1d - b) * 255d) + 0.5d;
 
                 return ((byte)r, (byte)g, (byte)b, (byte)a);
             }
@@ -1457,9 +1445,9 @@ namespace Engine.Colorspace
             hue /= 60;            // sector 0 to 5
             var i = (int)Floor(hue);
             var f = hue - i;          // factorial part of h
-            var p = value * (1 - saturation);
-            var q = value * (1 - saturation * f);
-            var t = value * (1 - saturation * (1 - f));
+            var p = value * (1d - saturation);
+            var q = value * (1d - (saturation * f));
+            var t = value * (1d - (saturation * (1d - f)));
 
             switch (i)
             {
@@ -1496,10 +1484,10 @@ namespace Engine.Colorspace
                     break;
             }
 
-            a = (1d - alpha) * 255d + 0.5d;
-            r = (1d - r) * 255d + 0.5d;
-            g = (1d - g) * 255d + 0.5d;
-            b = (1d - b) * 255d + 0.5d;
+            a = ((1d - alpha) * 255d) + 0.5d;
+            r = ((1d - r) * 255d) + 0.5d;
+            g = ((1d - g) * 255d) + 0.5d;
+            b = ((1d - b) * 255d) + 0.5d;
 
             return ((byte)r, (byte)g, (byte)b, (byte)a);
         }
@@ -1522,9 +1510,9 @@ namespace Engine.Colorspace
             }
 
             return (
-                red: y + 0.9563d * i + 0.6210d * q,
-                green: y - 0.2721d * i - 0.6474d * q,
-                blue: y - 1.1070d * i + 1.7046d * q, alpha
+                red: y + (0.9563d * i) + (0.6210d * q),
+                green: y - (0.2721d * i) - (0.6474d * q),
+                blue: y - (1.1070d * i) + (1.7046d * q), alpha
                 );
         }
 
@@ -1546,9 +1534,9 @@ namespace Engine.Colorspace
             }
 
             return (
-                red: y + 1.140d * v,
-                green: y - 0.395d * u - 0.581d * v,
-                blue: y + 2.032d * u, alpha
+                red: y + (1.140d * v),
+                green: y - (0.395d * u) - (0.581d * v),
+                blue: y + (2.032d * u), alpha
                 );
         }
 
@@ -1597,11 +1585,11 @@ namespace Engine.Colorspace
                     }
                     else if (M == green)
                     {
-                        color.hue = (blue - red) / c + 2d;
+                        color.hue = ((blue - red) / c) + 2d;
                     }
                     else if (M == blue)
                     {
-                        color.hue = (red - green) / c + 4d;
+                        color.hue = ((red - green) / c) + 4d;
                     }
                     color.hue *= 60d;
                     color.saturation = 1d - (m / color.intensity);
@@ -1628,7 +1616,7 @@ namespace Engine.Colorspace
             var m = Min(red, green);
             m = Min(m, blue);
             var M = Max(red, green);
-            M = Max(m, blue);
+            M = Max(M, blue);
             var c = M - m;
 
             var i = 1d / 3d * (red + green + blue);
@@ -1647,11 +1635,11 @@ namespace Engine.Colorspace
                 }
                 else if (M == green)
                 {
-                    h = (blue - red) / c + 2d;
+                    h = ((blue - red) / c) + 2d;
                 }
                 else if (M == blue)
                 {
-                    h = (red - green) / c + 4d;
+                    h = ((red - green) / c) + 4d;
                 }
 
                 h *= 60d;
@@ -1677,12 +1665,12 @@ namespace Engine.Colorspace
             var rn = red / (red + green + blue);
             var gn = green / (red + green + blue);
             var bn = blue / (red + green + blue);
-            var h = Acos(0.5d * (rn - gn + (rn - bn)) / Sqrt((rn - gn) * (rn - gn) + (rn - bn) * (gn - bn)));
+            var h = Acos(0.5d * (rn - gn + (rn - bn)) / Sqrt(((rn - gn) * (rn - gn)) + ((rn - bn) * (gn - bn))));
             if (blue > green)
             {
-                h = 2d * PI - h;
+                h = (2d * PI) - h;
             }
-            var s = 1d - 3d * Min(rn, gn, bn);
+            var s = 1d - (3d * Min(rn, gn, bn));
             return (h, s, i, alpha);
         }
 
@@ -1720,7 +1708,7 @@ namespace Engine.Colorspace
                         color.hue = ((red - green) / c) + 4d;
                     }
                     color.hue *= 60d;
-                    color.saturation = c / (1d - Abs(2d * color.lumanance - 1d));
+                    color.saturation = c / (1d - Abs((2d * color.lumanance) - 1d));
                 }
             }
             return color;
@@ -1744,10 +1732,9 @@ namespace Engine.Colorspace
 
             var h = 0d; // default to black
             var s = 0d;
-            var l = 0d;
             var vertex = Max(Max(r, g), b);
             var min = Min(Min(r, g), b);
-            l = (min + vertex) / 2d;
+            var l = (min + vertex) / 2d;
             if (l <= 0d)
             {
                 return (h, s, l, a);
@@ -1807,11 +1794,11 @@ namespace Engine.Colorspace
                     }
                     else if (M == green)
                     {
-                        color.hue = (blue - red) / c + 2d;
+                        color.hue = ((blue - red) / c) + 2d;
                     }
                     else /*if(M==b)*/
                     {
-                        color.hue = (red - green) / c + 4d;
+                        color.hue = ((red - green) / c) + 4d;
                     }
                     color.hue *= 60d;
                     color.saturation = c / color.value;
@@ -1892,7 +1879,7 @@ namespace Engine.Colorspace
             }
             else
             {
-                h = g == max ? 2 + (b - r) / delta : 4 + (r - g) / delta;   // between magenta & cyan
+                h = g == max ? 2 + ((b - r) / delta) : 4 + ((r - g) / delta);   // between magenta & cyan
             }
 
             h *= 60;               // degrees
@@ -1925,9 +1912,9 @@ namespace Engine.Colorspace
             }
 
             return (
-                y: 0.299900d * red + 0.587000d * green + 0.114000d * blue,
-                i: 0.595716d * red - 0.274453d * green - 0.321264d * blue,
-                q: 0.211456d * red - 0.522591d * green + 0.311350d * blue,
+                y: (0.299900d * red) + (0.587000d * green) + (0.114000d * blue),
+                i: (0.595716d * red) - (0.274453d * green) - (0.321264d * blue),
+                q: (0.211456d * red) - (0.522591d * green) + (0.311350d * blue),
                 alpha
                 );
         }
@@ -1952,7 +1939,7 @@ namespace Engine.Colorspace
                 throw new ArgumentOutOfRangeException("A parameter is out of range.");
             }
 
-            var y = 0.299d * red + 0.587d * green + 0.114d * blue;
+            var y = (0.299d * red) + (0.587d * green) + (0.114d * blue);
             return (
                 y,
                 u: 0.492d * (blue - y), // u: 0.565 * (b - y),

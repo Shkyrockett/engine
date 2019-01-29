@@ -135,7 +135,7 @@ namespace Engine.Experimental
             foreach (var (t, offset) in alterations)
             {
                 var point = Interpolators.Linear(start, (Point2D)(direction * length), t);
-                points[i++] = point + start.CrossProduct(end) * offset;
+                points[i++] = point + (start.CrossProduct(end) * offset);
             }
             points[points.Length - 1] = end;
             return points;

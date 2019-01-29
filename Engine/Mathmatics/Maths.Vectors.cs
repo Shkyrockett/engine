@@ -30,7 +30,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Lerp(double u0, double u1, double t)
-            => u0 + (u1 - u0) * t;
+            => u0 + ((u1 - u0) * t);
 
         /// <summary>
         /// The linear interpolation method.
@@ -47,7 +47,7 @@ namespace Engine
             double x0, double y0,
             double x1, double y1,
             double t)
-            => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t);
+            => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t));
 
         /// <summary>
         /// The linear interpolation method.
@@ -66,7 +66,7 @@ namespace Engine
             double x0, double y0, double z0,
             double x1, double y1, double z1,
             double t)
-            => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, z0 + (z1 - z0) * t);
+            => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t), z0 + ((z1 - z0) * t));
 
         /// <summary>
         /// The linear interpolation method.
@@ -87,7 +87,7 @@ namespace Engine
             double x0, double y0, double z0, double w0,
             double x1, double y1, double z1, double w1,
             double t)
-            => (x0 + (x1 - x0) * t, y0 + (y1 - y0) * t, z0 + (z1 - z0) * t, w0 + (w1 - w0) * t);
+            => (x0 + ((x1 - x0) * t), y0 + ((y1 - y0) * t), z0 + ((z1 - z0) * t), w0 + ((w1 - w0) * t));
 
         /// <summary>
         /// The complex product.
@@ -106,8 +106,8 @@ namespace Engine
             double x0, double y0,
             double x1, double y1)
             => (
-                    x0 * x1 - y0 * y1,
-                    x0 * y1 + y0 * x1
+                    (x0 * x1) - (y0 * y1),
+                    (x0 * y1) + (y0 * x1)
                 );
 
         /// <summary>
@@ -172,28 +172,7 @@ namespace Engine
             double x1, double y1,
             double x2, double y2,
             double x3, double y3)
-            => (x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2);
-
-        /// <summary>
-        /// The cross product vector0.
-        /// </summary>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="x3">The x3.</param>
-        /// <param name="y3">The y3.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <acknowledgment>
-        /// http://www.angusj.com
-        /// </acknowledgment>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double CrossProductVector0(
-            double x1, double y1,
-            double x2, double y2,
-            double x3, double y3)
-            => (x2 - x1) * (y1 - y3) - (x1 - x3) * (y2 - y1);
+            => ((x1 - x2) * (y3 - y2)) - ((y1 - y2) * (x3 - x2));
 
         /// <summary>
         /// Calculates the dot Aka. scalar or inner product of a vector.
@@ -368,7 +347,7 @@ namespace Engine
                 return (0d, 0d);
             }
 
-            var f = 1d / Sqrt(dx * dx + dy * dy);
+            var f = 1d / Sqrt((dx * dx) + (dy * dy));
             dx *= f;
             dy *= f;
 
@@ -403,7 +382,6 @@ namespace Engine
         /// </summary>
         /// <param name="i"></param>
         /// <returns></returns>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Normalize1D(double i)
@@ -412,22 +390,9 @@ namespace Engine
         /// <summary>
         /// Normalize a Vector.
         /// </summary>
-        /// <param name="i1"></param>
-        /// <param name="i2"></param>
-        /// <returns></returns>
-
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Normalize1D(double i1, double i2)
-            => i1 / Sqrt(i1 * i2);
-
-        /// <summary>
-        /// Normalize a Vector.
-        /// </summary>
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize2D(
@@ -443,7 +408,6 @@ namespace Engine
         /// <param name="i2">The x component of the second Point.</param>
         /// <param name="j2">The y component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) Normalize2D(
@@ -461,7 +425,6 @@ namespace Engine
         /// <param name="j"></param>
         /// <param name="k"></param>
         /// <returns></returns>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize3D(
@@ -480,7 +443,6 @@ namespace Engine
         /// <param name="j2">The y component of the second Point.</param>
         /// <param name="k2">The z component of the second Point.</param>
         /// <returns>The Normal of two Points</returns>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) Normalize3D(
@@ -499,7 +461,6 @@ namespace Engine
         /// <param name="k"></param>
         /// <param name="l"></param>
         /// <returns></returns>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z, double W) Normalize4D(
@@ -521,7 +482,6 @@ namespace Engine
         /// <param name="k2">The z component of the second Point.</param>
         /// <param name="l2"></param>
         /// <returns>The Normal of two Points</returns>
-
         /// <acknowledgment>
         /// http://www.fundza.com/vectors/normalize/
         /// </acknowledgment>
@@ -603,9 +563,9 @@ namespace Engine
             double x1, double y1, double z1,
             double x2, double y2, double z2)
             => (
-                x1 - x2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
-                z1 - y2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2),
-                z1 - z2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2)
+                x1 - (x2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2)),
+                z1 - (y2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2)),
+                z1 - (z2 * DotProduct(x1, y1, z1, x2, y2, z2) / Magnitude(x2, y2, z2) * Magnitude(x2, y2, z2))
                 );
 
         /// <summary>
@@ -628,16 +588,16 @@ namespace Engine
             double i2, double j2, double k2)
         {
             // if v2 has a right angle to vector, return -vector and stop
-            if (Math.Abs(Math.Abs(Angle(i1, j1, k1, i2, j2, k2)) - PI / 2) < double.Epsilon)
+            if (Math.Abs(Math.Abs(Angle(i1, j1, k1, i2, j2, k2)) - (PI / 2)) < double.Epsilon)
             {
                 return (-i1, -j1, -k1);
             }
 
             (var x, var y, var z) = Projection(i1, j1, k1, i2, j2, k2);
             return (
-                (2 * x - i1) * Magnitude(i1, j1, k1),
-                (2 * y - j1) * Magnitude(i1, j1, k1),
-                (2 * z - k1) * Magnitude(i1, j1, k1)
+                ((2 * x) - i1) * Magnitude(i1, j1, k1),
+                ((2 * y) - j1) * Magnitude(i1, j1, k1),
+                ((2 * z) - k1) * Magnitude(i1, j1, k1)
                 );
         }
 
@@ -767,8 +727,8 @@ namespace Engine
         public static (double X, double Y, double Z) RotateX(double x1, double y1, double z1, double yOff, double zOff, double rad)
             => (
                 x1,
-                (y1 * Cos(rad)) - (z1 * Sin(rad)) + (yOff * (1 - Cos(rad)) + zOff * Sin(rad)),
-                (y1 * Sin(rad)) + (z1 * Cos(rad)) + (zOff * (1 - Cos(rad)) - yOff * Sin(rad))
+                (y1 * Cos(rad)) - (z1 * Sin(rad)) + ((yOff * (1 - Cos(rad))) + (zOff * Sin(rad))),
+                (y1 * Sin(rad)) + (z1 * Cos(rad)) + ((zOff * (1 - Cos(rad))) - (yOff * Sin(rad)))
                 );
 
         /// <summary>
@@ -788,9 +748,9 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateY(double x1, double y1, double z1, double xOff, double zOff, double rad)
             => (
-                (z1 * Sin(rad)) + (x1 * Cos(rad)) + (xOff * (1 - Cos(rad)) - zOff * Sin(rad)),
+                (z1 * Sin(rad)) + (x1 * Cos(rad)) + ((xOff * (1 - Cos(rad))) - (zOff * Sin(rad))),
                 y1,
-                (z1 * Cos(rad)) - (x1 * Sin(rad)) + (zOff * (1 - Cos(rad)) + xOff * Sin(rad))
+                (z1 * Cos(rad)) - (x1 * Sin(rad)) + ((zOff * (1 - Cos(rad))) + (xOff * Sin(rad)))
                 );
 
         /// <summary>
@@ -810,8 +770,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y, double Z) RotateZ(double x1, double y1, double z1, double xOff, double yOff, double rad)
             => (
-                (x1 * Cos(rad)) - (y1 * Sin(rad)) + (xOff * (1 - Cos(rad)) + yOff * Sin(rad)),
-                (x1 * Sin(rad)) + (y1 * Cos(rad)) + (yOff * (1 - Cos(rad)) - xOff * Sin(rad)),
+                (x1 * Cos(rad)) - (y1 * Sin(rad)) + ((xOff * (1 - Cos(rad))) + (yOff * Sin(rad))),
+                (x1 * Sin(rad)) + (y1 * Cos(rad)) + ((yOff * (1 - Cos(rad))) - (xOff * Sin(rad))),
                 z1
                 );
 

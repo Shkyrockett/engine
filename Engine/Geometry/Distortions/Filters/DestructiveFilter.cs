@@ -90,7 +90,7 @@ namespace Engine
             var result = new PolycurveContour(Process(line.Points[0]));
 
             var side = new List<Point2D>();
-            for (double j = 0; j < 1; j = j + (1d / (line.Length * SampleDistance)))
+            for (double j = 0; j < 1; j += (1d / (line.Length * SampleDistance)))
             {
                 side.Add(Process(Interpolators.Linear(line.A, line.B, j)));
             }
@@ -156,28 +156,24 @@ namespace Engine
         {
             var result = new PolycurveContour(Process(contour.Points[0]));
 
-            List<Point2D> side = null;
-            List<CubicBezier> curves = null;
             for (var i = 1; i < contour.Count; i++)
             {
-                side = new List<Point2D>();
-                for (double j = 0; j < 1; j = j + 1d / (contour[contour.Count - 1].Distance(contour[0]) * SampleDistance))
+                var side = new List<Point2D>();
+                for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * SampleDistance))
                 {
                     side.Add(Process(Interpolators.Linear(contour[i - 1], contour[i], j)));
                 }
-                curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
-                foreach (var curve in curves)
+                foreach (var curve in new List<CubicBezier>(CurveFit.Fit(side, Tolerence)))
                 {
                     result.AddCubicBezier(curve.B, curve.C, curve.D);
                 }
             }
-            side = new List<Point2D>();
-            for (double j = 0; j < 1; j = j + 1d / (contour[contour.Count - 1].Distance(contour[0]) * SampleDistance))
+            var vertex = new List<Point2D>();
+            for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * SampleDistance))
             {
-                side.Add(Process(Interpolators.Linear(contour[contour.Count - 1], contour[0], j)));
+                vertex.Add(Process(Interpolators.Linear(contour[contour.Count - 1], contour[0], j)));
             }
-            curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
-            foreach (var curve in curves)
+            foreach (var curve in new List<CubicBezier>(CurveFit.Fit(vertex, Tolerence)))
             {
                 result.AddCubicBezier(curve.B, curve.C, curve.D);
             }
@@ -208,17 +204,14 @@ namespace Engine
         public PolycurveContour Process(Polyline contour)
         {
             var result = new PolycurveContour(Process(contour.Points[0]));
-
-            List<Point2D> side = null;
-            List<CubicBezier> curves = null;
             for (var i = 1; i < contour.Count; i++)
             {
-                side = new List<Point2D>();
-                for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * SampleDistance))
+                var side = new List<Point2D>();
+                for (double j = 0; j < 1; j += 1d / (Measurements.Distance(contour[contour.Count - 1], contour[0]) * SampleDistance))
                 {
                     side.Add(Process(Interpolators.Linear(contour[i - 1], contour[i], j)));
                 }
-                curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
+                var curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
                 foreach (var curve in curves)
                 {
                     result.AddCubicBezier(curve.B, curve.C, curve.D);
@@ -236,19 +229,16 @@ namespace Engine
         public PolycurveContour Process(PolycurveContour contour)
         {
             var result = new PolycurveContour(Process(contour.Items[0].Start.Value));
-
-            List<Point2D> side = null;
-            List<CubicBezier> curves = null;
             if (contour.Count > 1)
             {
                 for (var i = 1; i < contour.Count; i++)
                 {
-                    side = new List<Point2D>();
-                    for (double j = 0; j < 1; j = j + 1d / (contour[i].Length * SampleDistance))
+                    var side = new List<Point2D>();
+                    for (double j = 0; j < 1; j += 1d / (contour[i].Length * SampleDistance))
                     {
                         side.Add(Process(contour[i].Interpolate(j)));
                     }
-                    curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
+                    var curves = new List<CubicBezier>(CurveFit.Fit(side, Tolerence));
                     foreach (var curve in curves)
                     {
                         result.AddCubicBezier(curve.B, curve.C, curve.D);
@@ -262,14 +252,14 @@ namespace Engine
         /// <summary>
         /// Process.
         /// </summary>
-        /// <param name="rect">The rect.</param>
+        /// <param name="rect">The rectangle.</param>
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(Rectangle2D rect)
         {
             var result = new PolycurveContour(Process(rect.Location));
 
             var side = new List<Point2D>();
-            for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(rect.TopLeft, rect.TopRight) * SampleDistance))
+            for (double j = 0; j < 1; j += 1d / (Measurements.Distance(rect.TopLeft, rect.TopRight) * SampleDistance))
             {
                 side.Add(Process(Interpolators.Linear(rect.Location, rect.TopRight, j)));
             }
@@ -280,7 +270,7 @@ namespace Engine
             }
 
             side = new List<Point2D>();
-            for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(rect.TopRight, rect.BottomRight) * SampleDistance))
+            for (double j = 0; j < 1; j += 1d / (Measurements.Distance(rect.TopRight, rect.BottomRight) * SampleDistance))
             {
                 side.Add(Process(Interpolators.Linear(rect.TopRight, rect.BottomRight, j)));
             }
@@ -291,7 +281,7 @@ namespace Engine
             }
 
             side = new List<Point2D>();
-            for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(rect.BottomRight, rect.BottomLeft) * SampleDistance))
+            for (double j = 0; j < 1; j += 1d / (Measurements.Distance(rect.BottomRight, rect.BottomLeft) * SampleDistance))
             {
                 side.Add(Process(Interpolators.Linear(rect.BottomRight, rect.BottomLeft, j)));
             }
@@ -302,7 +292,7 @@ namespace Engine
             }
 
             side = new List<Point2D>();
-            for (double j = 0; j < 1; j = j + 1d / (Measurements.Distance(rect.BottomLeft, rect.TopLeft) * SampleDistance))
+            for (double j = 0; j < 1; j += 1d / (Measurements.Distance(rect.BottomLeft, rect.TopLeft) * SampleDistance))
             {
                 side.Add(Process(Interpolators.Linear(rect.BottomLeft, rect.Location, j)));
             }

@@ -34,7 +34,7 @@ namespace Engine
                 return nameof(Gear);
             }
 
-            return string.Format("{0}", nameof(Gear));
+            return $"{nameof(Gear)}";
         }
     }
 }

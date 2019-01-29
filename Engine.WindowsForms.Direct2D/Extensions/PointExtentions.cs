@@ -397,8 +397,8 @@ namespace Engine
             var angleSin = Sin(angle);
 
             return new Point(
-                (int)(axis.X + (deltaX * angleCos - deltaY * angleSin)),
-                (int)(axis.Y + (deltaX * angleSin + deltaY * angleCos))
+                (int)(axis.X + ((deltaX * angleCos) - (deltaY * angleSin))),
+                (int)(axis.Y + ((deltaX * angleSin) + (deltaY * angleCos)))
             );
         }
 

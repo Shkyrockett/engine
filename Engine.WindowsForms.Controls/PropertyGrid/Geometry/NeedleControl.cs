@@ -320,8 +320,8 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Center(RectangleF rectangle) => new PointF(
-            rectangle.Left + (rectangle.Right - rectangle.Left) * 0.5f,
-            rectangle.Top + (rectangle.Bottom - rectangle.Top) * 0.5f
+            rectangle.Left + ((rectangle.Right - rectangle.Left) * 0.5f),
+            rectangle.Top + ((rectangle.Bottom - rectangle.Top) * 0.5f)
         );
 
         /// <summary>

@@ -1944,10 +1944,10 @@ namespace Engine
             }
 
             // Find the index where the intersection point lies on the line.
-            var t = ((lx1 - lx0) * lj1 + (ly0 - ly1) * li1) / determinant;
+            var t = (((lx1 - lx0) * lj1) + ((ly0 - ly1) * li1)) / determinant;
 
             // Return the intersection point.
-            result.AppendPoint(new Point2D(lx0 + t * li0, ly0 + t * lj0));
+            result.AppendPoint(new Point2D(lx0 + (t * li0), ly0 + (t * lj0)));
             result.State |= IntersectionState.Intersection;
             return result;
         }
@@ -2009,7 +2009,7 @@ namespace Engine
                 if (ta >= 0 /*&& ta <= 1 && tb >= 0 && tb <= 1*/)
                 {
                     // One intersection.
-                    result.AppendPoint(new Point2D(rx + ta * ri, ry + ta * rj));
+                    result.AppendPoint(new Point2D(rx + (ta * ri), ry + (ta * rj)));
                     result.State |= IntersectionState.Intersection;
                 }
                 else
@@ -2051,8 +2051,8 @@ namespace Engine
             // Translate lines to origin.
             (var vi, var vj) = (s1X - s0X, s1Y - s0Y);
 
-            var ua = vi * (ly - s0Y) - vj * (lx - s0X);
-            var ub = li * (ly - s0Y) - lj * (lx - s0X);
+            var ua = (vi * (ly - s0Y)) - (vj * (lx - s0X));
+            var ub = (li * (ly - s0Y)) - (lj * (lx - s0X));
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (vj * li) - (vi * lj);
@@ -2081,7 +2081,7 @@ namespace Engine
                 if (tb >= 0 && tb <= 1)
                 {
                     // One intersection.
-                    result.AppendPoint(new Point2D(lx + ta * li, ly + ta * lj));
+                    result.AppendPoint(new Point2D(lx + (ta * li), ly + (ta * lj)));
                     result.State |= IntersectionState.Intersection;
                 }
                 else
@@ -2147,10 +2147,10 @@ namespace Engine
             // Initialize intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            var c = lx * (ly - lj) + ly * (li - lx);
+            var c = (lx * (ly - lj)) + (ly * (li - lx));
 
             // Find the polynomial that represents the intersections.
-            var roots = (lj * xCurve - li * yCurve + c).Trim().Roots();
+            var roots = ((lj * xCurve) - (li * yCurve) + c).Trim().Roots();
 
             foreach (var s in roots)
             {
@@ -2158,8 +2158,8 @@ namespace Engine
                 if (!(s < 0 || s > 1d))
                 {
                     result.AppendPoint(new Point2D(
-                        xCurve[0] * s * s + xCurve[1] * s + xCurve[2],
-                        yCurve[0] * s * s + yCurve[1] * s + yCurve[2]));
+                        (xCurve[0] * s * s) + (xCurve[1] * s) + xCurve[2],
+                        (yCurve[0] * s * s) + (yCurve[1] * s) + yCurve[2]));
                 }
             }
 
@@ -2227,10 +2227,10 @@ namespace Engine
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            var c = lx * (ly - lj) + ly * (li - lx);
+            var c = (lx * (ly - lj)) + (ly * (li - lx));
 
             // Find the polynomial that represents the intersections.
-            var roots = (lj * xCurve - li * yCurve + c).Trim().Roots();
+            var roots = ((lj * xCurve) - (li * yCurve) + c).Trim().Roots();
 
             foreach (var s in roots)
             {
@@ -2238,8 +2238,8 @@ namespace Engine
                 if (!(s < 0 || s > 1d))
                 {
                     result.AppendPoint(new Point2D(
-                    xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
-                    yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]));
+                    (xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3],
+                    (yCurve[0] * s * s * s) + (yCurve[1] * s * s) + (yCurve[2] * s) + yCurve[3]));
                 }
             }
 
@@ -2454,12 +2454,12 @@ namespace Engine
             }
 
             // Calculate the quadratic parameters.
-            var a = li * li + lj * lj;
-            var b = 2 * (li * (lx - cX) + lj * (ly - cY));
-            var c = (lx - cX) * (lx - cX) + (ly - cY) * (ly - cY) - r * r;
+            var a = (li * li) + (lj * lj);
+            var b = 2 * ((li * (lx - cX)) + (lj * (ly - cY)));
+            var c = ((lx - cX) * (lx - cX)) + ((ly - cY) * (ly - cY)) - (r * r);
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * a * c;
+            var discriminant = (b * b) - (4 * a * c);
 
             if ((a <= epsilon) || (discriminant < 0))
             {
@@ -2474,7 +2474,7 @@ namespace Engine
 
                 // Add the points.
                 result = new Intersection(IntersectionState.Intersection);
-                result.AppendPoint(new Point2D(lx + t * li, ly + t * lj));
+                result.AppendPoint(new Point2D(lx + (t * li), ly + (t * lj)));
             }
             else if (discriminant > 0)
             {
@@ -2484,8 +2484,8 @@ namespace Engine
 
                 // Add the points.
                 result = new Intersection(IntersectionState.Intersection);
-                result.AppendPoint(new Point2D(lx + t1 * li, ly + t1 * lj));
-                result.AppendPoint(new Point2D(lx + t2 * li, ly + t2 * lj));
+                result.AppendPoint(new Point2D(lx + (t1 * li), ly + (t1 * lj)));
+                result.AppendPoint(new Point2D(lx + (t2 * li), ly + (t2 * lj)));
             }
 
             // Return result.
@@ -2527,16 +2527,16 @@ namespace Engine
             }
 
             // Calculate the quadratic parameters.
-            var a = li * li + lj * lj;
-            var b = 2 * (li * (lx - cX) + lj * (ly - cY));
-            var c = (lx - cX) * (lx - cX) + (ly - cY) * (ly - cY) - r * r;
+            var a = (li * li) + (lj * lj);
+            var b = 2 * ((li * (lx - cX)) + (lj * (ly - cY)));
+            var c = ((lx - cX) * (lx - cX)) + ((ly - cY) * (ly - cY)) - (r * r);
 
             // Find the points of the chord.
             var startPoint = new Point2D(cX + (Cos(angle + startAngle) * r), cY + (Sin(angle + startAngle) * r));
             var endPoint = new Point2D(cX + (Cos(angle + startAngle + sweepAngle) * r), cY + (Sin(angle + startAngle + sweepAngle) * r));
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * a * c;
+            var discriminant = (b * b) - (4 * a * c);
 
             // Check for intersections.
             if ((a <= epsilon) || (discriminant < 0))
@@ -2551,11 +2551,11 @@ namespace Engine
                 var t = -b / (2 * a);
 
                 // Find the point.
-                var pX = lx + t * li;
-                var pY = ly + t * lj;
+                var pX = lx + (t * li);
+                var pY = ly + (t * lj);
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle))
@@ -2571,11 +2571,11 @@ namespace Engine
                 var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 // Find the point.
-                var pX = lx + t1 * li;
-                var pY = ly + t1 * lj;
+                var pX = lx + (t1 * li);
+                var pY = ly + (t1 * lj);
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle))
@@ -2585,11 +2585,11 @@ namespace Engine
                 }
 
                 // Find the point.
-                pX = lx + t2 * li;
-                pY = ly + t2 * lj;
+                pX = lx + (t2 * li);
+                pY = ly + (t2 * lj);
 
                 // Find the determinant of the chord and point.
-                determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
                 if (Sign(determinant) != Sign(sweepAngle))
@@ -2672,43 +2672,43 @@ namespace Engine
             var v2 = ly + lj - cy;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
-            var u2A = u2 * cosA - v2 * -sinA;
-            var v2A = u2 * -sinA + v2 * cosA;
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
+            var u2A = (u2 * cosA) - (v2 * -sinA);
+            var v2A = (u2 * -sinA) + (v2 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
+            var a = ((u2A - u1A) * (u2A - u1A) / (rx * rx)) + ((v2A - v1A) * (v2A - v1A) / (ry * ry));
+            var b = (2d * u1A * (u2A - u1A) / (rx * rx)) + (2d * v1A * (v2A - v1A) / (ry * ry));
+            var c = (u1A * u1A / (rx * rx)) + (v1A * v1A / (ry * ry)) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 result.State |= IntersectionState.Outside;
                 return result;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
 
                 // Add the point.
-                result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
+                result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t) + cx, v1 + ((v2 - v1) * t) + cy));
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var t1 = OneHalf * (-b + Sqrt(discriminant)) / a;
                 var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
 
                 // Add the points.
-                result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
-                result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
+                result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t1) + cx, v1 + ((v2 - v1) * t1) + cy));
+                result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t2) + cx, v1 + ((v2 - v1) * t2) + cy));
             }
 
             // ToDo: Return IntersectionState.Inside if both points are inside the Ellipse.
@@ -2778,7 +2778,7 @@ namespace Engine
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
-                ((li == 0) && (lj == 0)))
+                ((li == 0d) && (lj == 0d)))
             {
                 return result;
             }
@@ -2790,21 +2790,21 @@ namespace Engine
             var v1 = ly + lj - cy;
 
             // Apply the rotation transformation to line at the origin.
-            var u0A = u0 * cosA - v0 * -sinA;
-            var v0A = u0 * -sinA + v0 * cosA;
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
+            var u0A = (u0 * cosA) - (v0 * -sinA);
+            var v0A = (u0 * -sinA) + (v0 * cosA);
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
-            var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
+            var a = ((u1A - u0A) * (u1A - u0A) / (rx * rx)) + ((v1A - v0A) * (v1A - v0A) / (ry * ry));
+            var b = (2d * u0A * (u1A - u0A) / (rx * rx)) + (2d * v0A * (v1A - v0A) / (ry * ry));
+            var c = (u0A * u0A / (rx * rx)) + (v0A * v0A / (ry * ry)) - 1d;
 
             // Calculate the discriminant of the quadratic.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 result.State |= IntersectionState.Outside;
@@ -2822,21 +2822,21 @@ namespace Engine
             var vea = -(ry * Sin(ea));
 
             // Apply the rotation and translation transformations to find the chord points.
-            var sx = cx + (usa * cosA + vsa * sinA);
-            var sy = cy + (usa * sinA - vsa * cosA);
-            var ex = cx + (uea * cosA + vea * sinA);
-            var ey = cy + (uea * sinA - vea * cosA);
+            var sx = cx + ((usa * cosA) + (vsa * sinA));
+            var sy = cy + ((usa * sinA) - (vsa * cosA));
+            var ex = cx + ((uea * cosA) + (vea * sinA));
+            var ey = cy + ((uea * sinA) - (vea * cosA));
 
-            if (discriminant == 0)
+            if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
 
                 // Find the point.
-                var p = new Point2D(u0 + (u1 - u0) * t + cx, v0 + (v1 - v0) * t + cy);
+                var p = new Point2D(u0 + ((u1 - u0) * t) + cx, v0 + ((v1 - v0) * t) + cy);
 
                 // Find the determinant of the matrix representing the chord.
-                var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+                var determinant = ((sx - p.X) * (ey - p.Y)) - ((ex - p.X) * (sy - p.Y));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -2844,7 +2844,7 @@ namespace Engine
                     result.AppendPoint(p);
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
@@ -2852,10 +2852,10 @@ namespace Engine
                 var t2 = OneHalf * (-b - root) / a;
 
                 // Find the point.
-                var p = new Point2D(u0 + (u1 - u0) * t1 + cx, v0 + (v1 - v0) * t1 + cy);
+                var p = new Point2D(u0 + ((u1 - u0) * t1) + cx, v0 + ((v1 - v0) * t1) + cy);
 
                 // Find the determinant of the matrix representing the chord.
-                var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+                var determinant = ((sx - p.X) * (ey - p.Y)) - ((ex - p.X) * (sy - p.Y));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -2864,10 +2864,10 @@ namespace Engine
                 }
 
                 // Find the point.
-                p = new Point2D(u0 + (u1 - u0) * t2 + cx, v0 + (v1 - v0) * t2 + cy);
+                p = new Point2D(u0 + ((u1 - u0) * t2) + cx, v0 + ((v1 - v0) * t2) + cy);
 
                 // Find the determinant of the matrix representing the chord.
-                determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+                determinant = ((sx - p.X) * (ey - p.Y)) - ((ex - p.X) * (sy - p.Y));
 
                 // Add the point if it is on the sweep side of the chord.
                 if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -2916,8 +2916,8 @@ namespace Engine
             var v = s2Y - s1Y;
 
             // Intersection cross product.
-            var ua = u * (ry - s1Y) - v * (rx - s1X);
-            var ub = ri * (ry - s1Y) - rj * (rx - s1X);
+            var ua = (u * (ry - s1Y)) - (v * (rx - s1X));
+            var ub = (ri * (ry - s1Y)) - (rj * (rx - s1X));
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (v * ri) - (u * rj);
@@ -2925,7 +2925,7 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     //// Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
                     //result.AppendPoints(new List<Point2D> { new Point2D(s1X, s1Y), new Point2D(s2X, s2Y) });
@@ -2943,10 +2943,10 @@ namespace Engine
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (ta >= 0 /*&& ta <= 1*/ && tb >= 0 && tb <= 1)
+                if (ta >= 0d /*&& ta <= 1*/ && tb >= 0d && tb <= 1)
                 {
                     // One intersection.
-                    result.AppendPoint(new Point2D(rx + ta * ri, ry + ta * rj));
+                    result.AppendPoint(new Point2D(rx + (ta * ri), ry + (ta * rj)));
                     result.State |= IntersectionState.Intersection;
                 }
                 else
@@ -2986,15 +2986,15 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Intersection cross product.
-            var ua = r1i * (r0y - r1y) - r1j * (r0x - r1x);
-            var ub = r0i * (r0y - r1y) - r0j * (r0x - r1x);
+            var ua = (r1i * (r0y - r1y)) - (r1j * (r0x - r1x));
+            var ub = (r0i * (r0y - r1y)) - (r0j * (r0x - r1x));
 
             // Calculate the determinant of the coefficient matrix.
-            var determinant = r1j * r0i - r1i * r0j;
+            var determinant = (r1j * r0i) - (r1i * r0j);
 
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     result.State |= IntersectionState.Coincident;
                 }
@@ -3008,11 +3008,11 @@ namespace Engine
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (ta >= 0 /*&& ta <= 1*/ && tb >= 0 /*&& tb <= 1*/)
+                if (ta >= 0d /*&& ta <= 1*/ && tb >= 0d /*&& tb <= 1*/)
                 {
                     // One intersection.
                     result.State = IntersectionState.Intersection;
-                    result.AppendPoint(new Point2D(r0x + ta * r0i, r0y + ta * r0j));
+                    result.AppendPoint(new Point2D(r0x + (ta * r0i), r0y + (ta * r0j)));
                 }
                 else
                 {
@@ -3050,23 +3050,23 @@ namespace Engine
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            var c = x1 * j1 + y1 * i1;
+            var c = (x1 * j1) + (y1 * i1);
 
             // Find the polynomial that represents the intersections.
-            var roots = (j1 * xCurve - i1 * yCurve + c).Trim().Roots();
+            var roots = ((j1 * xCurve) - (i1 * yCurve) + c).Trim().Roots();
 
             foreach (var s in roots)
             {
                 // Intersection point assuming it was an infinitely long line.
-                var x = xCurve[0] * s * s + xCurve[1] * s + xCurve[2];
-                var y = yCurve[0] * s * s + yCurve[1] * s + yCurve[2];
+                var x = (xCurve[0] * s * s) + (xCurve[1] * s) + xCurve[2];
+                var y = (yCurve[0] * s * s) + (yCurve[1] * s) + yCurve[2];
 
                 double slope;
                 // Special handling for vertical lines.
-                slope = i1 != 0 ? (x - x1) / i1 : (y - y1) / j1;
+                slope = i1 != 0d ? (x - x1) / i1 : (y - y1) / j1;
 
                 // Make sure we are in bounds of the line segment.
-                if (!(s < 0 /*|| s > 1d*/ || slope < 0 || slope > 1d))
+                if (!(s < 0d /*|| s > 1d*/ || slope < 0d || slope > 1d))
                 {
                     // Add intersection point.
                     result.AppendPoint(new Point2D(x, y));
@@ -3108,25 +3108,25 @@ namespace Engine
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            var c = x1 * -j1 + y1 * i1;
+            var c = (x1 * -j1) + (y1 * i1);
 
             // Find the polynomial that represents the intersections.
-            var roots = (j1 * xCurve + -i1 * yCurve + c).Trim().Roots();
+            var roots = ((j1 * xCurve) + (-i1 * yCurve) + c).Trim().Roots();
 
             foreach (var s in roots)
             {
                 // Intersection point assuming infinitely long line segment.
                 var point = new Point2D(
-                    xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
-                    yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]);
+                    (xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3],
+                    (yCurve[0] * s * s * s) + (yCurve[1] * s * s) + (yCurve[2] * s) + yCurve[3]);
 
                 double slope;
 
                 // Special handling for vertical lines.
-                slope = i1 != 0 ? (point.X - x1) / i1 : (point.Y - y1) / j1;
+                slope = i1 != 0d ? (point.X - x1) / i1 : (point.Y - y1) / j1;
 
                 // Make sure we are in bounds of the line segment.
-                if (!(s < 0 /*|| s > 1d*/ || slope < 0 || slope > 1d))
+                if (!(s < 0d /*|| s > 1d*/ || slope < 0d || slope > 1d))
                 {
                     // Add intersection point.
                     result.AppendPoint(point);
@@ -3345,27 +3345,27 @@ namespace Engine
         {
             Intersection result;
 
-            var a = lBi * lBi + lBj * lBj;
-            var b = 2 * (lBi * (lAX - cX) + lBj * (lAY - cY));
-            var c = cX * cX + cY * cY + lAX * lAX + lAY * lAY - 2 * (cX * lAX + cY * lAY) - r * r;
+            var a = (lBi * lBi) + (lBj * lBj);
+            var b = 2 * ((lBi * (lAX - cX)) + (lBj * (lAY - cY)));
+            var c = (cX * cX) + (cY * cY) + (lAX * lAX) + (lAY * lAY) - (2 * ((cX * lAX) + (cY * lAY))) - (r * r);
 
-            var determinant = b * b - 4 * a * c;
-            if (determinant < 0)
+            var determinant = (b * b) - (4 * a * c);
+            if (determinant < 0d)
             {
                 result = new Intersection(IntersectionState.Outside);
             }
-            else if (determinant == 0)
+            else if (determinant == 0d)
             {
                 result = new Intersection(IntersectionState.Tangent | IntersectionState.Intersection);
-                var u1 = (-b) / (2 * a);
-                if (u1 < 0 || u1 > 1)
+                var u1 = (-b) / (2d * a);
+                if (u1 < 0d || u1 > 1d)
                 {
-                    result = (u1 < 0) || (u1 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0d) || (u1 > 1d) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
                 }
                 else
                 {
                     result = new Intersection(IntersectionState.Intersection);
-                    if (0 <= u1 && u1 <= 1)
+                    if (0d <= u1 && u1 <= 1d)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBi, lBj, u1));
                     }
@@ -3374,21 +3374,21 @@ namespace Engine
             else
             {
                 var e = Sqrt(determinant);
-                var u1 = (-b + e) / (2 * a);
-                var u2 = (-b - e) / (2 * a);
-                if ((u1 < 0 /*|| u1 > 1*/) && (u2 < 0 || u2 > 1))
+                var u1 = (-b + e) / (2d * a);
+                var u2 = (-b - e) / (2d * a);
+                if ((u1 < 0d /*|| u1 > 1d*/) && (u2 < 0d || u2 > 1d))
                 {
-                    result = (u1 < 0 && u2 < 0) || (u1 > 1 && u2 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0d && u2 < 0d) || (u1 > 1d && u2 > 1d) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
                 }
                 else
                 {
                     result = new Intersection(IntersectionState.Intersection);
-                    if (0 <= u1/* && u1 <= 1*/)
+                    if (0d <= u1/* && u1 <= 1d*/)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBi, lBj, u1));
                     }
 
-                    if (0 <= u2/* && u2 <= 1*/)
+                    if (0d <= u2/* && u2 <= 1d*/)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBi, lBj, u2));
                     }
@@ -3432,69 +3432,69 @@ namespace Engine
             }
 
             // Calculate the quadratic parameters.
-            var a = lBI * lBI + lBJ * lBJ;
-            var b = 2 * (lBI * (lAX - cX) + lBJ * (lAY - cY));
-            var c = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - r * r;
+            var a = (lBI * lBI) + (lBJ * lBJ);
+            var b = 2d * ((lBI * (lAX - cX)) + (lBJ * (lAY - cY)));
+            var c = ((lAX - cX) * (lAX - cX)) + ((lAY - cY) * (lAY - cY)) - (r * r);
 
             // Find the points of the chord.
-            Point2D startPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 0);
-            Point2D endPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 1);
+            Point2D startPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 0d);
+            Point2D endPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 1d);
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
-                var t = -b / (2 * a);
+                var t = -b / (2d * a);
 
                 // Find the point.
-                var pX = lAX + t * lBI;
-                var pY = lAY + t * lBJ;
+                var pX = lAX + (t * lBI);
+                var pY = lAY + (t * lBJ);
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t && t <= 1)
+                if (Sign(determinant) != Sign(sweepAngle) && 0d <= t && t <= 1d)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
-                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
-                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
+                var t1 = (-b + Sqrt(discriminant)) / (2d * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2d * a);
 
                 // Find the point.
-                var pX = lAX + t1 * lBI;
-                var pY = lAY + t1 * lBJ;
+                var pX = lAX + (t1 * lBI);
+                var pY = lAY + (t1 * lBJ);
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t1 && t1 <= 1)
+                if (Sign(determinant) != Sign(sweepAngle) && 0d <= t1 && t1 <= 1d)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
                 }
 
                 // Find the point.
-                pX = lAX + t2 * lBI;
-                pY = lAY + t2 * lBJ;
+                pX = lAX + (t2 * lBI);
+                pY = lAY + (t2 * lBJ);
 
                 // Find the determinant of the chord and point.
-                determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && (0 <= t2/* && t2 <= 1*/))
+                if (Sign(determinant) != Sign(sweepAngle) && (0d <= t2/* && t2 <= 1d*/))
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
@@ -3539,7 +3539,7 @@ namespace Engine
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
-                ((0 == i0) && (0 == j0)))
+                ((0d == i0) && (0d == j0)))
             {
                 return result;
             }
@@ -3551,27 +3551,27 @@ namespace Engine
             var v2 = y0 + j0 - cy;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = 0 + (u1 * cosA - v1 * -sinA);
-            var v1A = 0 + (u1 * -sinA + v1 * cosA);
-            var u2A = 0 + (u2 * cosA - v2 * -sinA);
-            var v2A = 0 + (u2 * -sinA + v2 * cosA);
+            var u1A = 0d + ((u1 * cosA) - (v1 * -sinA));
+            var v1A = 0d + ((u1 * -sinA) + (v1 * cosA));
+            var u2A = 0d + ((u2 * cosA) - (v2 * -sinA));
+            var v2A = 0d + ((u2 * -sinA) + (v2 * cosA));
 
             // Calculate the quadratic parameters.
-            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
+            var a = ((u2A - u1A) * (u2A - u1A) / (rx * rx)) + ((v2A - v1A) * (v2A - v1A) / (ry * ry));
+            var b = (2d * u1A * (u2A - u1A) / (rx * rx)) + (2d * v1A * (v2A - v1A) / (ry * ry));
+            var c = (u1A * u1A / (rx * rx)) + (v1A * v1A / (ry * ry)) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 result.State |= IntersectionState.Outside;
                 return result;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = 0.5d * -b / a;
@@ -3579,11 +3579,11 @@ namespace Engine
                 // Add the point if it is between the end points of the line segment.
                 if ((t >= 0d) && (t <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t) + cx, v1 + ((v2 - v1) * t) + cy));
                 }
 
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var t1 = 0.5d * (-b + Sqrt(discriminant)) / a;
@@ -3592,12 +3592,12 @@ namespace Engine
                 // Add the points if they are between the end points of the line segment.
                 if (t1 >= 0d/* && (t1 <= 1d)*/)
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t1) + cx, v1 + ((v2 - v1) * t1) + cy));
                 }
 
                 if (t2 >= 0d/* && (t2 <= 1d)*/)
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t2) + cx, v1 + ((v2 - v1) * t2) + cy));
                 }
             }
 
@@ -3644,7 +3644,7 @@ namespace Engine
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
-                ((0 == i0) && (0 == j0)))
+                ((0d == i0) && (0d == j0)))
             {
                 return result;
             }
@@ -3656,18 +3656,18 @@ namespace Engine
             var v1 = y0 + j0 - cy;
 
             // Apply Rotation Transform to line at the origin to align it with the unrotated ellipse.
-            var u0A = u0 * cosA - v0 * -sinA;
-            var v0A = u0 * -sinA + v0 * cosA;
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
+            var u0A = (u0 * cosA) - (v0 * -sinA);
+            var v0A = (u0 * -sinA) + (v0 * cosA);
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
-            var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
+            var a = ((u1A - u0A) * (u1A - u0A) / (rx * rx)) + ((v1A - v0A) * (v1A - v0A) / (ry * ry));
+            var b = (2d * u0A * (u1A - u0A) / (rx * rx)) + (2d * v0A * (v1A - v0A) / (ry * ry));
+            var c = (u0A * u0A / (rx * rx)) + (v0A * v0A / (ry * ry)) - 1d;
 
             // Calculate the discriminant of the quadratic.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
             if ((a <= epsilon) || (discriminant < 0))
@@ -3688,12 +3688,12 @@ namespace Engine
             var vea = -(ry * Sin(ea));
 
             // Apply the rotation transformation to find the chord points.
-            var sx = cx + (usa * cosA + vsa * sinA);
-            var sy = cy + (usa * sinA - vsa * cosA);
-            var ex = cx + (uea * cosA + vea * sinA);
-            var ey = cy + (uea * sinA - vea * cosA);
+            var sx = cx + ((usa * cosA) + (vsa * sinA));
+            var sy = cy + ((usa * sinA) - (vsa * cosA));
+            var ex = cx + ((uea * cosA) + (vea * sinA));
+            var ey = cy + ((uea * sinA) - (vea * cosA));
 
-            if (discriminant == 0)
+            if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
@@ -3702,10 +3702,10 @@ namespace Engine
                 if (t >= 0d /*&& t <= 1d*/)
                 {
                     // Find the point.
-                    var p = new Point2D(u0 + (u1 - u0) * t + cx, v0 + (v1 - v0) * t + cy);
+                    var p = new Point2D(u0 + ((u1 - u0) * t) + cx, v0 + ((v1 - v0) * t) + cy);
 
                     // Find the determinant of the matrix representing the chord.
-                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+                    var determinant = ((sx - p.X) * (ey - p.Y)) - ((ex - p.X) * (sy - p.Y));
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -3714,7 +3714,7 @@ namespace Engine
                     }
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
@@ -3725,10 +3725,10 @@ namespace Engine
                 if (t1 >= 0d /*&& (t1 == 1d)*/)
                 {
                     // Find the point.
-                    var p = new Point2D(u0 + (u1 - u0) * t1 + cx, v0 + (v1 - v0) * t1 + cy);
+                    var p = new Point2D(u0 + ((u1 - u0) * t1) + cx, v0 + ((v1 - v0) * t1) + cy);
 
                     // Find the determinant of the matrix representing the chord.
-                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+                    var determinant = ((sx - p.X) * (ey - p.Y)) - ((ex - p.X) * (sy - p.Y));
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -3740,10 +3740,10 @@ namespace Engine
                 if (t2 >= 0d /*&& (t2 <= 1d)*/)
                 {
                     // Find the point.
-                    var p = new Point2D(u0 + (u1 - u0) * t2 + cx, v0 + (v1 - v0) * t2 + cy);
+                    var p = new Point2D(u0 + ((u1 - u0) * t2) + cx, v0 + ((v1 - v0) * t2) + cy);
 
                     // Find the determinant of the matrix representing the chord.
-                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+                    var determinant = ((sx - p.X) * (ey - p.Y)) - ((ex - p.X) * (sy - p.Y));
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -3787,14 +3787,14 @@ namespace Engine
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            var ua = (b2X - b1X) * (y1 - b1Y) - (b2Y - b1Y) * (x1 - b1X);
-            var ub = (x2 - x1) * (y1 - b1Y) - (y2 - y1) * (x1 - b1X);
+            var ua = ((b2X - b1X) * (y1 - b1Y)) - ((b2Y - b1Y) * (x1 - b1X));
+            var ub = ((x2 - x1) * (y1 - b1Y)) - ((y2 - y1) * (x1 - b1X));
 
-            var determinant = (b2Y - b1Y) * (x2 - x1) - (b2X - b1X) * (y2 - y1);
+            var determinant = ((b2Y - b1Y) * (x2 - x1)) - ((b2X - b1X) * (y2 - y1));
 
-            if (determinant == 0)
+            if (determinant == 0d)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     result.State = IntersectionState.Coincident;
                 }
@@ -3808,10 +3808,10 @@ namespace Engine
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (0 <= ta && ta <= 1 && 0 <= tb && tb <= 1)
+                if (0d <= ta && ta <= 1d && 0d <= tb && tb <= 1d)
                 {
                     result.State = IntersectionState.Intersection;
-                    result.AppendPoint(new Point2D(x1 + ta * (x2 - x1), y1 + ta * (y2 - y1)));
+                    result.AppendPoint(new Point2D(x1 + (ta * (x2 - x1)), y1 + (ta * (y2 - y1))));
                 }
                 else
                 {
@@ -3878,24 +3878,24 @@ namespace Engine
             var a = y2 - y1;
             var b = x1 - x2;
 
-            var c = x1 * (y1 - y2) + y1 * (x2 - x1);
+            var c = (x1 * (y1 - y2)) + (y1 * (x2 - x1));
 
             // Find the roots of the polynomial that represents the intersections.
-            var roots = (a * xCurve + b * yCurve + c).Trim().Roots();
+            var roots = ((a * xCurve) + (b * yCurve) + c).Trim().Roots();
 
             foreach (var s in roots)
             {
                 // Intersection point assuming it was an infinitely long line.
-                var x = xCurve[0] * s * s + xCurve[1] * s + xCurve[2];
-                var y = yCurve[0] * s * s + yCurve[1] * s + yCurve[2];
+                var x = (xCurve[0] * s * s) + (xCurve[1] * s) + xCurve[2];
+                var y = (yCurve[0] * s * s) + (yCurve[1] * s) + yCurve[2];
 
                 double slope;
 
                 // Special handling for vertical lines.
-                slope = (x2 - x1) != 0 ? (x - x1) / (x2 - x1) : (y - y1) / (y2 - y1);
+                slope = (x2 - x1) != 0d ? (x - x1) / (x2 - x1) : (y - y1) / (y2 - y1);
 
                 // Make sure we are in bounds of the line segment.
-                if (!(s < 0 || s > 1d || slope < 0 || slope > 1d))
+                if (!(s < 0d || s > 1d || slope < 0d || slope > 1d))
                 {
                     // Add intersection point.
                     result.AppendPoint(new Point2D(x, y));
@@ -3970,25 +3970,25 @@ namespace Engine
             var a = y2 - y1;
             var b = x1 - x2;
 
-            var c = x1 * (y1 - y2) + y1 * (x2 - x1);
+            var c = (x1 * (y1 - y2)) + (y1 * (x2 - x1));
 
             // Find the roots of the polynomial that represents the intersections.
-            var roots = (a * xCurve + b * yCurve + c).Trim().Roots();
+            var roots = ((a * xCurve) + (b * yCurve) + c).Trim().Roots();
 
             foreach (var s in roots)
             {
                 // Intersection point assuming infinitely long line segment.
                 var point = new Point2D(
-                    xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
-                    yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]);
+                    (xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3],
+                    (yCurve[0] * s * s * s) + (yCurve[1] * s * s) + (yCurve[2] * s) + yCurve[3]);
 
                 double slope;
 
                 // Special handling for vertical lines.
-                slope = (x2 - x1) != 0 ? (point.X - x1) / (x2 - x1) : (point.Y - y1) / (y2 - y1);
+                slope = (x2 - x1) != 0d ? (point.X - x1) / (x2 - x1) : (point.Y - y1) / (y2 - y1);
 
                 // Make sure we are in bounds of the line segment.
-                if (!(s < 0 || s > 1d || slope < 0 || slope > 1d))
+                if (!(s < 0d || s > 1d || slope < 0d || slope > 1d))
                 {
                     // Add intersection point.
                     result.AppendPoint(point);
@@ -4209,27 +4209,27 @@ namespace Engine
         {
             Intersection result;
 
-            var a = (lBX - lAX) * (lBX - lAX) + (lBY - lAY) * (lBY - lAY);
-            var b = 2 * ((lBX - lAX) * (lAX - cX) + (lBY - lAY) * (lAY - cY));
-            var c = cX * cX + cY * cY + lAX * lAX + lAY * lAY - 2 * (cX * lAX + cY * lAY) - r * r;
+            var a = ((lBX - lAX) * (lBX - lAX)) + ((lBY - lAY) * (lBY - lAY));
+            var b = 2 * (((lBX - lAX) * (lAX - cX)) + ((lBY - lAY) * (lAY - cY)));
+            var c = (cX * cX) + (cY * cY) + (lAX * lAX) + (lAY * lAY) - (2 * ((cX * lAX) + (cY * lAY))) - (r * r);
 
-            var determinant = b * b - 4 * a * c;
-            if (determinant < 0)
+            var determinant = (b * b) - (4 * a * c);
+            if (determinant < 0d)
             {
                 result = new Intersection(IntersectionState.Outside);
             }
-            else if (determinant == 0)
+            else if (determinant == 0d)
             {
                 result = new Intersection(IntersectionState.Tangent | IntersectionState.Intersection);
-                var u1 = (-b) / (2 * a);
-                if (u1 < 0 || u1 > 1)
+                var u1 = (-b) / (2d * a);
+                if (u1 < 0d || u1 > 1d)
                 {
-                    result = (u1 < 0) || (u1 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0d) || (u1 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
                 }
                 else
                 {
                     result = new Intersection(IntersectionState.Intersection);
-                    if (0 <= u1 && u1 <= 1)
+                    if (0d <= u1 && u1 <= 1d)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u1));
                     }
@@ -4238,21 +4238,21 @@ namespace Engine
             else
             {
                 var e = Sqrt(determinant);
-                var u1 = (-b + e) / (2 * a);
-                var u2 = (-b - e) / (2 * a);
-                if ((u1 < 0 || u1 > 1) && (u2 < 0 || u2 > 1))
+                var u1 = (-b + e) / (2d * a);
+                var u2 = (-b - e) / (2d * a);
+                if ((u1 < 0d || u1 > 1d) && (u2 < 0d || u2 > 1d))
                 {
-                    result = (u1 < 0 && u2 < 0) || (u1 > 1 && u2 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0d && u2 < 0d) || (u1 > 1d && u2 > 1d) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
                 }
                 else
                 {
                     result = new Intersection(IntersectionState.Intersection);
-                    if (0 <= u1 && u1 <= 1)
+                    if (0d <= u1 && u1 <= 1d)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u1));
                     }
 
-                    if (0 <= u2 && u2 <= 1)
+                    if (0d <= u2 && u2 <= 1d)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u2));
                     }
@@ -4298,69 +4298,69 @@ namespace Engine
             var dy = lBY - lAY;
 
             // Calculate the quadratic parameters.
-            var a = dx * dx + dy * dy;
-            var b = 2 * (dx * (lAX - cX) + dy * (lAY - cY));
-            var c = (lAX - cX) * (lAX - cX) + (lAY - cY) * (lAY - cY) - r * r;
+            var a = (dx * dx) + (dy * dy);
+            var b = 2 * ((dx * (lAX - cX)) + (dy * (lAY - cY)));
+            var c = ((lAX - cX) * (lAX - cX)) + ((lAY - cY) * (lAY - cY)) - (r * r);
 
             // Find the points of the chord.
             Point2D startPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 0);
             Point2D endPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 1);
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4 * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One possible solution.
-                var t = -b / (2 * a);
+                var t = -b / (2d * a);
 
                 // Find the point.
-                var pX = lAX + t * dx;
-                var pY = lAY + t * dy;
+                var pX = lAX + (t * dx);
+                var pY = lAY + (t * dy);
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t && t <= 1)
+                if (Sign(determinant) != Sign(sweepAngle) && 0d <= t && t <= 1d)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two possible solutions.
-                var t1 = (-b + Sqrt(discriminant)) / (2 * a);
-                var t2 = (-b - Sqrt(discriminant)) / (2 * a);
+                var t1 = (-b + Sqrt(discriminant)) / (2d * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2d * a);
 
                 // Find the point.
-                var pX = lAX + t1 * dx;
-                var pY = lAY + t1 * dy;
+                var pX = lAX + (t1 * dx);
+                var pY = lAY + (t1 * dy);
 
                 // Find the determinant of the chord and point.
-                var determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                var determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t1 && t1 <= 1)
+                if (Sign(determinant) != Sign(sweepAngle) && 0d <= t1 && t1 <= 1d)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
                 }
 
                 // Find the point.
-                pX = lAX + t2 * dx;
-                pY = lAY + t2 * dy;
+                pX = lAX + (t2 * dx);
+                pY = lAY + (t2 * dy);
 
                 // Find the determinant of the chord and point.
-                determinant = (startPoint.X - pX) * (endPoint.Y - pY) - (endPoint.X - pX) * (startPoint.Y - pY);
+                determinant = ((startPoint.X - pX) * (endPoint.Y - pY)) - ((endPoint.X - pX) * (startPoint.Y - pY));
 
                 // Check whether the point is on the same side of the chord as the center.
-                if (Sign(determinant) != Sign(sweepAngle) && 0 <= t2 && t2 <= 1)
+                if (Sign(determinant) != Sign(sweepAngle) && 0d <= t2 && t2 <= 1d)
                 {
                     // Add the point.
                     result.AppendPoint(new Point2D(pX, pY));
@@ -4439,27 +4439,27 @@ namespace Engine
             var v2 = y1 - cy;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = 0 + (u1 * cosA - v1 * -sinA);
-            var v1A = 0 + (u1 * -sinA + v1 * cosA);
-            var u2A = 0 + (u2 * cosA - v2 * -sinA);
-            var v2A = 0 + (u2 * -sinA + v2 * cosA);
+            var u1A = 0d + ((u1 * cosA) - (v1 * -sinA));
+            var v1A = 0d + ((u1 * -sinA) + (v1 * cosA));
+            var u2A = 0d + ((u2 * cosA) - (v2 * -sinA));
+            var v2A = 0d + ((u2 * -sinA) + (v2 * cosA));
 
             // Calculate the quadratic parameters.
-            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
+            var a = ((u2A - u1A) * (u2A - u1A) / (rx * rx)) + ((v2A - v1A) * (v2A - v1A) / (ry * ry));
+            var b = (2d * u1A * (u2A - u1A) / (rx * rx)) + (2d * v1A * (v2A - v1A) / (ry * ry));
+            var c = (u1A * u1A / (rx * rx)) + (v1A * v1A / (ry * ry)) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Find solutions.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 result.State |= IntersectionState.Outside;
                 return result;
             }
-            else if (discriminant == 0)
+            else if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = 0.5d * -b / a;
@@ -4467,11 +4467,11 @@ namespace Engine
                 // Add the point if it is between the end points of the line segment.
                 if ((t >= 0d) && (t <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t) + cx, v1 + ((v2 - v1) * t) + cy));
                 }
 
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var t1 = 0.5d * (-b + Sqrt(discriminant)) / a;
@@ -4480,12 +4480,12 @@ namespace Engine
                 // Add the points if they are between the end points of the line segment.
                 if ((t1 >= 0d) && (t1 <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t1) + cx, v1 + ((v2 - v1) * t1) + cy));
                 }
 
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
-                    result.AppendPoint(new Point2D(u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
+                    result.AppendPoint(new Point2D(u1 + ((u2 - u1) * t2) + cx, v1 + ((v2 - v1) * t2) + cy));
                 }
             }
 
@@ -4569,21 +4569,21 @@ namespace Engine
             var v1 = y1 - cy;
 
             // Apply Rotation Transform to line at the origin to align it with the unrotated ellipse.
-            var u0A = u0 * cosA - v0 * -sinA;
-            var v0A = u0 * -sinA + v0 * cosA;
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
+            var u0A = (u0 * cosA) - (v0 * -sinA);
+            var v0A = (u0 * -sinA) + (v0 * cosA);
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u1A - u0A) * (u1A - u0A) / (rx * rx) + (v1A - v0A) * (v1A - v0A) / (ry * ry);
-            var b = 2d * u0A * (u1A - u0A) / (rx * rx) + 2d * v0A * (v1A - v0A) / (ry * ry);
-            var c = u0A * u0A / (rx * rx) + v0A * v0A / (ry * ry) - 1d;
+            var a = ((u1A - u0A) * (u1A - u0A) / (rx * rx)) + ((v1A - v0A) * (v1A - v0A) / (ry * ry));
+            var b = (2d * u0A * (u1A - u0A) / (rx * rx)) + (2d * v0A * (v1A - v0A) / (ry * ry));
+            var c = (u0A * u0A / (rx * rx)) + (v0A * v0A / (ry * ry)) - 1d;
 
             // Calculate the discriminant of the quadratic.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Check whether line segment is outside of the ellipse.
-            if ((a <= epsilon) || (discriminant < 0))
+            if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
                 result.State |= IntersectionState.Outside;
@@ -4601,12 +4601,12 @@ namespace Engine
             var vea = -(ry * Sin(ea));
 
             // Apply the rotation transformation to find the chord points.
-            var sx = cx + (usa * cosA + vsa * sinA);
-            var sy = cy + (usa * sinA - vsa * cosA);
-            var ex = cx + (uea * cosA + vea * sinA);
-            var ey = cy + (uea * sinA - vea * cosA);
+            var sx = cx + ((usa * cosA) + (vsa * sinA));
+            var sy = cy + ((usa * sinA) - (vsa * cosA));
+            var ex = cx + ((uea * cosA) + (vea * sinA));
+            var ey = cy + ((uea * sinA) - (vea * cosA));
 
-            if (discriminant == 0)
+            if (discriminant == 0d)
             {
                 // One real possible solution.
                 var t = OneHalf * -b / a;
@@ -4615,10 +4615,10 @@ namespace Engine
                 if (t >= 0d && t <= 1d)
                 {
                     // Find the point.
-                    var p = new Point2D(u0 + (u1 - u0) * t + cx, v0 + (v1 - v0) * t + cy);
+                    var p = new Point2D(u0 + ((u1 - u0) * t) + cx, v0 + ((v1 - v0) * t) + cy);
 
                     // Find the determinant of the matrix representing the chord.
-                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+                    var determinant = ((sx - p.X) * (ey - p.Y)) - ((ex - p.X) * (sy - p.Y));
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -4627,7 +4627,7 @@ namespace Engine
                     }
                 }
             }
-            else if (discriminant > 0)
+            else if (discriminant > 0d)
             {
                 // Two real possible solutions.
                 var root = Sqrt(discriminant);
@@ -4638,10 +4638,10 @@ namespace Engine
                 if ((t1 >= 0d) && (t1 == 1d))
                 {
                     // Find the point.
-                    var p = new Point2D(u0 + (u1 - u0) * t1 + cx, v0 + (v1 - v0) * t1 + cy);
+                    var p = new Point2D(u0 + ((u1 - u0) * t1) + cx, v0 + ((v1 - v0) * t1) + cy);
 
                     // Find the determinant of the matrix representing the chord.
-                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+                    var determinant = ((sx - p.X) * (ey - p.Y)) - ((ex - p.X) * (sy - p.Y));
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -4653,10 +4653,10 @@ namespace Engine
                 if ((t2 >= 0d) && (t2 <= 1d))
                 {
                     // Find the point.
-                    var p = new Point2D(u0 + (u1 - u0) * t2 + cx, v0 + (v1 - v0) * t2 + cy);
+                    var p = new Point2D(u0 + ((u1 - u0) * t2) + cx, v0 + ((v1 - v0) * t2) + cy);
 
                     // Find the determinant of the matrix representing the chord.
-                    var determinant = (sx - p.X) * (ey - p.Y) - (ex - p.X) * (sy - p.Y);
+                    var determinant = ((sx - p.X) * (ey - p.Y)) - ((ex - p.X) * (sy - p.Y));
 
                     // Add the point if it is on the sweep side of the chord.
                     if (Abs(determinant) < epsilon || Sign(determinant) != Sign(sweepAngle))
@@ -4731,21 +4731,21 @@ namespace Engine
             // Bezout
 
             // Cross product of first coefficient of a and b.
-            var e = xCurveA[0] * yCurveB[0] - xCurveB[0] * yCurveA[0];
+            var e = (xCurveA[0] * yCurveB[0]) - (xCurveB[0] * yCurveA[0]);
 
             // Cross product of first coefficient of a and second coefficient of b.
-            var f = xCurveA[0] * yCurveB[1] - xCurveB[1] * yCurveA[0];
+            var f = (xCurveA[0] * yCurveB[1]) - (xCurveB[1] * yCurveA[0]);
 
             // Cross product of second coefficient of a and first coefficient of b.
-            var v2 = xCurveA[1] * yCurveA[0] - yCurveA[1] * xCurveA[0];
+            var v2 = (xCurveA[1] * yCurveA[0]) - (yCurveA[1] * xCurveA[0]);
 
             // Delta of third coefficients of curves b and a.
             var v3 = yCurveA[2] - yCurveB[2];
 
             // The difference of the first coefficients x and y of a times the deltas of the third coefficients of the x and y of curves a and b.
-            var v4 = yCurveA[0] * (xCurveA[2] - xCurveB[2]) - xCurveA[0] * v3;
+            var v4 = (yCurveA[0] * (xCurveA[2] - xCurveB[2])) - (xCurveA[0] * v3);
 
-            var v5 = -yCurveA[1] * v2 + yCurveA[0] * v4;
+            var v5 = (-yCurveA[1] * v2) + (yCurveA[0] * v4);
 
             // Square of the second cross product.
             var v6 = v2 * v2;
@@ -4756,19 +4756,19 @@ namespace Engine
                 /* x⁴ */ e * e,
                 // Two times the first cross product times the second cross product.
                 /* x³ */ 2 * e * f,
-                /* x² */ (-yCurveB[0] * v6 + yCurveA[0] * f * f + yCurveA[0] * e * v4 + e * v5) / yCurveA[0],
-                /* x¹ */ (-yCurveB[1] * v6 + yCurveA[0] * f * v4 + f * v5) / yCurveA[0],
-                /* c  */ (v3 * v6 + v4 * v5) / yCurveA[0]
+                /* x² */ ((-yCurveB[0] * v6) + (yCurveA[0] * f * f) + (yCurveA[0] * e * v4) + (e * v5)) / yCurveA[0],
+                /* x¹ */ ((-yCurveB[1] * v6) + (yCurveA[0] * f * v4) + (f * v5)) / yCurveA[0],
+                /* c  */ ((v3 * v6) + (v4 * v5)) / yCurveA[0]
             ).Trim().Roots();
 
             foreach (var s in roots)
             {
                 // Interpolate the point at t of the root s on curve b.
                 var point = new Point2D(
-                    xCurveB[0] * s * s + xCurveB[1] * s + xCurveB[2],
-                    yCurveB[0] * s * s + yCurveB[1] * s + yCurveB[2]);
+                    (xCurveB[0] * s * s) + (xCurveB[1] * s) + xCurveB[2],
+                    (yCurveB[0] * s * s) + (yCurveB[1] * s) + yCurveB[2]);
 
-                if (s >= 0 && s <= 1)
+                if (s >= 0d && s <= 1d)
                 {
                     // Look for intersections on curve a at the same location.
                     var xRoots = (xCurveA - point.X).Trim().Roots();
@@ -4779,12 +4779,12 @@ namespace Engine
                         // Find the nearest matching x and y roots in the ranges 0 < x < 1; 0 < y < 1.
                         foreach (var xRoot in xRoots)
                         {
-                            if (xRoot >= 0 && xRoot <= 1)
+                            if (xRoot >= 0d && xRoot <= 1d)
                             {
                                 foreach (var yRoot in yRoots)
                                 {
                                     var t = xRoot - yRoot;
-                                    if ((t >= 0 ? t : -t) < epsilon)
+                                    if ((t >= 0d ? t : -t) < epsilon)
                                     {
                                         result.AppendPoint(point);
                                         goto checkRoots; // Break through two levels of foreach loops to exit early. Using goto for performance.
@@ -4860,7 +4860,7 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // ToDo: The tolerance is off by too much. Need to find the error.
-            var tolerance = 4294967295 * epsilon; // 1e-4;
+            var tolerance = 4294967295d * epsilon; // 1e-4;
 
             // Bezout
             var cAAx2 = xCurveA[0] * xCurveA[0];
@@ -4886,20 +4886,20 @@ namespace Engine
 
             // Find the roots of the determinants of the polynomial that represents the intersections.
             var roots = new Polynomial(
-                /* x⁶ */ -2 * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0] + cAAx2 * cBAy2 + cAAy2 * cBAx2,
-                /* x⁵ */ -2 * xCurveA[0] * yCurveA[0] * xCurveB[1] * yCurveB[0] - 2 * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0] + 2 * cAAy2 * xCurveB[1] * xCurveB[0] + 2 * cAAx2 * yCurveB[1] * yCurveB[0],
-                /* x⁴ */ -2 * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[0] - 2 * xCurveA[0] * yCurveA[0] * yCurveB[2] * xCurveB[0] - 2 * xCurveA[0] * yCurveA[0] * xCurveB[1] * yCurveB[1] + 2 * xCurveB[2] * cAAy2 * xCurveB[0] + cAAy2 * cBBx2 + cAAx2 * (2 * yCurveB[2] * yCurveB[0] + cBBy2),
-                /* x³ */ 2 * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[0] + 2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * xCurveB[0] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[0] + xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[0] - 2 * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[0] - 2 * xCurveA[0] * yCurveB[3] * yCurveA[0] * xCurveB[0] - 2 * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[1] - 2 * xCurveA[0] * yCurveA[0] * yCurveB[2] * xCurveB[1] - 2 * xCurveA[2] * cAAy2 * xCurveB[0] - 2 * yCurveA[2] * cAAx2 * yCurveB[0] + 2 * xCurveB[3] * cAAy2 * xCurveB[0] + 2 * xCurveB[2] * cAAy2 * xCurveB[1] - cABy2 * xCurveA[0] * xCurveB[0] - cABx2 * yCurveA[0] * yCurveB[0] + cAAx2 * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1]),
-                /* x² */ 2 * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1] + 2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * xCurveB[1] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1] + xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[1] - 2 * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[1] - 2 * xCurveA[0] * yCurveB[3] * yCurveA[0] * xCurveB[1] - 2 * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[2] - 2 * xCurveA[2] * cAAy2 * xCurveB[1] - 2 * yCurveA[2] * cAAx2 * yCurveB[1] + 2 * xCurveB[3] * cAAy2 * xCurveB[1] - cABy2 * xCurveA[0] * xCurveB[1] - cABx2 * yCurveA[0] * yCurveB[1] + cBCx2 * cAAy2 + cAAx2 * (2 * yCurveB[3] * yCurveB[1] + cBCy2),
-                /* x¹ */ 2 * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[2] + 2 * yCurveA[2] * xCurveA[0] * xCurveB[2] * yCurveA[0] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2] + xCurveA[1] * yCurveA[1] * xCurveB[2] * yCurveA[0] - 2 * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[2] - 2 * xCurveA[0] * yCurveB[3] * xCurveB[2] * yCurveA[0] - 2 * xCurveA[2] * xCurveB[2] * cAAy2 - 2 * yCurveA[2] * cAAx2 * yCurveB[2] + 2 * xCurveB[3] * xCurveB[2] * cAAy2 - cABy2 * xCurveA[0] * xCurveB[2] - cABx2 * yCurveA[0] * yCurveB[2] + 2 * cAAx2 * yCurveB[3] * yCurveB[2],
-                /* c  */ -2 * xCurveA[2] * yCurveA[2] * xCurveA[0] * yCurveA[0] - xCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] - yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] + 2 * xCurveA[2] * xCurveA[0] * yCurveB[3] * yCurveA[0] + 2 * yCurveA[2] * xCurveB[3] * xCurveA[0] * yCurveA[0] + xCurveA[1] * xCurveB[3] * yCurveA[1] * yCurveA[0] + xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[3] - 2 * xCurveB[3] * xCurveA[0] * yCurveB[3] * yCurveA[0] - 2 * xCurveA[2] * xCurveB[3] * cAAy2 + xCurveA[2] * cABy2 * xCurveA[0] + yCurveA[2] * cABx2 * yCurveA[0] - 2 * yCurveA[2] * cAAx2 * yCurveB[3] - xCurveB[3] * cABy2 * xCurveA[0] - cABx2 * yCurveB[3] * yCurveA[0] + cACx2 * cAAy2 + cACy2 * cAAx2 + cBDx2 * cAAy2 + cAAx2 * cBDy2
+                /* x⁶ */ (-2d * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0]) + (cAAx2 * cBAy2) + (cAAy2 * cBAx2),
+                /* x⁵ */ (-2d * xCurveA[0] * yCurveA[0] * xCurveB[1] * yCurveB[0]) - (2d * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0]) + (2d * cAAy2 * xCurveB[1] * xCurveB[0]) + (2d * cAAx2 * yCurveB[1] * yCurveB[0]),
+                /* x⁴ */ (-2d * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[0]) - (2d * xCurveA[0] * yCurveA[0] * yCurveB[2] * xCurveB[0]) - (2d * xCurveA[0] * yCurveA[0] * xCurveB[1] * yCurveB[1]) + (2d * xCurveB[2] * cAAy2 * xCurveB[0]) + (cAAy2 * cBBx2) + (cAAx2 * ((2d * yCurveB[2] * yCurveB[0]) + cBBy2)),
+                /* x³ */ (2d * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[0]) + (2d * yCurveA[2] * xCurveA[0] * yCurveA[0] * xCurveB[0]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[0]) + (xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[0]) - (2d * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[0]) - (2d * xCurveA[0] * yCurveB[3] * yCurveA[0] * xCurveB[0]) - (2d * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[1]) - (2d * xCurveA[0] * yCurveA[0] * yCurveB[2] * xCurveB[1]) - (2d * xCurveA[2] * cAAy2 * xCurveB[0]) - (2d * yCurveA[2] * cAAx2 * yCurveB[0]) + (2d * xCurveB[3] * cAAy2 * xCurveB[0]) + (2d * xCurveB[2] * cAAy2 * xCurveB[1]) - (cABy2 * xCurveA[0] * xCurveB[0]) - (cABx2 * yCurveA[0] * yCurveB[0]) + (cAAx2 * ((2d * yCurveB[3] * yCurveB[0]) + (2d * yCurveB[2] * yCurveB[1]))),
+                /* x² */ (2d * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (2d * yCurveA[2] * xCurveA[0] * yCurveA[0] * xCurveB[1]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1]) + (xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[1]) - (2d * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[1]) - (2d * xCurveA[0] * yCurveB[3] * yCurveA[0] * xCurveB[1]) - (2d * xCurveA[0] * xCurveB[2] * yCurveA[0] * yCurveB[2]) - (2d * xCurveA[2] * cAAy2 * xCurveB[1]) - (2d * yCurveA[2] * cAAx2 * yCurveB[1]) + (2d * xCurveB[3] * cAAy2 * xCurveB[1]) - (cABy2 * xCurveA[0] * xCurveB[1]) - (cABx2 * yCurveA[0] * yCurveB[1]) + (cBCx2 * cAAy2) + (cAAx2 * ((2d * yCurveB[3] * yCurveB[1]) + cBCy2)),
+                /* x¹ */ (2d * xCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[2]) + (2d * yCurveA[2] * xCurveA[0] * xCurveB[2] * yCurveA[0]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2]) + (xCurveA[1] * yCurveA[1] * xCurveB[2] * yCurveA[0]) - (2d * xCurveB[3] * xCurveA[0] * yCurveA[0] * yCurveB[2]) - (2d * xCurveA[0] * yCurveB[3] * xCurveB[2] * yCurveA[0]) - (2d * xCurveA[2] * xCurveB[2] * cAAy2) - (2 * yCurveA[2] * cAAx2 * yCurveB[2]) + (2d * xCurveB[3] * xCurveB[2] * cAAy2) - (cABy2 * xCurveA[0] * xCurveB[2]) - (cABx2 * yCurveA[0] * yCurveB[2]) + (2d * cAAx2 * yCurveB[3] * yCurveB[2]),
+                /* c  */ (-2d * xCurveA[2] * yCurveA[2] * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0]) + (2d * xCurveA[2] * xCurveA[0] * yCurveB[3] * yCurveA[0]) + (2d * yCurveA[2] * xCurveB[3] * xCurveA[0] * yCurveA[0]) + (xCurveA[1] * xCurveB[3] * yCurveA[1] * yCurveA[0]) + (xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[3]) - (2d * xCurveB[3] * xCurveA[0] * yCurveB[3] * yCurveA[0]) - (2d * xCurveA[2] * xCurveB[3] * cAAy2) + (xCurveA[2] * cABy2 * xCurveA[0]) + (yCurveA[2] * cABx2 * yCurveA[0]) - (2d * yCurveA[2] * cAAx2 * yCurveB[3]) - (xCurveB[3] * cABy2 * xCurveA[0]) - (cABx2 * yCurveB[3] * yCurveA[0]) + (cACx2 * cAAy2) + (cACy2 * cAAx2) + (cBDx2 * cAAy2) + (cAAx2 * cBDy2)
             ).Trim().RootsInInterval();
 
             foreach (var s in roots)
             {
                 var point = new Point2D(
-                   xCurveB[0] * s * s * s + xCurveB[1] * s * s + xCurveB[2] * s + xCurveB[3],
-                   yCurveB[0] * s * s * s + yCurveB[1] * s * s + yCurveB[2] * s + yCurveB[3]);
+                   (xCurveB[0] * s * s * s) + (xCurveB[1] * s * s) + (xCurveB[2] * s) + xCurveB[3],
+                   (yCurveB[0] * s * s * s) + (yCurveB[1] * s * s) + (yCurveB[2] * s) + yCurveB[3]);
 
                 var xRoots = (xCurveA - point.X).Trim().Roots(epsilon);
                 var yRoots = (yCurveA - point.Y).Trim().Roots();
@@ -4908,7 +4908,7 @@ namespace Engine
                 {
                     foreach (var xRoot in xRoots)
                     {
-                        if (0 <= xRoot && xRoot <= 1)
+                        if (0d <= xRoot && xRoot <= 1d)
                         {
                             foreach (var yRoot in yRoots)
                             {
@@ -5255,7 +5255,7 @@ namespace Engine
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // Not sure why the difference between the two supposedly same points at different values of t can be so high. It seems to be a lot for floating point rounding. So far it only seems to happen at orthogonal cases.
-            var tolerence = 98838707421d * epsilon; // 0.56183300455876406
+            var tolerence = 98838707421d * epsilon; // 0.56183300455876406d
 
             // Bezout
             (var a, var b) = (xCurve[0] == 0d) ? (xCurve[1], xCurve[2]) : (xCurve[1] / xCurve[0], xCurve[2] / xCurve[0]);
@@ -5270,10 +5270,10 @@ namespace Engine
 
             // Find the roots of the determinants of the polynomial that represents the intersections.
             var roots = new Polynomial(
-                2,
-                -3 * k,
-                3 * k * k + 2 * k * a + 2 * b,
-                -k * k * k - a * k * k - b * k
+                2d,
+                -3d * k,
+                (3d * k * k) + (2d * k * a) + (2d * b),
+                (-k * k * k) - (a * k * k) - (b * k)
                 ).Trim().Roots();
 
             // ToDo: Figure out edge case. When all nodes are linear, even if there should be a flat loop, there is only one root. The locus of points overlap three times for a little ways, and possibly twice past an edge.
@@ -5282,7 +5282,7 @@ namespace Engine
                 return result;
             }
 
-            if (roots[0] >= 0.0 && roots[0] <= 1.0 && roots[2] >= 0.0 && roots[2] <= 1.0)
+            if (roots[0] >= 0d && roots[0] <= 1d && roots[2] >= 0d && roots[2] <= 1d)
             {
                 // Locate the points that overlap.
                 var points = new List<Point2D>();
@@ -5291,8 +5291,8 @@ namespace Engine
                 foreach (var s in roots)
                 {
                     var point = new Point2D(
-                        xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
-                        yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]);
+                        (xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3],
+                        (yCurve[0] * s * s * s) + (yCurve[1] * s * s) + (yCurve[2] * s) + yCurve[3]);
 
                     for (var i = 0; i < points.Count; i++)
                     {
@@ -5417,23 +5417,23 @@ namespace Engine
 
             // Find the roots of the determinants of the polynomial that represents the intersections.
             var roots = new Polynomial(
-                /* x⁹ */ -c13x3 * c23y3 + c13y3 * c23x3 - 3 * xCurveA[0] * c13y2 * c23x2 * yCurveB[0] + 3 * c13x2 * yCurveA[0] * xCurveB[0] * c23y2,
-                /* x⁸ */ -6 * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0] * yCurveB[0] + 6 * c13x2 * yCurveA[0] * yCurveB[1] * xCurveB[0] * yCurveB[0] + 3 * xCurveB[1] * c13y3 * c23x2 - 3 * c13x3 * yCurveB[1] * c23y2 - 3 * xCurveA[0] * c13y2 * yCurveB[1] * c23x2 + 3 * c13x2 * xCurveB[1] * yCurveA[0] * c23y2,
-                /* x⁷ */ -6 * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0] - 6 * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] * xCurveB[0] + 6 * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[1] * yCurveB[0] + 3 * xCurveB[2] * c13y3 * c23x2 + 3 * c22x2 * c13y3 * xCurveB[0] + 3 * xCurveB[2] * c13x2 * yCurveA[0] * c23y2 - 3 * xCurveA[0] * yCurveB[2] * c13y2 * c23x2 - 3 * xCurveA[0] * c22x2 * c13y2 * yCurveB[0] + c13x2 * yCurveA[0] * xCurveB[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + c13x3 * (-yCurveB[2] * c23y2 - 2 * c22y2 * yCurveB[0] - yCurveB[0] * (2 * yCurveB[2] * yCurveB[0] + c22y2)),
-                /* x⁶ */ xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0] + 6 * xCurveB[2] * xCurveB[1] * c13y3 * xCurveB[0] + 3 * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * c23y2 + 6 * xCurveA[3] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0] * yCurveB[0] - 3 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * c23x2 - 6 * yCurveA[3] * c13x2 * yCurveA[0] * xCurveB[0] * yCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[0] * yCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[0] * yCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[1] * xCurveB[0] - 6 * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2 * xCurveB[0] + 6 * xCurveB[2] * c13x2 * yCurveA[0] * yCurveB[1] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * yCurveA[0] * xCurveB[0] * yCurveB[0] + c22x3 * c13y3 - 3 * xCurveA[3] * c13y3 * c23x2 + 3 * yCurveA[3] * c13x3 * c23y2 + 3 * xCurveB[3] * c13y3 * c23x2 + c12y3 * xCurveA[0] * c23x2 - c12x3 * yCurveA[0] * c23y2 - 3 * xCurveA[3] * c13x2 * yCurveA[0] * c23y2 + 3 * yCurveA[3] * xCurveA[0] * c13y2 * c23x2 - 2 * xCurveA[2] * yCurveA[1] * c13x2 * c23y2 + xCurveA[2] * yCurveA[1] * c13y2 * c23x2 - yCurveA[2] * xCurveA[1] * c13x2 * c23y2 + 2 * yCurveA[2] * xCurveA[1] * c13y2 * c23x2 + 3 * xCurveB[3] * c13x2 * yCurveA[0] * c23y2 - xCurveA[1] * c12y2 * yCurveA[0] * c23x2 - 3 * yCurveB[3] * xCurveA[0] * c13y2 * c23x2 + c12x2 * yCurveA[1] * xCurveA[0] * c23y2 - 3 * xCurveA[0] * c22x2 * c13y2 * yCurveB[1] + c13x2 * yCurveA[0] * xCurveB[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + c13x2 * xCurveB[1] * yCurveA[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + c13x3 * (-2 * yCurveB[2] * yCurveB[1] * yCurveB[0] - yCurveB[3] * c23y2 - yCurveB[1] * (2 * yCurveB[2] * yCurveB[0] + c22y2) - yCurveB[0] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1])),
-                /* x⁵ */ 6 * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] * yCurveB[0] + xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[0] + xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0] - 6 * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * xCurveB[0] - 6 * xCurveA[3] * xCurveB[1] * c13y3 * xCurveB[0] + 6 * xCurveB[3] * xCurveB[1] * c13y3 * xCurveB[0] + 6 * yCurveA[3] * c13x3 * yCurveB[1] * yCurveB[0] + 2 * c12y3 * xCurveA[0] * xCurveB[1] * xCurveB[0] - 2 * c12x3 * yCurveA[0] * yCurveB[1] * yCurveB[0] + 6 * xCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[0] + 6 * xCurveA[3] * xCurveA[0] * c13y2 * yCurveB[1] * xCurveB[0] + 6 * yCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 * yCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[1] * xCurveB[0] + 2 * xCurveA[2] * yCurveA[1] * xCurveB[1] * c13y2 * xCurveB[0] + 4 * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 * xCurveB[0] - 6 * xCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1] * yCurveB[0] - 6 * yCurveA[3] * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[0] - 6 * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1] * xCurveB[0] - 4 * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] * yCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[1] * xCurveB[0] - 2 * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[1] * yCurveB[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1] * yCurveB[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] * xCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1] * yCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1] * xCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0] * xCurveB[0] - 6 * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2 * xCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] + 6 * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[1] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[1] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1] * xCurveB[0] + 3 * xCurveB[2] * c22x2 * c13y3 + 3 * c21x2 * c13y3 * xCurveB[0] - 3 * xCurveA[0] * yCurveB[2] * c22x2 * c13y2 - 3 * c21x2 * xCurveA[0] * c13y2 * yCurveB[0] + c13x2 * xCurveB[1] * yCurveA[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + c13x2 * yCurveA[0] * xCurveB[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + xCurveB[2] * c13x2 * yCurveA[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + c13x3 * (-2 * yCurveB[3] * yCurveB[1] * yCurveB[0] - yCurveB[0] * (2 * yCurveB[3] * yCurveB[1] + c21y2) - yCurveB[2] * (2 * yCurveB[2] * yCurveB[0] + c22y2) - yCurveB[1] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1])),
-                /* x⁴ */ xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] + xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] * xCurveB[0] + xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[1] - yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0] * yCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] * xCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[1] - 6 * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] - 6 * xCurveA[3] * xCurveB[2] * c13y3 * xCurveB[0] + 6 * xCurveB[3] * xCurveB[2] * c13y3 * xCurveB[0] + 2 * xCurveB[2] * c12y3 * xCurveA[0] * xCurveB[0] + 6 * xCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[0] + 6 * xCurveA[3] * xCurveA[0] * yCurveB[2] * c13y2 * xCurveB[0] + 6 * xCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] + 6 * yCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 * yCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[2] * c13y2 * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 * yCurveB[1] + 2 * xCurveA[2] * xCurveB[2] * yCurveA[1] * c13y2 * xCurveB[0] + 4 * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 * xCurveB[0] - 6 * yCurveA[3] * xCurveB[2] * c13x2 * yCurveA[0] * yCurveB[0] - 6 * yCurveA[3] * c13x2 * yCurveB[2] * yCurveA[0] * xCurveB[0] - 6 * yCurveA[3] * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[1] - 6 * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * yCurveB[2] * c13y2 * xCurveB[0] - 6 * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] + 3 * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[0] - 3 * yCurveA[2] * yCurveA[1] * xCurveA[0] * c22x2 * yCurveA[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] * xCurveB[0] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1] * yCurveB[1] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[0] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0] * xCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] * xCurveB[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1] * yCurveB[1] - 6 * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0] - 6 * xCurveB[2] * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2 + 6 * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] * xCurveB[0] + 2 * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0] * yCurveB[0] + 2 * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0] * xCurveB[0] + 2 * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0] * yCurveB[1] - 3 * xCurveA[3] * c22x2 * c13y3 + 3 * xCurveB[3] * c22x2 * c13y3 + 3 * c21x2 * xCurveB[1] * c13y3 + c12y3 * xCurveA[0] * c22x2 + 3 * yCurveA[3] * xCurveA[0] * c22x2 * c13y2 + xCurveA[2] * yCurveA[1] * c22x2 * c13y2 + 2 * yCurveA[2] * xCurveA[1] * c22x2 * c13y2 - xCurveA[1] * c12y2 * c22x2 * yCurveA[0] - 3 * yCurveB[3] * xCurveA[0] * c22x2 * c13y2 - 3 * c21x2 * xCurveA[0] * c13y2 * yCurveB[1] + c12x2 * yCurveA[1] * xCurveA[0] * (2 * yCurveB[2] * yCurveB[0] + c22y2) + xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + xCurveB[2] * c13x2 * yCurveA[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + c12x3 * yCurveA[0] * (-2 * yCurveB[2] * yCurveB[0] - c22y2) + yCurveA[3] * c13x3 * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + yCurveA[2] * xCurveA[1] * c13x2 * (-2 * yCurveB[2] * yCurveB[0] - c22y2) + xCurveA[2] * yCurveA[1] * c13x2 * (-4 * yCurveB[2] * yCurveB[0] - 2 * c22y2) + xCurveA[3] * c13x2 * yCurveA[0] * (-6 * yCurveB[2] * yCurveB[0] - 3 * c22y2) + c13x2 * xCurveB[1] * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + xCurveB[3] * c13x2 * yCurveA[0] * (6 * yCurveB[2] * yCurveB[0] + 3 * c22y2) + c13x3 * (-2 * yCurveB[3] * yCurveB[2] * yCurveB[0] - yCurveB[1] * (2 * yCurveB[3] * yCurveB[1] + c21y2) - yCurveB[3] * (2 * yCurveB[2] * yCurveB[0] + c22y2) - yCurveB[2] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1])),
-                /* x³ */ -xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] + xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] + 6 * xCurveA[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] - yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] + yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[0] - xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[0] + xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] + xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] + xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * xCurveB[1] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0] - 6 * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] - yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] * xCurveB[0] - yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0] * yCurveB[1] - yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * xCurveB[1] * yCurveA[0] - 6 * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] - 6 * xCurveA[3] * xCurveB[3] * c13y3 * xCurveB[0] - 6 * xCurveA[3] * xCurveB[2] * xCurveB[1] * c13y3 - 2 * xCurveA[3] * c12y3 * xCurveA[0] * xCurveB[0] + 6 * xCurveB[3] * xCurveB[2] * xCurveB[1] * c13y3 + 2 * xCurveB[3] * c12y3 * xCurveA[0] * xCurveB[0] + 2 * xCurveB[2] * c12y3 * xCurveA[0] * xCurveB[1] + 2 * yCurveA[3] * c12x3 * yCurveA[0] * yCurveB[0] - 6 * xCurveA[3] * yCurveA[3] * xCurveA[0] * c13y2 * xCurveB[0] + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[0] - 2 * xCurveA[3] * xCurveA[2] * yCurveA[1] * c13y2 * xCurveB[0] - 4 * xCurveA[3] * yCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0] + 3 * yCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0] + 6 * xCurveA[3] * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[0] + 6 * xCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[0] - 3 * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[0] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[0] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * yCurveA[0] * xCurveB[0] + 6 * xCurveA[3] * yCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0] + 6 * xCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[1] + 6 * xCurveA[3] * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2 + 4 * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[0] + 6 * yCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0] + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[0] - 3 * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[0] + 2 * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[0] + 6 * yCurveA[3] * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 * yCurveB[0] + 2 * xCurveA[2] * xCurveB[3] * yCurveA[1] * c13y2 * xCurveB[0] + xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[3] * c13y2 * xCurveB[0] - 3 * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 * yCurveB[1] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[2] * xCurveB[1] * c13y2 + 2 * xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveB[1] * c13y2 + 4 * xCurveB[3] * yCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0] + 4 * yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveB[1] * c13y2 - 2 * xCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[0] - 6 * yCurveA[3] * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[0] - 6 * yCurveA[3] * yCurveB[3] * c13x2 * yCurveA[0] * xCurveB[0] - 6 * yCurveA[3] * xCurveB[2] * c13x2 * yCurveA[0] * yCurveB[1] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[0] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * xCurveB[0] - 6 * yCurveA[3] * c13x2 * yCurveB[2] * xCurveB[1] * yCurveA[0] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] * yCurveB[0] - 2 * xCurveA[2] * c11y2 * xCurveA[0] * yCurveA[0] * xCurveB[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[0] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[0] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * yCurveA[0] * xCurveB[0] - 6 * xCurveB[3] * yCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0] - 6 * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[1] - 6 * xCurveB[3] * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2 + 3 * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * xCurveB[0] + 3 * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[1] + 3 * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] * xCurveB[1] - 2 * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] * xCurveB[0] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[1] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * xCurveB[1] * yCurveA[0] - 2 * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] * xCurveB[1] - 6 * yCurveB[3] * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 - c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] * xCurveB[0] + 2 * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[0] + 6 * yCurveB[3] * c13x2 * yCurveB[2] * xCurveB[1] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[0] + c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] * yCurveB[0] + 2 * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0] * xCurveB[0] + 2 * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0] * yCurveB[1] + 2 * c12x2 * yCurveA[1] * yCurveB[2] * xCurveB[1] * yCurveA[0] + c21x3 * c13y3 + 3 * c10x2 * c13y3 * xCurveB[0] - 3 * c10y2 * c13x3 * yCurveB[0] + 3 * c20x2 * c13y3 * xCurveB[0] + c11y3 * c13x2 * xCurveB[0] - c11x3 * c13y2 * yCurveB[0] - xCurveA[2] * c11y2 * c13x2 * yCurveB[0] + c11x2 * yCurveA[2] * c13y2 * xCurveB[0] - 3 * c10x2 * xCurveA[0] * c13y2 * yCurveB[0] + 3 * c10y2 * c13x2 * yCurveA[0] * xCurveB[0] - c11x2 * c12y2 * xCurveA[0] * yCurveB[0] + c11y2 * c12x2 * yCurveA[0] * xCurveB[0] - 3 * c21x2 * xCurveA[0] * yCurveB[2] * c13y2 - 3 * c20x2 * xCurveA[0] * c13y2 * yCurveB[0] + 3 * c20y2 * c13x2 * yCurveA[0] * xCurveB[0] + xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + c12x3 * yCurveA[0] * (-2 * yCurveB[3] * yCurveB[0] - 2 * yCurveB[2] * yCurveB[1]) + yCurveA[3] * c13x3 * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + yCurveA[2] * xCurveA[1] * c13x2 * (-2 * yCurveB[3] * yCurveB[0] - 2 * yCurveB[2] * yCurveB[1]) + c12x2 * yCurveA[1] * xCurveA[0] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1]) + xCurveA[2] * yCurveA[1] * c13x2 * (-4 * yCurveB[3] * yCurveB[0] - 4 * yCurveB[2] * yCurveB[1]) + xCurveA[3] * c13x2 * yCurveA[0] * (-6 * yCurveB[3] * yCurveB[0] - 6 * yCurveB[2] * yCurveB[1]) + xCurveB[3] * c13x2 * yCurveA[0] * (6 * yCurveB[3] * yCurveB[0] + 6 * yCurveB[2] * yCurveB[1]) + xCurveB[2] * c13x2 * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + c13x3 * (-2 * yCurveB[3] * yCurveB[2] * yCurveB[1] - c20y2 * yCurveB[0] - yCurveB[2] * (2 * yCurveB[3] * yCurveB[1] + c21y2) - yCurveB[3] * (2 * yCurveB[3] * yCurveB[0] + 2 * yCurveB[2] * yCurveB[1])),
-                /* x² */ -xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + 6 * xCurveA[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] - yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] + yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1] - xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveB[1] * yCurveA[0] + xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] + xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] + xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] - 6 * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] - yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * xCurveB[1] * yCurveA[0] - yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveB[2] * yCurveA[0] - 6 * xCurveA[3] * xCurveB[3] * xCurveB[1] * c13y3 - 2 * xCurveA[3] * c12y3 * xCurveA[0] * xCurveB[1] + 2 * xCurveB[3] * c12y3 * xCurveA[0] * xCurveB[1] + 2 * yCurveA[3] * c12x3 * yCurveA[0] * yCurveB[1] - 6 * xCurveA[3] * yCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[1] - 2 * xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveB[1] * c13y2 - 4 * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 + 3 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 + 6 * xCurveA[3] * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1] + 6 * xCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[1] - 3 * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0] + 6 * xCurveA[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 + 6 * xCurveA[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2 + 4 * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] + 6 * yCurveA[3] * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[1] - 3 * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1] + 2 * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1] - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 * yCurveB[1] + 2 * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveB[1] * c13y2 + xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] * xCurveB[1] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[1] * c13y2 - 3 * xCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveB[2] * c13y2 + 4 * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 - 2 * xCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1] - 6 * yCurveA[3] * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[1] - 6 * yCurveA[3] * yCurveB[3] * c13x2 * xCurveB[1] * yCurveA[0] - 6 * yCurveA[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[1] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] * yCurveB[1] - 2 * xCurveA[2] * c11y2 * xCurveA[0] * xCurveB[1] * yCurveA[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0] - 6 * xCurveB[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 - 6 * xCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2 + 3 * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * xCurveB[1] + 3 * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[2] - 2 * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] * xCurveB[1] - 2 * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[2] - c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] * xCurveB[1] + 2 * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1] - 3 * yCurveA[2] * c21x2 * yCurveA[1] * xCurveA[0] * yCurveA[0] + 6 * yCurveB[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1] + c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] * yCurveB[1] + 2 * c12x2 * yCurveB[3] * yCurveA[1] * xCurveB[1] * yCurveA[0] + 2 * c12x2 * xCurveB[2] * yCurveA[1] * yCurveB[2] * yCurveA[0] - 3 * xCurveA[3] * c21x2 * c13y3 + 3 * xCurveB[3] * c21x2 * c13y3 + 3 * c10x2 * xCurveB[1] * c13y3 - 3 * c10y2 * c13x3 * yCurveB[1] + 3 * c20x2 * xCurveB[1] * c13y3 + c21x2 * c12y3 * xCurveA[0] + c11y3 * c13x2 * xCurveB[1] - c11x3 * c13y2 * yCurveB[1] + 3 * yCurveA[3] * c21x2 * xCurveA[0] * c13y2 - xCurveA[2] * c11y2 * c13x2 * yCurveB[1] + xCurveA[2] * c21x2 * yCurveA[1] * c13y2 + 2 * yCurveA[2] * xCurveA[1] * c21x2 * c13y2 + c11x2 * yCurveA[2] * xCurveB[1] * c13y2 - xCurveA[1] * c21x2 * c12y2 * yCurveA[0] - 3 * yCurveB[3] * c21x2 * xCurveA[0] * c13y2 - 3 * c10x2 * xCurveA[0] * c13y2 * yCurveB[1] + 3 * c10y2 * c13x2 * xCurveB[1] * yCurveA[0] - c11x2 * c12y2 * xCurveA[0] * yCurveB[1] + c11y2 * c12x2 * xCurveB[1] * yCurveA[0] - 3 * c20x2 * xCurveA[0] * c13y2 * yCurveB[1] + 3 * c20y2 * c13x2 * xCurveB[1] * yCurveA[0] + c12x2 * yCurveA[1] * xCurveA[0] * (2 * yCurveB[3] * yCurveB[1] + c21y2) + xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + c12x3 * yCurveA[0] * (-2 * yCurveB[3] * yCurveB[1] - c21y2) + yCurveA[3] * c13x3 * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + yCurveA[2] * xCurveA[1] * c13x2 * (-2 * yCurveB[3] * yCurveB[1] - c21y2) + xCurveA[2] * yCurveA[1] * c13x2 * (-4 * yCurveB[3] * yCurveB[1] - 2 * c21y2) + xCurveA[3] * c13x2 * yCurveA[0] * (-6 * yCurveB[3] * yCurveB[1] - 3 * c21y2) + xCurveB[3] * c13x2 * yCurveA[0] * (6 * yCurveB[3] * yCurveB[1] + 3 * c21y2) + c13x3 * (-2 * yCurveB[3] * c21y2 - c20y2 * yCurveB[1] - yCurveB[3] * (2 * yCurveB[3] * yCurveB[1] + c21y2)),
-                /* x¹ */ -xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] + xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] + 6 * xCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] - yCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] + yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0] - xCurveA[2] * yCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveA[1] * yCurveA[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2] + xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] + 6 * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveB[2] * yCurveA[0] + xCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] - 6 * xCurveB[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveA[0] - 6 * xCurveA[3] * xCurveB[3] * xCurveB[2] * c13y3 - 2 * xCurveA[3] * xCurveB[2] * c12y3 * xCurveA[0] + 6 * yCurveA[3] * yCurveB[3] * c13x3 * yCurveB[2] + 2 * xCurveB[3] * xCurveB[2] * c12y3 * xCurveA[0] + 2 * yCurveA[3] * c12x3 * yCurveB[2] * yCurveA[0] - 2 * c12x3 * yCurveB[3] * yCurveB[2] * yCurveA[0] - 6 * xCurveA[3] * yCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[2] * c13y2 - 2 * xCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * c13y2 - 4 * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 + 3 * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 + 6 * xCurveA[3] * yCurveA[3] * c13x2 * yCurveB[2] * yCurveA[0] + 6 * xCurveA[3] * xCurveB[3] * xCurveA[0] * yCurveB[2] * c13y2 - 3 * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] + 2 * xCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0] + 2 * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] + 6 * xCurveA[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 + 4 * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] + 6 * yCurveA[3] * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[2] - 3 * yCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 + 2 * yCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[2] * c13y2 + 2 * xCurveA[2] * xCurveB[3] * xCurveB[2] * yCurveA[1] * c13y2 + xCurveA[2] * yCurveA[2] * xCurveB[2] * c12y2 * xCurveA[0] - 3 * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * c13y2 + 4 * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 - 6 * xCurveA[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] - 2 * xCurveA[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0] - 6 * yCurveA[3] * xCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] - 6 * yCurveA[3] * yCurveB[3] * xCurveB[2] * c13x2 * yCurveA[0] - 2 * yCurveA[3] * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0] - 2 * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[2] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[2] * yCurveA[0] - 4 * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * yCurveB[2] - 2 * xCurveA[2] * c11y2 * xCurveB[2] * xCurveA[0] * yCurveA[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] - 2 * xCurveB[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0] - 2 * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] - 6 * xCurveB[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 - 2 * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2 * yCurveB[2] + 3 * yCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * c13x2 - 2 * xCurveA[1] * yCurveB[3] * xCurveB[2] * c12y2 * xCurveA[0] - c11y2 * xCurveA[1] * xCurveB[2] * yCurveA[1] * xCurveA[0] + 6 * xCurveB[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] + 2 * xCurveB[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * xCurveA[0] * yCurveB[2] * yCurveA[0] + c11x2 * xCurveA[1] * yCurveA[1] * yCurveB[2] * yCurveA[0] + 2 * c12x2 * yCurveB[3] * xCurveB[2] * yCurveA[1] * yCurveA[0] + 2 * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2] + 3 * c10x2 * xCurveB[2] * c13y3 - 3 * c10y2 * c13x3 * yCurveB[2] + 3 * c20x2 * xCurveB[2] * c13y3 + c11y3 * xCurveB[2] * c13x2 - c11x3 * yCurveB[2] * c13y2 - 3 * c20y2 * c13x3 * yCurveB[2] - xCurveA[2] * c11y2 * c13x2 * yCurveB[2] + c11x2 * yCurveA[2] * xCurveB[2] * c13y2 - 3 * c10x2 * xCurveA[0] * yCurveB[2] * c13y2 + 3 * c10y2 * xCurveB[2] * c13x2 * yCurveA[0] - c11x2 * c12y2 * xCurveA[0] * yCurveB[2] + c11y2 * c12x2 * xCurveB[2] * yCurveA[0] - 3 * c20x2 * xCurveA[0] * yCurveB[2] * c13y2 + 3 * c20y2 * xCurveB[2] * c13x2 * yCurveA[0],
-                /* c  */ xCurveA[3] * yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveA[3] * yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] + xCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] - yCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] - xCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] + 6 * xCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] + xCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] - yCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] - 6 * yCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] + yCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveA[2] * xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] + xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveB[3] * yCurveA[1] * xCurveA[0] + xCurveA[2] * xCurveB[3] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] - xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] - 2 * xCurveA[3] * xCurveB[3] * c12y3 * xCurveA[0] + 2 * yCurveA[3] * c12x3 * yCurveB[3] * yCurveA[0] - 3 * xCurveA[3] * yCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 - 6 * xCurveA[3] * yCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 + 3 * xCurveA[3] * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 - 2 * xCurveA[3] * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] - 2 * xCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * c13y2 - xCurveA[3] * xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] + 3 * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * c13y2 - 4 * xCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * c13y2 + 3 * yCurveA[3] * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 + 6 * xCurveA[3] * yCurveA[3] * yCurveB[3] * c13x2 * yCurveA[0] + 2 * xCurveA[3] * yCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] + 2 * xCurveA[3] * xCurveA[2] * c11y2 * xCurveA[0] * yCurveA[0] + 2 * xCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * yCurveA[0] + 6 * xCurveA[3] * xCurveB[3] * yCurveB[3] * xCurveA[0] * c13y2 - 3 * xCurveA[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 + 2 * xCurveA[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] + xCurveA[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] + yCurveA[3] * xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] + 4 * yCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 - 3 * yCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 + 2 * yCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] + 2 * yCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2 + xCurveA[2] * xCurveB[3] * yCurveA[2] * c12y2 * xCurveA[0] - 3 * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[3] * c13y2 - 2 * xCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0] - 6 * yCurveA[3] * xCurveB[3] * yCurveB[3] * c13x2 * yCurveA[0] - 2 * yCurveA[3] * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] - 2 * yCurveA[3] * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] - yCurveA[3] * c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] - 2 * yCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0] - 2 * xCurveA[2] * xCurveB[3] * c11y2 * xCurveA[0] * yCurveA[0] - xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[3] * yCurveA[0] + 3 * xCurveB[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 - 2 * xCurveB[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] - xCurveB[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] + 3 * c10y2 * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] + 3 * xCurveA[2] * xCurveA[1] * c20y2 * xCurveA[0] * yCurveA[0] + 2 * xCurveB[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0] - 3 * c10x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] + 2 * c11x2 * yCurveA[2] * yCurveB[3] * xCurveA[0] * yCurveA[0] + c11x2 * xCurveA[1] * yCurveB[3] * yCurveA[1] * yCurveA[0] - 3 * c20x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] - c10x3 * c13y3 + c10y3 * c13x3 + c20x3 * c13y3 - c20y3 * c13x3 - 3 * xCurveA[3] * c20x2 * c13y3 - xCurveA[3] * c11y3 * c13x2 + 3 * c10x2 * xCurveB[3] * c13y3 + yCurveA[3] * c11x3 * c13y2 + 3 * yCurveA[3] * c20y2 * c13x3 + xCurveB[3] * c11y3 * c13x2 + c10x2 * c12y3 * xCurveA[0] - 3 * c10y2 * yCurveB[3] * c13x3 - c10y2 * c12x3 * yCurveA[0] + c20x2 * c12y3 * xCurveA[0] - c11x3 * yCurveB[3] * c13y2 - c12x3 * c20y2 * yCurveA[0] - xCurveA[3] * c11x2 * yCurveA[2] * c13y2 + yCurveA[3] * xCurveA[2] * c11y2 * c13x2 - 3 * xCurveA[3] * c10y2 * c13x2 * yCurveA[0] - xCurveA[3] * c11y2 * c12x2 * yCurveA[0] + yCurveA[3] * c11x2 * c12y2 * xCurveA[0] - xCurveA[2] * c11y2 * yCurveB[3] * c13x2 + 3 * c10x2 * yCurveA[3] * xCurveA[0] * c13y2 + c10x2 * xCurveA[2] * yCurveA[1] * c13y2 + 2 * c10x2 * yCurveA[2] * xCurveA[1] * c13y2 - 2 * c10y2 * xCurveA[2] * yCurveA[1] * c13x2 - c10y2 * yCurveA[2] * xCurveA[1] * c13x2 + c11x2 * xCurveB[3] * yCurveA[2] * c13y2 - 3 * xCurveA[3] * c20y2 * c13x2 * yCurveA[0] + 3 * yCurveA[3] * c20x2 * xCurveA[0] * c13y2 + xCurveA[2] * c20x2 * yCurveA[1] * c13y2 - 2 * xCurveA[2] * c20y2 * yCurveA[1] * c13x2 + xCurveB[3] * c11y2 * c12x2 * yCurveA[0] - yCurveA[2] * xCurveA[1] * c20y2 * c13x2 - c10x2 * xCurveA[1] * c12y2 * yCurveA[0] - 3 * c10x2 * yCurveB[3] * xCurveA[0] * c13y2 + 3 * c10y2 * xCurveB[3] * c13x2 * yCurveA[0] + c10y2 * c12x2 * yCurveA[1] * xCurveA[0] - c11x2 * yCurveB[3] * c12y2 * xCurveA[0] + 2 * c20x2 * yCurveA[2] * xCurveA[1] * c13y2 + 3 * xCurveB[3] * c20y2 * c13x2 * yCurveA[0] - c20x2 * xCurveA[1] * c12y2 * yCurveA[0] - 3 * c20x2 * yCurveB[3] * xCurveA[0] * c13y2 + c12x2 * c20y2 * yCurveA[1] * xCurveA[0]
+                /* x⁹ */ (-c13x3 * c23y3) + (c13y3 * c23x3) - (3d * xCurveA[0] * c13y2 * c23x2 * yCurveB[0]) + (3d * c13x2 * yCurveA[0] * xCurveB[0] * c23y2),
+                /* x⁸ */ (-6d * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0] * yCurveB[0]) + (6d * c13x2 * yCurveA[0] * yCurveB[1] * xCurveB[0] * yCurveB[0]) + (3d * xCurveB[1] * c13y3 * c23x2) - (3d * c13x3 * yCurveB[1] * c23y2) - (3d * xCurveA[0] * c13y2 * yCurveB[1] * c23x2) + (3d * c13x2 * xCurveB[1] * yCurveA[0] * c23y2),
+                /* x⁷ */ (-6d * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0]) - (6d * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1] * xCurveB[0]) + (6d * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[1] * yCurveB[0]) + (3d * xCurveB[2] * c13y3 * c23x2) + (3d * c22x2 * c13y3 * xCurveB[0]) + (3d * xCurveB[2] * c13x2 * yCurveA[0] * c23y2) - (3d * xCurveA[0] * yCurveB[2] * c13y2 * c23x2) - (3d * xCurveA[0] * c22x2 * c13y2 * yCurveB[0]) + (c13x2 * yCurveA[0] * xCurveB[0] * ((6d * yCurveB[2] * yCurveB[0]) + (3d * c22y2))) + (c13x3 * ((-yCurveB[2] * c23y2) - (2d * c22y2 * yCurveB[0]) - (yCurveB[0] * ((2d * yCurveB[2] * yCurveB[0]) + c22y2)))),
+                /* x⁶ */ (xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0]) - (yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0] * yCurveB[0]) + (6d * xCurveB[2] * xCurveB[1] * c13y3 * xCurveB[0]) + (3d * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * c23y2) + (6d * xCurveA[3] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0]) - (3d * xCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0] * yCurveB[0]) - (3d * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * c23x2) - (6d * yCurveA[3] * c13x2 * yCurveA[0] * xCurveB[0] * yCurveB[0]) - (6d * xCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0] * yCurveB[0]) + (3d * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[0] * yCurveB[0]) - (2d * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[0] * yCurveB[0]) - (6d * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[0]) - (6d * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[1] * xCurveB[0]) - (6d * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2 * xCurveB[0]) + (6d * xCurveB[2] * c13x2 * yCurveA[0] * yCurveB[1] * yCurveB[0]) + (2d * c12x2 * yCurveA[1] * yCurveA[0] * xCurveB[0] * yCurveB[0]) + (c22x3 * c13y3) - (3d * xCurveA[3] * c13y3 * c23x2) + (3d * yCurveA[3] * c13x3 * c23y2) + (3d * xCurveB[3] * c13y3 * c23x2) + (c12y3 * xCurveA[0] * c23x2) - (c12x3 * yCurveA[0] * c23y2) - (3d * xCurveA[3] * c13x2 * yCurveA[0] * c23y2) + (3d * yCurveA[3] * xCurveA[0] * c13y2 * c23x2) - (2d * xCurveA[2] * yCurveA[1] * c13x2 * c23y2) + (xCurveA[2] * yCurveA[1] * c13y2 * c23x2) - (yCurveA[2] * xCurveA[1] * c13x2 * c23y2) + (2d * yCurveA[2] * xCurveA[1] * c13y2 * c23x2) + (3d * xCurveB[3] * c13x2 * yCurveA[0] * c23y2) - (xCurveA[1] * c12y2 * yCurveA[0] * c23x2) - (3d * yCurveB[3] * xCurveA[0] * c13y2 * c23x2) + (c12x2 * yCurveA[1] * xCurveA[0] * c23y2) - (3d * xCurveA[0] * c22x2 * c13y2 * yCurveB[1]) + (c13x2 * yCurveA[0] * xCurveB[0] * ((6d * yCurveB[3] * yCurveB[0]) + (6d * yCurveB[2] * yCurveB[1]))) + (c13x2 * xCurveB[1] * yCurveA[0] * ((6d * yCurveB[2] * yCurveB[0]) + (3d * c22y2))) + (c13x3 * ((-2d * yCurveB[2] * yCurveB[1] * yCurveB[0]) - (yCurveB[3] * c23y2) - (yCurveB[1] * ((2d * yCurveB[2] * yCurveB[0]) + c22y2)) - (yCurveB[0] * ((2d * yCurveB[3] * yCurveB[0]) + (2d * yCurveB[2] * yCurveB[1]))))),
+                /* x⁵ */ (6d * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] * yCurveB[0]) + (xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[0]) + (xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0]) - (yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[0]) - (yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1] * xCurveB[0]) - (6d * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * xCurveB[0]) - (6d * xCurveA[3] * xCurveB[1] * c13y3 * xCurveB[0]) + (6d * xCurveB[3] * xCurveB[1] * c13y3 * xCurveB[0]) + (6d * yCurveA[3] * c13x3 * yCurveB[1] * yCurveB[0]) + (2d * c12y3 * xCurveA[0] * xCurveB[1] * xCurveB[0]) - (2d * c12x3 * yCurveA[0] * yCurveB[1] * yCurveB[0]) + (6d * xCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[0]) + (6d * xCurveA[3] * xCurveA[0] * c13y2 * yCurveB[1] * xCurveB[0]) + (6d * yCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0]) - (3d * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 * yCurveB[0]) - (3d * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[1] * xCurveB[0]) + (2d * xCurveA[2] * yCurveA[1] * xCurveB[1] * c13y2 * xCurveB[0]) + (4d * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 * xCurveB[0]) - (6d * xCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1] * yCurveB[0]) - (6d * yCurveA[3] * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[0]) - (6d * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1] * xCurveB[0]) - (4d * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] * yCurveB[0]) - (6d * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[0]) - (6d * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[1] * xCurveB[0]) - (2d * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[1] * yCurveB[0]) + (3d * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1] * yCurveB[0]) + (3d * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1] * xCurveB[0]) - (2d * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1] * yCurveB[0]) - (2d * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1] * xCurveB[0]) - (2d * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0] * xCurveB[0]) - (6d * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 * xCurveB[0]) - (6d * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2 * xCurveB[0]) - (6d * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1]) + (6d * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[1] * yCurveB[0]) + (2d * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[1] * yCurveB[0]) + (2d * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0] * yCurveB[0]) + (2d * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1] * xCurveB[0]) + (3d * xCurveB[2] * c22x2 * c13y3) + (3d * c21x2 * c13y3 * xCurveB[0]) - (3d * xCurveA[0] * yCurveB[2] * c22x2 * c13y2) - (3d * c21x2 * xCurveA[0] * c13y2 * yCurveB[0]) + (c13x2 * xCurveB[1] * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[0]) + (6d * yCurveB[2] * yCurveB[1]))) + (c13x2 * yCurveA[0] * xCurveB[0] * ((6d * yCurveB[3] * yCurveB[1]) + (3d * c21y2))) + (xCurveB[2] * c13x2 * yCurveA[0] * ((6d * yCurveB[2] * yCurveB[0]) + (3d * c22y2))) + (c13x3 * ((-2d * yCurveB[3] * yCurveB[1] * yCurveB[0]) - (yCurveB[0] * ((2d * yCurveB[3] * yCurveB[1]) + c21y2)) - (yCurveB[2] * ((2d * yCurveB[2] * yCurveB[0]) + c22y2)) - (yCurveB[1] * ((2d * yCurveB[3] * yCurveB[0]) + (2d * yCurveB[2] * yCurveB[1]))))),
+                /* x⁴ */ (xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0]) + (xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] * xCurveB[0]) + (xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[1]) - (yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0] * yCurveB[0]) - (yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0] * xCurveB[0]) - (yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0] * yCurveB[1]) - (6d * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0]) - (6d * xCurveA[3] * xCurveB[2] * c13y3 * xCurveB[0]) + (6d * xCurveB[3] * xCurveB[2] * c13y3 * xCurveB[0]) + (2d * xCurveB[2] * c12y3 * xCurveA[0] * xCurveB[0]) + (6d * xCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[0]) + (6d * xCurveA[3] * xCurveA[0] * yCurveB[2] * c13y2 * xCurveB[0]) + (6d * xCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1]) + (6d * yCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0]) - (3d * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 * yCurveB[0]) - (3d * xCurveA[2] * xCurveA[1] * yCurveB[2] * c13y2 * xCurveB[0]) - (3d * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2 * yCurveB[1]) + (2d * xCurveA[2] * xCurveB[2] * yCurveA[1] * c13y2 * xCurveB[0]) + (4d * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 * xCurveB[0]) - (6d * yCurveA[3] * xCurveB[2] * c13x2 * yCurveA[0] * yCurveB[0]) - (6d * yCurveA[3] * c13x2 * yCurveB[2] * yCurveA[0] * xCurveB[0]) - (6d * yCurveA[3] * c13x2 * xCurveB[1] * yCurveA[0] * yCurveB[1]) - (6d * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[0]) - (6d * xCurveB[3] * xCurveA[0] * yCurveB[2] * c13y2 * xCurveB[0]) - (6d * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2 * yCurveB[1]) + (3d * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[0]) - (3d * yCurveA[2] * yCurveA[1] * xCurveA[0] * c22x2 * yCurveA[0]) + (3d * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] * xCurveB[0]) + (3d * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1] * yCurveB[1]) - (2d * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[0]) - (2d * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0] * xCurveB[0]) - (2d * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] * xCurveB[0]) - (2d * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1] * yCurveB[1]) - (6d * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 * xCurveB[0]) - (6d * xCurveB[2] * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2) + (6d * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0] * xCurveB[0]) + (2d * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0] * yCurveB[0]) + (2d * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0] * xCurveB[0]) + (2d * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0] * yCurveB[1]) - (3d * xCurveA[3] * c22x2 * c13y3) + (3d * xCurveB[3] * c22x2 * c13y3) + (3d * c21x2 * xCurveB[1] * c13y3) + (c12y3 * xCurveA[0] * c22x2) + (3d * yCurveA[3] * xCurveA[0] * c22x2 * c13y2) + (xCurveA[2] * yCurveA[1] * c22x2 * c13y2) + (2 * yCurveA[2] * xCurveA[1] * c22x2 * c13y2) - (xCurveA[1] * c12y2 * c22x2 * yCurveA[0]) - (3d * yCurveB[3] * xCurveA[0] * c22x2 * c13y2) - (3d * c21x2 * xCurveA[0] * c13y2 * yCurveB[1]) + (c12x2 * yCurveA[1] * xCurveA[0] * ((2d * yCurveB[2] * yCurveB[0]) + c22y2)) + (xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * ((6d * yCurveB[2] * yCurveB[0]) + (3d * c22y2))) + (xCurveB[2] * c13x2 * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[0]) + (6d * yCurveB[2] * yCurveB[1]))) + (c12x3 * yCurveA[0] * ((-2d * yCurveB[2] * yCurveB[0]) - c22y2)) + (yCurveA[3] * c13x3 * ((6d * yCurveB[2] * yCurveB[0]) + (3d * c22y2))) + (yCurveA[2] * xCurveA[1] * c13x2 * ((-2d * yCurveB[2] * yCurveB[0]) - c22y2)) + (xCurveA[2] * yCurveA[1] * c13x2 * ((-4d * yCurveB[2] * yCurveB[0]) - (2d * c22y2))) + (xCurveA[3] * c13x2 * yCurveA[0] * ((-6d * yCurveB[2] * yCurveB[0]) - (3d * c22y2))) + (c13x2 * xCurveB[1] * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[1]) + (3d * c21y2))) + (xCurveB[3] * c13x2 * yCurveA[0] * ((6d * yCurveB[2] * yCurveB[0]) + (3d * c22y2))) + (c13x3 * ((-2d * yCurveB[3] * yCurveB[2] * yCurveB[0]) - (yCurveB[1] * ((2d * yCurveB[3] * yCurveB[1]) + c21y2)) - (yCurveB[3] * ((2d * yCurveB[2] * yCurveB[0]) + c22y2)) - (yCurveB[2] * ((2d * yCurveB[3] * yCurveB[0]) + (2d * yCurveB[2] * yCurveB[1]))))),
+                /* x³ */ (-xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0]) + (xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0]) + (6d * xCurveA[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0]) - (6d * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0]) - (yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0]) + (yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0]) + (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[0]) - (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0] * xCurveB[0]) + (xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0]) + (xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0]) + (xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * xCurveB[1] * yCurveA[0]) - (xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[0]) - (6d * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * xCurveB[0]) - (yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0] * xCurveB[0]) - (yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0] * yCurveB[1]) - (yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * xCurveB[1] * yCurveA[0]) - (6d * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) - (6d * xCurveA[3] * xCurveB[3] * c13y3 * xCurveB[0]) - (6d * xCurveA[3] * xCurveB[2] * xCurveB[1] * c13y3) - (2d * xCurveA[3] * c12y3 * xCurveA[0] * xCurveB[0]) + (6d * xCurveB[3] * xCurveB[2] * xCurveB[1] * c13y3) + (2d * xCurveB[3] * c12y3 * xCurveA[0] * xCurveB[0]) + (2d * xCurveB[2] * c12y3 * xCurveA[0] * xCurveB[1]) + (2d * yCurveA[3] * c12x3 * yCurveA[0] * yCurveB[0]) - (6d * xCurveA[3] * yCurveA[3] * xCurveA[0] * c13y2 * xCurveB[0]) + (3d * xCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[0]) - (2d * xCurveA[3] * xCurveA[2] * yCurveA[1] * c13y2 * xCurveB[0]) - (4d * xCurveA[3] * yCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0]) + (3d * yCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0]) + (6d * xCurveA[3] * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[0]) + (6d * xCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[0]) - (3d * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[0]) + (2d * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[0]) + (2d * xCurveA[3] * xCurveA[1] * c12y2 * yCurveA[0] * xCurveB[0]) + (6d * xCurveA[3] * yCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0]) + (6d * xCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[1]) + (6d * xCurveA[3] * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2) + (4 * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[0]) + (6d * yCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0]) + (2d * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[0]) - (3d * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[0]) + (2 * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[0]) + (6d * yCurveA[3] * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2) - (3d * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 * yCurveB[0]) + (2 * xCurveA[2] * xCurveB[3] * yCurveA[1] * c13y2 * xCurveB[0]) + (xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] * xCurveB[0]) - (3d * xCurveA[2] * xCurveA[1] * yCurveB[3] * c13y2 * xCurveB[0]) - (3d * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2 * yCurveB[1]) - (3d * xCurveA[2] * xCurveA[1] * yCurveB[2] * xCurveB[1] * c13y2) + (2d * xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveB[1] * c13y2) + (4d * xCurveB[3] * yCurveA[2] * xCurveA[1] * c13y2 * xCurveB[0]) + (4d * yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveB[1] * c13y2) - (2d * xCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[0]) - (6d * yCurveA[3] * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[0]) - (6d * yCurveA[3] * yCurveB[3] * c13x2 * yCurveA[0] * xCurveB[0]) - (6d * yCurveA[3] * xCurveB[2] * c13x2 * yCurveA[0] * yCurveB[1]) - (2d * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[0]) - (2d * yCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * xCurveB[0]) - (6d * yCurveA[3] * c13x2 * yCurveB[2] * xCurveB[1] * yCurveA[0]) - (xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] * yCurveB[0]) - (2d * xCurveA[2] * c11y2 * xCurveA[0] * yCurveA[0] * xCurveB[0]) + (3d * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[0]) - (2d * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[0]) - (2d * xCurveB[3] * xCurveA[1] * c12y2 * yCurveA[0] * xCurveB[0]) - (6d * xCurveB[3] * yCurveB[3] * xCurveA[0] * c13y2 * xCurveB[0]) - (6d * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2 * yCurveB[1]) - (6d * xCurveB[3] * xCurveA[0] * yCurveB[2] * xCurveB[1] * c13y2) + (3d * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * xCurveB[0]) + (3d * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[1]) + (3d * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2] * xCurveB[1]) - (2d * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] * xCurveB[0]) - (2d * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[1]) - (2d * xCurveA[1] * xCurveB[2] * c12y2 * xCurveB[1] * yCurveA[0]) - (2d * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2] * xCurveB[1]) - (6d * yCurveB[3] * xCurveB[2] * xCurveA[0] * xCurveB[1] * c13y2) - (c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] * xCurveB[0]) + (2d * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[0]) + (6d * yCurveB[3] * c13x2 * yCurveB[2] * xCurveB[1] * yCurveA[0]) + (2d * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[0]) + (c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] * yCurveB[0]) + (2d * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0] * xCurveB[0]) + (2d * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0] * yCurveB[1]) + (2d * c12x2 * yCurveA[1] * yCurveB[2] * xCurveB[1] * yCurveA[0]) + (c21x3 * c13y3) + (3d * c10x2 * c13y3 * xCurveB[0]) - (3d * c10y2 * c13x3 * yCurveB[0]) + (3d * c20x2 * c13y3 * xCurveB[0]) + (c11y3 * c13x2 * xCurveB[0]) - (c11x3 * c13y2 * yCurveB[0]) - (xCurveA[2] * c11y2 * c13x2 * yCurveB[0]) + (c11x2 * yCurveA[2] * c13y2 * xCurveB[0]) - (3d * c10x2 * xCurveA[0] * c13y2 * yCurveB[0]) + (3d * c10y2 * c13x2 * yCurveA[0] * xCurveB[0]) - (c11x2 * c12y2 * xCurveA[0] * yCurveB[0]) + (c11y2 * c12x2 * yCurveA[0] * xCurveB[0]) - (3d * c21x2 * xCurveA[0] * yCurveB[2] * c13y2) - (3d * c20x2 * xCurveA[0] * c13y2 * yCurveB[0]) + (3d * c20y2 * c13x2 * yCurveA[0] * xCurveB[0]) + (xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[0]) + (6d * yCurveB[2] * yCurveB[1]))) + (c12x3 * yCurveA[0] * ((-2d * yCurveB[3] * yCurveB[0]) - (2d * yCurveB[2] * yCurveB[1]))) + (yCurveA[3] * c13x3 * ((6d * yCurveB[3] * yCurveB[0]) + (6d * yCurveB[2] * yCurveB[1]))) + (yCurveA[2] * xCurveA[1] * c13x2 * ((-2d * yCurveB[3] * yCurveB[0]) - (2d * yCurveB[2] * yCurveB[1]))) + (c12x2 * yCurveA[1] * xCurveA[0] * ((2d * yCurveB[3] * yCurveB[0]) + (2d * yCurveB[2] * yCurveB[1]))) + (xCurveA[2] * yCurveA[1] * c13x2 * ((-4d * yCurveB[3] * yCurveB[0]) - (4d * yCurveB[2] * yCurveB[1]))) + (xCurveA[3] * c13x2 * yCurveA[0] * ((-6d * yCurveB[3] * yCurveB[0]) - (6d * yCurveB[2] * yCurveB[1]))) + (xCurveB[3] * c13x2 * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[0]) + (6d * yCurveB[2] * yCurveB[1]))) + (xCurveB[2] * c13x2 * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[1]) + (3d * c21y2))) + (c13x3 * ((-2d * yCurveB[3] * yCurveB[2] * yCurveB[1]) - (c20y2 * yCurveB[0]) - (yCurveB[2] * ((2d * yCurveB[3] * yCurveB[1]) + c21y2)) - (yCurveB[3] * ((2d * yCurveB[3] * yCurveB[0]) + (2d * yCurveB[2] * yCurveB[1]))))),
+                /* x² */ (-xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (6d * xCurveA[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) - (6d * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) - (yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) + (yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) + (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[1]) - (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveB[1] * yCurveA[0]) + (xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) + (xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) - (xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * yCurveB[1]) - (6d * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * xCurveB[1] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * xCurveB[1] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveB[2] * yCurveA[0]) - (6d * xCurveA[3] * xCurveB[3] * xCurveB[1] * c13y3) - (2d * xCurveA[3] * c12y3 * xCurveA[0] * xCurveB[1]) + (2d * xCurveB[3] * c12y3 * xCurveA[0] * xCurveB[1]) + (2d * yCurveA[3] * c12x3 * yCurveA[0] * yCurveB[1]) - (6d * xCurveA[3] * yCurveA[3] * xCurveA[0] * xCurveB[1] * c13y2) + (3d * xCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2 * yCurveB[1]) - (2d * xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveB[1] * c13y2) - (4d * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2) + (3d * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2) + (6d * xCurveA[3] * yCurveA[3] * c13x2 * yCurveA[0] * yCurveB[1]) + (6d * xCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2 * yCurveB[1]) - (3d * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1]) + (2d * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1]) + (2d * xCurveA[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0]) + (6d * xCurveA[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2) + (6d * xCurveA[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2) + (4d * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1]) + (6d * yCurveA[3] * xCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2) + (2d * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[1]) - (3d * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * xCurveB[1]) + (2d * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * xCurveB[1]) - (3d * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2 * yCurveB[1]) + (2d * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveB[1] * c13y2) + (xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0] * xCurveB[1]) - (3d * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[1] * c13y2) - (3d * xCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveB[2] * c13y2) + (4d * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[1] * c13y2) - (2d * xCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1]) - (6d * yCurveA[3] * xCurveB[3] * c13x2 * yCurveA[0] * yCurveB[1]) - (6d * yCurveA[3] * yCurveB[3] * c13x2 * xCurveB[1] * yCurveA[0]) - (6d * yCurveA[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0]) - (2d * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[1]) - (2d * yCurveA[3] * c12x2 * yCurveA[1] * xCurveB[1] * yCurveA[0]) - (xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0] * yCurveB[1]) - (2d * xCurveA[2] * c11y2 * xCurveA[0] * xCurveB[1] * yCurveA[0]) + (3d * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[1]) - (2d * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[1]) - (2d * xCurveB[3] * xCurveA[1] * c12y2 * xCurveB[1] * yCurveA[0]) - (6d * xCurveB[3] * yCurveB[3] * xCurveA[0] * xCurveB[1] * c13y2) - (6d * xCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveB[2] * c13y2) + (3d * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * xCurveB[1]) + (3d * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2 * yCurveB[2]) - (2d * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0] * xCurveB[1]) - (2d * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0] * yCurveB[2]) - (c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0] * xCurveB[1]) + (2d * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0] * yCurveB[1]) - (3d * yCurveA[2] * c21x2 * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (6d * yCurveB[3] * xCurveB[2] * c13x2 * yCurveB[2] * yCurveA[0]) + (2d * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0] * yCurveB[1]) + (c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0] * yCurveB[1]) + (2d * c12x2 * yCurveB[3] * yCurveA[1] * xCurveB[1] * yCurveA[0]) + (2 * c12x2 * xCurveB[2] * yCurveA[1] * yCurveB[2] * yCurveA[0]) - (3d * xCurveA[3] * c21x2 * c13y3) + (3d * xCurveB[3] * c21x2 * c13y3) + (3d * c10x2 * xCurveB[1] * c13y3) - (3d * c10y2 * c13x3 * yCurveB[1]) + (3d * c20x2 * xCurveB[1] * c13y3) + (c21x2 * c12y3 * xCurveA[0]) + (c11y3 * c13x2 * xCurveB[1]) - (c11x3 * c13y2 * yCurveB[1]) + (3d * yCurveA[3] * c21x2 * xCurveA[0] * c13y2) - (xCurveA[2] * c11y2 * c13x2 * yCurveB[1]) + (xCurveA[2] * c21x2 * yCurveA[1] * c13y2) + (2d * yCurveA[2] * xCurveA[1] * c21x2 * c13y2) + (c11x2 * yCurveA[2] * xCurveB[1] * c13y2) - (xCurveA[1] * c21x2 * c12y2 * yCurveA[0]) - (3d * yCurveB[3] * c21x2 * xCurveA[0] * c13y2) - (3d * c10x2 * xCurveA[0] * c13y2 * yCurveB[1]) + (3d * c10y2 * c13x2 * xCurveB[1] * yCurveA[0]) - (c11x2 * c12y2 * xCurveA[0] * yCurveB[1]) + (c11y2 * c12x2 * xCurveB[1] * yCurveA[0]) - (3d * c20x2 * xCurveA[0] * c13y2 * yCurveB[1]) + (3d * c20y2 * c13x2 * xCurveB[1] * yCurveA[0]) + (c12x2 * yCurveA[1] * xCurveA[0] * ((2d * yCurveB[3] * yCurveB[1]) + c21y2)) + (xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[1]) + (3d * c21y2))) + (c12x3 * yCurveA[0] * ((-2d * yCurveB[3] * yCurveB[1]) - c21y2)) + (yCurveA[3] * c13x3 * ((6d * yCurveB[3] * yCurveB[1]) + (3d * c21y2))) + (yCurveA[2] * xCurveA[1] * c13x2 * ((-2d * yCurveB[3] * yCurveB[1]) - c21y2)) + (xCurveA[2] * yCurveA[1] * c13x2 * ((-4d * yCurveB[3] * yCurveB[1]) - (2d * c21y2))) + (xCurveA[3] * c13x2 * yCurveA[0] * ((-6d * yCurveB[3] * yCurveB[1]) - (3d * c21y2))) + (xCurveB[3] * c13x2 * yCurveA[0] * ((6d * yCurveB[3] * yCurveB[1]) + (3d * c21y2))) + (c13x3 * ((-2d * yCurveB[3] * c21y2) - (c20y2 * yCurveB[1]) - (yCurveB[3] * ((2d * yCurveB[3] * yCurveB[1]) + c21y2)))),
+                /* x¹ */ (-xCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (6d * xCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (6d * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) - (yCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * yCurveA[2] * xCurveA[1] * xCurveB[2] * yCurveA[1] * yCurveA[0]) + (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0] * yCurveB[2]) + (xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (6d * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (xCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveB[2] * yCurveA[0]) - (6d * xCurveB[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * xCurveA[0] * yCurveA[0]) - (6d * xCurveA[3] * xCurveB[3] * xCurveB[2] * c13y3) - (2d * xCurveA[3] * xCurveB[2] * c12y3 * xCurveA[0]) + (6d * yCurveA[3] * yCurveB[3] * c13x3 * yCurveB[2]) + (2d * xCurveB[3] * xCurveB[2] * c12y3 * xCurveA[0]) + (2d * yCurveA[3] * c12x3 * yCurveB[2] * yCurveA[0]) - (2d * c12x3 * yCurveB[3] * yCurveB[2] * yCurveA[0]) - (6d * xCurveA[3] * yCurveA[3] * xCurveB[2] * xCurveA[0] * c13y2) + (3d * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[2] * c13y2) - (2d * xCurveA[3] * xCurveA[2] * xCurveB[2] * yCurveA[1] * c13y2) - (4d * xCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2) + (3d * yCurveA[3] * xCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2) + (6d * xCurveA[3] * yCurveA[3] * c13x2 * yCurveB[2] * yCurveA[0]) + (6d * xCurveA[3] * xCurveB[3] * xCurveA[0] * yCurveB[2] * c13y2) - (3d * xCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2]) + (2d * xCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0]) + (2d * xCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2]) + (6d * xCurveA[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2) + (4d * yCurveA[3] * xCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2]) + (6d * yCurveA[3] * xCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2) + (2d * yCurveA[3] * yCurveA[2] * xCurveA[1] * c13x2 * yCurveB[2]) - (3d * yCurveA[3] * yCurveA[2] * xCurveB[2] * yCurveA[1] * c13x2) + (2d * yCurveA[3] * xCurveA[1] * xCurveB[2] * c12y2 * xCurveA[0]) - (3d * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[2] * c13y2) + (2d * xCurveA[2] * xCurveB[3] * xCurveB[2] * yCurveA[1] * c13y2) + (xCurveA[2] * yCurveA[2] * xCurveB[2] * c12y2 * xCurveA[0]) - (3d * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveB[2] * c13y2) + (4d * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveB[2] * c13y2) - (6d * xCurveA[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0]) - (2d * xCurveA[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0]) - (6d * yCurveA[3] * xCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0]) - (6d * yCurveA[3] * yCurveB[3] * xCurveB[2] * c13x2 * yCurveA[0]) - (2d * yCurveA[3] * c12x2 * xCurveB[2] * yCurveA[1] * yCurveA[0]) - (2d * yCurveA[3] * c12x2 * yCurveA[1] * xCurveA[0] * yCurveB[2]) - (xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[2] * yCurveA[0]) - (4d * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2 * yCurveB[2]) - (2d * xCurveA[2] * c11y2 * xCurveB[2] * xCurveA[0] * yCurveA[0]) + (3d * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2 * yCurveB[2]) - (2d * xCurveB[3] * xCurveA[1] * xCurveB[2] * c12y2 * yCurveA[0]) - (2d * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0] * yCurveB[2]) - (6d * xCurveB[3] * yCurveB[3] * xCurveB[2] * xCurveA[0] * c13y2) - (2d * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2 * yCurveB[2]) + (3d * yCurveA[2] * yCurveB[3] * xCurveB[2] * yCurveA[1] * c13x2) - (2d * xCurveA[1] * yCurveB[3] * xCurveB[2] * c12y2 * xCurveA[0]) - (c11y2 * xCurveA[1] * xCurveB[2] * yCurveA[1] * xCurveA[0]) + (6d * xCurveB[3] * yCurveB[3] * c13x2 * yCurveB[2] * yCurveA[0]) + (2d * xCurveB[3] * c12x2 * yCurveA[1] * yCurveB[2] * yCurveA[0]) + (2d * c11x2 * yCurveA[2] * xCurveA[0] * yCurveB[2] * yCurveA[0]) + (c11x2 * xCurveA[1] * yCurveA[1] * yCurveB[2] * yCurveA[0]) + (2d * c12x2 * yCurveB[3] * xCurveB[2] * yCurveA[1] * yCurveA[0]) + (2d * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveB[2]) + (3d * c10x2 * xCurveB[2] * c13y3) - (3d * c10y2 * c13x3 * yCurveB[2]) + (3d * c20x2 * xCurveB[2] * c13y3) + (c11y3 * xCurveB[2] * c13x2) - (c11x3 * yCurveB[2] * c13y2) - (3d * c20y2 * c13x3 * yCurveB[2]) - (xCurveA[2] * c11y2 * c13x2 * yCurveB[2]) + (c11x2 * yCurveA[2] * xCurveB[2] * c13y2) - (3d * c10x2 * xCurveA[0] * yCurveB[2] * c13y2) + (3d * c10y2 * xCurveB[2] * c13x2 * yCurveA[0]) - (c11x2 * c12y2 * xCurveA[0] * yCurveB[2]) + (c11y2 * c12x2 * xCurveB[2] * yCurveA[0]) - (3d * c20x2 * xCurveA[0] * yCurveB[2] * c13y2) + (3d * c20y2 * xCurveB[2] * c13x2 * yCurveA[0]),
+                /* c  */ (xCurveA[3] * yCurveA[3] * xCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (xCurveA[3] * yCurveA[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0]) + (xCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0]) - (yCurveA[3] * xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveA[1] * xCurveA[0]) - (xCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (6d * xCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (xCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0]) - (yCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (6d * yCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0]) + (yCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveA[1] * yCurveA[0]) + (xCurveA[2] * yCurveA[2] * xCurveA[1] * yCurveB[3] * yCurveA[1] * xCurveA[0]) + (xCurveA[2] * xCurveB[3] * yCurveB[3] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (xCurveB[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * xCurveA[0] * yCurveA[0]) - (2 * xCurveA[3] * xCurveB[3] * c12y3 * xCurveA[0]) + (2d * yCurveA[3] * c12x3 * yCurveB[3] * yCurveA[0]) - (3d * xCurveA[3] * yCurveA[3] * xCurveA[2] * xCurveA[1] * c13y2) - (6d * xCurveA[3] * yCurveA[3] * xCurveB[3] * xCurveA[0] * c13y2) + (3d * xCurveA[3] * yCurveA[3] * yCurveA[2] * yCurveA[1] * c13x2) - (2d * xCurveA[3] * yCurveA[3] * xCurveA[1] * c12y2 * xCurveA[0]) - (2d * xCurveA[3] * xCurveA[2] * xCurveB[3] * yCurveA[1] * c13y2) - (xCurveA[3] * xCurveA[2] * yCurveA[2] * c12y2 * xCurveA[0]) + (3d * xCurveA[3] * xCurveA[2] * xCurveA[1] * yCurveB[3] * c13y2) - (4d * xCurveA[3] * xCurveB[3] * yCurveA[2] * xCurveA[1] * c13y2) + (3d * yCurveA[3] * xCurveA[2] * xCurveB[3] * xCurveA[1] * c13y2) + (6d * xCurveA[3] * yCurveA[3] * yCurveB[3] * c13x2 * yCurveA[0]) + (2d * xCurveA[3] * yCurveA[3] * c12x2 * yCurveA[1] * yCurveA[0]) + (2d * xCurveA[3] * xCurveA[2] * c11y2 * xCurveA[0] * yCurveA[0]) + (2d * xCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * yCurveA[0]) + (6d * xCurveA[3] * xCurveB[3] * yCurveB[3] * xCurveA[0] * c13y2) - (3d * xCurveA[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2) + (2d * xCurveA[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0]) + (xCurveA[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0]) + (yCurveA[3] * xCurveA[2] * yCurveA[2] * c12x2 * yCurveA[0]) + (4d * yCurveA[3] * xCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2) - (3d * yCurveA[3] * xCurveB[3] * yCurveA[2] * yCurveA[1] * c13x2) + (2d * yCurveA[3] * xCurveB[3] * xCurveA[1] * c12y2 * xCurveA[0]) + (2d * yCurveA[3] * yCurveA[2] * xCurveA[1] * yCurveB[3] * c13x2) + (xCurveA[2] * xCurveB[3] * yCurveA[2] * c12y2 * xCurveA[0]) - (3d * xCurveA[2] * xCurveB[3] * xCurveA[1] * yCurveB[3] * c13y2) - (2d * xCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0]) - (6d * yCurveA[3] * xCurveB[3] * yCurveB[3] * c13x2 * yCurveA[0]) - (2d * yCurveA[3] * xCurveB[3] * c12x2 * yCurveA[1] * yCurveA[0]) - (2d * yCurveA[3] * c11x2 * yCurveA[2] * xCurveA[0] * yCurveA[0]) - (yCurveA[3] * c11x2 * xCurveA[1] * yCurveA[1] * yCurveA[0]) - (2d * yCurveA[3] * c12x2 * yCurveB[3] * yCurveA[1] * xCurveA[0]) - (2d * xCurveA[2] * xCurveB[3] * c11y2 * xCurveA[0] * yCurveA[0]) - (xCurveA[2] * yCurveA[2] * c12x2 * yCurveB[3] * yCurveA[0]) + (3d * xCurveB[3] * yCurveA[2] * yCurveB[3] * yCurveA[1] * c13x2) - (2d * xCurveB[3] * xCurveA[1] * yCurveB[3] * c12y2 * xCurveA[0]) - (xCurveB[3] * c11y2 * xCurveA[1] * yCurveA[1] * xCurveA[0]) + (3d * c10y2 * xCurveA[2] * xCurveA[1] * xCurveA[0] * yCurveA[0]) + (3 * xCurveA[2] * xCurveA[1] * c20y2 * xCurveA[0] * yCurveA[0]) + (2 * xCurveB[3] * c12x2 * yCurveB[3] * yCurveA[1] * yCurveA[0]) - (3 * c10x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) + (2 * c11x2 * yCurveA[2] * yCurveB[3] * xCurveA[0] * yCurveA[0]) + (c11x2 * xCurveA[1] * yCurveB[3] * yCurveA[1] * yCurveA[0]) - (3d * c20x2 * yCurveA[2] * yCurveA[1] * xCurveA[0] * yCurveA[0]) - (c10x3 * c13y3) + (c10y3 * c13x3) + (c20x3 * c13y3) - (c20y3 * c13x3) - (3d * xCurveA[3] * c20x2 * c13y3) - (xCurveA[3] * c11y3 * c13x2) + (3d * c10x2 * xCurveB[3] * c13y3) + (yCurveA[3] * c11x3 * c13y2) + (3d * yCurveA[3] * c20y2 * c13x3) + (xCurveB[3] * c11y3 * c13x2) + (c10x2 * c12y3 * xCurveA[0]) - (3d * c10y2 * yCurveB[3] * c13x3) - (c10y2 * c12x3 * yCurveA[0]) + (c20x2 * c12y3 * xCurveA[0]) - (c11x3 * yCurveB[3] * c13y2) - (c12x3 * c20y2 * yCurveA[0]) - (xCurveA[3] * c11x2 * yCurveA[2] * c13y2) + (yCurveA[3] * xCurveA[2] * c11y2 * c13x2) - (3d * xCurveA[3] * c10y2 * c13x2 * yCurveA[0]) - (xCurveA[3] * c11y2 * c12x2 * yCurveA[0]) + (yCurveA[3] * c11x2 * c12y2 * xCurveA[0]) - (xCurveA[2] * c11y2 * yCurveB[3] * c13x2) + (3d * c10x2 * yCurveA[3] * xCurveA[0] * c13y2) + (c10x2 * xCurveA[2] * yCurveA[1] * c13y2) + (2d * c10x2 * yCurveA[2] * xCurveA[1] * c13y2) - (2d * c10y2 * xCurveA[2] * yCurveA[1] * c13x2) - (c10y2 * yCurveA[2] * xCurveA[1] * c13x2) + (c11x2 * xCurveB[3] * yCurveA[2] * c13y2) - (3d * xCurveA[3] * c20y2 * c13x2 * yCurveA[0]) + (3d * yCurveA[3] * c20x2 * xCurveA[0] * c13y2) + (xCurveA[2] * c20x2 * yCurveA[1] * c13y2) - (2d * xCurveA[2] * c20y2 * yCurveA[1] * c13x2) + (xCurveB[3] * c11y2 * c12x2 * yCurveA[0]) - (yCurveA[2] * xCurveA[1] * c20y2 * c13x2) - (c10x2 * xCurveA[1] * c12y2 * yCurveA[0]) - (3d * c10x2 * yCurveB[3] * xCurveA[0] * c13y2) + (3d * c10y2 * xCurveB[3] * c13x2 * yCurveA[0]) + (c10y2 * c12x2 * yCurveA[1] * xCurveA[0]) - (c11x2 * yCurveB[3] * c12y2 * xCurveA[0]) + (2d * c20x2 * yCurveA[2] * xCurveA[1] * c13y2) + (3d * xCurveB[3] * c20y2 * c13x2 * yCurveA[0]) - (c20x2 * xCurveA[1] * c12y2 * yCurveA[0]) - (3d * c20x2 * yCurveB[3] * xCurveA[0] * c13y2) + (c12x2 * c20y2 * yCurveA[1] * xCurveA[0])
             ).Trim().RootsInInterval();
 
             foreach (var s in roots)
             {
                 var point = new Point2D(
-                    xCurveB[0] * s * s * s + xCurveB[1] * s * s + xCurveB[2] * s + xCurveB[3],
-                    yCurveB[0] * s * s * s + yCurveB[1] * s * s + yCurveB[2] * s + yCurveB[3]);
+                    (xCurveB[0] * s * s * s) + (xCurveB[1] * s * s) + (xCurveB[2] * s) + xCurveB[3],
+                    (yCurveB[0] * s * s * s) + (yCurveB[1] * s * s) + (yCurveB[2] * s) + yCurveB[3]);
 
                 var xRoots = (xCurveA - point.X).Trim().Roots();
                 var yRoots = (yCurveA - point.Y).Trim().Roots();
@@ -5449,7 +5449,7 @@ namespace Engine
                             foreach (var yRoot in yRoots)
                             {
                                 var t = xRoot - yRoot;
-                                if ((t >= 0 ? t : -t) < tolerance)
+                                if ((t >= 0d ? t : -t) < tolerance)
                                 {
                                     result.Points.Add(point);
                                     goto checkRoots; // Break through two levels of for each loops. Using goto for performance.
@@ -6488,7 +6488,7 @@ namespace Engine
             // Find the distance between the centers.
             var dx = cx0 - cx1;
             var dy = cy0 - cy1;
-            var dist = Sqrt(dx * dx + dy * dy);
+            var dist = Sqrt((dx * dx) + (dy * dy));
 
             // See how many solutions there are.
             if (dist > radius0 + radius1)
@@ -6515,12 +6515,12 @@ namespace Engine
             else
             {
                 // Find a and h.
-                var a = (radius0 * radius0 - radius1 * radius1 + dist * dist) / (2 * dist);
-                var h = Sqrt(radius0 * radius0 - a * a);
+                var a = ((radius0 * radius0) - (radius1 * radius1) + (dist * dist)) / (2d * dist);
+                var h = Sqrt((radius0 * radius0) - (a * a));
 
                 // Find P2.
-                var cx2 = cx0 + a * (cx1 - cx0) / dist;
-                var cy2 = cy0 + a * (cy1 - cy0) / dist;
+                var cx2 = cx0 + (a * (cx1 - cx0) / dist);
+                var cy2 = cy0 + (a * (cy1 - cy0) / dist);
 
                 // See if we have 1 or 2 solutions.
                 if (Abs(dist - radius0 + radius1) < epsilon)
@@ -6528,19 +6528,19 @@ namespace Engine
                     // Get the points P3.
                     result = new Intersection(IntersectionState.Intersection);
                     result.AppendPoint(new Point2D(
-                        cx2 + h * (cy1 - cy0) / dist,
-                        cy2 - h * (cx1 - cx0) / dist));
+                        cx2 + (h * (cy1 - cy0) / dist),
+                        cy2 - (h * (cx1 - cx0) / dist)));
                 }
                 else
                 {
                     // Get the points P3.
                     result = new Intersection(IntersectionState.Intersection);
                     result.AppendPoint(new Point2D(
-                    cx2 + h * (cy1 - cy0) / dist,
-                    cy2 - h * (cx1 - cx0) / dist));
+                    cx2 + (h * (cy1 - cy0) / dist),
+                    cy2 - (h * (cx1 - cx0) / dist)));
                     result.AppendPoint(new Point2D(
-                    cx2 - h * (cy1 - cy0) / dist,
-                    cy2 + h * (cx1 - cx0) / dist));
+                    cx2 - (h * (cy1 - cy0) / dist),
+                    cy2 + (h * (cx1 - cx0) / dist)));
                 }
             }
 
@@ -6568,11 +6568,10 @@ namespace Engine
             double c2X, double c2Y, double r2,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
             var r_max = r1 + r2;
             var r_min = Abs(r1 - r2);
             var c_dist = Distance(c1X, c1Y, c2X, c2Y);
-
+            Intersection result;
             if (c_dist > r_max)
             {
                 result = new Intersection(IntersectionState.Outside);
@@ -6584,12 +6583,12 @@ namespace Engine
             else
             {
                 result = new Intersection(IntersectionState.Intersection);
-                var a = (r1 * r1 - r2 * r2 + c_dist * c_dist) / (2 * c_dist);
-                var h = Sqrt(r1 * r1 - a * a);
+                var a = ((r1 * r1) - (r2 * r2) + (c_dist * c_dist)) / (2d * c_dist);
+                var h = Sqrt((r1 * r1) - (a * a));
                 var (x, y) = Lerp(c1X, c1Y, c2X, c2Y, a / c_dist);
                 var b = h / c_dist;
-                result.AppendPoint(new Point2D(x - b * (c2Y - c1Y), y + b * (c2X - c1X)));
-                result.AppendPoint(new Point2D(x + b * (c2Y - c1Y), y - b * (c2X - c1X)));
+                result.AppendPoint(new Point2D(x - (b * (c2Y - c1Y)), y + (b * (c2X - c1X))));
+                result.AppendPoint(new Point2D(x + (b * (c2Y - c1Y)), y - (b * (c2X - c1X))));
             }
 
             return result;
@@ -6642,7 +6641,7 @@ namespace Engine
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
             var b1 = points[0];
-            for (var i = 1; i < points.Count; ++i)
+            for (var i = 1; i < length; ++i)
             {
                 var b2 = points[i];
 
@@ -6859,20 +6858,20 @@ namespace Engine
 
             // Find the polynomial that represents the intersections.
             var roots = new Polynomial(
-                /* x⁴ */ ryry * xCurve[0] * xCurve[0] + rxrx * yCurve[0] * yCurve[0],
-                /* x³ */ 2 * (ryry * xCurve[0] * xCurve[1] + rxrx * yCurve[0] * yCurve[1]),
-                /* x² */ ryry * (2 * xCurve[0] * xCurve[2] + xCurve[1] * xCurve[1]) + rxrx * (2 * yCurve[0] * yCurve[2] + yCurve[1] * yCurve[1]) - 2 * (ryry * ecX * xCurve[0] + rxrx * ecY * yCurve[0]),
-                /* x¹ */ 2 * (ryry * xCurve[1] * (xCurve[2] - ecX) + rxrx * yCurve[1] * (yCurve[2] - ecY)),
-                /* c  */ ryry * (xCurve[2] * xCurve[2] + ecY * ecY) + rxrx * (yCurve[2] * yCurve[2] + ecY * ecY) - 2 * (ryry * ecX * xCurve[2] + rxrx * ecY * yCurve[2]) - rxrx * ryry
+                /* x⁴ */ (ryry * xCurve[0] * xCurve[0]) + (rxrx * yCurve[0] * yCurve[0]),
+                /* x³ */ 2d * ((ryry * xCurve[0] * xCurve[1]) + (rxrx * yCurve[0] * yCurve[1])),
+                /* x² */ (ryry * ((2d * xCurve[0] * xCurve[2]) + (xCurve[1] * xCurve[1]))) + (rxrx * ((2d * yCurve[0] * yCurve[2]) + (yCurve[1] * yCurve[1]))) - (2d * ((ryry * ecX * xCurve[0]) + (rxrx * ecY * yCurve[0]))),
+                /* x¹ */ 2d * ((ryry * xCurve[1] * (xCurve[2] - ecX)) + (rxrx * yCurve[1] * (yCurve[2] - ecY))),
+                /* c  */ (ryry * ((xCurve[2] * xCurve[2]) + (ecY * ecY))) + (rxrx * ((yCurve[2] * yCurve[2]) + (ecY * ecY))) - (2d * ((ryry * ecX * xCurve[2]) + (rxrx * ecY * yCurve[2]))) - (rxrx * ryry)
                 ).Trim().Roots();
 
             foreach (var s in roots)
             {
                 var point = new Point2D(
-                    xCurve[0] * s * s + xCurve[1] * s + xCurve[2],
-                    yCurve[0] * s * s + yCurve[1] * s + yCurve[2]);
+                    (xCurve[0] * s * s) + (xCurve[1] * s) + xCurve[2],
+                    (yCurve[0] * s * s) + (yCurve[1] * s) + yCurve[2]);
 
-                if (0 <= s && s <= 1)
+                if (0d <= s && s <= 1d)
                 {
                     result.Points.Add(point);
                 }
@@ -6947,20 +6946,20 @@ namespace Engine
 
             // Find the polynomial that represents the intersections.
             var roots = new Polynomial(
-                /* x⁶ */ xCurve[0] * xCurve[0] * ryry + yCurve[0] * yCurve[0] * rxrx,
-                /* x⁵ */ 2 * (xCurve[0] * xCurve[1] * ryry + yCurve[0] * yCurve[1] * rxrx),
-                /* x⁴ */ 2 * (xCurve[0] * xCurve[2] * ryry + yCurve[0] * yCurve[2] * rxrx) + xCurve[1] * xCurve[1] * ryry + yCurve[1] * yCurve[1] * rxrx,
-                /* x³ */ 2 * xCurve[0] * ryry * (xCurve[3] - ecX) + 2 * yCurve[0] * rxrx * (yCurve[3] - ecY) + 2 * (xCurve[1] * xCurve[2] * ryry + yCurve[1] * yCurve[2] * rxrx),
-                /* x² */ 2 * xCurve[1] * ryry * (xCurve[3] - ecX) + 2 * yCurve[1] * rxrx * (yCurve[3] - ecY) + xCurve[2] * xCurve[2] * ryry + yCurve[2] * yCurve[2] * rxrx,
-                /* x¹ */ 2 * xCurve[2] * ryry * (xCurve[3] - ecX) + 2 * yCurve[2] * rxrx * (yCurve[3] - ecY),
-                /* c  */ xCurve[3] * xCurve[3] * ryry - 2 * yCurve[3] * ecY * rxrx - 2 * xCurve[3] * ecX * ryry + yCurve[3] * yCurve[3] * rxrx + ecX * ecX * ryry + ecY * ecY * rxrx - rxrx * ryry
+                /* x⁶ */ (xCurve[0] * xCurve[0] * ryry) + (yCurve[0] * yCurve[0] * rxrx),
+                /* x⁵ */ 2d * ((xCurve[0] * xCurve[1] * ryry) + (yCurve[0] * yCurve[1] * rxrx)),
+                /* x⁴ */ (2d * ((xCurve[0] * xCurve[2] * ryry) + (yCurve[0] * yCurve[2] * rxrx))) + (xCurve[1] * xCurve[1] * ryry) + (yCurve[1] * yCurve[1] * rxrx),
+                /* x³ */ (2d * xCurve[0] * ryry * (xCurve[3] - ecX)) + (2 * yCurve[0] * rxrx * (yCurve[3] - ecY)) + (2d * ((xCurve[1] * xCurve[2] * ryry) + (yCurve[1] * yCurve[2] * rxrx))),
+                /* x² */ (2d * xCurve[1] * ryry * (xCurve[3] - ecX)) + (2 * yCurve[1] * rxrx * (yCurve[3] - ecY)) + (xCurve[2] * xCurve[2] * ryry) + (yCurve[2] * yCurve[2] * rxrx),
+                /* x¹ */ (2d * xCurve[2] * ryry * (xCurve[3] - ecX)) + (2 * yCurve[2] * rxrx * (yCurve[3] - ecY)),
+                /* c  */ (xCurve[3] * xCurve[3] * ryry) - (2d * yCurve[3] * ecY * rxrx) - (2d * xCurve[3] * ecX * ryry) + (yCurve[3] * yCurve[3] * rxrx) + (ecX * ecX * ryry) + (ecY * ecY * rxrx) - (rxrx * ryry)
                 ).Trim().RootsInInterval();
 
             foreach (var s in roots)
             {
                 var point = new Point2D(
-                    xCurve[0] * s * s * s + xCurve[1] * s * s + xCurve[2] * s + xCurve[3],
-                    yCurve[0] * s * s * s + yCurve[1] * s * s + yCurve[2] * s + yCurve[3]);
+                    (xCurve[0] * s * s * s) + (xCurve[1] * s * s) + (xCurve[2] * s) + xCurve[3],
+                    (yCurve[0] * s * s * s) + (yCurve[1] * s * s) + (yCurve[2] * s) + yCurve[3]);
 
                 result.Points.Add(point);
             }
@@ -6998,27 +6997,27 @@ namespace Engine
         {
             var result = new Intersection(IntersectionState.NoIntersection);
 
-            var a = new double[] { ry1 * ry1, 0, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2 * rx1 * rx1 * c1Y, ry1 * ry1 * c1X * c1X + rx1 * rx1 * c1Y * c1Y - rx1 * rx1 * ry1 * ry1 };
-            var b = new double[] { ry2 * ry2, 0, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2 * rx2 * rx2 * c2Y, ry2 * ry2 * c2X * c2X + rx2 * rx2 * c2Y * c2Y - rx2 * rx2 * ry2 * ry2 };
+            var a = new double[] { ry1 * ry1, 0d, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2d * rx1 * rx1 * c1Y, (ry1 * ry1 * c1X * c1X) + (rx1 * rx1 * c1Y * c1Y) - (rx1 * rx1 * ry1 * ry1) };
+            var b = new double[] { ry2 * ry2, 0d, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2d * rx2 * rx2 * c2Y, (ry2 * ry2 * c2X * c2X) + (rx2 * rx2 * c2Y * c2Y) - (rx2 * rx2 * ry2 * ry2) };
 
             var yRoots = Bezout(a, b).Trim().Roots();
 
-            var norm0 = (a[0] * a[0] + 2 * a[1] * a[1] + a[2] * a[2]) * epsilon;
-            var norm1 = (b[0] * b[0] + 2 * b[1] * b[1] + b[2] * b[2]) * epsilon;
+            var norm0 = ((a[0] * a[0]) + (2d * a[1] * a[1]) + (a[2] * a[2])) * epsilon;
+            var norm1 = ((b[0] * b[0]) + (2d * b[1] * b[1]) + (b[2] * b[2])) * epsilon;
 
             for (var y = 0; y < yRoots.Length; y++)
             {
                 var xRoots = new Polynomial(
                     a[0],
-                    a[3] + yRoots[y] * a[1],
-                    a[5] + yRoots[y] * (a[4] + yRoots[y] * a[2]),
+                    a[3] + (yRoots[y] * a[1]),
+                    a[5] + (yRoots[y] * (a[4] + (yRoots[y] * a[2]))),
                     epsilon).Trim().Roots();
                 for (var x = 0; x < xRoots.Length; x++)
                 {
-                    var test = (a[0] * xRoots[x] + a[1] * yRoots[y] + a[3]) * xRoots[x] + (a[2] * yRoots[y] + a[4]) * yRoots[y] + a[5];
+                    var test = (((a[0] * xRoots[x]) + (a[1] * yRoots[y]) + a[3]) * xRoots[x]) + (((a[2] * yRoots[y]) + a[4]) * yRoots[y]) + a[5];
                     if (Abs(test) < norm0)
                     {
-                        test = (b[0] * xRoots[x] + b[1] * yRoots[y] + b[3]) * xRoots[x] + (b[2] * yRoots[y] + b[4]) * yRoots[y] + b[5];
+                        test = (((b[0] * xRoots[x]) + (b[1] * yRoots[y]) + b[3]) * xRoots[x]) + (((b[2] * yRoots[y]) + b[4]) * yRoots[y]) + b[5];
                         if (Abs(test) < norm1)
                         {
                             result.AppendPoint(new Point2D(xRoots[x], yRoots[y]));
@@ -7053,30 +7052,30 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Bezout(double[] e1, double[] e2)
         {
-            var ab = e1[0] * e2[1] - e2[0] * e1[1];
-            var ac = e1[0] * e2[2] - e2[0] * e1[2];
-            var ad = e1[0] * e2[3] - e2[0] * e1[3];
-            var ae = e1[0] * e2[4] - e2[0] * e1[4];
-            var af = e1[0] * e2[5] - e2[0] * e1[5];
+            var ab = (e1[0] * e2[1]) - (e2[0] * e1[1]);
+            var ac = (e1[0] * e2[2]) - (e2[0] * e1[2]);
+            var ad = (e1[0] * e2[3]) - (e2[0] * e1[3]);
+            var ae = (e1[0] * e2[4]) - (e2[0] * e1[4]);
+            var af = (e1[0] * e2[5]) - (e2[0] * e1[5]);
 
-            var bc = e1[1] * e2[2] - e2[1] * e1[2];
-            var be = e1[1] * e2[4] - e2[1] * e1[4];
-            var bf = e1[1] * e2[5] - e2[1] * e1[5];
+            var bc = (e1[1] * e2[2]) - (e2[1] * e1[2]);
+            var be = (e1[1] * e2[4]) - (e2[1] * e1[4]);
+            var bf = (e1[1] * e2[5]) - (e2[1] * e1[5]);
 
-            var cd = e1[2] * e2[3] - e2[2] * e1[3];
+            var cd = (e1[2] * e2[3]) - (e2[2] * e1[3]);
 
-            var de = e1[3] * e2[4] - e2[3] * e1[4];
-            var df = e1[3] * e2[5] - e2[3] * e1[5];
+            var de = (e1[3] * e2[4]) - (e2[3] * e1[4]);
+            var df = (e1[3] * e2[5]) - (e2[3] * e1[5]);
 
             var bfPde = bf + de;
             var beMcd = be - cd;
 
             return new Polynomial(
-                /* x⁴ */ ab * bc - ac * ac,
-                /* x³ */ ab * beMcd + ad * bc - 2 * ac * ae,
-                /* x² */ ab * bfPde + ad * beMcd - ae * ae - 2 * ac * af,
-                /* x¹ */ ab * df + ad * bfPde - 2 * ae * af,
-                /* c  */ ad * df - af * af);
+                /* x⁴ */ (ab * bc) - (ac * ac),
+                /* x³ */ (ab * beMcd) + (ad * bc) - (2d * ac * ae),
+                /* x² */ (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
+                /* x¹ */ (ab * df) + (ad * bfPde) - (2d * ae * af),
+                /* c  */ (ad * df) - (af * af));
         }
 
         /// <summary>
@@ -7111,30 +7110,30 @@ namespace Engine
             // 1 | a | b | c | d | e | f |
             // 2 | a | b | c | d | e | f |
 
-            var ab = a1 * b2 - a2 * b1;
-            var ac = a1 * c2 - a2 * c1;
-            var ad = a1 * d2 - a2 * d1;
-            var ae = a1 * e2 - a2 * e1;
-            var af = a1 * f2 - a2 * f1;
+            var ab = (a1 * b2) - (a2 * b1);
+            var ac = (a1 * c2) - (a2 * c1);
+            var ad = (a1 * d2) - (a2 * d1);
+            var ae = (a1 * e2) - (a2 * e1);
+            var af = (a1 * f2) - (a2 * f1);
 
-            var bc = b1 * c2 - b2 * c1;
-            var be = b1 * e2 - b2 * e1;
-            var bf = b1 * f2 - b2 * f1;
+            var bc = (b1 * c2) - (b2 * c1);
+            var be = (b1 * e2) - (b2 * e1);
+            var bf = (b1 * f2) - (b2 * f1);
 
-            var cd = c1 * d2 - c2 * d1;
+            var cd = (c1 * d2) - (c2 * d1);
 
-            var de = d1 * e2 - d2 * e1;
-            var df = d1 * f2 - d2 * f1;
+            var de = (d1 * e2) - (d2 * e1);
+            var df = (d1 * f2) - (d2 * f1);
 
             var bfPde = bf + de;
             var beMcd = be - cd;
 
             return new Polynomial(
-                /* x⁴ */ ab * bc - ac * ac,
-                /* x³ */ ab * beMcd + ad * bc - 2 * ac * ae,
-                /* x² */ ab * bfPde + ad * beMcd - ae * ae - 2 * ac * af,
-                /* x¹ */ ab * df + ad * bfPde - 2 * ae * af,
-                /* c  */ ad * df - af * af);
+                /* x⁴ */ (ab * bc) - (ac * ac),
+                /* x³ */ (ab * beMcd) + (ad * bc) - (2d * ac * ae),
+                /* x² */ (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
+                /* x¹ */ (ab * df) + (ad * bfPde) - (2d * ae * af),
+                /* c  */ (ad * df) - (af * af));
         }
         #endregion Helpers
     }

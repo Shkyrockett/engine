@@ -211,9 +211,9 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(IColor other)
         {
-            var a = ToRGBATuple();
-            var b = other.ToRGBATuple();
-            return a.alpha == b.alpha && a.red == b.red && a.green == b.green && a.blue == b.blue;
+            var (redA, greenA, blueA, alphaA) = ToRGBATuple();
+            var (redB, greenB, blueB, alphaB) = other.ToRGBATuple();
+            return alphaA == alphaB && redA == redB && greenA == greenB && blueA == blueB;
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace Engine.Colorspace
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBAF"/> struct based on the IFormatProvider
@@ -244,7 +244,7 @@ namespace Engine.Colorspace
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBAF"/> class based on the format string
@@ -260,7 +260,7 @@ namespace Engine.Colorspace
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
+            => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="RGBAF"/> struct based on the format string

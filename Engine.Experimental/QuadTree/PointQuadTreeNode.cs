@@ -42,18 +42,18 @@ namespace Engine.Experimental
         /// <summary>
         /// The area of this node
         /// </summary>
-        private Rectangle2D bounds;
+        private readonly Rectangle2D bounds;
 
         /// <summary>
         /// The contents of this node.
         /// Note that the contents have no limit: this is not the standard way to implement a QuadTree
         /// </summary>
-        private List<T> contents = new List<T>();
+        private readonly List<T> contents = new List<T>();
 
         /// <summary>
         /// The child nodes of the QuadTree
         /// </summary>
-        private List<PointQuadTreeNode<T>> nodes = new List<PointQuadTreeNode<T>>(4);
+        private readonly List<PointQuadTreeNode<T>> nodes = new List<PointQuadTreeNode<T>>(4);
         #endregion Fields
 
         #region Constructors

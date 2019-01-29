@@ -73,15 +73,10 @@ namespace Engine.Imaging
         {
             var sourceWidth = canvas.Width;
             var sourceHeight = canvas.Height;
+            var nPercentW = size.Width / (float)sourceWidth;
+            var nPercentH = size.Height / (float)sourceHeight;
 
-            float nPercent = 0;
-            float nPercentW = 0;
-            float nPercentH = 0;
-
-            nPercentW = size.Width / (float)sourceWidth;
-            nPercentH = size.Height / (float)sourceHeight;
-
-            nPercent = nPercentH < nPercentW ? nPercentH : nPercentW;
+            var nPercent = nPercentH < nPercentW ? nPercentH : nPercentW;
 
             var destWidth = (int)(sourceWidth * nPercent);
             var destHeight = (int)(sourceHeight * nPercent);
@@ -189,13 +184,11 @@ namespace Engine.Imaging
             //  Get the namespace
             var strNameSpace = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name.ToString();
             //  Get the resource into a stream
-            var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(strNameSpace + "." + ResourceName);
+            var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream($"{strNameSpace}.{ResourceName}");
             if (ResourceStream is null)
             {
                 // ToDo: #If Then ... Warning!!! not translated
-                MessageBox.Show("Unable to find: "
-                                + ResourceName + "\r\n" + "Be Sure "
-                                + ResourceName + " Property Build Action is set to Embedded Resource" + "\r\n" + "Another reason can be that the Project Root Namespace is not the same as the Assembly Name");
+                MessageBox.Show($"Unable to find: {ResourceName}\r\nBe Sure {ResourceName} Property Build Action is set to Embedded Resource\r\nAnother reason can be that the Project Root Namespace is not the same as the Assembly Name");
                 // ToDo: # ... Warning!!! not translated
             }
             else

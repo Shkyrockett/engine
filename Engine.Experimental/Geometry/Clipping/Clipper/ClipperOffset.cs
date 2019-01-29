@@ -252,12 +252,12 @@ namespace Engine.Experimental
             // cos(A) > 0: angles on both left and right sides > 90 degrees
 
             // cross product ...
-            sinA = Norms[k].X * Norms[j].Y - Norms[j].X * Norms[k].Y;
+            sinA = (Norms[k].X * Norms[j].Y) - (Norms[j].X * Norms[k].Y);
 
             if (Abs(sinA * delta) < 1d) // angle is approaching 180 or 360 deg.
             {
                 // dot product ...
-                var cosA = Norms[k].X * Norms[j].X + Norms[j].Y * Norms[k].Y;
+                var cosA = (Norms[k].X * Norms[j].X) + (Norms[j].Y * Norms[k].Y);
                 if (cosA > 0) // given condition above the angle is approaching 360 deg.
                 {
                     // with angles approaching 360 deg collinear (whether concave or convex),
@@ -265,8 +265,8 @@ namespace Engine.Experimental
                     // occasionally causes tiny self-intersections due to rounding.
                     // So we offset with just a single vertex here ...
                     pathOut.Add(new Point2D(
-                        pathIn[j].X + Norms[k].X * delta,
-                        pathIn[j].Y + Norms[k].Y * delta));
+                        pathIn[j].X + (Norms[k].X * delta),
+                        pathIn[j].Y + (Norms[k].Y * delta)));
                     return;
                 }
             }
@@ -282,12 +282,12 @@ namespace Engine.Experimental
             if (sinA * delta < 0) // ie a concave offset
             {
                 pathOut.Add(new Point2D(
-                    pathIn[j].X + Norms[k].X * delta,
-                    pathIn[j].Y + Norms[k].Y * delta));
+                    pathIn[j].X + (Norms[k].X * delta),
+                    pathIn[j].Y + (Norms[k].Y * delta)));
                 pathOut.Add(pathIn[j]);
                 pathOut.Add(new Point2D(
-                    pathIn[j].X + Norms[j].X * delta,
-                    pathIn[j].Y + Norms[j].Y * delta));
+                    pathIn[j].X + (Norms[j].X * delta),
+                    pathIn[j].Y + (Norms[j].Y * delta)));
             }
             else
             {
@@ -295,7 +295,7 @@ namespace Engine.Experimental
                 switch (jointype)
                 {
                     case LineJoins.Miter:
-                        var cosA = Norms[j].X * Norms[k].X + Norms[j].Y * Norms[k].Y;
+                        var cosA = (Norms[j].X * Norms[k].X) + (Norms[j].Y * Norms[k].Y);
                         // see offset_triginometry3.svg
                         if (1 + cosA < miterLim)
                         {
@@ -308,7 +308,7 @@ namespace Engine.Experimental
 
                         break;
                     case LineJoins.Square:
-                        cosA = Norms[j].X * Norms[k].X + Norms[j].Y * Norms[k].Y;
+                        cosA = (Norms[j].X * Norms[k].X) + (Norms[j].Y * Norms[k].Y);
                         if (cosA >= 0)
                         {
                             DoMiter(j, k, 1 + cosA); // angles >= 90 deg. don't need squaring
@@ -342,20 +342,20 @@ namespace Engine.Experimental
             if (delta > 0)
             {
                 pathOut.Add(new Point2D(
-                    pathIn[j].X + delta * (Norms[k].X - Norms[k].Y),
-                    pathIn[j].Y + delta * (Norms[k].Y + Norms[k].X)));
+                    pathIn[j].X + (delta * (Norms[k].X - Norms[k].Y)),
+                    pathIn[j].Y + (delta * (Norms[k].Y + Norms[k].X))));
                 pathOut.Add(new Point2D(
-                    pathIn[j].X + delta * (Norms[j].X + Norms[j].Y),
-                    pathIn[j].Y + delta * (Norms[j].Y - Norms[j].X)));
+                    pathIn[j].X + (delta * (Norms[j].X + Norms[j].Y)),
+                    pathIn[j].Y + (delta * (Norms[j].Y - Norms[j].X))));
             }
             else
             {
                 pathOut.Add(new Point2D(
-                    pathIn[j].X + delta * (Norms[k].X + Norms[k].Y),
-                    pathIn[j].Y + delta * (Norms[k].Y - Norms[k].X)));
+                    pathIn[j].X + (delta * (Norms[k].X + Norms[k].Y)),
+                    pathIn[j].Y + (delta * (Norms[k].Y - Norms[k].X))));
                 pathOut.Add(new Point2D(
-                    pathIn[j].X + delta * (Norms[j].X - Norms[j].Y),
-                    pathIn[j].Y + delta * (Norms[j].Y + Norms[j].X)));
+                    pathIn[j].X + (delta * (Norms[j].X - Norms[j].Y)),
+                    pathIn[j].Y + (delta * (Norms[j].Y + Norms[j].X))));
             }
         }
 
@@ -371,8 +371,8 @@ namespace Engine.Experimental
             // see offset_triginometry4.svg
             var q = delta / cosAplus1; //0 < cosAplus1 <= 2
             pathOut.Add(new Point2D(
-                pathIn[j].X + (Norms[k].X + Norms[j].X) * q,
-                pathIn[j].Y + (Norms[k].Y + Norms[j].Y) * q));
+                pathIn[j].X + ((Norms[k].X + Norms[j].X) * q),
+                pathIn[j].Y + ((Norms[k].Y + Norms[j].Y) * q)));
         }
 
         /// <summary>
@@ -387,7 +387,7 @@ namespace Engine.Experimental
             var normsk = Norms[k];
 
             // ToDo: Figure out what is being accomplished here as Atan2 is slow.
-            var a = Atan2(sinA, normsk.X * normsj.X + normsk.Y * normsj.Y);
+            var a = Atan2(sinA, (normsk.X * normsj.X) + (normsk.Y * normsj.Y));
             var steps = Max(stepsPerRad * Abs(a), 1d);
 
             var pathj = pathIn[j];
@@ -397,15 +397,15 @@ namespace Engine.Experimental
             for (var i = 0; i < steps; ++i)
             {
                 pathOut.Add(new Point2D(
-                    pathj.X + X * delta,
-                    pathj.Y + Y * delta));
+                    pathj.X + (X * delta),
+                    pathj.Y + (Y * delta)));
                 tempX = X;
-                X = X * cos - sin * Y;
-                Y = tempX * sin + Y * cos;
+                X = (X * cos) - (sin * Y);
+                Y = (tempX * sin) + (Y * cos);
             }
             pathOut.Add(new Point2D(
-                    pathj.X + normsj.X * delta,
-                    pathj.Y + normsj.Y * delta));
+                    pathj.X + (normsj.X * delta),
+                    pathj.Y + (normsj.Y * delta)));
         }
 
         /// <summary>
@@ -444,7 +444,7 @@ namespace Engine.Experimental
             arcTol = ArcTolerance < DefaultArcFrac ? absDelta * DefaultArcFrac : ArcTolerance;
 
             // see offset_triginometry2.svg in the documentation folder ...
-            var steps = PI / Acos(1 - arcTol / absDelta);  // steps per 360 degrees
+            var steps = PI / Acos(1 - (arcTol / absDelta));  // steps per 360 degrees
             if (steps > absDelta * PI)
             {
                 steps = absDelta * PI; // ie excessive precision check
@@ -479,11 +479,11 @@ namespace Engine.Experimental
                         for (var j = 1; j <= steps; j++)
                         {
                             pathOut.Add(new Point2D(
-                              pathIn[0].X + X * delta,
-                              pathIn[0].Y + Y * delta));
+                              pathIn[0].X + (X * delta),
+                              pathIn[0].Y + (Y * delta)));
                             var X2 = X;
-                            X = X * cos - sin * Y;
-                            Y = X2 * sin + Y * cos;
+                            X = (X * cos) - (sin * Y);
+                            Y = (X2 * sin) + (Y * cos);
                         }
                     }
                     else
@@ -493,8 +493,8 @@ namespace Engine.Experimental
                         for (var j = 0; j < 4; ++j)
                         {
                             pathOut.Add(new Point2D(
-                              pathIn[0].X + X * delta,
-                              pathIn[0].Y + Y * delta));
+                              pathIn[0].X + (X * delta),
+                              pathIn[0].Y + (Y * delta)));
                             if (X < 0)
                             {
                                 X = 1;
@@ -579,12 +579,12 @@ namespace Engine.Experimental
                     {
                         var j = pathInCnt - 1;
                         pt1 = new Point2D(
-                            pathIn[j].X + Norms[j].X * delta,
-                            pathIn[j].Y + Norms[j].Y * delta);
+                            pathIn[j].X + (Norms[j].X * delta),
+                            pathIn[j].Y + (Norms[j].Y * delta));
                         pathOut.Add(pt1);
                         pt1 = new Point2D(
-                            pathIn[j].X - Norms[j].X * delta,
-                            pathIn[j].Y - Norms[j].Y * delta);
+                            pathIn[j].X - (Norms[j].X * delta),
+                            pathIn[j].Y - (Norms[j].Y * delta));
                         pathOut.Add(pt1);
                     }
                     else
@@ -620,12 +620,12 @@ namespace Engine.Experimental
                     if (node.EndType == LineEndType.OpenButt)
                     {
                         pt1 = new Point2D(
-                            pathIn[0].X - Norms[0].X * delta,
-                            pathIn[0].Y - Norms[0].Y * delta);
+                            pathIn[0].X - (Norms[0].X * delta),
+                            pathIn[0].Y - (Norms[0].Y * delta));
                         pathOut.Add(pt1);
                         pt1 = new Point2D(
-                            pathIn[0].X + Norms[0].X * delta,
-                            pathIn[0].Y + Norms[0].Y * delta);
+                            pathIn[0].X + (Norms[0].X * delta),
+                            pathIn[0].Y + (Norms[0].Y * delta));
                         pathOut.Add(pt1);
                     }
                     else

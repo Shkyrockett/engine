@@ -344,13 +344,13 @@ namespace Engine
             if (backupScaleX >= 0d && scaleX < 0d)
             {
                 scaleX = -scaleX;
-                skewY = skewY - PI;
+                skewY -= PI;
             }
 
             if (backupScaleY >= 0d && scaleY < 0d)
             {
                 scaleY = -scaleY;
-                skewX = skewX - PI;
+                skewX -= PI;
             }
 
             return new Transform2D(matrix.OffsetX, matrix.OffsetY, skewX, skewY, scaleX, scaleY);
@@ -434,7 +434,7 @@ namespace Engine
         /// A string representation of this object.
         /// </returns>
         public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
+            => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector4D"/> struct based on the format string

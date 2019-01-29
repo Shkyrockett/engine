@@ -229,7 +229,7 @@ namespace Engine.Physics
         /// A string representation of this object.
         /// </returns>
         public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
+            => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Radians"/> struct based on the format string

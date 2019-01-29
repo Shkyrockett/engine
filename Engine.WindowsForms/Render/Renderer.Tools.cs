@@ -9,6 +9,7 @@
 // <remarks></remarks>
 // <remarks></remarks>
 
+using Engine.Colorspace;
 using System.Drawing;
 
 namespace Engine.Imaging
@@ -23,33 +24,34 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="shape">The shape.</param>
         /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this ParametricPointTester shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this ParametricPointTester shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
         {
             const float pointRadius = 1f;
 
             var results = shape.Interactions();
 
-            var pointpen = Pens.Magenta;
+            var pointpen = new Stroke(new SolidFill(Colorspace.Colors.Magenta));
             foreach (var point in results.Item1)
             {
-                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
-                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
+                renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
+                renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
 
-            pointpen = Pens.Lime;
+            pointpen = new Stroke(new SolidFill(Colorspace.Colors.Lime));
             foreach (var point in results.Item2)
             {
-                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
-                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
+                renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
+                renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
 
-            pointpen = Pens.Red;
+            pointpen = new Stroke(new SolidFill(Colorspace.Colors.Red));
             foreach (var point in results.Item3)
             {
-                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
-                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
+                renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
+                renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
         }
 
@@ -58,19 +60,20 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="shape">The shape.</param>
         /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this ParametricWarpGrid shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this ParametricWarpGrid shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
         {
             const float pointRadius = 1f;
 
             var results = shape.Warp();
 
-            var pointpen = Pens.Gold;
+            var pointpen = new Stroke(new SolidFill(Colorspace.Colors.Gold));
             foreach (var point in results)
             {
-                g.DrawLine(pointpen, new PointF((float)point.X, (float)point.Y - pointRadius), new PointF((float)point.X, (float)point.Y + pointRadius));
-                g.DrawLine(pointpen, new PointF((float)point.X - pointRadius, (float)point.Y), new PointF((float)point.X + pointRadius, (float)point.Y));
+                renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
+                renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
         }
 
@@ -79,26 +82,29 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="shape">The shape.</param>
         /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this AngleVisualizerTester shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this AngleVisualizerTester shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item?.Style;
 
-            var backBrush = new SolidBrush(Color.FromArgb(128, Color.MediumPurple));
-            var forePen = new Pen(Color.FromArgb(128, Color.Purple));
+            var fill = new SolidFill(RGBA.FromRGBA(Colors.MediumPurple, 128));
+            var stroke = new Stroke(new SolidFill(RGBA.FromRGBA(Colors.Purple, 128)));
 
-            g.FillPie(backBrush, shape.Bounds.ToRectangle(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
-            g.DrawPie(forePen, shape.Bounds.ToRectangleF(), (float)shape.StartAngle.ToDegrees(), (float)shape.SweepAngle.ToDegrees());
+            Rectangle2D bounds = shape.Bounds!!;
+            renderer.FillPie(fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
+            renderer.DrawPie(stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
 
             var num = 1;
 
-            var tickBrush = Pens.Red;
+            var tickStroke = SolidStrokes.Red;
             foreach (var angle in shape.TestAngles)
             {
-                tickBrush = shape.InSweep(angle) ? Pens.Lime : Pens.Red;
-                g.DrawLine(tickBrush, shape.Location.ToPointF(), shape.TestPoint(angle).ToPointF());
-                g.DrawString("a" + num, new Font(FontFamily.GenericSansSerif, 12, FontStyle.Regular), Brushes.Black, shape.TestPoint(angle).ToPointF());
+                tickStroke = shape.InSweep(angle) ? SolidStrokes.Lime : SolidStrokes.Red;
+                Point2D anglePoint = shape.TestPoint(angle);
+                renderer.DrawLine(tickStroke, shape.Location.X, shape.Location.Y, anglePoint.X, anglePoint.Y);
+                renderer.DrawString($"a{num}", new RenderFont("GenericSansSerif", 12, Engine.TextStyle.Regular), SolidFills.Black, anglePoint.X, anglePoint.Y, new TextFormat(TextBoxFormatFlags.NoWrap, 0));
                 num++;
             }
         }
@@ -108,24 +114,25 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="shape">The shape.</param>
         /// <param name="g">The g.</param>
+        /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this NodeRevealer shape, Graphics g, GraphicItem item, ShapeStyle style = null)
+        public static void Render(this NodeRevealer shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item?.Style;
 
-            var dashPen = new Pen(Color.DarkGray, 1f) { DashPattern = new float[] { 3f, 3f } };
+            var dashPen = new Stroke(SolidFills.DarkGray) { DashStyle = LineDashStyle.Dash, DashPattern = new float[] { 3f, 3f } };
 
             if (shape?.Points.Count > 1 && shape.ConnectPoints)
             {
-                g.DrawLines(dashPen, shape?.Points.ToPointFArray());
+                renderer.DrawLines(dashPen, shape?.Points);
             }
 
             foreach (var point in shape?.Points)
             {
                 var rect = new Rectangle2D(new Point2D(point.X - shape.Radius, point.Y - shape.Radius), new Size2D(2 * shape.Radius, 2 * shape.Radius));
-                g.FillEllipse(itemStyle.BackBrush, rect.ToRectangleF());
-                g.DrawEllipse(itemStyle.ForePen, rect.ToRectangleF());
+                renderer.FillEllipse(itemStyle.Fill, rect.X, rect.Y, rect.Width, rect.Height);
+                renderer.DrawEllipse(itemStyle.Stroke, rect.X, rect.Y, rect.Width, rect.Height);
             }
         }
     }

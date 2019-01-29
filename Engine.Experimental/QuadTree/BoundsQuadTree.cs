@@ -40,12 +40,12 @@ namespace Engine.Experimental
         /// <summary>
         /// The root QuadTreeNode
         /// </summary>
-        private BoundsQuadTreeNode<T> root;
+        private readonly BoundsQuadTreeNode<T> root;
 
         /// <summary>
         /// The bounds of this QuadTree
         /// </summary>
-        private Rectangle2D rectangle;
+        private readonly Rectangle2D bounds;
         #endregion Fields
 
         #region Delegates
@@ -70,8 +70,8 @@ namespace Engine.Experimental
         /// <param name="rectangle">The rectangle.</param>
         public BoundsQuadTree(Rectangle2D rectangle)
         {
-            this.rectangle = rectangle;
-            root = new BoundsQuadTreeNode<T>(this.rectangle);
+            this.bounds = rectangle;
+            root = new BoundsQuadTreeNode<T>(this.bounds);
         }
         #endregion Constructors
 

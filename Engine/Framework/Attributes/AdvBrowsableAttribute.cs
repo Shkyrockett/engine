@@ -24,11 +24,6 @@ namespace Engine
         : Attribute
     {
         /// <summary>
-        /// The name.
-        /// </summary>
-        private string name;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AdvBrowsableAttribute"/> class.
         /// </summary>
         public AdvBrowsableAttribute()
@@ -41,14 +36,13 @@ namespace Engine
         /// <param name="name">The name.</param>
         public AdvBrowsableAttribute(string name)
         {
-            this.name = name;
+            this.Name = name;
         }
 
         /// <summary>
         /// Gets the name.
         /// </summary>
-        public string Name
-            => name;
+        public string Name { get; }
 
         /// <summary>
         /// Get the disp members.

@@ -156,8 +156,8 @@ namespace Engine
             distortionPath.AddLineSegment(upperLeft);
 
             distortionPath.AddCubicBezier(
-                new Point2D(sourceBounds.Left, sourceBounds.Top + sourceBounds.Height * (float)Intensity * -1),
-                new Point2D(sourceBounds.Right, sourceBounds.Top + sourceBounds.Height * (float)Intensity * -1),
+                new Point2D(sourceBounds.Left, sourceBounds.Top + (sourceBounds.Height * (float)Intensity * -1)),
+                new Point2D(sourceBounds.Right, sourceBounds.Top + (sourceBounds.Height * (float)Intensity * -1)),
                 upperRight);
 
             distortionPath.AddLineSegment(lowerRight);
@@ -223,7 +223,7 @@ namespace Engine
             var i = 0;
             foreach (var original in path.Points)
             {
-                var val = xFreq * original.X + yFreq * original.Y;
+                var val = (xFreq * original.X) + (yFreq * original.Y);
                 var xOffset = (int)(xAmp * Math.Sin(val + xSeed));
                 var yOffset = (int)(yAmp * Math.Sin(val + ySeed));
                 deformed[i++] = new Point2D(original.X + xOffset, original.Y + yOffset);

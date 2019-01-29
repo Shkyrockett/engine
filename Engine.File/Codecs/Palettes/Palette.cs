@@ -132,7 +132,7 @@ namespace Engine.File.Palettes
                 case PaletteFileExtensions.unknown:
                     break;
                 default:
-                    string header = null;
+                    var header = string.Empty;
                     //header = this.ReadString(stream, 4);
                     header = stream.ReadString(4);
                     break;
@@ -483,7 +483,7 @@ namespace Engine.File.Palettes
             using (var binaryReader = new BinaryReader(stream))
             //using (StreamReader streamReader = new StreamReader(stream))
             {
-                var Length = binaryReader.BaseStream.Length / 4 - 1;
+                var Length = (binaryReader.BaseStream.Length / 4) - 1;
                 for (var Index = 0; Index <= Length; Index++)
                 {
                     var blue = binaryReader.ReadByte();
@@ -591,7 +591,7 @@ namespace Engine.File.Palettes
         private void WriteRiffPalette(string filename)
         {
             // Calculate file length
-            var length = 4 + 4 + 4 + 4 + 2 + 2 + Colors.Count * 4;
+            var length = 4 + 4 + 4 + 4 + 2 + 2 + (Colors.Count * 4);
 
             var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
             using (var bw = new BinaryWriter(stream))
@@ -603,7 +603,7 @@ namespace Engine.File.Palettes
 
                 // Data chunk
                 bw.WriteString("data");
-                bw.Write(Colors.Count * 4 + 4);
+                bw.Write((Colors.Count * 4) + 4);
                 bw.Write((short)0x0300); // PAL version
                 bw.Write((short)Colors.Count);
 

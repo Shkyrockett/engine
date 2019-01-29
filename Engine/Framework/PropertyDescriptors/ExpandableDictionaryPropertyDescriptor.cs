@@ -27,12 +27,12 @@ namespace Engine
         /// <summary>
         /// The dictionary.
         /// </summary>
-        private IDictionary dictionary;
+        private readonly IDictionary dictionary;
 
         /// <summary>
         /// The key.
         /// </summary>
-        private object key;
+        private readonly object key;
         #endregion Fields
 
         #region Events

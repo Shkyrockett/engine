@@ -51,7 +51,7 @@ namespace Engine
                     //  STRAIGHT LINE
                     if (poly[i + 1] < Y && poly[j + 1] >= Y || poly[j + 1] < Y && poly[i + 1] >= Y)
                     {
-                        if (poly[i] + (Y - poly[i + 1]) / (poly[j + 1] - poly[i + 1]) * (poly[j] - poly[i]) < X)
+                        if (poly[i] + ((Y - poly[i + 1]) / (poly[j + 1] - poly[i + 1]) * (poly[j] - poly[i])) < X)
                         {
                             oddNodes = !oddNodes;
                         }
@@ -111,11 +111,11 @@ namespace Engine
                         var topPart = 2d * (Sy - b);
                         for (var plusOrMinus = -1d; plusOrMinus < 1.1d; plusOrMinus += 2d)
                         {
-                            var F = (topPart + plusOrMinus * sRoot) / bottomPart;
+                            var F = (topPart + (plusOrMinus * sRoot)) / bottomPart;
                             if (F >= 0d && F <= 1d)
                             {
-                                var xPart = Sx + F * (a - Sx);
-                                if (xPart + F * (a + F * (Ex - a) - xPart) < X)
+                                var xPart = Sx + (F * (a - Sx));
+                                if (xPart + (F * (a + (F * (Ex - a)) - xPart)) < X)
                                 {
                                     oddNodes = !oddNodes;
                                 }

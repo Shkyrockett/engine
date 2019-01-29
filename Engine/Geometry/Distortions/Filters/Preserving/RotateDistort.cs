@@ -81,14 +81,14 @@ namespace Engine
         /// <summary>
         /// Gets the x axis.
         /// </summary>
-        public Point2D XAxis
-            => (Point2D)CachingProperty(() => new Point2D(Math.Cos(Angle), Math.Sin(Angle)));
+        public Vector2D XAxis
+            => (Vector2D)CachingProperty(() => new Vector2D(Math.Cos(Angle), Math.Sin(Angle)));
 
         /// <summary>
         /// Gets the y axis.
         /// </summary>
-        public Point2D YAxis
-            => (Point2D)CachingProperty(() => new Point2D(-Math.Sin(Angle), Math.Cos(Angle)));
+        public Vector2D YAxis
+            => (Vector2D)CachingProperty(() => new Vector2D(-Math.Sin(Angle), Math.Cos(Angle)));
         #endregion Properties
 
         #region Methods
@@ -110,7 +110,7 @@ namespace Engine
         /// <param name="yAxis"></param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D Process(Point2D point, Point2D center, Point2D xAxis, Point2D yAxis)
+        public static Point2D Process(Point2D point, Point2D center, Vector2D xAxis, Vector2D yAxis)
             => Distortions.Rotate(point, center, xAxis, yAxis);
 
         /// <summary>

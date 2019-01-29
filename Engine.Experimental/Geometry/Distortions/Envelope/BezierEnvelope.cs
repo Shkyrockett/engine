@@ -380,8 +380,8 @@ namespace Engine
             var _1t3 = _1t2 * _1t;
 
             return new Point2D(
-                a.X * _1t3 + 3d * b.X * _1t2 * t + 3d * c.X * _1t * t2 + d.X * t3,
-                a.Y * _1t3 + 3d * b.Y * _1t2 * t + 3d * c.Y * _1t * t2 + d.Y * t3);
+                (a.X * _1t3) + (3d * b.X * _1t2 * t) + (3d * c.X * _1t * t2) + (d.X * t3),
+                (a.Y * _1t3) + (3d * b.Y * _1t2 * t) + (3d * c.Y * _1t * t2) + (d.Y * t3));
         }
 
         /// <summary>
@@ -398,7 +398,7 @@ namespace Engine
             var tween = new Point2D[key1.Length];
             for (var i = 0; i < key1.Length; i++)
             {
-                tween[i] = key1[i] + percentage * (key2[i] - key1[i]);
+                tween[i] = key1[i] + (percentage * (key2[i] - key1[i]));
             }
             return tween;
         }

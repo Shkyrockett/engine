@@ -14,12 +14,12 @@ namespace Engine
         /// <summary>
         /// The bitmap.
         /// </summary>
-        private Image bitmap;
+        private readonly Image bitmap;
 
         /// <summary>
         /// The graphics.
         /// </summary>
-        private Graphics graphics;
+        private readonly Graphics graphics;
 
         /// <summary>
         /// The disposed value.

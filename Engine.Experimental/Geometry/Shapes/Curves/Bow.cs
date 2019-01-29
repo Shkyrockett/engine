@@ -119,8 +119,8 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t) => new Point2D(
-            offset.X + (1 - (Tan(t) * 2)) * Cos(t) * multiplyer.Width,
-            offset.Y + (1 - (Tan(t) * 2)) * (2 * Sin(t)) * multiplyer.Height
+            offset.X + ((1 - (Tan(t) * 2)) * Cos(t) * multiplyer.Width),
+            offset.Y + ((1 - (Tan(t) * 2)) * (2 * Sin(t)) * multiplyer.Height)
         );
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Bow)}{{{nameof(Offset)}={offset},{nameof(Multiplyer)}={multiplyer},{nameof(Precision)}={precision}}}";
+            IFormattable formatable = $"{nameof(Bow)}{{{nameof(Offset)}={offset}{sep}{nameof(Multiplyer)}={multiplyer}{sep}{nameof(Precision)}={precision}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

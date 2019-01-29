@@ -45,11 +45,6 @@ namespace Engine
         private readonly List<CubicBezier> curves;
 
         /// <summary>
-        /// The curves view.
-        /// </summary>
-        private ReadOnlyCollection<CubicBezier> curvesView;
-
-        /// <summary>
         /// The arclen.
         /// </summary>
         private readonly List<double> arclen;
@@ -74,7 +69,7 @@ namespace Engine
 
             this.samplesPerCurve = samplesPerCurve;
             curves = new List<CubicBezier>(16);
-            curvesView = new ReadOnlyCollection<CubicBezier>(curves);
+            Curves = new ReadOnlyCollection<CubicBezier>(curves);
             arclen = new List<double>(16 * samplesPerCurve);
         }
 
@@ -97,7 +92,7 @@ namespace Engine
 
             this.samplesPerCurve = samplesPerCurve;
             this.curves = new List<CubicBezier>(curves.Count);
-            curvesView = new ReadOnlyCollection<CubicBezier>(this.curves);
+            Curves = new ReadOnlyCollection<CubicBezier>(this.curves);
             arclen = new List<double>(this.curves.Count * samplesPerCurve);
             foreach (CubicBezier curve in curves)
             {
@@ -110,8 +105,7 @@ namespace Engine
         /// <summary>
         /// Gets a read-only view of the current curves collection.
         /// </summary>
-        public ReadOnlyCollection<CubicBezier> Curves
-            => curvesView;
+        public ReadOnlyCollection<CubicBezier> Curves { get; }
 
         /// <summary>
         /// Gets the total length of the spline.
@@ -294,7 +288,7 @@ namespace Engine
         {
             var curve = curves[iCurve];
             var nSamples = samplesPerCurve;
-            var clen = iCurve > 0 ? arclen[iCurve * nSamples - 1] : 0;
+            var clen = iCurve > 0 ? arclen[(iCurve * nSamples) - 1] : 0;
             var pp = curve.A;
             Debug.Assert(arclen.Count >= ((iCurve + 1) * nSamples));
             for (var iPoint = 0; iPoint < nSamples; iPoint++)

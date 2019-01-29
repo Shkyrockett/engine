@@ -10,10 +10,10 @@
 
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using static System.Math;
+using static Engine.BobLyonCommon;
 using static Engine.Maths;
 using static Engine.Measurements;
-using static Engine.BobLyonCommon;
+using static System.Math;
 
 namespace Engine
 {
@@ -155,18 +155,18 @@ namespace Engine
             var v2 = ly + lj - cy;
 
             // Apply Rotation Transform to line at the origin.
-            var u1A = u1 * cosA - v1 * -sinA;
-            var v1A = u1 * -sinA + v1 * cosA;
-            var u2A = u2 * cosA - v2 * -sinA;
-            var v2A = u2 * -sinA + v2 * cosA;
+            var u1A = (u1 * cosA) - (v1 * -sinA);
+            var v1A = (u1 * -sinA) + (v1 * cosA);
+            var u2A = (u2 * cosA) - (v2 * -sinA);
+            var v2A = (u2 * -sinA) + (v2 * cosA);
 
             // Calculate the quadratic parameters.
-            var a = (u2A - u1A) * (u2A - u1A) / (rx * rx) + (v2A - v1A) * (v2A - v1A) / (ry * ry);
-            var b = 2d * u1A * (u2A - u1A) / (rx * rx) + 2d * v1A * (v2A - v1A) / (ry * ry);
-            var c = u1A * u1A / (rx * rx) + v1A * v1A / (ry * ry) - 1d;
+            var a = ((u2A - u1A) * (u2A - u1A) / (rx * rx)) + ((v2A - v1A) * (v2A - v1A) / (ry * ry));
+            var b = (2d * u1A * (u2A - u1A) / (rx * rx)) + (2d * v1A * (v2A - v1A) / (ry * ry));
+            var c = (u1A * u1A / (rx * rx)) + (v1A * v1A / (ry * ry)) - 1d;
 
             // Calculate the discriminant.
-            var discriminant = b * b - 4d * a * c;
+            var discriminant = (b * b) - (4d * a * c);
 
             // Find solutions.
             if ((a <= epsilon) || (discriminant < 0))
@@ -181,7 +181,7 @@ namespace Engine
                 var t = OneHalf * -b / a;
 
                 // Add the point.
-                result.Add((u1 + (u2 - u1) * t + cx, v1 + (v2 - v1) * t + cy));
+                result.Add((u1 + ((u2 - u1) * t) + cx, v1 + ((v2 - v1) * t) + cy));
             }
             else if (discriminant > 0)
             {
@@ -190,8 +190,8 @@ namespace Engine
                 var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
 
                 // Add the points.
-                result.Add((u1 + (u2 - u1) * t1 + cx, v1 + (v2 - v1) * t1 + cy));
-                result.Add((u1 + (u2 - u1) * t2 + cx, v1 + (v2 - v1) * t2 + cy));
+                result.Add((u1 + ((u2 - u1) * t1) + cx, v1 + ((v2 - v1) * t1) + cy));
+                result.Add((u1 + ((u2 - u1) * t2) + cx, v1 + ((v2 - v1) * t2) + cy));
             }
 
             // ToDo: Return IntersectionState.Inside if both points are inside the Ellipse.
@@ -232,12 +232,12 @@ namespace Engine
             else
             {
                 //result = new Intersection(IntersectionState.Intersection);
-                var a = (c1.radius * c1.radius - c2.radius * c2.radius + c_dist * c_dist) / (2d * c_dist);
-                var h = Sqrt(c1.radius * c1.radius - a * a);
+                var a = ((c1.radius * c1.radius) - (c2.radius * c2.radius) + (c_dist * c_dist)) / (2d * c_dist);
+                var h = Sqrt((c1.radius * c1.radius) - (a * a));
                 var (x, y) = Lerp(c1.origin.x, c1.origin.y, c2.origin.x, c2.origin.y, a / c_dist);
                 var b = h / c_dist;
-                result.Add((x - b * (c2.origin.y - c1.origin.y), y + b * (c2.origin.x - c1.origin.x)));
-                result.Add((x + b * (c2.origin.y - c1.origin.y), y - b * (c2.origin.x - c1.origin.x)));
+                result.Add((x - (b * (c2.origin.y - c1.origin.y)), y + (b * (c2.origin.x - c1.origin.x))));
+                result.Add((x + (b * (c2.origin.y - c1.origin.y)), y - (b * (c2.origin.x - c1.origin.x))));
             }
 
             return result.ToArray();
@@ -256,13 +256,13 @@ namespace Engine
         public static double[] QuarticRoots((double a, double b, double c, double d, double e) quartics, double epsilon = Epsilon)
         {
             (var a, var b, var c, var d, var e) = quartics;
-            var delta = 256d * a * a * a * e * e * e - 192d * a * a * b * d * e * e - 128d * a * a * c * c * e * e + 144d * a * a * c * d * d * e - 27d * a * a * d * d * d * d + 144d * a * b * b * c * e * e - 6d * a * b * b * d * d * e - 80d * a * b * c * c * d * e + 18d * a * b * c * d * d * d + 16d * a * c * c * c * c * e - 4d * a * c * c * c * d * d - 27d * b * b * b * b * e * e + 18d * b * b * b * c * d * e - 4d * b * b * b * d * d * d - 4d * b * b * c * c * c * e + b * b * c * c * d * d;
-            var P = 8d * a * c - 3d * b * b;
-            var D = 64d * a * a * a * e - 16d * a * a * c * c + 16d * a * b * b * c - 16d * a * a * b * d - 3d * b * b * b * b;
-            var d0 = c * c - 3d * b * d + 12d * a * e;
-            var d1 = 2d * c * c * c - 9d * b * c * d + 27d * b * b * e + 27d * a * d * d - 72d * a * c * e;
-            var p = (8 * a * c - 3d * b * b) / (8d * a * a);
-            var q = (b * b * b - 4d * a * b * c + 8 * a * a * d) / (8d * a * a * a);
+            var delta = (256d * a * a * a * e * e * e) - (192d * a * a * b * d * e * e) - (128d * a * a * c * c * e * e) + (144d * a * a * c * d * d * e) - (27d * a * a * d * d * d * d) + (144d * a * b * b * c * e * e) - (6d * a * b * b * d * d * e) - (80d * a * b * c * c * d * e) + (18d * a * b * c * d * d * d) + (16d * a * c * c * c * c * e) - (4d * a * c * c * c * d * d) - (27d * b * b * b * b * e * e) + (18d * b * b * b * c * d * e) - (4d * b * b * b * d * d * d) - (4d * b * b * c * c * c * e) + (b * b * c * c * d * d);
+            var P = (8d * a * c) - (3d * b * b);
+            var D = (64d * a * a * a * e) - (16d * a * a * c * c) + (16d * a * b * b * c) - (16d * a * a * b * d) - (3d * b * b * b * b);
+            var d0 = (c * c) - (3d * b * d) + (12d * a * e);
+            var d1 = (2d * c * c * c) - (9d * b * c * d) + (27d * b * b * e) + (27d * a * d * d) - (72d * a * c * e);
+            var p = ((8 * a * c) - (3d * b * b)) / (8d * a * a);
+            var q = ((b * b * b) - (4d * a * b * c) + (8 * a * a * d)) / (8d * a * a * a);
             var Q = 0d;
             var S = 0d;
 
@@ -271,20 +271,20 @@ namespace Engine
             if (double.IsNaN(phi) && (d1 == 0d))
             {
                 // if (delta < 0) I guess the new test is ok because we're only interested in real roots
-                Q = d1 + Sqrt(d1 * d1 - 4d * d0 * d0 * d0);
-                Q = Q / 2d;
+                Q = d1 + Sqrt((d1 * d1) - (4d * d0 * d0 * d0));
+                Q /= 2d;
                 Q = Pow(Q, 1d / 3d);
-                S = 0.5d * Sqrt(-2d / 3d * p + 1d / (3d * a) * (Q + d0 / Q));
+                S = 0.5d * Sqrt((-2d / 3d * p) + (1d / (3d * a) * (Q + (d0 / Q))));
             }
             else
             {
-                S = 0.5d * Sqrt(-2d / 3d * p + 2d / (3d * a) * Sqrt(d0) * Cos(phi / 3d));
+                S = 0.5d * Sqrt((-2d / 3d * p) + (2d / (3d * a) * Sqrt(d0) * Cos(phi / 3d)));
             }
 
             var y = new List<double>();
             if (S != 0d)
             {
-                var R = -4d * S * S - 2d * p + q / S;
+                var R = (-4d * S * S) - (2d * p) + (q / S);
 
                 if (Abs(R) < epsilon)
                 {
@@ -294,15 +294,15 @@ namespace Engine
                 if (R > 0d)
                 {
                     R = 0.5d * Sqrt(R);
-                    y.Add(-b / (4 * a) - S + R);
-                    y.Add(-b / (4 * a) - S - R);
+                    y.Add((-b / (4 * a)) - S + R);
+                    y.Add((-b / (4 * a)) - S - R);
                 }
                 else if (Abs(R) < epsilon)
                 {
-                    y.Add(-b / (4d * a) - S);
+                    y.Add((-b / (4d * a)) - S);
                 }
 
-                R = -4d * S * S - 2d * p - q / S;
+                R = (-4d * S * S) - (2d * p) - (q / S);
 
                 if (Abs(R) < epsilon)
                 {
@@ -312,12 +312,12 @@ namespace Engine
                 if (R > 0d)
                 {
                     R = 0.5d * Sqrt(R);
-                    y.Add(-b / (4d * a) + S + R);
-                    y.Add(-b / (4d * a) + S - R);
+                    y.Add((-b / (4d * a)) + S + R);
+                    y.Add((-b / (4d * a)) + S - R);
                 }
                 else if (R == 0d)
                 {
-                    y.Add(-b / (4d * a) + S);
+                    y.Add((-b / (4d * a)) + S);
                 }
             }
 
@@ -338,24 +338,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y)[] CalculatePoints(double[] y, (double a, double b, double c, double d, double e, double f) el1, (double a, double b, double c, double d, double e, double f) e2, double epsilon = Epsilon)
         {
-            var a = el1.a;
-            var b = el1.b;
-            var c = el1.c;
-            var d = el1.d;
-            var e = el1.e;
-            var f = el1.f;
-
-            var a1 = e2.a;
-            var b1 = e2.b;
-            var c1 = e2.c;
-            var d1 = e2.d;
-            var e1 = e2.e;
-            var fq = e2.f;
-
             var r = new List<(double x, double y)>();
             for (var i = 0; i < y.Length; i++)
             {
-                var x = -(a * fq + a * c1 * y[i] * y[i] - a1 * c * y[i] * y[i] + a * e1 * y[i] - a1 * e * y[i] - a1 * f) / (a * b1 * y[i] + a * d1 - a1 * b * y[i] - a1 * d);
+                var x = -((el1.a * e2.f) + (el1.a * e2.c * y[i] * y[i]) - (e2.a * el1.c * y[i] * y[i]) + (el1.a * e2.e * y[i]) - (e2.a * el1.e * y[i]) - (e2.a * el1.f)) / ((el1.a * e2.b * y[i]) + (el1.a * e2.d) - (e2.a * el1.b * y[i]) - (e2.a * el1.d));
                 r.Add((x, y[i]));
             }
             return r.ToArray();
@@ -377,26 +363,22 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ((double x, double y) v, double angle) GetLine(double rotation, double rx, double ry, (double x, double y) o1, (double x, double y) o2, double epsilon = Epsilon)
         {
-            var A = Cos(rotation);
-            var B = Sin(rotation);
+            var cos = Cos(rotation);
+            var sin = Sin(rotation);
             var b = rx * rx;
             var d = ry * ry;
-            var a = o1.x;
-            var c = o1.y;
-            var o = o2.x;
-            var p = o2.y;
 
-            var AA = A * A / b + B * B / d;
-            var BB = -2 * A * B / b + 2 * A * B / d;
-            var CC = B * B / b + A * A / d;
+            var AA = (cos * cos / b) + (sin * sin / d);
+            var BB = (-2d * cos * sin / b) + (2d * cos * sin / d);
+            var CC = (sin * sin / b) + (cos * cos / d);
 
-            var U = -2 * AA * a + BB * c;
-            var V = AA * a * a + BB * a * c + CC * c * c;
-            var W = BB * a + 2 * CC * c;
+            var U = (-2d * AA * o1.x) + (BB * o1.y);
+            var V = (AA * o1.x * o1.x) + (BB * o1.x * o1.y) + (CC * o1.y * o1.y);
+            var W = (BB * o1.x) + (2d * CC * o1.y);
 
-            var X = -2 * AA * o + BB * p;
-            var Y = BB * o + 2 * CC * p;
-            var Z = AA * o * o + BB * o * p + CC * p * p;
+            var X = (-2d * AA * o2.x) + (BB * o2.y);
+            var Y = (BB * o2.x) + (2d * CC * o2.y);
+            var Z = (AA * o2.x * o2.x) + (BB * o2.x * o2.y) + (CC * o2.y * o2.y);
 
             return ((U - X, Y - W), Z - V);
         }

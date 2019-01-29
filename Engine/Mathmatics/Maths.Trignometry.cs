@@ -61,8 +61,8 @@ namespace Engine
             // double cos = Math.Cos(theta);
             var cos = -Sqrt(1 - (sin * sin));
             return (
-                X: centerX + radius * cos,
-                Y: centerY + radius * sin
+                X: centerX + (radius * cos),
+                Y: centerY + (radius * sin)
                 );
         }
 
@@ -100,7 +100,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double Roll, double Pitch, double Yaw) QuaternionToEulerAngles(double x, double y, double z, double w)
         {
-            var test = x * y + z * w;
+            var test = (x * y) + (z * w);
             var quat = (Yaw: 0d, Roll: 0d, Pitch: 0d);
             if (test > 0.499d)
             {
@@ -121,9 +121,9 @@ namespace Engine
                 var sqX = x * x;
                 var sqY = y * y;
                 var sqZ = z * z;
-                quat.Yaw = Atan2(2d * y * w - 2d * x * z, 1d - 2d * sqY - 2d * sqZ);
+                quat.Yaw = Atan2((2d * y * w) - (2d * x * z), 1d - (2d * sqY) - (2d * sqZ));
                 quat.Roll = Asin(2d * test);
-                quat.Pitch = Atan2(2d * x * w - 2d * y * z, 1d - 2d * sqX - 2d * sqZ);
+                quat.Pitch = Atan2((2d * x * w) - (2d * y * z), 1d - (2d * sqX) - (2d * sqZ));
             }
 
             if (quat.Pitch <= Epsilon)
@@ -338,7 +338,7 @@ namespace Engine
         public static double AngleBetween(
             double uX, double uY,
             double vX, double vY)
-            => Acos((uX * vX + uY * vY) / Sqrt((uX * uX + uY * uY) * (vX * vX + vY * vY)));
+            => Acos(((uX * vX) + (uY * vY)) / Sqrt(((uX * uX) + (uY * uY)) * ((vX * vX) + (vY * vY))));
 
         /// <summary>
         /// Finds the angle between two vectors.
@@ -358,7 +358,7 @@ namespace Engine
         public static double AngleBetween(
             double uX, double uY, double uZ,
             double vX, double vY, double vZ)
-            => Acos((uX * vX + uY * vY + uZ * vZ) / Sqrt((uX * uX + uY * uY + uZ * uZ) * (vX * vX + vY * vY + vZ * vZ)));
+            => Acos(((uX * vX) + (uY * vY) + (uZ * vZ)) / Sqrt(((uX * uX) + (uY * uY) + (uZ * uZ)) * ((vX * vX) + (vY * vY) + (vZ * vZ))));
 
         /// <summary>
         /// Find the elliptical t that matches the coordinates of a circular angle.
@@ -415,8 +415,8 @@ namespace Engine
             if (cosA > -1 && cosA < 0 || cosA > 0 && cosA < 1)
             {
                 var d = Sign(cosA);
-                return (d / Sqrt(1 + rx * rx * sinA * sinA / (ry * ry * cosA * cosA)),
-                        d * (rx * sinA / (ry * cosA * Sqrt(1 + rx * rx * sinA * sinA / (ry * ry * cosA * cosA)))));
+                return (d / Sqrt(1 + (rx * rx * sinA * sinA / (ry * ry * cosA * cosA))),
+                        d * (rx * sinA / (ry * cosA * Sqrt(1 + (rx * rx * sinA * sinA / (ry * ry * cosA * cosA))))));
             }
 
             return (cosA, sinA);
@@ -445,7 +445,7 @@ namespace Engine
 
             var rx = Cos(subtended);  /* ray from the origin */
             var ry = Sin(subtended);
-            var e = a * b / Sqrt(a * a * ry * ry + b * b * rx * rx);
+            var e = a * b / Sqrt((a * a * ry * ry) + (b * b * rx * rx));
             var ex = e * rx;  /* where ray intersects ellipse */
             var ey = e * ry;
             var parametric = Atan2(a * ey, b * ex);
@@ -471,8 +471,8 @@ namespace Engine
             var (i, j) = Delta(x1, y1, x2, y2);
             var magnatude = 0.5d * DotProduct(i, j, i, j);
             var reflection = CrossProduct(i, j, CrossProduct(x2, y2, x1, y1), DotProduct(axisX, axisY, i, j));
-            return (magnatude * reflection - axisX,
-                    magnatude * reflection - axisY);
+            return ((magnatude * reflection) - axisX,
+                    (magnatude * reflection) - axisY);
         }
         #endregion Reflect
 
@@ -506,8 +506,8 @@ namespace Engine
             var deltaY = y - cy;
             var angleCos = Cos(angle);
             var angleSin = Sin(angle);
-            return (cx + (deltaX * angleCos - deltaY * angleSin),
-                    cy + (deltaX * angleSin + deltaY * angleCos));
+            return (cx + ((deltaX * angleCos) - (deltaY * angleSin)),
+                    cy + ((deltaX * angleSin) + (deltaY * angleCos)));
         }
         #endregion Rotate Point
 
@@ -686,7 +686,7 @@ namespace Engine
             if (Math.Abs(value) < 1)
             {
                 // Arc-sin(X)
-                return Atan(value / Sqrt(-value * value + 1));
+                return Atan(value / Sqrt((-value * value) + 1));
             }
 
             return 0;
@@ -718,7 +718,7 @@ namespace Engine
             if (Math.Abs(value) < 1)
             {
                 // Arc-cos(X)
-                return Atan(-value / Sqrt(-value * value + 1)) + 2 * Atan(1);
+                return Atan(-value / Sqrt((-value * value) + 1)) + (2 * Atan(1));
             }
 
             return 0;
@@ -750,7 +750,7 @@ namespace Engine
             if (Math.Abs(value) < 1)
             {
                 // Arc-sec(X)
-                return Atan(value / Sqrt(value * value - 1)) + Sin(value - 1) * (2 * Atan(1));
+                return Atan(value / Sqrt((value * value) - 1)) + (Sin(value - 1) * (2 * Atan(1)));
             }
 
             return 0;
@@ -782,7 +782,7 @@ namespace Engine
             if (Math.Abs(value) < 1)
             {
                 // Arc-co-sec(X)
-                return Atan(value / Sqrt(value * value - 1)) + (Sin(value) - 1) * (2 * Atan(1));
+                return Atan(value / Sqrt((value * value) - 1)) + ((Sin(value) - 1) * (2 * Atan(1)));
             }
 
             return 0;

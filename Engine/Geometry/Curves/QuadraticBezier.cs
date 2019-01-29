@@ -411,7 +411,7 @@ namespace Engine
                 {
                     var n1 = Normal(0);
                     var n2 = Normal(1);
-                    var s = n1.I * n2.I + n1.J * n2.J;
+                    var s = (n1.I * n2.I) + (n1.J * n2.J);
                     var angle = Math.Abs(Math.Acos(s));
                     return angle < Math.PI / 3d;
                 }
@@ -780,7 +780,7 @@ namespace Engine
         public Vector2D Normal(double t)
         {
             var d = Derivate(t);
-            var q = 1d / Math.Sqrt(d.I * d.I + d.J * d.J);
+            var q = 1d / Math.Sqrt((d.I * d.I) + (d.J * d.J));
             return new Vector2D(-d.J * q, d.I * q);
         }
 
@@ -829,10 +829,6 @@ namespace Engine
         public override bool Equals(object obj)
             => obj is CubicBezier && Equals((CubicBezier)obj);
 
-        /// <summary>
-        /// Get the hash code.
-        /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
         /// <summary>
         /// Get the hash code.
         /// </summary>

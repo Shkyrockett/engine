@@ -443,19 +443,19 @@ namespace Engine
                 {
                     case PolynomialDegree.Constant:
                         // M is Move to.
-                        output.Append($"M{item.Start.Value.X.ToString(format, provider)},{item.Start.Value.Y.ToString(format, provider)} ");
+                        output.Append($"M{item.Start.Value.X.ToString(format, provider)}{sep}{item.Start.Value.Y.ToString(format, provider)} ");
                         break;
                     case PolynomialDegree.Linear:
                         // L is a linear curve.
-                        output.Append($"L{item.End.Value.X.ToString(format, provider)},{item.End.Value.Y.ToString(format, provider)} ");
+                        output.Append($"L{item.End.Value.X.ToString(format, provider)}{sep}{item.End.Value.Y.ToString(format, provider)} ");
                         break;
                     case PolynomialDegree.Quadratic:
                         // Q is for Quadratic.
-                        output.Append($"Q{item.Handles[0].X.ToString(format, provider)},{item.Handles[0].X.ToString(format, provider)},{item.End.Value.X.ToString(format, provider)},{item.End.Value.Y.ToString(format, provider)} ");
+                        output.Append($"Q{item.Handles[0].X.ToString(format, provider)}{sep}{item.Handles[0].X.ToString(format, provider)}{sep}{item.End.Value.X.ToString(format, provider)}{sep}{item.End.Value.Y.ToString(format, provider)} ");
                         break;
                     case PolynomialDegree.Cubic:
                         // C is for Cubic.
-                        output.Append($"C{item.Handles[0].X.ToString(format, provider)},{item.Handles[0].Y.ToString(format, provider)},{item.Handles[1].X.ToString(format, provider)},{item.Handles[1].Y.ToString(format, provider)},{item.End.Value.X.ToString(format, provider)},{item.End.Value.Y.ToString(format, provider)} ");
+                        output.Append($"C{item.Handles[0].X.ToString(format, provider)}{sep}{item.Handles[0].Y.ToString(format, provider)}{sep}{item.Handles[1].X.ToString(format, provider)}{sep}{item.Handles[1].Y.ToString(format, provider)}{sep}{item.End.Value.X.ToString(format, provider)}{sep}{item.End.Value.Y.ToString(format, provider)} ");
                         break;
                     default:
                         break;

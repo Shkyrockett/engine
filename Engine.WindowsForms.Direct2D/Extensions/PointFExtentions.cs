@@ -369,8 +369,8 @@ namespace Engine
                 );
             var QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
             return new PointF(
-                (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
-                (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
+                (float)((QC3 * SegmentVectorDelta.CrossProduct(QC12)) - axis.X),
+                (float)((QC3 * SegmentVectorDelta.CrossProduct(QC12)) - axis.Y)
                 );
         }
 
@@ -389,8 +389,8 @@ namespace Engine
                 );
             var QC3 = 0.5F * SegmentVectorDelta.DotProduct(SegmentVectorDelta);
             return new PointF(
-                (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.X),
-                (float)(QC3 * SegmentVectorDelta.CrossProduct(QC12) - axis.Y)
+                (float)((QC3 * SegmentVectorDelta.CrossProduct(QC12)) - axis.X),
+                (float)((QC3 * SegmentVectorDelta.CrossProduct(QC12)) - axis.Y)
                 );
         }
 
@@ -436,8 +436,8 @@ namespace Engine
             var angleSin = Sin(angle);
 
             return new PointF(
-                (float)(axis.X + (deltaX * angleCos - deltaY * angleSin)),
-                (float)(axis.Y + (deltaX * angleSin + deltaY * angleCos))
+                (float)(axis.X + ((deltaX * angleCos) - (deltaY * angleSin))),
+                (float)(axis.Y + ((deltaX * angleSin) + (deltaY * angleCos)))
             );
         }
 

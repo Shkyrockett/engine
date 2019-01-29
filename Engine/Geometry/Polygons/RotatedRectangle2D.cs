@@ -834,7 +834,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(RotatedRectangle2D)}{{{nameof(X)}={x.ToString(format, provider)},{nameof(Y)}={y.ToString(format, provider)},{nameof(Width)}={width.ToString(format, provider)},{nameof(Height)}={height.ToString(format, provider)},{nameof(Angle)}={angle.ToString(format, provider)}}}";
+            return $"{nameof(RotatedRectangle2D)}{{{nameof(X)}={x.ToString(format, provider)}{sep}{nameof(Y)}={y.ToString(format, provider)}{sep}{nameof(Width)}={width.ToString(format, provider)}{sep}{nameof(Height)}={height.ToString(format, provider)}{sep}{nameof(Angle)}={angle.ToString(format, provider)}}}";
         }
         #endregion Methods
     }

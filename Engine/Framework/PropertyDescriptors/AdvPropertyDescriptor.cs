@@ -30,12 +30,12 @@ namespace Engine
         /// <summary>
         /// The field.
         /// </summary>
-        private FieldInfo field;
+        private readonly FieldInfo field;
 
         /// <summary>
         /// The property.
         /// </summary>
-        private PropertyInfo property;
+        private readonly PropertyInfo property;
 
         /// <summary>
         /// The description.

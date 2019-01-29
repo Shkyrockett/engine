@@ -24,7 +24,7 @@ namespace Engine.Tools
         /// <summary>
         /// The action.
         /// </summary>
-        private Action<Point2D> action;
+        private readonly Action<Point2D> action;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawShape"/> class.

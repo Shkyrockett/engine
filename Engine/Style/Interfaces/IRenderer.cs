@@ -121,6 +121,19 @@ namespace Engine
         void DrawArc(IStroke pen, double x, double y, double width, double height, double startAngle, double sweepAngle);
 
         /// <summary>
+        /// The draw arc.
+        /// </summary>
+        /// <param name="pen">The pen.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="startAngle">The startAngle.</param>
+        /// <param name="sweepAngle">The sweepAngle.</param>
+        /// <param name="angle">The angle.</param>
+        void DrawArc(IStroke pen, double x, double y, double width, double height, double startAngle, double sweepAngle, double angle);
+
+        /// <summary>
         /// The draw pie.
         /// </summary>
         /// <param name="pen">The pen.</param>
@@ -141,6 +154,17 @@ namespace Engine
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         void DrawEllipse(IStroke pen, double x, double y, double width, double height);
+
+        /// <summary>
+        /// The draw ellipse.
+        /// </summary>
+        /// <param name="pen">The pen.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="angle">The angle.</param>
+        void DrawEllipse(IStroke pen, double x, double y, double width, double height, double angle);
 
         /// <summary>
         /// The draw rectangle.
@@ -236,6 +260,19 @@ namespace Engine
         void FillArc(IFill brush, double x, double y, double width, double height, double startAngle, double sweepAngle);
 
         /// <summary>
+        /// Fill the arc.
+        /// </summary>
+        /// <param name="brush">The brush.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="startAngle">The startAngle.</param>
+        /// <param name="sweepAngle">The sweepAngle.</param>
+        /// <param name="angle">The angle.</param>
+        void FillArc(IFill brush, double x, double y, double width, double height, double startAngle, double sweepAngle, double angle);
+
+        /// <summary>
         /// Fill the pie.
         /// </summary>
         /// <param name="brush">The brush.</param>
@@ -258,6 +295,17 @@ namespace Engine
         void FillEllipse(IFill brush, double x, double y, double width, double height);
 
         /// <summary>
+        /// Fill the ellipse.
+        /// </summary>
+        /// <param name="brush">The brush.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="angle">The angle.</param>
+        void FillEllipse(IFill brush, double x, double y, double width, double height, double angle);
+
+        /// <summary>
         /// Fill the rectangle.
         /// </summary>
         /// <param name="brush">The brush.</param>
@@ -273,6 +321,19 @@ namespace Engine
         /// <param name="brush">The brush.</param>
         /// <param name="rectangles">The rectangles.</param>
         void FillRectangles(IFill brush, IEnumerable<Rectangle2D> rectangles);
+
+        /// <summary>
+        /// The draw string.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="font">The font.</param>
+        /// <param name="brush">The brush.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        /// <param name="stringFormat">The stringFormat.</param>
+        void DrawString(string text, RenderFont font, IFill brush, double x, double y,TextFormat stringFormat);
 
         /// <summary>
         /// The draw string.
@@ -305,6 +366,6 @@ namespace Engine
         /// <param name="layoutArea">The layoutArea.</param>
         /// <param name="stringFormat">The stringFormat.</param>
         /// <returns>The <see cref="Size2D"/>.</returns>
-        Size2D MeasureCharacterRanges(string text, RenderFont font, Size2D layoutArea, TextFormat stringFormat);
+        object MeasureCharacterRanges(string text, RenderFont font, Size2D layoutArea, TextFormat stringFormat);
     }
 }

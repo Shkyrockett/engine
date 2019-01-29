@@ -338,23 +338,23 @@ namespace Engine
                 );
             var A = abc.Item1;
             var v1 = new Point2D(
-                x: A.X + (e1.X - A.X) / (1 - t),
-                y: A.Y + (e1.Y - A.Y) / (1 - t)
+                x: A.X + ((e1.X - A.X) / (1 - t)),
+                y: A.Y + ((e1.Y - A.Y) / (1 - t))
                 //,z: A.Z + (e1.Z - A.Z) / (1 - t)
                 );
             var v2 = new Point2D(
-                x: A.X + (e2.X - A.X) / t,
-                y: A.Y + (e2.Y - A.Y) / t
+                x: A.X + ((e2.X - A.X) / t),
+                y: A.Y + ((e2.Y - A.Y) / t)
                 //,z: A.Z + (e2.Z - A.Z) / (t)
                 );
             var nc1 = new Point2D(
-                x: S.X + (v1.X - S.X) / t,
-                y: S.Y + (v1.Y - S.Y) / t
+                x: S.X + ((v1.X - S.X) / t),
+                y: S.Y + ((v1.Y - S.Y) / t)
                 //,z: S.Y + (v1.Y - S.Y) / (t)
                 );
             var nc2 = new Point2D(
-                x: E.X + (v2.X - E.X) / (1 - t),
-                y: E.Y + (v2.Y - E.Y) / (1 - t)
+                x: E.X + ((v2.X - E.X) / (1 - t)),
+                y: E.Y + ((v2.Y - E.Y) / (1 - t))
                 //,z: E.Y + (v2.Y - E.Y) / (1 - t)
                 );
 
@@ -500,7 +500,7 @@ namespace Engine
             double GetCurveParameter1(double s) // 0 <= s <= L , output i s t
             {
                 // Initial guess for Newton's method. 
-                var t = tmin + s * (tmax - tmin) / L;
+                var t = tmin + (s * (tmax - tmin) / L);
 
                 // Initial root−bounding interval for bisection . 
                 double lower = tmin, upper = tmax;
@@ -517,7 +517,7 @@ namespace Engine
 
                     // Generate a candidate for Newton ’ s method . 
                     var DF = Speed(t);
-                    var tCandidate = t - F / DF;
+                    var tCandidate = t - (F / DF);
 
                     // Update the root-bounding interval and test for containment of 
                     // the candidate. 
@@ -706,8 +706,8 @@ namespace Engine
             if (Order == 1)
             {
                 var ret = new Point2D(
-                x: mt * p[0].X + t * p[1].X,
-                y: mt * p[0].Y + t * p[1].Y
+                x: (mt * p[0].X) + (t * p[1].X),
+                y: (mt * p[0].Y) + (t * p[1].Y)
                 //,z: mt * p[0].Z + t * p[1].Z
                 );
                 return ret;
@@ -738,8 +738,8 @@ namespace Engine
                 }
                 var ret =
                     new Point2D(
-                    x: a * p[0].X + b * p[1].X + c * p[2].X + d * p[3].X,
-                    y: a * p[0].Y + b * p[1].Y + c * p[2].Y + d * p[3].Y
+                    x: (a * p[0].X) + (b * p[1].X) + (c * p[2].X) + (d * p[3].X),
+                    y: (a * p[0].Y) + (b * p[1].Y) + (c * p[2].Y) + (d * p[3].Y)
                     //,z: a * p[0].Z + b * p[1].Z + c * p[2].Z + d * p[3].Z
                     );
                 return ret;
@@ -752,8 +752,8 @@ namespace Engine
                 for (var i = 0; i < dCpts.Count - 1; i++)
                 {
                     dCpts[i] = new Point2D(
-                    x: dCpts[i].X + (dCpts[i + 1].X - dCpts[i].X) * t,
-                    y: dCpts[i].Y + (dCpts[i + 1].Y - dCpts[i].Y) * t
+                    x: dCpts[i].X + ((dCpts[i + 1].X - dCpts[i].X) * t),
+                    y: dCpts[i].Y + ((dCpts[i + 1].Y - dCpts[i].Y) * t)
                     //,z: dCpts[i].Z + (dCpts[i + 1].Z - dCpts[i].Z) * t
                     );
                 }
@@ -792,8 +792,8 @@ namespace Engine
                 c = t * t;
             }
             var ret = new Point2D(
-            x: a * p[0].X + b * p[1].X + c * p[2].X,
-            y: a * p[0].Y + b * p[1].Y + c * p[2].Y
+            x: (a * p[0].X) + (b * p[1].X) + (c * p[2].X),
+            y: (a * p[0].Y) + (b * p[1].Y) + (c * p[2].Y)
             //,z: a * p[0].Z + b * p[1].Z + c * p[2].Z
             );
             return ret;
@@ -812,7 +812,7 @@ namespace Engine
         public Vector2D Normal_Ported(double t)
         {
             var d = Derivativate_Ported(t);
-            var q = 1d / Sqrt(d.X * d.X + d.Y * d.Y);
+            var q = 1d / Sqrt((d.X * d.X) + (d.Y * d.Y));
             return new Vector2D(-d.Y * q, d.X * q);
         }
 
@@ -1059,7 +1059,7 @@ namespace Engine
                 {
                     var p0 = lp[i];
                     var p1 = lp[i + 1];
-                    next.Add(new Point2D((p0.X * (1 - t) + t * p1.X, p0.Y * (1 - t) + t * p1.Y)));
+                    next.Add(new Point2D(((p0.X * (1 - t)) + (t * p1.X), (p0.Y * (1 - t)) + (t * p1.Y))));
                 }
 
                 lp = next;
@@ -1104,7 +1104,7 @@ namespace Engine
                 {
                     var p0 = lp[i];
                     var p1 = lp[i + 1];
-                    next.Add(new Point2D((p0.X * (1 - t) + t * p1.X, p0.Y * (1 - t) + t * p1.Y)));
+                    next.Add(new Point2D(((p0.X * (1 - t)) + (t * p1.X), (p0.Y * (1 - t)) + (t * p1.Y))));
                 }
 
                 lp = next;
@@ -1136,8 +1136,8 @@ namespace Engine
                 foreach (var p in Points)
                 {
                     var ret = new Point2D(
-                    x: p.X + t * nv.I,
-                    y: p.Y + t * nv.J
+                    x: p.X + (t * nv.I),
+                    y: p.Y + (t * nv.J)
                     //,z: p.Z + t * nv.Z
                     );
                     coords.Add(ret);
@@ -1172,8 +1172,8 @@ namespace Engine
                 c,
                 (Point2D)n,
                 new Point2D(
-                x: c.X + n.I * d,
-                y: c.Y + n.J * d
+                x: c.X + (n.I * d),
+                y: c.Y + (n.J * d)
                 //,z: c.Z + n.Z * d
                 )
             );
@@ -1295,12 +1295,12 @@ namespace Engine
                     rc = -rc;
                 }
 
-                var m = Sqrt(ov.X * ov.X + ov.Y * ov.Y);
+                var m = Sqrt((ov.X * ov.X) + (ov.Y * ov.Y));
                 ov.X /= m;
                 ov.Y /= m;
                 np[t + 1] = new Point2D(
-                    x: p.X + rc * ov.X,
-                    y: p.Y + rc * ov.Y
+                    x: p.X + (rc * ov.X),
+                    y: p.Y + (rc * ov.Y)
                     /*,z: p.Z + rc * ov.Z*/);
             }
 
@@ -1440,7 +1440,7 @@ namespace Engine
             {
                 var shape = BezierUtil.MakeShape(outline[i], outline[len - i]);
                 shape.Startcap.Virtual = i > 1;
-                shape.Endcap.Virtual = i < len / 2 - 1;
+                shape.Endcap.Virtual = i < (len / 2) - 1;
                 shapes.Add(shape);
             }
             return shapes;
@@ -1551,7 +1551,7 @@ namespace Engine
 
                 // console.log("[F] arc found", s, prev_e, prev_arc.x, prev_arc.y, prev_arc.s, prev_arc.e);
 
-                prev_arc = prev_arc ?? arc;
+                prev_arc ??= arc;
                 circles.Add(prev_arc);
                 s = prev_e;
             }
@@ -1604,8 +1604,8 @@ namespace Engine
                 pi = p[i];
                 pim = p[i - 1];
                 np[i] = new Point2D(
-                    x: (k - i) / k * pi.X + i / k * pim.X,
-                    y: (k - i) / k * pi.Y + i / k * pim.Y
+                    x: ((k - i) / k * pi.X) + (i / k * pim.X),
+                    y: ((k - i) / k * pi.Y) + (i / k * pim.Y)
                 //,z: (k - i) / k * pi.Z + i / k * pim.Z
                 );
             }
@@ -1635,7 +1635,7 @@ namespace Engine
             }
             var n1 = Normal_Ported(0);
             var n2 = Normal_Ported(1);
-            var s = n1.I * n2.I + n1.J * n2.J/* + n1.K * n2.K*/;
+            var s = (n1.I * n2.I) + (n1.J * n2.J)/* + n1.K * n2.K*/;
             var angle = Abs(Acos(s));
             return angle < PI / 3d;
         }
@@ -1935,17 +1935,17 @@ namespace Engine
             var pc = aligned[2].Y;
             var pd = aligned[3].Y;
             // ...to [t^3 + at^2 + bt + c] form:
-            var d = -pa + 3 * pb - 3 * pc + pd;
-            var a = (3 * pa - 6 * pb + 3 * pc) / d;
-            var b = (-3 * pa + 3 * pb) / d;
+            var d = -pa + (3 * pb) - (3 * pc) + pd;
+            var a = ((3 * pa) - (6 * pb) + (3 * pc)) / d;
+            var b = ((-3 * pa) + (3 * pb)) / d;
             var c = pa / d;
             // then, determine p and q:
-            var p = (3 * b - a * a) / 3;
+            var p = ((3 * b) - (a * a)) / 3;
             var dp3 = p / 3;
-            var q = (2 * a * a * a - 9 * a * b + 27 * c) / 27;
+            var q = ((2 * a * a * a) - (9 * a * b) + (27 * c)) / 27;
             var q2 = q / 2;
             // and determine the discriminant:
-            var discriminant = q2 * q2 + dp3 * dp3 * dp3;
+            var discriminant = (q2 * q2) + (dp3 * dp3 * dp3);
             // and some reserved variables for later
             double u1, v1, x1, x2, x3;
 
@@ -1963,16 +1963,16 @@ namespace Engine
                 var phi = Acos(cosphi);
                 var crtr = Crt(r);
                 var t1 = 2 * crtr;
-                x1 = t1 * Cos(phi / 3) - a / 3;
-                x2 = t1 * Cos((phi + Tau) / 3) - a / 3;
-                x3 = t1 * Cos((phi + 2 * Tau) / 3) - a / 3;
+                x1 = (t1 * Cos(phi / 3)) - (a / 3);
+                x2 = (t1 * Cos((phi + Tau) / 3)) - (a / 3);
+                x3 = (t1 * Cos((phi + (2 * Tau)) / 3)) - (a / 3);
                 return new List<double> { x1, x2, x3 };
             }
             else if (discriminant == 0)
             {
                 u1 = q2 < 0 ? Crt(-q2) : -Crt(q2);
-                x1 = 2 * u1 - a / 3;
-                x2 = -u1 - a / 3;
+                x1 = (2 * u1) - (a / 3);
+                x2 = -u1 - (a / 3);
                 return new List<double> { x1, x2 };
             }
             else
@@ -1982,7 +1982,7 @@ namespace Engine
                 var tt = -q2 + sd;
                 u1 = Crt(-q2 + sd);
                 v1 = Crt(q2 + sd);
-                x1 = u1 - v1 - a / 3;
+                x1 = u1 - v1 - (a / 3);
                 return new List<double> { x1 };
             }
         }
@@ -2054,7 +2054,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
-            => ConvertToString(null /* format string */, CultureInfo.InvariantCulture /* format provider */);
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the IFormatProvider
@@ -2067,7 +2067,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider)
-            => ConvertToString(null /* format string */, provider);
+            => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="GraphicsObject"/> inherited class based on the format string
@@ -2083,7 +2083,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
+            => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CubicBezier"/> struct based on the format string

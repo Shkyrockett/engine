@@ -78,21 +78,19 @@ namespace Engine
             var treeCount = 1;
             var bestI = 0;
             var bestJ = 0;
-            var bestDist = 0d;
-            var newDist = 0d;
 
             // Iteratively grow the shortest-path tree until it reaches the endpoint
             // or until it becomes unable to grow, in which case exit with failure.
             while (bestJ < pointList.Count - 1)
             {
-                bestDist = maxLength;
+                var bestDist = maxLength;
                 for (var ti = 0; ti < treeCount; ti++)
                 {
                     for (var tj = treeCount; tj < pointList.Count; tj++)
                     {
                         if (polygons.PolygonSetContainsPoints(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)) == Inclusion.Inside)
                         {
-                            newDist = pointList[ti].TotalDistance + new Point2D(pointList[ti].X, pointList[ti].Y).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
+                            var newDist = pointList[ti].TotalDistance + new Point2D(pointList[ti].X, pointList[ti].Y).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
                             if (newDist < bestDist)
                             {
                                 bestDist = newDist;
@@ -160,12 +158,11 @@ namespace Engine
             // Find the centroid.
             var X = 0d;
             var Y = 0d;
-            var second_factor = 0d;
             for (var i = 0; i < num_points; i++)
             {
-                second_factor =
-                    pts[i].X * pts[i + 1].Y
-                    - pts[i + 1].X * pts[i].Y;
+                var second_factor =
+                    (pts[i].X * pts[i + 1].Y)
+                    - (pts[i + 1].X * pts[i].Y);
                 X += (pts[i].X + pts[i + 1].X) * second_factor;
                 Y += (pts[i].Y + pts[i + 1].Y) * second_factor;
             }

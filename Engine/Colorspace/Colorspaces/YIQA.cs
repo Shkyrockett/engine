@@ -34,14 +34,10 @@ namespace Engine.Colorspace
         /// </acknowledgment>
         public YIQA(RGBA color)
         {
-            double r = color.Red;
-            double g = color.Green;
-            double b = color.Blue;
-
             Alpha = color.Alpha;
-            Y = 0.299900 * r + 0.587000 * g + 0.114000 * b;
-            I = 0.595716 * r - 0.274453 * g - 0.321264 * b;
-            Q = 0.211456 * r - 0.522591 * g + 0.311350 * b;
+            Y = (0.299900d * color.Red) + (0.587000d * color.Green) + (0.114000d * color.Blue);
+            I = (0.595716d * color.Red) - (0.274453d * color.Green) - (0.321264d * color.Blue);
+            Q = (0.211456d * color.Red) - (0.522591d * color.Green) + (0.311350d * color.Blue);
         }
 
         /// <summary>
@@ -114,9 +110,9 @@ namespace Engine.Colorspace
         /// </acknowledgment>
         public RGBA ToColor(byte a, double y, double i, double q)
         {
-            var r = (byte)(y + 0.9563 * i + 0.6210 * q);
-            var g = (byte)(y - 0.2721 * i - 0.6474 * q);
-            var b = (byte)(y - 1.1070 * i + 1.7046 * q);
+            var r = (byte)(y + (0.9563d * i) + (0.6210d * q));
+            var g = (byte)(y - (0.2721d * i) - (0.6474d * q));
+            var b = (byte)(y - (1.1070d * i) + (1.7046d * q));
             return new RGBA(r, g, b, a);
         }
 

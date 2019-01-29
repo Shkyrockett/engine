@@ -74,7 +74,7 @@ namespace Engine
                 if (z2 != 0d)
                 {
                     // quadratic
-                    return ((z1 * z1) - 4d * z2 * z0) >= 0d;
+                    return ((z1 * z1) - (4d * z2 * z0)) >= 0d;
                 }
 
                 // sloped lines have one root
@@ -84,18 +84,18 @@ namespace Engine
             var b = z2 / z4;
             var c = z1 / z4;
             var d = z0 / z4;
-            var p = (8d * b - 3d * a * a) / 8d;
-            var q = (a * a * a - 4d * a * b + 8d * c) / 8d;
-            var r = (-3d * a * a * a * a + 256d * d - 64d * c * a + 16d * a * a * b) / 256d;
+            var p = ((8d * b) - (3d * a * a)) / 8d;
+            var q = ((a * a * a) - (4d * a * b) + (8d * c)) / 8d;
+            var r = ((-3d * a * a * a * a) + (256d * d) - (64d * c * a) + (16d * a * a * b)) / 256d;
 
             //  x⁴ +        p*x² + q*x + r
             // a*x⁴ + b*x³ + c*x² + d*x + e
             // so a=1  b=0  c=p  d=q  e=r
             // That is, we have a depessed quartic.
-            var discrim = 256d * r * r * r - 128d * p * p * r * r + 144d * p * q * q * r
-                - 27d * q * q * q * q + 16d * p * p * p * p * r - 4d * p * p * p * q * q;
+            var discrim = (256d * r * r * r) - (128d * p * p * r * r) + (144d * p * q * q * r)
+                - (27d * q * q * q * q) + (16d * p * p * p * p * r) - (4d * p * p * p * q * q);
             var P = 8d * p;
-            var D = 64d * r - 16d * p * p;
+            var D = (64d * r) - (16d * p * p);
 
             return discrim < 0d || (discrim > 0d && P < 0 && D < 0d) || (discrim == 0d && (D != 0d || P <= 0d));
         }
@@ -131,7 +131,7 @@ namespace Engine
                 if (z.c != 0d)
                 {
                     // quadratic
-                    return ((z.b * z.b) - 4d * z.c * z.a) >= 0d;
+                    return ((z.b * z.b) - (4d * z.c * z.a)) >= 0d;
                 }
 
                 // sloped lines have one root
@@ -141,18 +141,18 @@ namespace Engine
             var b = z.c / z.e;
             var c = z.b / z.e;
             var d = z.a / z.e;
-            var p = (8d * b - 3d * a * a) / 8d;
-            var q = (a * a * a - 4d * a * b + 8d * c) / 8d;
-            var r = (-3d * a * a * a * a + 256d * d - 64d * c * a + 16d * a * a * b) / 256d;
+            var p = ((8d * b) - (3d * a * a)) / 8d;
+            var q = ((a * a * a) - (4d * a * b) + (8d * c)) / 8d;
+            var r = ((-3d * a * a * a * a) + (256d * d) - (64d * c * a) + (16d * a * a * b)) / 256d;
 
             //  x⁴ +        p*x² + q*x + r
             // a*x⁴ + b*x³ + c*x² + d*x + e
             // so a=1  b=0  c=p  d=q  e=r
             // That is, we have a depessed quartic.
-            var descrim = 256d * r * r * r - 128d * p * p * r * r + 144d * p * q * q * r
-                - 27d * q * q * q * q + 16d * p * p * p * p * r - 4d * p * p * p * q * q;
+            var descrim = (256d * r * r * r) - (128d * p * p * r * r) + (144d * p * q * q * r)
+                - (27d * q * q * q * q) + (16d * p * p * p * p * r) - (4d * p * p * p * q * q);
             var P = 8d * p;
-            var D = 64d * r - 16d * p * p;
+            var D = (64d * r) - (16d * p * p);
 
             return descrim < 0d || (descrim > 0d && P < 0d && D < 0d) || (descrim == 0d && (D != 0d || P <= 0d));
         }
@@ -199,16 +199,16 @@ namespace Engine
                 return HasAzero(0, 0, deltaC, deltaE, deltaF);
             }
 
-            var a3 = b * c1 - b1 * c;
-            var a2 = b * e1 + d * c1 - b1 * e - d1 * c;
-            var aa1 = b * f1 + d * e1 - b1 * f - d1 * e;
-            var a0 = d * f1 - d1 * f;
+            var a3 = (b * c1) - (b1 * c);
+            var a2 = (b * e1) + (d * c1) - (b1 * e) - (d1 * c);
+            var aa1 = (b * f1) + (d * e1) - (b1 * f) - (d1 * e);
+            var a0 = (d * f1) - (d1 * f);
 
-            var A = deltaC * deltaC - a3 * deltaB;
-            var B = 2 * deltaC * deltaE - deltaB * a2 - deltaD * a3;
-            var C = deltaE * deltaE + 2 * deltaC * deltaF - deltaB * aa1 - deltaD * a2;
-            var D = 2 * deltaE * deltaF - deltaD * aa1 - deltaB * a0;
-            var E = deltaF * deltaF - deltaD * a0;
+            var A = (deltaC * deltaC) - (a3 * deltaB);
+            var B = (2 * deltaC * deltaE) - (deltaB * a2) - (deltaD * a3);
+            var C = (deltaE * deltaE) + (2 * deltaC * deltaF) - (deltaB * aa1) - (deltaD * a2);
+            var D = (2 * deltaE * deltaF) - (deltaD * aa1) - (deltaB * a0);
+            var E = (deltaF * deltaF) - (deltaD * a0);
             return HasAzero(A, B, C, D, E);
         }
 
@@ -232,11 +232,9 @@ namespace Engine
         public static bool DoConicsIntersect(
             (double a, double b, double c, double d, double e, double f) el,
             (double a, double b, double c, double d, double e, double f) el1)
-        {
             // Check for real y intersects, then real x intersects.
-            return DoConicsYIntersect(el.a, el.b, el.c, el.d, el.e, el.f, el1.a, el1.b, el1.c, el1.d, el1.e, el1.f) &&
+            => DoConicsYIntersect(el.a, el.b, el.c, el.d, el.e, el.f, el1.a, el1.b, el1.c, el1.d, el1.e, el1.f) &&
                 DoConicsYIntersect(el.c, el.b, el.a, el.e, el.d, el.f, el1.c, el1.b, el1.a, el1.e, el1.d, el1.f);
-        }
 
         /// <summary>
         /// Calculate the coefficient of the quartic.
@@ -261,11 +259,11 @@ namespace Engine
             (double a, double b, double c, double d, double e, double f) el1,
             (double a, double b, double c, double d, double e, double f) el2, double epsilon = Epsilon)
             => (
-                a: el1.f * el1.a * el2.d * el2.d + el1.a * el1.a * el2.f * el2.f - el1.d * el1.a * el2.d * el2.f + el2.a * el2.a * el1.f * el1.f - 2 * el1.a * el2.f * el2.a * el1.f - el1.d * el2.d * el2.a * el1.f + el2.a * el1.d * el1.d * el2.f,
-                b: el2.e * el1.d * el1.d * el2.a - el2.f * el2.d * el1.a * el1.b - 2 * el1.a * el2.f * el2.a * el1.e - el1.f * el2.a * el2.b * el1.d + 2 * el2.d * el2.b * el1.a * el1.f + 2 * el2.e * el2.f * el1.a * el1.a + el2.d * el2.d * el1.a * el1.e - el2.e * el2.d * el1.a * el1.d - 2 * el1.a * el2.e * el2.a * el1.f - el1.f * el2.a * el2.d * el1.b + 2 * el1.f * el1.e * el2.a * el2.a - el2.f * el2.b * el1.a * el1.d - el1.e * el2.a * el2.d * el1.d + 2 * el2.f * el1.b * el2.a * el1.d,
-                c: el2.e * el2.e * el1.a * el1.a + 2 * el2.c * el2.f * el1.a * el1.a - el1.e * el2.a * el2.d * el1.b + el2.f * el2.a * el1.b * el1.b - el1.e * el2.a * el2.b * el1.d - el2.f * el2.b * el1.a * el1.b - 2 * el1.a * el2.e * el2.a * el1.e + 2 * el2.d * el2.b * el1.a * el1.e - el2.c * el2.d * el1.a * el1.d - 2 * el1.a * el2.c * el2.a * el1.f + el2.b * el2.b * el1.a * el1.f + 2 * el2.e * el1.b * el2.a * el1.d + el1.e * el1.e * el2.a * el2.a - el1.c * el2.a * el2.d * el1.d - el2.e * el2.b * el1.a * el1.d + 2 * el1.f * el1.c * el2.a * el2.a - el1.f * el2.a * el2.b * el1.b + el2.c * el1.d * el1.d * el2.a + el2.d * el2.d * el1.a * el1.c - el2.e * el2.d * el1.a * el1.b - 2 * el1.a * el2.f * el2.a * el1.c,
-                d: -2 * el1.a * el2.a * el1.c * el2.e + el2.e * el2.a * el1.b * el1.b + 2 * el2.c * el1.b * el2.a * el1.d - el1.c * el2.a * el2.b * el1.d + el2.b * el2.b * el1.a * el1.e - el2.e * el2.b * el1.a * el1.b - 2 * el1.a * el2.c * el2.a * el1.e - el1.e * el2.a * el2.b * el1.b - el2.c * el2.b * el1.a * el1.d + 2 * el2.e * el2.c * el1.a * el1.a + 2 * el1.e * el1.c * el2.a * el2.a - el1.c * el2.a * el2.d * el1.b + 2 * el2.d * el2.b * el1.a * el1.c - el2.c * el2.d * el1.a * el1.b,
-                e: el1.a * el1.a * el2.c * el2.c - 2 * el1.a * el2.c * el2.a * el1.c + el2.a * el2.a * el1.c * el1.c - el1.b * el1.a * el2.b * el2.c - el1.b * el2.b * el2.a * el1.c + el1.b * el1.b * el2.a * el2.c + el1.c * el1.a * el2.b * el2.b
+                a: (el1.f * el1.a * el2.d * el2.d) + (el1.a * el1.a * el2.f * el2.f) - (el1.d * el1.a * el2.d * el2.f) + (el2.a * el2.a * el1.f * el1.f) - (2 * el1.a * el2.f * el2.a * el1.f) - (el1.d * el2.d * el2.a * el1.f) + (el2.a * el1.d * el1.d * el2.f),
+                b: (el2.e * el1.d * el1.d * el2.a) - (el2.f * el2.d * el1.a * el1.b) - (2 * el1.a * el2.f * el2.a * el1.e) - (el1.f * el2.a * el2.b * el1.d) + (2 * el2.d * el2.b * el1.a * el1.f) + (2 * el2.e * el2.f * el1.a * el1.a) + (el2.d * el2.d * el1.a * el1.e) - (el2.e * el2.d * el1.a * el1.d) - (2 * el1.a * el2.e * el2.a * el1.f) - (el1.f * el2.a * el2.d * el1.b) + (2 * el1.f * el1.e * el2.a * el2.a) - (el2.f * el2.b * el1.a * el1.d) - (el1.e * el2.a * el2.d * el1.d) + (2 * el2.f * el1.b * el2.a * el1.d),
+                c: (el2.e * el2.e * el1.a * el1.a) + (2 * el2.c * el2.f * el1.a * el1.a) - (el1.e * el2.a * el2.d * el1.b) + (el2.f * el2.a * el1.b * el1.b) - (el1.e * el2.a * el2.b * el1.d) - (el2.f * el2.b * el1.a * el1.b) - (2 * el1.a * el2.e * el2.a * el1.e) + (2 * el2.d * el2.b * el1.a * el1.e) - (el2.c * el2.d * el1.a * el1.d) - (2 * el1.a * el2.c * el2.a * el1.f) + (el2.b * el2.b * el1.a * el1.f) + (2 * el2.e * el1.b * el2.a * el1.d) + (el1.e * el1.e * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.d) - (el2.e * el2.b * el1.a * el1.d) + (2 * el1.f * el1.c * el2.a * el2.a) - (el1.f * el2.a * el2.b * el1.b) + (el2.c * el1.d * el1.d * el2.a) + (el2.d * el2.d * el1.a * el1.c) - (el2.e * el2.d * el1.a * el1.b) - (2 * el1.a * el2.f * el2.a * el1.c),
+                d: (-2 * el1.a * el2.a * el1.c * el2.e) + (el2.e * el2.a * el1.b * el1.b) + (2 * el2.c * el1.b * el2.a * el1.d) - (el1.c * el2.a * el2.b * el1.d) + (el2.b * el2.b * el1.a * el1.e) - (el2.e * el2.b * el1.a * el1.b) - (2 * el1.a * el2.c * el2.a * el1.e) - (el1.e * el2.a * el2.b * el1.b) - (el2.c * el2.b * el1.a * el1.d) + (2 * el2.e * el2.c * el1.a * el1.a) + (2 * el1.e * el1.c * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.b) + (2 * el2.d * el2.b * el1.a * el1.c) - (el2.c * el2.d * el1.a * el1.b),
+                e: (el1.a * el1.a * el2.c * el2.c) - (2 * el1.a * el2.c * el2.a * el1.c) + (el2.a * el2.a * el1.c * el1.c) - (el1.b * el1.a * el2.b * el2.c) - (el1.b * el2.b * el2.a * el1.c) + (el1.b * el1.b * el2.a * el2.c) + (el1.c * el1.a * el2.b * el2.b)
             );
 
         /// <summary>
@@ -294,12 +292,12 @@ namespace Engine
             var B = Sin(-rotation);
 
             return (
-                /* x^2   */ a: A * A / b + B * B / d,
-                /* x * y */ b: 2 * A * B / d - 2 * A * B / b,
-                /* y^2   */ c: A * A / d + B * B / b,
-                /* x     */ d: (2 * A * B * c - 2 * a * A * A) / b + (-2 * a * B * B - 2 * A * B * c) / d,
-                /* y     */ e: (2 * a * A * B - 2 * B * B * c) / b + (-2 * a * A * B - 2 * A * A * c) / d,
-                /* Const */ f: (a * a * A * A - 2 * a * A * B * c + B * B * c * c) / b + (a * a * B * B + 2 * a * A * B * c + A * A * c * c) / d - 1
+                /* x^2   */ a: (A * A / b) + (B * B / d),
+                /* x * y */ b: (2 * A * B / d) - (2 * A * B / b),
+                /* y^2   */ c: (A * A / d) + (B * B / b),
+                /* x     */ d: (((2 * A * B * c) - (2 * a * A * A)) / b) + (((-2 * a * B * B) - (2 * A * B * c)) / d),
+                /* y     */ e: (((2 * a * A * B) - (2 * B * B * c)) / b) + (((-2 * a * A * B) - (2 * A * A * c)) / d),
+                /* Const */ f: (((a * a * A * A) - (2 * a * A * B * c) + (B * B * c * c)) / b) + (((a * a * B * B) + (2 * a * A * B * c) + (A * A * c * c)) / d) - 1
             );
         }
 
@@ -330,12 +328,12 @@ namespace Engine
             var B = Sin(-rotation);
 
             return (
-                /* x^2   */ a: A * A / b + B * B / d,
-                /* x * y */ b: 2 * A * B / d - 2 * A * B / b,
-                /* y^2   */ c: A * A / d + B * B / b,
-                /* x     */ d: (2 * A * B * c - 2 * a * A * A) / b + (-2 * a * B * B - 2 * A * B * c) / d,
-                /* y     */ e: (2 * a * A * B - 2 * B * B * c) / b + (-2 * a * A * B - 2 * A * A * c) / d,
-                /* Const */ f: (a * a * A * A - 2 * a * A * B * c + B * B * c * c) / b + (a * a * B * B + 2 * a * A * B * c + A * A * c * c) / d - 1
+                /* x^2   */ a: (A * A / b) + (B * B / d),
+                /* x * y */ b: (2 * A * B / d) - (2 * A * B / b),
+                /* y^2   */ c: (A * A / d) + (B * B / b),
+                /* x     */ d: (((2 * A * B * c) - (2 * a * A * A)) / b) + (((-2 * a * B * B) - (2 * A * B * c)) / d),
+                /* y     */ e: (((2 * a * A * B) - (2 * B * B * c)) / b) + (((-2 * a * A * B) - (2 * A * A * c)) / d),
+                /* Const */ f: (((a * a * A * A) - (2 * a * A * B * c) + (B * B * c * c)) / b) + (((a * a * B * B) + (2 * a * A * B * c) + (A * A * c * c)) / d) - 1
             );
         }
 
@@ -381,8 +379,8 @@ namespace Engine
             // of the desired angle. That way when the bivariate
             // computation transforms it back, it WILL be at the
             // correct(and original) coordinates.
-            var a = cosA * cx + sinA * cy;
-            var c = -sinA * cx + cosA * cy;
+            var a = (cosA * cx) + (sinA * cy);
+            var c = (-sinA * cx) + (cosA * cy);
 
             // Now let the bivariate computation
             // rotate in the opposite direction.
@@ -458,10 +456,9 @@ namespace Engine
         public static (double x, double y)[] Coords2Points(double[] x1, double[] y1)
         {
             /* Pass any number of X - Y coordinate pairs. */
-            var i = 0;
-            var j = 0;
             var points = new List<(double x, double y)>();
-            for (i = j = 0; i < x1.Length; j++)
+            int j;
+            for (var i = j = 0; i < x1.Length; j++)
             {
                 points.Add((x: x1[i], y: y1[i++]));
             }
@@ -482,10 +479,9 @@ namespace Engine
         public static (double x, double y)[] Coords2Points(params double[] arguments)
         {
             /* Pass any number of X - Y coordinate pairs. */
-            var i = 0;
-            var j = 0;
             var points = new List<(double x, double y)>();
-            for (i = j = 0; i < arguments.Length; j++)
+            int j;
+            for (var i = j = 0; i < arguments.Length; j++)
             {
                 points.Add((x: arguments[i++], y: arguments[i++]));
             }
@@ -516,7 +512,7 @@ namespace Engine
             }
             var rx = Cos(subtended);  /* ray from the origin */
             var ry = Sin(subtended);
-            var e = a * b / Sqrt(a * a * ry * ry + b * b * rx * rx);
+            var e = a * b / Sqrt((a * a * ry * ry) + (b * b * rx * rx));
             var ex = e * rx;  /* where ray intersects ellipse */
             var ey = e * ry;
             var parametric = Atan2(a * ey, b * ex);
@@ -552,8 +548,8 @@ namespace Engine
             var deltaX = vector.x - origin.x;
             var deltaY = vector.y - origin.y;
             (var angleCos, var angleSin) = angle;
-            return (origin.x + (deltaX * angleCos - deltaY * angleSin),
-                    origin.y + (deltaX * angleSin + deltaY * angleCos));
+            return (origin.x + ((deltaX * angleCos) - (deltaY * angleSin)),
+                    origin.y + ((deltaX * angleSin) + (deltaY * angleCos)));
         }
 
         /// <summary>
@@ -601,7 +597,7 @@ namespace Engine
         {
             var dx = ax - bx;
             var dy = ay - by;
-            return Sqrt(dx * dx + dy * dy);
+            return Sqrt((dx * dx) + (dy * dy));
         }
 
         /// <summary>
@@ -686,13 +682,12 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y) Centroid((double x, double y)[] poly)
         {
-            var a = 0d;
             var area = 0d;
             var cx = 0d;
             var cy = 0d;
             for (int i = poly.Length - 1, j = 0; j < poly.Length; i = j, j++)
             {
-                a = (poly[i].x * poly[j].y) - (poly[j].x * poly[i].y);
+                var a = (poly[i].x * poly[j].y) - (poly[j].x * poly[i].y);
                 cx += (poly[i].x + poly[j].x) * a;
                 cy += (poly[i].y + poly[j].y) * a;
                 area += a;
@@ -702,7 +697,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Compute the incenter of triangle a-b-c.
+        /// Compute the center of triangle a-b-c.
         /// </summary>
         /// <param name="ax">The ax.</param>
         /// <param name="ay">The ay.</param>
@@ -723,8 +718,8 @@ namespace Engine
             var C = Dist(bx, by, ax, ay);
             var P = A + B + C;
             return (
-                x: (A * ax + B * bx + C * cx) / P,
-                y: (A * ay + B * by + C * cy) / P
+                x: ((A * ax) + (B * bx) + (C * cx)) / P,
+                y: ((A * ay) + (B * by) + (C * cy)) / P
             );
         }
 
@@ -751,7 +746,7 @@ namespace Engine
                 var dy1 = poly[prev].y - poly[pprev].y;
                 var dx2 = poly[i].x - poly[prev].x;
                 var dy2 = poly[i].y - poly[prev].y;
-                var zCross = dx1 * dy2 - dy1 * dx2;
+                var zCross = (dx1 * dy2) - (dy1 * dx2);
                 if (i == 0)
                 {
                     first = zCross < 0;
@@ -780,12 +775,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y)[] Rect2Points(double x, double y, double w, double h, double theta, Mode rectangleMode)
         {
-            var p = new (double x, double y)[] { };
             if (rectangleMode == Mode.CORNERS)
             {
                 w -= x;
                 h -= y;
             }
+
+            (double x, double y)[] p;
             if (theta != 0)
             {
                 var cosine = Cos(-theta);  /* Compute once... */
@@ -806,7 +802,7 @@ namespace Engine
                     /* Default CORNER mode. Rotate around corner (x, y) */
                     p = new (double x, double y)[] { (x: 0, y: 0), RotatePoint(w, 0, cosine, sine), RotatePoint(w, h, cosine, sine), RotatePoint(0, h, cosine, sine) };
                 }
-                /* Renormalize rotated points */
+                /* Re-normalize rotated points */
                 for (var i = 0; i < p.Length; i++)
                 {
                     p[i].x += x;
@@ -815,7 +811,7 @@ namespace Engine
             }
             else if (rectangleMode == Mode.CENTER)
             {
-                /* No rotation. (x, y) is the center of the rect. */
+                /* No rotation. (x, y) is the center of the rectangle. */
                 w /= 2;
                 h /= 2;
                 p = Coords2Points(x - w, y - h, x + w, y - h, x + w, y + h, x - w, y + h);

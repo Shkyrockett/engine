@@ -79,7 +79,7 @@ namespace Engine.Tweening
         /// <returns>The <see cref="object"/>.</returns>
         public override object Interpolate(double t, object currentValue, LerpBehavior behavior)
         {
-            var value = from + range * t;
+            var value = from + (range * t);
             if (behavior.HasFlag(LerpBehavior.Rotation))
             {
                 if (behavior.HasFlag(LerpBehavior.RotationRadians))

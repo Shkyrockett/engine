@@ -103,7 +103,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToAndFro(double t)
-            => t < 0.5d ? t * 2d : 1d + (t - 0.5d) / 0.5d * -1d;
+            => t < 0.5d ? t * 2d : 1d + ((t - 0.5d) / 0.5d * -1d);
 
         /// <summary>
         /// Parabolic to and fro method.
@@ -113,7 +113,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Parabolic(double t)
-            => -4 * t * t + 4 * t - 0;
+            => (-4 * t * t) + (4 * t) - 0;
         #endregion To and Fro Easing Methods
 
         #region Linear Easing Methods
@@ -131,7 +131,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Linear(double t, double b, double c, double d)
-            => c * t / d + b;
+            => (c * t / d) + b;
 
         /// <summary>
         /// Easing equation function for a simple linear tweening, with no easing.
@@ -163,7 +163,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadIn(double t, double b, double c, double d)
-            => c * (t /= d) * t + b;
+            => (c * (t /= d) * t) + b;
 
         /// <summary>
         /// Easing equation function for a quadratic (t^2) easing in:
@@ -194,7 +194,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOut(double t, double b, double c, double d)
-            => -c * (t /= d) * (t - 2) + b;
+            => (-c * (t /= d) * (t - 2)) + b;
 
         /// <summary>
         /// Easing equation function for a quadratic (t^2) easing out:
@@ -228,7 +228,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadInOut(double t, double b, double c, double d)
-            => ((t /= d / 2) < 1) ? c / 2 * t * t + b : -c / 2 * ((--t) * (t - 2) - 1) + b;
+            => ((t /= d / 2) < 1) ? (c / 2 * t * t) + b : (-c / 2 * (((--t) * (t - 2)) - 1)) + b;
 
         /// <summary>
         /// Easing equation function for a quadratic (t^2) easing in/out:
@@ -242,7 +242,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadInOut(double t)
-            => t <= 0.5d ? t * t * 2d : 1d - (--t) * t * 2d;
+            => t <= 0.5d ? t * t * 2d : 1d - ((--t) * t * 2d);
 
         /// <summary>
         /// Easing equation function for a quadratic (t^2) easing out/in:
@@ -259,7 +259,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuadOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? QuadOut(t * 2, b, c / 2, d) : QuadIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d / 2) ? QuadOut(t * 2, b, c / 2, d) : QuadIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
         /// Easing equation function for a quadratic (t^2) easing out/in:
@@ -295,7 +295,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicIn(double t, double b, double c, double d)
-            => c * (t /= d) * t * t + b;
+            => (c * (t /= d) * t * t) + b;
 
         /// <summary>
         /// Easing equation function for a cubic (t^3) easing in:
@@ -326,7 +326,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOut(double t, double b, double c, double d)
-            => c * ((t = t / d - 1) * t * t + 1) + b;
+            => (c * (((t = (t / d) - 1) * t * t) + 1)) + b;
 
         /// <summary>
         /// Cubic out.
@@ -339,7 +339,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOut(double t)
-            => 1d + (--t) * t * t;
+            => 1d + ((--t) * t * t);
 
         /// <summary>
         /// Easing equation function for a cubic (t^3) easing in/out:
@@ -356,7 +356,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicInOut(double t, double b, double c, double d)
-            => ((t /= d / 2) < 1) ? c / 2 * t * t * t + b : c / 2 * ((t -= 2) * t * t + 2) + b;
+            => ((t /= d / 2) < 1) ? (c / 2 * t * t * t) + b : (c / 2 * (((t -= 2) * t * t) + 2)) + b;
 
         /// <summary>
         /// Cubic in and out.
@@ -369,7 +369,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicInOut(double t)
-            => t <= 0.5d ? t * t * t * 4d : 1d + (--t) * t * t * 4d;
+            => t <= 0.5d ? t * t * t * 4d : 1d + ((--t) * t * t * 4d);
 
         /// <summary>
         /// Easing equation function for a cubic (t^3) easing out/in:
@@ -386,7 +386,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CubicOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? CubicOut(t * 2, b, c / 2, d) : CubicIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d / 2) ? CubicOut(t * 2, b, c / 2, d) : CubicIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
         /// Easing equation function for a cubic (t^3) easing out/in:
@@ -422,7 +422,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartIn(double t, double b, double c, double d)
-            => c * (t /= d) * t * t * t + b;
+            => (c * (t /= d) * t * t * t) + b;
 
         /// <summary>
         /// Quart in.
@@ -452,7 +452,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOut(double t, double b, double c, double d)
-            => -c * ((t = t / d - 1) * t * t * t - 1) + b;
+            => (-c * (((t = (t / d) - 1) * t * t * t) - 1)) + b;
 
         /// <summary>
         /// Quart out.
@@ -465,7 +465,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOut(double t)
-            => 1d - (--t) * t * t * t;
+            => 1d - ((--t) * t * t * t);
 
         /// <summary>
         /// Easing equation function for a quartic (t^4) easing in/out:
@@ -482,7 +482,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartInOut(double t, double b, double c, double d)
-            => ((t /= d / 2) < 1) ? c / 2 * t * t * t * t + b : -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+            => ((t /= d / 2) < 1) ? (c / 2 * t * t * t * t) + b : (-c / 2 * (((t -= 2) * t * t * t) - 2)) + b;
 
         /// <summary>
         /// Quart in and out.
@@ -495,7 +495,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartInOut(double t)
-            => t <= 0.5d ? t * t * t * t * 8d : (1d - (t = t * 2d - 2d) * t * t * t) * 0.5d + 0.5d;
+            => t <= 0.5d ? t * t * t * t * 8d : ((1d - ((t = (t * 2d) - 2d) * t * t * t)) * 0.5d) + 0.5d;
 
         /// <summary>
         /// Easing equation function for a quartic (t^4) easing out/in:
@@ -512,7 +512,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuartOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? QuartOut(t * 2, b, c / 2, d) : QuartIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d / 2) ? QuartOut(t * 2, b, c / 2, d) : QuartIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
         /// Easing equation function for a quartic (t^4) easing out/in:
@@ -548,7 +548,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintIn(double t, double b, double c, double d)
-            => c * (t /= d) * t * t * t * t + b;
+            => (c * (t /= d) * t * t * t * t) + b;
 
         /// <summary>
         /// Quint in.
@@ -578,7 +578,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOut(double t, double b, double c, double d)
-            => c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+            => (c * (((t = (t / d) - 1) * t * t * t * t) + 1)) + b;
 
         /// <summary>
         /// Quint out.
@@ -591,7 +591,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOut(double t)
-            => (t -= 1d) * t * t * t * t + 1d;
+            => ((t -= 1d) * t * t * t * t) + 1d;
 
         /// <summary>
         /// Easing equation function for a quintic (t^5) easing in/out:
@@ -608,7 +608,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintInOut(double t, double b, double c, double d)
-            => ((t /= d / 2) < 1) ? c / 2 * t * t * t * t * t + b : c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+            => ((t /= d / 2) < 1) ? (c / 2 * t * t * t * t * t) + b : (c / 2 * (((t -= 2) * t * t * t * t) + 2)) + b;
 
         /// <summary>
         /// Quint in and out.
@@ -621,7 +621,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintInOut(double t)
-            => ((t *= 2d) < 1d) ? t * t * t * t * t * 0.5d : ((t -= 2d) * t * t * t * t + 2d) * 0.5d;
+            => ((t *= 2d) < 1d) ? t * t * t * t * t * 0.5d : (((t -= 2d) * t * t * t * t) + 2d) * 0.5d;
 
         /// <summary>
         /// Easing equation function for a quintic (t^5) easing in/out:
@@ -638,7 +638,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double QuintOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? QuintOut(t * 2, b, c / 2, d) : QuintIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d / 2) ? QuintOut(t * 2, b, c / 2, d) : QuintIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
         /// Easing equation function for a quintic (t^5) easing in/out:
@@ -674,7 +674,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoIn(double t, double b, double c, double d)
-            => (t == 0) ? b : c * Pow(2, 10 * (t / d - 1)) + b;
+            => (t == 0) ? b : (c * Pow(2, 10 * ((t / d) - 1))) + b;
 
         /// <summary>
         /// Exponential in.
@@ -704,7 +704,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOut(double t, double b, double c, double d)
-            => (t == d) ? b + c : c * (-Pow(2, -10 * t / d) + 1) + b;
+            => (t == d) ? b + c : (c * (-Pow(2, -10 * t / d) + 1)) + b;
 
         /// <summary>
         /// Exponential out.
@@ -747,10 +747,10 @@ namespace Engine.Tweening
 
             if ((t /= d / 2) < 1)
             {
-                return c / 2 * Pow(2, 10 * (t - 1)) + b;
+                return (c / 2 * Pow(2, 10 * (t - 1))) + b;
             }
 
-            return c / 2 * (-Pow(2, -10 * --t) + 2) + b;
+            return (c / 2 * (-Pow(2, -10 * --t) + 2)) + b;
         }
 
         /// <summary>
@@ -765,7 +765,7 @@ namespace Engine.Tweening
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoInOut(double t)
             => (Abs(t - 1d) < Epsilon)
-            ? 1d : (t < 0.5d ? Pow(2d, 10d * (t * 2d - 1d)) * 0.5d : (-Pow(2d, -10d * (t * 2d - 1d)) + 2d) * 0.5d);
+            ? 1d : (t < 0.5d ? Pow(2d, 10d * ((t * 2d) - 1d)) * 0.5d : (-Pow(2d, -10d * ((t * 2d) - 1d)) + 2d) * 0.5d);
 
         /// <summary>
         /// Easing equation function for an exponential (2^t) easing out/in:
@@ -782,7 +782,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ExpoOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? ExpoOut(t * 2, b, c / 2, d) : ExpoIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d / 2) ? ExpoOut(t * 2, b, c / 2, d) : ExpoIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
         /// Easing equation function for an exponential (2^t) easing out/in:
@@ -818,7 +818,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineIn(double t, double b, double c, double d)
-            => -c * Cos(t / d * HalfPi) + c + b;
+            => (-c * Cos(t / d * HalfPi)) + c + b;
 
         /// <summary>
         /// Sine in.
@@ -850,7 +850,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineOut(double t, double b, double c, double d)
-            => c * Sin(t / d * HalfPi) + b;
+            => (c * Sin(t / d * HalfPi)) + b;
 
         /// <summary>
         /// Sine out.
@@ -881,8 +881,8 @@ namespace Engine.Tweening
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineInOut(double t, double b, double c, double d)
             => ((t /= d * 0.5d) < 1)
-            ? c * 0.5d * Sin(HalfPi * t) + b
-            : -c * 0.5d * (Cos(HalfPi * --t) - 2) + b;
+            ? (c * 0.5d * Sin(HalfPi * t)) + b
+            : (-c * 0.5d * (Cos(HalfPi * --t) - 2)) + b;
 
         /// <summary>
         /// Sine in and out
@@ -895,7 +895,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double SineInOut(double t)
-            => -Cos(PI * t) * 0.5d + 0.5d;
+            => (-Cos(PI * t) * 0.5d) + 0.5d;
 
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
@@ -914,7 +914,7 @@ namespace Engine.Tweening
         public static double SineOutIn(double t, double b, double c, double d)
             => (t < d * 0.5d)
             ? SineOut(t * 2, b, c * 0.5d, d)
-            : SineIn((t * 2) - d, b + c * 0.5d, c * 0.5d, d);
+            : SineIn((t * 2) - d, b + (c * 0.5d), c * 0.5d, d);
 
         /// <summary>
         /// Easing equation function for a sinusoidal (sin(t)) easing in/out:
@@ -949,7 +949,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircIn(double t, double b, double c, double d)
-            => -c * (Sqrt(1 - (t /= d) * t) - 1) + b;
+            => (-c * (Sqrt(1 - ((t /= d) * t)) - 1)) + b;
 
         /// <summary>
         /// Circle in.
@@ -962,7 +962,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircIn(double t)
-            => -(Sqrt(1d - t * t) - 1d);
+            => -(Sqrt(1d - (t * t)) - 1d);
 
         /// <summary>
         /// Easing equation function for a circular (sqrt(1-t^2)) easing out:
@@ -979,7 +979,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOut(double t, double b, double c, double d)
-            => c * Sqrt(1 - (t = t / d - 1) * t) + b;
+            => (c * Sqrt(1 - ((t = (t / d) - 1) * t))) + b;
 
         /// <summary>
         /// Circle out.
@@ -992,7 +992,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOut(double t)
-            => Sqrt(1d - (t - 1d) * (t - 1d));
+            => Sqrt(1d - ((t - 1d) * (t - 1d)));
 
         /// <summary>
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
@@ -1009,7 +1009,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircInOut(double t, double b, double c, double d)
-            => ((t /= d / 2) < 1) ? -c / 2 * (Sqrt(1 - t * t) - 1) + b : c / 2 * (Sqrt(1 - (t -= 2) * t) + 1) + b;
+            => ((t /= d / 2) < 1) ? (-c / 2 * (Sqrt(1 - (t * t)) - 1)) + b : (c / 2 * (Sqrt(1 - ((t -= 2) * t)) + 1)) + b;
 
         /// <summary>
         /// Circle in and out.
@@ -1022,7 +1022,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircInOut(double t)
-            => t <= 0.5d ? (Sqrt(1 - t * t * 4d) - 1d) * -0.5d : (Sqrt(1d - (t * 2d - 2d) * (t * 2d - 2d)) + 1d) * 0.5d;
+            => t <= 0.5d ? (Sqrt(1 - (t * t * 4d)) - 1d) * -0.5d : (Sqrt(1d - (((t * 2d) - 2d) * ((t * 2d) - 2d))) + 1d) * 0.5d;
 
         /// <summary>
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
@@ -1039,7 +1039,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CircOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? CircOut(t * 2, b, c / 2, d) : CircIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d / 2) ? CircOut(t * 2, b, c / 2, d) : CircIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
         /// Easing equation function for a circular (sqrt(1-t^2)) easing in/out:
@@ -1081,7 +1081,7 @@ namespace Engine.Tweening
             var p = d * .3;
             var s = p / 4;
 
-            return -(c * Pow(2, 10 * (t -= 1)) * Sin((t * d - s) * (2 * PI) / p)) + b;
+            return -(c * Pow(2, 10 * (t -= 1)) * Sin(((t * d) - s) * (2 * PI) / p)) + b;
         }
 
         /// <summary>
@@ -1121,7 +1121,7 @@ namespace Engine.Tweening
             var p = d * 0.3;
             var s = p / 4;
 
-            return c * Pow(2, -10 * t) * Sin((t * d - s) * (2 * PI) / p) + c + b;
+            return (c * Pow(2, -10 * t) * Sin(((t * d) - s) * (2 * PI) / p)) + c + b;
         }
 
         /// <summary>
@@ -1135,7 +1135,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOut(double t)
-            => (Abs(t - 1d) < Epsilon) ? 1d : (Sin(-13d * HalfPi * (t + 1d)) * Pow(2d, -10d * t) + 1d);
+            => (Abs(t - 1d) < Epsilon) ? 1d : ((Sin(-13d * HalfPi * (t + 1d)) * Pow(2d, -10d * t)) + 1d);
 
         /// <summary>
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing in/out:
@@ -1163,10 +1163,10 @@ namespace Engine.Tweening
 
             if (t < 1)
             {
-                return -.5 * (c * Pow(2, 10 * (t -= 1d)) * Sin((t * d - s) * (2d * PI) / p)) + b;
+                return (-0.5 * (c * Pow(2, 10 * (t -= 1d)) * Sin(((t * d) - s) * (2d * PI) / p))) + b;
             }
 
-            return c * Pow(2, -10 * (t -= 1)) * Sin((t * d - s) * (2d * PI) / p) * 0.5d + c + b;
+            return (c * Pow(2, -10 * (t -= 1)) * Sin(((t * d) - s) * (2d * PI) / p) * 0.5d) + c + b;
         }
 
         /// <summary>
@@ -1182,7 +1182,7 @@ namespace Engine.Tweening
         public static double ElasticInOut(double t)
             => (t < 0.5d) ?
                 (0.5d * Sin(13d * HalfPi * (2d * t)) * Pow(2d, 10d * ((2d * t) - 1d))) :
-                (0.5d * (Sin(-13d * HalfPi * (2d * t - 1 + 1d)) * Pow(2d, -10d * (2d * t - 1d)) + 2d));
+                (0.5d * ((Sin(-13d * HalfPi * ((2d * t) - 1 + 1d)) * Pow(2d, -10d * ((2d * t) - 1d))) + 2d));
 
         /// <summary>
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in:
@@ -1199,7 +1199,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ElasticOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? ElasticOut(t * 2, b, c / 2, d) : ElasticIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d / 2) ? ElasticOut(t * 2, b, c / 2, d) : ElasticIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
         /// Easing equation function for an elastic (exponentially decaying sine wave) easing out/in:
@@ -1249,20 +1249,20 @@ namespace Engine.Tweening
             t = 1d - t;
             if (t < BounceKey1)
             {
-                return 1d - 7.5625d * t * t;
+                return 1d - (7.5625d * t * t);
             }
 
             if (t < BounceKey2)
             {
-                return 1d - (7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75d);
+                return 1d - ((7.5625d * (t - BounceKey3) * (t - BounceKey3)) + 0.75d);
             }
 
             if (t < BounceKey4)
             {
-                return 1d - (7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375d);
+                return 1d - ((7.5625d * (t - BounceKey5) * (t - BounceKey5)) + 0.9375d);
             }
 
-            return 1d - (7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d);
+            return 1d - ((7.5625d * (t - BounceKey6) * (t - BounceKey6)) + 0.984375d);
         }
 
         /// <summary>
@@ -1283,19 +1283,19 @@ namespace Engine.Tweening
         {
             if ((t /= d) < (1 / 2.75))
             {
-                return c * (7.5625 * t * t) + b;
+                return (c * (7.5625 * t * t)) + b;
             }
             else if (t < (2 / 2.75))
             {
-                return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+                return (c * ((7.5625 * (t -= 1.5 / 2.75) * t) + .75)) + b;
             }
             else if (t < (2.5 / 2.75))
             {
-                return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+                return (c * ((7.5625 * (t -= 2.25 / 2.75) * t) + .9375)) + b;
             }
             else
             {
-                return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+                return (c * ((7.5625 * (t -= 2.625 / 2.75) * t) + .984375)) + b;
             }
         }
 
@@ -1318,15 +1318,15 @@ namespace Engine.Tweening
 
             if (t < BounceKey2)
             {
-                return 7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75d;
+                return (7.5625d * (t - BounceKey3) * (t - BounceKey3)) + 0.75d;
             }
 
             if (t < BounceKey4)
             {
-                return 7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375d;
+                return (7.5625d * (t - BounceKey5) * (t - BounceKey5)) + 0.9375d;
             }
 
-            return 7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d;
+            return (7.5625d * (t - BounceKey6) * (t - BounceKey6)) + 0.984375d;
         }
 
         /// <summary>
@@ -1347,11 +1347,11 @@ namespace Engine.Tweening
         {
             if (t < d / 2)
             {
-                return BounceIn(t * 2, 0, c, d) * .5 + b;
+                return (BounceIn(t * 2, 0, c, d) * .5) + b;
             }
             else
             {
-                return BounceOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+                return (BounceOut((t * 2) - d, 0, c, d) * .5) + (c * .5) + b;
             }
         }
 
@@ -1369,42 +1369,42 @@ namespace Engine.Tweening
         {
             if (t < 0.5d)
             {
-                t = 1d - t * 2d;
+                t = 1d - (t * 2d);
                 if (t < BounceKey1)
                 {
-                    return (1d - 7.5625d * t * t) * 0.5d;
+                    return (1d - (7.5625d * t * t)) * 0.5d;
                 }
 
                 if (t < BounceKey2)
                 {
-                    return (1d - (7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75)) * 0.5d;
+                    return (1d - ((7.5625d * (t - BounceKey3) * (t - BounceKey3)) + 0.75)) * 0.5d;
                 }
 
                 if (t < BounceKey4)
                 {
-                    return (1d - (7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375)) * 0.5d;
+                    return (1d - ((7.5625d * (t - BounceKey5) * (t - BounceKey5)) + 0.9375)) * 0.5d;
                 }
 
-                return (1d - (7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d)) * 0.5d;
+                return (1d - ((7.5625d * (t - BounceKey6) * (t - BounceKey6)) + 0.984375d)) * 0.5d;
             }
 
-            t = t * 2d - 1d;
+            t = (t * 2d) - 1d;
             if (t < BounceKey1)
             {
-                return 7.5625d * t * t * 0.5d + 0.5d;
+                return (7.5625d * t * t * 0.5d) + 0.5d;
             }
 
             if (t < BounceKey2)
             {
-                return (7.5625d * (t - BounceKey3) * (t - BounceKey3) + 0.75d) * 0.5d + 0.5d;
+                return (((7.5625d * (t - BounceKey3) * (t - BounceKey3)) + 0.75d) * 0.5d) + 0.5d;
             }
 
             if (t < BounceKey4)
             {
-                return (7.5625d * (t - BounceKey5) * (t - BounceKey5) + 0.9375d) * 0.5d + 0.5d;
+                return (((7.5625d * (t - BounceKey5) * (t - BounceKey5)) + 0.9375d) * 0.5d) + 0.5d;
             }
 
-            return (7.5625d * (t - BounceKey6) * (t - BounceKey6) + 0.984375d) * 0.5d + 0.5d;
+            return (((7.5625d * (t - BounceKey6) * (t - BounceKey6)) + 0.984375d) * 0.5d) + 0.5d;
         }
 
         /// <summary>
@@ -1422,7 +1422,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? BounceOut(t * 2, b, c / 2, d) : BounceIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d / 2) ? BounceOut(t * 2, b, c / 2, d) : BounceIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
         /// Easing equation function for a bounce (exponentially decaying parabolic bounce) easing out/in:
@@ -1455,7 +1455,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackIn(double t, double b, double c, double d)
-            => c * (t /= d) * t * ((1.70158 + 1) * t - 1.70158) + b;
+            => (c * (t /= d) * t * (((1.70158 + 1) * t) - 1.70158)) + b;
 
         /// <summary>
         /// Back in.
@@ -1468,7 +1468,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackIn(double t)
-            => t * t * (2.70158d * t - 1.70158d);
+            => t * t * ((2.70158d * t) - 1.70158d);
 
         /// <summary>
         /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out:
@@ -1485,7 +1485,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOut(double t, double b, double c, double d)
-            => c * ((t = t / d - 1) * t * ((1.70158 + 1) * t + 1.70158) + 1) + b;
+            => (c * (((t = (t / d) - 1) * t * (((1.70158 + 1) * t) + 1.70158)) + 1)) + b;
 
         /// <summary>
         /// Back out.
@@ -1498,7 +1498,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOut(double t)
-            => 1d - (--t) * t * (-2.70158d * t - 1.70158d);
+            => 1d - ((--t) * t * ((-2.70158d * t) - 1.70158d));
 
         /// <summary>
         /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing in/out:
@@ -1517,7 +1517,7 @@ namespace Engine.Tweening
         public static double BackInOut(double t, double b, double c, double d)
         {
             var s = 1.70158;
-            return ((t /= d / 2) < 1) ? c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b : c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+            return ((t /= d / 2) < 1) ? (c / 2 * (t * t * ((((s *= 1.525) + 1) * t) - s))) + b : (c / 2 * (((t -= 2) * t * ((((s *= 1.525) + 1) * t) + s)) + 2)) + b;
         }
 
         /// <summary>
@@ -1535,11 +1535,11 @@ namespace Engine.Tweening
             t *= 2d;
             if (t < 1d)
             {
-                return t * t * (2.70158d * t - 1.70158d) * 0.5d;
+                return t * t * ((2.70158d * t) - 1.70158d) * 0.5d;
             }
 
             t--;
-            return (1d - (--t) * t * (-2.70158d * t - 1.70158d)) * 0.5d + 0.5d;
+            return ((1d - ((--t) * t * ((-2.70158d * t) - 1.70158d))) * 0.5d) + 0.5d;
         }
 
         /// <summary>
@@ -1557,7 +1557,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BackOutIn(double t, double b, double c, double d)
-            => (t < d / 2) ? BackOut(t * 2, b, c / 2, d) : BackIn((t * 2) - d, b + c / 2, c / 2, d);
+            => (t < d / 2) ? BackOut(t * 2, b, c / 2, d) : BackIn((t * 2) - d, b + (c / 2), c / 2, d);
 
         /// <summary>
         /// Easing equation function for a back (overshooting cubic easing: (s+1)*t^3 - s*t^2) easing out/in:

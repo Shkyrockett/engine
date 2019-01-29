@@ -148,31 +148,31 @@ namespace Engine
             var segs = Ceiling(Abs(sweepAngle) / HalfPi);
             var theta = sweepAngle / segs;  /* arc size of each segment */
             var tanT2 = Tan(theta * OneHalf);
-            var alpha = Sin(theta) * (Sqrt(4 + 3 * tanT2 * tanT2) - 1) * OneThird;
+            var alpha = Sin(theta) * (Sqrt(4 + (3 * tanT2 * tanT2)) - 1) * OneThird;
             var sine = Sin(startAngle);
             var cosine = Cos(startAngle);
-            var sx = cx + rx * cosine;  /* start pt X coordinate */
-            var sy = cy + ry * sine;  /* start pt Y coordinate */
+            var sx = cx + (rx * cosine);  /* start pt X coordinate */
+            var sy = cy + (ry * sine);  /* start pt Y coordinate */
             var dx = -rx * sine;  /* dx/dθ at start pt */
             var dy = ry * cosine;  /* dy/dθ at start pt */
 
             var beziers = new List<CubicBezier>();  /* the results */
 
-            double ex = 0;
-            double ey = 0;  /* end pt coordinates */
+            double ex;
+            double ey;  /* end pt coordinates */
             for (var s = 0; s < segs; s++, sx = ex, sy = ey)
             {
-                var c1x = sx + alpha * dx;  /* 1st control pt X */
-                var c1y = sy + alpha * dy; /* 1st control pt Y */
+                var c1x = sx + (alpha * dx);  /* 1st control pt X */
+                var c1y = sy + (alpha * dy); /* 1st control pt Y */
 
                 cosine = Cos(startAngle += theta);
                 sine = Sin(startAngle);
-                ex = cx + rx * cosine;  /* end pt X coordinate */
-                ey = cy + ry * sine;  /* end py Y coordinate */
+                ex = cx + (rx * cosine);  /* end pt X coordinate */
+                ey = cy + (ry * sine);  /* end py Y coordinate */
                 dx = -rx * sine;  /* dx/dθ at end pt */
                 dy = ry * cosine;  /* dy/dθ at end pt */
-                var c2x = ex - alpha * dx;  /* 2nd control pt X */
-                var c2y = ey - alpha * dy;  /* 2nd control pt Y */
+                var c2x = ex - (alpha * dx);  /* 2nd control pt X */
+                var c2y = ey - (alpha * dy);  /* 2nd control pt Y */
 
                 beziers.Add(new CubicBezier(sx, sy, c1x, c1y, c2x, c2y, ex, ey));
             }
@@ -253,8 +253,8 @@ namespace Engine
             => new Point2D[]
             {
                 a,
-                new Point2D(a.X + TwoThirds * (b.X - a.X), a.Y + TwoThirds * (b.Y - a.Y)),
-                new Point2D(c.X + TwoThirds * (b.X - c.X), c.Y + TwoThirds * (b.Y - c.Y)),
+                new Point2D(a.X + (TwoThirds * (b.X - a.X)), a.Y + (TwoThirds * (b.Y - a.Y))),
+                new Point2D(c.X + (TwoThirds * (b.X - c.X)), c.Y + (TwoThirds * (b.Y - c.Y))),
                 c
             };
 
@@ -273,8 +273,8 @@ namespace Engine
             Point2D c)
             => new CubicBezier(
                 a.X, a.Y,
-                a.X + TwoThirds * (b.X - a.X), a.Y + TwoThirds * (b.Y - a.Y),
-                c.X + TwoThirds * (b.X - c.X), c.Y + TwoThirds * (b.Y - c.Y),
+                a.X + (TwoThirds * (b.X - a.X)), a.Y + (TwoThirds * (b.Y - a.Y)),
+                c.X + (TwoThirds * (b.X - c.X)), c.Y + (TwoThirds * (b.Y - c.Y)),
                 c.X, c.Y
             );
 
@@ -297,8 +297,8 @@ namespace Engine
             => new List<(double X, double Y)>
             {
                 (aX, aY),
-                (aX + TwoThirds * (bX - aX), aY + TwoThirds * (bY - aY)),
-                (cX + TwoThirds * (bX - cX), cY + TwoThirds * (bY - cY)),
+                (aX + (TwoThirds * (bX - aX)), aY + (TwoThirds * (bY - aY))),
+                (cX + (TwoThirds * (bX - cX)), cY + (TwoThirds * (bY - cY))),
                 (cX, cY)
             };
 
@@ -319,8 +319,8 @@ namespace Engine
             double bX, double bY,
             double cX, double cY)
             => (aX, aY,
-                aX + TwoThirds * (bX - aX), aY + TwoThirds * (bY - aY),
-                cX + TwoThirds * (bX - cX), cY + TwoThirds * (bY - cY),
+                aX + (TwoThirds * (bX - aX)), aY + (TwoThirds * (bY - aY)),
+                cX + (TwoThirds * (bX - cX)), cY + (TwoThirds * (bY - cY)),
                 cX, cY);
         #endregion Conversion Implementations
     }

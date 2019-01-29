@@ -5,15 +5,17 @@ VisualStudioVersion = 16.0.28315.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor.WindowsForms", "Editor.WindowsForms\Editor.WindowsForms.csproj", "{B263858B-B22F-4F1E-A326-7F79ACE09156}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor.Midi", "Editor.Midi\Editor.Midi.csproj", "{4906A81E-7FD1-4072-94E4-544E9539451A}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine", "Engine\Engine.csproj", "{32553305-DDB2-4FD1-B359-8EBD8587BD6F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.WindowsForms", "Engine.WindowsForms\Engine.WindowsForms.csproj", "{3A89B55C-8D51-46A4-86CA-825C28958DFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.WindowsForms.Controls", "Engine.WindowsForms.Controls\Engine.WindowsForms.Controls.csproj", "{059AB8BE-2690-4104-9D5E-6F25972D89F9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.File", "Engine.File\Engine.File.csproj", "{4C4DA771-9467-484F-BBB7-75860C3E7697}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Midi", "Engine.Midi\Engine.Midi.csproj", "{928573A5-3E62-4132-8E0B-F05235BBEDC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editor.Midi", "Editor.Midi\Editor.Midi.csproj", "{4906A81E-7FD1-4072-94E4-544E9539451A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.WindowsForms.Controls", "Engine.WindowsForms.Controls\Engine.WindowsForms.Controls.csproj", "{059AB8BE-2690-4104-9D5E-6F25972D89F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTests", "EngineTests\EngineTests.csproj", "{25B0E0E8-D5AC-4072-B8F7-9002DE7EA359}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -21,8 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EngineTests", "EngineTests\
 		{4C4DA771-9467-484F-BBB7-75860C3E7697} = {4C4DA771-9467-484F-BBB7-75860C3E7697}
 		{928573A5-3E62-4132-8E0B-F05235BBEDC7} = {928573A5-3E62-4132-8E0B-F05235BBEDC7}
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.File", "Engine.File\Engine.File.csproj", "{4C4DA771-9467-484F-BBB7-75860C3E7697}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.WindowsForms.Direct2D", "Engine.WindowsForms.Direct2D\Engine.WindowsForms.Direct2D.csproj", "{79DE1E55-937E-40DB-9EE3-EA3D5CC2A4E8}"
 	ProjectSection(ProjectDependencies) = postProject

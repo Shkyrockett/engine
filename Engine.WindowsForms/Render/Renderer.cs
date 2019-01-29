@@ -39,19 +39,19 @@ namespace Engine.Imaging
             switch (item?.Shape)
             {
                 case ParametricDelegateCurve t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case ParametricPointTester t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case ParametricWarpGrid t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case AngleVisualizerTester t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case NodeRevealer t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case Text2D t:
                     t.Render(g, item, style as ShapeStyle);
@@ -72,7 +72,7 @@ namespace Engine.Imaging
                 //    t.Render(g, item, style as TextStyle);
                 //    break;
                 case ScreenPoint t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case Ray t:
                     t.Render(g, renderer, item, clipRect, style as ShapeStyle);
@@ -84,13 +84,13 @@ namespace Engine.Imaging
                     t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case Polyline t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case PolylineSet t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case PolygonContour t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case Polygon t:
                     t.Render(g, item, style as ShapeStyle);
@@ -108,10 +108,10 @@ namespace Engine.Imaging
                     t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case CircularArc t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case EllipticalArc t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case Circle t:
                     t.Render(g, renderer, item, style as ShapeStyle);
@@ -120,7 +120,7 @@ namespace Engine.Imaging
                     t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case BezierSegment t:
-                    t.Render(g, item, style as ShapeStyle);
+                    t.Render(g, renderer, item, style as ShapeStyle);
                     break;
                 case CubicBezier t:
                     t.Render(g, renderer, item, style as ShapeStyle);

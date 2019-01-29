@@ -123,8 +123,8 @@ namespace Engine
         {
             const double n = 10000;
             var u = 0 * (24 * (PI / n));
-            var points = new List<Point2D>();
-            for (double Index = 1; Index <= n; Index = Index + (1d / count))
+            var points = new List<Point2D>() { Interpolate(u) };
+            for (double Index = 1; Index <= n; Index += (1d / count))
             {
                 u = Index * (24 * (PI / n));
                 points.Add(Interpolate(u));
@@ -153,7 +153,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Butterfly)}{{{nameof(Offset)}={offset},{nameof(Multiplyer)}={multiplyer},{nameof(Precision)}={precision}}}";
+            IFormattable formatable = $"{nameof(Butterfly)}{{{nameof(Offset)}={offset}{sep}{nameof(Multiplyer)}={multiplyer}{sep}{nameof(Precision)}={precision}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

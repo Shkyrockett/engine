@@ -39,12 +39,12 @@ namespace Engine.File
         /// <summary>
         /// The start position.
         /// </summary>
-        private long startPosition;
+        private readonly long startPosition;
 
         /// <summary>
         /// The length.
         /// </summary>
-        private long length;
+        private readonly long length;
         #endregion Fields
 
         #region Constructors

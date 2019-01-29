@@ -198,9 +198,9 @@ namespace Engine.Winforms.Direct2D
             cycleCount++;
 
             color = new Color(
-                (int)Floor(Sin(frequency * cycleCount + 0 + phase) * width + center),
-                (int)Floor(Sin(frequency * cycleCount + 2 + phase) * width + center),
-                (int)Floor(Sin(frequency * cycleCount + 4 + phase) * width + center),
+                (int)Floor((Sin((frequency * cycleCount) + 0 + phase) * width) + center),
+                (int)Floor((Sin((frequency * cycleCount) + 2 + phase) * width) + center),
+                (int)Floor((Sin((frequency * cycleCount) + 4 + phase) * width) + center),
                 0xff);
 
             bands = new float[bandCount];

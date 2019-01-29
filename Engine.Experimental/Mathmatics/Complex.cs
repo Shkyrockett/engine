@@ -158,8 +158,8 @@ namespace Engine.Geometry
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="Complex"/>.</returns>
         public static Complex operator *(Complex a, Complex b)
-            => new Complex(a.Real * b.Real - a.Imaginary * b.Imaginary,
-                a.Imaginary * b.Real + a.Real * b.Imaginary);
+            => new Complex((a.Real * b.Real) - (a.Imaginary * b.Imaginary),
+                (a.Imaginary * b.Real) + (a.Real * b.Imaginary));
 
         /// <summary>
         /// The operator *.
@@ -289,7 +289,7 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <returns></returns>
         public static double Abs(Complex a)
-            => Math.Sqrt(a.Imaginary * a.Imaginary + a.Real * a.Real);
+            => Math.Sqrt((a.Imaginary * a.Imaginary) + (a.Real * a.Real));
 
         /// <summary>
         /// Inverts a.
@@ -297,8 +297,8 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <returns></returns>
         public static Complex Inv(Complex a)
-            => new Complex(a.Real / (a.Real * a.Real + a.Imaginary * a.Imaginary),
-                -a.Imaginary / (a.Real * a.Real + a.Imaginary * a.Imaginary));
+            => new Complex(a.Real / ((a.Real * a.Real) + (a.Imaginary * a.Imaginary)),
+                -a.Imaginary / ((a.Real * a.Real) + (a.Imaginary * a.Imaginary)));
 
         /// <summary>
         /// Tangent of a.

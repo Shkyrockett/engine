@@ -144,8 +144,8 @@ namespace Engine
                     next.Y < y && vertex.Y >= y) &&
                     (vertex.X <= x || next.X <= x))
                 {
-                    oddNodes ^= vertex.X + (y - vertex.Y) /
-                        (next.Y - vertex.Y) * (next.X - vertex.X) < x;
+                    oddNodes ^= vertex.X + ((y - vertex.Y) /
+                        (next.Y - vertex.Y) * (next.X - vertex.X)) < x;
                 }
 
                 vertex = vertex.Next;

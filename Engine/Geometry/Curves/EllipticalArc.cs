@@ -218,8 +218,8 @@ namespace Engine
             var dy2 = (startY - endY) * OneHalf;
 
             // Step 1 : Compute (x1, y1).
-            var x1 = cosAngle * dx2 + sinAngle * dy2;
-            var y1 = -sinAngle * dx2 + cosAngle * dy2;
+            var x1 = (cosAngle * dx2) + (sinAngle * dy2);
+            var y1 = (-sinAngle * dx2) + (cosAngle * dy2);
 
             // Ensure radii are positive.
             rX = Abs(rx);
@@ -230,7 +230,7 @@ namespace Engine
             var Py1 = y1 * y1;
 
             // Check that radii are large enough.
-            var radiiCheck = Px1 / Prx + Py1 / Pry;
+            var radiiCheck = (Px1 / Prx) + (Py1 / Pry);
             if (radiiCheck > 1)
             {
                 rX = Sqrt(radiiCheck) * rX;
@@ -250,8 +250,8 @@ namespace Engine
             // Find the center point of the Ellipse.
             var sx2 = (startX + endX) * OneHalf;
             var sy2 = (startY + endY) * OneHalf;
-            cx = sx2 + (cosAngle * cx1 - sinAngle * cy1);
-            cy = sy2 + (sinAngle * cx1 + cosAngle * cy1);
+            cx = sx2 + ((cosAngle * cx1) - (sinAngle * cy1));
+            cy = sy2 + ((sinAngle * cx1) + (cosAngle * cy1));
 
             // Compute the start angle and sweep angle vectors.
             var ux = (x1 - cx1) / rX;
@@ -266,9 +266,9 @@ namespace Engine
             startAngle = sign * Acos(p / n);
 
             // Compute the sweep angle.
-            n = Sqrt((ux * ux + uy * uy) * (vx * vx + vy * vy));
-            p = ux * vx + uy * vy;
-            sign = (ux * vy - uy * vx < 0) ? -1d : 1d;
+            n = Sqrt(((ux * ux) + (uy * uy)) * ((vx * vx) + (vy * vy)));
+            p = (ux * vx) + (uy * vy);
+            sign = ((ux * vy) - (uy * vx) < 0) ? -1d : 1d;
             sweepAngle = sign * Acos(p / n);
 
             if (!sweepFlag && sweepAngle > 0)
@@ -1018,7 +1018,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(EllipticalArc)}{{{nameof(Center)}={Center},{nameof(RX)}={rX},{nameof(RY)}={rY},{nameof(Angle)}={angle},{nameof(StartAngle)}={startAngle},{SweepAngle}={sweepAngle}}}";
+            IFormattable formatable = $"{nameof(EllipticalArc)}{{{nameof(Center)}={Center}{sep}{nameof(RX)}={rX}{sep}{nameof(RY)}={rY}{sep}{nameof(Angle)}={angle}{sep}{nameof(StartAngle)}={startAngle}{sep}{SweepAngle}={sweepAngle}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

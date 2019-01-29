@@ -163,6 +163,7 @@ namespace Engine
         /// <param name="j1">The start vector vertical component.</param>
         /// <param name="i2">The end vector horizontal component.</param>
         /// <param name="j2">The end vector vertical component.</param>
+        /// <param name="epsilon"></param>
         /// <returns>A boolean value representing whether the reference vector is contained within the start and end vectors.</returns>
         /// <acknowledgment>
         /// http://math.stackexchange.com/questions/1698835/find-if-a-vector-is-between-2-vectors
@@ -172,9 +173,9 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool VectorBetweenVectorVector(double i0, double j0, double i1, double j1, double i2, double j2)
-            => ((i1 * j0) - (j1 * i0)) * ((i1 * j2) - (j1 * i2)) >= 0
-            && ((i2 * j0) - (j2 * i0)) * ((i2 * j1) - (j2 * i1)) >= 0;
+        public static bool VectorBetweenVectorVector(double i0, double j0, double i1, double j1, double i2, double j2, double epsilon = 0)
+            => ((i1 * j0) - (j1 * i0)) * ((i1 * j2) - (j1 * i2)) >= epsilon
+            && ((i2 * j0) - (j2 * i0)) * ((i2 * j1) - (j2 * i1)) >= epsilon;
         #endregion Between Methods
     }
 }

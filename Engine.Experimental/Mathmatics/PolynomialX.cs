@@ -406,7 +406,7 @@ namespace Engine.Geometry
 
             for (var i = Degree - 1; i >= 0; i--)
             {
-                buf = Coefficients[i] + x * buf;
+                buf = Coefficients[i] + (x * buf);
             }
 
             return buf;
@@ -964,8 +964,6 @@ namespace Engine.Geometry
                 throw new Exception("Polynomial.interpolate: n, offset, and x must be numbers");
             }
 
-            Complex y = 0d;
-            Complex dy = 0d;
             var c = new Complex[n];
             var d = new Complex[n];
             var ns = 0;
@@ -983,7 +981,7 @@ namespace Engine.Geometry
                 }
                 c[i] = d[i] = ys[offset + i].Real;
             }
-            y = ys[offset + ns].Real;
+            Complex y = ys[offset + ns].Real;
             ns--;
 
             for (var m = 1; m < n; m++)
@@ -1005,7 +1003,7 @@ namespace Engine.Geometry
                     d[i] = hp * den;
                     c[i] = ho * den;
                 }
-                dy = (2 * (ns + 1) < (n - m)) ? c[ns + 1] : d[ns--];
+                Complex dy = (2 * (ns + 1) < (n - m)) ? c[ns + 1] : d[ns--];
                 y += dy;
             }
 
@@ -1032,7 +1030,7 @@ namespace Engine.Geometry
 
             for (var i = Coefficients.Length - 1; i >= 0; i--)
             {
-                result = result * x + Coefficients[i];
+                result = (result * x) + Coefficients[i];
             }
 
             return result;
@@ -1205,7 +1203,7 @@ namespace Engine.Geometry
             {
                 var it = 1 << (n - 2);
                 var delta = range / it;
-                var x = min + 0.5 * delta;
+                var x = min + (0.5 * delta);
                 Complex sum = 0;
 
                 for (var i = 0; i < it; i++)
@@ -1213,7 +1211,7 @@ namespace Engine.Geometry
                     sum += Eval(x);
                     x += delta;
                 }
-                _s = 0.5 * (_s + range * sum / it);
+                _s = 0.5 * (_s + (range * sum / it));
             }
 
             if (double.IsNaN(_s.Real))
@@ -1250,7 +1248,7 @@ namespace Engine.Geometry
             for (var n = 2; n <= 20; n++)
             {
                 var delta = range / it;
-                var x = min + 0.5 * delta;
+                var x = min + (0.5 * delta);
                 Complex sum = 0;
 
                 for (var i = 1; i <= it; i++)
@@ -1259,9 +1257,9 @@ namespace Engine.Geometry
                     x += delta;
                 }
 
-                t = 0.5 * (t + range * sum / it);
+                t = 0.5 * (t + (range * sum / it));
                 st = t;
-                s = (4.0 * st - ost) / 3.0;
+                s = ((4.0 * st) - ost) / 3.0;
 
                 if (Math.Abs(s.Real - os.Real) < TOLERANCE * Math.Abs(os.Real))
                 {
@@ -1472,7 +1470,7 @@ namespace Engine.Geometry
                 var a = Coefficients[2];
                 var b = Coefficients[1] / a;
                 var c = Coefficients[0] / a;
-                var d = b * b - 4d * c;
+                var d = (b * b) - (4d * c);
 
                 if (d.Real > 0)
                 {

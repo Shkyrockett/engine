@@ -67,7 +67,7 @@ namespace Engine
         /// <param name="maxY">The maxY.</param>
         /// <param name="stepX">The stepX.</param>
         /// <param name="stepY">The stepY.</param>
-        public void Deconstruct(out Func<Point2D, Point2D> filter, Rectangle2D path, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
+        public void Deconstruct(out Func<Point2D, Point2D> filter, out Rectangle2D path, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
         {
             filter = Filter;
             path = Path;

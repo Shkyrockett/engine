@@ -108,7 +108,7 @@ namespace Engine.WindowsForms
         /// The wm key char.
         /// </summary>
         /// <param name="m">The m.</param>
-        private void WmKeyChar(ref Message m)
+        protected void WmKeyChar(ref Message m)
         {
             if (ProcessKeyMessage(ref m))
             {

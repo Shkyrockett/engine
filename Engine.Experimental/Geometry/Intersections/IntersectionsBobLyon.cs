@@ -99,7 +99,7 @@ namespace Engine
 
             // Simple distance test...
             var maxR = (((rx0 > ry0) ? rx0 : ry0) + ((rx1 > ry1) ? rx1 : ry1)) / 2d;
-            if (u1 * u1 + v1 * v1 > maxR * maxR)
+            if ((u1 * u1) + (v1 * v1) > maxR * maxR)
             {
                 // The two ellipses are too far apart to care about.
                 return false;
@@ -162,7 +162,7 @@ namespace Engine
                 var yi = poly[i].y;
                 var xj = poly[j].x;
                 var yj = poly[j].y;
-                var intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                var intersect = ((yi > y) != (yj > y)) && (x < ((xj - xi) * (y - yi) / (yj - yi)) + xi);
                 if (intersect)
                 {
                     isIn = !isIn;
@@ -279,7 +279,7 @@ namespace Engine
         {
             var dx = x - cx;
             var dy = y - cy;
-            return dx * dx + dy * dy <= diam * diam / 4;
+            return (dx * dx) + (dy * dy) <= diam * diam / 4;
         }
 
         /// <summary>
@@ -406,7 +406,7 @@ namespace Engine
             double ax1, double ay1, double ax2, double ay2,
             double bx1, double by1, double bx2, double by2)
         {
-            var denom = (ax1 - ax2) * (by1 - by2) - (ay1 - ay2) * (bx1 - bx2);
+            var denom = ((ax1 - ax2) * (by1 - by2)) - ((ay1 - ay2) * (bx1 - bx2));
             if (denom == 0)
             {
                 /* Yuck, parallel lines! */
@@ -418,8 +418,8 @@ namespace Engine
                 else
                 {
                     var m = (ay1 - ay2) / (ax1 - ax2);  /* common slope */
-                    var ka = ay1 - m * ax1;  /* line A intercept */
-                    var kb = by1 - m * bx1;  /* line B intercept */
+                    var ka = ay1 - (m * ax1);  /* line A intercept */
+                    var kb = by1 - (m * bx1);  /* line B intercept */
                     return (ka == kb) && Overlap(ax1, ax2, bx1, bx2);
                 }
             }
@@ -430,10 +430,10 @@ namespace Engine
                 return Round(n / roundBase) * roundBase;
             };
 
-            var na = ax1 * ay2 - ay1 * ax2;
-            var nb = bx1 * by2 - by1 * bx2;
-            var x = ROUND((na * (bx1 - bx2) - (ax1 - ax2) * nb) / denom);
-            var y = ROUND((na * (by1 - by2) - (ay1 - ay2) * nb) / denom);
+            var na = (ax1 * ay2) - (ay1 * ax2);
+            var nb = (bx1 * by2) - (by1 * bx2);
+            var x = ROUND(((na * (bx1 - bx2)) - ((ax1 - ax2) * nb)) / denom);
+            var y = ROUND(((na * (by1 - by2)) - ((ay1 - ay2) * nb)) / denom);
             return IsBetween(x, ROUND(ax1), ROUND(ax2)) && IsBetween(x, ROUND(bx1), ROUND(bx2)) &&
                 IsBetween(y, ROUND(ay1), ROUND(ay2)) && IsBetween(y, ROUND(by1), ROUND(by2));
         }
@@ -581,10 +581,10 @@ namespace Engine
             y2 -= cy;
             var r = diam * diam / 4;  /* radius squared */
             var k = y1 - (m * x1);  /* So, y = m*x + k */
-            var a = (1 + m * m) / r;
+            var a = (1 + (m * m)) / r;
             var b = 2 * m * k / r;
-            var c = k * k / r - 1;
-            var discrim = b * b - 4 * a * c;
+            var c = (k * k / r) - 1;
+            var discrim = (b * b) - (4 * a * c);
             if (discrim < 0)
             {
                 return false;  /* No intersection */
@@ -653,10 +653,10 @@ namespace Engine
             var s = w * w / 4;
             var t = h * h / 4;  /* So, x©÷/s + y©÷/t = 1 */
             var k = r1.y - (m * r1.x);  /* So, y = m*x + k */
-            var a = 1 / s + m * m / t;
+            var a = (1 / s) + (m * m / t);
             var b = 2 * m * k / t;
-            var c = k * k / t - 1;
-            var discrim = b * b - 4 * a * c;
+            var c = (k * k / t) - 1;
+            var discrim = (b * b) - (4 * a * c);
             if (discrim < 0)
             {
                 return false;  /* No intersection */
@@ -687,7 +687,7 @@ namespace Engine
         {
             var dx = x1 - x2;
             var dy = y1 - y2;
-            var dist2 = dx * dx + dy * dy;
+            var dist2 = (dx * dx) + (dy * dy);
             var sum = (diam1 + diam2) / 2;  /* radius1 + radius2 */
             return dist2 <= sum * sum;
         }
@@ -846,7 +846,7 @@ namespace Engine
                 var mx = double.NegativeInfinity;
                 for (var i = 0; i < poly.Length; i++)
                 {
-                    var dot = poly[i].x * axis.x + poly[i].y * axis.y;
+                    var dot = (poly[i].x * axis.x) + (poly[i].y * axis.y);
                     mx = Max(mx, dot);
                     mn = Min(mn, dot);
                 }

@@ -99,18 +99,18 @@ namespace Engine
             (var vi, var vj) = (lx - px, ly - py);
 
             // Get the determinant or squared length of the line segment.
-            var d = li * li + lj * lj;
+            var d = (li * li) + (lj * lj);
 
             // Get the length of the line segment.
             var length = Sqrt(d);
 
             // Find the interpolation value.
-            var t = -(vi * li + vj * lj) / d;
+            var t = -((vi * li) + (vj * lj)) / d;
 
             // Check whether the closest point falls between the ends of line segment.
             // Return the t values if the distance to the nearest point on the line segment is within epsilon.
-            return (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()))
-                : ((Abs(li * vj - vi * lj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()));
+            return (length == 0) ? (Sqrt((vi * vi) + (vj * vj)) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()))
+                : ((Abs((li * vj) - (vi * lj)) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()));
         }
 
         /// <summary>
@@ -138,19 +138,19 @@ namespace Engine
             (var vi, var vj) = (ax - px, ay - py);
 
             // Get the determinant or squared length of the line segment.
-            var d = ui * ui + uj * uj;
+            var d = (ui * ui) + (uj * uj);
 
             // Get the length of the line segment.
             var length = Sqrt(d);
 
             // Find the interpolation value.
-            var t = -(vi * ui + vj * uj) / d;
+            var t = -((vi * ui) + (vj * uj)) / d;
 
             // Check whether the closest point falls between the ends of line segment.
             // Return the t values if the distance to the nearest point on the line segment is within epsilon.
             return (t < 0d) ? (Array.Empty<double>(), Array.Empty<double>())
-                : (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()))
-                : ((Abs(ui * vj - vi * uj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()));
+                : (length == 0) ? (Sqrt((vi * vi) + (vj * vj)) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()))
+                : ((Abs((ui * vj) - (vi * uj)) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()));
         }
 
         /// <summary>
@@ -178,19 +178,19 @@ namespace Engine
             (var vi, var vj) = (ax - px, ay - py);
 
             // Get the determinant or squared length of the line segment.
-            var d = ui * ui + uj * uj;
+            var d = (ui * ui) + (uj * uj);
 
             // Get the length of the line segment.
             var length = Sqrt(d);
 
             // Find the interpolation value.
-            var t = -(vi * ui + vj * uj) / d;
+            var t = -((vi * ui) + (vj * uj)) / d;
 
             // Check whether the closest point falls between the ends of line segment.
             // Return the t values if the distance to the nearest point on the line segment is within epsilon.
             return (t < 0d || t > 1d) ? (Array.Empty<double>(), Array.Empty<double>())
-                : (length == 0) ? (Sqrt(vi * vi + vj * vj) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()))
-                : ((Abs(ui * vj - vi * uj) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()));
+                : (length == 0) ? (Sqrt((vi * vi) + (vj * vj)) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()))
+                : ((Abs((ui * vj) - (vi * uj)) / length) < epsilon ? (new double[] { 1 }, new double[] { t }) : (Array.Empty<double>(), Array.Empty<double>()));
         }
 
         /// <summary>
@@ -215,12 +215,12 @@ namespace Engine
         {
             var result = (a: Array.Empty<double>(), b: Array.Empty<double>());
 
-            var ua = bi * (ay - by) - bj * (ax - bx);
-            var ub = ai * (ay - by) - aj * (ax - bx);
+            var ua = (bi * (ay - by)) - (bj * (ax - bx));
+            var ub = (ai * (ay - by)) - (aj * (ax - bx));
 
-            var determinant = bj * ai - bi * aj;
+            var determinant = (bj * ai) - (bi * aj);
 
-            if (determinant != 0)
+            if (determinant != 0d)
             {
                 var ta = ua / determinant;
                 var tb = ub / determinant;
@@ -264,10 +264,10 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     // Ray is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
-                    return (a: new double[] { ua }, b: new double[] { 0 });
+                    return (a: new double[] { ua }, b: new double[] { 0d });
                 }
             }
             else
@@ -313,8 +313,8 @@ namespace Engine
             var vi = s1X - s0X;
             var vj = s1Y - s0Y;
 
-            var ua = vi * (ly - s0Y) - vj * (lx - s0X);
-            var ub = li * (ly - s0Y) - lj * (lx - s0X);
+            var ua = (vi * (ly - s0Y)) - (vj * (lx - s0X));
+            var ub = (li * (ly - s0Y)) - (lj * (lx - s0X));
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (vj * li) - (vi * lj);
@@ -322,10 +322,10 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     // Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
-                    return (a: new double[] { ua /* Is this right? */, ub /* Is this right? */ }, b: new double[] { 0, 1 });
+                    return (a: new double[] { ua /* Is this right? */, ub /* Is this right? */ }, b: new double[] { 0d, 1d });
                 }
             }
             else
@@ -334,7 +334,7 @@ namespace Engine
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (tb >= 0 && tb <= 1)
+                if (tb >= 0d && tb <= 1d)
                 {
                     // One intersection.
                     return (a: new double[] { ta }, b: new double[] { tb });
@@ -366,17 +366,17 @@ namespace Engine
         {
             var result = (a: Array.Empty<double>(), b: Array.Empty<double>());
 
-            var ua = bi * (ay - by) - bj * (ax - bx);
-            var ub = ai * (ay - by) - aj * (ax - bx);
+            var ua = (bi * (ay - by)) - (bj * (ax - bx));
+            var ub = (ai * (ay - by)) - (aj * (ax - bx));
 
-            var determinant = bj * ai - bi * aj;
+            var determinant = (bj * ai) - (bi * aj);
 
-            if (determinant != 0)
+            if (determinant != 0d)
             {
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (ta >= 0 /*&& ta <= 1*/ && tb >= 0 /*&& tb <= 1*/)
+                if (ta >= 0d /*&& ta <= 1d*/ && tb >= 0d /*&& tb <= 1d*/)
                 {
                     result = (a: new double[] { ta }, b: new double[] { tb });
                 }
@@ -413,8 +413,8 @@ namespace Engine
             var v = s2Y - s1Y;
 
             // Intersection cross product.
-            var ua = u * (ry - s1Y) - v * (rx - s1X);
-            var ub = ri * (ry - s1Y) - rj * (rx - s1X);
+            var ua = (u * (ry - s1Y)) - (v * (rx - s1X));
+            var ub = (ri * (ry - s1Y)) - (rj * (rx - s1X));
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (v * ri) - (u * rj);
@@ -422,7 +422,7 @@ namespace Engine
             // Check if the lines are parallel.
             if (Abs(determinant) < epsilon)
             {
-                if (ua == 0 || ub == 0)
+                if (ua == 0d || ub == 0d)
                 {
                     // Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
                     return (a: Array.Empty<double>(), b: Array.Empty<double>());
@@ -435,7 +435,7 @@ namespace Engine
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (ta >= 0 /*&& ta <= 1*/ && tb >= 0 && tb <= 1)
+                if (ta >= 0d /*&& ta <= 1d*/ && tb >= 0d && tb <= 1d)
                 {
                     // One intersection.
                     return (a: new double[] { ta }, b: new double[] { tb });
@@ -467,17 +467,17 @@ namespace Engine
         {
             var result = (a: Array.Empty<double>(), b: Array.Empty<double>());
 
-            var ua = (bbx - bax) * (aay - bay) - (bby - bay) * (aax - bax);
-            var ub = (abx - aax) * (aay - bay) - (aby - aay) * (aax - bax);
+            var ua = ((bbx - bax) * (aay - bay)) - ((bby - bay) * (aax - bax));
+            var ub = ((abx - aax) * (aay - bay)) - ((aby - aay) * (aax - bax));
 
-            var determinant = (bby - bay) * (abx - aax) - (bbx - bax) * (aby - aay);
+            var determinant = ((bby - bay) * (abx - aax)) - ((bbx - bax) * (aby - aay));
 
-            if (determinant != 0)
+            if (determinant != 0d)
             {
                 var ta = ua / determinant;
                 var tb = ub / determinant;
 
-                if (0 <= ta && ta <= 1 && 0 <= tb && tb <= 1)
+                if (0d <= ta && ta <= 1d && 0d <= tb && tb <= 1d)
                 {
                     result = (a: new double[] { ta }, b: new double[] { tb });
                 }
@@ -513,10 +513,10 @@ namespace Engine
             var k = (q - b) / (a - p);
 
             var roots = new Polynomial(
-                2,
-                -3 * k,
-                3 * k * k + 2 * k * a + 2 * b,
-                -k * k * k - a * k * k - b * k
+                2d,
+                -3d * k,
+                (3d * k * k) + (2d * k * a) + (2d * b),
+                (-k * k * k) - (a * k * k) - (b * k)
                 ).Roots().OrderByDescending(c => c).ToArray();
 
             if (roots.Length != 3)
@@ -524,7 +524,7 @@ namespace Engine
                 return null;
             }
 
-            if (roots[0] >= 0.0 && roots[0] <= 1.0 && roots[2] >= 0.0 && roots[2] <= 1.0)
+            if (roots[0] >= 0d && roots[0] <= 1d && roots[2] >= 0d && roots[2] <= 1d)
             {
                 // ToDo: Work out whether to go the more complex route and compare the points at the t values.
                 return new double[] { roots[0], roots[2] };

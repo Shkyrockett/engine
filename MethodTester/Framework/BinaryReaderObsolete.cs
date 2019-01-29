@@ -84,15 +84,15 @@ namespace Engine.File
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <returns>The <see cref="int"/>.</returns>
-        private static int ReadVariableLength(BinaryReaderExtended reader)
+        public static int ReadVariableLength(BinaryReaderExtended reader)
         {
             var value = 0;
             int next;
             do
             {
                 next = reader.ReadByte();
-                value = value << 7;
-                value = value | (next & 0x7F);
+                value <<= 7;
+                value |= (next & 0x7F);
             } while ((next & 0x80) == 0x80);
             return value;
         }
@@ -136,12 +136,11 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public uint ReadVarLen()
         {
-            uint value = 0;
-            byte buffer;
-
+            uint value;
             if (((value = ReadByte()) & 0x80) != 0)
             {
                 value &= 0x7F;
+                byte buffer;
                 do
                 {
                     buffer = ReadByte();

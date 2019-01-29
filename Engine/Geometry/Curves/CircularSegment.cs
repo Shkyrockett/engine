@@ -439,7 +439,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The sagitta of the Chord.")]
         public double Sagitta
-            => (double)CachingProperty(() => radius - Sqrt(radius * radius - (SweepAngle * SweepAngle / 4)));
+            => (double)CachingProperty(() => radius - Sqrt((radius * radius) - (SweepAngle * SweepAngle / 4)));
 
         /// <summary>
         /// Gets the bounds.
@@ -554,7 +554,7 @@ namespace Engine
         public override Point2D Interpolate(double t)
         {
             // ToDo: Add the 
-            var theta = startAngle + SweepAngle * t;
+            var theta = startAngle + (SweepAngle * t);
             return new Point2D(
                 x + (Sin(theta) * radius),
                 y + (Cos(theta) * radius));
@@ -598,7 +598,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(CircularSegment)}{{{nameof(Center)}={Center},{nameof(Radius)}={radius},{nameof(StartAngle)}={startAngle},{nameof(EndAngle)}={endAngle}}}";
+            IFormattable formatable = $"{nameof(CircularSegment)}{{{nameof(Center)}={Center}{sep}{nameof(Radius)}={radius}{sep}{nameof(StartAngle)}={startAngle}{sep}{nameof(EndAngle)}={endAngle}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

@@ -23,18 +23,18 @@ namespace Engine.Experimental
             // Calculate the current length (in practice, this should be calculated once and saved, not re-calculated every time `reach` is called)
             var c_dx = tail.X - head.X;
             var c_dy = tail.Y - head.Y;
-            var c_dist = Math.Sqrt(c_dx * c_dx + c_dy * c_dy);
+            var c_dist = Math.Sqrt((c_dx * c_dx) + (c_dy * c_dy));
 
             // Calculate the stretched length
             var s_dx = tail.X - target.X;
             var s_dy = tail.Y - target.Y;
-            var s_dist = Math.Sqrt(s_dx * s_dx + s_dy * s_dy);
+            var s_dist = Math.Sqrt((s_dx * s_dx) + (s_dy * s_dy));
 
             // Calculate how much to scale the stretched line
             var scale = c_dist / s_dist;
 
             // Return the result. Copy the target for the new head. Scale the new tail based on distance from target.
-            return (target, new Point2D(target.X + s_dx * scale, target.Y + s_dy * scale));
+            return (target, new Point2D(target.X + (s_dx * scale), target.Y + (s_dy * scale)));
         }
 
         /// <summary>
@@ -52,13 +52,13 @@ namespace Engine.Experimental
             for (var i = 0; i < segments.Count - 1; i++)
             {
                 // Perform a reach for this segment
-                var r = Reach(segments[i], segments[i + 1], target);
+                var (Head, Tail) = Reach(segments[i], segments[i + 1], target);
 
                 // Update this node (r.Head is guaranteed to be the same point as `target`)
-                segments[i] = r.Head;
+                segments[i] = Head;
 
                 // Update the target, so the next segment's head targets this segments new tail
-                target = r.Tail;
+                target = Tail;
             }
 
             // For the last segment, move it to the target

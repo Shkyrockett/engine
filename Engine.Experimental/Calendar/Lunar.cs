@@ -41,7 +41,7 @@ namespace Engine.Chrono
             int k1, k2, k3;
             int j;
 
-            yy = y - (12 - m) / 10;
+            yy = y - ((12 - m) / 10);
             mm = m + 9;
             if (mm >= 12)
             {
@@ -49,7 +49,7 @@ namespace Engine.Chrono
             }
 
             k1 = (int)(365.25 * (yy + 4712));
-            k2 = (int)(30.6001 * mm + 0.5);
+            k2 = (int)((30.6001 * mm) + 0.5);
             k3 = (int)(((yy / 100) + 49) * 0.75) - 38;
             // 'j' for dates in Julian calendar:
             j = k1 + k2 + d + 59;
@@ -76,7 +76,7 @@ namespace Engine.Chrono
             ip -= Floor(ip);
             //After several trials I've seen to add the following lines,
             //which gave the result was not bad
-            ag = ip < 0.5 ? ip * 29.53059 + 29.53059 / 2 : ip * 29.53059 - 29.53059 / 2;
+            ag = ip < 0.5 ? (ip * 29.53059) + (29.53059 / 2) : (ip * 29.53059) - (29.53059 / 2);
             // Moon's age in days
             ag = Floor(ag) + 1;
             return ag;
@@ -111,7 +111,7 @@ namespace Engine.Chrono
             jd /= 29.53;           /* divide by the moon cycle (29.53 days) */
             b = (int)Round(jd);		   /* int(jd) -> b, take integer part of jd */
             jd -= b;		   /* subtract integer part to leave fractional part of original jd */
-            b = (int)Round(jd * 8 + 0.5);	   /* scale fraction from 0-8 and round by adding 0.5 */
+            b = (int)Round((jd * 8) + 0.5);	   /* scale fraction from 0-8 and round by adding 0.5 */
             b &= 7;		   /* 0 and 8 are the same so turn 8 into 0 */
             return b;
         }

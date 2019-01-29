@@ -29,7 +29,7 @@ namespace EngineTests
         /// <summary>
         /// A Listing of primitive polygons that can exhibit odd behavior.
         /// </summary>
-        private static List<(string description, List<Point2D> polygon)> polygons = new List<(string, List<Point2D>)>
+        private static readonly List<(string description, List<Point2D> polygon)> polygons = new List<(string, List<Point2D>)>
         {
             ("Square", Commons.Polygons.SquareClockwise),
             ("Top Left Triangle", Commons.Polygons.RightTriangleTopLeftClockwise),

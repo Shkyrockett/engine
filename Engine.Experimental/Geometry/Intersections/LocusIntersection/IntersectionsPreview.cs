@@ -81,7 +81,7 @@ namespace Engine
             double bX, double bY,
             double pX, double pY,
             double epsilon = Epsilon)
-            => ((pX - aX) * (pX - bX) + (pY - aY) * (pY - bY) < epsilon)
+            => (((pX - aX) * (pX - bX)) + ((pY - aY) * (pY - bY)) < epsilon)
                 ? new PointLocus(pX, pY)
                 : (Locus)new EmptyLocus();
 
@@ -156,7 +156,7 @@ namespace Engine
             var end = det3 / det1;
 
             return ((end >= 0d) && (end <= 1) && (start >= 0) && (start <= 1))
-                ? new PointLocus(new Point2D(a0X + end * u1, a0Y + end * v1))
+                ? new PointLocus(new Point2D(a0X + (end * u1), a0Y + (end * v1)))
                 : (Locus)new EmptyLocus();
         }
     }

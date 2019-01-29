@@ -89,8 +89,6 @@ namespace Engine.File
         /// <returns></returns>
         internal static bool Validate(Chunk chunk)
         {
-            var value = false;
-
             if (string.IsNullOrWhiteSpace(chunk.Id))
             {
                 throw new InvalidDataException("Chunk length not set.");
@@ -103,7 +101,7 @@ namespace Engine.File
                 // return value;
             }
 
-            value = true;
+            var value = true;
             return value;
         }
     }

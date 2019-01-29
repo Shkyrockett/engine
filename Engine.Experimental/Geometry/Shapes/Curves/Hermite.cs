@@ -43,14 +43,14 @@ namespace Engine
         /// <param name="bTan">The bTan.</param>
         /// <param name="tension">The tension.</param>
         /// <param name="bias">The bias.</param>
-        public Hermite(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension, double bias)
+        public Hermite(Point2D a, Point2D aTan, Point2D b, Point2D bTan, double tension = 0, double bias = 0)
         {
             A = a;
             ATan = aTan;
             B = b;
             BTan = bTan;
-            Tension = 0;
-            Bias = 0;
+            Tension = tension;
+            Bias = bias;
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Engine
         /// <returns>The <see cref="CubicBezier"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
         public CubicBezier ToCubicBezier()
-            => new CubicBezier(ATan, new Point2D(ATan.X - (B.X - A.X) / 6, ATan.Y - (B.Y - A.Y) / 6), new Point2D(B.X + (BTan.X - ATan.X) / 6, B.Y + (BTan.Y - ATan.Y) / 6), BTan);
+            => new CubicBezier(ATan, new Point2D(ATan.X - ((B.X - A.X) / 6), ATan.Y - ((B.Y - A.Y) / 6)), new Point2D(B.X + ((BTan.X - ATan.X) / 6), B.Y + ((BTan.Y - ATan.Y) / 6)), BTan);
 
         /// <summary>
         /// The to string.

@@ -256,7 +256,7 @@ namespace Engine.Experimental
             FillType = ft;
             ClipType = ct;
             Reset();
-            double? y = null;
+            double? y;
             if ((y = PopScanline()) is null)
             {
                 return false;
@@ -265,7 +265,7 @@ namespace Engine.Experimental
             while (true)
             {
                 InsertLocalMinimaIntoAEL(y.Value);
-                Edge e = null;
+                Edge e;
                 while ((e = PopHorz()) != null)
                 {
                     ProcessHorizontal(e);
@@ -1007,7 +1007,7 @@ namespace Engine.Experimental
         {
             Edge leftB;
             Edge rightB;
-            LocalMinima? locMin = null;
+            LocalMinima? locMin;
             // Add any local minima at BotY ...
             while ((locMin = PopLocalMinima(BotY)) != null)
             {
@@ -1736,11 +1736,14 @@ namespace Engine.Experimental
             var mul = 1;
             while (true)
             {
-                Edge first = SelectedEdgeLink, second = null, baseE, prevBase = null, tmp;
+                Edge first = SelectedEdgeLink;
+                Edge baseE;
+                Edge prevBase = null;
 
                 // sort successive larger 'mul' count of nodes ...
                 while (first != null)
                 {
+                    Edge second;
                     if (mul == 1)
                     {
                         second = first.NextInSEL;
@@ -1771,7 +1774,7 @@ namespace Engine.Experimental
                         if (second.Curr.X < first.Curr.X)
                         {
                             // create one or more Intersect nodes
-                            tmp = second.PrevInSEL;
+                            Edge tmp = second.PrevInSEL;
                             for (var i = 0; i < lCnt; ++i)
                             {
                                 //create a new intersect node...

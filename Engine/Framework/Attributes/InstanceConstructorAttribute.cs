@@ -22,24 +22,18 @@ namespace Engine
         : Attribute
     {
         /// <summary>
-        /// The parameter names.
-        /// </summary>
-        private string[] parameterNames;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="InstanceConstructorAttribute"/> class.
         /// </summary>
         /// <param name="parameterNames">The parameterNames.</param>
         public InstanceConstructorAttribute(string parameterNames)
         {
-            this.parameterNames = parameterNames.Split(',');
+            this.ParameterNames = parameterNames.Split(',');
         }
 
         /// <summary>
         /// Gets the parameter names.
         /// </summary>
-        public string[] ParameterNames
-            => parameterNames;
+        public string[] ParameterNames { get; }
 
         /// <summary>
         /// Get the constructor.

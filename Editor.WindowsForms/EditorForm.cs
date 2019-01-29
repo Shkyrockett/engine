@@ -45,22 +45,22 @@ namespace Editor
         /// <summary>
         /// Tweening interpolator for animation.
         /// </summary>
-        private Tweener tweener = new Tweener();
+        private readonly Tweener tweener = new Tweener();
 
         /// <summary>
         /// Amount to advance the timer every tick
         /// </summary>
-        private int tick = 1;
+        private readonly int tick = 1;
 
         /// <summary>
         /// The vector filename.
         /// </summary>
-        private string vectorFilename = string.Empty;
+        private readonly string vectorFilename = string.Empty;
 
         /// <summary>
         /// The vector map serializer.
         /// </summary>
-        private XmlSerializer vectorMapSerializer = new XmlSerializer(typeof(VectorMap));
+        private readonly XmlSerializer vectorMapSerializer = new XmlSerializer(typeof(VectorMap));
 
         /// <summary>
         /// The boundary item.
@@ -68,14 +68,14 @@ namespace Editor
         private GraphicItem boundaryItem = new GraphicItem(Rectangle2D.Empty, new ShapeStyle(Brushes.Red, new Pen(Brushes.Plum)));
 
         /// <summary>
-        /// The updatinglist.
+        /// The updating list flag.
         /// </summary>
         private bool updatinglist;
 
         /// <summary>
         /// The text measurer.
         /// </summary>
-        private WinFormsTextMeasurer TextMeasurer = new WinFormsTextMeasurer();
+        private readonly WinFormsTextMeasurer TextMeasurer = new WinFormsTextMeasurer();
         #endregion Fields
 
         #region Constructors

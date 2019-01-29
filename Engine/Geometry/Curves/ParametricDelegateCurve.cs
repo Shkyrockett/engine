@@ -414,7 +414,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(ParametricDelegateCurve)}{{{nameof(Location)}={Location},{nameof(Scale)}={Scale},{nameof(Precision)}={Precision}}}";
+            IFormattable formatable = $"{nameof(ParametricDelegateCurve)}{{{nameof(Location)}={Location}{sep}{nameof(Scale)}={Scale}{sep}{nameof(Precision)}={Precision}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

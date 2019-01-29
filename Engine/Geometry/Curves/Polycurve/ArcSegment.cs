@@ -184,15 +184,15 @@ namespace Engine
                 Point2D center(Point2D start, Point2D end, double cosT, double sinT)
                 {
                     // Step 1 : Compute (x1, y1).
-                    var x1 = cosT * (start.X - end.X) * OneHalf + sinT * (start.Y - end.Y) * OneHalf;
-                    var y1 = -sinT * (start.X - end.X) * OneHalf + cosT * (start.Y - end.Y) * OneHalf;
+                    var x1 = (cosT * (start.X - end.X) * OneHalf) + (sinT * (start.Y - end.Y) * OneHalf);
+                    var y1 = (-sinT * (start.X - end.X) * OneHalf) + (cosT * (start.Y - end.Y) * OneHalf);
 
                     // Ensure radii are positive.
                     RX = Abs(RX);
                     RY = Abs(RY);
 
                     // Check that radii are large enough.
-                    var radiiCheck = x1 * x1 / (RX * RX) + y1 * y1 / (RY * RY);
+                    var radiiCheck = (x1 * x1 / (RX * RX)) + (y1 * y1 / (RY * RY));
                     if (radiiCheck > 1)
                     {
                         RX = Sqrt(radiiCheck) * RX;
@@ -206,8 +206,8 @@ namespace Engine
 
                     // Step 3 : Compute (cx, cy) from (cx1, cy1).
                     return new Point2D(
-                        (start.X + end.X) * OneHalf + (cosT * coef * (RX * y1 / RY) - sinT * coef * -(RY * x1 / RX)),
-                        (start.Y + end.Y) * OneHalf + (sinT * coef * (RX * y1 / RY) + cosT * coef * -(RY * x1 / RX)));
+                        ((start.X + end.X) * OneHalf) + ((cosT * coef * (RX * y1 / RY)) - (sinT * coef * -(RY * x1 / RX))),
+                        ((start.Y + end.Y) * OneHalf) + ((sinT * coef * (RX * y1 / RY)) + (cosT * coef * -(RY * x1 / RX))));
                 }
             }
         }

@@ -441,7 +441,7 @@ namespace Engine
         /// <param name="e">The e.</param>
         /// <param name="f">The f.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
-        private static Polynomialx Sextic(double a, double b, double c, double d, double e, double f)
+        public static Polynomialx Sextic(double a, double b, double c, double d, double e, double f)
             => new Polynomialx(a, b, c, d, e, f);
 
         /// <summary>
@@ -455,7 +455,7 @@ namespace Engine
         /// <param name="f">The f.</param>
         /// <param name="g">The g.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
-        private static Polynomialx Septic(double a, double b, double c, double d, double e, double f, double g)
+        public static Polynomialx Septic(double a, double b, double c, double d, double e, double f, double g)
             => new Polynomialx(a, b, c, d, e, f, g);
 
         /// <summary>
@@ -470,7 +470,7 @@ namespace Engine
         /// <param name="g">The g.</param>
         /// <param name="h">The h.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
-        private static Polynomialx Octic(double a, double b, double c, double d, double e, double f, double g, double h)
+        public static Polynomialx Octic(double a, double b, double c, double d, double e, double f, double g, double h)
             => new Polynomialx(a, b, c, d, e, f, g, h);
 
         /// <summary>
@@ -481,26 +481,26 @@ namespace Engine
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         public static Polynomialx Bezout(double[] e1, double[] e2)
         {
-            var AB = e1[0] * e2[1] - e2[0] * e1[1];
-            var AC = e1[0] * e2[2] - e2[0] * e1[2];
-            var AD = e1[0] * e2[3] - e2[0] * e1[3];
-            var AE = e1[0] * e2[4] - e2[0] * e1[4];
-            var AF = e1[0] * e2[5] - e2[0] * e1[5];
-            var BC = e1[1] * e2[2] - e2[1] * e1[2];
-            var BE = e1[1] * e2[4] - e2[1] * e1[4];
-            var BF = e1[1] * e2[5] - e2[1] * e1[5];
-            var CD = e1[2] * e2[3] - e2[2] * e1[3];
-            var DE = e1[3] * e2[4] - e2[3] * e1[4];
-            var DF = e1[3] * e2[5] - e2[3] * e1[5];
+            var AB = (e1[0] * e2[1]) - (e2[0] * e1[1]);
+            var AC = (e1[0] * e2[2]) - (e2[0] * e1[2]);
+            var AD = (e1[0] * e2[3]) - (e2[0] * e1[3]);
+            var AE = (e1[0] * e2[4]) - (e2[0] * e1[4]);
+            var AF = (e1[0] * e2[5]) - (e2[0] * e1[5]);
+            var BC = (e1[1] * e2[2]) - (e2[1] * e1[2]);
+            var BE = (e1[1] * e2[4]) - (e2[1] * e1[4]);
+            var BF = (e1[1] * e2[5]) - (e2[1] * e1[5]);
+            var CD = (e1[2] * e2[3]) - (e2[2] * e1[3]);
+            var DE = (e1[3] * e2[4]) - (e2[3] * e1[4]);
+            var DF = (e1[3] * e2[5]) - (e2[3] * e1[5]);
             var BFpDE = BF + DE;
             var BEmCD = BE - CD;
 
             return new Polynomialx(
-                AB * BC - AC * AC,
-                AB * BEmCD + AD * BC - 2 * AC * AE,
-                AB * BFpDE + AD * BEmCD - AE * AE - 2 * AC * AF,
-                AB * DF + AD * BFpDE - 2 * AE * AF,
-                AD * DF - AF * AF
+                (AB * BC) - (AC * AC),
+                (AB * BEmCD) + (AD * BC) - (2 * AC * AE),
+                (AB * BFpDE) + (AD * BEmCD) - (AE * AE) - (2 * AC * AF),
+                (AB * DF) + (AD * BFpDE) - (2 * AE * AF),
+                (AD * DF) - (AF * AF)
             );
         }
         #endregion Factories
@@ -595,8 +595,8 @@ namespace Engine
             }
 
             var order = Coefficients.Count - 1;
-            var res = new double[order * n + 1];
-            var tmp = new double[order * n + 1];
+            var res = new double[(order * n) + 1];
+            var tmp = new double[(order * n) + 1];
             res[0] = 1;
             for (var pow = 0; pow < n; pow++)
             {
@@ -637,7 +637,7 @@ namespace Engine
 
             for (var i = Degree; i >= 0; i--)
             {
-                result = result * x + Coefficients[i];
+                result = (result * x) + Coefficients[i];
             }
 
             return result;
@@ -855,7 +855,7 @@ namespace Engine
                     break;
                 case 2:
                     {
-                        var descriminant = coefficients[1] * coefficients[1] - 4 * coefficients[2] * coefficients[0];
+                        var descriminant = (coefficients[1] * coefficients[1]) - (4 * coefficients[2] * coefficients[0]);
                         if (descriminant < 0)
                         {
                             yield break;
@@ -879,12 +879,12 @@ namespace Engine
                         var c = coefficients[0] / coefficients[3];
                         // x = t - a/3
                         // t3 + p t + q = 0
-                        var p = -a * a / 3 + b;
-                        var q = (2 * a * a * a - 9 * a * b + 27 * c) / 27;
+                        var p = (-a * a / 3) + b;
+                        var q = ((2 * a * a * a) - (9 * a * b) + (27 * c)) / 27;
                         if (Abs(p) < Epsilon)
                         {
                             // t^3 + q = 0  => t = -q^1/3 => x = -q^1/3 - a/3
-                            yield return -Crt(p) - a / 3;
+                            yield return -Crt(p) - (a / 3);
                         }
                         else if (Abs(q) < Epsilon)
                         {
@@ -894,35 +894,35 @@ namespace Engine
                             if (p < 0)
                             {
                                 var root = Crt(p);
-                                yield return root - a / 3;
-                                yield return -root - a / 3;
+                                yield return root - (a / 3);
+                                yield return -root - (a / 3);
                             }
                         }
                         else
                         {
-                            var disc = q * q / 4 + p * p * p / 27;
+                            var disc = (q * q / 4) + (p * p * p / 27);
                             if (disc < -Epsilon)
                             {
                                 // 3 roots
                                 var r = Sqrt(-p * p * p / 27);
                                 var phi = Acos(MinMax(-q / 2 / r, -1, 1));
                                 var t1 = 2 * Crt(r);
-                                yield return t1 * Cos(phi / 3) - a / 3;
-                                yield return t1 * Cos((phi + 2 * PI) / 3) - a / 3;
-                                yield return t1 * Cos((phi + 4 * PI) / 3) - a / 3;
+                                yield return (t1 * Cos(phi / 3)) - (a / 3);
+                                yield return (t1 * Cos((phi + (2 * PI)) / 3)) - (a / 3);
+                                yield return (t1 * Cos((phi + (4 * PI)) / 3)) - (a / 3);
                             }
                             else if (disc < Epsilon)
                             {
                                 // 2 real roots
                                 var cq = Crt(q / 2);
-                                yield return -2 * cq - a / 3;
-                                yield return cq - a / 3;
+                                yield return (-2 * cq) - (a / 3);
+                                yield return cq - (a / 3);
                             }
                             else
                             {
                                 // 1 real root
                                 var sd = Sqrt(disc);
-                                yield return Crt(-q / 2 + sd) - Crt(q / 2 + sd) - a / 3;
+                                yield return Crt((-q / 2) + sd) - Crt((q / 2) + sd) - (a / 3);
                             }
                         }
                     }
@@ -937,9 +937,9 @@ namespace Engine
                         var e = coefficients[0] / coefficients[4];
                         // <=> y^4 + p x^2 + q x + r = 0,
                         // where x = y - b / 4
-                        var p = c - 3 * b * b / 8;
-                        var q = (b * b * b - 4 * b * c + 8 * d) / 8;
-                        var r = (-3 * b * b * b * b + 256 * e - 64 * b * d + 16 * b * b * c) / 256;
+                        var p = c - (3 * b * b / 8);
+                        var q = ((b * b * b) - (4 * b * c) + (8 * d)) / 8;
+                        var r = ((-3 * b * b * b * b) + (256 * e) - (64 * b * d) + (16 * b * b * c)) / 256;
                         if (Abs(q) <= Epsilon)
                         {
                             // z = y^2, x = +/- sqrt(z) - b/4, z^2 + p z + r = 0
@@ -955,24 +955,24 @@ namespace Engine
                                     continue;
                                 }
                                 var y = Sqrt(z);
-                                yield return y - b / 4;
-                                yield return -y - b / 4;
+                                yield return y - (b / 4);
+                                yield return -y - (b / 4);
                             }
                             yield break;
                         }
                         // <=> (y^2 + p + m)^2 = (p + 2m) y^2 -q y + (m^2 + 2 m p + p^2 - r)
                         // where m is **arbitrary** choose it to make perfect square
                         // i.e. m^3 + 5/2 p m^2 + (2 p^2 - r) m + (p^3/2 - p r /2 - q^2 / 8) = 0
-                        var m = SolveRealRoots(p * p * p / 2 - p * r / 2 - q * q / 8, 2 * p * p - r, 5.0 / 2.0 * p, 1)
-                            .Where(x => p + 2 * x > Epsilon)
+                        var m = SolveRealRoots((p * p * p / 2) - (p * r / 2) - (q * q / 8), (2 * p * p) - r, 5.0 / 2.0 * p, 1)
+                            .Where(x => p + (2 * x) > Epsilon)
                             .First();
                         // <=> (y^2 + y Sqrt(p+2m) + p+m - q/2/sqrt(p+2m)) (y^2 - y Sqrt(p+2m) + p+m + q/2/sqrt(p+2m))
-                        var sqrt = Sqrt(p + 2 * m);
-                        var poly1 = SolveRealRoots(p + m - q / 2 / sqrt, sqrt, 1);
-                        var poly2 = SolveRealRoots(p + m + q / 2 / sqrt, -sqrt, 1);
+                        var sqrt = Sqrt(p + (2 * m));
+                        var poly1 = SolveRealRoots(p + m - (q / 2 / sqrt), sqrt, 1);
+                        var poly2 = SolveRealRoots(p + m + (q / 2 / sqrt), -sqrt, 1);
                         foreach (var y in poly1.Concat(poly2))
                         {
-                            yield return y - b / 4;
+                            yield return y - (b / 4);
                         }
                     }
                     break;
@@ -999,7 +999,7 @@ namespace Engine
             }
 
             Complex x0 = 1;
-            var xMul = 0.4 + 0.9 * Complex.ImaginaryOne;
+            var xMul = 0.4 + (0.9 * Complex.ImaginaryOne);
             var R0 = new Complex[p.Coefficients.Count - 1];
             for (var i = 0; i < R0.Length; i++)
             {
@@ -1026,7 +1026,7 @@ namespace Engine
             {
                 for (var i = 0; i < R0.Length; i++)
                 {
-                    R1[i] = R0[i] - p.Compute(R0[i]) / divider(i);
+                    R1[i] = R0[i] - (p.Compute(R0[i]) / divider(i));
                 }
             }
             bool closeEnough()
@@ -1167,7 +1167,7 @@ namespace Engine
             var order = 0;
             for (var i = 0; i < Coefficients.Count; i++)
             {
-                if (Abs(Coefficients[i]) > Epsilon)
+                if (Abs(Coefficients[i]) > epsilon)
                 {
                     order = i;
                 }
@@ -1175,7 +1175,7 @@ namespace Engine
             var res = new double[order + 1];
             for (var i = 0; i < res.Length; i++)
             {
-                if (Abs(Coefficients[i]) > Epsilon)
+                if (Abs(Coefficients[i]) > epsilon)
                 {
                     res[i] = Coefficients[i];
                 }
@@ -1261,7 +1261,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format, provider);
+            => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Polynomialx"/> inherited class based on the format string

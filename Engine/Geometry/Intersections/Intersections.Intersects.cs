@@ -339,8 +339,7 @@ namespace Engine
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
-        /// <acknowledgment>
+        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>        /// <acknowledgment>
         /// http://www.vb-helper.com/howto_segments_intersect.html
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -369,8 +368,8 @@ namespace Engine
             }
 
             // Find the index where the intersection point lies on the line.
-            var s = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
-            var t = ((x2 - x0) * v2 + (y0 - y2) * u2) / determinant;
+            var s = (((x0 - x2) * v1) + ((y2 - y0) * u1)) / -determinant;
+            var t = (((x2 - x0) * v2) + ((y0 - y2) * u2)) / determinant;
 
             // Check whether the point is on the segment.
             return (t >= 0d) && (t <= 1d) && (s >= 0d) && (s <= 1d);
@@ -437,8 +436,7 @@ namespace Engine
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
-        /// <acknowledgment>
+        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>        /// <acknowledgment>
         /// http://www.vb-helper.com/howto_segments_intersect.html
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -469,7 +467,7 @@ namespace Engine
             }
 
             // Find the index where the intersection point lies on the line.
-            var t = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+            var t = (((x0 - x2) * v1) + ((y2 - y0) * u1)) / -determinant;
 
             // Check whether the point is on the segment.
             return (t >= 0d) && (t <= 1d);
@@ -566,7 +564,7 @@ namespace Engine
             }
 
             // Find the index where the intersection point lies on the line.
-            var t = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+            var t = (((x0 - x2) * v1) + ((y2 - y0) * u1)) / -determinant;
 
             // Check whether the point is on the segment.
             return (t >= 0d) && (t <= 1d);
@@ -616,7 +614,7 @@ namespace Engine
             }
 
             // Find the index where the intersection point lies on the line.
-            var t = ((x0 - x2) * v1 + (y2 - y0) * u1) / -determinant;
+            var t = (((x0 - x2) * v1) + ((y2 - y0) * u1)) / -determinant;
 
             // Check whether the point is on the segment.
             return (t >= 0d) && (t <= 1d);
@@ -922,7 +920,7 @@ namespace Engine
             // Find the distance between the centers.
             var dx = cx0 - cx1;
             var dy = cy0 - cy1;
-            var dist = Sqrt(dx * dx + dy * dy);
+            var dist = Sqrt((dx * dx) + (dy * dy));
 
             // See how many solutions there are.
             if (dist > radius0 + radius1)

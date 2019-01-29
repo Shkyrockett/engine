@@ -54,7 +54,7 @@ namespace Engine
             double aV,
             double bV,
             double t)
-            => (1d - t) * aV + t * bV;
+            => ((1d - t) * aV) + (t * bV);
 
         /// <summary>
         /// Two control point 2D Linear interpolation for ranges from 0 to 1, start to end of curve.
@@ -75,8 +75,8 @@ namespace Engine
             double aX, double aY,
             double bX, double bY,
             double t)
-            => ((1d - t) * aX + t * bX,
-                (1d - t) * aY + t * bY);
+            => (((1d - t) * aX) + (t * bX),
+                ((1d - t) * aY) + (t * bY));
 
         /// <summary>
         /// Two control point 3D Linear interpolation for ranges from 0 to 1, start to end of curve.
@@ -99,9 +99,9 @@ namespace Engine
             double aX, double aY, double aZ,
             double bX, double bY, double bZ,
             double t)
-            => ((1d - t) * aX + t * bX,
-                (1d - t) * aY + t * bY,
-                (1d - t) * aZ + t * bZ);
+            => (((1d - t) * aX) + (t * bX),
+                ((1d - t) * aY) + (t * bY),
+                ((1d - t) * aZ) + (t * bZ));
 
         /// <summary>
         /// Two control point 2D Linear interpolation for ranges from 0 to 1, start to end of curve.
@@ -242,7 +242,7 @@ namespace Engine
             // And multiplying that by percent returns the angle between
             // start and the final result.
             var theta = Acos(dot) * percent;
-            var RelativeVec = b - a * dot;
+            var RelativeVec = b - (a * dot);
 
             // Orthonormal basis
             RelativeVec.Normalize();
@@ -275,7 +275,7 @@ namespace Engine
             // And multiplying that by percent returns the angle between
             // start and the final result.
             var theta = Acos(dot) * percent;
-            var RelativeVec = b - a * dot;
+            var RelativeVec = b - (a * dot);
 
             // Orthonormal basis
             Normalize3D(RelativeVec.X, RelativeVec.Y, RelativeVec.Z);
@@ -391,7 +391,7 @@ namespace Engine
             // The inverse of t.
             var ti = 1d - t;
 
-            return aV * ti * ti + 2d * bV * ti * t + cV * t * t;
+            return (aV * ti * ti) + (2d * bV * ti * t) + (cV * t * t);
         }
 
         /// <summary>
@@ -426,8 +426,8 @@ namespace Engine
             var t2 = t * t;
 
             return (
-                aX * ti2 + 2d * bX * ti * t + cX * t2,
-                aY * ti2 + 2d * bY * ti * t + cY * t2
+                (aX * ti2) + (2d * bX * ti * t) + (cX * t2),
+                (aY * ti2) + (2d * bY * ti * t) + (cY * t2)
                 );
         }
 
@@ -466,9 +466,9 @@ namespace Engine
             var t2 = t * t;
 
             return (
-                x0 * ti2 + 2d * x1 * ti * t + x2 * t2,
-                y0 * ti2 + 2d * y1 * ti * t + y2 * t2,
-                z0 * ti2 + 2d * z1 * ti * t + z2 * t2);
+                (x0 * ti2) + (2d * x1 * ti * t) + (x2 * t2),
+                (y0 * ti2) + (2d * y1 * ti * t) + (y2 * t2),
+                (z0 * ti2) + (2d * z1 * ti * t) + (z2 * t2));
         }
         #endregion Quadratic Bézier Interpolation
 
@@ -496,7 +496,7 @@ namespace Engine
         {
             var t2 = t * t;
             var a0 = dV - cV - aV + bV;
-            return a0 * t * t2 + (aV - bV - a0) * t2 + (cV - aV) * t + bV;
+            return (a0 * t * t2) + ((aV - bV - a0) * t2) + ((cV - aV) * t) + bV;
         }
 
         /// <summary>
@@ -528,8 +528,8 @@ namespace Engine
             var aX0 = dX - cX - aX + bX;
             var aY0 = dY - cY - aY + bY;
             return (
-                aX0 * t * t2 + (aX - bX - aX0) * t2 + (cX - aX) * t + bX,
-                aY0 * t * t2 + (aY - bY - aY0) * t2 + (cY - aY) * t + bY);
+                (aX0 * t * t2) + ((aX - bX - aX0) * t2) + ((cX - aX) * t) + bX,
+                (aY0 * t * t2) + ((aY - bY - aY0) * t2) + ((cY - aY) * t) + bY);
         }
 
         /// <summary>
@@ -566,9 +566,9 @@ namespace Engine
             var aY0 = dY - cY - aY + bY;
             var aZ0 = dZ - cZ - aZ + bZ;
             return (
-                aX0 * t * t2 + (aX - bX - aX0) * t2 + (cX - aX) * t + bX,
-                aY0 * t * t2 + (aY - bY - aY0) * t2 + (cY - aY) * t + bY,
-                aZ0 * t * t2 + (aZ - bZ - aZ0) * t2 + (cZ - aZ) * t + bZ);
+                (aX0 * t * t2) + ((aX - bX - aX0) * t2) + ((cX - aX) * t) + bX,
+                (aY0 * t * t2) + ((aY - bY - aY0) * t2) + ((cY - aY) * t) + bY,
+                (aZ0 * t * t2) + ((aZ - bZ - aZ0) * t2) + ((cZ - aZ) * t) + bZ);
         }
         #endregion Cubic Interpolation
 
@@ -603,7 +603,7 @@ namespace Engine
             // The t cubed.
             var t3 = t * t * t;
 
-            return ti3 * v0 + 3d * t * ti * ti * v1 + 3d * t * t * ti * v2 + t3 * v3;
+            return (ti3 * v0) + (3d * t * ti * ti * v1) + (3d * t * t * ti * v2) + (t3 * v3);
         }
 
         /// <summary>
@@ -642,8 +642,8 @@ namespace Engine
             var t3 = t * t * t;
 
             return (
-                X: ti3 * x0 + 3d * ti * ti * t * x1 + 3d * ti * t * t * x2 + t3 * x3,
-                Y: ti3 * y0 + 3d * ti * ti * t * y1 + 3d * ti * t * t * y2 + t3 * y3
+                X: (ti3 * x0) + (3d * ti * ti * t * x1) + (3d * ti * t * t * x2) + (t3 * x3),
+                Y: (ti3 * y0) + (3d * ti * ti * t * y1) + (3d * ti * t * t * y2) + (t3 * y3)
                 );
 
             //return (Point2D)(ti3 * A + 3d * ti * ti * t * B + 3d * ti * t * t * C + t3 * D);
@@ -688,9 +688,9 @@ namespace Engine
             var t3 = t * t * t;
 
             return (
-                ti3 * x0 + 3d * t * ti * ti * x1 + 3d * t * t * ti * x2 + t3 * x3,
-                ti3 * y0 + 3d * t * ti * ti * y1 + 3d * t * t * ti * y2 + t3 * y3,
-                ti3 * z0 + 3d * t * ti * ti * z1 + 3d * t * t * ti * z2 + t3 * z3
+                (ti3 * x0) + (3d * t * ti * ti * x1) + (3d * t * t * ti * x2) + (t3 * x3),
+                (ti3 * y0) + (3d * t * ti * ti * y1) + (3d * t * t * ti * y2) + (t3 * y3),
+                (ti3 * z0) + (3d * t * ti * ti * z1) + (3d * t * t * ti * z2) + (t3 * z3)
                 );
         }
         #endregion Cubic Bézier Interpolation
@@ -746,8 +746,8 @@ namespace Engine
                 }
 
                 b = new Point2D(
-                    b.X + points[k].X * blend,
-                    b.Y + points[k].Y * blend
+                    b.X + (points[k].X * blend),
+                    b.Y + (points[k].Y * blend)
                 );
             }
 
@@ -780,10 +780,10 @@ namespace Engine
             var t2 = t * t;
             var t3 = t2 * t;
             return 
-                0.5d * (2d * bV
-                + (cV - aV) * t
-                + (2d * aV - 5d * bV + 4d * cV - dV) * t2
-                + (3d * bV - aV - 3.0d * cV + dV) * t3);
+                0.5d * ((2d * bV)
+                + ((cV - aV) * t)
+                + (((2d * aV) - (5d * bV) + (4d * cV) - dV) * t2)
+                + (((3d * bV) - aV - (3.0d * cV) + dV) * t3));
         }
 
         /// <summary>
@@ -822,14 +822,14 @@ namespace Engine
             var t2 = t * t;
             var t3 = t2 * t;
             return (
-                0.5d * (2d * bX
-                + (-aX + cX) * t
-                + (2d * aX - 5d * bX + 4d * cX - dX) * t2
-                + (-aX + 3d * bX - 3d * cX + dX) * t3),
-                0.5d * (2d * bY
-                + (-aY + cY) * t
-                + (2d * aY - 5d * bY + 4d * cY - dY) * t2
-                + (-aY + 3d * bY - 3d * cY + dY) * t3));
+                0.5d * ((2d * bX)
+                + ((-aX + cX) * t)
+                + (((2d * aX) - (5d * bX) + (4d * cX) - dX) * t2)
+                + ((-aX + (3d * bX) - (3d * cX) + dX) * t3)),
+                0.5d * ((2d * bY)
+                + ((-aY + cY) * t)
+                + (((2d * aY) - (5d * bY) + (4d * cY) - dY) * t2)
+                + ((-aY + (3d * bY) - (3d * cY) + dY) * t3)));
         }
 
         /// <summary>
@@ -864,18 +864,18 @@ namespace Engine
             var t2 = t * t;
             var t3 = t2 * t;
             return (
-                0.5d * (2d * bX
-                + (cX - aX) * t
-                + (2d * aX - 5d * bX + 4d * cX - dX) * t2
-                + (3d * bX - aX - 3d * cX + dX) * t3),
-                0.5d * (2d * bX
-                + (cY - aY) * t
-                + (2d * aY - 5d * bY + 4d * cY - dY) * t2
-                + (3d * bY - aY - 3d * cY + dY) * t3),
-                0.5d * (2d * bZ
-                + (cZ - aZ) * t
-                + (2d * aZ - 5d * bZ + 4d * cZ - dZ) * t2
-                + (3d * bZ - aZ - 3d * cZ + dZ) * t3));
+                0.5d * ((2d * bX)
+                + ((cX - aX) * t)
+                + (((2d * aX) - (5d * bX) + (4d * cX) - dX) * t2)
+                + (((3d * bX) - aX - (3d * cX) + dX) * t3)),
+                0.5d * ((2d * bX)
+                + ((cY - aY) * t)
+                + (((2d * aY) - (5d * bY) + (4d * cY) - dY) * t2)
+                + (((3d * bY) - aY - (3d * cY) + dY) * t3)),
+                0.5d * ((2d * bZ)
+                + ((cZ - aZ) * t)
+                + (((2d * aZ) - (5d * bZ) + (4d * cZ) - dZ) * t2)
+                + (((3d * bZ) - aZ - (3d * cZ) + dZ) * t3)));
         }
 
         /// <summary>
@@ -903,14 +903,14 @@ namespace Engine
             var t2 = t * t;
             var t3 = t2 * t;
             return new Point2D(
-                0.5d * (2d * positionA.X
-                + (-tangentA.X + positionB.X) * t + (2d * tangentA.X - 5d * positionA.X
-                + 4d * positionB.X - tangentB.X) * t2
-                + (-tangentA.X + 3d * positionA.X - 3d * positionB.X + tangentB.X) * t3),
-                0.5d * (2d * positionA.Y
-                + (-tangentA.Y + positionB.Y) * t + (2d * tangentA.Y - 5d * positionA.Y
-                + 4d * positionB.Y - tangentB.Y) * t2
-                + (-tangentA.Y + 3d * positionA.Y - 3d * positionB.Y + tangentB.Y) * t3)
+                0.5d * ((2d * positionA.X)
+                + ((-tangentA.X + positionB.X) * t) + (((2d * tangentA.X) - (5d * positionA.X)
+                + (4d * positionB.X) - tangentB.X) * t2)
+                + ((-tangentA.X + (3d * positionA.X) - (3d * positionB.X) + tangentB.X) * t3)),
+                0.5d * ((2d * positionA.Y)
+                + ((-tangentA.Y + positionB.Y) * t) + (((2d * tangentA.Y) - (5d * positionA.Y)
+                + (4d * positionB.Y) - tangentB.Y) * t2)
+                + ((-tangentA.Y + (3d * positionA.Y) - (3d * positionB.Y) + tangentB.Y) * t3))
             );
         }
         #endregion Catmull-Rom Spline Interpolation
@@ -949,7 +949,7 @@ namespace Engine
             var m1 = (cV - bV) * (1d + bias) * (1d - tension) * 0.5d;
             m1 += (dV - cV) * (1d - bias) * (1d - tension) * 0.5d;
 
-            return (2d * t3 - 3d * t2 + 1d) * bV + (t3 - 2d * t2 + t) * m0 + (t3 - t2) * m1 + (-2d * t3 + 3d * t2) * cV;
+            return (((2d * t3) - (3d * t2) + 1d) * bV) + ((t3 - (2d * t2) + t) * m0) + ((t3 - t2) * m1) + (((-2d * t3) + (3d * t2)) * cV);
         }
 
         /// <summary>
@@ -995,14 +995,14 @@ namespace Engine
             var mY1 = (cY - bY) * (1d + bias) * (1d - tension) * 0.5d;
             mY1 += (dY - cY) * (1d - bias) * (1d - tension) * 0.5d;
 
-            var a0 = 2d * t3 - 3d * t2 + 1d;
-            var a1 = t3 - 2d * t2 + t;
+            var a0 = (2d * t3) - (3d * t2) + 1d;
+            var a1 = t3 - (2d * t2) + t;
             var a2 = t3 - t2;
-            var a3 = -2d * t3 + 3d * t2;
+            var a3 = (-2d * t3) + (3d * t2);
 
             return (
-                a0 * bX + a1 * mX0 + a2 * mX1 + a3 * cX,
-                a0 * bY + a1 * mY0 + a2 * mY1 + a3 * cY);
+                (a0 * bX) + (a1 * mX0) + (a2 * mX1) + (a3 * cX),
+                (a0 * bY) + (a1 * mY0) + (a2 * mY1) + (a3 * cY));
         }
 
         /// <summary>
@@ -1058,15 +1058,15 @@ namespace Engine
             var mZ1 = (cZ - bZ) * (1d + bias) * (1d - tension) * 0.5d;
             mZ1 += (dZ - cZ) * (1d - bias) * (1d - tension) * 0.5d;
 
-            var a0 = 2d * t3 - 3d * t2 + 1d;
-            var a1 = t3 - 2d * t2 + t;
+            var a0 = (2d * t3) - (3d * t2) + 1d;
+            var a1 = t3 - (2d * t2) + t;
             var a2 = t3 - t2;
-            var a3 = -2d * t3 + 3d * t2;
+            var a3 = (-2d * t3) + (3d * t2);
 
             return (
-                a0 * bX + a1 * mX0 + a2 * mX1 + a3 * cX,
-                a0 * bY + a1 * mY0 + a2 * mY1 + a3 * cY,
-                a0 * bZ + a1 * mZ0 + a2 * mZ1 + a3 * cZ);
+                (a0 * bX) + (a1 * mX0) + (a2 * mX1) + (a3 * cX),
+                (a0 * bY) + (a1 * mY0) + (a2 * mY1) + (a3 * cY),
+                (a0 * bZ) + (a1 * mZ0) + (a2 * mZ1) + (a3 * cZ));
         }
         #endregion Hermite Interpolation
 
@@ -1148,7 +1148,7 @@ namespace Engine
             var theta = phi % PI;
 
             var tanAngle = Abs(Tan(theta));
-            var x = Sqrt(r1 * r1 * (r2 * r2) / ((r2 * r2) + r1 * r1 * (tanAngle * tanAngle)));
+            var x = Sqrt(r1 * r1 * (r2 * r2) / ((r2 * r2) + (r1 * r1 * (tanAngle * tanAngle))));
             var y = x * tanAngle;
 
             return (theta >= 0d) && (theta < 90d.ToRadians())
@@ -1349,8 +1349,8 @@ namespace Engine
 
             // Apply the rotation transformation and translate to new center.
             return (
-                cX + (u * cosAngle + v * sinAngle),
-                cY + (u * sinAngle - v * cosAngle));
+                cX + ((u * cosAngle) + (v * sinAngle)),
+                cY + ((u * sinAngle) - (v * cosAngle)));
         }
         #endregion Ellipse Interpolation
 
@@ -1374,7 +1374,7 @@ namespace Engine
             double t)
         {
             var mu2 = 0.5d * (1d - Cos(t * PI));
-            return aV * (1d - mu2) + bV * mu2;
+            return (aV * (1d - mu2)) + (bV * mu2);
         }
 
         /// <summary>
@@ -1398,8 +1398,8 @@ namespace Engine
             double t)
         {
             var mu2 = 0.5d * (1d - Cos(t * PI));
-            return (aX * (1d - mu2) + bX * mu2,
-                    aY * (1d - mu2) + bY * mu2);
+            return ((aX * (1d - mu2)) + (bX * mu2),
+                    (aY * (1d - mu2)) + (bY * mu2));
         }
 
         /// <summary>
@@ -1426,9 +1426,9 @@ namespace Engine
         {
             var mu2 = 0.5d * (1d - Cos(t * PI));
             return (
-                aX * (1d - mu2) + bX * mu2,
-                aY * (1d - mu2) + bY * mu2,
-                aZ * (1d - mu2) + bZ * mu2);
+                (aX * (1d - mu2)) + (bX * mu2),
+                (aY * (1d - mu2)) + (bY * mu2),
+                (aZ * (1d - mu2)) + (bZ * mu2));
         }
         #endregion Cosine Interpolation
 
@@ -1452,7 +1452,7 @@ namespace Engine
             double t)
         {
             var mu2 = (1d - Sin(t * PI)) * 0.5d;
-            return v1 * (1d - mu2) + v2 * mu2;
+            return (v1 * (1d - mu2)) + (v2 * mu2);
         }
 
         /// <summary>
@@ -1477,8 +1477,8 @@ namespace Engine
         {
             var mu2 = (1d - Sin(t * PI)) * 0.5d;
             return (
-                x1 * (1d - mu2) + x2 * mu2,
-                y1 * (1d - mu2) + y2 * mu2);
+                (x1 * (1d - mu2)) + (x2 * mu2),
+                (y1 * (1d - mu2)) + (y2 * mu2));
         }
 
         /// <summary>
@@ -1505,9 +1505,9 @@ namespace Engine
         {
             var mu2 = (1d - Sin(t * PI)) * 0.5d;
             return (
-                x1 * (1d - mu2) + x2 * mu2,
-                y1 * (1d - mu2) + y2 * mu2,
-                z1 * (1d - mu2) + z2 * mu2);
+                (x1 * (1d - mu2)) + (x2 * mu2),
+                (y1 * (1d - mu2)) + (y2 * mu2),
+                (z1 * (1d - mu2)) + (z2 * mu2));
         }
         #endregion Sine Interpolation
 
@@ -1560,20 +1560,20 @@ namespace Engine
 
             // Apply the rotation transformation and translate to new center.
             points.Add(new Point2D(
-                fulcrumX + (-width * 0.5d * xaxis.X + -height * 0.5d * xaxis.Y),
-                fulcrumY + (-width * 0.5d * yaxis.X + -height * 0.5d * yaxis.Y)
+                fulcrumX + ((-width * 0.5d * xaxis.X) + (-height * 0.5d * xaxis.Y)),
+                fulcrumY + ((-width * 0.5d * yaxis.X) + (-height * 0.5d * yaxis.Y))
                 ));
             points.Add(new Point2D(
-                fulcrumX + (width * 0.5d * xaxis.X + -height * 0.5d * xaxis.Y),
-                fulcrumY + (width * 0.5d * yaxis.X + -height * 0.5d * yaxis.Y)
+                fulcrumX + ((width * 0.5d * xaxis.X) + (-height * 0.5d * xaxis.Y)),
+                fulcrumY + ((width * 0.5d * yaxis.X) + (-height * 0.5d * yaxis.Y))
                 ));
             points.Add(new Point2D(
-                fulcrumX + (width * 0.5d * xaxis.X + height * 0.5d * xaxis.Y),
-                fulcrumY + (width * 0.5d * yaxis.X + height * 0.5d * yaxis.Y)
+                fulcrumX + ((width * 0.5d * xaxis.X) + (height * 0.5d * xaxis.Y)),
+                fulcrumY + ((width * 0.5d * yaxis.X) + (height * 0.5d * yaxis.Y))
                 ));
             points.Add(new Point2D(
-                fulcrumX + (-width * 0.5d * xaxis.X + height * 0.5d * xaxis.Y),
-                fulcrumY + (-width * 0.5d * yaxis.X + height * 0.5d * yaxis.Y)
+                fulcrumX + ((-width * 0.5d * xaxis.X) + (height * 0.5d * xaxis.Y)),
+                fulcrumY + ((-width * 0.5d * yaxis.X) + (height * 0.5d * yaxis.Y))
                 ));
 
             return points;
@@ -1589,10 +1589,10 @@ namespace Engine
         /// <returns>The <see cref="T:Point2D[]"/>.</returns>
         public static CubicBezier TweenCubic(CubicBezier key1, CubicBezier key2, double t)
             => new CubicBezier(
-                 key1.A + t * (key2.A - key1.A),
-                 key1.B + t * (key2.B - key1.B),
-                 key1.C + t * (key2.C - key1.C),
-                 key1.D + t * (key2.D - key1.D)
+                 key1.A + (t * (key2.A - key1.A)),
+                 key1.B + (t * (key2.B - key1.B)),
+                 key1.C + (t * (key2.C - key1.C)),
+                 key1.D + (t * (key2.D - key1.D))
                 );
     }
 }

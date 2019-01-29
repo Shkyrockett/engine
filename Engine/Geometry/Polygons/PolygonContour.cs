@@ -481,12 +481,12 @@ namespace Engine
             foreach (var item in points)
             {
                 // M is Move to.
-                output.Append($"{item.X},{item.Y} ");
+                output.Append($"{item.X}{sep}{item.Y} ");
             }
 
             // Minus signs are valid separators in SVG path definitions which can be
             // used in place of commas to shrink the length of the string. 
-            output.Replace(",-", "-");
+            output.Replace($"{sep}-", "-");
             return output.ToString().TrimEnd();
         }
 

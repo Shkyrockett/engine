@@ -315,7 +315,7 @@ namespace Engine
             var d1 = new Vector2D(seg1.B.X - p1.X, seg1.B.Y - p1.Y);
             const double sqrEpsilon = 0.0000001d; // Antes 0.001
             var E = new Vector2D(p1.X - p0.X, p1.Y - p0.Y);
-            var cross = d0.I * d1.J - d0.J * d1.I;
+            var cross = (d0.I * d1.J) - (d0.J * d1.I);
             var sqrCross = cross * cross;
             var sqrLen0 = d0.Length;
             var sqrLen1 = d1.Length;
@@ -323,19 +323,19 @@ namespace Engine
             if (sqrCross > sqrEpsilon * sqrLen0 * sqrLen1)
             {
                 // lines of the segments are not parallel
-                var s = (E.I * d1.J - E.J * d1.I) / cross;
+                var s = ((E.I * d1.J) - (E.J * d1.I)) / cross;
                 if ((s < 0) || (s > 1))
                 {
                     return (0, new[] { pi0, pi1 });
                 }
-                var t = (E.I * d0.J - E.J * d0.I) / cross;
+                var t = ((E.I * d0.J) - (E.J * d0.I)) / cross;
                 if ((t < 0) || (t > 1))
                 {
                     return (0, new[] { pi0, pi1 });
                 }
                 // intersection of lines is a point an each segment
-                pi0.X = p0.X + s * d0.I;
-                pi0.Y = p0.Y + s * d0.J;
+                pi0.X = p0.X + (s * d0.I);
+                pi0.Y = p0.Y + (s * d0.J);
 
                 // Uncomment the block below if you're getting errors to do with precision.
                 /*if (Point.distance(pi0,seg0.start) < 0.00000001) pi0 = seg0.start;
@@ -347,7 +347,7 @@ namespace Engine
 
             // lines of the segments are parallel
             var sqrLenE = E.Length;
-            cross = E.I * d0.J - E.J * d0.I;
+            cross = (E.I * d0.J) - (E.J * d0.I);
             sqrCross = cross * cross;
             if (sqrCross > sqrEpsilon * sqrLen0 * sqrLenE)
             {
@@ -356,16 +356,16 @@ namespace Engine
             }
 
             // Lines of the segments are the same. Need to test for overlap of segments.
-            var s0 = (d0.I * E.I + d0.J * E.J) / sqrLen0;  // so = Dot (D0, E) * sqrLen0
-            var s1 = s0 + (d0.I * d1.I + d0.J * d1.J) / sqrLen0;  // s1 = s0 + Dot (D0, D1) * sqrLen0
+            var s0 = ((d0.I * E.I) + (d0.J * E.J)) / sqrLen0;  // so = Dot (D0, E) * sqrLen0
+            var s1 = s0 + (((d0.I * d1.I) + (d0.J * d1.J)) / sqrLen0);  // s1 = s0 + Dot (D0, D1) * sqrLen0
             var smin = Math.Min(s0, s1);
             var smax = Math.Max(s0, s1);
             (var imax, var w) = FindIntersection(0.0, 1.0, smin, smax);
 
             if (imax > 0)
             {
-                pi0.X = p0.X + w[0] * d0.I;
-                pi0.Y = p0.Y + w[0] * d0.J;
+                pi0.X = p0.X + (w[0] * d0.I);
+                pi0.Y = p0.Y + (w[0] * d0.J);
 
                 // Uncomment the block below if you're getting errors to do with precision.
                 /*if (Point.distance(pi0,seg0.start) < 0.00000001) pi0 = seg0.start;
@@ -374,8 +374,8 @@ namespace Engine
 				if (Point.distance(pi0,seg1.end) < 0.00000001) pi0 = seg1.end;*/
                 if (imax > 1)
                 {
-                    pi1.X = p0.X + w[1] * d0.I;
-                    pi1.Y = p0.Y + w[1] * d0.J;
+                    pi1.X = p0.X + (w[1] * d0.I);
+                    pi1.Y = p0.Y + (w[1] * d0.J);
                 }
             }
 

@@ -51,6 +51,7 @@ namespace Engine.Tweening
             Target = target;
             var targetType = target.GetType();
             MemberInfo memberInfo;
+
             if ((memberInfo = targetType.GetField(name, flags)) != null)
             {
                 // Capture the field member info.

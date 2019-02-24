@@ -278,12 +278,12 @@ namespace Engine
             var RelativeVec = b - (a * dot);
 
             // Orthonormal basis
-            Normalize3D(RelativeVec.X, RelativeVec.Y, RelativeVec.Z);
+            Normalize3D(RelativeVec.I, RelativeVec.J, RelativeVec.K);
 
             // The final result.
-            return (a * Cos(theta)) + (RelativeVec * Sin(theta));
+            return (Point3D)((a * Cos(theta)) + (RelativeVec * Sin(theta)));
         }
-        #endregion Quaternian S Linear Interpolation
+        #endregion Quaternion S Linear Interpolation
 
         #region Curve Interpolation
         /// <summary>

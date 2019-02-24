@@ -90,8 +90,7 @@ namespace Engine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator ==(CubicControlPoint left, CubicControlPoint right)
-            => left.Equals(right);
+        public static bool operator ==(CubicControlPoint left, CubicControlPoint right) => left.Equals(right);
 
         /// <summary>
         /// The operator !=.
@@ -99,8 +98,7 @@ namespace Engine
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public static bool operator !=(CubicControlPoint left, CubicControlPoint right)
-            => !(left == right);
+        public static bool operator !=(CubicControlPoint left, CubicControlPoint right) => !(left == right);
         #endregion Operators
 
         #region Methods
@@ -112,8 +110,7 @@ namespace Engine
         /// <returns>The <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Point2D LocalToGlobal(Point2D point, Point2D reference)
-            => new Point2D(point.X + reference.X, point.Y + reference.Y);
+        private static Point2D LocalToGlobal(Point2D point, Point2D reference) => new Point2D(point.X + reference.X, point.Y + reference.Y);
 
         /// <summary>
         /// The global to local method.
@@ -132,10 +129,7 @@ namespace Engine
         /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => Point.GetHashCode()
-            ^ AnchorA.GetHashCode()
-            ^ AnchorB.GetHashCode();
+        public override int GetHashCode() => Point.GetHashCode() ^ AnchorA.GetHashCode() ^ AnchorB.GetHashCode();
 
         /// <summary>
         /// The compare.
@@ -145,8 +139,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(CubicControlPoint a, CubicControlPoint b)
-            => Equals(a, b);
+        public static bool Compare(CubicControlPoint a, CubicControlPoint b) => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -156,8 +149,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(CubicControlPoint a, CubicControlPoint b)
-            => (a.Point == b.Point) & (a.AnchorA == b.AnchorA) & (a.AnchorB == b.AnchorB);
+        public static bool Equals(CubicControlPoint a, CubicControlPoint b) => (a.Point == b.Point) & (a.AnchorA == b.AnchorA) & (a.AnchorB == b.AnchorB);
 
         /// <summary>
         /// The equals.
@@ -166,8 +158,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is CubicControlPoint && Equals(this, (CubicControlPoint)obj);
+        public override bool Equals(object obj) => obj is CubicControlPoint && Equals(this, (CubicControlPoint)obj);
 
         /// <summary>
         /// The equals.
@@ -176,8 +167,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(CubicControlPoint value)
-            => Equals(this, value);
+        public bool Equals(CubicControlPoint value) => Equals(this, value);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="CubicControlPoint"/>.
@@ -185,8 +175,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CubicControlPoint"/> struct based on the IFormatProvider
@@ -197,8 +186,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CubicControlPoint"/> class based on the format string
@@ -213,8 +201,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="CubicControlPoint"/> class based on the format string
@@ -231,6 +218,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {
+            if (this == null) return nameof(CubicControlPoint);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(CubicControlPoint)}{{{nameof(Point)}={Point.ToString(format, provider)}{sep}{nameof(AnchorA)}={AnchorA.ToString(format, provider)}{sep}{nameof(AnchorB)}={AnchorB.ToString(format, provider)}}}";
         }

@@ -1904,8 +1904,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void ToRadiansTest()
         {
-            double value = 0;
-            value = Maths.ToRadians(0);
+            var value = Maths.ToRadians(0);
             Assert.AreEqual(0, value);
             value = Maths.ToRadians(30);
             Assert.AreEqual(30 * (Math.PI / 180f), value);
@@ -1951,8 +1950,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void ToDegreesTest()
         {
-            double value = 0;
-            value = Maths.ToDegrees(0);
+            var value = Maths.ToDegrees(0);
             Assert.AreEqual(0, value);
             value = Maths.ToDegrees(30);
             Assert.AreEqual(30 * (180f / Math.PI), value);
@@ -1998,8 +1996,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void RoundToMultipleTest()
         {
-            double value = 0;
-            value = 3.5.RoundToMultiple(1.5);
+            var value = 3.5.RoundToMultiple(1.5);
             Assert.AreEqual(3, value);
         }
 
@@ -2013,8 +2010,7 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void ModuloTest()
         {
-            double value = 0;
-            value = 3.5.Modulo(1.5);
+            var value = 3.5.Modulo(1.5);
             Assert.AreEqual(0.5d, value);
         }
 
@@ -2028,9 +2024,8 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void AverageTest()
         {
-            double value = 0;
             var array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            value = Maths.Average(array);
+            var value = Maths.Average(array);
             Assert.AreEqual(4.5, value);
         }
 
@@ -2044,9 +2039,8 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void SumTest()
         {
-            double value = 0;
             var array = new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            value = Maths.Sum(array);
+            var value = Maths.Sum(array);
             Assert.AreEqual(45, value);
         }
 

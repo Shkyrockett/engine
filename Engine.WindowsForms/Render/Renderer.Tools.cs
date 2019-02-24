@@ -27,7 +27,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this ParametricPointTester shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this ParametricPointTester shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             const float pointRadius = 1f;
 
@@ -63,7 +63,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this ParametricWarpGrid shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this ParametricWarpGrid shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             const float pointRadius = 1f;
 
@@ -85,7 +85,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this AngleVisualizerTester shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this AngleVisualizerTester shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item?.Style;
 
@@ -117,7 +117,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this NodeRevealer shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this NodeRevealer shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item?.Style;
 

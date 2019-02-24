@@ -143,7 +143,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="double"/>.</returns>
         public double GetBrightness()
-            => Colorspaces.GetLuminance(Red, Green, Blue);
+            => Colorspaces.GetLuminanceFloat(Red, Green, Blue);
 
         /// <summary>
         /// Get the hue.

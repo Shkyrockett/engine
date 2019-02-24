@@ -1,4 +1,4 @@
-﻿// <copyright file="CYMKA.cs" company="Shkyrockett" >
+﻿// <copyright file="CMYKA.cs" company="Shkyrockett" >
 //     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -16,48 +16,48 @@ using System.Runtime.CompilerServices;
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// CYMKA color class.
+    /// CMYKA color class.
     /// </summary>
-    public struct CYMKA
+    public struct CMYKA
         : IColor
     {
         #region Implementations
         /// <summary>
-        /// The empty (readonly). Value: new ACYMK().
+        /// The empty (readonly). Value: new ACMYK().
         /// </summary>
-        public static readonly CYMKA Empty = new CYMKA(0, 0, 0, 0);
+        public static readonly CMYKA Empty = new CMYKA(0, 0, 0, 0);
         #endregion Implementations
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="CYMKA"/> class.
+        /// Initializes a new instance of the <see cref="CMYKA"/> class.
         /// </summary>
         /// <param name="color">The color.</param>
-        public CYMKA(RGBA color)
+        public CMYKA(RGBA color)
         {
-            (Alpha, Cyan, Yellow, Magenta, Black) = Colorspaces.RGBAColorToCYMKAColor(color.Red, color.Green, color.Blue, color.Alpha);
+            (Alpha, Cyan, Yellow, Magenta, Black) = Colorspaces.RGBAColorToCMYKAColor(color.Red, color.Green, color.Blue, color.Alpha);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CYMKA"/> class.
+        /// Initializes a new instance of the <see cref="CMYKA"/> class.
         /// </summary>
         /// <param name="cyan">Cyan color component.</param>
         /// <param name="yellow">Yellow color component.</param>
         /// <param name="magenta">Magenta color component.</param>
         /// <param name="black">Black color component.</param>
-        public CYMKA(byte cyan, byte yellow, byte magenta, byte black)
+        public CMYKA(byte cyan, byte yellow, byte magenta, byte black)
             : this(cyan, yellow, magenta, black, 0)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CYMKA"/> class.
+        /// Initializes a new instance of the <see cref="CMYKA"/> class.
         /// </summary>
         /// <param name="cyan">Cyan color component.</param>
         /// <param name="yellow">Yellow color component.</param>
         /// <param name="magenta">Magenta color component.</param>
         /// <param name="black">Black color component.</param>
         /// <param name="alpha">Alpha color component.</param>
-        public CYMKA(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
+        public CMYKA(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
         {
             Cyan = cyan;
             Yellow = yellow;
@@ -96,27 +96,27 @@ namespace Engine.Colorspace
 
         #region Operators
         /// <summary>
-        /// Compares two <see cref="CYMKA"/> objects.
-        /// The result specifies whether the color values of the two <see cref="CYMKA"/> objects are equal.
+        /// Compares two <see cref="CMYKA"/> objects.
+        /// The result specifies whether the color values of the two <see cref="CMYKA"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(CYMKA left, CYMKA right)
+        public static bool operator ==(CMYKA left, CMYKA right)
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="CYMKA"/> objects.
-        /// The result specifies whether the color values of the two <see cref="CYMKA"/> objects are unequal.
+        /// Compares two <see cref="CMYKA"/> objects.
+        /// The result specifies whether the color values of the two <see cref="CMYKA"/> objects are unequal.
         /// </summary>
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(CYMKA left, CYMKA right)
+        public static bool operator !=(CMYKA left, CMYKA right)
             => !Equals(left, right);
         #endregion Operators
 
@@ -131,14 +131,14 @@ namespace Engine.Colorspace
             => Cyan.GetHashCode() | Yellow.GetHashCode() | Magenta.GetHashCode() | Black.GetHashCode() | Alpha.GetHashCode();
 
         /// <summary>
-        /// Compares two <see cref="CYMKA"/> colors
+        /// Compares two <see cref="CMYKA"/> colors
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(CYMKA a, CYMKA b)
+        public static bool Compare(CMYKA a, CMYKA b)
             => Equals(a, b);
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(CYMKA a, CYMKA b)
+        public static bool Equals(CMYKA a, CMYKA b)
             => a.Cyan == b.Cyan && a.Yellow == b.Yellow && a.Magenta == b.Magenta && a.Black == b.Black && a.Alpha == b.Alpha;
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Engine.Colorspace
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
-            => obj is CYMKA && Equals(this, (CYMKA)obj);
+            => obj is CMYKA && Equals(this, (CMYKA)obj);
 
         /// <summary>
         /// The equals.
@@ -177,7 +177,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// Converts the <see cref="CYMKA"/> class to a <see cref="RGBA"/> class.
+        /// Converts the <see cref="CMYKA"/> class to a <see cref="RGBA"/> class.
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
@@ -186,7 +186,7 @@ namespace Engine.Colorspace
             => new RGBA(ToRGBATuple());
 
         /// <summary>
-        /// Converts the <see cref="CYMKA"/> class to a <see cref="RGBA"/> class.
+        /// Converts the <see cref="CMYKA"/> class to a <see cref="RGBA"/> class.
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -202,10 +202,10 @@ namespace Engine.Colorspace
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
-            => Colorspaces.CYMKAColorToRGBAColor(Cyan, Yellow, Magenta, Black, Alpha);
+            => Colorspaces.CMYKAColorToRGBAColor(Cyan, Yellow, Magenta, Black, Alpha);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="CYMKA"/> struct.
+        /// Creates a human-readable string that represents this <see cref="CMYKA"/> struct.
         /// </summary>
         /// <returns></returns>
         [DebuggerStepThrough]
@@ -214,7 +214,7 @@ namespace Engine.Colorspace
             => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="CYMKA"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="CMYKA"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
         /// <returns>
@@ -226,7 +226,7 @@ namespace Engine.Colorspace
             => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="CYMKA"/> class based on the format string
+        /// Creates a string representation of this <see cref="CMYKA"/> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -242,7 +242,7 @@ namespace Engine.Colorspace
             => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="CYMKA"/> struct based on the format string
+        /// Creates a string representation of this <see cref="CMYKA"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
@@ -257,7 +257,7 @@ namespace Engine.Colorspace
         public string ConvertToString(string format, IFormatProvider provider)
         {
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(CYMKA)}{{{nameof(Cyan)}={Cyan.ToString(format, provider)}{sep}{nameof(Yellow)}={Yellow.ToString(format, provider)}{sep}{nameof(Magenta)}={Magenta.ToString(format, provider)}{sep}{nameof(Black)}={Black.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
+            return $"{nameof(CMYKA)}{{{nameof(Cyan)}={Cyan.ToString(format, provider)}{sep}{nameof(Yellow)}={Yellow.ToString(format, provider)}{sep}{nameof(Magenta)}={Magenta.ToString(format, provider)}{sep}{nameof(Black)}={Black.ToString(format, provider)}{sep}{nameof(Alpha)}={Alpha.ToString(format, provider)}}}";
         }
         #endregion Methods
     }

@@ -11,14 +11,14 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
 using System.Runtime.Serialization;
-using System.Diagnostics;
+using System.Xml.Serialization;
 
 namespace Engine
 {
@@ -28,28 +28,32 @@ namespace Engine
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Size2D>))]
-    //[DebuggerDisplay("Width: {Width}, Height: {Height}")]
+    [DebuggerDisplay("{nameof(Width)}: {Width ?? double.NaN}, {nameof(Height)}: {Height ?? double.NaN}")]
     public struct Size2D
         : IVector<Size2D>
     {
         #region Implementations
         /// <summary>
-        /// An Empty <see cref="Size2D"/>.
+        /// Represents a <see cref="Size2D"/> that has <see cref="Width"/>, and <see cref="Height"/> values set to zero.
         /// </summary>
-        public static readonly Size2D Empty = new Size2D();
+        public static readonly Size2D Empty = new Size2D(0d, 0d);
 
         /// <summary>
-        /// A Unit <see cref="Size2D"/>.
+        /// Represents a <see cref="Size2D"/> that has <see cref="Width"/>, and <see cref="Height"/> values set to 1.
         /// </summary>
-        public static readonly Size2D Unit = new Size2D(1, 1);
-        #endregion Implementations
+        public static readonly Size2D Unit = new Size2D(1d, 1d);
 
+        /// <summary>
+        /// Represents a <see cref="Size2D"/> that has <see cref="Width"/>, and <see cref="Height"/> values set to NaN.
+        /// </summary>
+        public static readonly Size2D NaN = new Size2D(double.NaN, double.NaN);
+        #endregion Implementations
+		
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
         /// <param name="size"></param>
-
         public Size2D(Size2D size)
             : this(size.Width, size.Height)
         { }
@@ -58,7 +62,6 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
         /// <param name="point"></param>
-
         public Size2D(Point2D point)
             : this(point.X, point.Y)
         { }
@@ -66,40 +69,56 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
-
-        public Size2D((double X, double Y) tuple)
+        /// <param name="width">The Width component of the Size.</param>
+        /// <param name="height">The Height component of the Size.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Size2D(double width, double height)
+            : this()
         {
-            (Width, Height) = tuple;
+            Width = width;
+            Height = height;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Size2D"/> class.
         /// </summary>
-        /// <param name="width">The Width component of the Size.</param>
-        /// <param name="height">The Height component of the Size.</param>
-
-        public Size2D(double width, double height)
+        /// <param name="tuple"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Size2D((double Width, double Height) tuple)
+            : this()
         {
-            // If negative sizes are prohibited, then it would be impossible to inflate a rectangle in the negative direction to shrink it.
-            //if (width < 0 || height < 0) throw new ArgumentException("Width and Height cannot be Negative.");
-            Width = width;
-            Height = height;
+            (Width, Height) = tuple;
         }
         #endregion Constructors
 
+        #region Deconstructors
+        /// <summary>
+        /// Deconstruct this <see cref="Size2D"/> to a <see cref="ValueTuple{T1, T2}"/>.
+        /// </summary>
+        /// <param name="width">The width.</param>
+        /// <param name="height">The height.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out double width, out double height)
+        {
+            width = Width;
+            height = Height;
+        }
+        #endregion Deconstructors
+
         #region Properties
         /// <summary>
-        /// Width component of a <see cref="Size2D"/> coordinate.
+        /// Gets or sets the Width component of a <see cref="Size2D"/> coordinate.
         /// </summary>
-
         [DataMember, XmlAttribute, SoapAttribute]
         public double Width { get; set; }
 
         /// <summary>
-        /// Height component of a <see cref="Size2D"/> coordinate.
+        /// Gets or sets the Height component of a <see cref="Size2D"/> coordinate.
         /// </summary>
-
         [DataMember, XmlAttribute, SoapAttribute]
         public double Height { get; set; }
 
@@ -121,8 +140,7 @@ namespace Engine
         /// <returns>The <see cref="Size2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value)
-            => new Size2D(+value.Width, +value.Height);
+        public static Size2D operator +(Size2D value) => new Size2D(+value.Width, +value.Height);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D"/> classes.
@@ -132,8 +150,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value, double addend)
-            => value.Add(addend);
+        public static Size2D operator +(Size2D value, double addend) => value.Add(addend);
 
         /// <summary>
         /// Add two <see cref="Size2D"/> classes together.
@@ -143,8 +160,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value, Point2D addend)
-            => value.Add(addend);
+        public static Size2D operator +(Size2D value, Point2D addend) => value.Add(addend);
 
         /// <summary>
         /// Add two <see cref="Size2D"/> classes together.
@@ -154,8 +170,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator +(Size2D value, Size2D addend)
-            => value.Add(addend);
+        public static Size2D operator +(Size2D value, Size2D addend) => value.Add(addend);
 
         /// <summary>
         /// The operator -.
@@ -164,8 +179,7 @@ namespace Engine
         /// <returns>The <see cref="Size2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value)
-            => new Size2D(-value.Width, -value.Height);
+        public static Size2D operator -(Size2D value) => new Size2D(-value.Width, -value.Height);
 
         /// <summary>
         /// Subtract a <see cref="Size2D"/> from a <see cref="double"/> value.
@@ -175,8 +189,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value, double subend)
-            => value.Subtract(subend);
+        public static Size2D operator -(Size2D value, double subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract a <see cref="Size2D"/> from another <see cref="Size2D"/> class.
@@ -186,8 +199,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value, Point2D subend)
-            => value.Subtract(subend);
+        public static Size2D operator -(Size2D value, Point2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract a <see cref="Size2D"/> from another <see cref="Size2D"/> class.
@@ -197,8 +209,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator -(Size2D value, Size2D subend)
-            => value.Subtract(subend);
+        public static Size2D operator -(Size2D value, Size2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Scale a point
@@ -208,8 +219,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(double value, Size2D factor)
-            => new Size2D(value * factor.Width, value * factor.Height);
+        public static Size2D operator *(double value, Size2D factor) => new Size2D(value * factor.Width, value * factor.Height);
 
         /// <summary>
         /// Scale a point.
@@ -219,8 +229,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator *(Size2D value, double factor)
-            => new Size2D(value.Width * factor, value.Height * factor);
+        public static Size2D operator *(Size2D value, double factor) => new Size2D(value.Width * factor, value.Height * factor);
 
         /// <summary>
         /// Divide a <see cref="Size2D"/> by a <see cref="double"/> value.
@@ -230,8 +239,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Size2D operator /(Size2D dividend, double divisor)
-            => new Size2D(dividend.Width / divisor, dividend.Height / divisor);
+        public static Size2D operator /(Size2D dividend, double divisor) => new Size2D(dividend.Width / divisor, dividend.Height / divisor);
 
         /// <summary>
         /// Compares two <see cref="Size2D"/> objects.
@@ -243,8 +251,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Size2D left, Size2D right)
-            => Equals(left, right);
+        public static bool operator ==(Size2D left, Size2D right) => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="Size2D"/> objects.
@@ -256,18 +263,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Size2D left, Size2D right)
-            => !Equals(left, right);
-
-        /// <summary>
-        /// Implicit conversion from tuple.
-        /// </summary>
-        /// <returns></returns>
-        /// <param name="tuple"> Size - the Size to convert to a Vector </param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Size2D((double X, double Y) tuple)
-            => new Size2D(tuple);
+        public static bool operator !=(Size2D left, Size2D right) => !Equals(left, right);
 
         /// <summary>
         /// Explicit conversion to Vector.
@@ -290,6 +286,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static explicit operator Point2D(Size2D size)
             => new Point2D(size.Width, size.Height);
+
+        /// <summary>
+        /// Implicit conversion from tuple.
+        /// </summary>
+        /// <returns></returns>
+        /// <param name="tuple"> Size - the Size to convert to a Vector </param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Size2D((double X, double Y) tuple) => new Size2D(tuple);
         #endregion Operators
 
         /// <summary>
@@ -300,8 +305,17 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Size2D a, Size2D b)
-            => Equals(a, b);
+        public static bool Compare(Size2D a, Size2D b) => Equals(a, b);
+
+        /// <summary>
+        /// Tests to see whether the specified object is a <see cref="Size2D"/>
+        /// with the same dimensions as this <see cref="Size2D"/>.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is Size2D && Equals(this, (Size2D)obj);
 
         /// <summary>
         /// The equals.
@@ -311,19 +325,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Size2D a, Size2D b)
-            => (a.Width == b.Width) & (a.Height == b.Height);
-
-        /// <summary>
-        /// Tests to see whether the specified object is a <see cref="Size2D"/>
-        /// with the same dimensions as this <see cref="Size2D"/>.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Size2D && Equals(this, (Size2D)obj);
+        public static bool Equals(Size2D a, Size2D b) => (a.Width == b.Width) & (a.Height == b.Height);
 
         /// <summary>
         /// The equals.
@@ -332,8 +334,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Size2D value)
-            => Equals(this, value);
+        public bool Equals(Size2D value) => Equals(this, value);
 
         #region Factories
         /// <summary>
@@ -383,58 +384,14 @@ namespace Engine
         }
         #endregion Factories
 
-        //#region Serialization
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        //#endregion
-
         #region Methods
         /// <summary>
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
-        public override int GetHashCode()
-            => Width.GetHashCode()
-            ^ Height.GetHashCode();
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => Width.GetHashCode() ^ Height.GetHashCode();
 
         /// <summary>
         /// The to point2d.
@@ -451,19 +408,20 @@ namespace Engine
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Size2D"/> struct.
         /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        /// <returns>A string representation of this <see cref="Size2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Size2D"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Size2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Size2D"/> struct based on the format string
@@ -471,13 +429,12 @@ namespace Engine
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Size2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Size2D"/> struct based on the format string
@@ -492,10 +449,9 @@ namespace Engine
         /// </returns>
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            //if (this is null) return nameof(Size2D);
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Size2D)}({nameof(Width)}={Width}{sep}{nameof(Height)}={Height})";
-            return formatable.ToString(format, provider);
+            if (this == null) return nameof(Size2D);
+            var s = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Size2D)}=[{nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}]";
         }
         #endregion Methods
     }

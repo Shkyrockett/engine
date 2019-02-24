@@ -17,10 +17,10 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using static System.Math;
 using static Engine.Maths;
-using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Engine
 {
@@ -38,34 +38,22 @@ namespace Engine
         /// An Empty <see cref="Matrix3x3D"/>.
         /// </summary>
         public static readonly Matrix3x3D Empty = new Matrix3x3D(
-            0, 0, 0,
-            0, 0, 0,
-            0, 0, 0);
+            0d, 0d, 0d,
+            0d, 0d, 0d,
+            0d, 0d, 0d);
 
         /// <summary>
         /// An Identity <see cref="Matrix3x3D"/>.
         /// </summary>
         public static readonly Matrix3x3D Identity = new Matrix3x3D(
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1);
+            1d, 0d, 0d,
+            0d, 1d, 0d,
+            0d, 0d, 1d);
         #endregion Static Fields
 
         #region Constructors
         /// <summary>
         /// Initializes a new instance of the <see cref="Matrix3x3D"/> class.
-        /// </summary>
-        /// <param name="tuple">The tuple.</param>
-        public Matrix3x3D((double, double, double, double, double, double, double, double, double) tuple)
-        {
-            (M0x0, M0x1, M0x2, M1x0, M1x1, M1x2, M2x0, M2x1, M2x2) = tuple;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix3x2D"/> class of the form:<br/>
-        /// / m11, m12, 0 \<br/>
-        /// | m21, m22, 0 |<br/>
-        /// \ offsetX, offsetY, 1 /<br/>
         /// </summary>
         /// <param name="m0x0"></param>
         /// <param name="m0x1"></param>
@@ -76,10 +64,13 @@ namespace Engine
         /// <param name="m2x0"></param>
         /// <param name="m2x1"></param>
         /// <param name="m2x2"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix3x3D(
             double m0x0, double m0x1, double m0x2,
             double m1x0, double m1x1, double m1x2,
             double m2x0, double m2x1, double m2x2)
+            : this()
         {
             M0x0 = m0x0;
             M0x1 = m0x1;
@@ -98,10 +89,57 @@ namespace Engine
         /// <param name="xAxis"></param>
         /// <param name="yAxis"></param>
         /// <param name="zAxis"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix3x3D(Vector3D xAxis, Vector3D yAxis, Vector3D zAxis)
             : this(xAxis.I, xAxis.J, xAxis.K, yAxis.I, yAxis.J, yAxis.K, zAxis.I, zAxis.J, zAxis.K)
         { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Matrix3x3D"/> class.
+        /// </summary>
+        /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Matrix3x3D((double, double, double, double, double, double, double, double, double) tuple)
+            : this()
+        {
+            (M0x0, M0x1, M0x2, M1x0, M1x1, M1x2, M2x0, M2x1, M2x2) = tuple;
+        }
         #endregion Constructors
+
+        #region Deconstructors
+        /// <summary>
+        /// Deconstruct this <see cref="Matrix2x2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4, T5, T6, T7, T8}"/>.
+        /// </summary>
+        /// <param name="m0x0">The m0x0.</param>
+        /// <param name="m0x1">The m0x1.</param>
+        /// <param name="m0x2"></param>
+        /// <param name="m1x0">The m1x0.</param>
+        /// <param name="m1x1">The m1x1.</param>
+        /// <param name="m1x2"></param>
+        /// <param name="m2x0"></param>
+        /// <param name="m2x1"></param>
+        /// <param name="m2x2"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(
+            out double m0x0, out double m0x1, out double m0x2,
+            out double m1x0, out double m1x1, out double m1x2,
+            out double m2x0, out double m2x1, out double m2x2)
+        {
+            m0x0 = M0x0;
+            m0x1 = M0x1;
+            m0x2 = M0x2;
+            m1x0 = M1x0;
+            m1x1 = M1x1;
+            m1x2 = M1x2;
+            m2x0 = M2x0;
+            m2x1 = M2x1;
+            m2x2 = M2x2;
+        }
+        #endregion Deconstructors
 
         #region Properties
         /// <summary>
@@ -153,133 +191,73 @@ namespace Engine
         /// Gets or sets the cx.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Vector3D Cx
-        {
-            get { return new Vector3D(M0x0, M1x0, M2x0); }
-            set
-            {
-                M0x0 = value.I;
-                M1x0 = value.J;
-                M2x0 = value.K;
-            }
-        }
+        [Description("The First column of the " + nameof(Matrix3x3D))]
+        public Vector3D Cx { get { return new Vector3D(M0x0, M1x0, M2x0); } set { (M0x0, M1x0, M2x0) = value; } }
 
         /// <summary>
         /// Gets or sets the cy.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Vector3D Cy
-        {
-            get { return new Vector3D(M0x1, M1x1, M2x1); }
-            set
-            {
-                M0x1 = value.I;
-                M1x1 = value.J;
-                M2x1 = value.K;
-            }
-        }
+        [Description("The Second column of the " + nameof(Matrix3x3D))]
+        public Vector3D Cy { get { return new Vector3D(M0x1, M1x1, M2x1); } set { (M0x1, M1x1, M2x1) = value; } }
 
         /// <summary>
         /// Gets or sets the cz.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Vector3D Cz
-        {
-            get { return new Vector3D(M0x2, M1x2, M2x2); }
-            set
-            {
-                M0x2 = value.I;
-                M1x2 = value.J;
-                M2x2 = value.K;
-            }
-        }
+        [Description("The Third column of the " + nameof(Matrix3x3D))]
+        public Vector3D Cz { get { return new Vector3D(M0x2, M1x2, M2x2); } set { (M0x2, M1x2, M2x2) = value; } }
 
         /// <summary>
         /// Gets or sets the rx.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The First row of the " + nameof(Matrix3x3D))]
-        public Vector3D Rx
-        {
-            get { return new Vector3D(M0x0, M0x1, M0x2); }
-            set
-            {
-                M0x0 = value.I;
-                M0x1 = value.J;
-                M0x2 = value.K;
-            }
-        }
+        public Vector3D Rx { get { return new Vector3D(M0x0, M0x1, M0x2); } set { (M0x0, M0x1, M0x2) = value; } }
 
         /// <summary>
         /// Gets or sets the ry.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second row of the " + nameof(Matrix3x3D))]
-        public Vector3D Ry
-        {
-            get { return new Vector3D(M1x0, M1x1, M1x2); }
-            set
-            {
-                M1x0 = value.I;
-                M1x1 = value.J;
-                M1x2 = value.K;
-            }
-        }
+        public Vector3D Ry { get { return new Vector3D(M1x0, M1x1, M1x2); } set { (M1x0, M1x1, M1x2) = value; } }
 
         /// <summary>
         /// Gets or sets the rz.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Third row of the " + nameof(Matrix3x3D))]
-        public Vector3D Rz
-        {
-            get            {                return new Vector3D(M2x0, M2x1, M2x2);            }
-            set
-            {
-                M2x0 = value.I;
-                M2x1 = value.J;
-                M2x2 = value.K;
-            }
-        }
+        public Vector3D Rz { get { return new Vector3D(M2x0, M2x1, M2x2); } set { (M2x0, M2x1, M2x2) = value; } }
 
         /// <summary>
         /// Gets the determinant.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public double Determinant
-            => Determinant(M0x0, M0x1, M0x2, M1x0, M1x1, M1x2, M2x0, M2x1, M2x2);
+        public double Determinant => Determinant(M0x0, M0x1, M0x2, M1x0, M1x1, M1x2, M2x0, M2x1, M2x2);
 
-        ///// <summary>
-        ///// Swap the rows of the matrix with the columns.
-        ///// </summary>
-        ///// <returns>A transposed Matrix.</returns>
         /// <summary>
-        /// Gets the transposed.
+        /// Swap the rows of the matrix with the columns.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix3x3D Transposed
-            => Primitives.Transpose(this);
+        public Matrix3x3D Transposed => Primitives.Transpose(this);
 
         /// <summary>
         /// Gets the adjoint.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix3x3D Adjoint
-            => Primitives.Adjoint(this);
+        public Matrix3x3D Adjoint => Primitives.Adjoint(this);
 
         /// <summary>
         /// Gets the cofactor.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix3x3D Cofactor
-            => Primitives.Cofactor(this);
+        public Matrix3x3D Cofactor => Primitives.Cofactor(this);
 
         /// <summary>
         /// Gets the inverted.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Matrix3x3D Inverted
-            => Primitives.Invert(this);
+        public Matrix3x3D Inverted => Primitives.Invert(this);
 
         ///// <summary>
         ///// Tests whether or not a given transform is an identity transform matrix.
@@ -288,16 +266,7 @@ namespace Engine
         /// Gets a value indicating whether 
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public bool IsIdentity
-            => Abs(M0x0 - 1) < Epsilon
-                && Abs(M0x1) < Epsilon
-                && Abs(M0x2) < Epsilon
-                && Abs(M1x0) < Epsilon
-                && Abs(M1x1 - 1) < Epsilon
-                && Abs(M1x2) < Epsilon
-                && Abs(M2x0) < Epsilon
-                && Abs(M2x1) < Epsilon
-                && Abs(M2x2 - 1) < Epsilon;
+        public bool IsIdentity => Abs(M0x0 - 1) < Epsilon && Abs(M0x1) < Epsilon && Abs(M0x2) < Epsilon && Abs(M1x0) < Epsilon && Abs(M1x1 - 1) < Epsilon && Abs(M1x2) < Epsilon && Abs(M2x0) < Epsilon && Abs(M2x1) < Epsilon && Abs(M2x2 - 1) < Epsilon;
         #endregion Properties
 
         #region Operators
@@ -308,8 +277,8 @@ namespace Engine
         /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static Matrix3x3D operator +(Matrix3x3D left, Matrix3x3D right)
-            => left.Add(right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D operator +(Matrix3x3D left, Matrix3x3D right) => left.Add(right);
 
         /// <summary>
         /// Negates all the items in the Matrix.
@@ -317,8 +286,8 @@ namespace Engine
         /// <param name="matrix"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static Matrix3x3D operator -(Matrix3x3D matrix)
-            => matrix.Negate();
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D operator -(Matrix3x3D matrix) => matrix.Negate();
 
         /// <summary>
         /// Used to subtract two matrices.
@@ -327,8 +296,8 @@ namespace Engine
         /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static Matrix3x3D operator -(Matrix3x3D left, Matrix3x3D right)
-            => left.Subtract(right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D operator -(Matrix3x3D left, Matrix3x3D right) => left.Subtract(right);
 
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
@@ -337,8 +306,8 @@ namespace Engine
         /// <param name="scalar"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static Matrix3x3D operator *(Matrix3x3D matrix, double scalar)
-            => matrix.Scale(scalar);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D operator *(Matrix3x3D matrix, double scalar) => matrix.Scale(scalar);
 
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
@@ -347,8 +316,8 @@ namespace Engine
         /// <param name="matrix"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static Matrix3x3D operator *(double scalar, Matrix3x3D matrix)
-            => matrix.Scale(scalar);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D operator *(double scalar, Matrix3x3D matrix) => matrix.Scale(scalar);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
@@ -357,8 +326,8 @@ namespace Engine
         /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static Matrix3x3D operator *(Matrix2x2D left, Matrix3x3D right)
-            => left.Multiply(right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D operator *(Matrix2x2D left, Matrix3x3D right) => left.Multiply(right);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
@@ -367,8 +336,8 @@ namespace Engine
         /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static Matrix3x3D operator *(Matrix3x3D left, Matrix2x2D right)
-            => left.Multiply(right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D operator *(Matrix3x3D left, Matrix2x2D right) => left.Multiply(right);
 
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
@@ -377,8 +346,8 @@ namespace Engine
         /// <param name="right"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static Matrix3x3D operator *(Matrix3x3D left, Matrix3x3D right)
-            => left.Multiply(right);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D operator *(Matrix3x3D left, Matrix3x3D right) => left.Multiply(right);
 
         /// <summary>
         /// Compares two Matrix instances for exact equality.
@@ -392,8 +361,8 @@ namespace Engine
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
-        public static bool operator ==(Matrix3x3D matrix1, Matrix3x3D matrix2)
-            => Equals(matrix1, matrix2);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(Matrix3x3D matrix1, Matrix3x3D matrix2) => Equals(matrix1, matrix2);
 
         /// <summary>
         /// Compares two Matrix instances for exact inequality.
@@ -407,15 +376,13 @@ namespace Engine
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
-        public static bool operator !=(Matrix3x3D matrix1, Matrix3x3D matrix2)
-            => !Equals(matrix1, matrix2);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(Matrix3x3D matrix1, Matrix3x3D matrix2) => !Equals(matrix1, matrix2);
 
         /// <param name="source"></param>
-        public static explicit operator Matrix3x3D(Matrix2x2D source)
-            => new Matrix3x3D(
-                source.M0x0, source.M0x1, 0,
-                source.M1x0, source.M1x1, 0,
-                0, 0, 1);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Matrix3x3D(Matrix2x2D source) => new Matrix3x3D( source.M0x0, source.M0x1, 0, source.M1x0, source.M1x1, 0, 0, 0, 1);
 
         /// <summary>
         /// Tupple to <see cref="Matrix3x3D"/>.
@@ -423,8 +390,8 @@ namespace Engine
         /// <param name="tuple"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
-        public static implicit operator Matrix3x3D((double, double, double, double, double, double, double, double, double) tuple)
-            => new Matrix3x3D(tuple);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Matrix3x3D((double, double, double, double, double, double, double, double, double) tuple) => new Matrix3x3D(tuple);
         #endregion Operators
 
         #region Factories
@@ -433,6 +400,8 @@ namespace Engine
         /// </summary>
         /// <param name="radianAngle">The radianAngle.</param>
         /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromRotationX(double radianAngle)
         {
             var sin = Sin(radianAngle);
@@ -448,6 +417,8 @@ namespace Engine
         /// </summary>
         /// <param name="radianAngle">The radianAngle.</param>
         /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromRotationY(double radianAngle)
         {
             var sin = Sin(radianAngle);
@@ -463,6 +434,8 @@ namespace Engine
         /// </summary>
         /// <param name="radianAngle">The radianAngle.</param>
         /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromRotationZ(double radianAngle)
         {
             var sin = Sin(radianAngle);
@@ -479,6 +452,8 @@ namespace Engine
         /// <param name="radianAngle">The radianAngle.</param>
         /// <param name="axis">The axis.</param>
         /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromRotationAxisUsingAtan(double radianAngle, Vector3D axis)
         {
             double zAngle;
@@ -513,6 +488,8 @@ namespace Engine
         /// <param name="radianAngle">The radianAngle.</param>
         /// <param name="axis">The axis.</param>
         /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromRotationAxis(double radianAngle, Vector3D axis)
         {
             var first = FromLookAt(Vector3D.Empty, axis, new Vector3D(axis.K, axis.I, axis.J));
@@ -526,6 +503,8 @@ namespace Engine
         /// <param name="positiveZAxis">The positiveZAxis.</param>
         /// <param name="onPositiveY">The onPositiveY.</param>
         /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static Matrix3x3D FromLookAt(Vector3D origin, Vector3D positiveZAxis, Vector3D onPositiveY)
         {
             var rv = Identity;
@@ -541,6 +520,8 @@ namespace Engine
         /// </summary>
         /// <param name="scale"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromScale(Vector2D scale)
             => new Matrix3x3D(
                 scale.I, 0, 0,
@@ -552,6 +533,8 @@ namespace Engine
         /// </summary>
         /// <param name="scale"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromScale(Vector3D scale)
             => new Matrix3x3D(
                 scale.I, 0, 0,
@@ -563,6 +546,8 @@ namespace Engine
         /// </summary>
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromScale(double scaleX, double scaleY)
             => new Matrix3x3D(
                 scaleX, 0, 0,
@@ -575,6 +560,8 @@ namespace Engine
         /// <param name='scaleX'>The scale factor in the x dimension</param>
         /// <param name='scaleY'>The scale factor in the y dimension</param>
         /// <param name='scaleZ'>The scale factor in the z dimension</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromScale(double scaleX, double scaleY, double scaleZ)
             => new Matrix3x3D(
                 scaleX, 0, 0,
@@ -586,6 +573,8 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromTranslate2D(Vector2D value)
             => new Matrix3x3D(
                 1, 0, value.I,
@@ -597,6 +586,8 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D FromShear3D(Vector2D value)
             => new Matrix3x3D(
                 1, 0, value.I,
@@ -609,8 +600,9 @@ namespace Engine
         /// <param name="yaw"></param>
         /// <param name="pitch"></param>
         /// <param name="roll"></param>
-        public static Matrix3x3D FromEulerAnglesXYZ(double yaw, double pitch, double roll)
-            => FromRotationX(yaw) * (FromRotationY(pitch) * FromRotationZ(roll));
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D FromEulerAnglesXYZ(double yaw, double pitch, double roll) => FromRotationX(yaw) * (FromRotationY(pitch) * FromRotationZ(roll));
 
         /// <summary>
         /// Parse a string for a <see cref="Matrix3x3D"/> value.
@@ -621,8 +613,9 @@ namespace Engine
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
         [ParseMethod]
-        public static Matrix3x3D Parse(string source)
-            => Parse(source, CultureInfo.InvariantCulture);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Matrix3x3D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Parse a string for a <see cref="Matrix3x2D"/> value.
@@ -633,6 +626,8 @@ namespace Engine
         /// Returns an instance of the <see cref="Matrix3x2D"/> struct converted
         /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
         /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Parse(string source, IFormatProvider provider)
         {
             var tokenizer = new Tokenizer(source, provider);
@@ -656,50 +651,6 @@ namespace Engine
         }
         #endregion Factories
 
-        //#region Serialization
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        //#endregion
-
         #region Methods
         /// <summary>
         /// Returns the HashCode for this Matrix
@@ -707,16 +658,9 @@ namespace Engine
         /// <returns>
         /// int - the HashCode for this Matrix
         /// </returns>
-        public override int GetHashCode()
-            => M0x0.GetHashCode()
-            ^ M0x1.GetHashCode()
-            ^ M0x2.GetHashCode()
-            ^ M1x0.GetHashCode()
-            ^ M1x1.GetHashCode()
-            ^ M1x2.GetHashCode()
-            ^ M2x0.GetHashCode()
-            ^ M2x1.GetHashCode()
-            ^ M2x2.GetHashCode();
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => new { M0x0, M0x1, M0x2, M1x0, M1x1, M1x2, M2x0, M2x1, M2x2 }.GetHashCode();
 
         /// <summary>
         /// Compares two Matrix2D
@@ -724,9 +668,9 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Matrix3x3D a, Matrix3x3D b)
-            => Equals(a, b);
+        public static bool Compare(Matrix3x3D a, Matrix3x3D b) => Equals(a, b);
 
         /// <summary>
         /// Compares two Matrix instances for object equality.  In this equality
@@ -740,6 +684,7 @@ namespace Engine
         /// </returns>
         /// <param name='matrix1'>The first Matrix to compare</param>
         /// <param name='matrix2'>The second Matrix to compare</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Matrix3x3D matrix1, Matrix3x3D matrix2)
             => matrix1.M0x0.Equals(matrix2.M0x0)
@@ -763,9 +708,9 @@ namespace Engine
         /// bool - true if the object is an instance of Matrix and if it's equal to "this".
         /// </returns>
         /// <param name='obj'>The object to compare to "this"</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Matrix3x3D && Equals(this, (Matrix3x3D)obj);
+        public override bool Equals(object obj) => obj is Matrix3x3D && Equals(this, (Matrix3x3D)obj);
 
         /// <summary>
         /// Equals - compares this Matrix with the passed in object.  In this equality
@@ -778,9 +723,9 @@ namespace Engine
         /// bool - true if "value" is equal to "this".
         /// </returns>
         /// <param name='value'>The Matrix to compare to "this"</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Matrix3x3D value)
-            => Equals(this, value);
+        public bool Equals(Matrix3x3D value) => Equals(this, value);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the current culture.
@@ -788,8 +733,9 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the IFormatProvider
@@ -798,8 +744,9 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the format string
@@ -810,8 +757,9 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the format string
@@ -822,16 +770,14 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            if (IsIdentity)
-            {
-                return nameof(Identity);
-            }
-            // Helper to get the numeric list separator for a given culture.
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Matrix3x3D)}{{{nameof(M0x0)}={M0x0}{sep}{nameof(M0x1)}={M0x1}{sep}{nameof(M0x2)}={M0x2}{sep}{nameof(M1x0)}={M1x0}{sep}{nameof(M1x1)}={M1x1}{sep}{nameof(M1x2)}={M1x2}{sep}{nameof(M2x0)}={M2x0}{sep}{nameof(M2x1)}={M2x1}{sep}{nameof(M2x2)}={M2x2}}}";
-            return formatable.ToString(format, provider);
+            if (this == null) return nameof(Matrix3x3D);
+            if (IsIdentity) return nameof(Identity);
+            var s = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Matrix3x3D)}=[{nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)}]";
         }
 
         /// <returns></returns>
@@ -852,8 +798,7 @@ namespace Engine
         /// Get the enumerator.
         /// </summary>
         /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-            => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         #endregion Methods
     }
 }

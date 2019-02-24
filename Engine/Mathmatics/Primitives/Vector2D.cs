@@ -14,56 +14,51 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
 using static Engine.Maths;
-using System.Runtime.Serialization;
 
 namespace Engine
 {
     /// <summary>
-    /// Represents a vector in 2D coordinate space (double precision floating-point coordinates).
+    /// The vector2d struct. Represents a vector in 2D coordinate space (double precision floating-point coordinates).
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Vector2D>))]
-    //[DebuggerDisplay("I: {I}, J: {J}")]
+    [DebuggerDisplay("{nameof(I)}: {I ?? double.NaN}, {nameof(J)}: {J ?? double.NaN}")]
     public struct Vector2D
         : IVector<Vector2D>
     {
         #region Static Fields
         /// <summary>
-        /// An Empty <see cref="Vector2D"/>.
+        /// Represents a <see cref="Vector2D"/> that has <see cref="I"/>, and <see cref="J"/> values set to zero.
         /// </summary>
-        public static readonly Vector2D Empty = new Vector2D();
+        public static readonly Vector2D Empty = new Vector2D(0d, 0d);
 
         /// <summary>
-        /// A Unit <see cref="Vector2D"/>.
+        /// Represents a <see cref="Vector2D"/> that has <see cref="I"/>, and <see cref="J"/> values set to 1.
         /// </summary>
-        public static readonly Vector2D Unit = new Vector2D(1, 1);
+        public static readonly Vector2D Unit = new Vector2D(1d, 1d);
 
         /// <summary>
-        /// Vector2D(1,0)
+        /// Represents a <see cref="Vector2D"/> that has <see cref="I"/>, and <see cref="J"/> values set to NaN.
         /// </summary>
-        public static readonly Vector2D XAxis = new Vector2D(1, 0);
+        public static readonly Vector2D NaN = new Vector2D(double.NaN, double.NaN);
 
         /// <summary>
-        /// Vector2D(0,1)
+        /// Represents a <see cref="Vector2D"/> that has <see cref="I"/> to 1, and <see cref="J"/> set to 0.
         /// </summary>
-        public static readonly Vector2D YAxis = new Vector2D(0, 1);
+        public static readonly Vector2D XAxis = new Vector2D(1d, 0d);
+
+        /// <summary>
+        /// Represents a <see cref="Vector2D"/> that has <see cref="I"/> to 0, and <see cref="J"/> set to 1.
+        /// </summary>
+        public static readonly Vector2D YAxis = new Vector2D(0d, 1d);
         #endregion Static Fields
 
         #region Constructors
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Vector2D"/> struct.
-        /// </summary>
-        /// <param name="tuple"></param>
-
-        public Vector2D((double X, double Y) tuple)
-        {
-            (I, J) = tuple;
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
@@ -77,8 +72,10 @@ namespace Engine
         /// </summary>
         /// <param name="i">The <see cref="I"/> component of the <see cref="Vector2D"/> class.</param>
         /// <param name="j">The <see cref="J"/> component of the <see cref="Vector2D"/> class.</param>
-
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D(double i, double j)
+            : this()
         {
             I = i;
             J = j;
@@ -87,34 +84,63 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
-        /// <param name="aI"></param>
-        /// <param name="aJ"></param>
-        /// <param name="bI"></param>
-        /// <param name="bJ"></param>
+        /// <param name="tuple"></param>
+        public Vector2D((double X, double Y) tuple)
+            : this()
+        {
+            (I, J) = tuple;
+        }
 
-        public Vector2D(double aI, double aJ, double bI, double bJ)
-            : this(new Point2D(aI, aJ), new Point2D(bI, bJ))
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector2D"/> struct.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D(Point2D a, Point2D b)
+            : this(a.X, a.Y, b.X, b.Y)
         { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-
-        public Vector2D(Point2D a, Point2D b)
-            : this(a.Delta(b).Unit())
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D(Vector2D a, Vector2D b) :
+            this(a.I, a.J, b.I, b.J)
         { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Vector2D"/> struct.
+        /// </summary>
+        /// <param name="aI">The aI.</param>
+        /// <param name="aJ">The aJ.</param>
+        /// <param name="bI">The bI.</param>
+        /// <param name="bJ">The bJ.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Vector2D(double aI, double aJ, double bI, double bJ)
+            : this()
+        {
+            (var i, var j) = (bI - aI, bJ - aJ);
+            var d = Sqrt((i * i) + (j * j));
+            I = i * 1d / d;
+            J = j * 1d / d;
+        }
         #endregion Constructors
 
         #region Deconstructors
         /// <summary>
-        /// The deconstruct.
+        /// Deconstruct this <see cref="Vector2D"/> to a <see cref="ValueTuple{T1, T2}"/>.
         /// </summary>
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Deconstruct(out double i, out double j)
         {
             i = I;
@@ -124,16 +150,14 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// First Point of a 2D Vector
+        /// Gets or sets the I or first component of a 2D Vector.
         /// </summary>
-
         [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
-        /// Second Component of a 2D Vector
+        /// Gets or sets the j or second Component of a 2D Vector.
         /// </summary>
-
         [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
@@ -179,8 +203,7 @@ namespace Engine
         /// <returns>The <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value)
-            => new Vector2D(+value.I, +value.J);
+        public static Vector2D operator +(Vector2D value) => new Vector2D(+value.I, +value.J);
 
         /// <summary>
         /// Add Points
@@ -190,8 +213,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value, double addend)
-            => value.Add(addend);
+        public static Vector2D operator +(Vector2D value, double addend) => value.Add(addend);
 
         /// <summary>
         /// Add Points
@@ -201,8 +223,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Vector2D value, Point2D addend)
-            => value.Add(addend);
+        public static Point2D operator +(Vector2D value, Point2D addend) => value.Add(addend);
 
         /// <summary>
         /// Add Points
@@ -212,8 +233,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Vector2D value, Vector2D addend)
-            => value.Add(addend);
+        public static Vector2D operator +(Vector2D value, Vector2D addend) => value.Add(addend);
 
         /// <summary>
         /// The operator -.
@@ -222,8 +242,7 @@ namespace Engine
         /// <returns>The <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value)
-            => new Vector2D(-value.I, -value.J);
+        public static Vector2D operator -(Vector2D value) => new Vector2D(-value.I, -value.J);
 
         /// <summary>
         /// Subtract Points
@@ -233,8 +252,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value, double subend)
-            => value.Subtract(subend);
+        public static Vector2D operator -(Vector2D value, double subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract Points
@@ -244,8 +262,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Vector2D value, Point2D subend)
-            => value.Subtract(subend);
+        public static Point2D operator -(Vector2D value, Point2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract Points
@@ -255,8 +272,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Vector2D value, Vector2D subend)
-            => value.Subtract(subend);
+        public static Vector2D operator -(Vector2D value, Vector2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Scale a Vector
@@ -266,19 +282,7 @@ namespace Engine
         /// <returns>A Point Multiplied by the Multiplier</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Vector2D value, double factor)
-            => new Vector2D(value.I * factor, value.J * factor);
-
-        /// <summary>
-        /// Scale a Vector
-        /// </summary>
-        /// <param name="value">The Point</param>
-        /// <param name="factor">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(Vector2D value, Size2D factor)
-            => new Vector2D(value.I * factor.Width, value.J * factor.Height);
+        public static Vector2D operator *(Vector2D value, double factor) => new Vector2D(value.I * factor, value.J * factor);
 
         /// <summary>
         /// Scale a Vector
@@ -288,8 +292,27 @@ namespace Engine
         /// <returns>A Point Multiplied by the Multiplier</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator *(double factor, Vector2D value)
-            => new Vector2D(value.I * factor, value.J * factor);
+        public static Vector2D operator *(double factor, Vector2D value) => new Vector2D(value.I * factor, value.J * factor);
+
+        /// <summary>
+        /// Scale a Vector
+        /// </summary>
+        /// <param name="value">The Point</param>
+        /// <param name="factor">The Multiplier</param>
+        /// <returns>A Point Multiplied by the Multiplier</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D operator *(Vector2D value, Size2D factor) => new Vector2D(value.I * factor.Width, value.J * factor.Height);
+
+        /// <summary>
+        /// Divide a Vector2D
+        /// </summary>
+        /// <param name="divisor">The Vector2D</param>
+        /// <param name="divedend">The divisor</param>
+        /// <returns>A Vector2D divided by the divisor</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector2D operator /(Vector2D divisor, double divedend) => new Vector2D(divisor.I / divedend, divisor.J / divedend);
 
         /// <summary>
         /// Divide a Vector2D
@@ -299,19 +322,7 @@ namespace Engine
         /// <returns>A Vector2D divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(Vector2D divisor, double dividend)
-            => new Vector2D(divisor.I / dividend, divisor.J / dividend);
-
-        /// <summary>
-        /// Divide a Vector2D
-        /// </summary>
-        /// <param name="divisor">The Vector2D</param>
-        /// <param name="dividend">The divisor</param>
-        /// <returns>A Vector2D divided by the divisor</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator /(double divisor, Vector2D dividend)
-            => new Vector2D(divisor / dividend.I, divisor / dividend.I);
+        public static Vector2D operator /(double divisor, Vector2D dividend) => new Vector2D(divisor / dividend.I, divisor / dividend.I);
 
         /// <summary>
         /// The operator ==.
@@ -321,8 +332,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Vector2D a, Vector2D b)
-            => Equals(a, b);
+        public static bool operator ==(Vector2D a, Vector2D b) => Equals(a, b);
 
         /// <summary>
         /// The operator !=.
@@ -332,8 +342,15 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Vector2D a, Vector2D b)
-            => !Equals(a, b);
+        public static bool operator !=(Vector2D a, Vector2D b) => !Equals(a, b);
+
+        /// <summary>
+        /// Converts the specified <see cref="Vector2D"/> structure to a <see cref="ValueTuple{T1, T2}"/> structure.
+        /// </summary>
+        /// <param name="vector">The <see cref="Vector2D"/> to be converted.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator (double I, double J) (Vector2D vector) => (vector.I, vector.J);
 
         /// <summary>
         /// Tuple to <see cref="Vector2D"/>.
@@ -342,8 +359,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Vector2D((double X, double Y) tuple)
-            => new Vector2D(tuple);
+        public static implicit operator Vector2D((double X, double Y) tuple) => new Vector2D(tuple);
 
         ///// <summary>
         ///// <see cref="PointF"/> to <see cref="Vector2D"/>
@@ -439,85 +455,34 @@ namespace Engine
         }
         #endregion Factories
 
-        //#region Serialization
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        //#endregion
-
         #region Public Methods
-        /// <summary>
-        /// Returns the hash code for this instance.
-        /// </summary>
-        /// <returns>A 32-bit signed integer hash code.</returns>
-        public override int GetHashCode()
-            => unchecked(I.GetHashCode() ^ J.GetHashCode());
-
         /// <summary>
         /// Compares two Vectors
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Vector2D a, Vector2D b)
-            => Equals(a, b);
+        public static bool Compare(Vector2D a, Vector2D b) => Equals(a, b);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Vector2D && Equals(this, (Vector2D)obj);
+        public override bool Equals(object obj) => obj is Vector2D && Equals(this, (Vector2D)obj);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Vector2D value)
-            => Equals(this, value);
+        public bool Equals(Vector2D value) => Equals(this, value);
 
         /// <summary>
         /// The equals.
@@ -525,41 +490,48 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Vector2D a, Vector2D b)
-            => a.I == b.I & a.J == b.J;
+        public static bool Equals(Vector2D a, Vector2D b) => (a.I == b.I) & (a.J == b.J);
+
+        /// <summary>
+        /// Returns the hash code for this instance.
+        /// </summary>
+        /// <returns>A 32-bit signed <see cref="int"/> hash code.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => unchecked(I.GetHashCode() ^ J.GetHashCode());
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Vector2D"/>.
         /// </summary>
-        /// <returns>A string representation of this instance.</returns>
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture);
+        /// <returns>A string representation of this <see cref="Vector2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector2D"/> struct based on the IFormatProvider
-        /// passed in.
-        /// If the provider is null, the CurrentCulture is used.
+        /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">An object that supplies culture-specific formatting information.</param>
-        /// <returns>
-        /// A string representation of this instance as specified by provider.
-        /// </returns>
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Vector2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector2D"/> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Vector2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector2D"/> struct based on the format string
@@ -574,16 +546,9 @@ namespace Engine
         /// </returns>
         public string ConvertToString(string format, IFormatProvider provider)
         {
-            //            // If the object hasn't been initialized yet, for example reading from reflection, return its name.
-            //#pragma warning disable RECS0065 // Expression is always 'true' or always 'false'
-            //            if (this is null) return nameof(Vector2D);
-            //#pragma warning restore RECS0065 // Expression is always 'true' or always 'false'
-
-            // Capture the culture's list separator character.
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-
-            // Create the string representation of the struct.
-            return $"{nameof(Vector2D)}({nameof(I)}={I.ToString(format, provider)}{sep}{nameof(J)}={J.ToString(format, provider)})";
+            if (this == null) return nameof(Vector2D);
+            var s = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Vector2D)}=[{nameof(I)}:{I.ToString(format, provider)}{s} {nameof(J)}:{J.ToString(format, provider)}]";
         }
         #endregion Public Methods
     }

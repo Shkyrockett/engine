@@ -78,7 +78,7 @@ namespace Engine.Colorspace
         /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double GetLuminance(double red, double green, double blue)
+        public static double GetLuminanceFloat(double red, double green, double blue)
         {
             var max = red;
             if (green > max)
@@ -481,12 +481,12 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         /// <remarks>https://www.codeproject.com/articles/4488/xcmyk-cmyk-to-rgb-calculator-with-source-code</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool ValidateCYMKA(byte c, byte y, byte m, byte k, byte a)
-            => Between(a, CYMKMin, CYMKMax)
-            && Between(c, CYMKMin, CYMKMax)
-            && Between(y, CYMKMin, CYMKMax)
-            && Between(m, CYMKMin, CYMKMax)
-            && Between(k, CYMKMin, CYMKMax);
+        public static bool ValidateCMYKA(byte c, byte y, byte m, byte k, byte a)
+            => Between(a, CMYKMin, CMYKMax)
+            && Between(c, CMYKMin, CMYKMax)
+            && Between(y, CMYKMin, CMYKMax)
+            && Between(m, CMYKMin, CMYKMax)
+            && Between(k, CMYKMin, CMYKMax);
 
         /// <summary>
         /// Check whether a hue saturation intensity color is valid.
@@ -676,7 +676,7 @@ namespace Engine.Colorspace
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte red, byte green, byte blue, byte alpha) CYMKAColorToRGBAColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
+        public static (byte red, byte green, byte blue, byte alpha) CMYKAColorToRGBAColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
         {
             var d = 1d / 100d;//255d;
 
@@ -711,13 +711,13 @@ namespace Engine.Colorspace
         /// <param name="magenta"></param>
         /// <param name="black"></param>
         /// <param name="alpha"></param>
-        /// <returns></returns>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double red, double green, double blue, double alpha) CMYKAColorToRGBAColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
+        public static (double red, double green, double blue, double alpha) CMYKAColorToRGBAFColor(byte cyan, byte yellow, byte magenta, byte black, byte alpha)
         {
             var c = cyan / 100d; //255d;
             var m = magenta / 100d; //255d;
@@ -745,8 +745,8 @@ namespace Engine.Colorspace
         /// <param name="alpha">The alpha component.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAColorToCYMKAColor(byte red, byte green, byte blue, byte alpha)
-            => RGBAFColorToCYMKAColor(red / 255d, green / 255d, blue / 255d, alpha / 255d);
+        public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAColorToCMYKAColor(byte red, byte green, byte blue, byte alpha)
+            => RGBAFColorToCMYKAColor(red / 255d, green / 255d, blue / 255d, alpha / 255d);
 
         /// <summary>
         /// RGB --> CMYK
@@ -759,13 +759,14 @@ namespace Engine.Colorspace
         /// <param name="green"></param>
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAColorToCYMKAColor2(byte red, byte green, byte blue, byte alpha)
+        public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAColorToCMYKAColor2(byte red, byte green, byte blue, byte alpha)
         {
             var r = 1d - (red / 255d);
             var g = 1d - (green / 255d);
@@ -808,7 +809,7 @@ namespace Engine.Colorspace
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAFColorToCYMKAColor(double red, double green, double blue, double alpha)
+        public static (byte cyan, byte yellow, byte magenta, byte black, byte alpha) RGBAFColorToCMYKAColor(double red, double green, double blue, double alpha)
         {
             var k = red < green ? red : green;
             k = blue < k ? blue : k;
@@ -926,7 +927,8 @@ namespace Engine.Colorspace
         /// <param name="saturation"></param>
         /// <param name="intensity"></param>
         /// <param name="alpha"></param>
-        /// <returns>RGB color-space converted vector.</returns>
+        /// <returns>RGB color-space converted vector.</returns>
+
         /// <acknowledgment>
         /// http://blog.saikoled.com/post/44677718712/how-to-convert-from-hsi-to-rgb-white
         /// </acknowledgment>

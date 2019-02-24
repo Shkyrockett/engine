@@ -79,7 +79,7 @@ namespace Engine
 
             if (value is string source)
             {
-                return QuaternionD.Parse(source);
+                return Quaternion4D.Parse(source);
             }
 
             return base.ConvertFrom(context, culture, value);
@@ -101,9 +101,9 @@ namespace Engine
         /// <param name="destinationType"> The type to which this will convert the Vector instance. </param>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType != null && value is QuaternionD)
+            if (destinationType != null && value is Quaternion4D)
             {
-                var instance = (QuaternionD)value;
+                var instance = (Quaternion4D)value;
 
                 if (destinationType == typeof(string))
                 {

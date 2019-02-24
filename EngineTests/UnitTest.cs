@@ -94,39 +94,39 @@ namespace EngineTests
         }
         #endregion Class Housekeeping
 
-        /// <summary>
-        /// An example exception test involving dividing by 0.
-        /// </summary>
-        [TestMethod()]
-        [Priority(0)]
-        [Owner("Null")]
-        [TestProperty("Null", "Null")]
-        [DeploymentItem("Engine.dll")]
-        [ExpectedException(typeof(DivideByZeroException))]
-        [Ignore]
-        public void DivideMethodTest()
-        {
-            //const int x = 0;
-            //var value = 1 / x;
-            Assert.Fail("No exception was thrown.");
-        }
+        ///// <summary>
+        ///// An example exception test involving dividing by 0.
+        ///// </summary>
+        //[TestMethod()]
+        //[Priority(0)]
+        //[Owner("Null")]
+        //[TestProperty("Null", "Null")]
+        //[DeploymentItem("Engine.dll")]
+        //[ExpectedException(typeof(DivideByZeroException))]
+        //[Ignore]
+        //public void DivideMethodTest()
+        //{
+        //    //const int x = 0;
+        //    //var value = 1 / x;
+        //    Assert.Fail("No exception was thrown.");
+        //}
 
-        /// <summary>
-        /// An example test to show test structure.
-        /// </summary>
-        [TestMethod]
-        [Priority(0)]
-        [Owner("Null")]
-        [TestProperty("Null", "Null")]
-        [DeploymentItem("Engine.dll")]
-        [Ignore]
-        public void TestMethodExample()
-        {
-            //
-            // TODO: Add test logic here
-            //
-            Assert.Inconclusive("ToDo: Implement code to verify target.");
-            throw new NotImplementedException();
-        }
+        ///// <summary>
+        ///// An example test to show test structure.
+        ///// </summary>
+        //[TestMethod]
+        //[Priority(0)]
+        //[Owner("Null")]
+        //[TestProperty("Null", "Null")]
+        //[DeploymentItem("Engine.dll")]
+        //[Ignore]
+        //public void TestMethodExample()
+        //{
+        //    //
+        //    // TODO: Add test logic here
+        //    //
+        //    Assert.Inconclusive("ToDo: Implement code to verify target.");
+        //    throw new NotImplementedException();
+        //}
     }
 }

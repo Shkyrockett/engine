@@ -351,7 +351,7 @@ namespace Engine
         /// <returns>Returns the length of the Quaternion.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Length(this QuaternionD quaternion)
+        public static double Length(this Quaternion4D quaternion)
             => QuaternionMagnitude(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
 
         /// <summary>
@@ -488,7 +488,7 @@ namespace Engine
         /// <returns>Returns the length of a Quaternion.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double LengthSquared(this QuaternionD quaternion)
+        public static double LengthSquared(this Quaternion4D quaternion)
             => QuaternionNormal(quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
 
         /// <summary>

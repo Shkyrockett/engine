@@ -153,7 +153,7 @@ namespace Engine
         /// </summary>
         /// <param name="range">The range.</param>
         /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
-        public virtual List<Point2D> InterpolatePoints(Range range)
+        public virtual List<Point2D> InterpolatePoints(NumericRange range)
         {
             var points = new List<Point2D>();
             foreach (var item in range)

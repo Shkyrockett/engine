@@ -19,7 +19,7 @@ namespace Engine
     /// Numeric range class.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    public struct Range
+    public struct NumericRange
         : IEnumerable<double>
     {
         #region Implementations
@@ -27,54 +27,54 @@ namespace Engine
 
         #region Factories
         /// <summary>
-        /// Initializes a new instance of the <see cref="Range"/> struct for iteration of a range from 0 to 1.
+        /// Initializes a new instance of the <see cref="NumericRange"/> struct for iteration of a range from 0 to 1.
         /// </summary>
         /// <param name="count">The number of steps to have between 0 and 1.</param>
-        /// <returns>A new <see cref="Range"/> struct set up for 0 to 1 iteration.</returns>
-        public static Range IteratorRange(double count)
-            => new Range(0d, 1d, 0d, 1d, 1d / count, Overflows.Clamp);
+        /// <returns>A new <see cref="NumericRange"/> struct set up for 0 to 1 iteration.</returns>
+        public static NumericRange IteratorRange(double count)
+            => new NumericRange(0d, 1d, 0d, 1d, 1d / count, Overflows.Clamp);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Range"/> struct for iteration from the start for a designated length.
+        /// Initializes a new instance of the <see cref="NumericRange"/> struct for iteration from the start for a designated length.
         /// </summary>
-        /// <param name="start">The start value of the <see cref="Range"/>.</param>
-        /// <param name="length">The length of the <see cref="Range"/>.</param>
+        /// <param name="start">The start value of the <see cref="NumericRange"/>.</param>
+        /// <param name="length">The length of the <see cref="NumericRange"/>.</param>
         /// <param name="count">The number of steps to have between the start and end.</param>
-        /// <returns>A new <see cref="Range"/> struct set up for iteration from the start for a designated length.</returns>
-        public static Range StartLengthCountRange(double start, double length, int count)
-            => new Range(start, start + length, start, start + length, length / count, Overflows.Clamp);
+        /// <returns>A new <see cref="NumericRange"/> struct set up for iteration from the start for a designated length.</returns>
+        public static NumericRange StartLengthCountRange(double start, double length, int count)
+            => new NumericRange(start, start + length, start, start + length, length / count, Overflows.Clamp);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Range"/> struct for iteration in Radians.
+        /// Initializes a new instance of the <see cref="NumericRange"/> struct for iteration in Radians.
         /// </summary>
         /// <param name="start">The start angle in radians.</param>
         /// <param name="end">The end angle in radians.</param>
         /// <param name="count">The number of steps to have between the start and end.</param>
-        /// <returns>A new <see cref="Range"/> struct set up for iterating radians.</returns>
-        public static Range RadiansRange(double start, double end, int count)
-            => new Range(start, end, -PI, PI, (end - start) / count, Overflows.Wrap);
+        /// <returns>A new <see cref="NumericRange"/> struct set up for iterating radians.</returns>
+        public static NumericRange RadiansRange(double start, double end, int count)
+            => new NumericRange(start, end, -PI, PI, (end - start) / count, Overflows.Wrap);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Range"/> struct for iteration in Degrees.
+        /// Initializes a new instance of the <see cref="NumericRange"/> struct for iteration in Degrees.
         /// </summary>
         /// <param name="start">The start angle in degrees.</param>
         /// <param name="end">The end angle in degrees.</param>
-        /// <returns>A new <see cref="Range"/> struct set up for iterating degrees.</returns>
-        public static Range DegreesRange(double start, double end)
-            => new Range(start, end, 0d, 360d, 1d, Overflows.Wrap);
+        /// <returns>A new <see cref="NumericRange"/> struct set up for iterating degrees.</returns>
+        public static NumericRange DegreesRange(double start, double end)
+            => new NumericRange(start, end, 0d, 360d, 1d, Overflows.Wrap);
         #endregion Factories
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Range"/> struct;
+        /// Initializes a new instance of the <see cref="NumericRange"/> struct;
         /// </summary>
-        /// <param name="min">Minimum value of the <see cref="Range"/>.</param>
-        /// <param name="max">Maximum value of the <see cref="Range"/>.</param>
+        /// <param name="min">Minimum value of the <see cref="NumericRange"/>.</param>
+        /// <param name="max">Maximum value of the <see cref="NumericRange"/>.</param>
         /// <param name="unitMin">Minimum value of a periodic unit that wraps back to the maximum value.</param>
         /// <param name="unitMax">Maximum value of a periodic unit that wraps back to the minimum value.</param>
         /// <param name="step">Amount to advance for each iteration</param>
         /// <param name="overflow">Overflow rules.</param>
-        public Range(double min, double max, double unitMin, double unitMax, double step, Overflows overflow = Overflows.Clamp)
+        public NumericRange(double min, double max, double unitMin, double unitMax, double step, Overflows overflow = Overflows.Clamp)
         {
             Min = min;
             Max = max;
@@ -108,12 +108,12 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// Gets the minimum value of the <see cref="Range"/>.
+        /// Gets the minimum value of the <see cref="NumericRange"/>.
         /// </summary>
         public double Min { get; }
 
         /// <summary>
-        /// Gets the maximum value of the <see cref="Range"/>.
+        /// Gets the maximum value of the <see cref="NumericRange"/>.
         /// </summary>
         public double Max { get; }
 

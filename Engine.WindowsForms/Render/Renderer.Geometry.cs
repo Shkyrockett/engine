@@ -56,7 +56,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this ParametricDelegateCurve shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this ParametricDelegateCurve shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             var points = shape.InterpolatePoints(100);
@@ -72,7 +72,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this ScreenPoint shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this ScreenPoint shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
                 renderer.DrawRectangle(itemStyle.Stroke, shape.X, shape.Y, 1d, 1d);
@@ -151,7 +151,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this PolygonContour shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this PolygonContour shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
                 renderer.FillPolygon(itemStyle.Fill, shape.Points);
@@ -166,7 +166,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this Polyline shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this Polyline shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
                 renderer.FillPolygon(itemStyle.Fill, shape.Points);
@@ -181,7 +181,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this PolylineSet set, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this PolylineSet set, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             foreach (Polyline shape in set.Polylines)
@@ -379,7 +379,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this CircularArc shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this CircularArc shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             Rectangle2D bounds = shape.Bounds!!;
@@ -411,7 +411,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this EllipticalArc shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this EllipticalArc shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             Rectangle2D bounds = shape.Bounds!!;
@@ -457,7 +457,7 @@ namespace Engine.Imaging
         /// <param name="renderer">The renderer.</param>
         /// <param name="item">The item.</param>
         /// <param name="style">The style.</param>
-        public static void Render(this BezierSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle? style = null)
+        public static void Render(this BezierSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
                 switch (shape.Degree)

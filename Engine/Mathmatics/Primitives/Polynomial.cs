@@ -894,6 +894,11 @@ namespace Engine
             var order = (int)Degree;
             var result = 0d;
 
+            //foreach (var coefficient in coefficients[^1..-1..0])
+            //{
+            //    result = result * x + coefficient;
+            //}
+
             for (var i = order; i >= 0; i--)
             {
                 result = (result * x) + coefficients[i];
@@ -1535,6 +1540,7 @@ namespace Engine
             {
                 // Clear the elements of the array so that the garbage collector can reclaim the references.
                 Array.Clear(coefficients, 0, size);
+                size = 0;
             }
 
             degree = null;

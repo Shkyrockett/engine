@@ -79,6 +79,7 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="CubicBezier"/> class.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier()
             : this(0, 0, 0, 0, 0, 0, 0, 0)
         { }
@@ -89,23 +90,17 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="c"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier(Point2D a, Point2D b, Point2D c)
         {
-            var nodes = Conversions.QuadraticBezierToCubicBezier(a, b, c);
-            ax = nodes.A.X;
-            ay = nodes.A.Y;
-            bx = nodes.B.X;
-            by = nodes.B.Y;
-            cx = nodes.C.X;
-            cy = nodes.C.Y;
-            dx = nodes.D.X;
-            dy = nodes.D.Y;
+            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, this.dx, this.dy) = Conversions.QuadraticBezierToCubicBezierTuple(a.X, a.Y, b.X, b.Y, c.X, c.Y);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CubicBezier"/> class from a <see cref="QuadraticBezier"/>.
         /// </summary>
         /// <param name="tuple"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier((double aX, double aY, double bX, double bY, double cX, double cY) tuple)
             : this(tuple.aX, tuple.aY, tuple.bX, tuple.bY, tuple.cX, tuple.cY)
         { }
@@ -119,17 +114,10 @@ namespace Engine
         /// <param name="by"></param>
         /// <param name="cx"></param>
         /// <param name="cy"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier(double ax, double ay, double bx, double by, double cx, double cy)
         {
-            var nodes = Conversions.QuadraticBezierToCubicBezier(ax, ay, bx, by, cx, cy);
-            this.ax = nodes[0].X;
-            this.ay = nodes[0].Y;
-            this.bx = nodes[1].X;
-            this.by = nodes[1].Y;
-            this.cx = nodes[2].X;
-            this.cy = nodes[2].Y;
-            this.dx = nodes[3].X;
-            this.dy = nodes[3].Y;
+            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, this.dx, this.dy) = Conversions.QuadraticBezierToCubicBezierTuple(ax, ay, bx, by, cx, cy);
         }
 
         /// <summary>
@@ -139,6 +127,7 @@ namespace Engine
         /// <param name="b">Tangent1</param>
         /// <param name="c">Position2</param>
         /// <param name="d">Tangent2</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier(Point2D a, Point2D b, Point2D c, Point2D d)
             : this(a.X, a.Y, b.X, b.Y, c.X, c.Y, d.X, d.Y)
         { }
@@ -154,6 +143,7 @@ namespace Engine
         /// <param name="cy">Position2</param>
         /// <param name="dx">Tangent2</param>
         /// <param name="dy">Tangent2</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier(double ax, double ay, double bx, double by, double cx, double cy, double dx, double dy)
         {
             this.ax = ax;
@@ -170,6 +160,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="CubicBezier"/> class.
         /// </summary>
         /// <param name="tuple"></param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier((double aX, double aY, double bX, double bY, double cX, double cY, double dX, double dY) tuple)
             : this(tuple.aX, tuple.aY, tuple.bX, tuple.bY, tuple.cX, tuple.cY, tuple.dX, tuple.dY)
         { }
@@ -808,8 +799,8 @@ namespace Engine
 
                     return pass2;
                 }
+            }
         }
-    }
         #endregion Properties
 
         #region Operators

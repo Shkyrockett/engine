@@ -32,7 +32,7 @@ namespace Engine
         /// <summary>
         /// The identity.
         /// </summary>
-        public static Transform2D Identity = new Transform2D(0, 0, 0, 0, 1, 1);
+        public static Transform2D Identity = new Transform2D(0d, 0d, 0d, 0d, 1d, 1d);
         #endregion Implementations
 
         #region Constructors
@@ -40,7 +40,10 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Transform2D"/> class.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Transform2D((double x, double y, double skewX, double skewY, double scaleX, double scaleY) tuple)
+            : this()
         {
             (X, Y, SkewX, SkewY, ScaleX, ScaleY) = tuple;
         }
@@ -54,7 +57,10 @@ namespace Engine
         /// <param name="skewY">The skewY.</param>
         /// <param name="scaleX">The scaleX.</param>
         /// <param name="scaleY">The scaleY.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Transform2D(double x, double y, double skewX, double skewY, double scaleX, double scaleY)
+            : this()
         {
             X = x;
             Y = y;
@@ -75,6 +81,8 @@ namespace Engine
         /// <param name="skewY">The skewY.</param>
         /// <param name="scaleX">The scaleX.</param>
         /// <param name="scaleY">The scaleY.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Deconstruct(out double x, out double y, out double skewX, out double skewY, out double scaleX, out double scaleY)
         {
             x = X;
@@ -193,11 +201,7 @@ namespace Engine
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [RefreshProperties(RefreshProperties.All)]
-        public double RotationDegrees
-        {
-            get { return Rotation.ToDegrees(); }
-            set { Rotation = value.ToRadians(); }
-        }
+        public double RotationDegrees { get { return Rotation.ToDegrees(); } set { Rotation = value.ToRadians(); } }
 
         /// <summary>
         /// Gets or sets the <see cref="Location"/> of the <see cref="Transform2D"/>
@@ -210,15 +214,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        public Point2D Location
-        {
-            get { return new Point2D(X, Y); }
-            set
-            {
-                X = value.X;
-                Y = value.Y;
-            }
-        }
+        public Point2D Location { get { return new Point2D(X, Y); } set { (X, Y) = value; } }
 
         /// <summary>
         /// Gets or sets the <see cref="SkewY"/> vector of the <see cref="Transform2D"/>
@@ -231,15 +227,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        public Vector2D Skew
-        {
-            get { return new Vector2D(X, Y); }
-            set
-            {
-                SkewX = value.I;
-                SkewY = value.J;
-            }
-        }
+        public Vector2D Skew { get { return new Vector2D(X, Y); } set { (SkewX, SkewY) = value; } }
 
         /// <summary>
         /// Gets or sets the <see cref="Scale"/> of the <see cref="Transform2D"/>
@@ -252,15 +240,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [TypeConverter(typeof(Point2DConverter))]
         [RefreshProperties(RefreshProperties.All)]
-        public Size2D Scale
-        {
-            get { return new Size2D(X, Y); }
-            set
-            {
-                ScaleX = value.Width;
-                ScaleY = value.Height;
-            }
-        }
+        public Size2D Scale { get { return new Size2D(X, Y); } set { (ScaleX, ScaleY) = value; } }
         #endregion Properties
 
         #region Operators
@@ -297,8 +277,9 @@ namespace Engine
         /// </returns>
         /// <param name='transform1'>The first <see cref="Transform2D"/> to compare</param>
         /// <param name='transform2'>The second <see cref="Transform2D"/> to compare</param>
-        public static bool operator ==(Transform2D transform1, Transform2D transform2)
-            => Equals(transform1, transform2);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(Transform2D transform1, Transform2D transform2) => Equals(transform1, transform2);
 
         /// <summary>
         /// Compares two <see cref="Transform2D"/> instances for exact inequality.
@@ -311,8 +292,9 @@ namespace Engine
         /// </returns>
         /// <param name='transform1'>The first <see cref="Transform2D"/> to compare</param>
         /// <param name='transform2'>The second <see cref="Transform2D"/> to compare</param>
-        public static bool operator !=(Transform2D transform1, Transform2D transform2)
-            => !Equals(transform1, transform2);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(Transform2D transform1, Transform2D transform2) => !Equals(transform1, transform2);
         #endregion Operators
 
         #region Factories
@@ -366,26 +348,14 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// Get the hash code.
-        /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        public override int GetHashCode()
-            => X.GetHashCode()
-            ^ Y.GetHashCode()
-            ^ SkewX.GetHashCode()
-            ^ SkewY.GetHashCode()
-            ^ ScaleX.GetHashCode()
-            ^ ScaleY.GetHashCode();
-
-        /// <summary>
         /// Compares two Vectors
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Transform2D a, Transform2D b)
-            => Equals(a, b);
+        public static bool Compare(Transform2D a, Transform2D b) => Equals(a, b);
 
         /// <summary>
         /// The equals.
@@ -393,34 +363,68 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Transform2D a, Transform2D b)
-            => a.X == b.X & a.Y == b.Y & a.SkewX == b.SkewX & a.SkewY == b.SkewY & a.ScaleX == b.ScaleX & a.ScaleY == b.ScaleY;
+        public static bool Equals(Transform2D a, Transform2D b) => a.X == b.X & a.Y == b.Y & a.SkewX == b.SkewX & a.SkewY == b.SkewY & a.ScaleX == b.ScaleX & a.ScaleY == b.ScaleY;
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Transform2D && Equals(this, (Transform2D)obj);
+        public override bool Equals(object obj) => obj is Transform2D && Equals(this, (Transform2D)obj);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Transform2D value)
-            => Equals(this, value);
+        public bool Equals(Transform2D value) => Equals(this, value);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Vector4D"/>.
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode() ^ SkewX.GetHashCode() ^ SkewY.GetHashCode() ^ ScaleX.GetHashCode() ^ ScaleY.GetHashCode();
+
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="Transform2D"/>.
         /// </summary>
         /// <returns></returns>
-        public override string ToString()
-            => ConvertToString(string.Empty, CultureInfo.InvariantCulture);
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Transform2D"/> struct based on the IFormatProvider
+        /// passed in.  If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Transform2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Transform2D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="provider"></param>
+        /// <returns>
+        /// A string representation of this object.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Vector4D"/> struct based on the format string
@@ -433,27 +437,13 @@ namespace Engine
         /// <returns>
         /// A string representation of this object.
         /// </returns>
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Vector4D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            // Capture the culture's list separator character.
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-
-            // Create the string representation of the struct.
-            return $"{nameof(Transform2D)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}{sep}{nameof(SkewX)}={SkewX.ToString(format, provider)}{sep}{nameof(SkewY)}={SkewY.ToString(format, provider)}{sep}{nameof(ScaleX)}={ScaleX.ToString(format, provider)}{sep}{nameof(ScaleY)}={ScaleY.ToString(format, provider)}}}";
+            if (this == null) return nameof(Point2D);
+            var s = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Transform2D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, provider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, provider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, provider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, provider)}]";
         }
         #endregion Methods
     }

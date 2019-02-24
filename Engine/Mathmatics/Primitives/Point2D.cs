@@ -22,28 +22,28 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// The point2d struct.
+    /// The <see cref="Point2D"/> struct.
     /// </summary>
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Point2D>))]
-    //[DebuggerDisplay("X: {X}, Y: {Y}")]
+    [DebuggerDisplay("{nameof(X)}: {X ?? double.NaN}, {nameof(Y)}: {Y ?? double.NaN}")]
     public struct Point2D
         : IVector<Point2D>
     {
         #region Implementations
         /// <summary>
-        /// An Empty <see cref="Point2D"/>.
+        /// Represents a <see cref="Point2D"/> that has <see cref="X"/>, and <see cref="Y"/> values set to zero.
         /// </summary>
-        public static readonly Point2D Empty = new Point2D(0, 0);
+        public static readonly Point2D Empty = new Point2D(0d, 0d);
 
         /// <summary>
-        /// A Unit <see cref="Point2D"/>.
+        /// Represents a <see cref="Point2D"/> that has <see cref="X"/>, and <see cref="Y"/> values set to 1.
         /// </summary>
-        public static readonly Point2D Unit = new Point2D(1, 1);
+        public static readonly Point2D Unit = new Point2D(1d, 1d);
 
         /// <summary>
-        /// A Unit <see cref="Point2D"/>.
+        /// Represents a <see cref="Point2D"/> that has <see cref="X"/>, and <see cref="Y"/> values set to NaN.
         /// </summary>
         public static readonly Point2D NaN = new Point2D(double.NaN, double.NaN);
         #endregion Implementations
@@ -52,46 +52,49 @@ namespace Engine
         /// <summary>
         /// Initializes a new  instance of the <see cref="Point2D"/> class.
         /// </summary>
-        /// <param name="point"></param>
-
+        /// <param name="point">The Point2D.</param>
         [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D(Point2D point)
             : this(point.X, point.Y)
         { }
 
         /// <summary>
-        /// Initializes a new  instance of the <see cref="Point2D"/> class.
+        /// Initializes a new instance of the <see cref="Point2D"/> class.
         /// </summary>
-        /// <param name="tuple"></param>
-
+        /// <param name="x">The x component of the Point2D.</param>
+        /// <param name="y">The y component of the Point2D.</param>
         [DebuggerStepThrough]
-        public Point2D((double X, double Y) tuple)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D(double x, double y)
+            : this()
         {
-            (X, Y) = tuple;
+            X = x;
+            Y = y;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Point2D"/> class.
         /// </summary>
-        /// <param name="x">The x component of the Point.</param>
-        /// <param name="y">The y component of the Point.</param>
-
+        /// <param name="tuple"></param>
         [DebuggerStepThrough]
-        public Point2D(double x, double y)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public Point2D((double X, double Y) tuple)
+            : this()
         {
-            X = x;
-            Y = y;
+            (X, Y) = tuple;
         }
         #endregion Constructors
 
         #region Deconstructors
         /// <summary>
-        /// The deconstruct.
+        /// Deconstruct this <see cref="Point4D"/> to a <see cref="ValueTuple{T1, T2}"/>.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public void Deconstruct(out double x, out double y)
         {
             x = X;
@@ -101,13 +104,13 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// X component of a <see cref="Point2D"/> coordinate.
+        /// Gets or sets the X component of a <see cref="Point2D"/> coordinate.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
-        /// Y component of a <see cref="Point2D"/> coordinate.
+        /// Gets or sets the Y component of a <see cref="Point2D"/> coordinate.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
@@ -130,8 +133,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Point2D value)
-            => new Point2D(+value.X, +value.Y);
+        public static Point2D operator +(Point2D value) => new Point2D(+value.X, +value.Y);
 
         /// <summary>
         /// Add an amount to both values in the <see cref="Point2D"/> classes.
@@ -141,8 +143,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Point2D value, double addend)
-            => value.Add(addend);
+        public static Point2D operator +(Point2D value, double addend) => value.Add(addend);
 
         /// <summary>
         /// Add two <see cref="Point2D"/> classes together.
@@ -152,8 +153,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator +(Point2D value, Point2D addend)
-            => value.Add(addend);
+        public static Vector2D operator +(Point2D value, Point2D addend) => value.Add(addend);
 
         /// <summary>
         /// Add two <see cref="Point2D"/> classes together.
@@ -163,8 +163,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Point2D value, Size2D addend)
-            => value.Add(addend);
+        public static Point2D operator +(Point2D value, Size2D addend) => value.Add(addend);
 
         /// <summary>
         /// Operator Point + Vector
@@ -176,8 +175,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator +(Point2D point, Vector2D vector)
-            => new Point2D(point.X + vector.I, point.Y + vector.J);
+        public static Point2D operator +(Point2D point, Vector2D vector) => new Point2D(point.X + vector.I, point.Y + vector.J);
 
         /// <summary>
         /// Unary subtraction operator.
@@ -186,8 +184,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Point2D value)
-            => new Point2D(-value.X, -value.Y);
+        public static Point2D operator -(Point2D value) => new Point2D(-value.X, -value.Y);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from a <see cref="double"/> value.
@@ -197,8 +194,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Point2D value, double subend)
-            => value.Subtract(subend);
+        public static Point2D operator -(Point2D value, double subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from another <see cref="Point2D"/> class.
@@ -208,8 +204,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Vector2D operator -(Point2D value, Point2D subend)
-            => value.Subtract(subend);
+        public static Vector2D operator -(Point2D value, Point2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from another <see cref="Point2D"/> class.
@@ -219,8 +214,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Point2D value, Size2D subend)
-            => value.Subtract(subend);
+        public static Point2D operator -(Point2D value, Size2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Subtract a <see cref="Point2D"/> from another <see cref="Point2D"/> class.
@@ -230,8 +224,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator -(Point2D value, Vector2D subend)
-            => value.Subtract(subend);
+        public static Point2D operator -(Point2D value, Vector2D subend) => value.Subtract(subend);
 
         /// <summary>
         /// Scale a point
@@ -241,8 +234,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator *(double value, Point2D factor)
-            => new Point2D(value * factor.X, value * factor.Y);
+        public static Point2D operator *(double value, Point2D factor) => new Point2D(value * factor.X, value * factor.Y);
 
         /// <summary>
         /// Scale a point.
@@ -252,8 +244,17 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator *(Point2D value, double factor)
-            => new Point2D(value.X * factor, value.Y * factor);
+        public static Point2D operator *(Point2D value, double factor) => new Point2D(value.X * factor, value.Y * factor);
+
+        /// <summary>
+        /// Inflate a point.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="factor"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D operator *(Point2D value, Size2D factor) => new Point2D(value.X * factor.Width, value.Y * factor.Height);
 
         /// <summary>
         /// Multiply a point by a matrix.
@@ -263,8 +264,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator *(Point2D value, Matrix3x2D matrix)
-            => matrix.Transform(value);
+        public static Point2D operator *(Point2D value, Matrix3x2D matrix) => matrix.Transform(value);
 
         /// <summary>
         /// Divide a <see cref="Point2D"/> by a value.
@@ -274,8 +274,27 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Point2D operator /(Point2D divisor, double dividend)
-            => new Point2D(divisor.X / dividend, divisor.Y / dividend);
+        public static Point2D operator /(Point2D divisor, double dividend) => new Point2D(divisor.X / dividend, divisor.Y / dividend);
+
+        /// <summary>
+        /// Divide a Point2D
+        /// </summary>
+        /// <param name="divisor">The <see cref="Point2D"/></param>
+        /// <param name="dividend">The divisor</param>
+        /// <returns>A Point2D divided by the divisor</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D operator /(double divisor, Point2D dividend) => new Point2D(divisor / dividend.X, divisor / dividend.Y);
+
+        /// <summary>
+        /// Deflate a point.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="factor"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D operator /(Point2D value, Size2D factor) => new Point2D(value.X / factor.Width, value.Y / factor.Height);
 
         /// <summary>
         /// Compares two <see cref="Point2D"/> objects.
@@ -287,8 +306,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Point2D left, Point2D right)
-            => Equals(left, right);
+        public static bool operator ==(Point2D left, Point2D right) => Equals(left, right);
 
         /// <summary>
         /// Compares two <see cref="Point2D"/> objects.
@@ -300,8 +318,15 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Point2D left, Point2D right)
-            => !Equals(left, right);
+        public static bool operator !=(Point2D left, Point2D right) => !Equals(left, right);
+
+        /// <summary>
+        /// Explicit conversion of the specified <see cref="Vector2D"/> structure to a <see cref="Point2D"/> structure.
+        /// </summary>
+        /// <param name="vector">The <see cref="Vector2D"/> to be converted.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Point2D(Vector2D vector) => new Point2D(vector.I, vector.J);
 
         /// <summary>
         /// Explicit conversion to <see cref="Size2D"/>.
@@ -311,8 +336,7 @@ namespace Engine
         /// <param name="point"> Point - the Point to convert to a Size </param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Size2D(Point2D point)
-            => new Size2D(Abs(point.X), Abs(point.Y));
+        public static explicit operator Size2D(Point2D point) => new Size2D(Abs(point.X), Abs(point.Y));
 
         /// <summary>
         /// Explicit conversion to Vector
@@ -320,23 +344,24 @@ namespace Engine
         /// <param name="point"> Point - the Point to convert to a Vector </param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Vector2D(Point2D point)
-            => new Vector2D(point.X, point.Y);
+        public static explicit operator Vector2D(Point2D point) => new Vector2D(point.X, point.Y);
 
         /// <summary>
-        /// Explicit conversion from Vector2D to Point2D.
+        /// Implicit conversion from tuple.
         /// </summary>
-        /// <param name="point"> Point - the Point to convert to a Vector </param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Point2D(Vector2D point)
-            => new Point2D(point.I, point.J);
-
         /// <param name="tuple"></param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Point2D((double X, double Y) tuple)
-            => new Point2D(tuple);
+        public static implicit operator Point2D((double X, double Y) tuple) => new Point2D(tuple);
+
+        /// <summary>
+        /// Converts the specified <see cref="Point2D"/> structure to a <see cref="ValueTuple{T1, T2}"/> structure.
+        /// </summary>
+        /// <param name="point">The <see cref="Point2D"/> to be converted.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator (double X, double Y) (Point2D point) => (point.X, point.Y);
         #endregion Operators
 
         #region Factories
@@ -382,61 +407,7 @@ namespace Engine
         }
         #endregion Factories
 
-        //#region Serialization
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        //#endregion
-
         #region Methods
-        /// <summary>
-        /// Get the hash code.
-        /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => X.GetHashCode()
-            ^ Y.GetHashCode();
-
         /// <summary>
         /// The compare.
         /// </summary>
@@ -456,8 +427,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Point2D a, Point2D b)
-            => (a.X == b.X) & (a.Y == b.Y);
+        public static bool Equals(Point2D a, Point2D b) => (a.X == b.X) & (a.Y == b.Y);
 
         /// <summary>
         /// The equals.
@@ -466,8 +436,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Point2D && Equals(this, (Point2D)obj);
+        public override bool Equals(object obj) => obj is Point2D && Equals(this, (Point2D)obj);
 
         /// <summary>
         /// The equals.
@@ -480,32 +449,49 @@ namespace Engine
             => Equals(this, value);
 
         /// <summary>
+        /// Get the hash code.
+        /// </summary>
+        /// <returns>The <see cref="int"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode();
+
+        /// <summary>
         /// Clone.
         /// </summary>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        internal Point2D Clone()
-            => new Point2D(X, Y);
+        internal Point2D Clone() => new Point2D(X, Y);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Point2D"/>.
+        /// Creates a human-readable string that represents this <see cref="Point2D"/> struct.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A string representation of this <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Point2D"/> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Point2D"/> struct based on the format string
+        /// and IFormatProvider passed in.
+        /// If the provider is null, the CurrentCulture is used.
+        /// See the documentation for IFormattable for more information.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Point2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="Point2D"/> class based on the format string
@@ -514,37 +500,15 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Point2D"/> class based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="provider">The provider.</param>
-        /// <returns>
-        /// A <see cref="string"/> representation of this object.
-        /// </returns>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
+        /// <returns>A string representation of this <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this == null)
-            {
-                return nameof(Point2D);
-            }
-
-            var sep = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Point2D)}{{{nameof(X)}={X.ToString(format, provider)}{sep}{nameof(Y)}={Y.ToString(format, provider)}}}";
+            if (this == null) return nameof(Point2D);
+            var s = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Point2D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}]";
         }
         #endregion Methods
     }

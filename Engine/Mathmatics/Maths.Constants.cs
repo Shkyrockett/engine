@@ -609,13 +609,13 @@ namespace Engine
         /// The lower limit for R, G, B (integer version).
         /// </summary>
         /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
-        public const byte CYMKMin = 0;
+        public const byte CMYKMin = 0;
 
         /// <summary>
         /// The upper limit for R, G, B (integer version).
         /// </summary>
         /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
-        public const byte CYMKMax = 100;
+        public const byte CMYKMax = 100;
 
         /// <summary>
         /// The lower limit for I in YIQ.

@@ -48,7 +48,6 @@ namespace Engine
         /// </summary>
         /// <param name="ellipse"></param>
         /// <returns>Returns a list of Cubic Bézier curves that approximate an elliptical arc.</returns>
-
         /// <acknowledgment>
         /// Code ported from: https://www.khanacademy.org/computer-programming/e/6221186997551104
         /// Math from: http://www.spaceroots.org/documents/ellipse/node22.html

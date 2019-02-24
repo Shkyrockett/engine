@@ -67,7 +67,7 @@ namespace Engine
         /// <summary>
         /// Gets the tangent for the start of the cure.
         /// </summary>
-        protected Vector2D GetLeftTangent(int last)
+        protected Vector2D GetLeftTangent(int last, double epsilon = Epsilon)
         {
             var totalLen = arclen[arclen.Count - 1];
             var p0 = points[0];
@@ -77,14 +77,14 @@ namespace Engine
             last = Min(EndTangentNPoints, last - 1);
             for (var i = 2; i <= last; i++)
             {
-                var ti = 1 - (arclen[i] / totalLen);
+                var ti = 1d - (arclen[i] / totalLen);
                 var weight = ti * ti * ti;
                 var v = Primitives.Normalize(points[i] - p0);
                 total += v * weight;
                 weightTotal += weight;
             }
             // if the vectors add up to zero (IE going opposite directions), there's no way to normalize them
-            if (total.Length > Epsilon)
+            if (total.Length > epsilon)
             {
                 tanL = Primitives.Normalize(total / weightTotal);
             }
@@ -95,13 +95,13 @@ namespace Engine
         /// <summary>
         /// Gets the tangent for the end of the curve.
         /// </summary>
-        protected Vector2D GetRightTangent(int first)
+        protected Vector2D GetRightTangent(int first, double epsilon = Epsilon)
         {
             var totalLen = arclen[arclen.Count - 1];
             var p3 = points[points.Count - 1];
             var tanR = (points[points.Count - 2] - p3).Normalize();
             var total = tanR;
-            double weightTotal = 1;
+            var weightTotal = 1d;
             first = Max(points.Count - (EndTangentNPoints + 1), first + 1);
             for (var i = points.Count - 3; i >= first; i--)
             {
@@ -111,7 +111,7 @@ namespace Engine
                 total += v * weight;
                 weightTotal += weight;
             }
-            if (total.Length > Epsilon)
+            if (total.Length > epsilon)
             {
                 tanR = (total / weightTotal).Normalize();
             }
@@ -122,7 +122,7 @@ namespace Engine
         /// <summary>
         /// Gets the tangent at a given point in the curve.
         /// </summary>
-        protected Vector2D GetCenterTangent(int first, int last, int split)
+        protected Vector2D GetCenterTangent(int first, int last, int split, double epsilon = Epsilon)
         {
             // because we want to maintain C1 continuity on the spline, the tangents on either side must be inverses of one another
             Debug.Assert(first < split && split < last);
@@ -133,7 +133,7 @@ namespace Engine
             var firstLen = arclen[first];
             var partLen = splitLen - firstLen;
             var total = default(Vector2D);
-            double weightTotal = 0;
+            var weightTotal = 0d;
             for (var i = Max(first, split - MidTangentNPoints); i < split; i++)
             {
                 var t = (arclen[i] - firstLen) / partLen;
@@ -142,7 +142,7 @@ namespace Engine
                 total += v * weight;
                 weightTotal += weight;
             }
-            var tanL = total.Length > Epsilon && weightTotal > Epsilon ?
+            var tanL = total.Length > epsilon && weightTotal > epsilon ?
                 (total / weightTotal).Normalize() :
                 (points[split - 1] - pSplit).Normalize();
 
@@ -153,13 +153,13 @@ namespace Engine
             weightTotal = 0;
             for (var i = split + 1; i <= rMax; i++)
             {
-                var ti = 1 - ((arclen[i] - splitLen) / partLen);
+                var ti = 1d - ((arclen[i] - splitLen) / partLen);
                 var weight = ti * ti * ti;
                 var v = (pSplit - points[i]).Normalize();
                 total += v * weight;
                 weightTotal += weight;
             }
-            var tanR = total.Length > Epsilon && weightTotal > Epsilon ?
+            var tanR = total.Length > epsilon && weightTotal > epsilon ?
                 (total / weightTotal).Normalize() :
                 (pSplit - points[split + 1]).Normalize();
 
@@ -170,17 +170,17 @@ namespace Engine
 
             // Since the points are never coincident, the vector between any two of them will be normalizable, however this can happen in some really
             // odd cases when the points are going directly opposite directions (therefore the tangent is undefined)
-            if (total.LengthSquared < Epsilon)
+            if (total.LengthSquared < epsilon)
             {
                 // try one last time using only the three points at the center, otherwise just use one of the sides
                 tanL = (points[split - 1] - pSplit).Normalize();
                 tanR = (pSplit - points[split + 1]).Normalize();
                 total = tanL + tanR;
-                return total.LengthSquared < Epsilon ? tanL : (total / 2).Normalize();
+                return total.LengthSquared < epsilon ? tanL : (total / 2d).Normalize();
             }
             else
             {
-                return (total / 2).Normalize();
+                return (total / 2d).Normalize();
             }
         }
 
@@ -208,7 +208,7 @@ namespace Engine
                 // if we only have 2 points left, estimate the curve using Wu/Barsky
                 var p0 = points[first];
                 var p3 = points[last];
-                var alpha = Measurements.Distance(p0, p3) / 3;
+                var alpha = Measurements.Distance(p0, p3) / 3d;
                 var p1 = (tanL * alpha) + p0;
                 var p2 = (tanR * alpha) + p3;
                 curve = new CubicBezier(p0, p1, p2, p3);
@@ -285,20 +285,20 @@ namespace Engine
         /// Generates a Bézier curve for the segment using a least-squares approximation. for the derivation of this and why it works,
         /// see http://read.pudn.com/downloads141/ebook/610086/Graphics_Gems_I.pdf page 626 and beyond. tl;dr: math.
         /// </summary>
-        protected CubicBezier GenerateCubicBezier(int first, int last, Vector2D tanL, Vector2D tanR)
+        protected CubicBezier GenerateCubicBezier(int first, int last, Vector2D tanL, Vector2D tanR, double epsilon = Epsilon)
         {
             var nPts = last - first + 1;
             var p0 = points[first];
             var p3 = points[last]; // first and last points of curve are actual points on data
-            double c00 = 0, c01 = 0, c11 = 0, x0 = 0, x1 = 0; // matrix members -- both C[0,1] and C[1,0] are the same, stored in c01
+            double c00 = 0d, c01 = 0d, c11 = 0d, x0 = 0d, x1 = 0d; // matrix members -- both C[0,1] and C[1,0] are the same, stored in c01
             for (var i = 1; i < nPts; i++)
             {
                 // Calculate cubic Bézier multipliers
                 var t = u[i];
-                var ti = 1 - t;
+                var ti = 1d - t;
                 var t0 = ti * ti * ti;
-                var t1 = 3 * ti * ti * t;
-                var t2 = 3 * ti * t * t;
+                var t1 = 3d * ti * ti * t;
+                var t2 = 3d * ti * t * t;
                 var t3 = t * t * t;
 
                 // For X matrix; moving this up here since profiling shows it's better up here (maybe a0/a1 not in registers vs only v not in regs)
@@ -324,12 +324,12 @@ namespace Engine
             var alphaL = det_X_C1 / det_C0_C1;
             var alphaR = det_C0_X / det_C0_C1;
 
-            // if alpha is negative, zero, or very small (or we can't trust it since C matrix is small), fall back to Wu/Barsky heuristic
+            // If alpha is negative, zero, or very small (or we can't trust it since C matrix is small), fall back to Wu/Barsky heuristic
             var linDist = Measurements.Distance(p0, p3);
-            var epsilon2 = Epsilon * linDist;
-            if (Abs(det_C0_C1) < Epsilon || alphaL < epsilon2 || alphaR < epsilon2)
+            var epsilon2 = epsilon * linDist;
+            if (Abs(det_C0_C1) < epsilon || alphaL < epsilon2 || alphaR < epsilon2)
             {
-                var alpha = linDist / 3;
+                var alpha = linDist / 3d;
                 var p1 = (tanL * alpha) + p0;
                 var p2 = (tanR * alpha) + p3;
                 return new CubicBezier(p0, p1, p2, p3);
@@ -345,7 +345,7 @@ namespace Engine
         /// <summary>
         /// Attempts to find a slightly better parameterization for u on the given curve.
         /// </summary>
-        protected void Reparameterize(int first, int last, CubicBezier curve)
+        protected void Reparameterize(int first, int last, CubicBezier curve, double epsilon = Epsilon)
         {
             var nPts = last - first;
             for (var i = 1; i < nPts; i++)
@@ -355,24 +355,24 @@ namespace Engine
                 var ti = 1 - t;
 
                 // Control vertices for Q'
-                var qp0 = (curve.B - curve.A) * 3;
-                var qp1 = (curve.C - curve.B) * 3;
-                var qp2 = (curve.D - curve.C) * 3;
+                var qp0 = (curve.B - curve.A) * 3d;
+                var qp1 = (curve.C - curve.B) * 3d;
+                var qp2 = (curve.D - curve.C) * 3d;
 
                 // Control vertices for Q''
-                var qpp0 = (qp1 - qp0) * 2;
-                var qpp1 = (qp2 - qp1) * 2;
+                var qpp0 = (qp1 - qp0) * 2d;
+                var qpp1 = (qp2 - qp1) * 2d;
 
                 // Evaluate Q(t), Q'(t), and Q''(t)
                 var p0 = curve.Interpolate(t);
-                var p1 = (ti * ti * qp0) + (2 * ti * t * qp1) + (t * t * qp2);
+                var p1 = (ti * ti * qp0) + (2d * ti * t * qp1) + (t * t * qp2);
                 var p2 = (ti * qpp0) + (t * qpp1);
 
                 // these are the actual fitting calculations using http://en.wikipedia.org/wiki/Newton%27s_method
                 var num = ((p0.X - p.X) * p1.I) + ((p0.Y - p.Y) * p1.J);
                 var den = (p1.I * p1.I) + (p1.J * p1.J) + ((p0.X - p.X) * p2.I) + ((p0.Y - p.Y) * p2.J);
                 var newU = t - (num / den);
-                if (Abs(den) > Epsilon && newU >= 0 && newU <= 1)
+                if (Abs(den) > epsilon && newU >= 0 && newU <= 1d)
                 {
                     u[i] = newU;
                 }
@@ -399,7 +399,7 @@ namespace Engine
                 }
             }
 
-            // split at point of maximum error
+            // Split at point of maximum error.
             split = s + first;
             if (split <= first)
             {

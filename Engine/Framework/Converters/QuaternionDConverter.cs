@@ -1,5 +1,5 @@
 ﻿// <copyright file="QuaternionDConverter.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <license>
 //     Licensed under the MIT License. See LICENSE file in the project root for full license information.

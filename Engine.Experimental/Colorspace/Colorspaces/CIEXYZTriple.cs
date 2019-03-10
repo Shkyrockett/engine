@@ -1,5 +1,5 @@
 ﻿// <copyright file="CIEXYZTriple.cs" company="Shkyrockett" >
-//     Copyright © 2013 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2013 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

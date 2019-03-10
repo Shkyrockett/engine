@@ -1,5 +1,5 @@
 ﻿// <copyright file="Renderer.Geometry.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -60,8 +60,11 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             var points = shape.InterpolatePoints(100);
+            if (!(itemStyle is null) && !(points is null))
+            {
                 renderer.FillPolygon(itemStyle.Fill, points);
                 renderer.DrawPolygon(itemStyle.Stroke, points);
+            }
         }
 
         /// <summary>
@@ -75,7 +78,10 @@ namespace Engine.Imaging
         public static void Render(this ScreenPoint shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
+            if (!(itemStyle is null) && !(shape is null))
+            {
                 renderer.DrawRectangle(itemStyle.Stroke, shape.X, shape.Y, 1d, 1d);
+            }
         }
 
         /// <summary>
@@ -95,15 +101,16 @@ namespace Engine.Imaging
             var p2 = shape.Location + shape.Direction;
             var intersection = Intersections.Intersection(shape, bounds);
 
-            if(intersection.Count == 1)
+            if (!(itemStyle is null) && !(shape is null))
             {
-                //g.DrawLine(itemStyle.ForePen, p1.ToPointF(), intersection.Points[0].ToPointF());
-                renderer.DrawLine(itemStyle.Stroke, p1.X, p1.Y, intersection.Points[0].X, intersection.Points[0].Y);
-            }
-            if (intersection.Count == 2)
-            {
-                //g.DrawLine(itemStyle.ForePen, intersection.Points[0].ToPointF(), intersection.Points[1].ToPointF());
-                renderer.DrawLine(itemStyle.Stroke, intersection.Points[0].X, intersection.Points[0].Y, intersection.Points[1].X, intersection.Points[1].Y);
+                if (intersection.Count == 1)
+                {
+                    renderer.DrawLine(itemStyle.Stroke, p1.X, p1.Y, intersection.Points[0].X, intersection.Points[0].Y);
+                }
+                if (intersection.Count == 2)
+                {
+                    renderer.DrawLine(itemStyle.Stroke, intersection.Points[0].X, intersection.Points[0].Y, intersection.Points[1].X, intersection.Points[1].Y);
+                }
             }
         }
 
@@ -120,11 +127,12 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             var intersection = Intersections.Intersection(shape, bounds);
-
-            if (intersection.Count == 2)
+            if (!(itemStyle is null) && !(shape is null))
             {
-                //g.DrawLine(itemStyle.ForePen, intersection.Points[0].ToPointF(), intersection.Points[1].ToPointF());
-                renderer.DrawLine(itemStyle.Stroke, intersection.Points[0].X, intersection.Points[0].Y, intersection.Points[1].X, intersection.Points[1].Y);
+                if (intersection.Count == 2)
+                {
+                    renderer.DrawLine(itemStyle.Stroke, intersection.Points[0].X, intersection.Points[0].Y, intersection.Points[1].X, intersection.Points[1].Y);
+                }
             }
         }
 
@@ -139,8 +147,10 @@ namespace Engine.Imaging
         public static void Render(this LineSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
-            //g.DrawLine(itemStyle.ForePen, shape.A.ToPointF(), shape.B.ToPointF());
-            renderer.DrawLine(itemStyle.Stroke, shape.AX, shape.AY, shape.BX, shape.BY);
+            if (!(itemStyle is null) && !(shape is null))
+            {
+                renderer.DrawLine(itemStyle.Stroke, shape.AX, shape.AY, shape.BX, shape.BY);
+            }
         }
 
         /// <summary>
@@ -154,8 +164,11 @@ namespace Engine.Imaging
         public static void Render(this PolygonContour shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
+            if (!(itemStyle is null) && !(shape is null))
+            {
                 renderer.FillPolygon(itemStyle.Fill, shape.Points);
                 renderer.DrawPolygon(itemStyle.Stroke, shape.Points);
+            }
         }
 
         /// <summary>
@@ -169,8 +182,11 @@ namespace Engine.Imaging
         public static void Render(this Polyline shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
+            if (!(itemStyle is null) && !(shape is null))
+            {
                 renderer.FillPolygon(itemStyle.Fill, shape.Points);
                 renderer.DrawLines(itemStyle.Stroke, shape.Points);
+            }
         }
 
         /// <summary>
@@ -184,10 +200,13 @@ namespace Engine.Imaging
         public static void Render(this PolylineSet set, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
-            foreach (Polyline shape in set.Polylines)
+            if (!(itemStyle is null) && !(set.Polylines is null))
             {
+                foreach (Polyline shape in set.Polylines)
+                {
                     renderer.FillPolygon(itemStyle.Fill, shape.Points);
                     renderer.DrawLines(itemStyle.Stroke, shape.Points);
+                }
             }
         }
 
@@ -348,11 +367,11 @@ namespace Engine.Imaging
         public static void Render(this Rectangle2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
-            //g.FillRectangles((itemStyle).BackBrush, new RectangleF[] { shape.Bounds.ToRectangleF() });
-            //g.DrawRectangles((itemStyle).ForePen, new RectangleF[] { shape.Bounds.ToRectangleF() });
-
-            renderer.FillRectangle(itemStyle.Fill, shape.X, shape.Y, shape.Width, shape.Height);
-            renderer.DrawRectangle(itemStyle.Stroke, shape.X, shape.Y, shape.Width, shape.Height);
+            if (!(itemStyle is null) && !(shape is null))
+            {
+                renderer.FillRectangle(itemStyle.Fill, shape.X, shape.Y, shape.Width, shape.Height);
+                renderer.DrawRectangle(itemStyle.Stroke, shape.X, shape.Y, shape.Width, shape.Height);
+            }
         }
 
         /// <summary>
@@ -367,8 +386,11 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             var bounds = shape.Bounds;
+            if (!(itemStyle is null) && !(bounds is null))
+            {
                 renderer.FillEllipse(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height);
                 renderer.DrawEllipse(itemStyle.Stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height);
+            }
         }
 
         /// <summary>
@@ -383,8 +405,11 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             Rectangle2D bounds = shape.Bounds!!;
+            if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
+            {
                 renderer.FillArc(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
                 renderer.DrawArc(itemStyle.Stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
+            }
         }
 
         /// <summary>
@@ -399,8 +424,11 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             Rectangle2D bounds = shape.Bounds!!;
+            if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
+            {
                 renderer.FillEllipse(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.Angle);
                 renderer.DrawEllipse(itemStyle.Stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.Angle);
+            }
         }
 
         /// <summary>
@@ -415,8 +443,11 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             Rectangle2D bounds = shape.Bounds!!;
+            if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
+            {
                 renderer.FillArc(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, (float)shape.StartAngle, (float)shape.SweepAngle, shape.Angle);
                 renderer.DrawArc(itemStyle.Stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, (float)shape.StartAngle, (float)shape.SweepAngle, shape.Angle);
+            }
         }
 
         ///// <summary>
@@ -460,6 +491,8 @@ namespace Engine.Imaging
         public static void Render(this BezierSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
+            if (!(itemStyle is null) && !(shape is null))
+            {
                 switch (shape.Degree)
                 {
                     case PolynomialDegree.Linear:
@@ -475,8 +508,8 @@ namespace Engine.Imaging
                         break;
                     default:
                         break;
+                }
             }
-
         }
 
         /// <summary>
@@ -490,8 +523,11 @@ namespace Engine.Imaging
         public static void Render(this CubicBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
+            if (!(itemStyle is null) && !(shape is null))
+            {
                 renderer.FillCubicBezier(itemStyle.Fill, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY, shape.DX, shape.DY);
                 renderer.DrawCubicBezier(itemStyle.Stroke, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY, shape.DX, shape.DY);
+            }
         }
 
         /// <summary>
@@ -505,8 +541,11 @@ namespace Engine.Imaging
         public static void Render(this QuadraticBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
+            if (!(itemStyle is null) && !(shape is null))
+            {
                 renderer.FillQuadraticBezier(itemStyle.Fill, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY);
                 renderer.DrawQuadraticBezier(itemStyle.Stroke, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY);
+            }
         }
     }
 }

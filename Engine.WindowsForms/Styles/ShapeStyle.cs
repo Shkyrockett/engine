@@ -1,5 +1,5 @@
 ﻿// <copyright file="ShapeStyle.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -167,7 +167,21 @@ namespace Engine.Imaging
         /// Gets the fill.
         /// </summary>
         public IFill Fill
-            => new SolidFill(BackPen.Color.ToRGBA());
+        {
+            get
+            {
+                switch (BackPen)
+                {
+                    case Pen p when p.Brush is HatchBrush:
+                        return new SolidFill(Colors.Black);
+                    case Pen p when p.Brush is SolidBrush:
+                        return new SolidFill(BackPen?.Color.ToRGBA() ?? Colors.Black);
+                    default:
+                        return new SolidFill(Colors.Black);
+                }
+
+            }
+        }
 
         /// <summary>
         /// Gets or sets the fore brush.

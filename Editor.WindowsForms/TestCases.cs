@@ -1,5 +1,5 @@
 ﻿// <copyright file="TestCases.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -1336,7 +1336,7 @@ namespace Editor
                 vectorMap.Add(item);
             }
 
-            //vectorMap.Add(lineItem);
+            vectorMap.Add(lineItem);
         }
 
         /// <summary>
@@ -1365,7 +1365,7 @@ namespace Editor
                 vectorMap.Add(item);
             }
 
-            //vectorMap.Add(rayItem);
+            vectorMap.Add(rayItem);
         }
 
         /// <summary>
@@ -1394,7 +1394,7 @@ namespace Editor
                 vectorMap.Add(item);
             }
 
-            //vectorMap.Add(segmentItem);
+            vectorMap.Add(segmentItem);
         }
 
         /// <summary>
@@ -1436,7 +1436,7 @@ namespace Editor
             }
 
             vectorMap.Add(quardaticBoundsItem);
-            //vectorMap.Add(quadraticItem);
+            vectorMap.Add(quadraticItem);
             vectorMap.Add(quadraticHandles);
         }
 
@@ -1479,7 +1479,7 @@ namespace Editor
             }
 
             vectorMap.Add(cubicBoundsItem);
-            //vectorMap.Add(cubicItem);
+            vectorMap.Add(cubicItem);
             vectorMap.Add(cubicHandles);
         }
 
@@ -2878,7 +2878,12 @@ namespace Editor
 
             left += width + padding;
             top += height + padding;
-            var linear = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.Linear(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var linear = new ParametricDelegateCurve(
+                (x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.Linear(t) * h)),
+                null,
+                new Point2D(left, top),
+                new Size2D(width, height)
+                );
             var linearItem = new GraphicItem(linear, style);
 
             left += width + padding;
@@ -3312,7 +3317,7 @@ namespace Editor
             var axis = new Point2D(200, 100);
             const int angle = 0; //45d.ToRadians();
 
-            var ellipse1 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle);//.ScaleDistort(scale).RotateDistort(axis, angle);
+            var ellipse1 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle).ScaleDistort(scale).RotateDistort(axis, angle);
             var ellipse1Item = new GraphicItem(ellipse1, intersectionBlue)
             {
                 Name = "Ellipse 1"
@@ -3357,7 +3362,7 @@ namespace Editor
             var axis = new Point2D(200, 100);
             const int angle = 0; //45d.ToRadians();
 
-            var ellipse1 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle);//.ScaleDistort(scale).RotateDistort(axis, angle);
+            var ellipse1 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle).ScaleDistort(scale).RotateDistort(axis, angle);
             var ellipse1Item = new GraphicItem(ellipse1, intersectionBlue)
             {
                 Name = "Ellipse 1"

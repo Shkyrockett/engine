@@ -1,5 +1,5 @@
 ﻿// <copyright file="IPower.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

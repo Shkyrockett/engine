@@ -1,5 +1,5 @@
 ﻿// <copyright file="IRenderer.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -73,7 +73,7 @@ namespace Engine
         /// <param name="pen">The pen.</param>
         /// <param name="points">The points.</param>
         /// <param name="tension">The tension.</param>
-        /// <param name="fillmode">The fillmode.</param>
+        /// <param name="fillmode">The fill-mode.</param>
         void DrawClosedCurve(IStroke pen, IEnumerable<Point2D> points, double tension, FillMode fillmode);
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Engine
         /// <param name="brush">The brush.</param>
         /// <param name="points">The points.</param>
         /// <param name="tension">The tension.</param>
-        /// <param name="fillmode">The fillmode.</param>
+        /// <param name="fillmode">The fill-mode.</param>
         void FillClosedCurve(IFill brush, IEnumerable<Point2D> points, double tension, FillMode fillmode);
 
         /// <summary>

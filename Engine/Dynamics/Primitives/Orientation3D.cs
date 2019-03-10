@@ -1,5 +1,5 @@
 ﻿// <copyright file="Orientation.cs" company="Shkyrockett" >
-//     Copyright © 2016 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2016 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -218,7 +218,6 @@ namespace Engine
         /// </summary>
         /// <param name="tuple"></param>
         /// <returns></returns>
-
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Orientation3D((double Roll, double Pitch, double Yaw) tuple) => new Orientation3D(tuple);

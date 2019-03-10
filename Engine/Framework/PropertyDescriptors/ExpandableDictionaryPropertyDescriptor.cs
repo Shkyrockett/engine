@@ -1,5 +1,5 @@
 ﻿// <copyright file="ExpandableDictionaryPropertyDescriptor.cs" company="Shkyrockett" >
-//     Copyright © 2017 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2017 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>

@@ -1,5 +1,5 @@
 ﻿// <copyright file="Sine.cs" company="Shkyrockett" >
-//     Copyright © 2005 - 2018 Shkyrockett. All rights reserved.
+//     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
 // <license>
@@ -54,7 +54,8 @@ namespace Engine
         /// Function For sine interpolated Line
         /// </summary>
         /// <param name="t"></param>
-        /// <returns>Returns the interpolated point of the index value.</returns>
+        /// <returns>Returns the interpolated point of the index value.</returns>
+
         public override Point2D Interpolate(double t)
             => new Point2D(Interpolators.Sine(A.X, A.Y, B.X, B.Y, t));
 

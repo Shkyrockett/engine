@@ -8,17 +8,6 @@
 // <summary></summary>
 // <acknowledgment></acknowledgment>
 
-using Engine;
-using Engine.Imaging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Windows.Forms;
-using static Engine.Maths;
-using static System.Math;
 
 // 22 classes left to migrate.
 

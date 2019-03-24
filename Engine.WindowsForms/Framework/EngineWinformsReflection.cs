@@ -42,13 +42,13 @@ namespace Engine
             Attribute lookupExpandableListAttribute = new ExpandableListAttribute();
 
             // Replace all expandable types.
-            foreach (Type item in ListTypesTaggedWithPropertyAttribute(lookupExpandableAttribute))
+            foreach (var item in ListTypesTaggedWithPropertyAttribute(lookupExpandableAttribute))
             {
                 ReplacePropertyAttribute(item, lookupExpandableAttribute, expandableAttribute);
             }
 
             // Replace all expandable list types.
-            foreach (Type item in ListTypesTaggedWithPropertyAttribute(lookupExpandableListAttribute))
+            foreach (var item in ListTypesTaggedWithPropertyAttribute(lookupExpandableListAttribute))
             {
                 ReplacePropertyAttribute(item, lookupExpandableListAttribute, expandableListAttribute);
             }

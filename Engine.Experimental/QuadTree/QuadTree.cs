@@ -137,7 +137,7 @@ namespace Engine.Experimental
             root = new QuadTreeNode<T>(newWorld, maxItems, Resize);
 
             // Reinsert the items
-            foreach (QuadTreePositionItem<T> m in Components)
+            foreach (var m in Components)
             {
                 root.Insert(m);
             }

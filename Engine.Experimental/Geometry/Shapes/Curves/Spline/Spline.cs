@@ -94,7 +94,7 @@ namespace Engine
             this.curves = new List<CubicBezier>(curves.Count);
             Curves = new ReadOnlyCollection<CubicBezier>(this.curves);
             arclen = new List<double>(this.curves.Count * samplesPerCurve);
-            foreach (CubicBezier curve in curves)
+            foreach (var curve in curves)
             {
                 Add(curve);
             }

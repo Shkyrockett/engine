@@ -168,7 +168,7 @@ namespace Engine
                 var tanR = GetRightTangent(first);
 
                 // Try fitting with the new point
-                if (FitCurve(first, last, tanL, tanR, out CubicBezier curve, out var split))
+                if (FitCurve(first, last, tanL, tanR, out var curve, out var split))
                 {
                     result[lastCurve] = curve;
                     return new AddPointResult(lastCurve, false);

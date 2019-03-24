@@ -183,7 +183,7 @@ namespace Engine
         public List<Point2D> Warp()
         {
             var result = new List<Point2D>();
-            foreach (Point2D point in Grid())
+            foreach (var point in Grid())
             {
                 result.Add(Filter.Invoke(point));
             }

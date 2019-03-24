@@ -149,7 +149,7 @@ namespace Engine
 
             var results = new List<Point2D>();
 
-            foreach (Point2D point in points)
+            foreach (var point in points)
             {
                 results.Add(new Point2D(
                     ((point.X - x1) * cosA) - ((point.Y - y1) * sinA),

@@ -10,7 +10,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -56,7 +55,7 @@ namespace MethodSpeedTester
 
             if (dgv.Rows.Count == 0)
             {
-                using (Graphics grfx = e.Graphics)
+                using (var grfx = e.Graphics)
                 {
                     var format = new StringFormat
                     {
@@ -136,7 +135,7 @@ namespace MethodSpeedTester
         {
             dataGridView1.DataSource = null;
 
-            foreach (SpeedTester test in tests)
+            foreach (var test in tests)
             {
                 // Run garbage collection to try to keep each test in about the same conditions. 
                 GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced);

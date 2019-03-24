@@ -48,7 +48,7 @@ namespace Engine.Physics
             get
             {
                 double rSpeed = 0;
-                foreach (ISpeed cSpeed in Speed)
+                foreach (var cSpeed in Speed)
                 {
                     rSpeed += cSpeed.Value;
                 }

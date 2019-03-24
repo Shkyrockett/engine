@@ -431,7 +431,7 @@ namespace Engine
             //if ((e1.pl == e2.pl)) // Uncomment these two lines if self-intersecting polygons are not allowed
             //    return false;
 
-            (var numIntersections, Point2D[] ip) = FindIntersection(e1.Segment(), e2.Segment());
+            (var numIntersections, var ip) = FindIntersection(e1.Segment(), e2.Segment());
             var ip1 = ip[0];
             var ip2 = ip[1];
 

@@ -57,10 +57,12 @@ namespace Engine
         /// <param name="lowerLimit">The lower limit.</param>
         /// <param name="upperLimit">The upper limit.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <acknowledgment>
+        /// https://github.com/dystopiancode/colorspace-conversions/
+        /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(double value, double lowerLimit, double upperLimit)
+        public static bool BetweenLowerUpper(double value, double lowerLimit, double upperLimit)
             => value >= lowerLimit && value <= upperLimit;
 
         /// <summary>
@@ -75,7 +77,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(int value, int lowerLimit, int upperLimit)
+        public static bool BetweenLowerUpper(int value, int lowerLimit, int upperLimit)
             => value >= lowerLimit && value <= upperLimit;
 
         /// <summary>
@@ -90,8 +92,53 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Between(byte value, byte lowerLimit, byte upperLimit)
+        public static bool BetweenLowerUpper(byte value, byte lowerLimit, byte upperLimit)
             => value >= lowerLimit && value <= upperLimit;
+
+        /// <summary>
+        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(double c, double a, double b)
+            => (a - c) * (b - c) <= 0;
+
+        /// <summary>
+        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(int c, int a, int b)
+            => ((int)a - c) * ((int)b - c) <= 0;
+
+        /// <summary>
+        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Between(byte c, byte a, byte b)
+            => ((int)a - c) * ((int)b - c) <= 0;
 
         /// <summary>
         /// Check whether a vector lies between two other vectors.
@@ -121,6 +168,31 @@ namespace Engine
             => (m <= v && v <= M) || Approximately(v, m) || Approximately(v, M);
 
         /// <summary>
+        /// Return true iff angle c is between angles
+        /// a and b, inclusive. b always follows a in
+        /// the positive rotational direction. Operations
+        /// against an entire circle cannot be defined.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool AngleBetween(double c, double a, double b)
+        {
+            /* Make sure that a is in the range [0 .. tau). */
+            for (a %= Tau; a < 0; a += Tau) { }
+            /* Make sure that both b and c are not less than a. */
+            for (b %= Tau; b < a; b += Tau) { }
+            for (c %= Tau; c < a; c += Tau) { }
+            return c <= b;
+        }
+
+        /// <summary>
         /// Check whether an angle lies within the sweep angle.
         /// </summary>
         /// <param name="angle">Angle of rotation to check.</param>
@@ -132,7 +204,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Within(double angle, double startAngle, double sweepAngle)
+        public static bool AngleWithin(double angle, double startAngle, double sweepAngle)
         {
             // If the sweep angle is greater than 360 degrees it is overlapping, so any angle would intersect the sweep angle.
             if (sweepAngle > Tau)

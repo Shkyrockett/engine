@@ -54,7 +54,7 @@ namespace Engine
             var order = AdvBrowsableOrderAttribute.GetOrder(t);
             var rv = new List<PropertyDescriptor>();
             object[] atts;
-            foreach (PropertyInfo info in t.GetProperties())
+            foreach (var info in t.GetProperties())
             {
                 atts = info.GetCustomAttributes(typeof(AdvBrowsableAttribute), true);
                 if (atts.Length > 0)
@@ -72,7 +72,7 @@ namespace Engine
                 }
             }
 
-            foreach (FieldInfo info in t.GetFields())
+            foreach (var info in t.GetFields())
             {
                 atts = info.GetCustomAttributes(typeof(AdvBrowsableAttribute), true);
                 if (atts.Length > 0)

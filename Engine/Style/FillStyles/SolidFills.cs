@@ -1,8 +1,5 @@
 ﻿using Engine.Colorspace;
 using Engine.Imaging;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Engine
 {

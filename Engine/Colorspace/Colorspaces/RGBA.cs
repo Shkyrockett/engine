@@ -33,22 +33,22 @@ namespace Engine.Colorspace
         /// <summary>
         /// The red shift value.
         /// </summary>
-        private const int RedShift = 0x18;
+        private const int redShift = 0x18;
 
         /// <summary>
         /// The green shift value.
         /// </summary>
-        private const int GreenShift = 0x10;
+        private const int greenShift = 0x10;
 
         /// <summary>
         /// The blue shift value.
         /// </summary>
-        private const int BlueShift = 0x8;
+        private const int blueShift = 0x8;
 
         /// <summary>
         /// The alpha shift Value.
         /// </summary>
-        private const int AlphaShift = 0x0;
+        private const int alphaShift = 0x0;
         #endregion Constants
 
         #region Fields
@@ -107,12 +107,18 @@ namespace Engine.Colorspace
         {
             this.name = name;
             value =
-                (red << RedShift)
-                | (green << GreenShift)
-                | (blue << BlueShift)
-                | (alpha << AlphaShift);// & 0xffffffff;
+                (red << redShift)
+                | (green << greenShift)
+                | (blue << blueShift)
+                | (alpha << alphaShift);// & 0xffffffff;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="color"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
         public static RGBA FromRGBA(RGBA color, byte alpha)
             => new RGBA(color.Red, color.Green, color.Blue, alpha);
         #endregion Constructors
@@ -123,8 +129,8 @@ namespace Engine.Colorspace
         /// </summary>
         public byte Red
         {
-            get { return (byte)((Value >> RedShift) & 0xFF); }
-            set { this.value |= value << RedShift; }
+            get { return (byte)((Value >> redShift) & 0xFF); }
+            set { this.value |= value << redShift; }
         }
 
         /// <summary>
@@ -132,8 +138,8 @@ namespace Engine.Colorspace
         /// </summary>
         public byte Green
         {
-            get { return (byte)((Value >> GreenShift) & 0xFF); }
-            set { this.value |= value << GreenShift; }
+            get { return (byte)((Value >> greenShift) & 0xFF); }
+            set { this.value |= value << greenShift; }
         }
 
         /// <summary>
@@ -141,8 +147,8 @@ namespace Engine.Colorspace
         /// </summary>
         public byte Blue
         {
-            get { return (byte)((Value >> BlueShift) & 0xFF); }
-            set { this.value |= value << BlueShift; }
+            get { return (byte)((Value >> blueShift) & 0xFF); }
+            set { this.value |= value << blueShift; }
         }
 
         /// <summary>
@@ -150,8 +156,8 @@ namespace Engine.Colorspace
         /// </summary>
         public byte Alpha
         {
-            get { return (byte)((Value >> AlphaShift) & 0xFF); }
-            set { this.value |= value << AlphaShift; }
+            get { return (byte)((Value >> alphaShift) & 0xFF); }
+            set { this.value |= value << alphaShift; }
         }
 
         /// <summary>

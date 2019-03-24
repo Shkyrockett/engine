@@ -22,7 +22,7 @@
 //     Licensed under the Boost Software License (http://www.boost.org/LICENSE_1_0.txt).
 // </license>
 // <copyright company="vb-helper" >
-//     Some of the methods came from Rod Stephens excellent blogs vb-helper(http://vb-helper.com), and csharphelper (http://csharphelper.com), as well as from his books.
+//     Some of the methods came from Rod Stephens excellent blogs vb-helper(http://vb-helper.com), and c sharp helper (http://csharphelper.com), as well as from his books.
 //     Copyright © Rod Stephens.
 // </copyright>
 // <author id="RodStephens">Rod Stephens</author>
@@ -1668,12 +1668,12 @@ namespace Engine
         /// <summary>
         /// Find the intersection of a point and a line.
         /// </summary>
-        /// <param name="pX">The pX.</param>
-        /// <param name="pY">The pY.</param>
-        /// <param name="lx">The lx.</param>
-        /// <param name="ly">The ly.</param>
-        /// <param name="i">The i.</param>
-        /// <param name="j">The j.</param>
+        /// <param name="pX">The <paramref name="pX"/>.</param>
+        /// <param name="pY">The <paramref name="pY"/>.</param>
+        /// <param name="lx">The <paramref name="lx"/>.</param>
+        /// <param name="ly">The <paramref name="ly"/>.</param>
+        /// <param name="i">The <paramref name="i"/>.</param>
+        /// <param name="j">The <paramref name="j"/>.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Returns an <see cref="Engine.Intersection"/> struct with a <see cref="Intersection.State"/>, and an array of <see cref="Point2D"/> structs containing any points of intersection found.</returns>
         [DebuggerStepThrough]
@@ -2063,7 +2063,7 @@ namespace Engine
                 if (ua == 0 || ub == 0)
                 {
                     // Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
-                    result.AppendPoints(new List<Point2D> { new Point2D(s0X, s0Y), new Point2D(s1X, s1Y) });
+                    result.AppendPoints(new Point2D(s0X, s0Y), new Point2D(s1X, s1Y));
                     result.State |= IntersectionState.Coincident | IntersectionState.Parallel | IntersectionState.Intersection;
                 }
                 else
@@ -2155,7 +2155,7 @@ namespace Engine
             foreach (var s in roots)
             {
                 // Add intersection point.
-                if (!(s < 0 || s > 1d))
+                if (!(s < 0 /*start*/ || s > 1d /*end*/))
                 {
                     result.AppendPoint(new Point2D(
                         (xCurve[0] * s * s) + (xCurve[1] * s) + xCurve[2],
@@ -2279,8 +2279,6 @@ namespace Engine
             intersections.UnionWith(LineLineSegmentIntersection(lx, ly, li, lj, tx0, ty0, tx1, ty1, epsilon).Points);
             intersections.UnionWith(LineLineSegmentIntersection(lx, ly, li, lj, tx1, ty1, tx2, ty2, epsilon).Points);
             intersections.UnionWith(LineLineSegmentIntersection(lx, ly, li, lj, tx0, ty0, tx2, ty2, epsilon).Points);
-
-            // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
             var result = new Intersection(IntersectionState.NoIntersection, intersections);
             if (result.Points.Count > 0)

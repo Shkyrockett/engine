@@ -50,7 +50,7 @@ namespace EventEditorMidi
         public static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
         {
             var typeList = new List<Type>();
-            foreach (Type type in assembly.GetTypes().ToArray())
+            foreach (var type in assembly.GetTypes().ToArray())
             {
                 if (type.BaseType == classType)
                 {
@@ -70,7 +70,7 @@ namespace EventEditorMidi
         private static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
         {
             var typeList = new List<Type>();
-            foreach (Type type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(classType)).ToArray())
+            foreach (var type in assembly.GetTypes().Where(t => t.GetInterfaces().Contains(classType)).ToArray())
             {
                 typeList.Add(type);
             }

@@ -681,7 +681,7 @@ namespace Engine
         {
             var returnValue = Inclusion.Outside;
 
-            foreach (PolygonContour poly in polygons)
+            foreach (var poly in polygons)
             {
                 // Use alternating rule with XOR to determine if the point is in a polygon or a hole.
                 // If the point is in an odd number of polygons, it is inside. If even, it is a hole.
@@ -1136,7 +1136,7 @@ namespace Engine
             var theCos = end.X / dist;
             var theSin = end.Y / dist;
 
-            foreach (PolygonContour poly in polygons.Contours)
+            foreach (var poly in polygons.Contours)
             {
                 for (var i = 0; i < poly.Points.Count; i++)
                 {

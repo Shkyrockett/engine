@@ -202,7 +202,7 @@ namespace Engine.Imaging
             var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(set.Polylines is null))
             {
-                foreach (Polyline shape in set.Polylines)
+                foreach (var shape in set.Polylines)
                 {
                     renderer.FillPolygon(itemStyle.Fill, shape.Points);
                     renderer.DrawLines(itemStyle.Stroke, shape.Points);
@@ -222,7 +222,7 @@ namespace Engine.Imaging
             var itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
             var path = new GraphicsPath();
-            foreach (PolygonContour shape in set.Contours)
+            foreach (var shape in set.Contours)
             {
                 path.AddPolygon(shape.Points.ToPointFArray());
             }
@@ -306,7 +306,7 @@ namespace Engine.Imaging
             var itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
             var path = new GraphicsPath();
-            foreach (PolycurveContour shape in set.Contours)
+            foreach (var shape in set.Contours)
             {
                 foreach (var figureItem in shape.Items)
                 {

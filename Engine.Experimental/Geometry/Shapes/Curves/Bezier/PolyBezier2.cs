@@ -93,7 +93,7 @@ namespace Engine
         {
             var offset = new List<Bezier>();
 
-            foreach(Bezier v in Curves)
+            foreach(var v in Curves)
             {
                 offset.AddRange(v.Offset(d));
             }

@@ -224,7 +224,7 @@ namespace Engine
 
                     var bb = contours[0]?.Bounds;
 
-                    foreach (PolygonContour c in contours)
+                    foreach (var c in contours)
                     {
                         bb = bb.Union(c.Bounds);
                     }

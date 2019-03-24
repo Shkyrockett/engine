@@ -37,7 +37,7 @@ namespace Engine.WindowsForms
             // Add the AngleEditor EditorAttribute UITypeEditor attribute to all properties tagged with the GeometryAngleAttribute attribute.
             Attribute lookupAttribute = new GeometryAngleRadiansAttribute();
 
-            foreach (Type item in ListTypesTaggedWithPropertyAttribute(lookupAttribute))
+            foreach (var item in ListTypesTaggedWithPropertyAttribute(lookupAttribute))
             {
                 ReplacePropertyAttribute(item, lookupAttribute, angleEditorAttribute);
             }

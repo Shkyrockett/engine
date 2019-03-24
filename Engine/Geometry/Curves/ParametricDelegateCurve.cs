@@ -296,7 +296,7 @@ namespace Engine
                 var right = points[0].X;
                 var bottom = points[0].Y;
 
-                foreach (Point2D point in points)
+                foreach (var point in points)
                 {
                     // ToDo: Measure performance impact of overwriting each time.
                     left = point.X <= left ? point.X : left;

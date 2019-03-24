@@ -1601,22 +1601,22 @@ namespace Engine
                 new Point2D(cX + (r * Cos(end)), cY + (r * Sin(end))));
 
             // Expand the boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Within(0, start, sweepAngle))
+            if (Intersections.AngleWithin(0, start, sweepAngle))
             {
                 bounds.Right = cX + r;
             }
 
-            if (Intersections.Within(HalfPi, start, sweepAngle))
+            if (Intersections.AngleWithin(HalfPi, start, sweepAngle))
             {
                 bounds.Bottom = cY + r;
             }
 
-            if (Intersections.Within(PI, start, sweepAngle))
+            if (Intersections.AngleWithin(PI, start, sweepAngle))
             {
                 bounds.Left = cX - r;
             }
 
-            if (Intersections.Within(Pau, start, sweepAngle))
+            if (Intersections.AngleWithin(Pau, start, sweepAngle))
             {
                 bounds.Top = cY - r;
             }
@@ -1772,22 +1772,22 @@ namespace Engine
             var halfHeight = Sqrt((r1 * r1 * sinT * sinT) + (r2 * r2 * cosT * cosT));
 
             // Expand the elliptical boundaries if any of the extreme angles fall within the sweep angle.
-            if (Intersections.Within(angles[0], angle + startAngle, sweepAngle))
+            if (Intersections.AngleWithin(angles[0], angle + startAngle, sweepAngle))
             {
                 bounds.Right = cX + halfWidth;
             }
 
-            if (Intersections.Within(angles[1], angle + startAngle, sweepAngle))
+            if (Intersections.AngleWithin(angles[1], angle + startAngle, sweepAngle))
             {
                 bounds.Bottom = cY + halfHeight;
             }
 
-            if (Intersections.Within(angles[2], angle + startAngle, sweepAngle))
+            if (Intersections.AngleWithin(angles[2], angle + startAngle, sweepAngle))
             {
                 bounds.Left = cX - halfWidth;
             }
 
-            if (Intersections.Within(angles[3], angle + startAngle, sweepAngle))
+            if (Intersections.AngleWithin(angles[3], angle + startAngle, sweepAngle))
             {
                 bounds.Top = cY - halfHeight;
             }
@@ -1862,7 +1862,7 @@ namespace Engine
             var right = points[0].X;
             var bottom = points[0].Y;
 
-            foreach (Point2D point in points)
+            foreach (var point in points)
             {
                 // ToDo: Measure performance impact of overwriting each time.
                 left = point.X <= left ? point.X : left;
@@ -1886,7 +1886,7 @@ namespace Engine
             var right = points[0].X;
             var bottom = points[0].Y;
 
-            foreach (Point2D point in points)
+            foreach (var point in points)
             {
                 // ToDo: Measure performance impact of overwriting each time.
                 left = point.X <= left ? point.X : left;
@@ -1925,7 +1925,7 @@ namespace Engine
             var start = contour.Items[0] as PointSegment;
             var result = new Rectangle2D(start.Start.Value, start.End.Value);
 
-            foreach (CurveSegment member in contour.Items)
+            foreach (var member in contour.Items)
             {
                 result.UnionMutate(member.Bounds);
             }
@@ -1960,7 +1960,7 @@ namespace Engine
             var bottom = points[0].Y;
 
             // Locate the extremes of the parametric shape.
-            foreach (Point2D point in points)
+            foreach (var point in points)
             {
                 left = point.X <= left ? point.X : left;
                 top = point.Y <= top ? point.Y : top;
@@ -2288,7 +2288,7 @@ namespace Engine
         /// <returns>Returns a list of the angles of the extremes of a circular arc.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> CirclularArcExtremeAngles(double startAngle, double sweepAngle)
-            => CircleExtremeAngles().Where((a) => Intersections.Within(a, startAngle, sweepAngle)).ToList();
+            => CircleExtremeAngles().Where((a) => Intersections.AngleWithin(a, startAngle, sweepAngle)).ToList();
 
         /// <summary>
         /// Find the extreme angles of a circle.
@@ -2309,7 +2309,7 @@ namespace Engine
         /// <returns>Returns the angles of the extreme points of an elliptical arc.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> EllipticalArcExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle)
-            => EllipseExtremeAngles(rX, rY, angle).Where((a) => Intersections.Within(a, angle + startAngle, sweepAngle)).ToList();
+            => EllipseExtremeAngles(rX, rY, angle).Where((a) => Intersections.AngleWithin(a, angle + startAngle, sweepAngle)).ToList();
 
         /// <summary>
         /// Finds the angles of the extreme points of the rotated ellipse.
@@ -2363,7 +2363,7 @@ namespace Engine
         /// <returns>Returns the angles of the extreme points of an elliptical arc.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<double> EllipticalArcVerticalExtremeAngles(double rX, double rY, double angle, double startAngle, double sweepAngle)
-            => EllipseVerticalExtremeAngles(rX, rY, angle).Where((a) => Intersections.Within(a, angle + startAngle, sweepAngle)).ToList();
+            => EllipseVerticalExtremeAngles(rX, rY, angle).Where((a) => Intersections.AngleWithin(a, angle + startAngle, sweepAngle)).ToList();
 
         /// <summary>
         /// Finds the angles of the extreme points of the rotated ellipse.

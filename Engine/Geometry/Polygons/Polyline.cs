@@ -85,7 +85,7 @@ namespace Engine
         public Polyline(IEnumerable<Polyline> polylines)
         {
             points = new List<Point2D>();
-            foreach (Polyline polyline in polylines)
+            foreach (var polyline in polylines)
             {
                 points.AddRange(polyline.Points);
             }

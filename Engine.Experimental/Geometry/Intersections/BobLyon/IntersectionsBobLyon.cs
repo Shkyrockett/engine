@@ -135,7 +135,7 @@ namespace Engine
         public static bool IsInLine(
             double x, double y,
             double x1, double y1, double x2, double y2)
-            => (y2 - y1) / (x2 - x1) == (y - y1) / (x - x1) && IsBetween(x, x1, x2);
+            => (y2 - y1) / (x2 - x1) == (y - y1) / (x - x1) && Intersections.Between(x, x1, x2);
 
         /// <summary>
         /// Return true iff the point (x, y) is in the polygon
@@ -233,7 +233,7 @@ namespace Engine
                 rx -= w / 2;
                 ry -= h / 2;
             }
-            return IsBetween(x, rx, rx + w) && IsBetween(y, ry, ry + h);
+            return Intersections.Between(x, rx, rx + w) && Intersections.Between(y, ry, ry + h);
         }
 
         /// <summary>
@@ -382,8 +382,8 @@ namespace Engine
             double ex, double ey, double w, double h, double start, double stop)
         {
             var heading = Atan2(y - ey, x - ex);
-            heading += Subtended2parametric(w / 2, h / 2, heading);
-            return IsAngleBetween(heading, start, stop) && IsInEllipse(x, y, ex, ey, w, h);
+            heading += SubtendedToParametric(w / 2, h / 2, heading);
+            return Intersections.AngleBetween(heading, start, stop) && IsInEllipse(x, y, ex, ey, w, h);
         }
 
         /// <summary>
@@ -434,8 +434,8 @@ namespace Engine
             var nb = (bx1 * by2) - (by1 * bx2);
             var x = ROUND(((na * (bx1 - bx2)) - ((ax1 - ax2) * nb)) / denom);
             var y = ROUND(((na * (by1 - by2)) - ((ay1 - ay2) * nb)) / denom);
-            return IsBetween(x, ROUND(ax1), ROUND(ax2)) && IsBetween(x, ROUND(bx1), ROUND(bx2)) &&
-                IsBetween(y, ROUND(ay1), ROUND(ay2)) && IsBetween(y, ROUND(by1), ROUND(by2));
+            return Intersections.Between(x, ROUND(ax1), ROUND(ax2)) && Intersections.Between(x, ROUND(bx1), ROUND(bx2)) &&
+                Intersections.Between(y, ROUND(ay1), ROUND(ay2)) && Intersections.Between(y, ROUND(by1), ROUND(by2));
         }
 
         /// <summary>
@@ -591,8 +591,8 @@ namespace Engine
             }
             discrim = Sqrt(discrim);
             a *= 2;
-            return IsBetween((-b - discrim) / a, x1, x2) ||
-                IsBetween((-b + discrim) / a, x1, x2);
+            return Intersections.Between((-b - discrim) / a, x1, x2) ||
+                Intersections.Between((-b + discrim) / a, x1, x2);
         }
 
         /// <summary>
@@ -663,8 +663,8 @@ namespace Engine
             }
             discrim = Sqrt(discrim);
             a *= 2;
-            return IsBetween((-b - discrim) / a, r1.x, r2.x) ||
-                IsBetween((-b + discrim) / a, r1.x, r2.x);
+            return Intersections.Between((-b - discrim) / a, r1.x, r2.x) ||
+                Intersections.Between((-b + discrim) / a, r1.x, r2.x);
         }
 
         /// <summary>

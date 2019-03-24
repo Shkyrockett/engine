@@ -64,9 +64,9 @@ namespace Engine
                 (start.X, start.Y, 0d, 0)
             };
 
-            foreach (PolygonContour poly in polygons.Contours)
+            foreach (var poly in polygons.Contours)
             {
-                foreach (Point2D point in poly.Points)
+                foreach (var point in poly.Points)
                 {
                     pointList.Add((point.X, point.Y, 0d, 0));
                 }

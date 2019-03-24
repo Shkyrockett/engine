@@ -76,7 +76,7 @@ namespace Engine
 
             var ScaledPoint = point;
 
-            GetBoundedPoints(out Point2D UpperBoundPoint, out Point2D LowerBoundPoint, point);
+            GetBoundedPoints(out var UpperBoundPoint, out var LowerBoundPoint, point);
             var Y = UpperBoundPoint.Y + ((ScaledPoint.Y - sourceBounds.Top) / sourceBounds.Height * Math.Abs(UpperBoundPoint.Y - LowerBoundPoint.Y));
 
             return new Point2D(ScaledPoint.X, Y);

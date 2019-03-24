@@ -375,50 +375,6 @@ namespace Engine
             => new Circle(tuple);
         #endregion Operators
 
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Circle)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Circle)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Circle)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Circle)} has been deserialized.");
-        //}
-
-        //#endregion
-
         #region Interpolators
         /// <summary>
         /// Interpolates the circle.

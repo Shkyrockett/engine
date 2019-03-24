@@ -226,7 +226,7 @@ namespace Engine
             set
             {
                 var angles = new List<double>();
-                foreach (Point2D point in value)
+                foreach (var point in value)
                 {
                     angles.Add(Maths.Angle(X, Y, point.X, point.Y));
                 }
@@ -252,7 +252,7 @@ namespace Engine
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         public bool InSweep(double angle)
-            => Intersections.Within(angle, StartAngle, SweepAngle);
+            => Intersections.AngleWithin(angle, StartAngle, SweepAngle);
         #endregion Methods
     }
 }

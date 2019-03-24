@@ -49,7 +49,7 @@ namespace Engine
             }
 
             // Walk around the clip polygon clockwise
-            foreach (LineSegment clipEdge in PolygonExtensions.IterateEdgesClockwise(clipPoly))
+            foreach (var clipEdge in PolygonExtensions.IterateEdgesClockwise(clipPoly))
             {
                 // clone it
                 var inputList = outputList.ToList();
@@ -64,7 +64,7 @@ namespace Engine
 
                 var S = inputList[inputList.Count - 1];
 
-                foreach (Point2D e in inputList)
+                foreach (var e in inputList)
                 {
                     if (PolygonExtensions.IsInside(clipEdge, e))
                     {

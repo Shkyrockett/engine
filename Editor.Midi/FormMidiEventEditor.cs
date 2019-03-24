@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using Engine.File;
 
@@ -81,7 +80,7 @@ namespace EventEditorMidi
                 Tag = items
             };
             tree.Nodes.Add(node);
-            foreach (MediaFile item in items)
+            foreach (var item in items)
             {
                 AddNode(node, item);
             }
@@ -131,7 +130,7 @@ namespace EventEditorMidi
             };
             tree.Nodes.Add(node);
 
-            foreach (PropertyInfo prop in item?.GetType().GetProperties()
+            foreach (var prop in item?.GetType().GetProperties()
                 .Where(p =>
                         
                            p.ReflectedType.GetInterfaces().Contains(typeof(IMidiElement))

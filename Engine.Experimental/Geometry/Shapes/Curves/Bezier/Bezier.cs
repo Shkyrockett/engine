@@ -1375,7 +1375,7 @@ namespace Engine
             var tlen = Length;
 
             // form curve outlines
-            foreach (Bezier segment in reduced)
+            foreach (var segment in reduced)
             {
                 slen = segment.Length;
                 if (graduated)
@@ -1393,7 +1393,7 @@ namespace Engine
 
             // reverse the "return" outline
             var tcurves = new List<Bezier>();
-            foreach (Bezier s in bcurves)
+            foreach (var s in bcurves)
             {
                 p = s.Points;
                 s.Points = p[3] != null ? new List<Point2D> { p[3], p[2], p[1], p[0] } : new List<Point2D> { p[2], p[1], p[0] };
@@ -1488,7 +1488,7 @@ namespace Engine
                 e = 1d;
 
                 // points:
-                Point2D np1 = Interpolate_Ported(s);
+                var np1 = Interpolate_Ported(s);
                 Point2D np2;
                 Point2D np3;
                 var arc = new Arc2D();
@@ -1703,7 +1703,7 @@ namespace Engine
             }
 
             // Second pass: further reduce these segments to simple segments
-            foreach (Bezier p1 in pass1)
+            foreach (var p1 in pass1)
             {
                 t1 = 0;
                 t2 = 0;
@@ -1872,9 +1872,9 @@ namespace Engine
         {
             var pairs = new List<Pair>();
             // step 1: pair off any overlapping segments
-            foreach (Bezier l in c1)
+            foreach (var l in c1)
             {
-                foreach (Bezier r in c2)
+                foreach (var r in c2)
                 {
                     if (l.Overlaps(r))
                     {
@@ -1885,7 +1885,7 @@ namespace Engine
 
             // step 2: for each pairing, run through the convergence algorithm.
             var intersections = new List<Pair>();
-            foreach (Pair pair in pairs)
+            foreach (var pair in pairs)
             {
                 var result = BezierUtil.Pairiteration(pair.Left, pair.Right);
                 if (result.Count > 0)

@@ -402,7 +402,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Complex Evaluate(Complex x)
         {
-            Complex buf = Coefficients[Degree];
+            var buf = Coefficients[Degree];
 
             for (var i = Degree - 1; i >= 0; i--)
             {
@@ -467,7 +467,7 @@ namespace Engine.Geometry
                 return p;
             }
 
-            Complex[] roots = Roots(this);
+            var roots = Roots(this);
 
             //ArrayList rootlist = new ArrayList();
             //foreach (Complex z in roots) rootlist.Add(z);
@@ -528,7 +528,7 @@ namespace Engine.Geometry
             var tolerance = 1e-12;
             var max_iterations = 30;
 
-            PolynomialX q = Normalize(this);
+            var q = Normalize(this);
             //PolynomialX q = p;
 
             var z = new Complex[q.Degree]; // approx. for roots
@@ -577,7 +577,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public Complex[] Roots(double tolerance, int max_iterations)
         {
-            PolynomialX q = Normalize(this);
+            var q = Normalize(this);
 
             var z = new Complex[q.Degree]; // approx. for roots
             var w = new Complex[q.Degree]; // Weierstraß corrections
@@ -655,7 +655,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Complex Evaluate(FactorizedPolynomialX p, Complex x)
         {
-            Complex z = Complex.One;
+            var z = Complex.One;
 
             for (var i = 0; i < p.Factor.Length; i++)
             {
@@ -695,7 +695,7 @@ namespace Engine.Geometry
         /// </summary>
         public static PolynomialX Normalize(PolynomialX p)
         {
-            PolynomialX q = Clean(p);
+            var q = Clean(p);
 
             if (q.Coefficients[q.Degree] != Complex.One)
             {
@@ -718,7 +718,7 @@ namespace Engine.Geometry
             var tolerance = 1e-12;
             var max_iterations = 30;
 
-            PolynomialX q = Normalize(p);
+            var q = Normalize(p);
             //PolynomialX q = p;
 
             var z = new Complex[q.Degree]; // approx. for roots
@@ -768,7 +768,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static Complex[] Roots(PolynomialX p, double tolerance, int max_iterations)
         {
-            PolynomialX q = Normalize(p);
+            var q = Normalize(p);
 
             var z = new Complex[q.Degree]; // approx. for roots
             var w = new Complex[q.Degree]; // Weierstraß corrections
@@ -842,7 +842,7 @@ namespace Engine.Geometry
                 throw new ArgumentOutOfRangeException();
             }
 
-            Complex buf = Complex.One;
+            var buf = Complex.One;
 
             for (var j = 0; j < z.Length; j++)
             {
@@ -1003,7 +1003,7 @@ namespace Engine.Geometry
                     d[i] = hp * den;
                     c[i] = ho * den;
                 }
-                Complex dy = (2 * (ns + 1) < (n - m)) ? c[ns + 1] : d[ns--];
+                var dy = (2 * (ns + 1) < (n - m)) ? c[ns + 1] : d[ns--];
                 y += dy;
             }
 
@@ -1026,7 +1026,7 @@ namespace Engine.Geometry
                 throw new Exception("Polynomial.eval: parameter must be a number");
             }
 
-            Complex result = Complex.Zero;
+            var result = Complex.Zero;
 
             for (var i = Coefficients.Length - 1; i >= 0; i--)
             {

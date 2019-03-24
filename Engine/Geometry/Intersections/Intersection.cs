@@ -157,10 +157,31 @@ namespace Engine
         {
             if (Points is null)
             {
-                Points = new List<Point2D>();
+                Points = new List<Point2D>() { point };
+                return;
             }
 
             Points.Add(point);
+        }
+
+        /// <summary>
+        /// The append points.
+        /// </summary>
+        /// <param name="points">The points.</param>
+        public void AppendPoints(params Point2D[] points)
+        {
+            if (points is null)
+            {
+                return;
+            }
+
+            if (Points is null)
+            {
+                Points = new List<Point2D>(points);
+                return;
+            }
+
+            Points.AddRange(points);
         }
 
         /// <summary>
@@ -177,11 +198,10 @@ namespace Engine
             if (Points is null)
             {
                 Points = points;
+                return;
             }
-            else
-            {
-                Points.AddRange(points);
-            }
+
+            Points.AddRange(points);
         }
 
         /// <summary>
@@ -190,14 +210,18 @@ namespace Engine
         /// <param name="points">The points.</param>
         public void AppendPoints(HashSet<Point2D> points)
         {
+            if (points is null)
+            {
+                return;
+            }
+
             if (Points is null)
             {
                 Points = points.ToList();
+                return;
             }
-            else
-            {
-                Points.AddRange(points);
-            }
+
+            Points.AddRange(points);
         }
         #endregion Mutators
 

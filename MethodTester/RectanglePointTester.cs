@@ -85,7 +85,7 @@ namespace MethodSpeedTester
             g.DrawString(text, font, Brushes.Black, new Point());
             g.FillRectangle(Brushes.White, rectangle.Bounds.ToRectangleF());
             g.DrawRectangle(Pens.Black, rectangle.Bounds.ToRectangle());
-            foreach (Point2D point in points)
+            foreach (var point in points)
             {
                 DrawHitPoint(g, point, method.Invoke(rectangle, point));
             }

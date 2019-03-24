@@ -28,7 +28,7 @@ namespace Engine
         /// <returns>The <see cref="MethodInfo"/>.</returns>
         public static MethodInfo GetParseMethod(Type t)
         {
-            foreach (MethodInfo method in t.GetMethods())
+            foreach (var method in t.GetMethods())
             {
                 if (method.IsStatic &&
                     method.GetCustomAttributes(typeof(ParseMethodAttribute), true).Length > 0 &&

@@ -220,7 +220,7 @@ namespace Engine.Experimental
         /// <param name="i">The index of the item to push up</param>
         public void PushItemUp(int i)
         {
-            QuadTreePositionItem<T> m = Items[i];
+            var m = Items[i];
 
             RemoveItem(i);
             ParentNode.Insert(m);
@@ -266,7 +266,7 @@ namespace Engine.Experimental
             if (Rect.Contains(Point))
             {
                 // test the point in each item
-                foreach (QuadTreePositionItem<T> Item in Items)
+                foreach (var Item in Items)
                 {
                     if (Item.Bounds.Contains(Point))
                     {
@@ -297,7 +297,7 @@ namespace Engine.Experimental
             if (Rect.Intersects(Rect))
             {
                 // test the point in each item
-                foreach (QuadTreePositionItem<T> Item in Items)
+                foreach (var Item in Items)
                 {
                     if (Item.Bounds.Intersects(Rect))
                     {

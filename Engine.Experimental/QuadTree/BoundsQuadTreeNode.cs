@@ -89,7 +89,7 @@ namespace Engine.Experimental
             {
                 var count = 0;
 
-                foreach (BoundsQuadTreeNode<T> node in nodes)
+                foreach (var node in nodes)
                 {
                     count += node.Count;
                 }
@@ -109,7 +109,7 @@ namespace Engine.Experimental
             {
                 var results = new List<T>();
 
-                foreach (BoundsQuadTreeNode<T> node in nodes)
+                foreach (var node in nodes)
                 {
                     results.AddRange(node.SubTreeContents);
                 }
@@ -140,7 +140,7 @@ namespace Engine.Experimental
             // this quad contains items that are not entirely contained by
             // it's four sub-quads. Iterate through the items in this quad 
             // to see if they intersect.
-            foreach (T item in Contents)
+            foreach (var item in Contents)
             {
                 if (queryArea.IntersectsWith(item.Bounds))
                 {
@@ -148,7 +148,7 @@ namespace Engine.Experimental
                 }
             }
 
-            foreach (BoundsQuadTreeNode<T> node in nodes)
+            foreach (var node in nodes)
             {
                 if (node.IsEmpty)
                 {
@@ -210,7 +210,7 @@ namespace Engine.Experimental
             // for each sub-node:
             // if the node contains the item, add the item to that node and return
             // this recurses into the node that is just large enough to fit this item
-            foreach (BoundsQuadTreeNode<T> node in nodes)
+            foreach (var node in nodes)
             {
                 if (node.Bounds.Contains(item.Bounds))
                 {
@@ -235,7 +235,7 @@ namespace Engine.Experimental
             action(this);
 
             // draw the child quads
-            foreach (BoundsQuadTreeNode<T> node in nodes)
+            foreach (var node in nodes)
             {
                 node.ForEach(action);
             }
@@ -268,7 +268,7 @@ namespace Engine.Experimental
         /// <param name="funFind">The funFind.</param>
         public void EchoSubTreeContents(BoundsQuadTree<T>.Find funFind)
         {
-            foreach (BoundsQuadTreeNode<T> node in nodes)
+            foreach (var node in nodes)
             {
                 node.EchoSubTreeContents(funFind);
             }
@@ -292,7 +292,7 @@ namespace Engine.Experimental
         {
             if (Contents != null)
             {
-                foreach (T item in Contents)
+                foreach (var item in Contents)
                 {
                     if (queryArea.IntersectsWith(item.Bounds) && funFind(item))
                     {
@@ -300,7 +300,7 @@ namespace Engine.Experimental
                     }
                 }
             }
-            foreach (BoundsQuadTreeNode<T> node in nodes)
+            foreach (var node in nodes)
             {
                 if (node.IsEmpty)
                 {

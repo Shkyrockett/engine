@@ -147,7 +147,7 @@ namespace MethodSpeedTester
             g.DrawString(text, font, Brushes.Black, new Point());
             g.FillPolygon(Brushes.White, poly);
             g.DrawPolygon(Pens.Black, poly);
-            foreach (PointF point in points)
+            foreach (var point in points)
             {
                 DrawHitPoint(g, point, method.Invoke(polygon, point));
             }

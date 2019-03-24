@@ -88,7 +88,7 @@ namespace Engine
         public PolygonContour(IEnumerable<Polyline> polylines)
         {
             points = new List<Point2D>();
-            foreach (Polyline polyline in polylines)
+            foreach (var polyline in polylines)
             {
                 points.Concat(polyline.Points);
             }

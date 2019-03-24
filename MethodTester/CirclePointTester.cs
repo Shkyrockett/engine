@@ -85,7 +85,7 @@ namespace MethodSpeedTester
             g.DrawString(text, font, Brushes.Black, new Point());
             g.FillEllipse(Brushes.White, circle.Bounds.ToRectangleF());
             g.DrawEllipse(Pens.Black, circle.Bounds.ToRectangleF());
-            foreach (PointF point in points)
+            foreach (var point in points)
             {
                 DrawHitPoint(g, point, method.Invoke(circle, point));
             }

@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using static Engine.Maths;
 
 namespace Editor
@@ -45,7 +46,7 @@ namespace Editor
             /* Experimental Previews */
 
             //BezierExp(vectorMap);
-            //EllipseEllipseIntersection(vectorMap);
+            EllipseEllipseIntersection(vectorMap);
             //EnvelopeWarp(vectorMap);
             //Clipper(vectorMap);
             //ComplexPolygonClipping(vectorMap);
@@ -93,7 +94,7 @@ namespace Editor
             //IntersectionsQuadraticBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierCubicBezierKLD(vectorMap);
             //IntersectionsCubicBezierQuadraticBezier(vectorMap);
-            IntersectionsCubicBezierCubicBezier(vectorMap);
+            //IntersectionsCubicBezierCubicBezier(vectorMap);
             //BezierLineIntersections(vectorMap);
             //BezierLineSegmentIntersections(vectorMap);
             //QuadraticBezierHorizontalLineIntersection(vectorMap);
@@ -219,8 +220,17 @@ namespace Editor
                 Name = "Ellipse 1"
             };
 
-            var intersects = Intersections.EllipseEllipseIntersects(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle);
-            var intersections = Intersections.EllipseEllipseIntersection(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle);
+            var l0 = new Line(175d, 200d, 0d, 1d);
+            var line0Item = new GraphicItem(l0, intersectionBlue)
+            {
+                Name = "Line 0"
+            };
+
+            var points = Array.ConvertAll(IntersectionsDrawable.IntersectEllipseEllipse(((e0.Center.X, e0.Center.Y), e0.RX, e0.RY, e0.Angle), ((e1.Center.X, e1.Center.Y), e1.RX, e1.RY, e1.Angle)), item => (Point2D)item);
+            var intersections = new Intersection(points.Length > 0 ? IntersectionState.Intersection : IntersectionState.NoIntersection, points);
+
+            //var intersects = Intersections.EllipseEllipseIntersects(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle);
+            //var intersections = Intersections.EllipseEllipseIntersection(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle);
 
             var intersectionNodeItem = new GraphicItem(new NodeRevealer(intersections.Points, 5d), handleStyle)
             {
@@ -229,6 +239,7 @@ namespace Editor
 
             vectorMap.Add(ellipse0Item);
             vectorMap.Add(ellipse1Item);
+            vectorMap.Add(line0Item);
             vectorMap.Add(intersectionNodeItem);
         }
 

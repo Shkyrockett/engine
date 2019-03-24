@@ -174,7 +174,7 @@ namespace Engine
             var boundary = new List<Point2D>();
             var inside = new List<Point2D>();
             var outside = new List<Point2D>();
-            foreach (Point2D point in Grid())
+            foreach (var point in Grid())
             {
                 var value = Intersector.Invoke(point.X, point.Y);
                 switch (value)

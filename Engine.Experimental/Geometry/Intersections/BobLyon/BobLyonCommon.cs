@@ -20,22 +20,6 @@ using static Engine.Maths;
 namespace Engine
 {
     /// <summary>
-    /// The mode enum.
-    /// </summary>
-    public enum Mode
-    {
-        /// <summary>
-        /// The CORNERS.
-        /// </summary>
-        CORNERS,
-
-        /// <summary>
-        /// The CENTER.
-        /// </summary>
-        CENTER,
-    }
-
-    /// <summary>
     /// The bob lyon common class.
     /// </summary>
     public static class BobLyonCommon
@@ -91,7 +75,7 @@ namespace Engine
             //  x⁴ +        p*x² + q*x + r
             // a*x⁴ + b*x³ + c*x² + d*x + e
             // so a=1  b=0  c=p  d=q  e=r
-            // That is, we have a depessed quartic.
+            // That is, we have a depressed quartic.
             var discrim = (256d * r * r * r) - (128d * p * p * r * r) + (144d * p * q * q * r)
                 - (27d * q * q * q * q) + (16d * p * p * p * p * r) - (4d * p * p * p * q * q);
             var P = 8d * p;
@@ -148,7 +132,7 @@ namespace Engine
             //  x⁴ +        p*x² + q*x + r
             // a*x⁴ + b*x³ + c*x² + d*x + e
             // so a=1  b=0  c=p  d=q  e=r
-            // That is, we have a depessed quartic.
+            // That is, we have a depressed quartic.
             var descrim = (256d * r * r * r) - (128d * p * p * r * r) + (144d * p * q * q * r)
                 - (27d * q * q * q * q) + (16d * p * p * p * p * r) - (4d * p * p * p * q * q);
             var P = 8d * p;
@@ -186,7 +170,7 @@ namespace Engine
             double a1, double b1, double c1, double d1, double e1, double f1)
         {
             // Normalize the conics by their first coefficient, a.
-            // Then get the differnce of the two equations.
+            // Then get the difference of the two equations.
             var deltaB = (b1 /= a1) - (b /= a);
             var deltaC = (c1 /= a1) - (c /= a);
             var deltaD = (d1 /= a1) - (d /= a);
@@ -259,11 +243,11 @@ namespace Engine
             (double a, double b, double c, double d, double e, double f) el1,
             (double a, double b, double c, double d, double e, double f) el2, double epsilon = Epsilon)
             => (
-                a: (el1.f * el1.a * el2.d * el2.d) + (el1.a * el1.a * el2.f * el2.f) - (el1.d * el1.a * el2.d * el2.f) + (el2.a * el2.a * el1.f * el1.f) - (2 * el1.a * el2.f * el2.a * el1.f) - (el1.d * el2.d * el2.a * el1.f) + (el2.a * el1.d * el1.d * el2.f),
-                b: (el2.e * el1.d * el1.d * el2.a) - (el2.f * el2.d * el1.a * el1.b) - (2 * el1.a * el2.f * el2.a * el1.e) - (el1.f * el2.a * el2.b * el1.d) + (2 * el2.d * el2.b * el1.a * el1.f) + (2 * el2.e * el2.f * el1.a * el1.a) + (el2.d * el2.d * el1.a * el1.e) - (el2.e * el2.d * el1.a * el1.d) - (2 * el1.a * el2.e * el2.a * el1.f) - (el1.f * el2.a * el2.d * el1.b) + (2 * el1.f * el1.e * el2.a * el2.a) - (el2.f * el2.b * el1.a * el1.d) - (el1.e * el2.a * el2.d * el1.d) + (2 * el2.f * el1.b * el2.a * el1.d),
-                c: (el2.e * el2.e * el1.a * el1.a) + (2 * el2.c * el2.f * el1.a * el1.a) - (el1.e * el2.a * el2.d * el1.b) + (el2.f * el2.a * el1.b * el1.b) - (el1.e * el2.a * el2.b * el1.d) - (el2.f * el2.b * el1.a * el1.b) - (2 * el1.a * el2.e * el2.a * el1.e) + (2 * el2.d * el2.b * el1.a * el1.e) - (el2.c * el2.d * el1.a * el1.d) - (2 * el1.a * el2.c * el2.a * el1.f) + (el2.b * el2.b * el1.a * el1.f) + (2 * el2.e * el1.b * el2.a * el1.d) + (el1.e * el1.e * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.d) - (el2.e * el2.b * el1.a * el1.d) + (2 * el1.f * el1.c * el2.a * el2.a) - (el1.f * el2.a * el2.b * el1.b) + (el2.c * el1.d * el1.d * el2.a) + (el2.d * el2.d * el1.a * el1.c) - (el2.e * el2.d * el1.a * el1.b) - (2 * el1.a * el2.f * el2.a * el1.c),
-                d: (-2 * el1.a * el2.a * el1.c * el2.e) + (el2.e * el2.a * el1.b * el1.b) + (2 * el2.c * el1.b * el2.a * el1.d) - (el1.c * el2.a * el2.b * el1.d) + (el2.b * el2.b * el1.a * el1.e) - (el2.e * el2.b * el1.a * el1.b) - (2 * el1.a * el2.c * el2.a * el1.e) - (el1.e * el2.a * el2.b * el1.b) - (el2.c * el2.b * el1.a * el1.d) + (2 * el2.e * el2.c * el1.a * el1.a) + (2 * el1.e * el1.c * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.b) + (2 * el2.d * el2.b * el1.a * el1.c) - (el2.c * el2.d * el1.a * el1.b),
-                e: (el1.a * el1.a * el2.c * el2.c) - (2 * el1.a * el2.c * el2.a * el1.c) + (el2.a * el2.a * el1.c * el1.c) - (el1.b * el1.a * el2.b * el2.c) - (el1.b * el2.b * el2.a * el1.c) + (el1.b * el1.b * el2.a * el2.c) + (el1.c * el1.a * el2.b * el2.b)
+                a: (el1.f * el1.a * el2.d * el2.d) + (el1.a * el1.a * el2.f * el2.f) - (el1.d * el1.a * el2.d * el2.f) + (el2.a * el2.a * el1.f * el1.f) - (2d * el1.a * el2.f * el2.a * el1.f) - (el1.d * el2.d * el2.a * el1.f) + (el2.a * el1.d * el1.d * el2.f),
+                b: (el2.e * el1.d * el1.d * el2.a) - (el2.f * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.e) - (el1.f * el2.a * el2.b * el1.d) + (2d * el2.d * el2.b * el1.a * el1.f) + (2d * el2.e * el2.f * el1.a * el1.a) + (el2.d * el2.d * el1.a * el1.e) - (el2.e * el2.d * el1.a * el1.d) - (2d * el1.a * el2.e * el2.a * el1.f) - (el1.f * el2.a * el2.d * el1.b) + (2d * el1.f * el1.e * el2.a * el2.a) - (el2.f * el2.b * el1.a * el1.d) - (el1.e * el2.a * el2.d * el1.d) + (2d * el2.f * el1.b * el2.a * el1.d),
+                c: (el2.e * el2.e * el1.a * el1.a) + (2d * el2.c * el2.f * el1.a * el1.a) - (el1.e * el2.a * el2.d * el1.b) + (el2.f * el2.a * el1.b * el1.b) - (el1.e * el2.a * el2.b * el1.d) - (el2.f * el2.b * el1.a * el1.b) - (2d * el1.a * el2.e * el2.a * el1.e) + (2d * el2.d * el2.b * el1.a * el1.e) - (el2.c * el2.d * el1.a * el1.d) - (2d * el1.a * el2.c * el2.a * el1.f) + (el2.b * el2.b * el1.a * el1.f) + (2d * el2.e * el1.b * el2.a * el1.d) + (el1.e * el1.e * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.d) - (el2.e * el2.b * el1.a * el1.d) + (2d * el1.f * el1.c * el2.a * el2.a) - (el1.f * el2.a * el2.b * el1.b) + (el2.c * el1.d * el1.d * el2.a) + (el2.d * el2.d * el1.a * el1.c) - (el2.e * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.c),
+                d: (-2d * el1.a * el2.a * el1.c * el2.e) + (el2.e * el2.a * el1.b * el1.b) + (2d * el2.c * el1.b * el2.a * el1.d) - (el1.c * el2.a * el2.b * el1.d) + (el2.b * el2.b * el1.a * el1.e) - (el2.e * el2.b * el1.a * el1.b) - (2d * el1.a * el2.c * el2.a * el1.e) - (el1.e * el2.a * el2.b * el1.b) - (el2.c * el2.b * el1.a * el1.d) + (2d * el2.e * el2.c * el1.a * el1.a) + (2d * el1.e * el1.c * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.b) + (2d * el2.d * el2.b * el1.a * el1.c) - (el2.c * el2.d * el1.a * el1.b),
+                e: (el1.a * el1.a * el2.c * el2.c) - (2d * el1.a * el2.c * el2.a * el1.c) + (el2.a * el2.a * el1.c * el1.c) - (el1.b * el1.a * el2.b * el2.c) - (el1.b * el2.b * el2.a * el1.c) + (el1.b * el1.b * el2.a * el2.c) + (el1.c * el1.a * el2.b * el2.b)
             );
 
         /// <summary>
@@ -284,20 +268,18 @@ namespace Engine
         public static (double a, double b, double c, double d, double e, double f)
             GetQuadratic(double cx, double cy, double rx, double ry, double rotation)
         {
-            var a = cx;
-            var b = rx * rx;
-            var c = cy;
-            var d = ry * ry;
-            var A = Cos(-rotation);
-            var B = Sin(-rotation);
+            var rx2 = rx * rx;
+            var ry2 = ry * ry;
+            var cosT = Cos(-rotation);
+            var sinT = Sin(-rotation);
 
             return (
-                /* x^2   */ a: (A * A / b) + (B * B / d),
-                /* x * y */ b: (2 * A * B / d) - (2 * A * B / b),
-                /* y^2   */ c: (A * A / d) + (B * B / b),
-                /* x     */ d: (((2 * A * B * c) - (2 * a * A * A)) / b) + (((-2 * a * B * B) - (2 * A * B * c)) / d),
-                /* y     */ e: (((2 * a * A * B) - (2 * B * B * c)) / b) + (((-2 * a * A * B) - (2 * A * A * c)) / d),
-                /* Const */ f: (((a * a * A * A) - (2 * a * A * B * c) + (B * B * c * c)) / b) + (((a * a * B * B) + (2 * a * A * B * c) + (A * A * c * c)) / d) - 1
+                /* x^2   */ a: (cosT * cosT / rx2) + (sinT * sinT / ry2),
+                /* x * y */ b: (2d * cosT * sinT / ry2) - (2d * cosT * sinT / rx2),
+                /* y^2   */ c: (cosT * cosT / ry2) + (sinT * sinT / rx2),
+                /* x     */ d: (((2d * cosT * sinT * cy) - (2d * cx * cosT * cosT)) / rx2) + (((-2d * cx * sinT * sinT) - (2d * cosT * sinT * cy)) / ry2),
+                /* y     */ e: (((2d * cx * cosT * sinT) - (2d * sinT * sinT * cy)) / rx2) + (((-2d * cx * cosT * sinT) - (2d * cosT * cosT * cy)) / ry2),
+                /* Const */ f: (((cx * cx * cosT * cosT) - (2d * cx * cosT * sinT * cy) + (sinT * sinT * cy * cy)) / rx2) + (((cx * cx * sinT * sinT) + (2d * cx * cosT * sinT * cy) + (cosT * cosT * cy * cy)) / ry2) - 1d
             );
         }
 
@@ -318,22 +300,39 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b, double c, double d, double e, double f)
             GetQuadratic((double x, double y) origin, double rx, double ry, double rotation, double epsilon = Epsilon)
+            => GetQuadratic(origin, rx, ry, (Cos(rotation), Sin(rotation)), epsilon = Epsilon);
+
+        /// <summary>
+        /// Create a general quadratic function for the ellipse a x^2 + b x y + c y^2 + d x + e y + c = 0
+        /// </summary>
+        /// <param name="origin">The origin.</param>
+        /// <param name="rx">The rx.</param>
+        /// <param name="ry">The ry.</param>
+        /// <param name="rotation">The rotation.</param>
+        /// <param name="epsilon"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double a, double b, double c, double d, double e, double f)
+            GetQuadratic((double x, double y) origin, double rx, double ry, (double cos, double sin) rotation, double epsilon = Epsilon)
         {
             var (x, y) = origin;
-            var a = x;
-            var b = rx * rx;
-            var c = y;
-            var d = ry * ry;
-            var A = Cos(-rotation);
-            var B = Sin(-rotation);
+            var rx2 = rx * rx;
+            var ry2 = ry * ry;
+            var cosT = -rotation.cos;
+            var sinT = -rotation.sin;
 
             return (
-                /* x^2   */ a: (A * A / b) + (B * B / d),
-                /* x * y */ b: (2 * A * B / d) - (2 * A * B / b),
-                /* y^2   */ c: (A * A / d) + (B * B / b),
-                /* x     */ d: (((2 * A * B * c) - (2 * a * A * A)) / b) + (((-2 * a * B * B) - (2 * A * B * c)) / d),
-                /* y     */ e: (((2 * a * A * B) - (2 * B * B * c)) / b) + (((-2 * a * A * B) - (2 * A * A * c)) / d),
-                /* Const */ f: (((a * a * A * A) - (2 * a * A * B * c) + (B * B * c * c)) / b) + (((a * a * B * B) + (2 * a * A * B * c) + (A * A * c * c)) / d) - 1
+                /* x^2   */ a: (cosT * cosT / rx2) + (sinT * sinT / ry2),
+                /* x * y */ b: (2d * cosT * sinT / ry2) - (2d * cosT * sinT / rx2),
+                /* y^2   */ c: (cosT * cosT / ry2) + (sinT * sinT / rx2),
+                /* x     */ d: (((2d * cosT * sinT * y) - (2d * x * cosT * cosT)) / rx2) + (((-2d * x * sinT * sinT) - (2d * cosT * sinT * y)) / ry2),
+                /* y     */ e: (((2d * x * cosT * sinT) - (2d * sinT * sinT * y)) / rx2) + (((-2d * x * cosT * sinT) - (2d * cosT * cosT * y)) / ry2),
+                /* Const */ f: (((x * x * cosT * cosT) - (2d * x * cosT * sinT * y) + (sinT * sinT * y * y)) / rx2) + (((x * x * sinT * sinT) + (2d * x * cosT * sinT * y) + (cosT * cosT * y * y)) / ry2) - 1d
             );
         }
 
@@ -384,7 +383,7 @@ namespace Engine
 
             // Now let the bivariate computation
             // rotate in the opposite direction.
-            // NOTE the OPPOSITE angle
+            // NOTE: the OPPOSITE angle
             var nSinA = -sinA;
 
             var b = rx * rx / 4d;
@@ -490,37 +489,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Return a "correction" angle that converts a
-        /// subtended angle to a parametric angle for an
-        /// ellipse with radii a and b.See
-        /// http://mathworld.wolfram.com/Ellipse-LineIntersection.html
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <param name="subtended">The subtended.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Subtended2parametric(double a, double b, double subtended)
-        {
-            if (a == b)
-            {
-                return 0;  /* circle needs no correction */
-            }
-            var rx = Cos(subtended);  /* ray from the origin */
-            var ry = Sin(subtended);
-            var e = a * b / Sqrt((a * a * ry * ry) + (b * b * rx * rx));
-            var ex = e * rx;  /* where ray intersects ellipse */
-            var ey = e * ry;
-            var parametric = Atan2(a * ey, b * ex);
-            subtended = Atan2(ry, rx);  /* Normailzed! */
-            return parametric - subtended;
-        }
-
-        /// <summary>
         /// The rotate vector.
         /// </summary>
         /// <param name="vector">The vector.</param>
@@ -531,7 +499,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y) RotateVector((double x, double y) vector, double angle, (double x, double y) origin, double epsilon = Epsilon)
-            => RotateVector(vector, (Cos(angle), Sin(angle)), origin);
+            => RotateVector(vector, (Cos(angle), Sin(angle)), origin, epsilon);
 
         /// <summary>
         /// The rotate vector.
@@ -584,23 +552,6 @@ namespace Engine
             => (x: (cosine * x) + (sine * y), y: (-sine * x) + (cosine * y));
 
         /// <summary>
-        /// The dist.
-        /// </summary>
-        /// <param name="ax">The ax.</param>
-        /// <param name="ay">The ay.</param>
-        /// <param name="bx">The bx.</param>
-        /// <param name="by">The by.</param>
-        /// <returns>The <see cref="double"/>.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Dist(double ax, double ay, double bx, double by)
-        {
-            var dx = ax - bx;
-            var dy = ay - by;
-            return Sqrt((dx * dx) + (dy * dy));
-        }
-
-        /// <summary>
         /// The constrain.
         /// </summary>
         /// <param name="aNumber">The aNumber.</param>
@@ -611,46 +562,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Constrain(double aNumber, double aMin, double aMax)
             => aNumber > aMax ? aMax : aNumber < aMin ? aMin : aNumber;
-
-        /// <summary>
-        /// Return true iff angle c is between angles
-        /// a and b, inclusive. b always follows a in
-        /// the positive rotational direction. Operations
-        /// against an entire circle cannot be defined.
-        /// </summary>
-        /// <param name="c">The c.</param>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsAngleBetween(double c, double a, double b)
-        {
-            /* Make sure that a is in the range [0 .. tau). */
-            for (a %= Tau; a < 0; a += Tau) { }
-            /* Make sure that both b and c are not less than a. */
-            for (b %= Tau; b < a; b += Tau) { }
-            for (c %= Tau; c < a; c += Tau) { }
-            return c <= b;
-        }
-
-        /// <summary>
-        /// Return true iff c is between a and b.  Normalize all parameters wrt c, then ask if a and b are on opposite sides of zero.
-        /// </summary>
-        /// <param name="c">The c.</param>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsBetween(double c, double a, double b)
-            => (a - c) * (b - c) <= 0;
 
         /// <summary>
         /// Return true iff range [a, b] overlaps [c, d].
@@ -666,62 +577,8 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Overlap(double a, double b, double c, double d)
-            => IsBetween((c < d) ? c : d, a, b)
-            || IsBetween((a < b) ? a : b, c, d);
-
-        /// <summary>
-        /// Compute and return the centroid of the polygon.  See
-        /// http://wikipedia.org/wiki/Centroid
-        /// </summary>
-        /// <param name="poly">The poly.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y) Centroid((double x, double y)[] poly)
-        {
-            var area = 0d;
-            var cx = 0d;
-            var cy = 0d;
-            for (int i = poly.Length - 1, j = 0; j < poly.Length; i = j, j++)
-            {
-                var a = (poly[i].x * poly[j].y) - (poly[j].x * poly[i].y);
-                cx += (poly[i].x + poly[j].x) * a;
-                cy += (poly[i].y + poly[j].y) * a;
-                area += a;
-            }
-            area *= 3;
-            return (x: cx / area, y: cy / area);
-        }
-
-        /// <summary>
-        /// Compute the center of triangle a-b-c.
-        /// </summary>
-        /// <param name="ax">The ax.</param>
-        /// <param name="ay">The ay.</param>
-        /// <param name="bx">The bx.</param>
-        /// <param name="by">The by.</param>
-        /// <param name="cx">The cx.</param>
-        /// <param name="cy">The cy.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y) TriangleCenter(double ax, double ay, double bx, double by, double cx, double cy)
-        {
-            var A = Dist(bx, by, cx, cy);
-            var B = Dist(ax, ay, cx, cy);
-            var C = Dist(bx, by, ax, ay);
-            var P = A + B + C;
-            return (
-                x: ((A * ax) + (B * bx) + (C * cx)) / P,
-                y: ((A * ay) + (B * by) + (C * cy)) / P
-            );
-        }
+            => Intersections.Between((c < d) ? c : d, a, b)
+            || Intersections.Between((a < b) ? a : b, c, d);
 
         /// <summary>
         /// Return true iff the polygon is convex.  It is

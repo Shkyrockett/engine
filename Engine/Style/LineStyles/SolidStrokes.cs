@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Engine
+﻿namespace Engine
 {
     public static class SolidStrokes
     {

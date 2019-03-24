@@ -237,7 +237,7 @@ namespace Engine.Experimental
 
             var results = new List<Point2D>();
 
-            foreach (Point2D point in points)
+            foreach (var point in points)
             {
                 results.Add(new Point2D(
                     ((point.X - line.P1.X) * cosA) - ((point.Y - line.P1.Y) * sinA),
@@ -267,7 +267,7 @@ namespace Engine.Experimental
 
             var results = new List<Point3D>();
 
-            foreach (Point3D point in points)
+            foreach (var point in points)
             {
                 results.Add(new Point3D(
                     ((point.X - line.P1.X) * cosA) - ((point.Y - line.P1.Y) * sinA),
@@ -1157,7 +1157,7 @@ namespace Engine.Experimental
             var my = mx;
             var MX = -mx;
             var MY = MX;
-            foreach (Bezier s in sections)
+            foreach (var s in sections)
             {
                 var bbox = s.Bbox();
                 if (mx > bbox.X.Min)
@@ -1344,14 +1344,14 @@ namespace Engine.Experimental
             var intersections = new List<Pair>();
             var a1 = new List<Bezier> { s1.Startcap, s1.Forward, s1.Back, s1.Endcap };
             var a2 = new List<Bezier> { s2.Startcap, s2.Forward, s2.Back, s2.Endcap };
-            foreach (Bezier l1 in a1)
+            foreach (var l1 in a1)
             {
                 if (l1.Virtual)
                 {
                     return new List<Pair>();
                 }
 
-                foreach (Bezier l2 in a2)
+                foreach (var l2 in a2)
                 {
                     if (l2.Virtual)
                     {
@@ -1359,7 +1359,7 @@ namespace Engine.Experimental
                     }
 
                     var iss = l1.Intersects(l2);
-                    foreach (Pair i in iss)
+                    foreach (var i in iss)
                     {
                         if (i.Length > 0)
                         {

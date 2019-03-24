@@ -123,7 +123,7 @@ namespace Engine
             {
                 var bounds = polylines[0].Bounds;
 
-                foreach (Polyline polyline in polylines)
+                foreach (var polyline in polylines)
                 {
                     bounds.UnionMutate(polyline.Bounds);
                 }

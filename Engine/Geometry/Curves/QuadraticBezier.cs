@@ -550,7 +550,7 @@ namespace Engine
                     }
 
                     // Second pass: further reduce these segments to simple segments
-                    foreach (CubicBezier p1 in pass1)
+                    foreach (var p1 in pass1)
                     {
                         t1 = 0;
                         t2 = 0;

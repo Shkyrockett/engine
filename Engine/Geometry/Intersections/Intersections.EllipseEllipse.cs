@@ -98,11 +98,21 @@ namespace Engine
 
             var result = new Intersection(IntersectionState.NoIntersection);
 
+            var dot = DotProduct(cosA0, sinA0, cosA1, sinA1); // Dot product of the angles of the two ellipses rotations.
+            if ((rx0 == ry0) && (rx1 == ry1))
+            {
+                return CircleCircleIntersection(cx0, cy0, rx0, cx1, cy1, rx1, epsilon);
+            }
+            else if ((dot == 0d /*perpendicular*/ || Abs(dot) == 1d /*parallel*/)&& ((rx0 == rx1) && (ry0 == ry1)))
+            {
+                
+            }
+
             return result;
         }
 
         /// <summary>
-        /// The ellipse ellipse intersects.
+        /// The ellipse and ellipse intersects method.
         /// </summary>
         /// <param name="cx0">The cx0.</param>
         /// <param name="cy0">The cy0.</param>
@@ -125,7 +135,7 @@ namespace Engine
             => EllipseEllipseIntersects(cx0, cy0, rx0, ry0, Cos(angle0), Sin(angle0), cx1, cy1, rx1, ry1, Cos(angle1), Sin(angle1), epsilon);
 
         /// <summary>
-        /// The ellipse ellipse intersects.
+        /// The ellipse and ellipse intersects method.
         /// </summary>
         /// <param name="cx0">The cx0.</param>
         /// <param name="cy0">The cy0.</param>
@@ -146,9 +156,6 @@ namespace Engine
         public static bool EllipseEllipseIntersects(
             double cx0, double cy0, double rx0, double ry0, double cosA0, double sinA0,
             double cx1, double cy1, double rx1, double ry1, double cosA1, double sinA1,
-            double epsilon = Epsilon)
-        {
-            return false;
-        }
+            double epsilon = Epsilon) => false;
     }
 }

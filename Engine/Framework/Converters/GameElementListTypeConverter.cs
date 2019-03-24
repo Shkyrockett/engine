@@ -65,7 +65,7 @@ namespace Engine
             var list = new List<PropertyDescriptor>();
             if (value is List<IGameElement> gameElements)
             {
-                foreach (IGameElement gameElement in gameElements)
+                foreach (var gameElement in gameElements)
                 {
                     if (gameElement.Name != null)
                     {

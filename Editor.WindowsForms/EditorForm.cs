@@ -288,7 +288,7 @@ namespace Editor
             var renderer = e.Graphics.ToWinformsRenderer();
 
             // Only need to draw the shapes that are on screen.
-            foreach (GraphicItem item in vectorMap[vectorMap.VisibleBounds])
+            foreach (var item in vectorMap[vectorMap.VisibleBounds])
             {
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
                 {
@@ -304,7 +304,7 @@ namespace Editor
 
             if (vectorMap?.RubberbandItems != null)
             {
-                foreach (GraphicItem item in vectorMap?.RubberbandItems)
+                foreach (var item in vectorMap?.RubberbandItems)
                 {
                     // Render temporary rubber band tools shapes.
                     Renderer.Render(item, e.Graphics, renderer, new ShapeStyle(Brushes.Red, Brushes.Red));

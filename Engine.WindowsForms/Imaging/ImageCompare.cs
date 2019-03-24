@@ -57,9 +57,9 @@ namespace Engine.Imaging
 
             var c = new Bitmap(cRect.Width, cRect.Height, PixelFormat.Format32bppArgb);
 
-            using (BitmapExtensions.DisposableImageData aData = a.LockBitsDisposable(aRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (BitmapExtensions.DisposableImageData bData = b.LockBitsDisposable(bRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (BitmapExtensions.DisposableImageData cData = c.LockBitsDisposable(cRect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
+            using (var aData = a.LockBitsDisposable(aRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
+            using (var bData = b.LockBitsDisposable(bRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
+            using (var cData = c.LockBitsDisposable(cRect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
             {
                 var aPtr = (byte*)aData.Scan0;
                 var bPtr = (byte*)bData.Scan0;
@@ -135,9 +135,9 @@ namespace Engine.Imaging
 
             var c = new Bitmap(cRect.Width, cRect.Height, PixelFormat.Format32bppArgb);
 
-            using (BitmapExtensions.DisposableImageData aData = a.LockBitsDisposable(aRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (BitmapExtensions.DisposableImageData bData = b.LockBitsDisposable(bRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
-            using (BitmapExtensions.DisposableImageData cData = c.LockBitsDisposable(cRect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
+            using (var aData = a.LockBitsDisposable(aRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
+            using (var bData = b.LockBitsDisposable(bRect, ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb))
+            using (var cData = c.LockBitsDisposable(cRect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb))
             {
                 var aPtr = (byte*)aData.Scan0;
                 var bPtr = (byte*)bData.Scan0;

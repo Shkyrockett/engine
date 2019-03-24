@@ -608,7 +608,7 @@ namespace Engine.File.Palettes
                 bw.Write((short)Colors.Count);
 
                 // Colors
-                foreach (RGBA color in Colors)
+                foreach (var color in Colors)
                 {
                     bw.Write(color.Red);
                     bw.Write(color.Green);
@@ -637,7 +637,7 @@ namespace Engine.File.Palettes
                 bw.WriteLine(Colors.Count);
 
                 // Colors
-                foreach (RGBA color in Colors)
+                foreach (var color in Colors)
                 {
                     bw.WriteLine(color.Red + " " + color.Green + " " + color.Blue + " " + color.Alpha);
                 }
@@ -663,7 +663,7 @@ namespace Engine.File.Palettes
                 bw.WriteLine("; slots will be set to white (FFFFFFFF). If there are more, then the remaining colors will be ignored.");
 
                 // Colors
-                foreach (RGBA color in Colors)
+                foreach (var color in Colors)
                 {
                     bw.WriteLine("{0:X2}{1:X2}{2:X2}{3:X2}", color.Alpha, color.Red, color.Green, color.Blue);
                 }

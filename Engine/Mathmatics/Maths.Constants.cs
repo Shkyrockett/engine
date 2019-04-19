@@ -58,6 +58,16 @@ namespace Engine
         public const float FloatEpsilon = 1.192092896e-07f;
 
         /// <summary>
+        /// The nearest value to 0 Cosine can produce for a right angle.
+        /// </summary>
+        public static double CosineZeroEpsilon = Cos(HalfPi); //6.123233995736766E-17;
+
+        /// <summary>
+        /// The nearest value to 0 Cosine can produce for a reverse right angle.
+        /// </summary>
+        public static double CosineNegitiveZeroEpsilon = Cos(Pau);
+
+        /// <summary>
         /// The near zero epsilon Value: 1E-20.
         /// </summary>
         public const double NearZeroEpsilon = 1E-20;
@@ -142,13 +152,13 @@ namespace Engine
         /// <remarks>PI / 2</remarks>
         public const double HalfPi = 0.5d * PI; // 1.5707963267948966192313216916398d;
 
-        ///// <summary>
-        ///// Represents the ratio of the circumference of a circle to its diameter, specified
-        ///// by the constant, π (Pi).
-        ///// One half Tau or One Pi.
-        ///// </summary>
-        ///// <value>≈3.1415926535897931...</value>
-        //public const double Pi = Math.PI; // 3.1415926535897932384626433832795d;
+        /// <summary>
+        /// Represents the ratio of the circumference of a circle to its diameter, specified
+        /// by the constant, π (Pi).
+        /// One half Tau or One Pi.
+        /// </summary>
+        /// <value>≈3.1415926535897931...</value>
+        public const double Pi = PI; // 3.1415926535897932384626433832795d;
 
         /// <summary>
         /// Represents the ratio of the radius of a circle to the third quarter of that circle.

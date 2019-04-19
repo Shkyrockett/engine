@@ -1849,30 +1849,8 @@ namespace Engine
         /// <returns>Returns anAxis Aligned Bounding Box (AABB) containing the polygon.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Rectangle2D PolygonBounds(IEnumerable<Point2D> polygonPoints)
-        {
-            var points = polygonPoints as List<Point2D>;
-            if (points?.Count < 1)
-            {
-                return null;
-            }
-
-            var left = points[0].X;
-            var top = points[0].Y;
-            var right = points[0].X;
-            var bottom = points[0].Y;
-
-            foreach (var point in points)
-            {
-                // ToDo: Measure performance impact of overwriting each time.
-                left = point.X <= left ? point.X : left;
-                top = point.Y <= top ? point.Y : top;
-                right = point.X >= right ? point.X : right;
-                bottom = point.Y >= bottom ? point.Y : bottom;
-            }
-
-            return Rectangle2D.FromLTRB(left, top, right, bottom);
-        }
+        public static Rectangle2D PolygonBounds(IList<Point2D> polygonPoints)
+            => PolylineBounds((List<Point2D>)polygonPoints);
 
         /// <summary>
         /// Calculates the external Axis Aligned Bounding Box (AABB) rectangle of a <see cref="Polyline"/>.
@@ -1881,6 +1859,8 @@ namespace Engine
         /// <returns>Returns anAxis Aligned Bounding Box (AABB) containing the polyline.</returns>
         public static Rectangle2D PolylineBounds(List<Point2D> points)
         {
+            if (points?.Count < 1) { return null; }
+
             var left = points[0].X;
             var top = points[0].Y;
             var right = points[0].X;
@@ -1953,23 +1933,7 @@ namespace Engine
                 return null;
             }
 
-            // Fill with initial point.
-            var left = points[0].X;
-            var top = points[0].Y;
-            var right = points[0].X;
-            var bottom = points[0].Y;
-
-            // Locate the extremes of the parametric shape.
-            foreach (var point in points)
-            {
-                left = point.X <= left ? point.X : left;
-                top = point.Y <= top ? point.Y : top;
-                right = point.X >= right ? point.X : right;
-                bottom = point.Y >= bottom ? point.Y : bottom;
-            }
-
-            // Return the rectangle that encompasses the points at the found extremes.
-            return Rectangle2D.FromLTRB(left, top, right, bottom);
+            return PolylineBounds(points);
         }
         #endregion BoundsMethods
 

@@ -504,20 +504,20 @@ namespace Engine
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public IList<CubicBezier> Reduction
+        public IList<QuadraticBezier> Reduction
         {
             get
             {
-                return (IList<CubicBezier>)CachingProperty(() => Reduce());
+                return (IList<QuadraticBezier>)CachingProperty(() => Reduce());
 
-                IList<CubicBezier> Reduce()
+                IList<QuadraticBezier> Reduce()
                 {
                     int i;
                     double t1 = 0, t2 = 0;
                     const double step = 0.01;
-                    CubicBezier segment;
-                    var pass1 = new List<CubicBezier>();
-                    var pass2 = new List<CubicBezier>();
+                    QuadraticBezier segment;
+                    var pass1 = new List<QuadraticBezier>();
+                    var pass2 = new List<QuadraticBezier>();
 
                     // first pass: split on extrema
                     var extrema = Extrema;
@@ -538,11 +538,10 @@ namespace Engine
                         t2 = extrema[i];
                         var s = this.Split(t1, t2);
 
-                        segment = new CubicBezier(
+                        segment = new QuadraticBezier(
                             s[1].Points[0],
                             s[1].Points[1],
-                            s[1].Points[2],
-                            s[1].Points[3]);
+                            s[1].Points[2]);
                         //segment.T1 = t1;
                         //segment.T2 = t2;
                         pass1.Add(segment);
@@ -560,11 +559,10 @@ namespace Engine
                             {
                                 {
                                     var s = p1.Split(t1, t2);
-                                    segment = new CubicBezier(
+                                    segment = new QuadraticBezier(
                                         s[1].Points[0],
                                         s[1].Points[1],
-                                        s[1].Points[2],
-                                        s[1].Points[3]);
+                                        s[1].Points[2]);
 
                                 }
                                 if (!segment.IsSimple)
@@ -573,14 +571,13 @@ namespace Engine
                                     if (Math.Abs(t1 - t2) < step)
                                     {
                                         // we can never form a reduction
-                                        return new List<CubicBezier>();
+                                        return new List<QuadraticBezier>();
                                     }
                                     var s = p1.Split(t1, t2);
-                                    segment = new CubicBezier(
+                                    segment = new QuadraticBezier(
                                         s[1].Points[0],
                                         s[1].Points[1],
-                                        s[1].Points[2],
-                                        s[1].Points[3]);
+                                        s[1].Points[2]);
                                     //segment.T1 = BezierUtil.Map(t1, 0, 1, p1.T1, p1.T2);
                                     //segment.T2 = BezierUtil.Map(t2, 0, 1, p1.T1, p1.T2);
                                     pass2.Add(segment);
@@ -592,11 +589,10 @@ namespace Engine
                         if (t1 < 1)
                         {
                             var s = p1.Split(t1, 1);
-                            segment = new CubicBezier(
+                            segment = new QuadraticBezier(
                                 s[1].Points[0],
                                 s[1].Points[1],
-                                s[1].Points[2],
-                                s[1].Points[3]);
+                                s[1].Points[2]);
                             //segment.T1 = BezierUtil.Map(t1, 0, 1, p1.T1, p1.T2);
                             //segment.T2 = p1.T2;
                             pass2.Add(segment);

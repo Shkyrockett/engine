@@ -7001,7 +7001,7 @@ namespace Engine
             var yRoots = Bezout(a, b).Trim().Roots();
 
             var norm0 = ((a[0] * a[0]) + (2d * a[1] * a[1]) + (a[2] * a[2])) * epsilon;
-            var norm1 = ((b[0] * b[0]) + (2d * b[1] * b[1]) + (b[2] * b[2])) * epsilon;
+            //var norm1 = ((b[0] * b[0]) + (2d * b[1] * b[1]) + (b[2] * b[2])) * epsilon;
 
             for (var y = 0; y < yRoots.Length; y++)
             {
@@ -7016,7 +7016,7 @@ namespace Engine
                     if (Abs(test) < norm0)
                     {
                         test = (((b[0] * xRoots[x]) + (b[1] * yRoots[y]) + b[3]) * xRoots[x]) + (((b[2] * yRoots[y]) + b[4]) * yRoots[y]) + b[5];
-                        if (Abs(test) < norm1)
+                        if (Abs(test) < 1)//norm1) // Using norm1 breaks when an ellipse intersects another ellipse that 
                         {
                             result.AppendPoint(new Point2D(xRoots[x], yRoots[y]));
                         }
@@ -7098,7 +7098,6 @@ namespace Engine
         /// His code along with many other excellent examples formerly available
         /// at his site but the latest version now at: https://www.geometrictools.com/
         /// </acknowledgment>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Bezout(
@@ -7132,6 +7131,96 @@ namespace Engine
                 /* x² */ (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
                 /* x¹ */ (ab * df) + (ad * bfPde) - (2d * ae * af),
                 /* c  */ (ad * df) - (af * af));
+        }
+
+        /// <summary>
+        /// Calculate the Bézier curve polynomial of ellipses.
+        /// </summary>
+        /// <param name="a1">The a1.</param>
+        /// <param name="b1">The b1.</param>
+        /// <param name="c1">The c1.</param>
+        /// <param name="d1">The d1.</param>
+        /// <param name="e1">The e1.</param>
+        /// <param name="f1">The f1.</param>
+        /// <param name="a2">The a2.</param>
+        /// <param name="b2">The b2.</param>
+        /// <param name="c2">The c2.</param>
+        /// <param name="d2">The d2.</param>
+        /// <param name="e2">The e2.</param>
+        /// <param name="f2">The f2.</param>
+        /// <returns>Returns a <see cref="Polynomial"/> of the ellipse.</returns>
+        /// <acknowledgment>
+        /// http://www.kevlindev.com/
+        /// This code is based on MgcIntr2DElpElp.cpp written by David Eberly.
+        /// His code along with many other excellent examples formerly available
+        /// at his site but the latest version now at: https://www.geometrictools.com/
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double a, double b, double c, double d, double e) BezoutTuple(
+            double a1, double b1, double c1, double d1, double e1, double f1,
+            double a2, double b2, double c2, double d2, double e2, double f2)
+        {
+            // 1 | a | b | c | d | e | f |
+            // 2 | a | b | c | d | e | f |
+
+            var ab = (a1 * b2) - (a2 * b1);
+            var ac = (a1 * c2) - (a2 * c1);
+            var ad = (a1 * d2) - (a2 * d1);
+            var ae = (a1 * e2) - (a2 * e1);
+            var af = (a1 * f2) - (a2 * f1);
+
+            var bc = (b1 * c2) - (b2 * c1);
+            var be = (b1 * e2) - (b2 * e1);
+            var bf = (b1 * f2) - (b2 * f1);
+
+            var cd = (c1 * d2) - (c2 * d1);
+
+            var de = (d1 * e2) - (d2 * e1);
+            var df = (d1 * f2) - (d2 * f1);
+
+            var bfPde = bf + de;
+            var beMcd = be - cd;
+
+            return (
+                /* x⁴ */ a: (ab * bc) - (ac * ac),
+                /* x³ */ b: (ab * beMcd) + (ad * bc) - (2d * ac * ae),
+                /* x² */ c: (ab * bfPde) + (ad * beMcd) - (ae * ae) - (2d * ac * af),
+                /* x¹ */ d: (ab * df) + (ad * bfPde) - (2d * ae * af),
+                /* c  */ e: (ad * df) - (af * af)
+                );
+            // (-a2 * d1 * d1 * f2) + (a1 * d2) + (a2 * f1) - (a1 * f2) + (a1 * a2 f1 * f2) - (d2 * f1)
+        }
+
+        /// <summary>
+        /// Calculate the coefficient of the quartic.
+        /// The solution to intersecting ellipses are the solutions to f(y), a quartic function where f(y) = z0 + z1 * y + z2 * y^2 + z3 * y^3 + z4 * y^4  = 0
+        /// getQuartic generates the coefficients z0 .. z4 given the two ellipses el and el1 in "bivariate" form.
+        /// See http://www.math.niu.edu/~rusin/known-math/99/2ellipses
+        /// </summary>
+        /// <param name="el1">The el1.</param>
+        /// <param name="el2">The el2.</param>
+        /// <param name="epsilon"></param>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
+        /// <acknowledgment>
+        /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672
+        /// https://www.khanacademy.org/computer-programming/ellipse-collision-detector/5514890244521984
+        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
+        /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
+        /// </acknowledgment>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double a, double b, double c, double d, double e) GetEllipseQuartic(
+            (double a, double b, double c, double d, double e, double f) el1,
+            (double a, double b, double c, double d, double e, double f) el2)
+        {
+            return (
+                /* x⁴ */ a: (el1.f * el1.a * el2.d * el2.d) + (el1.a * el1.a * el2.f * el2.f) - (el1.d * el1.a * el2.d * el2.f) + (el2.a * el2.a * el1.f * el1.f) - (2d * el1.a * el2.f * el2.a * el1.f) - (el1.d * el2.d * el2.a * el1.f) + (el2.a * el1.d * el1.d * el2.f),
+                /* x³ */ b: (el2.e * el1.d * el1.d * el2.a) - (el2.f * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.e) - (el1.f * el2.a * el2.b * el1.d) + (2d * el2.d * el2.b * el1.a * el1.f) + (2d * el2.e * el2.f * el1.a * el1.a) + (el2.d * el2.d * el1.a * el1.e) - (el2.e * el2.d * el1.a * el1.d) - (2d * el1.a * el2.e * el2.a * el1.f) - (el1.f * el2.a * el2.d * el1.b) + (2d * el1.f * el1.e * el2.a * el2.a) - (el2.f * el2.b * el1.a * el1.d) - (el1.e * el2.a * el2.d * el1.d) + (2d * el2.f * el1.b * el2.a * el1.d),
+                /* x² */ c: (el2.e * el2.e * el1.a * el1.a) + (2d * el2.c * el2.f * el1.a * el1.a) - (el1.e * el2.a * el2.d * el1.b) + (el2.f * el2.a * el1.b * el1.b) - (el1.e * el2.a * el2.b * el1.d) - (el2.f * el2.b * el1.a * el1.b) - (2d * el1.a * el2.e * el2.a * el1.e) + (2d * el2.d * el2.b * el1.a * el1.e) - (el2.c * el2.d * el1.a * el1.d) - (2d * el1.a * el2.c * el2.a * el1.f) + (el2.b * el2.b * el1.a * el1.f) + (2d * el2.e * el1.b * el2.a * el1.d) + (el1.e * el1.e * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.d) - (el2.e * el2.b * el1.a * el1.d) + (2d * el1.f * el1.c * el2.a * el2.a) - (el1.f * el2.a * el2.b * el1.b) + (el2.c * el1.d * el1.d * el2.a) + (el2.d * el2.d * el1.a * el1.c) - (el2.e * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.c),
+                /* x¹ */ d: (-2d * el1.a * el2.a * el1.c * el2.e) + (el2.e * el2.a * el1.b * el1.b) + (2d * el2.c * el1.b * el2.a * el1.d) - (el1.c * el2.a * el2.b * el1.d) + (el2.b * el2.b * el1.a * el1.e) - (el2.e * el2.b * el1.a * el1.b) - (2d * el1.a * el2.c * el2.a * el1.e) - (el1.e * el2.a * el2.b * el1.b) - (el2.c * el2.b * el1.a * el1.d) + (2d * el2.e * el2.c * el1.a * el1.a) + (2d * el1.e * el1.c * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.b) + (2d * el2.d * el2.b * el1.a * el1.c) - (el2.c * el2.d * el1.a * el1.b),
+                /* c  */ e: (el1.a * el1.a * el2.c * el2.c) - (2d * el1.a * el2.c * el2.a * el1.c) + (el2.a * el2.a * el1.c * el1.c) - (el1.b * el1.a * el2.b * el2.c) - (el1.b * el2.b * el2.a * el1.c) + (el1.b * el1.b * el2.a * el2.c) + (el1.c * el1.a * el2.b * el2.b)
+                );
         }
         #endregion Helpers
     }

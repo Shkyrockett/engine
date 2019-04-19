@@ -291,21 +291,7 @@ namespace Engine
                     return null;
                 }
 
-                var left = points[0].X;
-                var top = points[0].Y;
-                var right = points[0].X;
-                var bottom = points[0].Y;
-
-                foreach (var point in points)
-                {
-                    // ToDo: Measure performance impact of overwriting each time.
-                    left = point.X <= left ? point.X : left;
-                    top = point.Y <= top ? point.Y : top;
-                    right = point.X >= right ? point.X : right;
-                    bottom = point.Y >= bottom ? point.Y : bottom;
-                }
-
-                return Rectangle2D.FromLTRB(left, top, right, bottom);
+                return Measurements.PolylineBounds(points);
             }
         }
         #endregion Properties

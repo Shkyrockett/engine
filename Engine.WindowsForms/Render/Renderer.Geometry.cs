@@ -423,7 +423,7 @@ namespace Engine.Imaging
         public static void Render(this Ellipse shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
-            Rectangle2D bounds = shape.Bounds!!;
+            Rectangle2D bounds = shape.UnrotatedBounds;
             if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
             {
                 renderer.FillEllipse(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.Angle);
@@ -442,7 +442,7 @@ namespace Engine.Imaging
         public static void Render(this EllipticalArc shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
-            Rectangle2D bounds = shape.Bounds!!;
+            Rectangle2D bounds = shape.DrawingBounds;
             if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
             {
                 renderer.FillArc(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, (float)shape.StartAngle, (float)shape.SweepAngle, shape.Angle);

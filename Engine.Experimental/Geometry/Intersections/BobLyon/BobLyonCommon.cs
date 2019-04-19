@@ -238,8 +238,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e)
-            GetQuartic(
+        public static (double a, double b, double c, double d, double e) GetQuartic(
             (double a, double b, double c, double d, double e, double f) el1,
             (double a, double b, double c, double d, double e, double f) el2, double epsilon = Epsilon)
             => (
@@ -265,8 +264,8 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f)
-            GetQuadratic(double cx, double cy, double rx, double ry, double rotation)
+        public static (double a, double b, double c, double d, double e, double f) GetQuadratic(
+            double cx, double cy, double rx, double ry, double rotation)
         {
             var rx2 = rx * rx;
             var ry2 = ry * ry;
@@ -298,9 +297,9 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f)
-            GetQuadratic((double x, double y) origin, double rx, double ry, double rotation, double epsilon = Epsilon)
-            => GetQuadratic(origin, rx, ry, (Cos(rotation), Sin(rotation)), epsilon = Epsilon);
+        public static (double a, double b, double c, double d, double e, double f) GetQuadratic(
+            (double x, double y) origin, double rx, double ry, double rotation, double epsilon = Epsilon)
+            => GetQuadratic(origin, rx, ry, (Cos(rotation), Sin(rotation)), epsilon);
 
         /// <summary>
         /// Create a general quadratic function for the ellipse a x^2 + b x y + c y^2 + d x + e y + c = 0
@@ -317,22 +316,27 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f)
-            GetQuadratic((double x, double y) origin, double rx, double ry, (double cos, double sin) rotation, double epsilon = Epsilon)
+        public static (double a, double b, double c, double d, double e, double f) GetQuadratic(
+            (double x, double y) origin, double rx, double ry, (double cos, double sin) rotation, double epsilon = Epsilon)
         {
             var (x, y) = origin;
-            var rx2 = rx * rx;
-            var ry2 = ry * ry;
-            var cosT = -rotation.cos;
-            var sinT = -rotation.sin;
+
+            // a squared.
+            var a2 = rx * rx;
+
+            // b squared.
+            var b2 = ry * ry;
+
+            var (cosT, sinT) = (-rotation.cos, -rotation.sin);
 
             return (
-                /* x^2   */ a: (cosT * cosT / rx2) + (sinT * sinT / ry2),
-                /* x * y */ b: (2d * cosT * sinT / ry2) - (2d * cosT * sinT / rx2),
-                /* y^2   */ c: (cosT * cosT / ry2) + (sinT * sinT / rx2),
-                /* x     */ d: (((2d * cosT * sinT * y) - (2d * x * cosT * cosT)) / rx2) + (((-2d * x * sinT * sinT) - (2d * cosT * sinT * y)) / ry2),
-                /* y     */ e: (((2d * x * cosT * sinT) - (2d * sinT * sinT * y)) / rx2) + (((-2d * x * cosT * sinT) - (2d * cosT * cosT * y)) / ry2),
-                /* Const */ f: (((x * x * cosT * cosT) - (2d * x * cosT * sinT * y) + (sinT * sinT * y * y)) / rx2) + (((x * x * sinT * sinT) + (2d * x * cosT * sinT * y) + (cosT * cosT * y * y)) / ry2) - 1d
+                /* x^2   */ a: (cosT * cosT / a2) + (sinT * sinT / b2),
+                /* x * y */ b: (2d * cosT * sinT / b2) - (2d * cosT * sinT / a2),
+                /* y^2   */ c: (cosT * cosT / b2) + (sinT * sinT / a2),
+
+                /* x     */ d: (((2d * cosT * sinT * y) - (2d * cosT * cosT * x)) / a2) + (((-2d * sinT * sinT * x) - (2d * cosT * sinT * y)) / b2),
+                /* y     */ e: (((2d * cosT * sinT * x) - (2d * sinT * sinT * y)) / a2) + (((-2d * cosT * sinT * x) - (2d * cosT * cosT * y)) / b2),
+                /* Const */ f: (((cosT * cosT * x * x) - (2d * cosT * sinT * x * y) + (sinT * sinT * y * y)) / a2) + (((sinT * sinT * x * x) + (2d * cosT * sinT * x * y) + (cosT * cosT * y * y)) / b2) - 1d
             );
         }
 
@@ -351,8 +355,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f)
-            BivariateForm(double cx, double cy, double rx, double ry, double angle)
+        public static (double a, double b, double c, double d, double e, double f) BivariateForm(double cx, double cy, double rx, double ry, double angle)
             => BivariateForm(cx, cy, rx, ry, Cos(angle), Sin(angle));
 
         /// <summary>
@@ -371,8 +374,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f)
-            BivariateForm(double cx, double cy, double rx, double ry, double cosA, double sinA)
+        public static (double a, double b, double c, double d, double e, double f) BivariateForm2(double cx, double cy, double rx, double ry, double cosA, double sinA)
         {
             // Start by rotating the ellipse center by the OPPOSITE
             // of the desired angle. That way when the bivariate
@@ -389,13 +391,12 @@ namespace Engine
             var b = rx * rx / 4d;
             var d = ry * ry / 4d;
             return (
-                /* x^2 coefficient */ a: (cosA * cosA / b) + (nSinA * nSinA / d),
-                /* xy  coefficient */ b: (-2d * cosA * nSinA / b) + (2d * cosA * nSinA / d),
-                /* y^2 coefficient */ c: (nSinA * nSinA / b) + (cosA * cosA / d),
-                /* x   coefficient */ d: (-2d * a * cosA / b) - (2d * c * nSinA / d),
-                /* y   coefficient */ e: (2d * a * nSinA / b) - (2d * c * cosA / d),
-                /*        constant */ f: (a * a / b) + (c * c / d) - 1d
-                /* So, a*x^2 + b*x*y + c*y^2 + d*x + e*y + f = 0 */
+                /* x^2 */ a: (cosA * cosA / b) + (nSinA * nSinA / d),
+                /* xy  */ b: (-2d * cosA * nSinA / b) + (2d * cosA * nSinA / d),
+                /* y^2 */ c: (nSinA * nSinA / b) + (cosA * cosA / d),
+                /* x   */ d: (-2d * a * cosA / b) - (2d * c * nSinA / d),
+                /* y   */ e: (2d * a * nSinA / b) - (2d * c * cosA / d),
+                /* const */ f: (a * a / b) + (c * c / d) - 1d
                 );
         }
 
@@ -409,35 +410,32 @@ namespace Engine
         /// <param name="y">The y.</param>
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
-        /// <param name="A">The A.</param>
-        /// <param name="B">The B.</param>
+        /// <param name="cos">The A.</param>
+        /// <param name="sin">The B.</param>
         /// <returns>The <see cref="T:(double a, double b, double c, double d, double e, double f)"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double a, double b, double c, double d, double e, double f)
-            BivariateForm2(double x, double y, double width, double height, double A, double B)
+        public static (double a, double b, double c, double d, double e, double f) BivariateForm(double x, double y, double width, double height, double cos, double sin)
         {
             // Start by rotating the ellipse center by the OPPOSITE
             // of the desired angle.  That way when the bivariate
             // computation transforms it back, it WILL be at the
             // correct (and original) coordinates.
-            var r = RotatePoint(x, y, A, B);
-            var a = r.x;
-            var c = r.y;
+            (var h, var k) = RotatePoint2D(x, y, cos, sin);
 
             // Now let the bivariate computation
             // rotate in the opposite direction.
-            B = -B;  /* A = cos(-rot); B = sin(-rot); */
-            var b = width * width / 4;
-            var d = height * height / 4;
+            sin = -sin;  /* A = cos(-rot); B = sin(-rot); */
+            var b = width * width / 4d;
+            var d = height * height / 4d;
             return (
-                a: (A * A / b) + (B * B / d),  /* x©÷ coefficient */
-                b: (-2 * A * B / b) + (2 * A * B / d),  /* xy coeff */
-                c: (B * B / b) + (A * A / d),  /* y©÷ coeff */
-                d: (-2 * a * A / b) - (2 * c * B / d),  /* x coeff */
-                e: (2 * a * B / b) - (2 * c * A / d),  /* y coeff */
-                f: (a * a / b) + (c * c / d) - 1  /* constant */
-                                                  /* So, ax©÷ + bxy + cy©÷ + dx + ey + f = 0 */
+                /* x² coefficient */ a: (cos * cos / b) + (sin * sin / d),
+                /* xy coefficient */ b: (-2 * cos * sin / b) + (2 * cos * sin / d),
+                /* y² coefficient */ c: (sin * sin / b) + (cos * cos / d),
+                /* x coefficient */ d: (-2 * h * cos / b) - (2 * k * sin / d),
+                /* y coefficient */ e: (2 * h * sin / b) - (2 * k * cos / d),
+                /* constant */ f: (h * h / b) + (k * k / d) - 1
+            /* So, ax² + bxy + cy² + dx + ey + f = 0 */
             );
         }
 
@@ -487,69 +485,6 @@ namespace Engine
 
             return points.ToArray();
         }
-
-        /// <summary>
-        /// The rotate vector.
-        /// </summary>
-        /// <param name="vector">The vector.</param>
-        /// <param name="angle">The angle.</param>
-        /// <param name="origin">The origin.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:(double x, double y)"/>.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y) RotateVector((double x, double y) vector, double angle, (double x, double y) origin, double epsilon = Epsilon)
-            => RotateVector(vector, (Cos(angle), Sin(angle)), origin, epsilon);
-
-        /// <summary>
-        /// The rotate vector.
-        /// </summary>
-        /// <param name="vector">The vector.</param>
-        /// <param name="angle">The angle.</param>
-        /// <param name="origin">The origin.</param>
-        /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:(double x, double y)"/>.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y) RotateVector((double x, double y) vector, (double cos, double sin) angle, (double x, double y) origin, double epsilon = Epsilon)
-        {
-            var deltaX = vector.x - origin.x;
-            var deltaY = vector.y - origin.y;
-            (var angleCos, var angleSin) = angle;
-            return (origin.x + ((deltaX * angleCos) - (deltaY * angleSin)),
-                    origin.y + ((deltaX * angleSin) + (deltaY * angleCos)));
-        }
-
-        /// <summary>
-        /// Rotate the point (x, y) by angle theta around the origin.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="theta">The theta.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y) RotatePoint(double x, double y, double theta)
-            => RotatePoint(x, y, Cos(theta), Sin(theta));
-
-        /// <summary>
-        /// Rotate the point (x, y) by angle theta around the origin.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="cosine">The cosine.</param>
-        /// <param name="sine">The sine.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
-        /// <acknowledgment>
-        /// https://www.khanacademy.org/computer-programming/c/5567955982876672
-        /// </acknowledgment>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double x, double y) RotatePoint(double x, double y, double cosine, double sine)
-            => (x: (cosine * x) + (sine * y), y: (-sine * x) + (cosine * y));
 
         /// <summary>
         /// The constrain.
@@ -649,15 +584,15 @@ namespace Engine
                     w /= 2;
                     h /= 2;
                     p = new (double x, double y)[] {
-                        RotatePoint(-w, -h, cosine, sine),
-                        RotatePoint(+w, -h, cosine, sine),
-                        RotatePoint(+w, +h, cosine, sine),
-                        RotatePoint(-w, +h, cosine, sine) };
+                        RotatePoint2D(-w, -h, cosine, sine),
+                        RotatePoint2D(+w, -h, cosine, sine),
+                        RotatePoint2D(+w, +h, cosine, sine),
+                        RotatePoint2D(-w, +h, cosine, sine) };
                 }
                 else
                 {
                     /* Default CORNER mode. Rotate around corner (x, y) */
-                    p = new (double x, double y)[] { (x: 0, y: 0), RotatePoint(w, 0, cosine, sine), RotatePoint(w, h, cosine, sine), RotatePoint(0, h, cosine, sine) };
+                    p = new (double x, double y)[] { (x: 0, y: 0), RotatePoint2D(w, 0, cosine, sine), RotatePoint2D(w, h, cosine, sine), RotatePoint2D(0, h, cosine, sine) };
                 }
                 /* Re-normalize rotated points */
                 for (var i = 0; i < p.Length; i++)

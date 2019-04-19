@@ -19,7 +19,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>preview</LangVersion>
     <OutputPath>bin\Any CPU\Debug\netstandard2.0\</OutputPath>
     <DocumentationFile>bin\Any CPU\Debug\netstandard2.0\Engine.Midi.xml</DocumentationFile>
   </PropertyGroup>
@@ -42,7 +42,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" />
-    <PackageReference Include="System.Memory" Version="4.5.2-servicing-27114-05" />
+    <PackageReference Include="System.Memory" Version="4.5.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -58,7 +58,7 @@ namespace Engine
                 var l = GetLine(cosSinAngle1, ellipse1.radiusX, ellipse1.radiusY, ellipse1.origin, ellipse2.origin);
                 return IntersectLineEllipse(l, ellipse1);
             }
-            else if (((Abs(ellipse1.angle - ellipse2.angle) == PI / 2d) || Abs(ellipse1.angle - ellipse2.angle) == PI * 3d / 2d) && (ellipse1.radiusX == ellipse2.radiusY) && (ellipse1.radiusY == ellipse2.radiusX))
+            else if (((Abs(ellipse1.angle - ellipse2.angle) == HalfPi) || Abs(ellipse1.angle - ellipse2.angle) == PI * 3d / 2d) && (ellipse1.radiusX == ellipse2.radiusY) && (ellipse1.radiusY == ellipse2.radiusX))
             {
                 // Special cases congruent ellipses incl. rotation but one is 90 rotated and the radius sizes are swapped
                 // There are at max two intersection points: We can construct a line that runs through these points
@@ -87,7 +87,7 @@ namespace Engine
                 if (corr != 0d)
                 {
                     e1 = GetQuadratic(ellipse1.origin, ellipse1.radiusX, ellipse1.radiusY, ellipse1.angle + corr);
-                    e2 = GetQuadratic(RotateVector(ellipse2.origin, corr, ellipse1.origin), ellipse2.radiusX, ellipse2.radiusY, ellipse2.angle + corr);
+                    e2 = GetQuadratic(RotatePoint2D(ellipse2.origin.x, ellipse2.origin.y, corr, ellipse1.origin.x, ellipse1.origin.y), ellipse2.radiusX, ellipse2.radiusY, ellipse2.angle + corr);
                 }
                 else
                 {
@@ -96,7 +96,8 @@ namespace Engine
                 }
 
                 var q = GetQuartic(e1, e2);
-                var y = Maths.QuarticRoots(q.a, q.b, q.c, q.d, q.e).ToArray();// QuarticRoots(q);
+                //var y = QuarticRoots(q);
+                var y = Maths.QuarticRoots(q.a, q.b, q.c, q.d, q.e).ToArray();
 
                 v.AddRange(CalculatePoints(y, e1, e2));
 
@@ -104,7 +105,7 @@ namespace Engine
                 {
                     for (var i = 0; i < v.Count; i++)
                     {
-                        v[i] = RotateVector(v[i], -corr, ellipse1.origin);
+                        v[i] = RotatePoint2D(v[i].x, v[i].y, -corr, ellipse1.origin.x, ellipse1.origin.y);
                     }
                 }
             }
@@ -184,7 +185,7 @@ namespace Engine
             else if (discriminant == 0)
             {
                 // One real possible solution.
-                var t = OneHalf * -b / a;
+                var t = -b / (2d * a);
 
                 // Add the point.
                 result.Add((u1 + ((u2 - u1) * t) + cx, v1 + ((v2 - v1) * t) + cy));
@@ -192,8 +193,8 @@ namespace Engine
             else if (discriminant > 0)
             {
                 // Two real possible solutions.
-                var t1 = OneHalf * (-b + Sqrt(discriminant)) / a;
-                var t2 = OneHalf * (-b - Sqrt(discriminant)) / a;
+                var t1 = (-b + Sqrt(discriminant)) / (2d * a);
+                var t2 = (-b - Sqrt(discriminant)) / (2d * a);
 
                 // Add the points.
                 result.Add((u1 + ((u2 - u1) * t1) + cx, v1 + ((v2 - v1) * t1) + cy));
@@ -384,24 +385,36 @@ namespace Engine
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ((double x, double y) v, double angle) GetLine((double cos, double sin) rotation, double rx, double ry, (double x, double y) o1, (double x, double y) o2, double epsilon = Epsilon)
+        public static ((double x, double y) p, double angle) GetLine((double cos, double sin) rotation, double rx, double ry, (double x, double y) o1, (double x, double y) o2, double epsilon = Epsilon)
         {
-            var rx2 = rx * rx;
-            var ry2 = ry * ry;
+            // a squared.
+            var a = rx;
+            var a2 = rx * rx;
 
-            var aa = (rotation.cos * rotation.cos / rx2) + (rotation.sin * rotation.sin / ry2);
-            var bb = (-2d * rotation.cos * rotation.sin / rx2) + (2d * rotation.cos * rotation.sin / ry2);
-            var cc = (rotation.sin * rotation.sin / rx2) + (rotation.cos * rotation.cos / ry2);
+            // b squared.
+            var b = ry;
+            var b2 = ry * ry;
 
-            var u = (-2d * aa * o1.x) + (bb * o1.y);
+            var (cosT, sinT) = (rotation.cos, rotation.sin);
+
+            // The polynomial coefficients for the initial rotation.
+            var aa = (cosT * cosT / a2) + (sinT * sinT / b2);
+            var bb = (2d * cosT * sinT / b2) - (2d * cosT * sinT / a2);
+            var cc = (cosT * cosT / b2) + (sinT * sinT / a2);
+
+            // Working with Ellipse 1.
+            var x1 = (bb * o1.y) - (2d * aa * o1.x);
+            var y1 = (bb * o1.x) + (2d * cc * o1.y);
             var v = (aa * o1.x * o1.x) + (bb * o1.x * o1.y) + (cc * o1.y * o1.y);
-            var w = (bb * o1.x) + (2d * cc * o1.y);
 
-            var x = (-2d * aa * o2.x) + (bb * o2.y);
-            var y = (bb * o2.x) + (2d * cc * o2.y);
+            // Working with Ellipse 2.
+            var x2 = (bb * o2.y) - (2d * aa * o2.x);
+            var y2 = (bb * o2.x) + (2d * cc * o2.y);
             var z = (aa * o2.x * o2.x) + (bb * o2.x * o2.y) + (cc * o2.y * o2.y);
 
-            return ((u - x, y - w), z - v);
+            var angle = z - v; // Is z-v an angle? Can I get a direction vector instead?
+
+            return ((x1 - x2, y2 - y1), angle.ToRadians()); // Why don't the y values make any sense? They seem to always be near 0.
         }
     }
 }

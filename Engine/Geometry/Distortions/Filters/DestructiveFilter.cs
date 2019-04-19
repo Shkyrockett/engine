@@ -90,7 +90,7 @@ namespace Engine
             var result = new PolycurveContour(Process(line.Points[0]));
 
             var side = new List<Point2D>();
-            for (double j = 0; j < 1; j += (1d / (line.Length * SampleDistance)))
+            for (double j = 0; j < 1; j += 1d / (line.Length * SampleDistance))
             {
                 side.Add(Process(Interpolators.Linear(line.A, line.B, j)));
             }

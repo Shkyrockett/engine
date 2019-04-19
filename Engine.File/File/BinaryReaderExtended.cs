@@ -236,7 +236,7 @@ namespace Engine.File
             {
                 next = ReadByte();
                 value <<= 0x07;
-                value |= (next & 0x7F);
+                value |= next & 0x7F;
             } while ((next & 0x80) == 0x80);
             return value;
         }

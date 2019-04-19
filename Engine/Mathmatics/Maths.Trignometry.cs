@@ -484,30 +484,56 @@ namespace Engine
         /// <param name="y">The y component of the point to rotate.</param>
         /// <param name="angle">The angle to rotate in pi radians.</param>
         /// <returns>A point rotated about the origin by the specified pi radian angle.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J) RotatePoint2D(double x, double y, double angle)
-            => RotatePoint2D(x, y, 0, 0, angle);
+        public static (double X, double Y) RotatePoint2D(double x, double y, double angle)
+            => RotatePoint2D(x, y, Cos(angle), Sin(angle), 0, 0);
+
+        /// <summary>
+        /// Rotate a point around the world origin.
+        /// </summary>
+        /// <param name="x">The x component of the point to rotate.</param>
+        /// <param name="y">The y component of the point to rotate.</param>
+        /// <param name="cos"></param>
+        /// <param name="sin"></param>
+        /// <returns>A point rotated about the origin by the specified pi radian angle.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) RotatePoint2D(double x, double y, double cos, double sin)
+            => RotatePoint2D(x, y, cos, sin, 0, 0);
 
         /// <summary>
         /// Rotate a point around a fulcrum point.
         /// </summary>
         /// <param name="x">The x component of the point to rotate.</param>
         /// <param name="y">The y component of the point to rotate.</param>
+        /// <param name="angle">The angle to rotate the point in pi radians.</param>
         /// <param name="cx">The x component of the fulcrum point to rotate the point around.</param>
         /// <param name="cy">The y component of the fulcrum point to rotate the point around.</param>
-        /// <param name="angle">The angle to rotate the point in pi radians.</param>
         /// <returns>A point rotated about the fulcrum point by the specified pi radian angle.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double I, double J) RotatePoint2D(double x, double y, double cx, double cy, double angle)
+        public static (double X, double Y) RotatePoint2D(double x, double y, double angle, double cx, double cy)
+            => RotatePoint2D(x, y, Cos(angle), Sin(angle), cx, cy);
+
+        /// <summary>
+        /// Rotate a point around a fulcrum point.
+        /// </summary>
+        /// <param name="x">The x component of the point to rotate.</param>
+        /// <param name="y">The y component of the point to rotate.</param>
+        /// <param name="cos"></param>
+        /// <param name="sin"></param>
+        /// <param name="cx">The x component of the fulcrum point to rotate the point around.</param>
+        /// <param name="cy">The y component of the fulcrum point to rotate the point around.</param>
+        /// <returns>A point rotated about the fulcrum point by the specified pi radian angle.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) RotatePoint2D(double x, double y, double cos, double sin, double cx, double cy)
         {
             var deltaX = x - cx;
             var deltaY = y - cy;
-            var angleCos = Cos(angle);
-            var angleSin = Sin(angle);
-            return (cx + ((deltaX * angleCos) - (deltaY * angleSin)),
-                    cy + ((deltaX * angleSin) + (deltaY * angleCos)));
+            return (cx + ((deltaX * cos) - (deltaY * sin)),
+                    cy + ((deltaX * sin) + (deltaY * cos)));
         }
         #endregion Rotate Point
 

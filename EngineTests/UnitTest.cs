@@ -8,7 +8,6 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace EngineTests

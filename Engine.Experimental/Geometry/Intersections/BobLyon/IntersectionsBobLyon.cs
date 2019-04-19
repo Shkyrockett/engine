@@ -20,10 +20,10 @@ using static Engine.BobLyonCommon;
 namespace Engine
 {
     /// <summary>
-    /// This program demonstates the collisions between pairs of seven different geometric shapes. It also provides a Javascript library of easy to use, stateless functions that can be copied and pasted to other programs.
+    /// This program demonstrates the collisions between pairs of seven different geometric shapes. It also provides a Javascript library of easy to use, stateless functions that can be copied and pasted to other programs.
     /// The opening scene provides a 7¡¿7 button matrix where you choose the desired demonstration of a collision between two shapes.  Clicking a button will take you to a new scene where the two desired shapes are displayed.
     /// The shapes have little circles are called "knots" and they are draggable by the mouse. There are two ways to drag a knot. By clicking inside its circle the knot may be dragged anywhere, subject to the constrains imposed by the maintaining the knot's associated shape.  By clicking outside the knot's circle but within its "halo" the knot can only be dragged in a circular orbit around its associated "origin" knot.
-    /// Dragging a shape's central or origin knot will drag the entire shape with it. This is how you move the a shape to collide with the other shape.  Collisons cause both shapes to change their appearences.
+    /// Dragging a shape's central or origin knot will drag the entire shape with it. This is how you move the a shape to collide with the other shape.  Collisions cause both shapes to change their appearences.
     /// If you wish to copy and paste the Javascript code that detects collisions between the two shapes, then click on the "Code" button and code will be provided in the Processing.js console panel via println().
     /// This program also demonstrates interior detection, that is, whether or not a point is inside the shape.  Interior detection is often associated with the mouse "hovering" over the shape.  In this program, if a shape is not involved in a collision, then hovering the mouse over the shape will cause a change in its appearence.
     /// If you wish to see a shape's interior detection Javascript code, then choose the collision scene between that shape and itself.  For example, to see the function that detects if a point is in a circle, then choose the scene for a circle colliding with a circle.  Selecting the "Code" button will produce Javascript code for both collisions and interior detection.
@@ -38,7 +38,7 @@ namespace Engine
     public static partial class IntersectionsBobLyon
     {
         /// <summary>
-        /// The ellipse ellipse intersects.
+        /// The ellipse, ellipse intersects.
         /// </summary>
         /// <param name="cx0">The cx0.</param>
         /// <param name="cy0">The cy0.</param>
@@ -120,24 +120,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Return true iff the point (x, y) is in the line
-        /// segment (x1, y1) to (x2, y2).
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInLine(
-            double x, double y,
-            double x1, double y1, double x2, double y2)
-            => (y2 - y1) / (x2 - x1) == (y - y1) / (x - x1) && Intersections.Between(x, x1, x2);
-
-        /// <summary>
         /// Return true iff the point (x, y) is in the polygon
         /// described by the array "poly" whose elements are 
         /// vertex objects with "x" and "y" properties. Derived
@@ -151,7 +133,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInPolygon(
+        public static bool PolygonContainsPoint(
             double x, double y,
             (double x, double y)[] poly)
         {
@@ -173,29 +155,6 @@ namespace Engine
 
         /// <summary>
         /// Return true iff point (x, y) in the triangle
-        /// described by the last six parameters.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="x3">The x3.</param>
-        /// <param name="y3">The y3.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInTriangle(
-            double x, double y,
-            double x1, double y1, double x2, double y2, double x3, double y3)
-        {
-            var tri = Coords2Points(x1, y1, x2, y2, x3, y3);
-            return IsInPolygon(x, y, tri);
-        }
-
-        /// <summary>
-        /// Return true iff point (x, y) in the triangle
         /// described by rx, ry, w and h in conjunction
         /// with rectangleMode.mode.  OPTIONAL parameter
         /// theta describes the angle of rotation of the
@@ -212,16 +171,16 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInRect(
+        public static bool RectangleContainsPoint(
             double x, double y,
             double rx, double ry, double w, double h, double theta, Mode rectangleMode)
         {
             if (theta != 0)
             {
                 /* rotate the point wrt (rx, ry) */
-                var p = RotatePoint(x - rx, y - ry, theta);
-                x = p.x + rx;
-                y = p.y + ry;
+                var p = RotatePoint2D(x - rx, y - ry, theta);
+                x = p.X + rx;
+                y = p.Y + ry;
             }
             if (rectangleMode == Mode.CORNERS)
             {
@@ -237,31 +196,6 @@ namespace Engine
         }
 
         /// <summary>
-        /// Return true iff point (x, y) in the quadrilateral
-        /// described by the last eigth parameters.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <param name="x1">The x1.</param>
-        /// <param name="y1">The y1.</param>
-        /// <param name="x2">The x2.</param>
-        /// <param name="y2">The y2.</param>
-        /// <param name="x3">The x3.</param>
-        /// <param name="y3">The y3.</param>
-        /// <param name="x4">The x4.</param>
-        /// <param name="y4">The y4.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        //[DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInQuad(
-            double x, double y,
-            double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
-        {
-            var quad = Coords2Points(x1, y1, x2, y2, x3, y3, x4, y4);
-            return IsInPolygon(x, y, quad);
-        }
-
-        /// <summary>
         /// Return true iff point (x, y) is in the circle 
         /// centered at (cx, cy) with diameter diam.
         /// </summary>
@@ -273,7 +207,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInCircle(
+        public static bool CircleContainsPoint(
             double x, double y,
             double cx, double cy, double diam)
         {
@@ -298,10 +232,10 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInEllipse(
+        public static bool EllipseContainsPoint(
             double x, double y,
             double ex, double ey, double w, double h)
-            => IsInEllipse(x, y, ex, ey, w, h, Cos(0), Sin(0));
+            => EllipseContainsPoint(x, y, ex, ey, w, h, Cos(0), Sin(0));
 
         /// <summary>
         /// Return true iff point (x, y) is in the ellipse 
@@ -320,10 +254,10 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInEllipse(
+        public static bool EllipseContainsPoint(
             double x, double y,
             double ex, double ey, double w, double h, double theta)
-            => IsInEllipse(x, y, ex, ey, w, h, Cos(theta), Sin(theta));
+            => EllipseContainsPoint(x, y, ex, ey, w, h, Cos(theta), Sin(theta));
 
         /// <summary>
         /// Return true iff point (x, y) is in the ellipse 
@@ -343,7 +277,7 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInEllipse(
+        public static bool EllipseContainsPoint(
             double x, double y,
             double ex, double ey, double w, double h, double cosine, double sine)
         {
@@ -352,9 +286,9 @@ namespace Engine
             y -= ey;
             if (cosine != 1 | sine != 0)
             {
-                var rp = RotatePoint(x, y, cosine, sine);
-                x = rp.x;
-                y = rp.y;
+                var rp = RotatePoint2D(x, y, cosine, sine);
+                x = rp.X;
+                y = rp.Y;
             }
             var termX = 2 * x / w;  /* sqrt of first term */
             var termY = 2 * y / h;  /* sqrt of second term */
@@ -377,13 +311,13 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsInArc(
+        public static bool ArcContainsPoint(
             double x, double y,
             double ex, double ey, double w, double h, double start, double stop)
         {
             var heading = Atan2(y - ey, x - ex);
             heading += SubtendedToParametric(w / 2, h / 2, heading);
-            return Intersections.AngleBetween(heading, start, stop) && IsInEllipse(x, y, ex, ey, w, h);
+            return Intersections.AngleBetween(heading, start, stop) && EllipseContainsPoint(x, y, ex, ey, w, h);
         }
 
         /// <summary>
@@ -455,7 +389,7 @@ namespace Engine
             double x1, double y1, double x2, double y2,
             (double x, double y)[] poly)
         {
-            var collide = IsInPolygon(x1, y1, poly);
+            var collide = PolygonContainsPoint(x1, y1, poly);
             for (int j = poly.Length - 1, i = 0; (!collide) && (i < poly.Length); j = i, i++)
             {
                 collide = LineLineCollide(x1, y1, x2, y2, poly[j].x, poly[j].y, poly[i].x, poly[i].y);
@@ -570,7 +504,7 @@ namespace Engine
                 /* Convert vertical to horizontal and try again. */
                 return LineCircleCollide(y1, x1, y2, x2, cy, cx, diam);
             }
-            if (IsInCircle(x2, y2, cx, cy, diam))
+            if (CircleContainsPoint(x2, y2, cx, cy, diam))
             {
                 /* The segment may be entirely inside the circle */
                 return true;
@@ -627,15 +561,15 @@ namespace Engine
              * Normalize s.t. the ellipse is centered at
              * the origin and is not rotated.
              */
-            var r1 = RotatePoint(x1 - ex, y1 - ey, cosine, sine);
-            var r2 = RotatePoint(x2 - ex, y2 - ey, cosine, sine);
-            var m = (r2.y - r1.y) / (r2.x - r1.x);  /* slope */
+            var r1 = RotatePoint2D(x1 - ex, y1 - ey, cosine, sine);
+            var r2 = RotatePoint2D(x2 - ex, y2 - ey, cosine, sine);
+            var m = (r2.Y - r1.Y) / (r2.X - r1.X);  /* slope */
             if (Abs(m) > 1024)
             {
                 /* Vertical line, so swap X & Y, and try again. */
-                return LineEllipseCollide(r1.y, r1.x, r2.y, r2.x, 0, 0, h, w);
+                return LineEllipseCollide(r1.Y, r1.X, r2.Y, r2.X, 0, 0, h, w);
             }
-            if (IsInEllipse(r2.x, r2.y, 0, 0, w, h))
+            if (EllipseContainsPoint(r2.X, r2.Y, 0, 0, w, h))
             {
                 /* The segment may be entirely inside the ellipse */
                 return true;
@@ -652,7 +586,7 @@ namespace Engine
              */
             var s = w * w / 4;
             var t = h * h / 4;  /* So, x©÷/s + y©÷/t = 1 */
-            var k = r1.y - (m * r1.x);  /* So, y = m*x + k */
+            var k = r1.Y - (m * r1.X);  /* So, y = m*x + k */
             var a = (1 / s) + (m * m / t);
             var b = 2 * m * k / t;
             var c = (k * k / t) - 1;
@@ -663,8 +597,8 @@ namespace Engine
             }
             discrim = Sqrt(discrim);
             a *= 2;
-            return Intersections.Between((-b - discrim) / a, r1.x, r2.x) ||
-                Intersections.Between((-b + discrim) / a, r1.x, r2.x);
+            return Intersections.Between((-b - discrim) / a, r1.X, r2.X) ||
+                Intersections.Between((-b + discrim) / a, r1.X, r2.X);
         }
 
         /// <summary>
@@ -712,7 +646,7 @@ namespace Engine
             (double x, double y)[] poly,
             double ex, double ey, double w, double h, double theta)
         {
-            var collide = IsInPolygon(ex, ey, poly);
+            var collide = PolygonContainsPoint(ex, ey, poly);
             for (int i = 0, j = poly.Length - 1; (!collide) && (i < poly.Length); j = i, i++)
             {
                 collide = LineEllipseCollide(poly[j].x, poly[j].y, poly[i].x, poly[i].y, ex, ey, w, h, theta);
@@ -765,7 +699,7 @@ namespace Engine
             (double x, double y)[] poly,
             double cx, double cy, double diam)
         {
-            var collide = IsInPolygon(cx, cy, poly);
+            var collide = PolygonContainsPoint(cx, cy, poly);
             for (int i = 0, j = poly.Length - 1; (!collide) && (i < poly.Length); j = i, i++)
             {
                 collide = LineCircleCollide(poly[j].x, poly[j].y, poly[i].x, poly[i].y, cx, cy, diam);
@@ -797,9 +731,9 @@ namespace Engine
             if (theta != 0)
             {
                 /* rotate the circle center wrt rect point (rx, ry). */
-                var r = RotatePoint(cx - rx, cy - ry, theta);
-                cx = r.x + rx;
-                cy = r.y + ry;
+                var (X, Y) = RotatePoint2D(cx - rx, cy - ry, theta);
+                cx = X + rx;
+                cy = Y + ry;
             }
             if (rectangleMode == Mode.CORNERS)
             {
@@ -815,7 +749,7 @@ namespace Engine
             /* See Cygon at http://stackoverflow.com/questions/401847/ */
             var closestX = Constrain(cx, rx, rx + w);
             var closestY = Constrain(cy, ry, ry + h);
-            return IsInCircle(closestX, closestY, cx, cy, diam);
+            return CircleContainsPoint(closestX, closestY, cx, cy, diam);
         }
 
         /// <summary>
@@ -1036,8 +970,8 @@ namespace Engine
             var sine2 = Sin(theta2);
 
             // Is the center of one inside the other? 
-            if (IsInEllipse(x2, y2, x1, y1, w1, h1, cosine1, sine1) ||
-                IsInEllipse(x1, y1, x2, y2, w2, h2, cosine2, sine2))
+            if (EllipseContainsPoint(x2, y2, x1, y1, w1, h1, cosine1, sine1) ||
+                EllipseContainsPoint(x1, y1, x2, y2, w2, h2, cosine2, sine2))
             {
                 return true;
             }

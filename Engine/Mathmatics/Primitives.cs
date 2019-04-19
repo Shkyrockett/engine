@@ -24,7 +24,7 @@ namespace Engine
     public static class Primitives
     {
         // ToDo: Add Tuple Math here.
-        
+
         /// <summary>
         /// Checks if two vectors are equal within a small bounded error.
         /// </summary>
@@ -1450,7 +1450,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Invert(float x, float y)
-            => new Vector2D(1 / x, 1 / y);
+            => new Vector2D(1f / x, 1f / y);
 
         /// <summary>
         /// Inverts a Vector.
@@ -2372,7 +2372,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D RotatePoint(this Point2D point, double angle)
-            => RotatePoint2D(point.X, point.Y, 0, 0, angle);
+            => RotatePoint2D(point.X, point.Y, angle, 0, 0);
 
         /// <summary>
         /// Rotate a point around a fulcrum point.
@@ -2384,7 +2384,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D RotatePoint(this Point2D point, Point2D axis, double angle)
-            => RotatePoint2D(point.X, point.Y, axis.X, axis.Y, angle);
+            => RotatePoint2D(point.X, point.Y, angle, axis.X, axis.Y);
         #endregion Rotate Point
 
         #region Rotate Points
@@ -2623,7 +2623,6 @@ namespace Engine
         /// </summary>
         /// <param name="Line">Line to get length of</param>
         /// <returns>Returns the slope angle of a line.</returns>
-
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this LineSegment Line)
@@ -3086,7 +3085,7 @@ namespace Engine
         {
             if (points is null)
             {
-                return null;
+                return new List<Point2D>();
             }
 
             if (points.Count <= 1)

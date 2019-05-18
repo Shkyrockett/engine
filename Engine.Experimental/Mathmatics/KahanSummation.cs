@@ -34,7 +34,7 @@ namespace Engine.Experimental
             {
                 var y = value - c;
                 var t = sum + y;
-                c = (t - sum) - y;
+                c = t - sum - y;
                 sum = t;
             }
 

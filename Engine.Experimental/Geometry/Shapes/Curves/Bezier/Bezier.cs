@@ -485,12 +485,12 @@ namespace Engine
             //Point2D Y(double t) { return Interpolate_Ported(ts); };
             // The position Y( t ) , tmin <= t <= tmax. 
             Point2D DY(double t) { return Derivativate_Ported(ts); };
-            double Length(Point2D u) { return double.NaN; }
+            static double Length(Point2D u) { return double.NaN; }
             //double LengthDY(double u) { return Length(DY(u)); }
             // The derivative dY( t )/dt , tmin <= t <= tmax . 
             double Speed(double t) { return Length(DY(t)); }
             //double Sigma(double t) { return Speed(t); } // The user−specified speed at time t .
-            double Integral(double min, double max, double u) { return double.NaN; }
+            static double Integral(double min, double max, double u) { return double.NaN; }
             double ArcLength(double t) { return Integral(tmin, t, Speed(t)); }
             var L = ArcLength(tmax);
             // The total length of the curve.

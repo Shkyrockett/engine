@@ -63,7 +63,7 @@ namespace Engine
         /// <summary>
         /// The dash pattern.
         /// </summary>
-        private float[] dashPattern;
+        private readonly float[] dashPattern;
 
         ///// <summary>
         /////

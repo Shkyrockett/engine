@@ -21,7 +21,6 @@ namespace Engine
     /// 2D Line Structure
     /// </summary>
     /// <structure>Engine.Geometry.Line2D</structure>
-
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Line))]

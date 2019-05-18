@@ -397,6 +397,7 @@ namespace Engine
         /// </returns>
         public static Point2D Parse(string source, IFormatProvider provider)
         {
+            _ = provider;
             var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
             var value = new Point2D(
                 Convert.ToDouble(tokenizer.NextTokenRequired(), CultureInfo.InvariantCulture),

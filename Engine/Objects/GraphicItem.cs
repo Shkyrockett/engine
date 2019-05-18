@@ -27,14 +27,14 @@ namespace Engine
         /// <summary>
         /// Unique identifier indexer.
         /// </summary>
-        private static uint _id = 0;
+        private static uint indexedID = 0;
         #endregion Constants
 
         #region Fields
         /// <summary>
         /// The unique identifier for the object.
         /// </summary>
-        protected uint id = _id++;
+        protected uint id = indexedID++;
         #endregion Fields
 
         #region Constructors
@@ -55,6 +55,7 @@ namespace Engine
             Shape = item;
             Name = Shape?.ToString();
             Style = style;
+            _ = metadata;
         }
         #endregion Constructors
 

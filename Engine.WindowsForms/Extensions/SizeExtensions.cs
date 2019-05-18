@@ -16,9 +16,9 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// The size extentions class.
+    /// The size extensions class.
     /// </summary>
-    public static class SizeExtentions
+    public static class SizeExtensions
     {
         /// <summary>
         /// Inflates a <see cref="Size2D"/> by a given factor.

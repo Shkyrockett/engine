@@ -210,6 +210,9 @@ namespace Engine.Imaging
         /// Based on http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
         /// </remarks>
         private unsafe static void Compare1(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
-            => *cPtr = (byte)(aPtr + bPtr - (2 * Min(aPtr, bPtr)));
+        {
+            _ = colorComp;
+            *cPtr = (byte)(aPtr + bPtr - (2 * Min(aPtr, bPtr)));
+        }
     }
 }

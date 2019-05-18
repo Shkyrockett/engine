@@ -37,12 +37,12 @@ namespace Engine
         /// <summary>
         /// An Empty <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static readonly Matrix3x2D Empty = new Matrix3x2D();
+        public static Matrix3x2D Empty = new Matrix3x2D();
 
         /// <summary>
         /// An Identity <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static readonly Matrix3x2D Identity = CreateIdentity();
+        public static Matrix3x2D Identity = CreateIdentity();
         #endregion Static Fields
 
         #region Private Fields

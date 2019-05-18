@@ -84,21 +84,19 @@ namespace EngineTests
                 0x3E8, 0x2710, 0x4000
             };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetworkUInt14(value);
-                }
+                writer.WriteNetworkUInt14(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkUInt14());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkUInt14());
             }
         }
 
@@ -118,21 +116,19 @@ namespace EngineTests
                 0x3E8, 0x2710, 0x4000
             };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetworkInt14(value);
-                }
+                writer.WriteNetworkInt14(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkInt14());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkInt14());
             }
         }
 
@@ -151,21 +147,19 @@ namespace EngineTests
                 0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
                 0x3E8, 0x2710 };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetwork(value);
-                }
+                writer.WriteNetwork(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkUInt16());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkUInt16());
             }
         }
 
@@ -184,21 +178,19 @@ namespace EngineTests
                 0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
                 0x3E8, 0x2710 };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetwork(value);
-                }
+                writer.WriteNetwork(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkInt16());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkInt16());
             }
         }
 
@@ -217,21 +209,19 @@ namespace EngineTests
                 0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
                 0x3E8, 0x2710 };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetworkUInt24(value);
-                }
+                writer.WriteNetworkUInt24(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkUInt24());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkUInt24());
             }
         }
 
@@ -250,21 +240,19 @@ namespace EngineTests
                 0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
                 0x3E8, 0x2710 };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetworkInt24(value);
-                }
+                writer.WriteNetworkInt24(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkInt24());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkInt24());
             }
         }
 
@@ -284,21 +272,19 @@ namespace EngineTests
                 0x3E8, 0x2710, 0xFFFFFFFF
             };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetwork(value);
-                }
+                writer.WriteNetwork(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkUInt32());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkUInt32());
             }
         }
 
@@ -318,21 +304,19 @@ namespace EngineTests
                 0x3E8, 0x2710, 0x7FFFFFFF
             };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetwork(value);
-                }
+                writer.WriteNetwork(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkInt32());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkInt32());
             }
         }
 
@@ -352,21 +336,19 @@ namespace EngineTests
                 0x3E8, 0x2710, 0x7FFFFFFFFFFFFFFF
             };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetwork(value);
-                }
+                writer.WriteNetwork(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkUInt64());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkUInt64());
             }
         }
 
@@ -386,21 +368,19 @@ namespace EngineTests
                 0x3E8, 0x2710, 0x7FFFFFFFFFFFFFFF
             };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetwork(value);
-                }
+                writer.WriteNetwork(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkInt64());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkInt64());
             }
         }
 
@@ -419,21 +399,19 @@ namespace EngineTests
                 0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
                 0x3E8, 0x2710, 0x186A0, -0xF4240 };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.Write7BitEncodedInt(value);
-                }
+                writer.Write7BitEncodedInt(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.Read7BitEncodedInt());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.Read7BitEncodedInt());
             }
         }
 
@@ -449,16 +427,14 @@ namespace EngineTests
         public void ReadUTF8StringTest()
         {
             const string fox = "The quick brown fox jumps over the lazy dog.";
-            using (var stream = new MemoryStream())
-            {
-                var writer = new BinaryWriterExtended(stream);
-                writer.WriteUTF8String(fox);
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            writer.WriteUTF8String(fox);
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                Assert.AreEqual(fox, reader.ReadUTF8String());
-            }
+            var reader = new BinaryReaderExtended(stream);
+            Assert.AreEqual(fox, reader.ReadUTF8String());
         }
 
         /// <summary>
@@ -473,16 +449,14 @@ namespace EngineTests
         public void ReadASCIIStringTest()
         {
             const string fox = "The quick brown fox jumps over the lazy dog.";
-            using (var stream = new MemoryStream())
-            {
-                var writer = new BinaryWriterExtended(stream);
-                writer.WriteASCIIString(fox);
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            writer.WriteASCIIString(fox);
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                Assert.AreEqual(fox, reader.ReadASCIIString());
-            }
+            var reader = new BinaryReaderExtended(stream);
+            Assert.AreEqual(fox, reader.ReadASCIIString());
         }
     }
 }

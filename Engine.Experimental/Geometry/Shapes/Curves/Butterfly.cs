@@ -124,7 +124,7 @@ namespace Engine
             const double n = 10000;
             var u = 0 * (24 * (PI / n));
             var points = new List<Point2D>() { Interpolate(u) };
-            for (double Index = 1; Index <= n; Index += (1d / count))
+            for (double Index = 1; Index <= n; Index += 1d / count)
             {
                 u = Index * (24 * (PI / n));
                 points.Add(Interpolate(u));

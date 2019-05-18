@@ -28,17 +28,17 @@ namespace Engine.Tweening
         /// <summary>
         /// The to remove.
         /// </summary>
-        private List<Tween> toRemove;
+        private readonly List<Tween> toRemove;
 
         /// <summary>
         /// The to add.
         /// </summary>
-        private List<Tween> toAdd;
+        private readonly List<Tween> toAdd;
 
         /// <summary>
         /// The all tweens.
         /// </summary>
-        private List<Tween> allTweens;
+        private readonly List<Tween> allTweens;
         #endregion Fields
 
         #region Constructors
@@ -62,7 +62,7 @@ namespace Engine.Tweening
                     typeof(double)
                 };
 
-            foreach (Type numericType in numericTypes)
+            foreach (var numericType in numericTypes)
             {
                 RegisterLerper<NumericLerper>(numericType);
             }
@@ -194,7 +194,7 @@ namespace Engine.Tweening
         /// </summary>
         public void CancelAndComplete()
         {
-            foreach (Tween tween in allTweens)
+            foreach (var tween in allTweens)
             {
                 tween.CancelAndComplete();
             }
@@ -275,7 +275,7 @@ namespace Engine.Tweening
         /// </summary>
         private void AddAndRemove()
         {
-            foreach (Tween tween in toAdd)
+            foreach (var tween in toAdd)
             {
                 allTweens.Add(tween);
 
@@ -293,7 +293,7 @@ namespace Engine.Tweening
                 list.Add(tween);
             }
 
-            foreach (Tween tween in toRemove)
+            foreach (var tween in toRemove)
             {
                 allTweens.Remove(tween);
 
@@ -328,7 +328,7 @@ namespace Engine.Tweening
         {
             if (tweens.TryGetValue(target, out var list))
             {
-                foreach (Tween tween in list)
+                foreach (var tween in list)
                 {
                     tween.Cancel();
                 }

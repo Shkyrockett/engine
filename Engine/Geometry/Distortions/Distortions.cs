@@ -150,10 +150,10 @@ namespace Engine
             // 
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
-            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
-            var leftAnchor = Interpolators.Linear(topLeft.X, topLeft.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
-            var rightAnchor = Interpolators.Linear(topRight.X, topRight.Y, bottomRight.X, bottomRight.Y, normal.Y);
-            return Interpolators.Linear(leftAnchor.X, leftAnchor.Y, rightAnchor.X, rightAnchor.Y, normal.X);
+            var (normalX, normalY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+            var (leftAnchorX, leftAnchorY) = Interpolators.Linear(topLeft.X, topLeft.Y, bottomLeft.X, bottomLeft.Y, normalY);
+            var (rightAnchorX, rightAnchorY) = Interpolators.Linear(topRight.X, topRight.Y, bottomRight.X, bottomRight.Y, normalY);
+            return Interpolators.Linear(leftAnchorX, leftAnchorY, rightAnchorX, rightAnchorY, normalX);
         }
 
         /// <summary>
@@ -199,11 +199,11 @@ namespace Engine
             // 
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
-            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
-            var leftAnchor = Interpolators.QuadraticBezier(topLeft.X, topLeft.Y, leftHandle.X, leftHandle.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
-            var handle = Interpolators.Linear(topHandle.X, topHandle.Y, bottomHandle.X, bottomHandle.Y, normal.Y);
-            var rightAnchor = Interpolators.QuadraticBezier(topRight.X, topRight.Y, rightHandle.X, rightHandle.Y, bottomRight.X, bottomRight.Y, normal.Y);
-            return Interpolators.QuadraticBezier(leftAnchor.X, leftAnchor.Y, handle.X, handle.Y, rightAnchor.X, rightAnchor.Y, normal.X);
+            var (normalX, normalY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
+            var (leftAnchorX, leftAnchorY) = Interpolators.QuadraticBezier(topLeft.X, topLeft.Y, leftHandle.X, leftHandle.Y, bottomLeft.X, bottomLeft.Y, normalY);
+            var (handleX, handleY) = Interpolators.Linear(topHandle.X, topHandle.Y, bottomHandle.X, bottomHandle.Y, normalY);
+            var (rightAnchorX, rightAnchorY) = Interpolators.QuadraticBezier(topRight.X, topRight.Y, rightHandle.X, rightHandle.Y, bottomRight.X, bottomRight.Y, normalY);
+            return Interpolators.QuadraticBezier(leftAnchorX, leftAnchorY, handleX, handleY, rightAnchorX, rightAnchorY, normalX);
         }
 
         /// <summary>
@@ -255,37 +255,40 @@ namespace Engine
             // 
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
-            var normal = (X: (point.X - bounds.X) / bounds.Width, Y: (point.Y - bounds.Top) / bounds.Height);
-            var normalSquared = (X: normal.X * normal.X, Y: normal.Y * normal.Y);
-            var normalCubed = (X: normalSquared.X * normal.X, Y: normalSquared.Y * normal.Y);
-            var reverseNormal = (X: 1d - normal.X, Y: 1d - normal.Y);
-            var reverseNormalSquared = (X: reverseNormal.X * reverseNormal.X, Y: reverseNormal.Y * reverseNormal.Y);
-            var reverseNormalCubed = (X: reverseNormalSquared.X * reverseNormal.X, Y: reverseNormalSquared.Y * reverseNormal.Y);
+            var (normalX, normalY) = (
+                (point.X - bounds.X) / bounds.Width,
+                (point.Y - bounds.Top) / bounds.Height
+                );
+            var (normalSquaredX, normalSquaredY) = (normalX * normalX, normalY * normalY);
+            var (normalCubedX, normalCubedY) = (normalSquaredX * normalX, normalSquaredY * normalY);
+            var (inverseNormalX, inverseNormalY) = (1d - normalX, 1d - normalY);
+            var (inverseNormalSquaredX, inverseNormalSquaredY) = (inverseNormalX * inverseNormalX, inverseNormalY * inverseNormalY);
+            var (inverseNormalCubedX, inverseNormalCubedY) = (inverseNormalSquaredX * inverseNormalX, inverseNormalSquaredY * inverseNormalY);
 
             // Cubic interpolate the left anchor node.
-            var leftAnchor = (
-                X: (topLeft.X * reverseNormalCubed.Y) + (3d * topLeftV.X * normal.Y * reverseNormalSquared.Y) + (3d * bottomLeftV.X * normalSquared.Y * reverseNormal.Y) + (bottomLeft.X * normalCubed.Y),
-                Y: (topLeft.Y * reverseNormalCubed.Y) + (3d * topLeftV.Y * normal.Y * reverseNormalSquared.Y) + (3d * bottomLeftV.Y * normalSquared.Y * reverseNormal.Y) + (bottomLeft.Y * normalCubed.Y)
+            var (leftAnchorX, leftAnchorY) = (
+                (topLeft.X * inverseNormalCubedY) + (3d * topLeftV.X * normalY * inverseNormalSquaredY) + (3d * bottomLeftV.X * normalSquaredY * inverseNormalY) + (bottomLeft.X * normalCubedY),
+                (topLeft.Y * inverseNormalCubedY) + (3d * topLeftV.Y * normalY * inverseNormalSquaredY) + (3d * bottomLeftV.Y * normalSquaredY * inverseNormalY) + (bottomLeft.Y * normalCubedY)
                 );
             // Linear interpolate the left handle node.
-            var leftHandle = (
-                X: (topLeftH.X * reverseNormal.Y) + (bottomLeftH.X * normal.Y),
-                Y: (topLeftH.Y * reverseNormal.Y) + (bottomLeftH.Y * normal.Y)
+            var (leftHandleX, leftHandleY) = (
+                (topLeftH.X * inverseNormalY) + (bottomLeftH.X * normalY),
+                (topLeftH.Y * inverseNormalY) + (bottomLeftH.Y * normalY)
                 );
             // Linear interpolate the right handle node.
-            var rightHandle = (
-                X: (topRightH.X * reverseNormal.Y) + (bottomRightH.X * normal.Y),
-                Y: (topRightH.Y * reverseNormal.Y) + (bottomRightH.Y * normal.Y)
+            var (rightHandleX, rightHandleY) = (
+                (topRightH.X * inverseNormalY) + (bottomRightH.X * normalY),
+                (topRightH.Y * inverseNormalY) + (bottomRightH.Y * normalY)
                 );
             // Cubic interpolate the right anchor node.
-            var rightAnchor = (
-                X: (topRight.X * reverseNormalCubed.Y) + (3d * topRightV.X * normal.Y * reverseNormalSquared.Y) + (3d * bottomRightV.X * normalSquared.Y * reverseNormal.Y) + (bottomRight.X * normalCubed.Y),
-                Y: (topRight.Y * reverseNormalCubed.Y) + (3d * topRightV.Y * normal.Y * reverseNormalSquared.Y) + (3d * bottomRightV.Y * normalSquared.Y * reverseNormal.Y) + (bottomRight.Y * normalCubed.Y)
+            var (rightAnchorX, rightAnchorY) = (
+                (topRight.X * inverseNormalCubedY) + (3d * topRightV.X * normalY * inverseNormalSquaredY) + (3d * bottomRightV.X * normalSquaredY * inverseNormalY) + (bottomRight.X * normalCubedY),
+                (topRight.Y * inverseNormalCubedY) + (3d * topRightV.Y * normalY * inverseNormalSquaredY) + (3d * bottomRightV.Y * normalSquaredY * inverseNormalY) + (bottomRight.Y * normalCubedY)
                 );
             // Cubic interpolate the final result.
             return (
-                X: (leftAnchor.X * reverseNormalCubed.X) + (3d * leftHandle.X * normal.X * reverseNormalSquared.X) + (3d * rightHandle.X * normalSquared.X * reverseNormal.X) + (rightAnchor.X * normalCubed.X),
-                Y: (leftAnchor.Y * reverseNormalCubed.X) + (3d * leftHandle.Y * normal.X * reverseNormalSquared.X) + (3d * rightHandle.Y * normalSquared.X * reverseNormal.X) + (rightAnchor.Y * normalCubed.X)
+                X: (leftAnchorX * inverseNormalCubedX) + (3d * leftHandleX * normalX * inverseNormalSquaredX) + (3d * rightHandleX * normalSquaredX * inverseNormalX) + (rightAnchorX * normalCubedX),
+                Y: (leftAnchorY * inverseNormalCubedX) + (3d * leftHandleY * normalX * inverseNormalSquaredX) + (3d * rightHandleY * normalSquaredX * inverseNormalX) + (rightAnchorY * normalCubedX)
                 );
         }
 
@@ -435,6 +438,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Water(Point2D point, Point2D fulcrum, double nWave = 1)
         {
+            _ = fulcrum;
             var xo = nWave * Sin(2d * PI * point.Y / 128d);
             var yo = nWave * Cos(2d * PI * point.X / 128d);
             var newX = point.X + xo;
@@ -703,7 +707,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Point2D Bilinear(Point2D[] point, double u, double v)
+        internal static Point2D Bilinear(Point2D[] point, double u, double v)
         {
             // Evaluate the bilinear transform
             var r = new Point2D(
@@ -732,7 +736,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static Point2D Perspective(Point2D[] points, (double a, double b, double d, double e, double g, double h) c, double u, double v)
+        internal static Point2D Perspective(Point2D[] points, (double a, double b, double d, double e, double g, double h) c, double u, double v)
         {
             // Evaluate the homographic transform
             var T = (c.g * u) + (c.h * v) + 1;
@@ -749,7 +753,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double a, double b, double d, double e, double g, double h) SolvePerspective(Point2D[] points)
+        internal static (double a, double b, double d, double e, double g, double h) SolvePerspective(Point2D[] points)
         {
             // Compute the transform coefficients
             var t = ((points[2].X - points[1].X) * (points[2].Y - points[3].Y)) - ((points[2].X - points[3].X) * (points[2].Y - points[1].Y));

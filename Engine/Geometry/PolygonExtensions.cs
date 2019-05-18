@@ -256,7 +256,7 @@ namespace Engine
         private static (int A, int B, int C) FindEar(this PolygonContour polygon)
         {
             var num_points = polygon.Points.Count;
-            var A = 0;
+            int A;
             var B = 0;
             var C = 0;
             for (A = 0; A < num_points; A++)

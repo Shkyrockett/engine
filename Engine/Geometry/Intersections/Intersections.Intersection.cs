@@ -1661,9 +1661,12 @@ namespace Engine
             double p0X, double p0Y,
             double p1X, double p1Y,
             double epsilon = Epsilon)
-            => PointPointIntersects(p0X, p0Y, p1X, p1Y)
-            ? new Intersection(IntersectionState.Intersection, new Point2D(p0X, p0Y))
-            : new Intersection(IntersectionState.NoIntersection);
+        {
+            _ = epsilon;
+            return PointPointIntersects(p0X, p0Y, p1X, p1Y)
+                       ? new Intersection(IntersectionState.Intersection, new Point2D(p0X, p0Y))
+                       : new Intersection(IntersectionState.NoIntersection);
+        }
 
         /// <summary>
         /// Find the intersection of a point and a line.
@@ -1683,6 +1686,7 @@ namespace Engine
             double lx, double ly, double i, double j,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var result = new Intersection(IntersectionState.NoIntersection);
             if (i == 0 && pX == lx)
             {
@@ -2144,6 +2148,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Initialize intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -2224,6 +2229,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -2742,7 +2748,11 @@ namespace Engine
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
-            => LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
+        {
+            _ = startAngle;
+            _ = sweepAngle;
+            return LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
+        }
 
         /// <summary>
         /// Find the intersection between a line and an elliptical arc.
@@ -3045,6 +3055,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -3103,6 +3114,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -3341,6 +3353,8 @@ namespace Engine
             double cX, double cY, double r, double angle,
             double epsilon = Epsilon)
         {
+            _ = angle;
+            _ = epsilon;
             Intersection result;
 
             var a = (lBi * lBi) + (lBj * lBj);
@@ -3354,7 +3368,7 @@ namespace Engine
             }
             else if (determinant == 0d)
             {
-                result = new Intersection(IntersectionState.Tangent | IntersectionState.Intersection);
+                //result = new Intersection(IntersectionState.Tangent | IntersectionState.Intersection);
                 var u1 = (-b) / (2d * a);
                 if (u1 < 0d || u1 > 1d)
                 {
@@ -3421,6 +3435,7 @@ namespace Engine
             double cX, double cY, double r, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
         {
+            _ = angle;
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
@@ -3783,6 +3798,7 @@ namespace Engine
             double b1X, double b1Y, double b2X, double b2Y,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var result = new Intersection(IntersectionState.NoIntersection);
 
             var ua = ((b2X - b1X) * (y1 - b1Y)) - ((b2Y - b1Y) * (x1 - b1X));
@@ -3869,6 +3885,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -3961,6 +3978,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Initialize the intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -4205,6 +4223,8 @@ namespace Engine
             double cX, double cY, double r, double angle,
             double epsilon = Epsilon)
         {
+            _ = angle;
+            _ = epsilon;
             Intersection result;
 
             var a = ((lBX - lAX) * (lBX - lAX)) + ((lBY - lAY) * (lBY - lAY));
@@ -4218,7 +4238,7 @@ namespace Engine
             }
             else if (determinant == 0d)
             {
-                result = new Intersection(IntersectionState.Tangent | IntersectionState.Intersection);
+                //result = new Intersection(IntersectionState.Tangent | IntersectionState.Intersection);
                 var u1 = (-b) / (2d * a);
                 if (u1 < 0d || u1 > 1d)
                 {
@@ -4284,6 +4304,7 @@ namespace Engine
             double cX, double cY, double r, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
         {
+            _ = angle;
             var result = new Intersection(IntersectionState.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
@@ -4520,7 +4541,11 @@ namespace Engine
             double x0, double y0, double x1, double y1,
             double cx, double cy, double rx, double ry, double angle, double startAngle, double sweepAngle,
             double epsilon = Epsilon)
-            => LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
+        {
+            _ = startAngle;
+            _ = sweepAngle;
+            return LineSegmentEllipseIntersection(x0, y0, x1, y1, cx, cy, rx, ry, Cos(angle), Sin(angle), epsilon);
+        }
 
         /// <summary>
         /// Find the intersection between a line segment and an elliptical arc.
@@ -6566,6 +6591,7 @@ namespace Engine
             double c2X, double c2Y, double r2,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var r_max = r1 + r2;
             var r_min = Abs(r1 - r2);
             var c_dist = Distance(c1X, c1Y, c2X, c2Y);
@@ -6848,6 +6874,7 @@ namespace Engine
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Initialize intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -6936,6 +6963,7 @@ namespace Engine
             double ecX, double ecY, double rx, double ry,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Initialize intersection.
             var result = new Intersection(IntersectionState.NoIntersection);
 
@@ -7213,15 +7241,13 @@ namespace Engine
         public static (double a, double b, double c, double d, double e) GetEllipseQuartic(
             (double a, double b, double c, double d, double e, double f) el1,
             (double a, double b, double c, double d, double e, double f) el2)
-        {
-            return (
+            => (
                 /* x⁴ */ a: (el1.f * el1.a * el2.d * el2.d) + (el1.a * el1.a * el2.f * el2.f) - (el1.d * el1.a * el2.d * el2.f) + (el2.a * el2.a * el1.f * el1.f) - (2d * el1.a * el2.f * el2.a * el1.f) - (el1.d * el2.d * el2.a * el1.f) + (el2.a * el1.d * el1.d * el2.f),
                 /* x³ */ b: (el2.e * el1.d * el1.d * el2.a) - (el2.f * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.e) - (el1.f * el2.a * el2.b * el1.d) + (2d * el2.d * el2.b * el1.a * el1.f) + (2d * el2.e * el2.f * el1.a * el1.a) + (el2.d * el2.d * el1.a * el1.e) - (el2.e * el2.d * el1.a * el1.d) - (2d * el1.a * el2.e * el2.a * el1.f) - (el1.f * el2.a * el2.d * el1.b) + (2d * el1.f * el1.e * el2.a * el2.a) - (el2.f * el2.b * el1.a * el1.d) - (el1.e * el2.a * el2.d * el1.d) + (2d * el2.f * el1.b * el2.a * el1.d),
                 /* x² */ c: (el2.e * el2.e * el1.a * el1.a) + (2d * el2.c * el2.f * el1.a * el1.a) - (el1.e * el2.a * el2.d * el1.b) + (el2.f * el2.a * el1.b * el1.b) - (el1.e * el2.a * el2.b * el1.d) - (el2.f * el2.b * el1.a * el1.b) - (2d * el1.a * el2.e * el2.a * el1.e) + (2d * el2.d * el2.b * el1.a * el1.e) - (el2.c * el2.d * el1.a * el1.d) - (2d * el1.a * el2.c * el2.a * el1.f) + (el2.b * el2.b * el1.a * el1.f) + (2d * el2.e * el1.b * el2.a * el1.d) + (el1.e * el1.e * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.d) - (el2.e * el2.b * el1.a * el1.d) + (2d * el1.f * el1.c * el2.a * el2.a) - (el1.f * el2.a * el2.b * el1.b) + (el2.c * el1.d * el1.d * el2.a) + (el2.d * el2.d * el1.a * el1.c) - (el2.e * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.c),
                 /* x¹ */ d: (-2d * el1.a * el2.a * el1.c * el2.e) + (el2.e * el2.a * el1.b * el1.b) + (2d * el2.c * el1.b * el2.a * el1.d) - (el1.c * el2.a * el2.b * el1.d) + (el2.b * el2.b * el1.a * el1.e) - (el2.e * el2.b * el1.a * el1.b) - (2d * el1.a * el2.c * el2.a * el1.e) - (el1.e * el2.a * el2.b * el1.b) - (el2.c * el2.b * el1.a * el1.d) + (2d * el2.e * el2.c * el1.a * el1.a) + (2d * el1.e * el1.c * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.b) + (2d * el2.d * el2.b * el1.a * el1.c) - (el2.c * el2.d * el1.a * el1.b),
                 /* c  */ e: (el1.a * el1.a * el2.c * el2.c) - (2d * el1.a * el2.c * el2.a * el1.c) + (el2.a * el2.a * el1.c * el1.c) - (el1.b * el1.a * el2.b * el2.c) - (el1.b * el2.b * el2.a * el1.c) + (el1.b * el1.b * el2.a * el2.c) + (el1.c * el1.a * el2.b * el2.b)
                 );
-        }
         #endregion Helpers
     }
 }

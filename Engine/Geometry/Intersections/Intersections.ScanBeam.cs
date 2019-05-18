@@ -66,6 +66,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamPoint(ref List<double> scanlist, double x, double y, double px, double py, double epsilon = Epsilon)
         {
+            _ = epsilon;
             if ((y - py) / (x - px) == 1d)
             {
                 scanlist.Add(x);
@@ -211,6 +212,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
             foreach (var s in roots)
@@ -269,6 +271,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Translate the line to the origin.
             var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
@@ -296,6 +299,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ScanbeamCircle(ref List<double> scanlist, double x, double y, double cX, double cY, double r, double epsilon = Epsilon)
         {
+            _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((x == x + 1d) && (y == x + 0d)))
             {
@@ -719,7 +723,10 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToLeftPoint(double x, double y, double px, double py, double epsilon = Epsilon)
-            => (((y - py) / (x - px) == 1) && (px <= x)) ? 1 : 0;
+        {
+            _ = epsilon;
+            return (((y - py) / (x - px) == 1) && (px <= x)) ? 1 : 0;
+        }
 
         /// <summary>
         /// Find the scan-beam points to the left of a line.
@@ -874,6 +881,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
             var result = 0;
@@ -932,6 +940,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Translate the line to the origin.
             var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
@@ -963,8 +972,12 @@ namespace Engine
         /// <returns>Returns the number of intersections to the left of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToLeftCircle(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        public static int ScanbeamPointsToLeftCircle(double x, double y, double cX, double cY, double r, double angle = 0, double startAngle = 0, double sweepAngle = 0, double epsilon = Epsilon)
         {
+            _ = angle;
+            _ = startAngle;
+            _ = sweepAngle;
+            _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((x == x + 1d) && (y == x + 0d)))
             {
@@ -1435,7 +1448,10 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ScanbeamPointsToRightPoint(double x, double y, double px, double py, double epsilon = Epsilon)
-            => (((y - py) / (x - px) == 1) && (px >= x)) ? 1 : 0;
+        {
+            _ = epsilon;
+            return (((y - py) / (x - px) == 1) && (px >= x)) ? 1 : 0;
+        }
 
         /// <summary>
         /// Find the scan-beam points to the right of a line.
@@ -1585,6 +1601,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
             var result = 0;
@@ -1643,6 +1660,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             // Translate the line to the origin.
             var c = (x * (y - (y + 0d))) + (y * (x + 1d - x));
             var roots = (yCurve - c).Trim().Roots();
@@ -1674,8 +1692,12 @@ namespace Engine
         /// <returns>Returns the number of intersections to the right of the x axis along the y plane of the scan-beam.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int ScanbeamPointsToRightCircle(double x, double y, double cX, double cY, double r, double angle, double startAngle, double sweepAngle, double epsilon = Epsilon)
+        public static int ScanbeamPointsToRightCircle(double x, double y, double cX, double cY, double r, double angle = 0, double startAngle = 0, double sweepAngle = 0, double epsilon = Epsilon)
         {
+            _ = angle;
+            _ = startAngle;
+            _ = sweepAngle;
+            _ = epsilon;
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((x == x + 1d) && (y == x + 0d)))
             {

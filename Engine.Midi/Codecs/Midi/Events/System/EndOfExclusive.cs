@@ -39,6 +39,9 @@ namespace Engine.File
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="EndOfExclusive"/>.</returns>
         internal static EndOfExclusive Read(BinaryReaderExtended reader, EventStatus status)
-            => new EndOfExclusive(status);
+        {
+            _ = reader;
+            return new EndOfExclusive(status);
+        }
     }
 }

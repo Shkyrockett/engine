@@ -38,7 +38,7 @@ namespace Engine
         /// <summary>
         /// Shared zero-curve array.
         /// </summary>
-        private static readonly CubicBezier[] ZeroCurves = new CubicBezier[0];
+        private static readonly CubicBezier[] zeroCurves = new CubicBezier[0];
         #endregion Fields
 
         #region Constructors
@@ -77,7 +77,7 @@ namespace Engine
 
             if (points.Count < 2)
             {
-                return ZeroCurves; // need at least 2 points to do anything.
+                return zeroCurves; // need at least 2 points to do anything.
             }
 
             var instance = GetInstance();

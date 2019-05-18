@@ -21,17 +21,12 @@ namespace Engine
         : Attribute
     {
         /// <summary>
-        /// The order.
-        /// </summary>
-        private string[] order;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="AdvBrowsableOrderAttribute"/> class.
         /// </summary>
         /// <param name="order">The order.</param>
         public AdvBrowsableOrderAttribute(string order)
         {
-            this.order = order.Split(',');
+            this.Order = order.Split(',');
         }
 
         ///// <summary>
@@ -46,8 +41,7 @@ namespace Engine
         /// <summary>
         /// Gets the order.
         /// </summary>
-        public string[] Order
-            => order;
+        public string[] Order { get; }
 
         /// <summary>
         /// Get the order.

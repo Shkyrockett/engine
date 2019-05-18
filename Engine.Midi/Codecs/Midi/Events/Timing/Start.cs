@@ -39,6 +39,9 @@ namespace Engine.File
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="Start"/>.</returns>
         internal static Start Read(BinaryReaderExtended reader, EventStatus status)
-            => new Start(status);
+        {
+            _ = reader;
+            return new Start(status);
+        }
     }
 }

@@ -68,7 +68,7 @@ namespace Engine.Chrono
         /// <param name="m"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        private double MoonAge(int d, int m, int y)
+        internal double MoonAge(int d, int m, int y)
         {
             var j = JulianDate(d, m, y);
             //Calculate the approximate phase of the moon
@@ -92,7 +92,7 @@ namespace Engine.Chrono
         /// <param name="month"></param>
         /// <param name="day"></param>
         /// <returns></returns>
-        private static int Moon_phase(int year, int month, int day)
+        internal static int Moon_phase(int year, int month, int day)
         {
             int c, e;
             double jd;

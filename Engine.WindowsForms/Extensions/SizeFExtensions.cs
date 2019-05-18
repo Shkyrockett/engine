@@ -16,9 +16,9 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// The size f extentions class.
+    /// The size f extensions class.
     /// </summary>
-    public static class SizeFExtentions
+    public static class SizeFExtensions
     {
         /// <summary>
         /// Inflates a <see cref="SizeF"/> by a given factor.

@@ -36,7 +36,7 @@ namespace Engine.WindowsForms
         /// <summary>
         /// The wm paint (const). Value: 0x0F.
         /// </summary>
-        private const int WmPaint = 0x0F;
+        private const int wmPaint = 0x0F;
 
         /// <summary>
         /// The wnd proc.
@@ -48,15 +48,12 @@ namespace Engine.WindowsForms
 
             switch (m.Msg)
             {
-                case WmPaint:
+                case wmPaint:
                     using (var graphics = Graphics.FromHwnd(Handle))
                     {
                         var textSize = graphics.MeasureString(Text, Font);
-
-                        using (var textBrush = new SolidBrush(ForeColor))
-                        {
-                            graphics.DrawString(Text, Font, textBrush, (Width / 2) - (textSize.Width / 2), (Height / 2) - (textSize.Height / 2));
-                        }
+                        using var textBrush = new SolidBrush(ForeColor);
+                        graphics.DrawString(Text, Font, textBrush, (Width / 2) - (textSize.Width / 2), (Height / 2) - (textSize.Height / 2));
                     }
 
                     break;
@@ -83,12 +80,10 @@ namespace Engine.WindowsForms
             // assumes this.Maximum == 100
             var text = Value.ToString() + '%';
 
-            using (var f = new Font(FontFamily.GenericMonospace, 10))
-            {
-                var strLen = g.MeasureString(text, f);
-                var location = new Point((int)((rect.Width / 2) - (strLen.Width / 2)), (int)((rect.Height / 2) - (strLen.Height / 2)));
-                g.DrawString(text, f, Brushes.Black, location);
-            }
+            using var f = new Font(FontFamily.GenericMonospace, 10);
+            var strLen = g.MeasureString(text, f);
+            var location = new Point((int)((rect.Width / 2) - (strLen.Width / 2)), (int)((rect.Height / 2) - (strLen.Height / 2)));
+            g.DrawString(text, f, Brushes.Black, location);
         }
     }
 }

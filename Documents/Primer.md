@@ -356,6 +356,94 @@ Cubic equation is where the equation involves an exponent of 3.
 | $\begin{matrix}ax^3+bx^2+cx+d=0\end{matrix}$ | Cubic equation |  |
 | $x=\sqrt[3]{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)+\sqrt{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)^2+\left(\frac{c}{3a}-\frac{b^2}{9a^2}\right)^3}}+\sqrt[3]{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)-\sqrt{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)^2+\left(\frac{c}{3a}-\frac{b^2}{9a^2}\right)^3}}-\frac{b}{3a}$ | Cubic Formula | <https://math.vanderbilt.edu/schectex/courses/cubic/> |
 
+## Parabolas
+<svg width="260" height="210">
+</svg>
+
+| Function | Description |
+|---|---|
+| $y=a(x-h)^2+k$ | General vertex form of a parabola. $(h, k)$ is the vertex. |
+| $y=a(x+\frac{b}{2a})^2-\frac{b^2}{4a}+c$ | Intermediate standard form using vertex form variables. |
+| $y=ax^2 + bx + c$ | Standard form of a parabola. |
+| $y=x(ax+b)+c$ | Alternate standard form if all variables are positive. |
+| $a=\frac{y-bx-c}{x^2}$ | Find $a$ from the standard form. |
+| $a=\frac{y-k}{(x-h)^2}$ | Find $a$ from vertex form. |
+| $b=-2ah$ | Find $b$ in the standard form from the vertex form. |
+| $c=\frac{b^2}{4a}+k$ | Find $c$ in the standard form from the vertex form. |
+| $h=-\frac{b}{2a}$ | Find vertex form $h$ from the standard form. |
+| $h=\sqrt{\frac{y-k}{a}}+x$ | Find $h$ from the vertex form. |
+| $k=-\frac{b^2}{4a}+c$ | Find vertex form $k$ from the standard form. |
+| $k=y-a(x-h)^2$ | Find $k$ from vertex form. |
+| $x=\frac{-b+\sqrt{b^2+4ac}}{2a}$ <br/> $x=\frac{-b-\sqrt{b^2+4ac}}{2a}$ | x-intercept of standard form. |
+| $y=c$? | y-intercept of standard form. |
+
+#### Solving for $h$ given $p_1(x_1, y_1)$, $p_2(x_2, y_2)$, and $k$ from $(h, k)$
+
+Start with the formula for a parabola in general vertex form.
+
+$y=a(x-h)^2+k$
+
+Move $k$ over with by subtracting both sides.
+
+$y-k=a(x-h)^2$
+
+Divide $y-k$ by $(x-h)^2$ to isolate $a$.
+
+$a=\frac{y-k}{(x-h)^2}$
+
+Set up to do for $a_1$ and $a_2$ using $x_1$, $y_1$, $x_2$, $y_2$ and $k$.
+
+$a_1=\frac{y_1-k}{(x_1-h)^2}$
+
+$a_2=\frac{y_2-k}{(x_2-h)^2}$
+
+Make $a_1$ equal $a_2$.
+
+$\frac{y_1-k}{(x_1-h)^2}=\frac{y_2-k}{(x_2-h)^2}$
+
+Multiply both sides by the denominators to eliminate the division.
+
+$(y_1-k)(x_2-h)^2=(y_2-k)(x_1-h)^2$
+
+Divide both sides by $y_1-k$ to move it to the right side.
+
+$(x_2-h)^2=\frac{(y_2-k)}{(y_1-k)}(x_1-h)^2$
+
+Expand the squares.
+
+$h^2-2hx_2+x_2^2=\frac{(y_2-k)}{(y_1-k)}(h^2-2hx_1+x_1^2)$
+
+Distribute the fraction.
+
+$h^2-2hx_2+x_2^2=h^2\frac{(y_2-k)}{(y_1-k)}-2hx_1\frac{(y_2-k)}{(y_1-k)}+x_1^2\frac{(y_2-k)}{(y_1-k)}$
+
+Rearrange terms.
+
+$0=h^2-h^2\frac{(y_2-k)}{(y_1-k)}-2hx_2+2hx_1\frac{(y_2-k)}{(y_1-k)}+x_2^2-x_1^2\frac{(y_2-k)}{(y_1-k)}$
+
+Group like terms.
+
+$0=\left(h^2-h^2\frac{(y_2-k)}{(y_1-k)}\right)-\left(2hx_2+2hx_1\frac{(y_2-k)}{(y_1-k)}\right)+\left(x_2^2-x_1^2\frac{(y_2-k)}{(y_1-k)}\right)$
+
+Extract the $h$ values.
+
+$0=h^2\left(1-\frac{y_2-k}{y_1-k}\right)-h\left(2x_2+2x_1\frac{y_2-k}{y_1-k}\right)+\left(x_2^2-x_1^2\frac{y_2-k}{y_1-k}\right)$
+
+Locate $a$, $b$, and $c$ terms.
+
+$0=h^2\left(1-\frac{y_2-k}{y_1-k}\right)_{[a]}-h\left(2x_2+2x_1\frac{y_2-k}{y_1-k}\right)_{[b]}+\left(x_2^2-x_1^2\frac{y_2-k)}{y_1-k}\right)_{[c]}$
+
+Set up the quadratic formula.
+
+$h=\frac{-[b]\pm\sqrt{[b]^2+4[a][c]}}{2[a]}$
+
+substitute $[a]$, $[b]$, and $[c]$ terms into the quadratic formula.
+
+$h=\frac{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}\right)\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}\right)^2+4\left(1-\frac{y_2-k}{y_1-k}\right)\left(x_2^2-x_1^2\frac{y_2-k)}{y_1-k}\right)}}{2\left(1-\frac{y_2-k}{y_1-k}\right)}$
+
+Simplify.
+
+$h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}\right)^2+4\left(1-\frac{y_2-k}{y_1-k}\right)\left(x_2^2-x_1^2\frac{y_2-k)}{y_1-k}\right)}}{2-2\frac{y_2-k}{y_1-k}}$
 
 ### Circles
 

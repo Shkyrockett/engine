@@ -126,7 +126,7 @@ namespace Engine
         public override List<Point2D> InterpolatePoints(int count)
         {
             var points = new List<Point2D>();
-            for (var Index = PI * -1; Index < PI; Index += (1d / count))
+            for (var Index = PI * -1; Index < PI; Index += 1d / count)
             {
                 points.Add(Interpolate(Index));
             }

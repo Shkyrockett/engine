@@ -77,7 +77,7 @@ namespace Editor
             if (disposing && (components != null))
             {
                 components.Dispose();
-                TextMeasurer.Dispose();
+                textMeasurer.Dispose();
             }
 
             base.Dispose(disposing);

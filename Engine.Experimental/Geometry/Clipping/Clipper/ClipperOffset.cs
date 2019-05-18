@@ -147,7 +147,7 @@ namespace Engine.Experimental
         /// <param name="et">The et.</param>
         public void AddPaths(Polygon paths, LineJoins jt, LineEndType et)
         {
-            foreach (PolygonContour p in paths)
+            foreach (var p in paths)
             {
                 AddPath(p, jt, et);
             }
@@ -426,7 +426,7 @@ namespace Engine.Experimental
                 {
                     Capacity = Nodes.Count
                 };
-                foreach (PathNode node in Nodes)
+                foreach (var node in Nodes)
                 {
                     if (node.EndType == LineEndType.ClosedPolygon)
                     {
@@ -463,7 +463,7 @@ namespace Engine.Experimental
             {
                 Capacity = Nodes.Count * 2
             };
-            foreach (PathNode node in Nodes)
+            foreach (var node in Nodes)
             {
                 pathIn = node.Path;
                 pathOut = new PolygonContour();

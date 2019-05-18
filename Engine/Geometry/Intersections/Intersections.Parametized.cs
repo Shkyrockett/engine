@@ -69,6 +69,7 @@ namespace Engine
             double p1x, double p1y,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             if (p0x == p1x && p0y == p1y)
             {
                 return (new double[] { 1d }, new double[] { 1d });
@@ -213,6 +214,7 @@ namespace Engine
             double bx, double by, double bi, double bj,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var result = (a: Array.Empty<double>(), b: Array.Empty<double>());
 
             var ua = (bi * (ay - by)) - (bj * (ax - bx));
@@ -364,6 +366,7 @@ namespace Engine
             double bx, double by, double bi, double bj,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var result = (a: Array.Empty<double>(), b: Array.Empty<double>());
 
             var ua = (bi * (ay - by)) - (bj * (ax - bx));
@@ -465,6 +468,7 @@ namespace Engine
             double bax, double bay, double bbx, double bby,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var result = (a: Array.Empty<double>(), b: Array.Empty<double>());
 
             var ua = ((bbx - bax) * (aay - bay)) - ((bby - bay) * (aax - bax));
@@ -502,6 +506,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             (var a, var b) = (xCurve[0] == 0d) ? (xCurve[1], xCurve[2]) : (xCurve[1] / xCurve[0], xCurve[2] / xCurve[0]);
             (var p, var q) = (yCurve[0] == 0d) ? (yCurve[1], yCurve[2]) : (yCurve[1] / yCurve[0], yCurve[2] / yCurve[0]);
 

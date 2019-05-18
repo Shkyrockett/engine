@@ -40,7 +40,7 @@ namespace Engine.Imaging
         /// <param name="icon">The icon.</param>
         public IconStyle(Brush foreBrush, Brush backBrush, Font font, Icon icon)
             : this(new Pen(foreBrush), new Pen(backBrush), null, null)
-        { }
+        { _ = font; _ = icon; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IconStyle"/> class.

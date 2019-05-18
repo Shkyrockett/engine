@@ -28,7 +28,7 @@ namespace Engine.Tweening
         /// <acknowledgment>
         /// https://bitbucket.org/jacobalbano/glide
         /// </acknowledgment>
-        private const double BounceKey1 = 1d / 2.75d;
+        private const double bounceKey1 = 1d / 2.75d;
 
         /// <summary>
         /// The bounce key2 (const). Value: 2d / 2.75d.
@@ -36,7 +36,7 @@ namespace Engine.Tweening
         /// <acknowledgment>
         /// https://bitbucket.org/jacobalbano/glide
         /// </acknowledgment>
-        private const double BounceKey2 = 2d / 2.75d;
+        private const double bounceKey2 = 2d / 2.75d;
 
         /// <summary>
         /// The bounce key3 (const). Value: 1.5d / 2.75d.
@@ -44,7 +44,7 @@ namespace Engine.Tweening
         /// <acknowledgment>
         /// https://bitbucket.org/jacobalbano/glide
         /// </acknowledgment>
-        private const double BounceKey3 = 1.5d / 2.75d;
+        private const double bounceKey3 = 1.5d / 2.75d;
 
         /// <summary>
         /// The bounce key4 (const). Value: 2.5d / 2.75d.
@@ -52,7 +52,7 @@ namespace Engine.Tweening
         /// <acknowledgment>
         /// https://bitbucket.org/jacobalbano/glide
         /// </acknowledgment>
-        private const double BounceKey4 = 2.5d / 2.75d;
+        private const double bounceKey4 = 2.5d / 2.75d;
 
         /// <summary>
         /// The bounce key5 (const). Value: 2.25d / 2.75d.
@@ -60,7 +60,7 @@ namespace Engine.Tweening
         /// <acknowledgment>
         /// https://bitbucket.org/jacobalbano/glide
         /// </acknowledgment>
-        private const double BounceKey5 = 2.25d / 2.75d;
+        private const double bounceKey5 = 2.25d / 2.75d;
 
         /// <summary>
         /// The bounce key6 (const). Value: 2.625d / 2.75d.
@@ -68,7 +68,7 @@ namespace Engine.Tweening
         /// <acknowledgment>
         /// https://bitbucket.org/jacobalbano/glide
         /// </acknowledgment>
-        private const double BounceKey6 = 2.625d / 2.75d;
+        private const double bounceKey6 = 2.625d / 2.75d;
         #endregion Constants
 
         #region To and Fro Easing Methods
@@ -1247,22 +1247,22 @@ namespace Engine.Tweening
         public static double BounceIn(double t)
         {
             t = 1d - t;
-            if (t < BounceKey1)
+            if (t < bounceKey1)
             {
                 return 1d - (7.5625d * t * t);
             }
 
-            if (t < BounceKey2)
+            if (t < bounceKey2)
             {
-                return 1d - ((7.5625d * (t - BounceKey3) * (t - BounceKey3)) + 0.75d);
+                return 1d - ((7.5625d * (t - bounceKey3) * (t - bounceKey3)) + 0.75d);
             }
 
-            if (t < BounceKey4)
+            if (t < bounceKey4)
             {
-                return 1d - ((7.5625d * (t - BounceKey5) * (t - BounceKey5)) + 0.9375d);
+                return 1d - ((7.5625d * (t - bounceKey5) * (t - bounceKey5)) + 0.9375d);
             }
 
-            return 1d - ((7.5625d * (t - BounceKey6) * (t - BounceKey6)) + 0.984375d);
+            return 1d - ((7.5625d * (t - bounceKey6) * (t - bounceKey6)) + 0.984375d);
         }
 
         /// <summary>
@@ -1311,22 +1311,22 @@ namespace Engine.Tweening
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double BounceOut(double t)
         {
-            if (t < BounceKey1)
+            if (t < bounceKey1)
             {
                 return 7.5625d * t * t;
             }
 
-            if (t < BounceKey2)
+            if (t < bounceKey2)
             {
-                return (7.5625d * (t - BounceKey3) * (t - BounceKey3)) + 0.75d;
+                return (7.5625d * (t - bounceKey3) * (t - bounceKey3)) + 0.75d;
             }
 
-            if (t < BounceKey4)
+            if (t < bounceKey4)
             {
-                return (7.5625d * (t - BounceKey5) * (t - BounceKey5)) + 0.9375d;
+                return (7.5625d * (t - bounceKey5) * (t - bounceKey5)) + 0.9375d;
             }
 
-            return (7.5625d * (t - BounceKey6) * (t - BounceKey6)) + 0.984375d;
+            return (7.5625d * (t - bounceKey6) * (t - bounceKey6)) + 0.984375d;
         }
 
         /// <summary>
@@ -1370,41 +1370,41 @@ namespace Engine.Tweening
             if (t < 0.5d)
             {
                 t = 1d - (t * 2d);
-                if (t < BounceKey1)
+                if (t < bounceKey1)
                 {
                     return (1d - (7.5625d * t * t)) * 0.5d;
                 }
 
-                if (t < BounceKey2)
+                if (t < bounceKey2)
                 {
-                    return (1d - ((7.5625d * (t - BounceKey3) * (t - BounceKey3)) + 0.75)) * 0.5d;
+                    return (1d - ((7.5625d * (t - bounceKey3) * (t - bounceKey3)) + 0.75)) * 0.5d;
                 }
 
-                if (t < BounceKey4)
+                if (t < bounceKey4)
                 {
-                    return (1d - ((7.5625d * (t - BounceKey5) * (t - BounceKey5)) + 0.9375)) * 0.5d;
+                    return (1d - ((7.5625d * (t - bounceKey5) * (t - bounceKey5)) + 0.9375)) * 0.5d;
                 }
 
-                return (1d - ((7.5625d * (t - BounceKey6) * (t - BounceKey6)) + 0.984375d)) * 0.5d;
+                return (1d - ((7.5625d * (t - bounceKey6) * (t - bounceKey6)) + 0.984375d)) * 0.5d;
             }
 
             t = (t * 2d) - 1d;
-            if (t < BounceKey1)
+            if (t < bounceKey1)
             {
                 return (7.5625d * t * t * 0.5d) + 0.5d;
             }
 
-            if (t < BounceKey2)
+            if (t < bounceKey2)
             {
-                return (((7.5625d * (t - BounceKey3) * (t - BounceKey3)) + 0.75d) * 0.5d) + 0.5d;
+                return (((7.5625d * (t - bounceKey3) * (t - bounceKey3)) + 0.75d) * 0.5d) + 0.5d;
             }
 
-            if (t < BounceKey4)
+            if (t < bounceKey4)
             {
-                return (((7.5625d * (t - BounceKey5) * (t - BounceKey5)) + 0.9375d) * 0.5d) + 0.5d;
+                return (((7.5625d * (t - bounceKey5) * (t - bounceKey5)) + 0.9375d) * 0.5d) + 0.5d;
             }
 
-            return (((7.5625d * (t - BounceKey6) * (t - BounceKey6)) + 0.984375d) * 0.5d) + 0.5d;
+            return (((7.5625d * (t - bounceKey6) * (t - bounceKey6)) + 0.984375d) * 0.5d) + 0.5d;
         }
 
         /// <summary>

@@ -41,6 +41,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y)[] IntersectEllipseEllipse(((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse1, ((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse2, double epsilon = Epsilon)
         {
+            _ = epsilon;
             var v = new List<(double x, double y)>();
 
             (double cos, double sin) cosSinAngle1 = (Cos(ellipse1.angle), Sin(ellipse1.angle));
@@ -95,9 +96,8 @@ namespace Engine
                     e2 = GetQuadratic(ellipse2.origin, ellipse2.radiusX, ellipse2.radiusY, cosSinAngle2);
                 }
 
-                var q = GetQuartic(e1, e2);
-                //var y = QuarticRoots(q);
-                var y = Maths.QuarticRoots(q.a, q.b, q.c, q.d, q.e).ToArray();
+                var (a, b, c, d, e) = GetQuartic(e1, e2);
+                var y = Maths.QuarticRoots(a, b, c, d, e).ToArray();
 
                 v.AddRange(CalculatePoints(y, e1, e2));
 
@@ -122,7 +122,7 @@ namespace Engine
         /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double x, double y)[] IntersectLineEllipse(((double x, double y) origin, double angle) l, ((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse, double epsilon = Epsilon)
-            => IntersectLineEllipse((l.origin, (Cos(l.angle), Sin(l.angle))), (ellipse.origin, ellipse.radiusX, ellipse.radiusY, (Cos(ellipse.angle), Sin(ellipse.angle))));
+            => IntersectLineEllipse((l.origin, (Cos(l.angle), Sin(l.angle))), (ellipse.origin, ellipse.radiusX, ellipse.radiusY, (Cos(ellipse.angle), Sin(ellipse.angle))), epsilon);
 
         /// <summary>
         /// The intersect LE.
@@ -134,6 +134,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double x, double y)[] IntersectLineEllipse(((double x, double y) origin, (double cos, double sin) angle) l, ((double x, double y) origin, double radiusX, double radiusY, (double cos, double sin) angle) ellipse, double epsilon = Epsilon)
         {
+            _ = epsilon;
             var cx = ellipse.origin.x;
             var cy = ellipse.origin.y;
             var rx = ellipse.radiusX;
@@ -222,6 +223,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double x, double y)[] IntersectCircleCircle(((double x, double y) origin, double radius) c1, ((double x, double y) origin, double radius) c2, double epsilon = Epsilon)
         {
+            _ = epsilon;
             var result = new List<(double x, double y)>();
 
             var r_max = c1.radius + c2.radius;
@@ -263,22 +265,20 @@ namespace Engine
         public static double[] QuarticRoots((double a, double b, double c, double d, double e) quartics, double epsilon = Epsilon)
         {
             (var a, var b, var c, var d, var e) = quartics;
-            var delta = (256d * a * a * a * e * e * e) - (192d * a * a * b * d * e * e) - (128d * a * a * c * c * e * e) + (144d * a * a * c * d * d * e) - (27d * a * a * d * d * d * d) + (144d * a * b * b * c * e * e) - (6d * a * b * b * d * d * e) - (80d * a * b * c * c * d * e) + (18d * a * b * c * d * d * d) + (16d * a * c * c * c * c * e) - (4d * a * c * c * c * d * d) - (27d * b * b * b * b * e * e) + (18d * b * b * b * c * d * e) - (4d * b * b * b * d * d * d) - (4d * b * b * c * c * c * e) + (b * b * c * c * d * d);
-            var P = (8d * a * c) - (3d * b * b);
-            var D = (64d * a * a * a * e) - (16d * a * a * c * c) + (16d * a * b * b * c) - (16d * a * a * b * d) - (3d * b * b * b * b);
+            //var delta = (256d * a * a * a * e * e * e) - (192d * a * a * b * d * e * e) - (128d * a * a * c * c * e * e) + (144d * a * a * c * d * d * e) - (27d * a * a * d * d * d * d) + (144d * a * b * b * c * e * e) - (6d * a * b * b * d * d * e) - (80d * a * b * c * c * d * e) + (18d * a * b * c * d * d * d) + (16d * a * c * c * c * c * e) - (4d * a * c * c * c * d * d) - (27d * b * b * b * b * e * e) + (18d * b * b * b * c * d * e) - (4d * b * b * b * d * d * d) - (4d * b * b * c * c * c * e) + (b * b * c * c * d * d);
+            //var P = (8d * a * c) - (3d * b * b);
+            //var D = (64d * a * a * a * e) - (16d * a * a * c * c) + (16d * a * b * b * c) - (16d * a * a * b * d) - (3d * b * b * b * b);
             var d0 = (c * c) - (3d * b * d) + (12d * a * e);
             var d1 = (2d * c * c * c) - (9d * b * c * d) + (27d * b * b * e) + (27d * a * d * d) - (72d * a * c * e);
             var p = ((8 * a * c) - (3d * b * b)) / (8d * a * a);
             var q = ((b * b * b) - (4d * a * b * c) + (8 * a * a * d)) / (8d * a * a * a);
-            var Q = 0d;
-            var S = 0d;
-
             var phi = Acos(d1 / (2d * Sqrt(d0 * d0 * d0)));
 
+            double S;
             if (double.IsNaN(phi) && (d1 == 0d))
             {
-                // if (delta < 0) I guess the new test is ok because we're only interested in real roots
-                Q = d1 + Sqrt((d1 * d1) - (4d * d0 * d0 * d0));
+                // if (delta < 0) I guess the new test is okay because we're only interested in real roots
+                var Q = d1 + Sqrt((d1 * d1) - (4d * d0 * d0 * d0));
                 Q /= 2d;
                 Q = Pow(Q, 1d / 3d);
                 S = 0.5d * Sqrt((-2d / 3d * p) + (1d / (3d * a) * (Q + (d0 / Q))));
@@ -345,6 +345,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y)[] CalculatePoints(double[] y, (double a, double b, double c, double d, double e, double f) el1, (double a, double b, double c, double d, double e, double f) e2, double epsilon = Epsilon)
         {
+            _ = epsilon;
             var r = new List<(double x, double y)>();
             for (var i = 0; i < y.Length; i++)
             {
@@ -387,12 +388,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ((double x, double y) p, double angle) GetLine((double cos, double sin) rotation, double rx, double ry, (double x, double y) o1, (double x, double y) o2, double epsilon = Epsilon)
         {
+            _ = epsilon;
             // a squared.
-            var a = rx;
+            //var a = rx;
             var a2 = rx * rx;
 
             // b squared.
-            var b = ry;
+            //var b = ry;
             var b2 = ry * ry;
 
             var (cosT, sinT) = (rotation.cos, rotation.sin);

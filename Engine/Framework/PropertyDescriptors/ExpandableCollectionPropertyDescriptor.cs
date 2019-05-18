@@ -145,8 +145,12 @@ namespace Engine
         /// <param name="index">The index.</param>
         /// <returns>The <see cref="string"/>.</returns>
         private static string GetDisplayName(IList list, int index)
-            //=> $"{CSharpName(list[index].GetType())} [{index,4}]";
-            => $"[{index}]";
+        {
+            _ = list;
+            //return $"{CSharpName(list[index].GetType())} [{index,4}]";
+            return $"[{index}]";
+        }
+
 
         ///// <summary>
         ///// 

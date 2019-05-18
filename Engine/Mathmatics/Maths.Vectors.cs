@@ -138,7 +138,7 @@ namespace Engine
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double, double, double) CrossProduct(
+        public static (double X, double Y, double Z) CrossProduct(
             double x1, double y1, double z1,
             double x2, double y2, double z2)
             => (

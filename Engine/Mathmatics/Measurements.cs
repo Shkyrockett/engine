@@ -246,7 +246,10 @@ namespace Engine
         /// <param name="pointB">The second point.</param>
         /// <returns>Returns the values of the first point.</returns>
         public static (double X, double Y) NearestPoint(this Point2D pointA, Point2D pointB)
-            => (pointA.X, pointA.Y);
+        {
+            _ = pointB;
+            return (pointA.X, pointA.Y);
+        }
 
         /// <summary>
         /// Finds the perpendicular nearest point on a line segment.
@@ -312,7 +315,10 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this ScreenPoint point)
-            => 0;
+        {
+            _ = point;
+            return 0;
+        }
 
         /// <summary>
         /// Finds the length or magnitude of a 2-dimensional vector.
@@ -1205,12 +1211,12 @@ namespace Engine
         //[DebuggerStepThrough]
         [Obsolete(message: "Not yet implemented.")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double X, double Y)? NearestPointOnQuadraticBezier(
+        public static (double X, double Y)? NearestPointOnQuadraticBezier(
             double p0Y, double p0X,
             double p1X, double p1Y,
             double p2X, double p2Y,
             double pX, double pY)
-            => null;
+            => null; // ToDo: Develop method to find the nearest point on a Quadratic Bezier Curve.
 
         /// <summary>
         /// Finds the nearest point on a Cubic Bézier curve.
@@ -1229,13 +1235,13 @@ namespace Engine
         //[DebuggerStepThrough]
         [Obsolete(message: "Not yet implemented.")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static (double X, double Y)? NearestPointOnCubicBezier(
+        public static (double X, double Y)? NearestPointOnCubicBezier(
             double p0X, double p0Y,
             double p1X, double p1Y,
             double p2X, double p2Y,
             double p3X, double p3Y,
             double pX, double pY)
-            => null;
+            => null; // ToDo: Develop method to find the nearest point on a Cubic Bezier Curve.
         #endregion Nearest Methods
 
         #region Length Methods
@@ -1405,16 +1411,16 @@ namespace Engine
             double cx, double cy,
             double dx, double dy)
         {
-            var k1 = new Point2D(-ax + (3d * (bx - cx)) + dx, -ay + (3d * (by - cy)) + dy);
-            var k2 = new Point2D((3d * (ax + cx)) - (6d * bx), (3d * (ay + cy)) - (6d * by));
-            var k3 = new Point2D(3d * (bx - ax), 3d * (by - ax));
-            var k4 = new Point2D(ax, ay);
+            (var k1X, var k1Y) = (-ax + (3d * (bx - cx)) + dx, -ay + (3d * (by - cy)) + dy);
+            (var k2X, var k2Y) = ((3d * (ax + cx)) - (6d * bx), (3d * (ay + cy)) - (6d * by));
+            (var k3X, var k3Y) = new Point2D(3d * (bx - ax), 3d * (by - ax));
+            //var k4 = (ax, ay);
 
-            var q1 = 9d * (Sqrt(Abs(k1.X)) + Sqrt(Abs(k1.Y)));
-            var q2 = 12d * ((k1.X * k2.X) + (k1.Y * k2.Y));
-            var q3 = (3d * ((k1.X * k3.X) + (k1.Y * k3.Y))) + (4d * (Sqrt(Abs(k2.X)) + Sqrt(Abs(k2.Y))));
-            var q4 = 4d * ((k2.X * k3.X) + (k2.Y * k3.Y));
-            var q5 = Sqrt(Abs(k3.X)) + Sqrt(Abs(k3.Y));
+            var q1 = 9d * (Sqrt(Abs(k1X)) + Sqrt(Abs(k1Y)));
+            var q2 = 12d * ((k1X * k2X) + (k1Y * k2Y));
+            var q3 = (3d * ((k1X * k3X) + (k1Y * k3Y))) + (4d * (Sqrt(Abs(k2X)) + Sqrt(Abs(k2Y))));
+            var q4 = 4d * ((k2X * k3X) + (k2Y * k3Y));
+            var q5 = Sqrt(Abs(k3X)) + Sqrt(Abs(k3Y));
 
             // Approximation algorithm based on Simpson.
             const double a = 0d;
@@ -2349,16 +2355,16 @@ namespace Engine
             var sinT = Sin(angle);
 
             // Calculate the radii of the angle of rotation.
-            var a = rX * cosT;
-            var b = rY * sinT;
+            //var a = rX * cosT;
+            //var b = rY * sinT;
             var c = rX * sinT;
             var d = rY * cosT;
 
             // Ellipse equation for an ellipse at origin.
             var u1 = rX * Cos(Atan2(d, c));
             var v1 = -(rY * Sin(Atan2(d, c)));
-            var u2 = rX * Cos(Atan2(-b, a));
-            var v2 = -(rY * Sin(Atan2(-b, a)));
+            //var u2 = rX * Cos(Atan2(-b, a));
+            //var v2 = -(rY * Sin(Atan2(-b, a)));
 
             // Return the list of angles.
             return new List<double>

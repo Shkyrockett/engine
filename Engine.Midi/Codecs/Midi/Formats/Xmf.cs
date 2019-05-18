@@ -47,6 +47,9 @@ namespace Engine.File
         /// <param name="filename"></param>
         /// <returns></returns>
         public static Xmf Load(string filename)
-            => new Xmf();
+        {
+            _ = filename;
+            return new Xmf();
+        }
     }
 }

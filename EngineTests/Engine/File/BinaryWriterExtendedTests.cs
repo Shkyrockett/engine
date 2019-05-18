@@ -82,21 +82,19 @@ namespace EngineTests
                 0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
                 0x3E8, 0x2710 };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetworkUInt14(value);
-                }
+                writer.WriteNetworkUInt14(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkUInt14());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkUInt14());
             }
         }
 
@@ -114,21 +112,19 @@ namespace EngineTests
                 0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
                 0x3E8, 0x2710 };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.WriteNetworkInt14(value);
-                }
+                writer.WriteNetworkInt14(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.ReadNetworkInt14());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.ReadNetworkInt14());
             }
         }
 
@@ -146,21 +142,19 @@ namespace EngineTests
                 0x0, 0x1, 0x2, 0x3, 0x4, 0x8, 0x10, 0x18, 0x20, 0x40, 0x64, 0x80, 0x100,
                 0x3E8, 0x2710, 0x186A0, -0xF4240 };
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            var writer = new BinaryWriterExtended(stream);
+            foreach (var value in intValues)
             {
-                var writer = new BinaryWriterExtended(stream);
-                foreach (var value in intValues)
-                {
-                    writer.Write7BitEncodedInt(value);
-                }
+                writer.Write7BitEncodedInt(value);
+            }
 
-                stream.Position = 0;
+            stream.Position = 0;
 
-                var reader = new BinaryReaderExtended(stream);
-                foreach (var value in intValues)
-                {
-                    Assert.AreEqual(value, reader.Read7BitEncodedInt());
-                }
+            var reader = new BinaryReaderExtended(stream);
+            foreach (var value in intValues)
+            {
+                Assert.AreEqual(value, reader.Read7BitEncodedInt());
             }
         }
     }

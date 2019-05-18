@@ -89,10 +89,8 @@ namespace Engine.File.Palettes
             var format = CheckExtensionSupport(FileName);
             if (format != PaletteFileExtensions.unknown)
             {
-                using (Stream paletteStream = new FileStream(FileName, FileMode.Open))
-                {
-                    Load(paletteStream, format);
-                }
+                using Stream paletteStream = new FileStream(FileName, FileMode.Open);
+                Load(paletteStream, format);
             }
         }
 
@@ -132,9 +130,9 @@ namespace Engine.File.Palettes
                 case PaletteFileExtensions.unknown:
                     break;
                 default:
-                    var header = string.Empty;
                     //header = this.ReadString(stream, 4);
-                    header = stream.ReadString(4);
+                    var header = stream.ReadString(4);
+                    _ = header;
                     break;
             }
         }
@@ -160,7 +158,7 @@ namespace Engine.File.Palettes
                 case PaletteMimeFormats.Text:
                 case PaletteMimeFormats.ComaDelimiated:
                 case PaletteMimeFormats.SpaceDelimiated:
-                //throw new NotImplementedException();
+                    //throw new NotImplementedException();
                     break;
                 case PaletteMimeFormats.PaintDotNet:
                     WritePaintDotNetPalette(fileName);
@@ -280,8 +278,9 @@ namespace Engine.File.Palettes
         /// <param name="stream">The stream.</param>
         private void ReadAutoDeskPalette(Stream stream)
         {
+            _ = stream;
             PaletteMimeFormat = PaletteMimeFormats.AutoDesk;
-            var startPossition = stream.Position;
+            //var startPossition = stream.Position;
 
             //using (BinaryReader binaryReader = new BinaryReader(stream))
             //using (StreamReader streamReader = new StreamReader(stream))
@@ -295,8 +294,9 @@ namespace Engine.File.Palettes
         /// <param name="stream">The stream.</param>
         private void ReadAdobePalette(Stream stream)
         {
+            _ = stream;
             PaletteMimeFormat = PaletteMimeFormats.Adobe;
-            var startPossition = stream.Position;
+            //var startPossition = stream.Position;
 
             //using (BinaryReader binaryReader = new BinaryReader(stream))
             //using (StreamReader streamReader = new StreamReader(stream))
@@ -314,98 +314,111 @@ namespace Engine.File.Palettes
         private void ReadCorelPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.Corel;
-            var startPossition = stream.Position;
+            //var startPossition = stream.Position;
 
-            using (var binaryReader = new BinaryReader(stream))
-            //using (StreamReader streamReader = new StreamReader(stream))
+            using var binaryReader = new BinaryReader(stream);
+            var mimeVersion = Maths.NetworkToHostOrder(binaryReader.ReadUInt16());
+            string name;
+            if (mimeVersion == 0xccbc)
             {
-                var mimeVersion = Maths.NetworkToHostOrder(binaryReader.ReadUInt16());
-                ushort colorCount = 0;
-                var name = string.Empty;
-                if (mimeVersion == 0xccbc)
+                // Version 5-8
+            }
+            else if (mimeVersion == 0xdddc) // Version 9-X3
+            {
+                var headerBlocks = binaryReader.ReadInt32();
+                _ = headerBlocks;
+                var test1 = binaryReader.ReadInt32();
+                _ = test1;
+                var offset = binaryReader.ReadInt32();
+                _ = offset;
+                var offset1 = binaryReader.ReadInt32();
+                _ = offset1;
+                var offset2 = binaryReader.ReadInt32();
+                _ = offset2;
+                var offset3 = binaryReader.ReadInt32();
+                _ = offset3;
+                var offset4 = binaryReader.ReadInt32();
+                _ = offset4;
+                var stringLen = binaryReader.ReadByte();
+                name = binaryReader.ReadString16(stringLen * 2);
+                _ = name;
+                var paletteType = binaryReader.ReadInt16();
+                _ = paletteType;
+                var entryCount = binaryReader.ReadInt16();
+                // 4 byte BGR-A String
+                while (stream.Position < stream.Length)
                 {
-                     // Version 5-8
-                }
-                else if (mimeVersion == 0xdddc) // Version 9-X3
-                {
-                    var headerBlocks = binaryReader.ReadInt32();
-                    var test1 = binaryReader.ReadInt32();
-                    var offset = binaryReader.ReadInt32();
-                    var offset1 = binaryReader.ReadInt32();
-                    var offset2 = binaryReader.ReadInt32();
-                    var offset3 = binaryReader.ReadInt32();
-                    var offset4 = binaryReader.ReadInt32();
-                    var stringLen = binaryReader.ReadByte();
-                    name = binaryReader.ReadString16(stringLen * 2);
-                    var paletteType = binaryReader.ReadInt16();
-                    var entryCount = binaryReader.ReadInt16();
-                    // 4 byte BGR-A String
-                    while (stream.Position < stream.Length)
+                    var colorId = binaryReader.ReadInt32();
+                    _ = colorId;
+                    var colorModel = binaryReader.ReadInt16();
+                    _ = colorModel;
+                    var colorType = binaryReader.ReadInt16();
+                    _ = colorType;
+                    var blue = binaryReader.ReadByte();
+                    var green = binaryReader.ReadByte();
+                    var red = binaryReader.ReadByte();
+                    var alpha = binaryReader.ReadByte();
+                    Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
+                    var stringLen2 = binaryReader.ReadByte();
+                    var colorName = binaryReader.ReadString16(stringLen2 * 2);
+                    _ = colorName;
+                    if (Colors.Count == entryCount)
                     {
-                        var colorId = binaryReader.ReadInt32();
-                        var colorModel = binaryReader.ReadInt16();
-                        var colorType = binaryReader.ReadInt16();
-                        var blue = binaryReader.ReadByte();
-                        var green = binaryReader.ReadByte();
-                        var red = binaryReader.ReadByte();
-                        var alpha = binaryReader.ReadByte();
-                        Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
-                        var stringLen2 = binaryReader.ReadByte();
-                        var colorName = binaryReader.ReadString16(stringLen2 * 2);
-                        if (Colors.Count == entryCount)
-                        {
-                            break;
-                        }
+                        break;
                     }
-                    //while (stream.Position < stream.Length)
-                    //{
-                    //    short colorModel = binaryReader.ReadInt16();
-                    //    short colorType = binaryReader.ReadInt16();
-                    //    byte red = binaryReader.ReadByte();
-                    //    byte green = binaryReader.ReadByte();
-                    //    byte blue = binaryReader.ReadByte();
-                    //    this.colors.Add(Color.FromArgb(red, green, blue));
-                    //    if (colors.Count == entryCount) break;
-                    //}
                 }
+                //while (stream.Position < stream.Length)
+                //{
+                //    short colorModel = binaryReader.ReadInt16();
+                //    short colorType = binaryReader.ReadInt16();
+                //    byte red = binaryReader.ReadByte();
+                //    byte green = binaryReader.ReadByte();
+                //    byte blue = binaryReader.ReadByte();
+                //    this.colors.Add(Color.FromArgb(red, green, blue));
+                //    if (colors.Count == entryCount) break;
+                //}
+            }
 #pragma warning disable
-                else if (mimeVersion == 0xccdc)
-                {
-                    ; // ?
-                }
-                else if (mimeVersion == 0xcddc)
-                {
-                    ; // ?
-                }
-                else if (mimeVersion == 0xcddd)
-                {
-                    ; // Version X4
-                }
+            else if (mimeVersion == 0xccdc)
+            {
+                ; // ?
+            }
+            else if (mimeVersion == 0xcddc)
+            {
+                ; // ?
+            }
+            else if (mimeVersion == 0xcddd)
+            {
+                ; // Version X4
+            }
 #pragma warning restore
-                else if (mimeVersion == 0xdcdc) // Custom palettes
+            else if (mimeVersion == 0xdcdc) // Custom palettes
+            {
+                var namelength = binaryReader.ReadByte();
+                name = binaryReader.ReadString(namelength);
+                _ = name;
+                var colorCount = binaryReader.ReadUInt16();
+                var colorModel = (CorelColorModel)binaryReader.ReadUInt16();
+                _ = colorModel;
+                var colorType = binaryReader.ReadUInt16();
+                _ = colorType;
+                var streamEnd = stream.Position + colorCount;
+                _ = streamEnd;
+                // Three byte RGB 
+                while (stream.Position < stream.Length)
                 {
-                    var namelength = binaryReader.ReadByte();
-                    name = binaryReader.ReadString(namelength);
-                    colorCount = binaryReader.ReadUInt16();
-                    var colorModel = (CorelColorModel)binaryReader.ReadUInt16();
-                    var colorType = binaryReader.ReadUInt16();
-                    var streamEnd = stream.Position + colorCount;
-                    // Three byte RGB 
-                    while (stream.Position < stream.Length)
-                    {
-                        var red = binaryReader.ReadByte();
-                        var green = binaryReader.ReadByte();
-                        var blue = binaryReader.ReadByte();
-                        //byte alpha = binaryReader.ReadByte();
-                        //byte beta = binaryReader.ReadByte();
-                        //byte gama = binaryReader.ReadByte();
-                        //byte delta = binaryReader.ReadByte();
-                        //byte epsilon = binaryReader.ReadByte();
-                        //byte colorNameLength = binaryReader.ReadByte();
-                        //string colorName = binaryReader.ReadString(colorNameLength);
-                        Colors.Add(new RGBA(red, green, blue));
-                        //this.colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
-                    }
+                    var red = binaryReader.ReadByte();
+                    var green = binaryReader.ReadByte();
+                    var blue = binaryReader.ReadByte();
+                    //byte alpha = binaryReader.ReadByte();
+                    //byte beta = binaryReader.ReadByte();
+                    //byte gama = binaryReader.ReadByte();
+                    //byte delta = binaryReader.ReadByte();
+                    //byte epsilon = binaryReader.ReadByte();
+                    //byte colorNameLength = binaryReader.ReadByte();
+                    //string colorName = binaryReader.ReadString(colorNameLength);
+                    Colors.Add(new RGBA(red, green, blue));
+                    //this.colors.Add(Color.FromArgb(255 - alpha, red, green, blue));
                 }
             }
         }
@@ -443,31 +456,35 @@ namespace Engine.File.Palettes
         private void ReadRiffPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.RiffPal;
-            var startPossition = stream.Position;
+            //var startPossition = stream.Position;
 
-            using (var binaryReader = new BinaryReader(stream))
+            using var binaryReader = new BinaryReader(stream);
+            // RIFF header
+            var riff = binaryReader.ReadString(4); // "RIFF"
+            _ = riff;
+            var dataSize = binaryReader.ReadInt32();
+            _ = dataSize;
+            var type = binaryReader.ReadString(4); // "PAL "
+            _ = type;
+
+            // Data chunk
+            var chunkType = binaryReader.ReadString(4); // "data"
+            _ = chunkType;
+            var chunkSize = binaryReader.ReadInt32();
+            _ = chunkSize;
+            var palVersion = binaryReader.ReadInt16(); // always 0x0300
+            _ = palVersion;
+            var palEntries = binaryReader.ReadInt16();
+
+            // Colors
+            for (var i = 0; i < palEntries; i++)
             {
-                // RIFF header
-                var riff = binaryReader.ReadString(4); // "RIFF"
-                var dataSize = binaryReader.ReadInt32();
-                var type = binaryReader.ReadString(4); // "PAL "
-
-                // Data chunk
-                var chunkType = binaryReader.ReadString(4); // "data"
-                var chunkSize = binaryReader.ReadInt32();
-                var palVersion = binaryReader.ReadInt16(); // always 0x0300
-                var palEntries = binaryReader.ReadInt16();
-
-                // Colors
-                for (var i = 0; i < palEntries; i++)
-                {
-                    var red = binaryReader.ReadByte();
-                    var green = binaryReader.ReadByte();
-                    var blue = binaryReader.ReadByte();
-                    var alpha = binaryReader.ReadByte();
-                    Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
-                    //this.colors.Add(Color.FromArgb(br.ReadInt32()));
-                }
+                var red = binaryReader.ReadByte();
+                var green = binaryReader.ReadByte();
+                var blue = binaryReader.ReadByte();
+                var alpha = binaryReader.ReadByte();
+                Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
+                //this.colors.Add(Color.FromArgb(br.ReadInt32()));
             }
         }
 
@@ -478,20 +495,17 @@ namespace Engine.File.Palettes
         private void ReadBinaryPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.Binary;
-            var startPossition = stream.Position;
+            //var startPossition = stream.Position;
 
-            using (var binaryReader = new BinaryReader(stream))
-            //using (StreamReader streamReader = new StreamReader(stream))
+            using var binaryReader = new BinaryReader(stream);
+            var Length = (binaryReader.BaseStream.Length / 4) - 1;
+            for (var Index = 0; Index <= Length; Index++)
             {
-                var Length = (binaryReader.BaseStream.Length / 4) - 1;
-                for (var Index = 0; Index <= Length; Index++)
-                {
-                    var blue = binaryReader.ReadByte();
-                    var green = binaryReader.ReadByte();
-                    var red = binaryReader.ReadByte();
-                    var alpha = binaryReader.ReadByte();
-                    Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
-                }
+                var blue = binaryReader.ReadByte();
+                var green = binaryReader.ReadByte();
+                var red = binaryReader.ReadByte();
+                var alpha = binaryReader.ReadByte();
+                Colors.Add(new RGBA(red, green, blue, (byte)(255 - alpha)));
             }
         }
 
@@ -502,27 +516,27 @@ namespace Engine.File.Palettes
         private void ReadJascPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.JascPal0100;
-            var startPossition = stream.Position;
+            //var startPossition = stream.Position;
 
             //using (BinaryReader binaryReader = new BinaryReader(stream))
-            using (var streamReader = new StreamReader(stream))
-            using (var StrReader = new StringReader(streamReader.ReadToEnd()))
+            using var streamReader = new StreamReader(stream);
+            using var StrReader = new StringReader(streamReader.ReadToEnd());
+            var head = StrReader.ReadLine();
+            _ = head;
+            var version = StrReader.ReadLine();
+            _ = version;
+            var len = StrReader.ReadLine();
+            var length = double.Parse(len) - 1;
+            for (var Index = 0; Index <= length; Index++)
             {
-                var head = StrReader.ReadLine();
-                var version = StrReader.ReadLine();
-                var len = StrReader.ReadLine();
-                var length = double.Parse(len) - 1;
-                for (var Index = 0; Index <= length; Index++)
+                var ReadStr = StrReader.ReadLine().Split(new char[] { ' ' });
+                if (ReadStr.Length == 3)
                 {
-                    var ReadStr = StrReader.ReadLine().Split(new char[] { ' ' });
-                    if (ReadStr.Length == 3)
-                    {
-                        Colors.Add(new RGBA(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2])));
-                    }
-                    else if (ReadStr.Length == 4)
-                    {
-                        Colors.Add(new RGBA(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2]), byte.Parse(ReadStr[3])));
-                    }
+                    Colors.Add(new RGBA(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2])));
+                }
+                else if (ReadStr.Length == 4)
+                {
+                    Colors.Add(new RGBA(byte.Parse(ReadStr[0]), byte.Parse(ReadStr[1]), byte.Parse(ReadStr[2]), byte.Parse(ReadStr[3])));
                 }
             }
         }
@@ -534,52 +548,50 @@ namespace Engine.File.Palettes
         private void ReadTextPalette(Stream stream)
         {
             PaletteMimeFormat = PaletteMimeFormats.Text;
-            var startPossition = stream.Position;
+            //var startPossition = stream.Position;
 
-            using (var streamReader = new StreamReader(stream))
+            using var streamReader = new StreamReader(stream);
+            string line;
+            while ((line = streamReader.ReadLine()) != null)
             {
-                string line;
-                while ((line = streamReader.ReadLine()) != null)
+                line = line.Trim();
+                if (line.StartsWith(";", StringComparison.OrdinalIgnoreCase))
                 {
-                    line = line.Trim();
-                    if (line.StartsWith(";", StringComparison.OrdinalIgnoreCase))
+                    PaletteMimeFormat = PaletteMimeFormats.PaintDotNet;
+                }
+                else if (!string.IsNullOrWhiteSpace(line))
+                {
+                    string[] argb;
+                    var color = new RGBA();
+                    if (line.Contains(" ") || line.Contains(","))
                     {
-                        PaletteMimeFormat = PaletteMimeFormats.PaintDotNet;
-                    }
-                    else if (!string.IsNullOrWhiteSpace(line))
-                    {
-                        string[] argb;
-                        var color = new RGBA();
-                        if (line.Contains(" ") || line.Contains(","))
+                        if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(" "))
                         {
-                            if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(" "))
-                            {
-                                PaletteMimeFormat = PaletteMimeFormats.SpaceDelimiated;
-                            }
-                            else if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(","))
-                            {
-                                PaletteMimeFormat = PaletteMimeFormats.ComaDelimiated;
-                            }
-
-                            argb = line.Split(new char[] { ' ', ',' });
-
-                            if (argb.Length == 3)
-                            {
-                                color = new RGBA(byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]));
-                            }
-                            else if (argb.Length == 4)
-                            {
-                                color = new RGBA(byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]), byte.Parse(argb[3]));
-                            }
+                            PaletteMimeFormat = PaletteMimeFormats.SpaceDelimiated;
                         }
-                        else
+                        else if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(","))
                         {
-                            color = new RGBA(int.Parse(line, System.Globalization.NumberStyles.HexNumber));
+                            PaletteMimeFormat = PaletteMimeFormats.ComaDelimiated;
                         }
 
-                        color = LookupNamedColor(color);
-                        Colors.Add(color);
+                        argb = line.Split(new char[] { ' ', ',' });
+
+                        if (argb.Length == 3)
+                        {
+                            color = new RGBA(byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]));
+                        }
+                        else if (argb.Length == 4)
+                        {
+                            color = new RGBA(byte.Parse(argb[0]), byte.Parse(argb[1]), byte.Parse(argb[2]), byte.Parse(argb[3]));
+                        }
                     }
+                    else
+                    {
+                        color = new RGBA(int.Parse(line, System.Globalization.NumberStyles.HexNumber));
+                    }
+
+                    color = LookupNamedColor(color);
+                    Colors.Add(color);
                 }
             }
         }
@@ -594,27 +606,25 @@ namespace Engine.File.Palettes
             var length = 4 + 4 + 4 + 4 + 2 + 2 + (Colors.Count * 4);
 
             var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
-            using (var bw = new BinaryWriter(stream))
+            using var bw = new BinaryWriter(stream);
+            // RIFF header
+            bw.WriteString("RIFF");
+            bw.Write(length);
+            bw.WriteString("PAL ");
+
+            // Data chunk
+            bw.WriteString("data");
+            bw.Write((Colors.Count * 4) + 4);
+            bw.Write((short)0x0300); // PAL version
+            bw.Write((short)Colors.Count);
+
+            // Colors
+            foreach (var color in Colors)
             {
-                // RIFF header
-                bw.WriteString("RIFF");
-                bw.Write(length);
-                bw.WriteString("PAL ");
-
-                // Data chunk
-                bw.WriteString("data");
-                bw.Write((Colors.Count * 4) + 4);
-                bw.Write((short)0x0300); // PAL version
-                bw.Write((short)Colors.Count);
-
-                // Colors
-                foreach (var color in Colors)
-                {
-                    bw.Write(color.Red);
-                    bw.Write(color.Green);
-                    bw.Write(color.Blue);
-                    bw.Write((byte)(255 - color.Alpha));
-                }
+                bw.Write(color.Red);
+                bw.Write(color.Green);
+                bw.Write(color.Blue);
+                bw.Write((byte)(255 - color.Alpha));
             }
         }
 
@@ -625,22 +635,20 @@ namespace Engine.File.Palettes
         private void WriteJascPalette(string filename)
         {
             var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
-            using (var bw = new StreamWriter(stream))
+            using var bw = new StreamWriter(stream);
+            // RIFF header
+            bw.WriteLine("JASC-PAL");
+
+            // Version line
+            bw.WriteLine("0100");
+
+            // length
+            bw.WriteLine(Colors.Count);
+
+            // Colors
+            foreach (var color in Colors)
             {
-                // RIFF header
-                bw.WriteLine("JASC-PAL");
-
-                // Version line
-                bw.WriteLine("0100");
-
-                // length
-                bw.WriteLine(Colors.Count);
-
-                // Colors
-                foreach (var color in Colors)
-                {
-                    bw.WriteLine(color.Red + " " + color.Green + " " + color.Blue + " " + color.Alpha);
-                }
+                bw.WriteLine(color.Red + " " + color.Green + " " + color.Blue + " " + color.Alpha);
             }
         }
 
@@ -651,22 +659,20 @@ namespace Engine.File.Palettes
         private void WritePaintDotNetPalette(string filename)
         {
             var stream = new FileStream(filename, FileMode.Create, FileAccess.Write, FileShare.None);
-            using (var bw = new StreamWriter(stream))
-            {
-                // Header
-                bw.WriteLine("; paint.net Palette File");
-                bw.WriteLine("; Lines that start with a semicolon are comments");
-                bw.WriteLine("; Colors are written as 8-digit hexadecimal numbers: aarrggbb");
-                bw.WriteLine("; For example, this would specify green: FF00FF00");
-                bw.WriteLine("; The alpha ('aa') value specifies how transparent a color is. FF is fully opaque, 00 is fully transparent.");
-                bw.WriteLine("; A palette must consist of ninety six (96) colors. If there are less than this, the remaining color");
-                bw.WriteLine("; slots will be set to white (FFFFFFFF). If there are more, then the remaining colors will be ignored.");
+            using var bw = new StreamWriter(stream);
+            // Header
+            bw.WriteLine("; paint.net Palette File");
+            bw.WriteLine("; Lines that start with a semicolon are comments");
+            bw.WriteLine("; Colors are written as 8-digit hexadecimal numbers: aarrggbb");
+            bw.WriteLine("; For example, this would specify green: FF00FF00");
+            bw.WriteLine("; The alpha ('aa') value specifies how transparent a color is. FF is fully opaque, 00 is fully transparent.");
+            bw.WriteLine("; A palette must consist of ninety six (96) colors. If there are less than this, the remaining color");
+            bw.WriteLine("; slots will be set to white (FFFFFFFF). If there are more, then the remaining colors will be ignored.");
 
-                // Colors
-                foreach (var color in Colors)
-                {
-                    bw.WriteLine("{0:X2}{1:X2}{2:X2}{3:X2}", color.Alpha, color.Red, color.Green, color.Blue);
-                }
+            // Colors
+            foreach (var color in Colors)
+            {
+                bw.WriteLine("{0:X2}{1:X2}{2:X2}{3:X2}", color.Alpha, color.Red, color.Green, color.Blue);
             }
         }
 
@@ -677,9 +683,8 @@ namespace Engine.File.Palettes
         /// <returns>The <see cref="PaletteFileExtensions"/>.</returns>
         private static PaletteFileExtensions CheckExtensionSupport(string filepath)
         {
-            var format = PaletteFileExtensions.unknown;
             var extension = Path.GetExtension(filepath).Substring(1);
-            Enum.TryParse(extension, true, out format);
+            Enum.TryParse(extension, true, out PaletteFileExtensions format);
             return format;
         }
 

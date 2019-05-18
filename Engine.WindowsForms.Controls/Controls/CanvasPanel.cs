@@ -27,7 +27,7 @@ namespace Engine.WindowsForms
         /// <remarks>
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
-        private static readonly object EventMouseWheel = new object();
+        private static readonly object eventMouseWheel = new object();
 
         /// <summary>
         /// The event mouse wheel tilt (readonly). Value: new object().
@@ -35,7 +35,7 @@ namespace Engine.WindowsForms
         /// <remarks>
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
-        private static readonly object EventMouseWheelTilt = new object();
+        private static readonly object eventMouseWheelTilt = new object();
 
         /// <summary>
         /// Occurs when the mouse wheel tilts while the control has focus.
@@ -49,8 +49,8 @@ namespace Engine.WindowsForms
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public event MouseEventHandler MouseWheelTilt
         {
-            add { Events.AddHandler(EventMouseWheelTilt, value); }
-            remove { Events.RemoveHandler(EventMouseWheelTilt, value); }
+            add { Events.AddHandler(eventMouseWheelTilt, value); }
+            remove { Events.RemoveHandler(eventMouseWheelTilt, value); }
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace Engine.WindowsForms
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public new event MouseEventHandler MouseWheel
         {
-            add { Events.AddHandler(EventMouseWheel, value); }
-            remove { Events.RemoveHandler(EventMouseWheel, value); }
+            add { Events.AddHandler(eventMouseWheel, value); }
+            remove { Events.RemoveHandler(eventMouseWheel, value); }
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Engine.WindowsForms
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        protected virtual void OnMouseWheelTilt(MouseEventArgs e) => ((MouseEventHandler)Events[EventMouseWheelTilt])?.Invoke(this, e);
+        protected virtual void OnMouseWheelTilt(MouseEventArgs e) => ((MouseEventHandler)Events[eventMouseWheelTilt])?.Invoke(this, e);
 
         /// <summary>
         /// Raises the <see cref='MouseWheel'/> event.
@@ -176,6 +176,6 @@ namespace Engine.WindowsForms
         /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        protected override void OnMouseWheel(MouseEventArgs e) => ((MouseEventHandler)Events[EventMouseWheel])?.Invoke(this, e);
+        protected override void OnMouseWheel(MouseEventArgs e) => ((MouseEventHandler)Events[eventMouseWheel])?.Invoke(this, e);
     }
 }

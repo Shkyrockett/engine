@@ -583,14 +583,17 @@ namespace Engine.Chrono
         /// The Twelfth of February. http://en.wikipedia.org/wiki/Lincoln%27s_Birthday
         /// </remarks>
         public static Occasion AbrahamLincolnsBirthday(int year, Culture culture = null)
-            => (year <= 1732) ? null :
-            new Occasion(
-            "Abraham Lincoln's Birthday",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.AnnualDate,
-            EventType.Birthday,
-            new DateTime(year, (int)Months.February, 12),
-            "The 16th president of the United states who presided during the Civil War. Abraham Lincoln was born in Kentucky on February 12th, 1809.");
+        {
+            _ = culture;
+            return (year <= 1732) ? null :
+                       new Occasion(
+                       "Abraham Lincoln's Birthday",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.AnnualDate,
+                       EventType.Birthday,
+                       new DateTime(year, (int)Months.February, 12),
+                       "The 16th president of the United states who presided during the Civil War. Abraham Lincoln was born in Kentucky on February 12th, 1809.");
+        }
 
         /// <summary>
         /// George Washington's Birthday
@@ -602,14 +605,17 @@ namespace Engine.Chrono
         /// The Twenty second of February. http://en.wikipedia.org/wiki/George_Washington%27s_Birthday
         /// </remarks>
         public static Occasion GeorgeWashingtonsBirthday(int year, Culture culture = null)
-            => (year <= 1732) ? null :
-            new Occasion(
-            "George Washington's Birthday",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.AnnualDate,
-            EventType.Birthday,
-            new DateTime(year, (int)Months.February, 22),
-            "The first president of the United States and commander in chief of the Continental army during the American Revolution. George Washington was born on the Pope's Creek Estate near present-day Colonial Beach in Westmore land County, Virginia; on February 22nd, 1732.");
+        {
+            _ = culture;
+            return (year <= 1732) ? null :
+                       new Occasion(
+                       "George Washington's Birthday",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.AnnualDate,
+                       EventType.Birthday,
+                       new DateTime(year, (int)Months.February, 22),
+                       "The first president of the United States and commander in chief of the Continental army during the American Revolution. George Washington was born on the Pope's Creek Estate near present-day Colonial Beach in Westmore land County, Virginia; on February 22nd, 1732.");
+        }
 
         /// <summary>
         /// Elvis Presley's Birthday
@@ -618,14 +624,17 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Abraham Lincoln's Birthday.</returns>
         public static Occasion ElvisPresleysBirthday(int year, Culture culture = null)
-            => (year <= 1935) ? null :
-            new Occasion(
-            "Elvis Presley's Birthday",
-            Cultures.en_US,
-            OccasionDateType.AnnualDate,
-            EventType.Birthday,
-            new DateTime(year, (int)Months.January, 8),
-            "Often referred to as the king of rock and roll. Elvis Aaron Presley was born in Tupelo MS on January 8th, 1935.");
+        {
+            _ = culture;
+            return (year <= 1935) ? null :
+                       new Occasion(
+                       "Elvis Presley's Birthday",
+                       Cultures.en_US,
+                       OccasionDateType.AnnualDate,
+                       EventType.Birthday,
+                       new DateTime(year, (int)Months.January, 8),
+                       "Often referred to as the king of rock and roll. Elvis Aaron Presley was born in Tupelo MS on January 8th, 1935.");
+        }
 
         // - Static holidays -
 
@@ -657,13 +666,16 @@ namespace Engine.Chrono
         /// The Second day of February. http://en.wikipedia.org/wiki/Groundhog_Day
         /// </remarks>
         public static Occasion GroundhogDay(int year, Culture culture = null)
-            => new Occasion(
-            "Groundhog Day",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.February, 2),
-            "The Second day of February.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Groundhog Day",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.February, 2),
+                       "The Second day of February.");
+        }
 
         /// <summary>
         /// Saint Valentine's Day
@@ -675,13 +687,16 @@ namespace Engine.Chrono
         /// February Fourteenth. http://en.wikipedia.org/wiki/Valentine%27s_Day
         /// </remarks>
         public static Occasion ValentinesDay(int year, Culture culture = null)
-            => new Occasion(
-            "Saint Valentine's Day",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.February, 14),
-            "February Fourteenth.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Saint Valentine's Day",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.February, 14),
+                       "February Fourteenth.");
+        }
 
         /// <summary>
         /// Saint Patrick's Day
@@ -693,13 +708,16 @@ namespace Engine.Chrono
         /// The Seventeenth of March. http://en.wikipedia.org/wiki/Saint_Patrick%27s_Day
         /// </remarks>
         public static Occasion SaintPatricksDay(int year, Culture culture = null)
-            => new Occasion(
-            "Saint Patrick's Day",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.March, 17),
-            "The Seventeenth of March.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Saint Patrick's Day",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.March, 17),
+                       "The Seventeenth of March.");
+        }
 
         /// <summary>
         /// European Labor Day, also known as May day, is equivalent to U.S.Labor day.Day to honor workers. Particularly observed by communist nations.
@@ -710,13 +728,16 @@ namespace Engine.Chrono
         /// <remarks>
         /// </remarks>
         public static Occasion EuropeanLaborDay(int year, Culture culture = null)
-            => new Occasion(
-            "European Labor Day (May day)",
-            new Culture(Languages.en, Countries.GB),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.May, 1),
-            "The First of May.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "European Labor Day (May day)",
+                       new Culture(Languages.en, Countries.GB),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.May, 1),
+                       "The First of May.");
+        }
 
         /// <summary>
         /// Cinco De Mayo.
@@ -728,13 +749,16 @@ namespace Engine.Chrono
         /// <remarks>
         /// </remarks>
         public static Occasion CincoDeMayo(int year, Culture culture = null)
-            => new Occasion(
-            "Cinco De Mayo",
-            new Culture(Languages.es, Countries.MX),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.May, 5),
-            "The Fifth of May.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Cinco De Mayo",
+                       new Culture(Languages.es, Countries.MX),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.May, 5),
+                       "The Fifth of May.");
+        }
 
         /// <summary>
         /// Patriot Day.
@@ -746,13 +770,16 @@ namespace Engine.Chrono
         /// <remarks>
         /// </remarks>
         public static Occasion PatriotDay(int year, Culture culture = null)
-            => new Occasion(
-            "Patriot Day",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.September, 11),
-            "September 11th.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Patriot Day",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.September, 11),
+                       "September 11th.");
+        }
 
         /// <summary>
         /// Guy Fawkes Day.
@@ -764,13 +791,16 @@ namespace Engine.Chrono
         /// <remarks>
         /// </remarks>
         public static Occasion GuyFawkesDay(int year, Culture culture = null)
-            => new Occasion(
-            "Guy Fawkes Day",
-            new Culture(Languages.en, Countries.GB),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.November, 5),
-            "Remember, remember the Fifth of November.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Guy Fawkes Day",
+                       new Culture(Languages.en, Countries.GB),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.November, 5),
+                       "Remember, remember the Fifth of November.");
+        }
 
         /// <summary>
         /// Halloween Day.
@@ -782,13 +812,16 @@ namespace Engine.Chrono
         /// October Thirty First. http://en.wikipedia.org/wiki/Halloween.
         /// </remarks>
         public static Occasion Halloween(int year, Culture culture = null)
-            => new Occasion(
-            nameof(Halloween),
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.October, 31),
-            "October Thirty First.");
+        {
+            _ = culture;
+            return new Occasion(
+                       nameof(Halloween),
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.October, 31),
+                       "October Thirty First.");
+        }
 
         /// <summary>
         /// All Saints' Day.
@@ -890,13 +923,16 @@ namespace Engine.Chrono
         /// The last day of the Year. http://en.wikipedia.org/wiki/New_Year%27s_Eve
         /// </remarks>
         public static Occasion NewYearsEve(int year, Culture culture = null)
-            => new Occasion(
-            "New Year's Eve",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.December, 31),
-            "The last day of the Year.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "New Year's Eve",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.December, 31),
+                       "The last day of the Year.");
+        }
 
         // - Regional Floating holidays -
 
@@ -910,13 +946,16 @@ namespace Engine.Chrono
         /// The First Thursday of September.
         /// </remarks>
         public static Occasion BellevueStrawberryDaysStart(int year, Culture culture = null)
-            => new Occasion(
-            "Strawberry Days Starts",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.DynamicAnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday).BeforeSunday(),
-            "The Saturday before the last Sunday of June.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Strawberry Days Starts",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.DynamicAnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday).BeforeSunday(),
+                       "The Saturday before the last Sunday of June.");
+        }
 
         /// <summary>
         /// Strawberry Days Ends.
@@ -928,13 +967,16 @@ namespace Engine.Chrono
         /// The Saturday following the first Thursday of September.
         /// </remarks>
         public static Occasion BellevueStrawberryDaysEnd(int year, Culture culture = null)
-            => new Occasion(
-            "Strawberry Days Ends",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.DynamicAnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday),
-            "The last Sunday of June.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Strawberry Days Ends",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.DynamicAnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday),
+                       "The last Sunday of June.");
+        }
 
         /// <summary>
         /// Peach Days Starts.
@@ -946,13 +988,16 @@ namespace Engine.Chrono
         /// The First Thursday of September.
         /// </remarks>
         public static Occasion BrighamCityPeachDaysStart(int year, Culture culture = null)
-            => new Occasion(
-            "Peach Days Starts",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.DynamicAnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.September, 1).NextDayOfWeek(DayOfWeek.Thursday),
-            "The First Thursday of September.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Peach Days Starts",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.DynamicAnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.September, 1).NextDayOfWeek(DayOfWeek.Thursday),
+                       "The First Thursday of September.");
+        }
 
         /// <summary>
         /// Peach Days Ends.
@@ -964,13 +1009,16 @@ namespace Engine.Chrono
         /// The Saturday following the first Thursday of September.
         /// </remarks>
         public static Occasion BrighamCityPeachDaysEnd(int year, Culture culture = null)
-            => new Occasion(
-            "Peach Days Ends",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.DynamicAnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.September, 1).NextDayOfWeek(DayOfWeek.Thursday).AddDays(2),
-            "The Saturday following the first Thursday of September.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Peach Days Ends",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.DynamicAnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.September, 1).NextDayOfWeek(DayOfWeek.Thursday).AddDays(2),
+                       "The Saturday following the first Thursday of September.");
+        }
 
         /// <summary>
         /// Pioneer Day.
@@ -982,13 +1030,16 @@ namespace Engine.Chrono
         /// The Twenty Fourth of July.
         /// </remarks>
         public static Occasion PioneerDay(int year, Culture culture = null)
-            => new Occasion(
-            "Pioneer Day",
-            new Culture(Languages.en, Countries.US),
-            OccasionDateType.AnnualDate,
-            EventType.Holiday,
-            new DateTime(year, (int)Months.July, 24),
-            "The Twenty Fourth of July.");
+        {
+            _ = culture;
+            return new Occasion(
+                       "Pioneer Day",
+                       new Culture(Languages.en, Countries.US),
+                       OccasionDateType.AnnualDate,
+                       EventType.Holiday,
+                       new DateTime(year, (int)Months.July, 24),
+                       "The Twenty Fourth of July.");
+        }
 
         // - Season Dates -
 
@@ -1146,7 +1197,7 @@ namespace Engine.Chrono
         /// <param name="ofSouthernHemisphere">The ofSouthernHemisphere.</param>
         /// <returns>The <see cref="Season"/>.</returns>
         /// <remarks>http://stackoverflow.com/questions/1579587/how-can-i-get-the-current-season-using-net-summer-winter-etc</remarks>
-        private static Season GetSeason(DateTime date, bool ofSouthernHemisphere)
+        internal static Season GetSeason(DateTime date, bool ofSouthernHemisphere)
         {
             switch (date.Month + (date.Day / 100f) /* <month>.<day(2 digit)> */)
             {

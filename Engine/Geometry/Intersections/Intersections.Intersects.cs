@@ -66,7 +66,7 @@ namespace Engine
                 case ScreenPoint p:
                     //return RectangleContainsPoint(rect.X, rect.Y, rect.Right, rect.Bottom, p.X, p.Y, epsilon)!= Inclusion.Outside ;
                     return PointRectangleIntersects(p.X, p.Y, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
-                case BezierSegmentX b:
+                case BezierSegmentX _:
                     throw new NotImplementedException();
                 case LineSegment l:
                     return LineSegmentRectangleIntersects(l.AX, l.AY, l.BX, l.BY, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
@@ -80,20 +80,20 @@ namespace Engine
                     return CubicBezierSegmentRectangleIntersects(b.AX, b.AY, b.BX, b.BY, b.CX, b.CY, b.DX, b.DY, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
                 case Rectangle2D r:
                     return RectangleRectangleIntersects(r.X, r.Y, r.Right, r.Bottom, rect.X, rect.Y, rect.Right, rect.Bottom, epsilon);
-                case Polyline p:
+                case Polyline _:
                     //return RectanglePolylineIntersects();
                     throw new NotImplementedException();
-                case PolygonContour p:
+                case PolygonContour _:
                     throw new NotImplementedException();
-                case Polygon p:
+                case Polygon _:
                     throw new NotImplementedException();
-                case PolyBezierContour p:
+                case PolyBezierContour _:
                     throw new NotImplementedException();
-                case PolyBezier p:
+                case PolyBezier _:
                     throw new NotImplementedException();
-                case PolycurveContour p:
+                case PolycurveContour _:
                     throw new NotImplementedException();
-                case Polycurve p:
+                case Polycurve _:
                     throw new NotImplementedException();
                 default:
                     return false;
@@ -110,7 +110,10 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Intersects(this Point2D point0, Point2D point1, double epsilon = Epsilon)
-            => point0 == point1;
+        {
+            _ = epsilon;
+            return point0 == point1;
+        }
 
         /// <summary>
         /// Check whether a point is coincident to a line segment.
@@ -223,11 +226,14 @@ namespace Engine
             double segmentAX, double segmentAY,
             double segmentBX, double segmentBY,
             double epsilon = Epsilon)
-            => ((pointX == segmentAX) && (pointY == segmentAY))
-                || ((pointX == segmentBX) && (pointY == segmentBY))
-                || (((pointX > segmentAX) == (pointX < segmentBX))
-                && ((pointY > segmentAY) == (pointY < segmentBY))
-                && ((pointX - segmentAX) * (segmentBY - segmentAY) == (pointY - segmentAY) * (segmentBX - segmentAX)));
+        {
+            _ = epsilon;
+            return ((pointX == segmentAX) && (pointY == segmentAY))
+                    || ((pointX == segmentBX) && (pointY == segmentBY))
+                    || (((pointX > segmentAX) == (pointX < segmentBX))
+                    && ((pointY > segmentAY) == (pointY < segmentBY))
+                    && ((pointX - segmentAX) * (segmentBY - segmentAY) == (pointY - segmentAY) * (segmentBX - segmentAX)));
+        }
 
         /// <summary>
         /// Check whether a point is coincident to a line segment.
@@ -250,11 +256,14 @@ namespace Engine
             double lX, double lY,
             double lI, double lJ,
             double epsilon = Epsilon)
-            => ((pX == lX) && (pY == lY)) || ((pX == lI) && (pY == lJ))
-                || (
-                    ((pX - lX > 0) == (pX - lI < 0)) && ((pY - lY > 0) == (pY - lJ < 0))
-                    && ((pX - lX) * (lJ - lY) == (pY - lY) * (lI - lX))
-                );
+        {
+            _ = epsilon;
+            return ((pX == lX) && (pY == lY)) || ((pX == lI) && (pY == lJ))
+            || (
+                ((pX - lX > 0) == (pX - lI < 0)) && ((pY - lY > 0) == (pY - lJ < 0))
+                && ((pX - lX) * (lJ - lY) == (pY - lY) * (lI - lX))
+            );
+        }
 
         /// <summary>
         /// Check whether a point is coincident to a line segment.
@@ -277,9 +286,13 @@ namespace Engine
             double lX, double lY,
             double lI, double lJ,
             double epsilon = Epsilon)
-            => ((pX == lX) && (pY == lY))
-                || (pX == lI) && (pY == lJ)
-                && ((pX - lX) * (lJ - lY) == (pY - lY) * (lI - lX));
+        {
+            _ = epsilon;
+            return ((pX == lX) && (pY == lY))
+                   || (pX == lI)
+                   && (pY == lJ)
+                   && ((pX - lX) * (lJ - lY) == (pY - lY) * (lI - lX));
+        }
 
         /// <summary>
         /// Check whether a point is within a rectangle.
@@ -720,8 +733,22 @@ namespace Engine
             double x, double y,
             double right, double bottom,
             double epsilon)
+        {
             // ToDo: Figure out code to check whether a quadratic Bézier curve and a line segment intersect.
-            => throw new NotImplementedException();
+            _ = aX;
+            _ = aY;
+            _ = bX;
+            _ = bY;
+            _ = cX;
+            _ = cY;
+            _ = x;
+            _ = y;
+            _ = right;
+            _ = bottom;
+            _ = epsilon;
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Find out whether a quadratic Bézier segment and a rectangle intersects.
@@ -802,8 +829,24 @@ namespace Engine
             double a1X, double a1Y,
             double a2X, double a2Y,
             double epsilon)
-            // ToDo: Figure out code to check whether a cubic Bézier curve and a line segment intersect.
-            => throw new NotImplementedException();
+        {
+            _ = aX;
+            _ = aY;
+            _ = bX;
+            _ = bY;
+            _ = cX;
+            _ = cY;
+            _ = dX;
+            _ = dY;
+            _ = a1X;
+            _ = a1Y;
+            _ = a2X;
+            _ = a2Y;
+            _ = epsilon;
+            throw new NotImplementedException();
+        }
+
+        // ToDo: Figure out code to check whether a cubic Bézier curve and a line segment intersect.
 
         /// <summary>
         /// Find out whether a cubic Bézier segment and a rectangle intersects.
@@ -881,10 +924,13 @@ namespace Engine
             double x1, double y1,
             double width1, double height1,
             double epsilon = Epsilon)
-            => (x1 < x0 + width0)
-            && (x0 < (x1 + width1))
-            && (y1 < y0 + height0)
-            && (y0 < y1 + height1);
+        {
+            _ = epsilon;
+            return (x1 < x0 + width0)
+                   && (x0 < (x1 + width1))
+                   && (y1 < y0 + height0)
+                   && (y0 < y1 + height1);
+        }
 
         /// <summary>
         /// Find out whether two circles intersects.

@@ -622,7 +622,7 @@ namespace Engine
                 return (IList<double>)CachingProperty(() => Extrema(DerivativeCoordinates));
 
                 // ToDo: What are DRoots?
-                List<double> Extrema(IList<IList<Point2D>> derivativeCoordinates)
+                static List<double> Extrema(IList<IList<Point2D>> derivativeCoordinates)
                 {
                     var p = (from a in derivativeCoordinates[0] select a.X).ToList();
                     var result = new List<double>(Maths.DRoots(p));
@@ -652,8 +652,7 @@ namespace Engine
             get
             {
                 return (IList<double>)CachingProperty(() => Inflections(Points));
-
-                IList<double> Inflections(IList<Point2D> points)
+                static IList<double> Inflections(IList<Point2D> points)
                 {
                     var p = Maths.AlignPoints(points, points[0].X, points[0].Y, points[3].X, points[3].Y);
                     var a = p[2].X * p[1].Y;

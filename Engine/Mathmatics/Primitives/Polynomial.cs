@@ -1258,7 +1258,7 @@ namespace Engine
                     if (value * minValue < 0)
                     {
                         max = result.Value;
-                        maxValue = value;
+                        //maxValue = value; VS reports this isn't used?
                     }
                     else
                     {

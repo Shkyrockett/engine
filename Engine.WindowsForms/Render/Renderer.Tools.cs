@@ -29,25 +29,28 @@ namespace Engine.Imaging
         /// <param name="style">The style.</param>
         public static void Render(this ParametricPointTester shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
+            _ = g;
+            _ = item;
+            _ = style;
             const float pointRadius = 1f;
 
             var results = shape.Interactions();
 
-            var pointpen = new Stroke(new SolidFill(Colorspace.Colors.Magenta));
+            var pointpen = new Stroke(new SolidFill(Colors.Magenta));
             foreach (var point in results.Item1)
             {
                 renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
                 renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
 
-            pointpen = new Stroke(new SolidFill(Colorspace.Colors.Lime));
+            pointpen = new Stroke(new SolidFill(Colors.Lime));
             foreach (var point in results.Item2)
             {
                 renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
                 renderer.DrawLine(pointpen, point.X - pointRadius, point.Y, point.X + pointRadius, point.Y);
             }
 
-            pointpen = new Stroke(new SolidFill(Colorspace.Colors.Red));
+            pointpen = new Stroke(new SolidFill(Colors.Red));
             foreach (var point in results.Item3)
             {
                 renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
@@ -65,11 +68,14 @@ namespace Engine.Imaging
         /// <param name="style">The style.</param>
         public static void Render(this ParametricWarpGrid shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
+            _ = g;
+            _ = item;
+            _ = style;
             const float pointRadius = 1f;
 
             var results = shape.Warp();
 
-            var pointpen = new Stroke(new SolidFill(Colorspace.Colors.Gold));
+            var pointpen = new Stroke(new SolidFill(Colors.Gold));
             foreach (var point in results)
             {
                 renderer.DrawLine(pointpen, point.X, point.Y - pointRadius, point.X, point.Y + pointRadius);
@@ -87,22 +93,21 @@ namespace Engine.Imaging
         /// <param name="style">The style.</param>
         public static void Render(this AngleVisualizerTester shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
-            var itemStyle = style ?? (ShapeStyle)item?.Style;
+            _ = g;
+            _ = style ?? (ShapeStyle)item?.Style!!;
 
             var fill = new SolidFill(RGBA.FromRGBA(Colors.MediumPurple, 128));
             var stroke = new Stroke(new SolidFill(RGBA.FromRGBA(Colors.Purple, 128)));
 
-            Rectangle2D bounds = shape.Bounds!!;
+            var bounds = shape.Bounds!!;
             renderer.FillPie(fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
             renderer.DrawPie(stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
 
             var num = 1;
-
-            var tickStroke = SolidStrokes.Red;
             foreach (var angle in shape.TestAngles)
             {
-                tickStroke = shape.InSweep(angle) ? SolidStrokes.Lime : SolidStrokes.Red;
-                Point2D anglePoint = shape.TestPoint(angle);
+                var tickStroke = shape.InSweep(angle) ? SolidStrokes.Lime : SolidStrokes.Red;
+                var anglePoint = shape.TestPoint(angle);
                 renderer.DrawLine(tickStroke, shape.Location.X, shape.Location.Y, anglePoint.X, anglePoint.Y);
                 renderer.DrawString($"a{num}", new RenderFont("GenericSansSerif", 12, Engine.TextStyle.Regular), SolidFills.Black, anglePoint.X, anglePoint.Y, new TextFormat(TextBoxFormatFlags.NoWrap, 0));
                 num++;
@@ -119,7 +124,8 @@ namespace Engine.Imaging
         /// <param name="style">The style.</param>
         public static void Render(this NodeRevealer shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
-            var itemStyle = style ?? (ShapeStyle)item?.Style;
+            _ = g;
+            var itemStyle = style ?? (ShapeStyle)item?.Style!!;
 
             var dashPen = new Stroke(SolidFills.DarkGray) { DashStyle = LineDashStyle.Dash, DashPattern = new float[] { 3f, 3f } };
 

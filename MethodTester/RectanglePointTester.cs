@@ -37,7 +37,7 @@ namespace MethodSpeedTester
         /// <summary>
         /// The rectangles.
         /// </summary>
-        private List<(string, Rectangle2D)> rectangles = new List<(string, Rectangle2D)>();
+        private readonly List<(string, Rectangle2D)> rectangles = new List<(string, Rectangle2D)>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RectanglePointTester"/> class.

@@ -39,10 +39,8 @@ namespace MethodTester
             //{
             //    Application.Run(polygonPointTester);
             //}
-            using (var formSpeedTester = new FormSpeedTester())
-            {
-                Application.Run(formSpeedTester);
-            }
+            using var formSpeedTester = new FormSpeedTester();
+            Application.Run(formSpeedTester);
         }
     }
 }

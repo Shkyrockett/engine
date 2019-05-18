@@ -39,6 +39,9 @@ namespace Engine.File
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="TuneRequest"/>.</returns>
         internal static TuneRequest Read(BinaryReaderExtended reader, EventStatus status)
-            => new TuneRequest(status);
+        {
+            _ = reader;
+            return new TuneRequest(status);
+        }
     }
 }

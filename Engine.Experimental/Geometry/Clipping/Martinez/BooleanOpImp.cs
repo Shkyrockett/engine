@@ -11,42 +11,42 @@ namespace Engine
         /// <summary>
         /// The subject.
         /// </summary>
-        private Polygon subject;
+        private readonly Polygon subject;
 
         /// <summary>
         /// The clipping.
         /// </summary>
-        private Polygon clipping;
+        private readonly Polygon clipping;
 
         /// <summary>
         /// The result.
         /// </summary>
-        private Polygon result;
+        private readonly Polygon result;
 
         /// <summary>
         /// The operation.
         /// </summary>
-        private ClippingOperations operation;
+        private readonly ClippingOperations operation;
 
         /// <summary>
         /// event queue (sorted events to be processed)
         /// </summary>
-        private PriorityQueue<SweepEvent> eq = new PriorityQueue<SweepEvent>();
+        private readonly PriorityQueue<SweepEvent> eq = new PriorityQueue<SweepEvent>();
 
         /// <summary>
         /// segments intersecting the sweep line
         /// </summary>
-        private SortedSet<SweepEvent> sl = new SortedSet<SweepEvent>();
+        private readonly SortedSet<SweepEvent> sl = new SortedSet<SweepEvent>();
 
         /// <summary>
         /// It holds the events generated during the computation of the boolean operation
         /// </summary>
-        private LinkedList<SweepEvent> eventHolder = new LinkedList<SweepEvent>();
+        private readonly LinkedList<SweepEvent> eventHolder = new LinkedList<SweepEvent>();
 
         /// <summary>
         /// to compare events
         /// </summary>
-        private SweepEventComp sec = new SweepEventComp();
+        private readonly SweepEventComp sec = new SweepEventComp();
 
         /// <summary>
         /// The sorted events (readonly). Value: new LinkedList&lt;SweepEvent&gt;().

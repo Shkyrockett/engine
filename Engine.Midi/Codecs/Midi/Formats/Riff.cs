@@ -47,6 +47,9 @@ namespace Engine.File
         /// <param name="filename"></param>
         /// <returns></returns>
         public static Riff Load(string filename)
-            => new Riff();
+        {
+            _ = filename;
+            return new Riff();
+        }
     }
 }

@@ -217,8 +217,7 @@ namespace Engine
             get
             {
                 return (Rectangle2D)CachingProperty(() => bounds(contours));
-
-                Rectangle2D bounds(List<PolyBezierContour> contours)
+                static Rectangle2D bounds(List<PolyBezierContour> contours)
                 {
                     var box = contours[0].Bounds;
                     foreach (var contour in contours)

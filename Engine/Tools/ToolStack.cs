@@ -100,7 +100,7 @@ namespace Engine.Tools
         /// <summary>
         /// The tools.
         /// </summary>
-        private Dictionary<MouseButtons, Tool> tools;
+        private readonly Dictionary<MouseButtons, Tool> tools;
 
         /// <summary>
         /// The mouse location.
@@ -381,6 +381,7 @@ namespace Engine.Tools
         /// <param name="clicks">The clicks.</param>
         public void MouseUp(MouseButtons buttons, int clicks)
         {
+            _ = clicks;
             if (buttons != MouseButtons.None)
             {
                 if (buttons == MouseButtons.Left && MouseLeftButtonStatus != Verticality.Up)
@@ -417,6 +418,7 @@ namespace Engine.Tools
         /// <param name="clicks">The clicks.</param>
         public void MouseDown(MouseButtons buttons, int clicks)
         {
+            _ = clicks;
             if (buttons != MouseButtons.None)
             {
                 if (buttons == MouseButtons.Left && MouseLeftButtonStatus != Verticality.Down)

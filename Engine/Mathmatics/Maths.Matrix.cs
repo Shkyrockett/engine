@@ -58,8 +58,7 @@ namespace Engine
             double g, double h, double i)
             => (a * Determinant(e, f, h, i))
               - (b * Determinant(d, f, g, i))
-              + (c * Determinant(d, e, g, h))
-            ;
+              + (c * Determinant(d, e, g, h));
 
         /// <summary>
         /// Find the determinant of a 4 by 4 matrix.

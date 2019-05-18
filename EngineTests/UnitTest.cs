@@ -22,7 +22,7 @@ namespace EngineTests
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
-        private const double TestEpsilon = 0.0000000000001d;
+        internal const double testEpsilon = 0.0000000000001d;
         #endregion Constants
 
         #region Properties
@@ -41,6 +41,7 @@ namespace EngineTests
         [AssemblyInitialize]
         public static void AssemblyInit(TestContext context)
         {
+            _ = context;
             //MessageBox.Show("AssemblyInit " + context.TestName);
         }
 
@@ -62,6 +63,7 @@ namespace EngineTests
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
+            _ = context;
             //MessageBox.Show("ClassInit " + context.TestName);
         }
 

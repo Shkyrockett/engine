@@ -153,9 +153,9 @@ namespace Engine.Imaging
                         return new Stroke(new SolidFill(b.Color.ToRGBA()));
                     case HatchBrush h:
                         return new Stroke(new SolidFill(h.ForegroundColor.ToRGBA()));
-                    case LinearGradientBrush l:
-                    case PathGradientBrush p:
-                    case TextureBrush t:
+                    case LinearGradientBrush _:
+                    case PathGradientBrush _:
+                    case TextureBrush _:
                     default:
                         return new Stroke(new SolidFill(Colors.Transparent));
                 }

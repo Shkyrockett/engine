@@ -169,8 +169,7 @@ namespace Engine
             get
             {
                 return (Rectangle2D)CachingProperty(() => bounds(contours));
-
-                Rectangle2D bounds(List<PolycurveContour> contours)
+                static Rectangle2D bounds(List<PolycurveContour> contours)
                 {
                     var bb = contours[0].Bounds;
 
@@ -245,6 +244,7 @@ namespace Engine
         /// <returns>The <see cref="T:List{PolycurveContour}"/>.</returns>
         public static List<PolycurveContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
+            _ = provider;
             // These letters are valid PolyBezier commands. Split the tokens at these.
             const string separators = @"(?=[MZ])";
 
@@ -288,6 +288,8 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public string ToPathDefString(string format, IFormatProvider provider)
         {
+            _ = format;
+            _ = provider;
             var output = new StringBuilder();
 
             foreach (var contour in contours)

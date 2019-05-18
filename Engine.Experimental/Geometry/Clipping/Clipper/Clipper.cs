@@ -368,7 +368,7 @@ namespace Engine.Experimental
                 LocMinimaList.Sort();
                 LocMinListSorted = true;
             }
-            foreach (LocalMinima locMin in LocMinimaList)
+            foreach (var locMin in LocMinimaList)
             {
                 InsertScanline(locMin.Vertex.Point.Y);
             }
@@ -676,7 +676,7 @@ namespace Engine.Experimental
         /// <param name="isOpen">The isOpen.</param>
         public void AddPaths(Polygon paths, ClippingRelations pt, bool isOpen = false)
         {
-            foreach (PolygonContour path in paths)
+            foreach (var path in paths)
             {
                 AddPath(path, pt, isOpen);
             }
@@ -1736,7 +1736,7 @@ namespace Engine.Experimental
             var mul = 1;
             while (true)
             {
-                Edge first = SelectedEdgeLink;
+                var first = SelectedEdgeLink;
                 Edge baseE;
                 Edge prevBase = null;
 
@@ -1774,7 +1774,7 @@ namespace Engine.Experimental
                         if (second.Curr.X < first.Curr.X)
                         {
                             // create one or more Intersect nodes
-                            Edge tmp = second.PrevInSEL;
+                            var tmp = second.PrevInSEL;
                             for (var i = 0; i < lCnt; ++i)
                             {
                                 //create a new intersect node...
@@ -1830,7 +1830,7 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ProcessIntersectList()
         {
-            foreach (IntersectNode iNode in IntersectList)
+            foreach (var iNode in IntersectList)
             {
                 IntersectEdges(iNode.EdgeA, iNode.EdgeB, iNode.Point);
                 SwapPositionsInAEL(ref ActiveEdgeLink, iNode.EdgeA, iNode.EdgeB);
@@ -2166,7 +2166,7 @@ namespace Engine.Experimental
                 openPaths.Capacity = OutRecList.Count;
             }
 
-            foreach (OutRec outrec in OutRecList)
+            foreach (var outrec in OutRecList)
             {
                 if (outrec.Points != null)
                 {
@@ -2231,7 +2231,7 @@ namespace Engine.Experimental
                 openPaths.Capacity = OutRecList.Count;
             }
 
-            foreach (OutRec outrec in OutRecList)
+            foreach (var outrec in OutRecList)
             {
                 if (outrec.Points != null)
                 {

@@ -187,6 +187,7 @@ namespace Engine
             LineSegment s, Point2D o, Point2D p,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var x = Sign(s.A, s.B, p);
             return (x == Sign(s.B, o, p)) && (x == Sign(o, s.A, p));
         }
@@ -211,6 +212,7 @@ namespace Engine
             double pX, double pY,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
             var a = new Point2D(aX, aY);
             var b = new Point2D(bX, bY);
             var c = new Point2D(cX, cY);
@@ -241,9 +243,12 @@ namespace Engine
             double left, double top, double right, double bottom,
             double pX, double pY,
             double epsilon = Epsilon)
-            => (((left == pX || right == pX) && ((top <= pY) == (bottom >= pY)))
-                || ((top == pY || bottom == pY) && ((left <= pX) == (right >= pX)))) ? Inclusion.Boundary
-                : (left <= pX && pX < right && top <= pY && pY < bottom) ? Inclusion.Inside : Inclusion.Outside;
+        {
+            _ = epsilon;
+            return (((left == pX || right == pX) && ((top <= pY) == (bottom >= pY)))
+                    || ((top == pY || bottom == pY) && ((left <= pX) == (right >= pX)))) ? Inclusion.Boundary
+                    : (left <= pX && pX < right && top <= pY && pY < bottom) ? Inclusion.Inside : Inclusion.Outside;
+        }
 
         /// <summary>
         /// Determines whether the specified point is contained withing the region defined by this <see cref="PolygonContour"/>.
@@ -361,7 +366,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://stackoverflow.com/a/34884949
         /// </acknowledgment>
-        private static EllipticalArc[] Monotones(EllipticalArc arc)
+        public static EllipticalArc[] Monotones(EllipticalArc arc)
         {
             var angles = EllipticalArcVerticalExtremeAngles(arc.RX, arc.RY, arc.Angle, arc.StartAngle, arc.SweepAngle);
             return arc.Split(angles);
@@ -1211,10 +1216,13 @@ namespace Engine
             double bX, double bY,
             double bWidth, double bHeight,
             double epsilon = Epsilon)
-            => (aX <= bX)
-            && ((bX + bWidth) <= (aX + aWidth))
-            && (aY <= bY)
-            && ((bY + bHeight) <= (aY + aHeight));
+        {
+            _ = epsilon;
+            return (aX <= bX)
+                   && ((bX + bWidth) <= (aX + aWidth))
+                   && (aY <= bY)
+                   && ((bY + bHeight) <= (aY + aHeight));
+        }
         #endregion Contains Methods
     }
 }

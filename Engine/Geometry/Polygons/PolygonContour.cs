@@ -474,6 +474,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         private string ToPathDefString(string format, IFormatProvider provider)
         {
+            _ = format;
             var output = new StringBuilder();
 
             var sep = Tokenizer.GetNumericListSeparator(provider);

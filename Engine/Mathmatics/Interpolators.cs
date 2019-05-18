@@ -217,7 +217,7 @@ namespace Engine
             => (Point3D)((Vector3D)Linear(a, b, t)).Normalize();
         #endregion Normalized Linear Interpolation
 
-        #region Quaternian S Linear Interpolation
+        #region Quaternion S Linear Interpolation
         /// <summary>
         /// The slerp.
         /// </summary>
@@ -1552,6 +1552,8 @@ namespace Engine
             double fulcrumX, double fulcrumY,
             double cosAngle, double sinAngle)
         {
+            _ = x;
+            _ = y;
             // ToDo: Figure out how to properly include the location point.
             var points = new List<Point2D>();
 

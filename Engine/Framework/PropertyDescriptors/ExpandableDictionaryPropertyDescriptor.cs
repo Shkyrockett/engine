@@ -140,9 +140,12 @@ namespace Engine
         /// <param name="dictionary">The dictionary.</param>
         /// <param name="key">The key.</param>
         /// <returns>The <see cref="string"/>.</returns>
-        private static string GetDisplayName(IDictionary dictionary, object key)
-            //=> $"{CSharpName(dictionary[key].GetType())} [{key,4}]";
-            => $"[{key}]";
+        protected static string GetDisplayName(IDictionary dictionary, object key)
+        {
+            _ = dictionary;
+            //return $"{CSharpName(dictionary[key].GetType())} [{key,4}]";
+            return $"[{key}]";
+        }
 
         ///// <summary>
         ///// 

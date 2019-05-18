@@ -91,6 +91,8 @@ namespace Engine
             double cx1, double cy1, double rx1, double ry1, double cosA1, double sinA1,
             double epsilon = Epsilon)
         {
+            _ = epsilon;
+
             // Translate to origin.
             var u1 = cx1 - cx0;
             var v1 = cy1 - cy0;
@@ -178,16 +180,16 @@ namespace Engine
             if (theta != 0)
             {
                 /* rotate the point wrt (rx, ry) */
-                var p = RotatePoint2D(x - rx, y - ry, theta);
-                x = p.X + rx;
-                y = p.Y + ry;
+                var (px, py) = RotatePoint2D(x - rx, y - ry, theta);
+                x = px + rx;
+                y = py + ry;
             }
-            if (rectangleMode == Mode.CORNERS)
+            if (rectangleMode == Mode.Corners)
             {
                 w -= rx;
                 h -= ry;
             }
-            else if (rectangleMode == Mode.CENTER)
+            else if (rectangleMode == Mode.Center)
             {
                 rx -= w / 2;
                 ry -= h / 2;
@@ -286,9 +288,7 @@ namespace Engine
             y -= ey;
             if (cosine != 1 | sine != 0)
             {
-                var rp = RotatePoint2D(x, y, cosine, sine);
-                x = rp.X;
-                y = rp.Y;
+                (x, y) = RotatePoint2D(x, y, cosine, sine);
             }
             var termX = 2 * x / w;  /* sqrt of first term */
             var termY = 2 * y / h;  /* sqrt of second term */
@@ -512,7 +512,7 @@ namespace Engine
             x1 -= cx;
             x2 -= cx;
             y1 -= cy;
-            y2 -= cy;
+            //y2 -= cy;
             var r = diam * diam / 4;  /* radius squared */
             var k = y1 - (m * x1);  /* So, y = m*x + k */
             var a = (1 + (m * m)) / r;
@@ -561,15 +561,15 @@ namespace Engine
              * Normalize s.t. the ellipse is centered at
              * the origin and is not rotated.
              */
-            var r1 = RotatePoint2D(x1 - ex, y1 - ey, cosine, sine);
-            var r2 = RotatePoint2D(x2 - ex, y2 - ey, cosine, sine);
-            var m = (r2.Y - r1.Y) / (r2.X - r1.X);  /* slope */
+            var (r1x, r1y) = RotatePoint2D(x1 - ex, y1 - ey, cosine, sine);
+            var (r2x, r2y) = RotatePoint2D(x2 - ex, y2 - ey, cosine, sine);
+            var m = (r2y - r1y) / (r2x - r1x);  /* slope */
             if (Abs(m) > 1024)
             {
                 /* Vertical line, so swap X & Y, and try again. */
-                return LineEllipseCollide(r1.Y, r1.X, r2.Y, r2.X, 0, 0, h, w);
+                return LineEllipseCollide(r1y, r1x, r2y, r2x, 0, 0, h, w);
             }
-            if (EllipseContainsPoint(r2.X, r2.Y, 0, 0, w, h))
+            if (EllipseContainsPoint(r2x, r2y, 0, 0, w, h))
             {
                 /* The segment may be entirely inside the ellipse */
                 return true;
@@ -586,7 +586,7 @@ namespace Engine
              */
             var s = w * w / 4;
             var t = h * h / 4;  /* So, x©÷/s + y©÷/t = 1 */
-            var k = r1.Y - (m * r1.X);  /* So, y = m*x + k */
+            var k = r1y - (m * r1x);  /* So, y = m*x + k */
             var a = (1 / s) + (m * m / t);
             var b = 2 * m * k / t;
             var c = (k * k / t) - 1;
@@ -597,8 +597,8 @@ namespace Engine
             }
             discrim = Sqrt(discrim);
             a *= 2;
-            return Intersections.Between((-b - discrim) / a, r1.X, r2.X) ||
-                Intersections.Between((-b + discrim) / a, r1.X, r2.X);
+            return Intersections.Between((-b - discrim) / a, r1x, r2x) ||
+                Intersections.Between((-b + discrim) / a, r1x, r2x);
         }
 
         /// <summary>
@@ -735,12 +735,12 @@ namespace Engine
                 cx = X + rx;
                 cy = Y + ry;
             }
-            if (rectangleMode == Mode.CORNERS)
+            if (rectangleMode == Mode.Corners)
             {
                 w -= rx;
                 h -= ry;
             }
-            else if (rectangleMode == Mode.CENTER)
+            else if (rectangleMode == Mode.Center)
             {
                 rx -= w / 2;
                 ry -= h / 2;
@@ -769,12 +769,12 @@ namespace Engine
             var polys = poly1.Concat(poly2).ToArray();
 
             /*
-             * Project poly onto axis.  Simply
+             * Project polygon onto axis.  Simply
              * compute dot products between the
-             * poly's vertices and the axis, and
+             * polygon's vertices and the axis, and
              * keep track of the min and max values.
              */
-            (double min, double max) project((double x, double y)[] poly, (double x, double y) axis)
+            static (double min, double max) project((double x, double y)[] poly, (double x, double y) axis)
             {
                 var mn = double.PositiveInfinity;
                 var mx = double.NegativeInfinity;
@@ -787,8 +787,8 @@ namespace Engine
                 return (min: mn, max: mx);
             };
 
-            /* Compute all projections axes of poly. */
-            (double y, double x)[] getAxes(params (double x, double y)[] poly)
+            /* Compute all projections axes of polygon. */
+            static (double y, double x)[] getAxes(params (double x, double y)[] poly)
             {
                 var axes = new (double y, double x)[poly.Length];
                 for (var i = 0; i < poly.Length; i++)
@@ -814,9 +814,9 @@ namespace Engine
                 {
                     var axis = axes[i];
                     /* Project both polygons onto this axis */
-                    var p1 = project(poly1, axis);
-                    var p2 = project(poly2, axis);
-                    if (!Overlap(p1.min, p1.max, p2.min, p2.max))
+                    var (p1min, p1max) = project(poly1, axis);
+                    var (p2min, p2max) = project(poly2, axis);
+                    if (!Overlap(p1min, p1max, p2min, p2max))
                     {
                         /* The two polygons cannot overlap */
                         return false;
@@ -851,19 +851,19 @@ namespace Engine
         {
             if (theta1 == 0 && theta2 == 0)
             {
-                if (rectangleMode == Mode.CORNERS)
+                if (rectangleMode == Mode.Corners)
                 {
                     w1 -= x1;
                     h1 -= y1;
                     w2 -= x2;
                     h2 -= y2;
                 }
-                else if (rectangleMode == Mode.CENTER)
+                else if (rectangleMode == Mode.Center)
                 {
-                    x1 -= w1 / 2;
-                    y1 -= h1 / 2;
-                    x2 -= w2 / 2;
-                    y2 -= h2 / 2;
+                    x1 -= w1 / 2d;
+                    y1 -= h1 / 2d;
+                    x2 -= w2 / 2d;
+                    y2 -= h2 / 2d;
                 }
                 return Overlap(x1, x1 + w1, x2, x2 + w2) && Overlap(y1, y1 + h1, y2, y2 + h2);
             }
@@ -976,7 +976,7 @@ namespace Engine
                 return true;
             }
 
-            // Ok, do the hard work
+            // Okay, do the hard work
             var elps1 = BivariateForm(x1, y1, w1, h1, cosine1, sine1);
             var elps2 = BivariateForm(x2, y2, w2, h2, cosine2, sine2);
 

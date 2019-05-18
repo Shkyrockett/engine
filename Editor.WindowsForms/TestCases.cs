@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using static System.Math;
 using static Engine.Maths;
 
 namespace Editor
@@ -39,14 +40,20 @@ namespace Editor
         /// <param name="boundaryItem">A reference to the boundary item graphics object for one of the tests.</param>
         public static void Tests(EditorForm form, VectorMap vectorMap, ToolStack tools, CanvasPanel canvasPanel, IPlatformTextMetrics metrics, out GraphicItem boundaryItem)
         {
+            _ = tools;
+            _ = canvasPanel;
+            _ = metrics;
             var foreColor = form.ForeColor;
+            _ = foreColor;
             var backColor = form.BackColor;
+            _ = backColor;
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
 
             //BezierExp(vectorMap);
-            EllipseEllipseIntersection(vectorMap);
+            DrawParabola(vectorMap);
+            //EllipseEllipseIntersection(vectorMap);
             //EnvelopeWarp(vectorMap);
             //Clipper(vectorMap);
             //ComplexPolygonClipping(vectorMap);
@@ -202,6 +209,60 @@ namespace Editor
         #endregion Styles
 
         #region Experimental
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
+        public static void DrawParabola(VectorMap vectorMap)
+        {
+            var a = 0.0125d; // The aspect of the parabola.
+            var h = 150d; // The horizontal shift of the vertex.
+            var k = 100d; // The vertex height of the parabola.
+            var b = -2d * a * h; // Get b from vertex form.
+            var c = (b * b / (4 * a)) + k; // get c from vertex form.
+            var l = 50d;
+            var r = 250d;
+            var bezier1 = new QuadraticBezier(Conversions.StandardParabolaToQuadraticBezier(a, b, c, l, r));
+            var bezierItem1 = new GraphicItem(bezier1, intersectionRed)
+            {
+                Name = "Bezier Parabola Standard"
+            };
+
+            var bezier2 = new QuadraticBezier(Conversions.VertexParabolaToQuadraticBezier(a, h, k, l, r));
+            var bezierItem2 = new GraphicItem(bezier2, intersectionBlue)
+            {
+                Name = "Bezier Parabola Vertex"
+            };
+
+            (var x1, var y1) = (50d, 100d);
+            (var x2, var y2) = (275d, 150d);
+            k = 50;
+            var parabola3 = ParabolaSegment.FindVertexParabolaFromTwoPointsAndK(x1, y1, x2, y2, k);
+            var bezier3 = new QuadraticBezier(Conversions.VertexParabolaToQuadraticBezier(parabola3.a, parabola3.h, parabola3.k, x1, x2));
+            var bezierItem = new GraphicItem(bezier3, intersectionGreen)
+            {
+                Name = "Bezier Parabola Vertex"
+            };
+
+            var line1 = new Line(h, k, 1d, 0d);
+            var lineItem1 = new GraphicItem(line1, paperLikeStyle)
+            {
+                Name = "Horizontal Line"
+            };
+
+            var line2 = new Line(h, k, 0d, 1d);
+            var lineItem2 = new GraphicItem(line2, paperLikeStyle)
+            {
+                Name = "Vertical Line"
+            };
+
+            vectorMap.Add(lineItem1);
+            vectorMap.Add(lineItem2);
+            vectorMap.Add(bezierItem1);
+            vectorMap.Add(bezierItem2);
+            vectorMap.Add(bezierItem);
+        }
+
         /// <summary>
         /// The ellipse ellipse intersection testing.
         /// </summary>
@@ -380,7 +441,7 @@ namespace Editor
         /// <param name="vectorMap">The vectorMap.</param>
         public static void BezierExp(VectorMap vectorMap)
         {
-            var quadraticBezier = new Bezier((150d, 40d), (80d, 30d), (105d, 150d));
+            //var quadraticBezier = new Bezier((150d, 40d), (80d, 30d), (105d, 150d));
             var cubicBezier = new Bezier((100d, 25d), (10d, 90d), (110d, 100d), (150d, 195d));
 
             var cubicCurve = new CubicBezier(cubicBezier.Points[0], cubicBezier.Points[1], cubicBezier.Points[2], cubicBezier.Points[3])
@@ -2316,6 +2377,8 @@ namespace Editor
         /// <param name="vectorMap">The Map to draw on.</param>
         public static void RotatedRectangle(VectorMap vectorMap)
         {
+            _ = vectorMap;
+            _ = vectorMap;
             //var cent = 1d;
 
             //Shape rectangle2 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 20d.ToRadians());
@@ -3411,7 +3474,7 @@ namespace Editor
         {
             var location = new Point2D(100, 100);
             var scale = new Size2D(75, 50);
-            var axis = new Point2D(200, 100);
+            //var axis = new Point2D(200, 100);
             const int angle = 0; //45d.ToRadians();
 
             var ellipse1 = new Ellipse(location.X, location.Y, scale.Width, scale.Height, angle);//.ScaleDistort(scale).RotateDistort(axis, angle);
@@ -3739,10 +3802,14 @@ namespace Editor
         public static void IntersectionsCubicBezierCubicBezier(VectorMap vectorMap)
         {
             var top = 10;
+            _ = top;
             var left = 10;
+            _ = left;
             var scale = new Size2D(10, 10);
             var axis = new Point2D(150, 150);
+            _ = axis;
             var angle = 0d.ToRadians();
+            _ = angle;
 
             //var cubic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top)
             //    .ToCubicBezier()
@@ -3859,8 +3926,8 @@ namespace Editor
             //vectorMap.Add(cubic2BoundsItem);
             //vectorMap.Add(cubic3BoundsItem);
             //vectorMap.Add(cubic4BoundsItem);
-            //vectorMap.Add(cubic5BoundsItem);
-            //vectorMap.Add(cubic6BoundsItem);
+            vectorMap.Add(cubic5BoundsItem);
+            vectorMap.Add(cubic6BoundsItem);
             //vectorMap.Add(cubic1Item);
             //vectorMap.Add(cubic2Item);
             //vectorMap.Add(cubic3Item);
@@ -3874,8 +3941,8 @@ namespace Editor
             //vectorMap.Add(cubic2Handles);
             //vectorMap.Add(cubic3Handles);
             //vectorMap.Add(cubic4Handles);
-            //vectorMap.Add(cubic5Handles);
-            //vectorMap.Add(cubic6Handles);
+            vectorMap.Add(cubic5Handles);
+            vectorMap.Add(cubic6Handles);
         }
 
         /// <summary>

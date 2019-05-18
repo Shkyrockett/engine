@@ -116,7 +116,7 @@ namespace Engine.Tweening
         /// <summary>
         /// The parent.
         /// </summary>
-        private readonly Tweener Parent;
+        private readonly Tweener parent;
 
         /// <summary>
         /// The remover.
@@ -137,7 +137,7 @@ namespace Engine.Tweening
             Target = target;
             this.duration = duration;
             this.delay = delay;
-            Parent = parent;
+            this.parent = parent;
             Remover = parent;
 
             firstUpdate = true;
@@ -312,8 +312,7 @@ namespace Engine.Tweening
                 var property = props[i];
                 var propValue = property.GetValue(values, null);
 
-                var index = -1;
-                if (varHash.TryGetValue(property.Name, out index))
+                if (varHash.TryGetValue(property.Name, out var index))
                 {
                     //	if we're already tweening this value, adjust the range
                     start[index] = propValue;

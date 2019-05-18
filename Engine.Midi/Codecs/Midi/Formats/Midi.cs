@@ -50,10 +50,8 @@ namespace Engine.File
         /// <returns></returns>
         public static Midi Load(Stream stream)
         {
-            using (var reader = new BinaryReaderExtended(stream))
-            {
-                return Read(reader);
-            }
+            using var reader = new BinaryReaderExtended(stream);
+            return Read(reader);
         }
 
         /// <summary>
@@ -63,13 +61,11 @@ namespace Engine.File
         /// <returns></returns>
         internal static Midi Read(BinaryReaderExtended reader)
         {
-            Midi midi = null;
-            MidiHeader header = null;
-
             var headerChunk = Chunk.Read(reader);
 
             //using (
             var headerReader = new BinaryReaderExtended(headerChunk.SubStream);//)
+            MidiHeader header;
             {
                 header = MidiHeader.Read(headerReader, headerChunk);
             }
@@ -94,7 +90,7 @@ namespace Engine.File
                 }
             }
 
-            midi = new Midi
+            var midi = new Midi
             {
                 Header = header,
                 Tracks = tracks

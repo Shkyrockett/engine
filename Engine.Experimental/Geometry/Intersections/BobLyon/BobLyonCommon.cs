@@ -241,13 +241,16 @@ namespace Engine
         public static (double a, double b, double c, double d, double e) GetQuartic(
             (double a, double b, double c, double d, double e, double f) el1,
             (double a, double b, double c, double d, double e, double f) el2, double epsilon = Epsilon)
-            => (
+        {
+            _ = epsilon;
+            return (
                 a: (el1.f * el1.a * el2.d * el2.d) + (el1.a * el1.a * el2.f * el2.f) - (el1.d * el1.a * el2.d * el2.f) + (el2.a * el2.a * el1.f * el1.f) - (2d * el1.a * el2.f * el2.a * el1.f) - (el1.d * el2.d * el2.a * el1.f) + (el2.a * el1.d * el1.d * el2.f),
                 b: (el2.e * el1.d * el1.d * el2.a) - (el2.f * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.e) - (el1.f * el2.a * el2.b * el1.d) + (2d * el2.d * el2.b * el1.a * el1.f) + (2d * el2.e * el2.f * el1.a * el1.a) + (el2.d * el2.d * el1.a * el1.e) - (el2.e * el2.d * el1.a * el1.d) - (2d * el1.a * el2.e * el2.a * el1.f) - (el1.f * el2.a * el2.d * el1.b) + (2d * el1.f * el1.e * el2.a * el2.a) - (el2.f * el2.b * el1.a * el1.d) - (el1.e * el2.a * el2.d * el1.d) + (2d * el2.f * el1.b * el2.a * el1.d),
                 c: (el2.e * el2.e * el1.a * el1.a) + (2d * el2.c * el2.f * el1.a * el1.a) - (el1.e * el2.a * el2.d * el1.b) + (el2.f * el2.a * el1.b * el1.b) - (el1.e * el2.a * el2.b * el1.d) - (el2.f * el2.b * el1.a * el1.b) - (2d * el1.a * el2.e * el2.a * el1.e) + (2d * el2.d * el2.b * el1.a * el1.e) - (el2.c * el2.d * el1.a * el1.d) - (2d * el1.a * el2.c * el2.a * el1.f) + (el2.b * el2.b * el1.a * el1.f) + (2d * el2.e * el1.b * el2.a * el1.d) + (el1.e * el1.e * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.d) - (el2.e * el2.b * el1.a * el1.d) + (2d * el1.f * el1.c * el2.a * el2.a) - (el1.f * el2.a * el2.b * el1.b) + (el2.c * el1.d * el1.d * el2.a) + (el2.d * el2.d * el1.a * el1.c) - (el2.e * el2.d * el1.a * el1.b) - (2d * el1.a * el2.f * el2.a * el1.c),
                 d: (-2d * el1.a * el2.a * el1.c * el2.e) + (el2.e * el2.a * el1.b * el1.b) + (2d * el2.c * el1.b * el2.a * el1.d) - (el1.c * el2.a * el2.b * el1.d) + (el2.b * el2.b * el1.a * el1.e) - (el2.e * el2.b * el1.a * el1.b) - (2d * el1.a * el2.c * el2.a * el1.e) - (el1.e * el2.a * el2.b * el1.b) - (el2.c * el2.b * el1.a * el1.d) + (2d * el2.e * el2.c * el1.a * el1.a) + (2d * el1.e * el1.c * el2.a * el2.a) - (el1.c * el2.a * el2.d * el1.b) + (2d * el2.d * el2.b * el1.a * el1.c) - (el2.c * el2.d * el1.a * el1.b),
                 e: (el1.a * el1.a * el2.c * el2.c) - (2d * el1.a * el2.c * el2.a * el1.c) + (el2.a * el2.a * el1.c * el1.c) - (el1.b * el1.a * el2.b * el2.c) - (el1.b * el2.b * el2.a * el1.c) + (el1.b * el1.b * el2.a * el2.c) + (el1.c * el1.a * el2.b * el2.b)
             );
+        }
 
         /// <summary>
         /// Create a general quadratic function for the ellipse a x^2 + b x y + c y^2 + d x + e y + c = 0
@@ -319,6 +322,7 @@ namespace Engine
         public static (double a, double b, double c, double d, double e, double f) GetQuadratic(
             (double x, double y) origin, double rx, double ry, (double cos, double sin) rotation, double epsilon = Epsilon)
         {
+            _ = epsilon;
             var (x, y) = origin;
 
             // a squared.
@@ -554,7 +558,7 @@ namespace Engine
         /// <summary>
         /// Compute absolute vertices of the rotated rectangle.
         /// The first four parameters describe the rectangle.
-        /// The rectangle.mode affects rects's origin.
+        /// The rectangle.mode affects rectangles's origin.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -567,7 +571,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y)[] Rect2Points(double x, double y, double w, double h, double theta, Mode rectangleMode)
         {
-            if (rectangleMode == Mode.CORNERS)
+            if (rectangleMode == Mode.Corners)
             {
                 w -= x;
                 h -= y;
@@ -578,7 +582,7 @@ namespace Engine
             {
                 var cosine = Cos(-theta);  /* Compute once... */
                 var sine = Sin(-theta);  /* ... use often. */
-                if (rectangleMode == Mode.CENTER)
+                if (rectangleMode == Mode.Center)
                 {
                     /* Rotate four corners around the center, (x, y) */
                     w /= 2;
@@ -601,7 +605,7 @@ namespace Engine
                     p[i].y += y;
                 }
             }
-            else if (rectangleMode == Mode.CENTER)
+            else if (rectangleMode == Mode.Center)
             {
                 /* No rotation. (x, y) is the center of the rectangle. */
                 w /= 2;

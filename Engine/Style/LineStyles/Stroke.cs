@@ -77,7 +77,7 @@ namespace Engine
         /// <param name="width">The width.</param>
         public Stroke(IFill brush, double width = 1)
         {
-            Width = 1;
+            Width = width;
             MiterLimit = 0;
             Fill = brush;
             StartCap = LineCapStyle.Flat;

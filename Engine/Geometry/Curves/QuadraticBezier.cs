@@ -473,7 +473,7 @@ namespace Engine
                 return (List<double>)CachingProperty(() => Extrema(DerivativeCoordinates));
 
                 // ToDo: What are DRoots?
-                List<double> Extrema(List<List<Point2D>> derivativeCoordinates)
+                static List<double> Extrema(List<List<Point2D>> derivativeCoordinates)
                 {
                     var p = (from a in derivativeCoordinates[0] select a.X).ToList();
                     var r = Maths.DRoots(p);

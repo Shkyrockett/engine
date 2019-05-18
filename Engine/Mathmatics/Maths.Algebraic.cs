@@ -199,8 +199,11 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> LinearDRoots(double a, double b, double epsilon = Epsilon)
-             // ToDo: What are DRoots?
-             => a != b ? (new double[] { a / (a - b) }) : (new double[] { });
+        {
+            // ToDo: What are DRoots?
+            _ = epsilon;
+            return a != b ? (new double[] { a / (a - b) }) : (new double[] { });
+        }
 
         /// <summary>
         /// The quadratic d roots.
@@ -218,6 +221,7 @@ namespace Engine
         public static IList<double> QuadraticDRoots(double a, double b, double c, double epsilon = Epsilon)
         {
             // ToDo: What are DRoots?
+            _ = epsilon;
             var det = a - (2 * b) + c;
             if (det != 0)
             {
@@ -565,18 +569,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = Epsilon)
         {
-            var A = b / a;
-            var B = c / a;
-            var C = d / a;
-            var D = e / a;
-            var E = f / a;
+            //var A = b / a;
+            //var B = c / a;
+            //var C = d / a;
+            //var D = e / a;
+            //var E = f / a;
 
             var coeff = new List<double> { a, b, c, d, e, f };
-
-            var beta2 = 0d;
-            var delta1 = 0d;
-            var delta2 = 0d;
-            var delta3 = 0d;
 
             // order
             var n = 4;// 5;
@@ -585,7 +584,7 @@ namespace Engine
 
             var a_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var b_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
-            var c_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
+            //var c_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var d_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var real = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var imag = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
@@ -613,6 +612,7 @@ namespace Engine
                 var beta1 = Random(OneHalf, 1d);
                 var limit = 1000;
 
+                double delta1;
                 do
                 {
                     b_[0] = 0d;
@@ -629,6 +629,8 @@ namespace Engine
                     }
 
                     double alfa2;
+
+                    double beta2;
                     {
                         var j = n - 1;
                         var k = n - 2;
@@ -654,11 +656,12 @@ namespace Engine
 
                 delta1 = (alfa1 * alfa1) - (4d * beta1);
 
+                double delta2;
                 // imaginary roots
                 if (delta1 < 0)
                 {
                     delta2 = Sqrt(Math.Abs(delta1)) * OneHalf;
-                    delta3 = -alfa1 * OneHalf;
+                    var delta3 = -alfa1 * OneHalf;
 
                     real[count] = delta3;
                     imag[count] = delta2;

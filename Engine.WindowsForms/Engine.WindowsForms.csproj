@@ -117,8 +117,8 @@
     <Compile Include="Extensions\PointFExtensions.cs" />
     <Compile Include="Extensions\RectangleExtensions.cs" />
     <Compile Include="Extensions\RectangleFExtensions.cs" />
-    <Compile Include="Extensions\SizeExtentions.cs" />
-    <Compile Include="Extensions\SizeFExtentions.cs" />
+    <Compile Include="Extensions\SizeExtensions.cs" />
+    <Compile Include="Extensions\SizeFExtensions.cs" />
     <Compile Include="Extensions\WinformsTypeExtensions.cs" />
     <Compile Include="Extensions\BitmapExtensions.cs" />
     <Compile Include="Imaging\ImageCompare.cs" />

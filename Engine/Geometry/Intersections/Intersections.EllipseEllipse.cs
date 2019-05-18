@@ -187,6 +187,21 @@ namespace Engine
             double h0, double k0, double a0, double b0, double cosA0, double sinA0,
             double h1, double k1, double a1, double b1, double cosA1, double sinA1,
             double epsilon = Epsilon)
-            => false;
+        {
+            _ = h0;
+            _ = k0;
+            _ = a0;
+            _ = b0;
+            _ = cosA0;
+            _ = sinA0;
+            _ = h1;
+            _ = k1;
+            _ = a1;
+            _ = b1;
+            _ = cosA1;
+            _ = sinA1;
+            _ = epsilon;
+            return false;
+        }
     }
 }

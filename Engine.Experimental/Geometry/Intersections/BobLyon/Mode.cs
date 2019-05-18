@@ -21,11 +21,11 @@ namespace Engine
         /// <summary>
         /// The CORNERS.
         /// </summary>
-        CORNERS,
+        Corners,
 
         /// <summary>
         /// The CENTER.
         /// </summary>
-        CENTER,
+        Center,
     }
 }

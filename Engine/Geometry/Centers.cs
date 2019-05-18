@@ -38,7 +38,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) LineSegmentCenter(double x1, double y1, double x2, double y2)
-            => (x1 + (x2 - x1) * 0.5d, y1 + (y2 - y1) * 0.5d);
+            => (x1 + ((x2 - x1) * 0.5d), y1 + ((y2 - y1) * 0.5d));
 
         /// <summary>
         /// Compute and return the centroid of the polygon.  See
@@ -143,8 +143,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) RectangleCenter(Rectangle2D rectangle)
             => (
-                rectangle.Left + (rectangle.Right - rectangle.Left) * 0.5d,
-                rectangle.Top + (rectangle.Bottom - rectangle.Top) * 0.5d
+                rectangle.Left + ((rectangle.Right - rectangle.Left) * 0.5d),
+                rectangle.Top + ((rectangle.Bottom - rectangle.Top) * 0.5d)
                 );
     }
 }

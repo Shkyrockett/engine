@@ -233,7 +233,7 @@ namespace Engine.Experimental
                 }
 
                 tris.Capacity = triangles.Count;
-                foreach (PolygonContour p in triangles)
+                foreach (var p in triangles)
                 {
                     tris.Add(p);
                 }

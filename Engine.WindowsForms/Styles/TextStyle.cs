@@ -39,7 +39,7 @@ namespace Engine.Imaging
         /// <param name="font">The font.</param>
         public TextStyle(Brush foreBrush, Brush backBrush, Font font)
             : this(new Pen(foreBrush), new Pen(backBrush), null)
-        { }
+        { _ = font; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TextStyle"/> class.

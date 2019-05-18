@@ -39,6 +39,9 @@ namespace Engine.File
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="ActiveSensing"/>.</returns>
         internal static ActiveSensing Read(BinaryReaderExtended reader, EventStatus status)
-            => new ActiveSensing(status);
+        {
+            _ = reader;
+            return new ActiveSensing(status);
+        }
     }
 }

@@ -39,6 +39,9 @@ namespace Engine.File
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="TimingClock"/>.</returns>
         internal static TimingClock Read(BinaryReaderExtended reader, EventStatus status)
-            => new TimingClock(status);
+        {
+            _ = reader;
+            return new TimingClock(status);
+        }
     }
 }

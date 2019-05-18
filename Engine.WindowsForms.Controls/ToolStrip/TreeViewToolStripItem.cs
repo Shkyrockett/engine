@@ -23,7 +23,7 @@ namespace Engine.WindowsForms
         /// <summary>
         /// The tree.
         /// </summary>
-        private readonly TreeView tree = new TreeView();
+        internal readonly TreeView tree = new TreeView();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TreeViewToolStripItem"/> class.

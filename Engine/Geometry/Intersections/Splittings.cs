@@ -18,9 +18,9 @@ using static Engine.Maths;
 namespace Engine
 {
     /// <summary>
-    /// The splitings class.
+    /// The splittings class.
     /// </summary>
-    public static class Splitings
+    public static class Splittings
     {
         /// <summary>
         /// The split.
@@ -31,7 +31,10 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Split(this Point2D point, double t)
-            => point;
+        {
+            _ = t;
+            return point;
+        }
 
         /// <summary>
         /// The split.
@@ -42,7 +45,10 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Split(this Point2D point, params double[] ts)
-            => point;
+        {
+            _ = ts;
+            return point;
+        }
 
         /// <summary>
         /// The split.
@@ -53,7 +59,10 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Split(this Point2D point, IEnumerable<double> ts)
-            => point;
+        {
+            _ = ts;
+            return point;
+        }
 
         /// <summary>
         /// The split.

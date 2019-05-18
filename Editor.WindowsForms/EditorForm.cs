@@ -75,7 +75,7 @@ namespace Editor
         /// <summary>
         /// The text measurer.
         /// </summary>
-        private readonly WinFormsTextMeasurer TextMeasurer = new WinFormsTextMeasurer();
+        private readonly WinFormsTextMeasurer textMeasurer = new WinFormsTextMeasurer();
         #endregion Fields
 
         #region Constructors
@@ -276,7 +276,7 @@ namespace Editor
         private void CanvasPanel_Paint(object sender, PaintEventArgs e)
         {
             // Reference the panel.
-            var panel = sender as CanvasPanel;
+            //var panel = sender as CanvasPanel;
 
             // Run the base painting first.
             base.OnPaint(e);
@@ -511,7 +511,7 @@ namespace Editor
         /// Build the map.
         /// </summary>
         public void BuildMap()
-            => TestCases.Tests(this, vectorMap, toolStack, CanvasPanel, TextMeasurer, out boundaryItem);
+            => TestCases.Tests(this, vectorMap, toolStack, CanvasPanel, textMeasurer, out boundaryItem);
 
         /// <summary>
         /// Save the as.

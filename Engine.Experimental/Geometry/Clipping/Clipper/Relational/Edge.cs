@@ -10,7 +10,7 @@
 
 using System;
 using static System.Math;
-using static Engine.Maths;
+using static Engine.Mathematics;
 
 namespace Engine.Experimental
 {

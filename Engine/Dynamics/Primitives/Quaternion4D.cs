@@ -17,8 +17,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Mathematics;
 using static System.Math;
-using static Engine.Maths;
 
 namespace Engine
 {
@@ -28,6 +28,7 @@ namespace Engine
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Quaternion4D>))]
+    [DebuggerDisplay("{ToString()}")]
     public struct Quaternion4D
         : IVector<Quaternion4D>
     {
@@ -96,6 +97,7 @@ namespace Engine
         { }
         #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Quaternion4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
         /// </summary>
@@ -113,6 +115,7 @@ namespace Engine
             z = Z;
             w = W;
         }
+        #endregion Deconstructors
 
         #region Properties
         /// <summary>
@@ -426,7 +429,7 @@ namespace Engine
         /// <param name="quaternion">The <see cref="Quaternion4D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double X, double Y, double Z, double W) (Quaternion4D quaternion) => (quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
+        public static implicit operator (double X, double Y, double Z, double W)(Quaternion4D quaternion) => (quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
 
         /// <summary>
         /// Tuple to <see cref="Quaternion4D"/>.
@@ -598,6 +601,7 @@ namespace Engine
         /// <param name="a">The object to compare.</param>
         /// <param name="b">The object to compare against.</param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Quaternion4D a, Quaternion4D b) => Equals(a, b);
 
@@ -649,6 +653,7 @@ namespace Engine
         /// an exact comparison between two values which are logically equal may fail.
         /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
         /// </remarks>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Quaternion4D value) => Equals(this, value);
 
@@ -689,22 +694,7 @@ namespace Engine
         /// <returns>A string representation of this <see cref="Quaternion4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Quaternion4D"/> class based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Quaternion4D);
             var s = Tokenizer.GetNumericListSeparator(provider);

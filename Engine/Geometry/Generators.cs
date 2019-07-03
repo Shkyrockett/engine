@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static System.Math;
-using static Engine.Maths;
+using static Engine.Mathematics;
 
 namespace Engine
 {

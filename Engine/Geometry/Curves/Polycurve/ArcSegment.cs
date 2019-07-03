@@ -11,10 +11,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Mathematics;
+using static Engine.Operations;
 using static System.Math;
-using static Engine.Maths;
 
 namespace Engine
 {
@@ -22,6 +24,7 @@ namespace Engine
     /// The arc segment class.
     /// </summary>
     [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public class ArcSegment
         : CurveSegment
     {
@@ -214,7 +217,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the first radius of the elliptical arc.
-        /// </summary>
+        /// </summary>
         [XmlAttribute("rx")]
         [Browsable(true)]
         [Category("Elements")]
@@ -234,7 +237,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the second radius of elliptical arc.
-        /// </summary>
+        /// </summary>
         [XmlAttribute("ry")]
         [Browsable(true)]
         [Category("Elements")]
@@ -254,7 +257,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the Angle of the elliptical arc.
-        /// </summary>
+        /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
         [GeometryAngleRadians]
@@ -276,7 +279,7 @@ namespace Engine
 
         /// <summary>
         /// Gets or sets the Angle of the elliptical arc in Degrees.
-        /// </summary>
+        /// </summary>
         [XmlAttribute(nameof(angle))]
         [Browsable(false)]
         [GeometryAngleDegrees]

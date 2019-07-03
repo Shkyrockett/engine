@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -25,6 +26,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Rectangle2D))]
     [XmlType(TypeName = "rect", Namespace = "http://www.w3.org/2000/svg")]
+    [DebuggerDisplay("{ToString()}")]
     public class Rectangle2D
         : Shape
     {
@@ -792,50 +794,6 @@ namespace Engine
             return rect;
         }
         #endregion Factories
-
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Rectangle2D)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Rectangle2D)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Rectangle2D)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Rectangle2D)} has been deserialized.");
-        //}
-
-        //#endregion
 
         #region Mutators
         /// <summary>

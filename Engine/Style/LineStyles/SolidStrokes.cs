@@ -1,5 +1,8 @@
 ﻿namespace Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class SolidStrokes
     {
         /// <summary>

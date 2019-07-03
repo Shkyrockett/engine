@@ -8,6 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace Engine

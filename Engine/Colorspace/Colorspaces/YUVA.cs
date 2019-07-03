@@ -9,12 +9,14 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics;
 
 namespace Engine.Colorspace
 {
     /// <summary>
     /// The YUVA struct.
     /// </summary>
+    [DebuggerDisplay("{ToString()}")]
     public struct YUVA
         : IColor
     {

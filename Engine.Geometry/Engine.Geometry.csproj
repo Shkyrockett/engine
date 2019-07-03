@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
+    <Version>0.0.0.1</Version>
+    <Authors>Shkyrockett</Authors>
+    <Copyright>Copyright © 2013 - 2019 Shkyrockett</Copyright>
+    <Description>A Geometry Library for Engine.</Description>
+  </PropertyGroup>
+
+</Project>

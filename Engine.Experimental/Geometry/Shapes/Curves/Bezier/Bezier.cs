@@ -13,8 +13,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static Engine.Maths;
 using static System.Math;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -891,7 +892,7 @@ namespace Engine
                 _p = new List<Point2D>();
                 for (i = 0, l = p.Count - 1; i < l; i++)
                 {
-                    pt = Interpolators.Linear(p[i], p[i + 1], t);
+                    pt = Interpolators.Linear(t, p[i], p[i + 1]);
                     //q[idx++] = pt;
                     q.Add(pt);
                     _p.Add(pt);

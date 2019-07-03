@@ -11,11 +11,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Xml.Serialization;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Engine
 {
@@ -30,6 +30,7 @@ namespace Engine
     [GraphicsObject]
     //[DisplayName(nameof(BezierSegment))]
     [XmlType(TypeName = "bezier-Segment")]
+    [DebuggerDisplay("{ToString()}")]
     public class BezierSegment
         : Shape
     {
@@ -109,8 +110,7 @@ namespace Engine
         /// Gets the bounds.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public override Rectangle2D Bounds
-            => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
+        public override Rectangle2D Bounds => (Rectangle2D)CachingProperty(() => Measurements.BezierBounds(CurveX, CurveY));
 
         /// <summary>
         /// Gets the curve x.
@@ -144,53 +144,8 @@ namespace Engine
         /// Gets the degree.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public PolynomialDegree Degree
-            => (PolynomialDegree)(Points.Length - 1);
+        public PolynomialDegree Degree => (PolynomialDegree)(Points.Length - 1);
         #endregion Properties
-
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(BezierSegment)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(BezierSegment)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(BezierSegment)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(BezierSegment)} has been deserialized.");
-        //}
-
-        //#endregion
 
         #region Methods
         /// <summary>

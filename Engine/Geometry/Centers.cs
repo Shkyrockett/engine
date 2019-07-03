@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 using static System.Math;
-using static Engine.Maths;
+using static Engine.Mathematics;
 
 namespace Engine
 {

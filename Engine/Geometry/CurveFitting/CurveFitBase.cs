@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using static System.Math;
-using static Engine.Maths;
+using static Engine.Mathematics;
 
 namespace Engine
 {
@@ -71,7 +71,7 @@ namespace Engine
         {
             var totalLen = arclen[arclen.Count - 1];
             var p0 = points[0];
-            var tanL = Primitives.Normalize(points[1] - p0);
+            var tanL = Operations.Normalize(points[1] - p0);
             var total = tanL;
             var weightTotal = 1d;
             last = Min(EndTangentNPoints, last - 1);
@@ -79,14 +79,14 @@ namespace Engine
             {
                 var ti = 1d - (arclen[i] / totalLen);
                 var weight = ti * ti * ti;
-                var v = Primitives.Normalize(points[i] - p0);
+                var v = Operations.Normalize(points[i] - p0);
                 total += v * weight;
                 weightTotal += weight;
             }
             // if the vectors add up to zero (IE going opposite directions), there's no way to normalize them
             if (total.Length > epsilon)
             {
-                tanL = Primitives.Normalize(total / weightTotal);
+                tanL = Operations.Normalize(total / weightTotal);
             }
 
             return tanL;
@@ -308,13 +308,13 @@ namespace Engine
                 // C matrix
                 var a0 = tanL * t1;
                 var a1 = tanR * t2;
-                c00 += Primitives.DotProduct(a0, a0);
-                c01 += Primitives.DotProduct(a0, a1);
-                c11 += Primitives.DotProduct(a1, a1);
+                c00 += Operations.DotProduct(a0, a0);
+                c01 += Operations.DotProduct(a0, a1);
+                c11 += Operations.DotProduct(a1, a1);
 
                 // X matrix
-                x0 += Primitives.DotProduct((Point2D)a0, v);
-                x1 += Primitives.DotProduct((Point2D)a1, v);
+                x0 += Operations.DotProduct((Point2D)a0, v);
+                x1 += Operations.DotProduct((Point2D)a1, v);
             }
 
             // determinants of X and C matrices

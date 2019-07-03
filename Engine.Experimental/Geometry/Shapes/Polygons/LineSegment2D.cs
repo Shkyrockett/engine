@@ -80,7 +80,7 @@
         /// <returns></returns>
         public LineSegment2D Reverse()
         {
-            Maths.Swap(ref a, ref b);
+            Operations.Swap(ref a, ref b);
             return this;
         }
     }

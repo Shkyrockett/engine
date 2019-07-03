@@ -137,7 +137,7 @@ namespace Engine
             var u_b = ((b2.Y - b1.Y) * (a2.X - a1.X)) - ((b2.X - b1.X) * (a2.Y - a1.Y));
 
             // Infinite lines intersect somewhere
-            if (!(-Maths.Epsilon < u_b && u_b < Maths.Epsilon))   // e.g. u_b != 0.0
+            if (!(-Mathematics.Epsilon < u_b && u_b < Mathematics.Epsilon))   // e.g. u_b != 0.0
             {
                 var ua = ua_t / u_b;
                 var ub = ub_t / u_b;
@@ -159,8 +159,8 @@ namespace Engine
                 // Coincident
                 // find the common overlapping section of the lines
                 // first find the distance (squared) from one point (a1) to each point
-                if ((-Maths.Epsilon < ua_t && ua_t < Maths.Epsilon)
-                   || (-Maths.Epsilon < ub_t && ub_t < Maths.Epsilon))
+                if ((-Mathematics.Epsilon < ua_t && ua_t < Mathematics.Epsilon)
+                   || (-Mathematics.Epsilon < ub_t && ub_t < Mathematics.Epsilon))
                 {
                     if (a1.Equals(a2)) // danger!
                     {

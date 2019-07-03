@@ -11,7 +11,8 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using static System.Math;
-using static Engine.Maths;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine.Experimental
 {
@@ -518,12 +519,12 @@ namespace Engine.Experimental
                 Norms.Capacity = pathInCnt;
                 for (var j = 0; j < pathInCnt - 1; j++)
                 {
-                    Norms.Add(GetUnitNormal(pathIn[j].X, pathIn[j].Y, pathIn[j + 1].X, pathIn[j + 1].Y));
+                    Norms.Add(UnitNormal(pathIn[j].X, pathIn[j].Y, pathIn[j + 1].X, pathIn[j + 1].Y));
                 }
 
                 if (node.EndType == LineEndType.OpenJoined || node.EndType == LineEndType.ClosedPolygon)
                 {
-                    Norms.Add(GetUnitNormal(pathIn[pathInCnt - 1].X, pathIn[pathInCnt - 1].Y, pathIn[0].X, pathIn[0].Y));
+                    Norms.Add(UnitNormal(pathIn[pathInCnt - 1].X, pathIn[pathInCnt - 1].Y, pathIn[0].X, pathIn[0].Y));
                 }
                 else
                 {

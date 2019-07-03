@@ -11,10 +11,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Mathematics;
+using static Engine.Operations;
 using static System.Math;
-using static Engine.Maths;
 
 namespace Engine
 {
@@ -28,6 +30,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName("Elliptical Arc")]
     [XmlType(TypeName = "arc-Elliptical")]
+    [DebuggerDisplay("{ToString()}")]
     public class EllipticalArc
         : Shape
     {
@@ -366,7 +369,7 @@ namespace Engine
         [Description("The point on the Elliptical arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
             //=> (Point2D)CachingProperty(() => (Point2D)Interpolators.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, 0));
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(cx, cy, rX, rY, CosAngle, SinAngle, PolarStartAngle));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(PolarStartAngle, cx, cy, rX, rY, CosAngle, SinAngle));
 
         /// <summary>
         /// Gets the point on the Elliptical arc circumference coincident to the ending angle.
@@ -377,7 +380,7 @@ namespace Engine
         [Description("The point on the Elliptical arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
             //=> (Point2D)CachingProperty(() => (Point2D)Interpolators.EllipticalArc(x, y, rX, rY, angle, startAngle, sweepAngle, 1));
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(cx, cy, rX, rY, CosAngle, SinAngle, PolarEndAngle));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.Ellipse(PolarEndAngle, cx, cy, rX, rY, CosAngle, SinAngle));
 
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the elliptical arc.
@@ -936,50 +939,6 @@ namespace Engine
             => new EllipticalArc(tuple);
         #endregion Operators
 
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(EllipticalArc)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(EllipticalArc)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(EllipticalArc)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(EllipticalArc)} has been deserialized.");
-        //}
-
-        //#endregion
-
         #region Interpolators
         /// <summary>
         /// The interpolate.
@@ -987,7 +946,7 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
-            => Interpolators.EllipticalArc(cx, cy, rX, rY, CosAngle, SinAngle, startAngle, sweepAngle, t);
+            => Interpolators.EllipticalArc(t, cx, cy, rX, rY, CosAngle, SinAngle, startAngle, sweepAngle);
         #endregion Interpolators
 
         #region Methods

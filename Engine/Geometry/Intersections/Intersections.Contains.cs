@@ -37,9 +37,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static Engine.Maths;
 using static System.Math;
+using static Engine.Mathematics;
 using static Engine.Measurements;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -835,8 +836,8 @@ namespace Engine
                 && pY >= y - r && pY <= y + r)
             {
                 // Find the points of the chord.
-                var (startPointX, startPointY) = Interpolators.CircularArc(x, y, r, startAngle, sweepAngle, 0);
-                var (endPointX, endPointY) = Interpolators.CircularArc(x, y, r, startAngle, sweepAngle, 1);
+                var (startPointX, startPointY) = Interpolators.CircularArc(0, x, y, r, startAngle, sweepAngle);
+                var (endPointX, endPointY) = Interpolators.CircularArc(1, x, y, r, startAngle, sweepAngle);
 
                 // Find the determinant of the chord and point.
                 var determinant = ((startPointX - pX) * (endPointY - pY)) - ((endPointX - pX) * (startPointY - pY));

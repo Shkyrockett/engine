@@ -461,8 +461,8 @@ namespace Engine.Experimental
                     else if (!ContainsRect(item.Bounds))
                     {
                         WorldResize(new Rectangle2D(
-                             Primitives.Min(Rect.TopLeft, item.Bounds.TopLeft) * 2,
-                             Primitives.Max(Rect.BottomRight, item.Bounds.BottomRight) * 2));
+                             Operations.Min(Rect.TopLeft, item.Bounds.TopLeft) * 2,
+                             Operations.Max(Rect.BottomRight, item.Bounds.BottomRight) * 2));
                     }
 
                 }

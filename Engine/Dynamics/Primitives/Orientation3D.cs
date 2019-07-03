@@ -10,13 +10,13 @@
 // <remarks></remarks>
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using static Engine.Maths;
-using System.Xml.Serialization;
 using System.Runtime.Serialization;
-using System.ComponentModel;
+using System.Xml.Serialization;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -25,7 +25,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
-    [DebuggerDisplay("{nameof(Roll)}: {Roll ?? double.NaN}, {nameof(Pitch)}: {Pitch ?? double.NaN}, {nameof(Yaw)}: {Yaw ?? double.NaN}")]
+    [DebuggerDisplay("{ToString()}")]
     public struct Orientation3D
         : IVector<Orientation3D>
     {
@@ -69,6 +69,7 @@ namespace Engine
         }
         #endregion Constructors
 
+        #region Deconstructors
         /// <summary>
         /// Deconstruct this <see cref="Orientation3D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
         /// </summary>
@@ -83,6 +84,7 @@ namespace Engine
             pitch = Pitch;
             yaw = Yaw;
         }
+        #endregion Deconstructors
 
         #region Properties
         /// <summary>
@@ -110,8 +112,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator +(Orientation3D value)
-            => (+value.Roll, +value.Pitch, +value.Yaw);
+        public static Orientation3D operator +(Orientation3D value) => UnaryAdd3D(value.Roll, value.Pitch, value.Yaw);
 
         /// <summary>
         /// The operator +.
@@ -119,8 +120,7 @@ namespace Engine
         /// <param name="value">The value.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator +(Orientation3D value, double addend)
-            => Add3D(value.Roll, value.Pitch, value.Yaw, addend);
+        public static Orientation3D operator +(Orientation3D value, double addend) => Add3D(value.Roll, value.Pitch, value.Yaw, addend);
 
         /// <summary>
         /// The operator +.
@@ -128,25 +128,14 @@ namespace Engine
         /// <param name="value">The value.</param>
         /// <param name="addend">The addend.</param>
         /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator +(Orientation3D value, Orientation3D addend)
-            => Add3D(value.Roll, value.Pitch, value.Yaw, addend.Roll, addend.Pitch, addend.Yaw);
+        public static Orientation3D operator +(Orientation3D value, Orientation3D addend) => Add3D(value.Roll, value.Pitch, value.Yaw, addend.Roll, addend.Pitch, addend.Yaw);
 
         /// <summary>
         /// The operator -.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator -(Orientation3D value)
-            => (-value.Roll, -value.Pitch, -value.Yaw);
-
-        /// <summary>
-        /// The operator -.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="subend">The subend.</param>
-        /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator -(Orientation3D value, double subend)
-            => Subtract3D(value.Roll, value.Pitch, value.Yaw, subend);
+        public static Orientation3D operator -(Orientation3D value) => UnaryNegate3D(value.Roll, value.Pitch, value.Yaw);
 
         /// <summary>
         /// The operator -.
@@ -154,8 +143,15 @@ namespace Engine
         /// <param name="value">The value.</param>
         /// <param name="subend">The subend.</param>
         /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator -(Orientation3D value, Orientation3D subend)
-            => Subtract3D(value.Roll, value.Pitch, value.Yaw, subend.Roll, subend.Pitch, subend.Yaw);
+        public static Orientation3D operator -(Orientation3D value, double subend) => SubtractSubtrahend3D(value.Roll, value.Pitch, value.Yaw, subend);
+
+        /// <summary>
+        /// The operator -.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns>The <see cref="Orientation3D"/>.</returns>
+        public static Orientation3D operator -(Orientation3D value, Orientation3D subend) => Subtract3D(value.Roll, value.Pitch, value.Yaw, subend.Roll, subend.Pitch, subend.Yaw);
 
         /// <summary>
         /// The operator *.
@@ -163,8 +159,7 @@ namespace Engine
         /// <param name="value">The value.</param>
         /// <param name="factor">The factor.</param>
         /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator *(Orientation3D value, double factor)
-            => Scale3D(value.Roll, value.Pitch, value.Yaw, factor);
+        public static Orientation3D operator *(Orientation3D value, double factor) => Scale3D(value.Roll, value.Pitch, value.Yaw, factor);
 
         /// <summary>
         /// The operator *.
@@ -172,8 +167,7 @@ namespace Engine
         /// <param name="factor">The factor.</param>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator *(double factor, Orientation3D value)
-            => Scale3D(value.Roll, value.Pitch, value.Yaw, factor);
+        public static Orientation3D operator *(double factor, Orientation3D value) => Scale3D(value.Roll, value.Pitch, value.Yaw, factor);
 
         /// <summary>
         /// The operator /.
@@ -181,8 +175,7 @@ namespace Engine
         /// <param name="divisor">The divisor.</param>
         /// <param name="dividend">The dividend.</param>
         /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator /(Orientation3D divisor, double dividend)
-            => Divide3D1D(divisor.Roll, divisor.Pitch, divisor.Yaw, dividend);
+        public static Orientation3D operator /(Orientation3D divisor, double dividend) => DivideByDividend3D(divisor.Roll, divisor.Pitch, divisor.Yaw, dividend);
 
         /// <summary>
         /// The operator /.
@@ -190,8 +183,7 @@ namespace Engine
         /// <param name="divisor">The divisor.</param>
         /// <param name="dividend">The dividend.</param>
         /// <returns>The <see cref="Orientation3D"/>.</returns>
-        public static Orientation3D operator /(double divisor, Orientation3D dividend)
-            => Divide1D3D(divisor, dividend.Roll, dividend.Pitch, dividend.Yaw);
+        public static Orientation3D operator /(double divisor, Orientation3D dividend) => DivideDivisor3D(divisor, dividend.Roll, dividend.Pitch, dividend.Yaw);
 
         /// <summary>
         /// Compares two <see cref="Orientation3D"/> objects.
@@ -230,6 +222,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Orientation3D a, Orientation3D b)
             => Equals(a, b);
@@ -258,6 +251,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Orientation3D value) => Equals(this, value);
 
@@ -302,26 +296,11 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Vector3D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Orientation3D);
             var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Orientation3D)}=[{nameof(Roll)}:{Roll.ToString(format, provider)}{s} {nameof(Pitch)}:{Pitch.ToString(format, provider)}{s} {nameof(Yaw)}:{Yaw.ToString(format, provider)}]";
+            return $"{nameof(Orientation3D)}({nameof(Roll)}:{Roll.ToString(format, provider)}{s} {nameof(Pitch)}:{Pitch.ToString(format, provider)}{s} {nameof(Yaw)}:{Yaw.ToString(format, provider)})";
         }
         #endregion Public Methods
     }

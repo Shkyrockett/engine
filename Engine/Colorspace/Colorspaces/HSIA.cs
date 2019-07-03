@@ -9,12 +9,14 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics;
 
 namespace Engine.Colorspace
 {
     /// <summary>
     /// <see cref="HSIA"/> color structure.
     /// </summary>
+    [DebuggerDisplay("{ToString()}")]
     public struct HSIA
         : IColor
     {

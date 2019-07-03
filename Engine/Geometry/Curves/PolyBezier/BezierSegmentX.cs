@@ -11,11 +11,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Xml.Serialization;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Engine
 {
@@ -29,6 +29,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(BezierSegmentX))]
     [XmlType(TypeName = "bezier-Segment")]
+    [DebuggerDisplay("{ToString()}")]
     public class BezierSegmentX
         : Shape
     {
@@ -270,50 +271,6 @@ namespace Engine
         public PolynomialDegree Degree
             => (PolynomialDegree)Handles.Length;
         #endregion Properties
-
-        //#region Serialization
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        //#endregion
 
         #region Methods
         /// <summary>

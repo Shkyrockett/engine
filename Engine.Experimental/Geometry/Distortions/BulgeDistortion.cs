@@ -215,11 +215,11 @@ namespace Engine
             const int WarpFactor = 4;
             var xAmp = WarpFactor * width / 300d;
             var yAmp = WarpFactor * height / 50d;
-            var xFreq = Maths.Tau / width;
-            var yFreq = Maths.Tau / height;
+            var xFreq = Mathematics.Tau / width;
+            var yFreq = Mathematics.Tau / height;
             var deformed = new Point2D[path.Count];
-            var xSeed = rng.NextDouble() * Maths.Tau;
-            var ySeed = rng.NextDouble() * Maths.Tau;
+            var xSeed = rng.NextDouble() * Mathematics.Tau;
+            var ySeed = rng.NextDouble() * Mathematics.Tau;
             var i = 0;
             foreach (var original in path.Points)
             {

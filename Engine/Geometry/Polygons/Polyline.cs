@@ -27,6 +27,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Polyline))]
     [XmlType(TypeName = "polyline", Namespace = "http://www.w3.org/2000/svg")]
+    [DebuggerDisplay("{ToString()}")]
     public class Polyline
         : Shape, IEnumerable<Point2D>
     {
@@ -169,50 +170,6 @@ namespace Engine
             => points.Count;
         #endregion Properties
 
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Polyline)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Polyline)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Polyline)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Polyline)} has been deserialized.");
-        //}
-
-        //#endregion
-
         #region Mutators
         /// <summary>
         /// Add.
@@ -280,7 +237,7 @@ namespace Engine
                 {
                     // Interpolate the position.
                     var th = (accumulatedLengthT - weights[i].accumulated) / weights[i + 1].length;
-                    cursor = Interpolators.Linear(points[i], points[i + 1], th);
+                    cursor = Interpolators.Linear(th, points[i], points[i + 1]);
                     break;
                 }
             }

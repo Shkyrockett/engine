@@ -10,7 +10,8 @@
 
 using System.Runtime.CompilerServices;
 using static System.Math;
-using static Engine.Maths;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine
 {

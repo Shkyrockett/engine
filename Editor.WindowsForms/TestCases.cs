@@ -20,7 +20,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using static System.Math;
-using static Engine.Maths;
+using static Engine.Mathematics;
 
 namespace Editor
 {
@@ -52,6 +52,7 @@ namespace Editor
             /* Experimental Previews */
 
             //BezierExp(vectorMap);
+            //Parabola(vectorMap);
             DrawParabola(vectorMap);
             //EllipseEllipseIntersection(vectorMap);
             //EnvelopeWarp(vectorMap);
@@ -213,6 +214,43 @@ namespace Editor
         /// 
         /// </summary>
         /// <param name="vectorMap"></param>
+        public static void Parabola(VectorMap vectorMap)
+        {
+            var a = -0.0125d; // The aspect of the parabola.
+            var h = 125d; // The horizontal shift of the vertex.
+            var k = 155d; // The vertex height of the parabola.
+            var b = -2d * a * h; // Get b from vertex form.
+            var c = (b * b / (4d * a)) + k; // get c from vertex form.
+            var intercept = 111.3552872566004410259665746707469224929809570312d;
+            var l = h - intercept;
+            var r = h + intercept;
+            var bezier1 = new QuadraticBezier(Conversions.StandardParabolaToQuadraticBezier(a, b, c, l, r)).ToCubicBezier();
+            var bezierItem1 = new GraphicItem(bezier1, intersectionRed)
+            {
+                Name = "Bezier Parabola Standard"
+            };
+
+            var line1 = new Line(h, k, 1d, 0d);
+            var lineItem1 = new GraphicItem(line1, paperLikeStyle)
+            {
+                Name = "Horizontal Line"
+            };
+
+            var line2 = new Line(h, k, 0d, 1d);
+            var lineItem2 = new GraphicItem(line2, paperLikeStyle)
+            {
+                Name = "Vertical Line"
+            };
+
+            vectorMap.Add(lineItem1);
+            vectorMap.Add(lineItem2);
+            vectorMap.Add(bezierItem1);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
         public static void DrawParabola(VectorMap vectorMap)
         {
             var a = 0.0125d; // The aspect of the parabola.
@@ -237,7 +275,7 @@ namespace Editor
             (var x1, var y1) = (50d, 100d);
             (var x2, var y2) = (275d, 150d);
             k = 50;
-            var parabola3 = ParabolaSegment.FindVertexParabolaFromTwoPointsAndK(x1, y1, x2, y2, k);
+            var parabola3 = Conversions.FindVertexParabolaFromTwoPointsAndK(x1, y1, x2, y2, k);
             var bezier3 = new QuadraticBezier(Conversions.VertexParabolaToQuadraticBezier(parabola3.a, parabola3.h, parabola3.k, x1, x2));
             var bezierItem = new GraphicItem(bezier3, intersectionGreen)
             {
@@ -256,11 +294,11 @@ namespace Editor
                 Name = "Vertical Line"
             };
 
-            vectorMap.Add(lineItem1);
-            vectorMap.Add(lineItem2);
+            vectorMap.Add(bezierItem);
             vectorMap.Add(bezierItem1);
             vectorMap.Add(bezierItem2);
-            vectorMap.Add(bezierItem);
+            vectorMap.Add(lineItem1);
+            vectorMap.Add(lineItem2);
         }
 
         /// <summary>
@@ -1434,13 +1472,13 @@ namespace Editor
 
             var (a, b) = Intersections.LineSegmentLineSegmentIntersectionIndexes(segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY, segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
 
-            var pointA = (Point2D)Interpolators.Linear(segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY, a[0]);
+            var pointA = (Point2D)Interpolators.Linear(a[0], segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY);
             var intersectionNodeAItem = new GraphicItem(new NodeRevealer(pointA, 5d), handleStyle)
             {
                 Name = "Intersection Point a"
             };
 
-            var pointB = (Point2D)Interpolators.Linear(segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY, b[0]);
+            var pointB = (Point2D)Interpolators.Linear(b[0], segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
             var intersectionNodeBItem = new GraphicItem(new NodeRevealer(pointB, 5d), handleStyle)
             {
                 Name = "Intersection Point b"
@@ -2417,7 +2455,7 @@ namespace Editor
         public static void ParametricEllipseBounds(VectorMap vectorMap)
         {
             var parametricEllipse = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.UnitPolarEllipse(x, y, w, h, a, t),
+                (x, y, w, h, a, t) => Interpolators.UnitPolarEllipse(t, x, y, w, h, a),
                 (x, y, w, h, a, px, py) => Intersections.EllipseContainsPoint(x, y, w, h, a, px, py),
                 new Point2D(200d, 100d), new Size2D(25d, 50d), 0, 0);
             var parametricEllipseItem = new GraphicItem(parametricEllipse, paperLikeStyle);
@@ -2442,7 +2480,7 @@ namespace Editor
             var startAngle = -45d.ToRadians();
             var sweepAngle = 90d.ToRadians();
             var parametricEllipticArc = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.EllipticalArc(x, y, w, h, a, startAngle, sweepAngle, t),
+                (x, y, w, h, a, t) => Interpolators.EllipticalArc(t, x, y, w, h, a, startAngle, sweepAngle),
                 (x, y, w, h, a, px, py) => Intersections.EllipticalArcContainsPoint(x, y, w, h, a, startAngle, sweepAngle, px, py),
                 new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
             var parametricEllipticArcItem = new GraphicItem(parametricEllipticArc, paperLikeStyle);
@@ -2469,7 +2507,7 @@ namespace Editor
             var sweepAngle = -90d.ToRadians();
 
             var parametricEllipse = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.UnitPolarEllipse(x, y, w, h, a, t),
+                (x, y, w, h, a, t) => Interpolators.UnitPolarEllipse(t, x, y, w, h, a),
                 (x, y, w, h, a, px, py) => Intersections.EllipseContainsPoint(x, y, w, h, a, px, py),
                 new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
             var parametricEllipseItem = new GraphicItem(parametricEllipse, paperLikeStyle);
@@ -2554,7 +2592,7 @@ namespace Editor
             vectorMap.Add(ellipticArcItem);
 
             var parametricEllipticArc = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.EllipticalArc(x, y, w, h, a, startAngle, sweepAngle, t),
+                (x, y, w, h, a, t) => Interpolators.EllipticalArc(t, x, y, w, h, a, startAngle, sweepAngle),
                 (x, y, w, h, a, px, py) => Intersections.EllipticalArcContainsPoint(x, y, w, h, a, startAngle, sweepAngle, px, py),
                 new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
             var parametricEllipticArcItem = new GraphicItem(parametricEllipticArc, paperLikeStyle);
@@ -2565,14 +2603,14 @@ namespace Editor
             vectorMap.Add(parametricEllipticArcItem);
 
             var parametricCircle = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.Circle(x, y, h, t),
+                (x, y, w, h, a, t) => Interpolators.Circle(t, x, y, h),
                 (x, y, w, h, a, px, py) => Intersections.CircleContainsPoint(x, y, h, px, py),
                 new Point2D(100d, 200d), new Size2D(0d, 50d), 0, 0);
             var parametricCircleItem = new GraphicItem(parametricCircle, paperLikeStyle);
             vectorMap.Add(parametricCircleItem);
 
             var parametricCircleArc = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.CircularArc(x, y, h, 0d, 90d.ToRadians(), t),
+                (x, y, w, h, a, t) => Interpolators.CircularArc(t, x, y, h, 0d, 90d.ToRadians()),
                 (x, y, w, h, a, px, py) => Intersections.CircularArcSectorContainsPoint(x, y, h, 0d, 90d.ToRadians(), px, py),
                 new Point2D(150d, 150d), new Size2D(0d, 50d), 0, 0);
             var parametricCircleArcItem = new GraphicItem(parametricCircleArc, paperLikeStyle);
@@ -3057,6 +3095,13 @@ namespace Editor
             var circle = new Circle(left + radius, top + radius, radius);
             var circleItem = new GraphicItem(circle, solidLightBlueStyle);
 
+            var rectangle = new Rectangle2D(left + radius, top - 100, 50 - 10, 100 + radius);
+            var rectangleItem = new GraphicItem(rectangle, selectionStyle);
+
+            var parabola = Conversions.FindStandardParabolaFromThreePoints(rectangle.Left, rectangle.Bottom, rectangle.Center.X, rectangle.Top, rectangle.Right, rectangle.Bottom);
+            var bezier = new QuadraticBezier(Conversions.StandardParabolaToQuadraticBezier(parabola.a, parabola.b, parabola.c, rectangle.Left, rectangle.Right)).ToCubicBezier();
+            var bezierItem = new GraphicItem(bezier, intersectionBlue);
+
             form.ResetAction = new Action(reset);
             void reset()
             {
@@ -3066,6 +3111,8 @@ namespace Editor
                     .OnUpdate(form.UpdateCallback);
             }
 
+            vectorMap.Add(rectangleItem);
+            vectorMap.Add(bezierItem);
             vectorMap.Add(circleItem);
         }
 

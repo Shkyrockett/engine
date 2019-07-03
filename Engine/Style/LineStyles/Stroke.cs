@@ -175,6 +175,9 @@ namespace Engine
         [NotifyParentProperty(true)]
         public IFill Fill { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public float[] DashPattern { get; set; }
 
         /// <summary>

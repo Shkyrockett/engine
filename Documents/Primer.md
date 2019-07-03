@@ -1,66 +1,79 @@
 ﻿# Mathematical Primer
 
-## Formula
+## Mathematical Structure
 
-A **Formula** is a set of rules to come up with a final result.
-
-## Equation
-
-An **Equation** is a formula involving the $=$ (equals) operator. The purpose of an equation is to solve it. You want to find the missing variable.
-An **equation** is a statement that sets of expressions are the same. The following is an equation:
-
-$2x^2+y+1=z$
-
-### Solution
-
-A **Solution** is the result of a formula in an equation.
-
-### Expression
-
-**Expressions** are the sets of terms on both sides of the equals operator in an equation. The expressions are highlighted in red:
-
-$\color{red}2x^2+y+1\color{black}=\color{red}z$
+| Name | Example | Definition |
+|---|---|---|
+| **Formula** |  | A **Formula** is a set of rules to come up with a final result. |
+| **Equation** | $\begin{matrix}2x^2+y+1=z\end{matrix}$ | An **Equation** is a formula involving the $=$ (equals) operator. The purpose of an equation is to solve it. You want to find the missing variable. <br /> An **equation** is a statement where sets of expressions are the same. |
+| **Expression** | $\begin{matrix}\color{red}2x^2+y+1\color{black}=\color{red}z\end{matrix}$ | **Expressions** are the sets of terms on both sides of the equals operator in an equation. |
+| **Solution** | $\begin{matrix}2x^2+y+1=\color{red}z\end{matrix}$ | A **Solution** is the result of a formula in an equation. |
 
 ### Polynomial
 
-A **Polynomial** is a general term for the sets of expressions set up with terms containing constants, coefficients, variables, and exponents.
-
-$3x^3-2x^2+x+1$
+| Name | Example | Definition |
+|---|---|---|
+| **Polynomial** | $\begin{matrix}3x^3-2x^2+x+1\end{matrix}$ | A **Polynomial** is a general term for the sets of expressions set up with terms containing constants, coefficients, variables, and exponents. |
+| **Term** | $\color{red}2x^2\color{black}+\color{red}y\color{black}+\color{red}1\color{black}=\color{red}z$ | **Terms** are the parts of an expression separated by addition or subtraction operators. The terms are highlighted in red. |
+| **Constant** | $\begin{matrix}2x^2+y+\color{red}1\color{black}=z\end{matrix}$ | **Constants** are the Number terms, where the numbers are on their own, are called constants. The constant term is highlighted in red. |
+| **Coefficient** | $\begin{matrix}\color{red}2\color{black}x^2+\color{red}1\color{black}y\color{black}+\color{red}1\color{black}=z\end{matrix}$ | A **coefficient** is the number used to multiply a variable. The coefficient is highlighted below in red: |
 
 #### Common and Uncommon Sub-Sets of Polynomials
 
 | Name | Example | Description|
 |:---:| ---: |---|
-| Monomial | $\begin{matrix}x\end{matrix}$ | A Monomial is a polynomial that consists of only a single term. |
-| Binomial | $\begin{matrix}x+1\end{matrix}$ | A Binomial is a polynomial that consists of two terms. |
-| Trinomial | $\begin{matrix}2x^2+x+1\end{matrix}$ | A Trinomial is a polynomial that consists of three sets of terms. |
-| Multinomial | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A Multinomial is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considered a Multinomial. |
+| **Monomial** | $\begin{matrix}x\end{matrix}$ | A **Monomial** is a polynomial that consists of only a single term. |
+| **Binomial** | $\begin{matrix}x+1\end{matrix}$ | A **Binomial** is a polynomial that consists of two terms. |
+| **Trinomial** | $\begin{matrix}2x^2+x+1\end{matrix}$ | A **Trinomial** is a polynomial that consists of three sets of terms. |
+| **Multinomial** | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A **Multinomial** is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considered a Multinomial. |
 |  |  |  |
-| Quadrinomial | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A Quadrinomial is a polynomial that consists of four sets of terms. |
-| Quintinomial | $\begin{matrix}4x^4+3x^3+2x^2+x+1\end{matrix}$ | A Quintinomial is a polynomial that consists of five sets of terms. |
-| Sextomial | $\begin{matrix}5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A Sextomial is a polynomial that consists of six sets of terms. |
-| Septomial | $\begin{matrix}6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A Septomial is a polynomial that consists of seven sets of terms. |
-| Octomial | $\begin{matrix}7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A Octomial is a polynomial that consists of eight sets of terms. |
-| Nonomial | $\begin{matrix}8x^8+7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A Nonomial is a polynomial that consists of nine sets of terms. |
-| Decomial | $\begin{matrix}9x^9+8x^8+7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A decomial is a polynomial that consists of ten sets of terms. |
+| **Quadrinomial** | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A **Quadrinomial** is a polynomial that consists of four sets of terms. |
+| **Quintinomial** | $\begin{matrix}4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Quintinomial** is a polynomial that consists of five sets of terms. |
+| **Sextomial** | $\begin{matrix}5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Sextomial** is a polynomial that consists of six sets of terms. |
+| **Septomial** | $\begin{matrix}6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Septomial** is a polynomial that consists of seven sets of terms. |
+| **Octomial** | $\begin{matrix}7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Octomial** is a polynomial that consists of eight sets of terms. |
+| **Nonomial** | $\begin{matrix}8x^8+7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Nonomial** is a polynomial that consists of nine sets of terms. |
+| **Decomial** | $\begin{matrix}9x^9+8x^8+7x^7+6x^6+5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Decomial** is a polynomial that consists of ten sets of terms. |
 
-### Term
+### Addition
 
-**Terms** are the parts of an expression separated by addition or subtraction operators. The terms below are highlighted in red:
+| Name | Example | Definition |
+|---|---|---|
+| **Add** |  | To join two or more numbers together. |
+| **Addition** | $3\color{red}+\color{black}\color{red}2\color{black}=5$ | The plus sign $+$ indicates addition. |
+| **Addend** | $\color{red}3\color{black}+\color{red}2\color{black}=5$ | One number that is added to another. |
+| **Sum** | $3+2=\color{red}5$ | The result when two or more numbers are added. |
 
-$\color{red}2x^2\color{black}+\color{red}y\color{black}+\color{red}1\color{black}=\color{red}z$
+### Subtraction
 
-### Constant
+| Name | Example | Definition |
+|---|---|---|
+| **Subtract** |  | To take one number away from another. |
+| **Subtraction** |  | The act of Subtracting. |
+| **Minus** | $3\color{red}-\color{black}2=1$ | The minus sign $-$ is the sign of subtraction. |
+| **Minuend** | $\color{red}3\color{black}-2=1$ | The first number in a subtraction expression. The value being reduced. |
+| **Subtrahend** | $3-\color{red}2\color{black}=1$ | The second number in a subtraction expression. The value being removed from the Minuend. |
+| **Difference** | $3-2=\color{red}1\color{black}$ | The result of a subtraction expression, when one number is subtracted from another. |
 
-**Constants** are the Number terms, where the numbers are on their own, are called constants. The constant term below is highlighted in red:  
+### Multiplication
 
-$2x^2+y+\color{red}1\color{black}=z$
+| Name | Example | Definition |
+|---|---|---|
+| **Multiply** |  | To add repeatedly the same addend to get an answer. |
+| **Multiplication** | $2\color{red}\times\color{black}3=6$ | The act of multiplying. The sign $\times$ indicates multiplication. |
+| **Multiplicand** | $\color{red}2\color{black}\times3=6$ | The value to be multiplied. |
+| **Multiplier** | $2\times\color{red}3\color{black}=6$ | The value that is doing the multiplying. |
+| **Product** | $2\times3=\color{red}6\color{black}$ | The result of multiplying two numbers together. |
 
-### Coefficient
+### Division
 
-A **coefficient** is the number used to multiply a variable. The coefficient is highlighted below in red:
-
-$\color{red}2\color{black}x^2+\color{red}1\color{black}y\color{black}+\color{red}1\color{black}=z$
+| Name | Example | Definition |
+|---|---|---|
+| **Divide** | | To take one large group of objects and divide it equally into smaller groups. |
+| **Division** | $6\color{red}\div\color{black}2=3$ | The act of dividing. The sign $\div$ indicates Division. |
+| **Dividend** | $\color{red}6\color{black}\div2=3$ | The amount that you want to divide up. |
+| **Divisor** | $6\div\color{red}2\color{black}=3$ | The number you divide by. |
+| **Quotient** | $6\div2=\color{red}3\color{black}$ | The result of dividing the Dividend by the Divisor. |
 
 ### Variable
 
@@ -123,36 +136,6 @@ In some instances a numerical value is replaced with a symbolic representation t
 | $[x\,y\,z]$ | Vector Matrix| visual representation of a vector |
 | $\overrightarrow{u},\overrightarrow{v},\overrightarrow{w}$ | Generic Vectors | common generic vectors. |
 | $\widehat{u},\widehat{v},\widehat{w}$ | Unit Vectors | common generic unit  vectors (length = 1). |
-
-#### Table of Common Angles
-
-|Angle | $0°$ | $30°$ | $45°$ | $60°$ | $90°$ |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| $\sin^2(\theta)$ | $\frac{0}{4}$ | $\frac{1}{4}$ | $\frac{2}{4}$ | $\frac{3}{4}$ | $\frac{4}{4}$ |
-| $\cos^2(\theta)$ | $\frac{4}{4}$ | $\frac{3}{4}$ | $\frac{2}{4}$ | $\frac{1}{4}$ | $\frac{0}{4}$ |
-| $\tan^2(\theta)$ | $\frac{0}{4}$ | $\frac{1}{3}$ | $\frac{2}{2}$ | $\frac{3}{1}$ | $\frac{4}{0}$ |
-
-#### Function Values Table
-
-| Function <br /> Value| $\sin(\theta)$ | $\cos(\theta)$ | $\tan(\theta)$ | $\cot(\theta)$ |
-|:---:|:---:|:---:|:---:|:---:|
-| $0$ | $0$ | $1$ | $0$ | $\mathrm{Undefined}$ |
-| $\frac{\pi}{6}$ | $\frac{1}{2}$ | $\frac{\sqrt{3}}{2}$ | $\frac{\sqrt{3}}{3}$ | $\sqrt{3}$ |
-| $\frac{\pi}{4}$ | $\frac{\sqrt{2}}{2}$ | $\frac{\sqrt{2}}{2}$ | $1$ | $1$ |
-| $\frac{\pi}{3}$ | $\frac{\sqrt{3}}{2}$ | $\frac{1}{2}$ | $\sqrt{3}$ | $\frac{\sqrt{3}}{3}$ |
-| $\frac{\pi}{2}$ | $1$ | $0$ | $\mathrm{Undefined}$ | $0$ |
-| $\frac{2\pi}{3}$ | $\frac{\sqrt{3}}{2}$ | $-\frac{1}{2}$ | $-\sqrt{3}$ | $-\frac{\sqrt{3}}{3}$ |
-| $\frac{3\pi}{4}$ | $\frac{\sqrt{2}}{2}$ | $-\frac{\sqrt{2}}{2}$ | $-1$ | $-1$ |
-| $\frac{5\pi}{6}$ | $\frac{1}{2}$ | $-\frac{\sqrt{3}}{2}$ | $-\frac{\sqrt{3}}{3}$ | $-\sqrt{3}$ |
-| $\pi$ | $0$ | $-1$ | $0$ | $\mathrm{Undefined}$ |
-| $\frac{7\pi}{6}$ | $-\frac{1}{2}$ | $-\frac{\sqrt{3}}{2}$ | $\frac{\sqrt{3}}{3}$ | $\sqrt{3}$ |
-| $\frac{5\pi}{4}$ | $-\frac{\sqrt{2}}{2}$ | $-\frac{\sqrt{2}}{2}$ | $1$ | $1$ |
-| $\frac{4\pi}{3}$ | $-\frac{\sqrt{3}}{2}$ | $-\frac{1}{2}$ | $\sqrt{3}$ | $\frac{\sqrt{3}}{3}$ |
-| $\frac{3\pi}{2}$ | $-1$ | $0$ | $\mathrm{Undefined}$ | $0$ |
-| $\frac{5\pi}{3}$ | $-\frac{\sqrt{3}}{2}$ | $\frac{1}{2}$ | $-\sqrt{3}$ | $-\frac{\sqrt{3}}{3}$ |
-| $\frac{7\pi}{4}$ | $-\frac{\sqrt{2}}{2}$ | $\frac{\sqrt{2}}{2}$ | $-1$ | $-1$ |
-| $\frac{11\pi}{6}$ | $-\frac{1}{2}$ | $\frac{\sqrt{3}}{2}$ | $-\frac{\sqrt{3}}{3}$ | $-\sqrt{3}$ |
-| $2\pi$ | $0$ | $1$ | $0$ | $\mathrm{Undefined}$ |
 
 ### Exponent
 
@@ -252,6 +235,36 @@ Below are tables of common operators.
 | $y=\textrm{arccot}\left(x\right)$ | $0<x<\pi$ |  |
 | $y=\textrm{arccsc}\left(x\right)$ | $0\le y<\frac{\pi }{2}\:\bigcup \:\pi \le y<\frac{3\pi }{2}$ |  |
 | $y=\textrm{arcsec}\left(x\right)$ | $-\pi <y\le -\frac{\pi }{2}\:\bigcup \:0<y<\frac{\pi }{2}<\infty$ |  |
+
+### Table of Common Angles
+
+|Angle | $0°$ | $30°$ | $45°$ | $60°$ | $90°$ |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| $\sin^2(\theta)$ | $\frac{0}{4}$ | $\frac{1}{4}$ | $\frac{2}{4}$ | $\frac{3}{4}$ | $\frac{4}{4}$ |
+| $\cos^2(\theta)$ | $\frac{4}{4}$ | $\frac{3}{4}$ | $\frac{2}{4}$ | $\frac{1}{4}$ | $\frac{0}{4}$ |
+| $\tan^2(\theta)$ | $\frac{0}{4}$ | $\frac{1}{3}$ | $\frac{2}{2}$ | $\frac{3}{1}$ | $\frac{4}{0}$ |
+
+### Function Values Table
+
+| Function <br /> Value| $\sin(\theta)$ | $\cos(\theta)$ | $\tan(\theta)$ | $\cot(\theta)$ |
+|:---:|:---:|:---:|:---:|:---:|
+| $0$ | $0$ | $1$ | $0$ | $\mathrm{Undefined}$ |
+| $\frac{\pi}{6}$ | $\frac{1}{2}$ | $\frac{\sqrt{3}}{2}$ | $\frac{\sqrt{3}}{3}$ | $\sqrt{3}$ |
+| $\frac{\pi}{4}$ | $\frac{\sqrt{2}}{2}$ | $\frac{\sqrt{2}}{2}$ | $1$ | $1$ |
+| $\frac{\pi}{3}$ | $\frac{\sqrt{3}}{2}$ | $\frac{1}{2}$ | $\sqrt{3}$ | $\frac{\sqrt{3}}{3}$ |
+| $\frac{\pi}{2}$ | $1$ | $0$ | $\mathrm{Undefined}$ | $0$ |
+| $\frac{2\pi}{3}$ | $\frac{\sqrt{3}}{2}$ | $-\frac{1}{2}$ | $-\sqrt{3}$ | $-\frac{\sqrt{3}}{3}$ |
+| $\frac{3\pi}{4}$ | $\frac{\sqrt{2}}{2}$ | $-\frac{\sqrt{2}}{2}$ | $-1$ | $-1$ |
+| $\frac{5\pi}{6}$ | $\frac{1}{2}$ | $-\frac{\sqrt{3}}{2}$ | $-\frac{\sqrt{3}}{3}$ | $-\sqrt{3}$ |
+| $\pi$ | $0$ | $-1$ | $0$ | $\mathrm{Undefined}$ |
+| $\frac{7\pi}{6}$ | $-\frac{1}{2}$ | $-\frac{\sqrt{3}}{2}$ | $\frac{\sqrt{3}}{3}$ | $\sqrt{3}$ |
+| $\frac{5\pi}{4}$ | $-\frac{\sqrt{2}}{2}$ | $-\frac{\sqrt{2}}{2}$ | $1$ | $1$ |
+| $\frac{4\pi}{3}$ | $-\frac{\sqrt{3}}{2}$ | $-\frac{1}{2}$ | $\sqrt{3}$ | $\frac{\sqrt{3}}{3}$ |
+| $\frac{3\pi}{2}$ | $-1$ | $0$ | $\mathrm{Undefined}$ | $0$ |
+| $\frac{5\pi}{3}$ | $-\frac{\sqrt{3}}{2}$ | $\frac{1}{2}$ | $-\sqrt{3}$ | $-\frac{\sqrt{3}}{3}$ |
+| $\frac{7\pi}{4}$ | $-\frac{\sqrt{2}}{2}$ | $\frac{\sqrt{2}}{2}$ | $-1$ | $-1$ |
+| $\frac{11\pi}{6}$ | $-\frac{1}{2}$ | $\frac{\sqrt{3}}{2}$ | $-\frac{\sqrt{3}}{3}$ | $-\sqrt{3}$ |
+| $2\pi$ | $0$ | $1$ | $0$ | $\mathrm{Undefined}$ |
 
 ### Vector Functions
 
@@ -356,9 +369,51 @@ Cubic equation is where the equation involves an exponent of 3.
 | $\begin{matrix}ax^3+bx^2+cx+d=0\end{matrix}$ | Cubic equation |  |
 | $x=\sqrt[3]{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)+\sqrt{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)^2+\left(\frac{c}{3a}-\frac{b^2}{9a^2}\right)^3}}+\sqrt[3]{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)-\sqrt{\left(\frac{-b^3}{27a^3}+\frac{bc}{6a^2}-\frac{d}{2a}\right)^2+\left(\frac{c}{3a}-\frac{b^2}{9a^2}\right)^3}}-\frac{b}{3a}$ | Cubic Formula | <https://math.vanderbilt.edu/schectex/courses/cubic/> |
 
-## Parabolas
+### Parabolas
+
+<center>
 <svg width="260" height="210">
+  <defs>
+    <marker orient="auto" markerHeight="20" markerWidth="20" markerUnits="strokeWidth" refY="3" refX="0" viewBox="0 0 20 20" fill="black" id="arrow">
+      <path d="m0,0l0,6l9,-3l-9,-3z" id="Triangle"/>
+    </marker>
+  </defs>
+  <g stroke-width="1" stroke="black" fill="transparent">
+    <path d="M 0,0 Q 105,310 210,0" id="Parabola"/>
+    <circle cx="105" cy="155" r="3" fill="black" id="Vertex"/>
+    <circle cx="105" cy="137" r="3" fill="black" id="Focus"/>
+    <circle cx="168" cy="100" r="3" fill="black" id="Point"/>
+    <g stroke-dasharray="8,4,2,4">
+      <line x1="105" y1="0" x2="105" y2="10" id="Axis of Symmetry 1"/>
+      <line x1="105" y1="32" x2="105" y2="210" id="Axis of Symmetry 2"/>
+    </g>
+    <line x1="70" y1="137" x2="140" y2="137" id="Latus Rectum"/>
+    <line x1="0" y1="173" x2="260" y2="173" stroke-dasharray="2px, 2px" id="Directrix"/>
+    <line x1="105" y1="137" x2="168" y2="100" id="Distance 1"/>
+    <line x1="168" y1="100" x2="168" y2="173" id="Distance 2"/>
+    <line x1="168" y1="60" x2="168" y2="90" id="Distance Right"/>
+    <circle cx="168" cy="100" r="73" id="Dist"/>
+    <circle cx="105" cy="155" r="18" id="Vert"/>
+    <line x1="105" y1="155" x2="114" y2="171" id="a radius"/>
+    <g marker-end="url(#arrow)">
+      <line x1="145" y1="65" x2="158" y2="65" id="T 1"/>
+      <line x1="130" y1="65" x2="115" y2="65" id="T 2"/>
+      <line x1="130" y1="190" x2="120" y2="178" id="a radius"/>
+    </g>
+    <rect x="168" y="163" width="10" height="10" id="Square"/>
+  </g>
+  <g fill="black" font-family="san-serif" font-size="14">
+    <text x="210" y="188" text-anchor="left" id="Directrix Text">Directrix</text>
+    <text x="48" y="158" text-anchor="middle" id="Vertex Text">Vertex (h, k)</text>
+    <text x="69" y="115" text-anchor="left" id="Focus Text">Focus (h, a)</text>
+    <text x="135" y="68" text-anchor="left" id="Focus Text">x</text>
+    <text x="187" y="140" text-anchor="middle" id="Latus Rectum Text">Latus Rectum</text>
+    <text x="105" y="25" text-anchor="middle" id="Axis of Symmetry Text">Axis of Symmetry</text>
+    <text x="175" y="102" text-anchor="left" id="Point Letter">p (x, y)</text>
+    <text x="135" y="194" text-anchor="middle" id="Letter 1">a</text>
+  </g>
 </svg>
+</center>
 
 | Function | Description |
 |---|---|
@@ -376,6 +431,7 @@ Cubic equation is where the equation involves an exponent of 3.
 | $k=y-a(x-h)^2$ | Find $k$ from vertex form. |
 | $x=\frac{-b+\sqrt{b^2+4ac}}{2a}$ <br/> $x=\frac{-b-\sqrt{b^2+4ac}}{2a}$ | x-intercept of standard form. |
 | $y=c$? | y-intercept of standard form. |
+| $d=k-a$? | Find the Directrix. |
 
 #### Solving for $h$ given $p_1(x_1, y_1)$, $p_2(x_2, y_2)$, and $k$ from $(h, k)$
 
@@ -447,10 +503,11 @@ $h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}
 
 ### Circles
 
+<center>
 <svg width="260" height="210">
  <defs>
   <marker orient="auto" markerHeight="20" markerWidth="20" markerUnits="strokeWidth" refY="3" refX="0" viewBox="0 0 20 20" fill="black" id="arrow">
-<path d="m0,0l0,6l9,-3l-9,-3z" id="Triangle"/>
+    <path d="m0,0l0,6l9,-3l-9,-3z" id="Triangle"/>
   </marker>
  </defs>
  <g stroke-width="1" stroke="black" fill="transparent">
@@ -483,6 +540,7 @@ $h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}
   <text x="155" y="80" text-anchor="left" id="Sin Letter">rSin(θ)</text>
  </g>
 </svg>
+</center>
 
 | Function | Name | Description |
 |:---:|---|---|
@@ -504,6 +562,7 @@ $h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}
 
 ### Ellipses
 
+<center>
 <svg width="260" height="260">
  <defs>
   <marker orient="auto" markerHeight="20" markerWidth="20" markerUnits="strokeWidth" refY="3" refX="0" viewBox="0 0 20 20" fill="black" id="arrow">
@@ -553,6 +612,7 @@ $h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}
   <text x="30" y="115" text-anchor="middle" id="Area Letter">f</text>
  </g>
 </svg>
+</center>
 
 | Function | Name | Description |
 |:---:|---|---|
@@ -575,6 +635,7 @@ $h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}
 
 ### Trigonometric Identities
 
+<center>
 <svg width="111" height="66">
   <g stroke-width="1" stroke="black" fill="transparent">
  <polygon points="100,0  0,50 100,50" id="Triangle" />
@@ -590,6 +651,9 @@ $h=\frac{2x_2+2x_1\frac{y_2-k}{y_1-k}\pm\sqrt{\left(2x_2+2x_1\frac{y_2-k}{y_1-k}
  <text x="88" y="20" text-anchor="right" id="phi Letter">ɸ</text>
   </g>
 </svg>
+</center>
+
+[Neat Visualization of Sine Cosine](https://1ucasvb.tumblr.com/post/79557434791/the-sine-and-cosine-functions-for-the-circle-as)
 
 | Equation | Name | Description |
 |:---:|---|---|
@@ -789,6 +853,32 @@ For information on how to make the Matrix forms see: [Demofox Matrix Form of Bé
 | Hectic | 100|
 
 \*Names are Non-official, but based on potential convention.
+
+## Operations on Matracies
+
+### Adding Matricies
+
+$\begin{bmatrix}a&b\\c&d\end{bmatrix}+\begin{bmatrix}e&f\\g&h\end{bmatrix}=\begin{bmatrix}a+e&b+f\\c+g&d+h\end{bmatrix}$
+
+$\begin{bmatrix}2&-1\\1&0\end{bmatrix}+\begin{bmatrix}1&4\\2&3\end{bmatrix}=\begin{bmatrix}2+1&-1+4\\1+2&0+3\end{bmatrix}=\begin{bmatrix}3&3\\3&3\end{bmatrix}$
+
+### Subtracting Matricies
+
+$\begin{bmatrix}a&b\\c&d\end{bmatrix}-\begin{bmatrix}e&f\\g&h\end{bmatrix}=\begin{bmatrix}a-e&b-f\\c-g&d-h\end{bmatrix}$
+
+### Scaling Matricies
+
+$2\begin{bmatrix}a&b\\c&d\end{bmatrix}=\begin{bmatrix}2a&2b\\2c&2d\end{bmatrix}$
+
+$2\begin{bmatrix}1&2\\3&4\end{bmatrix}=\begin{bmatrix}2\times1&2\times2\\2\times3&2\times4\end{bmatrix}=\begin{bmatrix}2&4\\6&8\end{bmatrix}$
+
+### Multiplying Matricies
+
+[Awesome Visualization](http://matrixmultiplication.xyz/)
+
+$\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}e&f\\g&h\end{bmatrix}=\begin{bmatrix}ae+bg&af+bh\\ce+dg&cf+dh\end{bmatrix}$
+
+$\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}e&f&g\\h&i&j\end{bmatrix}=\begin{bmatrix}ae+bh&af+bi&ag+bj\\ce+dh&cf+di&cg+dj\end{bmatrix}$
 
 ## Physical Units
 
@@ -1082,7 +1172,9 @@ Each "window" covers the next power of $2$ (since these are binary-based), so on
 PI falls into the $[2,4]$ window and since double has a 52-bit significand you have $2^{52}$ ($4,503,599,627,370,496$) evenly space values that have a delta of $4.4408920985006261616945266723633e-16$. For float, you have a 23-bit signficand, so you have $2^{23}$ ($8,388,608$) evenly spaced values that have a delta of $2.384185791015625e-7$.
 
 Given the above, you would find that PI is not exactly representable and the value chosen is the closest representable value.
+
 * Wikipedia says PI to 50 digits is: $3.14159265358979323846264338327950288419716939937510...$
+
 * We say the closest representable value is: $3.141592653589793115997963468544185161590576171875$
   * The raw bit representation is: $0x400921FB54442D18$
   * This is $1.224646799147353177226065932275001$ × $10^{-16}$ less than 50 digit PI
@@ -1107,7 +1199,182 @@ Multiplying single digit numbers by 11 can be fun, since all you have to do is p
 This one is for finding the squares of numbers ending with 5. e.g. $(25)^2=625$.  
  > Take your number remove the 5 $2⇐25:5=2$. Then, multiply the first digit by its "plus one" $2×(2+1)=6$. To finish off append 25 $6⟸25:625$ and you are done.
 
-## References:  
+## Dot pattern Addition
+
+If visualising and associating is needed for learning, addition can be done by counting imagined dots on the usual numbers.
+
+<svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="1">1</text></g><g><circle cx="10" cy="10" r="5" fill="black" id="dot"/></g></svg>
+One has one dot at the top.
+
+<svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="2">2</text></g><g><circle cx="5" cy="10" r="5" fill="black" id="dot"/><circle cx="5" cy="35" r="5" fill="black" id="dot"/></g></svg>
+Two has a dot at the start, and a dot at the end.
+
+<svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="3">3</text></g><g><circle cx="5" cy="10" r="5" fill="black" id="dot"/><circle cx="5" cy="23" r="5" fill="black" id="dot"/><circle cx="5" cy="35" r="5" fill="black" id="dot"/></g></svg>
+Three has a dot on each of the three ends of the curves.
+
+<svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="4">4</text></g><g><circle cx="5" cy="10" r="5" fill="black" id="dot"/><circle cx="15" cy="10" r="5" fill="black" id="dot"/><circle cx="5" cy="25" r="5" fill="black" id="dot"/><circle cx="15" cy="25" r="5" fill="black" id="dot"/></g></svg>
+Four has a dot on each of the four corners of the square portion of the 4.
+
+<svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="5">5</text></g><g><circle cx="5" cy="10" r="5" fill="black" id="dot"/><circle cx="15" cy="10" r="5" fill="black" id="dot"/><circle cx="5" cy="23" r="5" fill="black" id="dot"/><circle cx="15" cy="23" r="5" fill="black" id="dot"/><circle cx="5" cy="35" r="5" fill="black" id="dot"/></g></svg>
+Five mimics Four, but has an extra dot.
+
+<svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="6">6</text></g><g stroke-width="1" stroke="black" fill="transparent"><circle cx="10" cy="10" r="7" fill="white" id="dot"/><circle cx="10" cy="23" r="7" fill="white" id="dot"/><circle cx="10" cy="35" r="7" fill="white" id="dot"/></g><g><circle cx="10" cy="10" r="5" fill="black" id="dot"/><circle cx="10" cy="23" r="5" fill="black" id="dot"/><circle cx="10" cy="35" r="5" fill="black" id="dot"/></g></svg>
+Six has two dots at the top, two dots in the middle, and two dots on the bottom.
+
+<svg width="25" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="7">7</text></g><g stroke-width="1" stroke="black" fill="transparent"><circle cx="15" cy="10" r="7" fill="white" id="dot"/><circle cx="13" cy="23" r="7" fill="white" id="dot"/><circle cx="10" cy="35" r="7" fill="white" id="dot"/></g><g><circle cx="5" cy="10" r="5" fill="black" id="dot"/><circle cx="15" cy="10" r="5" fill="black" id="dot"/><circle cx="13" cy="23" r="5" fill="black" id="dot"/><circle cx="10" cy="35" r="5" fill="black" id="dot"/></g></svg>
+Seven has two dots on each end or corner, plus one additional dot.
+
+<svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="8">8</text></g><g><circle cx="5" cy="15" r="5" fill="black" id="dot"/><circle cx="15" cy="15" r="5" fill="black" id="dot"/><circle cx="5" cy="30" r="5" fill="black" id="dot"/><circle cx="15" cy="30" r="5" fill="black" id="dot"/></g></svg>
+Eight has two dots on the left and right sides of the two circles.
+
+<svg width="20" height="45" float="left"><g fill="black" font-family="san-serif" font-size="40"><text x="0" y="35" id="9">9</text></g><g stroke-width="1" stroke="black" fill="transparent"><circle cx="10" cy="10" r="10" fill="white" id="dot"/><circle cx="10" cy="23" r="10" fill="white" id="dot"/><circle cx="10" cy="35" r="10" fill="white" id="dot"/></g><g stroke-width="1" stroke="black" fill="transparent"><circle cx="10" cy="10" r="7" fill="white" id="dot"/><circle cx="10" cy="23" r="7" fill="white" id="dot"/><circle cx="10" cy="35" r="7" fill="white" id="dot"/></g><g><circle cx="10" cy="10" r="5" fill="black" id="dot"/><circle cx="10" cy="23" r="5" fill="black" id="dot"/><circle cx="10" cy="35" r="5" fill="black" id="dot"/></g></svg>
+Nine, Think of it as a tic-tac-toe grid, or 10 - 1.
+
+## Tick-Tac-Toe Multiplecation
+
+One method for helping people who are pattern focused, and have trouble with wrote memorization, remember multiplecation is to use multiplecation paterns.
+
+Once the pattern has been internalized, the chart can be easily written out and used as a lookup table for multiplecation and division.
+
+The table is layed out as follows. The first cell belonging to the One cell, then the one below it two the Two cell, then below that the Three cell. From there, go back to the top of the table to the next column to continue, and repeat to the Ten cell.
+
+|  |  |  |  |
+|-|-|-|-|
+| One cell $1\times x\downarrow$ | Four cell $4\times x\downarrow$ | Seven cell $7\times x\downarrow$ | Ten cell $10\times x\downarrow$ |
+| Two cell $2\times x\downarrow$ | Five cell $5\times x\downarrow$ | Eight cell $8\times x\downarrow$ |
+| Three cell $3\times x\nearrow$ | Six cell $6\times x\nearrow$ | Nine cell $9\times x\nearrow$ |
+
+The values of each cell are divided into Tens and Ones parts. Patterns often start by manipulating the Ones parts then working with the Tens part of the numbers.
+
+|  |  |  |  |
+|-|-|-|-|
+| Tens Ones | Tens Ones | Tens Ones | Hundreds Tens Ones |
+| Tens Ones | Tens Ones | Tens Ones |
+| Tens Ones | Tens Ones | Tens Ones |
+
+One common pattern for table smaller than 10, is to incrament the Tens column every time the Ones column is smaller than the previous Ones Column value in the table.
+
+### Zeros
+
+Zeros is the most simple pattern as anything times $0$ is $0$. So, just fill the grid with 0s.
+
+|  |  |  |  |
+|-|-|-|-|
+| $0$ | $0$ | $0$ | $0$ |
+| $0$ | $0$ | $0$ |
+| $0$ | $0$ | $0$ |
+
+### Ones
+
+For Ones, just increment for each cell in the table.
+
+|  |  |  |  |
+|-|-|-|-|
+| $1$ | $4$ | $7$ | $10$ |
+| $2$ | $5$ | $8$ |
+| $3$ | $6$ | $9$ |
+
+### Twos
+
+The pattern for Twos is to start at two and skip every other number. The pattern then repeats after 5 x 2, but with an incremented tens place.
+
+|  |  |  |  |
+|-|-|-|-|
+| $2$ | $8$ | $14$ | $20$ |
+| $4$ | $10$ | $16$ |
+| $6$ | $12$ | $18$ |
+
+### Threes
+
+For the Threes, start on the right column moving left then down to the next row on the right incrementing the numbers. Then go back to 1 x 3 cell and move down the column, and over to the right, incrementing the tens every time the ones is smaller than the previous.
+
+|  |  |  |  |
+|-|-|-|-|
+| $3$ | $12$ | $21$ | $30$ |
+| $6$ | $15$ | $24$ |
+| $9$ | $18$ | $27$ |
+
+### Fours
+
+|  |  |  |  |
+|-|-|-|-|
+| $4$ | $16$ | $28$ | $40$ |
+| $8$ | $20$ | $32$ |
+| $12$ | $24$ | $36$ |
+
+### Fives
+
+The pattern for fives is to start with 5 then alternate every other ending with a 5 or 0, while incramenting the tens on each 0.
+
+|  |  |  |  |
+|-|-|-|-|
+| $5$ | $20$ | $35$ | $50$ |
+| $10$ | $25$ | $40$ |
+| $15$ | $30$ | $45$ |
+
+### Sixes
+
+For the Sixes, start on the right column moving left then down to the next row on the right incrementing the numbers by two, restarting after 5 x 6. Then go back to 1 x 3 cell and move down the column, and over to the right, incrementing the tens every time the ones is smaller than the previous.
+
+|  |  |  |  |
+|-|-|-|-|
+| $6$ | $24$ | $42$ | $60$ |
+| $12$ | $30$ | $48$ |
+| $18$ | $36$ | $54$ |
+
+### Sevens
+
+For Sevens, Start at the bottom left, going right, then up, and incrament the ones. Then go back to 1 x 3 cell and move down the column, and over to the right, incrementing the tens every time the ones is smaller than the previous.
+
+|  |  |  |  |
+|-|-|-|-|
+| $7$ | $28$ | $49$ | $70$ |
+| $14$ | $35$ | $56$ |
+| $21$ | $42$ | $63$ |
+
+### Eights
+
+|  |  |  |  |
+|-|-|-|-|
+| $8$ | $32$ | $56$ | $80$ |
+| $16$ | $40$ | $64$ |
+| $24$ | $48$ | $72$ |
+
+### Nines
+
+Nines is possibly the most fun of the patterns. Incrament the ones column in reverse starting with 9, ending with 0 for 10 x 9. Then for the tens column incrament from 0 in the 1 x 9 cell to 9 in the 10 x 9 cell. It is even more fun to fill out the table counting down form the first cell, then reversing again at the tenth counting down again to the first cell.
+
+|  |  |  |  |
+|-|-|-|-|
+| $09$ | $36$ | $63$ | $90$ |
+| $18$ | $45$ | $72$ |
+| $27$ | $54$ | $81$ |
+
+### Tens
+
+Tens is as simple as the Ones, just appending a 0 to the end.
+
+|  |  |  |  |
+|-|-|-|-|
+| $10$ | $40$ | $70$ | $100$ |
+| $20$ | $50$ | $80$ |
+| $30$ | $60$ | $90$ |
+
+### Elevens
+
+Elevens is another fun pattern, just duplicate the digits from the Ones table for both the Ones and Tens columns, up to 9. Then add a zero to 11 for the Tens cell.
+
+|  |  |  |  |
+|-|-|-|-|
+| $11$ | $44$ | $77$ | $110$ |
+| $22$ | $55$ | $88$ |
+| $33$ | $66$ | $99$ |
+
+## Japanese Multiplication
+
+> [![IMAGE ALT TEXT](http://img.youtube.com/vi/oteruPivWjc/0.jpg)](https://youtu.be/oteruPivWjc)
+
+## References
 
 * [List of LaTeX mathematical symbols](https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols)
 

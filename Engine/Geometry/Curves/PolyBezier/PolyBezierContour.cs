@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -28,6 +29,7 @@ namespace Engine
     [DisplayName(nameof(PolyBezier))]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [XmlType(TypeName = "polybeziercontour", Namespace = "http://www.w3.org/2000/svg")]
+    [DebuggerDisplay("{ToString()}")]
     public class PolyBezierContour
         : Shape
     {
@@ -184,50 +186,6 @@ namespace Engine
         //public override double Perimeter
         //    => (double)CachingProperty(() => Items.Sum(p => p.Length));
         #endregion Properties
-
-        //#region Serialization
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        // #endregion
 
         /// <summary>
         /// The interpolate.

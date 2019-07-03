@@ -18,6 +18,7 @@ namespace Engine.Colorspace
     /// <summary>
     /// CMYKA color class.
     /// </summary>
+    [DebuggerDisplay("{ToString()}")]
     public struct CMYKA
         : IColor
     {

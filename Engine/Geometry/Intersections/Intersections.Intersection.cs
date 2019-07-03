@@ -34,12 +34,14 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static Engine.Maths;
 using static System.Math;
+using static Engine.Mathematics;
 using static Engine.Measurements;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -3450,8 +3452,8 @@ namespace Engine
             var c = ((lAX - cX) * (lAX - cX)) + ((lAY - cY) * (lAY - cY)) - (r * r);
 
             // Find the points of the chord.
-            Point2D startPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 0d);
-            Point2D endPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 1d);
+            Point2D startPoint = Interpolators.CircularArc(0d, cX, cY, r, startAngle, sweepAngle);
+            Point2D endPoint = Interpolators.CircularArc(1d, cX, cY, r, startAngle, sweepAngle);
 
             // Calculate the discriminant.
             var discriminant = (b * b) - (4d * a * c);
@@ -4322,8 +4324,8 @@ namespace Engine
             var c = ((lAX - cX) * (lAX - cX)) + ((lAY - cY) * (lAY - cY)) - (r * r);
 
             // Find the points of the chord.
-            Point2D startPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 0);
-            Point2D endPoint = Interpolators.CircularArc(cX, cY, r, startAngle, sweepAngle, 1);
+            Point2D startPoint = Interpolators.CircularArc(0, cX, cY, r, startAngle, sweepAngle);
+            Point2D endPoint = Interpolators.CircularArc(1, cX, cY, r, startAngle, sweepAngle);
 
             // Calculate the discriminant.
             var discriminant = (b * b) - (4d * a * c);
@@ -7228,7 +7230,6 @@ namespace Engine
         /// </summary>
         /// <param name="el1">The el1.</param>
         /// <param name="el2">The el2.</param>
-        /// <param name="epsilon"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/handbook-of-collisions-and-interiors/5567955982876672

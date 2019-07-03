@@ -330,8 +330,6 @@ namespace Engine
         /// <param name="brush">The brush.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        /// <param name="width">The width.</param>
-        /// <param name="height">The height.</param>
         /// <param name="stringFormat">The stringFormat.</param>
         void DrawString(string text, RenderFont font, IFill brush, double x, double y,TextFormat stringFormat);
 

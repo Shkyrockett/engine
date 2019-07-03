@@ -1146,8 +1146,8 @@ namespace Engine.Geometry
             else if (minValue.Real * maxValue.Real <= 0)
             {
                 var tmp1 = Math.Log(max.Real - min.Real);
-                var tmp2 = Maths.LN10 * ACCURACY;
-                var iters = Math.Ceiling((tmp1 + tmp2) / Maths.LN2);
+                var tmp2 = Mathematics.LN10 * ACCURACY;
+                var iters = Math.Ceiling((tmp1 + tmp2) / Mathematics.LN2);
 
                 for (var i = 0; i < iters; i++)
                 {

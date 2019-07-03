@@ -8,15 +8,15 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using static System.Math;
-using static Engine.Maths;
-using System.ComponentModel;
-using System.Xml.Serialization;
-using System.Runtime.Serialization;
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
+using static Engine.Mathematics;
+using static System.Math;
 
 namespace Engine
 {
@@ -24,6 +24,7 @@ namespace Engine
     /// The transform2d struct.
     /// </summary>
     [TypeConverter(typeof(ExpandableObjectConverter))]
+    [DebuggerDisplay("{ToString()}")]
     public struct Transform2D
         : IPrimitive, // IMatrix<Transform2D, Vector2D>,
         IEquatable<Transform2D>
@@ -424,26 +425,11 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Vector4D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point2D);
             var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Transform2D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, provider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, provider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, provider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, provider)}]";
+            return $"{nameof(Transform2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(SkewX)}:{SkewX.ToString(format, provider)}{s} {nameof(SkewY)}:{SkewY.ToString(format, provider)}{s} {nameof(ScaleX)}:{ScaleX.ToString(format, provider)}{s} {nameof(ScaleY)}:{ScaleY.ToString(format, provider)})";
         }
         #endregion Methods
     }

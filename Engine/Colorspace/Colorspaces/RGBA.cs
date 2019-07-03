@@ -18,7 +18,7 @@ namespace Engine.Colorspace
     /// <summary>
     /// Red Green Blue Alpha color struct.
     /// </summary>
-    //[DebuggerDisplay("R: {R}, G: {G}, B: {B}, A: {A}")]
+    [DebuggerDisplay("{ToString()}")]
     public struct RGBA
         : IColor
     {

@@ -14,6 +14,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 using static System.Math;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -30,7 +32,7 @@ namespace Engine
         /// <returns>The absolute angle of a line in radians.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this PointF pointA, PointF pointB)
-            => Maths.AbsoluteAngle(pointA.X, pointA.Y, pointB.X, pointB.Y);
+            => Operations.AbsoluteAngle(pointA.X, pointA.Y, pointB.X, pointB.Y);
 
         /// <summary>
         /// Adds a <see cref="PointF"/> by a value.
@@ -107,7 +109,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this PointF PointA, PointF PointB)
-            => Maths.Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
+            => Operations.Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
 
         /// <summary>
         /// Cross Product a Perpendicular dot product of two vectors.
@@ -127,7 +129,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, Point valueB)
-            => Maths.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            => Operations.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
 
         /// <summary>
         /// Cross Product a Perpendicular dot product of two vectors.
@@ -147,7 +149,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, PointF valueB)
-            => Maths.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            => Operations.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
 
         /// <summary>
         /// Cross Product a Perpendicular dot product of two vectors.
@@ -167,7 +169,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, Vector2D valueB)
-            => Maths.CrossProduct(valueA.X, valueA.Y, valueB.I, valueB.J);
+            => Operations.CrossProduct(valueA.X, valueA.Y, valueB.I, valueB.J);
 
         /// <summary>
         /// Finds the Delta of two Points
@@ -212,7 +214,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF value)
-            => Maths.DotProduct(value.X, value.Y, value.X, value.Y);
+            => Operations.DotProduct(value.X, value.Y, value.X, value.Y);
 
         /// <summary>
         /// Finds the Dot Product (scalar or inner product) of two Points.
@@ -226,7 +228,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF point, Point value)
-            => Maths.DotProduct(point.X, point.Y, value.X, value.Y);
+            => Operations.DotProduct(point.X, point.Y, value.X, value.Y);
 
         /// <summary>
         /// Finds the Dot Product (scalar or inner product) of two Points.
@@ -240,7 +242,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF point, PointF value)
-            => Maths.DotProduct(point.X, point.Y, value.X, value.Y);
+            => Operations.DotProduct(point.X, point.Y, value.X, value.Y);
 
         /// <summary>
         /// Finds the Dot Product of two Points 
@@ -254,7 +256,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF point, Vector2D vector)
-            => Maths.DotProduct(point.X, point.Y, vector.I, vector.J);
+            => Operations.DotProduct(point.X, point.Y, vector.I, vector.J);
 
         /// <summary>
         /// Inflates a <see cref="PointF"/> by a given factor.
@@ -351,7 +353,7 @@ namespace Engine
         /// <param name="value">Second Point</param>
         /// <returns>The Normal of two Points</returns>
         public static PointF Normalize(this PointF point, SizeF value)
-            => new Point2D(Maths.Normalize2D(point.X, point.Y, value.Width, value.Height)).ToPointF();
+            => new Point2D(Operations.Normalize2D(point.X, point.Y, value.Width, value.Height)).ToPointF();
 
         /// <summary>
         /// Calculates the reflection of a point off a line segment
@@ -523,7 +525,7 @@ namespace Engine
         /// <remarks>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this PointF PointA, PointF PointB)
-            => Maths.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);
+            => Operations.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);
 
         /// <summary>
         /// Subtracts a <see cref="PointF"/> by a value.

@@ -127,7 +127,7 @@ namespace Engine
         /// </summary>
         public void Add(CubicBezier curve)
         {
-            if (curves.Count > 0 && !Primitives.EqualsOrClose(curves[curves.Count - 1].D, curve.A))
+            if (curves.Count > 0 && !Operations.EqualsOrClose(curves[curves.Count - 1].D, curve.A))
             {
                 throw new InvalidOperationException("The new curve does at index " + curves.Count + " does not connect with the previous curve at index " + (curves.Count - 1));
             }
@@ -162,12 +162,12 @@ namespace Engine
                 throw new IndexOutOfRangeException("Curve index " + index + " is out of range (there are " + curves.Count + " curves in the spline)");
             }
 
-            if (index > 0 && !Primitives.EqualsOrClose(curves[index - 1].D, curve.A))
+            if (index > 0 && !Operations.EqualsOrClose(curves[index - 1].D, curve.A))
             {
                 throw new InvalidOperationException("The updated curve at index " + index + " does not connect with the previous curve at index " + (index - 1));
             }
 
-            if (index < curves.Count - 1 && !Primitives.EqualsOrClose(curves[index + 1].A, curve.D))
+            if (index < curves.Count - 1 && !Operations.EqualsOrClose(curves[index + 1].A, curve.D))
             {
                 throw new InvalidOperationException("The updated curve at index " + index + " does not connect with the next curve at index " + (index + 1));
             }
@@ -263,7 +263,7 @@ namespace Engine
             {
                 // We're at the beginning of the spline
                 var max = arclen[0];
-                Debug.Assert(target <= max + Maths.Epsilon);
+                Debug.Assert(target <= max + Mathematics.Epsilon);
                 var part = target / max;
                 var tp = part / samplesPerCurve;
                 return new SamplePosition(0, tp);
@@ -273,7 +273,7 @@ namespace Engine
                 // interpolate between two values to see where the index would be if continuous values
                 var min = arclen[index];
                 var max = arclen[index + 1];
-                Debug.Assert(target >= min - Maths.Epsilon && target <= max + Maths.Epsilon);
+                Debug.Assert(target >= min - Mathematics.Epsilon && target <= max + Mathematics.Epsilon);
                 var part = target < min ? 0 : target > max ? 1 : (target - min) / (max - min);
                 var tp = (((index + 1) % samplesPerCurve) + part) / samplesPerCurve;
                 var curveIndex = (index + 1) / samplesPerCurve;

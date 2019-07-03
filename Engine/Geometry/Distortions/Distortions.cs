@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using static System.Math;
-using static Engine.Maths;
+using static Engine.Mathematics;
 
 namespace Engine
 {
@@ -151,9 +151,9 @@ namespace Engine
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             var (normalX, normalY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
-            var (leftAnchorX, leftAnchorY) = Interpolators.Linear(topLeft.X, topLeft.Y, bottomLeft.X, bottomLeft.Y, normalY);
-            var (rightAnchorX, rightAnchorY) = Interpolators.Linear(topRight.X, topRight.Y, bottomRight.X, bottomRight.Y, normalY);
-            return Interpolators.Linear(leftAnchorX, leftAnchorY, rightAnchorX, rightAnchorY, normalX);
+            var (leftAnchorX, leftAnchorY) = Interpolators.Linear(normalY, topLeft.X, topLeft.Y, bottomLeft.X, bottomLeft.Y);
+            var (rightAnchorX, rightAnchorY) = Interpolators.Linear(normalY, topRight.X, topRight.Y, bottomRight.X, bottomRight.Y);
+            return Interpolators.Linear(normalX, leftAnchorX, leftAnchorY, rightAnchorX, rightAnchorY);
         }
 
         /// <summary>
@@ -200,10 +200,10 @@ namespace Engine
             // Install "Match Margin" Extension to enable word match highlighting, to help visualize where a variable resides in the ASCI map. 
 
             var (normalX, normalY) = ((point.X - bounds.X) / bounds.Width, (point.Y - bounds.Top) / bounds.Height);
-            var (leftAnchorX, leftAnchorY) = Interpolators.QuadraticBezier(topLeft.X, topLeft.Y, leftHandle.X, leftHandle.Y, bottomLeft.X, bottomLeft.Y, normalY);
-            var (handleX, handleY) = Interpolators.Linear(topHandle.X, topHandle.Y, bottomHandle.X, bottomHandle.Y, normalY);
-            var (rightAnchorX, rightAnchorY) = Interpolators.QuadraticBezier(topRight.X, topRight.Y, rightHandle.X, rightHandle.Y, bottomRight.X, bottomRight.Y, normalY);
-            return Interpolators.QuadraticBezier(leftAnchorX, leftAnchorY, handleX, handleY, rightAnchorX, rightAnchorY, normalX);
+            var (leftAnchorX, leftAnchorY) = Interpolators.QuadraticBezier(normalY, topLeft.X, topLeft.Y, leftHandle.X, leftHandle.Y, bottomLeft.X, bottomLeft.Y);
+            var (handleX, handleY) = Interpolators.Linear(normalY, topHandle.X, topHandle.Y, bottomHandle.X, bottomHandle.Y);
+            var (rightAnchorX, rightAnchorY) = Interpolators.QuadraticBezier(normalY, topRight.X, topRight.Y, rightHandle.X, rightHandle.Y, bottomRight.X, bottomRight.Y);
+            return Interpolators.QuadraticBezier(normalX, leftAnchorX, leftAnchorY, handleX, handleY, rightAnchorX, rightAnchorY);
         }
 
         /// <summary>
@@ -506,7 +506,7 @@ namespace Engine
                     {
                         rd -= distance;
                         var np = p0.Lerp(p1, (td - rd) / td);
-                        if (!Primitives.EqualsOrClose(np, pp))
+                        if (!Operations.EqualsOrClose(np, pp))
                         {
                             dest.Add(np);
                             pp = np;
@@ -522,7 +522,7 @@ namespace Engine
 
             // last point
             var lp = source[source.Count - 1];
-            if (!Primitives.EqualsOrClose(pp, lp))
+            if (!Operations.EqualsOrClose(pp, lp))
             {
                 dest.Add(lp);
             }
@@ -637,7 +637,7 @@ namespace Engine
             for (var i = 1; i < len; i++)
             {
                 var cur = points[i];
-                if (Primitives.EqualsOrClose(prev, cur))
+                if (Operations.EqualsOrClose(prev, cur))
                 {
                     nDup++;
                 }
@@ -660,7 +660,7 @@ namespace Engine
                 for (var i = 1; i < len; i++)
                 {
                     var cur = points[i];
-                    if (!Primitives.EqualsOrClose(prev, cur))
+                    if (!Operations.EqualsOrClose(prev, cur))
                     {
                         dst.Add(cur);
                         prev = cur;
@@ -684,12 +684,12 @@ namespace Engine
             {
                 for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
                 {
-                    result.Add(Interpolators.Linear(contour[i - 1], contour[i], j));
+                    result.Add(Interpolators.Linear(j, contour[i - 1], contour[i]));
                 }
             }
             for (double j = 0; j < 1; j += 1d / (contour[contour.Count - 1].Distance(contour[0]) * 8))
             {
-                result.Add(Interpolators.Linear(contour[contour.Count - 1], contour[0], j));
+                result.Add(Interpolators.Linear(j, contour[contour.Count - 1], contour[0]));
             }
 
             return result;

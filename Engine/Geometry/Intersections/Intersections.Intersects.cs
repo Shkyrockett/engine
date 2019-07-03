@@ -38,10 +38,11 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System.Runtime.CompilerServices;
-using static Engine.Maths;
-using static System.Math;
 using System;
+using System.Runtime.CompilerServices;
+using static System.Math;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -352,7 +353,8 @@ namespace Engine
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>        /// <acknowledgment>
+        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
+        /// <acknowledgment>
         /// http://www.vb-helper.com/howto_segments_intersect.html
         /// </acknowledgment>
         //[DebuggerStepThrough]
@@ -449,7 +451,8 @@ namespace Engine
         /// <param name="x3">The x component of the second point of the second line.</param>
         /// <param name="y3">The y component of the second point of the second line.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>        /// <acknowledgment>
+        /// <returns>Returns a Boolean value indicating whether the two shapes intersect.</returns>
+        /// <acknowledgment>
         /// http://www.vb-helper.com/howto_segments_intersect.html
         /// </acknowledgment>
         //[DebuggerStepThrough]

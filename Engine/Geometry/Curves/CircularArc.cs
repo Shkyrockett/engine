@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -23,6 +24,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(CircularArc))]
     [XmlType(TypeName = "arc-Circular")]
+    [DebuggerDisplay("{ToString()}")]
     public class CircularArc
         : Shape
     {
@@ -216,7 +218,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(x, y, radius, startAngle, sweepAngle, 0));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(0, x, y, radius, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets the point on the circular arc circumference coincident to the ending angle.
@@ -226,7 +228,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(x, y, radius, startAngle, sweepAngle, 1));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(1, x, y, radius, startAngle, sweepAngle));
 
         /// <summary>
         /// Gets or sets the <see cref="X"/> coordinate location of the center of the <see cref="CircularArc"/>.
@@ -504,50 +506,6 @@ namespace Engine
             => new CircularArc(tuple);
         #endregion Operators
 
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CircularArc)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CircularArc)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CircularArc)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CircularArc)} has been deserialized.");
-        //}
-
-        //#endregion
-
         #region Interpolators
         /// <summary>
         /// Interpolates the Arc.
@@ -555,7 +513,7 @@ namespace Engine
         /// <param name="t">Index of the point to interpolate.</param>
         /// <returns>Returns the interpolated point of the index value.</returns>
         public override Point2D Interpolate(double t)
-            => Interpolators.CircularArc(x, y, radius, startAngle, SweepAngle, t);
+            => Interpolators.CircularArc(t, x, y, radius, startAngle, SweepAngle);
         #endregion Interpolators
 
         #region Methods

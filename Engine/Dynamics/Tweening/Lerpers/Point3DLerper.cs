@@ -9,7 +9,7 @@
 // <remarks> Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
 using static System.Math;
-using static Engine.Maths;
+using static Engine.Mathematics;
 
 namespace Engine.Tweening
 {

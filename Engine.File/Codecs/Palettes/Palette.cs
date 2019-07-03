@@ -14,6 +14,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Engine.Colorspace;
+using static System.Math;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine.File.Palettes
 {
@@ -317,7 +320,7 @@ namespace Engine.File.Palettes
             //var startPossition = stream.Position;
 
             using var binaryReader = new BinaryReader(stream);
-            var mimeVersion = Maths.NetworkToHostOrder(binaryReader.ReadUInt16());
+            var mimeVersion = ReverseEndianness(binaryReader.ReadUInt16());
             string name;
             if (mimeVersion == 0xccbc)
             {

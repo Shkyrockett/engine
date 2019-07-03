@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -21,6 +22,7 @@ namespace Engine
     /// The node revealer class.
     /// </summary>
     [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public class NodeRevealer
         : Shape
     {

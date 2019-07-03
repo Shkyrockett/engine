@@ -31,6 +31,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Polycurve))]
     [XmlType(TypeName = "PolycurveSet", Namespace = "http://www.w3.org/2000/svg")]
+    [DebuggerDisplay("{ToString()}")]
     public class Polycurve
         : Shape, IEnumerable<PolycurveContour>
     {
@@ -183,50 +184,6 @@ namespace Engine
             }
         }
         #endregion Properties
-
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Polygon)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Polygon)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Polygon)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(Polygon)} has been deserialized.");
-        //}
-
-        //#endregion
 
         /// <summary>
         /// Parse the path def string.

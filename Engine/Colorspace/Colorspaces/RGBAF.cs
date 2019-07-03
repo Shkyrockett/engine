@@ -18,6 +18,7 @@ namespace Engine.Colorspace
     /// <summary>
     /// Red Green Blue Alpha color class.
     /// </summary>
+    [DebuggerDisplay("{ToString()}")]
     public struct RGBAF
         : IColor
     {

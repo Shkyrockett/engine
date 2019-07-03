@@ -57,7 +57,7 @@ namespace Engine
         /// <returns>Returns the interpolated point of the index value.</returns>
 
         public override Point2D Interpolate(double t)
-            => new Point2D(Interpolators.Cosine(A.X, A.Y, B.X, B.Y, t));
+            => new Point2D(Interpolators.Cosine(t, A.X, A.Y, B.X, B.Y));
 
         /// <summary>
         /// The to string.

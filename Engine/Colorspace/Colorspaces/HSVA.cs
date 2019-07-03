@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics;
 using static System.Math;
 
 namespace Engine.Colorspace
@@ -16,6 +17,7 @@ namespace Engine.Colorspace
     /// <summary>
     /// Alpha Hue Saturation Value color.
     /// </summary>
+    [DebuggerDisplay("{ToString()}")]
     public struct HSVA
         : IColor
     {

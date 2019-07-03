@@ -9,12 +9,14 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics;
 
 namespace Engine.Colorspace
 {
     /// <summary>
     /// The YIQA struct.
     /// </summary>
+    [DebuggerDisplay("{ToString()}")]
     public struct YIQA
         : IColor
     {

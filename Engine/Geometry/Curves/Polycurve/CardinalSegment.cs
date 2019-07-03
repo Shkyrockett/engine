@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -20,6 +21,7 @@ namespace Engine
     /// The cardinal segment class.
     /// </summary>
     [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public class CardinalSegment
          : CurveSegment
     {

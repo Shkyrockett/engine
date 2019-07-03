@@ -5,7 +5,20 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>preview</LangVersion>
+    <Version>0.0.0.1</Version>
+    <Authors>Shkyrockett</Authors>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Engine.Base\Engine.Base.csproj" />
+    <ProjectReference Include="..\Engine.Dynamic\Engine.Dynamic.csproj" />
+    <ProjectReference Include="..\Engine.Geometry\Engine.Geometry.csproj" />
+    <ProjectReference Include="..\Engine.Mathmatics\Engine.Mathmatics.csproj" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Form1.cs">

@@ -4,6 +4,9 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>preview</LangVersion>
+    <Version>0.0.0.1</Version>
+    <Authors>Shkyrockett</Authors>
+    <RootNamespace>Engine</RootNamespace>
   </PropertyGroup>
 
 </Project>

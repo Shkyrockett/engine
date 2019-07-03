@@ -11,8 +11,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -20,6 +22,7 @@ namespace Engine
     /// The quadratic bezier segment class.
     /// </summary>
     [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public class QuadraticBezierSegment
          : CurveSegment
     {
@@ -161,7 +164,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)Maths.QuadraticBezierCoefficients(Start.Value.X, Handle.Value.X, End.Value.X));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierCoefficients(Start.Value.X, Handle.Value.X, End.Value.X));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -175,7 +178,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)Maths.QuadraticBezierCoefficients(Start.Value.Y, Handle.Value.Y, End.Value.Y));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierCoefficients(Start.Value.Y, Handle.Value.Y, End.Value.Y));
                 curveY.IsReadonly = true;
                 return curveY;
             }

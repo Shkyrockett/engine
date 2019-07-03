@@ -50,7 +50,7 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
-            => Interpolators.CubicBezierSpline(NodePoints, t);
+            => Interpolators.CubicBezierSpline(t, NodePoints);
 
         /// <summary>
         /// The to string.

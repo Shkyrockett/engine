@@ -3,6 +3,9 @@ using Engine.Imaging;
 
 namespace Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class SolidFills
     {
         /// <summary>

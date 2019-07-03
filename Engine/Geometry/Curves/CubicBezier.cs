@@ -11,10 +11,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -30,6 +33,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(CubicBezier))]
     [XmlType(TypeName = "Bezier-Cubic")]
+    [DebuggerDisplay("{ToString()}")]
     public class CubicBezier
         : Shape, IEquatable<CubicBezier>
     {
@@ -514,7 +518,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)Maths.CubicBezierCoefficients(dx, cx, bx, ax));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierCoefficients(dx, cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -528,7 +532,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)Maths.CubicBezierCoefficients(dy, cy, by, ay));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)CubicBezierCoefficients(dy, cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -551,8 +555,8 @@ namespace Engine
                 {
                     if (Degree == PolynomialDegree.Cubic)
                     {
-                        var a1 = Maths.AngleVector(Points[0].X, Points[0].Y, Points[3].X, Points[3].Y, Points[1].X, Points[1].Y);
-                        var a2 = Maths.AngleVector(Points[0].X, Points[0].Y, Points[3].X, Points[3].Y, Points[2].X, Points[2].Y);
+                        var a1 = AngleVector(Points[0].X, Points[0].Y, Points[3].X, Points[3].Y, Points[1].X, Points[1].Y);
+                        var a2 = AngleVector(Points[0].X, Points[0].Y, Points[3].X, Points[3].Y, Points[2].X, Points[2].Y);
                         if (a1 > 0 && a2 < 0 || a1 < 0 && a2 > 0)
                         {
                             return false;
@@ -625,13 +629,13 @@ namespace Engine
                 static List<double> Extrema(IList<IList<Point2D>> derivativeCoordinates)
                 {
                     var p = (from a in derivativeCoordinates[0] select a.X).ToList();
-                    var result = new List<double>(Maths.DRoots(p));
+                    var result = new List<double>(DRoots(p));
                     p = (from a in derivativeCoordinates[0] select a.Y).ToList();
-                    result.AddRange(Maths.DRoots(p));
+                    result.AddRange(DRoots(p));
                     p = (from a in derivativeCoordinates[1] select a.X).ToList();
-                    result.AddRange(Maths.DRoots(p));
+                    result.AddRange(DRoots(p));
                     p = (from a in derivativeCoordinates[1] select a.Y).ToList();
-                    result.AddRange(Maths.DRoots(p));
+                    result.AddRange(DRoots(p));
 
                     result = result.Where((t) => { return t >= 0 && t <= 1; }).ToList();
                     result.Sort();
@@ -654,7 +658,7 @@ namespace Engine
                 return (IList<double>)CachingProperty(() => Inflections(Points));
                 static IList<double> Inflections(IList<Point2D> points)
                 {
-                    var p = Maths.AlignPoints(points, points[0].X, points[0].Y, points[3].X, points[3].Y);
+                    var p = AlignPoints(points, points[0].X, points[0].Y, points[3].X, points[3].Y);
                     var a = p[2].X * p[1].Y;
                     var b = p[3].X * p[1].Y;
                     var c = p[1].X * p[2].Y;
@@ -663,16 +667,16 @@ namespace Engine
                     var v2 = 18 * ((3 * a) - b - (3 * c));
                     var v3 = 18 * (c - a);
 
-                    if (Maths.Approximately(v1, 0))
+                    if (Approximately(v1, 0))
                     {
                         return new double[] { };
                     }
 
                     var descriminant = (v2 * v2) - (4 * v1 * v3);
-                    var sq = Math.Sqrt(descriminant);
+                    var sq = Sqrt(descriminant);
                     d = 2 * v1;
 
-                    return Maths.Approximately(d, 0)
+                    return Approximately(d, 0)
                         ? new List<double>()
                         : new List<double>(
                         from r in new double[] { (sq - v2) / d, -(v2 + sq) / d }
@@ -846,50 +850,6 @@ namespace Engine
             => new CubicBezier(tuple);
         #endregion Operators
 
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CubicBezier)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CubicBezier)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CubicBezier)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CubicBezier)} has been deserialized.");
-        //}
-
-        //#endregion
-
         /// <summary>
         /// The hull.
         /// </summary>
@@ -912,7 +872,7 @@ namespace Engine
 
                 for (var i = 0; i < points.Count - 1; i++)
                 {
-                    var pt = Interpolators.Linear(points[i], points[i + 1], t);
+                    var pt = Interpolators.Linear(t, points[i], points[i + 1]);
                     results.Add(pt);
                     remaining.Add(pt);
                 }
@@ -931,7 +891,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
-            => new Point2D(Interpolators.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, t));
+            => new Point2D(Interpolators.CubicBezier(t, A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y));
 
         /// <summary>
         /// The interpolate.
@@ -957,7 +917,6 @@ namespace Engine
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>First derivative of curve at sampled point.</returns>
-
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
         /// </acknowledgment>
@@ -994,7 +953,6 @@ namespace Engine
         /// </summary>
         /// <param name="t">Time value at which to sample (should be between 0 and 1, though it won't fail if outside that range).</param>
         /// <returns>Direction the curve is going at that point.</returns>
-
         /// <acknowledgment>
         /// https://github.com/burningmime/curves
         /// </acknowledgment>
@@ -1012,7 +970,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<Point2D> GetEnumerator()
         {
-            yield return new Point2D(Interpolators.CubicBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y, Length));
+            yield return new Point2D(Interpolators.CubicBezier(Length, A.X, A.Y, B.X, B.Y, C.X, C.Y, D.X, D.Y));
         }
 
         /// <summary>

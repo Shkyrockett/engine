@@ -130,11 +130,11 @@ namespace Engine.Experimental
             // ToDo: This is a rough guess of what needs to happen. This needs to be tested and corrected.
             var points = new Point2D[alterations.Length + 1];
             points[0] = start;
-            var end = Interpolators.Linear(start, (Point2D)(direction * length), 1);
+            var end = Interpolators.Linear(1, start, (Point2D)(direction * length));
             var i = 1;
             foreach (var (t, offset) in alterations)
             {
-                var point = Interpolators.Linear(start, (Point2D)(direction * length), t);
+                var point = Interpolators.Linear(t, start, (Point2D)(direction * length));
                 points[i++] = point + (start.CrossProduct(end) * offset);
             }
             points[points.Length - 1] = end;

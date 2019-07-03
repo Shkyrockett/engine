@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using static System.Math;
@@ -23,6 +24,7 @@ namespace Engine
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(CircularSegment))]
+    [DebuggerDisplay("{ToString()}")]
     public class CircularSegment
         : Shape
     {
@@ -208,7 +210,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the starting angle.")]
         public Point2D StartPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(x, y, radius, startAngle, SweepAngle, 0));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(0, x, y, radius, startAngle, SweepAngle));
 
         /// <summary>
         /// Gets the point on the circular arc circumference coincident to the ending angle.
@@ -218,7 +220,7 @@ namespace Engine
         [Category("Properties")]
         [Description("The point on the circular arc circumference coincident to the ending angle.")]
         public Point2D EndPoint
-            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(x, y, radius, startAngle, SweepAngle, 1));
+            => (Point2D)CachingProperty(() => (Point2D)Interpolators.CircularArc(1, x, y, radius, startAngle, SweepAngle));
 
         /// <summary>
         /// Gets or sets the X coordinate location of the center of the circle.
@@ -412,7 +414,7 @@ namespace Engine
 
         /// <returns></returns>
         /// <summary>
-        /// Gets the perimiter.
+        /// Gets the perimeter.
         /// </summary>
         [Category("Properties")]
         [Description("The distance around the arc.")]
@@ -467,7 +469,7 @@ namespace Engine
                         bounds.Right = x + radius;
                     }
 
-                    if ((angleEnd >= Maths.HalfPi) && (startAngle <= Maths.HalfPi))
+                    if ((angleEnd >= Mathematics.HalfPi) && (startAngle <= Mathematics.HalfPi))
                     {
                         bounds.Top = y - radius;
                     }
@@ -477,12 +479,12 @@ namespace Engine
                         bounds.Left = x - radius;
                     }
 
-                    if ((angleEnd >= Maths.Pau) && (startAngle <= Maths.Pau))
+                    if ((angleEnd >= Mathematics.Pau) && (startAngle <= Mathematics.Pau))
                     {
                         bounds.Bottom = y + radius;
                     }
 
-                    if ((angleEnd >= Maths.Tau) && (startAngle <= Maths.Tau))
+                    if ((angleEnd >= Mathematics.Tau) && (startAngle <= Mathematics.Tau))
                     {
                         bounds.Right = x + radius;
                     }
@@ -500,50 +502,6 @@ namespace Engine
         public Rectangle2D DrawingBounds
             => (Rectangle2D)CachingProperty(() => Rectangle2D.FromLTRB(x - radius, y - radius, x + radius, y + radius));
         #endregion Properties
-
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CircularSegment)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CircularSegment)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CircularSegment)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(CircularSegment)} has been deserialized.");
-        //}
-
-        //#endregion
 
         #region Interpolators
         /// <summary>

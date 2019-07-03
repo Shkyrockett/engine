@@ -40,7 +40,7 @@
 
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static Engine.Maths;
+using static Engine.Mathematics;
 using static System.Math;
 using System;
 using System.Linq;

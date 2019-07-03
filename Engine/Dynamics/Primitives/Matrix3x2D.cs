@@ -10,16 +10,17 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using static System.Math;
-using static Engine.Maths;
 using System.Runtime.Serialization;
-using System.Collections.Generic;
-using System.Collections;
+using static Engine.Mathematics;
+using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -30,6 +31,7 @@ namespace Engine
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(Matrix2DConverter))]
+    [DebuggerDisplay("{ToString()}")]
     public partial struct Matrix3x2D
         : IMatrix<Matrix3x2D, Vector2D>
     {
@@ -44,6 +46,14 @@ namespace Engine
         /// </summary>
         public static Matrix3x2D Identity = CreateIdentity();
         #endregion Static Fields
+
+        #region Constants
+        /// <summary>
+        /// The hash code for a matrix is the xor of its element's hashes.
+        /// Since the identity matrix has 2 1's and 4 0's its hash is 0.
+        /// </summary>
+        private const int c_identityHashCode = 0;
+        #endregion Constants
 
         #region Private Fields
         /// <summary>
@@ -92,14 +102,6 @@ namespace Engine
 #pragma warning restore IDE0052
 #pragma warning restore CS0414
         #endregion Private Fields
-
-        #region Constants
-        /// <summary>
-        /// The hash code for a matrix is the xor of its element's hashes.
-        /// Since the identity matrix has 2 1's and 4 0's its hash is 0.
-        /// </summary>
-        private const int c_identityHashCode = 0;
-        #endregion Constants
 
         #region Constructors
         /// <summary>
@@ -377,10 +379,14 @@ namespace Engine
 
         #region Operators
         /// <summary>
-        /// Operator Point * Matrix
+        /// Multiply a point by a matrix.
         /// </summary>
-        public static Point2D operator *(Point2D point, Matrix3x2D matrix)
-            => matrix.Transform(point);
+        /// <param name="value"></param>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Point2D operator *(Point2D value, Matrix3x2D matrix) => matrix.Transform(value);
 
         /// <summary>
         /// Multiplies two transformations.
@@ -529,66 +535,23 @@ namespace Engine
         {
             IFormatProvider formatProvider = CultureInfo.InvariantCulture;
             var tokenizer = new Tokenizer(source, formatProvider);
-            Matrix3x2D value;
             var firstToken = tokenizer.NextTokenRequired();
-            // The token will already have had whitespace trimmed so we can do a
-            // simple string compare.
-            value = firstToken == nameof(Identity) ? Identity : new Matrix3x2D(
-                    firstToken.ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider),
-                    tokenizer.NextTokenRequired().ParseFloat(formatProvider));
+
+            // The token will already have had whitespace trimmed so we can do a simple string compare.
+            var value = firstToken == nameof(Identity) ? Identity : new Matrix3x2D(
+                Convert.ToDouble(firstToken, formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider),
+                Convert.ToDouble(tokenizer.NextTokenRequired(), formatProvider)
+                );
+
             // There should be no more tokens in this string.
             tokenizer.LastTokenRequired();
             return value;
         }
         #endregion Factories
-
-        //#region Serialization
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        //#endregion
 
         #region Mutators
         /// <summary>
@@ -981,7 +944,7 @@ namespace Engine
         public void Rotate(double angle)
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this *= CreateRotationRadians((angle * (PI / 180.0)));
-            => this *= CreateRotationRadians(Maths.WrapAngle(angle));
+            => this *= CreateRotationRadians(Operations.WrapAngle(angle));
 
         /// <summary>
         /// Prepends a rotation about the origin to "this"
@@ -990,7 +953,7 @@ namespace Engine
         public void RotatePrepend(double angle)
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this = CreateRotationRadians((angle * (PI / 180.0))) * this;
-            => this = CreateRotationRadians(Maths.WrapAngle(angle)) * this;
+            => this = CreateRotationRadians(Operations.WrapAngle(angle)) * this;
 
         /// <summary>
         /// Rotates this matrix about the given point
@@ -1001,7 +964,7 @@ namespace Engine
         public void RotateAt(double angle, double centerX, double centerY)
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this *= CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY);
-            => this *= CreateRotationRadians(Maths.WrapAngle(angle), centerX, centerY);
+            => this *= CreateRotationRadians(Operations.WrapAngle(angle), centerX, centerY);
 
         /// <summary>
         /// Prepends a rotation about the given point to "this"
@@ -1012,7 +975,7 @@ namespace Engine
         public void RotateAtPrepend(double angle, double centerX, double centerY)
             //angle %= 360.0f; // Doing the modulo before converting to radians reduces total error
             //this = CreateRotationRadians((angle * (PI / 180.0)), centerX, centerY) * this;
-            => this = CreateRotationRadians(Maths.WrapAngle(angle), centerX, centerY) * this;
+            => this = CreateRotationRadians(Operations.WrapAngle(angle), centerX, centerY) * this;
 
         /// <summary>
         /// Scales this matrix around the origin
@@ -1060,7 +1023,7 @@ namespace Engine
             //skewY %= 360;
             //this *= CreateSkewRadians((skewX * (PI / 180.0)),
             //                         (skewY * (PI / 180.0)));
-            => this *= CreateSkewRadians(Maths.WrapAngle(skewX), Maths.WrapAngle(skewY));
+            => this *= CreateSkewRadians(Operations.WrapAngle(skewX), Operations.WrapAngle(skewY));
 
         /// <summary>
         /// Prepends a skew to this matrix
@@ -1072,7 +1035,7 @@ namespace Engine
             //skewY %= 360;
             //this = CreateSkewRadians((skewX * (PI / 180.0)),
             //                         (skewY * (PI / 180.0))) * this;
-            => this = CreateSkewRadians(Maths.WrapAngle(skewX), Maths.WrapAngle(skewY)) * this;
+            => this = CreateSkewRadians(Operations.WrapAngle(skewX), Operations.WrapAngle(skewY)) * this;
 
         /// <summary>
         /// Translates this matrix

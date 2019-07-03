@@ -18,6 +18,7 @@ namespace Engine.Colorspace
     /// <summary>
     /// <see cref="HSLA"/> Color
     /// </summary>
+    [DebuggerDisplay("{ToString()}")]
     public struct HSLA
         : IColor
     {

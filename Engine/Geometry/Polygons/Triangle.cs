@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -22,6 +23,7 @@ namespace Engine
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(Triangle))]
+    [DebuggerDisplay("{ToString()}")]
     public class Triangle
          : PolygonContour
     {

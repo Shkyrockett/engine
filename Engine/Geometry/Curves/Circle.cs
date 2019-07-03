@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -25,6 +26,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(Circle))]
     [XmlType(TypeName = "circle", Namespace = "shape")]
+    [DebuggerDisplay("{ToString()}")]
     public class Circle
         : Shape
     {
@@ -383,7 +385,7 @@ namespace Engine
         /// <returns>Returns the interpolated point of the index value.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
-            => Interpolators.UnitCircle(x, y, radius, t);
+            => Interpolators.UnitCircle(t, x, y, radius);
         #endregion Interpolators
 
         #region Methods

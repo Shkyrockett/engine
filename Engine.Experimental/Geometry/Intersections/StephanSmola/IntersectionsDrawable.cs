@@ -12,9 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.BobLyonCommon;
-using static Engine.Maths;
-using static Engine.Measurements;
 using static System.Math;
+using static Engine.Mathematics;
+using static Engine.Measurements;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -97,7 +98,7 @@ namespace Engine
                 }
 
                 var (a, b, c, d, e) = GetQuartic(e1, e2);
-                var y = Maths.QuarticRoots(a, b, c, d, e).ToArray();
+                var y = Operations.QuarticRoots(a, b, c, d, e).ToArray();
 
                 v.AddRange(CalculatePoints(y, e1, e2));
 

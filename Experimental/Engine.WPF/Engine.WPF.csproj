@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <LangVersion>preview</LangVersion>
+    <Version>0.0.0.1</Version>
+    <Authors>Shkyrockett</Authors>
+    <Company>Shkyrockett</Company>
+    <RootNamespace>Engine</RootNamespace>
   </PropertyGroup>
 
 </Project>

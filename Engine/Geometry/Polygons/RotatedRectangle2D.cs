@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -24,6 +25,7 @@ namespace Engine
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(RotatedRectangle2D))]
+    [DebuggerDisplay("{ToString()}")]
     public class RotatedRectangle2D
         : Shape
     {
@@ -443,7 +445,7 @@ namespace Engine
             && left?.Y == right?.Y
             && left?.Width == right?.Width
             && left?.Height == right?.Height
-            && Abs(left.Angle - right.Angle) < Maths.Epsilon;
+            && Abs(left.Angle - right.Angle) < Mathematics.Epsilon;
 
         /// <summary>
         /// Tests whether <paramref name="obj"/> is a <see cref="RotatedRectangle2D"/> with the same location and size of this <see cref="Rectangle2D"/>.
@@ -592,50 +594,6 @@ namespace Engine
         //    return rect;
         //}
         #endregion Factories
-
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(RotatedRectangle2D)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(RotatedRectangle2D)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(RotatedRectangle2D)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(RotatedRectangle2D)} has been deserialized.");
-        //}
-
-        //#endregion
 
         #region Mutators
         ///// <summary>
@@ -795,7 +753,7 @@ namespace Engine
         /// </summary>
         /// <returns>An array of points representing the corners of a rectangle.</returns>
         public List<Point2D> ToPoints()
-            => Interpolators.RotatedRectangle(x - (width * 0.5d), y - (height * 0.5d), width, height, Center.X, Center.Y, angle);
+            => Conversions.RotatedRectangle(x - (width * 0.5d), y - (height * 0.5d), width, height, Center.X, Center.Y, angle);
 
         /// <summary>
         /// Gets the hash code for this <see cref="Rectangle2D"/>.

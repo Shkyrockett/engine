@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Editor.WinForms", "Editor.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.File", "Engine.File\Engine.File.csproj", "{383CD8A6-76A1-454E-8914-34F472CCB043}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Math", "Engine.Math\Engine.Math.csproj", "{175641A0-45DB-42D1-A697-5B48799B89E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Mathmatics", "Engine.Mathmatics\Engine.Mathmatics.csproj", "{175641A0-45DB-42D1-A697-5B48799B89E8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Calendar", "Engine.Calendar\Engine.Calendar.csproj", "{A6A2B62A-3B44-4992-B6C1-372BC390A4A9}"
 EndProject
@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.WinForms", "Engine.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.WPF", "Engine.WPF\Engine.WPF.csproj", "{11C45F7B-8327-45BF-9E2E-4D39DCCA7466}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine.Tests", "Engine.Tests\Engine.Tests.csproj", "{13E6F4E1-DA3E-4269-9ABE-6F80218F28FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Engine.Tests", "Engine.Tests\Engine.Tests.csproj", "{13E6F4E1-DA3E-4269-9ABE-6F80218F28FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -49,6 +49,7 @@ namespace Engine
         /// <summary>
         /// Property cache for commonly used properties that may take time to calculate.
         /// </summary>
+        [XmlIgnore()]
         [NonSerialized()]
         protected Dictionary<object, object> propertyCache = new Dictionary<object, object>();
         #endregion Fields
@@ -78,50 +79,6 @@ namespace Engine
         [Description("The bounding box of the shape.")]
         public virtual Rectangle2D Bounds { get; set; }
         #endregion Properties
-
-        //#region Serialization
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
-
-        ///// <summary>
-        ///// 
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        //#endregion
 
         #region Interpolation
         /// <summary>

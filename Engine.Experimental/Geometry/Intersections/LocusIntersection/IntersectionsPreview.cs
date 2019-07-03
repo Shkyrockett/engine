@@ -8,7 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using static Engine.Maths;
+using static Engine.Mathematics;
 
 namespace Engine
 {

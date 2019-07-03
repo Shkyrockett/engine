@@ -29,8 +29,9 @@ namespace Engine
     /// <structure>Engine.Geometry.PolyGon2D</structure>
     [DataContract, Serializable]
     //[GraphicsObject]
-    //[DisplayName(nameof(PolyBezier))]
+    [DisplayName(nameof(PolyBezier))]
     [XmlType(TypeName = "polybezier", Namespace = "shapes")]
+    [DebuggerDisplay("{ToString()}")]
     public class PolyBezier
         : Shape, IEnumerable<PolyBezierContour>
     {
@@ -230,50 +231,6 @@ namespace Engine
             }
         }
         #endregion Properties
-
-        //#region Serialization
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    // Assert("This value went into the data file during serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    // Assert("This value was reset after serialization.");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    // Assert("This value was set during deserialization");
-        //}
-
-        ///// <summary>
-        /////
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    // Assert("This value was set after deserialization.");
-        //}
-
-        //#endregion
 
         #region Mutators
         /// <summary>

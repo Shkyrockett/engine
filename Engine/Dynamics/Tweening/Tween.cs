@@ -314,12 +314,12 @@ namespace Engine.Tweening
 
                 if (varHash.TryGetValue(property.Name, out var index))
                 {
-                    //	if we're already tweening this value, adjust the range
+                    //	If we're already tweening this value, adjust the range
                     start[index] = propValue;
                 }
 
-                //	if we aren't tweening this value, just set it
-                var info = new MemberAccessor(Target, property.Name, true)
+                //	If we aren't tweening this value, just set it
+                _ = new MemberAccessor(Target, property.Name, true)
                 {
                     Value = propValue
                 };

@@ -11,10 +11,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -29,6 +32,7 @@ namespace Engine
     [GraphicsObject]
     [DisplayName(nameof(QuadraticBezier))]
     [XmlType(TypeName = "bezier-Quadratic")]
+    [DebuggerDisplay("{ToString()}")]
     public class QuadraticBezier
         : Shape, IEquatable<QuadraticBezier>
     {
@@ -374,7 +378,7 @@ namespace Engine
         {
             get
             {
-                var curveX = (Polynomial)CachingProperty(() => (Polynomial)Maths.QuadraticBezierCoefficients(cx, bx, ax));
+                var curveX = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierCoefficients(cx, bx, ax));
                 curveX.IsReadonly = true;
                 return curveX;
             }
@@ -388,7 +392,7 @@ namespace Engine
         {
             get
             {
-                var curveY = (Polynomial)CachingProperty(() => (Polynomial)Maths.QuadraticBezierCoefficients(cy, by, ay));
+                var curveY = (Polynomial)CachingProperty(() => (Polynomial)QuadraticBezierCoefficients(cy, by, ay));
                 curveY.IsReadonly = true;
                 return curveY;
             }
@@ -476,16 +480,16 @@ namespace Engine
                 static List<double> Extrema(List<List<Point2D>> derivativeCoordinates)
                 {
                     var p = (from a in derivativeCoordinates[0] select a.X).ToList();
-                    var r = Maths.DRoots(p);
+                    var r = DRoots(p);
                     var result = new List<double>(r);
                     p = (from a in derivativeCoordinates[0] select a.Y).ToList();
-                    r = Maths.DRoots(p);
+                    r = DRoots(p);
                     result.AddRange(r);
                     p = (from a in derivativeCoordinates[1] select a.X).ToList();
-                    r = Maths.DRoots(p);
+                    r = DRoots(p);
                     result.AddRange(r);
                     p = (from a in derivativeCoordinates[1] select a.Y).ToList();
-                    r = Maths.DRoots(p);
+                    r = DRoots(p);
                     result.AddRange(r);
 
                     result = result.Where((t) => { return t >= 0 && t <= 1; }).ToList();
@@ -639,50 +643,6 @@ namespace Engine
             => new QuadraticBezier(tuple);
         #endregion Operators
 
-        //#region Serialization
-
-        ///// <summary>
-        ///// Sends an event indicating that this value went into the data file during serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerializing()]
-        //private void OnSerializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(QuadraticBezier)} is being serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was reset after serialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnSerialized()]
-        //private void OnSerialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(QuadraticBezier)} has been serialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set during deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserializing()]
-        //private void OnDeserializing(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(QuadraticBezier)} is being deserialized.");
-        //}
-
-        ///// <summary>
-        ///// Sends an event indicating that this value was set after deserialization.
-        ///// </summary>
-        ///// <param name="context"></param>
-        //[OnDeserialized()]
-        //private void OnDeserialized(StreamingContext context)
-        //{
-        //    Debug.WriteLine($"{nameof(QuadraticBezier)} has been deserialized.");
-        //}
-
-        //#endregion
-
         /// <summary>
         /// The hull.
         /// </summary>
@@ -704,7 +664,7 @@ namespace Engine
                 var remaining = new List<Point2D>();
                 for (var i = 0; i < points.Count - 1; i++)
                 {
-                    var pt = Interpolators.Linear(points[i], points[i + 1], t);
+                    var pt = Interpolators.Linear(t, points[i], points[i + 1]);
                     results.Add(pt);
                     remaining.Add(pt);
                 }
@@ -723,7 +683,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Point2D Interpolate(double t)
-            => new Point2D(Interpolators.QuadraticBezier(ax, ay, bx, by, cx, cy, t));
+            => new Point2D(Interpolators.QuadraticBezier(t, ax, ay, bx, by, cx, cy));
 
         /// <summary>
         /// The interpolate.
@@ -802,7 +762,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<Point2D> GetEnumerator()
         {
-            yield return new Point2D(Interpolators.QuadraticBezier(A.X, A.Y, B.X, B.Y, C.X, C.Y, Length));
+            yield return new Point2D(Interpolators.QuadraticBezier(Length, A.X, A.Y, B.X, B.Y, C.X, C.Y));
         }
 
         /// <summary>

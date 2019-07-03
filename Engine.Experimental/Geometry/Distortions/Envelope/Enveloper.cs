@@ -126,18 +126,18 @@ namespace Engine.Experimental
             //var reverseNormal = (X: 1d - normal.X, Y: 1d - normal.Y);
 
             // Interpolate the normalized point along the Cubic Bézier curves.
-            var left = Interpolators.CubicBezier(topLeft.X, topLeft.Y, topLeftV.X, topLeftV.Y, bottomLeftV.X, bottomLeftV.Y, bottomLeft.X, bottomLeft.Y, normal.Y);
-            var right = Interpolators.CubicBezier(topRight.X, topRight.Y, topRightV.X, topRightV.Y, bottomRightV.X, bottomRightV.Y, bottomRight.X, bottomRight.Y, normal.Y);
-            var top = Interpolators.CubicBezier(topLeft.X, topLeft.Y, topLeftH.X, topLeftH.Y, topRightH.X, topRightH.Y, topRight.X, topRight.Y, normal.X);
-            var bottom = Interpolators.CubicBezier(bottomLeft.X, bottomLeft.Y, bottomLeftH.X, bottomLeftH.Y, bottomRightH.X, bottomRightH.Y, bottomRight.X, bottomRight.Y, normal.X);
+            var left = Interpolators.CubicBezier(normal.Y, topLeft.X, topLeft.Y, topLeftV.X, topLeftV.Y, bottomLeftV.X, bottomLeftV.Y, bottomLeft.X, bottomLeft.Y);
+            var right = Interpolators.CubicBezier(normal.Y, topRight.X, topRight.Y, topRightV.X, topRightV.Y, bottomRightV.X, bottomRightV.Y, bottomRight.X, bottomRight.Y);
+            var top = Interpolators.CubicBezier(normal.X, topLeft.X, topLeft.Y, topLeftH.X, topLeftH.Y, topRightH.X, topRightH.Y, topRight.X, topRight.Y);
+            var bottom = Interpolators.CubicBezier(normal.X, bottomLeft.X, bottomLeft.Y, bottomLeftH.X, bottomLeftH.Y, bottomRightH.X, bottomRightH.Y, bottomRight.X, bottomRight.Y);
 
             // Linearly interpolate the point between the Bézier curves.
-            var a = Interpolators.Linear(left, right, normal.X); // Horizontal.
-            var b = Interpolators.Linear(top, bottom, normal.Y); // Vertical.
+            var a = Interpolators.Linear(normal.X, left, right); // Horizontal.
+            var b = Interpolators.Linear(normal.Y, top, bottom); // Vertical.
 
             //var c = new Point2D(0.5, 0.5);
 
-            return Interpolators.Linear(a, b, 0.5);
+            return Interpolators.Linear(0.5, a, b);
 
             //return new Point2D(
             //    reverseNormal.X * (left.X) + normal.X * (right.X),
@@ -187,8 +187,8 @@ namespace Engine.Experimental
 
             var inter = (size.Width - 1 - point.Y) / (size.Width - 1);
 
-            var contLeft = Interpolators.Linear(cpTL.AnchorBGlobal, cpBL.AnchorBGlobal, inter);
-            var contRight = Interpolators.Linear(cpTR.AnchorBGlobal, cpBR.AnchorBGlobal, inter);
+            var contLeft = Interpolators.Linear(inter, cpTL.AnchorBGlobal, cpBL.AnchorBGlobal);
+            var contRight = Interpolators.Linear(inter, cpTR.AnchorBGlobal, cpBR.AnchorBGlobal);
 
             var control1 = new Point2D(anchor1.X + contLeft.X, anchor1.Y + contLeft.Y);
             var control2 = new Point2D(anchor2.X + contRight.X, anchor2.Y + contRight.Y);

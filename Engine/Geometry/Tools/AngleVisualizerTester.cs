@@ -11,8 +11,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -20,6 +22,7 @@ namespace Engine
     /// The angle visualizer tester class.
     /// </summary>
     [DataContract, Serializable]
+    [DebuggerDisplay("{ToString()}")]
     public class AngleVisualizerTester
         : Shape
     {
@@ -218,7 +221,7 @@ namespace Engine
                 var points = new List<Point2D>();
                 foreach (var angle in TestAngles)
                 {
-                    points.Add(Interpolators.Circle(X, Y, Radius, angle));
+                    points.Add(Interpolators.Circle(angle, X, Y, Radius));
                 }
 
                 return points;
@@ -228,7 +231,7 @@ namespace Engine
                 var angles = new List<double>();
                 foreach (var point in value)
                 {
-                    angles.Add(Maths.Angle(X, Y, point.X, point.Y));
+                    angles.Add(Angle(X, Y, point.X, point.Y));
                 }
 
                 TestAngles = angles;
@@ -244,7 +247,7 @@ namespace Engine
         /// <param name="angle">The angle.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public Point2D TestPoint(double angle)
-            => Interpolators.Circle(X, Y, Radius, angle);
+            => Interpolators.Circle(angle, X, Y, Radius);
 
         /// <summary>
         /// The in sweep.

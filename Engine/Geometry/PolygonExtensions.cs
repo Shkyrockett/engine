@@ -12,8 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using static Engine.Maths;
 using static System.Math;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -35,7 +36,7 @@ namespace Engine
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <param name="polygons"></param>
-        /// <returns></returns>
+        /// <returns></returns>
         /// <acknowledgment>
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
@@ -143,7 +144,7 @@ namespace Engine
         /// Find the polygon's centroid.
         /// </summary>
         /// <param name="polygon"></param>
-        /// <returns></returns>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -186,7 +187,7 @@ namespace Engine
         /// <summary>
         /// If the polygon is oriented counterclockwise, reverse the order of its points.
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon"></param>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -202,7 +203,7 @@ namespace Engine
         /// Return true if the polygon is convex.
         /// </summary>
         /// <param name="polygon">ToDo: describe polygon parameter on PolygonIsConvex</param>
-        /// <returns></returns>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -249,7 +250,7 @@ namespace Engine
         /// <summary>
         /// Find the indexes of three points that form an "ear."
         /// </summary>
-        /// <param name="polygon"></param>
+        /// <param name="polygon"></param>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -284,7 +285,7 @@ namespace Engine
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <param name="C"></param>
-        /// <returns></returns>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -326,7 +327,7 @@ namespace Engine
         /// add it to the triangles array.
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="triangles"></param>
+        /// <param name="triangles"></param>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -346,7 +347,7 @@ namespace Engine
         /// Remove point target from the array.
         /// </summary>
         /// <param name="polygon"></param>
-        /// <param name="target"></param>
+        /// <param name="target"></param>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// </acknowledgment>
@@ -357,7 +358,7 @@ namespace Engine
         /// Triangulate the polygon.
         /// </summary>
         /// <param name="polygon">ToDo: describe polygon parameter on Triangulate</param>
-        /// <returns></returns>
+        /// <returns></returns>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/perform-geometric-operations-on-polygons-in-c/
         /// For a nice, detailed explanation of this method,

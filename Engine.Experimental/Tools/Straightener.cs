@@ -11,6 +11,8 @@
 using System.Collections.Generic;
 using System.Text;
 using static System.Math;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine.Tools
 {
@@ -107,10 +109,10 @@ namespace Engine.Tools
                     Line.B = tools.MouseLocation;
 
                     // angle is the absolute angle of the line.
-                    Angle = Maths.AbsoluteAngle(Line[0].X, Line[0].Y, Line[1].X, Line[1].Y);
+                    Angle = Operations.AbsoluteAngle(Line[0].X, Line[0].Y, Line[1].X, Line[1].Y);
 
                     // theta is the angle to rotate to.
-                    Theta = Maths.RoundToMultiple(Angle, Maths.HalfPi);
+                    Theta = Operations.RoundToMultiple(Angle, Mathematics.HalfPi);
 
                     // delta is the difference between the angle and theta which is the angle to rotate to.
                     Delta = Theta - Angle;

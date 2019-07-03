@@ -86,8 +86,8 @@ namespace Engine.Experimental
             if (!root.ContainsRect(item.Bounds))
             {
                 Resize(new Rectangle2D(
-                    Primitives.Min(root.Rect.TopLeft, item.Bounds.TopLeft) * 2,
-                    Primitives.Max(root.Rect.BottomRight, item.Bounds.BottomRight) * 2));
+                    Operations.Min(root.Rect.TopLeft, item.Bounds.TopLeft) * 2,
+                    Operations.Max(root.Rect.BottomRight, item.Bounds.BottomRight) * 2));
             }
 
             root.Insert(item);
@@ -109,8 +109,8 @@ namespace Engine.Experimental
             if (!root.ContainsRect(item.Bounds))
             {
                 Resize(new Rectangle2D(
-                    Primitives.Min(root.Rect.TopLeft, item.Bounds.TopLeft) * 2,
-                    Primitives.Max(root.Rect.BottomRight, item.Bounds.BottomRight) * 2));
+                    Operations.Min(root.Rect.TopLeft, item.Bounds.TopLeft) * 2,
+                    Operations.Max(root.Rect.BottomRight, item.Bounds.BottomRight) * 2));
             }
 
             root.Insert(item);

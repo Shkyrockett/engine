@@ -16,6 +16,8 @@ using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using static System.Math;
+using static Engine.Mathematics;
+using static Engine.Operations;
 
 namespace Engine
 {
@@ -144,7 +146,7 @@ namespace Engine
 
             if (selecting)
             {
-                Angle = Maths.Angle(e.X, e.Y, center.X, center.Y);
+                Angle = Operations.Angle(e.X, e.Y, center.X, center.Y);
                 Invalidate(true);
             }
         }
@@ -160,7 +162,7 @@ namespace Engine
 
             if (selecting)
             {
-                Angle = Maths.Angle(e.X, e.Y, center.X, center.Y);
+                Angle = Operations.Angle(e.X, e.Y, center.X, center.Y);
                 selecting = false;
                 Invalidate(true);
                 ValueCommitted?.Invoke(this, new ValueChangedEventArgs(Angle));

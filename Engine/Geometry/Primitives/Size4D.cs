@@ -582,12 +582,22 @@ namespace Engine
         /// The equals.
         /// </summary>
         /// <param name="other"></param>
-        /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Size4D other) => (Width == other.Width) & (Height == other.Height) & (Depth == other.Depth) & (Breadth == other.Breadth);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public override bool Equals(object obj) => base.Equals(obj);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override string ToString() => base.ToString();
 
         /// <summary>
@@ -597,16 +607,15 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="formatProvider"></param>
         /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>A string representation of this <see cref="Size4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Size4D);
-            var s = Tokenizer.GetNumericListSeparator(formatProvider);
-            return $"{nameof(Size4D)}({nameof(Width)}:{Width.ToString(format, formatProvider)}{s} {nameof(Height)}:{Height.ToString(format, formatProvider)}{s} {nameof(Depth)}:{Depth.ToString(format, formatProvider)}{s} {nameof(Breadth)}:{Breadth.ToString(format, formatProvider)})";
+            var s = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Size4D)}({nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}{s} {nameof(Depth)}:{Depth.ToString(format, provider)}{s} {nameof(Breadth)}:{Breadth.ToString(format, provider)})";
         }
         #endregion Methods
     }

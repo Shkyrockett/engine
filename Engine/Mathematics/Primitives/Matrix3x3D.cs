@@ -792,20 +792,7 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Matrix3x3D);
             if (IsIdentity) return nameof(Identity);

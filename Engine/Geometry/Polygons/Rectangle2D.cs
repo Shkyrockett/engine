@@ -540,8 +540,7 @@ namespace Engine
         //[DisplayName(nameof(IsEmpty))]
         [Category("Elements")]
         [Description("A value indicating whether or not the rectangle has height or width.")]
-        public bool IsEmpty
-            => (Width <= 0) || (Height <= 0);
+        public bool IsEmpty => (Width <= 0) || (Height <= 0);
 
         /// <summary>
         /// Gets a value indicating whether the Rectangle2D has area.
@@ -552,8 +551,7 @@ namespace Engine
         //[DisplayName(nameof(HasArea))]
         [Category("Elements")]
         [Description("A value indicating whether or not the rectangle has height or width.")]
-        public bool HasArea
-            => width > 0 && height > 0;
+        public bool HasArea => width > 0 && height > 0;
 
         /// <summary>
         /// Gets the area.
@@ -566,8 +564,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [Category("Elements")]
         [Description("The area of the rectangle.")]
-        public override double Area
-            => height * width;
+        public override double Area => height * width;
 
         /// <summary>
         /// Gets the length of the perimeter of the rectangle.
@@ -580,8 +577,7 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [Category("Elements")]
         [Description("The distance around the rectangle.")]
-        public override double Perimeter
-            => (TopLeft.Distance(TopRight) * 2) + (TopLeft.Distance(BottomLeft) * 2);
+        public override double Perimeter => (TopLeft.Distance(TopRight) * 2) + (TopLeft.Distance(BottomLeft) * 2);
 
         /// <summary>
         /// Gets the bounding box of the rectangle.
@@ -596,8 +592,7 @@ namespace Engine
         [RefreshProperties(RefreshProperties.All)]
         [Category("Elements")]
         [Description("bounding box of the rectangle.")]
-        public override Rectangle2D Bounds
-            => this;
+        public override Rectangle2D Bounds => this;
         #endregion Properties
 
         #region Operators

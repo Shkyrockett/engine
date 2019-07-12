@@ -56,10 +56,11 @@ namespace Engine.Imaging
         /// <remarks>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</remarks>
         public static Image CropImage(this Image canvas, Rectangle cropArea)
         {
-            var bmpImage = new Bitmap(canvas);
-            var bmpCrop = bmpImage.Clone(cropArea,
-            bmpImage.PixelFormat);
-            return bmpCrop;
+            using (var bmpImage = new Bitmap(canvas))
+			{
+            	var bmpCrop = bmpImage.Clone(cropArea, bmpImage.PixelFormat);
+            	return bmpCrop;
+			}
         }
 
         /// <summary>

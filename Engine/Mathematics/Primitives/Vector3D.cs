@@ -324,7 +324,6 @@ namespace Engine
         /// </summary>
         /// <param name="divisor">The <see cref="Vector3D"/></param>
         /// <param name="dividend"></param>
-        /// <param name="divedend">The divisor</param>
         /// <returns>A <see cref="Vector3D"/> divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -424,6 +423,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Vector3D a, Vector3D b) => Equals(a, b);
 
@@ -451,6 +451,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector3D value) => Equals(this, value);
 
@@ -487,30 +488,15 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="formatProvider">The <see cref="CultureInfo"/> provider.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>A string representation of this <see cref="Vector3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider formatProvider) => ConvertToString(format /* format string */, formatProvider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Vector3D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string ConvertToString(string format, IFormatProvider formatProvider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Vector3D);
-            var s = Tokenizer.GetNumericListSeparator(formatProvider);
-            return $"{nameof(Vector3D)}({nameof(I)}: {I.ToString(format, formatProvider)}{s} {nameof(J)}: {J.ToString(format, formatProvider)}{s} {nameof(K)}: {K.ToString(format, formatProvider)})";
+            var s = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Vector3D)}({nameof(I)}: {I.ToString(format, provider)}{s} {nameof(J)}: {J.ToString(format, provider)}{s} {nameof(K)}: {K.ToString(format, provider)})";
         }
         #endregion Public Methods
     }

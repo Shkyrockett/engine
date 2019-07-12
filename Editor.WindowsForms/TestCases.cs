@@ -3098,8 +3098,8 @@ namespace Editor
             var rectangle = new Rectangle2D(left + radius, top - 100, 50 - 10, 100 + radius);
             var rectangleItem = new GraphicItem(rectangle, selectionStyle);
 
-            var parabola = Conversions.FindStandardParabolaFromThreePoints(rectangle.Left, rectangle.Bottom, rectangle.Center.X, rectangle.Top, rectangle.Right, rectangle.Bottom);
-            var bezier = new QuadraticBezier(Conversions.StandardParabolaToQuadraticBezier(parabola.a, parabola.b, parabola.c, rectangle.Left, rectangle.Right)).ToCubicBezier();
+            var (a, b, c) = Conversions.FindStandardParabolaFromThreePoints(rectangle.Left, rectangle.Bottom, rectangle.Center.X, rectangle.Top, rectangle.Right, rectangle.Bottom);
+            var bezier = new QuadraticBezier(Conversions.StandardParabolaToQuadraticBezier(a, b, c, rectangle.Left, rectangle.Right)).ToCubicBezier();
             var bezierItem = new GraphicItem(bezier, intersectionBlue);
 
             form.ResetAction = new Action(reset);

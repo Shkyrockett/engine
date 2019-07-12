@@ -128,8 +128,7 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         /// <returns>A <see cref="bool"/> value indicating whether the point intersects the object.</returns>
-        public virtual bool Contains(Point2D point)
-            => false;
+        public virtual bool Contains(Point2D point) => false;
 
         /// <summary>
         /// Register one or more methods to call when properties change to the shape.
@@ -154,22 +153,19 @@ namespace Engine
         /// Raises the property changing event.
         /// </summary>
         /// <param name="name">The name.</param>
-        protected void OnPropertyChanging([CallerMemberName] string name = "")
-            => PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
+        protected void OnPropertyChanging([CallerMemberName] string name = "") => PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
 
         /// <summary>
         /// Raises the property changed event.
         /// </summary>
         /// <param name="name">The name.</param>
-        protected void OnPropertyChanged([CallerMemberName] string name = "")
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        protected void OnPropertyChanged([CallerMemberName] string name = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
         /// <summary>
         /// This should be run anytime a property of the item is modified.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void ClearCache()
-            => propertyCache.Clear();
+        public void ClearCache() => propertyCache.Clear();
 
         /// <summary>
         /// Private method for caching computationally and memory intensive properties of child objects

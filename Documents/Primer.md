@@ -23,10 +23,9 @@
 | Name | Example | Description|
 |:---:| ---: |---|
 | **Monomial** | $\begin{matrix}x\end{matrix}$ | A **Monomial** is a polynomial that consists of only a single term. |
+| **Multinomial** | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A **Multinomial** is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considered a Multinomial. |
 | **Binomial** | $\begin{matrix}x+1\end{matrix}$ | A **Binomial** is a polynomial that consists of two terms. |
 | **Trinomial** | $\begin{matrix}2x^2+x+1\end{matrix}$ | A **Trinomial** is a polynomial that consists of three sets of terms. |
-| **Multinomial** | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A **Multinomial** is any Polynomial consisting of multiple terms. Generally they are Polynomials grater than Trinomial, but Binomial could be considered a Multinomial. |
-|  |  |  |
 | **Quadrinomial** | $\begin{matrix}3x^3+2x^2+x+1\end{matrix}$ | A **Quadrinomial** is a polynomial that consists of four sets of terms. |
 | **Quintinomial** | $\begin{matrix}4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Quintinomial** is a polynomial that consists of five sets of terms. |
 | **Sextomial** | $\begin{matrix}5x^5+4x^4+3x^3+2x^2+x+1\end{matrix}$ | A **Sextomial** is a polynomial that consists of six sets of terms. |
@@ -849,10 +848,9 @@ For information on how to make the Matrix forms see: [Demofox Matrix Form of Bé
 | Septennonagintic\* | 97 |
 | Octononagintic\* | 98 |
 | Novennonagintic\* | 99 |
-|  |  |
 | Hectic | 100|
 
-\*Names are Non-official, but based on potential convention.
+<sub>\*Names are Non-official, but based on potential convention.</sub>
 
 ## Operations on Matracies
 
@@ -886,23 +884,23 @@ $\begin{bmatrix}a&b\\c&d\end{bmatrix}\begin{bmatrix}e&f&g\\h&i&j\end{bmatrix}=\b
 
 | Unit| Definition |
 |---|---|
-| Mils | One thousandth of an Inch. |
-| Centimeters |  |
-| Inches |  |
-| Feet | 12 Inches |
-| Yards | 3 Feet |
-| Meters |  |
+| Mils | One thousandth of an inch. |
+| Centimeters | One hundredth of a meter. |
+| Inches | One twelfth of a foot or 2.54 centimeters. |
+| Feet | 12 inches or 30.48 centimeters. |
+| Yards | 3 feet or 0.9144 meters. |
+| Meters | the length of the path travelled by light in a vacuum in 1/299,792,458 of a second. |
 | Smoots | 67 Inches |
-| Miles |  |
-| Nautical Miles (International) |  |
-| kilometers |  |
-| petameters |  |
-| Astronomical Units |  |
-| Light-Year | 9460730472580800 meters |
-| Parsecs |  |
+| Miles | 5,280 feet, 1,760 yards or approximately 1.609 kilometers. |
+| Nautical Miles (International) | Approximately 2,025 yards or 1,852 meters. |
+| kilometers | 1,000 meters or approximately 0.62 miles. |
+| petameters | 10<sup>15</sup> meters |
+| Astronomical Units | 149.6 million kilometers, the mean distance from the center of the earth to the center of the sun. |
+| Light-Years | 9460730472580800 meters. |
+| Parsecs | About 3.26 light years or 3.086 × 10<sup>13</sup> kilometers. |
 |  |  |
-| Angstroms |  |
-| Arpents |  |
+| Angstroms | One hundred-millionth of a centimeter, 10<sup>−10</sup> meter |
+| Arpents | Equivalent to 3,420 square meters (about 1 acre). Linear measure equivalent to about 190 feet (58 meters). |
 | Cable Lengths (Imperial) |  |
 | Cable Lengths (International) |  |
 | Cable Lengths (U.S.) |  |

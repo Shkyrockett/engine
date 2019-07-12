@@ -248,8 +248,8 @@ namespace Engine
         /// <summary>
         /// Scale a point
         /// </summary>
-        /// <param name="factor"></param>
         /// <param name="value"></param>
+        /// <param name="factor"></param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -465,24 +465,11 @@ namespace Engine
         /// <returns>A string representation of this <see cref="Point2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Point2D"/> class based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format">The format.</param>
-        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
-        /// <returns>A string representation of this <see cref="Point2D"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point2D);
             var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Point2D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}]";
+            return $"{nameof(Point2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)})";
         }
         #endregion Methods
     }

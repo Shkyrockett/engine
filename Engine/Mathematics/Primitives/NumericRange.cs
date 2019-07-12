@@ -12,6 +12,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.Serialization;
+using System.Xml.Serialization;
 using static Engine.Mathematics;
 using static Engine.Operations;
 using static System.Math;
@@ -114,31 +116,37 @@ namespace Engine
         /// <summary>
         /// Gets the minimum value of the <see cref="NumericRange"/>.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Min { get; }
 
         /// <summary>
         /// Gets the maximum value of the <see cref="NumericRange"/>.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Max { get; }
 
         /// <summary>
         /// Gets the minimum value of a periodic unit that wraps back to the <see cref="UnitMax"/> value.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double UnitMin { get; }
 
         /// <summary>
         /// Gets the Maximum value of a periodic unit that wraps back to the <see cref="UnitMin"/> value.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double UnitMax { get; }
 
         /// <summary>
         /// Gets the amount to advance for each iteration.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double Step { get; }
 
         /// <summary>
         /// Gets a value indicating whether to wrap the return value or clamp it between max and min.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public Overflows Overflow { get; }
         #endregion Properties
 

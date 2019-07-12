@@ -110,6 +110,8 @@ namespace Engine
         /// <param name="yAxis"></param>
         /// <param name="zAxis"></param>
         /// <param name="wAxis"></param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix4x4D(Vector4D xAxis, Vector4D yAxis, Vector4D zAxis, Vector4D wAxis)
             : this(xAxis.I, xAxis.J, xAxis.K, xAxis.L,
                   yAxis.I, yAxis.J, yAxis.K, yAxis.L,
@@ -121,6 +123,8 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Matrix4x4D"/> class.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix4x4D((
             double m0x0, double m0x1, double m0x2, double m0x3,
             double m1x0, double m1x1, double m1x2, double m1x3,
@@ -187,81 +191,97 @@ namespace Engine
         /// <summary>
         /// Gets or sets the m0x0.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M0x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m0x1.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M0x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m0x2.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M0x2 { get; set; }
 
         /// <summary>
         /// Gets or sets the m0x3.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M0x3 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x0.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M1x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x1.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M1x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x2.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M1x2 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x3.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M1x3 { get; set; }
 
         /// <summary>
         /// Gets or sets the m2x0.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M2x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m2x1.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M2x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m2x2.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M2x2 { get; set; }
 
         /// <summary>
         /// Gets or sets the m2x3.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M2x3 { get; set; }
 
         /// <summary>
         /// Gets or sets the m3x0.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M3x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m3x1.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M3x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m3x2.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M3x2 { get; set; }
 
         /// <summary>
         /// Gets or sets the m3x3.
         /// </summary>
+        [DataMember, XmlAttribute, SoapAttribute]
         public double M3x3 { get; set; }
 
         /// <summary>
@@ -708,6 +728,27 @@ namespace Engine
             M2x0, M2x1, M2x2, M2x3,
             M3x0, M3x1, M3x2, M3x3 }.GetHashCode();
 
+        /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        public IEnumerator<IEnumerable<double>> GetEnumerator()
+            => new List<List<double>>
+            {
+                new List<double> { M0x0, M0x1, M0x2, M0x3 },
+                new List<double> { M1x0, M1x1, M1x2, M1x3 },
+                new List<double> { M2x0, M2x1, M2x2, M2x3 },
+                new List<double> { M3x0, M3x1, M3x2, M3x3 },
+            }.GetEnumerator();
+
+        /// <returns></returns>
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
         /// <summary>
         /// Compares two <see cref="Matrix4x4D"/> instances for object equality.  In this equality
         /// Double.NaN is equal to itself, unlike in numeric equality.
@@ -802,47 +843,13 @@ namespace Engine
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Matrix3x2D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Matrix4x4D);
             if (IsIdentity) return nameof(Identity);
             var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Matrix4x4D)}=[{nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, provider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, provider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, provider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, provider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, provider)}]";
+            return $"{nameof(Matrix4x4D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M0x2)}:{M0x2.ToString(format, provider)}{s} {nameof(M0x3)}:{M0x3.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)}{s} {nameof(M1x2)}:{M1x2.ToString(format, provider)}{s} {nameof(M1x3)}:{M1x3.ToString(format, provider)}{s} {nameof(M2x0)}:{M2x0.ToString(format, provider)}{s} {nameof(M2x1)}:{M2x1.ToString(format, provider)}{s} {nameof(M2x2)}:{M2x2.ToString(format, provider)}{s} {nameof(M2x3)}:{M2x3.ToString(format, provider)}{s} {nameof(M3x0)}:{M3x0.ToString(format, provider)}{s} {nameof(M3x1)}:{M3x1.ToString(format, provider)}{s} {nameof(M3x2)}:{M3x2.ToString(format, provider)}{s} {nameof(M3x3)}:{M3x3.ToString(format, provider)})";
         }
-
-        /// <returns></returns>
-        /// <summary>
-        /// Get the enumerator.
-        /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
-        public IEnumerator<IEnumerable<double>> GetEnumerator()
-            => new List<List<double>>
-            {
-                new List<double> { M0x0, M0x1, M0x2, M0x3 },
-                new List<double> { M1x0, M1x1, M1x2, M1x3 },
-                new List<double> { M2x0, M2x1, M2x2, M2x3 },
-                new List<double> { M3x0, M3x1, M3x2, M3x3 },
-            }.GetEnumerator();
-
-        /// <returns></returns>
-        /// <summary>
-        /// Get the enumerator.
-        /// </summary>
-        /// <returns>The <see cref="IEnumerator"/>.</returns>
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         #endregion Methods
     }
 }

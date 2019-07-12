@@ -342,7 +342,7 @@ namespace Engine
         /// Divide a <see cref="Vector4D"/>
         /// </summary>
         /// <param name="divisor">The <see cref="Vector4D"/></param>
-        /// <param name="divedend">The divisor</param>
+        /// <param name="dividend"></param>
         /// <returns>A <see cref="Vector4D"/> divided by the divisor</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -384,7 +384,7 @@ namespace Engine
         /// <param name="vector">The <see cref="Vector4D"/> to be converted.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double I, double J, double K, double L) (Vector4D vector) => (vector.I, vector.J, vector.K, vector.L);
+        public static implicit operator (double I, double J, double K, double L)(Vector4D vector) => (vector.I, vector.J, vector.K, vector.L);
 
         /// <summary>
         /// Tuple to Vector4D
@@ -438,9 +438,9 @@ namespace Engine
 
         #region Public Methods
         /// <summary>
-        /// Returns the hash code for this instance.
+        /// Get the hash code.
         /// </summary>
-        /// <returns>A 32-bit signed <see cref="int"/> hash code.</returns>
+        /// <returns>The <see cref="int"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => I.GetHashCode() ^ J.GetHashCode() ^ K.GetHashCode() ^ L.GetHashCode();
@@ -473,7 +473,6 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector4D other) => Equals(this, other);
 
-
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Vector4D"/> struct.
         /// </summary>
@@ -499,30 +498,15 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="formatProvider">The <see cref="CultureInfo"/> provider.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>A string representation of this <see cref="Vector4D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider formatProvider) => ConvertToString(format /* format string */, formatProvider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Vector4D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string ConvertToString(string format, IFormatProvider formatProvider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Vector4D);
-            var s = Tokenizer.GetNumericListSeparator(formatProvider);
-            return $"{nameof(Vector4D)}({nameof(I)}: {I.ToString(format, formatProvider)}{s} {nameof(J)}: {J.ToString(format, formatProvider)}{s} {nameof(K)}: {K.ToString(format, formatProvider)}{s} {nameof(L)}: {L.ToString(format, formatProvider)})";
+            var s = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Vector4D)}({nameof(I)}: {I.ToString(format, provider)}{s} {nameof(J)}: {J.ToString(format, provider)}{s} {nameof(K)}: {K.ToString(format, provider)}{s} {nameof(L)}: {L.ToString(format, provider)})";
         }
         #endregion Public Methods
     }

@@ -64,6 +64,8 @@ namespace Engine
         /// Initializes a new instance of the <see cref="Vector2D"/> struct.
         /// </summary>
         /// <param name="vector2D">A <see cref="Vector2D"/> class to clone.</param>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector2D(Vector2D vector2D)
             : this(vector2D.I, vector2D.J)
         { }
@@ -474,28 +476,15 @@ namespace Engine
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="formatProvider">The <see cref="CultureInfo"/> provider.</param>
+        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>A string representation of this <see cref="Vector2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider formatProvider) => ConvertToString(format /* format string */, formatProvider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Vector2D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="formatProvider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        public string ConvertToString(string format, IFormatProvider formatProvider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Vector2D);
-            var s = Tokenizer.GetNumericListSeparator(formatProvider);
-            return $"{nameof(Vector2D)}({nameof(I)}: {I.ToString(format, formatProvider)}{s} {nameof(J)}: {J.ToString(format, formatProvider)})";
+            var s = Tokenizer.GetNumericListSeparator(provider);
+            return $"{nameof(Vector2D)}({nameof(I)}: {I.ToString(format, provider)}{s} {nameof(J)}: {J.ToString(format, provider)})";
         }
         #endregion Public Methods
     }

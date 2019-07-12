@@ -92,13 +92,12 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Point4D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
+        /// Deconstruct this <see cref="Point4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
         /// </summary>
         /// <param name="x">The <paramref name="x"/>.</param>
         /// <param name="y">The <paramref name="y"/>.</param>
         /// <param name="z">The <paramref name="z"/>.</param>
-        /// <param name="w"></param>
-        /// <param name="z">The <paramref name="w"/>.</param>
+        /// <param name="w">The <paramref name="w"/>.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -298,7 +297,7 @@ namespace Engine
 
         /// <summary>
         /// Compares two <see cref="Point4D"/> objects.
-        /// The result specifies whether the values of the <see cref="X"/> and <see cref="Y"/>
+        /// The result specifies whether the values of the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/> and <see cref="W"/>
         /// values of the two <see cref="Point4D"/> objects are equal.
         /// </summary>
         /// <param name="left"></param>
@@ -409,10 +408,21 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Point4D other) => X == other.X && Y == other.Y && Z == other.Z && W == other.W;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj) => base.Equals(obj);
 
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="Point4D"/> struct.
+        /// </summary>
+        /// <returns>A string representation of this <see cref="Point4D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => base.ToString();
 
         /// <summary>
@@ -423,9 +433,8 @@ namespace Engine
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="formatProvider"></param>
-        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
         /// <returns>A string representation of this <see cref="Point4D"/>.</returns>
-        //[DebuggerStepThrough]
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider formatProvider)
         {

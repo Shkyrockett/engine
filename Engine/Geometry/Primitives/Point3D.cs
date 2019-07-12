@@ -400,6 +400,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Point3D a, Point3D b)
             => Equals(a, b);
@@ -428,6 +429,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Point3D value) => Equals(this, value);
 
@@ -468,26 +470,11 @@ namespace Engine
         /// <returns>A string representation of this <see cref="Point3D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Point3D"/> class based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Point3D);
             var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Point3D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)}]";
+            return $"{nameof(Point3D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)})";
         }
         #endregion Methods
     }

@@ -146,18 +146,21 @@ namespace Engine
         /// <summary>
         /// Gets or sets the Theta index value.
         /// </summary>
+        [field: NonSerialized]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Theta { get; set; }
 
         /// <summary>
         /// Gets or sets the total distance.
         /// </summary>
+        [field: NonSerialized]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double TotalDistance { get; set; }
 
         /// <summary>
         /// Gets or sets the previous index.
         /// </summary>
+        [field: NonSerialized]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int PreviousIndex { get; set; }
 
@@ -251,6 +254,7 @@ namespace Engine
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <returns></returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(AccumulatorPoint2D a, AccumulatorPoint2D b) => Equals(a, b);
 
@@ -278,6 +282,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The <see cref="bool"/>.</returns>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(AccumulatorPoint2D value) => Equals(this, value);
 
@@ -293,6 +298,8 @@ namespace Engine
         /// The to point.
         /// </summary>
         /// <returns>The <see cref="Point2D"/>.</returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Point2D ToPoint() => new Point2D(X, Y);
 
         /// <summary>
@@ -301,7 +308,7 @@ namespace Engine
         /// <returns>A string representation of this <see cref="AccumulatorPoint2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString() => ConvertToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
         /// Creates a string representation of this <see cref="AccumulatorPoint2D"/> struct based on the IFormatProvider
@@ -311,7 +318,7 @@ namespace Engine
         /// <returns>A string representation of this <see cref="AccumulatorPoint2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider) => ConvertToString("R" /* format string */, provider);
+        public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
         /// Creates a string representation of this <see cref="AccumulatorPoint2D"/> struct based on the format string
@@ -324,24 +331,11 @@ namespace Engine
         /// <returns>A string representation of this <see cref="AccumulatorPoint2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="AccumulatorPoint2D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        private string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(AccumulatorPoint2D);
             var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(AccumulatorPoint2D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Theta)}:{Theta.ToString(format, provider)}{s} {nameof(TotalDistance)}:{TotalDistance.ToString(format, provider)}{s} {nameof(PreviousIndex)}:{PreviousIndex.ToString(format, provider)}]";
+            return $"{nameof(AccumulatorPoint2D)}({nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Theta)}:{Theta.ToString(format, provider)}{s} {nameof(TotalDistance)}:{TotalDistance.ToString(format, provider)}{s} {nameof(PreviousIndex)}:{PreviousIndex.ToString(format, provider)})";
         }
         #endregion Methods
     }

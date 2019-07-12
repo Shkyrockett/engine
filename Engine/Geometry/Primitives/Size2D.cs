@@ -464,7 +464,6 @@ namespace Engine
         /// Explicit conversion to Size2D.
         /// </summary>
         /// <param name="size"></param>
-        /// <param name="vector">The <see cref="Vector2D"/> to be converted.</param>
         /// <returns>
         /// Size - A Size equal to this Size
         /// </returns>
@@ -487,7 +486,6 @@ namespace Engine
         /// Converts the specified <see cref="Point2D"/> to a <see cref="Size2D"/>.
         /// </summary>
         /// <param name="size"></param>
-        /// <param name="point">The <see cref="Point2D"/> to be converted.</param>
         /// <returns>
         /// Size - A Vector equal to this Size
         /// </returns>
@@ -649,24 +647,11 @@ namespace Engine
         /// <returns>A string representation of this <see cref="Size2D"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Size2D"/> struct based on the format string
-        /// and IFormatProvider passed in.
-        /// If the provider is null, the CurrentCulture is used.
-        /// See the documentation for IFormattable for more information.
-        /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
-        /// <returns>
-        /// A string representation of this object.
-        /// </returns>
-        private string ConvertToString(string format, IFormatProvider provider)
+        public string ToString(string format, IFormatProvider provider)
         {
             if (this == null) return nameof(Size2D);
             var s = Tokenizer.GetNumericListSeparator(provider);
-            return $"{nameof(Size2D)}=[{nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)}]";
+            return $"{nameof(Size2D)}({nameof(Width)}:{Width.ToString(format, provider)}{s} {nameof(Height)}:{Height.ToString(format, provider)})";
         }
         #endregion Methods
     }

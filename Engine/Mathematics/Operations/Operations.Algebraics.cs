@@ -308,10 +308,18 @@ namespace Engine
         public static IList<double> LinearRoots(double a, double b, double epsilon = double.Epsilon)
         {
             var result = new HashSet<double>();
-            if (!(Math.Abs(a) <= epsilon))
+            if (Math.Abs(a) < epsilon)
             {
-                result.Add(-b / a);
+                if (!(Math.Abs(b) < epsilon))
+                {
+                    result.Add(b);
+                }
+                else
+                {
+                    return result.ToList();
+                }
             }
+            result.Add(-b / a);
 
             return result.ToList();
         }
@@ -331,6 +339,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> QuadraticRoots(double a, double b, double c, double epsilon = double.Epsilon)
         {
+            // Is the coefficient of the highest term zero?
+            if (Math.Abs(a) < epsilon)
+            {
+                // If the highest term coefficient is 0, then it is a lower degree polynomial.
+                return LinearRoots(b, c, epsilon);
+            }
+
             var b_ = b / a;
             var c_ = c / a;
 
@@ -377,6 +392,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> CubicRoots(double a, double b, double c, double d, double epsilon = double.Epsilon)
         {
+            // Is the coefficient of the highest term zero?
+            if (Math.Abs(a) < epsilon)
+            {
+                // If the highest term coefficient is 0, then it is a lower degree polynomial.
+                return QuadraticRoots(b, c, d, epsilon);
+            }
+
             var A = b / a;
             var B = c / a;
             var C = d / a;
@@ -447,8 +469,9 @@ namespace Engine
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
         /// <returns>The <see cref="T:List{double}"/>.</returns>
         /// <remarks>
-        /// ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/:
-        /// This method computes complex and real roots for any quintic polynomial.
+        /// ToDo: Translate code found at: https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
+        /// and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/:
+        /// This method computes complex and real roots for any quintic polynomial. Then returns the real roots.
         /// It applies the Lin-Bairstow algorithm which iteratively solves for the
         /// roots starting from random guesses for a solution.
         /// The calculator is designed to solve for the roots of a quintic polynomial
@@ -457,13 +480,20 @@ namespace Engine
         /// </remarks>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
-        /// http://abecedarical.com/javascript/script_quartic.html
+        /// https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> QuarticRoots(double a, double b, double c, double d, double e, double epsilon = double.Epsilon)
         {
-            // ToDo: Translate code found at: http://abecedarical.com/javascript/script_quintic.html
+            // Is the coefficient of the highest term zero?
+            if (Math.Abs(a) < epsilon)
+            {
+                // If the highest term coefficient is 0, then it is a lower degree polynomial.
+                return CubicRoots(b, c, d, e, epsilon);
+            }
+
+            // ToDo: Translate code found at: https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
             // and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/
 
             var A = b / a;
@@ -565,24 +595,26 @@ namespace Engine
         /// <acknowledgment>
         /// This is a Copy and paste port of the method found at:
         /// https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
+        /// http://www.convertalot.com/quintic_root_calculator.html
         /// There has been little attempt to fix it up and get it working correctly.
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> QuinticRoots(double a, double b, double c, double d, double e, double f, double epsilon = double.Epsilon)
         {
-            //var A = b / a;
-            //var B = c / a;
-            //var C = d / a;
-            //var D = e / a;
-            //var E = f / a;
+            // Is the coefficient of the highest term zero?
+            if (Math.Abs(a) < epsilon)
+            {
+                // If the highest term coefficient is 0, then it is a lower degree polynomial.
+                return QuarticRoots(b, c, d, e, f, epsilon);
+            }
 
             var coeff = new List<double> { a, b, c, d, e, f };
 
-            // order
-            var n = 4;// 5;
-            var n1 = 5;// 6;
-            var n2 = 6;// 7;
+            // Order
+            var n = 4; // 5;
+            var n1 = 5; // 6;
+            var n2 = 6; // 7;
 
             var a_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var b_ = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
@@ -591,25 +623,20 @@ namespace Engine
             var real = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
             var imag = new List<double> { 0d, 0d, 0d, 0d, 0d, 0d };
 
-            // is the coefficient of the highest term zero?
-            if (Math.Abs(coeff[0]) < epsilon)
-            {
-                return new List<double>();
-            }
-
-            //  copy into working array
+            //  Copy into working array
             for (var i = 0; i <= n; i++)
             {
                 a_[a_.Count - 1 - i] = coeff[i];
             }
 
-            // initialize root counter
+            // Initialize root counter
             var count = 0;
 
-            // start the main Lin-Bairstow iteration loop
+            // Start the main Lin-Bairstow iteration loop
             do
             {
-                // initialize the counter and guesses for the coefficients of quadratic factor: p(x) = x^2 + alfa1*x + beta1
+                // Initialize the counter and guesses for the coefficients of quadratic factor: p(x) = x^2 + alfa1*x + beta1
+                // ToDo: The random alphas make this method non-deterministic. Need a better guess method.
                 var alfa1 = Mathematics.Random(OneHalf, 1d);
                 var beta1 = Mathematics.Random(OneHalf, 1d);
                 var limit = 1000;
@@ -645,7 +672,7 @@ namespace Engine
 
                     if (--limit < 0)
                     {
-                        // cannot solve
+                        // Cannot solve
                         return new List<double>();
                     }
 
@@ -659,7 +686,7 @@ namespace Engine
                 delta1 = (alfa1 * alfa1) - (4d * beta1);
 
                 double delta2;
-                // imaginary roots
+                // Imaginary roots
                 if (delta1 < 0)
                 {
                     delta2 = Sqrt(Math.Abs(delta1)) * OneHalf;
@@ -669,12 +696,12 @@ namespace Engine
                     imag[count] = delta2;
 
                     real[count + 1] = delta3;
-                    // sign is inverted on display
+                    // Sign is inverted on display
                     imag[count + 1] = delta2;
                 }
                 else
                 {
-                    // roots are real
+                    // Roots are real
                     delta2 = Sqrt(delta1);
 
                     real[count] = (delta2 - alfa1) * OneHalf;
@@ -684,16 +711,16 @@ namespace Engine
                     imag[count + 1] = 0;
                 }
 
-                // update root counter
+                // Update root counter
                 count += 2;
 
-                // reduce polynomial order
+                // Reduce polynomial order
                 n -= 2;
                 n1 -= 2;
                 n2 -= 2;
 
-                // for n >= 2 calculate coefficients of
-                //  the new polynomial
+                // For n >= 2 calculate coefficients of
+                // The new polynomial
                 if (n >= 2)
                 {
                     for (var i = 1; i <= n1; i++)
@@ -711,7 +738,7 @@ namespace Engine
 
             if (n == 1)
             {
-                // obtain last single real root
+                // Obtain last single real root
                 real[count] = -b_[2];
                 imag[count] = 0;
             }

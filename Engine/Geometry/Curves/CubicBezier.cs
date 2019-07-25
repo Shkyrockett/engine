@@ -97,7 +97,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier(Point2D a, Point2D b, Point2D c)
         {
-            (ax, ay, bx, by, cx, cy, dx, dy) = Conversions.QuadraticBezierToCubicBezierTuple(a.X, a.Y, b.X, b.Y, c.X, c.Y);
+            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, this.dx, this.dy) = Conversions.QuadraticBezierToCubicBezierTuple(a.X, a.Y, b.X, b.Y, c.X, c.Y);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier(double ax, double ay, double bx, double by, double cx, double cy)
         {
-            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, dx, dy) = Conversions.QuadraticBezierToCubicBezierTuple(ax, ay, bx, by, cx, cy);
+            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, this.dx, this.dy) = Conversions.QuadraticBezierToCubicBezierTuple(ax, ay, bx, by, cx, cy);
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace Engine.Experimental
     /// The vertex flags enum.
     /// </summary>
     [Flags]
-    public enum VertexFlag
+    public enum VertexFlags
     {
         /// <summary>
         /// The OpenStart = 1.

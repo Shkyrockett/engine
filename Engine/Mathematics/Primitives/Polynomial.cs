@@ -1182,7 +1182,7 @@ namespace Engine
                 8 => OcticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
                 9 => NonicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
                 10 => DecicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
-            // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
+                // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
                 _ => Bezier(0, values.Length - 1, values),
             }).Value;
         }

@@ -121,7 +121,7 @@ namespace Editor
             //PathFollow(vectorMap, form);
             //ResizeRefreshBounds(vectorMap, canvasPanel, out boundaryItem);
             //Tweenning(vectorMap, form);
-            //KaraokeBall(vectorMap, form);
+            KaraokeBall(vectorMap, form);
             //Tweens(vectorMap);
             //Pathfinding(vectorMap, form);
 
@@ -356,7 +356,7 @@ namespace Editor
         /// <summary>
         /// The ellipse ellipse intersection testing.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap?.</param>
+        /// <param name="vectorMap">The vectorMap.</param>
         public static void EllipseEllipseIntersection(VectorMap vectorMap)
         {
             var l0 = new Line(175d, 150d, 0d, 1d);
@@ -378,7 +378,7 @@ namespace Editor
             };
 
             var points0 = Array.ConvertAll(IntersectionsDrawable.IntersectEllipseEllipse(((e0.Center.X, e0.Center.Y), e0.RX, e0.RY, e0.Angle), ((e1.Center.X, e1.Center.Y), e1.RX, e1.RY, e1.Angle)), item => (Point2D)item);
-            var intersections0 = new Intersection(points0.Length > 0 ? IntersectionState.Intersection : IntersectionState.NoIntersection, points0);
+            var intersections0 = new Intersection(points0.Length > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points0);
             var intersectionNodeItem0 = new GraphicItem(new NodeRevealer(intersections0.Points, 5d), handleStyle)
             {
                 Name = "Ellipse, Ellipse Intersection 0"
@@ -397,7 +397,7 @@ namespace Editor
             };
 
             var points1 = Array.ConvertAll(IntersectionsDrawable.IntersectEllipseEllipse(((e2.Center.X, e2.Center.Y), e2.RX, e2.RY, e2.Angle), ((e3.Center.X, e3.Center.Y), e3.RX, e3.RY, e3.Angle)), item => (Point2D)item);
-            var intersections1 = new Intersection(points1.Length > 0 ? IntersectionState.Intersection : IntersectionState.NoIntersection, points1);
+            var intersections1 = new Intersection(points1.Length > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points1);
             var intersectionNodeItem1 = new GraphicItem(new NodeRevealer(intersections1.Points, 5d), handleStyle)
             {
                 Name = "Ellipse, Ellipse Intersection 1"
@@ -416,7 +416,7 @@ namespace Editor
             };
 
             var points2 = Array.ConvertAll(IntersectionsDrawable.IntersectEllipseEllipse(((e4.Center.X, e4.Center.Y), e4.RX, e4.RY, e4.Angle), ((e5.Center.X, e5.Center.Y), e5.RX, e5.RY, e5.Angle)), item => (Point2D)item);
-            var intersections2 = new Intersection(points2.Length > 0 ? IntersectionState.Intersection : IntersectionState.NoIntersection, points2);
+            var intersections2 = new Intersection(points2.Length > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points2);
             var intersectionNodeItem2 = new GraphicItem(new NodeRevealer(intersections2.Points, 5d), handleStyle)
             {
                 Name = "Ellipse, Ellipse Intersection 2"
@@ -435,7 +435,7 @@ namespace Editor
             };
 
             var points3 = Array.ConvertAll(IntersectionsDrawable.IntersectEllipseEllipse(((e6.Center.X, e6.Center.Y), e6.RX, e6.RY, e6.Angle), ((e7.Center.X, e7.Center.Y), e7.RX, e7.RY, e7.Angle)), item => (Point2D)item);
-            var intersections3 = new Intersection(points3.Length > 0 ? IntersectionState.Intersection : IntersectionState.NoIntersection, points3);
+            var intersections3 = new Intersection(points3.Length > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points3);
             var intersectionNodeItem3 = new GraphicItem(new NodeRevealer(intersections3.Points, 5d), handleStyle)
             {
                 Name = "Ellipse, Ellipse Intersection 3"
@@ -454,7 +454,7 @@ namespace Editor
             };
 
             var points4 = Array.ConvertAll(IntersectionsDrawable.IntersectEllipseEllipse(((e8.Center.X, e8.Center.Y), e8.RX, e8.RY, e8.Angle), ((e9.Center.X, e9.Center.Y), e9.RX, e9.RY, e9.Angle)), item => (Point2D)item);
-            var intersections4 = new Intersection(points4.Length > 0 ? IntersectionState.Intersection : IntersectionState.NoIntersection, points4);
+            var intersections4 = new Intersection(points4.Length > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points4);
             var intersectionNodeItem4 = new GraphicItem(new NodeRevealer(intersections4.Points, 5d), handleStyle)
             {
                 Name = "Ellipse, Ellipse Intersection 4"
@@ -473,7 +473,7 @@ namespace Editor
             };
 
             var points5 = Intersections.EllipseEllipseIntersection(e10.Center.X, e10.Center.Y, e10.RX, e10.RY, e10.Angle, e11.Center.X, e11.Center.Y, e11.RX, e11.RY, e11.Angle);
-            var intersections5 = new Intersection(points5.Points.Count > 0 ? IntersectionState.Intersection : IntersectionState.NoIntersection, points5.Points);
+            var intersections5 = new Intersection(points5.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points5.Points);
             var intersectionNodeItem5 = new GraphicItem(new NodeRevealer(intersections5.Points, 5d), handleStyle)
             {
                 Name = "Ellipse, Ellipse Intersection 5"
@@ -492,7 +492,7 @@ namespace Editor
             };
 
             var points6 = Intersections.EllipseEllipseIntersection(e12.Center.X, e12.Center.Y, e12.RX, e12.RY, e12.Angle, e13.Center.X, e13.Center.Y, e13.RX, e13.RY, e13.Angle);
-            var intersections6 = new Intersection(points6.Points.Count > 0 ? IntersectionState.Intersection : IntersectionState.NoIntersection, points6.Points);
+            var intersections6 = new Intersection(points6.Points.Count > 0 ? IntersectionStates.Intersection : IntersectionStates.NoIntersection, points6.Points);
             var intersectionNodeItem6 = new GraphicItem(new NodeRevealer(intersections6.Points, 5d), handleStyle)
             {
                 Name = "Ellipse, Ellipse Intersection 6"
@@ -528,7 +528,7 @@ namespace Editor
         /// <summary>
         /// The bezier exp.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap?.</param>
+        /// <param name="vectorMap">The vectorMap.</param>
         public static void BezierExp(VectorMap vectorMap)
         {
             //var quadraticBezier = new Bezier((150d, 40d), (80d, 30d), (105d, 150d));
@@ -747,7 +747,7 @@ namespace Editor
         /// <summary>
         /// The envelope warp.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap?.</param>
+        /// <param name="vectorMap">The vectorMap.</param>
         public static void EnvelopeWarp(VectorMap vectorMap)
         {
             (double left, double top, double width, double height) = (100, 200, 200, 100);
@@ -2984,7 +2984,7 @@ namespace Editor
         /// <summary>
         /// The path follow.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap?.</param>
+        /// <param name="vectorMap">The vectorMap.</param>
         /// <param name="form">The form.</param>
         public static void PathFollow(VectorMap vectorMap, EditorForm form)
         {
@@ -3479,7 +3479,7 @@ namespace Editor
         /// <summary>
         /// The grid click.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap?.</param>
+        /// <param name="vectorMap">The vectorMap.</param>
         public static void GridHitTest(VectorMap vectorMap)
         {
             var count = 40;

@@ -16,7 +16,7 @@ namespace Engine
     /// The verticality enum.
     /// </summary>
     [Flags]
-    public enum Verticality
+    public enum Verticalities
         : byte
     {
         /// <summary>

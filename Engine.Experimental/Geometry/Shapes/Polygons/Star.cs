@@ -178,6 +178,7 @@ namespace Engine
             }
 
             lines_intersect = true;
+
             var t2 = (((p3.X - p1.X) * dy12) + ((p1.Y - p3.Y) * dx12)) / -denominator;
 
             // Find the point of intersection.

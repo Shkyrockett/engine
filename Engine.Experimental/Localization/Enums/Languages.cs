@@ -13,7 +13,7 @@ namespace Engine.Localization
     /// <summary>
     /// The languages enum.
     /// </summary>
-    public enum Language
+    public enum Languages
     {
         /// <summary>
         /// Arabic 

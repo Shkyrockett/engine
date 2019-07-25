@@ -389,7 +389,7 @@ namespace Engine
         /// Gets the degree.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public static PolynomialDegree Degree
+        public PolynomialDegree Degree
             => PolynomialDegree.Linear;
 
         /// <summary>

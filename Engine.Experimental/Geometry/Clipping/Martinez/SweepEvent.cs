@@ -46,7 +46,7 @@ namespace Engine
         /// <summary>
         /// The contribution.
         /// </summary>
-        private EdgeContribution contribution;
+        private EdgeContributions contribution;
 
         //The following fields are only used in "left" events
 
@@ -106,7 +106,7 @@ namespace Engine
         /// <param name="other">The other.</param>
         /// <param name="pt">The pt.</param>
         /// <param name="et">The et.</param>
-        public SweepEvent(bool b, Point2D p, SweepEvent other, ClippingRelation pt, EdgeContribution et = EdgeContribution.Normal)
+        public SweepEvent(bool b, Point2D p, SweepEvent other, ClippingRelation pt, EdgeContributions et = EdgeContributions.Normal)
         {
             IsLeft = b;
             Point = p;
@@ -149,7 +149,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the contribution.
         /// </summary>
-        public EdgeContribution Contribution { get { return contribution; } set { contribution = value; } }
+        public EdgeContributions Contribution { get { return contribution; } set { contribution = value; } }
 
         // The following properties are only used in "left" events.
 

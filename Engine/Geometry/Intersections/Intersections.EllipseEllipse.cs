@@ -110,7 +110,7 @@ namespace Engine
             // http://csharphelper.com/blog/2014/11/see-where-a-line-intersects-a-conic-section-in-c/
             // http://csharphelper.com/blog/2017/08/calculate-where-a-line-segment-and-an-ellipse-intersect-in-c/
 
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Dot product of the angles of the two ellipses rotations. If the angles are perpendicular the dot product is 0, if parallel it is 1 or -1.
             var dot = DotProduct(cosA0, sinA0, cosA1, sinA1);

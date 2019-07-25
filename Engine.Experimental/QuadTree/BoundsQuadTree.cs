@@ -70,8 +70,8 @@ namespace Engine.Experimental
         /// <param name="rectangle">The rectangle.</param>
         public BoundsQuadTree(Rectangle2D rectangle)
         {
-            bounds = rectangle;
-            root = new BoundsQuadTreeNode<T>(bounds);
+            this.bounds = rectangle;
+            root = new BoundsQuadTreeNode<T>(this.bounds);
         }
         #endregion Constructors
 

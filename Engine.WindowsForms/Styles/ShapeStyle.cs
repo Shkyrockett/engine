@@ -167,21 +167,12 @@ namespace Engine.Imaging
         /// Gets the fill.
         /// </summary>
         public IFill Fill
+            => BackPen switch
         {
-            get
-            {
-                switch (BackPen)
-                {
-                    case Pen p when p.Brush is HatchBrush:
-                        return new SolidFill(Colors.Black);
-                    case Pen p when p.Brush is SolidBrush:
-                        return new SolidFill(BackPen?.Color.ToRGBA() ?? Colors.Black);
-                    default:
-                        return new SolidFill(Colors.Black);
-                }
-
-            }
-        }
+            Pen p when p.Brush is HatchBrush => new SolidFill(Colors.Black),
+            Pen p when p.Brush is SolidBrush => new SolidFill(BackPen?.Color.ToRGBA() ?? Colors.Black),
+            _ => new SolidFill(Colors.Black),
+        };
 
         /// <summary>
         /// Gets or sets the fore brush.

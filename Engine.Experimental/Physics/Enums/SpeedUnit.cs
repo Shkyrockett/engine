@@ -13,7 +13,7 @@ namespace Engine.Physics
     /// <summary>
     /// The speeds enum.
     /// </summary>
-    public enum SpeedType
+    public enum SpeedUnit
     {
         /// <summary>
         /// The MileHour.

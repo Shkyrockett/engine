@@ -45,7 +45,7 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets or sets the vertex flags.
         /// </summary>
-        public VertexFlag Flags { get; set; }
+        public VertexFlags Flags { get; set; }
         #endregion Properties
     }
 }

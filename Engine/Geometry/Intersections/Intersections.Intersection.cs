@@ -122,7 +122,7 @@ namespace Engine
                         case PolynomialDegree.Cubic:
                             return LineSegmentCubicBezierSegmentIntersection(b[0].X, b[0].Y, b[1].X, b[1].Y, a.CurveX, a.CurveY, epsilon);
                         default:
-                            return new Intersection(IntersectionState.NoIntersection);
+                            return new Intersection(IntersectionStates.NoIntersection);
                     }
                 case PolynomialDegree.Quadratic:
                     switch (b.Degree)
@@ -134,7 +134,7 @@ namespace Engine
                         case PolynomialDegree.Cubic:
                             return QuadraticBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
                         default:
-                            return new Intersection(IntersectionState.NoIntersection);
+                            return new Intersection(IntersectionStates.NoIntersection);
                     }
                 case PolynomialDegree.Cubic:
                     switch (b.Degree)
@@ -146,10 +146,10 @@ namespace Engine
                         case PolynomialDegree.Cubic:
                             return CubicBezierSegmentCubicBezierSegmentIntersection(a.CurveX, a.CurveY, b.CurveX, b.CurveY, epsilon);
                         default:
-                            return new Intersection(IntersectionState.NoIntersection);
+                            return new Intersection(IntersectionStates.NoIntersection);
                     }
                 default:
-                    return new Intersection(IntersectionState.NoIntersection);
+                    return new Intersection(IntersectionStates.NoIntersection);
             }
         }
 
@@ -173,7 +173,7 @@ namespace Engine
                 case PolynomialDegree.Cubic:
                     return LineSegmentCubicBezierSegmentIntersection(s.AX, s.AY, s.BX, s.BY, b.CurveX, b.CurveY, epsilon);
                 default:
-                    return new Intersection(IntersectionState.NoIntersection);
+                    return new Intersection(IntersectionStates.NoIntersection);
             }
         }
 
@@ -197,7 +197,7 @@ namespace Engine
                 case PolynomialDegree.Cubic:
                     return QuadraticBezierSegmentCubicBezierSegmentIntersection(q.CurveX, q.CurveY, b.CurveX, b.CurveY, epsilon);
                 default:
-                    return new Intersection(IntersectionState.NoIntersection);
+                    return new Intersection(IntersectionStates.NoIntersection);
             }
         }
 
@@ -221,7 +221,7 @@ namespace Engine
                 case PolynomialDegree.Cubic:
                     return CubicBezierSegmentCubicBezierSegmentIntersection(c.CurveX, c.CurveY, b.CurveX, b.CurveY, epsilon);
                 default:
-                    return new Intersection(IntersectionState.NoIntersection);
+                    return new Intersection(IntersectionStates.NoIntersection);
             }
         }
 
@@ -1666,8 +1666,8 @@ namespace Engine
         {
             _ = epsilon;
             return PointPointIntersects(p0X, p0Y, p1X, p1Y)
-                       ? new Intersection(IntersectionState.Intersection, new Point2D(p0X, p0Y))
-                       : new Intersection(IntersectionState.NoIntersection);
+                       ? new Intersection(IntersectionStates.Intersection, new Point2D(p0X, p0Y))
+                       : new Intersection(IntersectionStates.NoIntersection);
         }
 
         /// <summary>
@@ -1689,7 +1689,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             _ = epsilon;
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
             if (i == 0 && pX == lx)
             {
                 result.AppendPoint(new Point2D(pX, pY));
@@ -1701,7 +1701,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -1725,8 +1725,8 @@ namespace Engine
             double lX, double lY, double i, double j,
             double epsilon = Epsilon)
             => PointRayIntersects(pX, pY, lX, lY, i, j, epsilon)
-            ? new Intersection(IntersectionState.Intersection, new Point2D(pX, pY))
-            : new Intersection(IntersectionState.NoIntersection);
+            ? new Intersection(IntersectionStates.Intersection, new Point2D(pX, pY))
+            : new Intersection(IntersectionStates.NoIntersection);
 
         /// <summary>
         /// Find the intersection between a point and a line segment.
@@ -1746,8 +1746,8 @@ namespace Engine
             double lAX, double lAY, double lBX, double lBY,
             double epsilon = Epsilon)
             => PointLineSegmentIntersects(pX, pY, lAX, lAY, lBX, lBY, epsilon)
-            ? new Intersection(IntersectionState.Intersection, new Point2D(pX, pY))
-            : new Intersection(IntersectionState.NoIntersection);
+            ? new Intersection(IntersectionStates.Intersection, new Point2D(pX, pY))
+            : new Intersection(IntersectionStates.NoIntersection);
 
         /// <summary>
         /// Find the intersection between a Point and a triangle.
@@ -1778,10 +1778,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -1820,10 +1820,10 @@ namespace Engine
             intersections.UnionWith(PointLineSegmentIntersection(a1X, a1Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon).Points);
             intersections.UnionWith(PointLineSegmentIntersection(a1X, a1Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon).Points);
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -1861,10 +1861,10 @@ namespace Engine
                 p = b2;
             }
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -1903,10 +1903,10 @@ namespace Engine
                 b1 = b2;
             }
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -1936,7 +1936,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the intersection results.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Calculate the determinant of the coefficient matrix.
             var determinant = (lj1 * li0) - (li1 * lj0);
@@ -1954,7 +1954,7 @@ namespace Engine
 
             // Return the intersection point.
             result.AppendPoint(new Point2D(lx0 + (t * li0), ly0 + (t * lj0)));
-            result.State |= IntersectionState.Intersection;
+            result.State |= IntersectionStates.Intersection;
             return result;
         }
 
@@ -1982,7 +1982,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the intersection result.
-            var result = new Intersection(IntersectionState.Intersection);
+            var result = new Intersection(IntersectionStates.Intersection);
 
             // Intersection cross product.
             var ua = (li * (ry - ly)) - (lj * (rx - lx));
@@ -1998,12 +1998,12 @@ namespace Engine
                 {
                     //// Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
                     //result.AppendPoints(new List<Point2D> { new Point2D(x2, y2), new Point2D(x3, y3) });
-                    result.State |= IntersectionState.Coincident | IntersectionState.Parallel | IntersectionState.Intersection;
+                    result.State |= IntersectionStates.Coincident | IntersectionStates.Parallel | IntersectionStates.Intersection;
                 }
                 else
                 {
                     // The Line and line segment are parallel. There are no intersections.
-                    result.State |= IntersectionState.Parallel | IntersectionState.NoIntersection;
+                    result.State |= IntersectionStates.Parallel | IntersectionStates.NoIntersection;
                 }
             }
             else
@@ -2016,7 +2016,7 @@ namespace Engine
                 {
                     // One intersection.
                     result.AppendPoint(new Point2D(rx + (ta * ri), ry + (ta * rj)));
-                    result.State |= IntersectionState.Intersection;
+                    result.State |= IntersectionStates.Intersection;
                 }
                 else
                 {
@@ -2052,7 +2052,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the intersection result.
-            var result = new Intersection(IntersectionState.Intersection);
+            var result = new Intersection(IntersectionStates.Intersection);
 
             // Translate lines to origin.
             (var vi, var vj) = (s1X - s0X, s1Y - s0Y);
@@ -2070,12 +2070,12 @@ namespace Engine
                 {
                     // Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
                     result.AppendPoints(new Point2D(s0X, s0Y), new Point2D(s1X, s1Y));
-                    result.State |= IntersectionState.Coincident | IntersectionState.Parallel | IntersectionState.Intersection;
+                    result.State |= IntersectionStates.Coincident | IntersectionStates.Parallel | IntersectionStates.Intersection;
                 }
                 else
                 {
                     // The Line and line segment are parallel. There are no intersections.
-                    result.State |= IntersectionState.Parallel | IntersectionState.NoIntersection;
+                    result.State |= IntersectionStates.Parallel | IntersectionStates.NoIntersection;
                 }
             }
             else
@@ -2088,7 +2088,7 @@ namespace Engine
                 {
                     // One intersection.
                     result.AppendPoint(new Point2D(lx + (ta * li), ly + (ta * lj)));
-                    result.State |= IntersectionState.Intersection;
+                    result.State |= IntersectionStates.Intersection;
                 }
                 else
                 {
@@ -2152,7 +2152,7 @@ namespace Engine
         {
             _ = epsilon;
             // Initialize intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var c = (lx * (ly - lj)) + (ly * (li - lx));
 
@@ -2173,7 +2173,7 @@ namespace Engine
             // Return result.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -2233,7 +2233,7 @@ namespace Engine
         {
             _ = epsilon;
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var c = (lx * (ly - lj)) + (ly * (li - lx));
 
@@ -2253,7 +2253,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -2288,10 +2288,10 @@ namespace Engine
             intersections.UnionWith(LineLineSegmentIntersection(lx, ly, li, lj, tx1, ty1, tx2, ty2, epsilon).Points);
             intersections.UnionWith(LineLineSegmentIntersection(lx, ly, li, lj, tx0, ty0, tx2, ty2, epsilon).Points);
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -2332,10 +2332,10 @@ namespace Engine
             intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon).Points);
             intersections.UnionWith(LineLineSegmentIntersection(a1X, a1Y, a2X, a2Y, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon).Points);
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -2375,10 +2375,10 @@ namespace Engine
                 p = b2;
             }
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -2419,10 +2419,10 @@ namespace Engine
                 b1 = b2;
             }
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -2451,7 +2451,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the intersection result.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lx == li) && (ly == lj)))
@@ -2470,7 +2470,7 @@ namespace Engine
             if ((a <= epsilon) || (discriminant < 0))
             {
                 // No real solutions.
-                result.State |= IntersectionState.Outside;
+                result.State |= IntersectionStates.Outside;
                 return result;
             }
             else if (discriminant == 0)
@@ -2479,7 +2479,7 @@ namespace Engine
                 var t = -b / (2 * a);
 
                 // Add the points.
-                result = new Intersection(IntersectionState.Intersection);
+                result = new Intersection(IntersectionStates.Intersection);
                 result.AppendPoint(new Point2D(lx + (t * li), ly + (t * lj)));
             }
             else if (discriminant > 0)
@@ -2489,7 +2489,7 @@ namespace Engine
                 var t2 = (-b - Sqrt(discriminant)) / (2 * a);
 
                 // Add the points.
-                result = new Intersection(IntersectionState.Intersection);
+                result = new Intersection(IntersectionStates.Intersection);
                 result.AppendPoint(new Point2D(lx + (t1 * li), ly + (t1 * lj)));
                 result.AppendPoint(new Point2D(lx + (t2 * li), ly + (t2 * lj)));
             }
@@ -2524,7 +2524,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lx == li) && (ly == lj)))
@@ -2548,7 +2548,7 @@ namespace Engine
             if ((a <= epsilon) || (discriminant < 0))
             {
                 // No real solutions.
-                result.State |= IntersectionState.Outside;
+                result.State |= IntersectionStates.Outside;
                 return result;
             }
             else if (discriminant == 0)
@@ -2608,7 +2608,7 @@ namespace Engine
             // Return the result.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -2662,7 +2662,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
@@ -2695,7 +2695,7 @@ namespace Engine
             if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
-                result.State |= IntersectionState.Outside;
+                result.State |= IntersectionStates.Outside;
                 return result;
             }
             else if (discriminant == 0d)
@@ -2722,7 +2722,7 @@ namespace Engine
             // Return the intersections.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -2784,7 +2784,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
@@ -2817,7 +2817,7 @@ namespace Engine
             if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
-                result.State |= IntersectionState.Outside;
+                result.State |= IntersectionStates.Outside;
                 return result;
             }
 
@@ -2889,7 +2889,7 @@ namespace Engine
             // Return the intersections.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -2919,7 +2919,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the intersection result.
-            var result = new Intersection(IntersectionState.Intersection);
+            var result = new Intersection(IntersectionStates.Intersection);
 
             // Translate line segment to origin.
             var u = s2X - s1X;
@@ -2939,12 +2939,12 @@ namespace Engine
                 {
                     //// Line segment is coincident to the Line. There are an infinite number of intersections, but we only care about the start and end points of the line segment.
                     //result.AppendPoints(new List<Point2D> { new Point2D(s1X, s1Y), new Point2D(s2X, s2Y) });
-                    result.State |= IntersectionState.Coincident | IntersectionState.Parallel | IntersectionState.Intersection;
+                    result.State |= IntersectionStates.Coincident | IntersectionStates.Parallel | IntersectionStates.Intersection;
                 }
                 else
                 {
                     // The Line and line segment are parallel. There are no intersections.
-                    result.State |= IntersectionState.Parallel | IntersectionState.NoIntersection;
+                    result.State |= IntersectionStates.Parallel | IntersectionStates.NoIntersection;
                 }
             }
             else
@@ -2957,7 +2957,7 @@ namespace Engine
                 {
                     // One intersection.
                     result.AppendPoint(new Point2D(rx + (ta * ri), ry + (ta * rj)));
-                    result.State |= IntersectionState.Intersection;
+                    result.State |= IntersectionStates.Intersection;
                 }
                 else
                 {
@@ -2993,7 +2993,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the intersection result.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Intersection cross product.
             var ua = (r1i * (r0y - r1y)) - (r1j * (r0x - r1x));
@@ -3006,11 +3006,11 @@ namespace Engine
             {
                 if (ua == 0d || ub == 0d)
                 {
-                    result.State |= IntersectionState.Coincident;
+                    result.State |= IntersectionStates.Coincident;
                 }
                 else
                 {
-                    result.State |= IntersectionState.Parallel;
+                    result.State |= IntersectionStates.Parallel;
                 }
             }
             else
@@ -3021,7 +3021,7 @@ namespace Engine
                 if (ta >= 0d /*&& ta <= 1*/ && tb >= 0d /*&& tb <= 1*/)
                 {
                     // One intersection.
-                    result.State = IntersectionState.Intersection;
+                    result.State = IntersectionStates.Intersection;
                     result.AppendPoint(new Point2D(r0x + (ta * r0i), r0y + (ta * r0j)));
                 }
                 else
@@ -3059,7 +3059,7 @@ namespace Engine
         {
             _ = epsilon;
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var c = (x1 * j1) + (y1 * i1);
 
@@ -3087,7 +3087,7 @@ namespace Engine
             // Return the result.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -3118,7 +3118,7 @@ namespace Engine
         {
             _ = epsilon;
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var c = (x1 * -j1) + (y1 * i1);
 
@@ -3147,7 +3147,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -3187,10 +3187,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -3231,10 +3231,10 @@ namespace Engine
             intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon).Points);
             intersections.UnionWith(RayLineSegmentIntersection(rx, ry, ri, rj, bottomLeft.X, bottomLeft.Y, minX, minY, epsilon).Points);
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -3277,10 +3277,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the polygon, and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -3323,10 +3323,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the polygon, and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -3366,7 +3366,7 @@ namespace Engine
             var determinant = (b * b) - (4 * a * c);
             if (determinant < 0d)
             {
-                result = new Intersection(IntersectionState.Outside);
+                result = new Intersection(IntersectionStates.Outside);
             }
             else if (determinant == 0d)
             {
@@ -3374,11 +3374,11 @@ namespace Engine
                 var u1 = (-b) / (2d * a);
                 if (u1 < 0d || u1 > 1d)
                 {
-                    result = (u1 < 0d) || (u1 > 1d) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0d) || (u1 > 1d) ? new Intersection(IntersectionStates.Outside) : new Intersection(IntersectionStates.Inside);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     if (0d <= u1 && u1 <= 1d)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBi, lBj, u1));
@@ -3392,11 +3392,11 @@ namespace Engine
                 var u2 = (-b - e) / (2d * a);
                 if ((u1 < 0d /*|| u1 > 1d*/) && (u2 < 0d || u2 > 1d))
                 {
-                    result = (u1 < 0d && u2 < 0d) || (u1 > 1d && u2 > 1d) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0d && u2 < 0d) || (u1 > 1d && u2 > 1d) ? new Intersection(IntersectionStates.Outside) : new Intersection(IntersectionStates.Inside);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     if (0d <= u1/* && u1 <= 1d*/)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBi, lBj, u1));
@@ -3438,7 +3438,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             _ = angle;
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((0d == lBI) && (0d == lBJ)))
@@ -3518,7 +3518,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -3550,7 +3550,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
@@ -3583,7 +3583,7 @@ namespace Engine
             if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
-                result.State |= IntersectionState.Outside;
+                result.State |= IntersectionStates.Outside;
                 return result;
             }
             else if (discriminant == 0d)
@@ -3621,7 +3621,7 @@ namespace Engine
             // Return the intersections.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -3655,7 +3655,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
@@ -3688,7 +3688,7 @@ namespace Engine
             if ((a <= epsilon) || (discriminant < 0))
             {
                 // No real solutions.
-                result.State |= IntersectionState.Outside;
+                result.State |= IntersectionStates.Outside;
                 return result;
             }
 
@@ -3771,7 +3771,7 @@ namespace Engine
             // Return the intersections.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -3801,7 +3801,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             _ = epsilon;
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var ua = ((b2X - b1X) * (y1 - b1Y)) - ((b2Y - b1Y) * (x1 - b1X));
             var ub = ((x2 - x1) * (y1 - b1Y)) - ((y2 - y1) * (x1 - b1X));
@@ -3812,11 +3812,11 @@ namespace Engine
             {
                 if (ua == 0d || ub == 0d)
                 {
-                    result.State = IntersectionState.Coincident;
+                    result.State = IntersectionStates.Coincident;
                 }
                 else
                 {
-                    result.State = IntersectionState.Parallel;
+                    result.State = IntersectionStates.Parallel;
                 }
             }
             else
@@ -3826,12 +3826,12 @@ namespace Engine
 
                 if (0d <= ta && ta <= 1d && 0d <= tb && tb <= 1d)
                 {
-                    result.State = IntersectionState.Intersection;
+                    result.State = IntersectionStates.Intersection;
                     result.AppendPoint(new Point2D(x1 + (ta * (x2 - x1)), y1 + (ta * (y2 - y1))));
                 }
                 else
                 {
-                    result.State = IntersectionState.NoIntersection;
+                    result.State = IntersectionStates.NoIntersection;
                 }
             }
             return result;
@@ -3889,7 +3889,7 @@ namespace Engine
         {
             _ = epsilon;
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Translate the line to the origin.
             var a = y2 - y1;
@@ -3922,7 +3922,7 @@ namespace Engine
             // Return the result.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -3982,7 +3982,7 @@ namespace Engine
         {
             _ = epsilon;
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Translate the line to the origin.
             var a = y2 - y1;
@@ -4015,7 +4015,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -4055,10 +4055,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -4101,10 +4101,10 @@ namespace Engine
             intersections.UnionWith(LineSegmentLineSegmentIntersection(maxX, maxY, bottomLeft.X, bottomLeft.Y, lAX, lAY, lBX, lBY, epsilon).Points);
             intersections.UnionWith(LineSegmentLineSegmentIntersection(bottomLeft.X, bottomLeft.Y, minX, minY, lAX, lAY, lBX, lBY, epsilon).Points);
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -4147,10 +4147,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the polygon, and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -4193,10 +4193,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the polygon, and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -4236,7 +4236,7 @@ namespace Engine
             var determinant = (b * b) - (4 * a * c);
             if (determinant < 0d)
             {
-                result = new Intersection(IntersectionState.Outside);
+                result = new Intersection(IntersectionStates.Outside);
             }
             else if (determinant == 0d)
             {
@@ -4244,11 +4244,11 @@ namespace Engine
                 var u1 = (-b) / (2d * a);
                 if (u1 < 0d || u1 > 1d)
                 {
-                    result = (u1 < 0d) || (u1 > 1) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0d) || (u1 > 1) ? new Intersection(IntersectionStates.Outside) : new Intersection(IntersectionStates.Inside);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     if (0d <= u1 && u1 <= 1d)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u1));
@@ -4262,11 +4262,11 @@ namespace Engine
                 var u2 = (-b - e) / (2d * a);
                 if ((u1 < 0d || u1 > 1d) && (u2 < 0d || u2 > 1d))
                 {
-                    result = (u1 < 0d && u2 < 0d) || (u1 > 1d && u2 > 1d) ? new Intersection(IntersectionState.Outside) : new Intersection(IntersectionState.Inside);
+                    result = (u1 < 0d && u2 < 0d) || (u1 > 1d && u2 > 1d) ? new Intersection(IntersectionStates.Outside) : new Intersection(IntersectionStates.Inside);
                 }
                 else
                 {
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     if (0d <= u1 && u1 <= 1d)
                     {
                         result.Points.Add(Lerp(lAX, lAY, lBX, lBY, u1));
@@ -4307,7 +4307,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             _ = angle;
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the circle or line segment are empty, return no intersections.
             if ((r == 0d) || ((lAX == lBX) && (lAY == lBY)))
@@ -4390,7 +4390,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -4444,7 +4444,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((rx == 0d) || (ry == 0d) ||
@@ -4477,7 +4477,7 @@ namespace Engine
             if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
-                result.State |= IntersectionState.Outside;
+                result.State |= IntersectionStates.Outside;
                 return result;
             }
             else if (discriminant == 0d)
@@ -4515,7 +4515,7 @@ namespace Engine
             // Return the intersections.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -4578,7 +4578,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the resulting intersection structure.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If the ellipse or line segment are empty, return no intersections.
             if ((sweepAngle == 0d) || (rx == 0d) || (ry == 0d) ||
@@ -4611,7 +4611,7 @@ namespace Engine
             if ((a <= epsilon) || (discriminant < 0d))
             {
                 // No real solutions.
-                result.State |= IntersectionState.Outside;
+                result.State |= IntersectionStates.Outside;
                 return result;
             }
 
@@ -4694,7 +4694,7 @@ namespace Engine
             // Return the intersections.
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -4751,7 +4751,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Bezout
 
@@ -4824,7 +4824,7 @@ namespace Engine
 
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -4882,7 +4882,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // ToDo: The tolerance is off by too much. Need to find the error.
             var tolerance = 4294967295d * epsilon; // 1e-4;
@@ -4951,7 +4951,7 @@ namespace Engine
 
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -5017,10 +5017,10 @@ namespace Engine
                 a1 = a2;
             }
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -5086,10 +5086,10 @@ namespace Engine
                 a1 = a2;
             }
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -5157,10 +5157,10 @@ namespace Engine
             intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(t2X, t2Y, t3X, t3Y, xCurve, yCurve, epsilon).Points);
             intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(t3X, t3Y, t1X, t1Y, xCurve, yCurve, epsilon).Points);
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -5229,10 +5229,10 @@ namespace Engine
             intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(maxX, maxY, bottomLeft.X, bottomLeft.Y, xCurve, yCurve, epsilon).Points);
             intersections.UnionWith(LineSegmentQuadraticBezierSegmentIntersection(bottomLeft.X, bottomLeft.Y, minX, minY, xCurve, yCurve, epsilon).Points);
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -5277,7 +5277,7 @@ namespace Engine
             Polynomial xCurve, Polynomial yCurve,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // Not sure why the difference between the two supposedly same points at different values of t can be so high. It seems to be a lot for floating point rounding. So far it only seems to happen at orthogonal cases.
             var tolerence = 98838707421d * epsilon; // 0.56183300455876406d
@@ -5336,7 +5336,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -5396,7 +5396,7 @@ namespace Engine
             double epsilon = Epsilon)
         {
             // Initialize the intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // ToDo: The tolerance is off by too much. Need to find the error.
             var tolerance = 4194303 * epsilon;
@@ -5488,7 +5488,7 @@ namespace Engine
 
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -5558,10 +5558,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the Polygon and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -5631,10 +5631,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the Polygon and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -5706,10 +5706,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the rectangle and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -5782,10 +5782,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the rectangle and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -5832,10 +5832,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -5883,10 +5883,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -5933,10 +5933,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the polygon, and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -5983,10 +5983,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if both end points are inside the polygon, and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -6023,10 +6023,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -6059,7 +6059,7 @@ namespace Engine
             double cX, double cY, double rx, double ry, double cosA, double sinA,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             result.AppendPoints(LineSegmentEllipseIntersection(cX, cY, rx, ry, cosA, sinA, r1X, r1Y, r2X, r2Y, epsilon).Points);
             result.AppendPoints(LineSegmentEllipseIntersection(cX, cY, rx, ry, cosA, sinA, r2X, r2Y, r3X, r3Y, epsilon).Points);
@@ -6067,7 +6067,7 @@ namespace Engine
 
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -6110,10 +6110,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the points of one rectangle are inside the other rectangle.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -6152,10 +6152,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all end points of a polygon are inside the other polygon and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -6194,10 +6194,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all end points of a polygon are inside the other polygon and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -6237,10 +6237,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the end points are contained inside the rectangle, or the points of the rectangle are inside the polygon, and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -6279,10 +6279,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all end points of a polygon are inside the other polygon and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
 
             return result;
@@ -6322,10 +6322,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the end points are contained inside the rectangle, or the points of the rectangle are inside the polygon, and there are no intersections.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -6368,10 +6368,10 @@ namespace Engine
 
             // ToDo: Return IntersectionState.Inside if all of the points of the rectangle are contained within the circle.
 
-            var result = new Intersection(IntersectionState.NoIntersection, intersections);
+            var result = new Intersection(IntersectionStates.NoIntersection, intersections);
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
             else
             {
@@ -6401,8 +6401,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var inter = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
+            var inter = new Intersection(IntersectionStates.NoIntersection);
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
@@ -6421,7 +6421,7 @@ namespace Engine
 
             if (result.Points.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
             else
             {
@@ -6451,8 +6451,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var inter = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
+            var inter = new Intersection(IntersectionStates.NoIntersection);
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
@@ -6471,7 +6471,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
             else
             {
@@ -6502,7 +6502,7 @@ namespace Engine
             double cx1, double cy1, double radius1,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             // If either of the circles are empty, return no intersections.
             if ((radius0 == 0d) || (radius1 == 0d))
@@ -6521,21 +6521,21 @@ namespace Engine
                 // No solutions, the circles are too far apart.
                 // This would be a good point to return a null Lotus.
 
-                result.State = IntersectionState.Outside;
+                result.State = IntersectionStates.Outside;
             }
             else if (dist < Abs(radius0 - radius1))
             {
                 // No solutions, one circle contains the other.
                 // This would be a good point to return a Lotus struct of the smaller of the circles.
 
-                result.State = IntersectionState.Inside;
+                result.State = IntersectionStates.Inside;
             }
             else if ((Abs(dist) < epsilon) && (Abs(radius0 - radius1) < epsilon))
             {
                 // No solutions, the circles coincide.
                 // This would be a good point to return a Lotus struct of one of the circles.
 
-                result.State = IntersectionState.Outside;
+                result.State = IntersectionStates.Outside;
             }
             else
             {
@@ -6551,7 +6551,7 @@ namespace Engine
                 if (Abs(dist - radius0 + radius1) < epsilon)
                 {
                     // Get the points P3.
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     result.AppendPoint(new Point2D(
                         cx2 + (h * (cy1 - cy0) / dist),
                         cy2 - (h * (cx1 - cx0) / dist)));
@@ -6559,7 +6559,7 @@ namespace Engine
                 else
                 {
                     // Get the points P3.
-                    result = new Intersection(IntersectionState.Intersection);
+                    result = new Intersection(IntersectionStates.Intersection);
                     result.AppendPoint(new Point2D(
                     cx2 + (h * (cy1 - cy0) / dist),
                     cy2 - (h * (cx1 - cx0) / dist)));
@@ -6600,15 +6600,15 @@ namespace Engine
             Intersection result;
             if (c_dist > r_max)
             {
-                result = new Intersection(IntersectionState.Outside);
+                result = new Intersection(IntersectionStates.Outside);
             }
             else if (c_dist < r_min)
             {
-                result = new Intersection(IntersectionState.Inside);
+                result = new Intersection(IntersectionStates.Inside);
             }
             else
             {
-                result = new Intersection(IntersectionState.Intersection);
+                result = new Intersection(IntersectionStates.Intersection);
                 var a = ((r1 * r1) - (r2 * r2) + (c_dist * c_dist)) / (2d * c_dist);
                 var h = Sqrt((r1 * r1) - (a * a));
                 var (x, y) = Lerp(c1X, c1Y, c2X, c2Y, a / c_dist);
@@ -6661,8 +6661,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var inter = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
+            var inter = new Intersection(IntersectionStates.NoIntersection);
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
@@ -6681,7 +6681,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
             else
             {
@@ -6732,8 +6732,8 @@ namespace Engine
             List<Point2D> points,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
-            var inter = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
+            var inter = new Intersection(IntersectionStates.NoIntersection);
             var length = points.Count;
 
             // We shouldn't care about the ordering, we can start with the last segment for a performance boost.
@@ -6752,7 +6752,7 @@ namespace Engine
 
             if (result.Count > 0)
             {
-                result.State |= IntersectionState.Intersection;
+                result.State |= IntersectionStates.Intersection;
             }
             else
             {
@@ -6814,7 +6814,7 @@ namespace Engine
             var topRight = new Point2D(maxX, minY);
             var bottomLeft = new Point2D(minX, maxY);
 
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
             result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, minX, minY, topRight.X, topRight.Y, epsilon).Points);
             result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, topRight.X, topRight.Y, maxX, maxY, epsilon).Points);
             result.AppendPoints(EllipseRectangleIntersection(cX, cY, rx, ry, cosA, sinA, maxX, maxY, bottomLeft.X, bottomLeft.Y, epsilon).Points);
@@ -6822,7 +6822,7 @@ namespace Engine
 
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -6878,7 +6878,7 @@ namespace Engine
         {
             _ = epsilon;
             // Initialize intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var rxrx = rx * rx;
             var ryry = ry * ry;
@@ -6906,7 +6906,7 @@ namespace Engine
 
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -6967,7 +6967,7 @@ namespace Engine
         {
             _ = epsilon;
             // Initialize intersection.
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var rxrx = rx * rx;
             var ryry = ry * ry;
@@ -6994,7 +6994,7 @@ namespace Engine
 
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;
@@ -7023,7 +7023,7 @@ namespace Engine
             double c2X, double c2Y, double rx2, double ry2,
             double epsilon = Epsilon)
         {
-            var result = new Intersection(IntersectionState.NoIntersection);
+            var result = new Intersection(IntersectionStates.NoIntersection);
 
             var a = new double[] { ry1 * ry1, 0d, rx1 * rx1, -2 * ry1 * ry1 * c1X, -2d * rx1 * rx1 * c1Y, (ry1 * ry1 * c1X * c1X) + (rx1 * rx1 * c1Y * c1Y) - (rx1 * rx1 * ry1 * ry1) };
             var b = new double[] { ry2 * ry2, 0d, rx2 * rx2, -2 * ry2 * ry2 * c2X, -2d * rx2 * rx2 * c2Y, (ry2 * ry2 * c2X * c2X) + (rx2 * rx2 * c2Y * c2Y) - (rx2 * rx2 * ry2 * ry2) };
@@ -7056,7 +7056,7 @@ namespace Engine
 
             if (result.Points.Count > 0)
             {
-                result.State = IntersectionState.Intersection;
+                result.State = IntersectionStates.Intersection;
             }
 
             return result;

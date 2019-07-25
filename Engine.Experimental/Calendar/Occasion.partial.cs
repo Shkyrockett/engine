@@ -34,8 +34,8 @@ namespace Engine.Chrono
         {
             switch (culture.Country)
             {
-                case Country.CA:
-                case Country.US:
+                case Countries.CA:
+                case Countries.US:
                     if (year >= 1918 && year <= 1920)
                     {
                         return new Occasion(
@@ -154,8 +154,8 @@ namespace Engine.Chrono
         {
             switch (culture.Country)
             {
-                case Country.CA:
-                case Country.US:
+                case Countries.CA:
+                case Countries.US:
                     if (year >= 1918 && year <= 1921)
                     {
                         return new Occasion(
@@ -335,7 +335,7 @@ namespace Engine.Chrono
         public static Occasion ColumbusDay(int year)
             => new Occasion(
             "Columbus Day",
-            new Culture(Language.en, Country.US),
+            new Culture(Languages.en, Countries.US),
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
             new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Monday),
@@ -373,7 +373,7 @@ namespace Engine.Chrono
         {
             switch (culture.Country)
             {
-                case Country.AU:
+                case Countries.AU:
                     return new Occasion(
                         "Thanksgiving Day (Norfolk Island Australia)",
                         culture,
@@ -381,7 +381,7 @@ namespace Engine.Chrono
                         EventType.Holiday,
                         new DateTime(year, (int)Month.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
                         "The Last Wednesday in November.");
-                case Country.CA:
+                case Countries.CA:
                     return new Occasion(
                         "Thanksgiving Day (Canada)",
                         culture,
@@ -389,7 +389,7 @@ namespace Engine.Chrono
                         EventType.Holiday,
                         new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
                         "The Second Monday in October.");
-                case Country.GD:
+                case Countries.GD:
                     return new Occasion(
                         "Thanksgiving Day (Grenada)",
                         culture,
@@ -397,7 +397,7 @@ namespace Engine.Chrono
                         EventType.Holiday,
                         new DateTime(year, (int)Month.October, 25),
                         "October Twenty Fifth.");
-                case Country.LR:
+                case Countries.LR:
                     return new Occasion(
                         "Thanksgiving Day (Liberia)",
                         culture,
@@ -405,7 +405,7 @@ namespace Engine.Chrono
                         EventType.Holiday,
                         new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
                         "The First Thursday in November.");
-                case Country.US:
+                case Countries.US:
                 default:
                     return new Occasion(
                        "Thanksgiving Day (USA)",
@@ -588,7 +588,7 @@ namespace Engine.Chrono
             return (year <= 1732) ? null :
                        new Occasion(
                        "Abraham Lincoln's Birthday",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.AnnualDate,
                        EventType.Birthday,
                        new DateTime(year, (int)Month.February, 12),
@@ -610,7 +610,7 @@ namespace Engine.Chrono
             return (year <= 1732) ? null :
                        new Occasion(
                        "George Washington's Birthday",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.AnnualDate,
                        EventType.Birthday,
                        new DateTime(year, (int)Month.February, 22),
@@ -670,7 +670,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Groundhog Day",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.February, 2),
@@ -691,7 +691,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Saint Valentine's Day",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.February, 14),
@@ -712,7 +712,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Saint Patrick's Day",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.March, 17),
@@ -732,7 +732,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "European Labor Day (May day)",
-                       new Culture(Language.en, Country.GB),
+                       new Culture(Languages.en, Countries.GB),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.May, 1),
@@ -753,7 +753,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Cinco De Mayo",
-                       new Culture(Language.es, Country.MX),
+                       new Culture(Languages.es, Countries.MX),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.May, 5),
@@ -774,7 +774,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Patriot Day",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.September, 11),
@@ -795,7 +795,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Guy Fawkes Day",
-                       new Culture(Language.en, Country.GB),
+                       new Culture(Languages.en, Countries.GB),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.November, 5),
@@ -816,7 +816,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        nameof(Halloween),
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.October, 31),
@@ -927,7 +927,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "New Year's Eve",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.December, 31),
@@ -950,7 +950,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Strawberry Days Starts",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday).BeforeSunday(),
@@ -971,7 +971,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Strawberry Days Ends",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday),
@@ -992,7 +992,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Peach Days Starts",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.September, 1).NextDayOfWeek(DayOfWeek.Thursday),
@@ -1013,7 +1013,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Peach Days Ends",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.September, 1).NextDayOfWeek(DayOfWeek.Thursday).AddDays(2),
@@ -1034,7 +1034,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Pioneer Day",
-                       new Culture(Language.en, Country.US),
+                       new Culture(Languages.en, Countries.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.July, 24),
@@ -1143,7 +1143,7 @@ namespace Engine.Chrono
             var LASTJULJDN = 2299160f;
 
             // British-American usage
-            if (culture.Language == Language.en && (culture.Country == Country.US || culture.Country == Country.GB))
+            if (culture.Language == Languages.en && (culture.Country == Countries.US || culture.Country == Countries.GB))
             {
                 //// last day to use Julian calendar
                 //LASTJULDATE = 17520902f;

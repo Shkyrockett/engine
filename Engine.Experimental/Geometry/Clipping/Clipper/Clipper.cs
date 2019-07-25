@@ -485,12 +485,12 @@ namespace Engine.Experimental
         private void AddLocMin(Vertex vert, ClippingRelation relation, bool isOpen)
         {
             //make sure the vertex is added only once ...
-            if ((VertexFlag.LocMin & vert.Flags) != 0)
+            if ((VertexFlags.LocMin & vert.Flags) != 0)
             {
                 return;
             }
 
-            vert.Flags |= VertexFlag.LocMin;
+            vert.Flags |= VertexFlags.LocMin;
             var lm = new LocalMinima
             {
                 Vertex = vert,
@@ -566,14 +566,14 @@ namespace Engine.Experimental
             var v = new Vertex(path[0]);
             if (isOpen)
             {
-                v.Flags = VertexFlag.OpenStart;
+                v.Flags = VertexFlags.OpenStart;
                 if (goingUp)
                 {
                     AddLocMin(v, relation, isOpen);
                 }
                 else
                 {
-                    v.Flags |= VertexFlag.LocMax;
+                    v.Flags |= VertexFlags.LocMax;
                 }
             }
             va.Add(v);
@@ -590,7 +590,7 @@ namespace Engine.Experimental
                 v2.PreviousVertex = v;
                 if (v2.Point.Y > v.Point.Y && goingUp)
                 {
-                    v.Flags |= VertexFlag.LocMax;
+                    v.Flags |= VertexFlags.LocMax;
                     goingUp = false;
                 }
                 else if (v2.Point.Y < v.Point.Y && !goingUp)
@@ -607,10 +607,10 @@ namespace Engine.Experimental
 
             if (isOpen)
             {
-                v.Flags |= VertexFlag.OpenEnd;
+                v.Flags |= VertexFlags.OpenEnd;
                 if (goingUp)
                 {
-                    v.Flags |= VertexFlag.LocMax;
+                    v.Flags |= VertexFlags.LocMax;
                 }
                 else
                 {
@@ -625,7 +625,7 @@ namespace Engine.Experimental
                     v = v.NextVertex;
                 }
 
-                v.Flags |= VertexFlag.LocMax;
+                v.Flags |= VertexFlags.LocMax;
                 if (P0IsMinima)
                 {
                     AddLocMin(va[0], relation, isOpen); //ie just turned to going up
@@ -642,7 +642,7 @@ namespace Engine.Experimental
                 AddLocMin(v, relation, isOpen);
                 if (P0IsMaxima)
                 {
-                    va[0].Flags |= VertexFlag.LocMax;
+                    va[0].Flags |= VertexFlags.LocMax;
                 }
             }
         }
@@ -1012,7 +1012,7 @@ namespace Engine.Experimental
             // Add any local minima at BotY ...
             while ((locMin = PopLocalMinima(BotY)) != null)
             {
-                if ((locMin?.Vertex.Flags & VertexFlag.OpenStart) > 0)
+                if ((locMin?.Vertex.Flags & VertexFlags.OpenStart) > 0)
                 {
                     leftB = null;
                 }
@@ -1030,7 +1030,7 @@ namespace Engine.Experimental
                     leftB.SetDx();
                 }
 
-                if ((locMin.Value.Vertex.Flags & VertexFlag.OpenEnd) > 0)
+                if ((locMin.Value.Vertex.Flags & VertexFlags.OpenEnd) > 0)
                 {
                     rightB = null;
                 }
@@ -1914,7 +1914,7 @@ namespace Engine.Experimental
             }
             Edge maxPair = null;
             if (horz.IsMaxima() && (!horz.IsOpen() ||
-                ((horz.vertTop.Flags & (VertexFlag.OpenStart | VertexFlag.OpenEnd)) == 0)))
+                ((horz.vertTop.Flags & (VertexFlags.OpenStart | VertexFlags.OpenEnd)) == 0)))
             {
                 maxPair = horz.GetMaximaPair();
             }
@@ -2080,7 +2080,7 @@ namespace Engine.Experimental
             Edge eMaxPair;
             var ePrev = e.prevInAEL;
             var eNext = e.nextInAEL;
-            if (e.IsOpen() && ((e.vertTop.Flags & (VertexFlag.OpenStart | VertexFlag.OpenEnd)) != 0))
+            if (e.IsOpen() && ((e.vertTop.Flags & (VertexFlags.OpenStart | VertexFlags.OpenEnd)) != 0))
             {
                 if (e.IsHotEdge())
                 {

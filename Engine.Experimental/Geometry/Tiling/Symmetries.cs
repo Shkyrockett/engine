@@ -1,9 +1,12 @@
-﻿namespace Engine.Experimental
+﻿using System;
+
+namespace Engine.Experimental
 {
     /// <summary>
     /// The symmetries enum.
     /// </summary>
-    public enum Symmetry
+    [Flags]
+    public enum Symmetries
     {
         /// <summary>
         /// The Translation.

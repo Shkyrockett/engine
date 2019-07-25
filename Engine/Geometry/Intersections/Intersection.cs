@@ -39,7 +39,7 @@ namespace Engine
         /// </summary>
         /// <param name="status">The status.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState status)
+        public Intersection(IntersectionStates status)
             : this(status, new List<Point2D>())
         { }
 
@@ -49,7 +49,7 @@ namespace Engine
         /// <param name="state">The state.</param>
         /// <param name="points">The points.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, params Point2D[] points)
+        public Intersection(IntersectionStates state, params Point2D[] points)
             : this(state, new List<Point2D>(points))
         { }
 
@@ -59,7 +59,7 @@ namespace Engine
         /// <param name="state">The state.</param>
         /// <param name="points">The points.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, IEnumerable<Point2D> points)
+        public Intersection(IntersectionStates state, IEnumerable<Point2D> points)
             : this(state, new List<Point2D>(points))
         { }
 
@@ -69,7 +69,7 @@ namespace Engine
         /// <param name="state">The state.</param>
         /// <param name="points">The points.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Intersection(IntersectionState state, List<Point2D> points)
+        public Intersection(IntersectionStates state, List<Point2D> points)
         {
             State = state;
             Points = points;
@@ -82,7 +82,7 @@ namespace Engine
         /// </summary>
         /// <param name="state">The state.</param>
         /// <param name="points">The points.</param>
-        public void Deconstruct(out IntersectionState state, out List<Point2D> points)
+        public void Deconstruct(out IntersectionStates state, out List<Point2D> points)
         {
             state = State;
             points = Points;
@@ -106,7 +106,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the state.
         /// </summary>
-        public IntersectionState State { get; set; }
+        public IntersectionStates State { get; set; }
 
         /// <summary>
         /// Gets or sets the points.

@@ -16,7 +16,7 @@ namespace Engine
     /// An enumeration of intersections between two shapes.
     /// </summary>
     [Flags]
-    public enum IntersectionState
+    public enum IntersectionStates
         : sbyte
     {
         /// <summary>

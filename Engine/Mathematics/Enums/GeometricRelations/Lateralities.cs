@@ -16,7 +16,7 @@ namespace Engine
     /// The laterality enum.
     /// </summary>
     [Flags]
-    public enum Laterality
+    public enum Lateralities
         : sbyte
     {
         /// <summary>

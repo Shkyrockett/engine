@@ -365,7 +365,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <returns>The <see cref="bool"/>.</returns>
         public bool IsMaxima()
-            => (VertexFlag.LocMax & vertTop.Flags) != 0;
+            => (VertexFlags.LocMax & vertTop.Flags) != 0;
 
         /// <summary>
         /// The is hot edge.

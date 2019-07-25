@@ -182,29 +182,29 @@ namespace EngineTests
             var testCases = new Dictionary<((double A1X, double A1Y, double B1X, double B1Y) A, (double A2X, double A2Y, double B2X, double B2Y) B), Intersection>
             {
                 // Intersection at one point.
-                { ((1d, 1d, 2d, 2d), (1d, 1d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(1d, 1d)) },
+                { ((1d, 1d, 2d, 2d), (1d, 1d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(1d, 1d)) },
                 // Intersection at other point.
-                { ((1d, 1d, 2d, 2d), (2d, 2d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(2d, 2d)) },
+                { ((1d, 1d, 2d, 2d), (2d, 2d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(2d, 2d)) },
                 // Lines intersect, segments do not.
-                { ((1d, 1d, 2d, 2d), (3d, 2d, 2d, 3d)), new Intersection(IntersectionState.Intersection, new Point2D(5d, 5d)) },
+                { ((1d, 1d, 2d, 2d), (3d, 2d, 2d, 3d)), new Intersection(IntersectionStates.Intersection, new Point2D(5d, 5d)) },
                 // One line intersects other at start/end.
-                { ((1d, 1d, 2d, 2d), (1.5d, 1.5d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(1.5d, 1.5d)) },
+                { ((1d, 1d, 2d, 2d), (1.5d, 1.5d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(1.5d, 1.5d)) },
                 // One line intersects other at other start/end.
-                { ((1.5d, 1.5d, 2d, 2d), (1d, 2d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(3d, 3d)) },
+                { ((1.5d, 1.5d, 2d, 2d), (1d, 2d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(3d, 3d)) },
                 // Both line segments share a point.
-                { ((1.5d, 1.5d, 2d, 2d), (1.5d, 1.5d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(1.5d, 1.5d)) },
+                { ((1.5d, 1.5d, 2d, 2d), (1.5d, 1.5d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(1.5d, 1.5d)) },
                 // Parallel lines. No intersection.
-                { ((1d, 1d, 2d, 2d), (2d, 1d, 3d, 2d)), new Intersection(IntersectionState.Intersection, new Point2D(-1,-1)) },
+                { ((1d, 1d, 2d, 2d), (2d, 1d, 3d, 2d)), new Intersection(IntersectionStates.Intersection, new Point2D(-1,-1)) },
 
                 // The following special case intersections need some thought on how to handle. 
                 // Coincidental lines. One intersection.
-                { ((0d, 0d, 1d, 1d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionState.NoIntersection) },
+                { ((0d, 0d, 1d, 1d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionStates.NoIntersection) },
                 // Same lines. Infinite intersection.
-                { ((1d, 1d, 2d, 2d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionState.NoIntersection) },
+                { ((1d, 1d, 2d, 2d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionStates.NoIntersection) },
                 // Same lines, opposite directions. Infinite intersection.
-                { ((2d, 2d, 1d, 1d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionState.NoIntersection) },
+                { ((2d, 2d, 1d, 1d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionStates.NoIntersection) },
                 // Same lines, opposite directions. Infinite intersection.
-                { ((1d, 1d, 2d, 2d), (2d, 2d, 1d, 1d)), new Intersection(IntersectionState.NoIntersection) },
+                { ((1d, 1d, 2d, 2d), (2d, 2d, 1d, 1d)), new Intersection(IntersectionStates.NoIntersection) },
             };
 
             foreach (var test in testCases.Keys)
@@ -235,29 +235,29 @@ namespace EngineTests
             var testCases = new Dictionary<((double A1X, double A1Y, double B1X, double B1Y) A, (double A2X, double A2Y, double B2X, double B2Y) B), Intersection>
             {
                 // Intersection at one point.
-                { ((1d, 1d, 2d, 2d), (1d, 1d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(1d, 1d)) },
+                { ((1d, 1d, 2d, 2d), (1d, 1d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(1d, 1d)) },
                 // Intersection at other point.
-                { ((1d, 1d, 2d, 2d), (2d, 2d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(2d, 2d)) },
+                { ((1d, 1d, 2d, 2d), (2d, 2d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(2d, 2d)) },
                 // Lines intersect, segments do not.
-                { ((1d, 1d, 2d, 2d), (3d, 2d, 2d, 3d)), new Intersection(IntersectionState.NoIntersection) },
+                { ((1d, 1d, 2d, 2d), (3d, 2d, 2d, 3d)), new Intersection(IntersectionStates.NoIntersection) },
                 // One line intersects other at start/end.
-                { ((1d, 1d, 2d, 2d), (1.5d, 1.5d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(1.5d, 1.5d)) },
+                { ((1d, 1d, 2d, 2d), (1.5d, 1.5d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(1.5d, 1.5d)) },
                 // One line intersects other at other start/end.
-                { ((1.5d, 1.5d, 2d, 2d), (1d, 2d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(1.5d, 1.5d)) },
+                { ((1.5d, 1.5d, 2d, 2d), (1d, 2d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(1.5d, 1.5d)) },
                 // Both line segments share a point.
-                { ((1.5d, 1.5d, 2d, 2d), (1.5d, 1.5d, 2d, 1d)), new Intersection(IntersectionState.Intersection, new Point2D(1.5d, 1.5d)) },
+                { ((1.5d, 1.5d, 2d, 2d), (1.5d, 1.5d, 2d, 1d)), new Intersection(IntersectionStates.Intersection, new Point2D(1.5d, 1.5d)) },
                 // Parallel lines. No intersection.
-                { ((1d, 1d, 2d, 2d), (2d, 1d, 3d, 2d)), new Intersection(IntersectionState.Parallel) },
+                { ((1d, 1d, 2d, 2d), (2d, 1d, 3d, 2d)), new Intersection(IntersectionStates.Parallel) },
 
                 // The following special case intersections need some thought on how to handle. 
                 // Coincidental lines. One intersection.
-                { ((0d, 0d, 1d, 1d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionState.Coincident) },
+                { ((0d, 0d, 1d, 1d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionStates.Coincident) },
                 // Same lines. Infinite intersection.
-                { ((1d, 1d, 2d, 2d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionState.Coincident) },
+                { ((1d, 1d, 2d, 2d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionStates.Coincident) },
                 // Same lines, opposite directions. Infinite intersection.
-                { ((2d, 2d, 1d, 1d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionState.Coincident) },
+                { ((2d, 2d, 1d, 1d), (1d, 1d, 2d, 2d)), new Intersection(IntersectionStates.Coincident) },
                 // Same lines, opposite directions. Infinite intersection.
-                { ((1d, 1d, 2d, 2d), (2d, 2d, 1d, 1d)), new Intersection(IntersectionState.Coincident) },
+                { ((1d, 1d, 2d, 2d), (2d, 2d, 1d, 1d)), new Intersection(IntersectionStates.Coincident) },
             };
 
             foreach (var test in testCases.Keys)
@@ -290,13 +290,13 @@ namespace EngineTests
             {
                 // Parallel vertically mirrored Quadratic Bézier curves.
                 { ((0, 0, 10, 10, 20, 0), (0, 5, 10, -5, 20, 5)),
-                    new Intersection(IntersectionState.Intersection, new Point2D(17.0710678118655,2.5), new Point2D(2.92893218813452,2.5)) },
+                    new Intersection(IntersectionStates.Intersection, new Point2D(17.0710678118655,2.5), new Point2D(2.92893218813452,2.5)) },
                 // Reduce Quintic to Quadratic Parallel Mirrored Quadratic Bézier curves with one leg shifted to the right.
                 { ((5, 0, 10, 10, 20, 0), (0, 5, 10, -5, 20, 5)),
-                    new Intersection(IntersectionState.Intersection, new Point2D(17.1265312836548, 2.53937240684556), new Point2D(5.53889706744833, 0.995071968741055)) },
+                    new Intersection(IntersectionStates.Intersection, new Point2D(17.1265312836548, 2.53937240684556), new Point2D(5.53889706744833, 0.995071968741055)) },
                 // KLD four point result Quadratic Bezier intersection test case.
                 { ((83, 214, 335, 173, 91, 137), (92, 233, 152, 30, 198, 227)),
-                    new Intersection(IntersectionState.Intersection,
+                    new Intersection(IntersectionStates.Intersection,
                     new Point2D( 188.275750370236,190.334599086058), new Point2D( 173.837703431114, 152.940611499889),
                     new Point2D( 129.541879876986, 143.272853943596), new Point2D( 98.7272053850424, 211.36259052014)) },
             };
@@ -333,8 +333,8 @@ namespace EngineTests
         {
             var testCases = new Dictionary<(double AX, double AY, double BX, double BY, double CX, double CY, double DX, double DY), Intersection>
             {
-                { (0, 0, 0, 0, 0, 0, 0, 0), new Intersection(IntersectionState.NoIntersection, System.Array.Empty<Point2D>()) },
-                { (150, 300, 300, 100, 100, 100, 250, 300), new Intersection(IntersectionState.Intersection, new Point2D[]{ (199.893126357613, 214.564969294897) }) }
+                { (0, 0, 0, 0, 0, 0, 0, 0), new Intersection(IntersectionStates.NoIntersection, System.Array.Empty<Point2D>()) },
+                { (150, 300, 300, 100, 100, 100, 250, 300), new Intersection(IntersectionStates.Intersection, new Point2D[]{ (199.893126357613, 214.564969294897) }) }
             };
 
             foreach (var test in testCases)
@@ -368,13 +368,13 @@ namespace EngineTests
             {
                 // Parallel vertically mirrored Cubic Bézier curves.
                 { ((100, 100, 166.66666666666663, 166.66666666666663, 233.33333333333337, 166.66666666666663, 300, 100), (100, 150, 166.66666666666663, 83.333333333333343, 233.33333333333337, 83.333333333333343, 300, 150)),
-                    new Intersection(IntersectionState.Intersection, new Point2D(129.289436340332, 124.99991906534), new Point2D(270.710563659668, 124.99991906534)) },
+                    new Intersection(IntersectionStates.Intersection, new Point2D(129.289436340332, 124.99991906534), new Point2D(270.710563659668, 124.99991906534)) },
                 // Parallel Mirrored Quadratic Bézier curves with one leg shifted to the right.
                 { ((150, 100, 183.33333333333331, 166.66666666666663, 233.33333333333337, 166.66666666666663, 300, 100), (100, 150, 166.66666666666663, 83.333333333333343, 233.33333333333337, 83.333333333333343, 300, 150)),
-                    new Intersection(IntersectionState.Intersection, new Point2D(155.389060528796, 109.950679602517), new Point2D(271.265415062589, 125.393796920216)) },
+                    new Intersection(IntersectionStates.Intersection, new Point2D(155.389060528796, 109.950679602517), new Point2D(271.265415062589, 125.393796920216)) },
                 // KLD four point result Cubic Bezier intersection test case.
                 { ((203, 140, 206, 359, 245, 6,248,212), (177, 204, 441, 204, 8, 149,265,154)),
-                    new Intersection(IntersectionState.Intersection,
+                    new Intersection(IntersectionStates.Intersection,
                     new Point2D(206.530449213553, 203.720589365125),
                     new Point2D(218.265424922221, 203.397715460424),
                     new Point2D(247.804170297071, 201.44841621768),

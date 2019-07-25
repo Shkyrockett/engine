@@ -13,7 +13,7 @@ namespace Engine.Localization
     /// <summary>
     /// Country Codes
     /// </summary>
-    public enum Country
+    public enum Countries
     {
         /// <summary>
         /// United States of America.

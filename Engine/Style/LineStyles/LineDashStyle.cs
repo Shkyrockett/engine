@@ -194,8 +194,8 @@ namespace Engine
         /// Parse.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <returns>The <see cref="T:float[]"/>.</returns>
-        private float[] Parse(string text)
+        /// <returns>The <see cref="Array"/>.</returns>
+        private static float[] Parse(string text)
         {
             const string argSeparators = @"[\s,]|(?=-)";
             return Regex.Split(text, argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => float.Parse(arg)).ToArray();

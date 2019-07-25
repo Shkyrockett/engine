@@ -36,14 +36,14 @@ namespace Engine.Physics
         /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name
+        public static string Name
             => "Electron Volt";
 
         /// <summary>
         /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
+        public static string Abreviation
             => "eV";
 
         /// <param name="value"></param>

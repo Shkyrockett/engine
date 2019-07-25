@@ -31,7 +31,7 @@ namespace Engine.Localization
         /// </summary>
         /// <param name="language">The language spoken.</param>
         /// <param name="country">The country of the culture.</param>
-        public Culture(Languages language, Countries country)
+        public Culture(Language language, Country country)
         {
             Country = country;
             Language = language;
@@ -44,8 +44,8 @@ namespace Engine.Localization
         public Culture(string code)
         {
             var tokens = code.Split('-');
-            Enum.TryParse(tokens[0], out Languages language);
-            Enum.TryParse(tokens[1], out Countries country);
+            Enum.TryParse(tokens[0], out Language language);
+            Enum.TryParse(tokens[1], out Country country);
             Language = language;
             Country = country;
         }
@@ -53,12 +53,12 @@ namespace Engine.Localization
         /// <summary>
         /// Gets or sets the language spoken in the culture.
         /// </summary>
-        public Languages Language { get; set; }
+        public Language Language { get; set; }
 
         /// <summary>
         /// Gets or sets the Country of the culture.
         /// </summary>
-        public Countries Country { get; set; }
+        public Country Country { get; set; }
 
         /// <summary>
         /// Converts the value of this <see cref="Culture"/> instance to its equivalent string representation.

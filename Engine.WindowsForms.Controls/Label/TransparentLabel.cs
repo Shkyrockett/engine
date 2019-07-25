@@ -24,7 +24,7 @@ namespace Engine.WindowsForms
         /// <summary>
         /// https://msdn.microsoft.com/en-us/library/windows/desktop/ff700543(v=vs.85).aspx
         /// </summary>
-        private const int WS_EX_TRANSPARENT = 0x00000020;
+        private const int wS_EX_TRANSPARENT = 0x00000020;
 
         //private bool transparent;
 
@@ -57,7 +57,7 @@ namespace Engine.WindowsForms
             get
             {
                 var cp = base.CreateParams;
-                cp.ExStyle |= WS_EX_TRANSPARENT;
+                cp.ExStyle |= wS_EX_TRANSPARENT;
                 return cp;
             }
         }

@@ -21,6 +21,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using static System.Math;
 using static Engine.Mathematics;
+using System.Globalization;
 
 namespace Editor
 {
@@ -43,17 +44,18 @@ namespace Editor
             _ = tools;
             _ = canvasPanel;
             _ = metrics;
-            var foreColor = form.ForeColor;
+            var foreColor = form?.ForeColor;
             _ = foreColor;
-            var backColor = form.BackColor;
+            var backColor = form?.BackColor;
             _ = backColor;
             boundaryItem = new GraphicItem();
 
             /* Experimental Previews */
 
             //BezierExp(vectorMap);
+            ParametricParabola(vectorMap);
             //Parabola(vectorMap);
-            DrawParabola(vectorMap);
+            //DrawParabola(vectorMap);
             //EllipseEllipseIntersection(vectorMap);
             //EnvelopeWarp(vectorMap);
             //Clipper(vectorMap);
@@ -83,7 +85,7 @@ namespace Editor
             //PolylineClicking(vectorMap);
             //TextRendering(vectorMap, form, metrics);
             //ParametricEllipseBounds(vectorMap);
-            //ParametricEllipseArc(vectorMap);
+            ParametricEllipseArc(vectorMap);
             //ParametricTesting(vectorMap);
             //ParametricTesting2(vectorMap);
             //ParametricTesting3(vectorMap);
@@ -214,6 +216,56 @@ namespace Editor
         /// 
         /// </summary>
         /// <param name="vectorMap"></param>
+        public static void ParametricParabola(VectorMap vectorMap)
+        {
+            var a = 0.0125d; // The aspect of the parabola.
+            var h = 125d; // The horizontal shift of the vertex.
+            var k = 155d; // The vertex height of the parabola.
+            var b = -2d * a * h; // Get b from vertex form.
+            var c = (b * b / (4d * a)) + k; // get c from vertex form.
+            var intercept = 111.3552872566004410259665746707469224929809570312d;
+            var l = h - intercept;
+            var r = h + intercept;
+            var g = new ParametricDelegateCurve();
+
+            var parametricParapola = new ParametricDelegateCurve(
+                (t, x, y, w, h1, r1) => Interpolators.InterpolateVertexParabola(t, h1, h, y, x, w),
+                null,
+                new Point2D(l, k), new Size2D(r, a), 0, 0);
+
+            //Interpolate(Interpolator, t, x, y, width, height, rotation);
+
+            //var parametricEllipse = new ParametricDelegateCurve(
+            //    (t, x, y, w, h, a) => Interpolators.UnitPolarEllipse(t, x, y, w, h, a),
+            //    (x, y, w, h, a, px, py) => Intersections.EllipseContainsPoint(x, y, w, h, a, px, py),
+            //    new Point2D(200d, 100d), new Size2D(25d, 50d), 0, 0);
+
+            var parametricParapolaItem1 = new GraphicItem(parametricParapola, intersectionRed)
+            {
+                Name = "parametric Parapola Vertex"
+            };
+
+            var line1 = new Line(h, k, 1d, 0d);
+            var lineItem1 = new GraphicItem(line1, paperLikeStyle)
+            {
+                Name = "Horizontal Line"
+            };
+
+            var line2 = new Line(h, k, 0d, 1d);
+            var lineItem2 = new GraphicItem(line2, paperLikeStyle)
+            {
+                Name = "Vertical Line"
+            };
+
+            vectorMap?.Add(lineItem1);
+            vectorMap?.Add(lineItem2);
+            vectorMap?.Add(parametricParapolaItem1);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vectorMap"></param>
         public static void Parabola(VectorMap vectorMap)
         {
             var a = -0.0125d; // The aspect of the parabola.
@@ -242,9 +294,9 @@ namespace Editor
                 Name = "Vertical Line"
             };
 
-            vectorMap.Add(lineItem1);
-            vectorMap.Add(lineItem2);
-            vectorMap.Add(bezierItem1);
+            vectorMap?.Add(lineItem1);
+            vectorMap?.Add(lineItem2);
+            vectorMap?.Add(bezierItem1);
         }
 
         /// <summary>
@@ -257,7 +309,7 @@ namespace Editor
             var h = 150d; // The horizontal shift of the vertex.
             var k = 100d; // The vertex height of the parabola.
             var b = -2d * a * h; // Get b from vertex form.
-            var c = (b * b / (4 * a)) + k; // get c from vertex form.
+            var c = (b * b / (4d * a)) + k; // Get c from vertex form.
             var l = 50d;
             var r = 250d;
             var bezier1 = new QuadraticBezier(Conversions.StandardParabolaToQuadraticBezier(a, b, c, l, r));
@@ -274,7 +326,7 @@ namespace Editor
 
             (var x1, var y1) = (50d, 100d);
             (var x2, var y2) = (275d, 150d);
-            k = 50;
+            k = 50d;
             var parabola3 = Conversions.FindVertexParabolaFromTwoPointsAndK(x1, y1, x2, y2, k);
             var bezier3 = new QuadraticBezier(Conversions.VertexParabolaToQuadraticBezier(parabola3.a, parabola3.h, parabola3.k, x1, x2));
             var bezierItem = new GraphicItem(bezier3, intersectionGreen)
@@ -294,17 +346,17 @@ namespace Editor
                 Name = "Vertical Line"
             };
 
-            vectorMap.Add(bezierItem);
-            vectorMap.Add(bezierItem1);
-            vectorMap.Add(bezierItem2);
-            vectorMap.Add(lineItem1);
-            vectorMap.Add(lineItem2);
+            vectorMap?.Add(bezierItem);
+            vectorMap?.Add(bezierItem1);
+            vectorMap?.Add(bezierItem2);
+            vectorMap?.Add(lineItem1);
+            vectorMap?.Add(lineItem2);
         }
 
         /// <summary>
         /// The ellipse ellipse intersection testing.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap.</param>
+        /// <param name="vectorMap">The vectorMap?.</param>
         public static void EllipseEllipseIntersection(VectorMap vectorMap)
         {
             var l0 = new Line(175d, 150d, 0d, 1d);
@@ -449,34 +501,34 @@ namespace Editor
             //var intersects = Intersections.EllipseEllipseIntersects(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle);
             //var intersections = Intersections.EllipseEllipseIntersection(e0.Center.X, e0.Center.Y, e0.RX, e0.RY, e0.Angle, e1.Center.X, e1.Center.Y, e1.RX, e1.RY, e1.Angle);
 
-            vectorMap.Add(line0Item);
-            vectorMap.Add(ellipse0Item);
-            vectorMap.Add(ellipse1Item);
-            vectorMap.Add(intersectionNodeItem0);
-            vectorMap.Add(ellipse2Item);
-            vectorMap.Add(ellipse3Item);
-            vectorMap.Add(intersectionNodeItem1);
-            vectorMap.Add(ellipse4Item);
-            vectorMap.Add(ellipse5Item);
-            vectorMap.Add(intersectionNodeItem2);
-            vectorMap.Add(ellipse6Item);
-            vectorMap.Add(ellipse7Item);
-            vectorMap.Add(intersectionNodeItem3);
-            vectorMap.Add(ellipse8Item);
-            vectorMap.Add(ellipse9Item);
-            vectorMap.Add(intersectionNodeItem4);
-            vectorMap.Add(ellipse10Item);
-            vectorMap.Add(ellipse11Item);
-            vectorMap.Add(intersectionNodeItem5);
-            vectorMap.Add(ellipse12Item);
-            vectorMap.Add(ellipse13Item);
-            vectorMap.Add(intersectionNodeItem6);
+            vectorMap?.Add(line0Item);
+            vectorMap?.Add(ellipse0Item);
+            vectorMap?.Add(ellipse1Item);
+            vectorMap?.Add(intersectionNodeItem0);
+            vectorMap?.Add(ellipse2Item);
+            vectorMap?.Add(ellipse3Item);
+            vectorMap?.Add(intersectionNodeItem1);
+            vectorMap?.Add(ellipse4Item);
+            vectorMap?.Add(ellipse5Item);
+            vectorMap?.Add(intersectionNodeItem2);
+            vectorMap?.Add(ellipse6Item);
+            vectorMap?.Add(ellipse7Item);
+            vectorMap?.Add(intersectionNodeItem3);
+            vectorMap?.Add(ellipse8Item);
+            vectorMap?.Add(ellipse9Item);
+            vectorMap?.Add(intersectionNodeItem4);
+            vectorMap?.Add(ellipse10Item);
+            vectorMap?.Add(ellipse11Item);
+            vectorMap?.Add(intersectionNodeItem5);
+            vectorMap?.Add(ellipse12Item);
+            vectorMap?.Add(ellipse13Item);
+            vectorMap?.Add(intersectionNodeItem6);
         }
 
         /// <summary>
         /// The bezier exp.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap.</param>
+        /// <param name="vectorMap">The vectorMap?.</param>
         public static void BezierExp(VectorMap vectorMap)
         {
             //var quadraticBezier = new Bezier((150d, 40d), (80d, 30d), (105d, 150d));
@@ -579,10 +631,10 @@ namespace Editor
             //    splitCurve.AddCubicBezier(shape.Points[1], shape.Points[2], shape.Points[3]);
             //    var item = new GraphicItem(shape, intersectionBlue)
             //    {
-            //        Name = $"{shape.ToString()}"
+            //        Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
             //    };
 
-            //    vectorMap.Add(item);
+            //    vectorMap?.Add(item);
             //}
             //var splitCurveItem = new GraphicItem(splitCurve, azureTransparent)
             //{
@@ -601,10 +653,10 @@ namespace Editor
                 var bez = new CubicBezier(shape.Points[0], shape.Points[1], shape.Points[2], shape.Points[3]);
                 var item = new GraphicItem(bez, intersectionRed)
                 {
-                    Name = $"{shape.ToString()}"
+                    Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
                 };
 
-                vectorMap.Add(item);
+                vectorMap?.Add(item);
             }
             var reduceBezierCurveItem = new GraphicItem(reduceBezierCurve, azureTransparent)
             {
@@ -622,10 +674,10 @@ namespace Editor
                 reduceCurve.AddCubicBezier(shape.Points[1], shape.Points[2], shape.Points[3]);
                 var item = new GraphicItem(shape, intersectionRed)
                 {
-                    Name = $"{shape.ToString()}"
+                    Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
                 };
 
-                vectorMap.Add(item);
+                vectorMap?.Add(item);
             }
             var reduceCurveItem = new GraphicItem(reduceCurve, azureTransparent)
             {
@@ -667,35 +719,35 @@ namespace Editor
             //    Name = "Arcs Degeneration of Cubic Curve"
             //};
 
-            //vectorMap.Add(rectItem);
-            vectorMap.Add(cubicCurveItem);
-            //vectorMap.Add(scaleCurveItem);
-            //vectorMap.Add(offsetCurveItem);
-            //vectorMap.Add(reduceCurveItem);
-            //vectorMap.Add(outlineCurveItem);
-            //vectorMap.Add(arcsCurveItem);
-            //vectorMap.Add(bezierExtremaNodeItem);
-            //vectorMap.Add(curveExtremaNodeItem);
-            //vectorMap.Add(bezierInflectionsNodeItem);
-            //vectorMap.Add(curveInflectionsNodeItem);
-            //vectorMap.Add(curveInflectionsNodeNormalRayItem);
-            //vectorMap.Add(curveInflectionsNodeDerivateRayItem);
-            //vectorMap.Add(curveInflectionsNodeTangentRayItem);
-            //vectorMap.Add(bezierDerivativePointsNodeItem);
-            //vectorMap.Add(curveDerivativePointsNodeItem);
-            //vectorMap.Add(hullNodeItem);
-            vectorMap.Add(reduceCurveItem);
-            vectorMap.Add(reduceBezierCurveItem);
-            //vectorMap.Add(splitCurveItem);
-            vectorMap.Add(reduceCurveNodeItem);
-            vectorMap.Add(reduceBezierCurveNodeItem);
-            //vectorMap.Add(splitNodeItem);
+            //vectorMap?.Add(rectItem);
+            vectorMap?.Add(cubicCurveItem);
+            //vectorMap?.Add(scaleCurveItem);
+            //vectorMap?.Add(offsetCurveItem);
+            //vectorMap?.Add(reduceCurveItem);
+            //vectorMap?.Add(outlineCurveItem);
+            //vectorMap?.Add(arcsCurveItem);
+            //vectorMap?.Add(bezierExtremaNodeItem);
+            //vectorMap?.Add(curveExtremaNodeItem);
+            //vectorMap?.Add(bezierInflectionsNodeItem);
+            //vectorMap?.Add(curveInflectionsNodeItem);
+            //vectorMap?.Add(curveInflectionsNodeNormalRayItem);
+            //vectorMap?.Add(curveInflectionsNodeDerivateRayItem);
+            //vectorMap?.Add(curveInflectionsNodeTangentRayItem);
+            //vectorMap?.Add(bezierDerivativePointsNodeItem);
+            //vectorMap?.Add(curveDerivativePointsNodeItem);
+            //vectorMap?.Add(hullNodeItem);
+            vectorMap?.Add(reduceCurveItem);
+            vectorMap?.Add(reduceBezierCurveItem);
+            //vectorMap?.Add(splitCurveItem);
+            vectorMap?.Add(reduceCurveNodeItem);
+            vectorMap?.Add(reduceBezierCurveNodeItem);
+            //vectorMap?.Add(splitNodeItem);
         }
 
         /// <summary>
         /// The envelope warp.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap.</param>
+        /// <param name="vectorMap">The vectorMap?.</param>
         public static void EnvelopeWarp(VectorMap vectorMap)
         {
             (double left, double top, double width, double height) = (100, 200, 200, 100);
@@ -773,13 +825,13 @@ namespace Editor
                 Name = "Warp"
             };
 
-            vectorMap.Add(rectItem);
-            vectorMap.Add(curvedBoundsItem);
-            vectorMap.Add(warpedRectangleItem);
-            vectorMap.Add(warpedRectangleNodeItem);
-            vectorMap.Add(warpedTriangleItem);
-            vectorMap.Add(warpGridItem);
-            vectorMap.Add(curvedBoundsItemNodeItem);
+            vectorMap?.Add(rectItem);
+            vectorMap?.Add(curvedBoundsItem);
+            vectorMap?.Add(warpedRectangleItem);
+            vectorMap?.Add(warpedRectangleNodeItem);
+            vectorMap?.Add(warpedTriangleItem);
+            vectorMap?.Add(warpGridItem);
+            vectorMap?.Add(curvedBoundsItemNodeItem);
         }
 
         /// <summary>
@@ -838,16 +890,16 @@ namespace Editor
             };
 
             var clip = new Clipper();
-            clip.AddPaths(poly1, ClippingRelations.Subject);
-            clip.AddPaths(poly2, ClippingRelations.Clipping);
-            var poly3 = clip.Execute(ClippingOperations.Intersection);
+            clip.AddPaths(poly1, ClippingRelation.Subject);
+            clip.AddPaths(poly2, ClippingRelation.Clipping);
+            var poly3 = clip.Execute(ClippingOperation.Intersection);
             var poly3Item = new GraphicItem(poly3, intersectionRed)
             {
                 Name = "Polygon Solution"
             };
 
             var offset = new ClipperOffset();
-            offset.AddPaths(poly3, LineJoins.Round, LineEndType.ClosedPolygon);
+            offset.AddPaths(poly3, Engine.LineJoin.Round, LineEndType.ClosedPolygon);
             var poly4 = offset.Execute(delta2);
             var poly4Item = new GraphicItem(poly4, intersectionRed)
             {
@@ -855,19 +907,19 @@ namespace Editor
             };
 
             var triangles = new ClipperTriangulation();
-            triangles.AddPaths(poly1, ClippingRelations.Subject);
-            triangles.AddPaths(poly2, ClippingRelations.Clipping);
-            var poly5 = triangles.Execute(ClippingOperations.Intersection);
+            triangles.AddPaths(poly1, ClippingRelation.Subject);
+            triangles.AddPaths(poly2, ClippingRelation.Clipping);
+            var poly5 = triangles.Execute(ClippingOperation.Intersection);
             var poly5Item = new GraphicItem(poly5, solidGreenStyle)
             {
                 Name = "Polygon Triangle"
             };
 
-            vectorMap.Add(poly1Item);
-            vectorMap.Add(poly2Item);
-            vectorMap.Add(poly4Item);
-            vectorMap.Add(poly3Item);
-            vectorMap.Add(poly5Item);
+            vectorMap?.Add(poly1Item);
+            vectorMap?.Add(poly2Item);
+            vectorMap?.Add(poly4Item);
+            vectorMap?.Add(poly3Item);
+            vectorMap?.Add(poly5Item);
         }
 
         /// <summary>
@@ -899,7 +951,7 @@ namespace Editor
             };
 
             var clip = new MartinezPolygonClipper(poly1, poly2);
-            var poly3 = clip.Compute(ClippingOperations.Intersection);
+            var poly3 = clip.Compute(ClippingOperation.Intersection);
             var poly3Item = new GraphicItem(poly3, intersectionRed)
             {
                 Name = "Polygon 3"
@@ -911,10 +963,10 @@ namespace Editor
                 bounds.X - 50, bounds.Y - 50, bounds.Right + 50, bounds.Bottom + 50, 5, 5);
             var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, handleStyle);
 
-            vectorMap.Add(poly1Item);
-            vectorMap.Add(poly2Item);
-            vectorMap.Add(poly3Item);
-            //vectorMap.Add(parametricPointTesterRectangleItem);
+            vectorMap?.Add(poly1Item);
+            vectorMap?.Add(poly2Item);
+            vectorMap?.Add(poly3Item);
+            //vectorMap?.Add(parametricPointTesterRectangleItem);
         }
 
         /// <summary>
@@ -928,15 +980,15 @@ namespace Editor
                 new Polygon { new PolygonContour(new List<Point2D> { new Point2D(0, 150), new Point2D(600, 150), new Point2D(300, 600) }) }
                 );
             var clip = new MartinezPolygonClipper(poly1, poly2);
-            var clips = clip.Compute(ClippingOperations.Intersection);
+            var clips = clip.Compute(ClippingOperation.Intersection);
 
             var polyOneItem = new GraphicItem(poly1, paperLikeStyle);
             var polyTwoItem = new GraphicItem(poly2, paperLikeStyle);
             var clipsItem = new GraphicItem(clips, solidPurpleStyle);
 
-            vectorMap.Add(polyOneItem);
-            vectorMap.Add(polyTwoItem);
-            vectorMap.Add(clipsItem);
+            vectorMap?.Add(polyOneItem);
+            vectorMap?.Add(polyTwoItem);
+            vectorMap?.Add(clipsItem);
         }
 
         /// <summary>
@@ -957,7 +1009,7 @@ namespace Editor
                 new PolygonContour { new Point2D(1.5d, 1.5d), new Point2D(2d, 3d), new Point2D(1d, 3d) },
             });
             var crossItem = new GraphicItem(cross, intersectionBlue);
-            vectorMap.Add(crossItem);
+            vectorMap?.Add(crossItem);
 
             //var empty = new Polygon { new Contour { (0, 0) } };
 
@@ -969,7 +1021,7 @@ namespace Editor
             //    new Contour { new Point2D(0.6d, 0.1d), new Point2D(0.8d, 0.1d), new Point2D(0.7d, 0.3d) },
             //});
             //var polygontwocontoursItem = new GraphicItem(polygontwocontours, intersectionGreen);
-            //vectorMap.Add(polygontwocontoursItem);
+            //vectorMap?.Add(polygontwocontoursItem);
 
             //location += 100;
             //factors += 250;
@@ -980,7 +1032,7 @@ namespace Editor
             //    new Contour { (0.05, 0.05), (0.25, 0.05), (0.15, 0.25) },
             //});
             //var polygonwithholesItem = new GraphicItem(polygonwithholes, intersectionGreen);
-            //vectorMap.Add(polygonwithholesItem);
+            //vectorMap?.Add(polygonwithholesItem);
 
             location = new Vector2D(0, 25);
             factors = new Size2D(300, 300);
@@ -989,15 +1041,15 @@ namespace Editor
                 new PolygonContour { new Point2D(0.5, 0), new Point2D(1, 0), new Point2D(1, 1), new Point2D(0.5, 1) },
             });
             var rectangle1Item = new GraphicItem(rectangle1, intersectionGreen);
-            vectorMap.Add(rectangle1Item);
+            vectorMap?.Add(rectangle1Item);
 
             var clip = new MartinezPolygonClipper(cross, rectangle1);
-            var poly3 = clip.Compute(ClippingOperations.Intersection);
+            var poly3 = clip.Compute(ClippingOperation.Intersection);
             var poly3Item = new GraphicItem(poly3, intersectionRed)
             {
                 Name = "Polygon 3"
             };
-            vectorMap.Add(poly3Item);
+            vectorMap?.Add(poly3Item);
 
             //var rectangle2 = new Polygon
             //{
@@ -1443,9 +1495,9 @@ namespace Editor
                 Name = "Intersection."
             };
 
-            vectorMap.Add(triangleIItem);
-            vectorMap.Add(rectangleItem);
-            vectorMap.Add(intersectionItem);
+            vectorMap?.Add(triangleIItem);
+            vectorMap?.Add(rectangleItem);
+            vectorMap?.Add(intersectionItem);
         }
 
         /// <summary>
@@ -1456,49 +1508,52 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void LineSegmentLineSegmentIntersectionT(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            (double left, double top) = (0, 0);
-
-            var segmentA = new LineSegment(left + 100, top + 100, left + 250, top + 150);
-            var segmentAItem = new GraphicItem(segmentA, intersectionBlue)
+            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
             {
-                Name = "Line Segment a"
-            };
+                (double left, double top) = (0, 0);
 
-            var segmentB = new LineSegment(left + 300, top + 100, left + 100, top + 200);
-            var segmentBItem = new GraphicItem(segmentB, intersectionBlue)
-            {
-                Name = "Line Segment b"
-            };
+                var segmentA = new LineSegment(left + 100, top + 100, left + 250, top + 150);
+                var segmentAItem = new GraphicItem(segmentA, intersectionBlue)
+                {
+                    Name = "Line Segment a"
+                };
 
-            var (a, b) = Intersections.LineSegmentLineSegmentIntersectionIndexes(segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY, segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
+                var segmentB = new LineSegment(left + 300, top + 100, left + 100, top + 200);
+                var segmentBItem = new GraphicItem(segmentB, intersectionBlue)
+                {
+                    Name = "Line Segment b"
+                };
 
-            var pointA = (Point2D)Interpolators.Linear(a[0], segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY);
-            var intersectionNodeAItem = new GraphicItem(new NodeRevealer(pointA, 5d), handleStyle)
-            {
-                Name = "Intersection Point a"
-            };
+                var (a, b) = Intersections.LineSegmentLineSegmentIntersectionIndexes(segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY, segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
 
-            var pointB = (Point2D)Interpolators.Linear(b[0], segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
-            var intersectionNodeBItem = new GraphicItem(new NodeRevealer(pointB, 5d), handleStyle)
-            {
-                Name = "Intersection Point b"
-            };
+                var pointA = (Point2D)Interpolators.Linear(a[0], segmentA.AX, segmentA.AY, segmentA.BX, segmentA.BY);
+                var intersectionNodeAItem = new GraphicItem(new NodeRevealer(pointA, 5d), handleStyle)
+                {
+                    Name = "Intersection Point a"
+                };
 
-            var text = new Text2D(
-                $"a: {a[0].ToString()}, b: {b[0].ToString()}",
-                form.Font.ToRenderFont(),
-                new Point2D(left + 200, top + 100),
-                metrics);
-            var textItem = new GraphicItem(text, whiteishStyle)
-            {
-                Name = "Text"
-            };
+                var pointB = (Point2D)Interpolators.Linear(b[0], segmentB.AX, segmentB.AY, segmentB.BX, segmentB.BY);
+                var intersectionNodeBItem = new GraphicItem(new NodeRevealer(pointB, 5d), handleStyle)
+                {
+                    Name = "Intersection Point b"
+                };
 
-            vectorMap.Add(segmentAItem);
-            vectorMap.Add(segmentBItem);
-            vectorMap.Add(intersectionNodeAItem);
-            vectorMap.Add(intersectionNodeBItem);
-            vectorMap.Add(textItem);
+                var text = new Text2D(
+                    $"a: {a[0].ToString(CultureInfo.InvariantCulture)}, b: {b[0].ToString(CultureInfo.InvariantCulture)}",
+                    form.Font.ToRenderFont(),
+                    new Point2D(left + 200, top + 100),
+                    metrics);
+                var textItem = new GraphicItem(text, whiteishStyle)
+                {
+                    Name = "Text"
+                };
+
+                vectorMap?.Add(segmentAItem);
+                vectorMap?.Add(segmentBItem);
+                vectorMap?.Add(intersectionNodeAItem);
+                vectorMap?.Add(intersectionNodeBItem);
+                vectorMap?.Add(textItem);
+            }
         }
 
         /// <summary>
@@ -1509,46 +1564,49 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void NearestPoint(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            (double left, double top) = (0, 0);
-
-            var segment = new LineSegment(left + 100, top + 100, left + 300, top + 200);
-            var segmentItem = new GraphicItem(segment, intersectionBlue)
+            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
             {
-                Name = "Line Segment"
-            };
+                (double left, double top) = (0, 0);
 
-            var point = new ScreenPoint(left + 250, top + 150);
-            var pointItem = new GraphicItem(point, intersectionBlue)
-            {
-                Name = "Point"
-            };
+                var segment = new LineSegment(left + 100, top + 100, left + 300, top + 200);
+                var segmentItem = new GraphicItem(segment, intersectionBlue)
+                {
+                    Name = "Line Segment"
+                };
 
-            var location = Measurements.NearestPointOnLineSegment(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
-            var point0 = new ScreenPoint(location);
-            var point0Item = new GraphicItem(point0, intersectionRed)
-            {
-                Name = "Point 0"
-            };
+                var point = new ScreenPoint(left + 250, top + 150);
+                var pointItem = new GraphicItem(point, intersectionBlue)
+                {
+                    Name = "Point"
+                };
 
-            var dist0 = Measurements.DistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
-            var dist1 = Measurements.Distance(point.X, point.Y, location.X, location.Y);
-            var dist2 = Measurements.SquareDistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
-            var dist3 = Measurements.SquareDistance(point.X, point.Y, location.X, location.Y);
+                var location = Measurements.NearestPointOnLineSegment(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
+                var point0 = new ScreenPoint(location);
+                var point0Item = new GraphicItem(point0, intersectionRed)
+                {
+                    Name = "Point 0"
+                };
 
-            var text = new Text2D(
-                $"{location}\r\n{dist0}\r\n{dist1}\r\n{dist2}\r\n{dist3}",
-                form.Font.ToRenderFont(),
-                point.Point,
-                metrics);
-            var textItem = new GraphicItem(text, whiteishStyle)
-            {
-                Name = "Text"
-            };
+                var dist0 = Measurements.DistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
+                var dist1 = Measurements.Distance(point.X, point.Y, location.X, location.Y);
+                var dist2 = Measurements.SquareDistanceLineSegmentPoint(segment.AX, segment.AY, segment.BX, segment.BY, point.X, point.Y);
+                var dist3 = Measurements.SquareDistance(point.X, point.Y, location.X, location.Y);
 
-            vectorMap.Add(segmentItem);
-            vectorMap.Add(pointItem);
-            vectorMap.Add(point0Item);
-            vectorMap.Add(textItem);
+                var text = new Text2D(
+                    $"{location}\r\n{dist0}\r\n{dist1}\r\n{dist2}\r\n{dist3}",
+                    form.Font.ToRenderFont(),
+                    point.Point,
+                    metrics);
+                var textItem = new GraphicItem(text, whiteishStyle)
+                {
+                    Name = "Text"
+                };
+
+                vectorMap?.Add(segmentItem);
+                vectorMap?.Add(pointItem);
+                vectorMap?.Add(point0Item);
+                vectorMap?.Add(textItem);
+            }
         }
 
         /// <summary>
@@ -1571,13 +1629,13 @@ namespace Editor
             {
                 var item = new GraphicItem(shape, solidLightGreenStyle)
                 {
-                    Name = $"{shape.ToString()}"
+                    Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
                 };
 
-                vectorMap.Add(item);
+                vectorMap?.Add(item);
             }
 
-            vectorMap.Add(lineItem);
+            vectorMap?.Add(lineItem);
         }
 
         /// <summary>
@@ -1600,13 +1658,13 @@ namespace Editor
             {
                 var item = new GraphicItem(shape, solidLightGreenStyle)
                 {
-                    Name = $"{shape.ToString()}"
+                    Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
                 };
 
-                vectorMap.Add(item);
+                vectorMap?.Add(item);
             }
 
-            vectorMap.Add(rayItem);
+            vectorMap?.Add(rayItem);
         }
 
         /// <summary>
@@ -1629,13 +1687,13 @@ namespace Editor
             {
                 var item = new GraphicItem(shape, solidLightGreenStyle)
                 {
-                    Name = $"{shape.ToString()}"
+                    Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
                 };
 
-                vectorMap.Add(item);
+                vectorMap?.Add(item);
             }
 
-            vectorMap.Add(segmentItem);
+            vectorMap?.Add(segmentItem);
         }
 
         /// <summary>
@@ -1670,15 +1728,15 @@ namespace Editor
             {
                 var item = new GraphicItem(shape, intersectionBlue)
                 {
-                    Name = $"{shape.ToString()}"
+                    Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
                 };
 
-                vectorMap.Add(item);
+                vectorMap?.Add(item);
             }
 
-            vectorMap.Add(quardaticBoundsItem);
-            vectorMap.Add(quadraticItem);
-            vectorMap.Add(quadraticHandles);
+            vectorMap?.Add(quardaticBoundsItem);
+            vectorMap?.Add(quadraticItem);
+            vectorMap?.Add(quadraticHandles);
         }
 
         /// <summary>
@@ -1713,15 +1771,15 @@ namespace Editor
             {
                 var item = new GraphicItem(shape, intersectionBlue)
                 {
-                    Name = $"{shape.ToString()}"
+                    Name = $"{shape.ToString(CultureInfo.InvariantCulture)}"
                 };
 
-                vectorMap.Add(item);
+                vectorMap?.Add(item);
             }
 
-            vectorMap.Add(cubicBoundsItem);
-            vectorMap.Add(cubicItem);
-            vectorMap.Add(cubicHandles);
+            vectorMap?.Add(cubicBoundsItem);
+            vectorMap?.Add(cubicItem);
+            vectorMap?.Add(cubicHandles);
         }
 
         /// <summary>
@@ -1753,9 +1811,9 @@ namespace Editor
                 Name = "Ray Line Intersection"
             };
 
-            vectorMap.Add(lineItem);
-            vectorMap.Add(rayItem);
-            vectorMap.Add(rayLineIntersectionsNodesItem);
+            vectorMap?.Add(lineItem);
+            vectorMap?.Add(rayItem);
+            vectorMap?.Add(rayLineIntersectionsNodesItem);
         }
 
         /// <summary>
@@ -1765,47 +1823,50 @@ namespace Editor
         /// <param name="tools">Reference to the Tools stack.</param>
         public static void NearestParameterQuadraticBezier(VectorMap vectorMap, ToolStack tools)
         {
-            const int top = 10;
-            const int left = 10;
-            var scale = new Size2D(10, 10);
-            var axis = new Point2D(200, 100);
-            const int angle = 0; //45d.ToRadians();
-
-            var quadratic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ScaleDistort(scale).RotateDistort(axis, angle);
-            var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
+            if (!(vectorMap is null) && !(tools is null))
             {
-                Name = "Quadratic Bézier 1"
-            };
-            var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
-            {
-                Name = "Quadratic Bézier 1 Bounds"
-            };
-            var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
-            {
-                Name = "Quadratic Bézier 1 Handles"
-            };
+                const int top = 10;
+                const int left = 10;
+                var scale = new Size2D(10, 10);
+                var axis = new Point2D(200, 100);
+                const int angle = 0; //45d.ToRadians();
 
-            var point1 = new Point2D(100, 200);
-            var point1Handle = new GraphicItem(new NodeRevealer(point1, 5d), handleStyle2)
-            {
-                Name = "Point 1 Handle"
-            };
+                var quadratic1 = new QuadraticBezier(left, top, left + 10, top + 10, left + 20, top).ScaleDistort(scale).RotateDistort(axis, angle);
+                var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
+                {
+                    Name = "Quadratic Bézier 1"
+                };
+                var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
+                {
+                    Name = "Quadratic Bézier 1 Bounds"
+                };
+                var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
+                {
+                    Name = "Quadratic Bézier 1 Handles"
+                };
 
-            var point2 = quadratic1.Interpolate(Measurements.ClosestParameter(quadratic1.CurveX, quadratic1.CurveY, point1));
-            var point2Handle = new GraphicItem(new NodeRevealer(point2, 5d), handleStyle2)
-            {
-                Name = "Point 2 Handle"
-            };
+                var point1 = new Point2D(100, 200);
+                var point1Handle = new GraphicItem(new NodeRevealer(point1, 5d), handleStyle2)
+                {
+                    Name = "Point 1 Handle"
+                };
 
-            var tool = new MouseMoveUpdateTool((p) => ((NodeRevealer)point1Handle.Shape).Points[0] = p);
+                var point2 = quadratic1.Interpolate(Measurements.ClosestParameter(quadratic1.CurveX, quadratic1.CurveY, point1));
+                var point2Handle = new GraphicItem(new NodeRevealer(point2, 5d), handleStyle2)
+                {
+                    Name = "Point 2 Handle"
+                };
 
-            tools.RegisterMouseScroll(tool);
+                var tool = new MouseMoveUpdateTool((p) => ((NodeRevealer)point1Handle.Shape).Points[0] = p);
 
-            vectorMap.Add(quardatic1BoundsItem);
-            vectorMap.Add(quadratic1Item);
-            vectorMap.Add(quadratic1Handles);
-            vectorMap.Add(point1Handle);
-            vectorMap.Add(point2Handle);
+                tools.RegisterMouseScroll(tool);
+
+                vectorMap?.Add(quardatic1BoundsItem);
+                vectorMap?.Add(quadratic1Item);
+                vectorMap?.Add(quadratic1Handles);
+                vectorMap?.Add(point1Handle);
+                vectorMap?.Add(point2Handle);
+            }
         }
 
         /// <summary>
@@ -1815,53 +1876,56 @@ namespace Editor
         /// <param name="tools">Reference to the Tools stack.</param>
         public static void NearestParameterCubicBezier(VectorMap vectorMap, ToolStack tools)
         {
-            const int top = 10;
-            const int left = 10;
-            var scale = new Size2D(10, 10);
-            var axis = new Point2D(200, 100);
-            const int angle = 0; //45d.ToRadians();
-
-            var quadratic1 = new QuadraticBezier(
-                left, top,
-                left + 10, top + 10,
-                left + 20, top
-                ).ToCubicBezier()
-                .ScaleDistort(scale)
-                .RotateDistort(axis, angle);
-            var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
+            if (!(vectorMap is null) && !(tools is null))
             {
-                Name = "Quadratic Bézier 1"
-            };
-            var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
-            {
-                Name = "Quadratic Bézier 1 Bounds"
-            };
-            var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
-            {
-                Name = "Quadratic Bézier 1 Handles"
-            };
+                const int top = 10;
+                const int left = 10;
+                var scale = new Size2D(10, 10);
+                var axis = new Point2D(200, 100);
+                const int angle = 0; //45d.ToRadians();
 
-            var point1 = new Point2D(100, 200);
-            var point1Handle = new GraphicItem(new NodeRevealer(point1, 5d), handleStyle2)
-            {
-                Name = "Point 1 Handle"
-            };
+                var quadratic1 = new QuadraticBezier(
+                    left, top,
+                    left + 10, top + 10,
+                    left + 20, top
+                    ).ToCubicBezier()
+                    .ScaleDistort(scale)
+                    .RotateDistort(axis, angle);
+                var quadratic1Item = new GraphicItem(quadratic1, intersectionBlue)
+                {
+                    Name = "Quadratic Bézier 1"
+                };
+                var quardatic1BoundsItem = new GraphicItem(quadratic1.Bounds, selectionStyle)
+                {
+                    Name = "Quadratic Bézier 1 Bounds"
+                };
+                var quadratic1Handles = new GraphicItem(new NodeRevealer(quadratic1.Points, 5d), handleStyle2)
+                {
+                    Name = "Quadratic Bézier 1 Handles"
+                };
 
-            var point2 = quadratic1.Interpolate(Measurements.ClosestParameter(quadratic1.CurveX, quadratic1.CurveY, point1));
-            var point2Handle = new GraphicItem(new NodeRevealer(point2, 5d), handleStyle2)
-            {
-                Name = "Point 2 Handle"
-            };
+                var point1 = new Point2D(100, 200);
+                var point1Handle = new GraphicItem(new NodeRevealer(point1, 5d), handleStyle2)
+                {
+                    Name = "Point 1 Handle"
+                };
 
-            var tool = new MouseMoveUpdateTool((p) => ((NodeRevealer)point1Handle.Shape).Points[0] = p);
+                var point2 = quadratic1.Interpolate(Measurements.ClosestParameter(quadratic1.CurveX, quadratic1.CurveY, point1));
+                var point2Handle = new GraphicItem(new NodeRevealer(point2, 5d), handleStyle2)
+                {
+                    Name = "Point 2 Handle"
+                };
 
-            tools.RegisterMouseScroll(tool);
+                var tool = new MouseMoveUpdateTool((p) => ((NodeRevealer)point1Handle.Shape).Points[0] = p);
 
-            vectorMap.Add(quardatic1BoundsItem);
-            vectorMap.Add(quadratic1Item);
-            vectorMap.Add(quadratic1Handles);
-            vectorMap.Add(point1Handle);
-            vectorMap.Add(point2Handle);
+                tools.RegisterMouseScroll(tool);
+
+                vectorMap?.Add(quardatic1BoundsItem);
+                vectorMap?.Add(quadratic1Item);
+                vectorMap?.Add(quadratic1Handles);
+                vectorMap?.Add(point1Handle);
+                vectorMap?.Add(point2Handle);
+            }
         }
 
         /// <summary>
@@ -1876,7 +1940,7 @@ namespace Editor
             var style = intersectionRed;
             var heart = Generators.HeartCurve(left, top, radius);
             var heartItem = new GraphicItem(heart, style);
-            vectorMap.Add(heartItem);
+            vectorMap?.Add(heartItem);
         }
 
         /// <summary>
@@ -1921,8 +1985,8 @@ namespace Editor
                 Name = "Line Nodes"
             };
 
-            vectorMap.Add(polycurveItem);
-            vectorMap.Add(lineItem);
+            vectorMap?.Add(polycurveItem);
+            vectorMap?.Add(lineItem);
 
             var intersection = new Intersection();
 
@@ -1968,15 +2032,15 @@ namespace Editor
                 Name = "Bézier Intersection"
             };
 
-            vectorMap.Add(bezier1Item);
-            vectorMap.Add(bezier2Item);
-            vectorMap.Add(lineSegmentItem);
+            vectorMap?.Add(bezier1Item);
+            vectorMap?.Add(bezier2Item);
+            vectorMap?.Add(lineSegmentItem);
 
-            vectorMap.Add(bezier1Intersect);
-            vectorMap.Add(bezier2Intersect);
-            vectorMap.Add(intersectionLineCircleNodeItem);
-            vectorMap.Add(lineDefNodeItem);
-            vectorMap.Add(parametricPointTesterFigureItem);
+            vectorMap?.Add(bezier1Intersect);
+            vectorMap?.Add(bezier2Intersect);
+            vectorMap?.Add(intersectionLineCircleNodeItem);
+            vectorMap?.Add(lineDefNodeItem);
+            vectorMap?.Add(parametricPointTesterFigureItem);
         }
 
         /// <summary>
@@ -2114,30 +2178,30 @@ namespace Editor
                 Name = "Intersection Nodes"
             };
 
-            vectorMap.Add(circleItem);
-            vectorMap.Add(rectangleItem);
-            vectorMap.Add(rectangle2Item);
-            vectorMap.Add(triangleItem);
+            vectorMap?.Add(circleItem);
+            vectorMap?.Add(rectangleItem);
+            vectorMap?.Add(rectangle2Item);
+            vectorMap?.Add(triangleItem);
 
-            vectorMap.Add(line1Item);
-            vectorMap.Add(line2Item);
-            vectorMap.Add(lineTriangleItem);
+            vectorMap?.Add(line1Item);
+            vectorMap?.Add(line2Item);
+            vectorMap?.Add(lineTriangleItem);
 
-            vectorMap.Add(lineSegmentCircleTangentItem);
-            vectorMap.Add(lineSegmentCircleCenterItem);
-            vectorMap.Add(lineSegmentRectangleItem);
-            vectorMap.Add(lineSegmentLineSegmentItem);
-            vectorMap.Add(lineSegmentTriangleItem);
+            vectorMap?.Add(lineSegmentCircleTangentItem);
+            vectorMap?.Add(lineSegmentCircleCenterItem);
+            vectorMap?.Add(lineSegmentRectangleItem);
+            vectorMap?.Add(lineSegmentLineSegmentItem);
+            vectorMap?.Add(lineSegmentTriangleItem);
 
-            vectorMap.Add(intersectionLineCircleNodeItem);
-            vectorMap.Add(intersectionLineSegmentCircleTangentNodeItem);
-            vectorMap.Add(intersectionlineSegmentCircleCenterItem);
+            vectorMap?.Add(intersectionLineCircleNodeItem);
+            vectorMap?.Add(intersectionLineSegmentCircleTangentNodeItem);
+            vectorMap?.Add(intersectionlineSegmentCircleCenterItem);
 
-            vectorMap.Add(intersection1NodeItem);
-            vectorMap.Add(intersection2NodeItem);
-            vectorMap.Add(intersection3NodeItem);
-            vectorMap.Add(intersection4NodeItem);
-            vectorMap.Add(intersection5NodeItem);
+            vectorMap?.Add(intersection1NodeItem);
+            vectorMap?.Add(intersection2NodeItem);
+            vectorMap?.Add(intersection3NodeItem);
+            vectorMap?.Add(intersection4NodeItem);
+            vectorMap?.Add(intersection5NodeItem);
         }
 
         /// <summary>
@@ -2174,10 +2238,10 @@ namespace Editor
                 Name = "Contour Nodes"
             };
 
-            vectorMap.Add(ellipseItem);
-            vectorMap.Add(ellipticalArcItem);
-            vectorMap.Add(arcContourItem);
-            vectorMap.Add(arcContourNodeItem);
+            vectorMap?.Add(ellipseItem);
+            vectorMap?.Add(ellipticalArcItem);
+            vectorMap?.Add(arcContourItem);
+            vectorMap?.Add(arcContourNodeItem);
         }
 
         /// <summary>
@@ -2190,7 +2254,7 @@ namespace Editor
             var curves = CurveFit.Fit(points.Points, 8);
             foreach (var curve in curves)
             {
-                vectorMap.Add(curve);
+                vectorMap?.Add(curve);
             }
         }
 
@@ -2258,13 +2322,13 @@ namespace Editor
                 Name = "Warp"
             };
 
-            vectorMap.Add(curvedRectangleItem);
-            vectorMap.Add(rect1Item);
-            vectorMap.Add(curvedTriangleItem);
-            vectorMap.Add(triangleItem);
-            vectorMap.Add(warpGridItem);
-            vectorMap.Add(curvedRectangleNodeItem);
-            vectorMap.Add(curvedTriangleNodeItem);
+            vectorMap?.Add(curvedRectangleItem);
+            vectorMap?.Add(rect1Item);
+            vectorMap?.Add(curvedTriangleItem);
+            vectorMap?.Add(triangleItem);
+            vectorMap?.Add(warpGridItem);
+            vectorMap?.Add(curvedRectangleNodeItem);
+            vectorMap?.Add(curvedTriangleNodeItem);
         }
 
         /// <summary>
@@ -2333,12 +2397,12 @@ namespace Editor
                 Name = "Figure 2 Points Tester"
             };
 
-            //vectorMap.Add(figureBoundsItem);
-            vectorMap.Add(figure1Item);
-            vectorMap.Add(figure2Item);
-            vectorMap.Add(parametricPointTesterFigureItem);
-            vectorMap.Add(parametricPointTesterFigure2Item);
-            //vectorMap.Add(parametricPointTesterRectangleItem);
+            //vectorMap?.Add(figureBoundsItem);
+            vectorMap?.Add(figure1Item);
+            vectorMap?.Add(figure2Item);
+            vectorMap?.Add(parametricPointTesterFigureItem);
+            vectorMap?.Add(parametricPointTesterFigure2Item);
+            //vectorMap?.Add(parametricPointTesterRectangleItem);
         }
 
         /// <summary>
@@ -2371,8 +2435,8 @@ namespace Editor
                 bounds.X - 5, bounds.Y - 5, bounds.Right + 5, bounds.Bottom + 5, 5, 5);
             var parametricPointTesterItem = new GraphicItem(parametricPointTester, handleStyle);
 
-            vectorMap.Add(polyItem);
-            vectorMap.Add(parametricPointTesterItem);
+            vectorMap?.Add(polyItem);
+            vectorMap?.Add(parametricPointTesterItem);
         }
 
         /// <summary>
@@ -2386,7 +2450,7 @@ namespace Editor
                 Name = "Polygon Triangle"
             };
 
-            vectorMap.Add(polylineItem);
+            vectorMap?.Add(polylineItem);
         }
 
         /// <summary>
@@ -2397,16 +2461,19 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void TextRendering(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            var text = new Text2D(
-                "Test Text.",
-                form.Font.ToRenderFont(),
-                new Point2D(100, 100),
-                metrics);
-            var textItem = new GraphicItem(text, solidGreenStyle)
+            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
             {
-                Name = "Text Test"
-            };
-            vectorMap.Add(textItem);
+                var text = new Text2D(
+                    $"Test Text.",
+                    form.Font.ToRenderFont(),
+                    new Point2D(100, 100),
+                    metrics);
+                var textItem = new GraphicItem(text, solidGreenStyle)
+                {
+                    Name = "Text Test"
+                };
+                vectorMap?.Add(textItem);
+            }
         }
 
         /// <summary>
@@ -2421,31 +2488,31 @@ namespace Editor
 
             //Shape rectangle2 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 20d.ToRadians());
             //var rectangle2Item = new GraphicItem(rectangle2, styles[9]);
-            //vectorMap.Add(rectangle2Item);
+            //vectorMap?.Add(rectangle2Item);
 
             //Shape rectangle3 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 45d.ToRadians());
             //var rectangle3Item = new GraphicItem(rectangle3, styles[9]);
-            //vectorMap.Add(rectangle3Item);
+            //vectorMap?.Add(rectangle3Item);
 
             //Shape rectangle4 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 60d.ToRadians());
             //var rectangle4Item = new GraphicItem(rectangle4, styles[9]);
-            //vectorMap.Add(rectangle4Item);
+            //vectorMap?.Add(rectangle4Item);
 
             //Shape rectangle5 = Experimental.RotatedRectangle(rectangle1, rectangle1.Center() * cent, 90d.ToRadians());
             //var rectangle5Item = new GraphicItem(rectangle5, styles[9]);
-            //vectorMap.Add(rectangle5Item);
+            //vectorMap?.Add(rectangle5Item);
 
             //Shape rectangle6 = Experimental.RotatedRectangleBounds(rectangle1, rectangle1.Center() * cent, 20d.ToRadians());
             //var rectangle6Item = new GraphicItem(rectangle6, styles[9]);
-            //vectorMap.Add(rectangle6Item);
+            //vectorMap?.Add(rectangle6Item);
 
             //Shape rectangle7 = Experimental.RotatedRectangleBounds(rectangle1, rectangle1.Center() * cent, 45d.ToRadians());
             //var rectangle7Item = new GraphicItem(rectangle7, styles[9]);
-            //vectorMap.Add(rectangle7Item);
+            //vectorMap?.Add(rectangle7Item);
 
             //Shape rectangle8 = Experimental.RotatedRectangleBounds(rectangle1, rectangle1.Center() * cent, 60d.ToRadians());
             //var rectangle8Item = new GraphicItem(rectangle8, styles[9]);
-            //vectorMap.Add(rectangle8Item);
+            //vectorMap?.Add(rectangle8Item);
         }
 
         /// <summary>
@@ -2455,15 +2522,15 @@ namespace Editor
         public static void ParametricEllipseBounds(VectorMap vectorMap)
         {
             var parametricEllipse = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.UnitPolarEllipse(t, x, y, w, h, a),
+                (t, x, y, w, h, a) => Interpolators.UnitPolarEllipse(t, x, y, w, h, a),
                 (x, y, w, h, a, px, py) => Intersections.EllipseContainsPoint(x, y, w, h, a, px, py),
                 new Point2D(200d, 100d), new Size2D(25d, 50d), 0, 0);
             var parametricEllipseItem = new GraphicItem(parametricEllipse, paperLikeStyle);
-            vectorMap.Add(parametricEllipseItem);
+            vectorMap?.Add(parametricEllipseItem);
 
             var EllipseBounds = Measurements.EllipseBounds(200, 100, 25, 50);
             var EllipseBoundsItem = new GraphicItem(EllipseBounds, selectionStyle);
-            vectorMap.Add(EllipseBoundsItem);
+            vectorMap?.Add(EllipseBoundsItem);
         }
 
         /// <summary>
@@ -2480,15 +2547,15 @@ namespace Editor
             var startAngle = -45d.ToRadians();
             var sweepAngle = 90d.ToRadians();
             var parametricEllipticArc = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.EllipticalArc(t, x, y, w, h, a, startAngle, sweepAngle),
+                (t, x, y, w, h, a) => Interpolators.EllipticalArc(t, x, y, w, h, a, startAngle, sweepAngle),
                 (x, y, w, h, a, px, py) => Intersections.EllipticalArcContainsPoint(x, y, w, h, a, startAngle, sweepAngle, px, py),
                 new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
             var parametricEllipticArcItem = new GraphicItem(parametricEllipticArc, paperLikeStyle);
             var EllpticArcBounds = Measurements.EllipticalArcBounds(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var EllpticArcBoundsItem = new GraphicItem(EllpticArcBounds, selectionStyle);
 
-            vectorMap.Add(EllpticArcBoundsItem);
-            vectorMap.Add(parametricEllipticArcItem);
+            vectorMap?.Add(EllpticArcBoundsItem);
+            vectorMap?.Add(parametricEllipticArcItem);
         }
 
         /// <summary>
@@ -2507,11 +2574,11 @@ namespace Editor
             var sweepAngle = -90d.ToRadians();
 
             var parametricEllipse = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.UnitPolarEllipse(t, x, y, w, h, a),
+                (t, x, y, w, h, a) => Interpolators.UnitPolarEllipse(t, x, y, w, h, a),
                 (x, y, w, h, a, px, py) => Intersections.EllipseContainsPoint(x, y, w, h, a, px, py),
                 new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
             var parametricEllipseItem = new GraphicItem(parametricEllipse, paperLikeStyle);
-            vectorMap.Add(parametricEllipseItem);
+            vectorMap?.Add(parametricEllipseItem);
 
             var parametricPointTesterEllipticArc = new ParametricPointTester(
                 (px, py) => Intersections.EllipticalArcContainsPoint(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle, px, py),
@@ -2558,15 +2625,15 @@ namespace Editor
             var angleVisualizer = new AngleVisualizerTester(centerX, centerY, radius1 < radius2 ? radius2 : radius1, testAngle, startAngle + angle, sweepAngle);
             var angleVisualizerItem = new GraphicItem(angleVisualizer, paperLikeStyle);
 
-            vectorMap.Add(ellpticArcBoundsItem);
-            vectorMap.Add(circularArcBoundsItem);
-            vectorMap.Add(ellipseItem);
-            vectorMap.Add(ellipticArcItem);
-            vectorMap.Add(circularArcItem);
-            vectorMap.Add(ellipseNodesItem);
-            vectorMap.Add(angleLinesItem);
-            vectorMap.Add(angleVisualizerItem);
-            vectorMap.Add(parametricPointTesterEllipseItem);
+            vectorMap?.Add(ellpticArcBoundsItem);
+            vectorMap?.Add(circularArcBoundsItem);
+            vectorMap?.Add(ellipseItem);
+            vectorMap?.Add(ellipticArcItem);
+            vectorMap?.Add(circularArcItem);
+            vectorMap?.Add(ellipseNodesItem);
+            vectorMap?.Add(angleLinesItem);
+            vectorMap?.Add(angleVisualizerItem);
+            vectorMap?.Add(parametricPointTesterEllipseItem);
         }
 
         /// <summary>
@@ -2585,40 +2652,40 @@ namespace Editor
 
             var EllpticArcBounds = Measurements.EllipticalArcBounds(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var EllpticArcBoundsItem = new GraphicItem(EllpticArcBounds, selectionStyle);
-            vectorMap.Add(EllpticArcBoundsItem);
+            vectorMap?.Add(EllpticArcBoundsItem);
 
             var ellipticArc = new EllipticalArc(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var ellipticArcItem = new GraphicItem(ellipticArc, paperLikeStyle);
-            vectorMap.Add(ellipticArcItem);
+            vectorMap?.Add(ellipticArcItem);
 
             var parametricEllipticArc = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.EllipticalArc(t, x, y, w, h, a, startAngle, sweepAngle),
+                (t, x, y, w, h, a) => Interpolators.EllipticalArc(t, x, y, w, h, a, startAngle, sweepAngle),
                 (x, y, w, h, a, px, py) => Intersections.EllipticalArcContainsPoint(x, y, w, h, a, startAngle, sweepAngle, px, py),
                 new Point2D(centerX, centerY), new Size2D(radius1, radius2), angle, 0);
             var parametricEllipticArcItem = new GraphicItem(parametricEllipticArc, paperLikeStyle);
-            vectorMap.Add(parametricEllipticArcItem);
+            vectorMap?.Add(parametricEllipticArcItem);
 
             var parametricEllpticArcBounds = Measurements.EllipticalArcBounds(centerX, centerY, radius1, radius2, angle, startAngle, sweepAngle);
             var parametricEllpticArcBoundsItem = new GraphicItem(parametricEllpticArcBounds, selectionStyle);
-            vectorMap.Add(parametricEllipticArcItem);
+            vectorMap?.Add(parametricEllipticArcItem);
 
             var parametricCircle = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.Circle(t, x, y, h),
+                (t, x, y, w, h, a) => Interpolators.Circle(t, x, y, h),
                 (x, y, w, h, a, px, py) => Intersections.CircleContainsPoint(x, y, h, px, py),
                 new Point2D(100d, 200d), new Size2D(0d, 50d), 0, 0);
             var parametricCircleItem = new GraphicItem(parametricCircle, paperLikeStyle);
-            vectorMap.Add(parametricCircleItem);
+            vectorMap?.Add(parametricCircleItem);
 
             var parametricCircleArc = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => Interpolators.CircularArc(t, x, y, h, 0d, 90d.ToRadians()),
+                (t, x, y, w, h, a) => Interpolators.CircularArc(t, x, y, h, 0d, 90d.ToRadians()),
                 (x, y, w, h, a, px, py) => Intersections.CircularArcSectorContainsPoint(x, y, h, 0d, 90d.ToRadians(), px, py),
                 new Point2D(150d, 150d), new Size2D(0d, 50d), 0, 0);
             var parametricCircleArcItem = new GraphicItem(parametricCircleArc, paperLikeStyle);
-            vectorMap.Add(parametricCircleArcItem);
+            vectorMap?.Add(parametricCircleArcItem);
 
             var CircleArcBounds = Measurements.CircularArcBounds(100, 200, 50, 0d, 0d, 90d.ToRadians());
             var CircleArcBoundsItem = new GraphicItem(CircleArcBounds, selectionStyle);
-            vectorMap.Add(CircleArcBoundsItem);
+            vectorMap?.Add(CircleArcBoundsItem);
 
             var ellipseOne = new Ellipse(300, 300, 100, 50, 0);
             var ellipseOneItem = new GraphicItem(ellipseOne, solidGreenStyle)
@@ -2635,9 +2702,9 @@ namespace Editor
             var ellipseIntersections = ellipseOne.Intersection(ellipseTwo);
             var ellipseIntersectionNodesItem = new GraphicItem(new NodeRevealer(ellipseIntersections.Points, 5d), solidPurpleStyle);
 
-            vectorMap.Add(ellipseOneItem);
-            vectorMap.Add(ellipseTwoItem);
-            vectorMap.Add(ellipseIntersectionNodesItem);
+            vectorMap?.Add(ellipseOneItem);
+            vectorMap?.Add(ellipseTwoItem);
+            vectorMap?.Add(ellipseIntersectionNodesItem);
         }
 
         /// <summary>
@@ -2689,14 +2756,14 @@ namespace Editor
             var angleVisualizer = new AngleVisualizerTester(centerX, centerY, radius1 < radius2 ? radius2 : radius1, testAngle, startAngle + angle, sweepAngle);
             var angleVisualizerItem = new GraphicItem(angleVisualizer, paperLikeStyle);
 
-            //vectorMap.Add(ellpticArcBoundsItem);
-            //vectorMap.Add(circularArcBoundsItem);
-            //vectorMap.Add(ellipseItem);
-            vectorMap.Add(ellipticArcItem);
-            //vectorMap.Add(circularArcItem);
-            vectorMap.Add(angleVisualizerItem);
-            vectorMap.Add(parametricPointTesterEllipticArcItem);
-            vectorMap.Add(pointItem);
+            //vectorMap?.Add(ellpticArcBoundsItem);
+            //vectorMap?.Add(circularArcBoundsItem);
+            //vectorMap?.Add(ellipseItem);
+            vectorMap?.Add(ellipticArcItem);
+            //vectorMap?.Add(circularArcItem);
+            vectorMap?.Add(angleVisualizerItem);
+            vectorMap?.Add(parametricPointTesterEllipticArcItem);
+            vectorMap?.Add(pointItem);
         }
 
         /// <summary>
@@ -2773,26 +2840,26 @@ namespace Editor
                 new ShapeStyle(Brushes.White, new Pen(Brushes.Violet)),
 
                 new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.Solid, Width = 3f}),
-                new ShapeStyle(Brushes.Violet   ,new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 1 }, Width = 3f}),
+                new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 1f }, Width = 3f}),
 
-                new ShapeStyle(Brushes.Violet   ,new Pen(foreColor){DashStyle = DashStyle.Dash,  Width = 3f}),
-                new ShapeStyle(Brushes.Violet   ,new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 3, 1 }, Width = 3f}),
+                new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.Dash,  Width = 3f}),
+                new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 3f, 1f }, Width = 3f}),
 
-                new ShapeStyle(Brushes.Violet   ,new Pen(foreColor){DashStyle = DashStyle.Dot, Width = 3f}),
-                new ShapeStyle(Brushes.Violet   ,new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 1, 1 }, Width = 3f}),
+                new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.Dot, Width = 3f}),
+                new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 1f, 1f }, Width = 3f}),
 
-                new ShapeStyle(Brushes.Violet   ,new Pen(foreColor){DashStyle = DashStyle.DashDot, Width = 3f}),
-                new ShapeStyle(Brushes.Violet   ,new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 3, 1, 1, 1 }, Width = 3f}),
+                new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.DashDot, Width = 3f}),
+                new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 3f, 1f, 1f, 1f }, Width = 3f}),
 
-                new ShapeStyle(Brushes.Violet   ,new Pen(foreColor){DashStyle = DashStyle.DashDotDot, Width = 3f}),
-                new ShapeStyle(Brushes.Violet   ,new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 3, 1, 1, 1, 1, 1 }, Width = 3f}),
+                new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.DashDotDot, Width = 3f}),
+                new ShapeStyle(Brushes.Violet, new Pen(foreColor){DashStyle = DashStyle.Custom, DashPattern = new float[] { 3f, 1f, 1f, 1f, 1f, 1f }, Width = 3f}),
 
-                new ShapeStyle(Brushes.Transparent   ,new Pen(new HatchBrush(HatchStyle.SmallCheckerBoard,Color.Pink,Color.Transparent)))
+                new ShapeStyle(Brushes.Transparent, new Pen(new HatchBrush(HatchStyle.SmallCheckerBoard, Color.Pink, Color.Transparent)))
             };
             var rectangleGrid = new RectangleDCellGrid(50, 50, 350, 350, mapStyles.Count);
             foreach (var style in mapStyles)
             {
-                vectorMap.Add(rectangleGrid[mapStyles.IndexOf(style)], style);
+                vectorMap?.Add(rectangleGrid[mapStyles.IndexOf(style)], style);
             }
         }
         #endregion Experimental
@@ -2801,167 +2868,176 @@ namespace Editor
         /// <summary>
         /// The quadratic Bézier path follow.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap.</param>
+        /// <param name="vectorMap">The vectorMap?.</param>
         /// <param name="form">The form.</param>
         public static void QuadraticBezierPathFollow(VectorMap vectorMap, EditorForm form)
         {
-            (var left, var top) = (0d, 0d);
-            (var duration, var delay) = (75d, 0d);
-            var scale = new Size2D(10, 10);
-            var shift = new Vector2D(10, 10) * scale;
-            var axis = new Point2D(200, 100);
-            var angle = 0d.ToRadians();
-            const int radius = 10;
+            if (!(vectorMap is null) && !(form is null))
+            {
+                (var left, var top) = (0d, 0d);
+                (var duration, var delay) = (75d, 0d);
+                var scale = new Size2D(10, 10);
+                var shift = new Vector2D(10, 10) * scale;
+                var axis = new Point2D(200, 100);
+                var angle = 0d.ToRadians();
+                const int radius = 10;
 
-            var quadratic = new QuadraticBezier(
-                left, top,
-                left + 10, top + 10,
-                left + 20, top
-                )/*.ToCubicBezier()*/
-                .ScaleDistort(scale)
-                .TranslateDistort(shift)
-                .RotateDistort(axis, angle);
-            var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
-            {
-                Name = "Quadratic Bézier"
-            };
-            var quadraticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
-            {
-                Name = "Quadratic Bézier Bounds"
-            };
-            var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
-            {
-                Name = "Quadratic Bézier Handles"
-            };
+                var quadratic = new QuadraticBezier(
+                    left, top,
+                    left + 10, top + 10,
+                    left + 20, top
+                    )/*.ToCubicBezier()*/
+                    .ScaleDistort(scale)
+                    .TranslateDistort(shift)
+                    .RotateDistort(axis, angle);
+                var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
+                {
+                    Name = "Quadratic Bézier"
+                };
+                var quadraticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
+                {
+                    Name = "Quadratic Bézier Bounds"
+                };
+                var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
+                {
+                    Name = "Quadratic Bézier Handles"
+                };
 
-            var circle = new Circle(quadratic.Interpolate(0), radius);
-            var circleItem = new GraphicItem(circle, solidLightBlueStyle);
+                var circle = new Circle(quadratic.Interpolate(0), radius);
+                var circleItem = new GraphicItem(circle, solidLightBlueStyle);
 
-            form.ResetAction = new Action(reset);
-            void reset()
-            {
-                var t = new Scrubber(0);
-                circle.Center = quadratic.Interpolate(t.T);
-                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
-                    .OnUpdate(() => circle.Center = quadratic.Interpolate(t.T))
-                    .OnUpdate(form.UpdateCallback);
+                form.ResetAction = new Action(reset);
+                void reset()
+                {
+                    var t = new Scrubber(0);
+                    circle.Center = quadratic.Interpolate(t.T);
+                    vectorMap?.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
+                        .OnUpdate(() => circle.Center = quadratic.Interpolate(t.T))
+                        .OnUpdate(form.UpdateCallback);
+                }
+
+                vectorMap?.Add(quadraticBoundsItem);
+                vectorMap?.Add(quadraticItem);
+                vectorMap?.Add(quadraticHandles);
+                vectorMap?.Add(circleItem);
             }
-
-            vectorMap.Add(quadraticBoundsItem);
-            vectorMap.Add(quadraticItem);
-            vectorMap.Add(quadraticHandles);
-            vectorMap.Add(circleItem);
         }
 
         /// <summary>
         /// The cubic Bézier path follow.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap.</param>
+        /// <param name="vectorMap">The vectorMap?.</param>
         /// <param name="form">The form.</param>
         public static void CubicBezierPathFollow(VectorMap vectorMap, EditorForm form)
         {
-            (var left, var top) = (0d, 0d);
-            (var duration, var delay) = (75d, 0d);
-            var scale = new Size2D(10, 10);
-            var shift = new Vector2D(10, 10) * scale;
-            var axis = new Point2D(200, 100);
-            var angle = 0d.ToRadians();
-            const int radius = 10;
+            if (!(vectorMap is null) && !(form is null))
+            {
+                (var left, var top) = (0d, 0d);
+                (var duration, var delay) = (75d, 0d);
+                var scale = new Size2D(10, 10);
+                var shift = new Vector2D(10, 10) * scale;
+                var axis = new Point2D(200, 100);
+                var angle = 0d.ToRadians();
+                const int radius = 10;
 
-            var quadratic = new QuadraticBezier(
-                left, top,
-                left + 10, top + 10,
-                left + 20, top
-                ).ToCubicBezier()
-                .ScaleDistort(scale)
-                .TranslateDistort(shift)
-                .RotateDistort(axis, angle);
-            var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
-            {
-                Name = "Quadratic Bézier"
-            };
-            var quadraticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
-            {
-                Name = "Quadratic Bézier Bounds"
-            };
-            var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
-            {
-                Name = "Quadratic Bézier Handles"
-            };
+                var quadratic = new QuadraticBezier(
+                    left, top,
+                    left + 10, top + 10,
+                    left + 20, top
+                    ).ToCubicBezier()
+                    .ScaleDistort(scale)
+                    .TranslateDistort(shift)
+                    .RotateDistort(axis, angle);
+                var quadraticItem = new GraphicItem(quadratic, intersectionBlue)
+                {
+                    Name = "Quadratic Bézier"
+                };
+                var quadraticBoundsItem = new GraphicItem(quadratic.Bounds, selectionStyle)
+                {
+                    Name = "Quadratic Bézier Bounds"
+                };
+                var quadraticHandles = new GraphicItem(new NodeRevealer(quadratic.Points, 5d), handleStyle2)
+                {
+                    Name = "Quadratic Bézier Handles"
+                };
 
-            var circle = new Circle(quadratic.Interpolate(0), radius);
-            var circleItem = new GraphicItem(circle, solidLightBlueStyle);
+                var circle = new Circle(quadratic.Interpolate(0), radius);
+                var circleItem = new GraphicItem(circle, solidLightBlueStyle);
 
-            form.ResetAction = new Action(reset);
-            void reset()
-            {
-                var t = new Scrubber(0);
-                circle.Center = quadratic.Interpolate(t.T);
-                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
-                    .OnUpdate(() => circle.Center = quadratic.Interpolate(t.T))
-                    .OnUpdate(form.UpdateCallback);
+                form.ResetAction = new Action(reset);
+                void reset()
+                {
+                    var t = new Scrubber(0);
+                    circle.Center = quadratic.Interpolate(t.T);
+                    vectorMap?.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
+                        .OnUpdate(() => circle.Center = quadratic.Interpolate(t.T))
+                        .OnUpdate(form.UpdateCallback);
+                }
+
+                vectorMap?.Add(quadraticBoundsItem);
+                vectorMap?.Add(quadraticItem);
+                vectorMap?.Add(quadraticHandles);
+                vectorMap?.Add(circleItem);
             }
-
-            vectorMap.Add(quadraticBoundsItem);
-            vectorMap.Add(quadraticItem);
-            vectorMap.Add(quadraticHandles);
-            vectorMap.Add(circleItem);
         }
 
         /// <summary>
         /// The path follow.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap.</param>
+        /// <param name="vectorMap">The vectorMap?.</param>
         /// <param name="form">The form.</param>
         public static void PathFollow(VectorMap vectorMap, EditorForm form)
         {
-            (var left, var top) = (25d, 25d);
-            (var duration, var delay) = (75d, 0d);
-            var scale = new Size2D(1, 1);
-            var shift = new Vector2D(-100, -100) * scale;
-            var axis = new Point2D(200, 100);
-            var angle = 45d.ToRadians();
-            const int radius = 10;
+            if (!(vectorMap is null) && !(form is null))
+            {
+                (var left, var top) = (25d, 25d);
+                (var duration, var delay) = (75d, 0d);
+                var scale = new Size2D(1, 1);
+                var shift = new Vector2D(-100, -100) * scale;
+                var axis = new Point2D(200, 100);
+                var angle = 45d.ToRadians();
+                const int radius = 10;
 
-            var cubic = new CubicBezier(
-                left + 200, top + 300,
-                left + 400, top + 300,
-                left + 100, top + 300,
-                left + 300, top + 300
-                )
-                .ScaleDistort(scale)
-                .TranslateDistort(shift)
-                .RotateDistort(axis, angle);
-            var cubicItem = new GraphicItem(cubic, intersectionBlue)
-            {
-                Name = "Cubic Bézier"
-            };
-            var cubicBoundsItem = new GraphicItem(cubic.Bounds, selectionStyle)
-            {
-                Name = "Cubic Bézier Bounds"
-            };
-            var cubicHandles = new GraphicItem(new NodeRevealer(cubic.Points, 5d), handleStyle2)
-            {
-                Name = "Cubic Bézier Handles"
-            };
+                var cubic = new CubicBezier(
+                    left + 200, top + 300,
+                    left + 400, top + 300,
+                    left + 100, top + 300,
+                    left + 300, top + 300
+                    )
+                    .ScaleDistort(scale)
+                    .TranslateDistort(shift)
+                    .RotateDistort(axis, angle);
+                var cubicItem = new GraphicItem(cubic, intersectionBlue)
+                {
+                    Name = "Cubic Bézier"
+                };
+                var cubicBoundsItem = new GraphicItem(cubic.Bounds, selectionStyle)
+                {
+                    Name = "Cubic Bézier Bounds"
+                };
+                var cubicHandles = new GraphicItem(new NodeRevealer(cubic.Points, 5d), handleStyle2)
+                {
+                    Name = "Cubic Bézier Handles"
+                };
 
-            var circle = new Circle(cubic.Interpolate(0), radius);
-            var circleItem = new GraphicItem(circle, solidLightBlueStyle);
+                var circle = new Circle(cubic.Interpolate(0), radius);
+                var circleItem = new GraphicItem(circle, solidLightBlueStyle);
 
-            form.ResetAction = new Action(reset);
-            void reset()
-            {
-                var t = new Scrubber(0);
-                circle.Center = cubic.Interpolate(t.T);
-                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
-                    .OnUpdate(() => circle.Center = cubic.Interpolate(t.T))
-                    .OnUpdate(form.UpdateCallback);
+                form.ResetAction = new Action(reset);
+                void reset()
+                {
+                    var t = new Scrubber(0);
+                    circle.Center = cubic.Interpolate(t.T);
+                    vectorMap?.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
+                        .OnUpdate(() => circle.Center = cubic.Interpolate(t.T))
+                        .OnUpdate(form.UpdateCallback);
+                }
+
+                vectorMap?.Add(cubicBoundsItem);
+                vectorMap?.Add(cubicItem);
+                vectorMap?.Add(cubicHandles);
+                vectorMap?.Add(circleItem);
             }
-
-            vectorMap.Add(cubicBoundsItem);
-            vectorMap.Add(cubicItem);
-            vectorMap.Add(cubicHandles);
-            vectorMap.Add(circleItem);
         }
 
         /// <summary>
@@ -2971,84 +3047,94 @@ namespace Editor
         /// <param name="form"></param>
         public static void Pathfinding(VectorMap vectorMap, EditorForm form)
         {
-            (var left, var top) = (25d, 25d);
-            (var duration, var delay) = (150d, 0d);
-            var scale = new Size2D(1, 1);
-            var shift = new Vector2D(left, top) * scale;
-
-            var lineItem = new GraphicItem(Examples.Line.TranslateDistort(shift), solidCyanStyle)
+            if (!(vectorMap is null) && !(form is null))
             {
-                Name = "Single Line segment."
-            };
-            vectorMap.Add(lineItem);
+                (var left, var top) = (25d, 25d);
+                (var duration, var delay) = (150d, 0d);
+                var scale = new Size2D(1, 1);
+                var shift = new Vector2D(left, top) * scale;
 
-            var polyset = Examples.PolySet.TranslateDistort(shift);
+                var lineItem = new GraphicItem(Examples.Line.TranslateDistort(shift), solidCyanStyle)
+                {
+                    Name = "Single Line segment."
+                };
+                vectorMap?.Add(lineItem);
 
-            var setItem = new GraphicItem(polyset, whiteishStyle)
-            {
-                Name = nameof(Polygon)
-            };
-            vectorMap.Add(setItem);
+                var polyset = Examples.PolySet.TranslateDistort(shift);
 
-            var innerPolygonItem = new GraphicItem(Examples.InnerPolygon.TranslateDistort(shift), azureTransparent)
-            {
-                Name = "Inner Triangle Contour"
-            };
-            vectorMap.Add(innerPolygonItem);
+                var setItem = new GraphicItem(polyset, whiteishStyle)
+                {
+                    Name = nameof(Polygon)
+                };
+                vectorMap?.Add(setItem);
 
-            var pathPolyline = (polyset as Polygon).ShortestPath(new Point2D(left + 20, top + 20), new Point2D(left + 200, top + 200));
-            var polylineSet = new PolylineSet(new List<Polyline> { pathPolyline?.Offset(10), pathPolyline?.Offset(-10) });
-            var pathPolyline2 = pathPolyline?.Offset(-10);
-            pathPolyline2?.Reverse();
-            var polygonLine = new PolygonContour(new PolygonContour(new List<Polyline> { pathPolyline?.Offset(10), pathPolyline2 }));
-            var polygonLineItem = new GraphicItem(polygonLine, azureTransparent)
-            {
-                Name = "Polygon Contour Line"
-            };
-            var polylineSetItem = new GraphicItem(polylineSet, selectionStyle)
-            {
-                Name = "Polyline Set"
-            };
-            var pathPolylineItem = new GraphicItem(pathPolyline, selectionStyle)
-            {
-                Name = "Path Polyline"
-            };
+                var innerPolygonItem = new GraphicItem(Examples.InnerPolygon.TranslateDistort(shift), azureTransparent)
+                {
+                    Name = "Inner Triangle Contour"
+                };
+                vectorMap?.Add(innerPolygonItem);
 
-            vectorMap.Add(polygonLineItem);
-            vectorMap.Add(polylineSetItem);
-            vectorMap.Add(pathPolylineItem);
+                var pathPolyline = (polyset as Polygon).ShortestPath(new Point2D(left + 20, top + 20), new Point2D(left + 200, top + 200));
+                var polylineSet = new PolylineSet(new List<Polyline> { pathPolyline?.Offset(10), pathPolyline?.Offset(-10) });
+                var pathPolyline2 = pathPolyline?.Offset(-10);
+                pathPolyline2?.Reverse();
+                var polygonLine = new PolygonContour(new PolygonContour(new List<Polyline> { pathPolyline?.Offset(10), pathPolyline2 }));
+                var polygonLineItem = new GraphicItem(polygonLine, azureTransparent)
+                {
+                    Name = "Polygon Contour Line"
+                };
+                var polylineSetItem = new GraphicItem(polylineSet, selectionStyle)
+                {
+                    Name = "Polyline Set"
+                };
+                var pathPolylineItem = new GraphicItem(pathPolyline, selectionStyle)
+                {
+                    Name = "Path Polyline"
+                };
 
-            var ego = new Circle(pathPolyline.Interpolate(0d), 10);
-            var egoItem = new GraphicItem(ego, solidCyanStyle)
-            {
-                Name = "Ego Circle"
-            };
+                vectorMap?.Add(polygonLineItem);
+                vectorMap?.Add(polylineSetItem);
+                vectorMap?.Add(pathPolylineItem);
 
-            form.ResetAction = new Action(reset);
-            void reset()
-            {
-                var t = new Scrubber(0);
-                duration = pathPolyline.Perimeter * 0.5d;
-                ego.Center = pathPolyline.Interpolate(t.T);
-                vectorMap.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
-                    .OnUpdate(() => ego.Center = pathPolyline.Interpolate(t.T))
-                    .OnUpdate(form.UpdateCallback);
+                var ego = new Circle(pathPolyline.Interpolate(0d), 10);
+                var egoItem = new GraphicItem(ego, solidCyanStyle)
+                {
+                    Name = "Ego Circle"
+                };
+
+                form.ResetAction = new Action(reset);
+                void reset()
+                {
+                    var t = new Scrubber(0);
+                    duration = pathPolyline.Perimeter * 0.5d;
+                    ego.Center = pathPolyline.Interpolate(t.T);
+                    vectorMap?.Tweener.Tween(t, new { T = 1d }, duration, delay).Ease(Ease.Linear)
+                        .OnUpdate(() => ego.Center = pathPolyline.Interpolate(t.T))
+                        .OnUpdate(form.UpdateCallback);
+                }
+
+                vectorMap?.Add(egoItem);
             }
-
-            vectorMap.Add(egoItem);
         }
 
         /// <summary>
         /// Development test cases for testing canvas panel refresh bounds on resize testing.
         /// </summary>
         /// <param name="vectorMap">The Map to draw on.</param>
-        /// <param name="CanvasPanel">The canvas panel to reference.</param>
+        /// <param name="canvasPanel">The canvas panel to reference.</param>
         /// <param name="boundaryItem">The boundary item to update.</param>
-        public static void ResizeRefreshBounds(VectorMap vectorMap, CanvasPanel CanvasPanel, out GraphicItem boundaryItem)
+        public static void ResizeRefreshBounds(VectorMap vectorMap, CanvasPanel canvasPanel, out GraphicItem boundaryItem)
         {
-            vectorMap.VisibleBounds = CanvasPanel.ClientRectangle.ToRectangle2D();
-            boundaryItem = new GraphicItem(vectorMap.VisibleBounds, solidPinkStyle);
-            vectorMap.Add(boundaryItem);
+            if (!(vectorMap is null) && !(canvasPanel is null))
+            {
+                vectorMap.VisibleBounds = canvasPanel.ClientRectangle.ToRectangle2D();
+                boundaryItem = new GraphicItem(vectorMap?.VisibleBounds, solidPinkStyle);
+                vectorMap?.Add(boundaryItem);
+            }
+            else
+            {
+                boundaryItem = null;
+            }
         }
 
         /// <summary>
@@ -3058,27 +3144,30 @@ namespace Editor
         /// <param name="form">The form to reference.</param>
         public static void Tweenning(VectorMap vectorMap, EditorForm form)
         {
-            var ellipseTween = new Ellipse(
-                new Point2D(100d, 375d),
-                56d, 30d, 10d.ToRadians());
-            var ellipseTweenItem = new GraphicItem(ellipseTween, solidLightBlueStyle);
+            if (!(vectorMap is null) && !(form is null))
+            {
+                var ellipseTween = new Ellipse(
+                    new Point2D(100d, 375d),
+                    56d, 30d, 10d.ToRadians());
+                var ellipseTweenItem = new GraphicItem(ellipseTween, solidLightBlueStyle);
 
-            (var duration, var delay) = (300d, 20d);
+                (var duration, var delay) = (300d, 20d);
 
-            vectorMap.Tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
+                vectorMap?.Tweener.Tween(ellipseTween, new { Center = new Point2D(0, 0) }, duration, delay);
 
-            var rectangleTween = ellipseTween.Bounds;
-            var rectangleTweenItem = new GraphicItem(rectangleTween, selectionStyle);
+                var rectangleTween = ellipseTween.Bounds;
+                var rectangleTweenItem = new GraphicItem(rectangleTween, selectionStyle);
 
-            vectorMap.Tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
-                .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
-                .Rotation(RotationUnit.Radians)
-                .OnUpdate(form.UpdateCallback)
-                .OnUpdate(() => rectangleTweenItem.Shape = ellipseTween.Bounds);
-            vectorMap.Tweener.Timer(duration).OnComplete(form.CompleteCallback);
+                vectorMap?.Tweener.Tween(ellipseTween, dests: new { Angle = -360d.ToRadians() }, duration: duration, delay: delay)
+                    .From(new { Angle = 45d.ToRadians() }).Ease(Ease.BackInOut)
+                    .Rotation(RotationUnit.Radians)
+                    .OnUpdate(form.UpdateCallback)
+                    .OnUpdate(() => rectangleTweenItem.Shape = ellipseTween.Bounds);
+                vectorMap?.Tweener.Timer(duration).OnComplete(form.CompleteCallback);
 
-            vectorMap.Add(rectangleTweenItem);
-            vectorMap.Add(ellipseTweenItem);
+                vectorMap?.Add(rectangleTweenItem);
+                vectorMap?.Add(ellipseTweenItem);
+            }
         }
 
         /// <summary>
@@ -3088,32 +3177,35 @@ namespace Editor
         /// <param name="form">The form to reference.</param>
         public static void KaraokeBall(VectorMap vectorMap, EditorForm form)
         {
-            (var left, var top) = (100d, 200d);
-            (var duration, var delay) = (75d, 0d);
-            const int radius = 10;
-
-            var circle = new Circle(left + radius, top + radius, radius);
-            var circleItem = new GraphicItem(circle, solidLightBlueStyle);
-
-            var rectangle = new Rectangle2D(left + radius, top - 100, 50 - 10, 100 + radius);
-            var rectangleItem = new GraphicItem(rectangle, selectionStyle);
-
-            var (a, b, c) = Conversions.FindStandardParabolaFromThreePoints(rectangle.Left, rectangle.Bottom, rectangle.Center.X, rectangle.Top, rectangle.Right, rectangle.Bottom);
-            var bezier = new QuadraticBezier(Conversions.StandardParabolaToQuadraticBezier(a, b, c, rectangle.Left, rectangle.Right)).ToCubicBezier();
-            var bezierItem = new GraphicItem(bezier, intersectionBlue);
-
-            form.ResetAction = new Action(reset);
-            void reset()
+            if (!(vectorMap is null) && !(form is null))
             {
-                circle.Center = (left + radius, top + radius);
-                vectorMap.Tweener.Tween(circle, new { Y = top - 100 }, duration, delay).Ease(Ease.Parabolic);
-                vectorMap.Tweener.Tween(circle, new { X = left + 50 }, duration, delay).Ease(Ease.Linear)
-                    .OnUpdate(form.UpdateCallback);
-            }
+                (var left, var top) = (100d, 200d);
+                (var duration, var delay) = (75d, 0d);
+                const int radius = 10;
 
-            vectorMap.Add(rectangleItem);
-            vectorMap.Add(bezierItem);
-            vectorMap.Add(circleItem);
+                var circle = new Circle(left + radius, top + radius, radius);
+                var circleItem = new GraphicItem(circle, solidLightBlueStyle);
+
+                var rectangle = new Rectangle2D(left + radius, top - 100, 50 - 10, 100 + radius);
+                var rectangleItem = new GraphicItem(rectangle, selectionStyle);
+
+                var (a, b, c) = Conversions.FindStandardParabolaFromThreePoints(rectangle.Left, rectangle.Bottom, rectangle.Center.X, rectangle.Top, rectangle.Right, rectangle.Bottom);
+                var bezier = new QuadraticBezier(Conversions.StandardParabolaToQuadraticBezier(a, b, c, rectangle.Left, rectangle.Right)).ToCubicBezier();
+                var bezierItem = new GraphicItem(bezier, intersectionBlue);
+
+                form.ResetAction = new Action(reset);
+                void reset()
+                {
+                    circle.Center = (left + radius, top + radius);
+                    vectorMap?.Tweener.Tween(circle, new { Y = top - 100 }, duration, delay).Ease(Ease.Parabolic);
+                    vectorMap?.Tweener.Tween(circle, new { X = left + 50 }, duration, delay).Ease(Ease.Linear)
+                        .OnUpdate(form.UpdateCallback);
+                }
+
+                vectorMap?.Add(rectangleItem);
+                vectorMap?.Add(bezierItem);
+                vectorMap?.Add(circleItem);
+            }
         }
 
         /// <summary>
@@ -3131,7 +3223,7 @@ namespace Editor
             left += width + padding;
             top += height + padding;
             var linear = new ParametricDelegateCurve(
-                (x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.Linear(t) * h)),
+                (t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.Linear(t) * h)),
                 null,
                 new Point2D(left, top),
                 new Size2D(width, height)
@@ -3139,247 +3231,247 @@ namespace Editor
             var linearItem = new GraphicItem(linear, style);
 
             left += width + padding;
-            var toAndFro = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ToAndFro(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var toAndFro = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ToAndFro(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var toAndFroItem = new GraphicItem(toAndFro, style);
 
             left += width + padding;
-            var parabolic = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.Parabolic(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var parabolic = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.Parabolic(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var parabolicItem = new GraphicItem(parabolic, style);
 
             left = 0;
             top += height + padding;
 
             left += width + padding;
-            var quadraticIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuadIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quadraticIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuadIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quadraticInItem = new GraphicItem(quadraticIn, style);
 
             left += width + padding;
-            var quadraticOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuadOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quadraticOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuadOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quadraticOutItem = new GraphicItem(quadraticOut, style);
 
             left += width + padding;
-            var quadraticInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuadInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quadraticInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuadInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quadraticInOutItem = new GraphicItem(quadraticInOut, style);
 
             left += width + padding;
-            var quadraticOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuadOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quadraticOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuadOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quadraticOutInItem = new GraphicItem(quadraticOutIn, style);
             left = 0;
             top += height + padding;
 
             left += width + padding;
-            var cubicIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CubicIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var cubicIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CubicIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var cubicInItem = new GraphicItem(cubicIn, style);
 
             left += width + padding;
-            var cubicOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CubicOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var cubicOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CubicOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var cubicOutItem = new GraphicItem(cubicOut, style);
 
             left += width + padding;
-            var cubicInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CubicInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var cubicInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CubicInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var cubicInOutItem = new GraphicItem(cubicInOut, style);
 
             left += width + padding;
-            var cubicOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CubicOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var cubicOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CubicOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var cubicOutInItem = new GraphicItem(cubicOutIn, style);
             left = 0;
             top += height;
 
             left += width + padding;
-            var quarticIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuartIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quarticIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuartIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quarticInItem = new GraphicItem(quarticIn, style);
 
             left += width + padding;
-            var quarticOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuartOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quarticOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuartOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quarticOutItem = new GraphicItem(quarticOut, style);
 
             left += width + padding;
-            var quarticInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuartInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quarticInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuartInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quarticInOutItem = new GraphicItem(quarticInOut, style);
 
             left += width + padding;
-            var quarticOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuartOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quarticOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuartOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quarticOutInItem = new GraphicItem(quarticOutIn, style);
             left = 0;
             top += height + padding;
 
             left += width + padding;
-            var quinticIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuintIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quinticIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuintIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quinticInItem = new GraphicItem(quinticIn, style);
 
             left += width + padding;
-            var quinticOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuintOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quinticOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuintOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quinticOutItem = new GraphicItem(quinticOut, style);
 
             left += width + padding;
-            var quinticInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuintInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quinticInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuintInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quinticInOutItem = new GraphicItem(quinticInOut, style);
 
             left += width + padding;
-            var quinticOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuintOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var quinticOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.QuintOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var quinticOutInItem = new GraphicItem(quinticOutIn, style);
             left = 0;
             top += height + padding;
 
             left += width + padding;
-            var expoIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ExpoIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var expoIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ExpoIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var expoInItem = new GraphicItem(expoIn, style);
 
             left += width + padding;
-            var expoOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ExpoOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var expoOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ExpoOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var expoOutItem = new GraphicItem(expoOut, style);
 
             left += width + padding;
-            var expoInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ExpoInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var expoInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ExpoInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var expoInOutItem = new GraphicItem(expoInOut, style);
 
             left += width + padding;
-            var expoOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ExpoOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var expoOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ExpoOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var expoOutInItem = new GraphicItem(expoOutIn, style);
             left = 0;
             top += height + padding;
 
             left += width + padding;
-            var sineIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.SineIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var sineIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.SineIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var sineInItem = new GraphicItem(sineIn, style);
 
             left += width + padding;
-            var sineOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.SineOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var sineOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.SineOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var sineOutItem = new GraphicItem(sineOut, style);
 
             left += width + padding;
-            var sineInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.SineInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var sineInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.SineInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var sineInOutItem = new GraphicItem(sineInOut, style);
 
             left += width + padding;
-            var sineOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.SineOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var sineOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.SineOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var sineOutInItem = new GraphicItem(sineOutIn, style);
             left = 0;
             top += height + padding;
 
             left += width + padding;
-            var circIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CircIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var circIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CircIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var circInItem = new GraphicItem(circIn, style);
 
             left += width + padding;
-            var circOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CircOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var circOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CircOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var circOutItem = new GraphicItem(circOut, style);
 
             left += width + padding;
-            var circInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CircInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var circInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CircInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var circInOutItem = new GraphicItem(circInOut, style);
 
             left += width + padding;
-            var circOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CircOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var circOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.CircOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var circOutInItem = new GraphicItem(circOutIn, style);
             left = 0;
             top += height + padding;
 
             left += width + padding;
-            var elasticIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ElasticIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var elasticIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ElasticIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var elasticInItem = new GraphicItem(elasticIn, style);
 
             left += width + padding;
-            var elasticOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ElasticOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var elasticOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ElasticOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var elasticOutItem = new GraphicItem(elasticOut, style);
 
             left += width + padding;
-            var elasticInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ElasticInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var elasticInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ElasticInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var elasticInOutItem = new GraphicItem(elasticInOut, style);
 
             left += width + padding;
-            var elasticOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ElasticOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var elasticOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.ElasticOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var elasticOutInItem = new GraphicItem(elasticOutIn, style);
             left = 0;
             top += height + padding;
 
             left += width + padding;
-            var bounceIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BounceIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var bounceIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BounceIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var bounceInItem = new GraphicItem(bounceIn, style);
 
             left += width + padding;
-            var bounceOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BounceOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var bounceOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BounceOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var bounceOutItem = new GraphicItem(bounceOut, style);
 
             left += width + padding;
-            var bounceInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BounceInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var bounceInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BounceInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var bounceInOutItem = new GraphicItem(bounceInOut, style);
 
             left += width + padding;
-            var bounceOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BounceOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var bounceOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BounceOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var bounceOutInItem = new GraphicItem(bounceOutIn, style);
             left = 0;
             top += height + padding;
 
             left += width + padding;
-            var backIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BackIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var backIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BackIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var backInItem = new GraphicItem(backIn, style);
 
             left += width + padding;
-            var backOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BackOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var backOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BackOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var backOutItem = new GraphicItem(backOut, style);
 
             left += width + padding;
-            var backInOut = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BackInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var backInOut = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BackInOut(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var backInOutItem = new GraphicItem(backInOut, style);
 
             left += width + padding;
-            var backOutIn = new ParametricDelegateCurve((x, y, w, h, a, t) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BackOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
+            var backOutIn = new ParametricDelegateCurve((t, x, y, w, h, a) => new Point2D(x + (Ease.Linear(t) * w), y - (Ease.BackOutIn(t) * h)), null, new Point2D(left, top), new Size2D(width, height));
             var backOutInItem = new GraphicItem(backOutIn, style);
 
-            vectorMap.Add(linearItem);
-            vectorMap.Add(toAndFroItem);
-            vectorMap.Add(parabolicItem);
+            vectorMap?.Add(linearItem);
+            vectorMap?.Add(toAndFroItem);
+            vectorMap?.Add(parabolicItem);
 
-            vectorMap.Add(quadraticInItem);
-            vectorMap.Add(quadraticOutItem);
-            vectorMap.Add(quadraticInOutItem);
-            vectorMap.Add(quadraticOutInItem);
+            vectorMap?.Add(quadraticInItem);
+            vectorMap?.Add(quadraticOutItem);
+            vectorMap?.Add(quadraticInOutItem);
+            vectorMap?.Add(quadraticOutInItem);
 
-            vectorMap.Add(cubicInItem);
-            vectorMap.Add(cubicOutItem);
-            vectorMap.Add(cubicInOutItem);
-            vectorMap.Add(cubicOutInItem);
+            vectorMap?.Add(cubicInItem);
+            vectorMap?.Add(cubicOutItem);
+            vectorMap?.Add(cubicInOutItem);
+            vectorMap?.Add(cubicOutInItem);
 
-            vectorMap.Add(quarticInItem);
-            vectorMap.Add(quarticOutItem);
-            vectorMap.Add(quarticInOutItem);
-            vectorMap.Add(quarticOutInItem);
+            vectorMap?.Add(quarticInItem);
+            vectorMap?.Add(quarticOutItem);
+            vectorMap?.Add(quarticInOutItem);
+            vectorMap?.Add(quarticOutInItem);
 
-            vectorMap.Add(quinticInItem);
-            vectorMap.Add(quinticOutItem);
-            vectorMap.Add(quinticInOutItem);
-            vectorMap.Add(quinticOutInItem);
+            vectorMap?.Add(quinticInItem);
+            vectorMap?.Add(quinticOutItem);
+            vectorMap?.Add(quinticInOutItem);
+            vectorMap?.Add(quinticOutInItem);
 
-            vectorMap.Add(expoInItem);
-            vectorMap.Add(expoOutItem);
-            vectorMap.Add(expoInOutItem);
-            vectorMap.Add(expoOutInItem);
+            vectorMap?.Add(expoInItem);
+            vectorMap?.Add(expoOutItem);
+            vectorMap?.Add(expoInOutItem);
+            vectorMap?.Add(expoOutInItem);
 
-            vectorMap.Add(sineInItem);
-            vectorMap.Add(sineOutItem);
-            vectorMap.Add(sineInOutItem);
-            vectorMap.Add(sineOutInItem);
+            vectorMap?.Add(sineInItem);
+            vectorMap?.Add(sineOutItem);
+            vectorMap?.Add(sineInOutItem);
+            vectorMap?.Add(sineOutInItem);
 
-            vectorMap.Add(circInItem);
-            vectorMap.Add(circOutItem);
-            vectorMap.Add(circInOutItem);
-            vectorMap.Add(circOutInItem);
+            vectorMap?.Add(circInItem);
+            vectorMap?.Add(circOutItem);
+            vectorMap?.Add(circInOutItem);
+            vectorMap?.Add(circOutInItem);
 
-            vectorMap.Add(elasticInItem);
-            vectorMap.Add(elasticOutItem);
-            vectorMap.Add(elasticInOutItem);
-            vectorMap.Add(elasticOutInItem);
+            vectorMap?.Add(elasticInItem);
+            vectorMap?.Add(elasticOutItem);
+            vectorMap?.Add(elasticInOutItem);
+            vectorMap?.Add(elasticOutInItem);
 
-            vectorMap.Add(bounceInItem);
-            vectorMap.Add(bounceOutItem);
-            vectorMap.Add(bounceInOutItem);
-            vectorMap.Add(bounceOutInItem);
+            vectorMap?.Add(bounceInItem);
+            vectorMap?.Add(bounceOutItem);
+            vectorMap?.Add(bounceInOutItem);
+            vectorMap?.Add(bounceOutInItem);
 
-            vectorMap.Add(backInItem);
-            vectorMap.Add(backOutItem);
-            vectorMap.Add(backInOutItem);
-            vectorMap.Add(backOutInItem);
+            vectorMap?.Add(backInItem);
+            vectorMap?.Add(backOutItem);
+            vectorMap?.Add(backInOutItem);
+            vectorMap?.Add(backOutInItem);
         }
         #endregion Interactive
 
@@ -3387,7 +3479,7 @@ namespace Editor
         /// <summary>
         /// The grid click.
         /// </summary>
-        /// <param name="vectorMap">The vectorMap.</param>
+        /// <param name="vectorMap">The vectorMap?.</param>
         public static void GridHitTest(VectorMap vectorMap)
         {
             var count = 40;
@@ -3399,14 +3491,14 @@ namespace Editor
                 {
                     Name = $"Cell {i}"
                 };
-                vectorMap.Add(cell);
+                vectorMap?.Add(cell);
             }
 
             var parametricPointTesterRectangle = new ParametricPointTester(
-                (px, py) => rectangleGrid[(px, py)] == index ? Inclusion.Inside : Inclusion.Outside,
+                (px, py) => rectangleGrid[(px, py)] == index ? Inclusions.Inside : Inclusions.Outside,
                 rectangleGrid.Bounds.X - 200, rectangleGrid.Bounds.Y - 200, rectangleGrid.Bounds.Right + 205, rectangleGrid.Bounds.Bottom + 205, 5, 5);
             var parametricPointTesterRectangleItem = new GraphicItem(parametricPointTesterRectangle, selectionStyle);
-            vectorMap.Add(parametricPointTesterRectangleItem);
+            vectorMap?.Add(parametricPointTesterRectangleItem);
         }
 
         /// <summary>
@@ -3494,23 +3586,23 @@ namespace Editor
 
             var intersectionNode1Item = new GraphicItem(new NodeRevealer(cubic1.Intersection(cubic2).Points, 5d), handleStyle);
 
-            vectorMap.Add(cubic1BoundsItem);
-            vectorMap.Add(cubic2BoundsItem);
-            vectorMap.Add(cubic3BoundsItem);
+            vectorMap?.Add(cubic1BoundsItem);
+            vectorMap?.Add(cubic2BoundsItem);
+            vectorMap?.Add(cubic3BoundsItem);
 
-            vectorMap.Add(cubic1Item);
-            vectorMap.Add(cubic2Item);
-            vectorMap.Add(cubic3Item);
+            vectorMap?.Add(cubic1Item);
+            vectorMap?.Add(cubic2Item);
+            vectorMap?.Add(cubic3Item);
 
-            vectorMap.Add(cubic1Handles);
-            vectorMap.Add(cubic2Handles);
-            vectorMap.Add(cubic3Handles);
+            vectorMap?.Add(cubic1Handles);
+            vectorMap?.Add(cubic2Handles);
+            vectorMap?.Add(cubic3Handles);
 
-            vectorMap.Add(cubic1SelfHandles);
-            vectorMap.Add(cubic2SelfHandles);
-            vectorMap.Add(cubic3SelfHandles);
+            vectorMap?.Add(cubic1SelfHandles);
+            vectorMap?.Add(cubic2SelfHandles);
+            vectorMap?.Add(cubic3SelfHandles);
 
-            vectorMap.Add(intersectionNode1Item);
+            vectorMap?.Add(intersectionNode1Item);
         }
 
         /// <summary>
@@ -3551,11 +3643,11 @@ namespace Editor
                 Name = "Intersection Points"
             };
 
-            vectorMap.Add(ellipse1BoundsItem);
-            vectorMap.Add(ellipse2BoundsItem);
-            vectorMap.Add(ellipse1Item);
-            vectorMap.Add(ellipse2Item);
-            vectorMap.Add(intersectionNodeItem);
+            vectorMap?.Add(ellipse1BoundsItem);
+            vectorMap?.Add(ellipse2BoundsItem);
+            vectorMap?.Add(ellipse1Item);
+            vectorMap?.Add(ellipse2Item);
+            vectorMap?.Add(intersectionNodeItem);
         }
 
         /// <summary>
@@ -3596,11 +3688,11 @@ namespace Editor
                 Name = "Intersection Points"
             };
 
-            vectorMap.Add(ellipse1BoundsItem);
-            vectorMap.Add(quadratic1BoundsItem);
-            vectorMap.Add(ellipse1Item);
-            vectorMap.Add(quadratic1Item);
-            vectorMap.Add(intersectionNodeItem);
+            vectorMap?.Add(ellipse1BoundsItem);
+            vectorMap?.Add(quadratic1BoundsItem);
+            vectorMap?.Add(ellipse1Item);
+            vectorMap?.Add(quadratic1Item);
+            vectorMap?.Add(intersectionNodeItem);
         }
 
         /// <summary>
@@ -3641,11 +3733,11 @@ namespace Editor
                 Name = "Intersection Points"
             };
 
-            vectorMap.Add(ellipse1BoundsItem);
-            vectorMap.Add(cubic1BoundsItem);
-            vectorMap.Add(ellipse1Item);
-            vectorMap.Add(cubic1Item);
-            vectorMap.Add(intersectionNodeItem);
+            vectorMap?.Add(ellipse1BoundsItem);
+            vectorMap?.Add(cubic1BoundsItem);
+            vectorMap?.Add(ellipse1Item);
+            vectorMap?.Add(cubic1Item);
+            vectorMap?.Add(intersectionNodeItem);
         }
 
         /// <summary>
@@ -3733,20 +3825,20 @@ namespace Editor
                 Name = "Intersection 2 Points"
             };
 
-            vectorMap.Add(quardatic1BoundsItem);
-            vectorMap.Add(quardatic2BoundsItem);
-            vectorMap.Add(quardatic3BoundsItem);
-            vectorMap.Add(quardatic4BoundsItem);
-            vectorMap.Add(quadratic1Item);
-            vectorMap.Add(quadratic2Item);
-            vectorMap.Add(quadratic3Item);
-            vectorMap.Add(quadratic4Item);
-            vectorMap.Add(intersectionNode1Item);
-            vectorMap.Add(intersectionNode2Item);
-            vectorMap.Add(quadratic1Handles);
-            vectorMap.Add(quadratic2Handles);
-            vectorMap.Add(quadratic3Handles);
-            vectorMap.Add(quadratic4Handles);
+            vectorMap?.Add(quardatic1BoundsItem);
+            vectorMap?.Add(quardatic2BoundsItem);
+            vectorMap?.Add(quardatic3BoundsItem);
+            vectorMap?.Add(quardatic4BoundsItem);
+            vectorMap?.Add(quadratic1Item);
+            vectorMap?.Add(quadratic2Item);
+            vectorMap?.Add(quadratic3Item);
+            vectorMap?.Add(quadratic4Item);
+            vectorMap?.Add(intersectionNode1Item);
+            vectorMap?.Add(intersectionNode2Item);
+            vectorMap?.Add(quadratic1Handles);
+            vectorMap?.Add(quadratic2Handles);
+            vectorMap?.Add(quadratic3Handles);
+            vectorMap?.Add(quadratic4Handles);
         }
 
         /// <summary>
@@ -3826,20 +3918,20 @@ namespace Editor
 
             var intersectionNode2Item = new GraphicItem(new NodeRevealer(cubic3.Intersection(quadratic4).Points, 5d), handleStyle);
 
-            vectorMap.Add(cubic1BoundsItem);
-            vectorMap.Add(quardatic2BoundsItem);
-            vectorMap.Add(cubic3BoundsItem);
-            vectorMap.Add(quardatic4BoundsItem);
-            vectorMap.Add(cubic1Item);
-            vectorMap.Add(quadratic2Item);
-            vectorMap.Add(cubic3Item);
-            vectorMap.Add(quadratic4Item);
-            vectorMap.Add(intersectionNode1Item);
-            vectorMap.Add(intersectionNode2Item);
-            vectorMap.Add(cubic1Handles);
-            vectorMap.Add(quadratic2Handles);
-            vectorMap.Add(cubic3Handles);
-            vectorMap.Add(quadratic4Handles);
+            vectorMap?.Add(cubic1BoundsItem);
+            vectorMap?.Add(quardatic2BoundsItem);
+            vectorMap?.Add(cubic3BoundsItem);
+            vectorMap?.Add(quardatic4BoundsItem);
+            vectorMap?.Add(cubic1Item);
+            vectorMap?.Add(quadratic2Item);
+            vectorMap?.Add(cubic3Item);
+            vectorMap?.Add(quadratic4Item);
+            vectorMap?.Add(intersectionNode1Item);
+            vectorMap?.Add(intersectionNode2Item);
+            vectorMap?.Add(cubic1Handles);
+            vectorMap?.Add(quadratic2Handles);
+            vectorMap?.Add(cubic3Handles);
+            vectorMap?.Add(quadratic4Handles);
         }
 
         /// <summary>
@@ -3969,27 +4061,27 @@ namespace Editor
             };
             //var intersectionNode3Item = new GraphicItem(new NodeRevealer(cubic5.Intersection(cubic5).Points, 5d), handleStyle);
 
-            //vectorMap.Add(cubic1BoundsItem);
-            //vectorMap.Add(cubic2BoundsItem);
-            //vectorMap.Add(cubic3BoundsItem);
-            //vectorMap.Add(cubic4BoundsItem);
-            vectorMap.Add(cubic5BoundsItem);
-            vectorMap.Add(cubic6BoundsItem);
-            //vectorMap.Add(cubic1Item);
-            //vectorMap.Add(cubic2Item);
-            //vectorMap.Add(cubic3Item);
-            //vectorMap.Add(cubic4Item);
-            vectorMap.Add(cubic5Item);
-            vectorMap.Add(cubic6Item);
-            //vectorMap.Add(intersectionNode1Item);
-            //vectorMap.Add(intersectionNode2Item);
-            //vectorMap.Add(intersectionNode3Item);
-            //vectorMap.Add(cubic1Handles);
-            //vectorMap.Add(cubic2Handles);
-            //vectorMap.Add(cubic3Handles);
-            //vectorMap.Add(cubic4Handles);
-            vectorMap.Add(cubic5Handles);
-            vectorMap.Add(cubic6Handles);
+            //vectorMap?.Add(cubic1BoundsItem);
+            //vectorMap?.Add(cubic2BoundsItem);
+            //vectorMap?.Add(cubic3BoundsItem);
+            //vectorMap?.Add(cubic4BoundsItem);
+            vectorMap?.Add(cubic5BoundsItem);
+            vectorMap?.Add(cubic6BoundsItem);
+            //vectorMap?.Add(cubic1Item);
+            //vectorMap?.Add(cubic2Item);
+            //vectorMap?.Add(cubic3Item);
+            //vectorMap?.Add(cubic4Item);
+            vectorMap?.Add(cubic5Item);
+            vectorMap?.Add(cubic6Item);
+            //vectorMap?.Add(intersectionNode1Item);
+            //vectorMap?.Add(intersectionNode2Item);
+            //vectorMap?.Add(intersectionNode3Item);
+            //vectorMap?.Add(cubic1Handles);
+            //vectorMap?.Add(cubic2Handles);
+            //vectorMap?.Add(cubic3Handles);
+            //vectorMap?.Add(cubic4Handles);
+            vectorMap?.Add(cubic5Handles);
+            vectorMap?.Add(cubic6Handles);
         }
 
         /// <summary>
@@ -4035,13 +4127,13 @@ namespace Editor
                 Name = "Quadratic Bézier Intersections"
             };
 
-            vectorMap.Add(quardatic1BoundsItem);
-            vectorMap.Add(quardatic2BoundsItem);
-            vectorMap.Add(quadratic1Item);
-            vectorMap.Add(quadratic2Item);
-            vectorMap.Add(intersectionNode1Item);
-            vectorMap.Add(quadratic1Handles);
-            vectorMap.Add(quadratic2Handles);
+            vectorMap?.Add(quardatic1BoundsItem);
+            vectorMap?.Add(quardatic2BoundsItem);
+            vectorMap?.Add(quadratic1Item);
+            vectorMap?.Add(quadratic2Item);
+            vectorMap?.Add(intersectionNode1Item);
+            vectorMap?.Add(quadratic1Handles);
+            vectorMap?.Add(quadratic2Handles);
         }
 
         /// <summary>
@@ -4088,13 +4180,13 @@ namespace Editor
                 Name = "Cubic Bézier Intersections"
             };
 
-            vectorMap.Add(cubic1BoundsItem);
-            vectorMap.Add(cubic2BoundsItem);
-            vectorMap.Add(cubic1Item);
-            vectorMap.Add(cubic2Item);
-            vectorMap.Add(intersectionNode1Item);
-            vectorMap.Add(cubic1Handles);
-            vectorMap.Add(cubic2Handles);
+            vectorMap?.Add(cubic1BoundsItem);
+            vectorMap?.Add(cubic2BoundsItem);
+            vectorMap?.Add(cubic1Item);
+            vectorMap?.Add(cubic2Item);
+            vectorMap?.Add(intersectionNode1Item);
+            vectorMap?.Add(cubic1Handles);
+            vectorMap?.Add(cubic2Handles);
         }
 
         /// <summary>
@@ -4140,13 +4232,13 @@ namespace Editor
                 Name = "Quadratic Cubic Bézier Intersections"
             };
 
-            vectorMap.Add(quardatic1BoundsItem);
-            vectorMap.Add(cubic2BoundsItem);
-            vectorMap.Add(quadratic1Item);
-            vectorMap.Add(cubic2Item);
-            vectorMap.Add(intersectionNode1Item);
-            vectorMap.Add(quadratic1Handles);
-            vectorMap.Add(cubic2Handles);
+            vectorMap?.Add(quardatic1BoundsItem);
+            vectorMap?.Add(cubic2BoundsItem);
+            vectorMap?.Add(quadratic1Item);
+            vectorMap?.Add(cubic2Item);
+            vectorMap?.Add(intersectionNode1Item);
+            vectorMap?.Add(quadratic1Handles);
+            vectorMap?.Add(cubic2Handles);
         }
 
         /// <summary>
@@ -4177,7 +4269,7 @@ namespace Editor
                 Name = nameof(Ellipse)
             };
 
-            vectorMap.Add(ellipseItem);
+            vectorMap?.Add(ellipseItem);
 
             for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
             {
@@ -4188,15 +4280,15 @@ namespace Editor
                 };
                 var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipticalArc.Intersection(lineSegment).Points, 5d), handleStyle);
 
-                vectorMap.Add(lineSegmentItem);
-                vectorMap.Add(intersectionNodeItem);
+                vectorMap?.Add(lineSegmentItem);
+                vectorMap?.Add(intersectionNodeItem);
             }
 
             var parametricPointTesterFigure = new ParametricPointTester(
                 (px, py) => Intersections.EllipticalArcContainsPoint(ellipticalArc.X, ellipticalArc.Y, ellipticalArc.RX, ellipticalArc.RY, ellipticalArc.Angle, ellipticalArc.StartAngle, ellipticalArc.SweepAngle, px, py),
                 ellipse.Bounds.X, ellipse.Bounds.Y, ellipse.Bounds.Right + 5, ellipse.Bounds.Bottom + 5, 5, 5);
 
-            vectorMap.Add(parametricPointTesterFigure);
+            vectorMap?.Add(parametricPointTesterFigure);
         }
 
         /// <summary>
@@ -4227,7 +4319,7 @@ namespace Editor
                 Name = nameof(Ellipse)
             };
 
-            vectorMap.Add(ellipseItem);
+            vectorMap?.Add(ellipseItem);
 
             for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
             {
@@ -4238,15 +4330,15 @@ namespace Editor
                 };
                 var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipticalArc.Intersection(line).Points, 5d), handleStyle);
 
-                vectorMap.Add(lineItem);
-                vectorMap.Add(intersectionNodeItem);
+                vectorMap?.Add(lineItem);
+                vectorMap?.Add(intersectionNodeItem);
             }
 
             var parametricPointTesterFigure = new ParametricPointTester(
                 (px, py) => Intersections.EllipticalArcContainsPoint(ellipticalArc.X, ellipticalArc.Y, ellipticalArc.RX, ellipticalArc.RY, ellipticalArc.Angle, ellipticalArc.StartAngle, ellipticalArc.SweepAngle, px, py),
                 ellipse.Bounds.X, ellipse.Bounds.Y, ellipse.Bounds.Right + 5, ellipse.Bounds.Bottom + 5, 5, 5);
 
-            vectorMap.Add(parametricPointTesterFigure);
+            vectorMap?.Add(parametricPointTesterFigure);
         }
 
         /// <summary>
@@ -4277,7 +4369,7 @@ namespace Editor
                 Name = nameof(Ellipse)
             };
 
-            vectorMap.Add(ellipseItem);
+            vectorMap?.Add(ellipseItem);
 
             for (var angle = lineMinAngle; angle <= lineMinAngle + lineSweepAngle; angle += lineStepAngle)
             {
@@ -4288,15 +4380,15 @@ namespace Editor
                 };
                 var intersectionNodeItem = new GraphicItem(new NodeRevealer(ellipticalArc.Intersection(line).Points, 5d), handleStyle);
 
-                vectorMap.Add(lineItem);
-                vectorMap.Add(intersectionNodeItem);
+                vectorMap?.Add(lineItem);
+                vectorMap?.Add(intersectionNodeItem);
             }
 
             var parametricPointTesterFigure = new ParametricPointTester(
                 (px, py) => Intersections.EllipticalArcContainsPoint(ellipticalArc.X, ellipticalArc.Y, ellipticalArc.RX, ellipticalArc.RY, ellipticalArc.Angle, ellipticalArc.StartAngle, ellipticalArc.SweepAngle, px, py),
                 ellipse.Bounds.X, ellipse.Bounds.Y, ellipse.Bounds.Right + 5, ellipse.Bounds.Bottom + 5, 5, 5);
 
-            vectorMap.Add(parametricPointTesterFigure);
+            vectorMap?.Add(parametricPointTesterFigure);
         }
 
         /// <summary>
@@ -4414,29 +4506,29 @@ namespace Editor
             var quadraticIntersections2 = quadraticBezier2.Intersection(quadraticLine2);
             var quadraticIntersections2NodesItem = new GraphicItem(new NodeRevealer(quadraticIntersections2.Points, 5d), handleStyle);
 
-            vectorMap.Add(cubicBezier1BoundsItem);
-            vectorMap.Add(cubicBezier1Item);
-            vectorMap.Add(cubicLine1Item);
-            vectorMap.Add(cubicBezier1NodeItem);
-            vectorMap.Add(cubicIntersections1NodesItem);
+            vectorMap?.Add(cubicBezier1BoundsItem);
+            vectorMap?.Add(cubicBezier1Item);
+            vectorMap?.Add(cubicLine1Item);
+            vectorMap?.Add(cubicBezier1NodeItem);
+            vectorMap?.Add(cubicIntersections1NodesItem);
 
-            vectorMap.Add(cubicBezier2BoundsItem);
-            vectorMap.Add(cubicBezier2Item);
-            vectorMap.Add(cubicLine2Item);
-            vectorMap.Add(cubicBezier2NodeItem);
-            vectorMap.Add(cubicIntersections2NodesItem);
+            vectorMap?.Add(cubicBezier2BoundsItem);
+            vectorMap?.Add(cubicBezier2Item);
+            vectorMap?.Add(cubicLine2Item);
+            vectorMap?.Add(cubicBezier2NodeItem);
+            vectorMap?.Add(cubicIntersections2NodesItem);
 
-            vectorMap.Add(quadraticBezier1BoundsItem);
-            vectorMap.Add(quadraticBezier1Item);
-            vectorMap.Add(quadraticLine1Item);
-            vectorMap.Add(quadraticBezier1NodeItem);
-            vectorMap.Add(quadraticIntersections1NodesItem);
+            vectorMap?.Add(quadraticBezier1BoundsItem);
+            vectorMap?.Add(quadraticBezier1Item);
+            vectorMap?.Add(quadraticLine1Item);
+            vectorMap?.Add(quadraticBezier1NodeItem);
+            vectorMap?.Add(quadraticIntersections1NodesItem);
 
-            vectorMap.Add(quadraticBezier2BoundsItem);
-            vectorMap.Add(quadraticBezier2Item);
-            vectorMap.Add(quadraticLine2Item);
-            vectorMap.Add(quadraticBezier2NodeItem);
-            vectorMap.Add(quadraticIntersections2NodesItem);
+            vectorMap?.Add(quadraticBezier2BoundsItem);
+            vectorMap?.Add(quadraticBezier2Item);
+            vectorMap?.Add(quadraticLine2Item);
+            vectorMap?.Add(quadraticBezier2NodeItem);
+            vectorMap?.Add(quadraticIntersections2NodesItem);
         }
 
         /// <summary>
@@ -4570,33 +4662,33 @@ namespace Editor
             var quadraticIntersections2 = quadraticBezier2.Intersection(quadraticSegment2);
             var quadraticIntersections2NodesItem = new GraphicItem(new NodeRevealer(quadraticIntersections2.Points, 5d), handleStyle);
 
-            vectorMap.Add(cubicBezier1BoundsItem);
-            vectorMap.Add(cubicBezier1Item);
-            vectorMap.Add(cubicSegment1Item);
-            vectorMap.Add(cubicBezier1NodeItem);
-            vectorMap.Add(cubicSegment1NodeItem);
-            vectorMap.Add(cubicIntersections1NodesItem);
+            vectorMap?.Add(cubicBezier1BoundsItem);
+            vectorMap?.Add(cubicBezier1Item);
+            vectorMap?.Add(cubicSegment1Item);
+            vectorMap?.Add(cubicBezier1NodeItem);
+            vectorMap?.Add(cubicSegment1NodeItem);
+            vectorMap?.Add(cubicIntersections1NodesItem);
 
-            vectorMap.Add(cubicBezier2BoundsItem);
-            vectorMap.Add(cubicBezier2Item);
-            vectorMap.Add(cubicSegment2Item);
-            vectorMap.Add(cubicBezier2NodeItem);
-            vectorMap.Add(cubicSegment2NodeItem);
-            vectorMap.Add(cubicIntersections2NodesItem);
+            vectorMap?.Add(cubicBezier2BoundsItem);
+            vectorMap?.Add(cubicBezier2Item);
+            vectorMap?.Add(cubicSegment2Item);
+            vectorMap?.Add(cubicBezier2NodeItem);
+            vectorMap?.Add(cubicSegment2NodeItem);
+            vectorMap?.Add(cubicIntersections2NodesItem);
 
-            vectorMap.Add(quadraticBezier1BoundsItem);
-            vectorMap.Add(quadraticBezier1Item);
-            vectorMap.Add(quadraticSegment1Item);
-            vectorMap.Add(quadraticBezier1NodeItem);
-            vectorMap.Add(quadraticSegment1NodeItem);
-            vectorMap.Add(quadraticIntersections1NodesItem);
+            vectorMap?.Add(quadraticBezier1BoundsItem);
+            vectorMap?.Add(quadraticBezier1Item);
+            vectorMap?.Add(quadraticSegment1Item);
+            vectorMap?.Add(quadraticBezier1NodeItem);
+            vectorMap?.Add(quadraticSegment1NodeItem);
+            vectorMap?.Add(quadraticIntersections1NodesItem);
 
-            vectorMap.Add(quadraticBezier2BoundsItem);
-            vectorMap.Add(quadraticBezier2Item);
-            vectorMap.Add(quadraticSegment2Item);
-            vectorMap.Add(quadraticBezier2NodeItem);
-            vectorMap.Add(quadraticSegment2NodeItem);
-            vectorMap.Add(quadraticIntersections2NodesItem);
+            vectorMap?.Add(quadraticBezier2BoundsItem);
+            vectorMap?.Add(quadraticBezier2Item);
+            vectorMap?.Add(quadraticSegment2Item);
+            vectorMap?.Add(quadraticBezier2NodeItem);
+            vectorMap?.Add(quadraticSegment2NodeItem);
+            vectorMap?.Add(quadraticIntersections2NodesItem);
         }
 
         /// <summary>
@@ -4631,12 +4723,12 @@ namespace Editor
             var quadraticIntersections = quadraticBezier.Intersection(quadraticSegment);
             var quadraticIntersectionNodesItem = new GraphicItem(new NodeRevealer(quadraticIntersections.Points, 5d), handleStyle);
 
-            vectorMap.Add(quadraticBezierBoundsItem);
-            vectorMap.Add(quadraticBezierItem);
-            vectorMap.Add(quadraticSegmentItem);
-            vectorMap.Add(quadraticBezierNodeItem);
-            vectorMap.Add(quadraticSegmentNodeItem);
-            vectorMap.Add(quadraticIntersectionNodesItem);
+            vectorMap?.Add(quadraticBezierBoundsItem);
+            vectorMap?.Add(quadraticBezierItem);
+            vectorMap?.Add(quadraticSegmentItem);
+            vectorMap?.Add(quadraticBezierNodeItem);
+            vectorMap?.Add(quadraticSegmentNodeItem);
+            vectorMap?.Add(quadraticIntersectionNodesItem);
         }
 
         /// <summary>
@@ -4674,12 +4766,12 @@ namespace Editor
             var cubicIntersections = cubicBezier.Intersection(cubicSegment);
             var cubicIntersectionNodesItem = new GraphicItem(new NodeRevealer(cubicIntersections.Points, 5d), handleStyle);
 
-            vectorMap.Add(cubicBezierBoundsItem);
-            vectorMap.Add(cubicBezierItem);
-            vectorMap.Add(cubicSegmentItem);
-            vectorMap.Add(cubicBezierNodeItem);
-            vectorMap.Add(cubicSegmentNodeItem);
-            vectorMap.Add(cubicIntersectionNodesItem);
+            vectorMap?.Add(cubicBezierBoundsItem);
+            vectorMap?.Add(cubicBezierItem);
+            vectorMap?.Add(cubicSegmentItem);
+            vectorMap?.Add(cubicBezierNodeItem);
+            vectorMap?.Add(cubicSegmentNodeItem);
+            vectorMap?.Add(cubicIntersectionNodesItem);
         }
 
         /// <summary>
@@ -4690,48 +4782,51 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void SegmentIntersections(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            var segment0 = new LineSegment(new Point2D(20, 150), new Point2D(180, 200));
-            var segment0Item = new GraphicItem(segment0, solidGreenStyle);
-            var segment0NodeItem = new GraphicItem(new NodeRevealer(segment0.Points, 5d), handleStyle);
-
-            var segment1 = new LineSegment(new Point2D(140, 150), new Point2D(150, 250));
-            var segment1Item = new GraphicItem(segment1, solidGreenStyle);
-            var segment1NodeItem = new GraphicItem(new NodeRevealer(segment1.Points, 5d), handleStyle);
-
-            var segmentIntersection = segment0.Intersection(segment1);
-            var segmentIntersectionNodes = new NodeRevealer(segmentIntersection.Points, 5d);
-            var segmentIntersectionNodesItem = new GraphicItem(segmentIntersectionNodes, handleStyle);
-
-            vectorMap.Add(segment0Item);
-            vectorMap.Add(segment1Item);
-            vectorMap.Add(segment0NodeItem);
-            vectorMap.Add(segment1NodeItem);
-            vectorMap.Add(segmentIntersectionNodesItem);
-
-            var point = new ScreenPoint(150, 130);
-            var pointItem = new GraphicItem(point, solidGreenStyle)
+            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
             {
-                Name = "Point Item."
-            };
-            var pointNodeItem = new GraphicItem(new NodeRevealer(point.Point, 5d), handleStyle);
-            var dist1 = Measurements.DistanceLinePoint(segment1.AX, segment1.AY, segment1.BX, segment1.BY, point.Point.X, point.Point.Y);
-            var dist2 = Measurements.DistanceLineSegmentPoint(segment1.AX, segment1.AY, segment1.BX, segment1.BY, point.Point.X, point.Point.Y);
-            var dist3 = Measurements.ConstrainedDistanceLineSegmentPoint(segment1.AX, segment1.AY, segment1.BX, segment1.BY, point.Point.X, point.Point.Y);
+                var segment0 = new LineSegment(new Point2D(20, 150), new Point2D(180, 200));
+                var segment0Item = new GraphicItem(segment0, solidGreenStyle);
+                var segment0NodeItem = new GraphicItem(new NodeRevealer(segment0.Points, 5d), handleStyle);
 
-            var text = new Text2D(
-                $"{point.ToString()},{Environment.NewLine}Distance to Line: {dist1.ToString()},{Environment.NewLine}Distance to Segment: {dist2.ToString()},{Environment.NewLine}Distance in Range: {dist3?.ToString()}",
-                form.Font.ToRenderFont(),
-                point.Point,
-                metrics
-                );
-            var textItem = new GraphicItem(text, handleStyle)
-            {
-                Name = "Point Text."
-            };
+                var segment1 = new LineSegment(new Point2D(140, 150), new Point2D(150, 250));
+                var segment1Item = new GraphicItem(segment1, solidGreenStyle);
+                var segment1NodeItem = new GraphicItem(new NodeRevealer(segment1.Points, 5d), handleStyle);
 
-            vectorMap.Add(pointItem);
-            vectorMap.Add(pointNodeItem);
-            vectorMap.Add(textItem);
+                var segmentIntersection = segment0.Intersection(segment1);
+                var segmentIntersectionNodes = new NodeRevealer(segmentIntersection.Points, 5d);
+                var segmentIntersectionNodesItem = new GraphicItem(segmentIntersectionNodes, handleStyle);
+
+                vectorMap?.Add(segment0Item);
+                vectorMap?.Add(segment1Item);
+                vectorMap?.Add(segment0NodeItem);
+                vectorMap?.Add(segment1NodeItem);
+                vectorMap?.Add(segmentIntersectionNodesItem);
+
+                var point = new ScreenPoint(150, 130);
+                var pointItem = new GraphicItem(point, solidGreenStyle)
+                {
+                    Name = "Point Item."
+                };
+                var pointNodeItem = new GraphicItem(new NodeRevealer(point.Point, 5d), handleStyle);
+                var dist1 = Measurements.DistanceLinePoint(segment1.AX, segment1.AY, segment1.BX, segment1.BY, point.Point.X, point.Point.Y);
+                var dist2 = Measurements.DistanceLineSegmentPoint(segment1.AX, segment1.AY, segment1.BX, segment1.BY, point.Point.X, point.Point.Y);
+                var dist3 = Measurements.ConstrainedDistanceLineSegmentPoint(segment1.AX, segment1.AY, segment1.BX, segment1.BY, point.Point.X, point.Point.Y);
+
+                var text = new Text2D(
+                    $"{point.ToString(CultureInfo.InvariantCulture)},{Environment.NewLine}Distance to Line: {dist1.ToString(CultureInfo.InvariantCulture)},{Environment.NewLine}Distance to Segment: {dist2.ToString(CultureInfo.InvariantCulture)},{Environment.NewLine}Distance in Range: {dist3?.ToString(CultureInfo.InvariantCulture)}",
+                    form.Font.ToRenderFont(),
+                    point.Point,
+                    metrics
+                    );
+                var textItem = new GraphicItem(text, handleStyle)
+                {
+                    Name = "Point Text."
+                };
+
+                vectorMap?.Add(pointItem);
+                vectorMap?.Add(pointNodeItem);
+                vectorMap?.Add(textItem);
+            }
         }
 
         /// <summary>
@@ -4765,7 +4860,7 @@ namespace Editor
             var ellipseTweenItem = new GraphicItem(ellipseTween, solidLightBlueStyle);
 
             var parametricPointTesterSegment = new ParametricPointTester(
-                (px, py) => Intersections.PointLineSegmentIntersects(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, px, py, Epsilon) ? Inclusion.Boundary : Inclusion.Outside,
+                (px, py) => Intersections.PointLineSegmentIntersects(segment.A.X, segment.A.Y, segment.B.X, segment.B.Y, px, py, Epsilon) ? Inclusions.Boundary : Inclusions.Outside,
                 segment.Bounds.X - 5, segment.Bounds.Y - 5, segment.Bounds.Right + 10, segment.Bounds.Bottom + 10, 5, 5);
             var parametricPointTesterSegmentItem = new GraphicItem(parametricPointTesterSegment, paperLikeStyle);
 
@@ -4781,14 +4876,14 @@ namespace Editor
             var intersection2Nodes = new NodeRevealer(intersections2.Points, 5d);
             var intersection2NodesItem = new GraphicItem(intersection2Nodes, solidPurpleStyle);
 
-            vectorMap.Add(segmentItem);
-            vectorMap.Add(quadraticBezierItem);
-            vectorMap.Add(cubicBezier2Item);
-            vectorMap.Add(quadraticBezierNodeItem);
-            vectorMap.Add(ellipseLineIntersectionNodesItem);
-            vectorMap.Add(intersection3NodesItem);
-            vectorMap.Add(intersection2NodesItem);
-            vectorMap.Add(parametricPointTesterSegmentItem);
+            vectorMap?.Add(segmentItem);
+            vectorMap?.Add(quadraticBezierItem);
+            vectorMap?.Add(cubicBezier2Item);
+            vectorMap?.Add(quadraticBezierNodeItem);
+            vectorMap?.Add(ellipseLineIntersectionNodesItem);
+            vectorMap?.Add(intersection3NodesItem);
+            vectorMap?.Add(intersection2NodesItem);
+            vectorMap?.Add(parametricPointTesterSegmentItem);
         }
 
         /// <summary>
@@ -5061,54 +5156,54 @@ namespace Editor
                 Name = "Arc 45° to -90° Bounding Box."
             };
 
-            vectorMap.Add(arc_0_30BoundsItem);
-            vectorMap.Add(arc_0_45BoundsItem);
-            vectorMap.Add(arc_0_60BoundsItem);
-            vectorMap.Add(arc_0_90BoundsItem);
-            vectorMap.Add(arc_0_120BoundsItem);
-            vectorMap.Add(arc_0_180BoundsItem);
-            vectorMap.Add(arc_0_210BoundsItem);
-            vectorMap.Add(arc_0_270BoundsItem);
-            vectorMap.Add(arc_0_315BoundsItem);
-            vectorMap.Add(arc_0_360BoundsItem);
-            vectorMap.Add(arc_0_n30BoundsItem);
-            vectorMap.Add(arc_0_n45BoundsItem);
-            vectorMap.Add(arc_0_n60BoundsItem);
-            vectorMap.Add(arc_0_n90BoundsItem);
-            vectorMap.Add(arc_0_n120BoundsItem);
-            vectorMap.Add(arc_0_n180BoundsItem);
-            vectorMap.Add(arc_0_n210BoundsItem);
-            vectorMap.Add(arc_0_n270BoundsItem);
-            vectorMap.Add(arc_0_n315BoundsItem);
-            vectorMap.Add(arc_0_n360BoundsItem);
-            vectorMap.Add(arc_45_90BoundsItem);
-            vectorMap.Add(arc_n45_90BoundsItem);
-            vectorMap.Add(arc_n45_n90BoundsItem);
-            vectorMap.Add(arc_225_n90BoundsItem);
-            vectorMap.Add(arc_0_30Item);
-            vectorMap.Add(arc_0_45Item);
-            vectorMap.Add(arc_0_60Item);
-            vectorMap.Add(arc_0_90Item);
-            vectorMap.Add(arc_0_120Item);
-            vectorMap.Add(arc_0_180Item);
-            vectorMap.Add(arc_0_210Item);
-            vectorMap.Add(arc_0_270Item);
-            vectorMap.Add(arc_0_315Item);
-            vectorMap.Add(arc_0_360Item);
-            vectorMap.Add(arc_0_n30Item);
-            vectorMap.Add(arc_0_n45Item);
-            vectorMap.Add(arc_0_n60Item);
-            vectorMap.Add(arc_0_n90Item);
-            vectorMap.Add(arc_0_n120Item);
-            vectorMap.Add(arc_0_n180Item);
-            vectorMap.Add(arc_0_n210Item);
-            vectorMap.Add(arc_0_n270Item);
-            vectorMap.Add(arc_0_n315Item);
-            vectorMap.Add(arc_0_n360Item);
-            vectorMap.Add(arc_45_90Item);
-            vectorMap.Add(arc_n45_90Item);
-            vectorMap.Add(arc_n45_n90Item);
-            vectorMap.Add(arc_225_n90Item);
+            vectorMap?.Add(arc_0_30BoundsItem);
+            vectorMap?.Add(arc_0_45BoundsItem);
+            vectorMap?.Add(arc_0_60BoundsItem);
+            vectorMap?.Add(arc_0_90BoundsItem);
+            vectorMap?.Add(arc_0_120BoundsItem);
+            vectorMap?.Add(arc_0_180BoundsItem);
+            vectorMap?.Add(arc_0_210BoundsItem);
+            vectorMap?.Add(arc_0_270BoundsItem);
+            vectorMap?.Add(arc_0_315BoundsItem);
+            vectorMap?.Add(arc_0_360BoundsItem);
+            vectorMap?.Add(arc_0_n30BoundsItem);
+            vectorMap?.Add(arc_0_n45BoundsItem);
+            vectorMap?.Add(arc_0_n60BoundsItem);
+            vectorMap?.Add(arc_0_n90BoundsItem);
+            vectorMap?.Add(arc_0_n120BoundsItem);
+            vectorMap?.Add(arc_0_n180BoundsItem);
+            vectorMap?.Add(arc_0_n210BoundsItem);
+            vectorMap?.Add(arc_0_n270BoundsItem);
+            vectorMap?.Add(arc_0_n315BoundsItem);
+            vectorMap?.Add(arc_0_n360BoundsItem);
+            vectorMap?.Add(arc_45_90BoundsItem);
+            vectorMap?.Add(arc_n45_90BoundsItem);
+            vectorMap?.Add(arc_n45_n90BoundsItem);
+            vectorMap?.Add(arc_225_n90BoundsItem);
+            vectorMap?.Add(arc_0_30Item);
+            vectorMap?.Add(arc_0_45Item);
+            vectorMap?.Add(arc_0_60Item);
+            vectorMap?.Add(arc_0_90Item);
+            vectorMap?.Add(arc_0_120Item);
+            vectorMap?.Add(arc_0_180Item);
+            vectorMap?.Add(arc_0_210Item);
+            vectorMap?.Add(arc_0_270Item);
+            vectorMap?.Add(arc_0_315Item);
+            vectorMap?.Add(arc_0_360Item);
+            vectorMap?.Add(arc_0_n30Item);
+            vectorMap?.Add(arc_0_n45Item);
+            vectorMap?.Add(arc_0_n60Item);
+            vectorMap?.Add(arc_0_n90Item);
+            vectorMap?.Add(arc_0_n120Item);
+            vectorMap?.Add(arc_0_n180Item);
+            vectorMap?.Add(arc_0_n210Item);
+            vectorMap?.Add(arc_0_n270Item);
+            vectorMap?.Add(arc_0_n315Item);
+            vectorMap?.Add(arc_0_n360Item);
+            vectorMap?.Add(arc_45_90Item);
+            vectorMap?.Add(arc_n45_90Item);
+            vectorMap?.Add(arc_n45_n90Item);
+            vectorMap?.Add(arc_225_n90Item);
         }
 
         /// <summary>
@@ -5119,8 +5214,8 @@ namespace Editor
         {
             var ellipseItem = new GraphicItem(Examples.Ellipse, solidPurpleStyle);
             var ellipseBoundsItem = new GraphicItem(Examples.Ellipse.Bounds, selectionStyle);
-            vectorMap.Add(ellipseBoundsItem);
-            vectorMap.Add(ellipseItem);
+            vectorMap?.Add(ellipseBoundsItem);
+            vectorMap?.Add(ellipseItem);
         }
 
         /// <summary>
@@ -5131,8 +5226,8 @@ namespace Editor
         {
             var ellpticArcItem = new GraphicItem(Examples.EllpticArc, paperLikeStyle);
             var ellpticArcBoundsItem = new GraphicItem(Examples.EllpticArc.Bounds, selectionStyle);
-            vectorMap.Add(ellpticArcBoundsItem);
-            vectorMap.Add(ellpticArcItem);
+            vectorMap?.Add(ellpticArcBoundsItem);
+            vectorMap?.Add(ellpticArcItem);
         }
         #endregion Regression Tests
 
@@ -5148,7 +5243,7 @@ namespace Editor
             {
                 Name = "Triangle pointing right."
             };
-            vectorMap.Add(triangleItem);
+            vectorMap?.Add(triangleItem);
         }
 
         /// <summary>
@@ -5162,7 +5257,7 @@ namespace Editor
             {
                 Name = "Paper Plane Triangle."
             };
-            vectorMap.Add(paperPlaneItem);
+            vectorMap?.Add(paperPlaneItem);
         }
 
         /// <summary>
@@ -5176,7 +5271,7 @@ namespace Editor
             {
                 Name = "Circle."
             };
-            vectorMap.Add(circleItem);
+            vectorMap?.Add(circleItem);
         }
 
         /// <summary>
@@ -5188,8 +5283,8 @@ namespace Editor
             var circleB = new Circle(100, 200, 50);
             var circleBItem = new GraphicItem(circleB, paperLikeStyle);
             var circleBoundsItem = new GraphicItem(circleB.Bounds, selectionStyle);
-            vectorMap.Add(circleBoundsItem);
-            vectorMap.Add(circleBItem);
+            vectorMap?.Add(circleBoundsItem);
+            vectorMap?.Add(circleBItem);
         }
 
         /// <summary>
@@ -5203,7 +5298,7 @@ namespace Editor
             {
                 Name = "Square."
             };
-            vectorMap.Add(squareItem);
+            vectorMap?.Add(squareItem);
         }
 
         ///// <summary>
@@ -5217,7 +5312,7 @@ namespace Editor
         //    {
         //        Name = "Vertical Oval."
         //    };
-        //    vectorMap.Add(ovalVerticalItem);
+        //    vectorMap?.Add(ovalVerticalItem);
         //}
 
         /// <summary>
@@ -5228,25 +5323,28 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void QuadraticLength(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            var quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
-            var quadBezierItem = new GraphicItem(quadBezier, solidLightGreenStyle);
-            var quadBezierBoundsIthem = new GraphicItem(quadBezier.Bounds, selectionStyle);
+            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
+            {
+                var quadBezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
+                var quadBezierItem = new GraphicItem(quadBezier, solidLightGreenStyle);
+                var quadBezierBoundsIthem = new GraphicItem(quadBezier.Bounds, selectionStyle);
 
-            var text = new Text2D(
-                $"Quadratic Bézier arc length by segments: \t{quadBezier.Length}\r\n" /* +
+                var text = new Text2D(
+                    $"Quadratic Bézier arc length by segments: \t{quadBezier.Length}\r\n" /* +
                 $"Bézier arc length by integral: \t{quadBezier.Length}\r\n" +
                 $"Bézier arc length by Gauss-Legendre \t{quadBezier.Length}" */,
-                form.Font.ToRenderFont(),
-                new Point2D(100, 150),
-                metrics);
-            var textItem = new GraphicItem(text, whiteishStyle)
-            {
-                Name = "Text"
-            };
+                    form.Font.ToRenderFont(),
+                    new Point2D(100, 150),
+                    metrics);
+                var textItem = new GraphicItem(text, whiteishStyle)
+                {
+                    Name = "Text"
+                };
 
-            vectorMap.Add(quadBezierBoundsIthem);
-            vectorMap.Add(quadBezierItem);
-            vectorMap.Add(textItem);
+                vectorMap?.Add(quadBezierBoundsIthem);
+                vectorMap?.Add(quadBezierItem);
+                vectorMap?.Add(textItem);
+            }
         }
 
         /// <summary>
@@ -5257,23 +5355,26 @@ namespace Editor
         /// <param name="metrics">Platform specific text metrics helper class for capturing device text properties.</param>
         public static void CubicBezierLength(VectorMap vectorMap, EditorForm form, IPlatformTextMetrics metrics)
         {
-            var cubeBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
-            var cubeBezierItem = new GraphicItem(cubeBezier, whiteishStyle);
-            var cubeBezierBoundsItem = new GraphicItem(cubeBezier.Bounds, selectionStyle);
-
-            var text = new Text2D(
-                $"Cubic Bézier arc length: \t{cubeBezier.Length}",
-                form.Font.ToRenderFont(),
-                new Point2D(100, 200),
-                metrics);
-            var textItem = new GraphicItem(text, whiteishStyle)
+            if (!(vectorMap is null) && !(form is null) && !(metrics is null))
             {
-                Name = "Text"
-            };
+                var cubeBezier = new CubicBezier(new Point2D(40, 200), new Point2D(50, 300), new Point2D(90, 200), new Point2D(80, 300));
+                var cubeBezierItem = new GraphicItem(cubeBezier, whiteishStyle);
+                var cubeBezierBoundsItem = new GraphicItem(cubeBezier.Bounds, selectionStyle);
 
-            vectorMap.Add(cubeBezierBoundsItem);
-            vectorMap.Add(cubeBezierItem);
-            vectorMap.Add(textItem);
+                var text = new Text2D(
+                    $"Cubic Bézier arc length: \t{cubeBezier.Length}",
+                    form.Font.ToRenderFont(),
+                    new Point2D(100, 200),
+                    metrics);
+                var textItem = new GraphicItem(text, whiteishStyle)
+                {
+                    Name = "Text"
+                };
+
+                vectorMap?.Add(cubeBezierBoundsItem);
+                vectorMap?.Add(cubeBezierItem);
+                vectorMap?.Add(textItem);
+            }
         }
         #endregion Regular Stuff
     }

@@ -118,7 +118,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <returns>The <see cref="bool"/>.</returns>
         public bool EdgesAdjacentInSEL()
-            => (EdgeA.NextInSEL == EdgeB) || (EdgeA.PrevInSEL == EdgeB);
+            => (EdgeA.nextInSEL == EdgeB) || (EdgeA.prevInSEL == EdgeB);
 
         /// <summary>
         /// Returns the hash code for this instance.

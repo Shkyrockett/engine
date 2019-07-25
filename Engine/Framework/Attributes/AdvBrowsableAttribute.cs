@@ -35,7 +35,7 @@ namespace Engine
         /// <param name="name">The name.</param>
         public AdvBrowsableAttribute(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         /// <summary>

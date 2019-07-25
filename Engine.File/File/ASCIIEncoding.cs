@@ -53,7 +53,7 @@ namespace Engine.File
         /// Get the bytes.
         /// </summary>
         /// <param name="chars">The chars.</param>
-        /// <returns>The <see cref="T:byte[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public override byte[] GetBytes(char[] chars)
             => base.GetBytes(chars);
 

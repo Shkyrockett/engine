@@ -11,15 +11,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Numerics;
-using System.Text;
 using System.Diagnostics;
 using System.Globalization;
-using static System.Math;
+using System.Linq;
+using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Text;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -830,7 +830,7 @@ namespace Engine
         /// <summary>
         /// The solve real roots.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerable{double}"/>.</returns>
+        /// <returns>The <see cref="IEnumerable{T}"/>.</returns>
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
@@ -842,7 +842,7 @@ namespace Engine
         /// The solve real roots.
         /// </summary>
         /// <param name="coefficients">The coefficients.</param>
-        /// <returns>The <see cref="T:IEnumerable{double}"/>.</returns>
+        /// <returns>The <see cref="IEnumerable{T}"/>.</returns>
         /// <remarks>
         /// https://github.com/superlloyd/Poly
         /// </remarks>
@@ -996,7 +996,7 @@ namespace Engine
             var p = Normalize();
             if (p.Coefficients.Count == 1)
             {
-                return new Complex[0];
+                return Array.Empty<Complex>();
             }
 
             Complex x0 = 1;
@@ -1062,7 +1062,7 @@ namespace Engine
         /// </summary>
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public List<double> RootsInInterval(double min, double max)
         {
             var roots = new List<double>();

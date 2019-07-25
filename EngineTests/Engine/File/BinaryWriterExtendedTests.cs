@@ -37,6 +37,7 @@ namespace EngineTests
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
+            _ = context;
             //MessageBox.Show("ClassInit " + context.TestName);
         }
 
@@ -83,7 +84,7 @@ namespace EngineTests
                 0x3E8, 0x2710 };
 
             using var stream = new MemoryStream();
-            var writer = new BinaryWriterExtended(stream);
+            using var writer = new BinaryWriterExtended(stream);
             foreach (var value in intValues)
             {
                 writer.WriteNetworkUInt14(value);
@@ -91,7 +92,7 @@ namespace EngineTests
 
             stream.Position = 0;
 
-            var reader = new BinaryReaderExtended(stream);
+            using var reader = new BinaryReaderExtended(stream);
             foreach (var value in intValues)
             {
                 Assert.AreEqual(value, reader.ReadNetworkUInt14());
@@ -113,7 +114,7 @@ namespace EngineTests
                 0x3E8, 0x2710 };
 
             using var stream = new MemoryStream();
-            var writer = new BinaryWriterExtended(stream);
+            using var writer = new BinaryWriterExtended(stream);
             foreach (var value in intValues)
             {
                 writer.WriteNetworkInt14(value);
@@ -121,7 +122,7 @@ namespace EngineTests
 
             stream.Position = 0;
 
-            var reader = new BinaryReaderExtended(stream);
+            using var reader = new BinaryReaderExtended(stream);
             foreach (var value in intValues)
             {
                 Assert.AreEqual(value, reader.ReadNetworkInt14());
@@ -143,7 +144,7 @@ namespace EngineTests
                 0x3E8, 0x2710, 0x186A0, -0xF4240 };
 
             using var stream = new MemoryStream();
-            var writer = new BinaryWriterExtended(stream);
+            using var writer = new BinaryWriterExtended(stream);
             foreach (var value in intValues)
             {
                 writer.Write7BitEncodedInt(value);
@@ -151,7 +152,7 @@ namespace EngineTests
 
             stream.Position = 0;
 
-            var reader = new BinaryReaderExtended(stream);
+            using var reader = new BinaryReaderExtended(stream);
             foreach (var value in intValues)
             {
                 Assert.AreEqual(value, reader.Read7BitEncodedInt());

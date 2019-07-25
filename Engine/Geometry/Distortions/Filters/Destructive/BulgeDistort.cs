@@ -25,7 +25,8 @@ namespace Engine
         /// </summary>
         /// <param name="center">The center.</param>
         /// <param name="strength">The strength.</param>
-        public BulgeDistort(Point2D center, double strength = 0.5)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public BulgeDistort(Point2D center, double strength = 0.5d)
         {
             Center = center;
             Strength = strength;

@@ -10,6 +10,9 @@
 
 namespace Engine.WindowsForms
 {
+    /// <summary>
+    /// 
+    /// </summary>
     partial class TreeViewToolStripItem
     {
         /// <summary> 
@@ -27,6 +30,8 @@ namespace Engine.WindowsForms
             {
                 components.Dispose();
             }
+
+            tree.Dispose();
 
             base.Dispose(disposing);
         }

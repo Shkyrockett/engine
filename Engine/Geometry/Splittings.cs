@@ -72,7 +72,7 @@ namespace Engine
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:Ray[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Ray[] Split(this Line line, double t)
@@ -83,7 +83,7 @@ namespace Engine
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:Shape[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Shape[] Split(this Line line, params double[] ts)
@@ -120,7 +120,7 @@ namespace Engine
         /// </summary>
         /// <param name="line">The line.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:Shape[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Shape[] Split(this Line line, IEnumerable<double> ts)
@@ -133,7 +133,7 @@ namespace Engine
         /// </summary>
         /// <param name="ray">The ray.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:Shape[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Shape[] Split(this Ray ray, double t)
@@ -144,7 +144,7 @@ namespace Engine
         /// </summary>
         /// <param name="ray">The ray.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:Shape[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Shape[] Split(this Ray ray, params double[] ts)
@@ -179,7 +179,7 @@ namespace Engine
         /// </summary>
         /// <param name="ray">The ray.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:Shape[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Shape[] Split(this Ray ray, IEnumerable<double> ts)
@@ -192,7 +192,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The segment.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:LineSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -214,7 +214,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The segment.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:LineSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment[] Split(this LineSegment segment, params double[] ts)
@@ -249,7 +249,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The segment.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:LineSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LineSegment[] Split(this LineSegment segment, IEnumerable<double> ts)
@@ -281,7 +281,7 @@ namespace Engine
         /// </summary>
         /// <param name="circle">The circle.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:CircularArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc[] Split(this Circle circle, params double[] ts)
@@ -319,7 +319,7 @@ namespace Engine
         /// </summary>
         /// <param name="circle">The circle.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:CircularArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc[] Split(this Circle circle, IEnumerable<double> ts)
@@ -332,7 +332,7 @@ namespace Engine
         /// </summary>
         /// <param name="arc">The arc.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:CircularArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -354,7 +354,7 @@ namespace Engine
         /// </summary>
         /// <param name="arc">The arc.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:CircularArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc[] Split(this CircularArc arc, params double[] ts)
@@ -391,7 +391,7 @@ namespace Engine
         /// </summary>
         /// <param name="arc">The arc.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:CircularArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CircularArc[] Split(this CircularArc arc, IEnumerable<double> ts)
@@ -423,7 +423,7 @@ namespace Engine
         /// </summary>
         /// <param name="ellipse">The ellipse.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:EllipticalArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EllipticalArc[] Split(this Ellipse ellipse, params double[] ts)
@@ -461,7 +461,7 @@ namespace Engine
         /// </summary>
         /// <param name="ellipse">The ellipse.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:EllipticalArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EllipticalArc[] Split(this Ellipse ellipse, IEnumerable<double> ts)
@@ -474,7 +474,7 @@ namespace Engine
         /// </summary>
         /// <param name="arc">The arc.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:EllipticalArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -496,7 +496,7 @@ namespace Engine
         /// </summary>
         /// <param name="arc">The arc.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:EllipticalArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EllipticalArc[] Split(this EllipticalArc arc, params double[] ts)
@@ -533,7 +533,7 @@ namespace Engine
         /// </summary>
         /// <param name="arc">The arc.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:EllipticalArc[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static EllipticalArc[] Split(this EllipticalArc arc, IEnumerable<double> ts)
@@ -546,7 +546,7 @@ namespace Engine
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] Split(this QuadraticBezier bezier, double t)
@@ -557,7 +557,7 @@ namespace Engine
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] Split(this QuadraticBezier bezier, params double[] ts)
@@ -594,7 +594,7 @@ namespace Engine
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] Split(this QuadraticBezier bezier, IEnumerable<double> ts)
@@ -607,7 +607,7 @@ namespace Engine
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] Split(this CubicBezier bezier, double t)
@@ -618,7 +618,7 @@ namespace Engine
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] Split(this CubicBezier bezier, params double[] ts)
@@ -656,7 +656,7 @@ namespace Engine
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] Split(this CubicBezier bezier, IEnumerable<double> ts)
@@ -669,7 +669,7 @@ namespace Engine
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] Split(this BezierSegment bezier, double t)
@@ -680,7 +680,7 @@ namespace Engine
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] Split(this BezierSegment bezier, params double[] ts)
@@ -716,7 +716,7 @@ namespace Engine
         /// </summary>
         /// <param name="bezier">The Bézier.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] Split(this BezierSegment bezier, IEnumerable<double> ts)
@@ -727,7 +727,7 @@ namespace Engine
         /// </summary>
         /// <param name="points">The Bézier.</param>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BezierSegment[] SplitBezier(IEnumerable<Point2D> points, params double[] ts)
@@ -766,7 +766,7 @@ namespace Engine
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/#decasteljau

@@ -43,7 +43,7 @@ namespace Engine
         /// <param name="maxY">The maxY.</param>
         /// <param name="stepX">The stepX.</param>
         /// <param name="stepY">The stepY.</param>
-        public ParametricPointTester(Func<double, double, Inclusion> intersector, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
+        public ParametricPointTester(Func<double, double, Inclusions> intersector, double minX, double minY, double maxX, double maxY, double stepX, double stepY)
         {
             Intersector = intersector;
             MinX = minX;
@@ -66,7 +66,7 @@ namespace Engine
         /// <param name="maxY">The maxY.</param>
         /// <param name="stepX">The stepX.</param>
         /// <param name="stepY">The stepY.</param>
-        public void Deconstruct(out Func<double, double, Inclusion> intersector, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
+        public void Deconstruct(out Func<double, double, Inclusions> intersector, out double minX, out double minY, out double maxX, out double maxY, out double stepX, out double stepY)
         {
             intersector = Intersector;
             minX = MinX;
@@ -84,7 +84,7 @@ namespace Engine
         /// </summary>
         [Browsable(true)]
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public Func<double, double, Inclusion> Intersector { get; set; }
+        public Func<double, double, Inclusions> Intersector { get; set; }
 
         /// <summary>
         /// Gets or sets the min x.
@@ -143,7 +143,7 @@ namespace Engine
         /// <summary>
         /// The grid.
         /// </summary>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public List<Point2D> Grid()
             => Grid(MinX, MinY, MaxX, MaxY, StepX, StepY);
 
@@ -156,7 +156,7 @@ namespace Engine
         /// <param name="maxY">The maxY.</param>
         /// <param name="stepX">The stepX.</param>
         /// <param name="stepY">The stepY.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> Grid(double minX, double minY, double maxX, double maxY, double stepX, double stepY)
         {
             var width = stepX == 0 ? (maxX - minX) : (maxX - minX) / stepX;
@@ -181,13 +181,13 @@ namespace Engine
                 var value = Intersector.Invoke(point.X, point.Y);
                 switch (value)
                 {
-                    case Inclusion.Outside:
+                    case Inclusions.Outside:
                         outside.Add(point);
                         break;
-                    case Inclusion.Inside:
+                    case Inclusions.Inside:
                         inside.Add(point);
                         break;
-                    case Inclusion.Boundary:
+                    case Inclusions.Boundary:
                         boundary.Add(point);
                         break;
                 }

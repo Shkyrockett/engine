@@ -465,8 +465,8 @@ namespace Engine
         /// The contains.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        public Inclusion Contains(Point2D point)
+        /// <returns>The <see cref="Inclusions"/>.</returns>
+        public Inclusions Contains(Point2D point)
             => Intersections.Contains(ToEllipticalArc(), point);
 
         /// <summary>

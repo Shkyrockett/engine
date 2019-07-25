@@ -569,6 +569,146 @@ namespace Engine.Colorspace
             && Between(v, YUVMinV, YUVMaxV);
         #endregion Validation
 
+        #region Clamp Methods
+        /// <summary>
+        /// Clamp a red green blue color to max and min.
+        /// </summary>
+        /// <param name="r">The r.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte r, byte g, byte b, byte a) ClampRGBA(byte r, byte g, byte b, byte a)
+            => (
+            Operations.Clamp(a, RGBMin, RGBMax),
+            Operations.Clamp(r, RGBMin, RGBMax),
+            Operations.Clamp(g, RGBMin, RGBMax),
+            Operations.Clamp(b, RGBMin, RGBMax)
+            );
+
+        /// <summary>
+        /// Clamps an RGBA Float to max and min.
+        /// </summary>
+        /// <param name="r">The r.</param>
+        /// <param name="g">The g.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double r, double g, double b, double a) ClampRGBAF(double r, double g, double b, double a)
+            => (
+            Operations.Clamp(a, PercentMin, PercentMax),
+            Operations.Clamp(r, PercentMin, PercentMax),
+            Operations.Clamp(g, PercentMin, PercentMax),
+            Operations.Clamp(b, PercentMin, PercentMax)
+            );
+
+        /// <summary>
+        /// Clamps a cyan yellow magenta black color to max and min.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <param name="y">The y.</param>
+        /// <param name="m">The m.</param>
+        /// <param name="k">The k.</param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (byte c, byte y, byte m, byte k, byte a) ClampCMYKA(byte c, byte y, byte m, byte k, byte a)
+            => (
+            Operations.Clamp(a, CMYKMin, CMYKMax),
+            Operations.Clamp(c, CMYKMin, CMYKMax),
+            Operations.Clamp(y, CMYKMin, CMYKMax),
+            Operations.Clamp(m, CMYKMin, CMYKMax),
+            Operations.Clamp(k, CMYKMin, CMYKMax)
+            );
+
+        /// <summary>
+        /// Clamp a hue saturation intensity color to max and min.
+        /// </summary>
+        /// <param name="h">The h.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double h, double s, double i, double a) ClampHSIA(double h, double s, double i, double a)
+            => (
+            Operations.Clamp(a, PercentMin, PercentMax),
+            Operations.Clamp(h, HueMin, HueMax),
+            Operations.Clamp(s, PercentMin, PercentMax),
+            Operations.Clamp(i, PercentMin, PercentMax)
+            );
+
+        /// <summary>
+        /// Clamp a hue saturation luminance color to max and min.
+        /// </summary>
+        /// <param name="h">The h.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="l">The l.</param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double h, double s, double l, double a) ClampHSLA(double h, double s, double l, double a)
+            => (
+            Operations.Clamp(a, PercentMin, PercentMax),
+            Operations.Clamp(h, HueMin, HueMax),
+            Operations.Clamp(s, PercentMin, PercentMax),
+            Operations.Clamp(l, PercentMin, PercentMax)
+            );
+
+        /// <summary>
+        /// Clamp a hue saturation value color to min and max.
+        /// </summary>
+        /// <param name="h">The h.</param>
+        /// <param name="s">The s.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double h, double s, double v, double a) ClampHSVA(double h, double s, double v, double a)
+            => (
+            Operations.Clamp(a, PercentMin, PercentMax),
+            Operations.Clamp(h, HueMin, HueMax),
+            Operations.Clamp(s, PercentMin, PercentMax),
+            Operations.Clamp(v, PercentMin, PercentMax)
+            );
+
+        /// <summary>
+        /// Clamp a yiq color to max and min.
+        /// </summary>
+        /// <param name="y">The y.</param>
+        /// <param name="i">The i.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double y, double i, double q, double a) ClampYIQA(double y, double i, double q, double a)
+            => (
+            Operations.Clamp(a, PercentMin, PercentMax),
+            Operations.Clamp(y, PercentMin, PercentMax),
+            Operations.Clamp(i, YIQMinI, YIQMaxI),
+            Operations.Clamp(q, YIQMinQ, YIQMaxQ)
+            );
+
+        /// <summary>
+        /// Clamp a yuv color is valid.
+        /// </summary>
+        /// <param name="y">The y.</param>
+        /// <param name="u">The u.</param>
+        /// <param name="v">The v.</param>
+        /// <param name="a"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double y, double u, double v, double a) ClampYUVA(double y, double u, double v, double a)
+            => (
+            Operations.Clamp(a, PercentMin, PercentMax),
+            Operations.Clamp(y, PercentMin, PercentMax),
+            Operations.Clamp(u, YUVMinU, YUVMaxU),
+            Operations.Clamp(v, YUVMinV, YUVMaxV)
+            );
+        #endregion
+
         #region Conversion Methods
         /// <summary>
         /// Converts a byte red green blue alpha color to the double floating point form.
@@ -582,11 +722,7 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) RGBAColorToRGBAFColor(byte red, byte green, byte blue, byte alpha)
         {
-            if (!ValidateRGBA(red, green, blue, alpha))
-            {
-                throw new ArgumentOutOfRangeException("A parameter is out of range.");
-            }
-
+            (red, green, blue, alpha) = ClampRGBA(red, green, blue, alpha);
             var d = 1d / RGBMax;
             return (
                 red: red * d,
@@ -620,11 +756,7 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (byte red, byte green, byte blue, byte alpha) RGBAFColorToRGBAColor(double red, double green, double blue, double alpha)
         {
-            if (!ValidateRGBAF(red, green, blue, alpha))
-            {
-                throw new ArgumentOutOfRangeException("A parameter is out of range.");
-            }
-
+            (red, green, blue, alpha) = ClampRGBAF(red, green, blue, alpha);
             var d = RGBMax + 0.5d;
             return (
                 red: (byte)(red * d),
@@ -643,11 +775,7 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (byte red, byte green, byte blue, byte alpha) RGBAFColorToRGBAColor((double red, double green, double blue, double alpha) tuple)
         {
-            if (!ValidateRGBAF(tuple.red, tuple.green, tuple.blue, tuple.alpha))
-            {
-                throw new ArgumentOutOfRangeException(nameof(tuple), "A parameter is out of range.");
-            }
-
+            tuple = ClampRGBAF(tuple.red, tuple.green, tuple.blue, tuple.alpha);
             var d = RGBMax + 0.5d;
             return (
                 red: (byte)(tuple.red * d),
@@ -760,7 +888,6 @@ namespace Engine.Colorspace
         /// <param name="blue"></param>
         /// <param name="alpha"></param>
         /// <returns></returns>
-
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
         /// The algorithms for these routines were taken from: http://web.archive.org/web/20030416004239/http://www.neuro.sfc.keio.ac.jp/~aly/polygon/info/color-space-faq.html
@@ -845,11 +972,7 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor(double hue, double saturation, double intensity, double alpha)
         {
-            if (!ValidateHSIA(hue, saturation, intensity, alpha))
-            {
-                throw new ArgumentOutOfRangeException("A parameter is out of range.");
-            }
-
+            (hue, saturation, intensity, alpha) = ClampHSIA(hue, saturation, intensity, alpha);
             var x = intensity * (1d - saturation);
             if (hue < 2d * PI / 3d)
             {
@@ -1391,21 +1514,15 @@ namespace Engine.Colorspace
             var t = Convert.ToByte(value * (1d - ((1d - f) * saturation)));
             var a = Convert.ToByte(((1d - alpha) * 255d) + 0.5d);
 
-            switch (hi)
+            return hi switch
             {
-                case 0:
-                    return (v, t, p, a);
-                case 1:
-                    return (q, v, p, a);
-                case 2:
-                    return (p, v, t, a);
-                case 3:
-                    return (p, q, v, a);
-                case 4:
-                    return (t, p, v, a);
-                default:
-                    return (v, p, q, a);
-            }
+                0 => (v, t, p, a),
+                1 => (q, v, p, a),
+                2 => (p, v, t, a),
+                3 => (p, q, v, a),
+                4 => (t, p, v, a),
+                _ => (v, p, q, a),
+            };
         }
 
         /// <summary>
@@ -1506,11 +1623,7 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) YIQAColorToRGBAFColor(double y, double i, double q, double alpha)
         {
-            if (!ValidateYIQA(y, i, q, alpha))
-            {
-                throw new ArgumentOutOfRangeException("A parameter is out of range.");
-            }
-
+            (y, i, q, alpha) = ClampYIQA(y, i, q, alpha);
             return (
                 red: y + (0.9563d * i) + (0.6210d * q),
                 green: y - (0.2721d * i) - (0.6474d * q),
@@ -1530,11 +1643,7 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) YUVAColorToRGBAFColor(double y, double u, double v, double alpha)
         {
-            if (!ValidateYUVA(y, u, v, alpha))
-            {
-                throw new ArgumentOutOfRangeException("A parameter is out of range.");
-            }
-
+            (y, u, v, alpha) = ClampYUVA(y, u, v, alpha);
             return (
                 red: y + (1.140d * v),
                 green: y - (0.395d * u) - (0.581d * v),
@@ -1908,11 +2017,7 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double y, double i, double q, double alpha) RGBAFColorToYIQAColor(double red, double green, double blue, double alpha)
         {
-            if (!ValidateRGBAF(red, green, blue, alpha))
-            {
-                throw new ArgumentOutOfRangeException("A parameter is out of range.");
-            }
-
+            (red, green, blue, alpha) = ClampRGBAF(red, green, blue, alpha);
             return (
                 y: (0.299900d * red) + (0.587000d * green) + (0.114000d * blue),
                 i: (0.595716d * red) - (0.274453d * green) - (0.321264d * blue),
@@ -1936,11 +2041,7 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double y, double u, double v, double alpha) RGBAFColorToYUVAColor(double red, double green, double blue, double alpha)
         {
-            if (!ValidateRGBAF(red, green, blue, alpha))
-            {
-                throw new ArgumentOutOfRangeException("A parameter is out of range.");
-            }
-
+            (red, green, blue, alpha) = ClampRGBAF(red, green, blue, alpha);
             var y = (0.299d * red) + (0.587d * green) + (0.114d * blue);
             return (
                 y,

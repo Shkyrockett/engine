@@ -389,7 +389,7 @@ namespace Engine
         /// Gets the degree.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public PolynomialDegree Degree
+        public static PolynomialDegree Degree
             => PolynomialDegree.Linear;
 
         /// <summary>
@@ -452,7 +452,7 @@ namespace Engine
         /// <summary>
         /// The to array.
         /// </summary>
-        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public Point2D[] ToArray()
             => new Point2D[] { A, B };
 

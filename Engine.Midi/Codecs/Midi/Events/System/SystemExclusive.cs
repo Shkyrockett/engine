@@ -63,7 +63,7 @@ namespace Engine.File
             var buffer = reader.ReadVariableLengthBytes();
             if (sysExData is null)
             {
-                sysExData = new byte[0];
+                sysExData = Array.Empty<byte>();
             }
 
             if (buffer.Length == 0)

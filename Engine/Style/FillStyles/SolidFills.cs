@@ -6,7 +6,7 @@ namespace Engine
     /// <summary>
     /// 
     /// </summary>
-    public class SolidFills
+    public static class SolidFills
     {
         /// <summary>
         /// Transparent

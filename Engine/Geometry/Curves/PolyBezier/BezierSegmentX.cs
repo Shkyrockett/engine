@@ -46,7 +46,7 @@ namespace Engine
         /// </summary>
         public BezierSegmentX()
         {
-            handles = new Point2D[] { };
+            handles = Array.Empty<Point2D>();
             Previous = this;
         }
 

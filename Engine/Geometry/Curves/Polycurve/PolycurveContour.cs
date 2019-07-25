@@ -285,12 +285,12 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
-            => Intersections.Contains(this, point) != Inclusion.Outside;
+            => Intersections.Contains(this, point) != Inclusions.Outside;
 
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{CurveSegment}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<CurveSegment> GetEnumerator()
             => items.GetEnumerator();
 

@@ -26,7 +26,7 @@ namespace Engine.MathNotation
         /// <summary>
         /// The list of comparison operators to apply to the expressions.
         /// </summary>
-        public List<EquationOperators> Operations { get; set; }
+        public List<EquationOperator> Operations { get; set; }
 
         /// <summary>
         /// The expression the <see cref="Equation"/> should contain.

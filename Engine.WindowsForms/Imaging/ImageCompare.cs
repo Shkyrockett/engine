@@ -36,7 +36,7 @@ namespace Engine.Imaging
         /// <param name="b">The second image</param>
         /// <returns>Returns a bitmap that expresses the difference of the two images.</returns>
         /// <remarks>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp </remarks>
-        public unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
+        public static unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
         {
             if (a is null || b is null)
             {
@@ -114,7 +114,7 @@ namespace Engine.Imaging
         /// <param name="b">The second image</param>
         /// <returns>Returns a bitmap that expresses the difference of the two images.</returns>
         /// <remarks>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp </remarks>
-        public unsafe Bitmap PixelDiff1(Bitmap a, Bitmap b)
+        public static unsafe Bitmap PixelDiff1(Bitmap a, Bitmap b)
         {
             if (a is null || b is null)
             {

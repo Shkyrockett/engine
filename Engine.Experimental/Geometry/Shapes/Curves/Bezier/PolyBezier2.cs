@@ -88,7 +88,7 @@ namespace Engine
         /// The offset.
         /// </summary>
         /// <param name="d">The d.</param>
-        /// <returns>The <see cref="T:List{Bezier}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public List<Bezier> Offset(double d)
         {
             var offset = new List<Bezier>();

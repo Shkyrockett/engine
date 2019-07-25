@@ -36,14 +36,14 @@ namespace Engine.Physics
         /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name
+        public static string Name
             => nameof(Hertz);
 
         /// <summary>
         /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
+        public static string Abreviation
             => "Hz";
 
         /// <param name="value"></param>

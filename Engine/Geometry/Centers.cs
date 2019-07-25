@@ -106,7 +106,7 @@ namespace Engine
         /// <param name="p2Y">The p2Y.</param>
         /// <param name="p3X">The p3X.</param>
         /// <param name="p3Y">The p3Y.</param>
-        /// <returns>The <see cref="T:ValueTuple{T1, T2}"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// http://stackoverflow.com/questions/4103405/what-is-the-algorithm-for-finding-the-center-of-a-circle-from-three-points
         /// </acknowledgment>

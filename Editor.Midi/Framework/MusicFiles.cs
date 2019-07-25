@@ -22,7 +22,7 @@ namespace EventEditorMidi
         /// <summary>
         /// The list file formats.
         /// </summary>
-        /// <returns>The <see cref="T:List{Type}"/>.</returns>
+        /// <returns>The <see cref="List{Type}"/>.</returns>
         public static List<Type> ListFileFormats()
         {
             var shapeType = typeof(IMediaContainer);
@@ -33,7 +33,7 @@ namespace EventEditorMidi
         /// <summary>
         /// The list event formats.
         /// </summary>
-        /// <returns>The <see cref="T:List{Type}"/>.</returns>
+        /// <returns>The <see cref="List{Type}"/>.</returns>
         public static List<Type> ListEventFormats()
         {
             var shapeType = typeof(IMidiEvent);
@@ -46,7 +46,7 @@ namespace EventEditorMidi
         /// </summary>
         /// <param name="assembly">The assembly.</param>
         /// <param name="classType">The classType.</param>
-        /// <returns>The <see cref="T:List{Type}"/>.</returns>
+        /// <returns>The <see cref="List{Type}"/>.</returns>
         public static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
         {
             var typeList = new List<Type>();
@@ -66,7 +66,7 @@ namespace EventEditorMidi
         /// </summary>
         /// <param name="assembly">The assembly.</param>
         /// <param name="classType">The classType.</param>
-        /// <returns>The <see cref="T:List{Type}"/>.</returns>
+        /// <returns>The <see cref="List{Type}"/>.</returns>
         private static List<Type> GetAssemblyInterfaces(Assembly assembly, Type classType)
         {
             var typeList = new List<Type>();

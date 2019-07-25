@@ -170,7 +170,7 @@ namespace Engine.Experimental
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{T}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<T> GetEnumerator()
         {

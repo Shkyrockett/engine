@@ -25,7 +25,7 @@ namespace Engine.File
         /// </summary>
         public MidiHeader()
         {
-            MidiFileFormat = MidiFileTrackFormats.SingleTrack;
+            MidiFileFormat = MidiFileTrackFormat.SingleTrack;
             TrackCount = 0;
             DeltaTime = new DeltaTime();
         }
@@ -44,7 +44,7 @@ namespace Engine.File
         /// <summary>
         /// The format of the Midi file.
         /// </summary>
-        public MidiFileTrackFormats MidiFileFormat { get; set; }
+        public MidiFileTrackFormat MidiFileFormat { get; set; }
 
         /// <summary>
         /// The number of tracks the Midi file contains.
@@ -73,7 +73,7 @@ namespace Engine.File
             var header = new MidiHeader
             {
                 HeaderSize = chunk.Length, //reader.ReadNetworkInt32(),
-                MidiFileFormat = (MidiFileTrackFormats)reader.ReadNetworkInt16(),
+                MidiFileFormat = (MidiFileTrackFormat)reader.ReadNetworkInt16(),
                 TrackCount = (ushort)reader.ReadNetworkInt16(),
                 DeltaTime = DeltaTime.Read(reader)
             };

@@ -273,7 +273,7 @@ namespace Engine
         /// Parse the path def string.
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
-        /// <returns>The <see cref="T:List{PolyBezierContour}"/>.</returns>
+        /// <returns>The <see cref="List{PolyBezierContour}"/>.</returns>
         public static List<PolyBezierContour> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
@@ -282,7 +282,7 @@ namespace Engine
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="T:List{PolyBezierContour}"/>.</returns>
+        /// <returns>The <see cref="List{PolyBezierContour}"/>.</returns>
         public static List<PolyBezierContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             // These letters are valid PolyBezier commands. Split the tokens at these.
@@ -397,7 +397,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{PolyBezierContour}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{PolyBezierContour}"/>.</returns>
         public IEnumerator<PolyBezierContour> GetEnumerator()
             => contours.GetEnumerator();
 

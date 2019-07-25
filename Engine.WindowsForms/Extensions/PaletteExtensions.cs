@@ -59,8 +59,10 @@ namespace Engine.WindowsForms
                 var cell = grid[index].ToRectangleF();
 
                 // Draw the color cell to the canvas
-                canvas.FillRectangle(new SolidBrush(item.ToColor()), cell);
-                canvas.DrawRectangle(new Pen(Color.White), Rectangle.Round(cell));
+                using var brush = new SolidBrush(item.ToColor());
+                canvas.FillRectangle(brush, cell);
+                using var pen = new Pen(Color.White);
+                canvas.DrawRectangle(pen, Rectangle.Round(cell));
 
                 // Iterate to the next index in the palette entry list.
                 index++;
@@ -70,38 +72,44 @@ namespace Engine.WindowsForms
             if (selection1 >= 0 && selection1 <= palette.Colors.Count)
             {
                 var cell = grid[selection1].ToRectangleF();
-                canvas.DrawRectangle(new Pen(Color.Yellow), Rectangle.Round(cell));
+                using var pen = new Pen(Color.Yellow);
+                canvas.DrawRectangle(pen, Rectangle.Round(cell));
             }
 
             if (selection2 >= 0 && selection2 <= palette.Colors.Count)
             {
                 var cell = grid[selection2].ToRectangleF();
-                canvas.DrawRectangle(new Pen(Color.Red), Rectangle.Round(cell));
+                using var pen = new Pen(Color.Red);
+                canvas.DrawRectangle(pen, Rectangle.Round(cell));
             }
 
             if (selection3 >= 0 && selection3 <= palette.Colors.Count)
             {
                 var cell = grid[selection3].ToRectangleF();
-                canvas.DrawRectangle(new Pen(Color.Blue), Rectangle.Round(cell));
+                using var pen = new Pen(Color.Blue);
+                canvas.DrawRectangle(pen, Rectangle.Round(cell));
             }
 
             if (selection4 >= 0 && selection4 <= palette.Colors.Count)
             {
                 var cell = grid[selection4].ToRectangleF();
-                canvas.DrawRectangle(new Pen(Color.Lime), Rectangle.Round(cell));
+                using var pen = new Pen(Color.Lime);
+                canvas.DrawRectangle(pen, Rectangle.Round(cell));
             }
 
             if (selection5 >= 0 && selection5 <= palette.Colors.Count)
             {
                 var cell = grid[selection5].ToRectangleF();
-                canvas.DrawRectangle(new Pen(Color.Cyan), Rectangle.Round(cell));
+                using var pen = new Pen(Color.Cyan);
+                canvas.DrawRectangle(pen, Rectangle.Round(cell));
             }
 
             if (highlight >= 0 && highlight <= palette.Colors.Count + 1)
             {
                 var cell = grid[highlight].ToRectangleF();
                 var highlightColor = Color.FromArgb(128, Color.CornflowerBlue.R, Color.CornflowerBlue.G, Color.CornflowerBlue.B);
-                canvas.DrawRectangle(new Pen(highlightColor, 3), Rectangle.Round(cell));
+                using var pen = new Pen(highlightColor, 3);
+                canvas.DrawRectangle(pen, Rectangle.Round(cell));
             }
 
             return image;

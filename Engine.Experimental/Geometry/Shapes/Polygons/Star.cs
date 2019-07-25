@@ -52,7 +52,7 @@ namespace Engine
         /// <param name="num_points">The num_points.</param>
         /// <param name="skip">The skip.</param>
         /// <param name="rect">The rect.</param>
-        /// <returns>The <see cref="T:PointF[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static PointF[] MakeStarPoints(double start_theta, int num_points, int skip, Rectangle rect)
         {
             double theta, dtheta;
@@ -166,7 +166,7 @@ namespace Engine
             {
                 t1 = (((p1.X - p3.X) * dy34) + ((p3.Y - p1.Y) * dx34)) / denominator;
             }
-            catch
+            catch(DivideByZeroException)
             {
                 // The lines are parallel (or close enough to it).
                 lines_intersect = false;
@@ -176,8 +176,8 @@ namespace Engine
                 close_p2 = new Point2D(float.NaN, float.NaN);
                 return;
             }
-            lines_intersect = true;
 
+            lines_intersect = true;
             var t2 = (((p3.X - p1.X) * dy12) + ((p1.Y - p3.Y) * dx12)) / -denominator;
 
             // Find the point of intersection.

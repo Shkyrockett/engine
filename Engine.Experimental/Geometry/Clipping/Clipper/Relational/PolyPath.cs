@@ -17,10 +17,19 @@ namespace Engine.Experimental
     /// </summary>
     public class PolyPath
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public PolyPath()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="children"></param>
+        /// <param name="path"></param>
         public PolyPath(PolyPath parent, List<PolyPath> children, PolygonContour path)
         {
             Parent = parent;
@@ -77,7 +86,7 @@ namespace Engine.Experimental
         /// The is hole node.
         /// </summary>
         /// <returns>The <see cref="bool"/>.</returns>
-        private bool IsHoleNode()
+        internal bool IsHoleNode()
         {
             var result = true;
             var node = Parent;

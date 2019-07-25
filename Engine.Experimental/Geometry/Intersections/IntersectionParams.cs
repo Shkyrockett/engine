@@ -22,8 +22,8 @@ namespace Engine
         /// <param name="params">The params.</param>
         public IntersectionParams(string name, string @params)
         {
-            this.Name = name;
-            this.Params = @params;
+            Name = name;
+            Params = @params;
         }
 
         /// <summary>

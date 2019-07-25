@@ -49,7 +49,7 @@ namespace Engine.File
         /// The stream does not support reading, the stream is null, or the stream is
         /// already closed.
         /// </exception>
-        /// <exception cref="System.ArgumentNullException">encoding is null.</exception>
+        /// <exception cref="ArgumentNullException">encoding is null.</exception>
         public BinaryReaderExtended(Stream input, Encoding encoding)
             : base(input, encoding)
         { }

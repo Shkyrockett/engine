@@ -25,7 +25,7 @@ namespace Engine.File
         public EventStatus()
         {
             DeltaTime = 0;
-            Status = MidiStatusMessages.Unknown;
+            Status = MidiStatusMessage.Unknown;
             Channel = 0;
         }
 
@@ -35,7 +35,7 @@ namespace Engine.File
         /// <param name="deltaTime">The deltaTime.</param>
         /// <param name="status">The status.</param>
         /// <param name="channel">The channel.</param>
-        public EventStatus(uint deltaTime, MidiStatusMessages status, byte channel)
+        public EventStatus(uint deltaTime, MidiStatusMessage status, byte channel)
         {
             DeltaTime = deltaTime;
             Status = status;
@@ -50,7 +50,7 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the status.
         /// </summary>
-        public MidiStatusMessages Status { get; set; }
+        public MidiStatusMessage Status { get; set; }
 
         /// <summary>
         /// Gets or sets the channel.
@@ -88,7 +88,7 @@ namespace Engine.File
                 //}
             }
 
-            return new EventStatus(deltaTime, (MidiStatusMessages)status, channel);
+            return new EventStatus(deltaTime, (MidiStatusMessage)status, channel);
         }
     }
 }

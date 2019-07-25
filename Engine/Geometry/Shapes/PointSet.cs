@@ -292,7 +292,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<Point2D> GetEnumerator()
             => points.GetEnumerator();
 

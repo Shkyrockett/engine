@@ -918,7 +918,7 @@ namespace Engine.Geometry
         /// Get the standard base.
         /// </summary>
         /// <param name="dim">The dim.</param>
-        /// <returns>The <see cref="T:PolynomialX[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentException">Dimension expected to be greater than zero.</exception>
         public static PolynomialX[] GetStandardBase(int dim)
         {
@@ -1343,7 +1343,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Get the roots.
         /// </summary>
-        /// <returns>The <see cref="T:Complex[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public Complex[] GetRoots()
         {
             Complex[] result;
@@ -1380,7 +1380,7 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>
-        /// <returns>The <see cref="T:Complex[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public Complex[] GetRootsInInterval(Complex min, Complex max)
         {
             var roots = new List<Complex>();
@@ -1443,7 +1443,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Get the linear root.
         /// </summary>
-        /// <returns>The <see cref="T:Complex[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public Complex[] GetLinearRoot()
         {
             var result = new List<Complex>();
@@ -1460,7 +1460,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Get the quadratic roots.
         /// </summary>
-        /// <returns>The <see cref="T:Complex[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public Complex[] GetQuadraticRoots()
         {
             var results = new List<Complex>();

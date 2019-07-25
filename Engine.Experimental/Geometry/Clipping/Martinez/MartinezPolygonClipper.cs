@@ -53,11 +53,11 @@ namespace Engine
 
         /// <summary>
         /// Computes the polygon operation given by operation.
-        /// See <see cref="ClippingOperations"/> for the operation codes.
+        /// See <see cref="ClippingOperation"/> for the operation codes.
         /// </summary>
         /// <param name="operation">A value specifying which boolean operation to compute.</param>
         /// <returns>The resulting polygon from the specified clipping operation.</returns>
-        public Polygon Compute(ClippingOperations operation)
+        public Polygon Compute(ClippingOperation operation)
         {
             var result = new Polygon();
 
@@ -67,11 +67,11 @@ namespace Engine
                 // At least one of the polygons is empty
                 switch (operation)
                 {
-                    case ClippingOperations.Difference:
+                    case ClippingOperation.Difference:
                         result = subject;
                         break;
-                    case ClippingOperations.Union:
-                    case ClippingOperations.Xor:
+                    case ClippingOperation.Union:
+                    case ClippingOperation.Xor:
                         result = (subject.Contours.Count == 0) ? clipping : subject;
                         break;
                     default:
@@ -90,11 +90,11 @@ namespace Engine
                 // the bounding boxes do not overlap
                 switch (operation)
                 {
-                    case ClippingOperations.Difference:
+                    case ClippingOperation.Difference:
                         result = subject;
                         break;
-                    case ClippingOperations.Union:
-                    case ClippingOperations.Xor:
+                    case ClippingOperation.Union:
+                    case ClippingOperation.Xor:
                         result = subject;
                         foreach (var c in clipping.Contours)
                         {
@@ -114,7 +114,7 @@ namespace Engine
             {
                 for (var pParse1 = 0; pParse1 < sCont.Points.Count; pParse1++)
                 {
-                    ProcessSegment(sCont.Segment(pParse1), ClippingRelations.Subject);
+                    ProcessSegment(sCont.Segment(pParse1), ClippingRelation.Subject);
                 }
             }
 
@@ -122,7 +122,7 @@ namespace Engine
             {
                 for (var pParse2 = 0; pParse2 < cCont.Points.Count; pParse2++)
                 {
-                    ProcessSegment(cCont.Segment(pParse2), ClippingRelations.Clipping);
+                    ProcessSegment(cCont.Segment(pParse2), ClippingRelation.Clipping);
                 }
             }
 
@@ -142,12 +142,12 @@ namespace Engine
                 e = eventQueue.Dequeue();
 
                 // Optimization 2
-                if ((operation == ClippingOperations.Intersection && (e.Point.X > minMaxX)) || (operation == ClippingOperations.Difference && e.Point.X > subjectBB.Right))
+                if ((operation == ClippingOperation.Intersection && (e.Point.X > minMaxX)) || (operation == ClippingOperation.Difference && e.Point.X > subjectBB.Right))
                 {
                     return connector.ToPolygon();
                 }
 
-                if (operation == ClippingOperations.Union && (e.Point.X > minMaxX))
+                if (operation == ClippingOperation.Union && (e.Point.X > minMaxX))
                 {
                     if (!e.IsLeft)
                     {
@@ -177,7 +177,7 @@ namespace Engine
                     {
                         e.OtherInOut = e.InOut = false;
                     }
-                    else if (prev.Contribution != EdgeContributions.Normal)
+                    else if (prev.Contribution != EdgeContribution.Normal)
                     {
                         if (pos - 2 < 0)
                         {
@@ -241,25 +241,25 @@ namespace Engine
 
                     switch (e.Contribution)
                     {
-                        case EdgeContributions.Normal:
+                        case EdgeContribution.Normal:
                             switch (operation)
                             {
-                                case ClippingOperations.Intersection:
+                                case ClippingOperation.Intersection:
                                     if (e.OtherEvent.OtherInOut)
                                     {
                                         connector.Add(e.Segment());
                                     }
 
                                     break;
-                                case ClippingOperations.Union:
+                                case ClippingOperation.Union:
                                     if (!e.OtherEvent.OtherInOut)
                                     {
                                         connector.Add(e.Segment());
                                     }
 
                                     break;
-                                case ClippingOperations.Difference:
-                                    if (((e.BelongsTo == ClippingRelations.Subject) && (!e.OtherEvent.OtherInOut)) || (e.BelongsTo == ClippingRelations.Clipping && e.OtherEvent.OtherInOut))
+                                case ClippingOperation.Difference:
+                                    if (((e.BelongsTo == ClippingRelation.Subject) && (!e.OtherEvent.OtherInOut)) || (e.BelongsTo == ClippingRelation.Clipping && e.OtherEvent.OtherInOut))
                                     {
                                         connector.Add(e.Segment());
                                     }
@@ -267,15 +267,15 @@ namespace Engine
                                     break;
                             }
                             break;
-                        case EdgeContributions.SameTransition:
-                            if (operation == ClippingOperations.Intersection || operation == ClippingOperations.Union)
+                        case EdgeContribution.SameTransition:
+                            if (operation == ClippingOperation.Intersection || operation == ClippingOperation.Union)
                             {
                                 connector.Add(e.Segment());
                             }
 
                             break;
-                        case EdgeContributions.DifferentTransition:
-                            if (operation == ClippingOperations.Difference)
+                        case EdgeContribution.DifferentTransition:
+                            if (operation == ClippingOperation.Difference)
                             {
                                 connector.Add(e.Segment());
                             }
@@ -433,7 +433,7 @@ namespace Engine
 
             (var numIntersections, var ip) = FindIntersection(e1.Segment(), e2.Segment());
             var ip1 = ip[0];
-            var ip2 = ip[1];
+            //var ip2 = ip[1];
 
             if (numIntersections == 0)
             {
@@ -498,21 +498,21 @@ namespace Engine
 
             if (sortedEvents.Count == 2)
             {
-                e1.Contribution = e1.OtherEvent.Contribution = EdgeContributions.NonContributing;
-                e2.Contribution = e2.OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContributions.SameTransition : EdgeContributions.DifferentTransition;
+                e1.Contribution = e1.OtherEvent.Contribution = EdgeContribution.NonContributing;
+                e2.Contribution = e2.OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
                 return;
             }
 
             if (sortedEvents.Count == 3)
             {
-                sortedEvents[1].Contribution = sortedEvents[1].OtherEvent.Contribution = EdgeContributions.NonContributing;
+                sortedEvents[1].Contribution = sortedEvents[1].OtherEvent.Contribution = EdgeContribution.NonContributing;
                 if (sortedEvents[0] != null)         // is the right endpoint the shared point?
                 {
-                    sortedEvents[0].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContributions.SameTransition : EdgeContributions.DifferentTransition;
+                    sortedEvents[0].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
                 }
                 else                                // the shared point is the left endpoint
                 {
-                    sortedEvents[2].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContributions.SameTransition : EdgeContributions.DifferentTransition;
+                    sortedEvents[2].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
                 }
 
                 DivideSegment(sortedEvents[0] ?? sortedEvents[2].OtherEvent, sortedEvents[1].Point);
@@ -521,8 +521,8 @@ namespace Engine
 
             if (sortedEvents[0] != sortedEvents[3].OtherEvent)
             { // no segment includes totally the otherSE one
-                sortedEvents[1].Contribution = EdgeContributions.NonContributing;
-                sortedEvents[2].Contribution = (e1.InOut == e2.InOut) ? EdgeContributions.SameTransition : EdgeContributions.DifferentTransition;
+                sortedEvents[1].Contribution = EdgeContribution.NonContributing;
+                sortedEvents[2].Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
 
                 DivideSegment(sortedEvents[0], sortedEvents[1].Point);
 
@@ -530,10 +530,10 @@ namespace Engine
                 return;
             }
 
-            sortedEvents[1].Contribution = sortedEvents[1].OtherEvent.Contribution = EdgeContributions.NonContributing;
+            sortedEvents[1].Contribution = sortedEvents[1].OtherEvent.Contribution = EdgeContribution.NonContributing;
 
             DivideSegment(sortedEvents[0], sortedEvents[1].Point);
-            sortedEvents[3].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContributions.SameTransition : EdgeContributions.DifferentTransition;
+            sortedEvents[3].OtherEvent.Contribution = (e1.InOut == e2.InOut) ? EdgeContribution.SameTransition : EdgeContribution.DifferentTransition;
 
             DivideSegment(sortedEvents[3].OtherEvent, sortedEvents[2].Point);
         }
@@ -566,7 +566,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The segment.</param>
         /// <param name="polyType">The polyType.</param>
-        private void ProcessSegment(LineSegment segment, ClippingRelations polyType)
+        private void ProcessSegment(LineSegment segment, ClippingRelation polyType)
         {
             if (segment.A.Equals(segment.B)) // Possible degenerate condition.
             {

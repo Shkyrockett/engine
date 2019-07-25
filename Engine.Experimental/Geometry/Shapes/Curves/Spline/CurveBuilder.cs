@@ -233,7 +233,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{CubicBezier}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         IEnumerator<CubicBezier> IEnumerable<CubicBezier>.GetEnumerator()
             => GetEnumerator();
 

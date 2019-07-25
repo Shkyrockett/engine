@@ -38,7 +38,7 @@ namespace Engine
         /// <param name="count">The number of steps to have between 0 and 1.</param>
         /// <returns>A new <see cref="NumericRange"/> struct set up for 0 to 1 iteration.</returns>
         public static NumericRange IteratorRange(double count)
-            => new NumericRange(0d, 1d, 0d, 1d, 1d / count, Overflows.Clamp);
+            => new NumericRange(0d, 1d, 0d, 1d, 1d / count, Overflow.Clamp);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericRange"/> struct for iteration from the start for a designated length.
@@ -48,7 +48,7 @@ namespace Engine
         /// <param name="count">The number of steps to have between the start and end.</param>
         /// <returns>A new <see cref="NumericRange"/> struct set up for iteration from the start for a designated length.</returns>
         public static NumericRange StartLengthCountRange(double start, double length, int count)
-            => new NumericRange(start, start + length, start, start + length, length / count, Overflows.Clamp);
+            => new NumericRange(start, start + length, start, start + length, length / count, Overflow.Clamp);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericRange"/> struct for iteration in Radians.
@@ -58,7 +58,7 @@ namespace Engine
         /// <param name="count">The number of steps to have between the start and end.</param>
         /// <returns>A new <see cref="NumericRange"/> struct set up for iterating radians.</returns>
         public static NumericRange RadiansRange(double start, double end, int count)
-            => new NumericRange(start, end, -PI, PI, (end - start) / count, Overflows.Wrap);
+            => new NumericRange(start, end, -PI, PI, (end - start) / count, Overflow.Wrap);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NumericRange"/> struct for iteration in Degrees.
@@ -67,7 +67,7 @@ namespace Engine
         /// <param name="end">The end angle in degrees.</param>
         /// <returns>A new <see cref="NumericRange"/> struct set up for iterating degrees.</returns>
         public static NumericRange DegreesRange(double start, double end)
-            => new NumericRange(start, end, 0d, 360d, 1d, Overflows.Wrap);
+            => new NumericRange(start, end, 0d, 360d, 1d, Overflow.Wrap);
         #endregion Factories
 
         #region Constructors
@@ -80,7 +80,7 @@ namespace Engine
         /// <param name="unitMax">Maximum value of a periodic unit that wraps back to the minimum value.</param>
         /// <param name="step">Amount to advance for each iteration</param>
         /// <param name="overflow">Overflow rules.</param>
-        public NumericRange(double min, double max, double unitMin, double unitMax, double step, Overflows overflow = Overflows.Clamp)
+        public NumericRange(double min, double max, double unitMin, double unitMax, double step, Overflow overflow = Overflow.Clamp)
         {
             Min = min;
             Max = max;
@@ -102,9 +102,9 @@ namespace Engine
             {
                 switch (Overflow)
                 {
-                    case Overflows.Clamp:
+                    case Overflow.Clamp:
                         return Interpolators.Linear(Operations.Clamp(index, UnitMin, UnitMax), Min, Max);
-                    case Overflows.Wrap:
+                    case Overflow.Wrap:
                         return Interpolators.Linear(Operations.Wrap(index, UnitMin, UnitMax), Min, Max);
                     default:
                         return Interpolators.Linear(index, Min, Max);
@@ -147,7 +147,7 @@ namespace Engine
         /// Gets a value indicating whether to wrap the return value or clamp it between max and min.
         /// </summary>
         [DataMember, XmlAttribute, SoapAttribute]
-        public Overflows Overflow { get; }
+        public Overflow Overflow { get; }
         #endregion Properties
 
         #region Methods

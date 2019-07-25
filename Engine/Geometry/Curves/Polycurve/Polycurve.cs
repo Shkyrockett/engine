@@ -189,7 +189,7 @@ namespace Engine
         /// Parse the path def string.
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
-        /// <returns>The <see cref="T:List{PolycurveContour}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<PolycurveContour> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
@@ -198,7 +198,7 @@ namespace Engine
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="T:List{PolycurveContour}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<PolycurveContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             _ = provider;
@@ -303,7 +303,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{PolycurveContour}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<PolycurveContour> GetEnumerator()
             => contours.GetEnumerator();
 

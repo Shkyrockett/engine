@@ -392,7 +392,7 @@ namespace Engine
         /// <param name="key1">The key1.</param>
         /// <param name="key2">The key2.</param>
         /// <param name="percentage">The percentage.</param>
-        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         private static Point2D[] TweenCubic(Point2D[] key1, Point2D[] key2, double percentage)
         {
             var tween = new Point2D[key1.Length];

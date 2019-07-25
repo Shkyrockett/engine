@@ -293,7 +293,8 @@ namespace Editor
                 if (vectorMap?.SelectedItems != null && vectorMap.SelectedItems.Contains(item))
                 {
                     // Render selected items with selection style
-                    Renderer.Render(item, e.Graphics, renderer, new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue));
+                    using var style = new ShapeStyle(Brushes.Aquamarine, Brushes.AliceBlue);
+                    Renderer.Render(item, e.Graphics, renderer, style);
                 }
                 else
                 {
@@ -307,7 +308,8 @@ namespace Editor
                 foreach (var item in vectorMap?.RubberbandItems)
                 {
                     // Render temporary rubber band tools shapes.
-                    Renderer.Render(item, e.Graphics, renderer, new ShapeStyle(Brushes.Red, Brushes.Red));
+                    using var style = new ShapeStyle(Brushes.Red, Brushes.Red);
+                    Renderer.Render(item, e.Graphics, renderer, style);
                 }
             }
         }

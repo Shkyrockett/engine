@@ -48,7 +48,7 @@ namespace Engine.Physics
         /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => nameof(Work);
+        public static string Name => nameof(Work);
 
         /// <summary>
         /// Gets the abreviation.

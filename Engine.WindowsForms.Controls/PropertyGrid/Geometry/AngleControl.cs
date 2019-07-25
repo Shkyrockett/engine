@@ -60,7 +60,7 @@ namespace Engine
         /// <summary>
         /// The method.
         /// </summary>
-        private Angles method;
+        private Angle method;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AngleControl"/> class.
@@ -72,7 +72,7 @@ namespace Engine
         {
             InitializeComponent();
 
-            method = Angles.Degree;
+            method = Physics.Angle.Degree;
             numericUpDown.Value = (decimal)Angle.ToDegrees();
             numericUpDown.Maximum = 360;
             numericUpDown.Minimum = -360;
@@ -103,22 +103,22 @@ namespace Engine
             var tabControl = sender as TabControl;
             if (tabControl.SelectedIndex == 0)
             {
-                method = Angles.Degree;
+                method = Physics.Angle.Degree;
             }
             else if (tabControl.SelectedIndex == 1)
             {
-                method = Angles.Radian;
+                method = Physics.Angle.Radian;
             }
 
             switch (method)
             {
-                case Angles.Degree:
+                case Physics.Angle.Degree:
                     numericUpDown.Increment = 15;
                     numericUpDown.Maximum = 360;
                     numericUpDown.Minimum = -360;
                     numericUpDown.Value = (decimal)Angle.ToDegrees();
                     break;
-                case Angles.Radian:
+                case Physics.Angle.Radian:
                     numericUpDown.Value = (decimal)Angle;
                     numericUpDown.Increment = (decimal)15d.ToRadians();
                     numericUpDown.Maximum = (decimal)(2 * Math.PI);
@@ -136,10 +136,10 @@ namespace Engine
         {
             switch (method)
             {
-                case Angles.Degree:
+                case Physics.Angle.Degree:
                     numericUpDown.Value = (decimal)Angle.ToDegrees();
                     break;
-                case Angles.Radian:
+                case Physics.Angle.Radian:
                     numericUpDown.Value = (decimal)Angle;
                     break;
             }
@@ -165,10 +165,10 @@ namespace Engine
             var nums = sender as NumericUpDown;
             switch (method)
             {
-                case Angles.Degree:
+                case Physics.Angle.Degree:
                     Angle = ((double)nums.Value).ToRadians();
                     break;
-                case Angles.Radian:
+                case Physics.Angle.Radian:
                     Angle = (double)nums.Value;
                     break;
             }

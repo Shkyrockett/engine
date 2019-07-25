@@ -47,7 +47,7 @@ namespace Engine.Physics
         /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => nameof(Density);
+        public static string Name => nameof(Density);
 
         /// <summary>
         /// Gets the abreviation.

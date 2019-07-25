@@ -47,7 +47,7 @@ namespace Engine.WindowsForms
         /// <param name="e">The paint event arguments.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
-            const System.Windows.Forms.TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.PathEllipsis;
+            const TextFormatFlags flags = TextFormatFlags.Left | TextFormatFlags.PathEllipsis;
             TextRenderer.DrawText(e.Graphics, Text, Font, ClientRectangle, ForeColor, flags);
         }
     }

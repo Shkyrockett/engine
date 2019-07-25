@@ -9,8 +9,6 @@
 *******************************************************************************/
 
 using System.Runtime.CompilerServices;
-using static System.Math;
-using static Engine.Mathematics;
 using static Engine.Operations;
 
 namespace Engine.Experimental
@@ -25,7 +23,7 @@ namespace Engine.Experimental
         /// <summary>
         /// The last op.
         /// </summary>
-        private LinkedPoint LastOp;
+        private LinkedPoint lastOp;
 
         /// <summary>
         /// The triangles.
@@ -44,7 +42,7 @@ namespace Engine.Experimental
         {
             base.AddLocalMinPoly(e1, e2, pt);
 
-            var locMinOr = e1.OutRec;
+            var locMinOr = e1.outRec;
             (locMinOr.Points as LinkedPointTriangle).Outrec = locMinOr;
             locMinOr.UpdateHelper(locMinOr.Points);
             if (locMinOr.Flag == OutrecFlag.Outer)
@@ -64,7 +62,7 @@ namespace Engine.Experimental
                 e = e1.GetLeftAdjacentHotEdge();
             }
 
-            LinkedPoint botLft = (e.OutRec as OutRecTri).LeftOutpt;
+            LinkedPoint botLft = (e.outRec as OutRecTri).LeftOutpt;
             var botRt = e.GetOutPt();
 
             if (botLft is null || botRt.Pt.Y < botLft.Pt.Y)
@@ -110,8 +108,8 @@ namespace Engine.Experimental
             e = botOr.EndEdge;
             botOr.EndEdge = locMinOr.EndEdge;
             locMinOr.EndEdge = e;
-            botOr.EndEdge.OutRec = botOr;
-            locMinOr.EndEdge.OutRec = locMinOr;
+            botOr.EndEdge.outRec = botOr;
+            locMinOr.EndEdge.outRec = locMinOr;
 
             // update helper info  ...
             locMinOr.UpdateHelper(locMinRt);
@@ -128,18 +126,18 @@ namespace Engine.Experimental
         /// <param name="Pt">The Pt.</param>
         protected override void AddLocalMaxPoly(Edge e1, Edge e2, Point2D Pt)
         {
-            var outrec = e1.OutRec;
+            var outrec = e1.outRec;
             //very occasionally IsStartSide(e1) is wrong so ...
-            var is_outer = e1.IsStartSide() || (e1.OutRec == e2.OutRec);
+            var is_outer = e1.IsStartSide() || (e1.outRec == e2.outRec);
             if (is_outer)
             {
-                var ort = (OutRecTri)e1.OutRec;
+                var ort = (OutRecTri)e1.outRec;
                 if (ort.LeftOutpt != null)
                 {
                     outrec.UpdateHelper(null);
                 }
 
-                e2.OutRec.UpdateHelper(null);
+                e2.outRec.UpdateHelper(null);
             }
 
             base.AddLocalMaxPoly(e1, e2, Pt);
@@ -167,7 +165,7 @@ namespace Engine.Experimental
                 var e = e2.GetRightAdjacentHotEdge();
                 if (e != null)
                 {
-                    e.OutRec.UpdateHelper(LastOp);
+                    e.outRec.UpdateHelper(lastOp);
                 }
 
                 outrec.Points.Update(outrec);
@@ -203,16 +201,16 @@ namespace Engine.Experimental
         {
             var result = base.AddOutPoint(e, pt);
             var opt = (LinkedPointTriangle)result;
-            opt.Outrec = e.OutRec;
-            LastOp = result;
-            Triangulate(e.OutRec);
+            opt.Outrec = e.outRec;
+            lastOp = result;
+            Triangulate(e.outRec);
             //Triangulate() above may assign Result.OutRecRt so ...
             if (e.IsStartSide() && opt.RightOutrec is null)
             {
                 var e2 = e.GetRightAdjacentHotEdge();
                 if (e2 != null)
                 {
-                    e2.OutRec.UpdateHelper(result);
+                    e2.outRec.UpdateHelper(result);
                 }
             }
             return result;
@@ -224,7 +222,7 @@ namespace Engine.Experimental
         /// <param name="clipType">The clipType.</param>
         /// <param name="ft">The ft.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public override Polygon Execute(ClippingOperations clipType, WindingRules ft = WindingRules.EvenOdd)
+        public override Polygon Execute(ClippingOperation clipType, WindingRule ft = WindingRule.EvenOdd)
         {
             var tris = new Polygon();
             try
@@ -252,7 +250,7 @@ namespace Engine.Experimental
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public override Polygon Execute(ClippingOperations clipType, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
+        public override Polygon Execute(ClippingOperation clipType, Polygon Open, WindingRule ft = WindingRule.EvenOdd)
             => null; //unsupported
 
         /// <summary>
@@ -263,7 +261,7 @@ namespace Engine.Experimental
         /// <param name="Open">The Open.</param>
         /// <param name="ft">The ft.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Execute(ClippingOperations clipType, PolyTree polytree, Polygon Open, WindingRules ft = WindingRules.EvenOdd)
+        public override bool Execute(ClippingOperation clipType, PolyTree polytree, Polygon Open, WindingRule ft = WindingRule.EvenOdd)
             => false; //unsupported
         #endregion Overrides
 

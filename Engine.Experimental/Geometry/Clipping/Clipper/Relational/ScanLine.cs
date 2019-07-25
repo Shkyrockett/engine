@@ -15,10 +15,18 @@ namespace Engine.Experimental
     /// </summary>
     public class ScanLine
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public ScanLine()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="y"></param>
+        /// <param name="nextScanLine"></param>
         public ScanLine(double y, ScanLine nextScanLine)
         {
             Y = y;

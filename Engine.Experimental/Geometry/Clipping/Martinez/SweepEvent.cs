@@ -41,12 +41,12 @@ namespace Engine
         /// <summary>
         /// Polygon to which the associated segment belongs to
         /// </summary>
-        private ClippingRelations belongsTo;
+        private ClippingRelation belongsTo;
 
         /// <summary>
         /// The contribution.
         /// </summary>
-        private EdgeContributions contribution;
+        private EdgeContribution contribution;
 
         //The following fields are only used in "left" events
 
@@ -106,7 +106,7 @@ namespace Engine
         /// <param name="other">The other.</param>
         /// <param name="pt">The pt.</param>
         /// <param name="et">The et.</param>
-        public SweepEvent(bool b, Point2D p, SweepEvent other, ClippingRelations pt, EdgeContributions et = EdgeContributions.Normal)
+        public SweepEvent(bool b, Point2D p, SweepEvent other, ClippingRelation pt, EdgeContribution et = EdgeContribution.Normal)
         {
             IsLeft = b;
             Point = p;
@@ -139,7 +139,7 @@ namespace Engine
         /// <summary>
         /// Polygon to which the associated segment belongs to
         /// </summary>
-        public ClippingRelations BelongsTo { get { return belongsTo; } set { belongsTo = value; } }
+        public ClippingRelation BelongsTo { get { return belongsTo; } set { belongsTo = value; } }
 
         /// <summary>
         /// Event associated to the other endpoint of the edge.
@@ -149,7 +149,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the contribution.
         /// </summary>
-        public EdgeContributions Contribution { get { return contribution; } set { contribution = value; } }
+        public EdgeContribution Contribution { get { return contribution; } set { contribution = value; } }
 
         // The following properties are only used in "left" events.
 

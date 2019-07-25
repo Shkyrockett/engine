@@ -17,6 +17,7 @@ namespace Engine
     /// <summary>
     /// The name attribute class.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Property)]
     public class NameAttribute
         : Attribute
     { }

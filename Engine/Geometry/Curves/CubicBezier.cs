@@ -97,7 +97,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier(Point2D a, Point2D b, Point2D c)
         {
-            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, this.dx, this.dy) = Conversions.QuadraticBezierToCubicBezierTuple(a.X, a.Y, b.X, b.Y, c.X, c.Y);
+            (ax, ay, bx, by, cx, cy, dx, dy) = Conversions.QuadraticBezierToCubicBezierTuple(a.X, a.Y, b.X, b.Y, c.X, c.Y);
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier(double ax, double ay, double bx, double by, double cx, double cy)
         {
-            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, this.dx, this.dy) = Conversions.QuadraticBezierToCubicBezierTuple(ax, ay, bx, by, cx, cy);
+            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, dx, dy) = Conversions.QuadraticBezierToCubicBezierTuple(ax, ay, bx, by, cx, cy);
         }
 
         /// <summary>
@@ -507,7 +507,7 @@ namespace Engine
         /// Gets the Polynomial degree of the <see cref="CubicBezier"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public PolynomialDegree Degree
+        public static PolynomialDegree Degree
             => PolynomialDegree.Cubic;
 
         /// <summary>
@@ -669,7 +669,7 @@ namespace Engine
 
                     if (Approximately(v1, 0))
                     {
-                        return new double[] { };
+                        return Array.Empty<double>();
                     }
 
                     var descriminant = (v2 * v2) - (4 * v1 * v3);
@@ -690,7 +690,7 @@ namespace Engine
         /// <summary>
         /// The reduce.
         /// </summary>
-        /// <returns>The <see cref="T:List{Bezier}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -854,7 +854,7 @@ namespace Engine
         /// The hull.
         /// </summary>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -897,7 +897,7 @@ namespace Engine
         /// The interpolate.
         /// </summary>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IList<Point2D> Interpolate(IList<double> ts)
@@ -965,7 +965,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<Point2D> GetEnumerator()

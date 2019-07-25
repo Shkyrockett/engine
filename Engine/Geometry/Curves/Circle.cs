@@ -395,7 +395,7 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
-            => Intersections.Contains(this, point) != Inclusion.Outside;
+            => Intersections.Contains(this, point) != Inclusions.Outside;
 
         /// <summary>
         /// Creates a string representation of this <see cref="Circle"/> struct based on the format string

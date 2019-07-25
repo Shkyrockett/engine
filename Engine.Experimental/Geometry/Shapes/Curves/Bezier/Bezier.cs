@@ -13,9 +13,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -180,7 +180,7 @@ namespace Engine
         /// <summary>
         /// Gets a value indicating whether 
         /// </summary>
-        public RotationDirections Direction { get; private set; }
+        public RotationDirection Direction { get; private set; }
 
         /// <summary>
         /// Gets the order.
@@ -202,7 +202,7 @@ namespace Engine
         /// <summary>
         /// The inflections.
         /// </summary>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -212,7 +212,7 @@ namespace Engine
         /// <summary>
         /// The extrema.
         /// </summary>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -406,17 +406,17 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static RotationDirections ComputeDirection(List<Point2D> Points)
+        public static RotationDirection ComputeDirection(List<Point2D> Points)
         {
             var angle = BezierUtil.Angle(Points[0], Points[Points.Count - 1], Points[1]);
-            return angle > 0 ? RotationDirections.Clockwise : RotationDirections.CounterClockwise;
+            return angle > 0 ? RotationDirection.Clockwise : RotationDirection.CounterClockwise;
         }
 
         /// <summary>
         /// Get the look up table.
         /// </summary>
         /// <param name="steps">The steps.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -860,7 +860,7 @@ namespace Engine
         /// The hull.
         /// </summary>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -909,7 +909,7 @@ namespace Engine
         ///// The value at which to split the curve. Should be strictly inside ]0,1[ interval.
         ///// </summary>
         ///// <param name="t">The t.</param>
-        ///// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        ///// <returns>The <see cref="Array"/>.</returns>
         ///// <exception cref="ArgumentOutOfRangeException"></exception>
         ///// <acknowledgment>
         ///// http://pomax.github.io/bezierinfo/#decasteljau
@@ -990,7 +990,7 @@ namespace Engine
         /// The split.
         /// </summary>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:Bezier[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1032,7 +1032,7 @@ namespace Engine
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:BezierSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/#decasteljau
@@ -1077,7 +1077,7 @@ namespace Engine
         /// The value at which to split the curve. Should be strictly inside ]0,1[ interval.
         /// </summary>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:Bezier[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/#decasteljau
@@ -1121,7 +1121,7 @@ namespace Engine
         /// The offset.
         /// </summary>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:List{Bezier}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1291,7 +1291,7 @@ namespace Engine
                         y: p.Y - o.Value.Y
                         /*,z: p.Z - o.Z*/);
                 var rc = distanceFn((t + 1) / order);
-                if (direction != RotationDirections.Clockwise)
+                if (direction != RotationDirection.Clockwise)
                 {
                     rc = -rc;
                 }
@@ -1426,7 +1426,7 @@ namespace Engine
         /// </summary>
         /// <param name="d1">The d1.</param>
         /// <param name="d2">The d2.</param>
-        /// <returns>The <see cref="T:List{Shape1}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1451,7 +1451,7 @@ namespace Engine
         /// The arcs.
         /// </summary>
         /// <param name="errorThreshold">The errorThreshold.</param>
-        /// <returns>The <see cref="T:List{Arc1}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1469,7 +1469,7 @@ namespace Engine
         /// </summary>
         /// <param name="errorThreshold">The errorThreshold.</param>
         /// <param name="circles">The circles.</param>
-        /// <returns>The <see cref="T:List{Arc1}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1663,7 +1663,7 @@ namespace Engine
         /// <summary>
         /// The reduce.
         /// </summary>
-        /// <returns>The <see cref="T:List{Bezier}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1769,7 +1769,7 @@ namespace Engine
         /// <summary>
         /// The intersects.
         /// </summary>
-        /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1782,7 +1782,7 @@ namespace Engine
         /// The intersects.
         /// </summary>
         /// <param name="curve">The curve.</param>
-        /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1795,7 +1795,7 @@ namespace Engine
         /// The intersects.
         /// </summary>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="T:List{bool}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1808,7 +1808,7 @@ namespace Engine
         /// The line intersects.
         /// </summary>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="T:List{bool}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1832,7 +1832,7 @@ namespace Engine
         /// <summary>
         /// The selfintersects.
         /// </summary>
-        /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1863,7 +1863,7 @@ namespace Engine
         /// </summary>
         /// <param name="c1">The c1.</param>
         /// <param name="c2">The c2.</param>
-        /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1901,7 +1901,7 @@ namespace Engine
         /// The cubic bezier cardano intersection.
         /// </summary>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1918,7 +1918,7 @@ namespace Engine
         /// <param name="p3">The p3.</param>
         /// <param name="p4">The p4.</param>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>

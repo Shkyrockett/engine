@@ -22,7 +22,7 @@ namespace Engine.Experimental
         /// <param name="rotation">The rotation.</param>
         /// <param name="heesch">The heesch.</param>
         /// <param name="alterations">The alterations.</param>
-        public TessleTile(Point2D center, double scale, double rotation, HeeschTilings heesch, params (double t, double offset)[][] alterations)
+        public TessleTile(Point2D center, double scale, double rotation, HeeschTiling heesch, params (double t, double offset)[][] alterations)
         {
             Center = center;
             Scale = scale;
@@ -52,7 +52,7 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets or sets the Heesch tiling code.
         /// </summary>
-        public HeeschTilings Heesch { get; set; }
+        public HeeschTiling Heesch { get; set; }
 
         /// <summary>
         /// Gets or sets the alterations.
@@ -73,40 +73,40 @@ namespace Engine.Experimental
                 switch (Heesch)
                 {
                     // Triangular
-                    case HeeschTilings.CCC: // Three rotations.
-                    case HeeschTilings.CC3C3:
-                    case HeeschTilings.CC4C4:
-                    case HeeschTilings.CC6C6:
-                    case HeeschTilings.CGG:
+                    case HeeschTiling.CCC: // Three rotations.
+                    case HeeschTiling.CC3C3:
+                    case HeeschTiling.CC4C4:
+                    case HeeschTiling.CC6C6:
+                    case HeeschTiling.CGG:
                         return TileShape.Triangular;
                     // Quadrilateral
-                    case HeeschTilings.TTTT: // Double translation.
-                    case HeeschTilings.CCCC: // Four rotations.
-                    case HeeschTilings.TCTC:
-                    case HeeschTilings.C3C3C3C3:
-                    case HeeschTilings.C4C4C4C4:
-                    case HeeschTilings.C3C3C6C6:
-                    case HeeschTilings.CCGG:
-                    case HeeschTilings.TGTG:
-                    case HeeschTilings.CGCG:
-                    case HeeschTilings.G1G1G2G2:
-                    case HeeschTilings.G1G2G1G2:
+                    case HeeschTiling.TTTT: // Double translation.
+                    case HeeschTiling.CCCC: // Four rotations.
+                    case HeeschTiling.TCTC:
+                    case HeeschTiling.C3C3C3C3:
+                    case HeeschTiling.C4C4C4C4:
+                    case HeeschTiling.C3C3C6C6:
+                    case HeeschTiling.CCGG:
+                    case HeeschTiling.TGTG:
+                    case HeeschTiling.CGCG:
+                    case HeeschTiling.G1G1G2G2:
+                    case HeeschTiling.G1G2G1G2:
                         return TileShape.Quadrilateral;
                     // Pentagonal
-                    case HeeschTilings.TCTCC:
-                    case HeeschTilings.TCTGG:
-                    case HeeschTilings.CC3C3C6C6:
-                    case HeeschTilings.CC4C4C4C4:
-                    case HeeschTilings.CG1G2G1G2:
+                    case HeeschTiling.TCTCC:
+                    case HeeschTiling.TCTGG:
+                    case HeeschTiling.CC3C3C6C6:
+                    case HeeschTiling.CC4C4C4C4:
+                    case HeeschTiling.CG1G2G1G2:
                         return TileShape.Pentagonal;
                     // Hexagonal
-                    case HeeschTilings.TTTTTT: // Triple translation.
-                    case HeeschTilings.TCCTCC:
-                    case HeeschTilings.TG1G1TG2G2:
-                    case HeeschTilings.TG1G2TG2G1:
-                    case HeeschTilings.TCCTGG:
-                    case HeeschTilings.C3C3C3C3C3C3:
-                    case HeeschTilings.CG1CG2G1G2:
+                    case HeeschTiling.TTTTTT: // Triple translation.
+                    case HeeschTiling.TCCTCC:
+                    case HeeschTiling.TG1G1TG2G2:
+                    case HeeschTiling.TG1G2TG2G1:
+                    case HeeschTiling.TCCTGG:
+                    case HeeschTiling.C3C3C3C3C3C3:
+                    case HeeschTiling.CG1CG2G1G2:
                         return TileShape.Hexagonal;
                     // Unknown
                     default:

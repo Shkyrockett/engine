@@ -79,7 +79,7 @@ namespace MethodSpeedTester
         public static void DrawRectangles(Graphics g, Font font,
             Rectangle2D rectangle,
             List<Point2D> points,
-            Func<Rectangle2D, Point2D, Inclusion> method,
+            Func<Rectangle2D, Point2D, Inclusions> method,
             string text)
         {
             g.DrawString(text, font, Brushes.Black, new Point());
@@ -97,16 +97,16 @@ namespace MethodSpeedTester
         /// <param name="g">The g.</param>
         /// <param name="point">The point.</param>
         /// <param name="hit">The hit.</param>
-        public static void DrawHitPoint(Graphics g, Point2D point, Inclusion hit)
+        public static void DrawHitPoint(Graphics g, Point2D point, Inclusions hit)
         {
             const float pointRadius = 1;
             var pointpen = Pens.Red;
             switch (hit)
             {
-                case Inclusion.Inside:
+                case Inclusions.Inside:
                     pointpen = Pens.Lime;
                     break;
-                case Inclusion.Boundary:
+                case Inclusions.Boundary:
                     pointpen = Pens.Magenta;
                     break;
             }
@@ -124,7 +124,7 @@ namespace MethodSpeedTester
         /// <param name="maxY">The maxY.</param>
         /// <param name="stepX">The stepX.</param>
         /// <param name="stepY">The stepY.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> GenerateGrid(int minX, int minY, int maxX, int maxY, int stepX, int stepY)
         {
             var width = stepX == 0 ? (maxX - minX) : (maxX - minX) / stepX;

@@ -35,7 +35,9 @@ namespace EngineTests
         /// <param name="context">The context.</param>
         [ClassInitialize]
         public static void ClassInit(TestContext context)
-        { }
+        {
+            _ = context;
+        }
 
         /// <summary>
         /// TestInitialize runs code before running each test.

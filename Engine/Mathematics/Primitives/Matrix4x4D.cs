@@ -411,7 +411,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix4x4D operator -(Matrix4x4D matrix) => Negate(matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M0x3, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M1x3, matrix.M2x0, matrix.M2x1, matrix.M2x2, matrix.M2x3, matrix.M3x0, matrix.M3x1, matrix.M3x2, matrix.M3x3);
+        public static Matrix4x4D operator -(Matrix4x4D matrix) => UnaryNegate(matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M0x3, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M1x3, matrix.M2x0, matrix.M2x1, matrix.M2x2, matrix.M2x3, matrix.M3x0, matrix.M3x1, matrix.M3x2, matrix.M3x3);
 
         /// <summary>
         /// Used to subtract two matrices.
@@ -732,7 +732,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {

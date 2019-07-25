@@ -522,7 +522,7 @@ namespace Engine
         /// <summary>
         /// The interpolate points.
         /// </summary>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> InterpolatePoints()
         {
             //double delta_phi = 2 * PI / ArcLength;

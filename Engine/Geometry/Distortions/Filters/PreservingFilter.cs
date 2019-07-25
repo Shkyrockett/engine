@@ -40,10 +40,10 @@ namespace Engine
             => point;
 
         /// <summary>
-        /// Process a <see cref="List{Point2D}"/> structure with a distortion filter.
+        /// Process a <see cref="List{T}"/> structure with a distortion filter.
         /// </summary>
         /// <param name="contour">The contour.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public List<Point2D> Process(List<Point2D> contour)
         {
             var results = new List<Point2D>();

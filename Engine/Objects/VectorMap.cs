@@ -218,7 +218,7 @@ namespace Engine
         /// Select the items.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="T:List{GraphicItem}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public List<GraphicItem> SelectItems(Point2D point)
             => new List<GraphicItem>(
             from shape in Items
@@ -244,7 +244,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{GraphicItem}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<GraphicItem> GetEnumerator()
             => Items.GetEnumerator();
 

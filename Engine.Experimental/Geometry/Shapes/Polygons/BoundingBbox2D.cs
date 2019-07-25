@@ -9,10 +9,10 @@ namespace Engine
     {
         private BoundingBbox2D(double xmin = 0, double ymin = 0, double xmax = 0, double ymax = 0)
         {
-            this.Xmin = xmin;
-            this.Ymin = ymin;
-            this.Xmax = xmax;
-            this.Ymax = ymax;
+            Xmin = xmin;
+            Ymin = ymin;
+            Xmax = xmax;
+            Ymax = ymax;
         }
 
         /// <summary>

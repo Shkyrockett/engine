@@ -6,7 +6,7 @@ namespace Engine.Experimental
     /// <summary>
     /// The fabrik class.
     /// </summary>
-    public class Fabrik
+    public static class Fabrik
     {
         /// <summary>
         /// The reach.
@@ -42,7 +42,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="segments">The segments.</param>
         /// <param name="target">The target mouse Position.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://sean.cm/a/fabrik-algorithm-2d
         /// </acknowledgment>

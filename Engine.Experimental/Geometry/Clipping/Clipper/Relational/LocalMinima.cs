@@ -28,7 +28,7 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets or sets the polygon's clipping relation.
         /// </summary>
-        public ClippingRelations ClippingRelation { get; set; }
+        public ClippingRelation ClippingRelation { get; set; }
 
         /// <summary>
         /// Gets or sets a flag that determines whether the polygon is an open polyline, or a closed polygon.

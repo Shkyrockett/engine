@@ -75,7 +75,7 @@ namespace Engine.File
             var sysExContinue = false;
             byte[] sysExData = null;
 
-            var ps = MidiStatusMessages.Unknown;
+            var ps = MidiStatusMessage.Unknown;
 
             while (reader.BaseStream.Position < reader.Length)
             {
@@ -99,115 +99,115 @@ namespace Engine.File
 
                 switch (status.Status)
                 {
-                    case MidiStatusMessages.NoteOff:
+                    case MidiStatusMessage.NoteOff:
                         events.Add(NoteOff.Read(reader, status));
                         break;
-                    case MidiStatusMessages.NoteOn:
+                    case MidiStatusMessage.NoteOn:
                         events.Add(NoteOn.Read(reader, status));
                         break;
-                    case MidiStatusMessages.PolyphonicPressure:
+                    case MidiStatusMessage.PolyphonicPressure:
                         events.Add(PolyphonicPressure.Read(reader, status));
                         break;
-                    case MidiStatusMessages.ControllerChange:
+                    case MidiStatusMessage.ControllerChange:
                         events.Add(ControllerChange.Read(reader, status));
                         break;
-                    case MidiStatusMessages.ProgramChange:
+                    case MidiStatusMessage.ProgramChange:
                         events.Add(ProgramChange.Read(reader, status));
                         break;
-                    case MidiStatusMessages.ChannelPressure:
+                    case MidiStatusMessage.ChannelPressure:
                         events.Add(ChannelPressure.Read(reader, status));
                         break;
-                    case MidiStatusMessages.PitchBend:
+                    case MidiStatusMessage.PitchBend:
                         events.Add(PitchBend.Read(reader, status));
                         break;
-                    case MidiStatusMessages.SystemExclusive:
+                    case MidiStatusMessage.SystemExclusive:
                         events.Add(SystemExclusive.Read(reader, status, ref sysExContinue, ref sysExData));
                         break;
-                    case MidiStatusMessages.MidiTimeCode:
+                    case MidiStatusMessage.MidiTimeCode:
                         events.Add(MidiTimeCode.Read(reader, status));
                         break;
-                    case MidiStatusMessages.SongPosition:
+                    case MidiStatusMessage.SongPosition:
                         events.Add(SongPosition.Read(reader, status));
                         break;
-                    case MidiStatusMessages.SongSelect:
+                    case MidiStatusMessage.SongSelect:
                         events.Add(SongSelect.Read(reader, status));
                         break;
-                    case MidiStatusMessages.TuneRequest:
+                    case MidiStatusMessage.TuneRequest:
                         events.Add(TuneRequest.Read(reader, status));
                         break;
-                    case MidiStatusMessages.EndOfExclusive:
+                    case MidiStatusMessage.EndOfExclusive:
                         events.Add(EndOfExclusive.Read(reader, status));
                         break;
-                    case MidiStatusMessages.TimingClock:
+                    case MidiStatusMessage.TimingClock:
                         events.Add(TimingClock.Read(reader, status));
                         break;
-                    case MidiStatusMessages.Start:
+                    case MidiStatusMessage.Start:
                         events.Add(Start.Read(reader, status));
                         break;
-                    case MidiStatusMessages.Continue:
+                    case MidiStatusMessage.Continue:
                         events.Add(Continue.Read(reader, status));
                         break;
-                    case MidiStatusMessages.Stop:
+                    case MidiStatusMessage.Stop:
                         events.Add(Stop.Read(reader, status));
                         break;
-                    case MidiStatusMessages.ActiveSensing:
+                    case MidiStatusMessage.ActiveSensing:
                         events.Add(ActiveSensing.Read(reader, status));
                         break;
-                    case MidiStatusMessages.SequenceNumber:
+                    case MidiStatusMessage.SequenceNumber:
                         events.Add(SequenceNumber.Read(reader, status));
                         break;
-                    case MidiStatusMessages.TextEvent:
+                    case MidiStatusMessage.TextEvent:
                         events.Add(TextEvent.Read(reader, status));
                         break;
-                    case MidiStatusMessages.CopyrightNotice:
+                    case MidiStatusMessage.CopyrightNotice:
                         events.Add(CopyrightNotice.Read(reader, status));
                         break;
-                    case MidiStatusMessages.TrackName:
+                    case MidiStatusMessage.TrackName:
                         events.Add(TrackName.Read(reader, status));
                         break;
-                    case MidiStatusMessages.Instrument:
+                    case MidiStatusMessage.Instrument:
                         events.Add(Instrument.Read(reader, status));
                         break;
-                    case MidiStatusMessages.LyricText:
+                    case MidiStatusMessage.LyricText:
                         events.Add(LyricText.Read(reader, status));
                         break;
-                    case MidiStatusMessages.MarkerText:
+                    case MidiStatusMessage.MarkerText:
                         events.Add(MarkerText.Read(reader, status));
                         break;
-                    case MidiStatusMessages.CuePoint:
+                    case MidiStatusMessage.CuePoint:
                         events.Add(CuePoint.Read(reader, status));
                         break;
-                    case MidiStatusMessages.ProgramName:
+                    case MidiStatusMessage.ProgramName:
                         events.Add(ProgramName.Read(reader, status));
                         break;
-                    case MidiStatusMessages.DeviceName:
+                    case MidiStatusMessage.DeviceName:
                         events.Add(DeviceName.Read(reader, status));
                         break;
-                    case MidiStatusMessages.MIDIChannel:
+                    case MidiStatusMessage.MIDIChannel:
                         events.Add(MIDIChannel.Read(reader, status));
                         break;
-                    case MidiStatusMessages.MIDIPort:
+                    case MidiStatusMessage.MIDIPort:
                         events.Add(MIDIPort.Read(reader, status));
                         break;
-                    case MidiStatusMessages.EndOfTrack:
+                    case MidiStatusMessage.EndOfTrack:
                         events.Add(EndOfTrack.Read(reader, status));
                         break;
-                    case MidiStatusMessages.Tempo:
+                    case MidiStatusMessage.Tempo:
                         events.Add(Tempo.Read(reader, status));
                         break;
-                    case MidiStatusMessages.SMPTEOffset:
+                    case MidiStatusMessage.SMPTEOffset:
                         events.Add(SMPTEOffset.Read(reader, status));
                         break;
-                    case MidiStatusMessages.TimeSignature:
+                    case MidiStatusMessage.TimeSignature:
                         events.Add(TimeSignature.Read(reader, status));
                         break;
-                    case MidiStatusMessages.KeySignature:
+                    case MidiStatusMessage.KeySignature:
                         events.Add(KeySignature.Read(reader, status));
                         break;
-                    case MidiStatusMessages.SequencerSpecific:
+                    case MidiStatusMessage.SequencerSpecific:
                         events.Add(SequencerSpecific.Read(reader, status));
                         break;
-                    case MidiStatusMessages.Unknown:
+                    case MidiStatusMessage.Unknown:
                     default:
                         break;
                 }

@@ -46,7 +46,7 @@ namespace Engine
         /// Initializes a new instance of the <see cref="BezierSegment"/> class.
         /// </summary>
         public BezierSegment()
-            : this(new Point2D[] { })
+            : this(Array.Empty<Point2D>())
         { }
 
         /// <summary>

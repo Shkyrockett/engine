@@ -24,13 +24,13 @@ namespace Engine
     /// <summary>
     /// The tree view binding class.
     /// </summary>
-    /// <typeparam name="iMidiElement"></typeparam>
+    /// <typeparam name="T"></typeparam>
     /// <remarks>
     /// Based on the idea presented by Martin Schreiber.
     /// https://schreibermartin.wordpress.com/2014/12/16/winforms-treeview-data-binding-part-1-of-2/
     /// https://schreibermartin.wordpress.com/2014/12/17/winforms-treeview-data-binding-part-2-of-2/
     /// </remarks>
-    public class TreeViewBinding<iMidiElement> where iMidiElement
+    public class TreeViewBinding<T> where T
         : class
     {
         #region Fields
@@ -52,17 +52,17 @@ namespace Engine
         /// <summary>
         /// The get data item func.
         /// </summary>
-        private readonly Func<object, iMidiElement> getDataItemFunc;
+        private readonly Func<object, T> getDataItemFunc;
 
         /// <summary>
         /// The add tree node func.
         /// </summary>
-        private readonly Func<iMidiElement, TreeNode> addTreeNodeFunc;
+        private readonly Func<T, TreeNode> addTreeNodeFunc;
 
         /// <summary>
         /// The update tree node action.
         /// </summary>
-        private readonly Action<iMidiElement, TreeNode> updateTreeNodeAction;
+        private readonly Action<T, TreeNode> updateTreeNodeAction;
 
         /// <summary>
         /// The current add item.
@@ -87,10 +87,10 @@ namespace Engine
         public TreeViewBinding(
             TreeView treeView,
             BindingSource bindingSource,
-            Func<object, iMidiElement> getDataItemFunc,
-            Func<iMidiElement, TreeNode> addTreeNodeFunc,
-            Action<iMidiElement, TreeNode> updateTreeNodeAction)
-            : this(treeView, treeView.Nodes, null, bindingSource, getDataItemFunc, addTreeNodeFunc, updateTreeNodeAction)
+            Func<object, T> getDataItemFunc,
+            Func<T, TreeNode> addTreeNodeFunc,
+            Action<T, TreeNode> updateTreeNodeAction)
+            : this(treeView, treeView?.Nodes, null, bindingSource, getDataItemFunc, addTreeNodeFunc, updateTreeNodeAction)
         { }
 
         /// <summary>
@@ -104,10 +104,10 @@ namespace Engine
         public TreeViewBinding(
             TreeNode parentTreeNode,
             BindingSource bindingSource,
-            Func<object, iMidiElement> getDataItemFunc,
-            Func<iMidiElement, TreeNode> addTreeNodeFunc,
-            Action<iMidiElement, TreeNode> updateTreeNodeAction)
-            : this(parentTreeNode.TreeView, parentTreeNode.Nodes, parentTreeNode, bindingSource, getDataItemFunc, addTreeNodeFunc, updateTreeNodeAction)
+            Func<object, T> getDataItemFunc,
+            Func<T, TreeNode> addTreeNodeFunc,
+            Action<T, TreeNode> updateTreeNodeAction)
+            : this(parentTreeNode?.TreeView, parentTreeNode.Nodes, parentTreeNode, bindingSource, getDataItemFunc, addTreeNodeFunc, updateTreeNodeAction)
         { }
 
         /// <summary>
@@ -125,12 +125,12 @@ namespace Engine
             TreeNodeCollection treeNodeCollection,
             TreeNode parentTreeNode,
             BindingSource bindingSource,
-            Func<object, iMidiElement> getDataItemFunc,
-            Func<iMidiElement, TreeNode> addTreeNodeFunc,
-            Action<iMidiElement, TreeNode> updateTreeNodeAction)
+            Func<object, T> getDataItemFunc,
+            Func<T, TreeNode> addTreeNodeFunc,
+            Action<T, TreeNode> updateTreeNodeAction)
         {
             this.treeView = treeView ?? throw new ArgumentNullException(nameof(treeView));
-            this.treeNodeCollection = treeNodeCollection ?? throw new ArgumentNullException("treeNodeCollection ");
+            this.treeNodeCollection = treeNodeCollection ?? throw new ArgumentNullException(nameof(treeNodeCollection));
             this.parentTreeNode = parentTreeNode; // may be null.
             this.bindingSource = bindingSource ?? throw new ArgumentNullException(nameof(bindingSource));
             this.getDataItemFunc = getDataItemFunc ?? throw new ArgumentNullException(nameof(getDataItemFunc));

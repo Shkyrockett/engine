@@ -75,6 +75,12 @@ namespace Engine.File
             set { packedValue = (byte)((packedValue & 0xF0) | (value & 0x0F)); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lowNibble"></param>
+        /// <param name="highNibble"></param>
+        /// <returns></returns>
         public static byte PackNibbles(byte lowNibble, byte highNibble)
         {
             byte packedValue = 0;
@@ -83,6 +89,11 @@ namespace Engine.File
             return packedValue;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="packedValue"></param>
+        /// <returns></returns>
         public static (byte LowNibble, byte HighNibble) UnpackNibbles(byte packedValue)
             => ((byte)(packedValue & 0x0F), (byte)(packedValue >> 0x04));
 

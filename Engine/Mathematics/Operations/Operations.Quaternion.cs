@@ -300,23 +300,24 @@ namespace Engine
             double m1x0, double m1x1, double m1x2, double m1x3,
             double m2x0, double m2x1, double m2x2, double m2x3,
             double m3x0, double m3x1, double m3x2, double m3x3
-            ) QuaternionToMatrix(double x, double y, double z, double w) => (
-                           1d - (2d * ((y * y) + (z * z))),
-                           2d * ((x * y) - (w * z)),
-                           2d * ((x * z) + (w * y)),
-                           0d,
-                           2d * ((x * y) + (w * z)),
-                           1d - (2d * ((x * x) + (z * z))),
-                           2d * ((y * z) - (w * x)),
-                           0d,
-                           2d * ((x * z) - (w * y)),
-                           2d * ((y * z) + (w * x)),
-                           1d - (2d * ((x * x) + (y * y))),
-                           0d,
-                           2d * ((x * z) - (w * y)),
-                           2d * ((y * z) + (w * x)),
-                           1d - (2d * ((x * x) + (y * y))),
-                           0d);
+            ) QuaternionToMatrix(double x, double y, double z, double w)
+            => (
+                1d - (2d * ((y * y) + (z * z))),
+                2d * ((x * y) - (w * z)),
+                2d * ((x * z) + (w * y)),
+                0d,
+                2d * ((x * y) + (w * z)),
+                1d - (2d * ((x * x) + (z * z))),
+                2d * ((y * z) - (w * x)),
+                0d,
+                2d * ((x * z) - (w * y)),
+                2d * ((y * z) + (w * x)),
+                1d - (2d * ((x * x) + (y * y))),
+                0d,
+                2d * ((x * z) - (w * y)),
+                2d * ((y * z) + (w * x)),
+                1d - (2d * ((x * x) + (y * y))),
+                0d);
 
         /// <summary>
         /// The to axis.

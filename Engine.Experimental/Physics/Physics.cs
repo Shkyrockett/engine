@@ -13,7 +13,7 @@ namespace Engine.Physics
     /// <summary>
     /// The physics class.
     /// </summary>
-    public class Physics
+    public static class Physics
     {
         /// <summary>
         /// Add the velocities.

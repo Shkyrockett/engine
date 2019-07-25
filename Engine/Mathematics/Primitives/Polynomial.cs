@@ -253,7 +253,7 @@ namespace Engine
         /// <returns></returns>
         public PolynomialDegree Degree
             // If degree uninitialized look up the real order then cache it and return.
-            => (degree ??= RealOrder(Epsilon)).Value;
+            => (degree ??= RealOrder(Epsilon));
 
         /// <summary>
         /// Gets the raw number of coefficients found in the polynomial, including any leading zero coefficients.
@@ -732,7 +732,7 @@ namespace Engine
             }
 
             // Get the real degree to skip any leading zero coefficients.
-            var order = (int)(degree ??= RealOrder(epsilon)).Value + 1; /*Warning! Side effect!*/
+            var order = (int)(degree ??= RealOrder(epsilon)) + 1; /*Warning! Side effect!*/
 
             // Copy the remaining coefficients to a new array and return it.
             var coeffs = new double[order];
@@ -1047,7 +1047,7 @@ namespace Engine
         /// Get the standard base.
         /// </summary>
         /// <param name="degree">The degree.</param>
-        /// <returns>The <see cref="T:Polynomial[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <exception cref="ArgumentException"></exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1169,34 +1169,22 @@ namespace Engine
         {
             Contract.Ensures(Contract.Result<Polynomial>() != null);
 
-            switch (values?.Length - 1)
+            return (values?.Length - 1 switch
             {
-                case var n when n < 1:
-                    throw new ArgumentNullException(nameof(values), "At least 2 different points must be given");
-                case 1:
-                    return LinearBezierCoefficients(values[0], values[1]);
-                case 2:
-                    return QuadraticBezierCoefficients(values[0], values[1], values[2]);
-                case 3:
-                    return CubicBezierCoefficients(values[0], values[1], values[2], values[3]);
-                case 4:
-                    return QuarticBezierCoefficients(values[0], values[1], values[2], values[3], values[4]);
-                case 5:
-                    return QuinticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5]);
-                case 6:
-                    return SexticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6]);
-                case 7:
-                    return SepticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]);
-                case 8:
-                    return OcticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]);
-                case 9:
-                    return NonicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]);
-                case 10:
-                    return DecicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]);
-                default:
-                    // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
-                    return Bezier(0, values.Length - 1, values);
-            }
+                var n when n < 1 => throw new ArgumentNullException(nameof(values), "At least 2 different points must be given"),
+                1 => LinearBezierCoefficients(values[0], values[1]),
+                2 => QuadraticBezierCoefficients(values[0], values[1], values[2]),
+                3 => CubicBezierCoefficients(values[0], values[1], values[2], values[3]),
+                4 => QuarticBezierCoefficients(values[0], values[1], values[2], values[3], values[4]),
+                5 => QuinticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5]),
+                6 => SexticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6]),
+                7 => SepticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7]),
+                8 => OcticBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8]),
+                9 => NonicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9]),
+                10 => DecicBezierCoefficients(values[0], values[1], values[2], values[3], values[4], values[5], values[6], values[7], values[8], values[9], values[10]),
+            // We don't have an optimized or stacked Method for this Polynomial. Use the recursive method.
+                _ => Bezier(0, values.Length - 1, values),
+            }).Value;
         }
 
         /// <summary>
@@ -1277,7 +1265,7 @@ namespace Engine
         /// Will try to solve root analytically, and if it can will use numerical approach.
         /// </summary>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:IEnumerable{double}"/>.</returns>
+        /// <returns>The <see cref="IEnumerable{T}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<double> RealOrComplexRoots(double epsilon = Epsilon)
@@ -1296,7 +1284,7 @@ namespace Engine
         /// This method use the Durand-Kerner aka Weierstrass algorithm to find approximate root of this polynomial.
         /// </summary>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:Complex[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// http://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method
@@ -1308,7 +1296,7 @@ namespace Engine
             var poly = Normalize();
             if (poly.Count == 1)
             {
-                return new Complex[0];
+                return Array.Empty<Complex>();
             }
 
             var order = (int)poly.Degree;
@@ -1378,7 +1366,7 @@ namespace Engine
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -1400,7 +1388,7 @@ namespace Engine
             {
                 // get roots of derivative
                 var deriv = Derivate();
-                var droots = deriv.Count == 1 && deriv[0] == 0 ? new double[0] : deriv.RootsInInterval(min, max, epsilon);
+                var droots = deriv.Count == 1 && deriv[0] == 0 ? Array.Empty<double>() : deriv.RootsInInterval(min, max, epsilon);
                 if (droots.Length > 0)
                 {
                     root = Bisection(min, droots[0], epsilon);
@@ -1442,7 +1430,7 @@ namespace Engine
         /// Find the Roots of up to Quintic degree <see cref="Polynomial"/>s.
         /// </summary>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>

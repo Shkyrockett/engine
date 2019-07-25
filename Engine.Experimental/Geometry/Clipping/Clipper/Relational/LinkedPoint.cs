@@ -15,10 +15,19 @@ namespace Engine.Experimental
     /// </summary>
     public class LinkedPoint
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public LinkedPoint()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <param name="next"></param>
+        /// <param name="prev"></param>
         public LinkedPoint(Point2D pt, LinkedPoint next, LinkedPoint prev)
         {
             Pt = pt;

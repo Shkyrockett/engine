@@ -118,7 +118,7 @@ namespace Engine
         /// The interpolate points.
         /// </summary>
         /// <param name="count">The count.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public override List<Point2D> InterpolatePoints(int count)
         {
             const double n = 10000;

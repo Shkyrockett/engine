@@ -5,7 +5,7 @@ namespace Engine.Experimental
     /// <summary>
     /// The enveloper class.
     /// </summary>
-    public class Enveloper
+    public static class Enveloper
     {
         /// <summary>
         /// Warp the shape using Envelope distortion.

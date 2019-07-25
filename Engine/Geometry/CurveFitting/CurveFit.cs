@@ -38,7 +38,7 @@ namespace Engine
         /// <summary>
         /// Shared zero-curve array.
         /// </summary>
-        private static readonly CubicBezier[] zeroCurves = new CubicBezier[0];
+        private static readonly CubicBezier[] zeroCurves = Array.Empty<CubicBezier>();
         #endregion Fields
 
         #region Constructors

@@ -239,7 +239,7 @@ namespace Engine
         /// Parse the path def string.
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
-        /// <returns>The <see cref="T:List{PolygonContour}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<PolygonContour> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
@@ -248,7 +248,7 @@ namespace Engine
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="T:List{PolygonContour}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<PolygonContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
             _ = provider;
@@ -368,7 +368,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
-            => Intersections.Contains(this, point) != Inclusion.Outside;
+            => Intersections.Contains(this, point) != Inclusions.Outside;
 
         /// <summary>
         /// Clone.
@@ -382,7 +382,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{PolygonContour}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<PolygonContour> GetEnumerator()
             => contours.GetEnumerator();
 

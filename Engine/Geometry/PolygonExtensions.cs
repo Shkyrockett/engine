@@ -50,7 +50,7 @@ namespace Engine
             }
 
             //  If there is a straight-line solution, return with it immediately.
-            if (polygons.PolygonSetContainsPoints(start, end) == Inclusion.Inside)
+            if (polygons.PolygonSetContainsPoints(start, end) == Inclusions.Inside)
             {
                 return new Polyline(new List<Point2D> { start, end });
             }
@@ -89,7 +89,7 @@ namespace Engine
                 {
                     for (var tj = treeCount; tj < pointList.Count; tj++)
                     {
-                        if (polygons.PolygonSetContainsPoints(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)) == Inclusion.Inside)
+                        if (polygons.PolygonSetContainsPoints(new Point2D(pointList[ti].X, pointList[ti].Y), new Point2D(pointList[tj].X, pointList[tj].Y)) == Inclusions.Inside)
                         {
                             var newDist = pointList[ti].TotalDistance + new Point2D(pointList[ti].X, pointList[ti].Y).Distance(new Point2D(pointList[tj].X, pointList[tj].Y));
                             if (newDist < bestDist)
@@ -193,7 +193,7 @@ namespace Engine
         /// </acknowledgment>
         private static void OrientPolygonClockwise(this PolygonContour polygon)
         {
-            if (polygon.Orientation == RotationDirections.CounterClockwise)
+            if (polygon.Orientation == RotationDirection.CounterClockwise)
             {
                 polygon.Points.Reverse();
             }

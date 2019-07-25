@@ -10,9 +10,9 @@
 
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine.Experimental
 {
@@ -25,12 +25,12 @@ namespace Engine.Experimental
         /// <summary>
         /// The default arc frac (const). Value: 0.02d.
         /// </summary>
-        private const double DefaultArcFrac = 0.02d;
+        private const double defaultArcFrac = 0.02d;
 
         /// <summary>
         /// The tolerance (const). Value: 1.0E-15.
         /// </summary>
-        private const double Tolerance = 1.0E-15;
+        private const double tolerance = 1.0E-15;
         #endregion Constants
 
         #region Fields
@@ -127,14 +127,10 @@ namespace Engine.Experimental
         /// <param name="p">The p.</param>
         /// <param name="jt">The jt.</param>
         /// <param name="et">The et.</param>
-        public void AddPath(PolygonContour p, LineJoins jt, LineEndType et)
+        public void AddPath(PolygonContour p, LineJoin jt, LineEndType et)
         {
             PathNode? pn = new PathNode(p, jt, et);
-            if (pn.Value.Path is null)
-            {
-                pn = null;
-            }
-            else
+            if (!(pn.Value.Path is null))
             {
                 Nodes.Add(pn.Value);
             }
@@ -146,7 +142,7 @@ namespace Engine.Experimental
         /// <param name="paths">The paths.</param>
         /// <param name="jt">The jt.</param>
         /// <param name="et">The et.</param>
-        public void AddPaths(Polygon paths, LineJoins jt, LineEndType et)
+        public void AddPaths(Polygon paths, LineJoin jt, LineEndType et)
         {
             foreach (var p in paths)
             {
@@ -183,8 +179,8 @@ namespace Engine.Experimental
 
             // now clean up 'corners' ...
             var clpr = new Clipper();
-            clpr.AddPaths(solution, ClippingRelations.Subject);
-            return negate ? clpr.Execute(ClippingOperations.Union, sol, WindingRules.Negative) : clpr.Execute(ClippingOperations.Union, sol, WindingRules.Positive);
+            clpr.AddPaths(solution, ClippingRelation.Subject);
+            return negate ? clpr.Execute(ClippingOperation.Union, sol, WindingRule.Negative) : clpr.Execute(ClippingOperation.Union, sol, WindingRule.Positive);
         }
 
         /// <summary>
@@ -195,7 +191,7 @@ namespace Engine.Experimental
         /// <param name="jt">The jt.</param>
         /// <param name="et">The et.</param>
         /// <returns>The <see cref="Polygon"/>.</returns>
-        public static Polygon OffsetPaths(Polygon pp, double delta, LineJoins jt, LineEndType et)
+        public static Polygon OffsetPaths(Polygon pp, double delta, LineJoin jt, LineEndType et)
         {
             var co = new ClipperOffset();
             co.AddPaths(pp, jt, et);
@@ -244,7 +240,7 @@ namespace Engine.Experimental
         /// <param name="k">The k.</param>
         /// <param name="jointype">The jointype.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void OffsetPoint(int j, ref int k, LineJoins jointype)
+        private void OffsetPoint(int j, ref int k, LineJoin jointype)
         {
             // A: angle between adjoining paths on left side (left WRT winding direction).
             // A == 0 deg (or A == 360 deg): collinear edges heading in same direction
@@ -295,7 +291,7 @@ namespace Engine.Experimental
                 // convex offsets here ...
                 switch (jointype)
                 {
-                    case LineJoins.Miter:
+                    case LineJoin.Miter:
                         var cosA = (Norms[j].X * Norms[k].X) + (Norms[j].Y * Norms[k].Y);
                         // see offset_triginometry3.svg
                         if (1 + cosA < miterLim)
@@ -308,7 +304,7 @@ namespace Engine.Experimental
                         }
 
                         break;
-                    case LineJoins.Square:
+                    case LineJoin.Square:
                         cosA = (Norms[j].X * Norms[k].X) + (Norms[j].Y * Norms[k].Y);
                         if (cosA >= 0)
                         {
@@ -320,7 +316,7 @@ namespace Engine.Experimental
                         }
 
                         break;
-                    case LineJoins.Round:
+                    case LineJoin.Round:
                         DoRound(j, k);
                         break;
                 }
@@ -421,7 +417,7 @@ namespace Engine.Experimental
             var absDelta = Abs(d);
 
             // if a Zero offset, then just copy CLOSED polygons to FSolution and return ...
-            if (absDelta < Tolerance)
+            if (absDelta < tolerance)
             {
                 solution = new Polygon
                 {
@@ -442,7 +438,7 @@ namespace Engine.Experimental
             miterLim = MiterLimit > 2 ? 2 / (MiterLimit * MiterLimit) : 0.5;
 
             double arcTol;
-            arcTol = ArcTolerance < DefaultArcFrac ? absDelta * DefaultArcFrac : ArcTolerance;
+            arcTol = ArcTolerance < defaultArcFrac ? absDelta * defaultArcFrac : ArcTolerance;
 
             // see offset_triginometry2.svg in the documentation folder ...
             var steps = PI / Acos(1 - (arcTol / absDelta));  // steps per 360 degrees
@@ -473,7 +469,7 @@ namespace Engine.Experimental
                 // if a single vertex then build circle or a square ...
                 if (pathInCnt == 1)
                 {
-                    if (node.JoinType == LineJoins.Round)
+                    if (node.JoinType == LineJoin.Round)
                     {
                         var X = 1.0;
                         var Y = 0.0;

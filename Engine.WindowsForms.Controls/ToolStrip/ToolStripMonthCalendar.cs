@@ -26,11 +26,13 @@ namespace Engine.WindowsForms
     public partial class ToolStripMonthCalendar
         : ToolStripControlHost
     {
+        private static readonly MonthCalendar calendar = new MonthCalendar();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolStripMonthCalendar"/> class.
         /// </summary>
         public ToolStripMonthCalendar()
-            : base(new MonthCalendar())
+            : base(calendar)
         {
             InitializeComponent();
         }

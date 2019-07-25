@@ -218,7 +218,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix2x2D operator +(Matrix2x2D matrix) => UnaryAdd(matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1);
+        public static Matrix2x2D operator +(Matrix2x2D matrix) => UnaryPosate(matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1);
 
         /// <summary>
         /// Used to add two matrices together.
@@ -237,7 +237,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix2x2D operator -(Matrix2x2D matrix) => Negate(matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1);
+        public static Matrix2x2D operator -(Matrix2x2D matrix) => UnaryNegate(matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1);
 
         /// <summary>
         /// Used to subtract two matrices.
@@ -441,7 +441,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {

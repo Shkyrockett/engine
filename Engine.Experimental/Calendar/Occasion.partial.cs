@@ -34,8 +34,8 @@ namespace Engine.Chrono
         {
             switch (culture.Country)
             {
-                case Countries.CA:
-                case Countries.US:
+                case Country.CA:
+                case Country.US:
                     if (year >= 1918 && year <= 1920)
                     {
                         return new Occasion(
@@ -43,7 +43,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.March, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.March, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
                                 "Daylight Savings Time begins at 2:00 a.m. on the last Sunday of March.");
                     }
                     else if (year >= 1921 && year <= 1941)
@@ -53,7 +53,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.April, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.April, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
                                 "Daylight Savings Time begins at 2:00 a.m. on the last Sunday of April.");
                     }
                     else if (year == 1942)
@@ -63,7 +63,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.February, 9, 2, 0, 0),
+                                new DateTime(year, (int)Month.February, 9, 2, 0, 0),
                                 "Daylight Savings Time begins at 2:00 a.m. on February 9th.");
                     }
                     else if (year >= 1943 && year <= 1945)
@@ -77,7 +77,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.April, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.April, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
                                 "Daylight Savings Time begins at 2:00 a.m. on the last Sunday of April.");
                     }
                     else if (year == 1974)
@@ -87,7 +87,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.January, 6, 2, 0, 0),
+                                new DateTime(year, (int)Month.January, 6, 2, 0, 0),
                                 "Daylight Savings Time begins at 2:00 a.m. on January 6th.");
                     }
                     else if (year == 1975)
@@ -97,7 +97,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.February, 23, 2, 0, 0),
+                                new DateTime(year, (int)Month.February, 23, 2, 0, 0),
                                 "Daylight Savings Time begins at 2:00 a.m. on February 23rd.");
                     }
                     else if (year >= 1976 && year <= 1986)
@@ -107,7 +107,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.April, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.April, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
                                 "Daylight Savings Time begins at 2:00 a.m. on the last Sunday of April.");
                     }
                     else if (year >= 1987 && year < 2007)
@@ -117,7 +117,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.April, 1, 2, 0, 0).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.April, 1, 2, 0, 0).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Sunday),
                                 "Daylight Savings Time begins at 2:00 a.m. on the 1st Sunday of April.");
                     }
                     else if (year >= 2007)
@@ -127,7 +127,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.March, 1, 2, 0, 0).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.March, 1, 2, 0, 0).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Sunday),
                                 "Daylight Savings Time begins at 2:00 a.m. on the second Sunday of March.");
                     }
                     else
@@ -154,8 +154,8 @@ namespace Engine.Chrono
         {
             switch (culture.Country)
             {
-                case Countries.CA:
-                case Countries.US:
+                case Country.CA:
+                case Country.US:
                     if (year >= 1918 && year <= 1921)
                     {
                         return new Occasion(
@@ -163,7 +163,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.October, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.October, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
                                 "Daylight Savings Time ends at 2:00 a.m. on the last Sunday of October");
                     }
                     else if (year >= 1921 && year <= 1941)
@@ -173,7 +173,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.September, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.September, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
                                 "Daylight Savings Time ends at 2:00 a.m. on the last Sunday of September");
                     }
                     else if (year >= 1942 && year < 1945)
@@ -187,7 +187,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.September, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.September, 1, 2, 0, 0).LastWeekdayOfMonth(DayOfWeek.Sunday),
                                 "Daylight Savings Time ends at 2:00 a.m. on the last Sunday of September");
                     }
                     else if (year >= 1955 && year <= 2007)
@@ -197,7 +197,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.November, 1, 2, 0, 0).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.November, 1, 2, 0, 0).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Sunday),
                                 "Daylight Savings Time ends at 2:00 a.m. on the Last Sunday of October.");
                     }
                     else if (year >= 2007)
@@ -207,7 +207,7 @@ namespace Engine.Chrono
                                 culture,
                                 OccasionDateType.DynamicAnnualDate,
                                 EventType.Notification,
-                                new DateTime(year, (int)Months.November, 1, 2, 0, 0).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Sunday),
+                                new DateTime(year, (int)Month.November, 1, 2, 0, 0).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Sunday),
                                 "Daylight Savings Time ends at 2:00 a.m. on the first Sunday of November");
                     }
                     else
@@ -234,7 +234,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.January, 1).FirstInstanceWeekdayOfMonth(3, DayOfWeek.Monday),
+            new DateTime(year, (int)Month.January, 1).FirstInstanceWeekdayOfMonth(3, DayOfWeek.Monday),
             "The Third Monday of January.");
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.February, 1).FirstInstanceWeekdayOfMonth(3, DayOfWeek.Monday),
+            new DateTime(year, (int)Month.February, 1).FirstInstanceWeekdayOfMonth(3, DayOfWeek.Monday),
             "The Third Monday of February.");
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.May, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Sunday),
+            new DateTime(year, (int)Month.May, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Sunday),
             "The Second Sunday of May.");
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.May, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Monday),
+            new DateTime(year, (int)Month.May, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Monday),
             "The last Monday of May.");
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.June, 1).FirstInstanceWeekdayOfMonth(3, DayOfWeek.Sunday),
+            new DateTime(year, (int)Month.June, 1).FirstInstanceWeekdayOfMonth(3, DayOfWeek.Sunday),
             "The Third Sunday of June.");
 
         /// <summary>
@@ -324,7 +324,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.September, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Monday),
+            new DateTime(year, (int)Month.September, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Monday),
             "The 1st Monday of September.");
 
         /// <summary>
@@ -335,10 +335,10 @@ namespace Engine.Chrono
         public static Occasion ColumbusDay(int year)
             => new Occasion(
             "Columbus Day",
-            new Culture(Languages.en, Countries.US),
+            new Culture(Language.en, Country.US),
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Monday),
+            new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Monday),
             "The 2nd Monday of Oct.");
 
         /// <summary>
@@ -356,7 +356,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.November, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Monday).AddDays(1),
+            new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Monday).AddDays(1),
             "The Tuesday after First Monday of Nov.");
 
         /// <summary>
@@ -373,46 +373,46 @@ namespace Engine.Chrono
         {
             switch (culture.Country)
             {
-                case Countries.AU:
+                case Country.AU:
                     return new Occasion(
                         "Thanksgiving Day (Norfolk Island Australia)",
                         culture,
                         OccasionDateType.DynamicAnnualDate,
                         EventType.Holiday,
-                        new DateTime(year, (int)Months.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
+                        new DateTime(year, (int)Month.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
                         "The Last Wednesday in November.");
-                case Countries.CA:
+                case Country.CA:
                     return new Occasion(
                         "Thanksgiving Day (Canada)",
                         culture,
                         OccasionDateType.DynamicAnnualDate,
                         EventType.Holiday,
-                        new DateTime(year, (int)Months.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
+                        new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
                         "The Second Monday in October.");
-                case Countries.GD:
+                case Country.GD:
                     return new Occasion(
                         "Thanksgiving Day (Grenada)",
                         culture,
                         OccasionDateType.AnnualDate,
                         EventType.Holiday,
-                        new DateTime(year, (int)Months.October, 25),
+                        new DateTime(year, (int)Month.October, 25),
                         "October Twenty Fifth.");
-                case Countries.LR:
+                case Country.LR:
                     return new Occasion(
                         "Thanksgiving Day (Liberia)",
                         culture,
                         OccasionDateType.DynamicAnnualDate,
                         EventType.Holiday,
-                        new DateTime(year, (int)Months.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
+                        new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
                         "The First Thursday in November.");
-                case Countries.US:
+                case Country.US:
                 default:
                     return new Occasion(
                        "Thanksgiving Day (USA)",
                        culture,
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfWeek.Thursday),
+                       new DateTime(year, (int)Month.November, 1).FirstInstanceWeekdayOfMonth(4, DayOfWeek.Thursday),
                        "The Fourth Thursday in November.");
             }
         }
@@ -532,7 +532,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Notification,
-            new DateTime(year, (int)Months.April, 15).EnsureWeekday(),
+            new DateTime(year, (int)Month.April, 15).EnsureWeekday(),
             "Nearest business day to April Fifteenth.");
 
         /// <summary>
@@ -550,7 +550,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.June, 14).EnsureWeekday(),
+            new DateTime(year, (int)Month.June, 14).EnsureWeekday(),
             "Nearest business day to June Fourteenth.");
 
         /// <summary>
@@ -568,7 +568,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.July, 4),
+            new DateTime(year, (int)Month.July, 4),
             "Nearest business day to The Fourth of July.");
 
         // - Birthdays -
@@ -588,10 +588,10 @@ namespace Engine.Chrono
             return (year <= 1732) ? null :
                        new Occasion(
                        "Abraham Lincoln's Birthday",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Birthday,
-                       new DateTime(year, (int)Months.February, 12),
+                       new DateTime(year, (int)Month.February, 12),
                        "The 16th president of the United states who presided during the Civil War. Abraham Lincoln was born in Kentucky on February 12th, 1809.");
         }
 
@@ -610,10 +610,10 @@ namespace Engine.Chrono
             return (year <= 1732) ? null :
                        new Occasion(
                        "George Washington's Birthday",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Birthday,
-                       new DateTime(year, (int)Months.February, 22),
+                       new DateTime(year, (int)Month.February, 22),
                        "The first president of the United States and commander in chief of the Continental army during the American Revolution. George Washington was born on the Pope's Creek Estate near present-day Colonial Beach in Westmore land County, Virginia; on February 22nd, 1732.");
         }
 
@@ -632,7 +632,7 @@ namespace Engine.Chrono
                        Cultures.en_US,
                        OccasionDateType.AnnualDate,
                        EventType.Birthday,
-                       new DateTime(year, (int)Months.January, 8),
+                       new DateTime(year, (int)Month.January, 8),
                        "Often referred to as the king of rock and roll. Elvis Aaron Presley was born in Tupelo MS on January 8th, 1935.");
         }
 
@@ -653,7 +653,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.AnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.January, 1),
+            new DateTime(year, (int)Month.January, 1),
             "The first day of January.");
 
         /// <summary>
@@ -670,10 +670,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Groundhog Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.February, 2),
+                       new DateTime(year, (int)Month.February, 2),
                        "The Second day of February.");
         }
 
@@ -691,10 +691,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Saint Valentine's Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.February, 14),
+                       new DateTime(year, (int)Month.February, 14),
                        "February Fourteenth.");
         }
 
@@ -712,10 +712,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Saint Patrick's Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.March, 17),
+                       new DateTime(year, (int)Month.March, 17),
                        "The Seventeenth of March.");
         }
 
@@ -732,10 +732,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "European Labor Day (May day)",
-                       new Culture(Languages.en, Countries.GB),
+                       new Culture(Language.en, Country.GB),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.May, 1),
+                       new DateTime(year, (int)Month.May, 1),
                        "The First of May.");
         }
 
@@ -753,10 +753,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Cinco De Mayo",
-                       new Culture(Languages.es, Countries.MX),
+                       new Culture(Language.es, Country.MX),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.May, 5),
+                       new DateTime(year, (int)Month.May, 5),
                        "The Fifth of May.");
         }
 
@@ -774,10 +774,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Patriot Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.September, 11),
+                       new DateTime(year, (int)Month.September, 11),
                        "September 11th.");
         }
 
@@ -795,10 +795,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Guy Fawkes Day",
-                       new Culture(Languages.en, Countries.GB),
+                       new Culture(Language.en, Country.GB),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.November, 5),
+                       new DateTime(year, (int)Month.November, 5),
                        "Remember, remember the Fifth of November.");
         }
 
@@ -816,10 +816,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        nameof(Halloween),
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.October, 31),
+                       new DateTime(year, (int)Month.October, 31),
                        "October Thirty First.");
         }
 
@@ -838,7 +838,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.AnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.November, 1),
+            new DateTime(year, (int)Month.November, 1),
             "November First.");
 
         /// <summary>
@@ -856,7 +856,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.AnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.November, 11),
+            new DateTime(year, (int)Month.November, 11),
             "November Eleventh.");
 
         /// <summary>
@@ -874,7 +874,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.AnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.December, 24),
+            new DateTime(year, (int)Month.December, 24),
             "The Twenty Fourth of December, or Day Before Christmas.");
 
         /// <summary>
@@ -892,7 +892,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.AnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.December, 25),
+            new DateTime(year, (int)Month.December, 25),
             "The Twenty Fifth of December.");
 
         /// <summary>
@@ -910,7 +910,7 @@ namespace Engine.Chrono
             culture,
             OccasionDateType.AnnualDate,
             EventType.Holiday,
-            new DateTime(year, (int)Months.December, 26),
+            new DateTime(year, (int)Month.December, 26),
             "The Twenty Sixth of December, or The Day after Christmas.");
 
         /// <summary>
@@ -927,10 +927,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "New Year's Eve",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.December, 31),
+                       new DateTime(year, (int)Month.December, 31),
                        "The last day of the Year.");
         }
 
@@ -950,10 +950,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Strawberry Days Starts",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday).BeforeSunday(),
+                       new DateTime(year, (int)Month.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday).BeforeSunday(),
                        "The Saturday before the last Sunday of June.");
         }
 
@@ -971,10 +971,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Strawberry Days Ends",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday),
+                       new DateTime(year, (int)Month.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday),
                        "The last Sunday of June.");
         }
 
@@ -992,10 +992,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Peach Days Starts",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.September, 1).NextDayOfWeek(DayOfWeek.Thursday),
+                       new DateTime(year, (int)Month.September, 1).NextDayOfWeek(DayOfWeek.Thursday),
                        "The First Thursday of September.");
         }
 
@@ -1013,10 +1013,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Peach Days Ends",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.September, 1).NextDayOfWeek(DayOfWeek.Thursday).AddDays(2),
+                       new DateTime(year, (int)Month.September, 1).NextDayOfWeek(DayOfWeek.Thursday).AddDays(2),
                        "The Saturday following the first Thursday of September.");
         }
 
@@ -1034,10 +1034,10 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Pioneer Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
-                       new DateTime(year, (int)Months.July, 24),
+                       new DateTime(year, (int)Month.July, 24),
                        "The Twenty Fourth of July.");
         }
 
@@ -1143,7 +1143,7 @@ namespace Engine.Chrono
             var LASTJULJDN = 2299160f;
 
             // British-American usage
-            if (culture.Language == Languages.en && (culture.Country == Countries.US || culture.Country == Countries.GB))
+            if (culture.Language == Language.en && (culture.Country == Country.US || culture.Country == Country.GB))
             {
                 //// last day to use Julian calendar
                 //LASTJULDATE = 17520902f;

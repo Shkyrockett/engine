@@ -60,7 +60,7 @@ namespace Engine
 
             // This is faster than:
             // double cos = Math.Cos(theta);
-            var cos = -Sqrt(1 - (sin * sin));
+            var cos = -Sqrt(1d - (sin * sin));
             return (
                 X: centerX + (radius * cos),
                 Y: centerY + (radius * sin)
@@ -80,7 +80,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static (double Radius, double Theta) CartesianToPolar(double x, double y, double centerX = 0, double centerY = 0)
+        public static (double Radius, double Theta) CartesianToPolar(double x, double y, double centerX = 0d, double centerY = 0d)
         {
             var dx = x - centerX;
             var dy = y - centerY;
@@ -107,7 +107,7 @@ namespace Engine
             //double value = IEEERemainder(angle, Tau);
             // The active ingredient of the IEEERemainder method is extracted here.
             var value = angle - (Tau * Math.Round(angle * InverseTau));
-            return value < 0 ? value + Tau : value;
+            return value < 0d ? value + Tau : value;
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulo(this double valueA, double valueB)
-            => ((valueA %= valueB) < 0) ? valueA + valueB : valueA;
+            => ((valueA %= valueB) < 0d) ? valueA + valueB : valueA;
 
         /// <summary>
         /// The angle.
@@ -220,7 +220,7 @@ namespace Engine
             double x2, double y2, double z2)
             => (Math.Abs(x1 - x2) < Epsilon
             && Math.Abs(y1 - y2) < Epsilon
-            && Math.Abs(z1 - z2) < Epsilon) ? 0 : Acos(Math.Min(1.0d, DotProduct(Normalize3D(x1, y1, z1), Normalize3D(x2, y2, z2))));
+            && Math.Abs(z1 - z2) < Epsilon) ? 0d : Acos(Math.Min(1d, DotProduct(Normalize3D(x1, y1, z1), Normalize3D(x2, y2, z2))));
 
         /// <summary>
         /// The angle vector.
@@ -264,7 +264,7 @@ namespace Engine
         {
             // Find the angle of point a and point b.
             var test = -Angle(x1, y1, x2, y2) % PI;
-            return test < 0 ? test += PI : test;
+            return test < 0d ? test += PI : test;
         }
 
         /// <summary>
@@ -357,11 +357,11 @@ namespace Engine
         public static (double cosT, double sinT) EllipticalPolarVector(double cosA, double sinA, double rx, double ry)
         {
             // Find the elliptical t that matches the circular angle.
-            if (cosA > -1 && cosA < 0 || cosA > 0 && cosA < 1)
+            if (cosA > -1d && cosA < 0d || cosA > 0d && cosA < 1d)
             {
                 var d = Sign(cosA);
-                return (d / Sqrt(1 + (rx * rx * sinA * sinA / (ry * ry * cosA * cosA))),
-                        d * (rx * sinA / (ry * cosA * Sqrt(1 + (rx * rx * sinA * sinA / (ry * ry * cosA * cosA))))));
+                return (d / Sqrt(1d + (rx * rx * sinA * sinA / (ry * ry * cosA * cosA))),
+                        d * (rx * sinA / (ry * cosA * Sqrt(1d + (rx * rx * sinA * sinA / (ry * ry * cosA * cosA))))));
             }
 
             return (cosA, sinA);
@@ -432,7 +432,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) RotatePoint2D(double x, double y, double angle)
-            => RotatePoint2D(x, y, Cos(angle), Sin(angle), 0, 0);
+            => RotatePoint2D(x, y, Cos(angle), Sin(angle), 0d, 0d);
 
         /// <summary>
         /// Rotate a point around the world origin.
@@ -445,7 +445,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) RotatePoint2D(double x, double y, double cos, double sin)
-            => RotatePoint2D(x, y, cos, sin, 0, 0);
+            => RotatePoint2D(x, y, cos, sin, 0d, 0d);
 
         /// <summary>
         /// Rotate a point around a fulcrum point.
@@ -531,7 +531,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J) Unit(double i, double j)
-            => Scale2D(i, j, 1 / Sqrt((i * i) + (j * j)));
+            => Scale2D(i, j, 1d / Sqrt((i * i) + (j * j)));
 
         /// <summary>
         /// Unit of a 3D Vector.
@@ -543,7 +543,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K) Unit(double i, double j, double k)
-            => Scale3D(i, j, k, 1 / Sqrt((i * i) + (j * j) + (k * k)));
+            => Scale3D(i, j, k, 1d / Sqrt((i * i) + (j * j) + (k * k)));
 
         /// <summary>
         /// Unit of a 4D Vector.
@@ -556,7 +556,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double I, double J, double K, double L) Unit(double i, double j, double k, double l)
-            => Scale4D(i, j, k, l, 1 / Sqrt((i * i) + (j * j) + (k * k) + (l * l)));
+            => Scale4D(i, j, k, l, 1d / Sqrt((i * i) + (j * j) + (k * k) + (l * l)));
         #endregion Unit
 
         #region Derived Equivalent Math Functions
@@ -597,7 +597,7 @@ namespace Engine
         public static double Secant(double value)
             => (value % PI == HalfPi)
             && (value % PI == -HalfPi)
-            ? (1 / Cos(value)) : 0;
+            ? (1d / Cos(value)) : 0d;
 
         /// <summary>
         /// Derived math functions equivalent  Co-secant
@@ -611,9 +611,9 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cosecant(double Value)
-            => (Value % PI == 0)
+            => (Value % PI == 0d)
             && (Value % PI == PI)
-            ? (1 / Sin(Value)) : 0;
+            ? (1d / Sin(Value)) : 0d;
 
         /// <summary>
         /// Derived math functions equivalent Cotangent
@@ -627,9 +627,9 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Cotangent(double Value)
-            => (Value % PI == 0)
+            => (Value % PI == 0d)
             && (Value % PI == PI)
-            ? (1 / Tan(Value)) : 0;
+            ? (1d / Tan(Value)) : 0d;
 
         /// <summary>
         /// Derived math functions equivalent Inverse Sine
@@ -644,23 +644,23 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSine(double value)
         {
-            if (value == 1)
+            if (value == 1d)
             {
                 return HalfPi;
             }
 
-            if (value == -1)
+            if (value == -1d)
             {
                 return -HalfPi;
             }
 
-            if (Math.Abs(value) < 1)
+            if (Math.Abs(value) < 1d)
             {
                 // Arc-sin(X)
-                return Atan(value / Sqrt((-value * value) + 1));
+                return Atan(value / Sqrt((-value * value) + 1d));
             }
 
-            return 0;
+            return 0d;
         }
 
         /// <summary>
@@ -676,23 +676,23 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCosine(double value)
         {
-            if (value == 1)
+            if (value == 1d)
             {
-                return 0;
+                return 0d;
             }
 
-            if (value == -1)
+            if (value == -1d)
             {
                 return PI;
             }
 
-            if (Math.Abs(value) < 1)
+            if (Math.Abs(value) < 1d)
             {
                 // Arc-cos(X)
-                return Atan(-value / Sqrt((-value * value) + 1)) + (2 * Atan(1));
+                return Atan(-value / Sqrt((-value * value) + 1d)) + (2d * Atan(1));
             }
 
-            return 0;
+            return 0d;
         }
 
         /// <summary>
@@ -708,23 +708,23 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseSecant(double value)
         {
-            if (value == 1)
+            if (value == 1d)
             {
-                return 0;
+                return 0d;
             }
 
-            if (value == -1)
+            if (value == -1d)
             {
                 return PI;
             }
 
-            if (Math.Abs(value) < 1)
+            if (Math.Abs(value) < 1d)
             {
                 // Arc-sec(X)
-                return Atan(value / Sqrt((value * value) - 1)) + (Sin(value - 1) * (2 * Atan(1)));
+                return Atan(value / Sqrt((value * value) - 1d)) + (Sin(value - 1d) * (2d * Atan(1)));
             }
 
-            return 0;
+            return 0d;
         }
 
         /// <summary>
@@ -740,23 +740,23 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCosecant(double value)
         {
-            if (value == 1)
+            if (value == 1d)
             {
                 return HalfPi;
             }
 
-            if (value == -1)
+            if (value == -1d)
             {
                 return -HalfPi;
             }
 
-            if (Math.Abs(value) < 1)
+            if (Math.Abs(value) < 1d)
             {
                 // Arc-co-sec(X)
-                return Atan(value / Sqrt((value * value) - 1)) + ((Sin(value) - 1) * (2 * Atan(1)));
+                return Atan(value / Sqrt((value * value) - 1d)) + ((Sin(value) - 1d) * (2d * Atan(1)));
             }
 
-            return 0;
+            return 0d;
         }
 
         /// <summary>
@@ -772,7 +772,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double InverseCotangent(double value)
-            => Atan(value) + (2d * Atan(1));
+            => Atan(value) + (2d * Atan(1d));
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Sine
@@ -787,7 +787,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicSine(double value)
-            => (Exp(value) - Exp(value * -1)) * 0.5d;
+            => (Exp(value) - Exp(value * -1d)) * 0.5d;
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Cosine
@@ -802,7 +802,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCosine(double value)
-            => (Exp(value) + Exp(value * -1)) * 0.5d;
+            => (Exp(value) + Exp(value * -1d)) * 0.5d;
 
         /// <summary>
         /// Derived math functions equivalent Hyperbolic Tangent
@@ -862,7 +862,7 @@ namespace Engine
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double HyperbolicCotangent(double value)
-            => (Exp(value) + Exp(value * -1)) / (Exp(value) - Exp(value * -1d));
+            => (Exp(value) + Exp(value * -1d)) / (Exp(value) - Exp(value * -1d));
 
         /// <summary>
         /// Derived math functions equivalent Inverse Hyperbolic Sine

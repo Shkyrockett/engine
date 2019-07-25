@@ -26,10 +26,11 @@ namespace Engine
         /// </summary>
         /// <param name="pointA">First Point.</param>
         /// <param name="pointB">Second Point.</param>
-        /// <returns>The absolute angle of a line in radians.</returns>
+        /// <returns>The absolute angle of a line in radians.</returns>
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double AbsoluteAngle(this Point pointA, Point pointB)
-            => Mathematics.AbsoluteAngle(pointA.X, pointA.Y, pointB.X, pointB.Y);
+            => Operations.AbsoluteAngle(pointA.X, pointA.Y, pointB.X, pointB.Y);
 
         /// <summary>
         /// Adds a <see cref="Point"/> by a value.
@@ -124,11 +125,12 @@ namespace Engine
         /// </summary>
         /// <param name="PointA">Starting Point</param>
         /// <param name="PointB">Ending Point</param>
-        /// <returns>Returns the Angle of a line.</returns>
+        /// <returns>Returns the Angle of a line.</returns>
+
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Angle(this Point PointA, Point PointB)
-            => Mathematics.Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
+            => Operations.Angle(PointA.X, PointA.Y, PointB.X, PointB.Y);
 
         /// <summary>
         /// Cross Product a Perpendicular dot product of two vectors.
@@ -148,7 +150,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Point valueA, Point valueB)
-            => Mathematics.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            => Operations.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
 
         /// <summary>
         /// Cross Product a Perpendicular dot product of two vectors.
@@ -168,7 +170,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Point valueA, PointF valueB)
-            => Mathematics.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
+            => Operations.CrossProduct(valueA.X, valueA.Y, valueB.X, valueB.Y);
 
         /// <summary>
         /// Cross Product of a corner
@@ -180,14 +182,15 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Point point, Vector2D value)
-            => Mathematics.CrossProduct(point.X, point.Y, value.I, value.J);
+            => Operations.CrossProduct(point.X, point.Y, value.I, value.J);
 
         /// <summary>
         /// Finds the Delta of two Points
         /// </summary>
         /// <param name="value1">First Point</param>
         /// <param name="value2">Second Point</param>
-        /// <returns>Returns the Difference Between PointA and PointB</returns>
+        /// <returns>Returns the Difference Between PointA and PointB</returns>
+
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Delta(this Point value1, Point value2)
@@ -225,7 +228,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point value)
-            => Mathematics.DotProduct(value.X, value.Y, value.X, value.Y);
+            => Operations.DotProduct(value.X, value.Y, value.X, value.Y);
 
         /// <summary>
         /// Finds the Dot Product (scalar or inner product) of two Points.
@@ -239,7 +242,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point point, Point value)
-            => Mathematics.DotProduct(point.X, point.Y, value.X, value.Y);
+            => Operations.DotProduct(point.X, point.Y, value.X, value.Y);
 
         /// <summary>
         /// Finds the Dot Product (scalar or inner product) of two Points.
@@ -253,7 +256,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point point, PointF value)
-            => Mathematics.DotProduct(point.X, point.Y, value.X, value.Y);
+            => Operations.DotProduct(point.X, point.Y, value.X, value.Y);
 
         /// <summary>
         /// Determines the dot product of two 2D vectors
@@ -265,7 +268,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point point, Vector2D vector)
-            => Mathematics.DotProduct(point.X, point.Y, vector.I, vector.J);
+            => Operations.DotProduct(point.X, point.Y, vector.I, vector.J);
 
         /// <summary>
         /// Inflates a <see cref="Point"/> by a given factor.
@@ -504,7 +507,7 @@ namespace Engine
         /// <remarks>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this Point PointA, Point PointB)
-            => Mathematics.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);
+            => Operations.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);
 
         /// <summary>
         /// Subtracts a <see cref="PointF"/> by a value.
@@ -538,7 +541,8 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+
         public static Point Subtract(this Point point, Size value)
             => new Point(point.X - value.Width, point.Y - value.Height);
 
@@ -547,7 +551,8 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+
         public static Point Subtract(this Point point, SizeF value)
             => new Point((int)(point.X - value.Width), (int)(point.Y - value.Height));
 
@@ -556,7 +561,8 @@ namespace Engine
         /// </summary>
         /// <param name="point"></param>
         /// <param name="value"></param>
-        /// <returns></returns>
+        /// <returns></returns>
+
         public static Point Subtract(this Point point, Vector2D value)
             => new Point((int)(point.X - value.I), (int)(point.Y - value.J));
 
@@ -564,7 +570,8 @@ namespace Engine
         /// Unit of a Point
         /// </summary>
         /// <param name="value">The Point to Unitize</param>
-        /// <returns></returns>
+        /// <returns></returns>
+
         public static Point Unit(this Point value)
             => value.Scale((float)(1 / Sqrt((value.X * value.X) + (value.Y * value.Y))));
     }

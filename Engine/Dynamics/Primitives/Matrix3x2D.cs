@@ -39,12 +39,12 @@ namespace Engine
         /// <summary>
         /// An Empty <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static Matrix3x2D Empty = new Matrix3x2D();
+        public static readonly Matrix3x2D Empty = new Matrix3x2D();
 
         /// <summary>
         /// An Identity <see cref="Matrix3x2D"/>.
         /// </summary>
-        public static Matrix3x2D Identity = CreateIdentity();
+        public static readonly Matrix3x2D Identity = CreateIdentity();
         #endregion Static Fields
 
         #region Constants
@@ -1553,7 +1553,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {

@@ -26,7 +26,7 @@ namespace EngineTests
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
-        private const double TestEpsilon = 0.0000000000001d;
+        private const double testEpsilon = 0.0000000000001d;
         #endregion Constants
 
         #region Properties
@@ -45,6 +45,7 @@ namespace EngineTests
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
+            _ = context;
             //MessageBox.Show("ClassInit " + context.TestName);
         }
 
@@ -329,7 +330,7 @@ namespace EngineTests
 
             for (var i = 0; i < expected.Length; i++)
             {
-                Assert.AreEqual(expected[i], result[i], TestEpsilon);
+                Assert.AreEqual(expected[i], result[i], testEpsilon);
             }
         }
 
@@ -358,8 +359,8 @@ namespace EngineTests
                 }
                 else
                 {
-                    Assert.AreEqual(expected[i].Real, result[i].Real, 100 * TestEpsilon);
-                    Assert.AreEqual(expected[i].Imaginary, result[i].Imaginary, 100 * TestEpsilon);
+                    Assert.AreEqual(expected[i].Real, result[i].Real, 100 * testEpsilon);
+                    Assert.AreEqual(expected[i].Imaginary, result[i].Imaginary, 100 * testEpsilon);
                 }
             }
         }
@@ -382,7 +383,7 @@ namespace EngineTests
 
             for (var i = 0; i < expected.Length; i++)
             {
-                Assert.AreEqual(expected[i], result[i], TestEpsilon);
+                Assert.AreEqual(expected[i], result[i], testEpsilon);
             }
         }
 
@@ -400,11 +401,11 @@ namespace EngineTests
             var expected = new double[] { -0.6723782435877943, -3.234022892850585, -0.046799431780810474, -0.046799431780810474, 0, 0 };
             var result = value.Roots();
 
-            Assert.AreEqual(expected.Length, result.Length, TestEpsilon);
+            Assert.AreEqual(expected.Length, result.Length, testEpsilon);
 
             for (var i = 0; i < expected.Length; i++)
             {
-                Assert.AreEqual(expected[i], result[i], TestEpsilon);
+                Assert.AreEqual(expected[i], result[i], testEpsilon);
             }
         }
 
@@ -419,7 +420,7 @@ namespace EngineTests
         public void RealOrderTest()
         {
             var value = new Polynomial(1, 2, 3, 4, 5, 6);
-            const Engine.PolynomialDegree expected = PolynomialDegree.Quintic;
+            const PolynomialDegree expected = PolynomialDegree.Quintic;
             var result = value.RealOrder();
             Assert.AreEqual(expected, result);
         }

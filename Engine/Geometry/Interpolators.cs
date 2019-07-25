@@ -1344,13 +1344,116 @@ namespace Engine
         }
         #endregion Sine Interpolation
 
+        #region Parabola
+        /// <summary>
+        /// Interpolate a parabola from the standard parabolic equation.
+        /// </summary>
+        /// <param name="t">The <paramref name="t"/>ime index of the iteration.</param>
+        /// <param name="a">The <paramref name="a"/> component of the parabola.</param>
+        /// <param name="b">The <paramref name="b"/> component of the parabola.</param>
+        /// <param name="c">The <paramref name="c"/> component of the parabola.</param>
+        /// <param name="x1">The <paramref name="x1"/>imum x value to interpolate.</param>
+        /// <param name="x2">The <paramref name="x2"/>imum x value to interpolate.</param>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing the interpolated point at the t index.</returns>
+        /// <example>
+        /// <code>
+        /// var a = 0.0125d;
+        /// var h = 100d;
+        /// var k = 100d;
+        /// var b = -2d * a * h;
+        /// var c = (b * b / (4 * a)) + k;
+        /// var min = -100d;
+        /// var max = 100d;
+        /// var list = new List&lt;(double X, double Y)>();
+        /// 
+        /// for (int i = 0; i &lt; 100; i++)
+        /// {
+        ///     list.Add(InterpolateVertexParabola(a, b, c, -100, 100, 1d / i));
+        /// }
+        /// </code>
+        /// </example>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) InterpolateStandardParabola(double t, double a, double b, double c, double x1, double x2)
+        {
+            // Scale the t index to the segment range.
+            var x = x1 + ((x2 - x1) * t);
+            return (x, Y: (a * (x * x)) + ((b * x) + c));
+        }
+
+        /// <summary>
+        /// Interpolate a parabola from the general vertex form of the parabolic equation.
+        /// </summary>
+        /// <param name="t">The <paramref name="t"/>ime index of the iteration.</param>
+        /// <param name="a">The <paramref name="a"/> component of the parabola.</param>
+        /// <param name="h">The horizontal component of the parabola vertex.</param>
+        /// <param name="k">The vertical component of the parabola vertex.</param>
+        /// <param name="x1">The <paramref name="x1"/>imum x value to interpolate.</param>
+        /// <param name="x2">The <paramref name="x2"/>imum x value to interpolate.</param>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing the interpolated point at the t index.</returns>
+        /// <example>
+        /// <code>
+        /// var a = 0.0125d;
+        /// var h = 100d;
+        /// var k = 100d;
+        /// var min = -100d;
+        /// var max = 100d;
+        /// var list = new List&lt;(double X, double Y)>();
+        /// 
+        /// for (int i = 0; i &lt; 100; i++)
+        /// {
+        ///     list.Add(InterpolateVertexParabola(a, h, k, -100, 100, 1d / i));
+        /// }
+        /// </code>
+        /// </example>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) InterpolateVertexParabola(double t, double a, double h, double k, double x1, double x2)
+        {
+            // Scale the t index to the segment range.
+            var x = x1 + ((x2 - x1) * t);
+            return (x, Y: (a * (x - h) * (x - h)) + k);
+        }
+
+        public static (double X, double Y) InterpolateParabola(double t, double x1, double y1, double x2, double y2, double k)
+        {
+            var parabolicT = (t * 2d) - 1d;
+            var (dX, dY) = (x2 - x1, y2 - y1);
+            if (Abs(dX) < Epsilon && Abs(dY) < Epsilon)
+            {
+                // In place Vertical Throw.
+                return (x1, y1 + k * ((-4d * t * t) + (4d * t)));
+            }
+            if (Abs(dX) < Epsilon)
+            {
+                // Vertical throw with different heights.
+                return (x1, y1 + (t * dY) + (((-parabolicT * parabolicT) + 1d) * k));
+            }
+            else if (Abs(dY) < Epsilon && y1 == k)
+            {
+                // Horizontal slide.
+                return (((1d - t) * x1) + (t * x2), y1);
+            }
+            else if (Abs(dY) < Epsilon)
+            {
+                // Start and end are roughly level, pretend they are - simpler solution with fewer steps.
+                return (x1 + (t * dX), y1 + (t * dY) + (((-parabolicT * parabolicT) + 1d) * k));
+            }
+            else
+            {
+                // Other parabola.
+                return (double.NaN, double.NaN);
+            }
+        }
+        #endregion
+
         /// <summary>
         /// Linearly tweens between two cubic Bézier curves, from key1 to key2.
         /// </summary>
         /// <param name="t">The t index.</param>
         /// <param name="key1">The first cubic Bézier key.</param>
         /// <param name="key2">The second cubic Bézier key.</param>
-        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static CubicBezier TweenCubic(double t, CubicBezier key1, CubicBezier key2)
             => new CubicBezier(
                  key1.A + (t * (key2.A - key1.A)),

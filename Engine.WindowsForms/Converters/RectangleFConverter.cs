@@ -50,12 +50,12 @@ namespace Engine
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
             => destinationType == typeof(string) || base.CanConvertTo(context, destinationType);
 
-        /// <summary>Attempts to convert the specified object to a <see cref="T:System.Windows.Rect" />. </summary>
-        /// <returns>The <see cref="T:System.Windows.Rect" /> created from converting <paramref name="value" />.</returns>
+        /// <summary>Attempts to convert the specified object to a <see cref="RectangleF" />. </summary>
+        /// <returns>The <see cref="RectangleF" /> created from converting <paramref name="value" />.</returns>
         /// <param name="context">Provides contextual information required for conversion.</param>
         /// <param name="culture">Cultural information which is respected when converting.</param>
         /// <param name="value">The object being converted.</param>
-        /// <exception cref="T:System.NotSupportedException">Thrown if the specified object is NULL or is a type that cannot be converted to a <see cref="T:System.Windows.Rect" />.</exception>
+        /// <exception cref="NotSupportedException">Thrown if the specified object is NULL or is a type that cannot be converted to a <see cref="RectangleF" />.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var str = value as string;
@@ -91,14 +91,14 @@ namespace Engine
             return new RectangleF(numArray[0], numArray[1], numArray[2], numArray[3]);
         }
 
-        /// <summary> Attempts to convert a <see cref="T:System.Windows.Rect" /> to the specified type. </summary>
-        /// <returns>The object created from converting this <see cref="T:System.Windows.Rect" />.</returns>
+        /// <summary> Attempts to convert a <see cref="RectangleF" /> to the specified type. </summary>
+        /// <returns>The object created from converting this <see cref="RectangleF" />.</returns>
         /// <param name="context">Provides contextual information required for conversion.</param>
         /// <param name="culture">Cultural information which is respected during conversion.</param>
-        /// <param name="value">The <see cref="T:System.Windows.Rect" /> to convert.</param>
-        /// <param name="destinationType">The type to convert this <see cref="T:System.Windows.Rect" /> to.</param>
-        /// <exception cref="T:System.NotSupportedException">
-        ///   <paramref name="value" /> is null.- or - <paramref name="value" /> is not a <see cref="T:System.Windows.Rect" />.- or - The <paramref name="destinationType" /> is not one of the valid types for conversion.</exception>
+        /// <param name="value">The <see cref="RectangleF" /> to convert.</param>
+        /// <param name="destinationType">The type to convert this <see cref="RectangleF" /> to.</param>
+        /// <exception cref="NotSupportedException">
+        ///   <paramref name="value" /> is null.- or - <paramref name="value" /> is not a <see cref="RectangleF" />.- or - The <paramref name="destinationType" /> is not one of the valid types for conversion.</exception>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (destinationType is null)

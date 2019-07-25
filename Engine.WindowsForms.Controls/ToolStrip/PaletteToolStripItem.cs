@@ -24,11 +24,13 @@ namespace Engine.WindowsForms
     public partial class PaletteToolStripItem
         : ToolStripControlHost
     {
+        private static readonly PaletteControl palette = new PaletteControl();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PaletteToolStripItem"/> class.
         /// </summary>
         public PaletteToolStripItem()
-            : base(new PaletteControl())
+            : base(palette)
         {
             InitializeComponent();
         }

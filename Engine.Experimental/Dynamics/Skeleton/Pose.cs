@@ -15,9 +15,13 @@ namespace Engine
     /// </summary>
     public class Pose
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bones"></param>
         public Pose(Bone[] bones)
         {
-            Bones = bones ?? new Bone[] { };
+            Bones = bones ?? System.Array.Empty<Bone>();
         }
 
         /// <summary>

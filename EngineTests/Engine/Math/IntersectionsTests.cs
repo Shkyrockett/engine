@@ -24,7 +24,7 @@ namespace EngineTests
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
-        private const double TestEpsilon = 0.000000000001d;
+        private const double testEpsilon = 0.000000000001d;
         #endregion Constants
 
         #region Properties
@@ -43,6 +43,7 @@ namespace EngineTests
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
+            _ = context;
             //MessageBox.Show("TestClassInit");
         }
 
@@ -85,16 +86,16 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void CircleContainsPointTest()
         {
-            var testCases = new Dictionary<(Circle circle, Point2D point), Inclusion>
+            var testCases = new Dictionary<(Circle circle, Point2D point), Inclusions>
             {
-                { (new Circle(0, 0, 5), new Point2D(1, 1)), Inclusion.Inside },
-                { (new Circle(0, 0, 5), new Point2D(0, 0)), Inclusion.Inside },
-                { (new Circle(0, 0, 5), new Point2D(5, 5)), Inclusion.Outside },
-                { (new Circle(0, 0, 5), new Point2D(5, -5)), Inclusion.Outside },
-                { (new Circle(0, 0, 5), new Point2D(-5, -5)), Inclusion.Outside },
-                { (new Circle(0, 0, 5), new Point2D(-5, 5)), Inclusion.Outside },
-                { (new Circle(0, 0, 5), new Point2D(0, 5)), Inclusion.Boundary },
-                { (new Circle(0, 0, 5), new Point2D(0, -5)), Inclusion.Boundary },
+                { (new Circle(0, 0, 5), new Point2D(1, 1)), Inclusions.Inside },
+                { (new Circle(0, 0, 5), new Point2D(0, 0)), Inclusions.Inside },
+                { (new Circle(0, 0, 5), new Point2D(5, 5)), Inclusions.Outside },
+                { (new Circle(0, 0, 5), new Point2D(5, -5)), Inclusions.Outside },
+                { (new Circle(0, 0, 5), new Point2D(-5, -5)), Inclusions.Outside },
+                { (new Circle(0, 0, 5), new Point2D(-5, 5)), Inclusions.Outside },
+                { (new Circle(0, 0, 5), new Point2D(0, 5)), Inclusions.Boundary },
+                { (new Circle(0, 0, 5), new Point2D(0, -5)), Inclusions.Boundary },
             };
 
             foreach (var test in testCases.Keys)
@@ -116,16 +117,16 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void EllipseContainsPointTest()
         {
-            var testCases = new Dictionary<(Ellipse ellipse, Point2D point), Inclusion>
+            var testCases = new Dictionary<(Ellipse ellipse, Point2D point), Inclusions>
             {
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(1, 1)), Inclusion.Inside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, 0)), Inclusion.Inside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(5, 5)), Inclusion.Outside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(5, -5)), Inclusion.Outside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(-5, -5)), Inclusion.Outside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(-5, 5)), Inclusion.Outside },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, 5)), Inclusion.Boundary },
-                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, -5)), Inclusion.Boundary },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(1, 1)), Inclusions.Inside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, 0)), Inclusions.Inside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(5, 5)), Inclusions.Outside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(5, -5)), Inclusions.Outside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(-5, -5)), Inclusions.Outside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(-5, 5)), Inclusions.Outside },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, 5)), Inclusions.Boundary },
+                { (new Ellipse(0, 0, 4, 5, 0), new Point2D(0, -5)), Inclusions.Boundary },
             };
 
             foreach (var test in testCases.Keys)
@@ -214,8 +215,8 @@ namespace EngineTests
 
                 for (var i = 0; i < result.Count; i++)
                 {
-                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} x coordinate differs.");
-                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} y coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, testEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} x coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, testEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} y coordinate differs.");
                 }
             }
         }
@@ -267,8 +268,8 @@ namespace EngineTests
 
                 for (var i = 0; i < result.Count; i++)
                 {
-                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} x coordinate differs.");
-                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} y coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, testEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} x coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, testEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} y coordinate differs.");
                 }
             }
         }
@@ -313,8 +314,8 @@ namespace EngineTests
 
                 for (var i = 0; i < result.Count; i++)
                 {
-                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection {i} x coordinate differs.");
-                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection {i} y coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, testEpsilon, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection {i} x coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, testEpsilon, $"Test case: {test}, Expected: {expected}, Actual {result}; Intersection {i} y coordinate differs.");
                 }
             }
         }
@@ -345,8 +346,8 @@ namespace EngineTests
 
                 for (var i = 0; i < result.Count; i++)
                 {
-                    Assert.AreEqual(test.Value.Points[i].X, result.Points[i].X, TestEpsilon, $"Test case: {test}, Expected: {test.Value}, Actual: {result}; Intersection {i} x coordinate differs.");
-                    Assert.AreEqual(test.Value.Points[i].Y, result.Points[i].Y, TestEpsilon, $"Test case: {test}, Expected: {test.Value}, Actual: {result}; Intersection {i} y coordinate differs.");
+                    Assert.AreEqual(test.Value.Points[i].X, result.Points[i].X, testEpsilon, $"Test case: {test}, Expected: {test.Value}, Actual: {result}; Intersection {i} x coordinate differs.");
+                    Assert.AreEqual(test.Value.Points[i].Y, result.Points[i].Y, testEpsilon, $"Test case: {test}, Expected: {test.Value}, Actual: {result}; Intersection {i} y coordinate differs.");
                 }
             }
         }
@@ -398,8 +399,8 @@ namespace EngineTests
 
                 for (var i = 0; i < result.Count; i++)
                 {
-                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} x coordinate differs.");
-                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, TestEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} y coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].X, result.Points[i].X, testEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} x coordinate differs.");
+                    Assert.AreEqual(expected.Points[i].Y, result.Points[i].Y, testEpsilon, $"Test case: {test}, Expected: {expected}, Actual: {result}; Intersection {i} y coordinate differs.");
                 }
 
             }

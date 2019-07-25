@@ -22,7 +22,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygonA">The polygonA.</param>
         /// <param name="polygonB">The polygonB.</param>
-        /// <returns>The <see cref="T:List{List{Point2D}}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<List<Point2D>> Union(List<Point2D> polygonA, List<Point2D> polygonB)
             => DoClip(polygonA, polygonB, false, false);
 
@@ -31,7 +31,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygonA">The polygonA.</param>
         /// <param name="polygonB">The polygonB.</param>
-        /// <returns>The <see cref="T:List{List{Point2D}}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<List<Point2D>> Intersection(List<Point2D> polygonA, List<Point2D> polygonB)
             => DoClip(polygonA, polygonB, true, true);
 
@@ -40,7 +40,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygonA">The polygonA.</param>
         /// <param name="polygonB">The polygonB.</param>
-        /// <returns>The <see cref="T:List{List{Point2D}}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<List<Point2D>> Diff(List<Point2D> polygonA, List<Point2D> polygonB)
             => DoClip(polygonA, polygonB, false, true);
 
@@ -49,7 +49,7 @@ namespace Engine
         /// </summary>
         /// <param name="polygonA">The polygonA.</param>
         /// <param name="polygonB">The polygonB.</param>
-        /// <returns>The <see cref="T:List{List{Point2D}}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<List<Point2D>> Diff2(List<Point2D> polygonA, List<Point2D> polygonB)
             => DoClip(polygonA, polygonB, true, false);
 
@@ -60,7 +60,7 @@ namespace Engine
         /// <param name="polygonB">The polygonB.</param>
         /// <param name="eA">The eA.</param>
         /// <param name="eB">The eB.</param>
-        /// <returns>The <see cref="T:List{List{Point2D}}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<List<Point2D>> DoClip(List<Point2D> polygonA, List<Point2D> polygonB, bool eA, bool eB)
         {
             var source = new ClippingPolygon(polygonA);

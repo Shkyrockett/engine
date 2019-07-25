@@ -417,7 +417,7 @@ namespace Engine
         /// <param name="height">The height.</param>
         /// <param name="cos">The A.</param>
         /// <param name="sin">The B.</param>
-        /// <returns>The <see cref="T:(double a, double b, double c, double d, double e, double f)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5, T6}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b, double c, double d, double e, double f) BivariateForm(double x, double y, double width, double height, double cos, double sin)
@@ -449,7 +449,7 @@ namespace Engine
         /// </summary>
         /// <param name="x1">The x1.</param>
         /// <param name="y1">The y1.</param>
-        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/c/5567955982876672
         /// </acknowledgment>
@@ -472,7 +472,7 @@ namespace Engine
         /// Convert pairs of X-Y coordinate parameters to an array of Points with x and y properties.
         /// </summary>
         /// <param name="arguments">The arguments.</param>
-        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// https://www.khanacademy.org/computer-programming/c/5567955982876672
         /// </acknowledgment>
@@ -567,7 +567,7 @@ namespace Engine
         /// <param name="h">The h.</param>
         /// <param name="theta">The theta.</param>
         /// <param name="rectangleMode"></param>
-        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double x, double y)[] Rect2Points(double x, double y, double w, double h, double theta, Mode rectangleMode)

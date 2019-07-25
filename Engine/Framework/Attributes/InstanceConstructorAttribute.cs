@@ -27,7 +27,7 @@ namespace Engine
         /// <param name="parameterNames">The parameterNames.</param>
         public InstanceConstructorAttribute(string parameterNames)
         {
-            this.ParameterNames = parameterNames.Split(',');
+            ParameterNames = parameterNames.Split(',');
         }
 
         /// <summary>

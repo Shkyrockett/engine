@@ -48,13 +48,13 @@ namespace Engine.Physics
         /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Name => "Kinetic energy";
+        public static string Name => "Kinetic energy";
 
         /// <summary>
         /// Gets the abreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation => "J Ke";
+        public static string Abreviation => "J Ke";
 
         /// <returns></returns>
         /// <summary>

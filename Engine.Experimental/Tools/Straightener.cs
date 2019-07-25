@@ -11,8 +11,6 @@
 using System.Collections.Generic;
 using System.Text;
 using static System.Math;
-using static Engine.Mathematics;
-using static Engine.Operations;
 
 namespace Engine.Tools
 {

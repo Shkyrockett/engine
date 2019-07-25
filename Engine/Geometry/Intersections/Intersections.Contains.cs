@@ -55,32 +55,32 @@ namespace Engine
         /// </summary>
         /// <param name="a">First Point to test.</param>
         /// <param name="b">Second Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Point2D a, Point2D b)
-            => a == b ? Inclusion.Boundary : Inclusion.Outside;
+        public static Inclusions Contains(this Point2D a, Point2D b)
+            => a == b ? Inclusions.Boundary : Inclusions.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained within the region defined by this <see cref="LineSegment"/>.
         /// </summary>
         /// <param name="seg">Line segment to test.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this LineSegment seg, Point2D point)
-            => PointLineSegmentIntersects(point.X, point.Y, seg.AX, seg.AY, seg.BX, seg.BY) ? Inclusion.Boundary : Inclusion.Outside;
+        public static Inclusions Contains(this LineSegment seg, Point2D point)
+            => PointLineSegmentIntersects(point.X, point.Y, seg.AX, seg.AY, seg.BX, seg.BY) ? Inclusions.Boundary : Inclusions.Outside;
 
         /// <summary>
         /// Determines whether the specified point is contained within the rectangular region defined by this <see cref="Rectangle2D"/>.
         /// </summary>
         /// <param name="rectangle"><see cref="Rectangle2D"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Rectangle2D rectangle, Point2D point)
+        public static Inclusions Contains(this Rectangle2D rectangle, Point2D point)
             => RectangleContainsPoint(rectangle.X, rectangle.Y, rectangle.Right, rectangle.Bottom, point.X, point.Y);
 
         /// <summary>
@@ -88,10 +88,10 @@ namespace Engine
         /// </summary>
         /// <param name="polygon"><see cref="PolygonContour"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this PolygonContour polygon, Point2D point)
+        public static Inclusions Contains(this PolygonContour polygon, Point2D point)
             => PolygonContourContainsPoint(polygon.Points, point.X, point.Y);
 
         /// <summary>
@@ -99,10 +99,10 @@ namespace Engine
         /// </summary>
         /// <param name="figure"><see cref="PolyBezierContour"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this PolycurveContour figure, Point2D point)
+        public static Inclusions Contains(this PolycurveContour figure, Point2D point)
             => PolycurveContourContainsPoint(figure, point);
 
         /// <summary>
@@ -110,11 +110,11 @@ namespace Engine
         /// </summary>
         /// <param name="polygons">List of <see cref="PolygonContour"/> classes.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Polygon polygons, Point2D point)
+        public static Inclusions Contains(this Polygon polygons, Point2D point)
             => PolygonContainsPoint(polygons.Contours, point.X, point.Y);
 
         /// <summary>
@@ -122,10 +122,10 @@ namespace Engine
         /// </summary>
         /// <param name="circle"><see cref="Circle"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Circle circle, Point2D point)
+        public static Inclusions Contains(this Circle circle, Point2D point)
             => CircleContainsPoint(circle.X, circle.Y, circle.Radius, point.X, point.Y);
 
         /// <summary>
@@ -133,10 +133,10 @@ namespace Engine
         /// </summary>
         /// <param name="ellipse"><see cref="Ellipse"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this Ellipse ellipse, Point2D point)
+        public static Inclusions Contains(this Ellipse ellipse, Point2D point)
             => EllipseContainsPoint(ellipse.Center.X, ellipse.Center.Y, ellipse.RX, ellipse.RY, ellipse.CosAngle, ellipse.SinAngle, point.X, point.Y);
 
         /// <summary>
@@ -144,10 +144,10 @@ namespace Engine
         /// </summary>
         /// <param name="arc"><see cref="Circle"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this CircularArc arc, Point2D point)
+        public static Inclusions Contains(this CircularArc arc, Point2D point)
             => CircularArcSectorContainsPoint(arc.X, arc.Y, arc.Radius, arc.StartAngle, arc.SweepAngle, point.X, point.Y);
 
         /// <summary>
@@ -155,10 +155,10 @@ namespace Engine
         /// </summary>
         /// <param name="ellipseArc"><see cref="Ellipse"/> class.</param>
         /// <param name="point">Point to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion Contains(this EllipticalArc ellipseArc, Point2D point)
+        public static Inclusions Contains(this EllipticalArc ellipseArc, Point2D point)
             => EllipticalArcContainsPoint(ellipseArc.Center.X, ellipseArc.Center.Y, ellipseArc.RX, ellipseArc.RY, ellipseArc.CosAngle, ellipseArc.SinAngle, ellipseArc.StartAngleCos, ellipseArc.StartAngleSin, ellipseArc.EndAngleCos, ellipseArc.EndAngleSin, ellipseArc.SweepAngle, point.X, point.Y, Epsilon);
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Engine
         /// </summary>
         /// <param name="a"><see cref="Rectangle2D"/> class.</param>
         /// <param name="b"><see cref="Rectangle2D"/> to test.</param>
-        /// <returns>Returns an <see cref="Inclusion"/> object with the points of intersection, and relationship status.</returns>
+        /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Contains(this Rectangle2D a, Rectangle2D b)
@@ -205,10 +205,10 @@ namespace Engine
         /// <param name="pX">The pX.</param>
         /// <param name="pY">The pY.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion TriangleContainsPoint(
+        public static Inclusions TriangleContainsPoint(
             double aX, double aY, double bX, double bY, double cX, double cY,
             double pX, double pY,
             double epsilon = Epsilon)
@@ -220,11 +220,11 @@ namespace Engine
             var p = new Point2D(pX, pY);
             if (Intersects(p, a, b) || Intersects(p, b, c) || Intersects(p, c, a))
             {
-                return Inclusion.Boundary;
+                return Inclusions.Boundary;
             }
 
             var clockwise = (b - a).CrossProduct(p - b) >= 0;
-            return !((((c - b).CrossProduct(p - c) >= 0) ^ clockwise) && (((a - c).CrossProduct(p - a) >= 0) ^ clockwise)) ? Inclusion.Inside : Inclusion.Outside;
+            return !((((c - b).CrossProduct(p - c) >= 0) ^ clockwise) && (((a - c).CrossProduct(p - a) >= 0) ^ clockwise)) ? Inclusions.Inside : Inclusions.Outside;
         }
 
         /// <summary>
@@ -240,15 +240,15 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion RectangleContainsPoint(
+        public static Inclusions RectangleContainsPoint(
             double left, double top, double right, double bottom,
             double pX, double pY,
             double epsilon = Epsilon)
         {
             _ = epsilon;
             return (((left == pX || right == pX) && ((top <= pY) == (bottom >= pY)))
-                    || ((top == pY || bottom == pY) && ((left <= pX) == (right >= pX)))) ? Inclusion.Boundary
-                    : (left <= pX && pX < right && top <= pY && pY < bottom) ? Inclusion.Inside : Inclusion.Outside;
+                    || ((top == pY || bottom == pY) && ((left <= pX) == (right >= pX)))) ? Inclusions.Boundary
+                    : (left <= pX && pX < right && top <= pY && pY < bottom) ? Inclusions.Inside : Inclusions.Outside;
         }
 
         /// <summary>
@@ -268,13 +268,13 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonContourContainsPoint(
+        public static Inclusions PolygonContourContainsPoint(
             List<Point2D> points,
             double pX, double pY,
             double epsilon = Epsilon)
         {
             // Default value is no inclusion.
-            var result = Inclusion.Outside;
+            var result = Inclusions.Outside;
 
             // Special cases for points and line segments.
             if (points.Count < 3)
@@ -282,7 +282,7 @@ namespace Engine
                 if (points.Count == 1)
                 {
                     // If the polygon has 1 point, it is a point and has no interior, but a point can intersect a point.
-                    return (pX == points[0].X && pY == points[0].Y) ? Inclusion.Boundary : Inclusion.Outside;
+                    return (pX == points[0].X && pY == points[0].Y) ? Inclusions.Boundary : Inclusions.Outside;
                 }
                 else if (points.Count == 2)
                 {
@@ -291,12 +291,12 @@ namespace Engine
                         || ((pX == points[1].X) && (pY == points[1].Y))
                         || (((pX > points[0].X) == (pX < points[1].X))
                         && ((pY > points[0].Y) == (pY < points[1].Y))
-                        && ((pX - points[0].X) * (points[1].Y - points[0].Y) == (pY - points[0].Y) * (points[1].X - points[0].X))) ? Inclusion.Boundary : Inclusion.Outside;
+                        && ((pX - points[0].X) * (points[1].Y - points[0].Y) == (pY - points[0].Y) * (points[1].X - points[0].X))) ? Inclusions.Boundary : Inclusions.Outside;
                 }
                 else
                 {
                     // Empty geometry.
-                    return Inclusion.Outside;
+                    return Inclusions.Outside;
                 }
             }
 
@@ -310,7 +310,7 @@ namespace Engine
                 if (curPoint.Y == pY && (curPoint.X == pX || ((nextPoint.Y == pY) && ((curPoint.X > pX) == (nextPoint.X < pX)))))
                 //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
                 {
-                    return Inclusion.Boundary;
+                    return Inclusions.Boundary;
                 }
 
                 // If Point between start and end points horizontally.
@@ -330,7 +330,7 @@ namespace Engine
                             var determinant = ((nextPoint.X - pX) * (curPoint.Y - pY)) - ((curPoint.X - pX) * (nextPoint.Y - pY));
                             if (Abs(determinant) < epsilon)
                             {
-                                return Inclusion.Boundary;
+                                return Inclusions.Boundary;
                             }
                             else if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
                             {
@@ -343,7 +343,7 @@ namespace Engine
                         var determinant = ((nextPoint.X - pX) * (curPoint.Y - pY)) - ((curPoint.X - pX) * (nextPoint.Y - pY));
                         if (Abs(determinant) < epsilon)
                         {
-                            return Inclusion.Boundary;
+                            return Inclusions.Boundary;
                         }
 
                         if ((determinant > 0) == (curPoint.Y > nextPoint.Y))
@@ -363,7 +363,7 @@ namespace Engine
         /// The monotones.
         /// </summary>
         /// <param name="arc">The arc.</param>
-        /// <returns>The <see cref="T:ArcSegment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// https://stackoverflow.com/a/34884949
         /// </acknowledgment>
@@ -379,8 +379,8 @@ namespace Engine
         /// <param name="path">The path.</param>
         /// <param name="point">The point.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        public static Inclusion PolycurveContourContainsPoint(
+        /// <returns>The <see cref="Inclusions"/>.</returns>
+        public static Inclusions PolycurveContourContainsPoint(
             PolycurveContour path,
             Point2D point,
             double epsilon = Epsilon)
@@ -398,7 +398,7 @@ namespace Engine
                             if ((l.End.Value.Y == point.Y) && ((l.End.Value.X == point.X) || ((l.Start.Value.Y == point.Y) && ((l.End.Value.X > point.X) == (l.Start.Value.X < point.X)))))
                             //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
                             {
-                                return Inclusion.Boundary;
+                                return Inclusions.Boundary;
                             }
 
                             // At least one point is below the Y threshold and the other is above or equal
@@ -416,7 +416,7 @@ namespace Engine
                                         var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
                                         if (Abs(determinant) < epsilon)
                                         {
-                                            return Inclusion.Boundary;
+                                            return Inclusions.Boundary;
                                         }
                                         else if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
                                         {
@@ -429,7 +429,7 @@ namespace Engine
                                     var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
                                     if (Abs(determinant) < epsilon)
                                     {
-                                        return Inclusion.Boundary;
+                                        return Inclusions.Boundary;
                                     }
 
                                     if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
@@ -482,7 +482,7 @@ namespace Engine
                 }
             }
 
-            return inside % 2 == 1 ? Inclusion.Inside : Inclusion.Outside;
+            return inside % 2 == 1 ? Inclusions.Inside : Inclusions.Outside;
         }
 
         /// <summary>
@@ -491,13 +491,13 @@ namespace Engine
         /// <param name="path">The path.</param>
         /// <param name="point">The point.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        public static Inclusion PolycurveContourContainsPoint2(
+        /// <returns>The <see cref="Inclusions"/>.</returns>
+        public static Inclusions PolycurveContourContainsPoint2(
             PolycurveContour path,
             Point2D point,
             double epsilon = Epsilon)
         {
-            var result = Inclusion.Outside;
+            var result = Inclusions.Outside;
             //const Inclusion boundary = Inclusion.Outside;
 
             if (path.Count < 2)
@@ -513,7 +513,7 @@ namespace Engine
                         {
                             if (path[0].Start.Value == point)
                             {
-                                return Inclusion.Boundary;
+                                return Inclusions.Boundary;
                             }
 
                             break;
@@ -524,7 +524,7 @@ namespace Engine
                             if (l.End.Value.Y == point.Y && (l.End.Value.X == point.X || ((l.Start.Value.Y == point.Y) && ((l.End.Value.X > point.X) == (l.Start.Value.X < point.X)))))
                             //if ((Abs(nextPoint.Y - pY) < epsilon) && ((Abs(nextPoint.X - pX) < epsilon) || (Abs(curPoint.Y - pY) < epsilon && ((nextPoint.X > pX) == (curPoint.X < pX)))))
                             {
-                                return Inclusion.Boundary;
+                                return Inclusions.Boundary;
                             }
 
                             // If Point between start and end points horizontally.
@@ -543,7 +543,7 @@ namespace Engine
                                         var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
                                         if (Abs(determinant) < epsilon)
                                         {
-                                            return Inclusion.Boundary;
+                                            return Inclusions.Boundary;
                                         }
                                         else if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
                                         {
@@ -556,7 +556,7 @@ namespace Engine
                                     var determinant = ((l.Start.Value.X - point.X) * (l.End.Value.Y - point.Y)) - ((l.End.Value.X - point.X) * (l.Start.Value.Y - point.Y));
                                     if (Abs(determinant) < epsilon)
                                     {
-                                        return Inclusion.Boundary;
+                                        return Inclusions.Boundary;
                                     }
 
                                     if ((determinant > 0) == (l.End.Value.Y > l.Start.Value.Y))
@@ -610,7 +610,7 @@ namespace Engine
 
                                 if (Abs(normalizedRadius - 1d) < epsilon)
                                 {
-                                    return Inclusion.Boundary;
+                                    return Inclusions.Boundary;
                                 }
 
                                 if (normalizedRadius < 1d)
@@ -680,12 +680,12 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonContainsPoint(
+        public static Inclusions PolygonContainsPoint(
             List<PolygonContour> polygons,
             double pX, double pY,
             double epsilon = Epsilon)
         {
-            var returnValue = Inclusion.Outside;
+            var returnValue = Inclusions.Outside;
 
             foreach (var poly in polygons)
             {
@@ -694,9 +694,9 @@ namespace Engine
                 returnValue ^= PolygonContourContainsPoint(poly.Points, pX, pY, epsilon);
 
                 // Any point on any boundary is on a boundary.
-                if (returnValue == Inclusion.Boundary)
+                if (returnValue == Inclusions.Boundary)
                 {
-                    return Inclusion.Boundary;
+                    return Inclusions.Boundary;
                 }
             }
 
@@ -718,7 +718,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion CircleContainsPoint(
+        public static Inclusions CircleContainsPoint(
             double x, double y, double r,
             double pX, double pY,
             double epsilon = Epsilon)
@@ -733,10 +733,10 @@ namespace Engine
                 dy *= dy;
                 var distanceSquared = dx + dy;
                 var radiusSquared = r * r;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < epsilon) ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
             }
 
-            return Inclusion.Outside;
+            return Inclusions.Outside;
         }
 
         /// <summary>
@@ -755,7 +755,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipseContainsPoint(
+        public static Inclusions EllipseContainsPoint(
             double cX, double cY, double rx, double ry, double angle,
             double pX, double pY,
             double epsilon = Epsilon)
@@ -779,14 +779,14 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipseContainsPoint(
+        public static Inclusions EllipseContainsPoint(
             double cX, double cY, double rx, double ry, double cosT, double sinT,
             double pX, double pY,
             double epsilon = Epsilon)
         {
             if (rx <= 0d || ry <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Translate point to origin.
@@ -801,7 +801,7 @@ namespace Engine
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -821,14 +821,14 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion CircularArcSectorContainsPoint(
+        public static Inclusions CircularArcSectorContainsPoint(
             double x, double y, double r, double startAngle, double sweepAngle,
             double pX, double pY,
             double epsilon = Epsilon)
         {
             if (r <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Check if it is within the bounding rectangle.
@@ -845,12 +845,12 @@ namespace Engine
                 // Check if the point is on the chord.
                 if (Abs(determinant) < epsilon)
                 {
-                    return Inclusion.Boundary;
+                    return Inclusions.Boundary;
                 }
                 // Check whether the point is on the same side of the chord as the center.
                 else if (Sign(determinant) == Sign(sweepAngle))
                 {
-                    return Inclusion.Outside;
+                    return Inclusions.Outside;
                 }
 
                 var dx = x - pX;
@@ -859,10 +859,10 @@ namespace Engine
                 dy *= dy;
                 var distanceSquared = dx + dy;
                 var radiusSquared = r * r;
-                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < epsilon) ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                return (radiusSquared >= distanceSquared) ? ((Abs(radiusSquared - distanceSquared) < epsilon) ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
             }
 
-            return Inclusion.Outside;
+            return Inclusions.Outside;
         }
 
         /// <summary>
@@ -884,7 +884,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcContainsPoint(
+        public static Inclusions EllipticalArcContainsPoint(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -918,7 +918,7 @@ namespace Engine
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcContainsPoint(
+        public static Inclusions EllipticalArcContainsPoint(
             double cX, double cY,
             double r1, double r2,
             double cosT, double sinT,
@@ -931,7 +931,7 @@ namespace Engine
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // If the Sweep angle is Tau, the EllipticalArc must be an Ellipse.
@@ -963,7 +963,7 @@ namespace Engine
             // Check whether the point is on the same side of the chord as the center.
             if (Sign(determinant) == Sign(sweepAngle))
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Translate point to origin.
@@ -981,7 +981,7 @@ namespace Engine
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -1003,7 +1003,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcSectorContainsPoint(
+        public static Inclusions EllipticalArcSectorContainsPoint(
             double cX, double cY,
             double r1, double r2,
             double angle,
@@ -1036,7 +1036,7 @@ namespace Engine
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion EllipticalArcSectorContainsPoint(
+        public static Inclusions EllipticalArcSectorContainsPoint(
             double cX, double cY,
             double r1, double r2,
             double cosT, double sinT,
@@ -1049,7 +1049,7 @@ namespace Engine
             // If the ellipse is empty it can't contain anything.
             if (r1 <= 0d || r2 <= 0d)
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // If the Sweep angle is Tau, the EllipticalArc must be an Ellipse.
@@ -1084,14 +1084,14 @@ namespace Engine
             if (Abs(determinant) <= epsilon)
             {
                 return (sX < eX) ?
-                (sX <= pX && pX <= eX) ? Inclusion.Boundary : Inclusion.Outside :
-                (eX <= pX && pX <= sX) ? Inclusion.Boundary : Inclusion.Outside;
+                (sX <= pX && pX <= eX) ? Inclusions.Boundary : Inclusions.Outside :
+                (eX <= pX && pX <= sX) ? Inclusions.Boundary : Inclusions.Outside;
             }
 
             // Check whether the point is on the side of the chord as the center.
             if (Sign(determinant) == Sign(sweepAngle))
             {
-                return Inclusion.Outside;
+                return Inclusions.Outside;
             }
 
             // Translate points to origin.
@@ -1109,7 +1109,7 @@ namespace Engine
 
             return (normalizedRadius <= 1d)
                 ? ((Abs(normalizedRadius - 1d) < epsilon)
-                ? Inclusion.Boundary : Inclusion.Inside) : Inclusion.Outside;
+                ? Inclusions.Boundary : Inclusions.Inside) : Inclusions.Outside;
         }
 
         /// <summary>
@@ -1124,14 +1124,14 @@ namespace Engine
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
+        /// <returns>The <see cref="Inclusions"/>.</returns>
         /// <acknowledgment>
         /// Public-domain code by Darel Rex Finley, 2006.
         /// http://alienryderflex.com/shortest_path/
         /// </acknowledgment>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Inclusion PolygonSetContainsPoints(
+        public static Inclusions PolygonSetContainsPoints(
             this Polygon polygons,
             Point2D start, Point2D end,
             double epsilon = Epsilon)
@@ -1163,7 +1163,7 @@ namespace Engine
                         && Abs(eY) < epsilon && Abs(sX - end.X) < epsilon
                         && Abs(sY - end.Y) < epsilon)
                     {
-                        return Inclusion.Inside;
+                        return Inclusions.Inside;
                     }
 
                     var rotSX = (sX * theCos) + (sY * theSin);
@@ -1177,7 +1177,7 @@ namespace Engine
                         var crossX = rotSX + ((rotEX - rotSX) * (0.0 - rotSY) / (rotEY - rotSY));
                         if (crossX >= 0.0 && crossX <= dist)
                         {
-                            return Inclusion.Outside;
+                            return Inclusions.Outside;
                         }
                     }
 
@@ -1188,7 +1188,7 @@ namespace Engine
                         && (rotSX < 0.0 || rotEX < 0.0
                         || rotSX > dist || rotEX > dist))
                     {
-                        return Inclusion.Outside;
+                        return Inclusions.Outside;
                     }
                 }
             }

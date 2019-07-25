@@ -75,12 +75,12 @@ namespace Engine
         /// Gets the cosine.
         /// </summary>
         public double Cosine
-            => (cos ??= Math.Sin(radiens)).Value;
+            => (cos ??= Math.Sin(radiens));
 
         /// <summary>
         /// Gets the sine.
         /// </summary>
         public double Sine
-            => (sin ??= Math.Sin(radiens)).Value;
+            => (sin ??= Math.Sin(radiens));
     }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -19,6 +19,7 @@
     <DocumentationFile>bin\Any CPU\Release\netstandard2.0\Engine.xml</DocumentationFile>
     <OutputPath>bin\Any CPU\Release\netstandard2.0\</OutputPath>
     <DefineConstants>TRACE;deterministic;RELEASE;NETSTANDARD2_0</DefineConstants>
+    <CodeAnalysisRuleSet>Engine.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,30 +27,42 @@
     <DocumentationFile>bin\Any CPU\Debug\netstandard2.0\Engine.xml</DocumentationFile>
     <OutputPath>bin\Any CPU\Debug\netstandard2.0\</OutputPath>
     <DefineConstants>TRACE;DEBUG;deterministic;NETSTANDARD2_0</DefineConstants>
+    <CodeAnalysisRuleSet>Engine.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DocumentationFile>bin\x64\Debug\netstandard2.0\Engine.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>Engine.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <DocumentationFile>bin\x86\Debug\netstandard2.0\Engine.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>Engine.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DocumentationFile>bin\x64\Release\netstandard2.0\Engine.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>Engine.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
     <DocumentationFile>bin\x86\Release\netstandard2.0\Engine.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>Engine.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4-beta1.final" />
     <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
     <PackageReference Include="System.Memory" Version="4.5.3" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.6.0-preview5.19224.8" />
-    <PackageReference Include="System.ServiceModel.Primitives" Version="4.6.0-preview5.final" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.6.0-preview6.final" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Runtime.Intrinsics">
+      <HintPath>..\..\..\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.0.0-preview6-27804-01\ref\netcoreapp3.0\System.Runtime.Intrinsics.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

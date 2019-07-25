@@ -24,7 +24,7 @@ namespace Engine.MathNotation
         /// <summary>
         /// The Parenthesis type to use for the group.
         /// </summary>
-        public GroupTypes Type { get; set; }
+        public GroupType Type { get; set; }
 
         /// <summary>
         /// The superscripted exponential expression.

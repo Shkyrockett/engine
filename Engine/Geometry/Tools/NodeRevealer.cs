@@ -127,7 +127,7 @@ namespace Engine
         {
             foreach (var pt in Points)
             {
-                if (Intersections.CircleContainsPoint(pt.X, pt.Y, Radius, point.X, point.Y) != Inclusion.Outside)
+                if (Intersections.CircleContainsPoint(pt.X, pt.Y, Radius, point.X, point.Y) != Inclusions.Outside)
                 {
                     return true;
                 }

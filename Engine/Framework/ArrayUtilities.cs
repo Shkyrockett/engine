@@ -55,7 +55,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="T:T[]"/>.</returns>
+        /// <returns>The <see cref="T[]"/>.</returns>
         /// <typeparam name="T"></typeparam>
         public static T[] RemoveAt<T>(this T[] array, int index)
         {
@@ -94,7 +94,7 @@ namespace Engine
         /// </summary>
         /// <param name="list">The list.</param>
         /// <param name="item">The item.</param>
-        /// <returns>The <see cref="T:List{T}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <typeparam name="T"></typeparam>
         public static List<T> UnShift<T>(this List<T> list, T item)
         {
@@ -109,7 +109,7 @@ namespace Engine
         /// <param name="source">The source.</param>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
-        /// <returns>The <see cref="T:T[]"/>.</returns>
+        /// <returns>The <see cref="T[]"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <remarks>
         /// https://www.dotnetperls.com/array-slice
@@ -137,7 +137,7 @@ namespace Engine
         /// ... Inclusive for start index, exclusive for end index.
         /// </summary>
         /// <param name="source">The source.</param>
-        /// <returns>The <see cref="T:T[]"/>.</returns>
+        /// <returns>The <see cref="T[]"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <remarks>
         /// https://www.dotnetperls.com/array-slice
@@ -158,7 +158,7 @@ namespace Engine
         /// </summary>
         /// <param name="list">The list.</param>
         /// <param name="func">The func.</param>
-        /// <returns>The <see cref="T:IEnumerable{TResult}"/>.</returns>
+        /// <returns>The <see cref="IEnumerable{TResult}"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <remarks>
@@ -200,14 +200,14 @@ namespace Engine
         /// <param name="Source">The Source.</param>
         /// <param name="Start">The Start.</param>
         /// <param name="Size">The Size.</param>
-        /// <returns>The <see cref="T:List{T}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <remarks>
         /// http://stackoverflow.com/q/9325627
         /// </remarks>
         public static List<T> Splice<T>(this List<T> Source, int Start, int Size)
         {
-            var retVal = Source.Skip(Start).Take(Size).ToList<T>();
+            var retVal = Source.Skip(Start).Take(Size).ToList();
             Source.RemoveRange(Start, Size);
             return retVal;
         }
@@ -216,7 +216,7 @@ namespace Engine
         /// The shuffle.
         /// </summary>
         /// <param name="inputList">The inputList.</param>
-        /// <returns>The <see cref="T:List{T}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <remarks>
         /// http://www.vcskicks.com/randomize_array.php

@@ -367,7 +367,7 @@ namespace Engine
         /// Gets the Polynomial degree of the <see cref="QuadraticBezier"/> curve.
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
-        public PolynomialDegree Degree
+        public static PolynomialDegree Degree
             => PolynomialDegree.Quadratic;
 
         /// <summary>
@@ -503,7 +503,7 @@ namespace Engine
         /// <summary>
         /// The reduce.
         /// </summary>
-        /// <returns>The <see cref="T:List{Bezier}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -647,7 +647,7 @@ namespace Engine
         /// The hull.
         /// </summary>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -757,7 +757,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerator<Point2D> GetEnumerator()

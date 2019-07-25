@@ -148,7 +148,8 @@ namespace Engine.Imaging
             var layoutRectangle = shape?.Bounds?.ToRectangleF();
             if (!(layoutRectangle is null))
             {
-                g.DrawString(shape.Text, shape.Font.ToFont(), itemStyle.ForeBrush, layoutRectangle.Value);
+                using var font = shape.Font.ToFont();
+                g.DrawString(shape.Text, font, itemStyle.ForeBrush, layoutRectangle.Value);
             }
         }
     }

@@ -95,7 +95,10 @@ namespace Engine.WindowsForms
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
         public void DrawLine(IStroke stroke, double x1, double y1, double x2, double y2)
-            => Graphics.DrawLine(stroke.ToPen(), (float)x1, (float)y1, (float)x2, (float)y2);
+        {
+            using var pen = stroke.ToPen();
+            Graphics.DrawLine(pen, (float)x1, (float)y1, (float)x2, (float)y2);
+        }
 
         /// <summary>
         /// The draw lines.
@@ -105,7 +108,8 @@ namespace Engine.WindowsForms
         public void DrawLines(IStroke stroke, IEnumerable<Point2D> points)
         {
             var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
-            Graphics.DrawLines(stroke.ToPen(), pointFs);
+            using var pen = stroke.ToPen();
+            Graphics.DrawLines(pen, pointFs);
         }
 
         /// <summary>
@@ -116,7 +120,8 @@ namespace Engine.WindowsForms
         public void DrawPolygon(IStroke stroke, IEnumerable<Point2D> points)
         {
             var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
-            Graphics.DrawPolygon(stroke.ToPen(), pointFs);
+            using var pen = stroke.ToPen();
+            Graphics.DrawPolygon(pen, pointFs);
         }
 
         /// <summary>
@@ -127,7 +132,8 @@ namespace Engine.WindowsForms
         public void FillPolygon(IFill fill, IEnumerable<Point2D> points)
         {
             var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
-            Graphics.FillPolygon(fill.ToBrush(), pointFs);
+            using var brush = fill.ToBrush();
+            Graphics.FillPolygon(brush, pointFs);
         }
 
         /// <summary>
@@ -141,7 +147,8 @@ namespace Engine.WindowsForms
         public void DrawCurve(IStroke stroke, IEnumerable<Point2D> points, double offset, int numberOfSegments, double tension = 0.5)
         {
             var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
-            Graphics.DrawCurve(stroke.ToPen(), pointFs);
+            using var pen = stroke.ToPen();
+            Graphics.DrawCurve(pen, pointFs);
         }
 
         /// <summary>
@@ -155,9 +162,10 @@ namespace Engine.WindowsForms
         public void FillCurve(IFill fill, IEnumerable<Point2D> points, double offset, int numberOfSegments, double tension = 0.5)
         {
             var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
-            var path = new GraphicsPath();
+            using var path = new GraphicsPath();
             path.AddCurve(pointFs);
-            Graphics.FillPath(fill.ToBrush(), path);
+            using var brush = fill.ToBrush();
+            Graphics.FillPath(brush, path);
         }
 
         /// <summary>
@@ -190,7 +198,8 @@ namespace Engine.WindowsForms
         public void DrawQuadraticBezier(IStroke stroke, double x1, double y1, double x2, double y2, double x3, double y3)
         {
             (var aX, var aY, var bX, var bY, var cX, var cY, var dX, var dY) = Conversions.QuadraticBezierToCubicBezierTuple(x1, y1, x2, y2, x3, y3);
-            Graphics.DrawBezier(stroke.ToPen(), (float)aX, (float)aY, (float)bX, (float)bY, (float)cX, (float)cY, (float)dX, (float)dY);
+            using var pen = stroke.ToPen();
+            Graphics.DrawBezier(pen, (float)aX, (float)aY, (float)bX, (float)bY, (float)cX, (float)cY, (float)dX, (float)dY);
         }
 
         /// <summary>
@@ -205,10 +214,11 @@ namespace Engine.WindowsForms
         /// <param name="y3">The y3.</param>
         public void FillQuadraticBezier(IFill fill, double x1, double y1, double x2, double y2, double x3, double y3)
         {
-            var path = new GraphicsPath();
+            using var path = new GraphicsPath();
             (var aX, var aY, var bX, var bY, var cX, var cY, var dX, var dY) = Conversions.QuadraticBezierToCubicBezierTuple(x1, y1, x2, y2, x3, y3);
             path.AddBezier((float)aX, (float)aY, (float)bX, (float)bY, (float)cX, (float)cY, (float)dX, (float)dY);
-            Graphics.FillPath(fill.ToBrush(), path);
+            using var brush = fill.ToBrush();
+            Graphics.FillPath(brush, path);
         }
 
         /// <summary>
@@ -224,7 +234,10 @@ namespace Engine.WindowsForms
         /// <param name="x4">The x4.</param>
         /// <param name="y4">The y4.</param>
         public void DrawCubicBezier(IStroke stroke, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
-            => Graphics.DrawBezier(stroke.ToPen(), (float)x1, (float)y1, (float)x2, (float)y2, (float)x3, (float)y3, (float)x4, (float)y4);
+        {
+            using var pen = stroke.ToPen();
+            Graphics.DrawBezier(pen, (float)x1, (float)y1, (float)x2, (float)y2, (float)x3, (float)y3, (float)x4, (float)y4);
+        }
 
         /// <summary>
         /// Fill the cubic bezier.
@@ -240,9 +253,10 @@ namespace Engine.WindowsForms
         /// <param name="y4">The y4.</param>
         public void FillCubicBezier(IFill fill, double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4)
         {
-            var path = new GraphicsPath();
+            using var path = new GraphicsPath();
             path.AddBezier((float)x1, (float)y1, (float)x2, (float)y2, (float)x3, (float)y3, (float)x4, (float)y4);
-            Graphics.FillPath(fill.ToBrush(), path);
+            using var brush = fill.ToBrush();
+            Graphics.FillPath(brush, path);
         }
 
         /// <summary>
@@ -256,7 +270,10 @@ namespace Engine.WindowsForms
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
         public void DrawArc(IStroke stroke, double x, double y, double width, double height, double startAngle, double sweepAngle)
-            => Graphics.DrawArc(stroke.ToPen(), (float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+        {
+            using var pen = stroke.ToPen();
+            Graphics.DrawArc(pen, (float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+        }
 
         /// <summary>
         /// Fill the arc.
@@ -270,9 +287,10 @@ namespace Engine.WindowsForms
         /// <param name="sweepAngle">The sweepAngle.</param>
         public void FillArc(IFill fill, double x, double y, double width, double height, double startAngle, double sweepAngle)
         {
-            var path = new GraphicsPath();
+            using var path = new GraphicsPath();
             path.AddArc((float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
-            Graphics.FillPath(fill.ToBrush(), path);
+            using var brush = fill.ToBrush();
+            Graphics.FillPath(brush, path);
         }
 
         /// <summary>
@@ -292,7 +310,8 @@ namespace Engine.WindowsForms
             var mat = new Matrix();
             mat.RotateAt((float)angle.ToDegrees(), center);
             Graphics.Transform = mat;
-            Graphics.DrawArc(stroke.ToPen(), (float)x, (float)y, (float)width, (float)height, (float)startAngle.ToDegrees(), (float)sweepAngle.ToDegrees());
+            using var pen = stroke.ToPen();
+            Graphics.DrawArc(pen, (float)x, (float)y, (float)width, (float)height, (float)startAngle.ToDegrees(), (float)sweepAngle.ToDegrees());
             Graphics.ResetTransform();
         }
 
@@ -313,9 +332,10 @@ namespace Engine.WindowsForms
             var mat = new Matrix();
             mat.RotateAt((float)angle.ToDegrees(), center);
             Graphics.Transform = mat;
-            var path = new GraphicsPath();
+            using var path = new GraphicsPath();
             path.AddArc((float)x, (float)y, (float)width, (float)height, (float)startAngle.ToDegrees(), (float)sweepAngle.ToDegrees());
-            Graphics.FillPath(fill.ToBrush(), path);
+            using var brush = fill.ToBrush();
+            Graphics.FillPath(brush, path);
             Graphics.ResetTransform();
         }
 
@@ -330,7 +350,10 @@ namespace Engine.WindowsForms
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
         public void DrawPie(IStroke stroke, double x, double y, double width, double height, double startAngle, double sweepAngle)
-            => Graphics.DrawArc(stroke.ToPen(), (float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+        {
+            using var pen = stroke.ToPen();
+            Graphics.DrawArc(pen, (float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+        }
 
         /// <summary>
         /// Fill the pie.
@@ -343,7 +366,10 @@ namespace Engine.WindowsForms
         /// <param name="startAngle">The startAngle.</param>
         /// <param name="sweepAngle">The sweepAngle.</param>
         public void FillPie(IFill fill, double x, double y, double width, double height, double startAngle, double sweepAngle)
-            => Graphics.FillPie(fill.ToBrush(), (float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+        {
+            using var brush = fill.ToBrush();
+            Graphics.FillPie(brush, (float)x, (float)y, (float)width, (float)height, (float)startAngle, (float)sweepAngle);
+        }
 
         /// <summary>
         /// The draw ellipse.
@@ -354,7 +380,10 @@ namespace Engine.WindowsForms
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         public void DrawEllipse(IStroke stroke, double x, double y, double width, double height)
-            => Graphics.DrawEllipse(stroke.ToPen(), (float)x, (float)y, (float)width, (float)height);
+        {
+            using var pen = stroke.ToPen();
+            Graphics.DrawEllipse(pen, (float)x, (float)y, (float)width, (float)height);
+        }
 
         /// <summary>
         /// Fill the ellipse.
@@ -365,7 +394,10 @@ namespace Engine.WindowsForms
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         public void FillEllipse(IFill fill, double x, double y, double width, double height)
-            => Graphics.FillEllipse(fill.ToBrush(), (float)x, (float)y, (float)width, (float)height);
+        {
+            using var brush = fill.ToBrush();
+            Graphics.FillEllipse(brush, (float)x, (float)y, (float)width, (float)height);
+        }
 
         /// <summary>
         /// The draw ellipse.
@@ -382,7 +414,8 @@ namespace Engine.WindowsForms
             var center = new PointF((float)((0.5d * width) + x), (float)((0.5d * height) + y));
             mat.RotateAt((float)angle.ToDegrees(), center);
             Graphics.Transform = mat;
-            Graphics.DrawEllipse(stroke.ToPen(), (float)x, (float)y, (float)width, (float)height);
+            using var pen = stroke.ToPen();
+            Graphics.DrawEllipse(pen, (float)x, (float)y, (float)width, (float)height);
             Graphics.ResetTransform();
         }
 
@@ -401,7 +434,8 @@ namespace Engine.WindowsForms
             var center = new PointF((float)((0.5d * width) + x), (float)((0.5d * height) + y));
             mat.RotateAt((float)angle.ToDegrees(), center);
             Graphics.Transform = mat;
-            Graphics.FillEllipse(fill.ToBrush(), (float)x, (float)y, (float)width, (float)height);
+            using var brush = fill.ToBrush();
+            Graphics.FillEllipse(brush, (float)x, (float)y, (float)width, (float)height);
             Graphics.ResetTransform();
         }
 
@@ -414,7 +448,10 @@ namespace Engine.WindowsForms
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         public void DrawRectangle(IStroke stroke, double x, double y, double width, double height)
-            => Graphics.DrawRectangle(stroke.ToPen(), (float)x, (float)y, (float)width, (float)height);
+        {
+            using var pen = stroke.ToPen();
+            Graphics.DrawRectangle(pen, (float)x, (float)y, (float)width, (float)height);
+        }
 
         /// <summary>
         /// Fill the rectangle.
@@ -425,7 +462,10 @@ namespace Engine.WindowsForms
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         public void FillRectangle(IFill fill, double x, double y, double width, double height)
-            => Graphics.FillRectangle(fill.ToBrush(), (float)x, (float)y, (float)width, (float)height);
+        {
+            using var brush = fill.ToBrush();
+            Graphics.FillRectangle(brush, (float)x, (float)y, (float)width, (float)height);
+        }
 
         /// <summary>
         /// The draw rectangles.
@@ -435,7 +475,8 @@ namespace Engine.WindowsForms
         public void DrawRectangles(IStroke stroke, IEnumerable<Rectangle2D> rectangles)
         {
             var rectangleFs = (rectangles as List<Rectangle2D>)!!.ConvertAll(new Converter<Rectangle2D, RectangleF>(WinformsTypeExtensions.ToRectangleF)).ToArray();
-            Graphics.DrawRectangles(stroke.ToPen(), rectangleFs);
+            using var pen = stroke.ToPen();
+            Graphics.DrawRectangles(pen, rectangleFs);
         }
 
         /// <summary>
@@ -446,7 +487,8 @@ namespace Engine.WindowsForms
         public void FillRectangles(IFill fill, IEnumerable<Rectangle2D> rectangles)
         {
             var rectangleFs = (rectangles as List<Rectangle2D>)!!.ConvertAll(new Converter<Rectangle2D, RectangleF>(WinformsTypeExtensions.ToRectangleF)).ToArray();
-            Graphics.FillRectangles(fill.ToBrush(), rectangleFs);
+            using var brush = fill.ToBrush();
+            Graphics.FillRectangles(brush, rectangleFs);
         }
 
         /// <summary>
@@ -483,7 +525,12 @@ namespace Engine.WindowsForms
         /// <param name="y">The y.</param>
         /// <param name="stringFormat">The stringFormat.</param>
         public void DrawString(string text, RenderFont font, IFill brush, double x, double y, TextFormat stringFormat)
-            => Graphics.DrawString(text, font.ToFont(), brush.ToBrush(), (float)x, (float)y, stringFormat.ToStringFormat());
+        {
+            using var font1 = font.ToFont();
+            using var brush1 = brush.ToBrush();
+            using var format = stringFormat.ToStringFormat();
+            Graphics.DrawString(text, font1, brush1, (float)x, (float)y, format);
+        }
 
         /// <summary>
         /// The draw string.
@@ -497,7 +544,12 @@ namespace Engine.WindowsForms
         /// <param name="height">The height.</param>
         /// <param name="stringFormat">The stringFormat.</param>
         public void DrawString(string text, RenderFont font, IFill brush, double x, double y, double width, double height, TextFormat stringFormat)
-            => Graphics.DrawString(text, font.ToFont(), brush.ToBrush(), new RectangleF((float)x, (float)y, (float)width, (float)height), stringFormat.ToStringFormat());
+        {
+            using var font1 = font.ToFont();
+            using var brush1 = brush.ToBrush();
+            using var format = stringFormat.ToStringFormat();
+            Graphics.DrawString(text, font1, brush1, new RectangleF((float)x, (float)y, (float)width, (float)height), format);
+        }
 
         /// <summary>
         /// The measure string.
@@ -508,7 +560,11 @@ namespace Engine.WindowsForms
         /// <param name="stringFormat">The stringFormat.</param>
         /// <returns>The <see cref="Size2D"/>.</returns>
         public Size2D MeasureString(string text, RenderFont font, Size2D layoutArea, TextFormat stringFormat)
-            => Graphics.MeasureString(text, font.ToFont(), layoutArea.ToSizeF(), stringFormat.ToStringFormat()).ToSize2D();
+        {
+            using var font1 = font.ToFont();
+            using var stringFormat1 = stringFormat.ToStringFormat();
+            return Graphics.MeasureString(text, font1, layoutArea.ToSizeF(), stringFormat1).ToSize2D();
+        }
 
         /// <summary>
         /// The measure character ranges.
@@ -519,7 +575,11 @@ namespace Engine.WindowsForms
         /// <param name="stringFormat">The stringFormat.</param>
         /// <returns>The <see cref="Size2D"/>.</returns>
         public object MeasureCharacterRanges(string text, RenderFont font, Rectangle2D layoutArea, TextFormat stringFormat)
-            => Graphics.MeasureCharacterRanges(text, font.ToFont(), layoutArea.ToRectangleF(), stringFormat.ToStringFormat());
+        {
+            using var font1 = font.ToFont();
+            using var stringFormat1 = stringFormat.ToStringFormat();
+            return Graphics.MeasureCharacterRanges(text, font1, layoutArea.ToRectangleF(), stringFormat1);
+        }
 
         /// <summary>
         /// The measure character ranges.
@@ -530,6 +590,10 @@ namespace Engine.WindowsForms
         /// <param name="stringFormat">The stringFormat.</param>
         /// <returns>The <see cref="Size2D"/>.</returns>
         public object MeasureCharacterRanges(string text, RenderFont font, Size2D layoutArea, TextFormat stringFormat)
-            => Graphics.MeasureCharacterRanges(text, font.ToFont(), new RectangleF(0, 0, (float)layoutArea.Width, (float)layoutArea.Height), stringFormat.ToStringFormat());
+        {
+            using var font1 = font.ToFont();
+            using var stringFormat1 = stringFormat.ToStringFormat();
+            return Graphics.MeasureCharacterRanges(text, font1, new RectangleF(0, 0, (float)layoutArea.Width, (float)layoutArea.Height), stringFormat1);
+        }
     }
 }

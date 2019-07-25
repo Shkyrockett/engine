@@ -167,7 +167,7 @@ namespace Engine.Imaging
         /// The to point array.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:Point[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static Point[] ToPointArray(this List<Point2D> list)
             => list?.ConvertAll(new Converter<Point2D, Point>(ToPoint)).ToArray();
 
@@ -175,7 +175,7 @@ namespace Engine.Imaging
         /// The to point2d list.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> ToPoint2DList(this Point[] list)
             => new List<Point>(list)?.ConvertAll(new Converter<Point, Point2D>(ToPoint2D));
 
@@ -183,7 +183,7 @@ namespace Engine.Imaging
         /// The to point f array.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:PointF[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static PointF[] ToPointFArray(this List<Point2D> list)
             => list?.ConvertAll(new Converter<Point2D, PointF>(ToPointF)).ToArray();
 
@@ -191,7 +191,7 @@ namespace Engine.Imaging
         /// The to point2d list.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> ToPoint2DList(this PointF[] list)
             => new List<PointF>(list)?.ConvertAll(new Converter<PointF, Point2D>(ToPoint2D));
 
@@ -199,7 +199,7 @@ namespace Engine.Imaging
         /// The to size array.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:Size[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static Size[] ToSizeArray(this List<Size2D> list)
             => list?.ConvertAll(new Converter<Size2D, Size>(ToSize)).ToArray();
 
@@ -207,7 +207,7 @@ namespace Engine.Imaging
         /// The to size2d list.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:List{Size2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Size2D> ToSize2DList(this Size[] list)
             => new List<Size>(list)?.ConvertAll(new Converter<Size, Size2D>(ToSize2D));
 
@@ -215,7 +215,7 @@ namespace Engine.Imaging
         /// The to size f array.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:SizeF[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static SizeF[] ToSizeFArray(this List<Size2D> list)
             => list?.ConvertAll(new Converter<Size2D, SizeF>(ToSizeF)).ToArray();
 
@@ -223,7 +223,7 @@ namespace Engine.Imaging
         /// The to size2d list.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:List{Size2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Size2D> ToSize2DList(this SizeF[] list)
             => new List<SizeF>(list)?.ConvertAll(new Converter<SizeF, Size2D>(ToSize2D));
 
@@ -231,7 +231,7 @@ namespace Engine.Imaging
         /// The to rectangle array.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:Rectangle[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static Rectangle[] ToRectangleArray(this List<Rectangle2D> list)
             => list?.ConvertAll(new Converter<Rectangle2D, Rectangle>(ToRectangle)).ToArray();
 
@@ -239,7 +239,7 @@ namespace Engine.Imaging
         /// The to rectangle2d list.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:List{Rectangle2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Rectangle2D> ToRectangle2DList(this Rectangle[] list)
             => new List<Rectangle>(list)?.ConvertAll(new Converter<Rectangle, Rectangle2D>(ToRectangle2D));
 
@@ -247,7 +247,7 @@ namespace Engine.Imaging
         /// The to rectangle f array.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:RectangleF[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static RectangleF[] ToRectangleFArray(this List<Rectangle2D> list)
             => list?.ConvertAll(new Converter<Rectangle2D, RectangleF>(ToRectangleF)).ToArray();
 
@@ -255,7 +255,7 @@ namespace Engine.Imaging
         /// The to rectangle f list.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:List{RectangleF}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<RectangleF> ToRectangleFList(this List<Rectangle2D> list)
             => list?.ConvertAll(new Converter<Rectangle2D, RectangleF>(ToRectangleF));
 
@@ -263,7 +263,7 @@ namespace Engine.Imaging
         /// The to rectangle2d list.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:List{Rectangle2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Rectangle2D> ToRectangle2DList(this RectangleF[] list)
             => new List<RectangleF>(list)?.ConvertAll(new Converter<RectangleF, Rectangle2D>(ToRectangle2D));
 
@@ -271,7 +271,7 @@ namespace Engine.Imaging
         /// The to rectangle2d list.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:List{Rectangle2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Rectangle2D> ToRectangle2DList(this List<RectangleF> list)
             => list?.ConvertAll(new Converter<RectangleF, Rectangle2D>(ToRectangle2D));
 

@@ -229,7 +229,7 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
-            var path = new GraphicsPath();
+            using var path = new GraphicsPath();
             foreach (var shape in set.Contours)
             {
                 path.AddPolygon(shape.Points.ToPointFArray());
@@ -252,7 +252,7 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
-            var path = new GraphicsPath();
+            using var path = new GraphicsPath();
             foreach (var figureItem in shape.Items)
             {
                 switch (figureItem)
@@ -266,12 +266,14 @@ namespace Engine.Imaging
                         break;
                     case ArcSegment t:
                         var arc = t.ToEllipticalArc();
-                        var mat = new Matrix();
-                        mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
-                        path.Transform(mat);
-                        path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)arc.StartAngle.ToDegrees(), (float)arc.SweepAngle.ToDegrees());
-                        mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
-                        path.Transform(mat);
+                        using (var mat = new Matrix())
+                        {
+                            mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
+                            path.Transform(mat);
+                            path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)arc.StartAngle.ToDegrees(), (float)arc.SweepAngle.ToDegrees());
+                            mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
+                            path.Transform(mat);
+                        }
                         break;
                     case CubicBezierSegment t:
                         path.AddBezier(t.Start.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.End.Value.ToPointF());
@@ -313,7 +315,7 @@ namespace Engine.Imaging
         {
             var itemStyle = style ?? (ShapeStyle)item.Style;
             // Start the Path object.
-            var path = new GraphicsPath();
+            using var path = new GraphicsPath();
             foreach (var shape in set.Contours)
             {
                 foreach (var figureItem in shape.Items)
@@ -329,12 +331,14 @@ namespace Engine.Imaging
                             break;
                         case ArcSegment t:
                             var arc = t.ToEllipticalArc();
-                            var mat = new Matrix();
-                            mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
-                            path.Transform(mat);
-                            path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)arc.StartAngle.ToDegrees(), (float)arc.SweepAngle.ToDegrees());
-                            mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
-                            path.Transform(mat);
+                            using (var mat = new Matrix())
+                            {
+                                mat.RotateAt(-(float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
+                                path.Transform(mat);
+                                path.AddArc(arc.DrawingBounds.ToRectangleF(), (float)arc.StartAngle.ToDegrees(), (float)arc.SweepAngle.ToDegrees());
+                                mat.RotateAt(2 * (float)arc.Angle.ToDegrees(), arc.Center.ToPointF());
+                                path.Transform(mat);
+                            }
                             break;
                         case CubicBezierSegment t:
                             path.AddBezier(t.Start.Value.ToPointF(), t.Handle1.ToPointF(), t.Handle2.Value.ToPointF(), t.End.Value.ToPointF());

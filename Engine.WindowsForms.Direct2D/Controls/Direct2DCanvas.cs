@@ -260,13 +260,14 @@ namespace Engine.Winforms.Direct2D
                 EndPoint = new Vector2(0, 0)
             };
 
-            var points = new GradientStopCollection(target, new GradientStop[] {
+            using (var points = new GradientStopCollection(target, new GradientStop[] {
                 new GradientStop() {Color=Color.Green, Position=0F},
                 new GradientStop() {Color=Color.Yellow, Position=0.8F},
                 new GradientStop() {Color=Color.Red, Position=1F}
-            }, ExtendMode.Clamp);
-
-            bandBrush = new LinearGradientBrush(target, properties, points);
+            }, ExtendMode.Clamp))
+            {
+                bandBrush = new LinearGradientBrush(target, properties, points);
+            }
         }
     }
 }

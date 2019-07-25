@@ -71,7 +71,7 @@ namespace Engine
         /// <param name="radius">The radius.</param>
         /// <param name="alpha">The alpha.</param>
         /// <param name="beta">The beta.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> HeartCurve(double x, double y, double radius, double alpha, double beta)
         {
             // its increment [radian] of a Cardioid before the conversion plotting interval of the phase angle "t" before conversion

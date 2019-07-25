@@ -12,10 +12,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using static Engine.BobLyonCommon;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Measurements;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine
 {
@@ -32,7 +32,7 @@ namespace Engine
         /// <param name="ellipse1">The ellipse1.</param>
         /// <param name="ellipse2">The ellipse2.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// https://elliotnoma.wordpress.com/2013/04/10/a-closed-form-solution-for-the-intersections-of-two-ellipses/
@@ -120,7 +120,7 @@ namespace Engine
         /// <param name="l">The l.</param>
         /// <param name="ellipse">The ellipse.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double x, double y)[] IntersectLineEllipse(((double x, double y) origin, double angle) l, ((double x, double y) origin, double radiusX, double radiusY, double angle) ellipse, double epsilon = Epsilon)
             => IntersectLineEllipse((l.origin, (Cos(l.angle), Sin(l.angle))), (ellipse.origin, ellipse.radiusX, ellipse.radiusY, (Cos(ellipse.angle), Sin(ellipse.angle))), epsilon);
@@ -131,7 +131,7 @@ namespace Engine
         /// <param name="l">The l.</param>
         /// <param name="ellipse">The ellipse1.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double x, double y)[] IntersectLineEllipse(((double x, double y) origin, (double cos, double sin) angle) l, ((double x, double y) origin, double radiusX, double radiusY, (double cos, double sin) angle) ellipse, double epsilon = Epsilon)
         {
@@ -220,7 +220,7 @@ namespace Engine
         /// <param name="c1">The p1.</param>
         /// <param name="c2">The p2.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static (double x, double y)[] IntersectCircleCircle(((double x, double y) origin, double radius) c1, ((double x, double y) origin, double radius) c2, double epsilon = Epsilon)
         {
@@ -258,7 +258,7 @@ namespace Engine
         /// </summary>
         /// <param name="quartics">The quartics.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>
@@ -339,7 +339,7 @@ namespace Engine
         /// <param name="el1">The el1.</param>
         /// <param name="e2">The e2.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:(double x, double y)[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>
@@ -365,7 +365,7 @@ namespace Engine
         /// <param name="o1">The o1.</param>
         /// <param name="o2">The o2.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:((double x, double y) v, double z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>
@@ -382,7 +382,7 @@ namespace Engine
         /// <param name="o1">The o1.</param>
         /// <param name="o2">The o2.</param>
         /// <param name="epsilon"></param>
-        /// <returns>The <see cref="T:((double x, double y) v, double z)"/>.</returns>
+        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <acknowledgment>
         /// https://gist.github.com/drawable/92792f59b6ff8869d8b1
         /// </acknowledgment>

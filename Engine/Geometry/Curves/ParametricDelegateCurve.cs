@@ -71,7 +71,7 @@ namespace Engine
         /// <param name="precision">The precision.</param>
         public ParametricDelegateCurve(
             Func<double, double, double, double, double, double, Point2D> interpolator,
-            Func<double, double, double, double, double, double, double, Inclusion> pointIntersector,
+            Func<double, double, double, double, double, double, double, Inclusions> pointIntersector,
             Point2D location,
             Size2D scale,
             double rotation = 0d,
@@ -118,7 +118,7 @@ namespace Engine
         /// </summary>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(true)]
-        public Func<double, double, double, double, double, double, double, Inclusion> PointIntersector { get; set; }
+        public Func<double, double, double, double, double, double, double, Inclusions> PointIntersector { get; set; }
 
         /// <summary>
         /// Gets or sets the x.
@@ -305,21 +305,21 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
         public override Point2D Interpolate(double t)
-            => Interpolate(Interpolator, x, y, h, v, r, t);
+            => Interpolate(Interpolator, t, x, y, h, v, r);
 
         /// <summary>
         /// The interpolate.
         /// </summary>
         /// <param name="function">The function.</param>
+        /// <param name="t">The t.</param>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         /// <param name="w">The w.</param>
         /// <param name="h">The h.</param>
         /// <param name="a">The a.</param>
-        /// <param name="t">The t.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public static Point2D Interpolate(Func<double, double, double, double, double, double, Point2D> function, double x, double y, double w, double h, double a, double t)
-            => function.Invoke(x, y, w, h, a, t);
+        public static Point2D Interpolate(Func<double, double, double, double, double, double, Point2D> function, double t, double x, double y, double w, double h, double a)
+            => (function?.Invoke(t, x, y, w, h, a)).Value;
 
         /// <summary>
         /// The contains.
@@ -327,7 +327,7 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         public override bool Contains(Point2D point)
-            => Contains(PointIntersector, x, y, h, v, r, point.X, point.Y) != Inclusion.Outside;
+            => Contains(PointIntersector, x, y, h, v, r, point.X, point.Y) != Inclusions.Outside;
 
         /// <summary>
         /// The contains.
@@ -340,9 +340,9 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="pX">The pX.</param>
         /// <param name="pY">The pY.</param>
-        /// <returns>The <see cref="Inclusion"/>.</returns>
-        public static Inclusion Contains(Func<double, double, double, double, double, double, double, Inclusion> function, double x, double y, double w, double h, double a, double pX, double pY)
-            => (function != null) ? function.Invoke(x, y, w, h, a, pX, pY) : Inclusion.Outside;
+        /// <returns>The <see cref="Inclusions"/>.</returns>
+        public static Inclusions Contains(Func<double, double, double, double, double, double, double, Inclusions> function, double x, double y, double w, double h, double a, double pX, double pY)
+            => (function != null) ? function.Invoke(x, y, w, h, a, pX, pY) : Inclusions.Outside;
 
         /// <summary>
         /// Convert the to string.

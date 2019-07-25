@@ -107,11 +107,10 @@ namespace Engine
         /// <remarks>This code added to correctly implement the disposable pattern.</remarks>
         public void Dispose()
         {
-            const bool v = true;
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(v);
+            Dispose(true);
             // ToDo: uncomment the following line if the finalizer is overridden above.
-            //GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
         #endregion IDisposable Support
     }

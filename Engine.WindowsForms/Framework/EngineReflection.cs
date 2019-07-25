@@ -147,7 +147,7 @@ namespace Engine
         /// The list units.
         /// </summary>
         /// <param name="units">The units.</param>
-        /// <returns>The <see cref="T:List{Type}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Type> ListUnits(Type units)
         {
             var assembly = Assembly.GetAssembly(units);
@@ -158,7 +158,7 @@ namespace Engine
         /// The list static factory constructors.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
             => new List<MethodInfo>
             (
@@ -218,7 +218,7 @@ namespace Engine
         /// </summary>
         /// <param name="assembly">The assembly.</param>
         /// <param name="attribute">The attribute.</param>
-        /// <returns>The <see cref="T:List{Type}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Type> GetAssemblyTypesTaggedWithPropertyAttribute(Assembly assembly, Attribute attribute)
             => new List<Type>
             (

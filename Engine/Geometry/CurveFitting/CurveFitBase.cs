@@ -65,7 +65,7 @@ namespace Engine
         #endregion Fields
 
         /// <summary>
-        /// Gets the tangent for the start of the cure.
+        /// Gets the tangent for the start of the curve.
         /// </summary>
         protected Vector2D GetLeftTangent(int last, double epsilon = Epsilon)
         {
@@ -93,43 +93,16 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets the tangent for the end of the curve.
-        /// </summary>
-        protected Vector2D GetRightTangent(int first, double epsilon = Epsilon)
-        {
-            var totalLen = arclen[arclen.Count - 1];
-            var p3 = points[points.Count - 1];
-            var tanR = (points[points.Count - 2] - p3).Normalize();
-            var total = tanR;
-            var weightTotal = 1d;
-            first = Max(points.Count - (EndTangentNPoints + 1), first + 1);
-            for (var i = points.Count - 3; i >= first; i--)
-            {
-                var t = arclen[i] / totalLen;
-                var weight = t * t * t;
-                var v = (points[i] - p3).Normalize();
-                total += v * weight;
-                weightTotal += weight;
-            }
-            if (total.Length > epsilon)
-            {
-                tanR = (total / weightTotal).Normalize();
-            }
-
-            return tanR;
-        }
-
-        /// <summary>
         /// Gets the tangent at a given point in the curve.
         /// </summary>
         protected Vector2D GetCenterTangent(int first, int last, int split, double epsilon = Epsilon)
         {
-            // because we want to maintain C1 continuity on the spline, the tangents on either side must be inverses of one another
+            // Because we want to maintain C1 continuity on the spline, the tangents on either side must be inverses of one another.
             Debug.Assert(first < split && split < last);
             var splitLen = arclen[split];
             var pSplit = points[split];
 
-            // left side
+            // Left side
             var firstLen = arclen[first];
             var partLen = splitLen - firstLen;
             var total = default(Vector2D);
@@ -146,7 +119,7 @@ namespace Engine
                 (total / weightTotal).Normalize() :
                 (points[split - 1] - pSplit).Normalize();
 
-            // right side
+            // Right side
             partLen = arclen[last] - splitLen;
             var rMax = Min(last, split + MidTangentNPoints);
             total = default;
@@ -185,6 +158,33 @@ namespace Engine
         }
 
         /// <summary>
+        /// Gets the tangent for the end of the curve.
+        /// </summary>
+        protected Vector2D GetRightTangent(int first, double epsilon = Epsilon)
+        {
+            var totalLen = arclen[arclen.Count - 1];
+            var p3 = points[points.Count - 1];
+            var tanR = (points[points.Count - 2] - p3).Normalize();
+            var total = tanR;
+            var weightTotal = 1d;
+            first = Max(points.Count - (EndTangentNPoints + 1), first + 1);
+            for (var i = points.Count - 3; i >= first; i--)
+            {
+                var t = arclen[i] / totalLen;
+                var weight = t * t * t;
+                var v = (points[i] - p3).Normalize();
+                total += v * weight;
+                weightTotal += weight;
+            }
+            if (total.Length > epsilon)
+            {
+                tanR = (total / weightTotal).Normalize();
+            }
+
+            return tanR;
+        }
+
+        /// <summary>
         /// Tries to fit single Bézier curve to the points in [first ... last]. Destroys anything in <see cref="u"/> in the process.
         /// Assumes there are at least two points to fit.
         /// </summary>
@@ -205,7 +205,7 @@ namespace Engine
             }
             else if (nPts == 2)
             {
-                // if we only have 2 points left, estimate the curve using Wu/Barsky
+                // If we only have 2 points left, estimate the curve using Wu/Barsky.
                 var p0 = points[first];
                 var p3 = points[last];
                 var alpha = Measurements.Distance(p0, p3) / 3d;
@@ -218,23 +218,23 @@ namespace Engine
             else
             {
                 split = 0;
-                ArcLengthParamaterize(first, last); // initially start u with a simple chord-length parameterization
+                ArcLengthParamaterize(first, last); // Initially start u with a simple chord-length parameterization.
                 curve = default;
                 for (var i = 0; i < MaxItterations + 1; i++)
                 {
-                    // use newton's method to find better parameters (except on first run, since we don't have a curve yet)
+                    // Use newton's method to find better parameters (except on first run, since we don't have a curve yet).
                     if (i != 0)
                     {
                         Reparameterize(first, last, curve);
                     }
 
-                    // generate the curve itself
+                    // Generate the curve itself
                     curve = GenerateCubicBezier(first, last, tanL, tanR);
 
-                    // calculate error and get split point (point of max error)
+                    // Calculate error and get split point (point of max error)
                     var error = FindMaxSquaredError(first, last, curve, out split);
 
-                    // if we're within error tolerance, awesome!
+                    // If we're within error tolerance, awesome!
                     if (error < squaredError)
                     {
                         return true;
@@ -289,11 +289,11 @@ namespace Engine
         {
             var nPts = last - first + 1;
             var p0 = points[first];
-            var p3 = points[last]; // first and last points of curve are actual points on data
-            double c00 = 0d, c01 = 0d, c11 = 0d, x0 = 0d, x1 = 0d; // matrix members -- both C[0,1] and C[1,0] are the same, stored in c01
+            var p3 = points[last]; // First and last points of curve are actual points on data.
+            double c00 = 0d, c01 = 0d, c11 = 0d, x0 = 0d, x1 = 0d; // Matrix members -- both C[0,1] and C[1,0] are the same, stored in c01.
             for (var i = 1; i < nPts; i++)
             {
-                // Calculate cubic Bézier multipliers
+                // Calculate cubic Bézier multipliers.
                 var t = u[i];
                 var ti = 1d - t;
                 var t0 = ti * ti * ti;
@@ -301,30 +301,30 @@ namespace Engine
                 var t2 = 3d * ti * t * t;
                 var t3 = t * t * t;
 
-                // For X matrix; moving this up here since profiling shows it's better up here (maybe a0/a1 not in registers vs only v not in regs)
-                var s = (p0 * t0) + (p0 * t1) + (p3 * t2) + (p3 * t3); // NOTE: this would be Q(t) if p1=p0 and p2=p3
+                // For X matrix; moving this up here since profiling shows it's better up here (maybe a0/a1 not in registers vs only v not in regs).
+                var s = (p0 * t0) + (p0 * t1) + (p3 * t2) + (p3 * t3); // NOTE: this would be Q(t) if p1=p0 and p2=p3.
                 var v = points[first + i] - s;
 
-                // C matrix
+                // C matrix.
                 var a0 = tanL * t1;
                 var a1 = tanR * t2;
                 c00 += Operations.DotProduct(a0, a0);
                 c01 += Operations.DotProduct(a0, a1);
                 c11 += Operations.DotProduct(a1, a1);
 
-                // X matrix
+                // X matrix.
                 x0 += Operations.DotProduct((Point2D)a0, v);
                 x1 += Operations.DotProduct((Point2D)a1, v);
             }
 
-            // determinants of X and C matrices
+            // Determinants of X and C matrices.
             var det_C0_C1 = (c00 * c11) - (c01 * c01);
             var det_C0_X = (c00 * x1) - (c01 * x0);
             var det_X_C1 = (x0 * c11) - (x1 * c01);
             var alphaL = det_X_C1 / det_C0_C1;
             var alphaR = det_C0_X / det_C0_C1;
 
-            // If alpha is negative, zero, or very small (or we can't trust it since C matrix is small), fall back to Wu/Barsky heuristic
+            // If alpha is negative, zero, or very small (or we can't trust it since C matrix is small), fall back to Wu/Barsky heuristic.
             var linDist = Measurements.Distance(p0, p3);
             var epsilon2 = epsilon * linDist;
             if (Abs(det_C0_C1) < epsilon || alphaL < epsilon2 || alphaR < epsilon2)
@@ -352,23 +352,23 @@ namespace Engine
             {
                 var p = points[first + i];
                 var t = u[i];
-                var ti = 1 - t;
+                var ti = 1d - t;
 
-                // Control vertices for Q'
+                // Control vertices for Q'.
                 var qp0 = (curve.B - curve.A) * 3d;
                 var qp1 = (curve.C - curve.B) * 3d;
                 var qp2 = (curve.D - curve.C) * 3d;
 
-                // Control vertices for Q''
+                // Control vertices for Q''.
                 var qpp0 = (qp1 - qp0) * 2d;
                 var qpp1 = (qp2 - qp1) * 2d;
 
-                // Evaluate Q(t), Q'(t), and Q''(t)
+                // Evaluate Q(t), Q'(t), and Q''(t).
                 var p0 = curve.Interpolate(t);
                 var p1 = (ti * ti * qp0) + (2d * ti * t * qp1) + (t * t * qp2);
                 var p2 = (ti * qpp0) + (t * qpp1);
 
-                // these are the actual fitting calculations using http://en.wikipedia.org/wiki/Newton%27s_method
+                // These are the actual fitting calculations using http://en.wikipedia.org/wiki/Newton%27s_method.
                 var num = ((p0.X - p.X) * p1.I) + ((p0.Y - p.Y) * p1.J);
                 var den = (p1.I * p1.I) + (p1.J * p1.J) + ((p0.X - p.X) * p2.I) + ((p0.Y - p.Y) * p2.J);
                 var newU = t - (num / den);

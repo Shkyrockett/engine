@@ -154,7 +154,7 @@ namespace Engine
         /// <summary>
         /// The grid.
         /// </summary>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public List<Point2D> Grid()
             => Grid(MinX, MinY, MaxX, MaxY, StepX, StepY);
 
@@ -167,7 +167,7 @@ namespace Engine
         /// <param name="maxY">The maxY.</param>
         /// <param name="stepX">The stepX.</param>
         /// <param name="stepY">The stepY.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> Grid(double minX, double minY, double maxX, double maxY, double stepX, double stepY)
         {
             var width = stepX == 0 ? (maxX - minX) : (maxX - minX) / stepX;
@@ -181,7 +181,7 @@ namespace Engine
         /// <summary>
         /// The warp.
         /// </summary>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public List<Point2D> Warp()
         {
             var result = new List<Point2D>();

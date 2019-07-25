@@ -45,7 +45,7 @@ namespace Engine
         /// <summary>
         /// The interpolation chain.
         /// </summary>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         List<Point2D> InterpolationChain();
     }
 }

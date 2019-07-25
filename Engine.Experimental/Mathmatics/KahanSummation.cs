@@ -7,7 +7,7 @@ namespace Engine.Experimental
     /// The kahan summation class.
     /// https://rosettacode.org/wiki/Kahan_summation#Java
     /// </summary>
-    public class KahanSummation
+    public static class KahanSummation
     {
         /// <summary>
         /// The kahan sum.

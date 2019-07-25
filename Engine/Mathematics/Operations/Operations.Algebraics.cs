@@ -96,13 +96,13 @@ namespace Engine
         public static PolynomialDegree DegreeRealOrder(IList<double> coefficients, double epsilon = double.Epsilon)
         {
             var pos = 1;
-            var count = coefficients.Count;
+            var count = coefficients?.Count;
 
             // Monomial can be a zero constant, skip them and check the rest.
             if (count > 1)
             {
                 // Count the number of leading zeros. Because the coefficients array is reversed, start at the end because there should generally be fewer leading zeros than other coefficients.
-                for (var i = count - 1; i >= 1 /* Monomials can be 0. */; i--)
+                for (var i = count.Value - 1; i >= 1 /* Monomials can be 0. */; i--)
                 {
                     // Check if coefficient is a leading zero.
                     if (Math.Abs(coefficients[i]) <= epsilon)
@@ -118,7 +118,7 @@ namespace Engine
             }
 
             // If coefficients is empty return constant, otherwise return the calculated order of degree of the polynomial.
-            return (PolynomialDegree)(coefficients?.Count - pos ?? 0);
+            return (PolynomialDegree)(count - pos ?? 0);
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace Engine
         /// <param name="y1">The y1.</param>
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// https://pomax.github.io/bezierinfo/#aligning
         /// </acknowledgment>
@@ -145,18 +145,21 @@ namespace Engine
             var dx = x2 - x1;
             var dy = y2 - y1;
             var det = (dx * dx) + (dy * dy);
-            // I believe det should only be 0 if the line is a point.
+
+            // I believe det should only be 0 if the line is a point. Not sure what the correct value shoud be for overlapping points.
             var sinA = det == 0 ? 0 : -dy / det;
             var cosA = det == 0 ? 1 : -dx / det;
 
             var results = new List<Point2D>();
-
-            foreach (var point in points)
+            if (!(points is null))
             {
-                results.Add(new Point2D(
-                    ((point.X - x1) * cosA) - ((point.Y - y1) * sinA),
-                    ((point.X - x1) * sinA) + ((point.Y - y1) * cosA))
-                    );
+                foreach (var point in points)
+                {
+                    results.Add(new Point2D(
+                        ((point.X - x1) * cosA) - ((point.Y - y1) * sinA),
+                        ((point.X - x1) * sinA) + ((point.Y - y1) * cosA))
+                        );
+                }
             }
 
             return results;
@@ -168,25 +171,20 @@ namespace Engine
         /// </summary>
         /// <param name="coefficients">The coefficients.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> DRoots(IList<double> coefficients, double epsilon = double.Epsilon)
-        {
             // ToDo: What are DRoots?
-            switch (coefficients.Count)
+            => coefficients?.Count switch
             {
-                case 2:
-                    return LinearDRoots(coefficients[0], coefficients[1], epsilon);
-                case 3:
-                    return QuadraticDRoots(coefficients[0], coefficients[1], coefficients[2], epsilon);
-                default:
-                    return new double[] { };
-            }
-        }
+                2 => LinearDRoots(coefficients[0], coefficients[1], epsilon),
+                3 => QuadraticDRoots(coefficients[0], coefficients[1], coefficients[2], epsilon),
+                _ => Array.Empty<double>(),
+            };
 
         /// <summary>
         /// The linear d roots.
@@ -194,7 +192,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:IList{double}"/>.</returns>
+        /// <returns>The <see cref="IList{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -204,7 +202,7 @@ namespace Engine
         {
             // ToDo: What are DRoots?
             _ = epsilon;
-            return a != b ? (new double[] { a / (a - b) }) : (new double[] { });
+            return a != b ? (new double[] { a / (a - b) }) : Array.Empty<double>();
         }
 
         /// <summary>
@@ -214,7 +212,7 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:IList{double}"/>.</returns>
+        /// <returns>The <see cref="IList{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -239,7 +237,7 @@ namespace Engine
                 return new double[] { ((2d * b) - c) / (2d * (b - c)) };
             }
 
-            return new double[] { };
+            return Array.Empty<double>();
         }
         #endregion D Root Finding
 
@@ -249,49 +247,26 @@ namespace Engine
         /// </summary>
         /// <param name="coefficients">The coefficients.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IList<double> Roots(IList<double> coefficients, double epsilon = double.Epsilon)
-        {
-            switch (DegreeRealOrder(coefficients))
+            => DegreeRealOrder(coefficients) switch
             {
-                case PolynomialDegree.Constant:
-                    if (coefficients is null)
-                    {
-                        return Array.Empty<double>();
-                    }
-
-                    return new double[] { coefficients[0] };
-                case PolynomialDegree.Linear:
-                    return LinearRoots(coefficients[1], coefficients[0], epsilon);
-                case PolynomialDegree.Quadratic:
-                    return QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon);
-                case PolynomialDegree.Cubic:
-                    return CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
-                case PolynomialDegree.Quartic:
-                    return QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
-                case PolynomialDegree.Quintic:
-                    return QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon);
-                case PolynomialDegree.Sextic:
-                // ToDo: Uncomment when Sextic roots are implemented.
-                //return poly.SexticRoots(epsilon);
-                case PolynomialDegree.Septic:
-                // ToDo: Uncomment when Septic roots are implemented.
-                //return poly.SepticRoots(epsilon);
-                case PolynomialDegree.Octic:
-                // ToDo: Uncomment when Octic roots are implemented.
-                //return poly.OcticRoots(epsilon);
-                default:
-                    // ToDo: If a general root finding algorithm can be found, call it here instead of returning an empty list.
-                    return Array.Empty<double>();
-            }
-
-            // should try Newton's method and/or bisection
-        }
+                PolynomialDegree.Constant => (coefficients is null) ? Array.Empty<double>() : new double[] { coefficients[0] },
+                PolynomialDegree.Linear => LinearRoots(coefficients[1], coefficients[0], epsilon),
+                PolynomialDegree.Quadratic => QuadraticRoots(coefficients[2], coefficients[1], coefficients[0], epsilon),
+                PolynomialDegree.Cubic => CubicRoots(coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon),
+                PolynomialDegree.Quartic => QuarticRoots(coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon),
+                PolynomialDegree.Quintic => QuinticRoots(coefficients[5], coefficients[4], coefficients[3], coefficients[2], coefficients[1], coefficients[0], epsilon),
+                PolynomialDegree.Sextic => Array.Empty<double>(), //SexticRoots(epsilon),
+                PolynomialDegree.Septic => Array.Empty<double>(), //SepticRoots(epsilon),
+                PolynomialDegree.Octic => Array.Empty<double>(), //OcticRoots(epsilon),
+                _ => Array.Empty<double>(), // Should try Newton's method and/or bisection
+            };
 
         /// <summary>
         /// The linear roots.
@@ -299,7 +274,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -331,7 +306,7 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <param name="c">The c.</param>
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -467,7 +442,7 @@ namespace Engine
         /// <param name="d">The d.</param>
         /// <param name="e">The e.</param>
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <remarks>
         /// ToDo: Translate code found at: https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
         /// and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/:
@@ -591,7 +566,7 @@ namespace Engine
         /// <param name="e">The e.</param>
         /// <param name="f">The f.</param>
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// This is a Copy and paste port of the method found at:
         /// https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
@@ -1239,13 +1214,13 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H) SepticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h)
             => (h - (7d * g) + (21d * f) - (35d * e) + (35d * d) - (21d * c) + (7d * b) - a,
-                    (7d * g) - (42d * f) + (105d * e) - (140d * d) + (105d * c) - (42d * b) + (7d * a),
-                    (21d * f) - (105d * e) + (210d * d) - (210d * c) + (105d * b) - (21d * a),
-                    (35d * e) - (140d * d) + (210d * c) - (140d * b) + (35d * a),
-                    (35d * d) - (105d * c) + (105d * b) - (35d * a),
-                    (21d * c) - (42d * b) + (21d * a),
-                    (7d * b) - (7d * a),
-                    a);
+                (7d * g) - (42d * f) + (105d * e) - (140d * d) + (105d * c) - (42d * b) + (7d * a),
+                (21d * f) - (105d * e) + (210d * d) - (210d * c) + (105d * b) - (21d * a),
+                (35d * e) - (140d * d) + (210d * c) - (140d * b) + (35d * a),
+                (35d * d) - (105d * c) + (105d * b) - (35d * a),
+                (21d * c) - (42d * b) + (21d * a),
+                (7d * b) - (7d * a),
+                a);
 
         /// <summary>
         /// Coefficients for a Octic Bézier curve.
@@ -1267,14 +1242,14 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I) OcticBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i)
             => (i - (8d * h) + (28d * g) - (56d * f) + (70d * e) - (56d * d) + (28d * c) - (8d * b) + a,
-                    (8d * h) - (56d * g) + (168d * f) - (280d * e) + (280d * d) - (168d * c) + (56d * b) - (8d * a),
-                    (28d * g) - (168d * f) + (420d * e) - (560d * d) + (420d * c) - (168d * b) + (28d * a),
-                    (56d * f) - (280d * e) + (560d * d) - (560d * c) + (280d * b) - (56d * a),
-                    (70d * e) - (280d * d) + (420d * c) - (280d * b) + (70d * a),
-                    (56d * d) - (168d * c) + (168d * b) - (56d * a),
-                    (28d * c) - (56d * b) + (28d * a),
-                    (8d * b) - (8d * a),
-                    a);
+                (8d * h) - (56d * g) + (168d * f) - (280d * e) + (280d * d) - (168d * c) + (56d * b) - (8d * a),
+                (28d * g) - (168d * f) + (420d * e) - (560d * d) + (420d * c) - (168d * b) + (28d * a),
+                (56d * f) - (280d * e) + (560d * d) - (560d * c) + (280d * b) - (56d * a),
+                (70d * e) - (280d * d) + (420d * c) - (280d * b) + (70d * a),
+                (56d * d) - (168d * c) + (168d * b) - (56d * a),
+                (28d * c) - (56d * b) + (28d * a),
+                (8d * b) - (8d * a),
+                a);
 
         /// <summary>
         /// Coefficients for a Nonic Bézier curve.
@@ -1297,15 +1272,15 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J) NonicBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j)
             => (j - (9d * i) + (36d * h) - (84d * g) + (126d * f) - (126d * e) + (84d * d) - (36d * c) + (9d * b) - a,
-                    (9d * i) - (72d * h) + (252d * g) - (504d * f) + (630d * e) - (504d * d) + (252d * c) - (72d * b) + (9d * a),
-                    (36d * h) - (252d * g) + (756d * f) - (1260d * e) + (1260d * d) - (756d * c) + (252 * b) - (36 * a),
-                    (84d * g) - (504 * f) + (1260d * e) - (1680d * d) + (1260d * c) - (504d * b) + (84d * a),
-                    (126d * f) - (630d * e) + (1260d * d) - (1260d * c) + (630d * b) - (126d * a),
-                    (126d * e) - (504d * d) + (756d * c) - (504d * b) + (126d * a),
-                    (84d * d) - (252d * c) + (252d * b) - (84d * a),
-                    (36d * c) - (72d * b) + (36d * a),
-                    (9d * b) - (9d * a),
-                    a);
+                (9d * i) - (72d * h) + (252d * g) - (504d * f) + (630d * e) - (504d * d) + (252d * c) - (72d * b) + (9d * a),
+                (36d * h) - (252d * g) + (756d * f) - (1260d * e) + (1260d * d) - (756d * c) + (252 * b) - (36 * a),
+                (84d * g) - (504 * f) + (1260d * e) - (1680d * d) + (1260d * c) - (504d * b) + (84d * a),
+                (126d * f) - (630d * e) + (1260d * d) - (1260d * c) + (630d * b) - (126d * a),
+                (126d * e) - (504d * d) + (756d * c) - (504d * b) + (126d * a),
+                (84d * d) - (252d * c) + (252d * b) - (84d * a),
+                (36d * c) - (72d * b) + (36d * a),
+                (9d * b) - (9d * a),
+                a);
 
         /// <summary>
         /// Coefficients for a Decic Bézier curve.
@@ -1329,16 +1304,16 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double A, double B, double C, double D, double E, double F, double G, double H, double I, double J, double K) DecicBezierCoefficients(double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k)
             => (k - (10 * j) + (45 * i) - (120 * h) + (210 * g) - (252 * f) + (210 * e) - (120 * d) + (45 * c) - (10 * b) + a,
-                    (10 * j) - (90d * i) + (360d * h) - (840d * g) + (1260d * f) - (1260d * e) + (840d * d) - (360d * c) + (90d * b) - (10 * a),
-                    (45d * i) - (360d * h) + (1260d * g) - (2520d * f) + (3150d * e) - (2520d * d) + (1260d * c) - (360d * b) + (45d * a),
-                    (120d * h) - (840d * g) + (2520d * f) - (4200d * e) + (4200d * d) - (2520d * c) + (840d * b) - (120d * a),
-                    (210d * g) - (1260d * f) + (3150d * e) - (4200d * d) + (3150d * c) - (1260d * b) + (210d * a),
-                    (252d * f) - (1260d * e) + (2520d * d) - (2520d * c) + (1260d * b) - (252d * a),
-                    (210d * e) - (840d * d) + (1260d * c) - (840d * b) + (210d * a),
-                    (120d * d) - (360d * c) + (360d * b) - (120d * a),
-                    (45d * c) - (90d * b) + (45d * a),
-                    (10d * b) - (10d * a),
-                    a);
+                (10 * j) - (90d * i) + (360d * h) - (840d * g) + (1260d * f) - (1260d * e) + (840d * d) - (360d * c) + (90d * b) - (10 * a),
+                (45d * i) - (360d * h) + (1260d * g) - (2520d * f) + (3150d * e) - (2520d * d) + (1260d * c) - (360d * b) + (45d * a),
+                (120d * h) - (840d * g) + (2520d * f) - (4200d * e) + (4200d * d) - (2520d * c) + (840d * b) - (120d * a),
+                (210d * g) - (1260d * f) + (3150d * e) - (4200d * d) + (3150d * c) - (1260d * b) + (210d * a),
+                (252d * f) - (1260d * e) + (2520d * d) - (2520d * c) + (1260d * b) - (252d * a),
+                (210d * e) - (840d * d) + (1260d * c) - (840d * b) + (210d * a),
+                (120d * d) - (360d * c) + (360d * b) - (120d * a),
+                (45d * c) - (90d * b) + (45d * a),
+                (10d * b) - (10d * a),
+                a);
         #endregion Bézier Coefficients
 
         /// <summary>
@@ -1349,7 +1324,7 @@ namespace Engine
         /// <param name="x0">Initial root guess</param>
         /// <param name="f">Function which root we are trying to find</param>
         /// <param name="df">Derivative of function f</param>
-        /// <param name="max_iterations">Maximum number of algorithm iterations</param>
+        /// <param name="maxIterations">Maximum number of algorithm iterations</param>
         /// <param name="min">Left bound value</param>
         /// <param name="max">Right bound value</param>
         /// <returns>root</returns>
@@ -1361,7 +1336,7 @@ namespace Engine
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Newton_secant_bisection(double x0, Func<double, double> f, Func<double, double> df, int max_iterations, double? min = null, double? max = null)
+        public static double NewtonSecantBisection(double x0, Func<double, double> f, Func<double, double> df, int maxIterations, double? min = null, double? max = null)
         {
             var prev_dfx = 0d;
             var prev_x_ef_correction = 0d;
@@ -1397,7 +1372,7 @@ namespace Engine
 
             //var stepMethod;
             //var details = [];
-            for (var i = 0; i < max_iterations; i++)
+            for (var i = 0; i < maxIterations; i++)
             {
                 var dfx = df(x);
                 if (dfx == 0)

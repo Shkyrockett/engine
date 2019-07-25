@@ -524,7 +524,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:int[]"/>.</returns>
+        /// <returns>The <see cref="int[]"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int[] Add(this int[] array, int t)
@@ -538,7 +538,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:float[]"/>.</returns>
+        /// <returns>The <see cref="float[]"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float[] Add(this float[] array, float t)
@@ -552,7 +552,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double[] Add(this double[] array, double t)
@@ -566,7 +566,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D[] Add(this Point2D[] array, Point2D t)
@@ -580,7 +580,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:Point3D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D[] Add(this Point3D[] array, Point3D t)
@@ -594,7 +594,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:Vector2D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D[] Add(this Vector2D[] array, Vector2D t)
@@ -608,7 +608,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="T:Vector3D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D[] Add(this Vector3D[] array, Vector3D t)
@@ -2043,7 +2043,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D Negate(this Matrix2x2D source)
-            => Negate(
+            => UnaryNegate(
                 source.M0x0, source.M0x1,
                 source.M1x0, source.M1x1);
 
@@ -2055,7 +2055,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix3x3D Negate(this Matrix3x3D source)
-            => Negate(
+            => UnaryNegate(
                 source.M0x0, source.M0x1, source.M0x2,
                 source.M1x0, source.M1x1, source.M1x2,
                 source.M2x0, source.M2x1, source.M2x2);
@@ -2068,7 +2068,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix4x4D Negate(this Matrix4x4D source)
-            => Negate(
+            => UnaryNegate(
                 source.M0x0, source.M0x1, source.M0x2, source.M0x3,
                 source.M1x0, source.M1x1, source.M1x2, source.M1x3,
                 source.M2x0, source.M2x1, source.M2x2, source.M2x3,
@@ -2247,7 +2247,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double[] RemoveAt(this double[] array, int index)
@@ -2261,7 +2261,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D[] RemoveAt(this Point2D[] array, int index)
@@ -2275,7 +2275,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="T:Point3D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point3D[] RemoveAt(this Point3D[] array, int index)
@@ -2289,7 +2289,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="T:Vector2D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D[] RemoveAt(this Vector2D[] array, int index)
@@ -2303,7 +2303,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="T:Vector3D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D[] RemoveAt(this Vector3D[] array, int index)
@@ -3031,7 +3031,7 @@ namespace Engine
         /// Get the convex hull.
         /// </summary>
         /// <param name="points">The points.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <remarks>
         /// http://jwezorek.com/2017/09/basic-convex-hull-in-c/
         /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain

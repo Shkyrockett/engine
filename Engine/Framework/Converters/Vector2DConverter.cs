@@ -108,7 +108,7 @@ namespace Engine
                 if (destinationType == typeof(string))
                 {
                     // Delegate to the formatting/culture-aware ConvertToString method.
-                    return instance.ConvertToString(string.Empty, culture);
+                    return instance.ToString(string.Empty, culture);
                 }
             }
 

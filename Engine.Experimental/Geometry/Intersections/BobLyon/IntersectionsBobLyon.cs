@@ -109,8 +109,8 @@ namespace Engine
             }
 
             // Is the center of one inside the other? 
-            if (Intersections.EllipseContainsPoint(u0, v0, rx0, ry0, sinA0, cosA0, u1, v1) != Inclusion.Inside
-             || Intersections.EllipseContainsPoint(u1, v1, rx1, ry1, sinA1, cosA1, u0, v0) != Inclusion.Inside)
+            if (Intersections.EllipseContainsPoint(u0, v0, rx0, ry0, sinA0, cosA0, u1, v1) != Inclusions.Inside
+             || Intersections.EllipseContainsPoint(u1, v1, rx1, ry1, sinA1, cosA1, u0, v0) != Inclusions.Inside)
             {
                 return true;
             }

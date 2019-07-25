@@ -235,17 +235,19 @@ namespace Engine
         /// <param name="rect">The rect.</param>
         private static void DrawBorder(Graphics g, RectangleF rect)
         {
-            var highlightPen = new Pen(SystemBrushes.ButtonHighlight)
+            using var highlightPen = new Pen(SystemBrushes.ButtonHighlight)
             {
                 Alignment = PenAlignment.Inset,
                 Width = 3
             };
-            var shaddowPen = new Pen(SystemBrushes.ButtonShadow)
+            {
+                g.DrawArc(highlightPen, rect, (float)-45d, (float)-180d);
+            }
+            using var shaddowPen = new Pen(SystemBrushes.ButtonShadow)
             {
                 Alignment = PenAlignment.Inset,
                 Width = 3
             };
-            g.DrawArc(highlightPen, rect, (float)-45d, (float)-180d);
             g.DrawArc(shaddowPen, rect, (float)-45d, (float)180d);
         }
 
@@ -256,13 +258,13 @@ namespace Engine
         /// <param name="rect">The rect.</param>
         private static void DrawTicks(Graphics g, RectangleF rect)
         {
-            var pen = new Pen(Brushes.Black)
+            using var pen = new Pen(Brushes.Black)
             {
                 Alignment = PenAlignment.Center,
                 Width = 1
             };
             var center = Center(rect);
-            var radiusOutside = rect.Width / 2;
+            var radiusOutside = rect.Width * 0.5f;
             var radiusInside = 0.9f * radiusOutside;
 
             for (double i = 0; i < 2d * PI; i += 15d.ToRadians())
@@ -285,13 +287,13 @@ namespace Engine
         /// <param name="angle">The angle.</param>
         private static void DrawNeedle(Graphics g, RectangleF rect, double angle)
         {
-            var pen = new Pen(Brushes.Red)
+            using var pen = new Pen(Brushes.Red)
             {
                 Alignment = PenAlignment.Center,
                 Width = 2
             };
             var center = Center(rect);
-            var radius = rect.Width / 2;
+            var radius = rect.Width * 0.5f;
             var point = new PointF(
                 (float)(center.X + (radius * Cos(angle))),
                 (float)(center.Y + (radius * Sin(angle))));

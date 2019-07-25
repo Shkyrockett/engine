@@ -16,10 +16,23 @@ namespace Engine.Experimental
     /// </summary>
     public class OutRec
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public OutRec()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dx"></param>
+        /// <param name="owner"></param>
+        /// <param name="startEdge"></param>
+        /// <param name="endEdge"></param>
+        /// <param name="points"></param>
+        /// <param name="polyPath"></param>
+        /// <param name="flag"></param>
         public OutRec(int dx, OutRec owner, Edge startEdge, Edge endEdge, LinkedPoint points, PolyPath polyPath, OutrecFlag flag)
         {
             IDx = dx;
@@ -77,8 +90,8 @@ namespace Engine.Experimental
         {
             StartEdge = e1;
             EndEdge = e2;
-            e1.OutRec = this;
-            e2.OutRec = this;
+            e1.outRec = this;
+            e2.outRec = this;
         }
 
         /// <summary>
@@ -97,10 +110,10 @@ namespace Engine.Experimental
         /// </summary>
         public void EndOutRec()
         {
-            StartEdge.OutRec = null;
+            StartEdge.outRec = null;
             if (EndEdge != null)
             {
-                EndEdge.OutRec = null;
+                EndEdge.outRec = null;
             }
 
             StartEdge = null;

@@ -25,7 +25,7 @@ namespace EngineTests
         /// <summary>
         /// A value indicating the amount of difference a test may have in the return value.
         /// </summary>
-        private const double TestEpsilon = 0.0000000000001d;
+        private const double testEpsilon = 0.0000000000001d;
         #endregion Constants
 
         #region Properties
@@ -44,6 +44,8 @@ namespace EngineTests
         [ClassInitialize]
         public static void ClassInit(TestContext context)
         {
+            _ = context;
+            _ = testEpsilon;
             //MessageBox.Show("TestClassInit");
         }
 
@@ -223,7 +225,7 @@ namespace EngineTests
             foreach (var value in sbyteTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -253,7 +255,7 @@ namespace EngineTests
             foreach (var value in byteTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -287,7 +289,7 @@ namespace EngineTests
             foreach (var value in shortTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -317,7 +319,7 @@ namespace EngineTests
             foreach (var value in ushortTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -351,7 +353,7 @@ namespace EngineTests
             foreach (var value in intTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -381,7 +383,7 @@ namespace EngineTests
             foreach (var value in uintTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -415,7 +417,7 @@ namespace EngineTests
             foreach (var value in longTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -445,7 +447,7 @@ namespace EngineTests
             foreach (var value in ulongTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -479,7 +481,7 @@ namespace EngineTests
             foreach (var value in floatTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -513,7 +515,7 @@ namespace EngineTests
             foreach (var value in doubleTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -548,7 +550,7 @@ namespace EngineTests
             foreach (var value in decimalTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsAdditionSafe(value.a, value.b);
+                var result = Operations.IsAdditionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -597,7 +599,7 @@ namespace EngineTests
             foreach (var value in sbyteTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -627,7 +629,7 @@ namespace EngineTests
             foreach (var value in byteTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -662,7 +664,7 @@ namespace EngineTests
             foreach (var value in shortTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -692,7 +694,7 @@ namespace EngineTests
             foreach (var value in ushortTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -727,7 +729,7 @@ namespace EngineTests
             foreach (var value in intTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -757,7 +759,7 @@ namespace EngineTests
             foreach (var value in uintTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -791,7 +793,7 @@ namespace EngineTests
             foreach (var value in longTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -821,7 +823,7 @@ namespace EngineTests
             foreach (var value in ulongTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -855,7 +857,7 @@ namespace EngineTests
             foreach (var value in floatTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -889,7 +891,7 @@ namespace EngineTests
             foreach (var value in doubleTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -923,7 +925,7 @@ namespace EngineTests
             foreach (var value in decimalTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsSubtractionSafe(value.a, value.b);
+                var result = Operations.IsSubtractionSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -969,7 +971,7 @@ namespace EngineTests
             foreach (var value in sbyteTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -999,7 +1001,7 @@ namespace EngineTests
             foreach (var value in byteTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1034,7 +1036,7 @@ namespace EngineTests
             foreach (var value in shortTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1064,7 +1066,7 @@ namespace EngineTests
             foreach (var value in ushortTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1099,7 +1101,7 @@ namespace EngineTests
             foreach (var value in intTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1129,7 +1131,7 @@ namespace EngineTests
             foreach (var value in uintTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1163,7 +1165,7 @@ namespace EngineTests
             foreach (var value in longTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1193,7 +1195,7 @@ namespace EngineTests
             foreach (var value in ulongTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1227,7 +1229,7 @@ namespace EngineTests
             foreach (var value in floatTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1261,7 +1263,7 @@ namespace EngineTests
             foreach (var value in doubleTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1295,7 +1297,7 @@ namespace EngineTests
             foreach (var value in decimalTestCases.Keys)
             {
                 // Retrieve the result of the operation.
-                var result = Mathematics.IsMultiplicationSafe(value.a, value.b);
+                var result = Operations.IsMultiplicationSafe(value.a, value.b);
                 // Check for a correct result.
                 try
                 {
@@ -1668,7 +1670,7 @@ namespace EngineTests
 
         #region Bézier Polynomial Coefficients Tests
         /// <summary>
-        /// Test the <see cref="Mathematics.LinearBezierCoefficientsStack(double, double)"/> method.
+        /// Test the <see cref="Operations.LinearBezierCoefficientsStack(double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1678,12 +1680,12 @@ namespace EngineTests
         public void LinearBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(1, 1);
-            var result = Mathematics.LinearBezierCoefficientsStack(1, 2);
+            var result = Operations.LinearBezierCoefficientsStack(1, 2);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.LinearBezierCoefficients(double, double)"/> method.
+        /// Test the <see cref="Operations.LinearBezierCoefficients(double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1693,12 +1695,12 @@ namespace EngineTests
         public void LinearBezierCoefficientsTest()
         {
             var expected = new Polynomial(1, 1);
-            var result = (Polynomial)Mathematics.LinearBezierCoefficients(1, 2);
+            var result = (Polynomial)Operations.LinearBezierCoefficients(1, 2);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.QuadraticBezierCoefficientsStack(double, double, double)"/> method.
+        /// Test the <see cref="Operations.QuadraticBezierCoefficientsStack(double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1708,12 +1710,12 @@ namespace EngineTests
         public void QuadraticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 2, 1);
-            var result = Mathematics.QuadraticBezierCoefficientsStack(1, 2, 3);
+            var result = Operations.QuadraticBezierCoefficientsStack(1, 2, 3);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.QuadraticBezierCoefficients(double, double, double)"/> method.
+        /// Test the <see cref="Operations.QuadraticBezierCoefficients(double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1723,12 +1725,12 @@ namespace EngineTests
         public void QuadraticBezierCoefficientsTest()
         {
             var expected = new Polynomial(0, 2, 1);
-            var result = (Polynomial)Mathematics.QuadraticBezierCoefficients(1, 2, 3);
+            var result = (Polynomial)Operations.QuadraticBezierCoefficients(1, 2, 3);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.CubicBezierCoefficientsStack(double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.CubicBezierCoefficientsStack(double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1738,12 +1740,12 @@ namespace EngineTests
         public void CubicBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 3, 1);
-            var result = Mathematics.CubicBezierCoefficientsStack(1, 2, 3, 4);
+            var result = Operations.CubicBezierCoefficientsStack(1, 2, 3, 4);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.CubicBezierCoefficients(double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.CubicBezierCoefficients(double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1753,12 +1755,12 @@ namespace EngineTests
         public void CubicBezierCoefficientsTest()
         {
             var expected = new Polynomial(0, 0, 3, 1);
-            var result = (Polynomial)Mathematics.CubicBezierCoefficients(1, 2, 3, 4);
+            var result = (Polynomial)Operations.CubicBezierCoefficients(1, 2, 3, 4);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.QuarticBezierCoefficientsStack(double, double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.QuarticBezierCoefficientsStack(double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1768,12 +1770,12 @@ namespace EngineTests
         public void QuarticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 4, 1);
-            var result = Mathematics.QuarticBezierCoefficientsStack(1, 2, 3, 4, 5);
+            var result = Operations.QuarticBezierCoefficientsStack(1, 2, 3, 4, 5);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.QuarticBezierCoefficients(double, double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.QuarticBezierCoefficients(double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1783,12 +1785,12 @@ namespace EngineTests
         public void QuarticBezierCoefficientsTest()
         {
             var expected = new Polynomial(0, 0, 0, 4, 1);
-            var result = (Polynomial)Mathematics.QuarticBezierCoefficients(1, 2, 3, 4, 5);
+            var result = (Polynomial)Operations.QuarticBezierCoefficients(1, 2, 3, 4, 5);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.QuinticBezierCoefficientsStack(double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.QuinticBezierCoefficientsStack(double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1798,12 +1800,12 @@ namespace EngineTests
         public void QuinticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 5, 1);
-            var result = Mathematics.QuinticBezierCoefficientsStack(1, 2, 3, 4, 5, 6);
+            var result = Operations.QuinticBezierCoefficientsStack(1, 2, 3, 4, 5, 6);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.QuinticBezierCoefficients(double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.QuinticBezierCoefficients(double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1813,12 +1815,12 @@ namespace EngineTests
         public void QuinticBezierCoefficientsTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 5, 1);
-            var result = Mathematics.QuinticBezierCoefficients(1, 2, 3, 4, 5, 6);
+            var result = Operations.QuinticBezierCoefficients(1, 2, 3, 4, 5, 6);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.SexticBezierCoefficientsStack(double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.SexticBezierCoefficientsStack(double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1828,12 +1830,12 @@ namespace EngineTests
         public void SexticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 6, 1);
-            var result = Mathematics.SexticBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7);
+            var result = Operations.SexticBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.SepticBezierCoefficientsStack(double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.SepticBezierCoefficientsStack(double, double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1843,12 +1845,12 @@ namespace EngineTests
         public void SepticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 0, 7, 1);
-            var result = Mathematics.SepticBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8);
+            var result = Operations.SepticBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.OcticBezierCoefficientsStack(double, double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.OcticBezierCoefficientsStack(double, double, double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1858,12 +1860,12 @@ namespace EngineTests
         public void OcticBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 8, 1);
-            var result = Mathematics.OcticBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9);
+            var result = Operations.OcticBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.NonicBezierCoefficientsStack(double, double, double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.NonicBezierCoefficientsStack(double, double, double, double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1873,12 +1875,12 @@ namespace EngineTests
         public void NonicBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 0, 9, 1);
-            var result = Mathematics.NonicBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+            var result = Operations.NonicBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
             Assert.AreEqual(expected, result);
         }
 
         /// <summary>
-        /// Test the <see cref="Mathematics.DecicBezierCoefficientsStack(double, double, double, double, double, double, double, double, double, double, double)"/> method.
+        /// Test the <see cref="Operations.DecicBezierCoefficientsStack(double, double, double, double, double, double, double, double, double, double, double)"/> method.
         /// </summary>
         [TestMethod]
         [Priority(0)]
@@ -1888,7 +1890,7 @@ namespace EngineTests
         public void DecicBezierCoefficientsStackTest()
         {
             var expected = new Polynomial(0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 1);
-            var result = Mathematics.DecicBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+            var result = Operations.DecicBezierCoefficientsStack(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
             Assert.AreEqual(expected, result);
         }
         #endregion Bézier Polynomial Coefficients Tests
@@ -1904,39 +1906,39 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void ToRadiansTest()
         {
-            var value = Mathematics.ToRadians(0);
+            var value = Operations.ToRadians(0);
             Assert.AreEqual(0, value);
-            value = Mathematics.ToRadians(30);
+            value = Operations.ToRadians(30);
             Assert.AreEqual(30 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(45);
+            value = Operations.ToRadians(45);
             Assert.AreEqual(45 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(60);
+            value = Operations.ToRadians(60);
             Assert.AreEqual(60 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(90);
+            value = Operations.ToRadians(90);
             Assert.AreEqual(90 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(120);
+            value = Operations.ToRadians(120);
             Assert.AreEqual(120 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(135);
+            value = Operations.ToRadians(135);
             Assert.AreEqual(135 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(150);
+            value = Operations.ToRadians(150);
             Assert.AreEqual(150 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(180);
+            value = Operations.ToRadians(180);
             Assert.AreEqual(180 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(210);
+            value = Operations.ToRadians(210);
             Assert.AreEqual(210 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(225);
+            value = Operations.ToRadians(225);
             Assert.AreEqual(225 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(240);
+            value = Operations.ToRadians(240);
             Assert.AreEqual(240 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(270);
+            value = Operations.ToRadians(270);
             Assert.AreEqual(270 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(300);
+            value = Operations.ToRadians(300);
             Assert.AreEqual(300 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(315);
+            value = Operations.ToRadians(315);
             Assert.AreEqual(315 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(330);
+            value = Operations.ToRadians(330);
             Assert.AreEqual(330 * (Math.PI / 180f), value);
-            value = Mathematics.ToRadians(360);
+            value = Operations.ToRadians(360);
             Assert.AreEqual(360 * (Math.PI / 180f), value);
         }
 
@@ -1950,39 +1952,39 @@ namespace EngineTests
         [DeploymentItem("Engine.dll")]
         public void ToDegreesTest()
         {
-            var value = Mathematics.ToDegrees(0);
+            var value = Operations.ToDegrees(0);
             Assert.AreEqual(0, value);
-            value = Mathematics.ToDegrees(30);
+            value = Operations.ToDegrees(30);
             Assert.AreEqual(30 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(45);
+            value = Operations.ToDegrees(45);
             Assert.AreEqual(45 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(60);
+            value = Operations.ToDegrees(60);
             Assert.AreEqual(60 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(90);
+            value = Operations.ToDegrees(90);
             Assert.AreEqual(90 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(120);
+            value = Operations.ToDegrees(120);
             Assert.AreEqual(120 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(135);
+            value = Operations.ToDegrees(135);
             Assert.AreEqual(135 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(150);
+            value = Operations.ToDegrees(150);
             Assert.AreEqual(150 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(180);
+            value = Operations.ToDegrees(180);
             Assert.AreEqual(180 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(210);
+            value = Operations.ToDegrees(210);
             Assert.AreEqual(210 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(225);
+            value = Operations.ToDegrees(225);
             Assert.AreEqual(225 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(240);
+            value = Operations.ToDegrees(240);
             Assert.AreEqual(240 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(270);
+            value = Operations.ToDegrees(270);
             Assert.AreEqual(270 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(300);
+            value = Operations.ToDegrees(300);
             Assert.AreEqual(300 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(315);
+            value = Operations.ToDegrees(315);
             Assert.AreEqual(315 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(330);
+            value = Operations.ToDegrees(330);
             Assert.AreEqual(330 * (180f / Math.PI), value);
-            value = Mathematics.ToDegrees(360);
+            value = Operations.ToDegrees(360);
             Assert.AreEqual(360 * (180f / Math.PI), value);
         }
 

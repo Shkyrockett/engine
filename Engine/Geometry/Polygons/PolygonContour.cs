@@ -214,8 +214,8 @@ namespace Engine
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
-        public RotationDirections Orientation
-            => (RotationDirections)CachingProperty(() => (RotationDirections)Math.Sign(Measurements.SignedPolygonArea(points)));
+        public RotationDirection Orientation
+            => (RotationDirection)CachingProperty(() => (RotationDirection)Math.Sign(Measurements.SignedPolygonArea(points)));
         #endregion Properties
 
         #region Mutators
@@ -343,7 +343,7 @@ namespace Engine
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Contains(Point2D point)
-            => Intersections.Contains(this, point) != Inclusion.Outside;
+            => Intersections.Contains(this, point) != Inclusions.Outside;
 
         /// <summary>
         /// Clone.
@@ -367,7 +367,7 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<Point2D> GetEnumerator()
             => points.GetEnumerator();
 
@@ -382,7 +382,7 @@ namespace Engine
         /// Parse the path def string.
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
 
@@ -391,7 +391,7 @@ namespace Engine
         /// </summary>
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <exception cref="Exception">Polygon definitions must be in sets of two numbers.</exception>
         public static List<Point2D> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {

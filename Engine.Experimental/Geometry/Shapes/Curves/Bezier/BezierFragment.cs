@@ -123,51 +123,6 @@ namespace Engine
 
         #region ControlPoints
         /// <summary>
-        /// The readonly points class.
-        /// </summary>
-        public class ReadonlyPoints
-            : IReadOnlyList<Point2D>
-        {
-            /// <summary>
-            /// The values.
-            /// </summary>
-            private readonly Point2D[] values;
-
-            /// <summary>
-            /// Initializes a new instance of the <see cref="ReadonlyPoints"/> class.
-            /// </summary>
-            /// <param name="values">The values.</param>
-            internal ReadonlyPoints(Point2D[] values)
-            {
-                this.values = values;
-            }
-
-            /// <summary>
-            /// The Indexer.
-            /// </summary>
-            /// <param name="index">The index index.</param>
-            /// <returns>One element of type Point2D.</returns>
-            public Point2D this[int index] => values[index];
-
-            /// <summary>
-            /// Gets the count.
-            /// </summary>
-            public int Count => values.Length;
-
-            /// <summary>
-            /// Get the enumerator.
-            /// </summary>
-            /// <returns>The <see cref="T:IEnumerator{Point2D}"/>.</returns>
-            public IEnumerator<Point2D> GetEnumerator() => values.Cast<Point2D>().GetEnumerator();
-
-            /// <summary>
-            /// Get the enumerator.
-            /// </summary>
-            /// <returns>The <see cref="IEnumerator"/>.</returns>
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        }
-
-        /// <summary>
         /// Gets the control points.
         /// </summary>
         public ReadonlyPoints ControlPoints
@@ -322,7 +277,7 @@ namespace Engine
         /// The split.
         /// </summary>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierFragment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public BezierFragment[] Split(params double[] ts)
             => Split((IEnumerable<double>)ts);
 
@@ -330,7 +285,7 @@ namespace Engine
         /// The split.
         /// </summary>
         /// <param name="ts">The ts.</param>
-        /// <returns>The <see cref="T:BezierFragment[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public BezierFragment[] Split(IEnumerable<double> ts)
         {
             if (ts is null)
@@ -408,5 +363,50 @@ namespace Engine
                 .First();
         }
         #endregion ParameterizedSquareDistance() ClosestParameter() DistanceTo()
+    }
+
+    /// <summary>
+    /// The readonly points class.
+    /// </summary>
+    public class ReadonlyPoints
+        : IReadOnlyList<Point2D>
+    {
+        /// <summary>
+        /// The values.
+        /// </summary>
+        private readonly Point2D[] values;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReadonlyPoints"/> class.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        internal ReadonlyPoints(Point2D[] values)
+        {
+            this.values = values;
+        }
+
+        /// <summary>
+        /// The Indexer.
+        /// </summary>
+        /// <param name="index">The index index.</param>
+        /// <returns>One element of type Point2D.</returns>
+        public Point2D this[int index] => values[index];
+
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        public int Count => values.Length;
+
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
+        public IEnumerator<Point2D> GetEnumerator() => values.Cast<Point2D>().GetEnumerator();
+
+        /// <summary>
+        /// Get the enumerator.
+        /// </summary>
+        /// <returns>The <see cref="IEnumerator"/>.</returns>
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

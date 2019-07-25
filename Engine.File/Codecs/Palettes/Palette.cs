@@ -39,7 +39,7 @@ namespace Engine.File.Palettes
         public Palette()
         {
             Colors = new List<RGBA>();
-            PaletteMimeFormat = PaletteMimeFormats.Default;
+            PaletteMimeFormat = PaletteMimeFormat.Default;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Engine.File.Palettes
         {
             Colors = new List<RGBA>();
             AddRange(colors);
-            PaletteMimeFormat = PaletteMimeFormats.Default;
+            PaletteMimeFormat = PaletteMimeFormat.Default;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Engine.File.Palettes
         /// <summary>
         /// Gets or sets the palette's MIME format.
         /// </summary>
-        public PaletteMimeFormats PaletteMimeFormat { get; set; }
+        public PaletteMimeFormat PaletteMimeFormat { get; set; }
 
         /// <summary>
         /// Gets the number of colors in the palette.
@@ -90,7 +90,7 @@ namespace Engine.File.Palettes
         {
             FileName = fileName;
             var format = CheckExtensionSupport(FileName);
-            if (format != PaletteFileExtensions.unknown)
+            if (format != PaletteFileExtension.unknown)
             {
                 using Stream paletteStream = new FileStream(FileName, FileMode.Open);
                 Load(paletteStream, format);
@@ -102,7 +102,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="stream">The file stream of the opened file.</param>
         /// <param name="format">The extension format of the file opened.</param>
-        public void Load(Stream stream, PaletteFileExtensions format)
+        public void Load(Stream stream, PaletteFileExtension format)
         {
             if (stream == Stream.Null)
             {
@@ -114,23 +114,23 @@ namespace Engine.File.Palettes
 
             switch (format)
             {
-                case PaletteFileExtensions.acb:
+                case PaletteFileExtension.acb:
                     ReadAutoDeskPalette(stream);
                     break;
-                case PaletteFileExtensions.aco:
-                case PaletteFileExtensions.act:
+                case PaletteFileExtension.aco:
+                case PaletteFileExtension.act:
                     ReadAdobePalette(stream);
                     break;
-                case PaletteFileExtensions.cpl:
+                case PaletteFileExtension.cpl:
                     ReadCorelPalette(stream);
                     break;
-                case PaletteFileExtensions.txt:
+                case PaletteFileExtension.txt:
                     ReadTextPalette(stream);
                     break;
-                case PaletteFileExtensions.pal:
+                case PaletteFileExtension.pal:
                     ReadPalPalette(stream);
                     break;
-                case PaletteFileExtensions.unknown:
+                case PaletteFileExtension.unknown:
                     break;
                 default:
                     //header = this.ReadString(stream, 4);
@@ -145,34 +145,34 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="fileName">The Filename to save the file as.</param>
         /// <param name="format">The MIME format of the file to save.</param>
-        public void Save(string fileName, PaletteMimeFormats format)
+        public void Save(string fileName, PaletteMimeFormat format)
         {
             // ToDo: Add Save functionality.
             switch (format)
             {
-                case PaletteMimeFormats.Adobe:
-                case PaletteMimeFormats.AutoDesk:
-                case PaletteMimeFormats.Corel:
+                case PaletteMimeFormat.Adobe:
+                case PaletteMimeFormat.AutoDesk:
+                case PaletteMimeFormat.Corel:
                     //throw new NotImplementedException();
                     break;
-                case PaletteMimeFormats.JascPal0100:
+                case PaletteMimeFormat.JascPal0100:
                     WriteJascPalette(fileName);
                     break;
-                case PaletteMimeFormats.Text:
-                case PaletteMimeFormats.ComaDelimiated:
-                case PaletteMimeFormats.SpaceDelimiated:
+                case PaletteMimeFormat.Text:
+                case PaletteMimeFormat.ComaDelimiated:
+                case PaletteMimeFormat.SpaceDelimiated:
                     //throw new NotImplementedException();
                     break;
-                case PaletteMimeFormats.PaintDotNet:
+                case PaletteMimeFormat.PaintDotNet:
                     WritePaintDotNetPalette(fileName);
                     break;
-                case PaletteMimeFormats.RiffPal:
+                case PaletteMimeFormat.RiffPal:
                     WriteRiffPalette(fileName);
                     break;
-                case PaletteMimeFormats.Binary:
-                case PaletteMimeFormats.Win31Pal:
+                case PaletteMimeFormat.Binary:
+                case PaletteMimeFormat.Win31Pal:
                 //throw new NotImplementedException();
-                case PaletteMimeFormats.Default:
+                case PaletteMimeFormat.Default:
                     break;
                 default:
                     //throw new NotImplementedException();
@@ -282,7 +282,7 @@ namespace Engine.File.Palettes
         private void ReadAutoDeskPalette(Stream stream)
         {
             _ = stream;
-            PaletteMimeFormat = PaletteMimeFormats.AutoDesk;
+            PaletteMimeFormat = PaletteMimeFormat.AutoDesk;
             //var startPossition = stream.Position;
 
             //using (BinaryReader binaryReader = new BinaryReader(stream))
@@ -298,7 +298,7 @@ namespace Engine.File.Palettes
         private void ReadAdobePalette(Stream stream)
         {
             _ = stream;
-            PaletteMimeFormat = PaletteMimeFormats.Adobe;
+            PaletteMimeFormat = PaletteMimeFormat.Adobe;
             //var startPossition = stream.Position;
 
             //using (BinaryReader binaryReader = new BinaryReader(stream))
@@ -316,7 +316,7 @@ namespace Engine.File.Palettes
         /// </remarks>
         private void ReadCorelPalette(Stream stream)
         {
-            PaletteMimeFormat = PaletteMimeFormats.Corel;
+            PaletteMimeFormat = PaletteMimeFormat.Corel;
             //var startPossition = stream.Position;
 
             using var binaryReader = new BinaryReader(stream);
@@ -458,7 +458,7 @@ namespace Engine.File.Palettes
         /// <param name="stream">The stream.</param>
         private void ReadRiffPalette(Stream stream)
         {
-            PaletteMimeFormat = PaletteMimeFormats.RiffPal;
+            PaletteMimeFormat = PaletteMimeFormat.RiffPal;
             //var startPossition = stream.Position;
 
             using var binaryReader = new BinaryReader(stream);
@@ -497,7 +497,7 @@ namespace Engine.File.Palettes
         /// <param name="stream">The stream.</param>
         private void ReadBinaryPalette(Stream stream)
         {
-            PaletteMimeFormat = PaletteMimeFormats.Binary;
+            PaletteMimeFormat = PaletteMimeFormat.Binary;
             //var startPossition = stream.Position;
 
             using var binaryReader = new BinaryReader(stream);
@@ -518,7 +518,7 @@ namespace Engine.File.Palettes
         /// <param name="stream">The stream.</param>
         private void ReadJascPalette(Stream stream)
         {
-            PaletteMimeFormat = PaletteMimeFormats.JascPal0100;
+            PaletteMimeFormat = PaletteMimeFormat.JascPal0100;
             //var startPossition = stream.Position;
 
             //using (BinaryReader binaryReader = new BinaryReader(stream))
@@ -550,7 +550,7 @@ namespace Engine.File.Palettes
         /// <param name="stream">The stream.</param>
         private void ReadTextPalette(Stream stream)
         {
-            PaletteMimeFormat = PaletteMimeFormats.Text;
+            PaletteMimeFormat = PaletteMimeFormat.Text;
             //var startPossition = stream.Position;
 
             using var streamReader = new StreamReader(stream);
@@ -560,7 +560,7 @@ namespace Engine.File.Palettes
                 line = line.Trim();
                 if (line.StartsWith(";", StringComparison.OrdinalIgnoreCase))
                 {
-                    PaletteMimeFormat = PaletteMimeFormats.PaintDotNet;
+                    PaletteMimeFormat = PaletteMimeFormat.PaintDotNet;
                 }
                 else if (!string.IsNullOrWhiteSpace(line))
                 {
@@ -568,13 +568,13 @@ namespace Engine.File.Palettes
                     var color = new RGBA();
                     if (line.Contains(" ") || line.Contains(","))
                     {
-                        if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(" "))
+                        if (PaletteMimeFormat == PaletteMimeFormat.Text && line.Contains(" "))
                         {
-                            PaletteMimeFormat = PaletteMimeFormats.SpaceDelimiated;
+                            PaletteMimeFormat = PaletteMimeFormat.SpaceDelimiated;
                         }
-                        else if (PaletteMimeFormat == PaletteMimeFormats.Text && line.Contains(","))
+                        else if (PaletteMimeFormat == PaletteMimeFormat.Text && line.Contains(","))
                         {
-                            PaletteMimeFormat = PaletteMimeFormats.ComaDelimiated;
+                            PaletteMimeFormat = PaletteMimeFormat.ComaDelimiated;
                         }
 
                         argb = line.Split(new char[] { ' ', ',' });
@@ -683,11 +683,11 @@ namespace Engine.File.Palettes
         /// Check the extension support.
         /// </summary>
         /// <param name="filepath">The filepath.</param>
-        /// <returns>The <see cref="PaletteFileExtensions"/>.</returns>
-        private static PaletteFileExtensions CheckExtensionSupport(string filepath)
+        /// <returns>The <see cref="PaletteFileExtension"/>.</returns>
+        private static PaletteFileExtension CheckExtensionSupport(string filepath)
         {
             var extension = Path.GetExtension(filepath).Substring(1);
-            Enum.TryParse(extension, true, out PaletteFileExtensions format);
+            Enum.TryParse(extension, true, out PaletteFileExtension format);
             return format;
         }
 

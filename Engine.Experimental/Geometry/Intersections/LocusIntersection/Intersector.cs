@@ -23,21 +23,21 @@ namespace Engine
     /// <summary>
     /// The intersector class.
     /// </summary>
-    public class Intersector
+    public static class Intersector
     {
         /// <summary>
         /// The overlap intervals.
         /// </summary>
         /// <param name="ub1">The ub1.</param>
         /// <param name="ub2">The ub2.</param>
-        /// <returns>The <see cref="T:double[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         private static double[] OverlapIntervals(double ub1, double ub2)
         {
             var A = Math.Max(0, Math.Min(ub1, ub2));
             var B = Math.Min(1, Math.Max(ub1, ub2));
             if (A > B) // No intersection
             {
-                return new double[] { };
+                return Array.Empty<double>();
             }
             else if (A == B)
             {
@@ -60,7 +60,7 @@ namespace Engine
         /// <param name="a2">The a2.</param>
         /// <param name="b1">The b1.</param>
         /// <param name="b2">The b2.</param>
-        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         private static Point2D[] OneD_Intersection(Point2D a1, Point2D a2, Point2D b1, Point2D b2)
         {
             var denomX = a2.X - a1.X;
@@ -92,7 +92,7 @@ namespace Engine
         /// <param name="a2">The a2.</param>
         /// <param name="b1">The b1.</param>
         /// <param name="b2">The b2.</param>
-        /// <returns>The <see cref="T:Point2D[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static Point2D[] Intersection(Point2D a1, Point2D a2, Point2D b1, Point2D b2)
         {
             // This is the general case. Really general
@@ -105,7 +105,7 @@ namespace Engine
                 }
                 else // Both "segments" are different points, return empty set
                 {
-                    return new Point2D[] { };
+                    return Array.Empty<Point2D>();
                 }
             }
             else if (b1.Equals(b2)) // b is a point, a is a segment
@@ -116,7 +116,7 @@ namespace Engine
                 }
                 else
                 {
-                    return new Point2D[] { };
+                    return Array.Empty<Point2D>();
                 }
             }
             else if (a1.Equals(a2)) // a is a point, b is a segment
@@ -127,7 +127,7 @@ namespace Engine
                 }
                 else
                 {
-                    return new Point2D[] { };
+                    return Array.Empty<Point2D>();
                 }
             }
 
@@ -151,7 +151,7 @@ namespace Engine
                 else
                 {
                     // No Intersection
-                    return new Point2D[] { };
+                    return Array.Empty<Point2D>();
                 }
             }
             else // lines (not just segments) are parallel or the same line
@@ -174,7 +174,7 @@ namespace Engine
                 else
                 {
                     // Parallel
-                    return new Point2D[] { };
+                    return Array.Empty<Point2D>();
                 }
             }
         }

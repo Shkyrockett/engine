@@ -39,7 +39,7 @@ namespace MethodSpeedTester
         /// The to point array.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:Point[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static Point[] ToPointArray(this List<(double X, double Y)> list)
             => list.ConvertAll(new Converter<(double X, double Y), Point>(ToPoint)).ToArray();
 
@@ -47,7 +47,7 @@ namespace MethodSpeedTester
         /// The to point f array.
         /// </summary>
         /// <param name="list">The list.</param>
-        /// <returns>The <see cref="T:PointF[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         public static PointF[] ToPointFArray(this List<(double X, double Y)> list)
             => list.ConvertAll(new Converter<(double X, double Y), PointF>(ToPointF)).ToArray();
 

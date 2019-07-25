@@ -24,7 +24,7 @@ namespace MethodSpeedTester
         /// The list static factory constructors.
         /// </summary>
         /// <param name="type">The type.</param>
-        /// <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<MethodInfo> ListStaticFactoryConstructors(Type type)
             => new List<MethodInfo>
             (
@@ -39,7 +39,7 @@ namespace MethodSpeedTester
         /// </summary>
         /// <param name="type">The type.</param>
         /// <param name="type2">The type2.</param>
-        /// <returns>The <see cref="T:List{MethodInfo}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<MethodInfo> ListStaticFactoryConstructorsList(Type type, Type type2)
             => new List<MethodInfo>
             (

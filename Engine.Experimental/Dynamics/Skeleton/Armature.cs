@@ -17,6 +17,10 @@ namespace Engine
     /// </summary>
     public class Armature
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="bones"></param>
         public Armature(List<Bone> bones)
         {
             Bones = bones ?? new List<Bone>();

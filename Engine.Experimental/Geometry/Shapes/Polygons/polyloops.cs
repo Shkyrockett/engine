@@ -9,7 +9,7 @@ namespace Engine
     /// <summary>
     /// The poly loops class.
     /// </summary>
-    public class PolyLoops
+    public static class PolyLoops
     {
         /// <summary>
         /// Test.

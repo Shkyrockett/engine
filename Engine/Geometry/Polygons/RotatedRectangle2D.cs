@@ -786,11 +786,7 @@ namespace Engine
         /// <returns>The <see cref="string"/>.</returns>
         public override string ConvertToString(string format, IFormatProvider provider)
         {
-            if (this is null)
-            {
-                return nameof(RotatedRectangle2D);
-            }
-
+            if (this is null)return nameof(RotatedRectangle2D);
             var sep = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(RotatedRectangle2D)}{{{nameof(X)}={x.ToString(format, provider)}{sep}{nameof(Y)}={y.ToString(format, provider)}{sep}{nameof(Width)}={width.ToString(format, provider)}{sep}{nameof(Height)}={height.ToString(format, provider)}{sep}{nameof(Angle)}={angle.ToString(format, provider)}}}";
         }

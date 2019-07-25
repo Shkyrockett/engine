@@ -16,6 +16,20 @@ namespace Engine
     public class Bone
         : Shape
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="transform"></param>
+        /// <param name="parent"></param>
+        /// <param name="iK"></param>
+        /// <param name="length"></param>
+        /// <param name="weight"></param>
+        /// <param name="chain"></param>
+        /// <param name="chainIndex"></param>
+        /// <param name="inheritTranslation"></param>
+        /// <param name="inheritRotation"></param>
+        /// <param name="inheritScale"></param>
+        /// <param name="bendPositive"></param>
         public Bone(Transform2D transform, Bone parent, Bone iK, double length, double weight, uint chain, int chainIndex, bool inheritTranslation, bool inheritRotation, bool inheritScale, bool bendPositive)
         {
             Transform = transform;

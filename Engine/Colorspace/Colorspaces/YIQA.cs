@@ -110,7 +110,7 @@ namespace Engine.Colorspace
         /// <acknowledgment>
         /// https://github.com/dystopiancode/colorspace-conversions/blob/master/colorspace-conversions/colorspace-conversions.c
         /// </acknowledgment>
-        public RGBA ToColor(byte a, double y, double i, double q)
+        public static RGBA ToColor(byte a, double y, double i, double q)
         {
             var r = (byte)(y + (0.9563d * i) + (0.6210d * q));
             var g = (byte)(y - (0.2721d * i) - (0.6474d * q));
@@ -133,5 +133,19 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="string"/>.</returns>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 1361233287;
+            hashCode = hashCode * -1521134295 + Alpha.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            hashCode = hashCode * -1521134295 + I.GetHashCode();
+            hashCode = hashCode * -1521134295 + Q.GetHashCode();
+            return hashCode;
+        }
     }
 }

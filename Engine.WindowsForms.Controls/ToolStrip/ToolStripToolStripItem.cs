@@ -20,11 +20,13 @@ namespace Engine.WindowsForms
     public partial class ToolStripToolStripItem
         : ToolStripControlHost
     {
+        private static readonly ToolStrip toolstrip = new ToolStrip();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ToolStripToolStripItem"/> class.
         /// </summary>
         public ToolStripToolStripItem()
-            : base(new ToolStrip())
+            : base(toolstrip)
         {
             InitializeComponent();
         }

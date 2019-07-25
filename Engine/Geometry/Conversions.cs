@@ -324,7 +324,9 @@ namespace Engine
                 aX + (TwoThirds * (bX - aX)), aY + (TwoThirds * (bY - aY)),
                 cX + (TwoThirds * (bX - cX)), cY + (TwoThirds * (bY - cY)),
                 cX, cY);
+        #endregion Conversion Implementations
 
+        #region Parabola Conversion
         /// <summary>
         /// Convert a parabola from standard form into vertex form.
         /// </summary>
@@ -372,8 +374,8 @@ namespace Engine
             var y1 = (a * x1 * x1) + (x1 * b) + c;
             var y2 = (a * x2 * x2) + (x2 * b) + c;
             // Find the intersection of the tangents at the end nodes to find the center node.
-            var cx = (x2 + x1) * 0.5;
-            var cy = (a * ((x2 * x1) - (x1 * x1))) + (b * (x2 - x1) * 0.5) + y1;
+            var cx = (x2 + x1) * 0.5d;
+            var cy = (a * ((x2 * x1) - (x1 * x1))) + (b * (x2 - x1) * 0.5d) + y1;
             return (x1, y1, cx, cy, x2, y2);
         }
 
@@ -470,8 +472,8 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double h, double k) FindVertexParabolaFromTwoPointsAndK(double x1, double y1, double x2, double y2, double k)
         {
-            var h = FindParabolaHFromTwoPointsAndK(x1, y1, x2, y2, k);
-            var hv = (h.a > x1 && h.a < x2) ? h.a : h.b;
+            var (ha, hb) = FindParabolaHFromTwoPointsAndK(x1, y1, x2, y2, k);
+            var hv = (ha > x1 && ha < x2) ? ha : hb;
             return FindVertexParabolaFromThreePoints(x1, y1, hv, k, x2, y2);
         }
 
@@ -491,11 +493,34 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double a, double b) FindParabolaHFromTwoPointsAndK(double x1, double y1, double x2, double y2, double k)
         {
-            var a = 1d - ((y2 - k) / (y1 - k));
-            var b = (-2d * x2) + (2d * x1 * ((y2 - k) / (y1 - k)));
-            var c = (x2 * x2​) - (x1 * x1 * ((y2 - k) / (y1 - k)));
+            var u = y1 - k;
+            var v = y2 - k;
+            // Take care of possible divide by 0 cases.
+            if (u == 0d && v == 0d)
+            {
+                // If y1, y2 and k are all the same, the parabola myst be a straight line.
+                return (x2 + (x2 - x1) * OneHalf, double.NaN);
+            }
+            else if (u == 0d)
+            {
+                // If y1 is the same height as k, it must start at the apex.
+                return (x1, x1);
+            }
+            else if (v == 0d)
+            {
+                // If y2 is the same height as k, it must end at the apex.
+                return (x2, x2);
+            }
+
+            var a = 1d - v / u;
+            var b = (-2d * x2) + (2d * x1 * (v / u));
+            var c = (x2 * x2​) - (x1 * x1 * (v / u));
 
             // Find the roots.
+            if (x1 == x2)
+            {
+                return (x1, x2);
+            }
             if (a is 0d)
             {
                 // If a is zero, reduce to linear, if b is also zero reduce to constant.
@@ -542,7 +567,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double FindParabolaAFromAPointAndVertex(double x, double y, double h, double k)
             => x - h == 0d ? 0d : (y - k) / ((x - h) * (x - h));
-        #endregion Conversion Implementations
+        #endregion
 
         #region Rectangle
         /// <summary>

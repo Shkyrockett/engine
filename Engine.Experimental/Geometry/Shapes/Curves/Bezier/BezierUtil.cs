@@ -10,28 +10,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using static System.Math;
 using static Engine.Mathematics;
 using static Engine.Operations;
+using static System.Math;
 
 namespace Engine.Experimental
 {
     /// <summary>
-    /// The derivitive method double.
+    /// The derivative method double.
     /// </summary>
     /// <param name="x">The x.</param>
     /// <returns>The <see cref="double"/>.</returns>
     public delegate double DerivitiveMethodDouble(double x);
 
     /// <summary>
-    /// The derivitive method2d.
+    /// The derivative method2d.
     /// </summary>
     /// <param name="x">The x.</param>
     /// <returns>The <see cref="Point2D"/>.</returns>
     public delegate Point2D DerivitiveMethod2D(double x);
 
     /// <summary>
-    /// The derivitive method3d.
+    /// The derivative method3d.
     /// </summary>
     /// <param name="x">The x.</param>
     /// <returns>The <see cref="Point3D"/>.</returns>
@@ -43,7 +43,7 @@ namespace Engine.Experimental
     /// <acknowledgment>
     /// http://pomax.github.io/bezierinfo/
     /// </acknowledgment>
-    public class BezierUtil
+    public static class BezierUtil
     {
         #region Gauss Tables
         /// <summary>
@@ -224,7 +224,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// https://pomax.github.io/bezierinfo/#aligning
         /// </acknowledgment>
@@ -254,7 +254,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="T:List{Point3D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// https://pomax.github.io/bezierinfo/#aligning
         /// </acknowledgment>
@@ -706,7 +706,7 @@ namespace Engine.Experimental
         /// The inflections.
         /// </summary>
         /// <param name="points">The points.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// https://pomax.github.io/bezierinfo/#inflections
         /// </acknowledgment>
@@ -745,7 +745,7 @@ namespace Engine.Experimental
         /// The inflections.
         /// </summary>
         /// <param name="points">The points.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1084,9 +1084,9 @@ namespace Engine.Experimental
             var y1 = p1.Y;
             var x2 = p2.X;
             var y2 = p2.Y;
-            var dx = (x2 - x1) / 3;
-            var dy = (y2 - y1) / 3;
-            return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + (2 * dx), y1 + (2 * dy), x2, y2);
+            var dx = (x2 - x1) / 3d;
+            var dy = (y2 - y1) / 3d;
+            return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + (2d * dx), y1 + (2d * dy), x2, y2);
         }
 
         /// <summary>
@@ -1106,9 +1106,9 @@ namespace Engine.Experimental
             var y1 = p1.Y;
             var x2 = p2.X;
             var y2 = p2.Y;
-            var dx = (x2 - x1) / 3;
-            var dy = (y2 - y1) / 3;
-            return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + (2 * dx), y1 + (2 * dy), x2, y2);
+            var dx = (x2 - x1) / 3d;
+            var dy = (y2 - y1) / 3d;
+            return new Bezier(x1, y1, x1 + dx, y1 + dy, x1 + (2d * dx), y1 + (2d * dy), x2, y2);
         }
 
         /// <summary>
@@ -1201,14 +1201,14 @@ namespace Engine.Experimental
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Bboxoverlap(BBox b1, BBox b2)
         {
-            var dims = new List<int> { 0/*X*/, 1/*Y*/ };
-            double len = dims.Count;
+            //var dims = new List<int> { 0/*X*/, 1/*Y*/ };
+            //double len = dims.Count;
             double l;
             double t;
             double d;
             l = b1.X.Mid;
             t = b2.X.Mid;
-            d = (b1.X.Size + b2.X.Size) / 2;
+            d = (b1.X.Size + b2.X.Size) / 2d;
             if (Abs(l - t) >= d)
             {
                 return false;
@@ -1216,7 +1216,7 @@ namespace Engine.Experimental
 
             l = b1.Y.Mid;
             t = b2.Y.Mid;
-            d = (b1.Y.Size + b2.Y.Size) / 2;
+            d = (b1.Y.Size + b2.Y.Size) / 2d;
             return Abs(l - t) < d;
         }
 
@@ -1262,11 +1262,11 @@ namespace Engine.Experimental
                 bbox.Z.Max = _bbox.Z.Max;
             }
 
-            bbox.X.Mid = (bbox.X.Min + bbox.X.Max) / 2;
-            bbox.Y.Mid = (bbox.Y.Min + bbox.Y.Max) / 2;
+            bbox.X.Mid = (bbox.X.Min + bbox.X.Max) / 2d;
+            bbox.Y.Mid = (bbox.Y.Min + bbox.Y.Max) / 2d;
             if (bbox.Z != null)
             {
-                bbox.Z.Mid = (bbox.Z.Min + bbox.Z.Max) / 2;
+                bbox.Z.Mid = (bbox.Z.Min + bbox.Z.Max) / 2d;
             }
 
             bbox.X.Size = bbox.X.Max - bbox.X.Min;
@@ -1282,7 +1282,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="c1">The c1.</param>
         /// <param name="c2">The c2.</param>
-        /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1329,7 +1329,7 @@ namespace Engine.Experimental
         /// <param name="bbox1">The bbox1.</param>
         /// <param name="s2">The s2.</param>
         /// <param name="bbox2">The bbox2.</param>
-        /// <returns>The <see cref="T:List{Pair}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1381,7 +1381,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1406,7 +1406,7 @@ namespace Engine.Experimental
                 a = pts[0].Y;
                 b = pts[1].Y;
                 c = pts[2].Y;
-                d = a - (2 * b) + c;
+                d = a - (2d * b) + c;
                 if (d != 0)
                 {
                     m1 = -Sqrt((b * b) - (a * c));
@@ -1423,7 +1423,7 @@ namespace Engine.Experimental
                 else if (b != c && d == 0)
                 {
                     return new List<double>(
-                        from t1 in new List<double> { ((2 * b) - c) / 2 * (b - c) }
+                        from t1 in new List<double> { ((2d * b) - c) / 2d * (b - c) }
                         where 0 <= t1 && t1 <= 1
                         select t1
                     );
@@ -1436,45 +1436,45 @@ namespace Engine.Experimental
             var pb = pts[1].Y;
             var pc = pts[2].Y;
             var pd = pts[3].Y;
-            d = -pa + (3 * pb) - (3 * pc) + pd;
-            a = ((3 * pa) - (6 * pb) + (3 * pc)) / d;
-            b = ((-3 * pa) + (3 * pb)) / d;
+            d = -pa + (3d * pb) - (3d * pc) + pd;
+            a = ((3d * pa) - (6d * pb) + (3d * pc)) / d;
+            b = ((-3d * pa) + (3d * pb)) / d;
             c = pa / d;
-            var p_ = ((3 * b) - (a * a)) / 3;
-            var p3 = p_ / 3;
-            var q = ((2 * a * a * a) - (9 * a * b) + (27 * c)) / 27;
-            var q2 = q / 2;
+            var p_ = ((3d * b) - (a * a)) / 3d;
+            var p3 = p_ / 3d;
+            var q = ((2d * a * a * a) - (9d * a * b) + (27d * c)) / 27d;
+            var q2 = q / 2d;
             var discriminant = (q2 * q2) + (p3 * p3 * p3);
             double u1, v1, x1, x2, x3;
             if (discriminant < 0)
             {
-                var mp3 = -p_ / 3;
+                var mp3 = -p_ / 3d;
                 var mp33 = mp3 * mp3 * mp3;
                 var r = Sqrt(mp33);
-                var t = -q / (2 * r);
-                var cosphi = t < -1 ? -1 : t > 1 ? 1 : t;
+                var t = -q / (2d * r);
+                var cosphi = t < -1d ? -1d : t > 1d ? 1d : t;
                 var phi = Acos(cosphi);
                 var crtr = Crt(r);
-                var t1 = 2 * crtr;
-                x1 = (t1 * Cos(phi / 3)) - (a / 3);
-                x2 = (t1 * Cos((phi + Tau) / 3)) - (a / 3);
-                x3 = (t1 * Cos((phi + (2 * Tau)) / 3)) - (a / 3);
+                var t1 = 2d * crtr;
+                x1 = (t1 * Cos(phi / 3d)) - (a / 3d);
+                x2 = (t1 * Cos((phi + Tau) / 3d)) - (a / 3d);
+                x3 = (t1 * Cos((phi + (2d * Tau)) / 3d)) - (a / 3d);
 
                 return new List<double>(
                     from t2 in new List<double> { x1, x2, x3 }
-                    where 0 <= t2 && t2 <= 1
+                    where 0d <= t2 && t2 <= 1d
                     select t2
                 );
             }
             else if (discriminant == 0)
             {
-                u1 = q2 < 0 ? Crt(-q2) : -Crt(q2);
-                x1 = (2 * u1) - (a / 3);
-                x2 = -u1 - (a / 3);
+                u1 = q2 < 0d ? Crt(-q2) : -Crt(q2);
+                x1 = (2d * u1) - (a / 3d);
+                x2 = -u1 - (a / 3d);
 
                 return new List<double>(
                     from t3 in new List<double> { x1, x2 }
-                    where 0 <= t3 && t3 <= 1
+                    where 0d <= t3 && t3 <= 1d
                     select t3
                 );
             }
@@ -1485,8 +1485,8 @@ namespace Engine.Experimental
                 v1 = Crt(q2 + sd);
 
                 return new List<double>(
-                    from t4 in new List<double> { u1 - v1 - (a / 3) }
-                    where 0 <= t4 && t4 <= 1
+                    from t4 in new List<double> { u1 - v1 - (a / 3d) }
+                    where 0d <= t4 && t4 <= 1d
                     select t4
                 );
             }
@@ -1497,7 +1497,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="points">The points.</param>
         /// <param name="line">The line.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1522,7 +1522,7 @@ namespace Engine.Experimental
                 a = pts[0].Y;
                 b = pts[1].Y;
                 c = pts[2].Y;
-                d = a - (2 * b) + c;
+                d = a - (2d * b) + c;
                 if (d != 0)
                 {
                     m1 = -Sqrt((b * b) - (a * c));
@@ -1532,15 +1532,15 @@ namespace Engine.Experimental
 
                     return new List<double>(
                         from t0 in new List<double> { v1_, v2_ }
-                        where 0 <= t0 && t0 <= 1
+                        where 0d <= t0 && t0 <= 1d
                         select t0
                     );
                 }
                 else if (b != c && d == 0)
                 {
                     return new List<double>(
-                        from t1 in new List<double> { ((2 * b) - c) / 2 * (b - c) }
-                        where 0 <= t1 && t1 <= 1
+                        from t1 in new List<double> { ((2d * b) - c) / 2d * (b - c) }
+                        where 0d <= t1 && t1 <= 1d
                         select t1
                     );
                 }
@@ -1552,45 +1552,45 @@ namespace Engine.Experimental
             var pb = pts[1].Y;
             var pc = pts[2].Y;
             var pd = pts[3].Y;
-            d = -pa + (3 * pb) - (3 * pc) + pd;
-            a = ((3 * pa) - (6 * pb) + (3 * pc)) / d;
-            b = ((-3 * pa) + (3 * pb)) / d;
+            d = -pa + (3d * pb) - (3d * pc) + pd;
+            a = ((3d * pa) - (6d * pb) + (3d * pc)) / d;
+            b = ((-3d * pa) + (3d * pb)) / d;
             c = pa / d;
-            var p_ = ((3 * b) - (a * a)) / 3;
-            var p3 = p_ / 3;
-            var q = ((2 * a * a * a) - (9 * a * b) + (27 * c)) / 27;
-            var q2 = q / 2;
+            var p_ = ((3d * b) - (a * a)) / 3d;
+            var p3 = p_ / 3d;
+            var q = ((2d * a * a * a) - (9d * a * b) + (27d * c)) / 27d;
+            var q2 = q / 2d;
             var discriminant = (q2 * q2) + (p3 * p3 * p3);
             double u1, v1, x1, x2, x3;
             if (discriminant < 0)
             {
-                var mp3 = -p_ / 3;
+                var mp3 = -p_ / 3d;
                 var mp33 = mp3 * mp3 * mp3;
                 var r = Sqrt(mp33);
-                var t = -q / (2 * r);
-                var cosphi = t < -1 ? -1 : t > 1 ? 1 : t;
+                var t = -q / (2d * r);
+                var cosphi = t < -1d ? -1d : t > 1d ? 1d : t;
                 var phi = Acos(cosphi);
                 var crtr = Crt(r);
-                var t1 = 2 * crtr;
-                x1 = (t1 * Cos(phi / 3)) - (a / 3);
-                x2 = (t1 * Cos((phi + Tau) / 3)) - (a / 3);
-                x3 = (t1 * Cos((phi + (2 * Tau)) / 3)) - (a / 3);
+                var t1 = 2d * crtr;
+                x1 = (t1 * Cos(phi / 3d)) - (a / 3d);
+                x2 = (t1 * Cos((phi + Tau) / 3d)) - (a / 3d);
+                x3 = (t1 * Cos((phi + (2d * Tau)) / 3d)) - (a / 3d);
 
                 return new List<double>(
                     from t2 in new List<double> { x1, x2, x3 }
-                    where 0 <= t2 && t2 <= 1
+                    where 0d <= t2 && t2 <= 1d
                     select t2
                 );
             }
             else if (discriminant == 0)
             {
-                u1 = q2 < 0 ? Crt(-q2) : -Crt(q2);
-                x1 = (2 * u1) - (a / 3);
-                x2 = -u1 - (a / 3);
+                u1 = q2 < 0d ? Crt(-q2) : -Crt(q2);
+                x1 = (2d * u1) - (a / 3);
+                x2 = -u1 - (a / 3d);
 
                 return new List<double>(
                     from t3 in new List<double> { x1, x2 }
-                    where 0 <= t3 && t3 <= 1
+                    where 0d <= t3 && t3 <= 1d
                     select t3
                 );
             }
@@ -1601,8 +1601,8 @@ namespace Engine.Experimental
                 v1 = Crt(q2 + sd);
 
                 return new List<double>(
-                    from t4 in new List<double> { u1 - v1 - (a / 3) }
-                    where 0 <= t4 && t4 <= 1
+                    from t4 in new List<double> { u1 - v1 - (a / 3d) }
+                    where 0d <= t4 && t4 <= 1d
                     select t4
                 );
             }
@@ -1612,7 +1612,7 @@ namespace Engine.Experimental
         /// The roots.
         /// </summary>
         /// <param name="p">The p.</param>
-        /// <returns>The <see cref="T:List{double}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
@@ -1626,7 +1626,7 @@ namespace Engine.Experimental
                 var a = p[0];
                 var b = p[1];
                 var c = p[2];
-                var d = a - (2 * b) + c;
+                var d = a - (2d * b) + c;
                 if (d != 0)
                 {
                     var m1 = -Sqrt((b * b) - (a * c));
@@ -1635,9 +1635,9 @@ namespace Engine.Experimental
                     var v2 = -(-m1 + m2) / d;
                     return new List<double> { v1, v2 };
                 }
-                else if (b != c && d == 0)
+                else if (b != c && d == 0d)
                 {
-                    return new List<double> { ((2 * b) - c) / (2 * (b - c)) };
+                    return new List<double> { ((2d * b) - c) / (2d * (b - c)) };
                 }
                 return new List<double>();
             }

@@ -77,9 +77,9 @@ namespace Engine.Imaging
             if (disposing)
             {
                 // Free any other managed objects here.
-                ForePen.Dispose();
-                BackPen.Dispose();
-                Font.Dispose();
+                ForePen?.Dispose();
+                BackPen?.Dispose();
+                Font?.Dispose();
             }
 
             // Free any unmanaged objects here.

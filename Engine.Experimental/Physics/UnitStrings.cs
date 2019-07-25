@@ -13,7 +13,7 @@ namespace Engine.Physics
     /// <summary>
     /// The unit strings class.
     /// </summary>
-    public class UnitStrings
+    public static class UnitStrings
     {
         /// <summary>
         /// The unit string (const). Value: "{0} {1}*{2}".

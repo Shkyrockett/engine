@@ -25,7 +25,7 @@ namespace Engine.File
     ///   mi = 0: major key 
     ///   mi = 1: minor key
     ///   
-    ///   sf is <see cref="MidiKeySignatures"/>
+    ///   sf is <see cref="MidiKeySignature"/>
     ///   mi is <see cref="MidiTonality"/>
     /// </remarks>
     [ElementName(nameof(KeySignature))]
@@ -39,7 +39,7 @@ namespace Engine.File
         /// <param name="keySignature">The keySignature.</param>
         /// <param name="tonality">The tonality.</param>
         /// <param name="status">The status.</param>
-        public KeySignature(MidiKeySignatures keySignature, MidiTonality tonality, EventStatus status)
+        public KeySignature(MidiKeySignature keySignature, MidiTonality tonality, EventStatus status)
             : base(status.DeltaTime, status.Status, status.Channel)
         {
             Key = keySignature;
@@ -49,7 +49,7 @@ namespace Engine.File
         /// <summary>
         /// Gets or sets the key.
         /// </summary>
-        public MidiKeySignatures Key { get; set; }
+        public MidiKeySignature Key { get; set; }
 
         /// <summary>
         /// Gets or sets the tonality.
@@ -63,6 +63,6 @@ namespace Engine.File
         /// <param name="status">The status.</param>
         /// <returns>The <see cref="KeySignature"/>.</returns>
         internal static KeySignature Read(BinaryReaderExtended reader, EventStatus status)
-            => new KeySignature((MidiKeySignatures)reader.ReadByte(), (MidiTonality)reader.ReadByte(), status);
+            => new KeySignature((MidiKeySignature)reader.ReadByte(), (MidiTonality)reader.ReadByte(), status);
     }
 }

@@ -296,7 +296,7 @@ namespace Engine
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Matrix3x3D operator -(Matrix3x3D matrix) => Negate(matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M2x0, matrix.M2x1, matrix.M2x2);
+        public static Matrix3x3D operator -(Matrix3x3D matrix) => UnaryNegate(matrix.M0x0, matrix.M0x1, matrix.M0x2, matrix.M1x0, matrix.M1x1, matrix.M1x2, matrix.M2x0, matrix.M2x1, matrix.M2x2);
 
         /// <summary>
         /// Used to subtract two matrices.
@@ -685,11 +685,10 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => new { M0x0, M0x1, M0x2, M1x0, M1x1, M1x2, M2x0, M2x1, M2x2 }.GetHashCode();
 
-        /// <returns></returns>
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="T:IEnumerator{IEnumerable{double}}"/>.</returns>
+        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {

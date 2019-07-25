@@ -81,9 +81,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Func<double, double> ToAndFro(Func<double, double> easer1, Func<double, double> easer2, double b, double c, double d)
-        {
-            return t => (t < 0.5d) ? ToAndFro(easer1(t), b, c, d) : ToAndFro(easer2(t), b, c, d);
-        }
+            => t => (t < 0.5d) ? ToAndFro(easer1(t), b, c, d) : ToAndFro(easer2(t), b, c, d);
 
         /// <summary>
         /// Ease a value to its target and then back with another easing function. Use this to wrap two other easing functions.
@@ -105,9 +103,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Func<double, double> ToAndFro(Func<double, double> easer, double b, double c, double d)
-        {
-            return t => ToAndFro(easer(t), b, c, d);
-        }
+            => t => ToAndFro(easer(t), b, c, d);
 
         /// <summary>
         /// Ease a value to its target and then back. Use this to wrap another easing function.
@@ -129,9 +125,7 @@ namespace Engine.Tweening
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ToAndFro(double t, double b, double c, double d)
-        {
-            return (c * (t < 0.5d ? t * 2d : 1d + ((t - 0.5d) / 0.5d * -1d)) / d) + b;
-        }
+            => (c * (t < 0.5d ? t * 2d : 1d + ((t - 0.5d) / 0.5d * -1d)) / d) + b;
 
         /// <summary>
         /// Ease a value to its target and then back.

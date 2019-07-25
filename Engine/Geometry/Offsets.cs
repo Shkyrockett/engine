@@ -26,7 +26,7 @@ namespace Engine
         /// <param name="point">The point.</param>
         /// <param name="value">The value.</param>
         /// <param name="distance">The distance.</param>
-        /// <returns>The <see cref="T:List{Point2D}"/>.</returns>
+        /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<Point2D> Offset(this Point2D point, Point2D value, double distance)
         {
             var (x1, y1, x2, y2) = OffsetSegment(point.X, point.Y, value.X, value.Y, distance);

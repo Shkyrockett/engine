@@ -202,7 +202,7 @@ namespace Engine
         /// Get the instance descriptor objects.
         /// </summary>
         /// <param name="propertyValues">The propertyValues.</param>
-        /// <returns>The <see cref="T:object[]"/>.</returns>
+        /// <returns>The <see cref="object[]"/>.</returns>
         private object[] GetInstanceDescriptorObjects(IDictionary propertyValues)
         {
             if (instanceCtorParamNames is null)
@@ -222,7 +222,7 @@ namespace Engine
         /// Get the instance descriptor objects.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="T:object[]"/>.</returns>
+        /// <returns>The <see cref="object[]"/>.</returns>
         private object[] GetInstanceDescriptorObjects(object value)
         {
             var rv = new object[instanceCtorParamNames.Length];

@@ -18,36 +18,36 @@ namespace Engine.Localization
         /// <summary>
         /// English Australia.
         /// </summary>
-        public static readonly Culture en_AU = new Culture(Languages.en, Countries.AU);
+        public static readonly Culture en_AU = new Culture(Language.en, Country.AU);
 
         /// <summary>
         /// English Canada.
         /// </summary>
-        public static readonly Culture en_CA = new Culture(Languages.en, Countries.CA);
+        public static readonly Culture en_CA = new Culture(Language.en, Country.CA);
 
         /// <summary>
         /// English Great Britain.
         /// </summary>
-        public static readonly Culture en_GB = new Culture(Languages.en, Countries.GB);
+        public static readonly Culture en_GB = new Culture(Language.en, Country.GB);
 
         /// <summary>
         /// English Grenada.
         /// </summary>
-        public static readonly Culture en_GD = new Culture(Languages.en, Countries.GD);
+        public static readonly Culture en_GD = new Culture(Language.en, Country.GD);
 
         /// <summary>
         /// English Liberia.
         /// </summary>
-        public static readonly Culture en_LR = new Culture(Languages.en, Countries.LR);
+        public static readonly Culture en_LR = new Culture(Language.en, Country.LR);
 
         /// <summary>
         /// English United States.
         /// </summary>
-        public static readonly Culture en_US = new Culture(Languages.en, Countries.US);
+        public static readonly Culture en_US = new Culture(Language.en, Country.US);
 
         /// <summary>
         /// Pashto Afghanistan.
         /// </summary>
-        public static readonly Culture ps_AF = new Culture(Languages.ps, Countries.AF);
+        public static readonly Culture ps_AF = new Culture(Language.ps, Country.AF);
     }
 }

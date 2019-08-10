@@ -18,10 +18,10 @@ using static Engine.Physics.LengthUnits;
 namespace Engine.Physics
 {
     /// <summary>
-    /// The smoots struct.
+    /// The Smoots struct.
     /// </summary>
     public struct Smoots
-        : ILength, IFormattable
+        : ILength, IFormattable, IEquatable<Smoots>
     {
         #region Constants
         /// <summary>
@@ -181,56 +181,162 @@ namespace Engine.Physics
             => nameof(Yards);
 
         /// <summary>
-        /// Gets the abreviation.
+        /// Gets the abbreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
+        public string Abbreviation
             => "yd";
         #endregion Properties
 
         #region Operators
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator Smoots(double value)
             => new Smoots(value);
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Mils"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Smoots(Mils value)
             => value.Smoots;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Centimeters"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Smoots(Centimeters value)
             => value.Smoots;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Yards"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Smoots(Yards value)
             => value.Smoots;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Meters"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Smoots(Meters value)
             => value.Smoots;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Inches"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Smoots(Inches value)
             => value.Smoots;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Feet"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Smoots(Feet value)
             => value.Smoots;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Kilometers"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Smoots(Kilometers value)
             => value.Smoots;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Miles"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Smoots(Miles value)
             => value.Smoots;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="NauticalMiles"/> to <see cref="Smoots"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Smoots(NauticalMiles value)
             => value.Smoots;
+
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(Smoots left, Smoots right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(Smoots left, Smoots right) => !(left == right);
         #endregion Operators
 
         #region Methods
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is Smoots smoots && Equals(smoots);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(Smoots other) => Value == other.Value;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
+
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Smoots"/> struct.
         /// </summary>
@@ -299,7 +405,7 @@ namespace Engine.Physics
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
-            => $"{Value.ToString(format, provider)} {Abreviation}";
+            => $"{Value.ToString(format, provider)} {Abbreviation}";
         #endregion Methods
     }
 }

@@ -16,9 +16,9 @@ namespace Engine.File
     /// Sequencer specific proprietary event.
     /// </summary>
     /// <remarks>
-    /// FF 7F len data
+    /// <para>FF 7F len data
     /// System exclusive events and meta events cancel any running status which was in effect.
-    /// Running status does not apply to and may not be used for these messages.
+    /// Running status does not apply to and may not be used for these messages.</para>
     /// </remarks>
     [ElementName(nameof(SequencerSpecific))]
     [DisplayName("Sequencer Specific")]

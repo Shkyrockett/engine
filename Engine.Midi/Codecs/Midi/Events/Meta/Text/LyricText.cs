@@ -16,7 +16,7 @@ namespace Engine.File
     /// Lyric Text.
     /// </summary>
     /// <remarks>
-    /// FF 05 len text
+    /// <para>FF 05 len text</para>
     /// </remarks>
     [ElementName(nameof(LyricText))]
     [DisplayName("Lyric Text")]

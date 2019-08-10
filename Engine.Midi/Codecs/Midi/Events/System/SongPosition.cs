@@ -17,9 +17,9 @@ namespace Engine.File
     /// The number of MIDI beats(1 beat = six MIDI clocks) since the start of the song.
     /// </summary>
     /// <remarks>
-    /// nF 02 0lllllll 0mmmmmmm
+    /// <para>nF 02 0lllllll 0mmmmmmm
     /// This is an internal 14 bit register that holds the number of MIDI beats (1 beat = six MIDI clocks)
-    /// since the start of the song. l is the LSB, m the MSB.
+    /// since the start of the song. l is the LSB, m the MSB.</para>
     /// </remarks>
     [ElementName(nameof(SongPosition))]
     [DisplayName("Song Position")]

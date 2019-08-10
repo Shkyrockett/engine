@@ -16,7 +16,7 @@ namespace Engine.File
     /// MIDI Channel (not official?).
     /// </summary>
     /// <remarks>
-    /// FF 20 01  cc
+    /// <para>FF 20 01  cc</para>
     /// </remarks>
     [ElementName(nameof(MIDIChannel))]
     [DisplayName("MIDI Channel")]

@@ -16,7 +16,7 @@ namespace Engine.File
     /// SMPTE offset.
     /// </summary>
     /// <remarks>
-    /// FF 54 05  HR MN SE FR FF
+    /// <para>FF 54 05  HR MN SE FR FF</para>
     /// </remarks>
     [ElementName(nameof(SMPTEOffset))]
     [DisplayName("SMPTE Offset")]

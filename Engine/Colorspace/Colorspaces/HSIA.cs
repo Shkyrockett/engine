@@ -18,7 +18,7 @@ namespace Engine.Colorspace
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public struct HSIA
-        : IColor
+        : IColor, IEquatable<HSIA>
     {
         #region Implementations
         /// <summary>
@@ -86,12 +86,34 @@ namespace Engine.Colorspace
         public double Alpha { get; set; }
         #endregion Properties
 
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(HSIA left, HSIA right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(HSIA left, HSIA right) => !(left == right);
+
         #region Methods
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
@@ -100,9 +122,45 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is HSIA color && Equals(color);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(HSIA other) => Hue == other.Hue && Saturation == other.Saturation && Intensity == other.Intensity && Alpha == other.Alpha;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 230637231;
+            hashCode = hashCode * -1521134295 + Hue.GetHashCode();
+            hashCode = hashCode * -1521134295 + Saturation.GetHashCode();
+            hashCode = hashCode * -1521134295 + Intensity.GetHashCode();
+            hashCode = hashCode * -1521134295 + Alpha.GetHashCode();
+            return hashCode;
+        }
+
+        /// <summary>
         /// The to color.
         /// </summary>
-        /// <returns>The <see cref="RGBA"/>.</returns>
+        /// <returns>
+        /// The <see cref="RGBA" />.
+        /// </returns>
         public RGBA ToColor()
             => new RGBA(ToRGBATuple());
 

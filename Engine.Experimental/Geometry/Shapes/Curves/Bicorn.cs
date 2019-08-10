@@ -20,9 +20,9 @@ namespace Engine
     /// Bicorn Curve
     /// </summary>
     /// <remarks>
-    /// Class based on information found at: <seealso href="http://paulbourke.net/geometry/bicorn/"/>. <br />
+    /// <para>Class based on information found at: <seealso href="http://paulbourke.net/geometry/bicorn/"/>. <br />
     /// Bicorn Curve, also known as the "cocked hat", it was first documented by Sylvester around 
-    /// 1864 and Cayley in 1867. 
+    /// 1864 and Cayley in 1867.</para> 
     /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]

@@ -8,6 +8,8 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Engine.Physics
@@ -16,7 +18,7 @@ namespace Engine.Physics
     /// The distance free fall struct.
     /// </summary>
     public struct DistanceFreeFall
-        : ILength
+        : ILength, IEquatable<DistanceFreeFall>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DistanceFreeFall"/> class.
@@ -53,18 +55,71 @@ namespace Engine.Physics
             => "Instantaneous Speed";
 
         /// <summary>
-        /// Gets the abreviation.
+        /// Gets the abbreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
-            => $"{Value}{Acceleration.Abreviation}²";
+        public string Abbreviation
+            => $"{Value}{Acceleration.Abbreviation}²";
 
-        /// <returns></returns>
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(DistanceFreeFall left, DistanceFreeFall right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(DistanceFreeFall left, DistanceFreeFall right) => !(left == right);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is DistanceFreeFall fall && Equals(fall);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(DistanceFreeFall other) => EqualityComparer<IAcceleration>.Default.Equals(Acceleration, other.Acceleration) && EqualityComparer<ITime>.Default.Equals(Time, other.Time);
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -61809079;
+            hashCode = hashCode * -1521134295 + EqualityComparer<IAcceleration>.Default.GetHashCode(Acceleration);
+            hashCode = hashCode * -1521134295 + EqualityComparer<ITime>.Default.GetHashCode(Time);
+            return hashCode;
+        }
+
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
-            => $"{Value} {Acceleration.Abreviation}{Time.Abreviation}²";
+            => $"{Value} {Acceleration.Abbreviation}{Time.Abbreviation}²";
     }
 }

@@ -24,7 +24,7 @@ namespace Engine.Physics
     [DataContract, Serializable]
     [DisplayName(nameof(Radians))]
     public struct Radians
-        : IDirection, IFormattable
+        : IDirection, IFormattable, IEquatable<Radians>
     {
         #region Constructors
         /// <summary>
@@ -78,37 +78,89 @@ namespace Engine.Physics
             => nameof(Radians);
 
         /// <summary>
-        /// Gets the abreviation.
+        /// Gets the abbreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
+        public string Abbreviation
             => "rad";
         #endregion Properties
 
         #region Operators
         /// <summary>
-        /// Compares two <see cref="Radians"/> objects.
+        /// Compares two <see cref="Radians" /> objects.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator ==(Radians left, Radians right)
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Radians"/> objects.
+        /// Compares two <see cref="Radians" /> objects.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator !=(Radians left, Radians right)
             => !Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Radians"/> objects.
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Radians"/>.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        public static implicit operator Radians(double value)
+            => new Radians(value);
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Degrees"/> to <see cref="Radians"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        public static explicit operator Radians(Degrees value)
+            => value.Radians;
+        #endregion Operators
+
+        #region Factories
+        /// <summary>
+        /// Parse a string for a <see cref="Radians"/> value.
+        /// </summary>
+        /// <param name="source"><see cref="string"/> with <see cref="Radians"/> data </param>
+        /// <returns>
+        /// Returns an instance of the <see cref="Radians"/> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// </returns>
+        public static Radians Parse(string source)
+        {
+            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+
+            var firstToken = tokenizer.NextTokenRequired();
+
+            var value = new Radians(Convert.ToDouble(firstToken, CultureInfo.InvariantCulture));
+
+            // There should be no more tokens in this string.
+            tokenizer.LastTokenRequired();
+
+            return value;
+        }
+        #endregion Factories
+
+        #region Methods
+        /// <summary>
+        /// Compares two <see cref="Radians" /> objects.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(Radians a, Radians b)
@@ -142,56 +194,20 @@ namespace Engine.Physics
         /// <summary>
         /// The equals.
         /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Radians value)
-            => Equals(this, value);
-
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        public static implicit operator Radians(double value)
-            => new Radians(value);
-
-        /// <param name="value"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        public static explicit operator Radians(Degrees value)
-            => value.Radians;
-        #endregion Operators
-
-        #region Factories
-        /// <summary>
-        /// Parse a string for a <see cref="Radians"/> value.
-        /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Radians"/> data </param>
+        /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Radians"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// The <see cref="bool" />.
         /// </returns>
-        public static Radians Parse(string source)
-        {
-            var tokenizer = new Tokenizer(source, CultureInfo.InvariantCulture);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Radians other) => Value == other.Value;
 
-            var firstToken = tokenizer.NextTokenRequired();
-
-            var value = new Radians(Convert.ToDouble(firstToken, CultureInfo.InvariantCulture));
-
-            // There should be no more tokens in this string.
-            tokenizer.LastTokenRequired();
-
-            return value;
-        }
-        #endregion Factories
-
-        #region Methods
         /// <summary>
-        /// override object.GetHashCode
+        /// Returns a hash code for this instance.
         /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-            => Value.GetHashCode();
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
 
         /// <summary>
         /// Convert Radians to Degrees.

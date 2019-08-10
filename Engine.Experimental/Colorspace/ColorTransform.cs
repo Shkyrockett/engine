@@ -8,18 +8,20 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+
 namespace Engine
 {
     /// <summary>
     /// The color transform struct.
     /// </summary>
-    public struct ColorTransform
+    public struct ColorTransform : IEquatable<ColorTransform>
     {
         #region Implementations
         /// <summary>
         /// The identity.
         /// </summary>
-        public static ColorTransform Identity = new ColorTransform(1d, 1d, 1d, 1d, 0, 0, 0, 0);
+        public static readonly ColorTransform Identity = new ColorTransform(1d, 1d, 1d, 1d, 0, 0, 0, 0);
         #endregion Implementations
 
         #region Constructors
@@ -88,5 +90,63 @@ namespace Engine
         /// </summary>
         public int BlueOffset { get; set; }
         #endregion Properties
+
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(ColorTransform left, ColorTransform right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(ColorTransform left, ColorTransform right) => !(left == right);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is ColorTransform transform && Equals(transform);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(ColorTransform other) => AlphaMultiplier == other.AlphaMultiplier && RedMultiplier == other.RedMultiplier && GreenMultiplier == other.GreenMultiplier && BlueMultiplier == other.BlueMultiplier && AlphaOffset == other.AlphaOffset && RedOffset == other.RedOffset && GreenOffset == other.GreenOffset && BlueOffset == other.BlueOffset;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -1295000004;
+            hashCode = hashCode * -1521134295 + AlphaMultiplier.GetHashCode();
+            hashCode = hashCode * -1521134295 + RedMultiplier.GetHashCode();
+            hashCode = hashCode * -1521134295 + GreenMultiplier.GetHashCode();
+            hashCode = hashCode * -1521134295 + BlueMultiplier.GetHashCode();
+            hashCode = hashCode * -1521134295 + AlphaOffset.GetHashCode();
+            hashCode = hashCode * -1521134295 + RedOffset.GetHashCode();
+            hashCode = hashCode * -1521134295 + GreenOffset.GetHashCode();
+            hashCode = hashCode * -1521134295 + BlueOffset.GetHashCode();
+            return hashCode;
+        }
     }
 }

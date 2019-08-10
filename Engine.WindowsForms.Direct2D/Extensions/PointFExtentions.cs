@@ -125,7 +125,7 @@ namespace Engine
         /// <returns>
         /// Return the cross product AB x BC.=((a)->x*(b)->y-(a)->y*(b)->x)
         /// </returns>
-        /// <remarks>Graphics Gems IV, page 139.</remarks>
+        /// <remarks><para>Graphics Gems IV, page 139.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, Point valueB)
@@ -145,7 +145,7 @@ namespace Engine
         /// <returns>
         /// Return the cross product AB x BC.=((a)->x*(b)->y-(a)->y*(b)->x)
         /// </returns>
-        /// <remarks>Graphics Gems IV, page 139.</remarks>
+        /// <remarks><para>Graphics Gems IV, page 139.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, PointF valueB)
@@ -165,7 +165,7 @@ namespace Engine
         /// <returns>
         /// Return the cross product AB x BC.=((a)->x*(b)->y-(a)->y*(b)->x)
         /// </returns>
-        /// <remarks>Graphics Gems IV, page 139.</remarks>
+        /// <remarks><para>Graphics Gems IV, page 139.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this PointF valueA, Vector2D valueB)
@@ -201,7 +201,7 @@ namespace Engine
         /// <param name="point">Starting Point.</param>
         /// <param name="value">Ending Point.</param>
         /// <returns>Returns the length of a line segment between two points.</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        /// <remarks><para>The Length is calculated as AC = SquarRoot(AB^2 + BC^2)</para> </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this PointF point, PointF value)
@@ -212,7 +212,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">Starting Point</param>
         /// <returns>Dot Product</returns>
-        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
+        /// <remarks><para>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this PointF value)
@@ -225,7 +225,7 @@ namespace Engine
         /// <param name="value">Ending Point</param>
         /// <returns>Dot Product</returns>
         /// <remarks>
-        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
+        /// <para>The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -239,7 +239,7 @@ namespace Engine
         /// <param name="value">Ending Point</param>
         /// <returns>Dot Product</returns>
         /// <remarks>
-        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
+        /// <para>The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -253,7 +253,7 @@ namespace Engine
         /// <param name="vector">Second Point</param>
         /// <returns>Dot Product</returns>
         /// <remarks>
-        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
+        /// <para>The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -527,7 +527,7 @@ namespace Engine
         /// <param name="PointA">Starting Point</param>
         /// <param name="PointB">Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
-        /// <remarks>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</remarks>
+        /// <remarks><para>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this PointF PointA, PointF PointB)
             => Operations.Slope(PointA.X, PointA.Y, PointB.X, PointB.Y);

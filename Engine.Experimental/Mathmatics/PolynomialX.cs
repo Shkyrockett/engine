@@ -23,12 +23,12 @@ namespace Engine.Geometry
         /// <summary>
         /// The TOLERANCE (const). Value: 1e-6.
         /// </summary>
-        private const double TOLERANCE = 1e-6;
+        private const double tolerance = 1e-6;
 
         /// <summary>
         /// The ACCURACY (const). Value: 15.
         /// </summary>
-        private const double ACCURACY = 15;
+        private const double accuracy = 15;
 
         #region Fields
         /// <summary>
@@ -318,7 +318,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(PolynomialX p, PolynomialX q)
         {
-            var degree = p.Degree + q.Degree;
+            //var degree = p.Degree + q.Degree;
 
             var r = new PolynomialX();
 
@@ -839,7 +839,7 @@ namespace Engine.Geometry
         {
             if (k < 0 || k >= z.Length)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(k));
             }
 
             var buf = Complex.One;
@@ -950,7 +950,7 @@ namespace Engine.Geometry
         /// <exception cref="Exception">Polynomial.interpolate: xs and ys must be arrays</exception>
         /// <exception cref="Exception">Polynomial.interpolate: n, offset, and x must be numbers</exception>
         /// <remarks>
-        /// https://github.com/thelonious/kld-polynomial
+        /// <para>https://github.com/thelonious/kld-polynomial</para>
         /// </remarks>
         public static (Complex y, Complex dy) Interpolate(Complex[] xs, Complex[] ys, int n, int offset, double x)
         {
@@ -1017,7 +1017,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="Complex"/>.</returns>
         /// <exception cref="Exception">Polynomial.eval: parameter must be a number</exception>
         /// <remarks>
-        /// https://github.com/thelonious/kld-polynomial
+        /// <para>https://github.com/thelonious/kld-polynomial</para>
         /// </remarks>
         public Complex Eval(Complex x)
         {
@@ -1135,18 +1135,18 @@ namespace Engine.Geometry
             var maxValue = Eval(max);
             Complex result = 0;
 
-            if (Math.Abs(minValue.Real) <= TOLERANCE)
+            if (Math.Abs(minValue.Real) <= tolerance)
             {
                 result = min;
             }
-            else if (Math.Abs(maxValue.Real) <= TOLERANCE)
+            else if (Math.Abs(maxValue.Real) <= tolerance)
             {
                 result = max;
             }
             else if (minValue.Real * maxValue.Real <= 0)
             {
                 var tmp1 = Math.Log(max.Real - min.Real);
-                var tmp2 = Mathematics.LN10 * ACCURACY;
+                var tmp2 = Mathematics.LN10 * accuracy;
                 var iters = Math.Ceiling((tmp1 + tmp2) / Mathematics.LN2);
 
                 for (var i = 0; i < iters; i++)
@@ -1154,7 +1154,7 @@ namespace Engine.Geometry
                     result = 0.5 * (min + max);
                     var value = Eval(result);
 
-                    if (Math.Abs(value.Real) <= TOLERANCE)
+                    if (Math.Abs(value.Real) <= tolerance)
                     {
                         break;
                     }

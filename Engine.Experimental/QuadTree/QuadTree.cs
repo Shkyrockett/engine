@@ -27,7 +27,7 @@ namespace Engine.Experimental
     /// A QuadTree for partitioning a space into rectangles
     /// </summary>
     /// <typeparam name="T">The type of the QuadTree's items' parents</typeparam>
-    /// <remarks>This QuadTree automatically resizes as needed</remarks>
+    /// <remarks><para>This QuadTree automatically resizes as needed</para></remarks>
     public class QuadTree<T>
         where T : IBoundable
     {
@@ -68,7 +68,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="size">The size of the QuadTree (i.e. the bottom-right with a top-left of (0,0))</param>
         /// <param name="maxItems">Maximum number of items in any cell of the QuadTree before partitioning</param>
-        /// <remarks>This constructor is for ease of use</remarks>
+        /// <remarks><para>This constructor is for ease of use</para></remarks>
         public QuadTree(Size2D size, int maxItems)
             : this(new Rectangle2D(Point2D.Empty, size), maxItems)
         { }
@@ -79,7 +79,7 @@ namespace Engine.Experimental
         /// Inserts an item into the QuadTree
         /// </summary>
         /// <param name="item">The item to insert</param>
-        /// <remarks>Checks to see if the world needs resizing and does so if needed</remarks>
+        /// <remarks><para>Checks to see if the world needs resizing and does so if needed</para></remarks>
         public void Insert(QuadTreePositionItem<T> item)
         {
             // check if the world needs resizing
@@ -100,7 +100,7 @@ namespace Engine.Experimental
         /// <param name="position">The position of the new position item</param>
         /// <param name="size">The size of the new position item</param>
         /// <returns>A new position item</returns>
-        /// <remarks>Checks to see if the world needs resizing and does so if needed</remarks>
+        /// <remarks><para>Checks to see if the world needs resizing and does so if needed</para></remarks>
         public QuadTreePositionItem<T> Insert(T parent, Point2D position, Size2D size)
         {
             var item = new QuadTreePositionItem<T>(parent, position, size);
@@ -122,7 +122,7 @@ namespace Engine.Experimental
         /// Resizes the Quadtree field
         /// </summary>
         /// <param name="newWorld">The new field</param>
-        /// <remarks>This is an expensive operation, so try to initialize the world to a big enough size</remarks>
+        /// <remarks><para>This is an expensive operation, so try to initialize the world to a big enough size</para></remarks>
         public void Resize(Rectangle2D newWorld)
         {
             // Get all of the items in the tree

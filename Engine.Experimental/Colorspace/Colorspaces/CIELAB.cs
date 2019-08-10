@@ -13,11 +13,11 @@ using System;
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// Lightness and Channels A and B color spaces.
-    /// Wikipedia: The intention of CIELAB (or L*a*b* or Lab) is to produce a color space that is more perceptually linear than other color spaces. Perceptually linear means that a change of the same amount in a color value should produce a change of about the same visual importance. CIELAB has almost entirely replaced an alternative related Lab color space "Hunter Lab". This space is commonly used for surface colors, but not for mixtures of (transmitted) light.
+    /// <see cref="Lightness"/> and Channels A and B color spaces.
+    /// Wikipedia: The intention of <see cref="CIELAB"/> (or L*a*b* or Lab) is to produce a color space that is more perceptually linear than other color spaces. Perceptually linear means that a change of the same amount in a color value should produce a change of about the same visual importance. CIELAB has almost entirely replaced an alternative related Lab color space "Hunter Lab". This space is commonly used for surface colors, but not for mixtures of (transmitted) light.
     /// </summary>
     public struct CIELAB
-        : IColor
+        : IColor, IEquatable<CIELAB>
     {
         /// <summary>
         /// Initializes a new instance of the Lightness and Channels A and B color space structure.
@@ -48,6 +48,26 @@ namespace Engine.Colorspace
         public double ChannelB { get; set; }
 
         /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(CIELAB left, CIELAB right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(CIELAB left, CIELAB right) => !(left == right);
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
@@ -57,6 +77,39 @@ namespace Engine.Colorspace
             var (r0, g0, b0, a0) = ToRGBATuple();
             var (r1, g1, b1, a1) = other.ToRGBATuple();
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is CIELAB color && Equals(color);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(CIELAB other) => Lightness == other.Lightness && ChannelA == other.ChannelA && ChannelB == other.ChannelB;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -82439047;
+            hashCode = hashCode * -1521134295 + Lightness.GetHashCode();
+            hashCode = hashCode * -1521134295 + ChannelA.GetHashCode();
+            hashCode = hashCode * -1521134295 + ChannelB.GetHashCode();
+            return hashCode;
         }
 
         /// <summary>
@@ -72,6 +125,6 @@ namespace Engine.Colorspace
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
         /// <returns>The <see cref="string"/>.</returns>
-        public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
+        public string ToString(string format, IFormatProvider formatProvider) => $"{nameof(Lightness)}: {Lightness}, {nameof(ChannelA)}: {ChannelA}, {nameof(ChannelB)}: {ChannelB}";
     }
 }

@@ -27,7 +27,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(double x, double y, double z)
@@ -40,7 +40,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Min(int x, int y, int z)
@@ -53,7 +53,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte Min(byte x, byte y, byte z)
@@ -82,7 +82,7 @@ namespace Engine
         /// <param name="y">The third variable.</param>
         /// <param name="z">The fourth variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Min(double w, double x, double y, double z)
@@ -131,7 +131,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(double x, double y, double z)
@@ -144,7 +144,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Max(int x, int y, int z)
@@ -157,7 +157,7 @@ namespace Engine
         /// <param name="y">The second variable.</param>
         /// <param name="z">The third variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte Max(byte x, byte y, byte z)
@@ -186,7 +186,7 @@ namespace Engine
         /// <param name="y">The third variable.</param>
         /// <param name="z">The fourth variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Max(double w, double x, double y, double z)
@@ -218,7 +218,7 @@ namespace Engine
         /// <param name="y">The third variable.</param>
         /// <param name="z">The fourth variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Max(int w, int x, int y, int z)
@@ -250,7 +250,7 @@ namespace Engine
         /// <param name="y">The third variable.</param>
         /// <param name="z">The fourth variable.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte Max(byte w, byte x, byte y, byte z)
@@ -417,7 +417,7 @@ namespace Engine
         /// <param name="value">The value to round.</param>
         /// <param name="multiple">The multiple to round to.</param>
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
-        /// <remarks>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</remarks>
+        /// <remarks><para>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float RoundToMultiple(this float value, float multiple)
@@ -429,7 +429,7 @@ namespace Engine
         /// <param name="value">The value to round.</param>
         /// <param name="multiple">The multiple to round to.</param>
         /// <returns>Returns a value rounded to an interval of the multiple.</returns>
-        /// <remarks>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</remarks>
+        /// <remarks><para>Using Convert.ToInt32 because it is faster and guarantees bankers rounding.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double RoundToMultiple(this double value, double multiple)

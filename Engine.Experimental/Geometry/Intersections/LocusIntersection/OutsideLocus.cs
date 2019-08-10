@@ -13,7 +13,7 @@ namespace Engine
     /// <summary>
     /// <see cref="OutsideLocus"/> is a special case of the <see cref="EmptyLocus"/> where there are no intersections because the shape is outside.
     /// </summary>
-    /// <remarks> This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178 </remarks>
+    /// <remarks> <para>This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178</para> </remarks>
     public class OutsideLocus
         : EmptyLocus
     {

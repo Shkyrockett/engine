@@ -17,7 +17,7 @@ namespace Engine.Experimental
     /// The local minima class.
     /// </summary>
     public struct LocalMinima
-        : IComparable<LocalMinima>
+        : IComparable<LocalMinima>, IEquatable<LocalMinima>
     {
         #region Properties
         /// <summary>
@@ -92,6 +92,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="other">The other.</param>
         /// <returns>The <see cref="int"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CompareTo(LocalMinima other)
             => Compare(this, other);
 
@@ -110,7 +111,18 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Equals(object obj) => CompareTo((LocalMinima)obj) == 0;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is LocalMinima localMinima && Equals(localMinima);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(LocalMinima other) => Compare(this, other) == 0;
 
         /// <summary>
         /// Returns the hash code for this instance.

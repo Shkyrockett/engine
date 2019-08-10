@@ -24,9 +24,9 @@ namespace Engine
     /// Agnesi Curve.
     /// </summary>
     /// <remarks>
-    /// Class based on information found at: <seealso href="http://paulbourke.net/geometry/agnesi/"/>. <br />
+    /// <para>Class based on information found at: <seealso href="http://paulbourke.net/geometry/agnesi/"/>. <br />
     /// Agnesi curves were studied in 1748 by Maria Gaetana Agnesi and earlier by Fermat around 1666 and 
-    /// Grandi in 1703. Agnesi called the curve "versiera". 
+    /// Grandi in 1703. Agnesi called the curve "versiera".</para> 
     /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]

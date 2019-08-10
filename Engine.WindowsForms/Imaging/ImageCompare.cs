@@ -17,7 +17,7 @@ namespace Engine.Imaging
     /// <summary>
     /// The image compare class.
     /// </summary>
-    public class ImageCompare
+    public static class ImageCompare
     {
         /// <summary>
         /// The bytes (const). Value: 4.
@@ -35,7 +35,7 @@ namespace Engine.Imaging
         /// <param name="a">The first image.</param>
         /// <param name="b">The second image</param>
         /// <returns>Returns a bitmap that expresses the difference of the two images.</returns>
-        /// <remarks>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp </remarks>
+        /// <remarks><para>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp</para> </remarks>
         public static unsafe Bitmap PixelDiff(Bitmap a, Bitmap b)
         {
             if (a is null || b is null)
@@ -113,7 +113,7 @@ namespace Engine.Imaging
         /// <param name="a">The first image.</param>
         /// <param name="b">The second image</param>
         /// <returns>Returns a bitmap that expresses the difference of the two images.</returns>
-        /// <remarks>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp </remarks>
+        /// <remarks><para>Based off of http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp</para> </remarks>
         public static unsafe Bitmap PixelDiff1(Bitmap a, Bitmap b)
         {
             if (a is null || b is null)
@@ -193,7 +193,7 @@ namespace Engine.Imaging
         /// <param name="cPtr">The cPtr.</param>
         /// <param name="colorComp">The colorComp.</param>
         /// <remarks>
-        /// From http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp 
+        /// <para>From http://stackoverflow.com/questions/9367138/calculate-image-differences-in-c-sharp</para> 
         /// </remarks>
         private unsafe static void Compare(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
             // For alpha, use the average of both images (otherwise pixels with the same alpha won't be visible)
@@ -207,7 +207,7 @@ namespace Engine.Imaging
         /// <param name="cPtr">The cPtr.</param>
         /// <param name="colorComp">The colorComp.</param>
         /// <remarks>
-        /// Based on http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
+        /// <para>Based on http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/</para>
         /// </remarks>
         private unsafe static void Compare1(byte aPtr, byte bPtr, byte* cPtr, int colorComp)
         {

@@ -14,8 +14,8 @@ using System.Windows.Forms.Design;
 namespace Engine.WindowsForms
 {
     /// <remarks>
-    /// http://www.windows-tech.info/3/7435e13b97d3160f.php
-    /// http://stackoverflow.com/questions/4984143/how-add-my-imagebutton-to-toolstrip
+    /// <para>http://www.windows-tech.info/3/7435e13b97d3160f.php
+    /// http://stackoverflow.com/questions/4984143/how-add-my-imagebutton-to-toolstrip</para>
     /// </remarks>
     /// <summary>
     /// The palette tool strip item class.

@@ -524,7 +524,7 @@ namespace Engine
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="int[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int[] Add(this int[] array, int t)
@@ -534,11 +534,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// Add.
+        /// Adds the specified t.
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="t">The t.</param>
-        /// <returns>The <see cref="float[]"/>.</returns>
+        /// <returns>The <see cref="Array"/>.</returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float[] Add(this float[] array, float t)
@@ -624,7 +624,7 @@ namespace Engine
         /// </summary>
         /// <param name="rectangle">The <see cref="Rectangle2D"/> of which you want the center.</param>
         /// <returns>A <see cref="Point2D"/> representing the center point of the <see cref="Rectangle2D"/>.</returns>
-        /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        /// <remarks><para>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Center(this Rectangle2D rectangle)
@@ -763,7 +763,7 @@ namespace Engine
         /// <param name="quaternion"></param>
         /// <returns></returns>
         /// <remarks>
-        /// source -> http://content.gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation#Quaternion_to_Matrix
+        /// <para>source -&gt; http://content.gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation#Quaternion_to_Matrix</para>
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -821,7 +821,7 @@ namespace Engine
         /// <returns>
         /// Return the cross product AB x BC.=((a)->x*(b)->y-(a)->y*(b)->x)
         /// </returns>
-        /// <remarks>Graphics Gems IV, page 139.</remarks>
+        /// <remarks><para>Graphics Gems IV, page 139.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Point2D valueA, Point2D valueB)
@@ -881,7 +881,7 @@ namespace Engine
         /// <returns>
         /// Return the cross product AB x BC.=((a)->x*(b)->y-(a)->y*(b)->x)
         /// </returns>
-        /// <remarks>Graphics Gems IV, page 139.</remarks>
+        /// <remarks><para>Graphics Gems IV, page 139.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(this Vector2D valueA, Vector2D valueB)
@@ -1049,7 +1049,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">Starting Point</param>
         /// <returns>Dot Product</returns>
-        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
+        /// <remarks><para>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Point2D value)
@@ -1060,7 +1060,7 @@ namespace Engine
         /// </summary>
         /// <param name="value">Starting Point</param>
         /// <returns>Dot Product</returns>
-        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
+        /// <remarks><para>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(this Vector2D value)
@@ -1073,7 +1073,7 @@ namespace Engine
         /// <param name="value">Ending Point</param>
         /// <returns>Dot Product</returns>
         /// <remarks>
-        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
+        /// <para>The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1087,7 +1087,7 @@ namespace Engine
         /// <param name="value">Ending Point</param>
         /// <returns>Dot Product</returns>
         /// <remarks>
-        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
+        /// <para>The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1129,7 +1129,7 @@ namespace Engine
         /// <param name="value">Second Point</param>
         /// <returns>Dot Product</returns>
         /// <remarks>
-        /// The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2
+        /// <para>The dot product is calculated with DotProduct = X ^ 2 + Y ^ 2</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -2106,7 +2106,7 @@ namespace Engine
         /// </summary>
         /// <param name="source">The Vector3D to be Normalized.</param>
         /// <returns>The Normalized Vector2D. (Unit Vector)</returns>
-        /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
+        /// <remarks><para><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Normalize(this Vector2D source)
@@ -2117,7 +2117,7 @@ namespace Engine
         /// </summary>
         /// <param name="source">The Vector3D to be Normalized.</param>
         /// <returns>The Normalized Vector3D. (Unit Vector)</returns>
-        /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
+        /// <remarks><para><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D Normalize(this Vector3D source)
@@ -2128,7 +2128,7 @@ namespace Engine
         /// </summary>
         /// <param name="source">The Vector3D to be Normalized.</param>
         /// <returns>The Normalized Vector3D. (Unit Vector)</returns>
-        /// <remarks><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></remarks>
+        /// <remarks><para><seealso href="http://en.wikipedia.org/wiki/Vector_%28spatial%29#Unit_vector"/></para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector4D Normalize(this Vector4D source)
@@ -2160,7 +2160,7 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks>To get the perpendicular vector in two dimensions use X = -Y, Y = X</remarks>
+        /// <remarks><para>To get the perpendicular vector in two dimensions use X = -Y, Y = X</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Perpendicular(float i, float j)
@@ -2172,7 +2172,7 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks>To get the perpendicular vector in two dimensions use X = -Y, Y = X</remarks>
+        /// <remarks><para>To get the perpendicular vector in two dimensions use X = -Y, Y = X</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Perpendicular(double i, double j)
@@ -2183,7 +2183,7 @@ namespace Engine
         /// </summary>
         /// <param name="vector"></param>
         /// <returns></returns>
-        /// <remarks>To get the perpendicular vector in two dimensions use X = -Y, Y = X</remarks>
+        /// <remarks><para>To get the perpendicular vector in two dimensions use X = -Y, Y = X</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector2D Perpendicular(this Vector2D vector)
@@ -2584,7 +2584,7 @@ namespace Engine
         /// <param name="PointA">Starting Point</param>
         /// <param name="PointB">Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
-        /// <remarks>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</remarks>
+        /// <remarks><para>The slope is calculated with Slope = (YB - YA) / (XB - XA) or rise over run</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this Point2D PointA, Point2D PointB)
@@ -2595,7 +2595,7 @@ namespace Engine
         /// </summary>
         /// <param name="Point">Starting Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
-        /// <remarks>The slope is calculated with Slope = Y / X or rise over run</remarks>
+        /// <remarks><para>The slope is calculated with Slope = Y / X or rise over run</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Slope(this Vector2D Point)
@@ -3020,8 +3020,8 @@ namespace Engine
         /// <param name="B">The B.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
-        /// http://jwezorek.com/2017/09/basic-convex-hull-in-c/
-        /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
+        /// <para>http://jwezorek.com/2017/09/basic-convex-hull-in-c/
+        /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain</para>
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -3033,8 +3033,8 @@ namespace Engine
         /// <param name="points">The points.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
         /// <remarks>
-        /// http://jwezorek.com/2017/09/basic-convex-hull-in-c/
-        /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
+        /// <para>http://jwezorek.com/2017/09/basic-convex-hull-in-c/
+        /// https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain</para>
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

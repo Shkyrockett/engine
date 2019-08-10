@@ -18,7 +18,7 @@ namespace Engine.Colorspace
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public struct YUVA
-        : IColor
+        : IColor, IEquatable<YUVA>
     {
         /// <summary>
         /// The empty (readonly). Value: new YUVA().
@@ -93,7 +93,9 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator ==(YUVA left, YUVA right)
             => left.Equals(right);
 
@@ -102,7 +104,9 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator !=(YUVA left, YUVA right)
             => !(left == right);
         #endregion Operators
@@ -126,7 +130,16 @@ namespace Engine.Colorspace
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         public override bool Equals(object obj)
-            => obj is IColor && Equals(obj as IColor);
+            => obj is YUVA color && Equals(color);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(YUVA other) => Y == other.Y && U == other.U && V == other.V && Alpha == other.Alpha;
 
         /// <summary>
         /// The to color.

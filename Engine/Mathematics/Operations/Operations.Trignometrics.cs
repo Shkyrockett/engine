@@ -168,7 +168,7 @@ namespace Engine
         /// <param name="valueA">Source parameter</param>
         /// <param name="valueB">Destination parameter</param>
         /// <returns>Returns the same Modulus Result that Excel returns.</returns>
-        /// <remarks>Created after finding out Excel returns a different value for the Mod Operator than .Net</remarks>
+        /// <remarks><para>Created after finding out Excel returns a different value for the Mod Operator than .Net</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Modulo(this double valueA, double valueB)
@@ -490,10 +490,10 @@ namespace Engine
         /// <param name="j"></param>
         /// <returns>Returns the slope angle of a vector.</returns>
         /// <remarks>
-        /// The slope is calculated with Slope = Y / X or rise over run
+        /// <para>The slope is calculated with Slope = Y / X or rise over run
         /// If the line is vertical, return something close to infinity
         /// (Close to the largest value allowed for the data type).
-        /// Otherwise calculate and return the slope.
+        /// Otherwise calculate and return the slope.</para>
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -509,9 +509,9 @@ namespace Engine
         /// <param name="y2">Vertical Component of Ending Point</param>
         /// <returns>Returns the slope angle of a line.</returns>
         /// <remarks>
-        /// If the Line is Vertical return something close to infinity (Close to
+        /// <para>If the Line is Vertical return something close to infinity (Close to
         /// the largest value allowed for the data type).
-        /// Otherwise calculate and return the slope.
+        /// Otherwise calculate and return the slope.</para>
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -764,7 +764,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>Arc-co-tan(X)</remarks>
+        /// <remarks><para>Arc-co-tan(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -779,7 +779,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HSin(X)</remarks>
+        /// <remarks><para>HSin(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -794,7 +794,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HCos(X)</remarks>
+        /// <remarks><para>HCos(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -809,7 +809,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HTan(X)</remarks>
+        /// <remarks><para>HTan(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -824,7 +824,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HSec(X)</remarks>
+        /// <remarks><para>HSec(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -839,7 +839,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HCosec(X)</remarks>
+        /// <remarks><para>HCosec(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -854,7 +854,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HCotan(X) </remarks>
+        /// <remarks><para>HCotan(X)</para> </remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -869,7 +869,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HArcsin(X)</remarks>
+        /// <remarks><para>HArcsin(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -884,7 +884,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HArccos(X)</remarks>
+        /// <remarks><para>HArccos(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -899,7 +899,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HArctan(X)</remarks>
+        /// <remarks><para>HArctan(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -914,7 +914,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HArcsec(X) </remarks>
+        /// <remarks><para>HArcsec(X)</para> </remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -929,7 +929,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HArccosec(X)</remarks>
+        /// <remarks><para>HArccosec(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -944,7 +944,7 @@ namespace Engine
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
-        /// <remarks>HArccotan(X)</remarks>
+        /// <remarks><para>HArccotan(X)</para></remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.
         /// The latest incarnation seems to be: https://docs.microsoft.com/en-us/dotnet/visual-basic/language-reference/keywords/derived-math-functions
@@ -961,8 +961,8 @@ namespace Engine
         /// <param name="numberBase"></param>
         /// <returns></returns>
         /// <remarks>
-        /// LogN(X)
-        /// Return Log(Value) / Log(NumberBase)
+        /// <para>LogN(X)
+        /// Return Log(Value) / Log(NumberBase)</para>
         /// </remarks>
         /// <acknowledgment>
         /// Translated from old Microsoft VB code examples that I have since lost.

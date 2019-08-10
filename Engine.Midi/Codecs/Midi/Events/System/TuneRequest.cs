@@ -16,8 +16,8 @@ namespace Engine.File
     /// Tune Request. Upon receiving a Tune Request, all analog synthesizers should tune their oscillators.
     /// </summary>
     /// <remarks>
-    /// nF 06 
-    /// Upon receiving a Tune Request, all analog synthesizers should tune their oscillators.
+    /// <para>nF 06 
+    /// Upon receiving a Tune Request, all analog synthesizers should tune their oscillators.</para>
     /// </remarks>
     [ElementName(nameof(TuneRequest))]
     [DisplayName("Tune Request")]

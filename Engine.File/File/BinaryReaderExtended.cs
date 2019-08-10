@@ -339,7 +339,6 @@ namespace Engine.File
         /// The next available byte, or 0 if no more bytes are available or
         /// the stream does not support seeking.
         /// </returns>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte PeekByte()
@@ -362,7 +361,6 @@ namespace Engine.File
         /// The next available Int16, or -1 if no more Int16s are available or
         /// the stream does not support seeking.
         /// </returns>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public short PeekInt16()
@@ -385,7 +383,6 @@ namespace Engine.File
         /// The next available NetworkInt16, or -1 if no more NetworkInt16s are available or
         /// the stream does not support seeking.
         /// </returns>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public short PeekNetworkInt16()
@@ -408,7 +405,6 @@ namespace Engine.File
         /// The next available Int32, or -1 if no more Int32s are available or
         /// the stream does not support seeking.
         /// </returns>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int PeekInt32()
@@ -431,7 +427,6 @@ namespace Engine.File
         /// The next available NetworkInt32, or -1 if no more NetworkInt32s are available or
         /// the stream does not support seeking.
         /// </returns>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int PeekNetworkInt32()
@@ -454,7 +449,6 @@ namespace Engine.File
         /// The next available Int64, or -1 if no more Int64s are available or
         /// the stream does not support seeking.
         /// </returns>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public long PeekInt64()
@@ -477,7 +471,6 @@ namespace Engine.File
         /// The next available NetworkInt64, or -1 if no more NetworkInt64s are available or
         /// the stream does not support seeking.
         /// </returns>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public long PeekNetworkInt64()

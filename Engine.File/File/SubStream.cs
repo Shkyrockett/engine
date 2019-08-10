@@ -99,7 +99,7 @@ namespace Engine.File
             => baseStream?.CanSeek ?? throw new ObjectDisposedException(GetType().Name);
 
         /// <summary>
-        /// Gets a value indicating whether the current stream supports writing - always returns <c>false</c>
+        /// Gets a value indicating whether the current stream supports writing - always returns <see langword="false"/>
         /// </summary>
         public override bool CanWrite
                 //CheckDisposed();

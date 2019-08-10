@@ -27,7 +27,7 @@ namespace Engine
         /// Initialize random number generator with seed based on time.
         /// </summary>
         [ThreadStatic]
-        public static Random RandomNumberGenerator = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+        public static readonly Random RandomNumberGenerator = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
 
         /// <summary>
         /// The random.
@@ -136,7 +136,7 @@ namespace Engine
         /// </summary>
         /// <param name="values">The values.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>Note: Uses Following Sum Function as well.</remarks>
+        /// <remarks><para>Note: Uses Following Sum Function as well.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(params double[] values)
@@ -147,7 +147,7 @@ namespace Engine
         /// </summary>
         /// <param name="values">The values.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>Note: Uses Following Sum Function as well.</remarks>
+        /// <remarks><para>Note: Uses Following Sum Function as well.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this List<double> values)
@@ -158,7 +158,7 @@ namespace Engine
         /// </summary>
         /// <param name="values">The values.</param>
         /// <returns>The <see cref="double"/>.</returns>
-        /// <remarks>Note: Uses Following Sum Function as well.</remarks>
+        /// <remarks><para>Note: Uses Following Sum Function as well.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Average(this IEnumerable<double> values)

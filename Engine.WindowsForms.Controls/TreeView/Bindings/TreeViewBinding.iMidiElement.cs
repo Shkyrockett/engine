@@ -26,9 +26,9 @@ namespace Engine
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <remarks>
-    /// Based on the idea presented by Martin Schreiber.
+    /// <para>Based on the idea presented by Martin Schreiber.
     /// https://schreibermartin.wordpress.com/2014/12/16/winforms-treeview-data-binding-part-1-of-2/
-    /// https://schreibermartin.wordpress.com/2014/12/17/winforms-treeview-data-binding-part-2-of-2/
+    /// https://schreibermartin.wordpress.com/2014/12/17/winforms-treeview-data-binding-part-2-of-2/</para>
     /// </remarks>
     public class TreeViewBinding<T> where T
         : class

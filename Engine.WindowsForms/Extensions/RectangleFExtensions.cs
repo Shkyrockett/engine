@@ -23,7 +23,7 @@ namespace Engine
         /// </summary>
         /// <param name="rectangle">The <see cref="RectangleF"/> of which you want the center.</param>
         /// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
-        /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        /// <remarks><para>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</para></remarks>
         public static PointF Center(this RectangleF rectangle) => new PointF(
             rectangle.Left + ((rectangle.Right - rectangle.Left) * 0.5f),
             rectangle.Top + ((rectangle.Bottom - rectangle.Top) * 0.5f)

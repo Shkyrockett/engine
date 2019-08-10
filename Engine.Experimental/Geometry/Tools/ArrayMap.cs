@@ -10,9 +10,9 @@ namespace Engine.Experimental
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <remarks>
-    /// https://www.cyotek.com/blog/converting-2d-arrays-to-1d-and-accessing-as-either-2d-or-1d
+    /// <para>https://www.cyotek.com/blog/converting-2d-arrays-to-1d-and-accessing-as-either-2d-or-1d
     /// https://softwareengineering.stackexchange.com/questions/212808/treating-a-1d-data-structure-as-2d-grid
-    /// https://stackoverflow.com/questions/5494974/convert-1d-array-index-to-2d-array-index
+    /// https://stackoverflow.com/questions/5494974/convert-1d-array-index-to-2d-array-index</para>
     /// </remarks>
     public class ArrayMap<T>
         : IEnumerable<T>

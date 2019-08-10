@@ -16,7 +16,7 @@ namespace Engine.Tweening
     /// Lerp behavior 
     /// </summary>
     [Flags]
-    public enum LerpBehavior
+    public enum LerpBehaviors
     {
         /// <summary>
         /// No special behaviors.

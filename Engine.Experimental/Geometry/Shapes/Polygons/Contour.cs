@@ -92,14 +92,14 @@ namespace Engine
             return new LineSegment(points[index], points[index + 1]);
         }
 
-         /// <summary>
-         /// Checks if a point is inside a contour using the point in polygon raycast method.
-         /// This works for all polygons, whether they are clockwise or counter clockwise,
-         /// convex or concave.
-         /// </summary>
-         /// <param name="p"></param>
-         /// <returns>True if p is inside the polygon defined by contour</returns>
-         /// <remarks> http://en.wikipedia.org/wiki/Point_in_polygon#Ray_casting_algorithm </remarks>
+        /// <summary>
+        /// Checks if a point is inside a contour using the point in polygon raycast method.
+        /// This works for all polygons, whether they are clockwise or counter clockwise,
+        /// convex or concave.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns>True if p is inside the polygon defined by contour</returns>
+        /// <remarks> <para>http://en.wikipedia.org/wiki/Point_in_polygon#Ray_casting_algorithm</para> </remarks>
         public bool ContainsPoint(Point2D p)
         {
             // Cast ray from p.x towards the right

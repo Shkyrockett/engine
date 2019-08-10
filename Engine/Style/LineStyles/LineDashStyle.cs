@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -27,7 +28,7 @@ namespace Engine
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct LineDashStyle
-        : IFormattable
+        : IFormattable, IEquatable<LineDashStyle>
     {
         /// <summary>
         /// The solid (readonly). Value: new LineDashStyle(/*DashStyle.Solid,*/ new float[] { 1 }).
@@ -129,6 +130,59 @@ namespace Engine
         public float DashOffset { get; set; }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator ==(LineDashStyle left, LineDashStyle right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(LineDashStyle left, LineDashStyle right) => !(left == right);
+
+        /// <summary>
+        /// Parse.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>The <see cref="Array"/>.</returns>
+        private static float[] Parse(string text)
+        {
+            const string argSeparators = @"[\s,]|(?=-)";
+            return Regex.Split(text, argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => float.Parse(arg)).ToArray();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj) => obj is LineDashStyle style && Equals(style);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(LineDashStyle other) => EqualityComparer<float[]>.Default.Equals(dashPattern, other.dashPattern) && DashOffset == other.DashOffset;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -1478567301;
+            hashCode = hashCode * -1521134295 + EqualityComparer<float[]>.Default.GetHashCode(dashPattern);
+            hashCode = hashCode * -1521134295 + DashOffset.GetHashCode();
+            return hashCode;
+        }
+
+        /// <summary>
         /// Creates a human-readable string that represents this <see cref="LineDashStyle"/> struct.
         /// </summary>
         /// <returns></returns>
@@ -188,17 +242,6 @@ namespace Engine
 
             output.Replace(",-", "-");
             return output.ToString().Trim(',');
-        }
-
-        /// <summary>
-        /// Parse.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
-        private static float[] Parse(string text)
-        {
-            const string argSeparators = @"[\s,]|(?=-)";
-            return Regex.Split(text, argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => float.Parse(arg)).ToArray();
         }
     }
 }

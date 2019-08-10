@@ -6,12 +6,15 @@
   This code is MIT licensed.
 */
 
+using System;
+using System.Collections.Generic;
+
 namespace Engine
 {
     /// <summary>
     /// The Line 2D class.
     /// </summary>
-    public struct Line2D
+    public struct Line2D : IEquatable<Line2D>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Line2D"/> class.
@@ -48,5 +51,47 @@ namespace Engine
         /// Gets or sets the p2.
         /// </summary>
         public Point2D P2 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator ==(Line2D left, Line2D right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(Line2D left, Line2D right) => !(left == right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj) => obj is Line2D d && Equals(d);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Line2D other) => P1.Equals(other.P1) && P2.Equals(other.P2);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 162377905;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Point2D>.Default.GetHashCode(P1);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Point2D>.Default.GetHashCode(P2);
+            return hashCode;
+        }
     }
 }

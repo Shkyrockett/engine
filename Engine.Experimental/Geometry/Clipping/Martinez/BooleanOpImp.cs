@@ -258,7 +258,7 @@ namespace Engine
         {
             switch (le.Contribution)
             {
-                case EdgeContributions.Normal:
+                case EdgeContribution.Normal:
                     switch (operation)
                     {
                         case ClippingOperation.Intersection:
@@ -271,11 +271,11 @@ namespace Engine
                             return true;
                     }
                     break;
-                case EdgeContributions.SameTransition:
+                case EdgeContribution.SameTransition:
                     return operation == ClippingOperation.Intersection || operation == ClippingOperation.Union;
-                case EdgeContributions.DifferentTransition:
+                case EdgeContribution.DifferentTransition:
                     return operation == ClippingOperation.Difference;
-                case EdgeContributions.NonContributing:
+                case EdgeContribution.NonContributing:
                     return false;
             }
             return false; // just to avoid the compiler warning

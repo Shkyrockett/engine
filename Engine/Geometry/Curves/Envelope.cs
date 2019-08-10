@@ -19,7 +19,7 @@ namespace Engine
     /// <summary>
     /// The envelope distort class.
     /// </summary>
-    public struct Envelope
+    public struct Envelope : IEquatable<Envelope>
     {
         #region Constructors
         /// <summary>

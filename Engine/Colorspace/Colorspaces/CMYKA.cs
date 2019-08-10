@@ -20,7 +20,7 @@ namespace Engine.Colorspace
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public struct CMYKA
-        : IColor
+        : IColor, IEquatable<CMYKA>
     {
         #region Implementations
         /// <summary>
@@ -97,24 +97,28 @@ namespace Engine.Colorspace
 
         #region Operators
         /// <summary>
-        /// Compares two <see cref="CMYKA"/> objects.
-        /// The result specifies whether the color values of the two <see cref="CMYKA"/> objects are equal.
+        /// Compares two <see cref="CMYKA" /> objects.
+        /// The result specifies whether the color values of the two <see cref="CMYKA" /> objects are equal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(CMYKA left, CMYKA right)
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="CMYKA"/> objects.
-        /// The result specifies whether the color values of the two <see cref="CMYKA"/> objects are unequal.
+        /// Compares two <see cref="CMYKA" /> objects.
+        /// The result specifies whether the color values of the two <see cref="CMYKA" /> objects are unequal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(CMYKA left, CMYKA right)
@@ -125,18 +129,22 @@ namespace Engine.Colorspace
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
             => Cyan.GetHashCode() | Yellow.GetHashCode() | Magenta.GetHashCode() | Black.GetHashCode() | Alpha.GetHashCode();
 
         /// <summary>
-        /// Compares two <see cref="CMYKA"/> colors
+        /// Compares two <see cref="CMYKA" /> colors
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Compare(CMYKA a, CMYKA b)
@@ -147,7 +155,9 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(CMYKA a, CMYKA b)
@@ -157,11 +167,13 @@ namespace Engine.Colorspace
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
-            => obj is CMYKA && Equals(this, (CMYKA)obj);
+            => obj is CMYKA color && Equals(color);
 
         /// <summary>
         /// The equals.
@@ -178,6 +190,15 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(CMYKA other) => Cyan == other.Cyan && Yellow == other.Yellow && Magenta == other.Magenta && Black == other.Black && Alpha == other.Alpha;
+
+        /// <summary>
         /// Converts the <see cref="CMYKA"/> class to a <see cref="RGBA"/> class.
         /// </summary>
         /// <returns></returns>
@@ -191,10 +212,10 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns></returns>
         /// <remarks>
-        /// CMYK --> RGB
+        /// <para>CMYK --&gt; RGB
         /// Red   = 1-minimum(1,Cyan*(1-Black)+Black)
         /// Green = 1-minimum(1,Magenta*(1-Black)+Black)
-        /// Blue  = 1-minimum(1,Yellow*(1-Black)+Black)
+        /// Blue  = 1-minimum(1,Yellow*(1-Black)+Black)</para>
         /// </remarks>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code

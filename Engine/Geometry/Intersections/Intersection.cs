@@ -31,7 +31,7 @@ namespace Engine
     /// The intersection struct.
     /// </summary>
     public struct Intersection
-        : IFormattable
+        : IFormattable, IEquatable<Intersection>
     {
         #region Constructors
         /// <summary>
@@ -226,15 +226,6 @@ namespace Engine
         #endregion Mutators
 
         #region Standard Class Methods
-        /// <summary>
-        /// Returns the hash code for this instance.
-        /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => State.GetHashCode()
-            ^ Points.GetHashCode();
 
         ///// <summary>
         ///// Compares two Intersections.
@@ -277,6 +268,20 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Intersection value)
             => Equals(this, value);
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 1531629292;
+            hashCode = hashCode * -1521134295 + State.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<Point2D>>.Default.GetHashCode(Points);
+            return hashCode;
+        }
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Intersection"/>.

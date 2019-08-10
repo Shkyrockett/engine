@@ -20,7 +20,7 @@ namespace Engine.Colorspace
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public struct HSLA
-        : IColor
+        : IColor, IEquatable<HSLA>
     {
         #region Implementations
         /// <summary>
@@ -57,9 +57,9 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="color">A Color to convert</param>
         /// <remarks>
-        /// Takes advantage of whats already built in to .NET by using the Color.GetHue,
+        /// <para>Takes advantage of whats already built in to .NET by using the Color.GetHue,
         /// Color.GetSaturation and Color.GetBrightness methods
-        /// we store hue as 0-1 as opposed to 0-360
+        /// we store hue as 0-1 as opposed to 0-360</para>
         /// </remarks>
         /// <returns>An HSL value</returns>
         public HSLA(RGBA color)
@@ -147,17 +147,73 @@ namespace Engine.Colorspace
         }
         #endregion Properties
 
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(HSLA left, HSLA right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(HSLA left, HSLA right) => !(left == right);
+
         #region Methods
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is HSLA color && Equals(color);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(HSLA other) => alpha == other.alpha && hue == other.hue && saturation == other.saturation && luminance == other.luminance;
+
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
-            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            var (r1, g1, b1, a1) = (other?.ToRGBATuple()).Value;
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
+        }
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 1605070302;
+            hashCode = hashCode * -1521134295 + hue.GetHashCode();
+            hashCode = hashCode * -1521134295 + saturation.GetHashCode();
+            hashCode = hashCode * -1521134295 + luminance.GetHashCode();
+            hashCode = hashCode * -1521134295 + alpha.GetHashCode();
+            return hashCode;
         }
 
         /// <summary>
@@ -168,18 +224,21 @@ namespace Engine.Colorspace
             => Colorspaces.HSLAColorToRGBAColor(hue, saturation, luminance, alpha);
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="HSLA"/> struct.
+        /// Creates a human-readable string that represents this <see cref="HSLA" /> struct.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
             => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="HSLA"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="HSLA" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -189,13 +248,13 @@ namespace Engine.Colorspace
             => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="HSLA"/> class based on the format string
+        /// Creates a string representation of this <see cref="HSLA" /> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -205,13 +264,13 @@ namespace Engine.Colorspace
             => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="HSLA"/> struct based on the format string
+        /// Creates a string representation of this <see cref="HSLA" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>

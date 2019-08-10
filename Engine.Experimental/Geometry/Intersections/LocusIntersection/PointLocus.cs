@@ -10,7 +10,7 @@
 
 namespace Engine
 {
-    /// <remarks> This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178 </remarks>
+    /// <remarks> <para>This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178</para> </remarks>
     /// <summary>
     /// The point locus class.
     /// </summary>

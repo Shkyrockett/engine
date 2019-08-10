@@ -25,7 +25,7 @@ namespace Engine.WindowsForms
         /// The event mouse wheel (readonly). Value: new object().
         /// </summary>
         /// <remarks>
-        /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
+        /// <para>http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a</para>
         /// </remarks>
         private static readonly object eventMouseWheel = new object();
 
@@ -33,7 +33,7 @@ namespace Engine.WindowsForms
         /// The event mouse wheel tilt (readonly). Value: new object().
         /// </summary>
         /// <remarks>
-        /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
+        /// <para>http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a</para>
         /// </remarks>
         private static readonly object eventMouseWheelTilt = new object();
 
@@ -41,7 +41,7 @@ namespace Engine.WindowsForms
         /// Occurs when the mouse wheel tilts while the control has focus.
         /// </summary>
         /// <remarks>
-        /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
+        /// <para>http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a</para>
         /// </remarks>
         [Category("Mouse")]
         [Description("Occurs when the mouse wheel tilts while the control has focus.")]
@@ -57,7 +57,7 @@ namespace Engine.WindowsForms
         /// Occurs when the mouse wheel moves while the control has focus.
         /// </summary>
         /// <remarks>
-        /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
+        /// <para>http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a</para>
         /// </remarks>
         [Category("Mouse")]
         [Description("Occurs when the mouse wheel moves while the control has focus.")]
@@ -82,7 +82,7 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="m">The m.</param>
         /// <remarks>
-        /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
+        /// <para>http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a</para>
         /// </remarks>
         protected override void WndProc(ref Message m)
         {
@@ -123,7 +123,7 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="m">The m.</param>
         /// <remarks>
-        /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
+        /// <para>http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a</para>
         /// </remarks>
         private void WmMouseWheel(ref Message m)
         {
@@ -143,7 +143,7 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="m">The m.</param>
         /// <remarks>
-        /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
+        /// <para>http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a</para>
         /// </remarks>
         private void WmMouseWheelTilt(ref Message m)
         {
@@ -163,7 +163,7 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="e"></param>
         /// <remarks>
-        /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
+        /// <para>http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a</para>
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         protected virtual void OnMouseWheelTilt(MouseEventArgs e) => ((MouseEventHandler)Events[eventMouseWheelTilt])?.Invoke(this, e);
@@ -173,7 +173,7 @@ namespace Engine.WindowsForms
         /// </summary>
         /// <param name="e"></param>
         /// <remarks>
-        /// http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a
+        /// <para>http://referencesource.microsoft.com/#System.Windows.Forms/winforms/Managed/System/WinForms/Control.cs,4325aceddf2ad61a</para>
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         protected override void OnMouseWheel(MouseEventArgs e) => ((MouseEventHandler)Events[eventMouseWheel])?.Invoke(this, e);

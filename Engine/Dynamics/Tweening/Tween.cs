@@ -86,7 +86,7 @@ namespace Engine.Tweening
         /// <summary>
         /// The behavior.
         /// </summary>
-        private LerpBehavior behavior;
+        private LerpBehaviors behavior;
 
         /// <summary>
         /// The vars.
@@ -147,7 +147,7 @@ namespace Engine.Tweening
             lerpers = new List<MemberLerper>();
             start = new List<object>();
             end = new List<object>();
-            behavior = LerpBehavior.None;
+            behavior = LerpBehaviors.None;
         }
         #endregion Constructors
 
@@ -284,7 +284,7 @@ namespace Engine.Tweening
 
                 //	If the timer is zero here, we just restarted.
                 //	If reflect mode is on, flip start to end
-                if (time == 0 && behavior.HasFlag(LerpBehavior.Reflect))
+                if (time == 0 && behavior.HasFlag(LerpBehaviors.Reflect))
                 {
                     Reverse();
                 }
@@ -426,7 +426,7 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween Reflect()
         {
-            behavior |= LerpBehavior.Reflect;
+            behavior |= LerpBehaviors.Reflect;
             return this;
         }
 
@@ -458,8 +458,8 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween Rotation(RotationUnit unit = RotationUnit.Degrees)
         {
-            behavior |= LerpBehavior.Rotation;
-            behavior |= (unit == RotationUnit.Degrees) ? LerpBehavior.RotationDegrees : LerpBehavior.RotationRadians;
+            behavior |= LerpBehaviors.Rotation;
+            behavior |= (unit == RotationUnit.Degrees) ? LerpBehaviors.RotationDegrees : LerpBehaviors.RotationRadians;
 
             return this;
         }
@@ -470,7 +470,7 @@ namespace Engine.Tweening
         /// <returns>A reference to this.</returns>
         public Tween Round()
         {
-            behavior |= LerpBehavior.Round;
+            behavior |= LerpBehaviors.Round;
             return this;
         }
         #endregion Behavior

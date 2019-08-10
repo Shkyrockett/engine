@@ -36,21 +36,21 @@ namespace NewEngine
         /// Represents the ratio of the radius of a circle to the first sixteenth of that circle.
         /// One sixteenth Tau or a eighth Pi.
         /// </summary>
-        /// <remarks>PI / 8</remarks>
+        /// <remarks><para>PI / 8</para></remarks>
         public const double EighthPi = 0.125d * PI; // 0.39269908169872415480783042290994d;
 
         /// <summary>
         /// Represents the ratio of the radius of a circle to the first eighth of that circle.
         /// One eighth Tau or a quarter Pi. A 45 degree angle.
         /// </summary>
-        /// <remarks>PI / 4</remarks>
+        /// <remarks><para>PI / 4</para></remarks>
         public const double Quart = 0.25d * PI; // 0.78539816339744830961566084581988d;
 
         /// <summary>
         /// Represents the ratio of the radius of a circle to the first quarter of that circle.
         /// One quarter Tau or half Pi. A right angle in mathematics.
         /// </summary>
-        /// <remarks>PI / 2</remarks>
+        /// <remarks><para>PI / 2</para></remarks>
         public const double HalfPi = 0.5d * PI; // 1.5707963267948966192313216916398d;
 
         ///// <summary>
@@ -66,8 +66,8 @@ namespace NewEngine
         /// Three quarter tau, or one and a half pi.
         /// </summary>
         /// <remarks>
-        /// Three quarter tau, or one and a half pi are just too long and awkward.
-        /// Randal Munro's joke "compromise" works well enough for a name: http://xkcd.com/1292/
+        /// <para>Three quarter tau, or one and a half pi are just too long and awkward.
+        /// Randal Munro's joke "compromise" works well enough for a name: http://xkcd.com/1292/</para>
         /// </remarks>
         /// <acknowledgment>
         /// Randal Munro http://xkcd.com/1292/ 

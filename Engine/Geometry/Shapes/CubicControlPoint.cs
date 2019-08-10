@@ -20,7 +20,7 @@ namespace Engine
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public struct CubicControlPoint
-        : IPrimitive
+        : IPrimitive, IEquatable<CubicControlPoint>
     {
         #region Constructors
         /// <summary>

@@ -16,8 +16,8 @@ namespace Engine.File
     /// MIDI Time Code Quarter Frame.
     /// </summary>
     /// <remarks>
-    /// nF 01 0nnndddd
-    /// nnn = Message Type dddd = Values
+    /// <para>nF 01 0nnndddd
+    /// nnn = Message Type dddd = Values</para>
     /// </remarks>
     [ElementName(nameof(MidiTimeCode))]
     [DisplayName("Midi Time Code")]

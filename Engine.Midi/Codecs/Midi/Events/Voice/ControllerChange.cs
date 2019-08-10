@@ -16,12 +16,12 @@ namespace Engine.File
     /// Controller/Mode Change Status.
     /// </summary>
     /// <remarks>
-    /// nB 0ccccccc 0vvvvvvv
+    /// <para>nB 0ccccccc 0vvvvvvv
     /// This message is sent when a controller value changes. 
     /// Controllers include devices such as pedals and levers. 
     /// Controller numbers 120-127 are reserved as "Channel Mode Messages" 
     /// (below). (ccccccc) is the controller number (0-119). 
-    /// (vvvvvvv) is the controller value (0-127).
+    /// (vvvvvvv) is the controller value (0-127).</para>
     /// </remarks>
     [ElementName(nameof(ControllerChange))]
     [DisplayName("Controller Change")]

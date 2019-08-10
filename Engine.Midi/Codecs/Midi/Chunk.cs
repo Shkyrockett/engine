@@ -24,7 +24,7 @@ namespace Engine.File
         /// <summary>
         /// List of supported Chunk types.
         /// </summary>
-        public static List<string> ChunkIds = new List<string>
+        public static readonly List<string> ChunkIds = new List<string>
         {
             "RIFF",
             "MThd",

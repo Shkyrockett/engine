@@ -28,14 +28,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Tax Day.</returns>
         /// <remarks>
-        /// Daylight Savings Time begins at 2:00 a.m. on the second Sunday of March. http://www.nist.gov/pml/div688/dst.cfm
+        /// <para>Daylight Savings Time begins at 2:00 a.m. on the second Sunday of March. http://www.nist.gov/pml/div688/dst.cfm</para>
         /// </remarks>
         public static Occasion DalightSavingsTimeBegins(int year, Culture culture)
         {
             switch (culture.Country)
             {
-                case Countries.CA:
-                case Countries.US:
+                case Country.CA:
+                case Country.US:
                     if (year >= 1918 && year <= 1920)
                     {
                         return new Occasion(
@@ -146,16 +146,16 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Tax Day.</returns>
         /// <remarks>
-        /// Daylight Savings Time ends at 2:00 a.m. on the first Sunday of November. http://www.nist.gov/pml/div688/dst.cfm
+        /// <para>Daylight Savings Time ends at 2:00 a.m. on the first Sunday of November. http://www.nist.gov/pml/div688/dst.cfm
         /// By act of Congress, civil clocks in most areas of the United States are adjusted ahead one hour in the summer months (known as daylight time) and returned back one hour in the winter months (known as standard time). The dates marking the beginning and end of daylight time have changed as Congress has passed new statutes. As of 2007, daylight time begins in the United States on the second Sunday in March and ends on the first Sunday in November. On the second Sunday in March, clocks are set ahead one hour at 2:00 a.m. local standard time (which becomes 3:00 a.m. local daylight time). On the first Sunday in November, clocks are set back one hour at 2:00 a.m. local daylight time (which becomes 1:00 a.m. local standard time). These dates were established by Congress in the Energy Policy Act of 2005, Pub. L. no. 109-58, 119 Stat 594 (2005).
-        /// Not all places in the U.S.observe daylight time. In particular, Hawaii and most of Arizona do not use it.The most recent change to local daylight time policy was in 2006, when Indiana adopted the use of daylight time state-wide.
+        /// Not all places in the U.S.observe daylight time. In particular, Hawaii and most of Arizona do not use it.The most recent change to local daylight time policy was in 2006, when Indiana adopted the use of daylight time state-wide.</para>
         /// </remarks>
         public static Occasion DalightSavingsTimeEnds(int year, Culture culture)
         {
             switch (culture.Country)
             {
-                case Countries.CA:
-                case Countries.US:
+                case Country.CA:
+                case Country.US:
                     if (year >= 1918 && year <= 1921)
                     {
                         return new Occasion(
@@ -226,7 +226,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Martin Luther King Day.</returns>
         /// <remarks>
-        /// The Third Monday of January.
+        /// <para>The Third Monday of January.</para>
         /// </remarks>
         public static Occasion MartinLutherKingDay(int year, Culture culture)
             => new Occasion(
@@ -244,7 +244,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Presidents Day.</returns>
         /// <remarks>
-        /// The Third Monday of February.
+        /// <para>The Third Monday of February.</para>
         /// </remarks>
         public static Occasion PresidentsDay(int year, Culture culture)
             => new Occasion(
@@ -262,7 +262,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Mother's Day.</returns>
         /// <remarks>
-        /// The Second Sunday of May.
+        /// <para>The Second Sunday of May.</para>
         /// </remarks>
         public static Occasion MothersDay(int year, Culture culture)
             => new Occasion(
@@ -280,7 +280,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Memorial Day.</returns>
         /// <remarks>
-        /// The last Monday of May. http://en.wikipedia.org/wiki/Memorial_Day.
+        /// <para>The last Monday of May. http://en.wikipedia.org/wiki/Memorial_Day.</para>
         /// </remarks>
         public static Occasion MemorialDay(int year, Culture culture)
             => new Occasion(
@@ -298,7 +298,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Father's Day.</returns>
         /// <remarks>
-        /// The Third Sunday of June. http://en.wikipedia.org/wiki/Father%27s_Day.
+        /// <para>The Third Sunday of June. http://en.wikipedia.org/wiki/Father%27s_Day.</para>
         /// </remarks>
         public static Occasion FathersDay(int year, Culture culture)
             => new Occasion(
@@ -316,7 +316,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Labor Day.</returns>
         /// <remarks>
-        /// The 1st Monday of September.
+        /// <para>The 1st Monday of September.</para>
         /// </remarks>
         public static Occasion LaborDay(int year, Culture culture)
             => new Occasion(
@@ -335,7 +335,7 @@ namespace Engine.Chrono
         public static Occasion ColumbusDay(int year)
             => new Occasion(
             "Columbus Day",
-            new Culture(Languages.en, Countries.US),
+            new Culture(Language.en, Country.US),
             OccasionDateType.DynamicAnnualDate,
             EventType.Holiday,
             new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Monday),
@@ -348,7 +348,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Election Day.</returns>
         /// <remarks>
-        /// The Tuesday after First Monday of Nov.
+        /// <para>The Tuesday after First Monday of Nov.</para>
         /// </remarks>
         public static Occasion ElectionDay(int year, Culture culture)
             => new Occasion(
@@ -366,14 +366,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Thanksgiving Day.</returns>
         /// <remarks>
-        /// http://en.wikipedia.org/wiki/Thanksgiving
-        /// http://en.wikipedia.org/wiki/Thanksgiving_(Canada)
+        /// <para>http://en.wikipedia.org/wiki/Thanksgiving
+        /// http://en.wikipedia.org/wiki/Thanksgiving_(Canada)</para>
         /// </remarks>
         public static Occasion ThanksgivingDay(int year, Culture culture)
         {
             switch (culture.Country)
             {
-                case Countries.AU:
+                case Country.AU:
                     return new Occasion(
                         "Thanksgiving Day (Norfolk Island Australia)",
                         culture,
@@ -381,7 +381,7 @@ namespace Engine.Chrono
                         EventType.Holiday,
                         new DateTime(year, (int)Month.November, 1).LastInstanceWeekdayOfMonth(1, DayOfWeek.Wednesday),
                         "The Last Wednesday in November.");
-                case Countries.CA:
+                case Country.CA:
                     return new Occasion(
                         "Thanksgiving Day (Canada)",
                         culture,
@@ -389,7 +389,7 @@ namespace Engine.Chrono
                         EventType.Holiday,
                         new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(2, DayOfWeek.Thursday),
                         "The Second Monday in October.");
-                case Countries.GD:
+                case Country.GD:
                     return new Occasion(
                         "Thanksgiving Day (Grenada)",
                         culture,
@@ -397,7 +397,7 @@ namespace Engine.Chrono
                         EventType.Holiday,
                         new DateTime(year, (int)Month.October, 25),
                         "October Twenty Fifth.");
-                case Countries.LR:
+                case Country.LR:
                     return new Occasion(
                         "Thanksgiving Day (Liberia)",
                         culture,
@@ -405,7 +405,7 @@ namespace Engine.Chrono
                         EventType.Holiday,
                         new DateTime(year, (int)Month.October, 1).FirstInstanceWeekdayOfMonth(1, DayOfWeek.Thursday),
                         "The First Thursday in November.");
-                case Countries.US:
+                case Country.US:
                 default:
                     return new Occasion(
                        "Thanksgiving Day (USA)",
@@ -426,7 +426,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Good Friday.</returns>
         /// <remarks>
-        /// The Friday before Easter. http://en.wikipedia.org/wiki/Good_Friday
+        /// <para>The Friday before Easter. http://en.wikipedia.org/wiki/Good_Friday</para>
         /// </remarks>
         public static Occasion GoodFriday(int year, Culture culture)
             => new Occasion(
@@ -524,7 +524,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Tax Day.</returns>
         /// <remarks>
-        /// Nearest business day to April Fifteenth. http://en.wikipedia.org/wiki/Tax_Day.
+        /// <para>Nearest business day to April Fifteenth. http://en.wikipedia.org/wiki/Tax_Day.</para>
         /// </remarks>
         public static Occasion TaxDay(int year, Culture culture)
             => new Occasion(
@@ -542,7 +542,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Flag Day.</returns>
         /// <remarks>
-        /// Nearest business day to June Fourteenth. http://en.wikipedia.org/wiki/Flag_Day_%28United_States%29.
+        /// <para>Nearest business day to June Fourteenth. http://en.wikipedia.org/wiki/Flag_Day_%28United_States%29.</para>
         /// </remarks>
         public static Occasion FlagDay(int year, Culture culture)
             => new Occasion(
@@ -560,7 +560,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Independence Day.</returns>
         /// <remarks>
-        /// Nearest business day to The Fourth of July. http://en.wikipedia.org/wiki/Independence_Day_(United_States).
+        /// <para>Nearest business day to The Fourth of July. http://en.wikipedia.org/wiki/Independence_Day_(United_States).</para>
         /// </remarks>
         public static Occasion IndependenceDay(int year, Culture culture)
             => new Occasion(
@@ -580,7 +580,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Abraham Lincoln's Birthday.</returns>
         /// <remarks>
-        /// The Twelfth of February. http://en.wikipedia.org/wiki/Lincoln%27s_Birthday
+        /// <para>The Twelfth of February. http://en.wikipedia.org/wiki/Lincoln%27s_Birthday</para>
         /// </remarks>
         public static Occasion AbrahamLincolnsBirthday(int year, Culture culture = null)
         {
@@ -588,7 +588,7 @@ namespace Engine.Chrono
             return (year <= 1732) ? null :
                        new Occasion(
                        "Abraham Lincoln's Birthday",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Birthday,
                        new DateTime(year, (int)Month.February, 12),
@@ -602,7 +602,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Abraham Lincoln's Birthday.</returns>
         /// <remarks>
-        /// The Twenty second of February. http://en.wikipedia.org/wiki/George_Washington%27s_Birthday
+        /// <para>The Twenty second of February. http://en.wikipedia.org/wiki/George_Washington%27s_Birthday</para>
         /// </remarks>
         public static Occasion GeorgeWashingtonsBirthday(int year, Culture culture = null)
         {
@@ -610,7 +610,7 @@ namespace Engine.Chrono
             return (year <= 1732) ? null :
                        new Occasion(
                        "George Washington's Birthday",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Birthday,
                        new DateTime(year, (int)Month.February, 22),
@@ -645,7 +645,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for New Year's Day.</returns>
         /// <remarks>
-        /// The First day of January. http://en.wikipedia.org/wiki/New_Year%27s_Day
+        /// <para>The First day of January. http://en.wikipedia.org/wiki/New_Year%27s_Day</para>
         /// </remarks>
         public static Occasion NewYearsDay(int year, Culture culture)
             => new Occasion(
@@ -663,14 +663,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Groundhog Day.</returns>
         /// <remarks>
-        /// The Second day of February. http://en.wikipedia.org/wiki/Groundhog_Day
+        /// <para>The Second day of February. http://en.wikipedia.org/wiki/Groundhog_Day</para>
         /// </remarks>
         public static Occasion GroundhogDay(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        "Groundhog Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.February, 2),
@@ -684,14 +684,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Saint Valentine's Day.</returns>
         /// <remarks>
-        /// February Fourteenth. http://en.wikipedia.org/wiki/Valentine%27s_Day
+        /// <para>February Fourteenth. http://en.wikipedia.org/wiki/Valentine%27s_Day</para>
         /// </remarks>
         public static Occasion ValentinesDay(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        "Saint Valentine's Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.February, 14),
@@ -705,14 +705,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Saint Patrick's Day.</returns>
         /// <remarks>
-        /// The Seventeenth of March. http://en.wikipedia.org/wiki/Saint_Patrick%27s_Day
+        /// <para>The Seventeenth of March. http://en.wikipedia.org/wiki/Saint_Patrick%27s_Day</para>
         /// </remarks>
         public static Occasion SaintPatricksDay(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        "Saint Patrick's Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.March, 17),
@@ -732,7 +732,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "European Labor Day (May day)",
-                       new Culture(Languages.en, Countries.GB),
+                       new Culture(Language.en, Country.GB),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.May, 1),
@@ -753,7 +753,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Cinco De Mayo",
-                       new Culture(Languages.es, Countries.MX),
+                       new Culture(Language.es, Country.MX),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.May, 5),
@@ -774,7 +774,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Patriot Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.September, 11),
@@ -795,7 +795,7 @@ namespace Engine.Chrono
             _ = culture;
             return new Occasion(
                        "Guy Fawkes Day",
-                       new Culture(Languages.en, Countries.GB),
+                       new Culture(Language.en, Country.GB),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.November, 5),
@@ -809,14 +809,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Halloween Day.</returns>
         /// <remarks>
-        /// October Thirty First. http://en.wikipedia.org/wiki/Halloween.
+        /// <para>October Thirty First. http://en.wikipedia.org/wiki/Halloween.</para>
         /// </remarks>
         public static Occasion Halloween(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        nameof(Halloween),
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.October, 31),
@@ -830,7 +830,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for All Saints' Day.</returns>
         /// <remarks>
-        /// November First. http://en.wikipedia.org/wiki/All_Saints%27_Day.
+        /// <para>November First. http://en.wikipedia.org/wiki/All_Saints%27_Day.</para>
         /// </remarks>
         public static Occasion AllSaintsDay(int year, Culture culture)
             => new Occasion(
@@ -848,7 +848,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Veterans Day.</returns>
         /// <remarks>
-        /// November Eleventh. http://en.wikipedia.org/wiki/Veterans_Day.
+        /// <para>November Eleventh. http://en.wikipedia.org/wiki/Veterans_Day.</para>
         /// </remarks>
         public static Occasion VeteransDay(int year, Culture culture)
             => new Occasion(
@@ -866,7 +866,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Christmas Eve.</returns>
         /// <remarks>
-        /// The Twenty Fourth of December, or Day Before Christmas. http://en.wikipedia.org/wiki/Christmas_Eve.
+        /// <para>The Twenty Fourth of December, or Day Before Christmas. http://en.wikipedia.org/wiki/Christmas_Eve.</para>
         /// </remarks>
         public static Occasion ChristmasEve(int year, Culture culture)
             => new Occasion(
@@ -884,7 +884,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Christmas Day.</returns>
         /// <remarks>
-        /// The Twenty Fifth of December. http://en.wikipedia.org/wiki/Christmas
+        /// <para>The Twenty Fifth of December. http://en.wikipedia.org/wiki/Christmas</para>
         /// </remarks>
         public static Occasion ChristmasDay(int year, Culture culture)
             => new Occasion(
@@ -902,7 +902,7 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Boxing Day.</returns>
         /// <remarks>
-        /// The Twenty Sixth of December, or The Day after Christmas. http://en.wikipedia.org/wiki/Boxing_Day
+        /// <para>The Twenty Sixth of December, or The Day after Christmas. http://en.wikipedia.org/wiki/Boxing_Day</para>
         /// </remarks>
         public static Occasion BoxingDay(int year, Culture culture)
             => new Occasion(
@@ -920,14 +920,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for New Year's Eve.</returns>
         /// <remarks>
-        /// The last day of the Year. http://en.wikipedia.org/wiki/New_Year%27s_Eve
+        /// <para>The last day of the Year. http://en.wikipedia.org/wiki/New_Year%27s_Eve</para>
         /// </remarks>
         public static Occasion NewYearsEve(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        "New Year's Eve",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.December, 31),
@@ -943,14 +943,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Strawberry Days Starts.</returns>
         /// <remarks>
-        /// The First Thursday of September.
+        /// <para>The First Thursday of September.</para>
         /// </remarks>
         public static Occasion BellevueStrawberryDaysStart(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        "Strawberry Days Starts",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday).BeforeSunday(),
@@ -964,14 +964,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Strawberry Days Ends.</returns>
         /// <remarks>
-        /// The Saturday following the first Thursday of September.
+        /// <para>The Saturday following the first Thursday of September.</para>
         /// </remarks>
         public static Occasion BellevueStrawberryDaysEnd(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        "Strawberry Days Ends",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.June, 1).LastWeekdayOfMonth(DayOfWeek.Sunday),
@@ -985,14 +985,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Peach Days Starts.</returns>
         /// <remarks>
-        /// The First Thursday of September.
+        /// <para>The First Thursday of September.</para>
         /// </remarks>
         public static Occasion BrighamCityPeachDaysStart(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        "Peach Days Starts",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.September, 1).NextDayOfWeek(DayOfWeek.Thursday),
@@ -1006,14 +1006,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Peach Days Ends.</returns>
         /// <remarks>
-        /// The Saturday following the first Thursday of September.
+        /// <para>The Saturday following the first Thursday of September.</para>
         /// </remarks>
         public static Occasion BrighamCityPeachDaysEnd(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        "Peach Days Ends",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.DynamicAnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.September, 1).NextDayOfWeek(DayOfWeek.Thursday).AddDays(2),
@@ -1027,14 +1027,14 @@ namespace Engine.Chrono
         /// <param name="culture">The Language and Country culture codes for the occasion region.</param>
         /// <returns>Returns a <see cref="Occasion"/> class representing the date and other information for Pioneer Day.</returns>
         /// <remarks>
-        /// The Twenty Fourth of July.
+        /// <para>The Twenty Fourth of July.</para>
         /// </remarks>
         public static Occasion PioneerDay(int year, Culture culture = null)
         {
             _ = culture;
             return new Occasion(
                        "Pioneer Day",
-                       new Culture(Languages.en, Countries.US),
+                       new Culture(Language.en, Country.US),
                        OccasionDateType.AnnualDate,
                        EventType.Holiday,
                        new DateTime(year, (int)Month.July, 24),
@@ -1143,7 +1143,7 @@ namespace Engine.Chrono
             var LASTJULJDN = 2299160f;
 
             // British-American usage
-            if (culture.Language == Languages.en && (culture.Country == Countries.US || culture.Country == Countries.GB))
+            if (culture.Language == Language.en && (culture.Country == Country.US || culture.Country == Country.GB))
             {
                 //// last day to use Julian calendar
                 //LASTJULDATE = 17520902f;
@@ -1196,7 +1196,7 @@ namespace Engine.Chrono
         /// <param name="date">The date.</param>
         /// <param name="ofSouthernHemisphere">The ofSouthernHemisphere.</param>
         /// <returns>The <see cref="Season"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/1579587/how-can-i-get-the-current-season-using-net-summer-winter-etc</remarks>
+        /// <remarks><para>http://stackoverflow.com/questions/1579587/how-can-i-get-the-current-season-using-net-summer-winter-etc</para></remarks>
         internal static Season GetSeason(DateTime date, bool ofSouthernHemisphere)
         {
             switch (date.Month + (date.Day / 100f) /* <month>.<day(2 digit)> */)
@@ -1227,7 +1227,7 @@ namespace Engine.Chrono
         /// <param name="year">The year to look up.</param>
         /// <returns>Returns a <see cref="DateTime"/> struct representing the date of Good Friday.</returns>
         /// <remarks>
-        /// http://stackoverflow.com/questions/2510383/how-can-i-calculate-what-date-good-friday-falls-on-given-a-year
+        /// <para>http://stackoverflow.com/questions/2510383/how-can-i-calculate-what-date-good-friday-falls-on-given-a-year</para>
         /// </remarks>
         private static DateTime GoodFriday(int year)
             => EasterSunday(year).AddDays(-2);
@@ -1238,7 +1238,7 @@ namespace Engine.Chrono
         /// <param name="year">The year for which to determine the date of Good Friday.</param>
         /// <returns>Returns a <see cref="DateTime"/> struct representing the date of Good Friday.</returns>
         /// <remarks>
-        /// http://stackoverflow.com/questions/2510383/how-can-i-calculate-what-date-good-friday-falls-on-given-a-year
+        /// <para>http://stackoverflow.com/questions/2510383/how-can-i-calculate-what-date-good-friday-falls-on-given-a-year</para>
         /// </remarks>
         public static DateTime GoodFriday01(int year)
         {
@@ -1267,7 +1267,7 @@ namespace Engine.Chrono
         /// <param name="year">The year to look up.</param>
         /// <returns>Returns a <see cref="DateTime"/> struct representing the date of Easter Sunday.</returns>
         /// <remarks>
-        /// http://www.codeproject.com/Articles/10860/Calculating-Christian-Holidays
+        /// <para>http://www.codeproject.com/Articles/10860/Calculating-Christian-Holidays
         /// http://aa.usno.navy.mil/faq/docs/easter.php
         /// http://aa.usno.navy.mil/data/docs/easter.php
         /// http://aa.usno.navy.mil/faq/docs/easter.php#compute
@@ -1276,7 +1276,7 @@ namespace Engine.Chrono
         /// http://en.wikipedia.org/wiki/Good_Friday#Calculating_the_date
         /// http://www.kenhamady.com/form25.shtml
         /// http://www.assa.org.au/edm#Calculator
-        /// http://mb-soft.com/believe/txx/easter01.htm
+        /// http://mb-soft.com/believe/txx/easter01.htm</para>
         /// </remarks>
         private static DateTime EasterSunday(int year)
         {
@@ -1306,7 +1306,7 @@ namespace Engine.Chrono
         /// <param name="year">The year to look up.</param>
         /// <returns>Returns a <see cref="DateTime"/> struct representing the date of Easter Sunday.</returns>
         /// <remarks>
-        /// http://www.codeproject.com/Articles/1595/Calculating-Easter-Sunday
+        /// <para>http://www.codeproject.com/Articles/1595/Calculating-Easter-Sunday</para>
         /// </remarks>
         public static DateTime EasterSunday01(int year)
         {
@@ -1333,7 +1333,7 @@ namespace Engine.Chrono
         /// <param name="year">The year for which to determine the date of Easter Sunday.</param>
         /// <returns>Returns a <see cref="DateTime"/> struct representing the date of Easter Sunday.</returns>
         /// <remarks>
-        /// http://www.geekpedia.com/code68_Find-Easter-Sunday-of-any-year.html
+        /// <para>http://www.geekpedia.com/code68_Find-Easter-Sunday-of-any-year.html</para>
         /// </remarks>
         public static DateTime EasterSunday02(int year)
         {
@@ -1361,7 +1361,7 @@ namespace Engine.Chrono
         /// <param name="year">The year to look up.</param>
         /// <returns>Returns a <see cref="DateTime"/> struct representing the date of Ascension Day.</returns>
         /// <remarks>
-        /// http://www.codeproject.com/Articles/10860/Calculating-Christian-Holidays
+        /// <para>http://www.codeproject.com/Articles/10860/Calculating-Christian-Holidays</para>
         /// </remarks>
         private static DateTime AscensionDay(int year)
             => EasterSunday(year).AddDays(39);
@@ -1372,7 +1372,7 @@ namespace Engine.Chrono
         /// <param name="year">The year to look up.</param>
         /// <returns>Returns a <see cref="DateTime"/> struct representing the date of Whit Sunday.</returns>
         /// <remarks>
-        /// http://www.codeproject.com/Articles/10860/Calculating-Christian-Holidays
+        /// <para>http://www.codeproject.com/Articles/10860/Calculating-Christian-Holidays</para>
         /// </remarks>
         private static DateTime WhitSunday(int year)
             => EasterSunday(year).AddDays(49);
@@ -1383,7 +1383,7 @@ namespace Engine.Chrono
         /// <param name="year">The year to look up.</param>
         /// <returns>Returns a <see cref="DateTime"/> struct representing the First Sunday of Advent.</returns>
         /// <remarks>
-        /// http://www.codeproject.com/Articles/10860/Calculating-Christian-Holidays
+        /// <para>http://www.codeproject.com/Articles/10860/Calculating-Christian-Holidays</para>
         /// </remarks>
         private static DateTime FirstSundayOfAdvent(int year)
         {

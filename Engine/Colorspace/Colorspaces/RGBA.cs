@@ -20,7 +20,7 @@ namespace Engine.Colorspace
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public struct RGBA
-        : IColor
+        : IColor, IEquatable<RGBA>
     {
         #region Implementations
         /// <summary>
@@ -181,24 +181,28 @@ namespace Engine.Colorspace
 
         #region Operators
         /// <summary>
-        /// Compares two <see cref="RGBA"/> objects.
-        /// The result specifies whether the color values of the two <see cref="RGBA"/> objects are equal.
+        /// Compares two <see cref="RGBA" /> objects.
+        /// The result specifies whether the color values of the two <see cref="RGBA" /> objects are equal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator == (RGBA left, RGBA right)
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="RGBA"/> objects.
-        /// The result specifies whether the color values of the two <see cref="RGBA"/> objects are unequal.
+        /// Compares two <see cref="RGBA" /> objects.
+        /// The result specifies whether the color values of the two <see cref="RGBA" /> objects are unequal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator != (RGBA left, RGBA right)
@@ -268,7 +272,7 @@ namespace Engine.Colorspace
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
-            => obj is RGBA && Equals(this, (RGBA)obj);
+            => obj is RGBA color && Equals(this, color);
 
         /// <summary>
         /// The equals.
@@ -279,6 +283,15 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(IColor value)
             => Equals(this, value);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(RGBA other) => Equals(this, other);
 
         /// <summary>
         /// The to RGBA tuple.

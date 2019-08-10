@@ -10,7 +10,7 @@
 
 namespace Engine
 {
-    /// <remarks> http://stackoverflow.com/a/2258178 </remarks>
+    /// <remarks> <para>http://stackoverflow.com/a/2258178</para> </remarks>
     /// <summary>
     /// The coincident line locus class.
     /// </summary>

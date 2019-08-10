@@ -7,9 +7,9 @@ namespace Engine.Experimental
     /// The Tessle tile class.
     /// </summary>
     /// <remarks>
-    /// http://mathstat.slu.edu/escher/index.php/Tessellations_by_Recognizable_Figures
+    /// <para>http://mathstat.slu.edu/escher/index.php/Tessellations_by_Recognizable_Figures
     /// http://www.tessellations.org/tess-symmetry7.shtml
-    /// http://www.eschertile.com/
+    /// http://www.eschertile.com/</para>
     /// </remarks>
     public class TessleTile
     {

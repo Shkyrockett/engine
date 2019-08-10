@@ -402,7 +402,7 @@ namespace Engine.Geometry
         /// <param name="a"></param>
         /// <returns></returns>
         /// <remarks>
-        /// Log[|w|]+I*(Arg[w]+2*Pi*k)
+        /// <para>Log[|w|]+I*(Arg[w]+2*Pi*k)</para>
         /// </remarks>
         public static Complex Log(Complex a)
             => new Complex(Math.Log(Abs(a)), Arg(a));

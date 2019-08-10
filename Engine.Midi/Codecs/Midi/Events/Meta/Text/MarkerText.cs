@@ -16,7 +16,7 @@ namespace Engine.File
     /// >Marker Text.
     /// </summary>
     /// <remarks>
-    /// FF 06 len text
+    /// <para>FF 06 len text</para>
     /// </remarks>
     [ElementName(nameof(MarkerText))]
     [DisplayName("Marker Text")]

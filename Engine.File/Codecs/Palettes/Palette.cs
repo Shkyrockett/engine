@@ -312,7 +312,7 @@ namespace Engine.File.Palettes
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <remarks>
-        /// http://www.selapa.net/swatches/colors/fileformats.php
+        /// <para>http://www.selapa.net/swatches/colors/fileformats.php</para>
         /// </remarks>
         private void ReadCorelPalette(Stream stream)
         {

@@ -16,7 +16,7 @@ namespace Engine.File
     /// Set tempo.
     /// </summary>
     /// <remarks>
-    /// FF 51 03  TT TT TT
+    /// <para>FF 51 03  TT TT TT</para>
     /// </remarks>
     [ElementName(nameof(Tempo))]
     [DisplayName(nameof(Tempo))]

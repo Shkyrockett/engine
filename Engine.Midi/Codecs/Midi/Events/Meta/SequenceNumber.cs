@@ -16,7 +16,7 @@ namespace Engine.File
     /// Sequence Number.
     /// </summary>
     /// <remarks>
-    /// FF 00 02  SS SS or 00
+    /// <para>FF 00 02  SS SS or 00</para>
     /// </remarks>
     [ElementName(nameof(SequenceNumber))]
     [DisplayName("Sequence Number")]

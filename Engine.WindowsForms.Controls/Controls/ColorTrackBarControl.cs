@@ -18,7 +18,7 @@ namespace Engine.WindowsForms
     /// The color track bar control class.
     /// </summary>
     /// <remarks>
-    /// http://stackoverflow.com/questions/1551889/how-to-make-an-ownerdraw-trackbar-in-winforms
+    /// <para>http://stackoverflow.com/questions/1551889/how-to-make-an-ownerdraw-trackbar-in-winforms</para>
     /// </remarks>
     public partial class ColorTrackBarControl
         : TrackBar

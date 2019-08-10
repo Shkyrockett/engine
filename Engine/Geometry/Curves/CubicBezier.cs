@@ -26,8 +26,8 @@ namespace Engine
     /// </summary>
     /// <structure>Engine.Geometry.CubicBezier2D</structure>
     /// <remarks>
-    /// http://paulbourke.net/geometry/bezier/index.html
-    /// http://pomax.github.io/bezierinfo/
+    /// <para>http://paulbourke.net/geometry/bezier/index.html
+    /// http://pomax.github.io/bezierinfo/</para>
     /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -997,7 +997,7 @@ namespace Engine
         /// Get the hash code.
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
-        /// <remarks>https://github.com/burningmime/curves</remarks>
+        /// <remarks><para>https://github.com/burningmime/curves</para></remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()

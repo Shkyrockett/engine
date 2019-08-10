@@ -25,8 +25,8 @@ namespace Engine
     /// Quadratic or 2nd degree Bézier curve.
     /// </summary>
     /// <remarks>
-    /// http://paulbourke.net/geometry/bezier/index.html
-    /// http://pomax.github.io/bezierinfo/
+    /// <para>http://paulbourke.net/geometry/bezier/index.html
+    /// http://pomax.github.io/bezierinfo/</para>
     /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]

@@ -29,8 +29,8 @@ namespace Engine
         /// Negative zero.
         /// </summary>
         /// <remarks>
-        /// Might be useful with Atan2
-        /// http://www.charlespetzold.com/blog/2008/09/180741.html
+        /// <para>Might be useful with Atan2
+        /// http://www.charlespetzold.com/blog/2008/09/180741.html</para>
         /// </remarks>
         public const double NegativeZero = -0d;//1 / double.NegativeInfinity;
 
@@ -62,12 +62,12 @@ namespace Engine
         /// <summary>
         /// The nearest value to 0 Cosine can produce for a right angle.
         /// </summary>
-        public static double CosineZeroEpsilon = Cos(HalfPi); //6.123233995736766E-17;
+        public static readonly double CosineZeroEpsilon = Cos(HalfPi); //6.123233995736766E-17;
 
         /// <summary>
         /// The nearest value to 0 Cosine can produce for a reverse right angle.
         /// </summary>
-        public static double CosineNegitiveZeroEpsilon = Cos(Pau);
+        public static readonly double CosineNegitiveZeroEpsilon = Cos(Pau);
 
         /// <summary>
         /// The near zero epsilon Value: 1E-20.
@@ -89,7 +89,7 @@ namespace Engine
         /// <summary>
         /// The double round limit.
         /// </summary>
-        public static double DoubleRoundLimit = 1E+16;
+        public static readonly double DoubleRoundLimit = 1E+16;
 
         /// <summary>
         /// The default arc tolerance Value: 0.25.
@@ -137,21 +137,21 @@ namespace Engine
         /// Represents the ratio of the radius of a circle to the first sixteenth of that circle.
         /// One sixteenth Tau or a eighth Pi.
         /// </summary>
-        /// <remarks>PI / 8</remarks>
+        /// <remarks><para>PI / 8</para></remarks>
         public const double EighthPi = 0.125d * PI; // 0.39269908169872415480783042290994d;
 
         /// <summary>
         /// Represents the ratio of the radius of a circle to the first eighth of that circle.
         /// One eighth Tau or a quarter Pi. A 45 degree angle.
         /// </summary>
-        /// <remarks>PI / 4</remarks>
+        /// <remarks><para>PI / 4</para></remarks>
         public const double Quart = 0.25d * PI; // 0.78539816339744830961566084581988d;
 
         /// <summary>
         /// Represents the ratio of the radius of a circle to the first quarter of that circle.
         /// One quarter Tau or half Pi. A right angle in mathematics.
         /// </summary>
-        /// <remarks>PI / 2</remarks>
+        /// <remarks><para>PI / 2</para></remarks>
         public const double HalfPi = 0.5d * PI; // 1.5707963267948966192313216916398d;
 
         /// <summary>
@@ -167,8 +167,8 @@ namespace Engine
         /// Three quarter tau, or one and a half pi.
         /// </summary>
         /// <remarks>
-        /// Three quarter tau, or one and a half pi are just too long and awkward.
-        /// Randal Munro's joke "compromise" works well enough for a name: http://xkcd.com/1292/
+        /// <para>Three quarter tau, or one and a half pi are just too long and awkward.
+        /// Randal Munro's joke "compromise" works well enough for a name: http://xkcd.com/1292/</para>
         /// </remarks>
         /// <acknowledgment>
         /// Randal Munro http://xkcd.com/1292/ 
@@ -186,13 +186,13 @@ namespace Engine
         /// <summary>
         /// One Radian.
         /// </summary>
-        /// <remarks>PI / 180</remarks>
+        /// <remarks><para>PI / 180</para></remarks>
         public const double Radian = PI / 180d; // 0.01745329251994329576923690768489d;
 
         /// <summary>
         /// One degree.
         /// </summary>
-        /// <remarks>180 / PI</remarks>
+        /// <remarks><para>180 / PI</para></remarks>
         public const double Degree = 180d / PI; // 57.295779513082320876798154814105d;
         #endregion Pi Derivations
 
@@ -584,97 +584,97 @@ namespace Engine
         /// <summary>
         /// The lower limit for percentages.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double PercentMin = 0d;
 
         /// <summary>
         /// The upper limit for percentages.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double PercentMax = 1d;
 
         /// <summary>
         /// The lower limit for H.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double HueMin = 0d;
 
         /// <summary>
         /// The upper limit for H.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double HueMax = 360d;
 
         /// <summary>
         /// The lower limit for R, G, B (integer version).
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const byte RGBMin = 0;
 
         /// <summary>
         /// The upper limit for R, G, B (integer version).
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const byte RGBMax = 255;
 
         /// <summary>
         /// The lower limit for R, G, B (integer version).
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const byte CMYKMin = 0;
 
         /// <summary>
         /// The upper limit for R, G, B (integer version).
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const byte CMYKMax = 100;
 
         /// <summary>
         /// The lower limit for I in YIQ.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double YIQMinI = -0.5957d;
 
         /// <summary>
         /// The upper limit for I in YIQ.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double YIQMaxI = 0.5957d;
 
         /// <summary>
         /// The lower limit for Q in YIQ.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double YIQMinQ = -0.5226d;
 
         /// <summary>
         /// The upper limit for Q in YIQ.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double YIQMaxQ = 0.5226d;
 
         /// <summary>
         /// The lower limit for U in YUV.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double YUVMinU = -0.436d;
 
         /// <summary>
         /// The upper limit for U in YUV.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double YUVMaxU = 0.436d;
 
         /// <summary>
         /// The lower limit for V in YUV.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double YUVMinV = -0.615d;
 
         /// <summary>
         /// The upper limit for V in YUV.
         /// </summary>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         public const double YUVMaxV = 0.615d;
         #endregion Color Constants
 
@@ -728,7 +728,7 @@ namespace Engine
         /// <acknowledgment>
         /// https://code.google.com/archive/p/degrafa/source/default/source
         /// </acknowledgment>
-        public static double[] abscissa = new double[]
+        public static readonly double[] abscissa = new double[]
         {
             // N=2
             -0.5773502692d,
@@ -777,11 +777,10 @@ namespace Engine
         /// <summary>
         /// Gauss weight table
         /// </summary>
-
         /// <acknowledgment>
         /// https://code.google.com/archive/p/degrafa/source/default/source
         /// </acknowledgment>
-        public static double[] weight = new double[]
+        public static readonly double[] weight = new double[]
         {
             // N=2
             1.0000000000d,

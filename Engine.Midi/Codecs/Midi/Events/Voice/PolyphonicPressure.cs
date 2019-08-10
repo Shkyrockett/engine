@@ -16,9 +16,9 @@ namespace Engine.File
     /// Polyphonic Pressure (After-touch) Status.
     /// </summary>
     /// <remarks>
-    /// nA 0kkkkkkk 0vvvvvvv
+    /// <para>nA 0kkkkkkk 0vvvvvvv
     /// This message is most often sent by pressing down on the key after it "bottoms out". 
-    /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the pressure value.
+    /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the pressure value.</para>
     /// </remarks>
     [ElementName(nameof(PolyphonicPressure))]
     [DisplayName("Polyphonic Pressure")]

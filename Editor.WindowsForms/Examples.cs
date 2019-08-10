@@ -22,22 +22,22 @@ namespace Editor
         /// <summary>
         /// The arc.
         /// </summary>
-        public static CircularArc Arc = new CircularArc(new Point2D(100, 100), 100, 60d.ToRadians(), 300d.ToRadians());
+        public static readonly CircularArc Arc = new CircularArc(new Point2D(100, 100), 100, 60d.ToRadians(), 300d.ToRadians());
 
         /// <summary>
         /// The ellipse.
         /// </summary>
-        public static Ellipse Ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
+        public static readonly Ellipse Ellipse = new Ellipse(new Point2D(200, 200), 50, 25, 45d.ToRadians());
 
         /// <summary>
         /// The elliptic arc.
         /// </summary>
-        public static EllipticalArc EllpticArc = new EllipticalArc(200d, 200d, 100d, 200d, 45d.ToRadians(), -45d.ToRadians(), 90d.ToRadians());
+        public static readonly EllipticalArc EllpticArc = new EllipticalArc(200d, 200d, 100d, 200d, 45d.ToRadians(), -45d.ToRadians(), 90d.ToRadians());
 
         /// <summary>
         /// The inner polygon.
         /// </summary>
-        public static Shape InnerPolygon = new PolygonContour( // First inner triangle
+        public static readonly Shape InnerPolygon = new PolygonContour( // First inner triangle
                         new List<Point2D> {
                             new Point2D(20, 100),
                             new Point2D(175, 60),
@@ -48,12 +48,12 @@ namespace Editor
         /// <summary>
         /// The line.
         /// </summary>
-        public static LineSegment Line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
+        public static readonly LineSegment Line = new LineSegment(new Point2D(160, 250), new Point2D(130, 145));
 
         /// <summary>
         /// The poly set.
         /// </summary>
-        public static Polygon PolySet = new Polygon(
+        public static readonly Polygon PolySet = new Polygon(
             new List<PolygonContour>(
                 new List<PolygonContour> {
                     new PolygonContour( // Boundary
@@ -89,12 +89,12 @@ namespace Editor
         /// <summary>
         /// The poly triangle.
         /// </summary>
-        public static Polyline PolyTriangle = new Polyline(new List<Point2D> { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) });
+        public static readonly Polyline PolyTriangle = new Polyline(new List<Point2D> { new Point2D(10, 40), new Point2D(80, 30), new Point2D(100, 60) });
 
         /// <summary>
         /// Intersections test case of a star of David with inside coincident to other outside.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) StarOfDavidWithInsideCoincidentToOtherOutside =
+        public static readonly (Polygon poly1, Polygon poly2) StarOfDavidWithInsideCoincidentToOtherOutside =
         (
             new Polygon {
                 Generators.RegularConvexPolygon(100, 100, 100, 3, -HalfPi),
@@ -109,7 +109,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of simple rectangles. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) SimpleRectangles =
+        public static readonly (Polygon poly1, Polygon poly2) SimpleRectangles =
         (
             new Polygon {
                 new PolygonContour((200, 50), (600, 50), (600, 150), (200, 150)),
@@ -122,7 +122,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of coincident self intersection. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) CoincidentSelfIntersection =
+        public static readonly (Polygon poly1, Polygon poly2) CoincidentSelfIntersection =
         (
             new Polygon {
                 new PolygonContour((500, 60), (500, 150), (320, 150), (260, 210), (200, 150), (200, 60)),
@@ -136,7 +136,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of coincident self intersection, pt 2. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) CoincidentSelfIntersectionPt2 =
+        public static readonly (Polygon poly1, Polygon poly2) CoincidentSelfIntersectionPt2 =
         (
             new Polygon {
                 new PolygonContour((100, 100), (200, 200), (300, 100)),
@@ -150,7 +150,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of assorted polygons. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) AssortedPolygons =
+        public static readonly (Polygon poly1, Polygon poly2) AssortedPolygons =
         (
             new Polygon {
                 new PolygonContour((500, 60), (500, 150), (320, 150), (260, 210), (200, 150), (200, 60)),
@@ -164,7 +164,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of shared right edge. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) SharedRightEdge =
+        public static readonly (Polygon poly1, Polygon poly2) SharedRightEdge =
         (
             new Polygon {
                 new PolygonContour((400, 60), (400, 150), (100, 150), (100, 60)),
@@ -177,7 +177,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of simple boxes. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) SimpleBoxes =
+        public static readonly (Polygon poly1, Polygon poly2) SimpleBoxes =
         (
             new Polygon {
                 new PolygonContour((400, 60), (400, 150), (100, 150), (100, 60)),
@@ -190,7 +190,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of simple self overlap. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) SimpleSelfOverlap =
+        public static readonly (Polygon poly1, Polygon poly2) SimpleSelfOverlap =
         (
             new Polygon {
                 new PolygonContour((100, 50), (300, 50), (300, 150), (100, 150)),
@@ -203,7 +203,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of M shape. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) MShape =
+        public static readonly (Polygon poly1, Polygon poly2) MShape =
         (
             new Polygon {
                 new PolygonContour((570, 60), (570, 150), (60, 150), (60, 60)),
@@ -216,7 +216,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of two triangles with common edge. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) TwoTrianglesWithCommonEdge =
+        public static readonly (Polygon poly1, Polygon poly2) TwoTrianglesWithCommonEdge =
         (
             new Polygon {
                 new PolygonContour((620, 60), (620, 150), (90, 150), (90, 60)),
@@ -230,7 +230,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of two triangles with common edge pt. 2. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) TwoTrianglesWithCommonEdgePt2 =
+        public static readonly (Polygon poly1, Polygon poly2) TwoTrianglesWithCommonEdgePt2 =
         (
             new Polygon {
                 new PolygonContour((620, 60), (620, 150), (90, 150), (90, 60)),
@@ -244,7 +244,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of two triangles with common edge pt. 3. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) TwoTrianglesWithCommonEdgePt3 =
+        public static readonly (Polygon poly1, Polygon poly2) TwoTrianglesWithCommonEdgePt3 =
         (
             new Polygon {
                 new PolygonContour((620, 60), (620, 150), (90, 150), (90, 60)),
@@ -258,7 +258,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of three triangles. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) ThreeTriangles =
+        public static readonly (Polygon poly1, Polygon poly2) ThreeTriangles =
         (
             new Polygon {
                 new PolygonContour((500, 60), (500, 150), (320, 150)),
@@ -273,7 +273,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of adjacent edges in status. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) AdjacentEdgesInStatus =
+        public static readonly (Polygon poly1, Polygon poly2) AdjacentEdgesInStatus =
         (
             new Polygon {
                 new PolygonContour((620, 60), (620, 150), (90, 150), (90, 60)),
@@ -287,7 +287,7 @@ namespace Editor
         /// <summary>
         /// Intersections test case of triple overlap. From: https://rawgit.com/voidqk/polybooljs/master/dist/demo.html.
         /// </summary>
-        public static (Polygon poly1, Polygon poly2) TripleOverlap =
+        public static readonly (Polygon poly1, Polygon poly2) TripleOverlap =
         (
             new Polygon {
                 new PolygonContour((400, 60), (400, 150), (220, 150), (160, 210), (100, 150), (100, 60)),

@@ -707,7 +707,7 @@ namespace Engine
         /// <param name="x2">Second Point X component.</param>
         /// <param name="y2">Second Point Y component.</param>
         /// <returns>The Dot Product.</returns>
-        /// <remarks>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</remarks>
+        /// <remarks><para>The dot product "·" is calculated with DotProduct = X ^ 2 + Y ^ 2</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double DotProduct(
@@ -815,7 +815,7 @@ namespace Engine
         /// <param name="x3">The x3.</param>
         /// <param name="y3">The y3.</param>
         /// <returns>Return the dot product AB · BC.</returns>
-        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
+        /// <remarks><para>Note that AB · BC = |AB| * |BC| * Cos(theta).</para></remarks>
         /// <acknowledgment>
         /// http://csharphelper.com/blog/2014/07/determine-whether-a-point-is-inside-a-polygon-in-c/
         /// </acknowledgment>
@@ -837,7 +837,7 @@ namespace Engine
         /// <param name="x2">Second Point X component.</param>
         /// <param name="y2">Second Point Y component.</param>
         /// <returns>the cross product AB · BC.</returns>
-        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
+        /// <remarks><para>Note that AB · BC = |AB| * |BC| * Cos(theta).</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(
@@ -851,7 +851,7 @@ namespace Engine
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns>the cross product AB · BC.</returns>
-        /// <remarks>Note that AB · BC = |AB| * |BC| * Cos(theta).</remarks>
+        /// <remarks><para>Note that AB · BC = |AB| * |BC| * Cos(theta).</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CrossProduct(
@@ -1211,7 +1211,7 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        /// <remarks><para>To get the perpendicular vector in two dimensions use I = -J, J = I</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularClockwise(double i, double j)
@@ -1225,7 +1225,7 @@ namespace Engine
         /// <param name="i"></param>
         /// <param name="j"></param>
         /// <returns></returns>
-        /// <remarks>To get the perpendicular vector in two dimensions use I = -J, J = I</remarks>
+        /// <remarks><para>To get the perpendicular vector in two dimensions use I = -J, J = I</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double X, double Y) PerpendicularCounterClockwise(double i, double j)

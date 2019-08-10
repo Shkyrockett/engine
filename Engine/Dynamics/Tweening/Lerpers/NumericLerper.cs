@@ -43,16 +43,16 @@ namespace Engine.Tweening
         /// <param name="fromValue">The fromValue.</param>
         /// <param name="toValue">The toValue.</param>
         /// <param name="behavior">The behavior.</param>
-        public override void Initialize(object fromValue, object toValue, LerpBehavior behavior)
+        public override void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
         {
             from = Convert.ToDouble(fromValue);
             to = Convert.ToDouble(toValue);
             range = to - from;
 
-            if (behavior.HasFlag(LerpBehavior.Rotation))
+            if (behavior.HasFlag(LerpBehaviors.Rotation))
             {
                 var angle = from;
-                if (behavior.HasFlag(LerpBehavior.RotationRadians))
+                if (behavior.HasFlag(LerpBehaviors.RotationRadians))
                 {
                     angle *= Degree;
                 }
@@ -77,12 +77,12 @@ namespace Engine.Tweening
         /// <param name="currentValue">The currentValue.</param>
         /// <param name="behavior">The behavior.</param>
         /// <returns>The <see cref="object"/>.</returns>
-        public override object Interpolate(double t, object currentValue, LerpBehavior behavior)
+        public override object Interpolate(double t, object currentValue, LerpBehaviors behavior)
         {
             var value = from + (range * t);
-            if (behavior.HasFlag(LerpBehavior.Rotation))
+            if (behavior.HasFlag(LerpBehaviors.Rotation))
             {
-                if (behavior.HasFlag(LerpBehavior.RotationRadians))
+                if (behavior.HasFlag(LerpBehaviors.RotationRadians))
                 {
                     value *= Degree;
                 }
@@ -94,13 +94,13 @@ namespace Engine.Tweening
                     value += 360d;
                 }
 
-                if (behavior.HasFlag(LerpBehavior.RotationRadians))
+                if (behavior.HasFlag(LerpBehaviors.RotationRadians))
                 {
                     value *= Radian;
                 }
             }
 
-            if (behavior.HasFlag(LerpBehavior.Round))
+            if (behavior.HasFlag(LerpBehaviors.Round))
             {
                 value = Round(value);
             }

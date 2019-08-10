@@ -16,7 +16,7 @@ using System.Globalization;
 namespace Engine
 {
     /// <summary>
-    /// Converts instances of other types to and from instances of <see cref="RectangleF" />.
+    /// Converts instances of other types to and from instances of <see cref="Rectangle2D" />.
     /// </summary>
     public class Rectangle2DConverter
         : ExpandableObjectConverter

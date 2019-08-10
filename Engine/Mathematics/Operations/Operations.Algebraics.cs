@@ -86,7 +86,7 @@ namespace Engine
         /// <param name="coefficients">The coefficients.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
-        /// <remarks>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
+        /// <remarks><para>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</para></remarks>
         /// <acknowledgment>
         /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
         /// as well as Trim and RealOrder from: https://github.com/superlloyd/Poly
@@ -444,14 +444,14 @@ namespace Engine
         /// <param name = "epsilon"> The minimal value to represent a change.</param>
         /// <returns>The <see cref="List{T}"/>.</returns>
         /// <remarks>
-        /// ToDo: Translate code found at: https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
+        /// <para>ToDo: Translate code found at: https://web.archive.org/web/20150504111126/http://abecedarical.com/javascript/script_quintic.html
         /// and http://jwezorek.com/2015/01/my-code-for-doing-two-things-that-sooner-or-later-you-will-want-to-do-with-bezier-curves/:
         /// This method computes complex and real roots for any quintic polynomial. Then returns the real roots.
         /// It applies the Lin-Bairstow algorithm which iteratively solves for the
         /// roots starting from random guesses for a solution.
         /// The calculator is designed to solve for the roots of a quintic polynomial
         /// with the form: x⁵ + ax⁴ + bx³ + cx² + dx + e = 0
-        /// ⁰¹²³⁴⁵⁶⁷⁸⁹
+        /// ⁰¹²³⁴⁵⁶⁷⁸⁹</para>
         /// </remarks>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
@@ -1329,10 +1329,10 @@ namespace Engine
         /// <param name="max">Right bound value</param>
         /// <returns>root</returns>
         /// <remarks>
-        /// https://github.com/thelonious/kld-polynomial
+        /// <para>https://github.com/thelonious/kld-polynomial
         /// http://en.wikipedia.org/wiki/Newton%27s_method
         /// http://en.wikipedia.org/wiki/Secant_method
-        /// http://en.wikipedia.org/wiki/Bisection_method
+        /// http://en.wikipedia.org/wiki/Bisection_method</para>
         /// </remarks>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

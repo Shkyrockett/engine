@@ -16,8 +16,8 @@ namespace Engine.File
     /// Program Change Status.
     /// </summary>
     /// <remarks>
-    /// nC 0ppppppp
-    /// This message sent when the patch number changes. (ppppppp) is the new program number.
+    /// <para>nC 0ppppppp
+    /// This message sent when the patch number changes. (ppppppp) is the new program number.</para>
     /// </remarks>
     [ElementName(nameof(ProgramChange))]
     [DisplayName("Program Change")]

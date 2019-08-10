@@ -16,12 +16,12 @@ namespace Engine.File
     /// Pitch Wheel Bend Status.
     /// </summary>
     /// <remarks>
-    /// nE 0lllllll 0mmmmmmm
+    /// <para>nE 0lllllll 0mmmmmmm
     /// 0mmmmmmm This message is sent to indicate a change in the pitch bender (wheel or lever, typically).
     /// The pitch bender is measured by a fourteen bit value. Center (no pitch change) is 2000H.
     /// Sensitivity is a function of the transmitter.
     /// (llllll) are the least significant 7 bits.
-    /// (mmmmmm) are the most significant 7 bits.
+    /// (mmmmmm) are the most significant 7 bits.</para>
     /// </remarks>
     [ElementName(nameof(PitchBend))]
     [DisplayName("Pitch Bend")]

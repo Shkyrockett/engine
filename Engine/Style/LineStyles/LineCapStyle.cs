@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -23,7 +24,7 @@ namespace Engine
     /// </summary>
     [DataContract, Serializable]
     public struct LineCapStyle
-        : IFormattable
+        : IFormattable, IEquatable<LineCapStyle>
     {
         /// <summary>
         /// The flat (readonly). Value: new LineCapStyle(/*LineCap.Flat,*/ new PolycurveContour()).
@@ -116,6 +117,42 @@ namespace Engine
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string CapPathText { get { return CapPath?.Definition; } set { CapPath.Definition = value; } }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator ==(LineCapStyle left, LineCapStyle right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(LineCapStyle left, LineCapStyle right) => !(left == right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj) => obj is LineCapStyle style && Equals(style);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(LineCapStyle other) => EqualityComparer<PolycurveContour>.Default.Equals(capPath, other.capPath);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode() => 1210406348 + EqualityComparer<PolycurveContour>.Default.GetHashCode(capPath);
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="LineCapStyle"/> struct.

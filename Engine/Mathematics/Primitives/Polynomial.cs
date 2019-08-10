@@ -30,13 +30,14 @@ namespace Engine
     /// A Polynomial representation of a series of numbers.
     /// </summary>
     /// <remarks>
-    /// Internally the polynomial is represented by an array of the coefficients in reverse order. 
-    /// When accessed externally, the coefficients are generally in forward order.
+    /// <para>Internally the polynomial is represented by an array of the coefficients in reverse order. 
+    /// When accessed externally, the coefficients are generally in forward order.</para>
     /// </remarks>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct Polynomial
+        : IEquatable<Polynomial>
     {
         #region Constants
         /// <summary>
@@ -54,7 +55,7 @@ namespace Engine
         /// <summary>
         /// An empty polynomial.
         /// </summary>
-        public static Polynomial Empty = new Polynomial(0);
+        public static readonly Polynomial Empty = new Polynomial(0);
 
         /// <summary>
         /// The T Identity polynomial.
@@ -90,8 +91,8 @@ namespace Engine
         /// </summary>
         /// <param name="coefficients">The coefficients of the polynomial.</param>
         /// <remarks>
-        /// While the coefficients are entered in left to right letter order, they are 
-        /// stored in degree order to simplify operations on <see cref="Polynomial"/> structs.
+        /// <para>While the coefficients are entered in left to right letter order, they are 
+        /// stored in degree order to simplify operations on <see cref="Polynomial"/> structs.</para>
         /// </remarks>
         [DebuggerStepThrough]
         public Polynomial(params double[] coefficients)
@@ -119,7 +120,7 @@ namespace Engine
         /// <param name="index">The index of the coefficient to retrieve.</param>
         /// <returns></returns>
         /// <remarks>
-        /// The indexer is in highest degree to lowest format.
+        /// <para>The indexer is in highest degree to lowest format.</para>
         /// </remarks>
         /// <acknowledgment>
         /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
@@ -130,7 +131,7 @@ namespace Engine
             {
                 if (index < 0)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 if (index >= coefficients.Length)
@@ -144,12 +145,12 @@ namespace Engine
             {
                 if (IsReadonly)
                 {
-                    throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
+                    throw new InvalidOperationException(nameof(Polynomial));
                 }
 
                 if (index < 0 || index > coefficients.Length)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 coefficients[coefficients.Length - 1 - index] = value;
@@ -163,7 +164,7 @@ namespace Engine
         /// <param name="index">The term index of the coefficient to retrieve.</param>
         /// <returns></returns>
         /// <remarks>
-        /// The <see cref="PolynomialTerm"/> indexer is in highest degree to lowest format.
+        /// <para>The <see cref="PolynomialTerm"/> indexer is in highest degree to lowest format.</para>
         /// </remarks>
         /// <acknowledgment>
         /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
@@ -174,7 +175,7 @@ namespace Engine
             {
                 if (index < 0)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 if ((int)index >= coefficients.Length)
@@ -188,12 +189,12 @@ namespace Engine
             {
                 if (IsReadonly)
                 {
-                    throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
+                    throw new InvalidOperationException(nameof(Polynomial));
                 }
 
                 if (index < 0 || (int)index > coefficients.Length)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 coefficients[coefficients.Length - 1 - (int)index] = value;
@@ -207,7 +208,7 @@ namespace Engine
         /// <param name="index">The degree of the coefficient to retrieve.</param>
         /// <returns>The value of the coefficient of the requested degree.</returns>
         /// <remarks>
-        /// The <see cref="PolynomialDegree"/> indexer is in lowest degree to highest format.
+        /// <para>The <see cref="PolynomialDegree"/> indexer is in lowest degree to highest format.</para>
         /// </remarks>
         /// <acknowledgment>
         /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
@@ -218,7 +219,7 @@ namespace Engine
             {
                 if (index < 0)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 if ((int)index >= coefficients.Length)
@@ -232,12 +233,12 @@ namespace Engine
             {
                 if (IsReadonly)
                 {
-                    throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
+                    throw new InvalidOperationException(nameof(Polynomial));
                 }
 
                 if (index < 0 || (int)index > coefficients.Length)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
 
                 coefficients[(int)index] = value;
@@ -277,7 +278,7 @@ namespace Engine
         /// Gets or sets a value indicating whether the <see cref="Polynomial"/> struct is read only.
         /// Useful for class that want to expose internal value that must not change.
         /// </summary>
-        /// <remarks>Once set, this cannot become writable again.</remarks>
+        /// <remarks><para>Once set, this cannot become writable again.</para></remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -301,7 +302,7 @@ namespace Engine
         /// Gets or sets the coefficients of the polynomial from highest degree to lowest degree order.
         /// </summary>
         /// <remarks>
-        /// This property presents the <see cref="Coefficients"/> in the reverse order than they are internally stored.
+        /// <para>This property presents the <see cref="Coefficients"/> in the reverse order than they are internally stored.</para>
         /// </remarks>
         [TypeConverter(typeof(ArrayConverter))]
         public double[] Coefficients
@@ -960,7 +961,7 @@ namespace Engine
         /// <param name="maxX">The upper bound maximum.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
         /// <remarks>
-        /// Do not use this method on a polynomial that has been simplified or trimmed.
+        /// <para>Do not use this method on a polynomial that has been simplified or trimmed.</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -1007,7 +1008,7 @@ namespace Engine
         /// </summary>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
-        /// <remarks>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</remarks>
+        /// <remarks><para>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</para></remarks>
         /// <acknowledgment>
         /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
         /// as well as Trim and RealOrder from: https://github.com/superlloyd/Poly

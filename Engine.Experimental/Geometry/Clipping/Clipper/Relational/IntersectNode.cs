@@ -9,6 +9,7 @@
 *******************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
 namespace Engine.Experimental
@@ -17,7 +18,7 @@ namespace Engine.Experimental
     /// The intersect node struct.
     /// </summary>
     public struct IntersectNode
-        : IComparable, IComparable<IntersectNode>
+        : IComparable, IComparable<IntersectNode>, IEquatable<IntersectNode>
     {
         #region Properties
         /// <summary>
@@ -47,9 +48,9 @@ namespace Engine.Experimental
         /// The return value is true if they are equal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
         /// </remarks>
         public static bool operator ==(IntersectNode left, IntersectNode right)
             => left.Equals(right);
@@ -64,9 +65,9 @@ namespace Engine.Experimental
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
         /// </remarks>
         public static bool operator !=(IntersectNode left, IntersectNode right)
             => !left.Equals(right);
@@ -121,11 +122,19 @@ namespace Engine.Experimental
             => (EdgeA.nextInSEL == EdgeB) || (EdgeA.prevInSEL == EdgeB);
 
         /// <summary>
-        /// Returns the hash code for this instance.
+        /// Returns a hash code for this instance.
         /// </summary>
-        /// <returns>Returns a 32-bit signed integer hash code.</returns>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
-            => base.GetHashCode();
+        {
+            var hashCode = -624120134;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Point2D>.Default.GetHashCode(Point);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Edge>.Default.GetHashCode(EdgeA);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Edge>.Default.GetHashCode(EdgeB);
+            return hashCode;
+        }
 
         /// <summary>
         /// Compares this <see cref="IntersectNode"/> with the passed in object.
@@ -136,12 +145,22 @@ namespace Engine.Experimental
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.</para>
         /// </remarks>
-        public override bool Equals(object obj)
-            => obj is IntersectNode && CompareTo((IntersectNode)obj) == 0;
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is IntersectNode intersectNode && Equals(intersectNode);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(IntersectNode other) => CompareTo(other) == 0;
 
         /// <summary>
         /// Compares this <see cref="IntersectNode"/> to another object, returning a value indicating the relation.
@@ -155,9 +174,9 @@ namespace Engine.Experimental
         /// <see cref="IntersectNode"/> is greater than the object.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CompareTo(object other)
@@ -174,9 +193,9 @@ namespace Engine.Experimental
         /// <see cref="IntersectNode"/> is greater than the other <see cref="IntersectNode"/>.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CompareTo(IntersectNode other)

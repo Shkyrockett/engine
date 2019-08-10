@@ -75,7 +75,7 @@ namespace Engine
         /// <param name="pY">The pY.</param>
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="Locus"/>.</returns>
-        /// <remarks> http://stackoverflow.com/a/19633299 </remarks>
+        /// <remarks> <para>http://stackoverflow.com/a/19633299</para> </remarks>
         public static Locus LinePoint(
             double aX, double aY,
             double bX, double bY,

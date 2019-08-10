@@ -16,10 +16,10 @@ namespace Engine.File
     /// Channel After-touch Pressure Status.
     /// </summary>
     /// <remarks>
-    /// nD 0vvvvvvv
+    /// <para>nD 0vvvvvvv
     /// This message is most often sent by pressing down on the key after it "bottoms out".
     /// This message is different from polyphonic after-touch. Use this message to send the
-    /// single greatest pressure value (of all the current depressed keys). (vvvvvvv) is the pressure value.
+    /// single greatest pressure value (of all the current depressed keys). (vvvvvvv) is the pressure value.</para>
     /// </remarks>
     [ElementName(nameof(ChannelPressure))]
     [DisplayName("Channel Pressure")]

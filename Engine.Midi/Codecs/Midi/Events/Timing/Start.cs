@@ -16,8 +16,8 @@ namespace Engine.File
     /// Start. Start the current sequence playing. (This message will be followed with Timing Clocks).
     /// </summary>
     /// <remarks>
-    /// nF 0A 
-    /// Start the current sequence playing. (This message will be followed with Timing Clocks).
+    /// <para>nF 0A 
+    /// Start the current sequence playing. (This message will be followed with Timing Clocks).</para>
     /// </remarks>
     [ElementName(nameof(Start))]
     [DisplayName(nameof(Start))]

@@ -31,7 +31,7 @@ namespace Engine.Physics
         ///// 
         ///// </summary>
         //[EditorBrowsable(EditorBrowsableState.Never)]
-        //string Abreviation { get; }
+        //string Abbreviation { get; }
 
         /// <returns></returns>
         /// <summary>

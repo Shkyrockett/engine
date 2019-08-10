@@ -30,8 +30,8 @@ namespace Engine.Chrono
         /// </summary>
         /// <param name="year">The year.</param>
         /// <remarks>
-        /// http://www.kenhamady.com/form26.shtml
-        /// http://www.kenhamady.com/form25b.shtml
+        /// <para>http://www.kenhamady.com/form26.shtml
+        /// http://www.kenhamady.com/form25b.shtml</para>
         /// </remarks>
         public Occasions(int year)
         {
@@ -2128,7 +2128,7 @@ namespace Engine.Chrono
         /// </summary>
         /// <param name="currentDate">The currentDate.</param>
         /// <returns>The <see cref="Tuple{T1, T2}"/>.</returns>
-        /// <remarks>http://solidcoding.blogspot.com/2007/11/c30-extension-method-to-check-holidays.html</remarks>
+        /// <remarks><para>http://solidcoding.blogspot.com/2007/11/c30-extension-method-to-check-holidays.html</para></remarks>
         public (bool, List<Occasion>) IsHoliday(DateTime currentDate)
         {
             var occasions = new List<Occasion>(

@@ -20,7 +20,7 @@ namespace Engine
     /// as the sweep line passes through the polygons.
     /// </summary>
     public class SweepEvent
-        : IComparable<SweepEvent>
+        : IComparable<SweepEvent>, IEquatable<SweepEvent>
     {
         #region Fields
         /// <summary>
@@ -46,7 +46,7 @@ namespace Engine
         /// <summary>
         /// The contribution.
         /// </summary>
-        private EdgeContributions contribution;
+        private EdgeContribution contribution;
 
         //The following fields are only used in "left" events
 
@@ -106,7 +106,7 @@ namespace Engine
         /// <param name="other">The other.</param>
         /// <param name="pt">The pt.</param>
         /// <param name="et">The et.</param>
-        public SweepEvent(bool b, Point2D p, SweepEvent other, ClippingRelation pt, EdgeContributions et = EdgeContributions.Normal)
+        public SweepEvent(bool b, Point2D p, SweepEvent other, ClippingRelation pt, EdgeContribution et = EdgeContribution.Normal)
         {
             IsLeft = b;
             Point = p;
@@ -149,7 +149,7 @@ namespace Engine
         /// <summary>
         /// Gets or sets the contribution.
         /// </summary>
-        public EdgeContributions Contribution { get { return contribution; } set { contribution = value; } }
+        public EdgeContribution Contribution { get { return contribution; } set { contribution = value; } }
 
         // The following properties are only used in "left" events.
 
@@ -200,7 +200,9 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator <(SweepEvent a, SweepEvent b)
             => SweepEventComp(a, b) < 0;
 
@@ -209,9 +211,31 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator >(SweepEvent a, SweepEvent b)
             => SweepEventComp(a, b) > 0;
+
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(SweepEvent left, SweepEvent right) => EqualityComparer<SweepEvent>.Default.Equals(left, right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(SweepEvent left, SweepEvent right) => !(left == right);
         #endregion Operators
 
         #region Methods
@@ -222,6 +246,43 @@ namespace Engine
         /// <returns>The <see cref="int"/>.</returns>
         public int CompareTo(SweepEvent other)
             => SweepEventComp(this, other);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => Equals(obj as SweepEvent);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(SweepEvent other) => SweepEventComp(this, other) == 0;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -1882060874;
+            hashCode = hashCode * -1521134295 + isLeft.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<Point2D>.Default.GetHashCode(point);
+            hashCode = hashCode * -1521134295 + EqualityComparer<SweepEvent>.Default.GetHashCode(otherEvent);
+            hashCode = hashCode * -1521134295 + belongsTo.GetHashCode();
+            hashCode = hashCode * -1521134295 + contribution.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<SweepEvent>.Default.GetHashCode(prevInResult);
+            hashCode = hashCode * -1521134295 + inResult.GetHashCode();
+            return hashCode;
+        }
 
         /// <summary>
         /// Is the line segment (point, otherEvent.point) below point p

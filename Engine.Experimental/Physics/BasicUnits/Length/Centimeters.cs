@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -21,7 +22,7 @@ namespace Engine.Physics
     /// The centimeters struct.
     /// </summary>
     public struct Centimeters
-        : ILength, IFormattable
+        : ILength, IFormattable, IEquatable<Centimeters>
     {
         #region Constants
         /// <summary>
@@ -181,56 +182,168 @@ namespace Engine.Physics
             => nameof(Centimeters);
 
         /// <summary>
-        /// Gets the abreviation.
+        /// Gets the abbreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
+        public string Abbreviation
             => "cm";
         #endregion Properties
 
         #region Operators
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator Centimeters(double value)
             => new Centimeters(value);
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Mils"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Centimeters(Mils value)
             => value.Centimeters;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Meters"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Centimeters(Meters value)
             => value.Centimeters;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Smoots"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Centimeters(Smoots value)
             => value.Centimeters;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Inches"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Centimeters(Inches value)
             => value.Centimeters;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Feet"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Centimeters(Feet value)
             => value.Centimeters;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Yards"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Centimeters(Yards value)
             => value.Centimeters;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Kilometers"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Centimeters(Kilometers value)
             => value.Centimeters;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Miles"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Centimeters(Miles value)
             => value.Centimeters;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="NauticalMiles"/> to <see cref="Centimeters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Centimeters(NauticalMiles value)
             => value.Centimeters;
+
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(Centimeters left, Centimeters right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(Centimeters left, Centimeters right) => !(left == right);
         #endregion Operators
 
         #region Methods
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is Centimeters centimeters && Equals(centimeters);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(Centimeters other) => Value == other.Value && Abbreviation == other.Abbreviation;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -1288994693;
+            hashCode = hashCode * -1521134295 + Value.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Abbreviation);
+            return hashCode;
+        }
+
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Centimeters"/> struct.
         /// </summary>
@@ -299,7 +412,7 @@ namespace Engine.Physics
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
-            => $"{Value.ToString(format, provider)} {Abreviation}";
+            => $"{Value.ToString(format, provider)} {Abbreviation}";
         #endregion Methods
     }
 }

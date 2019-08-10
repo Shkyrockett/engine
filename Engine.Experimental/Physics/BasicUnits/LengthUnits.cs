@@ -18,17 +18,17 @@ namespace Engine.Physics
         /// <summary>
         /// The points per inch (const). Value: 72d.
         /// </summary>
-        public static double PointsPerInch = 72d;
+        public const double PointsPerInch = 72d;
 
         /// <summary>
         /// The pixels per inch (const). Value: 96.
         /// </summary>
-        public static double PixelsPerInch = 96;
+        public const double PixelsPerInch = 96;
 
         /// <summary>
         /// The points per pixel (const). Value: 72d / 96d.
         /// </summary>
-        public static double PointsPerPixel = PointsPerInch / PixelsPerInch;
+        public const double PointsPerPixel = PointsPerInch / PixelsPerInch;
 
         /// <summary>
         /// The number of megaparsecs in a planck length.

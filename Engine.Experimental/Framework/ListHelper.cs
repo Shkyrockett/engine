@@ -60,7 +60,7 @@ namespace MethodSpeedTester
         /// <param name="key">The key to look up.</param>
         /// <returns>The key value. null if this key is not in the dictionary.</returns>
         /// <remarks>
-        /// http://blogs.windward.net/davidt/2012/01/12/c-dictionary-getvalueordefault/
+        /// <para>http://blogs.windward.net/davidt/2012/01/12/c-dictionary-getvalueordefault/</para>
         /// </remarks>
         public static TValue GetValueOrDefault<TKey, TValue>(this Dictionary<TKey, TValue> dic, TKey key)
             => dic.TryGetValue(key, out var result) ? result : default;

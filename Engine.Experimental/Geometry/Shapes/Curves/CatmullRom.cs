@@ -21,7 +21,7 @@ namespace Engine
     /// </summary>
     /// <structure>Engine.Geometry.CatmullRom2D</structure>
     /// <remarks>
-    /// http://pomax.github.io/bezierinfo/
+    /// <para>http://pomax.github.io/bezierinfo/</para>
     /// </remarks>
     [DataContract, Serializable]
     //[GraphicsObject]

@@ -16,7 +16,7 @@ namespace Engine.File
     /// Device (port) name.
     /// </summary>
     /// <remarks>
-    /// FF 09 len text
+    /// <para>FF 09 len text</para>
     /// </remarks>
     [ElementName(nameof(DeviceName))]
     [DisplayName("Device Name")]

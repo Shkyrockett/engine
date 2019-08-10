@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Collections.Generic;
 
 namespace Engine
 {
@@ -16,11 +17,12 @@ namespace Engine
     /// The rotation struct.
     /// </summary>
     public struct Rotation
+        : IEquatable<Rotation>
     {
         /// <summary>
-        /// The radiens.
+        /// The radians.
         /// </summary>
-        private double radiens;
+        private double radians;
 
         /// <summary>
         /// The cos.
@@ -35,23 +37,23 @@ namespace Engine
         /// <summary>
         /// Initializes a new instance of the <see cref="Rotation"/> class.
         /// </summary>
-        /// <param name="radiens">The radiens.</param>
-        public Rotation(double radiens)
+        /// <param name="radians">The radians.</param>
+        public Rotation(double radians)
         {
-            this.radiens = radiens;
+            this.radians = radians;
             cos = null;
             sin = null;
         }
 
         /// <summary>
-        /// Gets or sets the radiens.
+        /// Gets or sets the radians.
         /// </summary>
-        public double Radiens
+        public double Radians
         {
-            get { return radiens; }
+            get { return radians; }
             set
             {
-                radiens = value;
+                radians = value;
                 cos = null;
                 sin = null;
             }
@@ -62,10 +64,10 @@ namespace Engine
         /// </summary>
         public double Degrees
         {
-            get { return radiens.ToDegrees(); }
+            get { return radians.ToDegrees(); }
             set
             {
-                radiens = value.ToRadians();
+                radians = value.ToRadians();
                 cos = null;
                 sin = null;
             }
@@ -75,12 +77,55 @@ namespace Engine
         /// Gets the cosine.
         /// </summary>
         public double Cosine
-            => (cos ??= Math.Sin(radiens));
+            => (cos ??= Math.Sin(radians));
 
         /// <summary>
         /// Gets the sine.
         /// </summary>
         public double Sine
-            => (sin ??= Math.Sin(radiens));
+            => (sin ??= Math.Sin(radians));
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator ==(Rotation left, Rotation right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(Rotation left, Rotation right) => !(left == right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj) => obj is Rotation rotation && Equals(rotation);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(Rotation other) => radians == other.radians && EqualityComparer<double?>.Default.Equals(cos, other.cos) && EqualityComparer<double?>.Default.Equals(sin, other.sin);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -1422358610;
+            hashCode = hashCode * -1521134295 + radians.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(cos);
+            hashCode = hashCode * -1521134295 + EqualityComparer<double?>.Default.GetHashCode(sin);
+            return hashCode;
+        }
     }
 }

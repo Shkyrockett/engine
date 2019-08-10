@@ -17,7 +17,7 @@ namespace Engine.Colorspace
     /// Wikipedia: (aka "CIE 1931") The first attempt to produce a color space based on measurements of human color perception and the basis for almost all other color spaces.
     /// </summary>
     public struct CIEXYZ
-        : IColor
+        : IColor, IEquatable<CIEXYZ>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CIEXYZ"/> class.
@@ -48,6 +48,26 @@ namespace Engine.Colorspace
         public double Z { get; set; }
 
         /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(CIEXYZ left, CIEXYZ right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(CIEXYZ left, CIEXYZ right) => !(left == right);
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
@@ -57,6 +77,39 @@ namespace Engine.Colorspace
             var (r0, g0, b0, a0) = ToRGBATuple();
             var (r1, g1, b1, a1) = other.ToRGBATuple();
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is CIEXYZ cIEXYZ && Equals(cIEXYZ);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(CIEXYZ other) => X == other.X && Y == other.Y && Z == other.Z;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -307843816;
+            hashCode = hashCode * -1521134295 + X.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            hashCode = hashCode * -1521134295 + Z.GetHashCode();
+            return hashCode;
         }
 
         /// <summary>

@@ -17,8 +17,8 @@ namespace Engine.WindowsForms
     /// The path label class.
     /// </summary>
     /// <remarks>
-    /// http://stackoverflow.com/questions/2397860/c-sharp-winforms-smart-textbox-control-to-auto-format-path-length-based-on-tex
-    /// https://social.msdn.microsoft.com/Forums/vstudio/en-US/f452fd0d-a4f1-49fa-ac3a-da614540cbf1/creating-a-label-that-displays-a-path-with-middleellipsis?forum=csharpgeneral
+    /// <para>http://stackoverflow.com/questions/2397860/c-sharp-winforms-smart-textbox-control-to-auto-format-path-length-based-on-tex
+    /// https://social.msdn.microsoft.com/Forums/vstudio/en-US/f452fd0d-a4f1-49fa-ac3a-da614540cbf1/creating-a-label-that-displays-a-path-with-middleellipsis?forum=csharpgeneral</para>
     /// </remarks>
     public partial class PathLabel
         : TransparentLabel

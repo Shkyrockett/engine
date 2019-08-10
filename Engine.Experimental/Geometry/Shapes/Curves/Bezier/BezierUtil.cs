@@ -52,7 +52,7 @@ namespace Engine.Experimental
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
-        public static double[] Tvalues = new double[]
+        public static readonly double[] Tvalues = new double[]
         {
             // 
             -0.0640568928626056260850430826247450385909,
@@ -98,7 +98,7 @@ namespace Engine.Experimental
         /// <acknowledgment>
         /// http://pomax.github.io/bezierinfo/
         /// </acknowledgment>
-        public static double[] Cvalues = new double[]
+        public static readonly double[] Cvalues = new double[]
         {
             //
             0.1279381953467521569740561652246953718517d,

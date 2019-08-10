@@ -16,9 +16,9 @@ namespace Engine.File
     /// Note On Status.
     /// </summary>
     /// <remarks>
-    /// n9 0kkkkkkk 0vvvvvvv
+    /// <para>n9 0kkkkkkk 0vvvvvvv
     /// This message is sent when a note is depressed (start). 
-    /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the velocity.
+    /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the velocity.</para>
     /// </remarks>
     [ElementName(nameof(NoteOn))]
     [DisplayName("Note On")]

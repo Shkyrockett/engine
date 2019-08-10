@@ -49,7 +49,7 @@ namespace Engine.Experimental
         /// <summary>
         /// The parent of this item
         /// </summary>
-        /// <remarks>The Parent accessor is used to gain access to the item controlling this position item</remarks>
+        /// <remarks><para>The Parent accessor is used to gain access to the item controlling this position item</para></remarks>
         private readonly T parent;
         #endregion Fields
 

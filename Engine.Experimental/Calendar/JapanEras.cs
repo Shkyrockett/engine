@@ -17,16 +17,16 @@ namespace Engine.Chrono
     /// The japan eras class.
     /// </summary>
     /// <remarks>
-    /// http://www.japan-guide.com/e/e2126.html
+    /// <para>http://www.japan-guide.com/e/e2126.html
     /// http://blogs.msdn.com/b/michkap/archive/2013/02/27/10397438.aspx
     /// http://en.wikipedia.org/wiki/List_of_Japanese_era_names
     /// http://blogs.msdn.com/b/shawnste/archive/2011/11/15/extending-the-windows-japanese-calendar-era-information.aspx
     /// http://blogs.msdn.com/b/shawnste/archive/2009/09/24/japanese-calendars-how-do-i-test-support-for-additional-eras.aspx
-    /// [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\Calendars\Japanese\Eras]
+    /// [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\Calendars\Japanese\Eras]</para>
     /// </remarks>
     public class JapanEras
     {
-        /// <remarks>http://www.sljfaq.org/afaq/era-list.html</remarks>
+        /// <remarks><para>http://www.sljfaq.org/afaq/era-list.html</para></remarks>
         /// <summary>
         /// The erra.
         /// </summary>

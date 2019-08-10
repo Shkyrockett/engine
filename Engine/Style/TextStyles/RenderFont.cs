@@ -21,7 +21,7 @@ namespace Engine
         /// <param name="name">The name.</param>
         /// <param name="size">The size.</param>
         /// <param name="textStyle">The textStyle.</param>
-        public RenderFont(string name, double size, TextStyle textStyle)
+        public RenderFont(string name, double size, TextStyles textStyle)
         {
             Name = name;
             Size = size;
@@ -41,6 +41,6 @@ namespace Engine
         /// <summary>
         /// Gets or sets the style.
         /// </summary>
-        public TextStyle Style { get; set; }
+        public TextStyles Style { get; set; }
     }
 }

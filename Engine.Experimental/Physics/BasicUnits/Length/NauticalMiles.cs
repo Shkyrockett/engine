@@ -21,7 +21,7 @@ namespace Engine.Physics
     /// The nautical miles struct.
     /// </summary>
     public struct NauticalMiles
-        : ILength, IFormattable
+        : ILength, IFormattable, IEquatable<NauticalMiles>
     {
         #region Constants
         /// <summary>
@@ -181,56 +181,162 @@ namespace Engine.Physics
             => "Nautical Miles";
 
         /// <summary>
-        /// Gets the abreviation.
+        /// Gets the abbreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
+        public string Abbreviation
             => "Nm";
         #endregion Properties
 
         #region Operators
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator NauticalMiles(double value)
             => new NauticalMiles(value);
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Mils"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator NauticalMiles(Mils value)
             => value.NauticalMiles;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Centimeters"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator NauticalMiles(Centimeters value)
             => value.NauticalMiles;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Inches"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator NauticalMiles(Inches value)
             => value.NauticalMiles;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Meters"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator NauticalMiles(Meters value)
             => value.NauticalMiles;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Smoots"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator NauticalMiles(Smoots value)
             => value.NauticalMiles;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Feet"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator NauticalMiles(Feet value)
             => value.NauticalMiles;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Yards"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator NauticalMiles(Yards value)
             => value.NauticalMiles;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Kilometers"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator NauticalMiles(Kilometers value)
             => value.NauticalMiles;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Miles"/> to <see cref="NauticalMiles"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator NauticalMiles (Miles value)
             => value.NauticalMiles;
+
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(NauticalMiles left, NauticalMiles right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(NauticalMiles left, NauticalMiles right) => !(left == right);
         #endregion Operators
 
         #region Methods
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is NauticalMiles miles && Equals(miles);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(NauticalMiles other) => Value == other.Value;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
+
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="NauticalMiles"/> struct.
         /// </summary>
@@ -299,7 +405,7 @@ namespace Engine.Physics
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
-            => $"{Value.ToString(format, provider)} {Abreviation}";
+            => $"{Value.ToString(format, provider)} {Abbreviation}";
         #endregion Methods
     }
 }

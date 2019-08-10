@@ -395,9 +395,9 @@ namespace Engine
         /// The return value is true if they are equal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -415,9 +415,9 @@ namespace Engine
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -615,9 +615,9 @@ namespace Engine
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -632,9 +632,9 @@ namespace Engine
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -649,9 +649,9 @@ namespace Engine
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// Note that double values can acquire error when operated upon, such that
+        /// <para>Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

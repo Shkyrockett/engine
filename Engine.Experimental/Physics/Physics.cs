@@ -23,6 +23,6 @@ namespace Engine.Physics
         /// <param name="c">The c.</param>
         /// <returns>The <see cref="double"/>.</returns>
         public static double AddVelocities(double v1, double v2, double c = 299790000d)
-            => v1 + (v2 / (1 + (v1 * v2 / c * c)));
+            => v1 + (v2 / (1d + (v1 * v2 / c * c)));
     }
 }

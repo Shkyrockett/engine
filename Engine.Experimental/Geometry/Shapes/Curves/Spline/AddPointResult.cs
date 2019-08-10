@@ -16,7 +16,7 @@ namespace Engine
     /// Changes made to the CurveBuilder.curves list after a call to <see cref="CurveBuilder.AddPoint"/>.
     /// This seems like a prime candidate for an F#-style discriminated union/algebraic data type.
     /// </summary>
-    public struct AddPointResult
+    public struct AddPointResult : IEquatable<AddPointResult>
     {
         #region Fields
         /// <summary>
@@ -69,5 +69,41 @@ namespace Engine
         public bool WasChanged
             => data != 0;
         #endregion Properties
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator ==(AddPointResult left, AddPointResult right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj) => obj is AddPointResult result && Equals(result);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(AddPointResult left, AddPointResult right) => !(left == right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(AddPointResult other) => data == other.data;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode() => 1768953197 + data.GetHashCode();
     }
 }

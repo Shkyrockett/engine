@@ -24,9 +24,9 @@ namespace Engine.File
         /// Note Off status message event.
         /// </summary>
         /// <remarks>
-        /// n8 0kkkkkkk 0vvvvvvv
+        /// <para>n8 0kkkkkkk 0vvvvvvv
         /// This message is sent when a note is released (ended). 
-        /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the velocity.
+        /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the velocity.</para>
         /// </remarks>
         NoteOff = 0x08,
 
@@ -34,9 +34,9 @@ namespace Engine.File
         /// Note On status message event.
         /// </summary>
         /// <remarks>
-        /// n9 0kkkkkkk 0vvvvvvv
+        /// <para>n9 0kkkkkkk 0vvvvvvv
         /// This message is sent when a note is depressed (start). 
-        /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the velocity.
+        /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the velocity.</para>
         /// </remarks>
         NoteOn = 0x09,
 
@@ -44,9 +44,9 @@ namespace Engine.File
         /// Polyphonic Pressure (Aftertouch) status message event.
         /// </summary>
         /// <remarks>
-        /// nA 0kkkkkkk 0vvvvvvv
+        /// <para>nA 0kkkkkkk 0vvvvvvv
         /// This message is most often sent by pressing down on the key after it "bottoms out". 
-        /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the pressure value.
+        /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the pressure value.</para>
         /// </remarks>
         PolyphonicPressure = 0x0A,
 
@@ -54,8 +54,8 @@ namespace Engine.File
         /// Controller/Mode Change status message event.
         /// </summary>
         /// <remarks>
-        /// nB 0ccccccc 0vvvvvvv
-        /// This message is sent when a controller value changes. Controllers include devices such as pedals and levers. Controller numbers 120-127 are reserved as "Channel Mode Messages" (below). (ccccccc) is the controller number (0-119). (vvvvvvv) is the controller value (0-127).
+        /// <para>nB 0ccccccc 0vvvvvvv
+        /// This message is sent when a controller value changes. Controllers include devices such as pedals and levers. Controller numbers 120-127 are reserved as "Channel Mode Messages" (below). (ccccccc) is the controller number (0-119). (vvvvvvv) is the controller value (0-127).</para>
         /// </remarks>
         ControllerChange = 0x0B,
 
@@ -63,8 +63,8 @@ namespace Engine.File
         /// Program Change status message event.
         /// </summary>
         /// <remarks>
-        /// nC 0ppppppp
-        /// This message sent when the patch number changes. (ppppppp) is the new program number.
+        /// <para>nC 0ppppppp
+        /// This message sent when the patch number changes. (ppppppp) is the new program number.</para>
         /// </remarks>
         ProgramChange = 0x0C,
 
@@ -72,8 +72,8 @@ namespace Engine.File
         /// Channel After-touch Pressure status message event.
         /// </summary>
         /// <remarks>
-        /// nD 0vvvvvvv
-        /// This message is most often sent by pressing down on the key after it "bottoms out". This message is different from polyphonic after-touch. Use this message to send the single greatest pressure value (of all the current depressed keys). (vvvvvvv) is the pressure value.
+        /// <para>nD 0vvvvvvv
+        /// This message is most often sent by pressing down on the key after it "bottoms out". This message is different from polyphonic after-touch. Use this message to send the single greatest pressure value (of all the current depressed keys). (vvvvvvv) is the pressure value.</para>
         /// </remarks>
         ChannelPressure = 0x0D,
 
@@ -81,8 +81,8 @@ namespace Engine.File
         /// Pitch Bend status message event.
         /// </summary>
         /// <remarks>
-        /// nE 0lllllll 0mmmmmmm
-        /// 0mmmmmmm This message is sent to indicate a change in the pitch bender (wheel or lever, typically). The pitch bender is measured by a fourteen bit value. Center (no pitch change) is 2000H. Sensitivity is a function of the transmitter. (llllll) are the least significant 7 bits. (mmmmmm) are the most significant 7 bits.
+        /// <para>nE 0lllllll 0mmmmmmm
+        /// 0mmmmmmm This message is sent to indicate a change in the pitch bender (wheel or lever, typically). The pitch bender is measured by a fourteen bit value. Center (no pitch change) is 2000H. Sensitivity is a function of the transmitter. (llllll) are the least significant 7 bits. (mmmmmm) are the most significant 7 bits.</para>
         /// </remarks>
         PitchBend = 0x0E,
 

@@ -40,7 +40,7 @@ namespace Engine.MathNotation
         /// The range expression of the <see cref="Function"/>.
         /// </summary>
         /// <remarks>
-        /// http://www.mathsisfun.com/sets/domain-range-codomain.html
+        /// <para>http://www.mathsisfun.com/sets/domain-range-codomain.html</para>
         /// </remarks>
         public Range Range { get; set; }
 
@@ -48,7 +48,7 @@ namespace Engine.MathNotation
         /// The domain expression of the <see cref="Function"/>.
         /// </summary>
         /// <remarks>
-        /// http://www.mathsisfun.com/sets/domain-range-codomain.html
+        /// <para>http://www.mathsisfun.com/sets/domain-range-codomain.html</para>
         /// </remarks>
         public Domain Domain { get; set; }
 
@@ -56,7 +56,7 @@ namespace Engine.MathNotation
         /// The codomain expression of the <see cref="Function"/>.
         /// </summary>
         /// <remarks>
-        /// http://www.mathsisfun.com/sets/domain-range-codomain.html
+        /// <para>http://www.mathsisfun.com/sets/domain-range-codomain.html</para>
         /// </remarks>
         public Codomain Codomain { get; set; }
     }

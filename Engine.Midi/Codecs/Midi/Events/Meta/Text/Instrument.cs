@@ -16,7 +16,7 @@ namespace Engine.File
     /// Track instrument name.
     /// </summary>
     /// <remarks>
-    /// FF 04 len text
+    /// <para>FF 04 len text</para>
     /// </remarks>
     [ElementName(nameof(Instrument))]
     [DisplayName(nameof(Instrument))]

@@ -16,9 +16,9 @@ namespace Engine.File
     /// Note Off Status.
     /// </summary>
     /// <remarks>
-    /// n8 0kkkkkkk 0vvvvvvv
+    /// <para>n8 0kkkkkkk 0vvvvvvv
     /// This message is sent when a note is released (ended). 
-    /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the velocity.
+    /// (kkkkkkk) is the key (note) number. (vvvvvvv) is the velocity.</para>
     /// </remarks>
     [ElementName(nameof(NoteOff))]
     [DisplayName("Note Off")]

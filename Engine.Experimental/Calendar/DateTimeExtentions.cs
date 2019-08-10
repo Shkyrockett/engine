@@ -245,7 +245,7 @@ namespace Engine.Chrono
         /// <param name="instance">The number of x weekdays to find</param>
         /// <param name="weekday">The day of the week for look for.s</param>
         /// <returns>A nullable <see cref="DateTime"/> representing the date requested.</returns>
-        /// <remarks>Always check for null first, then use the null coalescing operator "??" to retrieve the value.</remarks>
+        /// <remarks><para>Always check for null first, then use the null coalescing operator "??" to retrieve the value.</para></remarks>
         /// <example>
         /// <see cref="DateTime"/> test =  NthWeekDayOfMonth(Now, 2, )
         /// </example>

@@ -7,7 +7,7 @@ namespace Engine
     /// The priority queue class.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <remarks> http://stackoverflow.com/a/33888482 </remarks>
+    /// <remarks> <para>http://stackoverflow.com/a/33888482</para> </remarks>
     public class PriorityQueue<T>
     {
         #region Fields

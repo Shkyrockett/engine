@@ -20,7 +20,7 @@ namespace Engine.Colorspace
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public struct RGBAF
-        : IColor
+        : IColor, IEquatable<RGBAF>
     {
         #region Implementations
         /// <summary>
@@ -114,24 +114,28 @@ namespace Engine.Colorspace
 
         #region Operators
         /// <summary>
-        /// Compares two <see cref="RGBAF"/> objects.
-        /// The result specifies whether the color values of the two <see cref="RGBAF"/> objects are equal.
+        /// Compares two <see cref="RGBAF" /> objects.
+        /// The result specifies whether the color values of the two <see cref="RGBAF" /> objects are equal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(RGBAF left, RGBAF right)
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="RGBAF"/> objects.
-        /// The result specifies whether the color values of the two <see cref="RGBAF"/> objects are unequal.
+        /// Compares two <see cref="RGBAF" /> objects.
+        /// The result specifies whether the color values of the two <see cref="RGBAF" /> objects are unequal.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(RGBAF left, RGBAF right)
@@ -187,7 +191,9 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(RGBAF a, RGBAF b)
@@ -197,17 +203,21 @@ namespace Engine.Colorspace
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj)
-            => obj is RGBAF && Equals(this, (RGBAF)obj);
+            => obj is RGBAF color && Equals(color);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The value.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(IColor other)
@@ -216,6 +226,15 @@ namespace Engine.Colorspace
             var (redB, greenB, blueB, alphaB) = other.ToRGBATuple();
             return alphaA == alphaB && redA == redB && greenA == greenB && blueA == blueB;
         }
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(RGBAF other) => Red == other.Red && Green == other.Green && Blue == other.Blue && Alpha == other.Alpha;
 
         /// <summary>
         /// The to RGBA tuple.

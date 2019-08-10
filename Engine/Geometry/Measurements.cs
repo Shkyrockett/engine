@@ -366,7 +366,7 @@ namespace Engine
         /// </summary>
         /// <param name="segment">The line segment.</param>
         /// <returns>The distance between the two end points on the line segment.</returns>
-        /// <remarks>The Length is calculated as AC = SquarRoot(AB^2 + BC^2) </remarks>
+        /// <remarks><para>The Length is calculated as AC = SquarRoot(AB^2 + BC^2)</para> </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double Length(this LineSegment segment)
@@ -2140,7 +2140,7 @@ namespace Engine
         /// </summary>
         /// <param name="rX">The x radius.</param>
         /// <param name="rY">The y radius.</param>
-        /// <remarks>Returns a value that represents the <see cref="Eccentricity"/> of an elliptical arc or rectangle.</remarks>
+        /// <remarks><para>Returns a value that represents the <see cref="Eccentricity"/> of an elliptical arc or rectangle.</para></remarks>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Ellipse
         /// </acknowledgment>
@@ -2153,7 +2153,7 @@ namespace Engine
         /// </summary>
         /// <param name="rX">The x radius.</param>
         /// <param name="rY">The y radius.</param>
-        /// <remarks>Returns a value representing the focus radius of an ellipse.</remarks>
+        /// <remarks><para>Returns a value representing the focus radius of an ellipse.</para></remarks>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Ellipse
         /// </acknowledgment>

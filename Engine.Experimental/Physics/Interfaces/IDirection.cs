@@ -31,11 +31,11 @@ namespace Engine.Physics
         //string Name { get; }
 
         /// <summary>
-        /// Gets the abreviation.
+        /// Gets the abbreviation.
         /// </summary>
         /// <value>The <see cref="string"/>.</value>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        string Abreviation { get; }
+        string Abbreviation { get; }
 
         /// <returns></returns>
         /// <summary>

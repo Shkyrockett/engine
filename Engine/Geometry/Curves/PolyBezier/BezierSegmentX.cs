@@ -24,7 +24,7 @@ namespace Engine
     /// Aka a segment, or quadratic or cubic bezier curve.
     /// Extensive Bezier explanation can be found at http://pomax.github.io/bezierinfo/
     /// </summary>
-    /// <remarks> https://github.com/superlloyd/Poly </remarks>
+    /// <remarks> <para>https://github.com/superlloyd/Poly</para> </remarks>
     [DataContract, Serializable]
     [GraphicsObject]
     [DisplayName(nameof(BezierSegmentX))]

@@ -18,8 +18,8 @@ namespace Engine.WindowsForms
     /// The tool strip month calendar class.
     /// </summary>
     /// <remarks>
-    /// https://msdn.microsoft.com/library/9k5etstz.aspx
-    /// https://msdn.microsoft.com/library/ms233664.aspx
+    /// <para>https://msdn.microsoft.com/library/9k5etstz.aspx
+    /// https://msdn.microsoft.com/library/ms233664.aspx</para>
     /// </remarks>
     //[ToolboxBitmapAttribute("")]
     [ToolStripItemDesignerAvailability(ToolStripItemDesignerAvailability.All)]

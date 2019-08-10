@@ -16,7 +16,7 @@ namespace Engine
     /// The text style enum.
     /// </summary>
     [Flags]
-    public enum TextStyle
+    public enum TextStyles
     {
         /// <summary>
         /// The Regular = 0.

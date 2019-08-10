@@ -18,7 +18,7 @@ namespace Engine.WindowsForms
     /// The status progress bar class.
     /// </summary>
     /// <remarks>
-    /// http://stackoverflow.com/questions/1517179/c-overriding-onpaint-on-progressbar-not-working
+    /// <para>http://stackoverflow.com/questions/1517179/c-overriding-onpaint-on-progressbar-not-working</para>
     /// </remarks>
     public partial class StatusProgressBar
         : ProgressBar

@@ -13,7 +13,7 @@ namespace Engine
     /// <summary>
     /// An enumeration of the contribution of overlapping edge types.
     /// </summary>
-    public enum EdgeContributions
+    public enum EdgeContribution
         : byte
     {
         /// <summary>

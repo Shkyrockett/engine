@@ -166,7 +166,7 @@ namespace Engine.File
         /// Write the network u int24.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <remarks>http://stackoverflow.com/questions/4918525/converting-int32-to-24-bit-signed-integer</remarks>
+        /// <remarks><para>http://stackoverflow.com/questions/4918525/converting-int32-to-24-bit-signed-integer</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WriteNetworkUInt24(uint value)
@@ -184,7 +184,7 @@ namespace Engine.File
         /// Write the network int24.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <remarks>http://stackoverflow.com/questions/4918525/converting-int32-to-24-bit-signed-integer</remarks>
+        /// <remarks><para>http://stackoverflow.com/questions/4918525/converting-int32-to-24-bit-signed-integer</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WriteNetworkInt24(int value)

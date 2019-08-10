@@ -36,7 +36,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="float"/>.</returns>
         /// <remarks>
-        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// <para>https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetLuminance(byte red, byte green, byte blue)
@@ -75,7 +75,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
-        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// <para>https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetLuminanceFloat(double red, double green, double blue)
@@ -110,7 +110,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="float"/>.</returns>
         /// <remarks>
-        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// <para>https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetHue(byte red, byte green, byte blue)
@@ -177,7 +177,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="float"/>.</returns>
         /// <remarks>
-        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// <para>https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetHue(double red, double green, double blue)
@@ -240,7 +240,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
-        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// <para>https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetSaturation(byte red, byte green, byte blue)
@@ -288,7 +288,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="float"/>.</returns>
         /// <remarks>
-        /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs
+        /// <para>https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Color.cs</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double GetSaturation(double red, double green, double blue)
@@ -346,7 +346,7 @@ namespace Engine.Colorspace
         /// Modifies an existing brightness level
         /// </summary>
         /// <remarks>
-        /// To reduce brightness use a number smaller than 1. To increase brightness use a number larger tan 1.
+        /// <para>To reduce brightness use a number smaller than 1. To increase brightness use a number larger tan 1.</para>
         /// </remarks>
         /// <param name="red"></param>
         /// <param name="green"></param>
@@ -365,7 +365,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Sets the absolute saturation level
         /// </summary>
-        /// <remarks>Accepted values 0-1</remarks>
+        /// <remarks><para>Accepted values 0-1</para></remarks>
         /// <param name="red"></param>
         /// <param name="green"></param>
         /// <param name="blue"></param>
@@ -383,7 +383,7 @@ namespace Engine.Colorspace
         /// Modifies an existing Saturation level.
         /// </summary>
         /// <remarks>
-        /// To reduce Saturation use a number smaller than 1. To increase Saturation use a number larger tan 1.
+        /// <para>To reduce Saturation use a number smaller than 1. To increase Saturation use a number larger tan 1.</para>
         /// </remarks>
         /// <param name="red"></param>
         /// <param name="green"></param>
@@ -402,7 +402,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Sets the absolute Hue level.
         /// </summary>
-        /// <remarks>Accepted values 0-1</remarks>
+        /// <remarks><para>Accepted values 0-1</para></remarks>
         /// <param name="red"></param>
         /// <param name="green"></param>
         /// <param name="blue"></param>
@@ -420,7 +420,7 @@ namespace Engine.Colorspace
         /// Modifies an existing Hue level
         /// </summary>
         /// <remarks>
-        /// To reduce Hue use a number smaller than 1. To increase Hue use a number larger tan 1
+        /// <para>To reduce Hue use a number smaller than 1. To increase Hue use a number larger tan 1</para>
         /// </remarks>
         /// <param name="red"></param>
         /// <param name="green"></param>
@@ -446,7 +446,7 @@ namespace Engine.Colorspace
         /// <param name="b">The b.</param>
         /// <param name="a"></param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ValidateRGBA(byte r, byte g, byte b, byte a)
             => Between(a, RGBMin, RGBMax)
@@ -462,7 +462,7 @@ namespace Engine.Colorspace
         /// <param name="b">The b.</param>
         /// <param name="a"></param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ValidateRGBAF(double r, double g, double b, double a)
             => Between(a, PercentMin, PercentMax)
@@ -479,7 +479,7 @@ namespace Engine.Colorspace
         /// <param name="k">The k.</param>
         /// <param name="a"></param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://www.codeproject.com/articles/4488/xcmyk-cmyk-to-rgb-calculator-with-source-code</remarks>
+        /// <remarks><para>https://www.codeproject.com/articles/4488/xcmyk-cmyk-to-rgb-calculator-with-source-code</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ValidateCMYKA(byte c, byte y, byte m, byte k, byte a)
             => Between(a, CMYKMin, CMYKMax)
@@ -496,7 +496,7 @@ namespace Engine.Colorspace
         /// <param name="i">The i.</param>
         /// <param name="a"></param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ValidateHSIA(double h, double s, double i, double a)
             => Between(a, PercentMin, PercentMax)
@@ -512,7 +512,7 @@ namespace Engine.Colorspace
         /// <param name="l">The l.</param>
         /// <param name="a"></param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ValidateHSLA(double h, double s, double l, double a)
             => Between(a, PercentMin, PercentMax)
@@ -528,7 +528,7 @@ namespace Engine.Colorspace
         /// <param name="v">The v.</param>
         /// <param name="a"></param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ValidateHSVA(double h, double s, double v, double a)
             => Between(a, PercentMin, PercentMax)
@@ -544,7 +544,7 @@ namespace Engine.Colorspace
         /// <param name="q">The q.</param>
         /// <param name="a"></param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ValidateYIQA(double y, double i, double q, double a)
             => Between(a, PercentMin, PercentMax)
@@ -560,7 +560,7 @@ namespace Engine.Colorspace
         /// <param name="v">The v.</param>
         /// <param name="a"></param>
         /// <returns>The <see cref="bool"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool ValidateYUVA(double y, double u, double v, double a)
             => Between(a, PercentMin, PercentMax)
@@ -718,7 +718,7 @@ namespace Engine.Colorspace
         /// <param name="blue">The blue channel.</param>
         /// <param name="alpha">The alpha channel.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) RGBAColorToRGBAFColor(byte red, byte green, byte blue, byte alpha)
         {
@@ -752,7 +752,7 @@ namespace Engine.Colorspace
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (byte red, byte green, byte blue, byte alpha) RGBAFColorToRGBAColor(double red, double green, double blue, double alpha)
         {
@@ -771,7 +771,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="tuple"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (byte red, byte green, byte blue, byte alpha) RGBAFColorToRGBAColor((double red, double green, double blue, double alpha) tuple)
         {
@@ -795,9 +795,9 @@ namespace Engine.Colorspace
         /// <param name="alpha">The alpha.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>
-        /// Red   = 1-minimum(1,Cyan*(1-Black)+Black)
+        /// <para>Red   = 1-minimum(1,Cyan*(1-Black)+Black)
         /// Green = 1-minimum(1,Magenta*(1-Black)+Black)
-        /// Blue  = 1-minimum(1,Yellow*(1-Black)+Black)
+        /// Blue  = 1-minimum(1,Yellow*(1-Black)+Black)</para>
         /// </remarks>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
@@ -926,10 +926,10 @@ namespace Engine.Colorspace
         /// <param name="alpha">The alpha.</param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4, T5}"/>.</returns>
         /// <remarks>
-        /// Black   = minimum(1-Red, 1-Green, 1-Blue)
+        /// <para>Black   = minimum(1-Red, 1-Green, 1-Blue)
         /// Cyan    = (1-Red-Black)/(1-Black)
         /// Magenta = (1-Green-Black)/(1-Black)
-        /// Yellow  = (1-Blue-Black)/(1-Black)
+        /// Yellow  = (1-Blue-Black)/(1-Black)</para>
         /// </remarks>
         /// <acknowledgment>
         /// http://www.codeproject.com/Articles/4488/XCmyk-CMYK-to-RGB-Calculator-with-source-code
@@ -966,8 +966,8 @@ namespace Engine.Colorspace
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>
-        /// https://github.com/dystopiancode/colorspace-conversions/
-        /// Correction from: https://gist.github.com/rzhukov/9129585
+        /// <para>https://github.com/dystopiancode/colorspace-conversions/
+        /// Correction from: https://gist.github.com/rzhukov/9129585</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) HSIAColorToRGBAFColor(double hue, double saturation, double intensity, double alpha)
@@ -1102,7 +1102,7 @@ namespace Engine.Colorspace
         /// <param name="luminance">The l.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) HSLAColorToRGBAFColor(double hue, double saturation, double luminance, double alpha)
         {
@@ -1147,7 +1147,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Converts a color from HSL to RGB.
         /// </summary>
-        /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks>
+        /// <remarks><para>Adapted from the algorithm in Foley and Van-Dam</para></remarks>
         /// <param name="hue"></param>
         /// <param name="saturation"></param>
         /// <param name="luminance"></param>
@@ -1217,7 +1217,7 @@ namespace Engine.Colorspace
         /// <summary>
         /// Converts a color from HSL to RGB
         /// </summary>
-        /// <remarks>Adapted from the algorithm in Foley and Van-Dam</remarks>
+        /// <remarks><para>Adapted from the algorithm in Foley and Van-Dam</para></remarks>
         /// <param name="hue"></param>
         /// <param name="saturation"></param>
         /// <param name="luminance"></param>
@@ -1366,7 +1366,7 @@ namespace Engine.Colorspace
         /// <param name="value">The v.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) HSVAColorToRGBAFColor(double hue, double saturaion, double value, double alpha)
         {
@@ -1413,8 +1413,8 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         /// <remarks>
-        /// h = [0,360], s = [0,1], v = [0,1]
-        ///		if s == 0, then h = -1 (undefined)
+        /// <para>h = [0,360], s = [0,1], v = [0,1]
+        ///		if s == 0, then h = -1 (undefined)</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
@@ -1534,8 +1534,8 @@ namespace Engine.Colorspace
         /// <param name="alpha">The a.</param>
         /// <returns>The <see cref="RGBA"/>.</returns>
         /// <remarks>
-        /// h = [0,360], s = [0,1], v = [0,1]
-        ///		if s == 0, then h = -1 (undefined)
+        /// <para>h = [0,360], s = [0,1], v = [0,1]
+        ///		if s == 0, then h = -1 (undefined)</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
@@ -1619,7 +1619,7 @@ namespace Engine.Colorspace
         /// <param name="q">The q.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) YIQAColorToRGBAFColor(double y, double i, double q, double alpha)
         {
@@ -1639,7 +1639,7 @@ namespace Engine.Colorspace
         /// <param name="v">The v.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double red, double green, double blue, double alpha) YUVAColorToRGBAFColor(double y, double u, double v, double alpha)
         {
@@ -1659,7 +1659,7 @@ namespace Engine.Colorspace
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double intensity, double alpha) RGBAColorToHSIAColor(byte red, byte green, byte blue, byte alpha)
             => RGBAFColorToHSIAColor(red / 256d, green / 256d, blue / 256d, alpha / 256d);
@@ -1672,7 +1672,7 @@ namespace Engine.Colorspace
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double intensity, double alpha) RGBAFColorToHSIAColor(double red, double green, double blue, double alpha)
         {
@@ -1768,7 +1768,7 @@ namespace Engine.Colorspace
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://gist.github.com/rzhukov/9129585</remarks>
+        /// <remarks><para>https://gist.github.com/rzhukov/9129585</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double intensity, double alpha) RGBAFColorToHSIAColor3(double red, double green, double blue, double alpha)
         {
@@ -1793,7 +1793,7 @@ namespace Engine.Colorspace
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double lumanance, double alpha) RGBAFColorToHSLAColor(double red, double green, double blue, double alpha)
         {
@@ -1886,7 +1886,7 @@ namespace Engine.Colorspace
         /// <param name="blue">The b.</param>
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
-        /// <remarks>https://github.com/dystopiancode/colorspace-conversions/</remarks>
+        /// <remarks><para>https://github.com/dystopiancode/colorspace-conversions/</para></remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double hue, double saturation, double value, double alpha) RGBAFColorToHSVAColor(double red, double green, double blue, double alpha)
         {
@@ -1950,8 +1950,8 @@ namespace Engine.Colorspace
         /// <param name="alpha"></param>
         /// <returns>The <see cref="HSVA"/>.</returns>
         /// <remarks>
-        /// h = [0,360], s = [0,1], v = [0,1]
-        ///		if s == 0, then h = -1 (undefined)
+        /// <para>h = [0,360], s = [0,1], v = [0,1]
+        ///		if s == 0, then h = -1 (undefined)</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
@@ -2011,8 +2011,8 @@ namespace Engine.Colorspace
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>
-        /// https://github.com/dystopiancode/colorspace-conversions/
-        /// Correction from: https://stackoverflow.com/q/22131920
+        /// <para>https://github.com/dystopiancode/colorspace-conversions/
+        /// Correction from: https://stackoverflow.com/q/22131920</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double y, double i, double q, double alpha) RGBAFColorToYIQAColor(double red, double green, double blue, double alpha)
@@ -2035,8 +2035,8 @@ namespace Engine.Colorspace
         /// <param name="alpha"></param>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3}"/>.</returns>
         /// <remarks>
-        /// https://github.com/dystopiancode/colorspace-conversions/
-        /// Correction found at: https://www.fourcc.org/fccyvrgb.php
+        /// <para>https://github.com/dystopiancode/colorspace-conversions/
+        /// Correction found at: https://www.fourcc.org/fccyvrgb.php</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (double y, double u, double v, double alpha) RGBAFColorToYUVAColor(double red, double green, double blue, double alpha)

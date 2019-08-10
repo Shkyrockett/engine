@@ -28,7 +28,7 @@ namespace Engine
         /// Add attributes to framework components so they can be listed.
         /// </summary>
         /// <remarks>
-        /// https://social.msdn.microsoft.com/Forums/en-US/3c73a473-2e1e-4e2c-8da8-c127f68dabdc/adding-custom-attributes-to-properties-at-run-time-in-c?forum=netfxbcl
+        /// <para>https://social.msdn.microsoft.com/Forums/en-US/3c73a473-2e1e-4e2c-8da8-c127f68dabdc/adding-custom-attributes-to-properties-at-run-time-in-c?forum=netfxbcl</para>
         /// </remarks>
         static EngineReflection()
         {
@@ -50,7 +50,7 @@ namespace Engine
         /// <param name="searchAttribute">The property attribute to look for.</param>
         /// <param name="uiEditorAttributes">The attributes to add to the property.</param>
         /// <remarks>
-        /// http://tenera-it.be/blog/2011/06/add-attriutes-to-a-property-at-runtime/
+        /// <para>http://tenera-it.be/blog/2011/06/add-attriutes-to-a-property-at-runtime/</para>
         /// </remarks>
         public static void ReplacePropertyAttribute(Type type, Attribute searchAttribute, params Attribute[] uiEditorAttributes)
         {
@@ -203,7 +203,7 @@ namespace Engine
         /// <param name="attributeType">The attribute type to look for.</param>
         /// <returns></returns>
         /// <remarks>
-        /// http://stackoverflow.com/questions/4852879/get-all-types-in-assembly-with-custom-attribute
+        /// <para>http://stackoverflow.com/questions/4852879/get-all-types-in-assembly-with-custom-attribute</para>
         /// </remarks>
         private static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
             => new List<Type>

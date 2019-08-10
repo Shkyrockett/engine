@@ -16,14 +16,14 @@ namespace Engine.File
     /// Midi Meta Events.
     /// </summary>
     /// <remarks> 
-    /// Specifies non-MIDI information useful to this format or to sequencers, with this syntax: FF [type] [length] [bytes]
+    /// <para>Specifies non-MIDI information useful to this format or to sequencers, with this syntax: FF [type] [length] [bytes]
     /// All meta-events begin with FF, then have an event type byte (which is always less than 128), and then have the length
     /// of the data stored as a variable-length quantity, and then the data itself. If there is no data, the length is 0.
     /// As with chunks, future meta-events may be designed which may not be known to existing programs, so programs must 
     /// properly ignore meta-events which they do not recognize, and indeed should expect to see them. 
     /// Programs must never ignore the length of a meta-event which they do not recognize, and they shouldn't be surprised
     /// if it's bigger than expected. If so, they must ignore everything past what they know about.
-    /// However, they must not add anything of their own to the end of the meta-event.
+    /// However, they must not add anything of their own to the end of the meta-event.</para>
     /// </remarks>
     public enum MidiMetaEvent
         : byte // format: FF ## Len Data
@@ -37,7 +37,7 @@ namespace Engine.File
         /// Sequence Number.
         /// </summary>
         /// <remarks>
-        /// FF 00 02  ss ss or 00
+        /// <para>FF 00 02  ss ss or 00</para>
         /// </remarks>
         SequenceNumber = 0x00,
 
@@ -45,7 +45,7 @@ namespace Engine.File
         /// Text event.
         /// </summary>
         /// <remarks>
-        /// FF 01 len text
+        /// <para>FF 01 len text</para>
         /// </remarks>
         TextEvent = 0x01,
 
@@ -53,7 +53,7 @@ namespace Engine.File
         /// Copyright Notice.
         /// </summary>
         /// <remarks>
-        /// FF 02 len text
+        /// <para>FF 02 len text</para>
         /// </remarks>
         CopyrightNotice = 0x02,
 
@@ -61,7 +61,7 @@ namespace Engine.File
         /// Sequence track name.
         /// </summary>
         /// <remarks>
-        /// FF 03 len text
+        /// <para>FF 03 len text</para>
         /// </remarks>
         SequenceOrTrackName = 0x03,
 
@@ -69,7 +69,7 @@ namespace Engine.File
         /// Track instrument name.
         /// </summary>
         /// <remarks>
-        /// FF 04 len text
+        /// <para>FF 04 len text</para>
         /// </remarks>
         InstrumentName = 0x04,
 
@@ -77,7 +77,7 @@ namespace Engine.File
         /// Lyric Text.
         /// </summary>
         /// <remarks>
-        /// FF 05 len text
+        /// <para>FF 05 len text</para>
         /// </remarks>
         LyricText = 0x05,
 
@@ -85,7 +85,7 @@ namespace Engine.File
         /// >Marker Text.
         /// </summary>
         /// <remarks>
-        /// FF 06 len text
+        /// <para>FF 06 len text</para>
         /// </remarks>
         MarkerText = 0x06,
 
@@ -93,7 +93,7 @@ namespace Engine.File
         /// Cue point.
         /// </summary>
         /// <remarks>
-        /// FF 07 len text
+        /// <para>FF 07 len text</para>
         /// </remarks>
         CuePoint = 0x07,
 
@@ -101,7 +101,7 @@ namespace Engine.File
         /// Program (patch) name.
         /// </summary>
         /// <remarks>
-        /// FF 07 len text
+        /// <para>FF 07 len text</para>
         /// </remarks>
         ProgramName = 0x08,
 
@@ -109,7 +109,7 @@ namespace Engine.File
         /// Device (port) name.
         /// </summary>
         /// <remarks>
-        /// FF 09 len text
+        /// <para>FF 09 len text</para>
         /// </remarks>
         DeviceName = 0x09,
 
@@ -117,7 +117,7 @@ namespace Engine.File
         /// MIDI Channel (not official?).
         /// </summary>
         /// <remarks>
-        /// FF 20 01  cc
+        /// <para>FF 20 01  cc</para>
         /// </remarks>
         MIDIChannel = 0x20,
 
@@ -125,7 +125,7 @@ namespace Engine.File
         /// MIDI Port (not official?).
         /// </summary>
         /// <remarks>
-        /// FF 21 01  pp
+        /// <para>FF 21 01  pp</para>
         /// </remarks>
         MIDIPort = 0x21,
 
@@ -133,7 +133,7 @@ namespace Engine.File
         /// End of track.
         /// </summary>
         /// <remarks>
-        /// FF 2F 00
+        /// <para>FF 2F 00</para>
         /// </remarks>
         EndOfTrack = 0x2F,
 
@@ -141,7 +141,7 @@ namespace Engine.File
         /// Set Tempo, in microseconds per MIDI quarter-note.
         /// </summary>
         /// <remarks>
-        /// FF 51 03  tt tt tt
+        /// <para>FF 51 03  tt tt tt</para>
         /// </remarks>
         Tempo = 0x51,
 
@@ -149,7 +149,7 @@ namespace Engine.File
         /// SMPTE offset specification.
         /// </summary>
         /// <remarks>
-        /// FF 54 05  hr mn se fr ff
+        /// <para>FF 54 05  hr mn se fr ff</para>
         /// </remarks>
         SMPTEOffset = 0x54,
 
@@ -157,7 +157,7 @@ namespace Engine.File
         /// Time signature.
         /// </summary>
         /// <remarks>
-        /// FF 58 04  nn dd cc bb
+        /// <para>FF 58 04  nn dd cc bb</para>
         /// </remarks>
         TimeSignature = 0x58,
 
@@ -165,14 +165,14 @@ namespace Engine.File
         /// Key signature.
         /// </summary>
         /// <remarks>
-        /// FF 59 02  sf mi
+        /// <para>FF 59 02  sf mi
         ///   sf = -7: 7 flats
         ///   sf = -1: 1 flat
         ///   sf = 0: key of C
         ///   sf = 1: 1 sharp
         ///   sf = 7: 7 sharps
         ///   mi = 0: major key 
-        ///   mi = 1: minor key
+        ///   mi = 1: minor key</para>
         /// </remarks>
         KeySignature = 0x59,
 
@@ -180,9 +180,9 @@ namespace Engine.File
         /// Sequencer specific proprietary meta-event.
         /// </summary>
         /// <remarks>
-        /// FF 7F len data
+        /// <para>FF 7F len data
         /// Sysex events and meta events cancel any running status which was in effect.
-        /// Running status does not apply to and may not be used for these messages.
+        /// Running status does not apply to and may not be used for these messages.</para>
         /// </remarks>
         SequencerSpecific = 0x7F,
     }

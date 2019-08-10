@@ -21,7 +21,7 @@ namespace Engine.Physics
     /// The meters struct.
     /// </summary>
     public struct Meters
-        : ILength, IFormattable
+        : ILength, IFormattable, IEquatable<Meters>
     {
         #region Constants
         /// <summary>
@@ -181,10 +181,10 @@ namespace Engine.Physics
             => nameof(Meters);
 
         /// <summary>
-        /// Gets the abreviation.
+        /// Gets the abbreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
+        public string Abbreviation
             => "m";
         #endregion Properties
 
@@ -298,6 +298,26 @@ namespace Engine.Physics
             => divisor.Value / ((Meters)dividend).Value;
 
         /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(Meters left, Meters right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(Meters left, Meters right) => !(left == right);
+
+        /// <summary>
         /// Compares two <see cref="Meters"/> objects.
         /// The result specifies whether the values of the X and Y
         /// values of the two <see cref="Meters"/> objects are equal.
@@ -321,6 +341,128 @@ namespace Engine.Physics
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Meters left, ILength right)
             => !Equals(left, right);
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static implicit operator Meters(double value)
+            => new Meters(value);
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Mils"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Meters(Mils value)
+            => value.Meters;
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Centimeters"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Meters(Centimeters value)
+            => value.Meters;
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Inches"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Meters(Inches value)
+            => value.Meters;
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Feet"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Meters(Feet value)
+            => value.Meters;
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Yards"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Meters(Yards value)
+            => value.Meters;
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Smoots"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Meters(Smoots value)
+            => value.Meters;
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Kilometers"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Meters(Kilometers value)
+            => value.Meters;
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Miles"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Meters(Miles value)
+            => value.Meters;
+
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="NauticalMiles"/> to <see cref="Meters"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static explicit operator Meters(NauticalMiles value)
+            => value.Meters;
+        #endregion Operators
+
+        #region Methods
 
         /// <summary>
         /// Compares two <see cref="Meters"/> objects.
@@ -365,105 +507,23 @@ namespace Engine.Physics
             => Equals(this, value);
 
         /// <summary>
-        /// 
+        /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator Meters(double value)
-            => new Meters(value);
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool Equals(Meters other)
+            => Value == other.Value;
 
         /// <summary>
-        /// 
+        /// Returns a hash code for this instance.
         /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Meters(Mils value)
-            => value.Meters;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Meters(Centimeters value)
-            => value.Meters;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Meters(Inches value)
-            => value.Meters;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Meters(Feet value)
-            => value.Meters;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Meters(Yards value)
-            => value.Meters;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Meters(Smoots value)
-            => value.Meters;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Meters(Kilometers value)
-            => value.Meters;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Meters(Miles value)
-            => value.Meters;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="value"></param>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static explicit operator Meters(NauticalMiles value)
-            => value.Meters;
-        #endregion Operators
-
-        #region Methods
-        /// <summary>
-        /// Returns the hash code for this instance of the <see cref="Meters"/> value.
-        /// </summary>
-        /// <returns>A 32-bit signed integer hash code.</returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override int GetHashCode()
-            => Value.GetHashCode();
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
 
         /// <summary>
         /// Creates a human-readable string that represents this <see cref="Meters"/> struct.
@@ -533,7 +593,7 @@ namespace Engine.Physics
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
-            => $"{Value.ToString(format, provider)} {Abreviation}";
+            => $"{Value.ToString(format, provider)} {Abbreviation}";
         #endregion Methods
     }
 }

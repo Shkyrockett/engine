@@ -20,7 +20,7 @@ namespace Engine.MathNotation
         /// The index of the Root.
         /// </summary>
         /// <remarks>
-        /// http://tutorial.math.lamar.edu/Classes/Alg/Radicals.aspx
+        /// <para>http://tutorial.math.lamar.edu/Classes/Alg/Radicals.aspx</para>
         /// </remarks>
         public Expression Index { get; set; }
 
@@ -28,7 +28,7 @@ namespace Engine.MathNotation
         /// The contents of the Root.
         /// </summary>
         /// <remarks>
-        /// http://tutorial.math.lamar.edu/Classes/Alg/Radicals.aspx
+        /// <para>http://tutorial.math.lamar.edu/Classes/Alg/Radicals.aspx</para>
         /// </remarks>
         public Expression Radicand { get; set; }
     }

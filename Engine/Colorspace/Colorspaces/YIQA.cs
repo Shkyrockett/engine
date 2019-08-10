@@ -18,7 +18,7 @@ namespace Engine.Colorspace
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public struct YIQA
-        : IColor
+        : IColor, IEquatable<YIQA>
     {
         #region Implementations
         /// <summary>
@@ -88,15 +88,71 @@ namespace Engine.Colorspace
         public double Q { get; set; }
 
         /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(YIQA left, YIQA right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(YIQA left, YIQA right) => !(left == right);
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
             var (r1, g1, b1, a1) = other.ToRGBATuple();
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is YIQA color && Equals(color);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(YIQA other) => Y == other.Y && I == other.I && Q == other.Q && Alpha == other.Alpha;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 1361233287;
+            hashCode = hashCode * -1521134295 + Alpha.GetHashCode();
+            hashCode = hashCode * -1521134295 + Y.GetHashCode();
+            hashCode = hashCode * -1521134295 + I.GetHashCode();
+            hashCode = hashCode * -1521134295 + Q.GetHashCode();
+            return hashCode;
         }
 
         /// <summary>
@@ -106,7 +162,9 @@ namespace Engine.Colorspace
         /// <param name="y">The y.</param>
         /// <param name="i">The i.</param>
         /// <param name="q">The q.</param>
-        /// <returns>The <see cref="RGBA"/>.</returns>
+        /// <returns>
+        /// The <see cref="RGBA" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/dystopiancode/colorspace-conversions/blob/master/colorspace-conversions/colorspace-conversions.c
         /// </acknowledgment>
@@ -121,7 +179,9 @@ namespace Engine.Colorspace
         /// <summary>
         /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
+        /// </returns>
         public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
             => Colorspaces.RGBAFColorToRGBAColor(Colorspaces.YIQAColorToRGBAFColor(Y, I, Q, Alpha));
 
@@ -130,22 +190,10 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            var hashCode = 1361233287;
-            hashCode = hashCode * -1521134295 + Alpha.GetHashCode();
-            hashCode = hashCode * -1521134295 + Y.GetHashCode();
-            hashCode = hashCode * -1521134295 + I.GetHashCode();
-            hashCode = hashCode * -1521134295 + Q.GetHashCode();
-            return hashCode;
-        }
     }
 }

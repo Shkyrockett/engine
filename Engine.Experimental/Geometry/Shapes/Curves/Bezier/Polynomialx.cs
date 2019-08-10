@@ -71,7 +71,7 @@ namespace Engine
         /// Gets a value indicating whether 
         /// </summary>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public bool CanSolveRealRoots
             => RealOrder() <= 4;
@@ -80,7 +80,7 @@ namespace Engine
         /// Useful for class that want to expose internal value that must not change.
         /// </summary>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public bool IsReadonly
         {
@@ -107,7 +107,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator +(Polynomialx a)
             => a;
@@ -119,7 +119,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator +(Polynomialx b, double a)
             => a + b;
@@ -131,7 +131,7 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator +(double a, Polynomialx b)
         {
@@ -152,7 +152,7 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator +(Polynomialx a, Polynomialx b)
         {
@@ -181,7 +181,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator -(Polynomialx a)
         {
@@ -201,7 +201,7 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator -(Polynomialx a, double b)
             => a + (-b);
@@ -213,7 +213,7 @@ namespace Engine
         /// <param name="a">The a.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator -(double b, Polynomialx a)
         {
@@ -234,7 +234,7 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator -(Polynomialx a, Polynomialx b)
         {
@@ -264,7 +264,7 @@ namespace Engine
         /// <param name="m">The m.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator *(Polynomialx p, double m)
             => m * p;
@@ -276,7 +276,7 @@ namespace Engine
         /// <param name="p">The p.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator *(double m, Polynomialx p)
         {
@@ -296,7 +296,7 @@ namespace Engine
         /// <param name="b">The b.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator *(Polynomialx a, Polynomialx b)
         {
@@ -320,7 +320,7 @@ namespace Engine
         /// <param name="m">The m.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         public static Polynomialx operator /(Polynomialx p, double m)
         {
@@ -343,7 +343,7 @@ namespace Engine
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomialx Term(int power, double coefficient = 1)
@@ -362,7 +362,7 @@ namespace Engine
         /// Construct a polynomial P such as ys[i] = P.Compute(i).
         /// </summary>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomialx Interpolate(params double[] ys)
@@ -512,7 +512,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomialx Normalize()
@@ -543,7 +543,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomialx Derivate()
@@ -563,7 +563,7 @@ namespace Engine
         /// <param name="term0">The term0.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomialx Integrate(double term0 = 0)
@@ -585,14 +585,14 @@ namespace Engine
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomialx Pow(int n)
         {
             if (n < 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(n));
             }
 
             var order = Coefficients.Count - 1;
@@ -650,7 +650,7 @@ namespace Engine
         /// <param name="x">The x.</param>
         /// <returns>The <see cref="double"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double Compute(double x)
@@ -671,7 +671,7 @@ namespace Engine
         /// <param name="x">The x.</param>
         /// <returns>The <see cref="Complex"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Complex Compute(Complex x)
@@ -744,7 +744,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="int"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int RealOrder()
@@ -756,7 +756,7 @@ namespace Engine
         /// <param name="coefficients">The coefficients.</param>
         /// <returns>The <see cref="int"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int RealOrder(params double[] coefficients)
@@ -786,7 +786,7 @@ namespace Engine
         /// <param name="minY">The minY.</param>
         /// <param name="maxY">The maxY.</param>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void GetMinMax(double x0, double x1, out double minY, out double maxY)
@@ -832,7 +832,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="IEnumerable{T}"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<double> SolveRealRoots()
@@ -844,7 +844,7 @@ namespace Engine
         /// <param name="coefficients">The coefficients.</param>
         /// <returns>The <see cref="IEnumerable{T}"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<double> SolveRealRoots(params double[] coefficients)
@@ -988,7 +988,7 @@ namespace Engine
         /// http://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method
         /// </summary>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Complex[] FindRoots()
@@ -1148,7 +1148,7 @@ namespace Engine
         /// </summary>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomialx Trim()
@@ -1160,7 +1160,7 @@ namespace Engine
         /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
         /// <returns>The <see cref="Polynomialx"/>.</returns>
         /// <remarks>
-        /// https://github.com/superlloyd/Poly
+        /// <para>https://github.com/superlloyd/Poly</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Polynomialx Trim(double epsilon)

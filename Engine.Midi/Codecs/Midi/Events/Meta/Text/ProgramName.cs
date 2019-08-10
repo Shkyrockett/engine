@@ -16,7 +16,7 @@ namespace Engine.File
     /// Program (patch) name.
     /// </summary>
     /// <remarks>
-    /// FF 07 len text
+    /// <para>FF 07 len text</para>
     /// </remarks>
     [ElementName(nameof(ProgramName))]
     [DisplayName("Program Name")]

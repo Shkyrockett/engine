@@ -18,7 +18,7 @@ namespace Engine.File
     /// End of track.
     /// </summary>
     /// <remarks>
-    /// FF 2F 00
+    /// <para>FF 2F 00</para>
     /// </remarks>
     [ElementName(nameof(EndOfTrack))]
     [DisplayName("End Of Track")]

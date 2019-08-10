@@ -421,7 +421,7 @@ namespace Engine
         public double Perimiter
             => (double)CachingProperty(() => (2 * PI * radius * -SweepAngle) + (Abs(SweepAngle) * radius));
 
-        /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
+        /// <remarks><para>https://en.wikipedia.org/wiki/Circular_segment</para></remarks>
         /// <summary>
         /// Gets the area.
         /// </summary>
@@ -437,7 +437,7 @@ namespace Engine
         /// <summary>
         /// Gets the sagitta.
         /// </summary>
-        /// <remarks>https://en.wikipedia.org/wiki/Circular_segment</remarks>
+        /// <remarks><para>https://en.wikipedia.org/wiki/Circular_segment</para></remarks>
         [Category("Properties")]
         [Description("The sagitta of the Chord.")]
         public double Sagitta

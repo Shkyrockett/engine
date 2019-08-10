@@ -12,7 +12,7 @@ namespace Engine
     /// Extensive Bezier explanation can be found at http://pomax.github.io/bezierinfo/
     /// </summary>
     /// <remarks>
-    /// https://github.com/superlloyd/Poly
+    /// <para>https://github.com/superlloyd/Poly</para>
     /// </remarks>
     public class BezierFragment
     {
@@ -150,7 +150,7 @@ namespace Engine
         {
             if (values is null || values.Length < 1)
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(values));
             }
 
             return Bezier(0, values.Length - 1, values);
@@ -249,7 +249,7 @@ namespace Engine
         {
             if (t < 0 || t > 1)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(t));
             }
             // http://pomax.github.io/bezierinfo/#decasteljau
             var r0 = new List<Point2D>();

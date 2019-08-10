@@ -16,8 +16,8 @@ namespace Engine.File
     /// Stop. Stop the current sequence.
     /// </summary>
     /// <remarks>
-    /// nF 0C 
-    /// Stop the current sequence.
+    /// <para>nF 0C 
+    /// Stop the current sequence.</para>
     /// </remarks>
     [ElementName(nameof(Stop))]
     [DisplayName(nameof(Stop))]

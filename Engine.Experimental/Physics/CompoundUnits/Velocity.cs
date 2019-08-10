@@ -8,6 +8,8 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Engine.Physics
@@ -16,7 +18,7 @@ namespace Engine.Physics
     /// The velocity class.
     /// </summary>
     public class Velocity
-        : IVelocity
+        : IVelocity, IEquatable<Velocity>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Velocity"/> class.
@@ -53,17 +55,70 @@ namespace Engine.Physics
             => nameof(Velocity);
 
         /// <summary>
-        /// Gets the abreviation.
+        /// Gets the abbreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
-            => $"{Acceleration.Abreviation} {Direction.Abreviation}";
+        public string Abbreviation
+            => $"{Acceleration.Abbreviation} {Direction.Abbreviation}";
 
-        /// <returns></returns>
+        /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(Velocity left, Velocity right) => EqualityComparer<Velocity>.Default.Equals(left, right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(Velocity left, Velocity right) => !(left == right);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
+        /// </returns>
+        public override bool Equals(object obj) => Equals(obj as Velocity);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(Velocity other) => other != null && EqualityComparer<ISpeed>.Default.Equals(Acceleration, other.Acceleration) && EqualityComparer<IDirection>.Default.Equals(Direction, other.Direction);
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 2120939087;
+            hashCode = hashCode * -1521134295 + EqualityComparer<ISpeed>.Default.GetHashCode(Acceleration);
+            hashCode = hashCode * -1521134295 + EqualityComparer<IDirection>.Default.GetHashCode(Direction);
+            return hashCode;
+        }
+
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString() => $"{Value} {Abreviation}";
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString() => $"{Value} {Abbreviation}";
     }
 }

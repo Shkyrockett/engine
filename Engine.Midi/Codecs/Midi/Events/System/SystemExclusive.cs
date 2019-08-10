@@ -18,7 +18,7 @@ namespace Engine.File
     /// System Exclusive.
     /// </summary>
     /// <remarks>
-    /// nF 00 0iiiiiii [0iiiiiii 0iiiiiii] 0ddddddd --- --- 0ddddddd 11110111
+    /// <para>nF 00 0iiiiiii [0iiiiiii 0iiiiiii] 0ddddddd --- --- 0ddddddd 11110111
     /// This message type allows manufacturers to create their own messages 
     /// (such as bulk dumps, patch parameters, and other non-spec data)
     /// and provides a mechanism for creating additional MIDI Specification messages.
@@ -27,7 +27,7 @@ namespace Engine.File
     /// extensions called Universal Exclusive Messages, which are not manufacturer-specific.
     /// If a device recognizes the ID code as its own (or as a supported Universal message)
     /// it will listen to the rest of the message (0ddddddd). Otherwise, the message will be ignored.
-    /// (Note: Only Real-Time messages may be interleaved with a System Exclusive.)
+    /// (Note: Only Real-Time messages may be interleaved with a System Exclusive.)</para>
     /// </remarks>
     [ElementName(nameof(SystemExclusive))]
     [DisplayName("System Exclusive")]

@@ -127,7 +127,7 @@ namespace MethodSpeedTester
         /// Run the tests.
         /// </summary>
         /// <remarks>
-        /// http://stackoverflow.com/questions/6005865/prevent-net-garbage-collection-for-short-period-of-time/6005949#6005949
+        /// <para>http://stackoverflow.com/questions/6005865/prevent-net-garbage-collection-for-short-period-of-time/6005949#6005949</para>
         /// </remarks>
         private void RunTests()
         {

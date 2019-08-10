@@ -201,7 +201,7 @@ namespace Engine
         /// </summary>
         /// <param name="host">The number to convert, expressed in host byte order. </param>
         /// <returns>A long value, expressed in network byte order.</returns>
-        /// <remarks>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</remarks>
+        /// <remarks><para>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ulong ReverseEndianness(ulong host) => (ulong)((ReverseEndianness((uint)host) & 0xffffffffL) << 0x20) | (ulong)(ReverseEndianness((uint)(host >> 0x20)) & 0xffffffffL);
@@ -211,7 +211,7 @@ namespace Engine
         /// </summary>
         /// <param name="host">The number to convert, expressed in host byte order. </param>
         /// <returns>A long value, expressed in network byte order.</returns>
-        /// <remarks>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</remarks>
+        /// <remarks><para>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long ReverseEndianness(long host) => ((ReverseEndianness((int)host) & 0xffffffffL) << 0x20) | (ReverseEndianness((int)(host >> 0x20)) & 0xffffffffL);
@@ -221,7 +221,7 @@ namespace Engine
         /// </summary>
         /// <param name="host">The number to convert, expressed in host byte order. </param>
         /// <returns>An integer value, expressed in network byte order.</returns>
-        /// <remarks>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</remarks>
+        /// <remarks><para>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static uint ReverseEndianness(uint host) => (uint)((ReverseEndianness((ushort)host) & 0xffff) << 0x10) | (uint)(ReverseEndianness((ushort)(host >> 0x10)) & 0xffff);
@@ -231,7 +231,7 @@ namespace Engine
         /// </summary>
         /// <param name="host">The number to convert, expressed in host byte order. </param>
         /// <returns>An integer value, expressed in network byte order.</returns>
-        /// <remarks>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</remarks>
+        /// <remarks><para>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ReverseEndianness(int host) => ((ReverseEndianness((short)host) & 0xffff) << 0x10) | (ReverseEndianness((short)(host >> 0x10)) & 0xffff);
@@ -241,7 +241,7 @@ namespace Engine
         /// </summary>
         /// <param name="host">The number to convert, expressed in host byte order. </param>
         /// <returns>A short value, expressed in network byte order.</returns>
-        /// <remarks>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</remarks>
+        /// <remarks><para>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ushort ReverseEndianness(ushort host) => (ushort)(((host & 0xff) << 8) | ((host >> 8) & 0xff));
@@ -251,7 +251,7 @@ namespace Engine
         /// </summary>
         /// <param name="host">The number to convert, expressed in host byte order. </param>
         /// <returns>A short value, expressed in network byte order.</returns>
-        /// <remarks>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</remarks>
+        /// <remarks><para>http://referencesource.microsoft.com/#System/net/System/Net/IPAddress.cs</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static short ReverseEndianness(short host) => (short)(((host & 0xff) << 8) | ((host >> 8) & 0xff));

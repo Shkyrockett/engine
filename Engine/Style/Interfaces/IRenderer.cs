@@ -17,7 +17,7 @@ namespace Engine
     /// The IRenderer interface.
     /// </summary>
     /// <remarks>
-    /// https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Graphics.cs,f75b9da086111fe9,references
+    /// <para>https://referencesource.microsoft.com/#System.Drawing/commonui/System/Drawing/Graphics.cs,f75b9da086111fe9,references</para>
     /// </remarks>
     public interface IRenderer
         : IDisposable

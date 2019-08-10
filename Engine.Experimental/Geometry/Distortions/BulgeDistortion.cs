@@ -208,7 +208,7 @@ namespace Engine
         /// <param name="width">The width.</param>
         /// <param name="height">The height.</param>
         /// <returns>The <see cref="PolygonContour"/>.</returns>
-        /// <remarks> http://stackoverflow.com/a/9019432 </remarks>
+        /// <remarks> <para>http://stackoverflow.com/a/9019432</para> </remarks>
         internal static PolygonContour Deform(PolygonContour path, int width, int height)
         {
             var rng = new Random();

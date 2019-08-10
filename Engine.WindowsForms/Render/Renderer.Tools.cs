@@ -109,7 +109,7 @@ namespace Engine.Imaging
                 var tickStroke = shape.InSweep(angle) ? SolidStrokes.Lime : SolidStrokes.Red;
                 var anglePoint = shape.TestPoint(angle);
                 renderer.DrawLine(tickStroke, shape.Location.X, shape.Location.Y, anglePoint.X, anglePoint.Y);
-                renderer.DrawString($"a{num}", new RenderFont("GenericSansSerif", 12, Engine.TextStyle.Regular), SolidFills.Black, anglePoint.X, anglePoint.Y, new TextFormat(TextBoxFormatFlags.NoWrap, 0));
+                renderer.DrawString($"a{num}", new RenderFont("GenericSansSerif", 12, Engine.TextStyles.Regular), SolidFills.Black, anglePoint.X, anglePoint.Y, new TextFormat(TextBoxFormatFlags.NoWrap, 0));
                 num++;
             }
         }

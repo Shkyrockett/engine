@@ -16,7 +16,7 @@ namespace Engine.File
     /// Key signature.
     /// </summary>
     /// <remarks>
-    /// FF 59 02  sf  mi
+    /// <para>FF 59 02  sf  mi
     ///   sf = -7: 7 flats
     ///   sf = -1: 1 flat
     ///   sf = 0: key of C
@@ -26,7 +26,7 @@ namespace Engine.File
     ///   mi = 1: minor key
     ///   
     ///   sf is <see cref="MidiKeySignature"/>
-    ///   mi is <see cref="MidiTonality"/>
+    ///   mi is <see cref="MidiTonality"/></para>
     /// </remarks>
     [ElementName(nameof(KeySignature))]
     [DisplayName("Key Signature")]

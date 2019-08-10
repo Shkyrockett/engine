@@ -14,11 +14,11 @@ using System.Collections.Generic;
 namespace Engine
 {
     /// <remarks>
-    /// From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
+    /// <para>From: http://stackoverflow.com/questions/2255842/detecting-coincident-subset-of-two-coincident-line-segments/2255848
     /// port of this JavaScript code with some changes:
     ///   http://www.kevlindev.com/gui/math/intersection/Intersection.js
     /// found here:
-    ///   http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/563240#563240
+    ///   http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect/563240#563240</para>
     /// </remarks>
     /// <summary>
     /// The intersector class.
@@ -50,8 +50,8 @@ namespace Engine
         }
 
         /// <remarks>
-        /// IMPORTANT: a1 and a2 cannot be the same, e.g. a1--a2 is a true segment, not a point
-        /// b1/b2 may be the same (b1--b2 is a point)
+        /// <para>IMPORTANT: a1 and a2 cannot be the same, e.g. a1--a2 is a true segment, not a point
+        /// b1/b2 may be the same (b1--b2 is a point)</para>
         /// </remarks>
         /// <summary>
         /// The one d intersection.

@@ -22,7 +22,7 @@ namespace Engine
     /// Bow Curve (2D)
     /// </summary>
     /// <remarks>
-    ///  Class based on information found at: <seealso href="http://paulbourke.net/geometry/bow2d/"/>. <br />
+    ///  <para>Class based on information found at: <seealso href="http://paulbourke.net/geometry/bow2d/"/>. <br /></para>
     /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]

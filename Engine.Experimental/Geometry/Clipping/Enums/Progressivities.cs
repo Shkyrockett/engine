@@ -13,10 +13,10 @@ using System;
 namespace Engine
 {
     /// <summary>
-    /// The progressivity enum.
+    /// The progressivities enum.
     /// </summary>
     [Flags]
-    public enum Progressivity
+    public enum Progressivities
         : sbyte
     {
         /// <summary>

@@ -104,7 +104,7 @@ namespace Engine
         /// <summary>
         /// Releases all resources used by the System.ComponentModel.Component.
         /// </summary>
-        /// <remarks>This code added to correctly implement the disposable pattern.</remarks>
+        /// <remarks><para>This code added to correctly implement the disposable pattern.</para></remarks>
         public void Dispose()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.

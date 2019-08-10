@@ -53,7 +53,7 @@ namespace Engine.Imaging
         /// <param name="canvas">The canvas.</param>
         /// <param name="cropArea">The cropArea.</param>
         /// <returns>The <see cref="Image"/>.</returns>
-        /// <remarks>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</remarks>
+        /// <remarks><para>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</para></remarks>
         public static Image CropImage(this Image canvas, Rectangle cropArea)
         {
             using (var bmpImage = new Bitmap(canvas))
@@ -69,7 +69,7 @@ namespace Engine.Imaging
         /// <param name="canvas">The canvas.</param>
         /// <param name="size">The size.</param>
         /// <returns>The <see cref="Image"/>.</returns>
-        /// <remarks>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</remarks>
+        /// <remarks><para>http://tech.pro/tutorial/620/csharp-tutorial-image-editing-saving-cropping-and-resizing</para></remarks>
         public static Image ResizeImage(this Image canvas, Size size)
         {
             var sourceWidth = canvas.Width;
@@ -179,7 +179,7 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="ResourceName"></param>
         /// <returns></returns>
-        /// <remarks>BE SURE (embedded).cur HAS BUILD ACTION IN PROPERTIES SET TO EMBEDDED RESOURCE!!</remarks>
+        /// <remarks><para>BE SURE (embedded).cur HAS BUILD ACTION IN PROPERTIES SET TO EMBEDDED RESOURCE!!</para></remarks>
         public static Cursor RetriveCursorResource(string ResourceName)
         {
             //  Get the namespace

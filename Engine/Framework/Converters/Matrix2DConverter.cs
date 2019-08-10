@@ -18,7 +18,7 @@ namespace Engine
     /// The matrix2d converter class.
     /// </summary>
     /// <remarks>
-    /// http://referencesource.microsoft.com
+    /// <para>http://referencesource.microsoft.com</para>
     /// </remarks>
     public sealed class Matrix2DConverter
         : TypeConverter

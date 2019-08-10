@@ -67,14 +67,14 @@ namespace Engine
         /// </summary>
         [Category("Value")]
         [Description("This event is raised if the value changes.")]
-        public event ValueChangedDelegate ValueChanged;
+        public event ValueChangedDelegate ValueChangedEventHandler;
 
         /// <summary>
         /// The value committed event of the <see cref="ValueCommittedDelegate"/>.
         /// </summary>
         [Category("Value")]
         [Description("This event is raised if the value is committed.")]
-        public event ValueCommittedDelegate ValueCommitted;
+        public event ValueCommittedDelegate ValueCommittedEventHandler;
 
         /// <summary>
         /// The angle.
@@ -124,7 +124,7 @@ namespace Engine
             set
             {
                 angle = value;
-                ValueChanged?.Invoke(this, new ValueChangedEventArgs(value));
+                ValueChangedEventHandler?.Invoke(this, new ValueChangedEventArgs(value));
             }
         }
 
@@ -165,7 +165,7 @@ namespace Engine
                 Angle = Operations.Angle(e.X, e.Y, center.X, center.Y);
                 selecting = false;
                 Invalidate(true);
-                ValueCommitted?.Invoke(this, new ValueChangedEventArgs(Angle));
+                ValueCommittedEventHandler?.Invoke(this, new ValueChangedEventArgs(Angle));
             }
         }
 
@@ -320,7 +320,7 @@ namespace Engine
         /// </summary>
         /// <param name="rectangle">The <see cref="RectangleF"/> of which you want the center.</param>
         /// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
-        /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        /// <remarks><para>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Center(RectangleF rectangle) => new PointF(
@@ -333,7 +333,7 @@ namespace Engine
         /// </summary>
         /// <param name="size">The <see cref="RectangleF"/> of which you want the center.</param>
         /// <returns>A <see cref="PointF"/> representing the center point of the <see cref="RectangleF"/>.</returns>
-        /// <remarks>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</remarks>
+        /// <remarks><para>Be sure to cache the results of this method if used repeatedly, as it is recalculated each time.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointF Center(Size size) => new PointF(

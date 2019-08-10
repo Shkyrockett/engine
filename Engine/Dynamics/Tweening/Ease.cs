@@ -159,8 +159,8 @@ namespace Engine.Tweening
         /// <param name="t">Current time elapsed in ticks.</param>
         /// <returns></returns>
         /// <remarks>
-        /// This is the parabola $y=-4t^2+4t+0$ where the Vertex form is: $y=-4(t-1/2)^2+1$.
-        /// The x-intercepts are at 0 and 1 respectively, with the peak of the vertex at (1/2, 1) which makes it ideal for scaling.
+        /// <para>This is the parabola $y=-4t^2+4t+0$ where the Vertex form is: $y=-4(t-1/2)^2+1$.
+        /// The x-intercepts are at 0 and 1 respectively, with the peak of the vertex at (1/2, 1) which makes it ideal for scaling.</para>
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

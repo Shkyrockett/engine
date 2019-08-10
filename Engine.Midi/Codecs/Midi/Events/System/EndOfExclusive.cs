@@ -16,8 +16,8 @@ namespace Engine.File
     /// End of Exclusive. Used to terminate a System Exclusive dump (see above).
     /// </summary>
     /// <remarks>
-    /// nF 07 
-    /// Used to terminate a System Exclusive dump (see above).
+    /// <para>nF 07 
+    /// Used to terminate a System Exclusive dump (see above).</para>
     /// </remarks>
     [ElementName(nameof(EndOfExclusive))]
     [DisplayName("End Of Exclusive")]

@@ -27,9 +27,9 @@ namespace Engine
         /// <param name="clipPoly">Must be convex</param>
         /// <returns>The intersection of the two polygons (or null)</returns>
         /// <remarks>
-        /// http://rosettacode.org/wiki/Sutherland-Hodgman_polygon_clipping#C.23
+        /// <para>http://rosettacode.org/wiki/Sutherland-Hodgman_polygon_clipping#C.23
         /// Based on the pseudocode from:
-        /// http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman
+        /// http://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman</para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<Point2D> PolygonPolygon(List<Point2D> subjectPoly, List<Point2D> clipPoly)

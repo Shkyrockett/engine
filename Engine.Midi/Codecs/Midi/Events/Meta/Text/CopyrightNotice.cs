@@ -16,7 +16,7 @@ namespace Engine.File
     /// Copyright Notice.
     /// </summary>
     /// <remarks>
-    /// FF 02 len text
+    /// <para>FF 02 len text</para>
     /// </remarks>
     [ElementName(nameof(CopyrightNotice))]
     [DisplayName("Copyright Notice")]

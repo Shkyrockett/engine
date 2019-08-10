@@ -16,7 +16,7 @@ namespace Engine.File
     /// Text event.
     /// </summary>
     /// <remarks>
-    /// FF 01 len text
+    /// <para>FF 01 len text</para>
     /// </remarks>
     [ElementName(nameof(TextEvent))]
     [DisplayName("Text Event")]

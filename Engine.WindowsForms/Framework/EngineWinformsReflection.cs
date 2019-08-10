@@ -62,7 +62,7 @@ namespace Engine
         /// <param name="searchAttribute">The property attribute to look for.</param>
         /// <param name="uiEditorAttributes">The attributes to add to the property.</param>
         /// <remarks>
-        /// http://tenera-it.be/blog/2011/06/add-attriutes-to-a-property-at-runtime/
+        /// <para>http://tenera-it.be/blog/2011/06/add-attriutes-to-a-property-at-runtime/</para>
         /// </remarks>
         public static void ReplacePropertyAttribute(Type type, Attribute searchAttribute, params Attribute[] uiEditorAttributes)
         {
@@ -138,7 +138,7 @@ namespace Engine
         /// <param name="attributeType">The attribute type to look for.</param>
         /// <returns></returns>
         /// <remarks>
-        /// http://stackoverflow.com/questions/4852879/get-all-types-in-assembly-with-custom-attribute
+        /// <para>http://stackoverflow.com/questions/4852879/get-all-types-in-assembly-with-custom-attribute</para>
         /// </remarks>
         public static List<Type> GetAssemblyTypeAttributes(Assembly assembly, Type attributeType)
             => new List<Type>

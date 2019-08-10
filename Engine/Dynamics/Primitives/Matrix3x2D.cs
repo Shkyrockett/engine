@@ -27,7 +27,7 @@ namespace Engine
     /// <summary>
     /// The matrix3x2d struct.
     /// </summary>
-    /// <remarks>http://referencesource.microsoft.com</remarks>
+    /// <remarks><para>http://referencesource.microsoft.com</para></remarks>
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(Matrix2DConverter))]

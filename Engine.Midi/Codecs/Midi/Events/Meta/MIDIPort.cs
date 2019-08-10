@@ -16,7 +16,7 @@ namespace Engine.File
     /// MIDI Port (not official?).
     /// </summary>
     /// <remarks>
-    /// FF 21 01  pp
+    /// <para>FF 21 01  pp</para>
     /// </remarks>
     [ElementName(nameof(MIDIPort))]
     [DisplayName("MIDI Port")]

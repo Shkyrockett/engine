@@ -289,7 +289,7 @@ namespace Engine.Imaging
         /// <param name="font">The font.</param>
         /// <returns>The <see cref="RenderFont"/>.</returns>
         public static RenderFont ToRenderFont(this Font font)
-            => new RenderFont(font.Name, font.Size, (Engine.TextStyle)font.Style);
+            => new RenderFont(font.Name, font.Size, (Engine.TextStyles)font.Style);
 
         /// <summary>
         /// The to string format.

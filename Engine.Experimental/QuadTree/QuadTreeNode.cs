@@ -259,7 +259,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="Point">The point</param>
         /// <param name="ItemsFound">The list to add found items to (list will not be cleared first)</param>
-        /// <remarks>ItemsFound is assumed to be initialized, and will not be cleared</remarks>
+        /// <remarks><para>ItemsFound is assumed to be initialized, and will not be cleared</para></remarks>
         public void GetItems(Point2D Point, ref List<QuadTreePositionItem<T>> ItemsFound)
         {
             // test the point against this node
@@ -290,7 +290,7 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="Rect">The rectangle</param>
         /// <param name="ItemsFound">The list to add found items to (list will not be cleared first)</param>
-        /// <remarks>ItemsFound is assumed to be initialized, and will not be cleared</remarks>
+        /// <remarks><para>ItemsFound is assumed to be initialized, and will not be cleared</para></remarks>
         public void GetItems(Rectangle2D Rect, ref List<QuadTreePositionItem<T>> ItemsFound)
         {
             // test the point against this node
@@ -320,7 +320,7 @@ namespace Engine.Experimental
         /// Gets a list of all items within this node
         /// </summary>
         /// <param name="ItemsFound">The list to add found items to (list will not be cleared first)</param>
-        /// <remarks>ItemsFound is assumed to be initialized, and will not be cleared</remarks>
+        /// <remarks><para>ItemsFound is assumed to be initialized, and will not be cleared</para></remarks>
         public void GetAllItems(ref List<QuadTreePositionItem<T>> ItemsFound)
         {
             ItemsFound.AddRange(Items);

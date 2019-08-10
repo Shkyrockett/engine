@@ -8,6 +8,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,7 +27,7 @@ namespace Engine
     [TypeConverter(typeof(ExpandableObjectConverter))]
     [DebuggerDisplay("{ToString()}")]
     public struct NumericRange
-        : IEnumerable<double>
+        : IEnumerable<double>, IEquatable<NumericRange>
     {
         #region Implementations
         #endregion Implementations
@@ -150,6 +151,22 @@ namespace Engine
         public Overflow Overflow { get; }
         #endregion Properties
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator ==(NumericRange left, NumericRange right) => left.Equals(right);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static bool operator !=(NumericRange left, NumericRange right) => !(left == right);
+
         #region Methods
         /// <summary>
         /// Enumerate all values at the <see cref="Step"/> interval between the <see cref="Max"/> and <see cref="Min"/> values.
@@ -173,6 +190,36 @@ namespace Engine
             {
                 yield return this[i];
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj) => obj is NumericRange range && Equals(range);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public bool Equals(NumericRange other) => Min == other.Min && Max == other.Max && UnitMin == other.UnitMin && UnitMax == other.UnitMax && Step == other.Step && Overflow == other.Overflow;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 885038066;
+            hashCode = hashCode * -1521134295 + Min.GetHashCode();
+            hashCode = hashCode * -1521134295 + Max.GetHashCode();
+            hashCode = hashCode * -1521134295 + UnitMin.GetHashCode();
+            hashCode = hashCode * -1521134295 + UnitMax.GetHashCode();
+            hashCode = hashCode * -1521134295 + Step.GetHashCode();
+            hashCode = hashCode * -1521134295 + Overflow.GetHashCode();
+            return hashCode;
         }
         #endregion Methods
     }

@@ -17,8 +17,8 @@ namespace Engine.File
     /// The Song Select specifies which sequence or song is to be played.
     /// </summary>
     /// <remarks>
-    /// nF 03 0sssssss
-    /// The Song Select specifies which sequence or song is to be played.
+    /// <para>nF 03 0sssssss
+    /// The Song Select specifies which sequence or song is to be played.</para>
     /// </remarks>
     [ElementName(nameof(SongSelect))]
     [DisplayName("Song Select")]

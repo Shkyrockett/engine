@@ -33,7 +33,7 @@ namespace Engine
         /// <summary>
         /// The identity.
         /// </summary>
-        public static Transform2D Identity = new Transform2D(0d, 0d, 0d, 0d, 1d, 1d);
+        public static readonly Transform2D Identity = new Transform2D(0d, 0d, 0d, 0d, 1d, 1d);
         #endregion Implementations
 
         #region Constructors

@@ -8,13 +8,16 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
+using System.Collections.Generic;
+
 namespace Engine.Imaging
 {
     /// <summary>
     /// The hatch fill struct.
     /// </summary>
     public struct HatchFill
-        : IFill
+        : IFill, IEquatable<HatchFill>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HatchFill"/> class.
@@ -38,23 +41,6 @@ namespace Engine.Imaging
         public FillMode FillMode { get; set; }
 
         /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        /// <exception cref="System"></exception>
-        public override bool Equals(object obj)
-            => obj is HatchFill && ((HatchFill)obj).Color == Color && ((HatchFill)obj).FillMode == FillMode;
-
-        /// <summary>
-        /// Get the hash code.
-        /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        /// <exception cref="System"></exception>
-        public override int GetHashCode()
-            => Color.GetHashCode();
-
-        /// <summary>
         /// The operator ==.
         /// </summary>
         /// <param name="left">The left.</param>
@@ -71,5 +57,38 @@ namespace Engine.Imaging
         /// <returns>The <see cref="bool"/>.</returns>
         public static bool operator !=(HatchFill left, HatchFill right)
             => !(left == right);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="obj">The obj.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        /// <exception cref="System"></exception>
+        public override bool Equals(object obj)
+            => obj is HatchFill hatchFill && Equals(hatchFill);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public bool Equals(HatchFill other) => other.Color == Color && other.FillMode == FillMode;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -404629357;
+            hashCode = hashCode * -1521134295 + EqualityComparer<IColor>.Default.GetHashCode(Color);
+            hashCode = hashCode * -1521134295 + FillMode.GetHashCode();
+            return hashCode;
+        }
     }
 }

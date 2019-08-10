@@ -14,8 +14,8 @@ namespace Engine.MathNotation
     /// The group types enum.
     /// </summary>
     /// <remarks>
-    /// http://symbolcodes.tlt.psu.edu/bylanguage/mathchart.html
-    /// https://www.splashmath.com/math-vocabulary/algebra/brackets
+    /// <para>http://symbolcodes.tlt.psu.edu/bylanguage/mathchart.html
+    /// https://www.splashmath.com/math-vocabulary/algebra/brackets</para>
     /// </remarks>
     public enum GroupType
     {

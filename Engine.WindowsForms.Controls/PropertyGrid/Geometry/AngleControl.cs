@@ -55,7 +55,7 @@ namespace Engine
         /// </summary>
         [Category("Value")]
         [Description("This event is raised if the value changes.")]
-        public event ValueChangedDelegate ValueChanged;
+        public event ValueChangedDelegate ValueChangedEventHandler;
 
         /// <summary>
         /// The method.
@@ -144,7 +144,7 @@ namespace Engine
                     break;
             }
 
-            ValueChanged?.Invoke(this, new ValueChangedEventArgs(e.Value));
+            ValueChangedEventHandler?.Invoke(this, new ValueChangedEventArgs(e.Value));
         }
 
         /// <summary>

@@ -16,8 +16,8 @@ namespace Engine.File
     /// Continue. Continue at the point the sequence was Stopped.
     /// </summary>
     /// <remarks>
-    /// nF 0B 
-    /// Continue at the point the sequence was Stopped.
+    /// <para>nF 0B 
+    /// Continue at the point the sequence was Stopped.</para>
     /// </remarks>
     [ElementName(nameof(Continue))]
     [DisplayName(nameof(Continue))]

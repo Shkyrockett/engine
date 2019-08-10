@@ -1044,7 +1044,7 @@ namespace Engine
         {
             if (t < 0 || t > 1)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(t));
             }
 
             var bezier1 = new List<Point2D>();

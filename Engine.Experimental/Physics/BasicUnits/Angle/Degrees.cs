@@ -24,7 +24,7 @@ namespace Engine.Physics
     [DataContract, Serializable]
     [DisplayName(nameof(Degrees))]
     public struct Degrees
-        : IDirection, IFormattable
+        : IDirection, IFormattable, IEquatable<Degrees>
     {
         #region Constructors
         /// <summary>
@@ -78,82 +78,54 @@ namespace Engine.Physics
             => nameof(Degrees);
 
         /// <summary>
-        /// Gets the abreviation.
+        /// Gets the abbreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abreviation
+        public string Abbreviation
             => "deg";
         #endregion Properties
 
         #region Operators
         /// <summary>
-        /// Compares two <see cref="Degrees"/> objects.
+        /// Compares two <see cref="Degrees" /> objects.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator ==(Degrees left, Degrees right)
             => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Degrees"/> objects.
+        /// Compares two <see cref="Degrees" /> objects.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator !=(Degrees left, Degrees right)
             => !Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Degrees"/> objects.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        /// <returns></returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Degrees a, Degrees b)
-            => Equals(a, b);
-
-        /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Equals(Degrees a, Degrees b)
-            => (a.Value == b.Value) & (a.Value == b.Value);
-
-        /// <summary>
-        /// override object.Equals
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        //
-        // See the full list of guidelines at
-        //   https://msdn.microsoft.com/en-us/library/ms173147.aspx
-        // and also the guidance for operator== at
-        //   https://msdn.microsoft.com/en-us/library/53k8ybth.aspx
-        //
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => (obj is Degrees || obj is Radians) && obj is Degrees ? Equals(this, (Degrees)obj) : Equals(this, ((Radians)obj).ToDegrees());
-
-        /// <summary>
-        /// The equals.
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Degrees"/>.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Degrees value)
-            => Equals(this, value);
-
-        /// <param name="value"></param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         public static implicit operator Degrees(double value)
             => new Degrees(value);
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Radians"/> to <see cref="Degrees"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         public static explicit operator Degrees(Radians value)
             => value.Degrees;
@@ -180,10 +152,59 @@ namespace Engine.Physics
 
         #region Methods
         /// <summary>
-        /// override object.GetHashCode
+        /// Compares two <see cref="Degrees"/> objects.
         /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
         /// <returns></returns>
-        public override int GetHashCode() => Value.GetHashCode();
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Compare(Degrees a, Degrees b)
+            => Equals(a, b);
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Equals(Degrees a, Degrees b)
+            => (a.Value == b.Value) & (a.Value == b.Value);
+
+        /// <summary>
+        /// override object.Equals
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        //
+        // See the full list of guidelines at
+        //   https://msdn.microsoft.com/en-us/library/ms173147.aspx
+        // and also the guidance for operator== at
+        //   https://msdn.microsoft.com/en-us/library/53k8ybth.aspx
+        //
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj)
+            => (obj is Degrees || obj is Radians) && obj is Degrees ? Equals(this, (Degrees)obj) : Equals(this, ((Radians)obj).ToDegrees());
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="other">The value.</param>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool Equals(Degrees other) => Value == other.Value;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode() => -1937169414 + Value.GetHashCode();
 
         /// <summary>
         /// Convert Degrees to Radians.

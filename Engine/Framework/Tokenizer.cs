@@ -19,7 +19,7 @@ namespace Engine
     /// The tokenizer class.
     /// </summary>
     /// <remarks>
-    /// Based on TokenizerHelper from: http://referencesource.microsoft.com
+    /// <para>Based on TokenizerHelper from: http://referencesource.microsoft.com</para>
     /// </remarks>
     public class Tokenizer
     {

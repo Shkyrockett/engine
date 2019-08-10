@@ -20,7 +20,7 @@ namespace Engine
     /// <see cref="RectangleCellGrid"/> class for handling calculating the scaling and positioning of cells in a grid.
     /// </summary>
     /// <remarks>
-    /// https://stackoverflow.com/questions/39217512/make-a-1d-array-of-a-2d-grid-with-x-and-y-coordinates-x-and-y-are-not-referring
+    /// <para>https://stackoverflow.com/questions/39217512/make-a-1d-array-of-a-2d-grid-with-x-and-y-coordinates-x-and-y-are-not-referring</para>
     /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]
@@ -119,7 +119,7 @@ namespace Engine
         /// The index of the cell under the point in the grid or -1 if a cell is not found.
         /// </returns>
         /// <remarks>
-        /// https://www.cyotek.com/blog/converting-2d-arrays-to-1d-and-accessing-as-either-2d-or-1d
+        /// <para>https://www.cyotek.com/blog/converting-2d-arrays-to-1d-and-accessing-as-either-2d-or-1d</para>
         /// </remarks>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public int this[Point2D location]

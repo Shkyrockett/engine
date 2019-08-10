@@ -16,7 +16,7 @@ namespace Engine.File
     /// Sequence track name.
     /// </summary>
     /// <remarks>
-    /// FF 03 len text
+    /// <para>FF 03 len text</para>
     /// </remarks>
     [ElementName(nameof(TrackName))]
     [DisplayName("Track Name")]

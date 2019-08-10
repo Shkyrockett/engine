@@ -500,7 +500,7 @@ namespace Engine
         /// <param name="pathDefinition">The pathDefinition.</param>
         /// <returns>The <see cref="Tuple{T1, T2}"/>.</returns>
         /// <remarks>
-        /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
+        /// <para>http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t</para>
         /// </remarks>
         public static (List<CurveSegment>, bool) ParsePathDefString(string pathDefinition)
             => ParsePathDefString(pathDefinition, CultureInfo.InvariantCulture);
@@ -512,7 +512,7 @@ namespace Engine
         /// <param name="provider">The provider.</param>
         /// <returns>The <see cref="Tuple{T1, T2}"/>.</returns>
         /// <remarks>
-        /// http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t
+        /// <para>http://stackoverflow.com/questions/5115388/parsing-svg-path-elements-with-c-sharp-are-there-libraries-out-there-to-do-t</para>
         /// </remarks>
         public static (List<CurveSegment>, bool) ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {

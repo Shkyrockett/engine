@@ -4,7 +4,7 @@
     /// The Heesch tilings enum.
     /// </summary>
     /// <remarks>
-    /// http://www.tessellations.org/tess-symmetry7.shtml
+    /// <para>http://www.tessellations.org/tess-symmetry7.shtml</para>
     /// </remarks>
     public enum HeeschTiling
         : byte

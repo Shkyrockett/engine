@@ -131,7 +131,6 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public uint ReadVarLen()
@@ -161,7 +160,6 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int ReadVarInt()
@@ -193,7 +191,6 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ReadVarLenx(BinaryReader file)
@@ -223,7 +220,6 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ReadVarLen1x(BinaryReader file)
@@ -255,7 +251,6 @@ namespace Engine.File
         /// <exception cref="EndOfStreamException">The end of the stream has been reached.</exception>
         /// <exception cref="ObjectDisposedException">The stream has been closed.</exception>
         /// <exception cref="IOException">An I/O error has occurred.</exception>
-        [Obsolete]
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ReadVarLen2x(BinaryReader file)

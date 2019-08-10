@@ -19,7 +19,7 @@ namespace Engine.Colorspace
     /// </summary>
     [DebuggerDisplay("{ToString()}")]
     public struct HSVA
-        : IColor
+        : IColor, IEquatable<HSVA>
     {
         /// <summary>
         /// The empty Value: new AHSV().
@@ -32,8 +32,8 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="color"></param>
         /// <remarks>
-        /// h = [0,360], s = [0,1], v = [0,1]
-        ///		if s == 0, then h = -1 (undefined)
+        /// <para>h = [0,360], s = [0,1], v = [0,1]
+        ///		if s == 0, then h = -1 (undefined)</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
@@ -138,15 +138,71 @@ namespace Engine.Colorspace
         #endregion Properties
 
         /// <summary>
+        /// Implements the operator ==.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator ==(HSVA left, HSVA right) => left.Equals(right);
+
+        /// <summary>
+        /// Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator !=(HSVA left, HSVA right) => !(left == right);
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
             var (r1, g1, b1, a1) = other.ToRGBATuple();
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is HSVA color && Equals(color);
+
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals(HSVA other) => Alpha == other.Alpha && Hue == other.Hue && Saturation == other.Saturation && Value == Value;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = -1269385161;
+            hashCode = hashCode * -1521134295 + Alpha.GetHashCode();
+            hashCode = hashCode * -1521134295 + Hue.GetHashCode();
+            hashCode = hashCode * -1521134295 + Saturation.GetHashCode();
+            hashCode = hashCode * -1521134295 + Value.GetHashCode();
+            return hashCode;
         }
 
         /// <summary>
@@ -161,8 +217,8 @@ namespace Engine.Colorspace
         /// </summary>
         /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
         /// <remarks>
-        /// h = [0,360], s = [0,1], v = [0,1]
-        ///		if s == 0, then h = -1 (undefined)
+        /// <para>h = [0,360], s = [0,1], v = [0,1]
+        ///		if s == 0, then h = -1 (undefined)</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html

@@ -34,6 +34,7 @@
 // <summary></summary>
 // <remarks></remarks>
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -111,7 +112,7 @@ namespace Engine
         /// <param name="polygons">List of <see cref="PolygonContour"/> classes.</param>
         /// <param name="point">Point to test.</param>
         /// <returns>Returns an <see cref="Inclusions"/> object with the points of intersection, and relationship status.</returns>
-        /// <remarks>This function automatically knows that enclosed polygons are "no-go" areas.</remarks>
+        /// <remarks><para>This function automatically knows that enclosed polygons are "no-go" areas.</para></remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Inclusions Contains(this Polygon polygons, Point2D point)

@@ -16,7 +16,7 @@ namespace Engine.File
     /// Time signature.
     /// </summary>
     /// <remarks>
-    /// FF 58 04  NN DD CC BB
+    /// <para>FF 58 04  NN DD CC BB</para>
     /// </remarks>
     [ElementName(nameof(TimeSignature))]
     [DisplayName("Time Signature")]

@@ -747,7 +747,7 @@ namespace Engine
         /// Calculated Spline Point
         /// </returns>
         /// <remarks>
-        /// Points calculated exist on the spline between points two and three.
+        /// <para>Points calculated exist on the spline between points two and three.</para>
         /// </remarks>
         /// <acknowledgment>
         /// From: http://tehc0dez.blogspot.com/2010/04/nice-curves-catmullrom-spline-in-c.html
@@ -1415,6 +1415,16 @@ namespace Engine
             return (x, Y: (a * (x - h) * (x - h)) + k);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="x1"></param>
+        /// <param name="y1"></param>
+        /// <param name="x2"></param>
+        /// <param name="y2"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
         public static (double X, double Y) InterpolateParabola(double t, double x1, double y1, double x2, double y2, double k)
         {
             var parabolicT = (t * 2d) - 1d;

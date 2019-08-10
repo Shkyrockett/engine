@@ -13,7 +13,7 @@ namespace Engine
     /// <summary>
     /// <see cref="ParallelLocus"/> is a special case of the <see cref="EmptyLocus"/> where there are no intersections because lines are exactly parallel.
     /// </summary>
-    /// <remarks> This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178 </remarks>
+    /// <remarks> <para>This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178</para> </remarks>
     public class ParallelLocus
         : EmptyLocus
     {

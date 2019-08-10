@@ -1,4 +1,4 @@
-﻿// <copyright file="Density.cs" company="Shkyrockett" >
+﻿// <copyright file="VelocityAquired.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -15,47 +15,48 @@ using System.ComponentModel;
 namespace Engine.Physics
 {
     /// <summary>
-    /// The density struct.
+    /// The velocity acquired class.
     /// </summary>
-    public struct Density : IEquatable<Density>
+    public class VelocityAcquired
+        : IVelocity, IEquatable<VelocityAcquired>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Density"/> class.
+        /// Initializes a new instance of the <see cref="VelocityAcquired"/> class.
         /// </summary>
-        /// <param name="mass">The mass.</param>
-        /// <param name="volume">The volume.</param>
-        public Density(IMass mass, IVolume volume)
+        /// <param name="speed">The speed.</param>
+        /// <param name="direction">The direction.</param>
+        public VelocityAcquired(IAcceleration speed, IDirection direction)
         {
-            Mass = mass;
-            Volume = volume;
+            Direction = direction;
+            Acceleration = speed;
         }
 
         /// <summary>
-        /// Gets or sets the mass.
+        /// Gets or sets the acceleration.
         /// </summary>
-        public IMass Mass { get; set; }
+        public IAcceleration Acceleration { get; set; }
 
         /// <summary>
-        /// Gets or sets the volume.
+        /// Gets or sets the direction.
         /// </summary>
-        public IVolume Volume { get; set; }
+        public IDirection Direction { get; set; }
 
         /// <summary>
         /// Gets the value.
         /// </summary>
-        public double Value => Mass.Value / Volume.Value;
+        public double Value => Acceleration.Value * Direction.Value;
 
         /// <summary>
         /// Gets the name.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public static string Name => nameof(Density);
+        public static string Name => nameof(Velocity);
 
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public string Abbreviation => $"{Mass.Abbreviation}/{Volume.Abbreviation}³";
+        public string Abbreviation => "ft";
 
         /// <summary>
         /// Implements the operator ==.
@@ -65,7 +66,7 @@ namespace Engine.Physics
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator ==(Density left, Density right) => left.Equals(right);
+        public static bool operator ==(VelocityAcquired left, VelocityAcquired right) => EqualityComparer<VelocityAcquired>.Default.Equals(left, right);
 
         /// <summary>
         /// Implements the operator !=.
@@ -75,7 +76,7 @@ namespace Engine.Physics
         /// <returns>
         /// The result of the operator.
         /// </returns>
-        public static bool operator !=(Density left, Density right) => !(left == right);
+        public static bool operator !=(VelocityAcquired left, VelocityAcquired right) => !(left == right);
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
@@ -84,7 +85,7 @@ namespace Engine.Physics
         /// <returns>
         ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
-        public override bool Equals(object obj) => obj is Density density && Equals(density);
+        public override bool Equals(object obj) => Equals(obj as VelocityAcquired);
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -93,7 +94,7 @@ namespace Engine.Physics
         /// <returns>
         /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
         /// </returns>
-        public bool Equals(Density other) => EqualityComparer<IMass>.Default.Equals(Mass, other.Mass) && EqualityComparer<IVolume>.Default.Equals(Volume, other.Volume) && Value == other.Value && Abbreviation == other.Abbreviation;
+        public bool Equals(VelocityAcquired other) => other != null && EqualityComparer<IAcceleration>.Default.Equals(Acceleration, other.Acceleration) && EqualityComparer<IDirection>.Default.Equals(Direction, other.Direction);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -103,11 +104,9 @@ namespace Engine.Physics
         /// </returns>
         public override int GetHashCode()
         {
-            var hashCode = -2108761471;
-            hashCode = hashCode * -1521134295 + EqualityComparer<IMass>.Default.GetHashCode(Mass);
-            hashCode = hashCode * -1521134295 + EqualityComparer<IVolume>.Default.GetHashCode(Volume);
-            hashCode = hashCode * -1521134295 + Value.GetHashCode();
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Abbreviation);
+            var hashCode = 2120939087;
+            hashCode = hashCode * -1521134295 + EqualityComparer<IAcceleration>.Default.GetHashCode(Acceleration);
+            hashCode = hashCode * -1521134295 + EqualityComparer<IDirection>.Default.GetHashCode(Direction);
             return hashCode;
         }
 
@@ -117,6 +116,6 @@ namespace Engine.Physics
         /// <returns>
         /// A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString() => $"{Value}{Mass.Abbreviation}/{Volume.Abbreviation}³";
+        public override string ToString() => $"{Value} {Acceleration}{Direction}";
     }
 }

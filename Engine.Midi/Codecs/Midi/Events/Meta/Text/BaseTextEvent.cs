@@ -16,7 +16,7 @@ namespace Engine.File
     /// Base for all Text events.
     /// </summary>
     /// <remarks>
-    /// FF 01 len text
+    /// <para>FF 01 len text</para>
     /// </remarks>
     public abstract class BaseTextEvent
         : EventStatus

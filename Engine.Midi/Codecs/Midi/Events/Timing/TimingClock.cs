@@ -16,8 +16,8 @@ namespace Engine.File
     /// Timing Clock. Sent 24 times per quarter note when synchronization is required (see text).
     /// </summary>
     /// <remarks>
-    /// nF 08 
-    /// Sent 24 times per quarter note when synchronization is required (see text).
+    /// <para>nF 08 
+    /// Sent 24 times per quarter note when synchronization is required (see text).</para>
     /// </remarks>
     [ElementName(nameof(TimingClock))]
     [DisplayName("Timing Clock")]

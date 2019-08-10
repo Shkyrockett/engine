@@ -23,8 +23,8 @@ namespace Engine
     /// The bezier segment class.
     /// </summary>
     /// <remarks>
-    /// https://github.com/superlloyd/Poly
-    /// http://pomax.github.io/bezierinfo/
+    /// <para>https://github.com/superlloyd/Poly
+    /// http://pomax.github.io/bezierinfo/</para>
     /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]

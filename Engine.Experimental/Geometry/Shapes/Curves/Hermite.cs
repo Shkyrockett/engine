@@ -18,8 +18,8 @@ namespace Engine
     /// </summary>
     /// <structure>Engine.Geometry.Hermite2D</structure>
     /// <remarks>
-    /// http://pomax.github.io/bezierinfo/
-    /// http://stackoverflow.com/questions/8557098/cubic-hermite-spline-behaving-strangely
+    /// <para>http://pomax.github.io/bezierinfo/
+    /// http://stackoverflow.com/questions/8557098/cubic-hermite-spline-behaving-strangely</para>
     /// </remarks>
     [DataContract, Serializable]
     //[GraphicsObject]
@@ -95,7 +95,7 @@ namespace Engine
         /// The to cubic bezier.
         /// </summary>
         /// <returns>The <see cref="CubicBezier"/>.</returns>
-        /// <remarks>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</remarks>
+        /// <remarks><para>http://stackoverflow.com/questions/29087503/how-to-create-jigsaw-puzzle-pieces-using-opengl-and-bezier-curve/29089681#29089681</para></remarks>
         public CubicBezier ToCubicBezier()
             => new CubicBezier(ATan, new Point2D(ATan.X - ((B.X - A.X) / 6), ATan.Y - ((B.Y - A.Y) / 6)), new Point2D(B.X + ((BTan.X - ATan.X) / 6), B.Y + ((BTan.Y - ATan.Y) / 6)), BTan);
 

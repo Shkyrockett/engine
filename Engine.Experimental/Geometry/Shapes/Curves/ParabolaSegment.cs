@@ -23,19 +23,19 @@ namespace Engine
     /// The parabola class.
     /// </summary>
     /// <remarks>
-    /// References to look at for development:
-    /// <ul>
-    /// <li><a href="https://www.youtube.com/watch?v=4Af3NBN34ME">https://www.youtube.com/watch?v=4Af3NBN34ME</a></li>
-    /// <li><a href="https://www.mathwarehouse.com/quadratic/parabola/interactive-parabola.php">https://www.mathwarehouse.com/quadratic/parabola/interactive-parabola.php</a></li>
-    /// <li><a href="http://csharphelper.com/blog/2014/11/draw-a-conic-section-from-its-polynomial-equation-in-c/">http://csharphelper.com/blog/2014/11/draw-a-conic-section-from-its-polynomial-equation-in-c/</a></li>
-    /// <li><a href="http://csharphelper.com/blog/2014/11/select-a-conic-section-in-c/">http://csharphelper.com/blog/2014/11/select-a-conic-section-in-c/</a></li>
-    /// <li><a href="http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/">http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/</a></li>
-    /// <li><a href="https://stackoverflow.com/questions/21384619/drawing-a-quadratic-curve">https://stackoverflow.com/questions/21384619/drawing-a-quadratic-curve</a></li>
-    /// <li><a href="https://stackoverflow.com/questions/17328322/create-a-parabolic-trajectory-with-fixed-angle">https://stackoverflow.com/questions/17328322/create-a-parabolic-trajectory-with-fixed-angle</a></li>
-    /// <li><a href="https://stackoverflow.com/a/717833">https://stackoverflow.com/a/717833</a></li>
-    /// <li><a href="https://forum.unity.com/threads/generating-dynamic-parabola.211681/">https://forum.unity.com/threads/generating-dynamic-parabola.211681/</a></li>
-    /// <li><a href="https://www.mathwarehouse.com/geometry/parabola/standard-and-vertex-form.php">https://www.mathwarehouse.com/geometry/parabola/standard-and-vertex-form.php</a></li>
-    /// </ul>
+    /// <para>References to look at for development:</para>
+    /// <list type="bullet">
+    /// <item><description><a href="https://www.youtube.com/watch?v=4Af3NBN34ME">https://www.youtube.com/watch?v=4Af3NBN34ME</a></description></item>
+    /// <item><description><a href="https://www.mathwarehouse.com/quadratic/parabola/interactive-parabola.php">https://www.mathwarehouse.com/quadratic/parabola/interactive-parabola.php</a></description></item>
+    /// <item><description><a href="http://csharphelper.com/blog/2014/11/draw-a-conic-section-from-its-polynomial-equation-in-c/">http://csharphelper.com/blog/2014/11/draw-a-conic-section-from-its-polynomial-equation-in-c/</a></description></item>
+    /// <item><description><a href="http://csharphelper.com/blog/2014/11/select-a-conic-section-in-c/">http://csharphelper.com/blog/2014/11/select-a-conic-section-in-c/</a></description></item>
+    /// <item><description><a href="http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/">http://csharphelper.com/blog/2014/11/see-where-two-conic-sections-intersect-in-c/</a></description></item>
+    /// <item><description><a href="https://stackoverflow.com/questions/21384619/drawing-a-quadratic-curve">https://stackoverflow.com/questions/21384619/drawing-a-quadratic-curve</a></description></item>
+    /// <item><description><a href="https://stackoverflow.com/questions/17328322/create-a-parabolic-trajectory-with-fixed-angle">https://stackoverflow.com/questions/17328322/create-a-parabolic-trajectory-with-fixed-angle</a></description></item>
+    /// <item><description><a href="https://stackoverflow.com/a/717833">https://stackoverflow.com/a/717833</a></description></item>
+    /// <item><description><a href="https://forum.unity.com/threads/generating-dynamic-parabola.211681/">https://forum.unity.com/threads/generating-dynamic-parabola.211681/</a></description></item>
+    /// <item><description><a href="https://www.mathwarehouse.com/geometry/parabola/standard-and-vertex-form.php">https://www.mathwarehouse.com/geometry/parabola/standard-and-vertex-form.php</a></description></item>
+    /// </list>
     /// </remarks>
     public class ParabolaSegment
     {

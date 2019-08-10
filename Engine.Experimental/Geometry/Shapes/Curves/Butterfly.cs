@@ -22,7 +22,7 @@ namespace Engine
     /// The butterfly class.
     /// </summary>
     /// <remarks>
-    /// Class based on information found at: <seealso href="http://csharphelper.com/blog/2014/11/draw-a-colored-butterfly-curve-in-c/"/>. <br />
+    /// <para>Class based on information found at: <seealso href="http://csharphelper.com/blog/2014/11/draw-a-colored-butterfly-curve-in-c/"/>. <br /></para>
     /// </remarks>
     [DataContract, Serializable]
     [GraphicsObject]

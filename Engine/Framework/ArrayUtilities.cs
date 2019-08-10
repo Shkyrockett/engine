@@ -26,7 +26,7 @@ namespace Engine
         /// <param name="t">The t.</param>
         /// <typeparam name="T"></typeparam>
         /// <remarks>
-        /// https://social.msdn.microsoft.com/Forums/vstudio/en-US/ae359c99-4294-4c7e-9afd-a161e8096de3/how-to-add-add-extension-method-to-array?forum=csharpgeneral
+        /// <para>https://social.msdn.microsoft.com/Forums/vstudio/en-US/ae359c99-4294-4c7e-9afd-a161e8096de3/how-to-add-add-extension-method-to-array?forum=csharpgeneral</para>
         /// </remarks>
         public static void Add<T>(ref T[] array, T t)
         {
@@ -53,10 +53,12 @@ namespace Engine
         /// <summary>
         /// Remove the at.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="array">The array.</param>
         /// <param name="index">The index.</param>
-        /// <returns>The <see cref="T[]"/>.</returns>
-        /// <typeparam name="T"></typeparam>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         public static T[] RemoveAt<T>(this T[] array, int index)
         {
             array.RemoveAt(index);
@@ -106,13 +108,15 @@ namespace Engine
         /// Get the array slice between the two indexes.
         /// ... Inclusive for start index, exclusive for end index.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>
         /// <param name="start">The start.</param>
         /// <param name="end">The end.</param>
-        /// <returns>The <see cref="T[]"/>.</returns>
-        /// <typeparam name="T"></typeparam>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <remarks>
-        /// https://www.dotnetperls.com/array-slice
+        /// <para>https://www.dotnetperls.com/array-slice</para>
         /// </remarks>
         public static T[] Slice<T>(this T[] source, int start, int end)
         {
@@ -136,11 +140,13 @@ namespace Engine
         /// Get the array slice between the two indexes.
         /// ... Inclusive for start index, exclusive for end index.
         /// </summary>
-        /// <param name="source">The source.</param>
-        /// <returns>The <see cref="T[]"/>.</returns>
         /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <remarks>
-        /// https://www.dotnetperls.com/array-slice
+        /// <para>https://www.dotnetperls.com/array-slice</para>
         /// </remarks>
         public static T[] Slice<T>(this T[] source)
         {
@@ -162,7 +168,7 @@ namespace Engine
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <remarks>
-        /// http://www.justinshield.com/2011/06/mapreduce-in-c//
+        /// <para>http://www.justinshield.com/2011/06/mapreduce-in-c//</para>
         /// </remarks>
         public static IEnumerable<TResult> Map<T, TResult>(this IEnumerable<T> list, Func<T, TResult> func)
         {
@@ -182,7 +188,7 @@ namespace Engine
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="U"></typeparam>
         /// <remarks>
-        /// http://www.justinshield.com/2011/06/mapreduce-in-c//
+        /// <para>http://www.justinshield.com/2011/06/mapreduce-in-c//</para>
         /// </remarks>
         public static T Reduce<T, U>(this IEnumerable<U> list, Func<U, T, T> func, T acc)
         {
@@ -203,7 +209,7 @@ namespace Engine
         /// <returns>The <see cref="List{T}"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <remarks>
-        /// http://stackoverflow.com/q/9325627
+        /// <para>http://stackoverflow.com/q/9325627</para>
         /// </remarks>
         public static List<T> Splice<T>(this List<T> Source, int Start, int Size)
         {
@@ -219,7 +225,7 @@ namespace Engine
         /// <returns>The <see cref="List{T}"/>.</returns>
         /// <typeparam name="T"></typeparam>
         /// <remarks>
-        /// http://www.vcskicks.com/randomize_array.php
+        /// <para>http://www.vcskicks.com/randomize_array.php</para>
         /// </remarks>
         public static List<T> Shuffle<T>(this List<T> inputList)
         {

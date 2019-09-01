@@ -82,7 +82,8 @@ namespace MethodSpeedTester
             Func<Circle, PointF, Inclusions> method,
             string text)
         {
-            g.DrawString(text, font, Brushes.Black, new Point());
+            if (circle is null || points is null) return;
+            g?.DrawString(text, font, Brushes.Black, new Point());
             g.FillEllipse(Brushes.White, circle.Bounds.ToRectangleF());
             g.DrawEllipse(Pens.Black, circle.Bounds.ToRectangleF());
             foreach (var point in points)

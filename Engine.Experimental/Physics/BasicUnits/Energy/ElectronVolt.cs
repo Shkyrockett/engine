@@ -10,17 +10,20 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Physics
 {
     /// <summary>
     /// The electron volt struct.
     /// </summary>
+    /// <seealso cref="IEnergy" />
+    /// <seealso cref="IEquatable{T}" />
     public struct ElectronVolt
         : IEnergy, IEquatable<ElectronVolt>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ElectronVolt"/> class.
+        /// Initializes a new instance of the <see cref="ElectronVolt" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public ElectronVolt(double value)
@@ -31,11 +34,17 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name
             => "Electron Volt";
@@ -43,6 +52,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Abbreviation
             => "eV";
@@ -91,7 +103,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(ElectronVolt other) => Value == other.Value;
 

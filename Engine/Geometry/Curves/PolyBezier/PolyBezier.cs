@@ -56,7 +56,7 @@ namespace Engine
         /// </summary>
         public PolyBezier(string definition)
         {
-            contours = ParsePathDefString(definition);
+            contours = ParsePathDefString(definition, CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Engine
             get { return ToPathDefString(); }
             set
             {
-                contours = ParsePathDefString(value);
+                contours = ParsePathDefString(value, CultureInfo.InvariantCulture);
                 ClearCache();
                 OnPropertyChanged(nameof(Definition));
                 update?.Invoke();
@@ -304,7 +304,7 @@ namespace Engine
                 var cmd = token.Take(1).Single();
 
                 // Retrieve the values.
-                var args = Regex.Split(token.Substring(1), argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg)).ToArray();
+                var args = Regex.Split(token.Substring(1), argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg, NumberStyles.Float, provider)).ToArray();
 
                 switch (cmd)
                 {

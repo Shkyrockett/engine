@@ -200,6 +200,15 @@ namespace Engine.Colorspace
             => a.Red == b.Red && a.Green == b.Green && a.Blue == b.Blue && a.Alpha == b.Alpha;
 
         /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
+        public bool Equals(RGBAF other) => Red == other.Red && Green == other.Green && Blue == other.Blue && Alpha == other.Alpha;
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
@@ -208,8 +217,7 @@ namespace Engine.Colorspace
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is RGBAF color && Equals(color);
+        public override bool Equals(object obj) => obj is RGBAF color && Equals(color);
 
         /// <summary>
         /// The equals.
@@ -226,15 +234,6 @@ namespace Engine.Colorspace
             var (redB, greenB, blueB, alphaB) = other.ToRGBATuple();
             return alphaA == alphaB && redA == redB && greenA == greenB && blueA == blueB;
         }
-
-        /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
-        /// </returns>
-        public bool Equals(RGBAF other) => Red == other.Red && Green == other.Green && Blue == other.Blue && Alpha == other.Alpha;
 
         /// <summary>
         /// The to RGBA tuple.

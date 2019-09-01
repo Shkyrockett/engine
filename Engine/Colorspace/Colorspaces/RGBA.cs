@@ -265,14 +265,22 @@ namespace Engine.Colorspace
             => a.value == b.value;
 
         /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
+        public bool Equals(RGBA other) => value == other.value;
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is RGBA color && Equals(this, color);
+        public override bool Equals(object obj) => obj is RGBA color && Equals(color);
 
         /// <summary>
         /// The equals.
@@ -283,15 +291,6 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(IColor value)
             => Equals(this, value);
-
-        /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
-        /// </returns>
-        public bool Equals(RGBA other) => Equals(this, other);
 
         /// <summary>
         /// The to RGBA tuple.

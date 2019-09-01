@@ -113,6 +113,16 @@ namespace Engine.Colorspace
 
         #region Methods
         /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool Equals(YUVA other) => Y == other.Y && U == other.U && V == other.V && Alpha == other.Alpha;
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
@@ -131,15 +141,6 @@ namespace Engine.Colorspace
         /// <returns>The <see cref="bool"/>.</returns>
         public override bool Equals(object obj)
             => obj is YUVA color && Equals(color);
-
-        /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
-        /// </returns>
-        public bool Equals(YUVA other) => Y == other.Y && U == other.U && V == other.V && Alpha == other.Alpha;
 
         /// <summary>
         /// The to color.

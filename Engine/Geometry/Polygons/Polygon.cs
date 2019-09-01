@@ -156,7 +156,7 @@ namespace Engine
             get { return ToPathDefString(); }
             set
             {
-                contours = ParsePathDefString(value);
+                contours = ParsePathDefString(value, CultureInfo.InvariantCulture);
                 ClearCache();
                 OnPropertyChanged(nameof(Definition));
                 update?.Invoke();
@@ -251,7 +251,6 @@ namespace Engine
         /// <returns>The <see cref="List{T}"/>.</returns>
         public static List<PolygonContour> ParsePathDefString(string pathDefinition, IFormatProvider provider)
         {
-            _ = provider;
             // These letters are valid PolyBezier commands. Split the tokens at these.
             const string separators = @"(?=[M])";
             //string separators = @"(?=[MZ])";
@@ -268,7 +267,7 @@ namespace Engine
                 {
                     case 'M':
                         // M is Move to.
-                        contours.Add(new PolygonContour(PolygonContour.ParsePathDefString(token.Substring(1))));
+                        contours.Add(new PolygonContour(PolygonContour.ParsePathDefString(token.Substring(1), provider)));
                         break;
                         //case 'Z':
                         //    // Z is End of Path.
@@ -409,7 +408,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Polygon)}{{{string.Join(sep.ToString(), Contours)}}}";
+            IFormattable formatable = $"{nameof(Polygon)}{{{string.Join(sep.ToString(provider), Contours)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

@@ -94,12 +94,12 @@ namespace Engine.Imaging
         public static void Render(this AngleVisualizerTester shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            _ = style ?? (ShapeStyle)item?.Style!!;
+            _ = style ?? (ShapeStyle)item?.Style;
 
             var fill = new SolidFill(RGBA.FromRGBA(Colors.MediumPurple, 128));
             var stroke = new Stroke(new SolidFill(RGBA.FromRGBA(Colors.Purple, 128)));
 
-            var bounds = shape.Bounds!!;
+            var bounds = shape.Bounds;
             renderer.FillPie(fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
             renderer.DrawPie(stroke, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
 
@@ -125,7 +125,7 @@ namespace Engine.Imaging
         public static void Render(this NodeRevealer shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item?.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item?.Style;
 
             var dashPen = new Stroke(SolidFills.DarkGray) { DashStyle = LineDashStyle.Dash, DashPattern = new float[] { 3f, 3f } };
 

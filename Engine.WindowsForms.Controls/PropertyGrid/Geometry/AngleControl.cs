@@ -48,14 +48,14 @@ namespace Engine
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The value changed event arguments.</param>
-        public delegate void ValueChangedDelegate(object sender, ValueChangedEventArgs e);
+        public delegate void ValueChangedEventHandler(object sender, ValueChangedEventArgs e);
 
         /// <summary>
-        /// The value changed event of the <see cref="ValueChangedDelegate"/>.
+        /// The value changed event of the <see cref="ValueChangedEventHandler"/>.
         /// </summary>
         [Category("Value")]
         [Description("This event is raised if the value changes.")]
-        public event ValueChangedDelegate ValueChangedEventHandler;
+        public event ValueChangedEventHandler ValueChanged;
 
         /// <summary>
         /// The method.
@@ -144,7 +144,7 @@ namespace Engine
                     break;
             }
 
-            ValueChangedEventHandler?.Invoke(this, new ValueChangedEventArgs(e.Value));
+            ValueChanged?.Invoke(this, new ValueChangedEventArgs(e.Value));
         }
 
         /// <summary>

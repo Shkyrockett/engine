@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -25,6 +26,8 @@ namespace Engine
     /// <summary>
     /// The line dash style struct.
     /// </summary>
+    /// <seealso cref="IFormattable" />
+    /// <seealso cref="IEquatable{T}" />
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public struct LineDashStyle
@@ -76,7 +79,7 @@ namespace Engine
         //{ }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LineDashStyle"/> class.
+        /// Initializes a new instance of the <see cref="LineDashStyle" /> class.
         /// </summary>
         /// <param name="dashPattern">The dashPattern.</param>
         /// <param name="dashOffset">The dashOffset.</param>
@@ -117,63 +120,81 @@ namespace Engine
         /// <summary>
         /// Gets or sets the dash pattern text.
         /// </summary>
+        /// <value>
+        /// The dash pattern text.
+        /// </value>
         [Browsable(false)]
         [XmlAttribute("d")]
         [RefreshProperties(RefreshProperties.All)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public string DashPatternText { get { return ToString(); } set { Parse(value); } }
+        public string DashPatternText { get { return ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */); } set { Parse(value); } }
 
         /// <summary>
         /// Gets or sets the dash offset.
         /// </summary>
+        /// <value>
+        /// The dash offset.
+        /// </value>
         public float DashOffset { get; set; }
 
         /// <summary>
-        /// 
+        /// Implements the operator ==.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator ==(LineDashStyle left, LineDashStyle right) => left.Equals(right);
 
         /// <summary>
-        /// 
+        /// Implements the operator !=.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator !=(LineDashStyle left, LineDashStyle right) => !(left == right);
 
         /// <summary>
         /// Parse.
         /// </summary>
         /// <param name="text">The text.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         private static float[] Parse(string text)
         {
             const string argSeparators = @"[\s,]|(?=-)";
-            return Regex.Split(text, argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => float.Parse(arg)).ToArray();
+            return Regex.Split(text, argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => float.Parse(arg, NumberStyles.Float, CultureInfo.InvariantCulture)).ToArray();
         }
 
         /// <summary>
-        /// 
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
         public override bool Equals(object obj) => obj is LineDashStyle style && Equals(style);
 
         /// <summary>
-        /// 
+        /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
         public bool Equals(LineDashStyle other) => EqualityComparer<float[]>.Default.Equals(dashPattern, other.dashPattern) && DashOffset == other.DashOffset;
 
         /// <summary>
-        /// 
+        /// Returns a hash code for this instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
         {
             var hashCode = -1478567301;
@@ -183,18 +204,21 @@ namespace Engine
         }
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="LineDashStyle"/> struct.
+        /// Creates a human-readable string that represents this <see cref="LineDashStyle" /> struct.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
             => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="LineDashStyle"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="LineDashStyle" /> struct based on the IFormatProvider
         /// passed in. If the provider is null, the CurrentCulture is used.
         /// </summary>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -204,13 +228,13 @@ namespace Engine
             => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="LineDashStyle"/> struct based on the format string
+        /// Creates a string representation of this <see cref="LineDashStyle" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -220,13 +244,13 @@ namespace Engine
             => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="LineDashStyle"/> inherited class based on the format string
+        /// Creates a string representation of this <see cref="LineDashStyle" /> inherited class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this LineStyle object.
         /// </returns>

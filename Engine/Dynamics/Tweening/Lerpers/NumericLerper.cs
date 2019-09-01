@@ -9,6 +9,7 @@
 // <remarks> Based on: https://bitbucket.org/jacobalbano/glide </remarks>
 
 using System;
+using System.Globalization;
 using static System.Math;
 using static Engine.Mathematics;
 
@@ -45,8 +46,8 @@ namespace Engine.Tweening
         /// <param name="behavior">The behavior.</param>
         public override void Initialize(object fromValue, object toValue, LerpBehaviors behavior)
         {
-            from = Convert.ToDouble(fromValue);
-            to = Convert.ToDouble(toValue);
+            from = Convert.ToDouble(fromValue, CultureInfo.InvariantCulture);
+            to = Convert.ToDouble(toValue, CultureInfo.InvariantCulture);
             range = to - from;
 
             if (behavior.HasFlag(LerpBehaviors.Rotation))
@@ -106,7 +107,7 @@ namespace Engine.Tweening
             }
 
             var type = currentValue.GetType();
-            return Convert.ChangeType(value, type);
+            return Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
         }
     }
 }

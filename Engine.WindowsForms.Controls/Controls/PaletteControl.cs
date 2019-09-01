@@ -10,6 +10,7 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using Engine.File.Palettes;
 
@@ -129,7 +130,7 @@ namespace Engine.WindowsForms
                 mousePaletteIndex = index;
 
                 // Set the tool-tip string.
-                paletteToolTip.SetToolTip(this, $"{index.ToString()} {Palette[index].ToString()}");
+                paletteToolTip.SetToolTip(this, $"{index.ToString(CultureInfo.InvariantCulture)} {Palette[index].ToString(CultureInfo.InvariantCulture)}");
             }
 
             var reference = (PaletteControl)sender;

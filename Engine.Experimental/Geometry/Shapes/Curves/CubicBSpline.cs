@@ -42,6 +42,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the node points.
         /// </summary>
+        /// <value>
+        /// The node points.
+        /// </value>
         public List<Point2D> NodePoints { get; set; }
 
         /// <summary>

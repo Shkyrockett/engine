@@ -53,28 +53,28 @@ namespace Engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public delegate void ValueChangedDelegate(object sender, ValueChangedEventArgs e);
+        public delegate void ValueChangedEventHandler(object sender, ValueChangedEventArgs e);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public delegate void ValueCommittedDelegate(object sender, ValueChangedEventArgs e);
+        public delegate void ValueCommittedEventHandler(object sender, ValueChangedEventArgs e);
 
         /// <summary>
-        /// The value changed event of the <see cref="ValueChangedDelegate"/>.
+        /// The value changed event of the <see cref="ValueChangedEventHandler"/>.
         /// </summary>
         [Category("Value")]
         [Description("This event is raised if the value changes.")]
-        public event ValueChangedDelegate ValueChangedEventHandler;
+        public event ValueChangedEventHandler ValueChanged;
 
         /// <summary>
-        /// The value committed event of the <see cref="ValueCommittedDelegate"/>.
+        /// The value committed event of the <see cref="ValueCommittedEventHandler"/>.
         /// </summary>
         [Category("Value")]
         [Description("This event is raised if the value is committed.")]
-        public event ValueCommittedDelegate ValueCommittedEventHandler;
+        public event ValueCommittedEventHandler ValueCommitted;
 
         /// <summary>
         /// The angle.
@@ -124,7 +124,7 @@ namespace Engine
             set
             {
                 angle = value;
-                ValueChangedEventHandler?.Invoke(this, new ValueChangedEventArgs(value));
+                ValueChanged?.Invoke(this, new ValueChangedEventArgs(value));
             }
         }
 
@@ -165,7 +165,7 @@ namespace Engine
                 Angle = Operations.Angle(e.X, e.Y, center.X, center.Y);
                 selecting = false;
                 Invalidate(true);
-                ValueCommittedEventHandler?.Invoke(this, new ValueChangedEventArgs(Angle));
+                ValueCommitted?.Invoke(this, new ValueChangedEventArgs(Angle));
             }
         }
 
@@ -177,9 +177,11 @@ namespace Engine
         private void NeedleControl_Resize(object sender, EventArgs e)
         {
             var sqr = ToSquare(new Rectangle(Point.Empty, Bounds.Size));
-            var g = new GraphicsPath();
-            g.AddEllipse(sqr);
-            Region = new Region(g);
+            using (var g = new GraphicsPath())
+			{
+	            g.AddEllipse(sqr);
+	            Region = new Region(g);
+			}
         }
 
         /// <summary>
@@ -188,6 +190,7 @@ namespace Engine
         /// <param name="e">The paint event arguments.</param>
         protected override void OnPaintBackground(PaintEventArgs e)
         {
+            if (e is null) return;
             if (!IsTransparent)
             {
                 base.OnPaintBackground(e);
@@ -204,6 +207,7 @@ namespace Engine
         /// <param name="e">The paint event arguments.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (e is null) return;
             base.OnPaint(e);
             e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
             var sqr = ToSquare(ClientRectangle);

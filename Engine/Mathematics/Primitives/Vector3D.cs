@@ -25,6 +25,7 @@ namespace Engine
     /// <summary>
     /// The vector3d struct. Represents a vector in 3D coordinate space (double precision floating-point coordinates).
     /// </summary>
+    /// <seealso cref="Engine.IVector{T}" />
     [ComVisible(true)]
     [DataContract, Serializable]
     //[TypeConverter(typeof(Vector3DConverter))]
@@ -35,41 +36,41 @@ namespace Engine
     {
         #region Static Fields
         /// <summary>
-        /// Represents a <see cref="Vector3D"/> that has <see cref="I"/>, <see cref="J"/>, and <see cref="K"/> values set to zero.
+        /// Represents a <see cref="Vector3D" /> that has <see cref="I" />, <see cref="J" />, and <see cref="K" /> values set to zero.
         /// </summary>
         public static readonly Vector3D Empty = new Vector3D(0d, 0d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Vector3D"/> that has <see cref="I"/>, <see cref="J"/>, and <see cref="K"/> values set to 1.
+        /// Represents a <see cref="Vector3D" /> that has <see cref="I" />, <see cref="J" />, and <see cref="K" /> values set to 1.
         /// </summary>
         public static readonly Vector3D Unit = new Vector3D(1d, 1d, 1d);
 
         /// <summary>
-        /// Represents a <see cref="Vector3D"/> that has <see cref="I"/>, <see cref="J"/>, and <see cref="K"/> values set to NaN.
+        /// Represents a <see cref="Vector3D" /> that has <see cref="I" />, <see cref="J" />, and <see cref="K" /> values set to NaN.
         /// </summary>
         public static readonly Vector3D NaN = new Vector3D(double.NaN, double.NaN, double.NaN);
 
         /// <summary>
-        /// Represents a <see cref="Vector3D"/> that has <see cref="I"/> set to 1, <see cref="J"/> set to 0, and <see cref="K"/> set to 0.
+        /// Represents a <see cref="Vector3D" /> that has <see cref="I" /> set to 1, <see cref="J" /> set to 0, and <see cref="K" /> set to 0.
         /// </summary>
         public static readonly Vector3D XAxis = new Vector3D(1d, 0d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Vector3D"/> that has <see cref="I"/> set to 0, <see cref="J"/> set to 1, and <see cref="K"/> set to 0.
+        /// Represents a <see cref="Vector3D" /> that has <see cref="I" /> set to 0, <see cref="J" /> set to 1, and <see cref="K" /> set to 0.
         /// </summary>
         public static readonly Vector3D YAxis = new Vector3D(0d, 1d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Vector3D"/> that has <see cref="I"/> set to 0, <see cref="J"/> set to 0, and <see cref="K"/> set to 1.
+        /// Represents a <see cref="Vector3D" /> that has <see cref="I" /> set to 0, <see cref="J" /> set to 0, and <see cref="K" /> set to 1.
         /// </summary>
         public static readonly Vector3D ZAxis = new Vector3D(0d, 0d, 1d);
         #endregion Static Fields
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3D"/> class.
+        /// Initializes a new instance of the <see cref="Vector3D" /> class.
         /// </summary>
-        /// <param name="vector3D">A <see cref="Vector3D"/> class to clone.</param>
+        /// <param name="vector3D">A <see cref="Vector3D" /> class to clone.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector3D(Vector3D vector3D)
@@ -77,11 +78,11 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3D"/> class.
+        /// Initializes a new instance of the <see cref="Vector3D" /> class.
         /// </summary>
-        /// <param name="i">The <see cref="I"/> component of the <see cref="Vector3D"/> class.</param>
-        /// <param name="j">The <see cref="J"/> component of the <see cref="Vector3D"/> class.</param>
-        /// <param name="k">The <see cref="K"/> component of the <see cref="Vector3D"/> class.</param>
+        /// <param name="i">The <see cref="I" /> component of the <see cref="Vector3D" /> class.</param>
+        /// <param name="j">The <see cref="J" /> component of the <see cref="Vector3D" /> class.</param>
+        /// <param name="k">The <see cref="K" /> component of the <see cref="Vector3D" /> class.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector3D(double i, double j, double k)
@@ -93,9 +94,9 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3D"/> class.
+        /// Initializes a new instance of the <see cref="Vector3D" /> class.
         /// </summary>
-        /// <param name="tuple"></param>
+        /// <param name="tuple">The tuple.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Vector3D((double X, double Y, double Z) tuple)
@@ -105,7 +106,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3D"/> struct.
+        /// Initializes a new instance of the <see cref="Vector3D" /> struct.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
@@ -116,7 +117,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3D"/> class.
+        /// Initializes a new instance of the <see cref="Vector3D" /> class.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
@@ -127,7 +128,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Vector3D"/> class.
+        /// Initializes a new instance of the <see cref="Vector3D" /> class.
         /// </summary>
         /// <param name="aI">The aI.</param>
         /// <param name="aJ">The aJ.</param>
@@ -150,7 +151,7 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Vector3D"/> to a <see cref="ValueTuple{T1, T2, T3}"/>.
+        /// Deconstruct this <see cref="Vector3D" /> to a <see cref="ValueTuple{T1, T2, T3}" />.
         /// </summary>
         /// <param name="i">The i.</param>
         /// <param name="j">The j.</param>
@@ -170,24 +171,36 @@ namespace Engine
         /// <summary>
         /// Gets or sets the I or first Component of a 3D Vector
         /// </summary>
+        /// <value>
+        /// The i.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double I { get; set; }
 
         /// <summary>
         /// Gets or sets the j or second Component of a 3D Vector
         /// </summary>
+        /// <value>
+        /// The j.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double J { get; set; }
 
         /// <summary>
         /// Gets or sets the k or third Component of a 3D Vector
         /// </summary>
+        /// <value>
+        /// The k.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double K { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="Vector3D"/> is empty.
+        /// Gets a value indicating whether this <see cref="Vector3D" /> is empty.
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if this instance is empty; otherwise, <see langword="false"/>.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public bool IsEmpty
@@ -198,6 +211,9 @@ namespace Engine
         /// <summary>
         /// Gets the magnitude.
         /// </summary>
+        /// <value>
+        /// The magnitude.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double Magnitude
@@ -206,6 +222,9 @@ namespace Engine
         /// <summary>
         /// Gets the length.
         /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double Length
@@ -214,6 +233,9 @@ namespace Engine
         /// <summary>
         /// Gets the length squared.
         /// </summary>
+        /// <value>
+        /// The length squared.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Browsable(false)]
         public double LengthSquared
@@ -225,7 +247,9 @@ namespace Engine
         /// The operator +.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Vector3D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Vector3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator +(Vector3D value) => Operations.UnaryAdd3D(value.I, value.J, value.K);
@@ -233,9 +257,11 @@ namespace Engine
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator +(Vector3D value, double addend) => Operations.Add3D(value.I, value.J, value.K, addend);
@@ -243,9 +269,11 @@ namespace Engine
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator +(double value, Vector3D addend) => Operations.Add3D(addend.I, addend.J, addend.K, value);
@@ -253,9 +281,11 @@ namespace Engine
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator +(Vector3D value, Vector3D addend) => Operations.Add3D(value.I, value.J, value.K, addend.I, addend.J, addend.K);
@@ -264,7 +294,9 @@ namespace Engine
         /// The operator -.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Vector3D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Vector3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator -(Vector3D value) => Operations.UnaryNegate3D(value.I, value.J, value.K);
@@ -272,9 +304,11 @@ namespace Engine
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator -(Vector3D value, double subend) => Operations.SubtractSubtrahend3D(value.I, value.J, value.K, subend);
@@ -282,9 +316,11 @@ namespace Engine
         /// <summary>
         /// Subtract Points
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator -(double value, Vector3D subend) => Operations.SubtractFromMinuend3D(value, subend.I, subend.J, subend.K);
@@ -292,9 +328,11 @@ namespace Engine
         /// <summary>
         /// Subtract Vectors
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator -(Vector3D value, Vector3D subend) => Operations.Subtract3D(value.I, value.J, value.K, subend.I, subend.J, subend.K);
@@ -304,7 +342,9 @@ namespace Engine
         /// </summary>
         /// <param name="value">The Point</param>
         /// <param name="factor">The Multiplier</param>
-        /// <returns>A Vector Multiplied by the Multiplier</returns>
+        /// <returns>
+        /// A Vector Multiplied by the Multiplier
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator *(Vector3D value, double factor) => Operations.Scale3D(value.I, value.J, value.K, factor);
@@ -314,27 +354,33 @@ namespace Engine
         /// </summary>
         /// <param name="factor">The Multiplier</param>
         /// <param name="value">The Point</param>
-        /// <returns>A Vector Multiplied by the Multiplier</returns>
+        /// <returns>
+        /// A Vector Multiplied by the Multiplier
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator *(double factor, Vector3D value) => Operations.Scale3D(value.I, value.J, value.K, factor);
 
         /// <summary>
-        /// Divide a <see cref="Vector3D"/>
+        /// Divide a <see cref="Vector3D" />
         /// </summary>
-        /// <param name="divisor">The <see cref="Vector3D"/></param>
-        /// <param name="dividend"></param>
-        /// <returns>A <see cref="Vector3D"/> divided by the divisor</returns>
+        /// <param name="divisor">The <see cref="Vector3D" /></param>
+        /// <param name="dividend">The dividend.</param>
+        /// <returns>
+        /// A <see cref="Vector3D" /> divided by the divisor
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator /(Vector3D divisor, double dividend) => Operations.DivideByDividend3D(divisor.I, divisor.J, divisor.K, dividend);
 
         /// <summary>
-        /// Divide a <see cref="Vector3D"/>
+        /// Divide a <see cref="Vector3D" />
         /// </summary>
-        /// <param name="divisor">The <see cref="Vector3D"/></param>
+        /// <param name="divisor">The <see cref="Vector3D" /></param>
         /// <param name="dividend">The divisor</param>
-        /// <returns>A <see cref="Vector3D"/> divided by the divisor</returns>
+        /// <returns>
+        /// A <see cref="Vector3D" /> divided by the divisor
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Vector3D operator /(double divisor, Vector3D dividend) => Operations.DivideDivisor3D(divisor, dividend.I, dividend.I, dividend.K);
@@ -344,7 +390,9 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Vector3D a, Vector3D b) => Equals(a, b);
@@ -354,24 +402,31 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Vector3D a, Vector3D b) => !Equals(a, b);
 
         /// <summary>
-        /// Converts the specified <see cref="Vector3D"/> structure to a <see cref="ValueTuple{T1, T2, T3}"/> structure.
+        /// Converts the specified <see cref="Vector3D" /> structure to a <see cref="ValueTuple{T1, T2, T3}" /> structure.
         /// </summary>
-        /// <param name="vector">The <see cref="Vector3D"/> to be converted.</param>
+        /// <param name="vector">The <see cref="Vector3D" /> to be converted.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static implicit operator (double I, double J, double K) (Vector3D vector) => (vector.I, vector.J, vector.K);
+        public static implicit operator (double I, double J, double K)(Vector3D vector) => (vector.I, vector.J, vector.K);
 
         /// <summary>
         /// Point to Vector3D
         /// </summary>
-        /// <param name="tuple"></param>
-        /// <returns></returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Vector3D((double X, double Y, double Z) tuple) => new Vector3D(tuple);
@@ -379,25 +434,25 @@ namespace Engine
 
         #region Factories
         /// <summary>
-        /// Parse a string for a <see cref="Vector3D"/> value.
+        /// Parse a string for a <see cref="Vector3D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector3D"/> data </param>
+        /// <param name="source"><see cref="string" /> with <see cref="Vector3D" /> data</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Vector3D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// Returns an instance of the <see cref="Vector3D" /> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [ParseMethod]
         public static Vector3D Parse(string source)
             => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// Parse a string for a <see cref="Vector3D"/> value.
+        /// Parse a string for a <see cref="Vector3D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Vector3D"/> data </param>
-        /// <param name="provider"></param>
+        /// <param name="source"><see cref="string" /> with <see cref="Vector3D" /> data</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Vector3D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// Returns an instance of the <see cref="Vector3D" /> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         public static Vector3D Parse(string source, IFormatProvider provider)
         {
@@ -420,8 +475,8 @@ namespace Engine
         /// <summary>
         /// Compares two Vectors
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -431,7 +486,9 @@ namespace Engine
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj) => obj is Vector3D && Equals(this, (Vector3D)obj);
@@ -441,7 +498,9 @@ namespace Engine
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Vector3D a, Vector3D b) => (a.I == b.I) & (a.J == b.J) & (a.K == b.K);
@@ -450,7 +509,9 @@ namespace Engine
         /// The equals.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Vector3D value) => Equals(this, value);
@@ -458,38 +519,46 @@ namespace Engine
         /// <summary>
         /// Get the hash code.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => I.GetHashCode() ^ J.GetHashCode() ^ K.GetHashCode();
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Vector3D"/> struct.
+        /// Creates a human-readable string that represents this <see cref="Vector3D" /> struct.
         /// </summary>
-        /// <returns>A string representation of this <see cref="Vector3D"/>.</returns>
+        /// <returns>
+        /// A string representation of this <see cref="Vector3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Vector3D"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Vector3D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
-        /// <returns>A string representation of this <see cref="Vector3D"/>.</returns>
+        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Vector3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Vector3D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Vector3D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
-        /// <returns>A string representation of this <see cref="Vector3D"/>.</returns>
+        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Vector3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
@@ -498,6 +567,74 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Vector3D)}({nameof(I)}: {I.ToString(format, provider)}{s} {nameof(J)}: {J.ToString(format, provider)}{s} {nameof(K)}: {K.ToString(format, provider)})";
         }
+
+        /// <summary>
+        /// Pluses the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Vector3D Plus(Vector3D item) => +item;
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Vector3D Add(Vector3D left, Vector3D right) => left + right;
+
+        /// <summary>
+        /// Negates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Vector3D Negate(Vector3D item) => -item;
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Vector3D Subtract(Vector3D left, Vector3D right) => left - right;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Vector3D Multiply(double left, Vector3D right) => left * right;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Vector3D Multiply(Vector3D left, double right) => left * right;
+
+        /// <summary>
+        /// Divides the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Vector3D Divide(double left, Vector3D right) => left / right;
+
+        /// <summary>
+        /// Divides the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Vector3D Divide(Vector3D left, double right) => left / right;
+
+        /// <summary>
+        /// To this instance.
+        /// </summary>
+        /// <returns></returns>
+        public (double I, double J, double K) To() => (I, J, K);
         #endregion Public Methods
     }
 }

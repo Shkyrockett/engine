@@ -325,7 +325,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Polyline)}{{{string.Join(sep.ToString(), Points)}}}";
+            IFormattable formatable = $"{nameof(Polyline)}{{{string.Join(sep.ToString(provider), Points)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

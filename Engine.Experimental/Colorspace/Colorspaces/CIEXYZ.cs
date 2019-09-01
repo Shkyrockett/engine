@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Colorspace
 {
@@ -16,11 +17,13 @@ namespace Engine.Colorspace
     /// CIE XYZ: The Tri-stimulus Values
     /// Wikipedia: (aka "CIE 1931") The first attempt to produce a color space based on measurements of human color perception and the basis for almost all other color spaces.
     /// </summary>
+    /// <seealso cref="IColor" />
+    /// <seealso cref="IEquatable{T}" />
     public struct CIEXYZ
         : IColor, IEquatable<CIEXYZ>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CIEXYZ"/> class.
+        /// Initializes a new instance of the <see cref="CIEXYZ" /> class.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -35,16 +38,25 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the x.
         /// </summary>
+        /// <value>
+        /// The x.
+        /// </value>
         public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the y.
         /// </summary>
+        /// <value>
+        /// The y.
+        /// </value>
         public double Y { get; set; }
 
         /// <summary>
         /// Gets or sets the z.
         /// </summary>
+        /// <value>
+        /// The z.
+        /// </value>
         public double Z { get; set; }
 
         /// <summary>
@@ -71,7 +83,9 @@ namespace Engine.Colorspace
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
@@ -93,7 +107,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(CIEXYZ other) => X == other.X && Y == other.Y && Z == other.Z;
 
@@ -115,7 +129,10 @@ namespace Engine.Colorspace
         /// <summary>
         /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => throw new NotImplementedException();
 
         /// <summary>
@@ -123,7 +140,10 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

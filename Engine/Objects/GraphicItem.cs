@@ -10,6 +10,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
@@ -53,7 +54,7 @@ namespace Engine
         public GraphicItem(GraphicsObject item, IStyle style, Metadata metadata = null)
         {
             Shape = item;
-            Name = Shape?.ToString();
+            Name = Shape?.ToString(CultureInfo.InvariantCulture);
             Style = style;
             _ = metadata;
         }

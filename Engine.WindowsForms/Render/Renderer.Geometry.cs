@@ -59,7 +59,7 @@ namespace Engine.Imaging
         public static void Render(this ParametricDelegateCurve shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             var points = shape.InterpolatePoints(100);
             if (!(itemStyle is null) && !(points is null))
             {
@@ -79,7 +79,7 @@ namespace Engine.Imaging
         public static void Render(this ScreenPoint shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(shape is null))
             {
                 renderer.DrawRectangle(itemStyle.Stroke, shape.X, shape.Y, 1d, 1d);
@@ -98,7 +98,7 @@ namespace Engine.Imaging
         public static void Render(this Ray shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
 
             var p1 = shape.Location;
             //var p2 = shape.Location + shape.Direction;
@@ -129,7 +129,7 @@ namespace Engine.Imaging
         public static void Render(this Line shape, Graphics g, IRenderer renderer, GraphicItem item, Rectangle2D bounds, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             var intersection = Intersections.Intersection(shape, bounds);
             if (!(itemStyle is null) && !(shape is null))
             {
@@ -151,7 +151,7 @@ namespace Engine.Imaging
         public static void Render(this LineSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(shape is null))
             {
                 renderer.DrawLine(itemStyle.Stroke, shape.AX, shape.AY, shape.BX, shape.BY);
@@ -169,7 +169,7 @@ namespace Engine.Imaging
         public static void Render(this PolygonContour shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(shape is null))
             {
                 renderer.FillPolygon(itemStyle.Fill, shape.Points);
@@ -188,7 +188,7 @@ namespace Engine.Imaging
         public static void Render(this Polyline shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(shape is null))
             {
                 renderer.FillPolygon(itemStyle.Fill, shape.Points);
@@ -207,7 +207,7 @@ namespace Engine.Imaging
         public static void Render(this PolylineSet set, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(set.Polylines is null))
             {
                 foreach (var shape in set.Polylines)
@@ -379,7 +379,7 @@ namespace Engine.Imaging
         public static void Render(this Rectangle2D shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(shape is null))
             {
                 renderer.FillRectangle(itemStyle.Fill, shape.X, shape.Y, shape.Width, shape.Height);
@@ -398,7 +398,7 @@ namespace Engine.Imaging
         public static void Render(this Circle shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             var bounds = shape.Bounds;
             if (!(itemStyle is null) && !(bounds is null))
             {
@@ -418,8 +418,8 @@ namespace Engine.Imaging
         public static void Render(this CircularArc shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
-            var bounds = shape.Bounds!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
+            var bounds = shape.Bounds;
             if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
             {
                 renderer.FillArc(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.StartAngle, shape.SweepAngle);
@@ -438,8 +438,8 @@ namespace Engine.Imaging
         public static void Render(this Ellipse shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
-            var bounds = shape.UnrotatedBounds!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
+            var bounds = shape.UnrotatedBounds;
             if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
             {
                 renderer.FillEllipse(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, shape.Angle);
@@ -458,8 +458,8 @@ namespace Engine.Imaging
         public static void Render(this EllipticalArc shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
-            var bounds = shape.DrawingBounds!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
+            var bounds = shape.DrawingBounds;
             if (!(itemStyle is null) && !(shape is null) && !(bounds is null))
             {
                 renderer.FillArc(itemStyle.Fill, bounds.X, bounds.Y, bounds.Width, bounds.Height, (float)shape.StartAngle, (float)shape.SweepAngle, shape.Angle);
@@ -508,7 +508,7 @@ namespace Engine.Imaging
         public static void Render(this BezierSegment shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(shape is null))
             {
                 switch (shape.Degree)
@@ -541,7 +541,7 @@ namespace Engine.Imaging
         public static void Render(this CubicBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(shape is null))
             {
                 renderer.FillCubicBezier(itemStyle.Fill, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY, shape.DX, shape.DY);
@@ -560,7 +560,7 @@ namespace Engine.Imaging
         public static void Render(this QuadraticBezier shape, Graphics g, IRenderer renderer, GraphicItem item, ShapeStyle style = null)
         {
             _ = g;
-            var itemStyle = style ?? (ShapeStyle)item.Style!!;
+            var itemStyle = style ?? (ShapeStyle)item.Style;
             if (!(itemStyle is null) && !(shape is null))
             {
                 renderer.FillQuadraticBezier(itemStyle.Fill, shape.AX, shape.AY, shape.BX, shape.BY, shape.CX, shape.CY);

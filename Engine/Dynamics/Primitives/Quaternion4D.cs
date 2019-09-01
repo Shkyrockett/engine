@@ -23,8 +23,9 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// The <see cref="Quaternion4D"/> struct.
+    /// The <see cref="Quaternion4D" /> struct.
     /// </summary>
+    /// <seealso cref="Engine.IVector{T}" />
     [DataContract, Serializable]
     [ComVisible(true)]
     [TypeConverter(typeof(StructConverter<Quaternion4D>))]
@@ -34,29 +35,29 @@ namespace Engine
     {
         #region Static Fields
         /// <summary>
-        /// Represents a <see cref="Quaternion4D"/> that has <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/>, and <see cref="W"/> values set to zero.
+        /// Represents a <see cref="Quaternion4D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, and <see cref="W" /> values set to zero.
         /// </summary>
         public static readonly Quaternion4D Empty = new Quaternion4D(0d, 0d, 0d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Quaternion4D"/> that has <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/>, and <see cref="W"/> values set to zero.
+        /// Represents a <see cref="Quaternion4D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, and <see cref="W" /> values set to zero.
         /// </summary>
         public static readonly Quaternion4D Zero = new Quaternion4D(0d, 0d, 0d, 0d);
 
         /// <summary>
-        /// Represents a <see cref="Quaternion4D"/> that has <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/>, and <see cref="W"/> values set to NaN.
+        /// Represents a <see cref="Quaternion4D" /> that has <see cref="X" />, <see cref="Y" />, <see cref="Z" />, and <see cref="W" /> values set to NaN.
         /// </summary>
         public static readonly Quaternion4D NaN = new Quaternion4D(double.NaN, double.NaN, double.NaN, double.NaN);
 
         /// <summary>
-        /// Represents a <see cref="Quaternion4D"/> that has <see cref="X"/> set to 0, <see cref="Y"/> set to 0, <see cref="Z"/> set to 0, and <see cref="W"/> set to 1.
+        /// Represents a <see cref="Quaternion4D" /> that has <see cref="X" /> set to 0, <see cref="Y" /> set to 0, <see cref="Z" /> set to 0, and <see cref="W" /> set to 1.
         /// </summary>
         public static readonly Quaternion4D Identity = new Quaternion4D(0d, 0d, 0d, 1d);
         #endregion Static Fields
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Quaternion4D"/> class.
+        /// Initializes a new instance of the <see cref="Quaternion4D" /> class.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
         [DebuggerStepThrough]
@@ -68,12 +69,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Quaternion4D"/> class.
+        /// Initializes a new instance of the <see cref="Quaternion4D" /> class.
         /// </summary>
-        /// <param name="x">The <paramref name="x"/>.</param>
-        /// <param name="y">The <paramref name="y"/>.</param>
-        /// <param name="z">The <paramref name="z"/>.</param>
-        /// <param name="w">The <paramref name="w"/>.</param>
+        /// <param name="x">The <paramref name="x" />.</param>
+        /// <param name="y">The <paramref name="y" />.</param>
+        /// <param name="z">The <paramref name="z" />.</param>
+        /// <param name="w">The <paramref name="w" />.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Quaternion4D(double x, double y, double z, double w)
@@ -86,7 +87,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Quaternion4D"/> class.
+        /// Initializes a new instance of the <see cref="Quaternion4D" /> class.
         /// </summary>
         /// <param name="vector">The vector.</param>
         /// <param name="scalar">The scalar.</param>
@@ -99,7 +100,7 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Quaternion4D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
+        /// Deconstruct this <see cref="Quaternion4D" /> to a <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -119,53 +120,77 @@ namespace Engine
 
         #region Properties
         /// <summary>
-        /// Gets or sets the <see cref="X"/> value of this Quaternion. 
+        /// Gets or sets the <see cref="X" /> value of this Quaternion.
         /// </summary>
+        /// <value>
+        /// The x.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double X { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Y"/> value of this Quaternion. 
+        /// Gets or sets the <see cref="Y" /> value of this Quaternion.
         /// </summary>
+        /// <value>
+        /// The y.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Y { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="Z"/> value of this Quaternion. 
+        /// Gets or sets the <see cref="Z" /> value of this Quaternion.
         /// </summary>
+        /// <value>
+        /// The z.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double Z { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="W"/> value of this Quaternion. 
+        /// Gets or sets the <see cref="W" /> value of this Quaternion.
         /// </summary>
+        /// <value>
+        /// The w.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double W { get; set; }
 
         /// <summary>
         /// Gets the squared 'length' of this quaternion.
         /// </summary>
+        /// <value>
+        /// The normal.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Normal
-            => Measurements.QuaternionNormal( X, Y, Z, W);
+            => Measurements.QuaternionNormal(X, Y, Z, W);
 
         /// <summary>
         /// Gets the squared 'length' of this quaternion.
         /// </summary>
+        /// <value>
+        /// The length squared.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double LengthSquared
-            => Measurements.QuaternionNormal( X, Y, Z, W);
+            => Measurements.QuaternionNormal(X, Y, Z, W);
 
         /// <summary>
         /// Gets the 'length' of this quaternion.
         /// </summary>
+        /// <value>
+        /// The length.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Length
-            => Measurements.QuaternionMagnitude( X, Y, Z, W);
+            => Measurements.QuaternionMagnitude(X, Y, Z, W);
 
         /// <summary>
         /// Gets or sets the pitch.
         /// </summary>
+        /// <value>
+        /// The pitch.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Pitch
         {
@@ -189,6 +214,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the yaw.
         /// </summary>
+        /// <value>
+        /// The yaw.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Yaw
         {
@@ -212,6 +240,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the roll.
         /// </summary>
+        /// <value>
+        /// The roll.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Roll
         {
@@ -235,6 +266,9 @@ namespace Engine
         /// <summary>
         /// Local X-aXis portion of this rotation.
         /// </summary>
+        /// <value>
+        /// The x axis.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D XAxis
         {
@@ -256,6 +290,9 @@ namespace Engine
         /// <summary>
         /// Local Y-aXis portion of this rotation.
         /// </summary>
+        /// <value>
+        /// The y axis.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D YAxis
         {
@@ -277,6 +314,9 @@ namespace Engine
         /// <summary>
         /// Local Z-aXis portion of this rotation.
         /// </summary>
+        /// <value>
+        /// The z axis.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Vector3D ZAxis
         {
@@ -301,25 +341,31 @@ namespace Engine
         /// The operator +.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Quaternion4D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
         public static Quaternion4D operator +(Quaternion4D value)
             => new Quaternion4D(+value.X, +value.Y, +value.Z, +value.W);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static Quaternion4D operator +(Quaternion4D value, double addend)
             => value.Add(addend);
 
         /// <summary>
         /// Add Points
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="addend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="addend">The addend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static Quaternion4D operator +(Quaternion4D value, Quaternion4D addend)
             => value.Add(addend);
 
@@ -327,25 +373,31 @@ namespace Engine
         /// The operator -.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Quaternion4D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
         public static Quaternion4D operator -(Quaternion4D value)
             => new Quaternion4D(-value.X, -value.Y, -value.Z, -value.W);
 
         /// <summary>
         /// Subtract
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static Quaternion4D operator -(Quaternion4D value, double subend)
             => value.Subtract(subend);
 
         /// <summary>
         /// Subtract
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static Quaternion4D operator -(Quaternion4D value, Quaternion4D subend)
             => value.Subtract(subend);
 
@@ -354,7 +406,9 @@ namespace Engine
         /// </summary>
         /// <param name="value">The Point</param>
         /// <param name="scalar">The Multiplier</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <returns>
+        /// A Point Multiplied by the Multiplier
+        /// </returns>
         public static Quaternion4D operator *(Quaternion4D value, double scalar)
             => value.Scale(scalar);
 
@@ -363,79 +417,92 @@ namespace Engine
         /// </summary>
         /// <param name="scalar">The Multiplier</param>
         /// <param name="value">The Point</param>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <returns>
+        /// A Point Multiplied by the Multiplier
+        /// </returns>
         public static Quaternion4D operator *(double scalar, Quaternion4D value)
             => value.Scale(scalar);
 
         /// <summary>
         /// Multiply
         /// </summary>
-        /// <returns>A Point Multiplied by the Multiplier</returns>
+        /// <param name="value">The value.</param>
+        /// <param name="scalar">The scalar.</param>
+        /// <returns>
+        /// A Point Multiplied by the Multiplier
+        /// </returns>
         public static Quaternion4D operator *(Quaternion4D value, Quaternion4D scalar)
             => value.Multiply(scalar);
 
         /// <summary>
         /// Divide
         /// </summary>
-        /// <param name="divisor"></param>
-        /// <param name="dividend"></param>
-        /// <returns></returns>
+        /// <param name="divisor">The divisor.</param>
+        /// <param name="dividend">The dividend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static Quaternion4D operator /(Quaternion4D divisor, Quaternion4D dividend)
             => divisor.Divide(dividend);
 
         /// <summary>
-        /// Compares two <see cref="Quaternion4D"/> instances for exact equality.
-        /// The result specifies whether the values of the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/>, and <see cref="W"/>
-        /// values of the two <see cref="Quaternion4D"/> objects are equal.
+        /// Compares two <see cref="Quaternion4D" /> instances for exact equality.
+        /// The result specifies whether the values of the <see cref="X" />, <see cref="Y" />, <see cref="Z" />, and <see cref="W" />
+        /// values of the two <see cref="Quaternion4D" /> objects are equal.
         /// </summary>
-        /// <param name="left">The first <see cref="Quaternion4D"/> to compare</param>
-        /// <param name="right">The second <see cref="Quaternion4D"/> to compare</param>
+        /// <param name="left">The first <see cref="Quaternion4D" /> to compare</param>
+        /// <param name="right">The second <see cref="Quaternion4D" /> to compare</param>
         /// <returns>
-        /// A boolean value indicating whether the two <see cref="Quaternion4D"/> instances are exactly equal.
+        /// A boolean value indicating whether the two <see cref="Quaternion4D" /> instances are exactly equal.
         /// The return value is true if they are equal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// <para>Note that double values can acquire error when operated upon, such that
+        /// Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Quaternion4D left, Quaternion4D right) => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Quaternion4D"/> instances for exact inequality.
-        /// The result specifies whether the values of the <see cref="X"/>, <see cref="Y"/>, <see cref="Z"/>, or <see cref="W"/>
-        /// values of the two <see cref="Quaternion4D"/> objects are unequal.
+        /// Compares two <see cref="Quaternion4D" /> instances for exact inequality.
+        /// The result specifies whether the values of the <see cref="X" />, <see cref="Y" />, <see cref="Z" />, or <see cref="W" />
+        /// values of the two <see cref="Quaternion4D" /> objects are unequal.
         /// </summary>
-        /// <param name="left">The first <see cref="Quaternion4D"/> to compare.</param>
-        /// <param name="right">The second <see cref="Quaternion4D"/> to compare.</param>
+        /// <param name="left">The first <see cref="Quaternion4D" /> to compare.</param>
+        /// <param name="right">The second <see cref="Quaternion4D" /> to compare.</param>
         /// <returns>
-        /// A boolean value indicating whether the two <see cref="Quaternion4D"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="Quaternion4D" /> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// <para>Note that double values can acquire error when operated upon, such that
+        /// Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.</para>
+        /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Quaternion4D left, Quaternion4D right) => !Equals(left, right);
 
         /// <summary>
-        /// Converts the specified <see cref="Quaternion4D"/> structure to a <see cref="ValueTuple{T1, T2, T3, T4}"/> structure.
+        /// Converts the specified <see cref="Quaternion4D" /> structure to a <see cref="ValueTuple{T1, T2, T3, T4}" /> structure.
         /// </summary>
-        /// <param name="quaternion">The <see cref="Quaternion4D"/> to be converted.</param>
+        /// <param name="quaternion">The <see cref="Quaternion4D" /> to be converted.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double X, double Y, double Z, double W)(Quaternion4D quaternion) => (quaternion.X, quaternion.Y, quaternion.Z, quaternion.W);
 
         /// <summary>
-        /// Tuple to <see cref="Quaternion4D"/>.
+        /// Tuple to <see cref="Quaternion4D" />.
         /// </summary>
-        /// <param name="tuple"></param>
-        /// <returns></returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Quaternion4D((double X, double Y, double Z, double W) tuple) => new Quaternion4D(tuple);
@@ -445,9 +512,10 @@ namespace Engine
         /// <summary>
         /// set this quaternion's values from the rotation matrix built from the Axi.
         /// </summary>
-        /// <param name="XAxis"></param>
-        /// <param name="YAxis"></param>
-        /// <param name="ZAxis"></param>
+        /// <param name="XAxis">The x axis.</param>
+        /// <param name="YAxis">The y axis.</param>
+        /// <param name="ZAxis">The z axis.</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion4D FromAxis(Vector3D XAxis, Vector3D YAxis, Vector3D ZAxis)
@@ -461,7 +529,9 @@ namespace Engine
         /// </summary>
         /// <param name="axis">The axis.</param>
         /// <param name="angle">The angle.</param>
-        /// <returns>The <see cref="Quaternion4D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion4D FromAxisAngle(Vector3D axis, double angle)
@@ -477,7 +547,9 @@ namespace Engine
         /// The from rotation matrix.
         /// </summary>
         /// <param name="matrix">The matrix.</param>
-        /// <returns>The <see cref="Quaternion4D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion4D FromRotationMatrix(Matrix3x3D matrix)
@@ -529,7 +601,9 @@ namespace Engine
         /// <param name="roll">The roll.</param>
         /// <param name="pitch">The pitch.</param>
         /// <param name="yaw">The yaw.</param>
-        /// <returns>The <see cref="Quaternion4D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Quaternion4D FromEulerAngles(double roll, double pitch, double yaw)
@@ -554,7 +628,9 @@ namespace Engine
         /// Parse.
         /// </summary>
         /// <param name="source">The source.</param>
-        /// <returns>The <see cref="Quaternion4D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
         [ParseMethod]
         public static Quaternion4D Parse(string source)
             => Parse(source, CultureInfo.InvariantCulture);
@@ -564,9 +640,15 @@ namespace Engine
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="Quaternion4D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Quaternion4D" />.
+        /// </returns>
+        /// <exception cref="FormatException">
+        /// Cannot parse the text '{source}' because it does not have 4 parts separated by commas in the form (x,y,z,w) with optional parenthesis.
+        /// or
+        /// The parts of the vectors must be decimal numbers
+        /// </exception>
         /// <exception cref="FormatException"></exception>
-        /// <exception cref="FormatException">The parts of the vectors must be decimal numbers</exception>
         public static Quaternion4D Parse(string source, IFormatProvider provider)
         {
             var sep = Tokenizer.GetNumericListSeparator(provider);
@@ -581,10 +663,10 @@ namespace Engine
                 try
                 {
                     return new Quaternion4D(
-                        double.Parse(vals[0].Trim()),
-                        double.Parse(vals[1].Trim()),
-                        double.Parse(vals[2].Trim()),
-                        double.Parse(vals[3].Trim()));
+                        double.Parse(vals[0].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
+                        double.Parse(vals[1].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
+                        double.Parse(vals[2].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture),
+                        double.Parse(vals[3].Trim(), NumberStyles.Float, CultureInfo.InvariantCulture));
                 }
                 catch (Exception ex)
                 {
@@ -596,7 +678,7 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// Compares two <see cref="Quaternion4D"/> structs.
+        /// Compares two <see cref="Quaternion4D" /> structs.
         /// </summary>
         /// <param name="a">The object to compare.</param>
         /// <param name="b">The object to compare against.</param>
@@ -624,34 +706,34 @@ namespace Engine
         public static bool Equals(Quaternion4D a, Quaternion4D b) => (a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z) && (a.W == b.W);
 
         /// <summary>
-        /// Compares this <see cref="Quaternion4D"/> with the passed in object.
+        /// Compares this <see cref="Quaternion4D" /> with the passed in object.
         /// </summary>
-        /// <param name="obj">The object to compare to this <see cref="Quaternion4D"/> to.</param>
+        /// <param name="obj">The object to compare to this <see cref="Quaternion4D" /> to.</param>
         /// <returns>
-        /// A boolean value indicating whether the two <see cref="Quaternion4D"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="Quaternion4D" /> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// <para>Note that double values can acquire error when operated upon, such that
+        /// Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.</para>
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj) => obj is Quaternion4D && Equals(this, (Quaternion4D)obj);
 
         /// <summary>
-        /// Compares this <see cref="Quaternion4D"/> with the passed in <see cref="Quaternion4D"/>.
+        /// Compares this <see cref="Quaternion4D" /> with the passed in <see cref="Quaternion4D" />.
         /// </summary>
-        /// <param name="value">The <see cref="Quaternion4D"/> to compare to this <see cref="Quaternion4D"/> to.</param>
+        /// <param name="value">The <see cref="Quaternion4D" /> to compare to this <see cref="Quaternion4D" /> to.</param>
         /// <returns>
-        /// A boolean value indicating whether the two <see cref="Quaternion4D"/> instances are exactly unequal.
+        /// A boolean value indicating whether the two <see cref="Quaternion4D" /> instances are exactly unequal.
         /// The return value is true if they are unequal, false otherwise.
         /// </returns>
         /// <remarks>
-        /// <para>Note that double values can acquire error when operated upon, such that
+        /// Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which are logically equal may fail.
-        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.</para>
+        /// In this equality Double.NaN is equal to itself, unlike in numeric equality.
         /// </remarks>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -660,38 +742,46 @@ namespace Engine
         /// <summary>
         /// Get the hash code.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode() => X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode() ^ W.GetHashCode();
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Quaternion4D"/> struct.
+        /// Creates a human-readable string that represents this <see cref="Quaternion4D" /> struct.
         /// </summary>
-        /// <returns>A string representation of this <see cref="Quaternion4D"/>.</returns>
+        /// <returns>
+        /// A string representation of this <see cref="Quaternion4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Quaternion4D"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Quaternion4D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
-        /// <returns>A string representation of this <see cref="Quaternion4D"/>.</returns>
+        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Quaternion4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Quaternion4D"/> class based on the format string
+        /// Creates a string representation of this <see cref="Quaternion4D" /> class based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
         /// <param name="format">The format.</param>
-        /// <param name="provider">The <see cref="CultureInfo"/> provider.</param>
-        /// <returns>A string representation of this <see cref="Quaternion4D"/>.</returns>
+        /// <param name="provider">The <see cref="CultureInfo" /> provider.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Quaternion4D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ToString(string format, IFormatProvider provider)
@@ -700,6 +790,58 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Quaternion4D)}=[{nameof(X)}:{X.ToString(format, provider)}{s} {nameof(Y)}:{Y.ToString(format, provider)}{s} {nameof(Z)}:{Z.ToString(format, provider)}{s} {nameof(W)}:{W.ToString(format, provider)}]";
         }
+
+        /// <summary>
+        /// Pluses the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Quaternion4D Plus(Quaternion4D item) => +item;
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Quaternion4D Add(Quaternion4D left, Quaternion4D right) => left + right;
+
+        /// <summary>
+        /// Negates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Quaternion4D Negate(Quaternion4D item) => -item;
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Quaternion4D Subtract(Quaternion4D left, Quaternion4D right) => left - right;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Quaternion4D Multiply(Quaternion4D left, Quaternion4D right) => left * right;
+
+        /// <summary>
+        /// Divides the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Quaternion4D Divide(Quaternion4D left, Quaternion4D right) => left / right;
+
+        /// <summary>
+        /// To this instance.
+        /// </summary>
+        /// <returns></returns>
+        public (double X, double Y, double Z, double W) To() => (X, Y, Z, W);
         #endregion Methods
     }
 }

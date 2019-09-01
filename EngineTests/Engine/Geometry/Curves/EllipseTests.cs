@@ -11,6 +11,7 @@
 using Engine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Globalization;
 
 namespace EngineTests
 {
@@ -34,10 +35,7 @@ namespace EngineTests
         /// </summary>
         /// <param name="context">The context.</param>
         [ClassInitialize]
-        public static void ClassInit(TestContext context)
-        {
-            _ = context;
-        }
+        public static void ClassInit(TestContext context) => _ = context;
 
         /// <summary>
         /// TestInitialize runs code before running each test.
@@ -74,12 +72,12 @@ namespace EngineTests
             // Test a perfect circle.
             var ellipse = new Ellipse(new Point2D(), 100, 100, 0);
             var value = ellipse.Perimeter;
-            Assert.AreEqual((2 * Math.PI * ellipse.MajorRadius).ToString(), value.ToString());
+            Assert.AreEqual((2d * Math.PI * ellipse.MajorRadius).ToString(CultureInfo.InvariantCulture), value.ToString(CultureInfo.InvariantCulture));
 
             // Test a flat line.
             ellipse = new Ellipse(new Point2D(), 100, 0, 0);
             value = ellipse.Perimeter;
-            Assert.AreEqual(400.ToString(), value.ToString());
+            Assert.AreEqual(400.ToString(CultureInfo.InvariantCulture), value.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>

@@ -16,6 +16,7 @@ namespace Engine
     /// <summary>
     /// The rotation struct.
     /// </summary>
+    /// <seealso cref="IEquatable{T}" />
     public struct Rotation
         : IEquatable<Rotation>
     {
@@ -35,7 +36,7 @@ namespace Engine
         private double? sin;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Rotation"/> class.
+        /// Initializes a new instance of the <see cref="Rotation" /> class.
         /// </summary>
         /// <param name="radians">The radians.</param>
         public Rotation(double radians)
@@ -48,6 +49,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the radians.
         /// </summary>
+        /// <value>
+        /// The radians.
+        /// </value>
         public double Radians
         {
             get { return radians; }
@@ -62,6 +66,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the degrees.
         /// </summary>
+        /// <value>
+        /// The degrees.
+        /// </value>
         public double Degrees
         {
             get { return radians.ToDegrees(); }
@@ -77,48 +84,58 @@ namespace Engine
         /// Gets the cosine.
         /// </summary>
         public double Cosine
-            => (cos ??= Math.Sin(radians));
+            => cos ??= Math.Sin(radians);
 
         /// <summary>
         /// Gets the sine.
         /// </summary>
         public double Sine
-            => (sin ??= Math.Sin(radians));
+            => sin ??= Math.Sin(radians);
 
         /// <summary>
-        /// 
+        /// Implements the operator ==.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator ==(Rotation left, Rotation right) => left.Equals(right);
 
         /// <summary>
-        /// 
+        /// Implements the operator !=.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         public static bool operator !=(Rotation left, Rotation right) => !(left == right);
 
         /// <summary>
-        /// 
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
         public override bool Equals(object obj) => obj is Rotation rotation && Equals(rotation);
 
         /// <summary>
-        /// 
+        /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
         public bool Equals(Rotation other) => radians == other.radians && EqualityComparer<double?>.Default.Equals(cos, other.cos) && EqualityComparer<double?>.Default.Equals(sin, other.sin);
 
         /// <summary>
-        /// 
+        /// Returns a hash code for this instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
         public override int GetHashCode()
         {
             var hashCode = -1422358610;

@@ -13,8 +13,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
-using static System.Math;
-using static Engine.Mathematics;
 using static Engine.Operations;
 
 namespace Engine

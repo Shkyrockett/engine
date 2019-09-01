@@ -11,6 +11,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using static Engine.Physics.LengthUnits;
@@ -20,6 +21,9 @@ namespace Engine.Physics
     /// <summary>
     /// The meters struct.
     /// </summary>
+    /// <seealso cref="ILength" />
+    /// <seealso cref="IFormattable" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Meters
         : ILength, IFormattable, IEquatable<Meters>
     {
@@ -77,9 +81,9 @@ namespace Engine.Physics
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Meters"/> Struct.
+        /// Initializes a new instance of the <see cref="Meters" /> Struct.
         /// </summary>
-        /// <param name="value">The distance in <see cref="Meters"/>.</param>
+        /// <param name="value">The distance in <see cref="Meters" />.</param>
         public Meters(double value)
         {
             Value = value;
@@ -88,13 +92,19 @@ namespace Engine.Physics
 
         #region Properties
         /// <summary>
-        /// The numarical value of the distance in <see cref="Meters"/>.
+        /// The numerical value of the distance in <see cref="Meters" />.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets or sets the mils.
         /// </summary>
+        /// <value>
+        /// The mils.
+        /// </value>
         public double Mils
         {
             get { return Value * Mil; }
@@ -104,6 +114,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the centimeters.
         /// </summary>
+        /// <value>
+        /// The centimeters.
+        /// </value>
         public double Centimeters
         {
             get { return Value * Centimeter; }
@@ -113,6 +126,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the inches.
         /// </summary>
+        /// <value>
+        /// The inches.
+        /// </value>
         public double Inches
         {
             get { return Value * Inch; }
@@ -122,6 +138,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the feet.
         /// </summary>
+        /// <value>
+        /// The feet.
+        /// </value>
         public double Feet
         {
             get { return Value * Foot; }
@@ -131,6 +150,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the yards.
         /// </summary>
+        /// <value>
+        /// The yards.
+        /// </value>
         public double Yards
         {
             get { return Value * Yard; }
@@ -140,6 +162,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the smoots.
         /// </summary>
+        /// <value>
+        /// The smoots.
+        /// </value>
         public double Smoots
         {
             get { return Value * Smoot; }
@@ -149,6 +174,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the kilometers.
         /// </summary>
+        /// <value>
+        /// The kilometers.
+        /// </value>
         public double Kilometers
         {
             get { return Value * Kilometer; }
@@ -158,6 +186,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the miles.
         /// </summary>
+        /// <value>
+        /// The miles.
+        /// </value>
         public double Miles
         {
             get { return Value * Mile; }
@@ -167,6 +198,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the nautical miles.
         /// </summary>
+        /// <value>
+        /// The nautical miles.
+        /// </value>
         public double NauticalMiles
         {
             get { return Value * NauticalMile; }
@@ -176,6 +210,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Meters);
@@ -183,6 +220,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation
             => "m";
@@ -193,7 +233,9 @@ namespace Engine.Physics
         /// The operator +.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Meters"/>.</returns>
+        /// <returns>
+        /// The <see cref="Meters" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator +(Meters value)
@@ -203,99 +245,146 @@ namespace Engine.Physics
         /// The operator -.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="Meters"/>.</returns>
+        /// <returns>
+        /// The <see cref="Meters" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator -(Meters value)
             => -value.Value;
 
         /// <summary>
-        /// Add an amount to both values to the <see cref="Meters"/> struct.
+        /// Add an amount to both values to the <see cref="Meters" /> struct.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator +(Meters value, double addend)
             => value.Value + addend;
 
         /// <summary>
-        /// Add an amount to both values to the <see cref="Meters"/> struct.
+        /// Add an amount to both values to the <see cref="Meters" /> struct.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator +(Meters value, ILength addend)
             => value.Value + ((Meters)addend).Value;
 
         /// <summary>
-        /// Subtract a <see cref="Meters"/> from a <see cref="double"/> value.
+        /// Subtract a <see cref="Meters" /> from a <see cref="double" /> value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator -(Meters value, double subend)
             => value.Value - subend;
 
         /// <summary>
-        /// Subtract a <see cref="Meters"/> from an <see cref="ILength"/> value.
+        /// Subtract a <see cref="Meters" /> from an <see cref="ILength" /> value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="subend"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="subend">The subend.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator -(Meters value, ILength subend)
             => value.Value - ((Meters)subend).Value;
 
         /// <summary>
-        /// Multiply the <see cref="Meters"/> value.
+        /// Multiply the <see cref="Meters" /> value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="factor"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="factor">The factor.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator *(Meters value, double factor)
             => value.Value - factor;
 
         /// <summary>
-        /// Multiply the <see cref="Meters"/> value.
+        /// Multiply the <see cref="Meters" /> value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="factor"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <param name="factor">The factor.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator *(Meters value, ILength factor)
             => value.Value - ((Meters)factor).Value;
 
         /// <summary>
-        /// Divide a <see cref="Meters"/> vlue by a <see cref="double"/> value.
+        /// Divide a <see cref="Meters" /> vlue by a <see cref="double" /> value.
         /// </summary>
         /// <param name="divisor">The divisor value.</param>
         /// <param name="dividend">The dividend value.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator /(Meters divisor, double dividend)
             => divisor.Value / dividend;
 
         /// <summary>
-        /// Divide a <see cref="Meters"/> vlue by a <see cref="double"/> value.
+        /// Divide a <see cref="Meters" /> vlue by a <see cref="double" /> value.
         /// </summary>
         /// <param name="divisor">The divisor value.</param>
         /// <param name="dividend">The dividend value.</param>
-        /// <returns></returns>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Meters operator /(Meters divisor, ILength dividend)
             => divisor.Value / ((Meters)dividend).Value;
+
+        /// <summary>
+        /// Compares two <see cref="Meters" /> objects.
+        /// The result specifies whether the values of the X and Y
+        /// values of the two <see cref="Meters" /> objects are equal.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator ==(Meters left, ILength right)
+            => Equals(left, right);
+
+        /// <summary>
+        /// Compares two <see cref="Meters" /> objects.
+        /// The result specifies whether the values of the two <see cref="Meters" /> structs are unequal.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool operator !=(Meters left, ILength right)
+            => !Equals(left, right);
 
         /// <summary>
         /// Implements the operator ==.
@@ -317,30 +406,6 @@ namespace Engine.Physics
         /// </returns>
         public static bool operator !=(Meters left, Meters right) => !(left == right);
 
-        /// <summary>
-        /// Compares two <see cref="Meters"/> objects.
-        /// The result specifies whether the values of the X and Y
-        /// values of the two <see cref="Meters"/> objects are equal.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Meters left, ILength right)
-            => Equals(left, right);
-
-        /// <summary>
-        /// Compares two <see cref="Meters"/> objects.
-        /// The result specifies whether the values of the two <see cref="Meters"/> structs are unequal.
-        /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Meters left, ILength right)
-            => !Equals(left, right);
         /// <summary>
         /// Performs an implicit conversion from <see cref="double"/> to <see cref="Meters"/>.
         /// </summary>
@@ -463,12 +528,11 @@ namespace Engine.Physics
         #endregion Operators
 
         #region Methods
-
         /// <summary>
-        /// Compares two <see cref="Meters"/> objects.
+        /// Compares two <see cref="Meters" /> objects.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -480,27 +544,32 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Meters a, ILength b)
             => a.Value == ((Meters)b).Value;
 
         /// <summary>
-        /// The equals.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is ILength && Equals(this, (Meters)obj);
+        public override bool Equals(object obj) => obj is ILength && Equals(this, (Meters)obj);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(ILength value)
@@ -511,11 +580,9 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public bool Equals(Meters other)
-            => Value == other.Value;
+        public bool Equals(Meters other) => Value == other.Value;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -526,10 +593,10 @@ namespace Engine.Physics
         public override int GetHashCode() => -1937169414 + Value.GetHashCode();
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Meters"/> struct.
+        /// Creates a human-readable string that represents this <see cref="Meters" /> struct.
         /// </summary>
         /// <returns>
-        /// A string representation of this <see cref="Meters"/> struct.
+        /// A string representation of this <see cref="Meters" /> struct.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -537,16 +604,14 @@ namespace Engine.Physics
             => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Meters"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Meters" /> struct based on the IFormatProvider
         /// passed in. If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">
-        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// <param name="provider">The provider to use to format the value.-or- A null reference (Nothing in Visual
         /// Basic) to obtain the numeric format information from the current locale setting
-        /// of the operating system.system.
-        /// </param>
+        /// of the operating system.system.</param>
         /// <returns>
-        /// A string representation of this <see cref="Meters"/> struct.
+        /// A string representation of this <see cref="Meters" /> struct.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -554,20 +619,16 @@ namespace Engine.Physics
             => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Meters"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Meters" /> struct based on the format string
         /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="format">
-        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
-        /// default format defined for the type of the System.IFormattable implementation.
-        /// </param>
-        /// <param name="provider">
-        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// <param name="format">The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.</param>
+        /// <param name="provider">The provider to use to format the value.-or- A null reference (Nothing in Visual
         /// Basic) to obtain the numeric format information from the current locale setting
-        /// of the operating system.system.
-        /// </param>
+        /// of the operating system.system.</param>
         /// <returns>
-        /// A string representation of this <see cref="Meters"/> struct.
+        /// A string representation of this <see cref="Meters" /> struct.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -575,25 +636,73 @@ namespace Engine.Physics
             => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Meters"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Meters" /> struct based on the format string
         /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="format">
-        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
-        /// default format defined for the type of the System.IFormattable implementation.
-        /// </param>
-        /// <param name="provider">
-        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// <param name="format">The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.</param>
+        /// <param name="provider">The provider to use to format the value.-or- A null reference (Nothing in Visual
         /// Basic) to obtain the numeric format information from the current locale setting
-        /// of the operating system.system.
-        /// </param>
+        /// of the operating system.system.</param>
         /// <returns>
-        /// A string representation of this <see cref="Meters"/> struct.
+        /// A string representation of this <see cref="Meters" /> struct.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ConvertToString(string format, IFormatProvider provider)
             => $"{Value.ToString(format, provider)} {Abbreviation}";
+
+        /// <summary>
+        /// Pluses the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static Meters Plus(Meters item) => +item;
+
+        /// <summary>
+        /// Negates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static Meters Negate(Meters item) => -item;
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static Meters Add(Meters left, Meters right) => left + right;
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static Meters Subtract(Meters left, Meters right) => left - right;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static Meters Multiply(Meters left, Meters right) => left * right;
+
+        /// <summary>
+        /// Divides the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static Meters Divide(Meters left, Meters right) => left / right;
         #endregion Methods
     }
 }

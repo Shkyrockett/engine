@@ -16,10 +16,11 @@ namespace Engine
     /// <summary>
     /// The intersection params struct.
     /// </summary>
+    /// <seealso cref="IEquatable{T}" />
     public struct IntersectionParams : IEquatable<IntersectionParams>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntersectionParams"/> class.
+        /// Initializes a new instance of the <see cref="IntersectionParams" /> class.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="params">The params.</param>
@@ -32,11 +33,17 @@ namespace Engine
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the params.
         /// </summary>
+        /// <value>
+        /// The parameters.
+        /// </value>
         public string Params { get; set; }
 
         /// <summary>
@@ -73,7 +80,7 @@ namespace Engine
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(IntersectionParams other) => Name == other.Name && Params == other.Params;
 

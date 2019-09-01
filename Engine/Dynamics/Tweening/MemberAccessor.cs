@@ -48,6 +48,7 @@ namespace Engine.Tweening
         /// <exception cref="Exception">readable</exception>
         public MemberAccessor(object target, string name, bool writable = true)
         {
+            if (target is null) return;
             Target = target;
             var targetType = target.GetType();
             MemberInfo memberInfo;

@@ -21,6 +21,9 @@ namespace Engine.Physics
     /// <summary>
     /// The radians struct.
     /// </summary>
+    /// <seealso cref="IDirection" />
+    /// <seealso cref="IFormattable" />
+    /// <seealso cref="IEquatable{T}" />
     [DataContract, Serializable]
     [DisplayName(nameof(Radians))]
     public struct Radians
@@ -28,27 +31,27 @@ namespace Engine.Physics
     {
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Radians"/> struct.
+        /// Initializes a new instance of the <see cref="Radians" /> struct.
         /// </summary>
-        /// <param name="value"></param>
+        /// <param name="value">The value.</param>
         public Radians(double value)
         {
             Value = value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Radians"/> struct as a clone.
+        /// Initializes a new instance of the <see cref="Radians" /> struct as a clone.
         /// </summary>
-        /// <param name="radians"></param>
+        /// <param name="radians">The radians.</param>
         public Radians(Radians radians)
         {
             Value = radians.Value;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Radians"/> struct from a <see cref="Degrees"/>.
+        /// Initializes a new instance of the <see cref="Radians" /> struct from a <see cref="Degrees" />.
         /// </summary>
-        /// <param name="degrees"></param>
+        /// <param name="degrees">The degrees.</param>
         public Radians(Degrees degrees)
         {
             Value = degrees.Value.ToRadians();
@@ -59,11 +62,17 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets or sets the degrees.
         /// </summary>
+        /// <value>
+        /// The degrees.
+        /// </value>
         public double Degrees
         {
             get { return Degree * Value; }
@@ -73,6 +82,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name
             => nameof(Radians);
@@ -80,6 +92,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation
             => "rad";
@@ -133,12 +148,12 @@ namespace Engine.Physics
 
         #region Factories
         /// <summary>
-        /// Parse a string for a <see cref="Radians"/> value.
+        /// Parse a string for a <see cref="Radians" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Radians"/> data </param>
+        /// <param name="source"><see cref="string" /> with <see cref="Radians" /> data</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Radians"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// Returns an instance of the <see cref="Radians" /> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         public static Radians Parse(string source)
         {
@@ -171,7 +186,9 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Radians a, Radians b)
             => (a.Value == b.Value) & (a.Value == b.Value);
@@ -194,12 +211,13 @@ namespace Engine.Physics
         /// <summary>
         /// The equals.
         /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
+        /// <param name="value">The value.</param>
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Radians other) => Value == other.Value;
+        public bool Equals(Radians value)
+            => Equals(this, value);
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -217,16 +235,19 @@ namespace Engine.Physics
             => Value.ToDegrees();
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Radians"/> struct.
+        /// Creates a human-readable string that represents this <see cref="Radians" /> struct.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
         public override string ToString()
             => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Radians"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Radians" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -234,13 +255,13 @@ namespace Engine.Physics
             => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Radians"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Radians" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -248,13 +269,13 @@ namespace Engine.Physics
             => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Radians"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Radians" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="provider"></param>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>

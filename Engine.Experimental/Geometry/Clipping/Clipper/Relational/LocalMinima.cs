@@ -16,6 +16,8 @@ namespace Engine.Experimental
     /// <summary>
     /// The local minima class.
     /// </summary>
+    /// <seealso cref="IComparable{T}" />
+    /// <seealso cref="IEquatable{T}" />
     public struct LocalMinima
         : IComparable<LocalMinima>, IEquatable<LocalMinima>
     {
@@ -23,20 +25,29 @@ namespace Engine.Experimental
         /// <summary>
         /// Gets or sets the vertex of the local minima.
         /// </summary>
+        /// <value>
+        /// The vertex.
+        /// </value>
         public Vertex Vertex { get; set; }
 
         /// <summary>
         /// Gets or sets the polygon's clipping relation.
         /// </summary>
+        /// <value>
+        /// The clipping relation.
+        /// </value>
         public ClippingRelation ClippingRelation { get; set; }
 
         /// <summary>
         /// Gets or sets a flag that determines whether the polygon is an open polyline, or a closed polygon.
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if this instance is open; otherwise, <see langword="false"/>.
+        /// </value>
         public bool IsOpen { get; set; }
         #endregion Properties
 
-        #region MyRegion
+        #region Operators
         /// <summary>
         /// The operator ==.
         /// </summary>
@@ -50,7 +61,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator !=(LocalMinima left, LocalMinima right) => !(left == right);
 
         /// <summary>
@@ -58,7 +71,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator <(LocalMinima left, LocalMinima right) => left.CompareTo(right) < 0;
 
         /// <summary>
@@ -66,7 +81,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator <=(LocalMinima left, LocalMinima right) => left.CompareTo(right) <= 0;
 
         /// <summary>
@@ -74,7 +91,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator >(LocalMinima left, LocalMinima right) => left.CompareTo(right) > 0;
 
         /// <summary>
@@ -82,16 +101,20 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator >=(LocalMinima left, LocalMinima right) => left.CompareTo(right) >= 0;
-        #endregion MyRegion
+        #endregion Operators
 
         #region Methods
         /// <summary>
         /// The compare to.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CompareTo(LocalMinima other)
             => Compare(this, other);
@@ -101,7 +124,9 @@ namespace Engine.Experimental
         /// </summary>
         /// <param name="lm1">The lm1.</param>
         /// <param name="lm2">The lm2.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Compare(LocalMinima lm1, LocalMinima lm2)
             => lm2.Vertex.Point.Y.CompareTo(lm1.Vertex.Point.Y); // Soft descending sort
@@ -110,7 +135,9 @@ namespace Engine.Experimental
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj) => obj is LocalMinima localMinima && Equals(localMinima);
 
@@ -127,7 +154,9 @@ namespace Engine.Experimental
         /// <summary>
         /// Returns the hash code for this instance.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         public override int GetHashCode() => base.GetHashCode();
         #endregion Methods
     }

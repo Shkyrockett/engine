@@ -10,17 +10,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Colorspace
 {
     /// <summary>
     /// The CIEXYZ triple struct.
     /// </summary>
+    /// <seealso cref="IColor" />
+    /// <seealso cref="IEquatable{T}" />
     public struct CIEXYZTriple
         : IColor, IEquatable<CIEXYZTriple>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CIEXYZTriple"/> class.
+        /// Initializes a new instance of the <see cref="CIEXYZTriple" /> class.
         /// </summary>
         /// <param name="red">The red.</param>
         /// <param name="green">The green.</param>
@@ -35,16 +38,25 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the red.
         /// </summary>
+        /// <value>
+        /// The red.
+        /// </value>
         public CIEXYZ Red { get; set; }
 
         /// <summary>
         /// Gets or sets the green.
         /// </summary>
+        /// <value>
+        /// The green.
+        /// </value>
         public CIEXYZ Green { get; set; }
 
         /// <summary>
         /// Gets or sets the blue.
         /// </summary>
+        /// <value>
+        /// The blue.
+        /// </value>
         public CIEXYZ Blue { get; set; }
 
         /// <summary>
@@ -81,15 +93,17 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(CIEXYZTriple other) => Red.Equals(other.Red) && Green.Equals(other.Green) && Blue.Equals(other.Blue);
+        public bool Equals(CIEXYZTriple other) => EqualityComparer<CIEXYZ>.Default.Equals(Red, other.Red) && EqualityComparer<CIEXYZ>.Default.Equals(Green, other.Green) && EqualityComparer<CIEXYZ>.Default.Equals(Blue, other.Blue);
 
         /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public bool Equals(IColor other)
         {
             var (r0, g0, b0, a0) = ToRGBATuple();
@@ -115,7 +129,10 @@ namespace Engine.Colorspace
         /// <summary>
         /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => throw new NotImplementedException();
 
         /// <summary>
@@ -123,7 +140,10 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

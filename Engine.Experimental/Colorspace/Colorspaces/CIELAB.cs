@@ -9,6 +9,7 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Colorspace
 {
@@ -68,18 +69,6 @@ namespace Engine.Colorspace
         public static bool operator !=(CIELAB left, CIELAB right) => !(left == right);
 
         /// <summary>
-        /// The equals.
-        /// </summary>
-        /// <param name="other">The other.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public bool Equals(IColor other)
-        {
-            var (r0, g0, b0, a0) = ToRGBATuple();
-            var (r1, g1, b1, a1) = other.ToRGBATuple();
-            return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
-        }
-
-        /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
@@ -93,7 +82,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(CIELAB other) => Lightness == other.Lightness && ChannelA == other.ChannelA && ChannelB == other.ChannelB;
 
@@ -110,6 +99,18 @@ namespace Engine.Colorspace
             hashCode = hashCode * -1521134295 + ChannelA.GetHashCode();
             hashCode = hashCode * -1521134295 + ChannelB.GetHashCode();
             return hashCode;
+        }
+
+        /// <summary>
+        /// The equals.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns>The <see cref="bool"/>.</returns>
+        public bool Equals(IColor other)
+        {
+            var (r0, g0, b0, a0) = ToRGBATuple();
+            var (r1, g1, b1, a1) = other.ToRGBATuple();
+            return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
 
         /// <summary>

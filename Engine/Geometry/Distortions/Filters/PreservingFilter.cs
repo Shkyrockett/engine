@@ -36,8 +36,7 @@ namespace Engine
         /// </summary>
         /// <param name="point">The point.</param>
         /// <returns>The <see cref="Point2D"/>.</returns>
-        public virtual Point2D Process(Point2D point)
-            => point;
+        public virtual Point2D Process(Point2D point) => point;
 
         /// <summary>
         /// Process a <see cref="List{T}"/> structure with a distortion filter.
@@ -46,6 +45,7 @@ namespace Engine
         /// <returns>The <see cref="List{T}"/>.</returns>
         public List<Point2D> Process(List<Point2D> contour)
         {
+            if (contour is null) return contour;
             var results = new List<Point2D>();
             foreach (var point in contour)
             {
@@ -110,6 +110,7 @@ namespace Engine
         /// <returns>The <see cref="Line"/>.</returns>
         public Line Process(Line line)
         {
+            if (line is null) return line;
             var location = Process(line.Location);
             var result = new Line(location, Process(line.Location + line.Direction) - location);
             return result;
@@ -122,6 +123,7 @@ namespace Engine
         /// <returns>The <see cref="Ray"/>.</returns>
         public Ray Process(Ray line)
         {
+            if (line is null) return line;
             var location = Process(line.Location);
             var result = new Ray(location, Process(line.Location + line.Direction) - location);
             return result;
@@ -134,6 +136,7 @@ namespace Engine
         /// <returns>The <see cref="LineSegment"/>.</returns>
         public LineSegment Process(LineSegment line)
         {
+            if (line is null) return line;
             var result = new LineSegment(Process(line.A), Process(line.B));
             return result;
         }
@@ -145,6 +148,7 @@ namespace Engine
         /// <returns>The <see cref="QuadraticBezier"/>.</returns>
         public QuadraticBezier Process(QuadraticBezier bezier)
         {
+            if (bezier is null) return bezier;
             var result = new QuadraticBezier(Process(bezier.A), Process(bezier.B), Process(bezier.C));
             return result;
         }
@@ -156,6 +160,7 @@ namespace Engine
         /// <returns>The <see cref="CubicBezier"/>.</returns>
         public CubicBezier Process(CubicBezier bezier)
         {
+            if (bezier is null) return bezier;
             var result = new CubicBezier(Process(bezier.A), Process(bezier.B), Process(bezier.C), Process(bezier.D));
             return result;
         }
@@ -167,6 +172,7 @@ namespace Engine
         /// <returns>The <see cref="PointSet"/>.</returns>
         public PointSet Process(PointSet points)
         {
+            if (points is null) return points;
             var results = new PointSet();
             foreach (var point in points)
             {
@@ -181,7 +187,10 @@ namespace Engine
         /// <param name="triangle">The triangle.</param>
         /// <returns>The <see cref="Triangle"/>.</returns>
         public Triangle Process(Triangle triangle)
-            => new Triangle(Process(triangle.A), Process(triangle.B), Process(triangle.C));
+        {
+            if (triangle is null) return triangle;
+            return new Triangle(Process(triangle.A), Process(triangle.B), Process(triangle.C));
+        }
 
         /// <summary>
         /// Process a <see cref="Rectangle2D"/> structure with a distortion filter.
@@ -189,7 +198,10 @@ namespace Engine
         /// <param name="rect">The rectangle.</param>
         /// <returns>The <see cref="PolygonContour"/>.</returns>
         public PolygonContour Process(Rectangle2D rect)
-            => new PolygonContour { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
+        {
+            if (rect is null) return null;
+            return new PolygonContour { Process(rect.TopLeft), Process(rect.TopRight), Process(rect.BottomRight), Process(rect.BottomLeft) };
+        }
 
         /// <summary>
         /// Process a <see cref="Polygon"/> structure with a distortion filter.
@@ -198,6 +210,7 @@ namespace Engine
         /// <returns>The <see cref="Polygon"/>.</returns>
         public Polygon Process(Polygon polygon)
         {
+            if (polygon is null) return polygon;
             var result = new Polygon();
             foreach (var contour in polygon)
             {
@@ -213,6 +226,7 @@ namespace Engine
         /// <returns>The <see cref="PolygonContour"/>.</returns>
         public PolygonContour Process(PolygonContour contour)
         {
+            if (contour is null) return contour;
             var results = new PolygonContour();
             foreach (var point in contour)
             {
@@ -228,6 +242,7 @@ namespace Engine
         /// <returns>The <see cref="PolylineSet"/>.</returns>
         public PolylineSet Process(PolylineSet polylines)
         {
+            if (polylines is null) return polylines;
             var result = new PolylineSet();
             foreach (var contour in polylines)
             {
@@ -243,6 +258,7 @@ namespace Engine
         /// <returns>The <see cref="Polyline"/>.</returns>
         public Polyline Process(Polyline contour)
         {
+            if (contour is null) return contour;
             var results = new Polyline();
             foreach (var point in contour)
             {
@@ -258,6 +274,7 @@ namespace Engine
         /// <returns>The <see cref="PolycurveContour"/>.</returns>
         public PolycurveContour Process(PolycurveContour contour)
         {
+            if (contour is null) return contour;
             var result = new PolycurveContour(Process(contour.Items[0].Start.Value));
             foreach (var item in contour)
             {
@@ -289,7 +306,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Process a <see cref="Envelope"/> structure with a distortion filter.
+        /// Process an <see cref="Envelope"/> structure with a distortion filter.
         /// </summary>
         /// <param name="envelope">The contour.</param>
         /// <returns>The <see cref="Polyline"/>.</returns>

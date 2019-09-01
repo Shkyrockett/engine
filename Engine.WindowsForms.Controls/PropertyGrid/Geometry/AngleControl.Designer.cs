@@ -114,8 +114,8 @@ namespace Engine
             this.needleControl1.Name = "needleControl1";
             this.needleControl1.Size = new System.Drawing.Size(130, 118);
             this.needleControl1.TabIndex = 0;
-            this.needleControl1.ValueChangedEventHandler += new Engine.NeedleControl.ValueChangedDelegate(this.NeedleControl1_ValueChanged);
-            this.needleControl1.ValueCommittedEventHandler += new Engine.NeedleControl.ValueCommittedDelegate(this.NeedleControl1_ValueCommitted);
+            this.needleControl1.ValueChanged += new Engine.NeedleControl.ValueChangedEventHandler(this.NeedleControl1_ValueChanged);
+            this.needleControl1.ValueCommitted += new Engine.NeedleControl.ValueCommittedEventHandler(this.NeedleControl1_ValueCommitted);
             // 
             // AngleControl
             // 

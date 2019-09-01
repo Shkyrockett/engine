@@ -48,7 +48,7 @@ namespace Engine
 
         //    e.Graphics.SetClip(path);
         //    using (var f = new Font("Tahoma", 12, FontStyle.Bold))
-        //        e.Graphics.DrawString("Draw Me!!", f, Brushes.Red, 0, 70);
+        //        e.Graphics.DrawString("Draw Me", f, Brushes.Red, 0, 70);
         //    e.Graphics.ResetClip();
         //}
 

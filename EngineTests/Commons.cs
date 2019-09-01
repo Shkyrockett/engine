@@ -103,7 +103,6 @@ namespace EngineTests
             /// KLD Cubic test
             /// </summary>
             public static readonly (double, double, double, double, double, double, double, double) test10 = (171d, 143d, 22d, 132d, 330d, 64d, 107d, 65d);
-
         }
 
         /// <summary>

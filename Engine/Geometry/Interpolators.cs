@@ -28,7 +28,7 @@ namespace Engine
         /// Retrieves a list of points interpolated from a function.
         /// </summary>
         /// <param name="count">The number of points desired.</param>
-        /// <param name="func"></param>
+        /// <param name="func">The function.</param>
         /// <returns></returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -44,7 +44,9 @@ namespace Engine
         /// <param name="t">The t index of the linear curve.</param>
         /// <param name="aV">The first anchor value.</param>
         /// <param name="bV">The second anchor value.</param>
-        /// <returns>Returns a <see cref="double"/> representing a point on the linear curve at the t index.</returns>
+        /// <returns>
+        /// Returns a <see cref="double" /> representing a point on the linear curve at the t index.
+        /// </returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
@@ -81,7 +83,9 @@ namespace Engine
         /// <param name="bX">The second anchor point x value.</param>
         /// <param name="bY">The second anchor point y value.</param>
         /// <param name="bZ">The second anchor point z value.</param>
-        /// <returns>Returns a <see cref="ValueTuple{T1, T2, T3}"/> representing a point on the linear curve at the t index.</returns>
+        /// <returns>
+        /// Returns a <see cref="ValueTuple{T1, T2, T3}" /> representing a point on the linear curve at the t index.
+        /// </returns>
         /// <acknowledgment>
         /// http://paulbourke.net/geometry/bezier/index.html
         /// </acknowledgment>
@@ -98,7 +102,9 @@ namespace Engine
         /// <param name="t">The t index of the linear curve.</param>
         /// <param name="a">The first anchor point.</param>
         /// <param name="b">The second anchor point value.</param>
-        /// <returns>Returns a <see cref="Point2D"/> representing a point on the linear curve at the t index.</returns>
+        /// <returns>
+        /// Returns a <see cref="Point2D" /> representing a point on the linear curve at the t index.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Point2D Linear(double t, Point2D a, Point2D b)
@@ -1348,15 +1354,17 @@ namespace Engine
         /// <summary>
         /// Interpolate a parabola from the standard parabolic equation.
         /// </summary>
-        /// <param name="t">The <paramref name="t"/>ime index of the iteration.</param>
-        /// <param name="a">The <paramref name="a"/> component of the parabola.</param>
-        /// <param name="b">The <paramref name="b"/> component of the parabola.</param>
-        /// <param name="c">The <paramref name="c"/> component of the parabola.</param>
-        /// <param name="x1">The <paramref name="x1"/>imum x value to interpolate.</param>
-        /// <param name="x2">The <paramref name="x2"/>imum x value to interpolate.</param>
-        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing the interpolated point at the t index.</returns>
+        /// <param name="t">The <paramref name="t" />ime index of the iteration.</param>
+        /// <param name="a">The <paramref name="a" /> component of the parabola.</param>
+        /// <param name="b">The <paramref name="b" /> component of the parabola.</param>
+        /// <param name="c">The <paramref name="c" /> component of the parabola.</param>
+        /// <param name="x1">The <paramref name="x1" />imum x value to interpolate.</param>
+        /// <param name="x2">The <paramref name="x2" />imum x value to interpolate.</param>
+        /// <returns>
+        /// Returns a <see cref="ValueTuple{T1, T2}" /> representing the interpolated point at the t index.
+        /// </returns>
         /// <example>
-        /// <code>
+        ///   <code>
         /// var a = 0.0125d;
         /// var h = 100d;
         /// var k = 100d;
@@ -1364,11 +1372,10 @@ namespace Engine
         /// var c = (b * b / (4 * a)) + k;
         /// var min = -100d;
         /// var max = 100d;
-        /// var list = new List&lt;(double X, double Y)>();
-        /// 
+        /// var list = new List&lt;(double X, double Y)&gt;();
         /// for (int i = 0; i &lt; 100; i++)
         /// {
-        ///     list.Add(InterpolateVertexParabola(a, b, c, -100, 100, 1d / i));
+        /// list.Add(InterpolateVertexParabola(a, b, c, -100, 100, 1d / i));
         /// }
         /// </code>
         /// </example>
@@ -1384,25 +1391,26 @@ namespace Engine
         /// <summary>
         /// Interpolate a parabola from the general vertex form of the parabolic equation.
         /// </summary>
-        /// <param name="t">The <paramref name="t"/>ime index of the iteration.</param>
-        /// <param name="a">The <paramref name="a"/> component of the parabola.</param>
+        /// <param name="t">The <paramref name="t" />ime index of the iteration.</param>
+        /// <param name="a">The <paramref name="a" /> component of the parabola.</param>
         /// <param name="h">The horizontal component of the parabola vertex.</param>
         /// <param name="k">The vertical component of the parabola vertex.</param>
-        /// <param name="x1">The <paramref name="x1"/>imum x value to interpolate.</param>
-        /// <param name="x2">The <paramref name="x2"/>imum x value to interpolate.</param>
-        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing the interpolated point at the t index.</returns>
+        /// <param name="x1">The <paramref name="x1" />imum x value to interpolate.</param>
+        /// <param name="x2">The <paramref name="x2" />imum x value to interpolate.</param>
+        /// <returns>
+        /// Returns a <see cref="ValueTuple{T1, T2}" /> representing the interpolated point at the t index.
+        /// </returns>
         /// <example>
-        /// <code>
+        ///   <code>
         /// var a = 0.0125d;
         /// var h = 100d;
         /// var k = 100d;
         /// var min = -100d;
         /// var max = 100d;
-        /// var list = new List&lt;(double X, double Y)>();
-        /// 
+        /// var list = new List&lt;(double X, double Y)&gt;();
         /// for (int i = 0; i &lt; 100; i++)
         /// {
-        ///     list.Add(InterpolateVertexParabola(a, h, k, -100, 100, 1d / i));
+        /// list.Add(InterpolateVertexParabola(a, h, k, -100, 100, 1d / i));
         /// }
         /// </code>
         /// </example>
@@ -1416,14 +1424,14 @@ namespace Engine
         }
 
         /// <summary>
-        /// 
+        /// Interpolates the parabola.
         /// </summary>
-        /// <param name="t"></param>
-        /// <param name="x1"></param>
-        /// <param name="y1"></param>
-        /// <param name="x2"></param>
-        /// <param name="y2"></param>
-        /// <param name="k"></param>
+        /// <param name="t">The t.</param>
+        /// <param name="x1">The x1.</param>
+        /// <param name="y1">The y1.</param>
+        /// <param name="x2">The x2.</param>
+        /// <param name="y2">The y2.</param>
+        /// <param name="k">The k.</param>
         /// <returns></returns>
         public static (double X, double Y) InterpolateParabola(double t, double x1, double y1, double x2, double y2, double k)
         {
@@ -1463,7 +1471,9 @@ namespace Engine
         /// <param name="t">The t index.</param>
         /// <param name="key1">The first cubic Bézier key.</param>
         /// <param name="key2">The second cubic Bézier key.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         public static CubicBezier TweenCubic(double t, CubicBezier key1, CubicBezier key2)
             => new CubicBezier(
                  key1.A + (t * (key2.A - key1.A)),

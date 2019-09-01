@@ -88,7 +88,7 @@ namespace Engine
         public Tokenizer(string str, char quoteChar, char separator)
         {
             this.str = str.ToCharArray();
-            strLen = this.str!!.Length;
+            strLen = this.str.Length;
             currentTokenIndex = -1;
             this.quoteChar = quoteChar;
             argSeparator = separator;
@@ -281,7 +281,7 @@ namespace Engine
             }
 
             // Loop until hit a character that isn't an argument separator or whitespace.
-            // !!!ToDo: if more than one argSet; throw an exception
+            // !ToDo: if more than one argSet; throw an exception
             var argSepCount = 0;
             while (charIndex < strLen)
             {

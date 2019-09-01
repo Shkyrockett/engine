@@ -11,6 +11,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Engine.Imaging
@@ -188,16 +189,16 @@ namespace Engine.Imaging
             var ResourceStream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream($"{strNameSpace}.{ResourceName}");
             if (ResourceStream is null)
             {
-                // ToDo: #If Then ... Warning!!! not translated
+                // ToDo: #If Then ... Warning! not translated
                 MessageBox.Show($"Unable to find: {ResourceName}\r\nBe Sure {ResourceName} Property Build Action is set to Embedded Resource\r\nAnother reason can be that the Project Root Namespace is not the same as the Assembly Name");
-                // ToDo: # ... Warning!!! not translated
+                // ToDo: # ... Warning! not translated
             }
             else
             {
                 //  ToDo: Report the Error message in a nicer fashion since this in game.
                 //  Perhaps on Exit provide a message errors were encountered and
                 //  ignored would you like to send an error report?
-                // ToDo: #End If ... Warning!!! not translated
+                // ToDo: #End If ... Warning! not translated
                 return Cursors.Default;
             }
             //  Return the Resource as a cursor

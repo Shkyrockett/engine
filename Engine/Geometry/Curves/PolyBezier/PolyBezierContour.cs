@@ -129,7 +129,7 @@ namespace Engine
             get { return ToPathDefString(); }
             set
             {
-                items = ParsePathDefString(value);
+                items = ParsePathDefString(value, CultureInfo.InvariantCulture);
                 ClearCache();
                 OnPropertyChanged(nameof(Definition));
                 update?.Invoke();

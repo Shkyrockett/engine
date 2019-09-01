@@ -162,7 +162,7 @@ namespace Engine
             get { return ToPathDefString(); }
             set
             {
-                Items = ParsePathDefString(value).Item1;
+                Items = ParsePathDefString(value, CultureInfo.InvariantCulture).Item1;
                 ClearCache();
                 OnPropertyChanged(nameof(Definition));
                 update?.Invoke();
@@ -538,7 +538,7 @@ namespace Engine
                 var cmd = token.Take(1).Single();
 
                 // Retrieve the values.
-                var args = Regex.Split(token.Substring(1), argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg)).ToArray();
+                var args = Regex.Split(token.Substring(1), argSeparators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg, NumberStyles.Float, CultureInfo.InvariantCulture)).ToArray();
 
                 switch (cmd)
                 {

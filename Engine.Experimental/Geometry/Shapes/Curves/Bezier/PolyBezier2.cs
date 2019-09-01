@@ -39,6 +39,7 @@ namespace Engine
         /// <param name="curve">The curve.</param>
         public void AddCurve(Bezier curve)
         {
+            if (curve is null) return;
             Curves.Add(curve);
             Is3d = Is3d || curve.Is3d;
         }
@@ -93,7 +94,7 @@ namespace Engine
         {
             var offset = new List<Bezier>();
 
-            foreach(var v in Curves)
+            foreach (var v in Curves)
             {
                 offset.AddRange(v.Offset(d));
             }

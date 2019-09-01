@@ -50,6 +50,7 @@ namespace Engine.WindowsForms
         /// <param name="pevent">The paint event arguments.</param>
         protected override void OnPaintBackground(PaintEventArgs pevent)
         {
+            if (pevent is null) return;
             base.OnPaintBackground(pevent);
             //var flags = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter | TextFormatFlags.SingleLine | TextFormatFlags.WordEllipsis;
             //TextRenderer.DrawText(e.Graphics, "Hello", Font, Bounds, Color.Black, flags);
@@ -65,6 +66,7 @@ namespace Engine.WindowsForms
         /// <param name="e">The paint event arguments.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (e is null) return;
             base.OnPaint(e);
             var ThumbRect = new Rectangle(Point.Empty, TrackBarRenderer.GetBottomPointingThumbSize(e.Graphics, TrackBarThumbState.Normal));
             TrackBarRenderer.DrawBottomPointingThumb(e.Graphics, ThumbRect, TrackBarThumbState.Normal);

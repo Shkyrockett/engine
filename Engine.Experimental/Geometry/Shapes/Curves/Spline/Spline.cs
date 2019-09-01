@@ -129,7 +129,7 @@ namespace Engine
         {
             if (curves.Count > 0 && !Operations.EqualsOrClose(curves[curves.Count - 1].D, curve.A))
             {
-                throw new InvalidOperationException("The new curve does at index " + curves.Count + " does not connect with the previous curve at index " + (curves.Count - 1));
+                throw new InvalidOperationException($"The new curve does at index {curves.Count} does not connect with the previous curve at index {curves.Count - 1}");
             }
 
             curves.Add(curve);
@@ -152,6 +152,7 @@ namespace Engine
         /// <param name="curve">The new curve with which to replace it.</param>
         public void Update(int index, CubicBezier curve)
         {
+            if (curve is null) return;
             if (index < 0)
             {
                 throw new IndexOutOfRangeException("Negative index");
@@ -159,17 +160,17 @@ namespace Engine
 
             if (index >= curves.Count)
             {
-                throw new IndexOutOfRangeException("Curve index " + index + " is out of range (there are " + curves.Count + " curves in the spline)");
+                throw new IndexOutOfRangeException($"Curve index {index} is out of range (there are {curves.Count} curves in the spline)");
             }
 
             if (index > 0 && !Operations.EqualsOrClose(curves[index - 1].D, curve.A))
             {
-                throw new InvalidOperationException("The updated curve at index " + index + " does not connect with the previous curve at index " + (index - 1));
+                throw new InvalidOperationException($"The updated curve at index {index} does not connect with the previous curve at index {index - 1}");
             }
 
             if (index < curves.Count - 1 && !Operations.EqualsOrClose(curves[index + 1].A, curve.D))
             {
-                throw new InvalidOperationException("The updated curve at index " + index + " does not connect with the next curve at index " + (index + 1));
+                throw new InvalidOperationException($"The updated curve at index {index} does not connect with the next curve at index {index + 1}");
             }
 
             curves[index] = curve;

@@ -779,7 +779,7 @@ namespace Engine
             {
                 var mn = double.PositiveInfinity;
                 var mx = double.NegativeInfinity;
-                for (var i = 0; i < poly.Length; i++)
+                for (var i = 0; i < poly?.Length; i++)
                 {
                     var dot = (poly[i].x * axis.x) + (poly[i].y * axis.y);
                     mx = Max(mx, dot);

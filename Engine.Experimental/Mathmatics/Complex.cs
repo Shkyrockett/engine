@@ -8,6 +8,7 @@
 // <summary></summary>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Security;
 
@@ -16,8 +17,9 @@ namespace Engine.Geometry
     /// <summary>
     /// The complex class.
     /// </summary>
-    public class Complex
-        : IFormattable
+    /// <seealso cref="IFormattable" />
+    public struct Complex
+        : IFormattable, IEquatable<Complex>
     {
         #region Implementations
         /// <summary>
@@ -37,12 +39,12 @@ namespace Engine.Geometry
         #endregion Implementations
 
         #region Constructors
-        /// <summary>
-        /// Inits complex number as (0, 0).
-        /// </summary>
-        public Complex()
-            : this(0, 0)
-        { }
+        ///// <summary>
+        ///// Inits complex number as (0, 0).
+        ///// </summary>
+        //public Complex()
+        //    : this(0, 0)
+        //{ }
 
         /// <summary>
         /// Inits complex number with imaginary part = 0.
@@ -94,7 +96,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator +(Complex a, Complex b)
             => new Complex(a.Real + b.Real, a.Imaginary + b.Imaginary);
 
@@ -103,7 +107,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator +(Complex a, double b)
             => new Complex(a.Real + b, a.Imaginary);
 
@@ -112,7 +118,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator +(double a, Complex b)
             => new Complex(a + b.Real, b.Imaginary);
 
@@ -121,7 +129,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator -(Complex a, Complex b)
             => new Complex(a.Real - b.Real, a.Imaginary - b.Imaginary);
 
@@ -139,7 +149,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator -(double a, Complex b)
             => new Complex(a - b.Real, -b.Imaginary);
 
@@ -147,16 +159,30 @@ namespace Engine.Geometry
         /// The operator -.
         /// </summary>
         /// <param name="a">The a.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator -(Complex a)
             => new Complex(-a.Real, -a.Imaginary);
+
+        /// <summary>
+        /// The operator +.
+        /// </summary>
+        /// <param name="a">The a.</param>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
+        public static Complex operator +(Complex a)
+            => new Complex(+a.Real, +a.Imaginary);
 
         /// <summary>
         /// The operator *.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator *(Complex a, Complex b)
             => new Complex((a.Real * b.Real) - (a.Imaginary * b.Imaginary),
                 (a.Imaginary * b.Real) + (a.Real * b.Imaginary));
@@ -175,7 +201,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="d">The d.</param>
         /// <param name="a">The a.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator *(double d, Complex a)
             => new Complex(d * a.Real, d * a.Imaginary);
 
@@ -184,7 +212,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator /(Complex a, Complex b)
             => a * Conj(b) * (1 / (Abs(b) * Abs(b)));
 
@@ -193,7 +223,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator /(Complex a, double b)
             => a * (1 / b);
 
@@ -202,7 +234,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex operator /(double a, Complex b)
             => a * Conj(b) * (1 / (Abs(b) * Abs(b)));
 
@@ -211,7 +245,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator ==(Complex a, Complex b)
             => a.Real == b.Real && a.Imaginary == b.Imaginary;
 
@@ -220,7 +256,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator ==(Complex a, double b)
             => a == new Complex(b);
 
@@ -238,7 +276,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator !=(Complex a, Complex b)
             => !(a == b);
 
@@ -247,7 +287,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator !=(Complex a, double b)
             => !(a == b);
 
@@ -256,28 +298,39 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator !=(double a, Complex b)
             => !(a == b);
 
         /// <summary>
-        /// 
+        /// Performs an implicit conversion from <see cref="int"/> to <see cref="Complex"/>.
         /// </summary>
-        /// <param name="d"></param>
+        /// <param name="d">The d.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator Complex(int d)
             => new Complex(d);
 
         /// <summary>
-        /// 
+        /// Performs an implicit conversion from <see cref="float"/> to <see cref="Complex"/>.
         /// </summary>
-        /// <param name="d"></param>
+        /// <param name="d">The d.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator Complex(float d)
             => new Complex(d);
 
         /// <summary>
-        /// 
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Complex"/>.
         /// </summary>
-        /// <param name="d"></param>
+        /// <param name="d">The d.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator Complex(double d)
             => new Complex(d);
         #endregion Operators
@@ -286,7 +339,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Calcs the absolute value of a complex number.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static double Abs(Complex a)
             => Math.Sqrt((a.Imaginary * a.Imaginary) + (a.Real * a.Real));
@@ -294,7 +347,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Inverts a.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Inv(Complex a)
             => new Complex(a.Real / ((a.Real * a.Real) + (a.Imaginary * a.Imaginary)),
@@ -303,7 +356,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Tangent of a.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Tan(Complex a)
             => Sin(a) / Cos(a);
@@ -311,7 +364,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Hyperbolic cosine of a.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Cosh(Complex a)
             => (Exp(a) + Exp(-a)) / 2;
@@ -319,7 +372,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Hyperbolic sine of a.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Sinh(Complex a)
             => (Exp(a) - Exp(-a)) / 2;
@@ -327,7 +380,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Hyperbolic tangent of a.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Tanh(Complex a)
             => (Exp(2 * a) - 1) / (Exp(2 * a) + 1);
@@ -335,7 +388,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Hyperbolic cotangent of a.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Coth(Complex a)
             => (Exp(2 * a) + 1) / (Exp(2 * a) - 1);
@@ -343,7 +396,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Hyperbolic secant of a.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Sech(Complex a)
             => Inv(Cosh(a));
@@ -351,7 +404,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Hyperbolic cosecant of a.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Csch(Complex a)
             => Inv(Sinh(a));
@@ -359,7 +412,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Cotangent of a.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Cot(Complex a)
             => Cos(a) / Sin(a);
@@ -367,7 +420,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Computes the conjugation of a complex number.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Conj(Complex a)
             => new Complex(a.Real, -a.Imaginary);
@@ -375,7 +428,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Complex square root.
         /// </summary>
-        /// <param name="d"></param>
+        /// <param name="d">The d.</param>
         /// <returns></returns>
         public static Complex Sqrt(double d)
             => (d >= 0) ? new Complex(Math.Sqrt(d)) : new Complex(0, Math.Sqrt(-d));
@@ -383,7 +436,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Complex square root.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Sqrt(Complex a)
             => Pow(a, 0.5d);
@@ -391,7 +444,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Complex exponential function.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Exp(Complex a)
             => new Complex(Math.Exp(a.Real) * Math.Cos(a.Imaginary), Math.Exp(a.Real) * Math.Sin(a.Imaginary));
@@ -399,7 +452,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Main value of the complex logarithm.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         /// <remarks>
         /// <para>Log[|w|]+I*(Arg[w]+2*Pi*k)</para>
@@ -410,7 +463,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Argument of the complex number.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static double Arg(Complex a)
         {
@@ -434,7 +487,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Complex cosine.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Cos(Complex a)
             => 0.5d * (Exp(I * a) + Exp(-I * a));
@@ -442,7 +495,7 @@ namespace Engine.Geometry
         /// <summary>
         /// Complex sine.
         /// </summary>
-        /// <param name="a"></param>
+        /// <param name="a">a.</param>
         /// <returns></returns>
         public static Complex Sin(Complex a)
             => (Exp(I * a) - Exp(-I * a)) / (2d * I);
@@ -452,7 +505,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex Pow(Complex a, Complex b)
             => Exp(b * Log(a));
 
@@ -461,7 +516,9 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex Pow(double a, Complex b)
             => Exp(b * Math.Log(a));
 
@@ -470,27 +527,39 @@ namespace Engine.Geometry
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         public static Complex Pow(Complex a, double b)
             => Exp(b * Log(a));
         #endregion Static Methods
 
         #region Overrides
         /// <summary>
-        /// The equals.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
-        public override bool Equals(object obj)
-            => obj.ToString() == ToString();
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        /// </returns>
+        public override bool Equals(object obj) => obj is Complex complex && Equals(complex);
 
         /// <summary>
-        /// Get the hash code.
+        /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
-        /// <returns>The <see cref="int"/>.</returns>
-        [SecuritySafeCritical]
-        public override int GetHashCode()
-            => Real.GetHashCode() ^ Imaginary.GetHashCode();
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
+        public bool Equals(Complex other) => Real == other.Real && Imaginary == other.Imaginary;
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode() => Real.GetHashCode() ^ Imaginary.GetHashCode();
 
         /// <summary>
         /// The to string.
@@ -561,6 +630,52 @@ namespace Engine.Geometry
 
             return re + sign + im;
         }
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Complex Add(Complex left, Complex right) => left + right;
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Complex Subtract(Complex left, Complex right) => left - right;
+
+        /// <summary>
+        /// Negates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Complex Negate(Complex item) => -item;
+
+        /// <summary>
+        /// Pluses the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Complex Plus(Complex item) => +item;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Complex Multiply(Complex left, Complex right) => left * right;
+
+        /// <summary>
+        /// Divides the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Complex Divide(Complex left, Complex right) => left / right;
         #endregion Overrides
     }
 }

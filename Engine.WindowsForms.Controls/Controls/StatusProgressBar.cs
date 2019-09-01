@@ -10,6 +10,7 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Engine.WindowsForms
@@ -66,6 +67,7 @@ namespace Engine.WindowsForms
         /// <param name="e">The paint event arguments.</param>
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (e is null) return;
             var rect = ClientRectangle;
             var g = e.Graphics;
 
@@ -78,7 +80,7 @@ namespace Engine.WindowsForms
             }
 
             // assumes this.Maximum == 100
-            var text = Value.ToString() + '%';
+            var text = $"{Value.ToString(CultureInfo.InvariantCulture)}{'%'}";
 
             using var f = new Font(FontFamily.GenericMonospace, 10);
             var strLen = g.MeasureString(text, f);

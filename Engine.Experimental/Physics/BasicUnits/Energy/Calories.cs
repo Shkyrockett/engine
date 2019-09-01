@@ -10,17 +10,20 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Physics
 {
     /// <summary>
     /// The calories struct.
     /// </summary>
+    /// <seealso cref="IEnergy" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Calories
         : IEnergy, IEquatable<Calories>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Calories"/> class.
+        /// Initializes a new instance of the <see cref="Calories" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public Calories(double value)
@@ -31,11 +34,17 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name
             => nameof(Calories);
@@ -43,6 +52,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Abbreviation
             => "cal";
@@ -91,7 +103,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Calories other) => Value == other.Value;
 

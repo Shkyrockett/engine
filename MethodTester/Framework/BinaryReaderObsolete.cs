@@ -86,6 +86,7 @@ namespace Engine.File
         /// <returns>The <see cref="int"/>.</returns>
         public static int ReadVariableLength(BinaryReaderExtended reader)
         {
+            if (reader is null) throw new FileNotFoundException();
             var value = 0;
             int next;
             do
@@ -195,6 +196,7 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ReadVarLenx(BinaryReader file)
         {
+            if (file is null) throw new FileNotFoundException();
             int value;
             byte buffer;
 
@@ -224,6 +226,7 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ReadVarLen1x(BinaryReader file)
         {
+            if (file is null) throw new FileNotFoundException();
             var buffer = file.ReadByte();
             var value = (uint)(buffer & 0x7f);
 
@@ -255,6 +258,7 @@ namespace Engine.File
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int ReadVarLen2x(BinaryReader file)
         {
+            if (file is null) throw new FileNotFoundException();
             var value = 0;
             byte buffer;
             //// length of 4??

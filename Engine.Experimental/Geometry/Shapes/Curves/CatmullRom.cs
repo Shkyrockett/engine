@@ -137,6 +137,7 @@ namespace Engine
             get { return new List<Point2D> { tangentA, positionA, positionB, tangentB }; }
             set
             {
+                if (value is null) return;
                 tangentA = value[0];
                 positionA = value[1];
                 positionB = value[2];

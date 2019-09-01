@@ -10,15 +10,18 @@
 
 namespace Engine
 {
-    /// <remarks> <para>This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178</para> </remarks>
     /// <summary>
     /// The point locus class.
     /// </summary>
+    /// <seealso cref="Locus" />
+    /// <remarks>
+    /// This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178
+    /// </remarks>
     public class PointLocus
         : Locus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PointLocus"/> class.
+        /// Initializes a new instance of the <see cref="PointLocus" /> class.
         /// </summary>
         /// <param name="point">The point.</param>
         public PointLocus(Point2D point)
@@ -26,7 +29,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PointLocus"/> class.
+        /// Initializes a new instance of the <see cref="PointLocus" /> class.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
@@ -39,15 +42,33 @@ namespace Engine
         /// <summary>
         /// Gets or sets the x.
         /// </summary>
+        /// <value>
+        /// The x.
+        /// </value>
         public double X { get; set; }
 
         /// <summary>
         /// Gets or sets the y.
         /// </summary>
+        /// <value>
+        /// The y.
+        /// </value>
         public double Y { get; set; }
 
-        /// <param name="locus"></param>
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="PointLocus"/> to <see cref="Point2D"/>.
+        /// </summary>
+        /// <param name="locus">The locus.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator Point2D(PointLocus locus)
             => new Point2D(locus.X, locus.Y);
+
+        /// <summary>
+        /// Converts to point2d.
+        /// </summary>
+        /// <returns></returns>
+        public Point2D ToPoint2D() => new Point2D(X, Y);
     }
 }

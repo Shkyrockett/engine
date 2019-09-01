@@ -10,12 +10,15 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// <see cref="HSIA"/> color structure.
+    ///   <see cref="HSIA" /> color structure.
     /// </summary>
+    /// <seealso cref="IColor" />
+    /// <seealso cref="IEquatable{T}" />
     [DebuggerDisplay("{ToString()}")]
     public struct HSIA
         : IColor, IEquatable<HSIA>
@@ -29,17 +32,16 @@ namespace Engine.Colorspace
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="HSIA"/> class.
+        /// Initializes a new instance of the <see cref="HSIA" /> class.
         /// </summary>
-        /// <param name="color"></param>
-
+        /// <param name="color">The color.</param>
         public HSIA(RGBA color)
         {
             (Hue, Saturation, Intensity, Alpha) = Colorspaces.RGBAColorToHSIAColor(color.Red, color.Green, color.Blue, color.Alpha);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HSIA"/> class.
+        /// Initializes a new instance of the <see cref="HSIA" /> class.
         /// </summary>
         /// <param name="hue">Hue color component.</param>
         /// <param name="saturation">Saturation color component.</param>
@@ -49,7 +51,7 @@ namespace Engine.Colorspace
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HSIA"/> class.
+        /// Initializes a new instance of the <see cref="HSIA" /> class.
         /// </summary>
         /// <param name="hue">Hue color component.</param>
         /// <param name="saturation">Saturation color component.</param>
@@ -68,21 +70,33 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the hue color value.
         /// </summary>
+        /// <value>
+        /// The hue.
+        /// </value>
         public double Hue { get; set; }
 
         /// <summary>
         /// Gets or sets the saturation color value.
         /// </summary>
+        /// <value>
+        /// The saturation.
+        /// </value>
         public double Saturation { get; set; }
 
         /// <summary>
         /// Gets or sets the intensity color value.
         /// </summary>
+        /// <value>
+        /// The intensity.
+        /// </value>
         public double Intensity { get; set; }
 
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
+        /// <value>
+        /// The alpha.
+        /// </value>
         public double Alpha { get; set; }
         #endregion Properties
 
@@ -135,7 +149,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(HSIA other) => Hue == other.Hue && Saturation == other.Saturation && Intensity == other.Intensity && Alpha == other.Alpha;
 
@@ -165,9 +179,11 @@ namespace Engine.Colorspace
             => new RGBA(ToRGBATuple());
 
         /// <summary>
-        /// Converts the <see cref="HSIA"/> class to a <see cref="RGBA"/> class.
+        /// Converts the <see cref="HSIA" /> class to a <see cref="RGBA" /> class.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// <para>The <see cref="ValueTuple{T1, T2, T3, T4}" />.</para>
+        /// </returns>
         /// <acknowledgment>
         /// http://dystopiancode.blogspot.com/2012/02/hsi-rgb-conversion-algorithms-in-c.html
         /// https://github.com/dystopiancode/colorspace-conversions
@@ -180,7 +196,10 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
         #endregion Methods

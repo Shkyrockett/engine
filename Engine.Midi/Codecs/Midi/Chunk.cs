@@ -73,7 +73,7 @@ namespace Engine.File
 
             if (chunk.Length > reader.BaseStream.Length - reader.BaseStream.Position)
             {
-                throw new ArgumentOutOfRangeException("Chunk length larger than remaining stream length.");
+                throw new ArgumentOutOfRangeException(nameof(chunk.Length), "Chunk length larger than remaining stream length.");
             }
 
             // Isolate a chunk of the stream as a sub-stream to try to prevent over-reading. 

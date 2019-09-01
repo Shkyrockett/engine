@@ -13,8 +13,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.CompilerServices;
 using static System.Math;
-using static Engine.Mathematics;
-using static Engine.Operations;
 
 namespace Engine
 {

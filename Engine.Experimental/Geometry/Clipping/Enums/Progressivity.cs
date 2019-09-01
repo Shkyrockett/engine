@@ -8,15 +8,12 @@
 // <summary></summary>
 // <remarks></remarks>
 
-using System;
-
 namespace Engine
 {
     /// <summary>
-    /// The progressivities enum.
+    /// The progressivity enum.
     /// </summary>
-    [Flags]
-    public enum Progressivities
+    public enum Progressivity
         : sbyte
     {
         /// <summary>

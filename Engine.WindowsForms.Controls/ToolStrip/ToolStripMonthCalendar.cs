@@ -69,10 +69,10 @@ namespace Engine.WindowsForms
             base.OnSubscribeControlEvents(control);
 
             // Cast the control to a MonthCalendar control.
-            var monthCalendarControl = control as MonthCalendar;
+            if (control is MonthCalendar monthCalendarControl)
 
-            // Add the event.
-            monthCalendarControl.DateChanged += OnDateChanged;
+                // Add the event.
+                monthCalendarControl.DateChanged += OnDateChanged;
         }
 
         /// <summary>
@@ -85,10 +85,10 @@ namespace Engine.WindowsForms
             base.OnUnsubscribeControlEvents(control);
 
             // Cast the control to a MonthCalendar control.
-            var monthCalendarControl = control as MonthCalendar;
+            if (control is MonthCalendar monthCalendarControl)
 
-            // Remove the event.
-            monthCalendarControl.DateChanged -= OnDateChanged;
+                // Remove the event.
+                monthCalendarControl.DateChanged -= OnDateChanged;
         }
 
         /// <summary>

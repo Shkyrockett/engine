@@ -11,6 +11,7 @@
 using Engine;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Globalization;
 
 namespace EngineTests
 {
@@ -34,10 +35,7 @@ namespace EngineTests
         /// </summary>
         /// <param name="context">The context.</param>
         [ClassInitialize]
-        public static void ClassInit(TestContext context)
-        {
-            _ = context;
-        }
+        public static void ClassInit(TestContext context) => _ = context;
 
         /// <summary>
         /// TestInitialize runs code before running each test.
@@ -73,7 +71,7 @@ namespace EngineTests
         {
             var bezier = new QuadraticBezier(new Point2D(32, 150), new Point2D(50, 300), new Point2D(80, 150));
             var value = bezier.Length;
-            Assert.AreEqual(161.735239810224d.ToString(), value.ToString());
+            Assert.AreEqual(161.735239810224d.ToString(CultureInfo.InvariantCulture), value.ToString(CultureInfo.InvariantCulture));
         }
 
         /// <summary>

@@ -94,7 +94,7 @@ namespace Engine.Geometry
         {
             Coefficients = new Complex[1];
 
-            if (coeffs is null)
+            if (coeffs == null)
             {
                 Coefficients[0] = Complex.Zero;
             }
@@ -153,6 +153,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator +(PolynomialX p, PolynomialX q)
         {
+            if (p is null || q is null) return null;
             var degree = Math.Max(p.Degree, q.Degree);
 
             var coeffs = new Complex[degree + 1];
@@ -185,6 +186,23 @@ namespace Engine.Geometry
         public static PolynomialX operator -(PolynomialX p, PolynomialX q)
             => p + (-q);
 
+        ///// <summary>
+        ///// The operator +.
+        ///// </summary>
+        ///// <param name="p">The p.</param>
+        ///// <returns>The <see cref="PolynomialX"/>.</returns>
+        //public static PolynomialX operator +(PolynomialX p)
+        //{
+        //    var coeffs = new Complex[p.Degree + 1];
+
+        //    for (var i = 0; i < coeffs.Length; i++)
+        //    {
+        //        coeffs[i] = +p.Coefficients[i];
+        //    }
+
+        //    return new PolynomialX(coeffs);
+        //}
+
         /// <summary>
         /// The operator -.
         /// </summary>
@@ -192,6 +210,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator -(PolynomialX p)
         {
+            if (p is null) return null;
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
@@ -210,6 +229,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(Complex d, PolynomialX p)
         {
+            if (p is null) return null;
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
@@ -228,6 +248,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(PolynomialX p, Complex d)
         {
+            if (p is null) return null;
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
@@ -246,6 +267,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(double d, PolynomialX p)
         {
+            if (p is null) return null;
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
@@ -264,6 +286,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(PolynomialX p, double d)
         {
+            if (p is null) return null;
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
@@ -282,6 +305,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator /(PolynomialX p, Complex d)
         {
+            if (p is null) return null;
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
@@ -300,6 +324,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator /(PolynomialX p, double d)
         {
+            if (p is null) return null;
             var coeffs = new Complex[p.Degree + 1];
 
             for (var i = 0; i < coeffs.Length; i++)
@@ -318,7 +343,8 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public static PolynomialX operator *(PolynomialX p, PolynomialX q)
         {
-            //var degree = p.Degree + q.Degree;
+            if (p is null || q is null) return null;
+            _ = p.Degree + q.Degree;
 
             var r = new PolynomialX();
 
@@ -625,6 +651,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static PolynomialX Expand(FactorizedPolynomialX p)
         {
+            if (p is null) return null;
             var q = new PolynomialX(new Complex[] { Complex.One });
 
             for (var i = 0; i < p.Factor.Length; i++)
@@ -672,6 +699,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static PolynomialX Clean(PolynomialX p)
         {
+            if (p is null) return null;
             int i;
 
             for (i = p.Degree; i >= 0 && p.Coefficients[i] == 0; i--)
@@ -862,6 +890,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static PolynomialX Derivative(PolynomialX p)
         {
+            if (p is null) return null;
             var buf = new Complex[p.Degree];
 
             for (var i = 0; i < buf.Length; i++)
@@ -879,6 +908,7 @@ namespace Engine.Geometry
         /// <returns></returns>
         public static PolynomialX Integral(PolynomialX p)
         {
+            if (p is null) return null;
             var buf = new Complex[p.Degree + 2];
             buf[0] = Complex.Zero; // this value can be arbitrary, in fact
 
@@ -1037,12 +1067,51 @@ namespace Engine.Geometry
         }
 
         /// <summary>
+        /// Negates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static PolynomialX Negate(PolynomialX item) => -item;
+
+        ///// <summary>
+        ///// Pluses the specified item.
+        ///// </summary>
+        ///// <param name="item">The item.</param>
+        ///// <returns></returns>
+        //public static PolynomialX Plus(PolynomialX item) => +item;
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static PolynomialX Subtract(PolynomialX left, PolynomialX right) => left - right;
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static PolynomialX Add(PolynomialX left, PolynomialX right) => left + right;
+
+        /// <summary>
+        /// Xors the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static PolynomialX Xor(PolynomialX left, uint right) => left ^ right;
+
+        /// <summary>
         /// Add.
         /// </summary>
         /// <param name="that">The that.</param>
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public PolynomialX Add(PolynomialX that)
         {
+            if (that is null) return null;
             var result = new PolynomialX();
             var d1 = GetDegree();
             var d2 = that.GetDegree();
@@ -1066,6 +1135,7 @@ namespace Engine.Geometry
         /// <returns>The <see cref="PolynomialX"/>.</returns>
         public PolynomialX Multiply(PolynomialX that)
         {
+            if (that is null) return null;
             var result = new PolynomialX();
             var lst = new List<Complex>(that.Coefficients);
 
@@ -1979,7 +2049,7 @@ namespace Engine.Geometry
         /// <param name="obj">The obj.</param>
         /// <returns>The <see cref="bool"/>.</returns>
         public override bool Equals(object obj)
-            => ToString() == ((Polynomial)obj).ToString();
+            => ToString() == ((Polynomial)obj).ToString(CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Get the hash code.

@@ -10,14 +10,17 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
 namespace Engine.Colorspace
 {
     /// <summary>
-    /// <see cref="HSLA"/> Color
+    ///   <see cref="HSLA" /> Color
     /// </summary>
+    /// <seealso cref="IColor" />
+    /// <seealso cref="IEquatable{T}" />
     [DebuggerDisplay("{ToString()}")]
     public struct HSLA
         : IColor, IEquatable<HSLA>
@@ -53,7 +56,7 @@ namespace Engine.Colorspace
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="HSLA"/> class Converted from RGB to HSL.
+        /// Initializes a new instance of the <see cref="HSLA" /> class Converted from RGB to HSL.
         /// </summary>
         /// <param name="color">A Color to convert</param>
         /// <remarks>
@@ -68,7 +71,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HSLA"/> class.
+        /// Initializes a new instance of the <see cref="HSLA" /> class.
         /// </summary>
         /// <param name="hue">Hue color component.</param>
         /// <param name="saturation">Saturation color component.</param>
@@ -78,7 +81,7 @@ namespace Engine.Colorspace
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HSLA"/> class.
+        /// Initializes a new instance of the <see cref="HSLA" /> class.
         /// </summary>
         /// <param name="hue">Hue color component.</param>
         /// <param name="saturation">Saturation color component.</param>
@@ -97,6 +100,9 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the hue color value.
         /// </summary>
+        /// <value>
+        /// The hue.
+        /// </value>
         public double Hue
         {
             get { return hue; }
@@ -110,6 +116,9 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the saturation color value.
         /// </summary>
+        /// <value>
+        /// The saturation.
+        /// </value>
         public double Saturation
         {
             get { return saturation; }
@@ -123,6 +132,9 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the luminance color value.
         /// </summary>
+        /// <value>
+        /// The luminance.
+        /// </value>
         public double Luminance
         {
             get { return luminance; }
@@ -136,6 +148,9 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
+        /// <value>
+        /// The alpha.
+        /// </value>
         public double Alpha
         {
             get { return alpha; }
@@ -182,11 +197,11 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(HSLA other) => alpha == other.alpha && hue == other.hue && saturation == other.saturation && luminance == other.luminance;
-
-        /// <summary>
+        public bool Equals(HSLA other) => hue == other.hue && saturation == other.saturation && luminance == other.luminance && alpha == other.alpha;
+ 
+       /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="other">The other.</param>
@@ -219,7 +234,9 @@ namespace Engine.Colorspace
         /// <summary>
         /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
+        /// </returns>
         public (byte red, byte green, byte blue, byte alpha) ToRGBATuple()
             => Colorspaces.HSLAColorToRGBAColor(hue, saturation, luminance, alpha);
 

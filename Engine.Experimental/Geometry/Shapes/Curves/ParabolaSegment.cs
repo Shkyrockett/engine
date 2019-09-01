@@ -140,9 +140,6 @@ namespace Engine
         /// Get position from a parabola defined by start and end, height, and time
         /// https://forum.unity.com/threads/generating-dynamic-parabola.211681/
         /// </summary>
-        /// <param name='t'>
-        /// Normalized time (0->1)
-        /// </param>
         /// <param name='start'>
         /// The start point of the parabola
         /// </param>
@@ -151,6 +148,9 @@ namespace Engine
         /// </param>
         /// <param name='height'>
         /// The height of the parabola at its maximum
+        /// </param>
+        /// <param name='t'>
+        /// Normalized time (0->1)
         /// </param>S
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -181,9 +181,6 @@ namespace Engine
         /// Get position from a parabola defined by start and end, height, and time
         /// https://forum.unity.com/threads/generating-dynamic-parabola.211681/
         /// </summary>
-        /// <param name='t'>
-        /// Normalized time (0->1)
-        /// </param>
         /// <param name='start'>
         /// The start point of the parabola
         /// </param>
@@ -192,6 +189,9 @@ namespace Engine
         /// </param>
         /// <param name='height'>
         /// The height of the parabola at its maximum
+        /// </param>
+        /// <param name='t'>
+        /// Normalized time (0->1)
         /// </param>S
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -269,6 +269,76 @@ namespace Engine
                 set.Add((x, y));
             }
             return set.ToArray();
+        }
+
+        /// <summary>
+        /// Interpolate a parabola from the standard parabolic equation.
+        /// </summary>
+        /// <param name="a">The <paramref name="a"/> component of the parabola.</param>
+        /// <param name="b">The <paramref name="b"/> component of the parabola.</param>
+        /// <param name="c">The <paramref name="c"/> component of the parabola.</param>
+        /// <param name="x1">The <paramref name="x1"/>imum x value to interpolate.</param>
+        /// <param name="x2">The <paramref name="x2"/>imum x value to interpolate.</param>
+        /// <param name="t">The <paramref name="t"/>ime index of the iteration.</param>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing the interpolated point at the t index.</returns>
+        /// <example>
+        /// <code>
+        /// var a = 0.0125d;
+        /// var h = 100d;
+        /// var k = 100d;
+        /// var b = -2d * a * h;
+        /// var c = (b * b / (4 * a)) + k;
+        /// var min = -100d;
+        /// var max = 100d;
+        /// var list = new List&lt;(double X, double Y)>();
+        /// 
+        /// for (int i = 0; i &lt; 100; i++)
+        /// {
+        ///     list.Add(InterpolateVertexParabola(a, b, c, -100, 100, 1d / i));
+        /// }
+        /// </code>
+        /// </example>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) InterpolateStandardParabola(double a, double b, double c, double x1, double x2, double t)
+        {
+            // Scale the t index to the segment range.
+            var x = x1 + ((x2 - x1) * t);
+            return (x, Y: (a * (x * x)) + ((b * x) + c));
+        }
+
+        /// <summary>
+        /// Interpolate a parabola from the general vertex form of the parabolic equation.
+        /// </summary>
+        /// <param name="a">The <paramref name="a"/> component of the parabola.</param>
+        /// <param name="h">The horizontal component of the parabola vertex.</param>
+        /// <param name="k">The vertical component of the parabola vertex.</param>
+        /// <param name="x1">The <paramref name="x1"/>imum x value to interpolate.</param>
+        /// <param name="x2">The <paramref name="x2"/>imum x value to interpolate.</param>
+        /// <param name="t">The <paramref name="t"/>ime index of the iteration.</param>
+        /// <returns>Returns a <see cref="ValueTuple{T1, T2}"/> representing the interpolated point at the t index.</returns>
+        /// <example>
+        /// <code>
+        /// var a = 0.0125d;
+        /// var h = 100d;
+        /// var k = 100d;
+        /// var min = -100d;
+        /// var max = 100d;
+        /// var list = new List&lt;(double X, double Y)>();
+        /// 
+        /// for (int i = 0; i &lt; 100; i++)
+        /// {
+        ///     list.Add(InterpolateVertexParabola(a, h, k, -100, 100, 1d / i));
+        /// }
+        /// </code>
+        /// </example>
+        //[DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (double X, double Y) InterpolateVertexParabola(double a, double h, double k, double x1, double x2, double t)
+        {
+            // Scale the t index to the segment range.
+            var x = x1 + ((x2 - x1) * t);
+            return (x, Y: (a * (x - h) * (x - h)) + k);
         }
 
         /// <summary>

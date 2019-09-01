@@ -16,11 +16,13 @@ namespace Engine.Imaging
     /// <summary>
     /// The hatch fill struct.
     /// </summary>
+    /// <seealso cref="IFill" />
+    /// <seealso cref="System.IEquatable{T}" />
     public struct HatchFill
         : IFill, IEquatable<HatchFill>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HatchFill"/> class.
+        /// Initializes a new instance of the <see cref="HatchFill" /> class.
         /// </summary>
         /// <param name="color">The color.</param>
         /// <param name="fillMode">The fillMode.</param>
@@ -33,11 +35,17 @@ namespace Engine.Imaging
         /// <summary>
         /// Gets or sets the color.
         /// </summary>
+        /// <value>
+        /// The color.
+        /// </value>
         public IColor Color { get; set; }
 
         /// <summary>
         /// Gets or sets the fill mode.
         /// </summary>
+        /// <value>
+        /// The fill mode.
+        /// </value>
         public FillMode FillMode { get; set; }
 
         /// <summary>
@@ -45,7 +53,9 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator ==(HatchFill left, HatchFill right)
             => left.Equals(right);
 
@@ -54,7 +64,9 @@ namespace Engine.Imaging
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         public static bool operator !=(HatchFill left, HatchFill right)
             => !(left == right);
 
@@ -62,26 +74,26 @@ namespace Engine.Imaging
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         /// <exception cref="System"></exception>
-        public override bool Equals(object obj)
-            => obj is HatchFill hatchFill && Equals(hatchFill);
+        public override bool Equals(object obj) => obj is HatchFill hatchFill && Equals(hatchFill);
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        /// <exception cref="System.NotImplementedException"></exception>
         public bool Equals(HatchFill other) => other.Color == Color && other.FillMode == FillMode;
 
         /// <summary>
-        /// Returns a hash code for this instance.
+        /// Get the hash code.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// The <see cref="int" />.
         /// </returns>
         public override int GetHashCode()
         {

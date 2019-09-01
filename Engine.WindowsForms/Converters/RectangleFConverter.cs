@@ -58,8 +58,7 @@ namespace Engine
         /// <exception cref="NotSupportedException">Thrown if the specified object is NULL or is a type that cannot be converted to a <see cref="RectangleF" />.</exception>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            var str = value as string;
-            if (str is null)
+            if (!(value is string str))
             {
                 return base.ConvertFrom(context, culture, value);
             }

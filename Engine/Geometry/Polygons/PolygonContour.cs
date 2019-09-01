@@ -147,7 +147,7 @@ namespace Engine
             get { return ToPathDefString(); }
             set
             {
-                points = ParsePathDefString(value);
+                points = ParsePathDefString(value, CultureInfo.InvariantCulture);
                 ClearCache();
                 OnPropertyChanged(nameof(Definition));
                 update?.Invoke();
@@ -401,7 +401,7 @@ namespace Engine
             var poly = new List<Point2D>();
 
             // Split the definition string into shape tokens.
-            var list = Regex.Split(pathDefinition, separators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg)).ToArray();
+            var list = Regex.Split(pathDefinition, separators).Where(t => !string.IsNullOrEmpty(t)).Select(arg => double.Parse(arg, CultureInfo.InvariantCulture)).ToArray();
 
             if (list.Length % 2 != 0)
             {
@@ -469,7 +469,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(PolygonContour)}{{{string.Join(sep.ToString(), Points)}}}";
+            IFormattable formatable = $"{nameof(PolygonContour)}{{{string.Join(sep.ToString(CultureInfo.InvariantCulture), Points)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

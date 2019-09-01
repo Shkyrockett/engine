@@ -164,6 +164,16 @@ namespace Engine.Colorspace
             => a.Cyan == b.Cyan && a.Yellow == b.Yellow && a.Magenta == b.Magenta && a.Black == b.Black && a.Alpha == b.Alpha;
 
         /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
+        /// </returns>
+        public bool Equals(CMYKA other)
+            => Cyan == other.Cyan && Yellow == other.Yellow && Magenta == other.Magenta && Black == other.Black && Alpha == other.Alpha;
+
+        /// <summary>
         /// The equals.
         /// </summary>
         /// <param name="obj">The obj.</param>
@@ -184,19 +194,11 @@ namespace Engine.Colorspace
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(IColor other)
         {
+            if (other is null) return false;
             var (r0, g0, b0, a0) = ToRGBATuple();
             var (r1, g1, b1, a1) = other.ToRGBATuple();
             return r0 == r1 && g0 == g1 && b0 == b1 && a0 == a1;
         }
-
-        /// <summary>
-        /// Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
-        /// </returns>
-        public bool Equals(CMYKA other) => Cyan == other.Cyan && Yellow == other.Yellow && Magenta == other.Magenta && Black == other.Black && Alpha == other.Alpha;
 
         /// <summary>
         /// Converts the <see cref="CMYKA"/> class to a <see cref="RGBA"/> class.

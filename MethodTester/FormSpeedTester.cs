@@ -11,6 +11,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime;
@@ -157,10 +158,10 @@ namespace MethodSpeedTester
             dataGridView1.DataSource = tests;
 
             // Find the best performer. 
-            var minCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value) < Convert.ToInt32(j.Cells[1].Value) ? i : j).Cells[1];
+            var minCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value, CultureInfo.InvariantCulture) < Convert.ToInt32(j.Cells[1].Value, CultureInfo.InvariantCulture) ? i : j).Cells[1];
 
             // Find the worst performer.
-            var maxCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value) > Convert.ToInt32(j.Cells[1].Value) ? i : j).Cells[1];
+            var maxCell = dataGridView1.Rows.Cast<DataGridViewRow>().Aggregate((i, j) => Convert.ToInt32(i.Cells[1].Value, CultureInfo.InvariantCulture) > Convert.ToInt32(j.Cells[1].Value, CultureInfo.InvariantCulture) ? i : j).Cells[1];
 
             maxCell.Style.BackColor = Color.PeachPuff;
             maxCell.Style.ForeColor = Color.DarkRed;

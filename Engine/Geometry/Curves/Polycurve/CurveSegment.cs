@@ -127,6 +127,7 @@ namespace Engine
         /// </acknowledgment>
         protected object CachingProperty(Func<object> property, [CallerMemberName]string name = "")
         {
+            if (property is null) return null;
             if (!propertyCache.ContainsKey(name))
             {
                 var value = property.Invoke();

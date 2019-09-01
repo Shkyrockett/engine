@@ -107,7 +107,7 @@ namespace Engine.WindowsForms
         /// <param name="points">The points.</param>
         public void DrawLines(IStroke stroke, IEnumerable<Point2D> points)
         {
-            var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
+            var pointFs = (points as List<Point2D>).ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
             using var pen = stroke.ToPen();
             Graphics.DrawLines(pen, pointFs);
         }
@@ -119,7 +119,7 @@ namespace Engine.WindowsForms
         /// <param name="points">The points.</param>
         public void DrawPolygon(IStroke stroke, IEnumerable<Point2D> points)
         {
-            var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
+            var pointFs = (points as List<Point2D>).ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
             using var pen = stroke.ToPen();
             Graphics.DrawPolygon(pen, pointFs);
         }
@@ -131,7 +131,7 @@ namespace Engine.WindowsForms
         /// <param name="points">The points.</param>
         public void FillPolygon(IFill fill, IEnumerable<Point2D> points)
         {
-            var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
+            var pointFs = (points as List<Point2D>).ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
             using var brush = fill.ToBrush();
             Graphics.FillPolygon(brush, pointFs);
         }
@@ -146,7 +146,7 @@ namespace Engine.WindowsForms
         /// <param name="tension">The tension.</param>
         public void DrawCurve(IStroke stroke, IEnumerable<Point2D> points, double offset, int numberOfSegments, double tension = 0.5)
         {
-            var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
+            var pointFs = (points as List<Point2D>).ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
             using var pen = stroke.ToPen();
             Graphics.DrawCurve(pen, pointFs);
         }
@@ -161,7 +161,7 @@ namespace Engine.WindowsForms
         /// <param name="tension">The tension.</param>
         public void FillCurve(IFill fill, IEnumerable<Point2D> points, double offset, int numberOfSegments, double tension = 0.5)
         {
-            var pointFs = (points as List<Point2D>)!!.ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
+            var pointFs = (points as List<Point2D>).ConvertAll(new Converter<Point2D, PointF>(WinformsTypeExtensions.ToPointF)).ToArray();
             using var path = new GraphicsPath();
             path.AddCurve(pointFs);
             using var brush = fill.ToBrush();
@@ -474,7 +474,7 @@ namespace Engine.WindowsForms
         /// <param name="rectangles">The rectangles.</param>
         public void DrawRectangles(IStroke stroke, IEnumerable<Rectangle2D> rectangles)
         {
-            var rectangleFs = (rectangles as List<Rectangle2D>)!!.ConvertAll(new Converter<Rectangle2D, RectangleF>(WinformsTypeExtensions.ToRectangleF)).ToArray();
+            var rectangleFs = (rectangles as List<Rectangle2D>).ConvertAll(new Converter<Rectangle2D, RectangleF>(WinformsTypeExtensions.ToRectangleF)).ToArray();
             using var pen = stroke.ToPen();
             Graphics.DrawRectangles(pen, rectangleFs);
         }
@@ -486,7 +486,7 @@ namespace Engine.WindowsForms
         /// <param name="rectangles">The rectangles.</param>
         public void FillRectangles(IFill fill, IEnumerable<Rectangle2D> rectangles)
         {
-            var rectangleFs = (rectangles as List<Rectangle2D>)!!.ConvertAll(new Converter<Rectangle2D, RectangleF>(WinformsTypeExtensions.ToRectangleF)).ToArray();
+            var rectangleFs = (rectangles as List<Rectangle2D>).ConvertAll(new Converter<Rectangle2D, RectangleF>(WinformsTypeExtensions.ToRectangleF)).ToArray();
             using var brush = fill.ToBrush();
             Graphics.FillRectangles(brush, rectangleFs);
         }

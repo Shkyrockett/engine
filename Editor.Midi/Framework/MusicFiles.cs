@@ -50,7 +50,7 @@ namespace EventEditorMidi
         public static List<Type> GetAssemblyTypes(Assembly assembly, Type classType)
         {
             var typeList = new List<Type>();
-            foreach (var type in assembly.GetTypes().ToArray())
+            foreach (var type in assembly?.GetTypes().ToArray())
             {
                 if (type.BaseType == classType)
                 {

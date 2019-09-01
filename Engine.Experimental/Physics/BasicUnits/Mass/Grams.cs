@@ -10,17 +10,20 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Physics
 {
     /// <summary>
     /// The grams struct.
     /// </summary>
+    /// <seealso cref="IMass" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Grams
         : IMass, IEquatable<Grams>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Grams"/> class.
+        /// Initializes a new instance of the <see cref="Grams" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public Grams(double value)
@@ -31,11 +34,17 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name
             => nameof(Grams);
@@ -43,12 +52,15 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation
             => "g";
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="System.Double"/> to <see cref="Grams"/>.
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Grams"/>.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>
@@ -78,11 +90,11 @@ namespace Engine.Physics
         public static bool operator !=(Grams left, Grams right) => !(left == right);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => obj is Grams grams && Equals(grams);
 
@@ -91,7 +103,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Grams other) => Value == other.Value;
 
@@ -103,11 +115,12 @@ namespace Engine.Physics
         /// </returns>
         public override int GetHashCode() => -1937169414 + Value.GetHashCode();
 
-        /// <returns></returns>
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
         public override string ToString()
             => $"{Value} g";
     }

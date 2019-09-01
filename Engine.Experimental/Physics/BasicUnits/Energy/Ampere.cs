@@ -10,17 +10,20 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Physics
 {
     /// <summary>
     /// The ampere struct.
     /// </summary>
+    /// <seealso cref="IEnergy" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Ampere
         : IEnergy, IEquatable<Ampere>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Ampere"/> class.
+        /// Initializes a new instance of the <see cref="Ampere" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public Ampere(double value)
@@ -31,11 +34,17 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name
             => nameof(Ampere);
@@ -43,6 +52,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Abbreviation
             => "A";
@@ -90,7 +102,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Ampere other) => Value == other.Value;
 
@@ -105,7 +117,9 @@ namespace Engine.Physics
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         public override string ToString()
             => $"{Value} A";
     }

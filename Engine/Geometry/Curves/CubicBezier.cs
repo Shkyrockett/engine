@@ -97,7 +97,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public CubicBezier(Point2D a, Point2D b, Point2D c)
         {
-            (this.ax, this.ay, this.bx, this.by, this.cx, this.cy, this.dx, this.dy) = Conversions.QuadraticBezierToCubicBezierTuple(a.X, a.Y, b.X, b.Y, c.X, c.Y);
+            (ax, ay, bx, by, cx, cy, dx, dy) = Conversions.QuadraticBezierToCubicBezierTuple(a.X, a.Y, b.X, b.Y, c.X, c.Y);
         }
 
         /// <summary>
@@ -565,8 +565,8 @@ namespace Engine
                     var n1 = Normal(0);
                     var n2 = Normal(1);
                     var s = (n1.I * n2.I) + (n1.J * n2.J);
-                    var angle = Math.Abs(Math.Acos(s));
-                    return angle < Math.PI / 3d;
+                    var angle = Abs(Acos(s));
+                    return angle < PI / 3d;
                 }
             }
         }
@@ -764,7 +764,7 @@ namespace Engine
                                 if (!segment.IsSimple)
                                 {
                                     t2 -= step;
-                                    if (Math.Abs(t1 - t2) < step)
+                                    if (Abs(t1 - t2) < step)
                                     {
                                         // we can never form a reduction
                                         return new List<CubicBezier>();
@@ -944,7 +944,7 @@ namespace Engine
         public Vector2D Normal(double t)
         {
             var d = Derivate(t);
-            var q = 1d / Math.Sqrt((d.I * d.I) + (d.J * d.J));
+            var q = 1d / Sqrt((d.I * d.I) + (d.J * d.J));
             return new Vector2D(-d.J * q, d.I * q);
         }
 

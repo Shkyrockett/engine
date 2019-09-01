@@ -82,7 +82,8 @@ namespace MethodSpeedTester
             Func<Rectangle2D, Point2D, Inclusions> method,
             string text)
         {
-            g.DrawString(text, font, Brushes.Black, new Point());
+            if (rectangle is null || points is null) return;
+            g?.DrawString(text, font, Brushes.Black, new Point());
             g.FillRectangle(Brushes.White, rectangle.Bounds.ToRectangleF());
             g.DrawRectangle(Pens.Black, rectangle.Bounds.ToRectangle());
             foreach (var point in points)
@@ -99,6 +100,7 @@ namespace MethodSpeedTester
         /// <param name="hit">The hit.</param>
         public static void DrawHitPoint(Graphics g, Point2D point, Inclusions hit)
         {
+            if (g is null) return;
             const float pointRadius = 1;
             var pointpen = Pens.Red;
             switch (hit)

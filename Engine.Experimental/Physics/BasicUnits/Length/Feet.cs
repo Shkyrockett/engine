@@ -11,6 +11,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using static Engine.Physics.LengthUnits;
@@ -20,6 +21,9 @@ namespace Engine.Physics
     /// <summary>
     /// The feet struct.
     /// </summary>
+    /// <seealso cref="ILength" />
+    /// <seealso cref="IFormattable" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Feet
         : ILength, IFormattable, IEquatable<Feet>
     {
@@ -77,7 +81,7 @@ namespace Engine.Physics
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Feet"/> class.
+        /// Initializes a new instance of the <see cref="Feet" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public Feet(double value)
@@ -90,11 +94,17 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets or sets the mils.
         /// </summary>
+        /// <value>
+        /// The mils.
+        /// </value>
         public double Mils
         {
             get { return Value * Mil; }
@@ -104,6 +114,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the centimeters.
         /// </summary>
+        /// <value>
+        /// The centimeters.
+        /// </value>
         public double Centimeters
         {
             get { return Value * Centimeter; }
@@ -113,6 +126,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the inches.
         /// </summary>
+        /// <value>
+        /// The inches.
+        /// </value>
         public double Inches
         {
             get { return Value * Inch; }
@@ -122,6 +138,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the yards.
         /// </summary>
+        /// <value>
+        /// The yards.
+        /// </value>
         public double Yards
         {
             get { return Value * Yard; }
@@ -131,6 +150,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the meters.
         /// </summary>
+        /// <value>
+        /// The meters.
+        /// </value>
         public double Meters
         {
             get { return Value * Meter; }
@@ -140,6 +162,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the smoots.
         /// </summary>
+        /// <value>
+        /// The smoots.
+        /// </value>
         public double Smoots
         {
             get { return Value * Smoot; }
@@ -149,6 +174,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the kilometers.
         /// </summary>
+        /// <value>
+        /// The kilometers.
+        /// </value>
         public double Kilometers
         {
             get { return Value * Kilometer; }
@@ -158,6 +186,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the miles.
         /// </summary>
+        /// <value>
+        /// The miles.
+        /// </value>
         public double Miles
         {
             get { return Value * Mile; }
@@ -167,6 +198,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the nautical miles.
         /// </summary>
+        /// <value>
+        /// The nautical miles.
+        /// </value>
         public double NauticalMiles
         {
             get { return Value * NauticalMile; }
@@ -176,6 +210,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Feet);
@@ -183,6 +220,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation
             => "ft";
@@ -239,7 +279,13 @@ namespace Engine.Physics
         public static explicit operator Feet(Smoots value)
             => value.Feet;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="Inches"/> to <see cref="Feet"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Feet(Inches value)
             => value.Feet;
 
@@ -319,7 +365,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Feet other) => Value == other.Value;
 
@@ -332,10 +378,10 @@ namespace Engine.Physics
         public override int GetHashCode() => -1937169414 + Value.GetHashCode();
 
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Feet"/> struct.
+        /// Creates a human-readable string that represents this <see cref="Feet" /> struct.
         /// </summary>
         /// <returns>
-        /// A string representation of this <see cref="Feet"/> struct.
+        /// A string representation of this <see cref="Feet" /> struct.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -343,16 +389,14 @@ namespace Engine.Physics
             => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Feet"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Feet" /> struct based on the IFormatProvider
         /// passed in. If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="provider">
-        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// <param name="provider">The provider to use to format the value.-or- A null reference (Nothing in Visual
         /// Basic) to obtain the numeric format information from the current locale setting
-        /// of the operating system.system.
-        /// </param>
+        /// of the operating system.system.</param>
         /// <returns>
-        /// A string representation of this <see cref="Feet"/> struct.
+        /// A string representation of this <see cref="Feet" /> struct.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -360,20 +404,16 @@ namespace Engine.Physics
             => ConvertToString(string.Empty /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Feet"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Feet" /> struct based on the format string
         /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="format">
-        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
-        /// default format defined for the type of the System.IFormattable implementation.
-        /// </param>
-        /// <param name="provider">
-        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// <param name="format">The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.</param>
+        /// <param name="provider">The provider to use to format the value.-or- A null reference (Nothing in Visual
         /// Basic) to obtain the numeric format information from the current locale setting
-        /// of the operating system.system.
-        /// </param>
+        /// of the operating system.system.</param>
         /// <returns>
-        /// A string representation of this <see cref="Feet"/> struct.
+        /// A string representation of this <see cref="Feet" /> struct.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -381,20 +421,16 @@ namespace Engine.Physics
             => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Feet"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Feet" /> struct based on the format string
         /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
         /// </summary>
-        /// <param name="format">
-        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
-        /// default format defined for the type of the System.IFormattable implementation.
-        /// </param>
-        /// <param name="provider">
-        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// <param name="format">The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.</param>
+        /// <param name="provider">The provider to use to format the value.-or- A null reference (Nothing in Visual
         /// Basic) to obtain the numeric format information from the current locale setting
-        /// of the operating system.system.
-        /// </param>
+        /// of the operating system.system.</param>
         /// <returns>
-        /// A string representation of this <see cref="Feet"/> struct.
+        /// A string representation of this <see cref="Feet" /> struct.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

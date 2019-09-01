@@ -11,6 +11,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 using static Engine.Physics.LengthUnits;
@@ -20,6 +21,9 @@ namespace Engine.Physics
     /// <summary>
     /// The yards struct.
     /// </summary>
+    /// <seealso cref="ILength" />
+    /// <seealso cref="IFormattable" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Yards
         : ILength, IFormattable, IEquatable<Yards>
     {
@@ -77,7 +81,7 @@ namespace Engine.Physics
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Yards"/> class.
+        /// Initializes a new instance of the <see cref="Yards" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public Yards(double value)
@@ -90,11 +94,17 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets or sets the mils.
         /// </summary>
+        /// <value>
+        /// The mils.
+        /// </value>
         public double Mils
         {
             get { return Value * Mil; }
@@ -104,6 +114,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the centimeters.
         /// </summary>
+        /// <value>
+        /// The centimeters.
+        /// </value>
         public double Centimeters
         {
             get { return Value * Centimeter; }
@@ -113,6 +126,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the inches.
         /// </summary>
+        /// <value>
+        /// The inches.
+        /// </value>
         public double Inches
         {
             get { return Value * Inch; }
@@ -122,6 +138,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the feet.
         /// </summary>
+        /// <value>
+        /// The feet.
+        /// </value>
         public double Feet
         {
             get { return Value * Foot; }
@@ -131,6 +150,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the meters.
         /// </summary>
+        /// <value>
+        /// The meters.
+        /// </value>
         public double Meters
         {
             get { return Value * Meter; }
@@ -138,8 +160,11 @@ namespace Engine.Physics
         }
 
         /// <summary>
-        /// Gets or sets the smoots.
+        /// Gets or sets the Smoots.
         /// </summary>
+        /// <value>
+        /// The smoots.
+        /// </value>
         public double Smoots
         {
             get { return Value * Smoot; }
@@ -149,6 +174,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the kilometers.
         /// </summary>
+        /// <value>
+        /// The kilometers.
+        /// </value>
         public double Kilometers
         {
             get { return Value * Kilometer; }
@@ -158,6 +186,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the miles.
         /// </summary>
+        /// <value>
+        /// The miles.
+        /// </value>
         public double Miles
         {
             get { return Value * Mile; }
@@ -167,6 +198,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the nautical miles.
         /// </summary>
+        /// <value>
+        /// The nautical miles.
+        /// </value>
         public double NauticalMiles
         {
             get { return Value * NauticalMile; }
@@ -176,6 +210,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Name
             => nameof(Yards);
@@ -183,6 +220,9 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation
             => "yd";
@@ -279,7 +319,13 @@ namespace Engine.Physics
         public static explicit operator Yards(Miles value)
             => value.Yards;
 
-        /// <param name="value"></param>
+        /// <summary>
+        /// Performs an explicit conversion from <see cref="NauticalMiles"/> to <see cref="Yards"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static explicit operator Yards(NauticalMiles value)
             => value.Yards;
 
@@ -306,76 +352,6 @@ namespace Engine.Physics
 
         #region Methods
         /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Yards"/> struct.
-        /// </summary>
-        /// <returns>
-        /// A string representation of this <see cref="Yards"/> struct.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Yards"/> struct based on the IFormatProvider
-        /// passed in. If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <param name="provider">
-        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
-        /// Basic) to obtain the numeric format information from the current locale setting
-        /// of the operating system.system.
-        /// </param>
-        /// <returns>
-        /// A string representation of this <see cref="Yards"/> struct.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Yards"/> struct based on the format string
-        /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <param name="format">
-        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
-        /// default format defined for the type of the System.IFormattable implementation.
-        /// </param>
-        /// <param name="provider">
-        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
-        /// Basic) to obtain the numeric format information from the current locale setting
-        /// of the operating system.system.
-        /// </param>
-        /// <returns>
-        /// A string representation of this <see cref="Yards"/> struct.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
-
-        /// <summary>
-        /// Creates a string representation of this <see cref="Yards"/> struct based on the format string
-        /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
-        /// </summary>
-        /// <param name="format">
-        /// The format to use.-or- A null reference (Nothing in Visual Basic) to use the
-        /// default format defined for the type of the System.IFormattable implementation.
-        /// </param>
-        /// <param name="provider">
-        /// The provider to use to format the value.-or- A null reference (Nothing in Visual
-        /// Basic) to obtain the numeric format information from the current locale setting
-        /// of the operating system.system.
-        /// </param>
-        /// <returns>
-        /// A string representation of this <see cref="Yards"/> struct.
-        /// </returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ConvertToString(string format, IFormatProvider provider)
-            => $"{Value.ToString(format, provider)} {Abbreviation}";
-
-        /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
@@ -389,7 +365,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Yards other) => Value == other.Value;
 
@@ -400,6 +376,66 @@ namespace Engine.Physics
         /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
         public override int GetHashCode() => -1937169414 + Value.GetHashCode();
+
+        /// <summary>
+        /// Creates a human-readable string that represents this <see cref="Yards" /> struct.
+        /// </summary>
+        /// <returns>
+        /// A string representation of this <see cref="Yards" /> struct.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override string ToString()
+            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Yards" /> struct based on the IFormatProvider
+        /// passed in. If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="provider">The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// Basic) to obtain the numeric format information from the current locale setting
+        /// of the operating system.system.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Yards" /> struct.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(IFormatProvider provider)
+            => ConvertToString(string.Empty /* format string */, provider);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Yards" /> struct based on the format string
+        /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="format">The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.</param>
+        /// <param name="provider">The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// Basic) to obtain the numeric format information from the current locale setting
+        /// of the operating system.system.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Yards" /> struct.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ToString(string format, IFormatProvider provider)
+            => ConvertToString(format /* format string */, provider /* format provider */);
+
+        /// <summary>
+        /// Creates a string representation of this <see cref="Yards" /> struct based on the format string
+        /// and IFormatProvider passed in. If the provider is null, the CurrentCulture is used.
+        /// </summary>
+        /// <param name="format">The format to use.-or- A null reference (Nothing in Visual Basic) to use the
+        /// default format defined for the type of the System.IFormattable implementation.</param>
+        /// <param name="provider">The provider to use to format the value.-or- A null reference (Nothing in Visual
+        /// Basic) to obtain the numeric format information from the current locale setting
+        /// of the operating system.system.</param>
+        /// <returns>
+        /// A string representation of this <see cref="Yards" /> struct.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public string ConvertToString(string format, IFormatProvider provider)
+            => $"{Value.ToString(format, provider)} {Abbreviation}";
         #endregion Methods
     }
 }

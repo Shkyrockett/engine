@@ -10,17 +10,20 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Physics
 {
     /// <summary>
     /// The kelvin struct.
     /// </summary>
+    /// <seealso cref="ITemperature" />
+    /// <seealso cref="IEquatable{T}" />
     public struct Kelvin
         : ITemperature, IEquatable<Kelvin>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Kelvin"/> class.
+        /// Initializes a new instance of the <see cref="Kelvin" /> class.
         /// </summary>
         /// <param name="value">The value.</param>
         public Kelvin(double value)
@@ -31,11 +34,17 @@ namespace Engine.Physics
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
 
         /// <summary>
         /// Gets the name.
         /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public static string Name
             => nameof(Kelvin);
@@ -43,12 +52,15 @@ namespace Engine.Physics
         /// <summary>
         /// Gets the abbreviation.
         /// </summary>
+        /// <value>
+        /// The abbreviation.
+        /// </value>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public string Abbreviation
             => "K";
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="double" /> to <see cref="Kelvin" />.
+        /// Performs an implicit conversion from <see cref="double"/> to <see cref="Kelvin"/>.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>
@@ -82,7 +94,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => obj is Kelvin kelvin && Equals(kelvin);
 
@@ -91,7 +103,7 @@ namespace Engine.Physics
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// <para>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</para>
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(Kelvin other) => Value == other.Value;
 
@@ -99,7 +111,7 @@ namespace Engine.Physics
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
         /// </returns>
         public override int GetHashCode() => -1937169414 + Value.GetHashCode();
 

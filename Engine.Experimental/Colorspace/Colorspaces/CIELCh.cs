@@ -9,17 +9,20 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Colorspace
 {
     /// <summary>
     /// Lightness Chromatically and Hue color space structure.
     /// </summary>
+    /// <seealso cref="IColor" />
+    /// <seealso cref="IEquatable{T}" />
     public struct CIELCh
         : IColor, IEquatable<CIELCh>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CIELCh"/> class.
+        /// Initializes a new instance of the <see cref="CIELCh" /> class.
         /// </summary>
         /// <param name="lightness">The lightness.</param>
         /// <param name="chromaticity">The chromaticity.</param>
@@ -34,16 +37,25 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the lightness.
         /// </summary>
+        /// <value>
+        /// The lightness.
+        /// </value>
         public double Lightness { get; set; }
 
         /// <summary>
         /// Gets or sets the chromaticity.
         /// </summary>
+        /// <value>
+        /// The chromaticity.
+        /// </value>
         public double Chromaticity { get; set; }
 
         /// <summary>
         /// Gets or sets the hue.
         /// </summary>
+        /// <value>
+        /// The hue.
+        /// </value>
         public double Hue { get; set; }
 
         /// <summary>
@@ -80,7 +92,7 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(CIELCh other) => Lightness == other.Lightness && Chromaticity == other.Chromaticity && Hue == other.Hue;
 
@@ -119,6 +131,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public (byte red, byte green, byte blue, byte alpha) ToRGBATuple() => throw new NotImplementedException();
 
         /// <summary>
@@ -126,7 +139,10 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public string ToString(string format, IFormatProvider formatProvider) => throw new NotImplementedException();
     }
 }

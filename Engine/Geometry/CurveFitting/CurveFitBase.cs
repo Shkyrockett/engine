@@ -347,6 +347,7 @@ namespace Engine
         /// </summary>
         protected void Reparameterize(int first, int last, CubicBezier curve, double epsilon = Epsilon)
         {
+            if (curve is null) return;
             var nPts = last - first;
             for (var i = 1; i < nPts; i++)
             {
@@ -384,6 +385,12 @@ namespace Engine
         /// </summary>
         protected double FindMaxSquaredError(int first, int last, CubicBezier curve, out int split)
         {
+            if (curve is null)
+            {
+                split = 0;
+                return 0d;
+            }
+
             var s = (last - first + 1) / 2;
             var nPts = last - first + 1;
             double max = 0;

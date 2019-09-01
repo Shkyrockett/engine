@@ -18,6 +18,7 @@ using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
+using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using static Engine.Mathematics;
@@ -29,9 +30,10 @@ namespace Engine
     /// <summary>
     /// A Polynomial representation of a series of numbers.
     /// </summary>
+    /// <seealso cref="IEquatable{T}" />
     /// <remarks>
-    /// <para>Internally the polynomial is represented by an array of the coefficients in reverse order. 
-    /// When accessed externally, the coefficients are generally in forward order.</para>
+    /// Internally the polynomial is represented by an array of the coefficients in reverse order.
+    /// When accessed externally, the coefficients are generally in forward order.
     /// </remarks>
     [DataContract, Serializable]
     [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -41,7 +43,7 @@ namespace Engine
     {
         #region Constants
         /// <summary>
-        /// The array form of the Identity <see cref="Polynomial"/>.
+        /// The array form of the Identity <see cref="Polynomial" />.
         /// </summary>
         public static readonly double[] Identity = { 1, 0 };
 
@@ -87,12 +89,13 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Polynomial"/> class using left to right letter order, descending in degrees.
+        /// Initializes a new instance of the <see cref="Polynomial" /> class using left to right letter order, descending in degrees.
         /// </summary>
         /// <param name="coefficients">The coefficients of the polynomial.</param>
+        /// <exception cref="ArgumentNullException">coefficients</exception>
         /// <remarks>
-        /// <para>While the coefficients are entered in left to right letter order, they are 
-        /// stored in degree order to simplify operations on <see cref="Polynomial"/> structs.</para>
+        /// While the coefficients are entered in left to right letter order, they are
+        /// stored in degree order to simplify operations on <see cref="Polynomial" /> structs.
         /// </remarks>
         [DebuggerStepThrough]
         public Polynomial(params double[] coefficients)
@@ -117,10 +120,15 @@ namespace Engine
         /// <summary>
         /// Gets or sets the coefficient at the given index.
         /// </summary>
+        /// <value>
+        /// The <see cref="System.Double"/>.
+        /// </value>
         /// <param name="index">The index of the coefficient to retrieve.</param>
         /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">index</exception>
         /// <remarks>
-        /// <para>The indexer is in highest degree to lowest format.</para>
+        /// The indexer is in highest degree to lowest format.
         /// </remarks>
         /// <acknowledgment>
         /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
@@ -129,14 +137,9 @@ namespace Engine
         {
             get
             {
-                if (index < 0)
+                if (index < 0 || index >= coefficients.Length)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(index));
-                }
-
-                if (index >= coefficients.Length)
-                {
-                    return 0;
+                    return 0d;
                 }
 
                 return coefficients[coefficients.Length - 1 - index];
@@ -145,7 +148,7 @@ namespace Engine
             {
                 if (IsReadonly)
                 {
-                    throw new InvalidOperationException(nameof(Polynomial));
+                    throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
                 }
 
                 if (index < 0 || index > coefficients.Length)
@@ -161,10 +164,15 @@ namespace Engine
         /// <summary>
         /// Gets or sets the coefficient at the given term index.
         /// </summary>
+        /// <value>
+        /// The <see cref="System.Double"/>.
+        /// </value>
         /// <param name="index">The term index of the coefficient to retrieve.</param>
         /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">index</exception>
         /// <remarks>
-        /// <para>The <see cref="PolynomialTerm"/> indexer is in highest degree to lowest format.</para>
+        /// The <see cref="PolynomialTerm" /> indexer is in highest degree to lowest format.
         /// </remarks>
         /// <acknowledgment>
         /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
@@ -173,12 +181,7 @@ namespace Engine
         {
             get
             {
-                if (index < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(index));
-                }
-
-                if ((int)index >= coefficients.Length)
+                if (index < 0 || (int)index >= coefficients.Length)
                 {
                     return 0;
                 }
@@ -189,7 +192,7 @@ namespace Engine
             {
                 if (IsReadonly)
                 {
-                    throw new InvalidOperationException(nameof(Polynomial));
+                    throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
                 }
 
                 if (index < 0 || (int)index > coefficients.Length)
@@ -205,10 +208,17 @@ namespace Engine
         /// <summary>
         /// Gets or sets the coefficient of the given degree index.
         /// </summary>
+        /// <value>
+        /// The <see cref="System.Double"/>.
+        /// </value>
         /// <param name="index">The degree of the coefficient to retrieve.</param>
-        /// <returns>The value of the coefficient of the requested degree.</returns>
+        /// <returns>
+        /// The value of the coefficient of the requested degree.
+        /// </returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException">index</exception>
         /// <remarks>
-        /// <para>The <see cref="PolynomialDegree"/> indexer is in lowest degree to highest format.</para>
+        /// The <see cref="PolynomialDegree" /> indexer is in lowest degree to highest format.
         /// </remarks>
         /// <acknowledgment>
         /// modified from the indexer used in Super Lloyd's Poly class https://github.com/superlloyd/Poly
@@ -217,12 +227,7 @@ namespace Engine
         {
             get
             {
-                if (index < 0)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(index));
-                }
-
-                if ((int)index >= coefficients.Length)
+                if (index < 0 || (int)index >= coefficients.Length)
                 {
                     return 0;
                 }
@@ -233,7 +238,7 @@ namespace Engine
             {
                 if (IsReadonly)
                 {
-                    throw new InvalidOperationException(nameof(Polynomial));
+                    throw new InvalidOperationException($"{nameof(Polynomial)} is Read-only.");
                 }
 
                 if (index < 0 || (int)index > coefficients.Length)
@@ -251,15 +256,19 @@ namespace Engine
         /// <summary>
         /// Gets the degree of the polynomial.
         /// </summary>
-        /// <returns></returns>
+        /// <value>
+        /// The degree.
+        /// </value>
         public PolynomialDegree Degree
             // If degree uninitialized look up the real order then cache it and return.
-            => (degree ??= RealOrder(Epsilon));
+            => degree ??= RealOrder(Epsilon);
 
         /// <summary>
         /// Gets the raw number of coefficients found in the polynomial, including any leading zero coefficients.
         /// </summary>
-        /// <returns></returns>
+        /// <value>
+        /// The count.
+        /// </value>
         public int Count
             // Get the length of the coefficients array, but let's just say that an uninitialized coefficients array is just a zero constant.
             => coefficients?.Length ?? 0;
@@ -267,6 +276,9 @@ namespace Engine
         /// <summary>
         /// Gets a value indicating whether the real roots for the polynomial can be solved with available methods.
         /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance can solve real roots; otherwise, <c>false</c>.
+        /// </value>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -275,10 +287,15 @@ namespace Engine
             => Degree <= PolynomialDegree.Quintic;
 
         /// <summary>
-        /// Gets or sets a value indicating whether the <see cref="Polynomial"/> struct is read only.
+        /// Gets or sets a value indicating whether the <see cref="Polynomial" /> struct is read only.
         /// Useful for class that want to expose internal value that must not change.
         /// </summary>
-        /// <remarks><para>Once set, this cannot become writable again.</para></remarks>
+        /// <value>
+        ///   <c>true</c> if this instance is readonly; otherwise, <c>false</c>.
+        /// </value>
+        /// <remarks>
+        /// Once set, this cannot become writable again.
+        /// </remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -301,8 +318,11 @@ namespace Engine
         /// <summary>
         /// Gets or sets the coefficients of the polynomial from highest degree to lowest degree order.
         /// </summary>
+        /// <value>
+        /// The coefficients.
+        /// </value>
         /// <remarks>
-        /// <para>This property presents the <see cref="Coefficients"/> in the reverse order than they are internally stored.</para>
+        /// This property presents the <see cref="Coefficients" /> in the reverse order than they are internally stored.
         /// </remarks>
         [TypeConverter(typeof(ArrayConverter))]
         public double[] Coefficients
@@ -320,10 +340,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Gets a debug string that represents the text version of the <see cref="Polynomial"/>.
+        /// Gets a debug string that represents the text version of the <see cref="Polynomial" />.
         /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
         public string Text
-            => ToString();
+            => ToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
 #endif
         #endregion Properties
@@ -333,7 +356,9 @@ namespace Engine
         /// Unary addition operator.
         /// </summary>
         /// <param name="value">The original value.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -343,11 +368,13 @@ namespace Engine
             => value;
 
         /// <summary>
-        /// Add an amount to both values in the <see cref="Polynomial"/> structs.
+        /// Add an amount to both values in the <see cref="Polynomial" /> structs.
         /// </summary>
         /// <param name="value">The original value.</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -357,11 +384,13 @@ namespace Engine
             => addend + value;
 
         /// <summary>
-        /// Add an amount to both values in the <see cref="Polynomial"/> structs.
+        /// Add an amount to both values in the <see cref="Polynomial" /> structs.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -376,11 +405,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Add an amount to both values in the <see cref="Polynomial"/> structs.
+        /// Add an amount to both values in the <see cref="Polynomial" /> structs.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="addend">The amount to add.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -411,7 +442,9 @@ namespace Engine
         /// Unary subtraction operator.
         /// </summary>
         /// <param name="value">The original value</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -429,11 +462,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Subtract a <see cref="Polynomial"/> from a <see cref="double"/> value.
+        /// Subtract a <see cref="Polynomial" /> from a <see cref="double" /> value.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="subend">The amount to subtract.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -443,11 +478,13 @@ namespace Engine
             => value + (-subend);
 
         /// <summary>
-        /// Subtract a <see cref="double"/> from a <see cref="Polynomial"/> value.
+        /// Subtract a <see cref="double" /> from a <see cref="Polynomial" /> value.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="subend">The amount to subtract.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -466,11 +503,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Subtract a <see cref="Polynomial"/> from another <see cref="Polynomial"/> class.
+        /// Subtract a <see cref="Polynomial" /> from another <see cref="Polynomial" /> class.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="subend">The amount to subtract.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -499,11 +538,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Scale a <see cref="Polynomial"/> by a value.
+        /// Scale a <see cref="Polynomial" /> by a value.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="factor">The factor value.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -513,11 +554,13 @@ namespace Engine
             => factor * value;
 
         /// <summary>
-        /// Scale a <see cref="Polynomial"/> by a value.
+        /// Scale a <see cref="Polynomial" /> by a value.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="factor">The factor value.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -535,11 +578,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Multiply two <see cref="Polynomial"/>s together.
+        /// Multiply two <see cref="Polynomial" />s together.
         /// </summary>
         /// <param name="value">The original value</param>
         /// <param name="factor">The factor value.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -561,11 +606,13 @@ namespace Engine
         }
 
         /// <summary>
-        /// Divide a <see cref="Polynomial"/> by a value.
+        /// Divide a <see cref="Polynomial" /> by a value.
         /// </summary>
         /// <param name="divisor">The divisor value</param>
         /// <param name="dividend">The dividend to add.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -583,6 +630,30 @@ namespace Engine
         }
 
         /// <summary>
+        /// Divide a <see cref="Polynomial" /> by a value.
+        /// </summary>
+        /// <param name="divisor">The divisor value</param>
+        /// <param name="dividend">The dividend to add.</param>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
+        /// <acknowledgment>
+        /// https://github.com/superlloyd/Poly
+        /// </acknowledgment>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Polynomial operator /(double divisor, Polynomial dividend)
+        {
+            var res = new double[dividend.Count];
+            for (var i = 0; i < res.Length; i++)
+            {
+                res[i] = divisor / dividend.coefficients[i];
+            }
+
+            return new Polynomial { coefficients = res, isReadonly = dividend.isReadonly };
+        }
+
+        /// <summary>
         /// Compares two <see cref="Polynomial"/> objects.
         /// The result specifies whether the values of the x and x
         /// values of the two <see cref="Polynomial"/> objects are equal.
@@ -592,27 +663,29 @@ namespace Engine
         /// <returns>The <see cref="bool"/>.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator ==(Polynomial left, Polynomial right)
-            => Equals(left, right);
+        public static bool operator ==(Polynomial left, Polynomial right) => Equals(left, right);
 
         /// <summary>
-        /// Compares two <see cref="Polynomial"/> objects.
+        /// Compares two <see cref="Polynomial" /> objects.
         /// The result specifies whether the values of the x or y
-        /// values of the two <see cref="Polynomial"/> objects are unequal.
+        /// values of the two <see cref="Polynomial" /> objects are unequal.
         /// </summary>
         /// <param name="left">The left Polynomial.</param>
         /// <param name="right">The right Polynomial.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool operator !=(Polynomial left, Polynomial right)
-            => !Equals(left, right);
+        public static bool operator !=(Polynomial left, Polynomial right) => !Equals(left, right);
 
         /// <summary>
         /// Implicit conversion from a binomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b) tuple)
@@ -622,7 +695,9 @@ namespace Engine
         /// Implicit conversion from a trinomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c) tuple)
@@ -632,7 +707,9 @@ namespace Engine
         /// Implicit conversion from a quadrinomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d) tuple)
@@ -642,7 +719,9 @@ namespace Engine
         /// Implicit conversion from a quintinomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e) tuple)
@@ -652,7 +731,9 @@ namespace Engine
         /// Implicit conversion from a sextomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f) tuple)
@@ -662,7 +743,9 @@ namespace Engine
         /// Implicit conversion from a septomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g) tuple)
@@ -672,7 +755,9 @@ namespace Engine
         /// Implicit conversion from a octomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h) tuple)
@@ -682,7 +767,9 @@ namespace Engine
         /// Implicit conversion from a nonomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i) tuple)
@@ -692,7 +779,9 @@ namespace Engine
         /// Implicit conversion from a decomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j) tuple)
@@ -702,7 +791,9 @@ namespace Engine
         /// Implicit conversion from a decomial tuple to a polynomial.
         /// </summary>
         /// <param name="tuple">A tuple form of the polynomial.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Polynomial((double a, double b, double c, double d, double e, double f, double g, double h, double i, double j, double k) tuple)
@@ -713,8 +804,10 @@ namespace Engine
         /// <summary>
         /// Trim off any leading zero coefficient terms from the Polynomial.
         /// </summary>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns a <see cref="Polynomial"/> with any leading zero coefficient terms removed.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns a <see cref="Polynomial" /> with any leading zero coefficient terms removed.
+        /// </returns>
         /// <acknowledgment>
         /// A hodge-podge method based on Simplify from of: http://www.kevlindev.com/
         /// and Trim from: https://github.com/superlloyd/Poly
@@ -742,9 +835,11 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the derivative polynomial of a <see cref="Polynomial"/>.
+        /// Find the derivative polynomial of a <see cref="Polynomial" />.
         /// </summary>
-        /// <returns>Returns a new <see cref="Polynomial"/> struct calculated as the derivative of the source <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// Returns a new <see cref="Polynomial" /> struct calculated as the derivative of the source <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -766,9 +861,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Normalizes a <see cref="Polynomial"/>.
+        /// Normalizes a <see cref="Polynomial" />.
         /// </summary>
-        /// <returns>Returns a normalized <see cref="Polynomial"/> calculated from the source <see cref="Polynomial"/>.</returns>
+        /// <param name="epsilon">The epsilon.</param>
+        /// <returns>
+        /// Returns a normalized <see cref="Polynomial" /> calculated from the source <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -794,10 +892,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Integrates a <see cref="Polynomial"/>.
+        /// Integrates a <see cref="Polynomial" />.
         /// </summary>
         /// <param name="term0">The term0.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -823,10 +923,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Raises a Polynomial to a <see cref="Power"/>.
+        /// Raises a Polynomial to a <see cref="Power" />.
         /// </summary>
         /// <param name="n">The n.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <exception cref="ArithmeticException"></exception>
         /// <acknowledgment>
@@ -879,7 +981,9 @@ namespace Engine
         /// An implementation of Horner's Evaluate method.
         /// </summary>
         /// <param name="x">The value to evaluate.</param>
-        /// <returns>Returns a value calculated by evaluating the polynomial.</returns>
+        /// <returns>
+        /// Returns a value calculated by evaluating the polynomial.
+        /// </returns>
         /// <exception cref="ArithmeticException"></exception>
         /// <acknowledgment>
         /// https://en.wikipedia.org/wiki/Horner%27s_method
@@ -914,7 +1018,9 @@ namespace Engine
         /// An implementation of Horner's Evaluate method for Complex numbers.
         /// </summary>
         /// <param name="x">The x.</param>
-        /// <returns>The <see cref="Complex"/>.</returns>
+        /// <returns>
+        /// The <see cref="Complex" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// http://rosettacode.org/wiki/Horner%27s_rule_for_polynomial_evaluation
@@ -938,30 +1044,27 @@ namespace Engine
         /// <summary>
         /// Computes value of the differentiated polynomial at x.
         /// </summary>
-        /// <summary>
-        /// The differentiate.
-        /// </summary>
         /// <param name="x">The x.</param>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/thelonious/kld-polynomial
         /// </acknowledgment>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public double Differentiate(double x)
-            => Derivate().Evaluate(x);
+        public double Differentiate(double x) => Derivate().Evaluate(x);
 
         /// <summary>
-        /// Finds the Minimum and Maximum values of the <see cref="Polynomial"/>.
-        /// </summary>
-        /// <summary>
-        /// The min max.
+        /// Finds the Minimum and Maximum values of the <see cref="Polynomial" />.
         /// </summary>
         /// <param name="minX">The lower bound minimum.</param>
         /// <param name="maxX">The upper bound maximum.</param>
-        /// <returns>The <see cref="ValueTuple{T1, T2}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2}" />.
+        /// </returns>
         /// <remarks>
-        /// <para>Do not use this method on a polynomial that has been simplified or trimmed.</para>
+        /// Do not use this method on a polynomial that has been simplified or trimmed.
         /// </remarks>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -1006,9 +1109,13 @@ namespace Engine
         /// <summary>
         /// Calculates the real order or degree of the polynomial.
         /// </summary>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>Returns a <see cref="PolynomialDegree"/> value representing the order of degree of the polynomial.</returns>
-        /// <remarks><para>Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.</para></remarks>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// Returns a <see cref="PolynomialDegree" /> value representing the order of degree of the polynomial.
+        /// </returns>
+        /// <remarks>
+        /// Primarily used to locate where to trim off any leading zero coefficients of the internal coefficients array.
+        /// </remarks>
         /// <acknowledgment>
         /// A hodge-podge helper method based on Simplify from of: http://www.kevlindev.com/
         /// as well as Trim and RealOrder from: https://github.com/superlloyd/Poly
@@ -1048,7 +1155,9 @@ namespace Engine
         /// Get the standard base.
         /// </summary>
         /// <param name="degree">The degree.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <exception cref="ArgumentException"></exception>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1074,7 +1183,9 @@ namespace Engine
         /// </summary>
         /// <param name="degree">The degree.</param>
         /// <param name="coefficient">The coefficient.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -1098,7 +1209,9 @@ namespace Engine
         /// Construct a polynomial P such as y[i] = P.Compute(i).
         /// </summary>
         /// <param name="ys">The ys.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
@@ -1134,7 +1247,9 @@ namespace Engine
         /// The monomial.
         /// </summary>
         /// <param name="degree">The degree.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Polynomial Monomial(PolynomialDegree degree)
@@ -1162,7 +1277,9 @@ namespace Engine
         /// Creates a Matrix transformed Bezier Polynomial from the Bezier parameters.
         /// </summary>
         /// <param name="values">The Bezier node parameters.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <exception cref="ArgumentNullException">At least 2 different points must be given</exception>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -1194,7 +1311,9 @@ namespace Engine
         /// <param name="from">The from.</param>
         /// <param name="to">The to.</param>
         /// <param name="values">The values.</param>
-        /// <returns>The <see cref="Polynomial"/>.</returns>
+        /// <returns>
+        /// The <see cref="Polynomial" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// </acknowledgment>
@@ -1212,8 +1331,10 @@ namespace Engine
         /// </summary>
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="double"/>.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// The <see cref="double" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/thelonious/kld-polynomial
         /// </acknowledgment>
@@ -1265,8 +1386,10 @@ namespace Engine
         /// <summary>
         /// Will try to solve root analytically, and if it can will use numerical approach.
         /// </summary>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="IEnumerable{T}"/>.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// The <see cref="IEnumerable{T}" />.
+        /// </returns>
         //[DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<double> RealOrComplexRoots(double epsilon = Epsilon)
@@ -1284,8 +1407,10 @@ namespace Engine
         /// <summary>
         /// This method use the Durand-Kerner aka Weierstrass algorithm to find approximate root of this polynomial.
         /// </summary>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <acknowledgment>
         /// https://github.com/superlloyd/Poly
         /// http://en.wikipedia.org/wiki/Durand%E2%80%93Kerner_method
@@ -1366,8 +1491,10 @@ namespace Engine
         /// </summary>
         /// <param name="min">The min.</param>
         /// <param name="max">The max.</param>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -1428,10 +1555,12 @@ namespace Engine
         }
 
         /// <summary>
-        /// Find the Roots of up to Quintic degree <see cref="Polynomial"/>s.
+        /// Find the Roots of up to Quintic degree <see cref="Polynomial" />s.
         /// </summary>
-        /// <param name="epsilon">The <paramref name="epsilon"/> or minimal value to represent a change.</param>
-        /// <returns>The <see cref="Array"/>.</returns>
+        /// <param name="epsilon">The <paramref name="epsilon" /> or minimal value to represent a change.</param>
+        /// <returns>
+        /// The <see cref="Array" />.
+        /// </returns>
         /// <acknowledgment>
         /// http://www.kevlindev.com/geometry/2D/intersections/
         /// </acknowledgment>
@@ -1493,25 +1622,27 @@ namespace Engine
         }
 
         /// <summary>
-        /// Serves as the default hash function. 
+        /// Serves as the default hash function.
         /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-            => coefficients?.GetHashCode() ?? 0;
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+        /// </returns>
+        public override int GetHashCode() => coefficients?.GetHashCode() ?? 0;
 
         /// <summary>
         /// Compares two Polynomials.
         /// </summary>
         /// <param name="a">The a.</param>
         /// <param name="b">The b.</param>
-        /// <returns>The <see cref="bool"/>.</returns>
+        /// <returns>
+        /// The <see cref="bool" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Compare(Polynomial a, Polynomial b)
-            => Equals(a, b);
+        public static bool Compare(Polynomial a, Polynomial b) => Equals(a, b);
 
         /// <summary>
-        /// Compares two <see cref="Polynomial"/> objects to determine equality.
+        /// Compares two <see cref="Polynomial" /> objects to determine equality.
         /// </summary>
         /// <param name="a">Polynomial a.</param>
         /// <param name="b">Polynomial b.</param>
@@ -1544,72 +1675,71 @@ namespace Engine
         }
 
         /// <summary>
-        /// Compares an object this <see cref="Polynomial"/> to determine equality.
+        /// Compares an object this <see cref="Polynomial" /> to determine equality.
         /// </summary>
         /// <param name="obj">The object to compare.</param>
+        /// <returns>
+        ///   <see langword="true" /> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false" />.
+        /// </returns>
+        [DebuggerStepThrough]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public override bool Equals(object obj) => obj is Polynomial && Equals(this, (Polynomial)obj);
+
+        /// <summary>
+        /// Compares two <see cref="Polynomial" /> objects to determine equality.
+        /// </summary>
+        /// <param name="value">The <see cref="Polynomial" /> object to compare.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override bool Equals(object obj)
-            => obj is Polynomial && Equals(this, (Polynomial)obj);
+        public bool Equals(Polynomial value) => Equals(this, value);
 
         /// <summary>
-        /// Compares two <see cref="Polynomial"/> objects to determine equality.
-        /// </summary>
-        /// <param name="value">The <see cref="Polynomial"/> object to compare.</param>
-        /// <returns></returns>
-        [DebuggerStepThrough]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool Equals(Polynomial value)
-            => Equals(this, value);
-
-        /// <summary>
-        /// Creates a human-readable string that represents this <see cref="Polynomial"/> struct.
+        /// Creates a human-readable string that represents this <see cref="Polynomial" /> struct.
         /// </summary>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public override string ToString()
-            => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
+        public override string ToString() => ConvertToString(string.Empty /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Polynomial"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Polynomial" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(IFormatProvider provider)
-            => ConvertToString(string.Empty /* format string */, provider /* format provider */);
+        public string ToString(IFormatProvider provider) => ConvertToString(string.Empty /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Polynomial"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Polynomial" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public string ToString(string format, IFormatProvider provider)
-            => ConvertToString(format /* format string */, provider /* format provider */);
+        public string ToString(string format, IFormatProvider provider) => ConvertToString(format /* format string */, provider /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Polynomial"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Polynomial" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
-        /// <summary>
-        /// Convert the to string.
-        /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="provider">The provider.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private string ConvertToString(string format, IFormatProvider provider)
         {
@@ -1619,7 +1749,7 @@ namespace Engine
             for (var i = (coefficients?.Length ?? 0) - 1; i >= 0; i--)
             {
                 var value = coefficients[i];
-                var powStr = i.ToString();
+                var powStr = i.ToString(format, provider);
                 powStr = powStr.Replace("1", "¹");
                 powStr = powStr.Replace("2", "²");
                 powStr = powStr.Replace("3", "³");
@@ -1669,6 +1799,100 @@ namespace Engine
 
             return result;
         }
+
+        /// <summary>
+        /// Pluses the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Polynomial Plus(Polynomial item) => +item;
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Add(Polynomial left, Polynomial right) => left + right;
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Add(double left, Polynomial right) => left + right;
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Add(Polynomial left, double right) => left + right;
+
+        /// <summary>
+        /// Negates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Polynomial Negate(Polynomial item) => -item;
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Subtract(Polynomial left, Polynomial right) => left - right;
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Subtract(double left, Polynomial right) => left - right;
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Subtract(Polynomial left, double right) => left - right;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Multiply(double left, Polynomial right) => left * right;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Multiply(Polynomial left, double right) => left * right;
+
+        /// <summary>
+        /// Divides the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Divide(double left, Polynomial right) => left / right;
+
+        /// <summary>
+        /// Divides the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Polynomial Divide(Polynomial left, double right) => left / right;
         #endregion Standard Methods
     }
 }

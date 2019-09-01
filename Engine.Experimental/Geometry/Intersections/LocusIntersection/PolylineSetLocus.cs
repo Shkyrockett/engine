@@ -15,19 +15,22 @@ namespace Engine
     /// <summary>
     /// The polyline set locus class.
     /// </summary>
-    /// <remarks> <para>This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178</para> </remarks>
+    /// <seealso cref="Engine.Locus" />
+    /// <remarks>
+    /// This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178
+    /// </remarks>
     public class PolylineSetLocus
         : Locus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolylineSetLocus"/> class.
+        /// Initializes a new instance of the <see cref="PolylineSetLocus" /> class.
         /// </summary>
         public PolylineSetLocus()
             : this(new List<List<Point2D>>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolylineSetLocus"/> class.
+        /// Initializes a new instance of the <see cref="PolylineSetLocus" /> class.
         /// </summary>
         /// <param name="polylines">The polylines.</param>
         public PolylineSetLocus(IEnumerable<List<Point2D>> polylines)
@@ -36,7 +39,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolylineSetLocus"/> class.
+        /// Initializes a new instance of the <see cref="PolylineSetLocus" /> class.
         /// </summary>
         /// <param name="polylines">The polylines.</param>
         public PolylineSetLocus(params IEnumerable<Point2D>[] polylines)
@@ -46,12 +49,18 @@ namespace Engine
         /// <summary>
         /// Gets or sets the polylines.
         /// </summary>
+        /// <value>
+        /// The polylines.
+        /// </value>
         public List<List<Point2D>> Polylines { get; set; }
 
         /// <summary>
-        /// 
+        /// Performs an implicit conversion from <see cref="PolylineSetLocus"/> to <see cref="PolylineSet"/>.
         /// </summary>
-        /// <param name="locus"></param>
+        /// <param name="locus">The locus.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator PolylineSet(PolylineSetLocus locus)
             => new PolylineSet(locus.Polylines);
 
@@ -59,11 +68,19 @@ namespace Engine
         /// Add.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="PolylineSetLocus"/>.</returns>
+        /// <returns>
+        /// The <see cref="PolylineSetLocus" />.
+        /// </returns>
         public PolylineSetLocus Add(List<Point2D> point)
         {
             Polylines.Add(point);
             return this;
         }
+
+        /// <summary>
+        /// Converts to polylineset.
+        /// </summary>
+        /// <returns></returns>
+        public PolylineSet ToPolylineSet() => new PolylineSet(Polylines);
     }
 }

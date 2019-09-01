@@ -226,7 +226,7 @@ namespace Engine
             }
 
             var sep = Tokenizer.GetNumericListSeparator(provider);
-            IFormattable formatable = $"{nameof(Triangle)}{{{string.Join(sep.ToString(), Points)}}}";
+            IFormattable formatable = $"{nameof(Triangle)}{{{string.Join(sep.ToString(provider), Points)}}}";
             return formatable.ToString(format, provider);
         }
         #endregion Methods

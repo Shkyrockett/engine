@@ -12,22 +12,25 @@ using System.Collections.Generic;
 
 namespace Engine
 {
-    /// <remarks> <para>This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178</para> </remarks>
     /// <summary>
     /// The polygon set locus class.
     /// </summary>
+    /// <seealso cref="Locus" />
+    /// <remarks>
+    /// <para>This class is based on an idea presented by Eric Lippert http://stackoverflow.com/a/2258178</para>
+    /// </remarks>
     public class PolygonSetLocus
         : Locus
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonSetLocus"/> class.
+        /// Initializes a new instance of the <see cref="PolygonSetLocus" /> class.
         /// </summary>
         public PolygonSetLocus()
             : this(new List<List<Point2D>>())
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonSetLocus"/> class.
+        /// Initializes a new instance of the <see cref="PolygonSetLocus" /> class.
         /// </summary>
         /// <param name="polygons">The polygons.</param>
         public PolygonSetLocus(IEnumerable<List<Point2D>> polygons)
@@ -36,7 +39,7 @@ namespace Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PolygonSetLocus"/> class.
+        /// Initializes a new instance of the <see cref="PolygonSetLocus" /> class.
         /// </summary>
         /// <param name="polygons">The polygons.</param>
         public PolygonSetLocus(params IEnumerable<Point2D>[] polygons)
@@ -46,12 +49,18 @@ namespace Engine
         /// <summary>
         /// Gets or sets the polygons.
         /// </summary>
+        /// <value>
+        /// The polygons.
+        /// </value>
         public List<List<Point2D>> Polygons { get; set; }
 
         /// <summary>
-        /// 
+        /// Performs an implicit conversion from <see cref="PolygonSetLocus"/> to <see cref="Polygon"/>.
         /// </summary>
-        /// <param name="locus"></param>
+        /// <param name="locus">The locus.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         public static implicit operator Polygon(PolygonSetLocus locus)
             => new Polygon(locus.Polygons);
 
@@ -59,11 +68,20 @@ namespace Engine
         /// Add.
         /// </summary>
         /// <param name="point">The point.</param>
-        /// <returns>The <see cref="PolygonSetLocus"/>.</returns>
+        /// <returns>
+        /// The <see cref="PolygonSetLocus" />.
+        /// </returns>
         public PolygonSetLocus Add(List<Point2D> point)
         {
             Polygons.Add(point);
             return this;
         }
+
+        /// <summary>
+        /// Converts to polygon.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public Polygon ToPolygon() => new Polygon(Polygons);
     }
 }

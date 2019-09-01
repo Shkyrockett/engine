@@ -196,7 +196,7 @@ namespace Engine
         public List<List<Point2D>> Clip(ClippingPolygon clip, bool sourceForwards, bool clipForwards)
         {
             var sourceVertex = First;
-            var clipVertex = clip.First;
+            var clipVertex = clip?.First;
             bool sourceInClip;
             bool clipInSource;
 

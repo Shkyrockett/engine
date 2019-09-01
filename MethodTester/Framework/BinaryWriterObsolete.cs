@@ -13,6 +13,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using static System.Math;
@@ -77,7 +78,7 @@ namespace Engine.File
         {
             if (input < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(CultureInfo.InvariantCulture), "Cannot write a negative Var Int.");
             }
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("value", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
@@ -131,7 +132,7 @@ namespace Engine.File
         {
             if (input < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(CultureInfo.InvariantCulture), "Cannot write a negative Var Int.");
             }
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("input", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
@@ -172,7 +173,7 @@ namespace Engine.File
         {
             if (input < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(CultureInfo.InvariantCulture), "Cannot write a negative Var Int.");
             }
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("value", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 
@@ -210,7 +211,7 @@ namespace Engine.File
         {
             if (input < 0)
             {
-                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(), "Cannot write a negative Var Int.");
+                throw new ArgumentOutOfRangeException(nameof(input), input.ToString(CultureInfo.InvariantCulture), "Cannot write a negative Var Int.");
             }
             //if (input > MidiMaxDeltaTime) throw new ArgumentOutOfRangeException("input", input.ToString(), "Maximum allowed Var Int is 0x0FFFFFFF.");
 

@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using static Engine.Measurements;
 using static Engine.SegmentComparators;
 
@@ -19,6 +20,8 @@ namespace Engine
     /// A container for SweepEvent data. A SweepEvent represents a location of interest (vertex between two polygon edges)
     /// as the sweep line passes through the polygons.
     /// </summary>
+    /// <seealso cref="IComparable{T}" />
+    /// <seealso cref="IEquatable{T}" />
     public class SweepEvent
         : IComparable<SweepEvent>, IEquatable<SweepEvent>
     {
@@ -93,13 +96,13 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="SweepEvent"/> class.
+        /// Initializes a new instance of the <see cref="SweepEvent" /> class.
         /// </summary>
         public SweepEvent()
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SweepEvent"/> class.
+        /// Initializes a new instance of the <see cref="SweepEvent" /> class.
         /// </summary>
         /// <param name="b">The b.</param>
         /// <param name="p">The p.</param>
@@ -122,33 +125,50 @@ namespace Engine
         /// <summary>
         /// Is the line segment (point, otherEvent.point) a vertical line segment
         /// </summary>
-        /// <returns></returns>
+        /// <value>
+        ///   <see langword="true"/> if this instance is vertical; otherwise, <see langword="false"/>.
+        /// </value>
         public bool IsVertical
             => Point.X == OtherEvent.Point.X;
 
         /// <summary>
         /// is point the left endpoint of the edge (point, otherEvent.point)?
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if this instance is left; otherwise, <see langword="false"/>.
+        /// </value>
         public bool IsLeft { get { return isLeft; } set { isLeft = value; } }
 
         /// <summary>
         /// point associated with the event
         /// </summary>
+        /// <value>
+        /// The point.
+        /// </value>
         public Point2D Point { get { return point; } set { point = value; } }
 
         /// <summary>
         /// Polygon to which the associated segment belongs to
         /// </summary>
+        /// <value>
+        /// The belongs to.
+        /// </value>
         public ClippingRelation BelongsTo { get { return belongsTo; } set { belongsTo = value; } }
 
         /// <summary>
         /// Event associated to the other endpoint of the edge.
         /// </summary>
+        /// <value>
+        /// The other event.
+        /// </value>
         public SweepEvent OtherEvent { get { return otherEvent; } set { otherEvent = value; } }
 
         /// <summary>
         /// Gets or sets the contribution.
         /// </summary>
+        /// <value>
+        /// The contribution.
+        /// </value>
         public EdgeContribution Contribution { get { return contribution; } set { contribution = value; } }
 
         // The following properties are only used in "left" events.
@@ -156,41 +176,65 @@ namespace Engine
         /// <summary>
         /// Does segment (point, otherEvent.p) represent an inside-outside transition in the polygon for a vertical ray from (p.x, -infinite)?
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if [in out]; otherwise, <see langword="false"/>.
+        /// </value>
         public bool InOut { get { return inOut; } set { inOut = value; } }
 
         /// <summary>
         /// inOut transition for the segment from the other polygon preceding this segment in sl
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if [other in out]; otherwise, <see langword="false"/>.
+        /// </value>
         public bool OtherInOut { get { return otherInOut; } set { otherInOut = value; } }
 
         /// <summary>
         /// Position of the event (line segment) in sl.
         /// </summary>
+        /// <value>
+        /// The position sl.
+        /// </value>
         public SortedSet<SweepEvent> PosSL { get { return posSL; } set { posSL = value; } }
 
         /// <summary>
         /// previous segment in sl belonging to the result of the boolean operation.
         /// </summary>
+        /// <value>
+        /// The previous in result.
+        /// </value>
         public SweepEvent PrevInResult { get { return prevInResult; } set { prevInResult = value; } }
 
         /// <summary>
-        /// Gets or sets a value indicating whether 
+        /// Gets or sets a value indicating whether
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if [in result]; otherwise, <see langword="false"/>.
+        /// </value>
         public bool InResult { get { return inResult; } set { inResult = value; } }
 
         /// <summary>
         /// Gets or sets the pos.
         /// </summary>
+        /// <value>
+        /// The position.
+        /// </value>
         public int Pos { get { return pos; } set { pos = value; } }
 
         /// <summary>
-        /// Gets or sets a value indicating whether 
+        /// Gets or sets a value indicating whether
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if [result in out]; otherwise, <see langword="false"/>.
+        /// </value>
         public bool ResultInOut { get { return resultInOut; } set { resultInOut = value; } }
 
         /// <summary>
         /// Gets or sets the contour id.
         /// </summary>
+        /// <value>
+        /// The contour identifier.
+        /// </value>
         public int ContourId { get { return contourId; } set { contourId = value; } }
         #endregion Properties
 
@@ -198,24 +242,42 @@ namespace Engine
         /// <summary>
         /// The operator Less than.
         /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
+        /// <param name="left">The a.</param>
+        /// <param name="right">The b.</param>
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public static bool operator <(SweepEvent a, SweepEvent b)
-            => SweepEventComp(a, b) < 0;
+        public static bool operator <(SweepEvent left, SweepEvent right) => left is null || SweepEventComp(left, right) < 0;
 
         /// <summary>
         /// The operator Greater than.
         /// </summary>
-        /// <param name="a">The a.</param>
-        /// <param name="b">The b.</param>
+        /// <param name="left">The a.</param>
+        /// <param name="right">The b.</param>
         /// <returns>
         /// The <see cref="bool" />.
         /// </returns>
-        public static bool operator >(SweepEvent a, SweepEvent b)
-            => SweepEventComp(a, b) > 0;
+        public static bool operator >(SweepEvent left, SweepEvent right) => left is null ? right is null : SweepEventComp(left, right) > 0;
+
+        /// <summary>
+        /// Implements the operator &lt;=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator <=(SweepEvent left, SweepEvent right) => left is null || SweepEventComp(left, right) <= 0;
+
+        /// <summary>
+        /// Implements the operator &gt;=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
+        public static bool operator >=(SweepEvent left, SweepEvent right) => left is null ? right is null : SweepEventComp(left, right) >= 0;
 
         /// <summary>
         /// Implements the operator ==.
@@ -243,16 +305,18 @@ namespace Engine
         /// The compare to.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns>The <see cref="int"/>.</returns>
+        /// <returns>
+        /// The <see cref="int" />.
+        /// </returns>
         public int CompareTo(SweepEvent other)
             => SweepEventComp(this, other);
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <see langword="false"/>.
+        ///   <see langword="true"/> if the specified <see cref="object" /> is equal to this instance; otherwise, <see langword="false"/>.
         /// </returns>
         public override bool Equals(object obj) => Equals(obj as SweepEvent);
 
@@ -261,9 +325,9 @@ namespace Engine
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(SweepEvent other) => SweepEventComp(this, other) == 0;
+        public bool Equals(SweepEvent other) => CompareTo(other) == 0;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -287,8 +351,10 @@ namespace Engine
         /// <summary>
         /// Is the line segment (point, otherEvent.point) below point p
         /// </summary>
-        /// <param name="p"></param>
-        /// <returns></returns>
+        /// <param name="p">The p.</param>
+        /// <returns>
+        ///   <see langword="true"/> if the specified p is below; otherwise, <see langword="false"/>.
+        /// </returns>
         public bool IsBelow(Point2D p)
             => IsLeft ? SignedTriangleArea(Point, OtherEvent.Point, p) > 0 : SignedTriangleArea(OtherEvent.Point, Point, p) > 0;
 
@@ -296,7 +362,9 @@ namespace Engine
         /// Is the line segment (point, otherEvent.point) above point p
         /// </summary>
         /// <param name="p">ToDo: describe p parameter on IsAbove</param>
-        /// <returns></returns>
+        /// <returns>
+        ///   <see langword="true"/> if the specified p is above; otherwise, <see langword="false"/>.
+        /// </returns>
         public bool IsAbove(Point2D p)
             => !IsBelow(p);
 
@@ -307,11 +375,12 @@ namespace Engine
         public LineSegment Segment()
             => new LineSegment(Point, OtherEvent.Point);
 
-        /// <returns></returns>
         /// <summary>
         /// The to string.
         /// </summary>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// A <see cref="string" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             var oss = "";

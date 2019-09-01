@@ -10,6 +10,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using static System.Math;
 
 namespace Engine.Colorspace
@@ -17,6 +18,8 @@ namespace Engine.Colorspace
     /// <summary>
     /// Alpha Hue Saturation Value color.
     /// </summary>
+    /// <seealso cref="IColor" />
+    /// <seealso cref="IEquatable{T}" />
     [DebuggerDisplay("{ToString()}")]
     public struct HSVA
         : IColor, IEquatable<HSVA>
@@ -28,12 +31,12 @@ namespace Engine.Colorspace
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="HSVA"/> class.
+        /// Initializes a new instance of the <see cref="HSVA" /> class.
         /// </summary>
-        /// <param name="color"></param>
+        /// <param name="color">The color.</param>
         /// <remarks>
         /// <para>h = [0,360], s = [0,1], v = [0,1]
-        ///		if s == 0, then h = -1 (undefined)</para>
+        /// if s == 0, then h = -1 (undefined)</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
@@ -90,7 +93,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HSVA"/> class.
+        /// Initializes a new instance of the <see cref="HSVA" /> class.
         /// </summary>
         /// <param name="hue">Hue color component.</param>
         /// <param name="saturation">Saturation color component.</param>
@@ -100,7 +103,7 @@ namespace Engine.Colorspace
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HSVA"/> class.
+        /// Initializes a new instance of the <see cref="HSVA" /> class.
         /// </summary>
         /// <param name="hue">Hue color component.</param>
         /// <param name="saturation">Saturation color component.</param>
@@ -119,21 +122,33 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the alpha color value.
         /// </summary>
+        /// <value>
+        /// The alpha.
+        /// </value>
         public double Alpha { get; set; }
 
         /// <summary>
         /// Gets or sets the hue color value.
         /// </summary>
+        /// <value>
+        /// The hue.
+        /// </value>
         public double Hue { get; set; }
 
         /// <summary>
         /// Gets or sets the saturation color value.
         /// </summary>
+        /// <value>
+        /// The saturation.
+        /// </value>
         public double Saturation { get; set; }
 
         /// <summary>
         /// Gets or sets the value color value.
         /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public double Value { get; set; }
         #endregion Properties
 
@@ -185,9 +200,9 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(HSVA other) => Alpha == other.Alpha && Hue == other.Hue && Saturation == other.Saturation && Value == Value;
+        public bool Equals(HSVA other) => Alpha == other.Alpha && Hue == other.Hue && Saturation == other.Saturation && Value == other.Value;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -208,17 +223,21 @@ namespace Engine.Colorspace
         /// <summary>
         /// The to color.
         /// </summary>
-        /// <returns>The <see cref="RGBA"/>.</returns>
+        /// <returns>
+        /// The <see cref="RGBA" />.
+        /// </returns>
         public RGBA ToColor()
             => new RGBA(ToRGBATuple());
 
         /// <summary>
         /// The to RGBA tuple.
         /// </summary>
-        /// <returns>The <see cref="ValueTuple{T1, T2, T3, T4}"/>.</returns>
+        /// <returns>
+        /// The <see cref="ValueTuple{T1, T2, T3, T4}" />.
+        /// </returns>
         /// <remarks>
         /// <para>h = [0,360], s = [0,1], v = [0,1]
-        ///		if s == 0, then h = -1 (undefined)</para>
+        /// if s == 0, then h = -1 (undefined)</para>
         /// </remarks>
         /// <acknowledgment>
         /// https://www.cs.rit.edu/~ncs/color/t_convert.html
@@ -231,7 +250,10 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="formatProvider">The formatProvider.</param>
-        /// <returns>The <see cref="string"/>.</returns>
+        /// <returns>
+        /// The <see cref="string" />.
+        /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
     }

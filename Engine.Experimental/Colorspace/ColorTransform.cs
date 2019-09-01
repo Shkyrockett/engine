@@ -9,12 +9,14 @@
 // <remarks></remarks>
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine
 {
     /// <summary>
     /// The color transform struct.
     /// </summary>
+    /// <seealso cref="IEquatable{T}" />
     public struct ColorTransform : IEquatable<ColorTransform>
     {
         #region Implementations
@@ -26,7 +28,7 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="ColorTransform"/> class.
+        /// Initializes a new instance of the <see cref="ColorTransform" /> class.
         /// </summary>
         /// <param name="alphaMultiplier">The alphaMultiplier.</param>
         /// <param name="redMultiplier">The redMultiplier.</param>
@@ -53,44 +55,69 @@ namespace Engine
         /// <summary>
         /// Gets or sets the alpha multiplier.
         /// </summary>
+        /// <value>
+        /// The alpha multiplier.
+        /// </value>
         public double AlphaMultiplier { get; set; }
 
         /// <summary>
         /// Gets or sets the red multiplier.
         /// </summary>
+        /// <value>
+        /// The red multiplier.
+        /// </value>
         public double RedMultiplier { get; set; }
 
         /// <summary>
         /// Gets or sets the green multiplier.
         /// </summary>
+        /// <value>
+        /// The green multiplier.
+        /// </value>
         public double GreenMultiplier { get; set; }
 
         /// <summary>
         /// Gets or sets the blue multiplier.
         /// </summary>
+        /// <value>
+        /// The blue multiplier.
+        /// </value>
         public double BlueMultiplier { get; set; }
 
         /// <summary>
         /// Gets or sets the alpha offset.
         /// </summary>
+        /// <value>
+        /// The alpha offset.
+        /// </value>
         public int AlphaOffset { get; set; }
 
         /// <summary>
         /// Gets or sets the red offset.
         /// </summary>
+        /// <value>
+        /// The red offset.
+        /// </value>
         public int RedOffset { get; set; }
 
         /// <summary>
         /// Gets or sets the green offset.
         /// </summary>
+        /// <value>
+        /// The green offset.
+        /// </value>
         public int GreenOffset { get; set; }
 
         /// <summary>
         /// Gets or sets the blue offset.
         /// </summary>
+        /// <value>
+        /// The blue offset.
+        /// </value>
         public int BlueOffset { get; set; }
         #endregion Properties
 
+        #region Operators
         /// <summary>
         /// Implements the operator ==.
         /// </summary>
@@ -110,7 +137,9 @@ namespace Engine
         /// The result of the operator.
         /// </returns>
         public static bool operator !=(ColorTransform left, ColorTransform right) => !(left == right);
+        #endregion Operators
 
+        #region Methods
         /// <summary>
         /// Determines whether the specified <see cref="object" />, is equal to this instance.
         /// </summary>
@@ -125,7 +154,7 @@ namespace Engine
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
         public bool Equals(ColorTransform other) => AlphaMultiplier == other.AlphaMultiplier && RedMultiplier == other.RedMultiplier && GreenMultiplier == other.GreenMultiplier && BlueMultiplier == other.BlueMultiplier && AlphaOffset == other.AlphaOffset && RedOffset == other.RedOffset && GreenOffset == other.GreenOffset && BlueOffset == other.BlueOffset;
 
@@ -148,5 +177,6 @@ namespace Engine
             hashCode = hashCode * -1521134295 + BlueOffset.GetHashCode();
             return hashCode;
         }
+        #endregion Methods
     }
 }

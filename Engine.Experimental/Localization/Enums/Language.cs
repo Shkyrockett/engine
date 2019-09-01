@@ -1,4 +1,4 @@
-﻿// <copyright file="Languages.cs" company="Shkyrockett" >
+﻿// <copyright file="Language.cs" company="Shkyrockett" >
 //     Copyright © 2005 - 2019 Shkyrockett. All rights reserved.
 // </copyright>
 // <author id="shkyrockett">Shkyrockett</author>
@@ -11,7 +11,7 @@
 namespace Engine.Localization
 {
     /// <summary>
-    /// The languages enum.
+    /// The language enum.
     /// </summary>
     public enum Language
     {

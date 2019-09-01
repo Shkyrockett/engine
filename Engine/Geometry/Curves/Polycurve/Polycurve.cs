@@ -217,7 +217,7 @@ namespace Engine
                 {
                     case 'M':
                         // M is Move to.
-                        contours.Add(new PolycurveContour(PolycurveContour.ParsePathDefString(token.Substring(1)).Item1));
+                        contours.Add(new PolycurveContour(PolycurveContour.ParsePathDefString(token.Substring(1),provider).Item1));
                         break;
                     case 'Z':
                         // Z is End of Path.

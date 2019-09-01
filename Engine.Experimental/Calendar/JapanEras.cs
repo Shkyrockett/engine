@@ -24,13 +24,13 @@ namespace Engine.Chrono
     /// http://blogs.msdn.com/b/shawnste/archive/2009/09/24/japanese-calendars-how-do-i-test-support-for-additional-eras.aspx
     /// [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Nls\Calendars\Japanese\Eras]</para>
     /// </remarks>
-    public class JapanEras
+    public static class JapanEras
     {
         /// <remarks><para>http://www.sljfaq.org/afaq/era-list.html</para></remarks>
         /// <summary>
         /// The erra.
         /// </summary>
-        public Dictionary<DateTime, string> erra = new Dictionary<DateTime, string>
+        public static readonly Dictionary<DateTime, string> erra = new Dictionary<DateTime, string>
         {
             //{new DateTime(498, 1, 1), "大化"}, // Taika?
             //{new DateTime(645, 01, 01), "大化"},  //  Taika

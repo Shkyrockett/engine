@@ -1247,6 +1247,7 @@ namespace Engine
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Bezier Scale(DerivitiveMethodDouble distanceFn)
         {
+            if (distanceFn is null) return null;
             var order = Order;
             if (order == 2)
             {

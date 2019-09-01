@@ -26,8 +26,9 @@ using static System.Math;
 namespace Engine
 {
     /// <summary>
-    /// The <see cref="Matrix2x2D"/> struct.
+    /// The <see cref="Matrix2x2D" /> struct.
     /// </summary>
+    /// <seealso cref="IMatrix{T, T}" />
     [ComVisible(true)]
     [DataContract, Serializable]
     //[TypeConverter(typeof(Matrix2x2DConverter))]
@@ -38,14 +39,14 @@ namespace Engine
     {
         #region Static Fields
         /// <summary>
-        /// An Empty <see cref="Matrix2x2D"/>.
+        /// An Empty <see cref="Matrix2x2D" />.
         /// </summary>
         public static readonly Matrix2x2D Empty = new Matrix2x2D(
             0d, 0d,
             0d, 0d);
 
         /// <summary>
-        /// An Identity <see cref="Matrix2x2D"/>.
+        /// An Identity <see cref="Matrix2x2D" />.
         /// </summary>
         public static readonly Matrix2x2D Identity = new Matrix2x2D(
             1d, 0d,
@@ -54,12 +55,12 @@ namespace Engine
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix2x2D"/> class.
+        /// Initializes a new instance of the <see cref="Matrix2x2D" /> class.
         /// </summary>
-        /// <param name="m0x0"></param>
-        /// <param name="m0x1"></param>
-        /// <param name="m1x0"></param>
-        /// <param name="m1x1"></param>
+        /// <param name="m0x0">The M0X0.</param>
+        /// <param name="m0x1">The M0X1.</param>
+        /// <param name="m1x0">The M1X0.</param>
+        /// <param name="m1x1">The M1X1.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix2x2D(double m0x0, double m0x1, double m1x0, double m1x1)
@@ -74,8 +75,8 @@ namespace Engine
         /// <summary>
         /// Create a new Matrix from 2 Vertex2 objects.
         /// </summary>
-        /// <param name="xAxis"></param>
-        /// <param name="yAxis"></param>
+        /// <param name="xAxis">The x axis.</param>
+        /// <param name="yAxis">The y axis.</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix2x2D(Vector2D xAxis, Vector2D yAxis)
@@ -83,7 +84,7 @@ namespace Engine
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix2x2D"/> class.
+        /// Initializes a new instance of the <see cref="Matrix2x2D" /> class.
         /// </summary>
         /// <param name="tuple">The tuple.</param>
         [DebuggerStepThrough]
@@ -99,7 +100,7 @@ namespace Engine
 
         #region Deconstructors
         /// <summary>
-        /// Deconstruct this <see cref="Matrix2x2D"/> to a <see cref="ValueTuple{T1, T2, T3, T4}"/>.
+        /// Deconstruct this <see cref="Matrix2x2D" /> to a <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </summary>
         /// <param name="m0x0">The m0x0.</param>
         /// <param name="m0x1">The m0x1.</param>
@@ -123,30 +124,45 @@ namespace Engine
         /// <summary>
         /// Gets or sets the m0x0.
         /// </summary>
+        /// <value>
+        /// The M0X0.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double M0x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m0x1.
         /// </summary>
+        /// <value>
+        /// The M0X1.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double M0x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x0.
         /// </summary>
+        /// <value>
+        /// The M1X0.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double M1x0 { get; set; }
 
         /// <summary>
         /// Gets or sets the m1x1.
         /// </summary>
+        /// <value>
+        /// The M1X1.
+        /// </value>
         [DataMember, XmlAttribute, SoapAttribute]
         public double M1x1 { get; set; }
 
         /// <summary>
         /// Gets or sets the cx.
         /// </summary>
+        /// <value>
+        /// The cx.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The First column of the " + nameof(Matrix2x2D))]
         public Vector2D Cx { get { return new Vector2D(M0x0, M1x0); } set { (M0x0, M1x0) = value; } }
@@ -154,6 +170,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the cy.
         /// </summary>
+        /// <value>
+        /// The cy.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second column of the " + nameof(Matrix2x2D))]
         public Vector2D Cy { get { return new Vector2D(M0x1, M1x1); } set { (M0x1, M1x1) = value; } }
@@ -161,6 +180,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the rx.
         /// </summary>
+        /// <value>
+        /// The rx.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The First row of the " + nameof(Matrix2x2D))]
         public Vector2D Rx { get { return new Vector2D(M0x0, M0x1); } set { (M0x0, M0x1) = value; } }
@@ -168,6 +190,9 @@ namespace Engine
         /// <summary>
         /// Gets or sets the ry.
         /// </summary>
+        /// <value>
+        /// The ry.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         [Description("The Second row of the " + nameof(Matrix2x2D))]
         public Vector2D Ry { get { return new Vector2D(M1x0, M1x1); } set { (M1x0, M1x1) = value; } }
@@ -175,37 +200,54 @@ namespace Engine
         /// <summary>
         /// Gets the determinant.
         /// </summary>
+        /// <value>
+        /// The determinant.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public double Determinant => Determinant(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Swap the rows of the matrix with the columns.
         /// </summary>
-        /// <returns>A transposed Matrix.</returns>
+        /// <value>
+        /// The transposed.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Transposed => Transpose(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Gets the adjoint.
         /// </summary>
+        /// <value>
+        /// The adjoint.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Adjoint => Adjoint(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Gets the cofactor.
         /// </summary>
+        /// <value>
+        /// The cofactor.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Cofactor => Cofactor(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Gets the inverted.
         /// </summary>
+        /// <value>
+        /// The inverted.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public Matrix2x2D Inverted => Invert(M0x0, M0x1, M1x0, M1x1);
 
         /// <summary>
         /// Tests whether or not a given transform is an identity transform matrix.
         /// </summary>
+        /// <value>
+        ///   <see langword="true"/> if this instance is identity; otherwise, <see langword="false"/>.
+        /// </value>
         [IgnoreDataMember, XmlIgnore, SoapIgnore]
         public bool IsIdentity => Abs(M0x0 - 1) < Epsilon && Abs(M0x1) < Epsilon && Abs(M1x0) < Epsilon && Abs(M1x1 - 1) < Epsilon;
         #endregion Properties
@@ -214,8 +256,10 @@ namespace Engine
         /// <summary>
         /// Unary Add all the items in the Matrix.
         /// </summary>
-        /// <param name="matrix"></param>
-        /// <returns></returns>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D operator +(Matrix2x2D matrix) => UnaryPosate(matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1);
@@ -223,9 +267,11 @@ namespace Engine
         /// <summary>
         /// Used to add two matrices together.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D operator +(Matrix2x2D left, Matrix2x2D right) => Add2x2x2x2(left.M0x0, left.M0x1, left.M1x0, left.M1x1, right.M0x0, right.M0x1, right.M1x0, right.M1x1);
@@ -233,8 +279,10 @@ namespace Engine
         /// <summary>
         /// Negates all the items in the Matrix.
         /// </summary>
-        /// <param name="matrix"></param>
-        /// <returns></returns>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D operator -(Matrix2x2D matrix) => UnaryNegate(matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1);
@@ -242,9 +290,11 @@ namespace Engine
         /// <summary>
         /// Used to subtract two matrices.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D operator -(Matrix2x2D left, Matrix2x2D right) => Subtract2x2x2x2(left.M0x0, left.M0x1, left.M1x0, left.M1x1, right.M0x0, right.M0x1, right.M1x0, right.M1x1);
@@ -252,9 +302,11 @@ namespace Engine
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
         /// </summary>
-        /// <param name="matrix"></param>
-        /// <param name="scalar"></param>
-        /// <returns></returns>
+        /// <param name="matrix">The matrix.</param>
+        /// <param name="scalar">The scalar.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D operator *(Matrix2x2D matrix, double scalar) => Scale2x2(matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1, scalar);
@@ -262,9 +314,11 @@ namespace Engine
         /// <summary>
         /// Multiplies all the items in the Matrix3 by a scalar value.
         /// </summary>
-        /// <param name="scalar"></param>
-        /// <param name="matrix"></param>
-        /// <returns></returns>
+        /// <param name="scalar">The scalar.</param>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D operator *(double scalar, Matrix2x2D matrix) => Scale2x2(matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1, scalar);
@@ -272,9 +326,11 @@ namespace Engine
         /// <summary>
         /// Multiply (concatenate) two Matrix3 instances together.
         /// </summary>
-        /// <param name="left"></param>
-        /// <param name="right"></param>
-        /// <returns></returns>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>
+        /// The result of the operator.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D operator *(Matrix2x2D left, Matrix2x2D right) => Multiply2x2x2x2(left.M0x0, left.M0x1, left.M1x0, left.M1x1, right.M0x0, right.M0x1, right.M1x0, right.M1x1);
@@ -285,11 +341,11 @@ namespace Engine
         /// an exact comparison between two values which are logically equal may fail.
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </summary>
+        /// <param name="matrix1">The first Matrix to compare</param>
+        /// <param name="matrix2">The second Matrix to compare</param>
         /// <returns>
         /// bool - true if the two Matrix instances are exactly equal, false otherwise
         /// </returns>
-        /// <param name='matrix1'>The first Matrix to compare</param>
-        /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator ==(Matrix2x2D matrix1, Matrix2x2D matrix2) => Equals(matrix1, matrix2);
@@ -300,29 +356,33 @@ namespace Engine
         /// an exact comparison between two values which are logically equal may fail.
         /// Furthermore, using this equality operator, Double.NaN is not equal to itself.
         /// </summary>
+        /// <param name="matrix1">The first Matrix to compare</param>
+        /// <param name="matrix2">The second Matrix to compare</param>
         /// <returns>
         /// bool - true if the two Matrix instances are exactly unequal, false otherwise
         /// </returns>
-        /// <param name='matrix1'>The first Matrix to compare</param>
-        /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool operator !=(Matrix2x2D matrix1, Matrix2x2D matrix2) => !Equals(matrix1, matrix2);
 
         /// <summary>
-        /// <see cref="Matrix2x2D"/> to <see cref="ValueTuple{T1, T2, T3, T4}"/>.
+        ///   <see cref="Matrix2x2D" /> to <see cref="ValueTuple{T1, T2, T3, T4}" />.
         /// </summary>
-        /// <param name="matrix"></param>
-        /// <returns></returns>
+        /// <param name="matrix">The matrix.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator (double, double, double, double)(Matrix2x2D matrix) => (matrix.M0x0, matrix.M0x1, matrix.M1x0, matrix.M1x1);
 
         /// <summary>
-        /// <see cref="ValueTuple{T1, T2, T3, T4}"/> to <see cref="Matrix2x2D"/>.
+        ///   <see cref="ValueTuple{T1, T2, T3, T4}" /> to <see cref="Matrix2x2D" />.
         /// </summary>
-        /// <param name="tuple"></param>
-        /// <returns></returns>
+        /// <param name="tuple">The tuple.</param>
+        /// <returns>
+        /// The result of the conversion.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static implicit operator Matrix2x2D((double, double, double, double) tuple) => new Matrix2x2D(tuple);
@@ -333,7 +393,9 @@ namespace Engine
         /// The from rotation.
         /// </summary>
         /// <param name="radianAngle">The radianAngle.</param>
-        /// <returns>The <see cref="Matrix2x2D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Matrix2x2D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D FromRotation(double radianAngle)
@@ -346,7 +408,7 @@ namespace Engine
         /// <summary>
         /// Creates a scaling transform around the origin
         /// </summary>
-        /// <param name="scale"></param>
+        /// <param name="scale">The scale.</param>
         /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -355,8 +417,9 @@ namespace Engine
         /// <summary>
         /// Creates a scaling transform around the origin
         /// </summary>
-        /// <param name='scaleX'>The scale factor in the x dimension</param>
-        /// <param name='scaleY'>The scale factor in the y dimension</param>
+        /// <param name="scaleX">The scale factor in the x dimension</param>
+        /// <param name="scaleY">The scale factor in the y dimension</param>
+        /// <returns></returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Matrix2x2D FromScale(double scaleX, double scaleY) => new Matrix2x2D(scaleX, 0, 0, scaleY);
@@ -371,12 +434,12 @@ namespace Engine
         public static Matrix2x2D FromSkewRadians(double skewX, double skewY) => new Matrix2x2D(1d, Tan(skewY), Tan(skewX), 1.0f);
 
         /// <summary>
-        /// Parse a string for a <see cref="Matrix2x2D"/> value.
+        /// Parse a string for a <see cref="Matrix2x2D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Matrix2x2D"/> data </param>
+        /// <param name="source"><see cref="string" /> with <see cref="Matrix2x2D" /> data</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Matrix2x2D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// Returns an instance of the <see cref="Matrix2x2D" /> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [ParseMethod]
         [DebuggerStepThrough]
@@ -384,13 +447,13 @@ namespace Engine
         public static Matrix2x2D Parse(string source) => Parse(source, CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// Parse a string for a <see cref="Matrix3x2D"/> value.
+        /// Parse a string for a <see cref="Matrix3x2D" /> value.
         /// </summary>
-        /// <param name="source"><see cref="string"/> with <see cref="Matrix3x2D"/> data </param>
-        /// <param name="provider"></param>
+        /// <param name="source"><see cref="string" /> with <see cref="Matrix3x2D" /> data</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
-        /// Returns an instance of the <see cref="Matrix3x2D"/> struct converted
-        /// from the provided string using the <see cref="CultureInfo.InvariantCulture"/>.
+        /// Returns an instance of the <see cref="Matrix3x2D" /> struct converted
+        /// from the provided string using the <see cref="CultureInfo.InvariantCulture" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -415,7 +478,9 @@ namespace Engine
         /// <summary>
         /// The to matrix3x3d.
         /// </summary>
-        /// <returns>The <see cref="Matrix3x3D"/>.</returns>
+        /// <returns>
+        /// The <see cref="Matrix3x3D" />.
+        /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Matrix3x3D ToMatrix3x3D()
@@ -429,10 +494,10 @@ namespace Engine
 
         #region Methods
         /// <summary>
-        /// Returns the HashCode for this <see cref="Matrix2x2D"/>
+        /// Returns the HashCode for this <see cref="Matrix2x2D" />
         /// </summary>
         /// <returns>
-        /// The <see cref="int"/> HashCode for this <see cref="Matrix2x2D"/>.
+        /// The <see cref="int" /> HashCode for this <see cref="Matrix2x2D" />.
         /// </returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -441,7 +506,9 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="IEnumerator{T}"/>.</returns>
+        /// <returns>
+        /// The <see cref="IEnumerator{T}" />.
+        /// </returns>
         public IEnumerator<IEnumerable<double>> GetEnumerator()
             => new List<List<double>>
             {
@@ -452,7 +519,9 @@ namespace Engine
         /// <summary>
         /// Get the enumerator.
         /// </summary>
-        /// <returns>The <see cref="IEnumerator"/>.</returns>
+        /// <returns>
+        /// The <see cref="IEnumerator" />.
+        /// </returns>
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
@@ -462,11 +531,11 @@ namespace Engine
         /// an exact comparison between two values which
         /// are logically equal may fail.
         /// </summary>
+        /// <param name="matrix1">The first Matrix to compare</param>
+        /// <param name="matrix2">The second Matrix to compare</param>
         /// <returns>
         /// bool - true if the two Matrix instances are exactly equal, false otherwise
         /// </returns>
-        /// <param name='matrix1'>The first Matrix to compare</param>
-        /// <param name='matrix2'>The second Matrix to compare</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equals(Matrix2x2D matrix1, Matrix2x2D matrix2)
@@ -482,31 +551,31 @@ namespace Engine
         /// an exact comparison between two values which
         /// are logically equal may fail.
         /// </summary>
+        /// <param name="obj">The object to compare to "this"</param>
         /// <returns>
         /// bool - true if the object is an instance of Matrix and if it's equal to "this".
         /// </returns>
-        /// <param name='obj'>The object to compare to "this"</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object obj) => obj is Matrix2x2D && Equals(this, (Matrix2x2D)obj);
 
         /// <summary>
-        /// Equals - compares this <see cref="Matrix2x2D"/> with the passed in object.  In this equality
+        /// Equals - compares this <see cref="Matrix2x2D" /> with the passed in object.  In this equality
         /// Double.NaN is equal to itself, unlike in numeric equality.
         /// Note that double values can acquire error when operated upon, such that
         /// an exact comparison between two values which
         /// are logically equal may fail.
         /// </summary>
+        /// <param name="value">The Matrix to compare to "this"</param>
         /// <returns>
         /// bool - true if "value" is equal to "this".
         /// </returns>
-        /// <param name='value'>The Matrix to compare to "this"</param>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Matrix2x2D value) => Equals(this, value);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2x2D"/> struct based on the current culture.
+        /// Creates a string representation of this <see cref="Matrix2x2D" /> struct based on the current culture.
         /// </summary>
         /// <returns>
         /// A string representation of this object.
@@ -516,9 +585,10 @@ namespace Engine
         public override string ToString() => ToString("R" /* format string */, CultureInfo.InvariantCulture /* format provider */);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2x2D"/> struct based on the IFormatProvider
+        /// Creates a string representation of this <see cref="Matrix2x2D" /> struct based on the IFormatProvider
         /// passed in.  If the provider is null, the CurrentCulture is used.
         /// </summary>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -527,11 +597,13 @@ namespace Engine
         public string ToString(IFormatProvider provider) => ToString("R" /* format string */, provider);
 
         /// <summary>
-        /// Creates a string representation of this <see cref="Matrix2x2D"/> struct based on the format string
+        /// Creates a string representation of this <see cref="Matrix2x2D" /> struct based on the format string
         /// and IFormatProvider passed in.
         /// If the provider is null, the CurrentCulture is used.
         /// See the documentation for IFormattable for more information.
         /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="provider">The provider.</param>
         /// <returns>
         /// A string representation of this object.
         /// </returns>
@@ -544,6 +616,66 @@ namespace Engine
             var s = Tokenizer.GetNumericListSeparator(provider);
             return $"{nameof(Matrix2x2D)}({nameof(M0x0)}:{M0x0.ToString(format, provider)}{s} {nameof(M0x1)}:{M0x1.ToString(format, provider)}{s} {nameof(M1x0)}:{M1x0.ToString(format, provider)}{s} {nameof(M1x1)}:{M1x1.ToString(format, provider)})";
         }
+
+        /// <summary>
+        /// Pluses the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Matrix2x2D Plus(Matrix2x2D item) => +item;
+
+        /// <summary>
+        /// Adds the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Matrix2x2D Add(Matrix2x2D left, Matrix2x2D right) => left + right;
+
+        /// <summary>
+        /// Negates the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns></returns>
+        public static Matrix2x2D Negate(Matrix2x2D item) => -item;
+
+        /// <summary>
+        /// Subtracts the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Matrix2x2D Subtract(Matrix2x2D left, Matrix2x2D right) => left - right;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Matrix2x2D Multiply(Matrix2x2D left, Matrix2x2D right) => left * right;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Matrix2x2D Multiply(double left, Matrix2x2D right) => left * right;
+
+        /// <summary>
+        /// Multiplies the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns></returns>
+        public static Matrix2x2D Multiply(Matrix2x2D left, double right) => left * right;
+
+        /// <summary>
+        /// To this instance.
+        /// </summary>
+        /// <returns></returns>
+        public (double, double, double, double) To() => (M0x0, M0x1, M1x0, M1x1);
         #endregion Methods
     }
 }

@@ -10,6 +10,8 @@
 // <references>
 // </references>
 
+using System.Globalization;
+
 namespace Engine.File
 {
     /// <summary>
@@ -27,7 +29,7 @@ namespace Engine.File
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
         public override string ToString()
-            => Value.ToString();
+            => Value.ToString(CultureInfo.InvariantCulture);
 
         /// <summary>
         /// Read.

@@ -10,12 +10,15 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Engine.Colorspace
 {
     /// <summary>
     /// The YIQA struct.
     /// </summary>
+    /// <seealso cref="IColor" />
+    /// <seealso cref="IEquatable{T}" />
     [DebuggerDisplay("{ToString()}")]
     public struct YIQA
         : IColor, IEquatable<YIQA>
@@ -28,7 +31,7 @@ namespace Engine.Colorspace
         #endregion Implementations
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YIQA"/> class.
+        /// Initializes a new instance of the <see cref="YIQA" /> class.
         /// </summary>
         /// <param name="color">The color.</param>
         /// <acknowledgment>
@@ -43,7 +46,7 @@ namespace Engine.Colorspace
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YIQA"/> class.
+        /// Initializes a new instance of the <see cref="YIQA" /> class.
         /// </summary>
         /// <param name="y">The y.</param>
         /// <param name="i">The i.</param>
@@ -53,7 +56,7 @@ namespace Engine.Colorspace
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="YIQA"/> class.
+        /// Initializes a new instance of the <see cref="YIQA" /> class.
         /// </summary>
         /// <param name="alpha">The alpha.</param>
         /// <param name="y">The y.</param>
@@ -70,21 +73,33 @@ namespace Engine.Colorspace
         /// <summary>
         /// Gets or sets the alpha.
         /// </summary>
+        /// <value>
+        /// The alpha.
+        /// </value>
         public byte Alpha { get; set; }
 
         /// <summary>
         /// Gets or sets the y.
         /// </summary>
+        /// <value>
+        /// The y.
+        /// </value>
         public double Y { get; set; }
 
         /// <summary>
         /// Gets or sets the I.
         /// </summary>
+        /// <value>
+        /// The i.
+        /// </value>
         public double I { get; set; }
 
         /// <summary>
         /// Gets or sets the q.
         /// </summary>
+        /// <value>
+        /// The q.
+        /// </value>
         public double Q { get; set; }
 
         /// <summary>
@@ -135,9 +150,9 @@ namespace Engine.Colorspace
         /// </summary>
         /// <param name="other">An object to compare with this object.</param>
         /// <returns>
-        /// true if the current object is equal to the <paramref name="other">other</paramref> parameter; otherwise, false.
+        ///   <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.
         /// </returns>
-        public bool Equals(YIQA other) => Y == other.Y && I == other.I && Q == other.Q && Alpha == other.Alpha;
+        public bool Equals(YIQA other) => Alpha == other.Alpha && Y == other.Y && I == other.I && Q == other.Q;
 
         /// <summary>
         /// Returns a hash code for this instance.
@@ -193,6 +208,7 @@ namespace Engine.Colorspace
         /// <returns>
         /// The <see cref="string" />.
         /// </returns>
+        /// <exception cref="NotImplementedException"></exception>
         public string ToString(string format, IFormatProvider formatProvider)
             => throw new NotImplementedException();
     }

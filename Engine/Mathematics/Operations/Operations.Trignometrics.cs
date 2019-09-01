@@ -34,12 +34,12 @@ namespace Engine
         /// <summary>
         /// Convert Radians to Degrees.
         /// </summary>
-        /// <param name="radiens">Angle in Radians.</param>
+        /// <param name="radians">Angle in Radians.</param>
         /// <returns>Angle in Degrees.</returns>
         [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ToDegrees(this double radiens)
-            => radiens * Degree;
+        public static double ToDegrees(this double radians)
+            => radians * Degree;
 
         /// <summary>
         /// The polar to Cartesian.
